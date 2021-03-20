@@ -99,9 +99,9 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         String[] remotePaths,
         int behaviour,
         ContentResolver contentResolver
-    ) {
+                                              ) {
 
-        return new Object[] {
+        return new Object[]{
             user,
             sourceUris,
             remotePaths,
@@ -195,7 +195,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     currentRemotePath,
                     behaviour,
                     leakedContentResolver.getType(currentUri)
-                );
+                             );
                 fullTempPath = null;
             }
 

@@ -42,9 +42,9 @@ import androidx.core.graphics.ColorUtils;
  */
 public final class ThemeColorUtils {
 
+    public static final double LUMINATION_THRESHOLD = 0.8;
     private static final int INDEX_LUMINATION = 2;
     private static final double MAX_LIGHTNESS = 0.92;
-    public static final double LUMINATION_THRESHOLD = 0.8;
 
     private ThemeColorUtils() {
         // utility class -> private constructor

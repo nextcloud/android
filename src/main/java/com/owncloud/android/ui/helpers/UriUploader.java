@@ -58,7 +58,7 @@ public class UriUploader {
     private final int mBehaviour;
 
     private final String mUploadPath;
-    private User user;
+    private final User user;
     private final boolean mShowWaitingDialog;
 
     private UriUploaderResultCode mCode = UriUploaderResultCode.OK;
@@ -71,14 +71,14 @@ public class UriUploader {
     }
 
     public UriUploader(
-            FileActivity activity,
-            List<Parcelable> uris,
-            String uploadPath,
-            User user,
-            int behaviour,
-            boolean showWaitingDialog,
-            CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener copyTmpTaskListener
-    ) {
+        FileActivity activity,
+        List<Parcelable> uris,
+        String uploadPath,
+        User user,
+        int behaviour,
+        boolean showWaitingDialog,
+        CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener copyTmpTaskListener
+                      ) {
         mActivity = activity;
         mUrisToUpload = uris;
         mUploadPath = uploadPath;
@@ -166,7 +166,7 @@ public class UriUploader {
             false,
             false,
             FileUploader.NameCollisionPolicy.ASK_USER
-        );
+                                  );
     }
 
     /**
@@ -200,7 +200,7 @@ public class UriUploader {
                     remotePaths,
                     mBehaviour,
                     mActivity.getContentResolver()
-                )
+                                                                )
         );
     }
 }

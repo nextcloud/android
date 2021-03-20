@@ -85,15 +85,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private static final String TAG = UploadListAdapter.class.getSimpleName();
 
     private ProgressListener progressListener;
-    private FileActivity parentActivity;
-    private UploadsStorageManager uploadsStorageManager;
-    private FileDataStorageManager storageManager;
-    private ConnectivityService connectivityService;
-    private PowerManagementService powerManagementService;
-    private UserAccountManager accountManager;
-    private Clock clock;
-    private UploadGroup[] uploadGroups;
-    private boolean showUser;
+    private final FileActivity parentActivity;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final FileDataStorageManager storageManager;
+    private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
+    private final UserAccountManager accountManager;
+    private final Clock clock;
+    private final UploadGroup[] uploadGroups;
+    private final boolean showUser;
 
     @Override
     public int getSectionCount() {
@@ -816,9 +816,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     abstract class UploadGroup implements Refresh {
-        private Type type;
+        private final Type type;
         private OCUpload[] items;
-        private String name;
+        private final String name;
 
         UploadGroup(Type type, String groupName) {
             this.type = type;

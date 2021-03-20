@@ -747,7 +747,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri;
-        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText()!= null &&
+        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText() != null &&
             !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
             uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
         } else {
@@ -943,11 +943,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case OK:
                 if (accountSetupBinding.hostUrlInput.getText() != null &&
                     accountSetupBinding.hostUrlInput
-                    .getText()
-                    .toString()
-                    .trim()
-                    .toLowerCase(Locale.ROOT)
-                    .startsWith(HTTP_PROTOCOL)) {
+                        .getText()
+                        .toString()
+                        .trim()
+                        .toLowerCase(Locale.ROOT)
+                        .startsWith(HTTP_PROTOCOL)) {
                     mServerStatusText = getResources().getString(R.string.auth_connection_established);
                     mServerStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1047,11 +1047,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (showWebViewLoginUrl) {
                     if (accountSetupBinding.hostUrlInput.getText() != null &&
                         accountSetupBinding.hostUrlInput
-                        .getText()
-                        .toString()
-                        .trim()
-                        .toLowerCase(Locale.ROOT)
-                        .startsWith(HTTP_PROTOCOL)) {
+                            .getText()
+                            .toString()
+                            .trim()
+                            .toLowerCase(Locale.ROOT)
+                            .startsWith(HTTP_PROTOCOL)) {
                         mAuthStatusText = getResources().getString(R.string.auth_connection_established);
                         mAuthStatusIcon = R.drawable.ic_ok;
                     } else {

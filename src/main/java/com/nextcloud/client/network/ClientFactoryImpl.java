@@ -39,7 +39,7 @@ import java.io.IOException;
 
 class ClientFactoryImpl implements ClientFactory {
 
-    private Context context;
+    private final Context context;
 
     ClientFactoryImpl(Context context) {
         this.context = context;

@@ -323,6 +323,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         setupAutoUploadPreference(preferenceCategoryMore);
 
+        setupAutoUploadPreference(preferenceCategoryMore);
+
         setupCalendarPreference(preferenceCategoryMore);
 
         setupContactsBackupPreference(preferenceCategoryMore);
@@ -611,7 +613,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategorySyncedFolders =
-                (PreferenceCategory) findPreference("synced_folders_category");
+            (PreferenceCategory) findPreference("synced_folders_category");
         preferenceCategorySyncedFolders.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                                                 accentColor));
 

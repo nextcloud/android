@@ -38,8 +38,8 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,14 +50,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHolder> {
 
     private TemplateList templateList = new TemplateList();
-    private ClickListener clickListener;
-    private Context context;
-    private CurrentAccountProvider currentAccountProvider;
-    private ClientFactory clientFactory;
-    private String mimetype;
-    private Template selectedTemplate;
+    private final ClickListener clickListener;
+    private final Context context;
+    private final CurrentAccountProvider currentAccountProvider;
+    private final ClientFactory clientFactory;
+    private final String mimetype;
     private final int colorSelected;
     private final int colorUnselected;
+    private Template selectedTemplate;
 
     public TemplateAdapter(
         String mimetype,
@@ -65,7 +65,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ClientFactory clientFactory
-    ) {
+                          ) {
         this.mimetype = mimetype;
         this.clickListener = clickListener;
         this.context = context;

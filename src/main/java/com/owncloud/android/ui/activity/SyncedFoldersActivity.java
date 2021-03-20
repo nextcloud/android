@@ -762,7 +762,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {

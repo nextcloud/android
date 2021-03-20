@@ -36,21 +36,7 @@ import java.io.IOException;
 
 public interface ClientFactory {
 
-    /**
-     * This exception wraps all possible errors thrown by trigger-happy OwnCloudClient constructor, making try-catch
-     * blocks manageable.
-     * <p>
-     * This is a temporary refactoring measure, until a better error handling method can be procured.
-     */
-    @Deprecated
-    class CreationException extends Exception {
-
-        private static final long serialVersionUID = 0L;
-
-        CreationException(Throwable t) {
-            super(t);
-        }
-    }
+    PlainClient createPlainClient();
 
     OwnCloudClient create(User user) throws CreationException;
 
@@ -72,5 +58,19 @@ public interface ClientFactory {
 
     OwnCloudClient create(Uri uri, boolean followRedirects);
 
-    PlainClient createPlainClient();
+    /**
+     * This exception wraps all possible errors thrown by trigger-happy OwnCloudClient constructor, making try-catch
+     * blocks manageable.
+     * <p>
+     * This is a temporary refactoring measure, until a better error handling method can be procured.
+     */
+    @Deprecated
+    class CreationException extends Exception {
+
+        private static final long serialVersionUID = 0L;
+
+        CreationException(Throwable t) {
+            super(t);
+        }
+    }
 }

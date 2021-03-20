@@ -418,11 +418,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 break;
             }
             case R.id.favorite: {
-                if (getFile().isFavorite()) {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
-                } else {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
-                }
+                containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
                 setFavoriteIconStatus(!getFile().isFavorite());
                 break;
             }
@@ -559,7 +555,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         Bitmap resizedImage;
 
         if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
+            String tagId = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId();
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
@@ -568,7 +564,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             } else {
                 // show thumbnail while loading resized image
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId());
 
                 if (thumbnail != null) {
                     toolbarActivity.setPreviewImageBitmap(thumbnail);
@@ -695,7 +691,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         private int lastPercent;
-        private WeakReference<ProgressBar> progressBarReference;
+        private final WeakReference<ProgressBar> progressBarReference;
 
         ProgressListener(ProgressBar progressBar) {
             progressBarReference = new WeakReference<>(progressBar);

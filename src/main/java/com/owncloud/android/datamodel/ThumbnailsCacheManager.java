@@ -251,15 +251,70 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
+    public static void generateThumbnailFromOCFile(OCFile file, Account account, Context context) {
+        int pxW;
+        int pxH;
+        pxW = pxH = getThumbnailDimension();
+        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+
+        GetMethod getMethod = null;
+
+        try {
+            Bitmap thumbnail = null;
+
+            OwnCloudClient client = mClient;
+            if (client == null) {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
+            }
+
+            String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+                pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+
+            Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
+            getMethod = new GetMethod(uri);
+            getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+
+            getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
+                                       RemoteOperation.OCS_API_HEADER_VALUE);
+
+            int status = client.executeMethod(getMethod);
+            if (status == HttpStatus.SC_OK) {
+                InputStream inputStream = getMethod.getResponseBodyAsStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+            } else {
+                client.exhaustResponse(getMethod.getResponseBodyAsStream());
+            }
+
+            // Add thumbnail to cache
+            if (thumbnail != null) {
+                // Handle PNG
+                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                    thumbnail = handlePNG(thumbnail, pxW, pxH);
+                }
+
+                Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
+                addBitmapToCache(imageKey, thumbnail);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, e.getMessage(), e);
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
+        }
+    }
+
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
-        private FileFragment fileFragment;
-        private FileDataStorageManager storageManager;
-        private Account account;
-        private WeakReference<ImageView> imageViewReference;
-        private WeakReference<FrameLayout> frameLayoutReference;
+        private final FileFragment fileFragment;
+        private final FileDataStorageManager storageManager;
+        private final Account account;
+        private final WeakReference<ImageView> imageViewReference;
+        private final WeakReference<FrameLayout> frameLayoutReference;
         private OCFile file;
-        private ConnectivityService connectivityService;
-        private int backgroundColor;
+        private final ConnectivityService connectivityService;
+        private final int backgroundColor;
 
 
         public ResizedImageGenerationTask(FileFragment fileFragment,
@@ -269,7 +324,7 @@ public final class ThumbnailsCacheManager {
                                           ConnectivityService connectivityService,
                                           Account account,
                                           int backgroundColor)
-                throws IllegalArgumentException {
+            throws IllegalArgumentException {
             this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
             frameLayoutReference = new WeakReference<>(emptyListProgress);
@@ -417,24 +472,6 @@ public final class ThumbnailsCacheManager {
 
                 }
             }
-        }
-    }
-
-    public static class ThumbnailGenerationTaskObject {
-        private Object file;
-        private String imageKey;
-
-        public ThumbnailGenerationTaskObject(Object file, String imageKey) {
-            this.file = file;
-            this.imageKey = imageKey;
-        }
-
-        private Object getFile() {
-            return file;
-        }
-
-        private String getImageKey() {
-            return imageKey;
         }
     }
 
@@ -726,11 +763,30 @@ public final class ThumbnailsCacheManager {
             return thumbnail;
         }
 
-        public interface Listener{
+        public interface Listener {
             void onSuccess();
+
             void onError();
         }
 
+    }
+
+    public static class ThumbnailGenerationTaskObject {
+        private final Object file;
+        private final String imageKey;
+
+        public ThumbnailGenerationTaskObject(Object file, String imageKey) {
+            this.file = file;
+            this.imageKey = imageKey;
+        }
+
+        private Object getFile() {
+            return file;
+        }
+
+        private String getImageKey() {
+            return imageKey;
+        }
     }
 
     public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
@@ -738,10 +794,11 @@ public final class ThumbnailsCacheManager {
         private static final int IMAGE_KEY_PARAMS_LENGTH = 2;
 
         private enum Type {IMAGE, VIDEO}
+
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
-        private Context mContext;
+        private final Context mContext;
 
         public MediaThumbnailGenerationTask(ImageView imageView, Context context) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
@@ -865,15 +922,185 @@ public final class ThumbnailsCacheManager {
         }
     }
 
+    public static boolean cancelPotentialThumbnailWork(Object file, ImageView imageView) {
+        final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
+        if (bitmapWorkerTask != null) {
+            final Object bitmapData = bitmapWorkerTask.mFile;
+            // If bitmapData is not yet set or it differs from the new data
+            if (bitmapData == null || !bitmapData.equals(file)) {
+                // Cancel previous task
+                bitmapWorkerTask.cancel(true);
+                Log_OC.v(TAG, "Cancelled generation of thumbnail for a reused imageView");
+            } else {
+                // The same work is already in progress
+                return false;
+            }
+        }
+        // No task associated with the ImageView, or an existing task was cancelled
+        return true;
+    }
+
+    public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncThumbnailDrawable) {
+                final AsyncThumbnailDrawable asyncDrawable = (AsyncThumbnailDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+        return null;
+    }
+
+    private static ResizedImageGenerationTask getResizedImageGenerationWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncResizedImageDrawable) {
+                final AsyncResizedImageDrawable asyncDrawable = (AsyncResizedImageDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+        return null;
+    }
+
+    public static Bitmap addVideoOverlay(Bitmap thumbnail) {
+        Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
+                                                                  R.drawable.view_play,
+                                                                  null);
+        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
+
+        Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
+                                                             (int) (thumbnail.getWidth() * 0.3),
+                                                             (int) (thumbnail.getHeight() * 0.3), true);
+
+        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
+                                                  thumbnail.getHeight(),
+                                                  Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(resultBitmap);
+
+        // compute visual center of play button, according to resized image
+        int x1 = resizedPlayButton.getWidth();
+        int y1 = resizedPlayButton.getHeight() / 2;
+        int x2 = 0;
+        int y2 = resizedPlayButton.getWidth();
+        int x3 = 0;
+        int y3 = 0;
+
+        double ym = (((Math.pow(x3, 2) - Math.pow(x1, 2) + Math.pow(y3, 2) - Math.pow(y1, 2)) *
+            (x2 - x1)) - (Math.pow(x2, 2) - Math.pow(x1, 2) + Math.pow(y2, 2) -
+            Math.pow(y1, 2)) * (x3 - x1)) / (2 * (((y3 - y1) * (x2 - x1)) -
+            ((y2 - y1) * (x3 - x1))));
+        double xm = ((Math.pow(x2, 2) - Math.pow(x1, 2)) + (Math.pow(y2, 2) - Math.pow(y1, 2)) -
+            (2 * ym * (y2 - y1))) / (2 * (x2 - x1));
+
+        // offset to top left
+        double ox = -xm;
+
+
+        c.drawBitmap(thumbnail, 0, 0, null);
+
+        Paint p = new Paint();
+        p.setAlpha(230);
+
+        c.drawBitmap(resizedPlayButton, (float) ((thumbnail.getWidth() / 2) + ox),
+                     (float) ((thumbnail.getHeight() / 2) - ym), p);
+
+        return resultBitmap;
+    }
+
+    public static class AsyncThumbnailDrawable extends BitmapDrawable {
+        private final WeakReference<ThumbnailGenerationTask> bitmapWorkerTaskReference;
+
+        public AsyncThumbnailDrawable(
+            Resources res, Bitmap bitmap, ThumbnailGenerationTask bitmapWorkerTask
+                                     ) {
+
+            super(res, bitmap);
+            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
+        }
+
+        public ThumbnailGenerationTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+    }
+
+    public static class AsyncResizedImageDrawable extends BitmapDrawable {
+        private final WeakReference<ResizedImageGenerationTask> bitmapWorkerTaskReference;
+
+        public AsyncResizedImageDrawable(Resources res, Bitmap bitmap, ResizedImageGenerationTask bitmapWorkerTask) {
+            super(res, bitmap);
+            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
+        }
+
+        private ResizedImageGenerationTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+    }
+
+    public static class AsyncMediaThumbnailDrawable extends BitmapDrawable {
+
+        public AsyncMediaThumbnailDrawable(Resources res, Bitmap bitmap) {
+
+            super(res, bitmap);
+        }
+    }
+
+    /**
+     * adapted from https://stackoverflow.com/a/8113368
+     */
+    private static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
+
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        float left = (newWidth - scaledWidth) / 2;
+        float top = (newHeight - scaledHeight) / 2;
+
+        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
+
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(dest);
+        canvas.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
+        canvas.drawBitmap(source, null, targetRect, null);
+
+        return dest;
+    }
+
+    public static void generateResizedImage(OCFile file) {
+        Point p = getScreenDimension();
+        int pxW = p.x;
+        int pxH = p.y;
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+
+        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
+
+        if (bitmap != null) {
+            // Handle PNG
+            if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                bitmap = handlePNG(bitmap, pxW, pxH);
+            }
+
+            addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
+        }
+    }
+
     public static class AvatarGenerationTask extends AsyncTask<String, Void, Drawable> {
         private final WeakReference<AvatarGenerationListener> mAvatarGenerationListener;
         private final Object mCallContext;
         private final Resources mResources;
         private final float mAvatarRadius;
-        private User user;
-        private String mUserId;
-        private String mServerName;
-        private Context mContext;
+        private final User user;
+        private final String mUserId;
+        private final String mServerName;
+        private final Context mContext;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,
@@ -1032,231 +1259,6 @@ public final class ThumbnailsCacheManager {
                 }
             } else {
                 return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);
-            }
-        }
-    }
-
-    public static boolean cancelPotentialThumbnailWork(Object file, ImageView imageView) {
-        final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
-
-        if (bitmapWorkerTask != null) {
-            final Object bitmapData = bitmapWorkerTask.mFile;
-            // If bitmapData is not yet set or it differs from the new data
-            if (bitmapData == null || !bitmapData.equals(file)) {
-                // Cancel previous task
-                bitmapWorkerTask.cancel(true);
-                Log_OC.v(TAG, "Cancelled generation of thumbnail for a reused imageView");
-            } else {
-                // The same work is already in progress
-                return false;
-            }
-        }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
-    }
-
-    public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
-        if (imageView != null) {
-            final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncThumbnailDrawable) {
-                final AsyncThumbnailDrawable asyncDrawable = (AsyncThumbnailDrawable) drawable;
-                return asyncDrawable.getBitmapWorkerTask();
-            }
-        }
-        return null;
-    }
-
-    private static ResizedImageGenerationTask getResizedImageGenerationWorkerTask(ImageView imageView) {
-        if (imageView != null) {
-            final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncResizedImageDrawable) {
-                final AsyncResizedImageDrawable asyncDrawable = (AsyncResizedImageDrawable) drawable;
-                return asyncDrawable.getBitmapWorkerTask();
-            }
-        }
-        return null;
-    }
-
-    public static Bitmap addVideoOverlay(Bitmap thumbnail) {
-        Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
-                                                                  R.drawable.view_play,
-                                                                  null);
-        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
-
-        Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
-                                                             (int) (thumbnail.getWidth() * 0.3),
-                                                             (int) (thumbnail.getHeight() * 0.3), true);
-
-        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
-                                                  thumbnail.getHeight(),
-                                                  Bitmap.Config.ARGB_8888);
-
-        Canvas c = new Canvas(resultBitmap);
-
-        // compute visual center of play button, according to resized image
-        int x1 = resizedPlayButton.getWidth();
-        int y1 = resizedPlayButton.getHeight() / 2;
-        int x2 = 0;
-        int y2 = resizedPlayButton.getWidth();
-        int x3 = 0;
-        int y3 = 0;
-
-        double ym = ( ((Math.pow(x3,2) - Math.pow(x1,2) + Math.pow(y3,2) - Math.pow(y1,2)) *
-                (x2 - x1)) - (Math.pow(x2,2) - Math.pow(x1,2) + Math.pow(y2,2) -
-                Math.pow(y1,2)) * (x3 - x1) )  /  (2 * ( ((y3 - y1) * (x2 - x1)) -
-                ((y2 - y1) * (x3 - x1)) ));
-        double xm = ( (Math.pow(x2,2) - Math.pow(x1,2)) + (Math.pow(y2,2) - Math.pow(y1,2)) -
-                (2*ym*(y2 - y1)) ) / (2*(x2 - x1));
-
-        // offset to top left
-        double ox = - xm;
-
-
-        c.drawBitmap(thumbnail, 0, 0, null);
-
-        Paint p = new Paint();
-        p.setAlpha(230);
-
-        c.drawBitmap(resizedPlayButton, (float) ((thumbnail.getWidth() / 2) + ox),
-                (float) ((thumbnail.getHeight() / 2) - ym), p);
-
-        return resultBitmap;
-    }
-
-    public static class AsyncThumbnailDrawable extends BitmapDrawable {
-        private final WeakReference<ThumbnailGenerationTask> bitmapWorkerTaskReference;
-
-        public AsyncThumbnailDrawable(
-                Resources res, Bitmap bitmap, ThumbnailGenerationTask bitmapWorkerTask
-        ) {
-
-            super(res, bitmap);
-            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
-        }
-
-        public ThumbnailGenerationTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
-        }
-    }
-
-    public static class AsyncResizedImageDrawable extends BitmapDrawable {
-        private final WeakReference<ResizedImageGenerationTask> bitmapWorkerTaskReference;
-
-        public AsyncResizedImageDrawable(Resources res, Bitmap bitmap, ResizedImageGenerationTask bitmapWorkerTask) {
-            super(res, bitmap);
-            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
-        }
-
-        private ResizedImageGenerationTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
-        }
-    }
-
-    public static class AsyncMediaThumbnailDrawable extends BitmapDrawable {
-
-        public AsyncMediaThumbnailDrawable(Resources res, Bitmap bitmap) {
-
-            super(res, bitmap);
-        }
-    }
-
-    /**
-     * adapted from https://stackoverflow.com/a/8113368
-     */
-    private static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
-        int sourceWidth = source.getWidth();
-        int sourceHeight = source.getHeight();
-
-        float xScale = (float) newWidth / sourceWidth;
-        float yScale = (float) newHeight / sourceHeight;
-        float scale = Math.max(xScale, yScale);
-
-        float scaledWidth = scale * sourceWidth;
-        float scaledHeight = scale * sourceHeight;
-
-        float left = (newWidth - scaledWidth) / 2;
-        float top = (newHeight - scaledHeight) / 2;
-
-        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
-
-        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(dest);
-        canvas.drawColor(MainApp.getAppContext().getResources().getColor(R.color.background_color_png));
-        canvas.drawBitmap(source, null, targetRect, null);
-
-        return dest;
-    }
-
-    public static void generateResizedImage(OCFile file) {
-        Point p = getScreenDimension();
-        int pxW = p.x;
-        int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
-
-        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
-
-        if (bitmap != null) {
-            // Handle PNG
-            if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                bitmap = handlePNG(bitmap, pxW, pxH);
-            }
-
-            addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
-        }
-    }
-
-    public static void generateThumbnailFromOCFile(OCFile file, Account account, Context context) {
-        int pxW;
-        int pxH;
-        pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
-
-        GetMethod getMethod = null;
-
-        try {
-            Bitmap thumbnail = null;
-
-            OwnCloudClient client = mClient;
-            if (client == null) {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
-            }
-
-            String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
-
-            Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
-            getMethod = new GetMethod(uri);
-            getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-
-            getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
-                                       RemoteOperation.OCS_API_HEADER_VALUE);
-
-            int status = client.executeMethod(getMethod);
-            if (status == HttpStatus.SC_OK) {
-                InputStream inputStream = getMethod.getResponseBodyAsStream();
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
-            } else {
-                client.exhaustResponse(getMethod.getResponseBodyAsStream());
-            }
-
-            // Add thumbnail to cache
-            if (thumbnail != null) {
-                // Handle PNG
-                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                    thumbnail = handlePNG(thumbnail, pxW, pxH);
-                }
-
-                Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
-                addBitmapToCache(imageKey, thumbnail);
-            }
-        } catch (Exception e) {
-            Log_OC.d(TAG, e.getMessage(), e);
-        } finally {
-            if (getMethod != null) {
-                getMethod.releaseConnection();
             }
         }
     }

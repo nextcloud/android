@@ -388,11 +388,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             menu.setGroupVisible(R.id.folder_permission, false);
             menu.findItem(R.id.allow_editing).setVisible(true);
 
-            if (publicShare.getPermissions() > PERMISSION_EDITING_ALLOWED) {
-                menu.findItem(R.id.allow_editing).setChecked(true);
-            } else {
-                menu.findItem(R.id.allow_editing).setChecked(false);
-            }
+            menu.findItem(R.id.allow_editing).setChecked(publicShare.getPermissions() > PERMISSION_EDITING_ALLOWED);
         }
 
         Resources res = requireContext().getResources();

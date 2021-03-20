@@ -157,7 +157,7 @@ class PlayerService : Service() {
 
     private fun startForeground(currentFile: OCFile) {
         val ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name))
-        val content = getString(R.string.media_state_playing, currentFile.getFileName())
+        val content = getString(R.string.media_state_playing, currentFile.fileName)
         notificationBuilder.setSmallIcon(R.drawable.ic_play_arrow)
         notificationBuilder.setWhen(System.currentTimeMillis())
         notificationBuilder.setOngoing(true)

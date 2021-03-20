@@ -45,10 +45,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/commentInputField_container"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_weight="1"
-            android:paddingTop="@dimen/standard_padding"
-            android:hint="@string/new_comment">
+            android:hint="@string/new_comment"
+            android:paddingTop="@dimen/standard_padding">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/commentInputField"

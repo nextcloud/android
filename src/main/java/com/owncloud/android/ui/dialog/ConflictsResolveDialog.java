@@ -51,6 +51,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -67,7 +68,7 @@ public class ConflictsResolveDialog extends DialogFragment {
     private File newFile;
     public OnConflictDecisionMadeListener listener;
     private User user;
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private Button positiveButton;
 
     private static final String KEY_NEW_FILE = "file";
@@ -223,6 +224,17 @@ public class ConflictsResolveDialog extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    private void setPositiveButtonStatus(boolean enabled) {
+        if (enabled) {
+            positiveButton.setTextColor(ThemeUtils.primaryAccentColor(requireContext()));
+        } else {
+            positiveButton.setTextColor(ResourcesCompat.getColor(requireContext().getResources(),
+                                                                 R.color.grey_200,
+                                                                 null));
+        }
+        positiveButton.setEnabled(enabled);
     }
 
     public void showDialog(AppCompatActivity activity) {

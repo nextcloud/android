@@ -99,7 +99,7 @@ public final class ThemeButtonUtils {
                 disabledColor
             }
         );
-        for (Button button: buttons) {
+        for (Button button : buttons) {
             button.setTextColor(colorStateList);
         }
     }

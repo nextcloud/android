@@ -39,14 +39,13 @@ public class GetUserProfileOperation extends SyncOperation {
 
     /**
      * Performs the operation.
-     *
+     * <p>
      * Target user account is implicit in 'client'.
-     *
+     * <p>
      * Stored account is implicit in {@link #getStorageManager()}.
      *
-     * @return Result of the operation. If successful, includes an instance of
-     *              {@link String} with the display name retrieved from the server.
-     *              Call {@link RemoteOperationResult#getData()}.get(0) to get it.
+     * @return Result of the operation. If successful, includes an instance of {@link String} with the display name
+     * retrieved from the server. Call {@link RemoteOperationResult#getData()}.get(0) to get it.
      */
     @Override
     public RemoteOperationResult<UserInfo> run(NextcloudClient client) {

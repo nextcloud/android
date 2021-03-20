@@ -60,13 +60,12 @@ public final class ErrorMessageAdapter {
     }
 
     /**
-     * Return an internationalized user message corresponding to an operation result
-     * and the operation performed.
+     * Return an internationalized user message corresponding to an operation result and the operation performed.
      *
-     * @param result        Result of a {@link RemoteOperation} performed.
-     * @param operation     Operation performed.
-     * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result' and 'operation'.
+     * @param result    Result of a {@link RemoteOperation} performed.
+     * @param operation Operation performed.
+     * @param res       Reference to app resources, for i18n.
+     * @return User message corresponding to 'result' and 'operation'.
      */
     public static @NonNull
     String getErrorCauseMessage(
@@ -103,7 +102,7 @@ public final class ErrorMessageAdapter {
      * @param result        Result of a {@link RemoteOperation} performed.
      * @param operation     Operation performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result' and 'operation', or NULL if there is no
+     * @return User message corresponding to 'result' and 'operation', or NULL if there is no
      *                      specific message for both.
      */
     private static @Nullable
@@ -345,9 +344,9 @@ public final class ErrorMessageAdapter {
         } else {
 
             if (result.getCode() == ResultCode.LOCAL_STORAGE_FULL
-                    || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
+                || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
                 return String.format(
-                        res.getString(R.string.error__upload__local_file_not_copied),
+                    res.getString(R.string.error__upload__local_file_not_copied),
                         operation.getFileName(),
                         res.getString(R.string.app_name));
 
@@ -374,7 +373,7 @@ public final class ErrorMessageAdapter {
      *
      * @param result        Result of a {@link RemoteOperation} performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to 'result'.
+     * @return User message corresponding to 'result'.
      */
     private static @Nullable
     String getMessageForResult(RemoteOperationResult result, Resources res) {
@@ -449,7 +448,7 @@ public final class ErrorMessageAdapter {
      *
      * @param operation     Operation performed.
      * @param res           Reference to app resources, for i18n.
-     * @return              User message corresponding to a generic error of 'operation'.
+     * @return User message corresponding to a generic error of 'operation'.
      */
     private static @Nullable
     String getMessageForOperation(RemoteOperation operation, Resources res) {
@@ -457,13 +456,13 @@ public final class ErrorMessageAdapter {
 
         if (operation instanceof UploadFileOperation) {
             message = String.format(
-                    res.getString(R.string.uploader_upload_failed_content_single),
-                    ((UploadFileOperation) operation).getFileName());
+                res.getString(R.string.uploader_upload_failed_content_single),
+                ((UploadFileOperation) operation).getFileName());
 
         } else if (operation instanceof DownloadFileOperation) {
             message = String.format(
-                    res.getString(R.string.downloader_download_failed_content),
-                    new File(((DownloadFileOperation) operation).getSavePath()).getName()
+                res.getString(R.string.downloader_download_failed_content),
+                new File(((DownloadFileOperation) operation).getSavePath()).getName()
             );
 
         } else if (operation instanceof RemoveFileOperation) {

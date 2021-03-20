@@ -59,7 +59,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private static final int SHOW_PROGRESS = 1;
 
     private MediaPlayerControl playerControl;
-    private View root;
+    private final View root;
     private ProgressBar progressBar;
     private TextView endTime;
     private TextView currentTime;
@@ -94,7 +94,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     public void setMediaPlayer(MediaPlayerControl player) {
         playerControl = player;
         handler.sendEmptyMessage(SHOW_PROGRESS);
-        handler.postDelayed(()-> {
+        handler.postDelayed(() -> {
             updatePausePlay();
             setProgress();
         }, 100);
@@ -104,6 +104,42 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         handler.removeMessages(SHOW_PROGRESS);
     }
 
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == SHOW_PROGRESS) {
+                updatePausePlay();
+                int pos = setProgress();
+                if (!isDragging) {
+                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), 1000 - (pos % 1000));
+                }
+            }
+        }
+    };
+
+    /**
+     * Disable pause or seek buttons if the stream cannot be paused or seeked. This requires the control interface to be
+     * a MediaPlayerControlExt
+     */
+    private void disableUnsupportedButtons() {
+        try {
+            if (pauseButton != null && !playerControl.canPause()) {
+                pauseButton.setEnabled(false);
+            }
+            if (rewindButton != null && !playerControl.canSeekBackward()) {
+                rewindButton.setEnabled(false);
+            }
+            if (forwardButton != null && !playerControl.canSeekForward()) {
+                forwardButton.setEnabled(false);
+            }
+        } catch (IncompatibleClassChangeError ex) {
+            // We were given an old version of the interface, that doesn't have
+            // the canPause/canSeekXYZ methods. This is OK, it just means we
+            // assume the media can be paused and seeked, and so we don't disable
+            // the buttons.
+            Log_OC.i(TAG, "Old media interface detected");
+        }
+    }
 
     private void initControllerView(View v) {
         pauseButton = v.findViewById(R.id.playBtn);
@@ -137,44 +173,6 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         endTime = v.findViewById(R.id.totalTimeText);
         currentTime = v.findViewById(R.id.currentTimeText);
     }
-
-    /**
-     * Disable pause or seek buttons if the stream cannot be paused or seeked.
-     * This requires the control interface to be a MediaPlayerControlExt
-     */
-    private void disableUnsupportedButtons() {
-        try {
-            if (pauseButton != null && !playerControl.canPause()) {
-                pauseButton.setEnabled(false);
-            }
-            if (rewindButton != null && !playerControl.canSeekBackward()) {
-                rewindButton.setEnabled(false);
-            }
-            if (forwardButton != null && !playerControl.canSeekForward()) {
-                forwardButton.setEnabled(false);
-            }
-        } catch (IncompatibleClassChangeError ex) {
-            // We were given an old version of the interface, that doesn't have
-            // the canPause/canSeekXYZ methods. This is OK, it just means we
-            // assume the media can be paused and seeked, and so we don't disable
-            // the buttons.
-            Log_OC.i(TAG, "Old media interface detected");
-        }
-    }
-
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == SHOW_PROGRESS) {
-                updatePausePlay();
-                int pos = setProgress();
-                if (!isDragging) {
-                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), 1000 - (pos % 1000));
-                }
-            }
-        }
-    };
 
     private String formatTime(int timeMs) {
         int totalSeconds = timeMs / 1000;

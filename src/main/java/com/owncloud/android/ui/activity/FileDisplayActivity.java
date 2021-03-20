@@ -128,7 +128,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -191,6 +190,7 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
+    public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -428,8 +428,8 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getFileOperationsHelper()
-                        .uploadFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+                    FileOperationsHelper
+                        .takePictureFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
                 } else {
                     // permission denied
                     return;
@@ -887,7 +887,40 @@ public class FileDisplayActivity extends FileActivity
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
-        } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
+        } else if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA &&
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+            String pdfName = data.getStringExtra(ScanDocActivity.SCAN_DOC_ACTIVITY_RESULT_PDFNAME);
+            //upload pdf
+            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
+                @Override
+                public void onCheckAvailableSpaceStart() {
+                    Log_OC.d(this, "onCheckAvailableSpaceStart");
+                }
+
+                @Override
+                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
+                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
+
+                    if (hasEnoughSpaceAvailable) {
+
+                        File file = new File(filesToUpload[0]);
+                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + pdfName);
+
+                        if (!file.renameTo(renamedFile)) {
+                            DisplayUtils.showSnackMessage(getActivity(), R.string.upload_scan_doc_fail_to_upload);
+                            return;
+                        }
+
+                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                                                           FileUploader.LOCAL_BEHAVIOUR_DELETE);
+
+                        FileOperationsHelper.cleanupDocScanDirectory(getActivity());
+                    }
+                }
+            }, new String[]{FileOperationsHelper.createPdfFile(this).getAbsolutePath()}).execute();
+        }
+
+        else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
                 (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
@@ -1002,7 +1035,7 @@ public class FileDisplayActivity extends FileActivity
                 false,
                 false,
                 FileUploader.NameCollisionPolicy.ASK_USER
-            );
+                                      );
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -1031,13 +1064,13 @@ public class FileDisplayActivity extends FileActivity
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
         UriUploader uploader = new UriUploader(
-                this,
-                streamsToUpload,
-                remotePath,
-                getUser().orElseThrow(RuntimeException::new),
-                behaviour,
-                false, // Not show waiting dialog while file is being copied from private storage
-                null  // Not needed copy temp task listener
+            this,
+            streamsToUpload,
+            remotePath,
+            getUser().orElseThrow(RuntimeException::new),
+            behaviour,
+            false, // Not show waiting dialog while file is being copied from private storage
+            null  // Not needed copy temp task listener
         );
 
         uploader.uploadUris();

@@ -85,7 +85,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         ThemeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
-                ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
+                                                                         ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
@@ -185,6 +185,10 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         binding.menuUploadFiles.setOnClickListener(v -> {
             actions.uploadFiles();
+            dismiss();
+        });
+        binding.menuScanDocUpload.setOnClickListener(v -> {
+            actions.scanDocUpload();
             dismiss();
         });
 

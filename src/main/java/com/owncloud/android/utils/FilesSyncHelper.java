@@ -193,11 +193,10 @@ public final class FilesSyncHelper {
 
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
-            if(!failedUpload.isWhileChargingOnly()){
+            if (!failedUpload.isWhileChargingOnly()) {
                 whileChargingOnly = false;
             }
-            if(!failedUpload.isUseWifiOnly())
-            {
+            if (!failedUpload.isUseWifiOnly()) {
                 useWifiOnly = false;
             }
 
@@ -215,22 +214,21 @@ public final class FilesSyncHelper {
         }
 
         failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads.length == 0)
-        {
+        if (failedUploads.length == 0) {
             //nothing to do
             return;
         }
 
-        if(whileChargingOnly){
+        if (whileChargingOnly) {
             final BatteryStatus batteryStatus = powerManagementService.getBattery();
             final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-            if(!charging){
+            if (!charging) {
                 //all uploads requires charging
                 return;
             }
         }
 
-        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()){
+        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()) {
             //all uploads requires wifi
             return;
         }

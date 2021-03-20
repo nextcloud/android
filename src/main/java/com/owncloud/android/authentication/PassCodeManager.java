@@ -58,7 +58,7 @@ public final class PassCodeManager {
      */
     private static final int PASS_CODE_TIMEOUT = 5000;
 
-    private AppPreferences preferences;
+    private final AppPreferences preferences;
     private int visibleActivitiesCounter;
 
 

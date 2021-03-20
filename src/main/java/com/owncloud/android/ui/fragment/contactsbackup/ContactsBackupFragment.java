@@ -159,11 +159,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (checkAndAskForContactsReadPermission()) {
-                    if (isChecked) {
-                        setAutomaticBackup(true);
-                    } else {
-                        setAutomaticBackup(false);
-                    }
+                    setAutomaticBackup(isChecked);
                 }
             }
         };
@@ -181,10 +177,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_CALENDAR_PICKER_OPEN, false)) {
             if (savedInstanceState.getInt(KEY_CALENDAR_YEAR, -1) != -1 &&
-                    savedInstanceState.getInt(KEY_CALENDAR_MONTH, -1) != -1 &&
-                    savedInstanceState.getInt(KEY_CALENDAR_DAY, -1) != -1) {
+                savedInstanceState.getInt(KEY_CALENDAR_MONTH, -1) != -1 &&
+                savedInstanceState.getInt(KEY_CALENDAR_DAY, -1) != -1) {
                 selectedDate = new Date(savedInstanceState.getInt(KEY_CALENDAR_YEAR),
-                        savedInstanceState.getInt(KEY_CALENDAR_MONTH), savedInstanceState.getInt(KEY_CALENDAR_DAY));
+                                        savedInstanceState.getInt(KEY_CALENDAR_MONTH), savedInstanceState.getInt(KEY_CALENDAR_DAY));
             }
             calendarPickerOpen = true;
         }
@@ -455,7 +451,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             datePickerDialog.setTitle("");
             datePickerDialog.show();
 
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(),true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
             datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
 
             // set background to transparent

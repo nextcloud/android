@@ -118,7 +118,7 @@ android {
     }
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "8g"
     }
 
     compileSdkVersion 29
@@ -148,6 +148,10 @@ android {
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
+
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86'
+        }
 
         flavorDimensions "default"
 
@@ -201,6 +205,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/LICENSE'
+        pickFirst '**/*.so'
     }
 
     tasks.register("checkstyle", Checkstyle) {
@@ -351,6 +356,13 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    // Latest upgrade https://github.com/mayuce/AndroidDocumentScanner/issues/30
+    implementation 'com.github.mayuce:AndroidDocumentScanner:1.5.3'
+    // TODO Latest upgrade https://github.com/quickbirdstudios/opencv-android/issues/44
+    // can't make it work on version over opencv 3.4.1
+    implementation 'com.quickbirdstudios:opencv:3.4.1'
+
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
@@ -407,6 +419,9 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+
+    // tool to find memory leaks
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 }
 
 spotbugs {

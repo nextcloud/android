@@ -438,7 +438,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private class PassCodeDigitTextWatcher implements TextWatcher {
 
         private int mIndex = -1;
-        private boolean mLastOne;
+        private final boolean mLastOne;
 
         /**
          * Constructor

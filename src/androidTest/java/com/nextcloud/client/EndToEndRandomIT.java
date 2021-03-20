@@ -81,7 +81,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     private static ArbitraryDataProvider arbitraryDataProvider;
 
     private OCFile currentFolder;
-    private int actionCount = 20;
+    private final int actionCount = 20;
     private String rootEncFolder = "/e/";
 
     @BeforeClass

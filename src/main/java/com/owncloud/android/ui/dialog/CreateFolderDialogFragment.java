@@ -102,9 +102,9 @@ public class CreateFolderDialogFragment
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
-                .setPositiveButton(R.string.folder_confirm_create, this)
-                .setNeutralButton(R.string.common_cancel, this)
-                .setTitle(R.string.uploader_info_dirname);
+            .setPositiveButton(R.string.folder_confirm_create, this)
+            .setNeutralButton(R.string.common_cancel, this)
+            .setTitle(R.string.uploader_info_dirname);
         AlertDialog d = builder.create();
 
         Window window = d.getWindow();

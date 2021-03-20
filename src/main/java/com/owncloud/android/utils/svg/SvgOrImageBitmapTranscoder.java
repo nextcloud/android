@@ -37,8 +37,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Convert the {@link SVG}'s internal representation to a Bitmap.
  */
 public class SvgOrImageBitmapTranscoder implements ResourceTranscoder<SVGorImage, Bitmap> {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public SvgOrImageBitmapTranscoder(int width, int height) {
         this.width = width;

@@ -58,17 +58,17 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = UserListAdapter.class.getSimpleName();
 
-    private float accountAvatarRadiusDimension;
+    private final float accountAvatarRadiusDimension;
     private final BaseActivity context;
     private List<UserListItem> values;
     private Listener accountListAdapterListener;
-    private UserAccountManager accountManager;
+    private final UserAccountManager accountManager;
 
     public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
     public static final int KEY_USER_INFO_REQUEST_CODE = 13;
-    private ClickListener clickListener;
-    private boolean showAddAccount;
-    private boolean showDotsMenu;
+    private final ClickListener clickListener;
+    private final boolean showAddAccount;
+    private final boolean showDotsMenu;
 
     public UserListAdapter(BaseActivity context,
                            UserAccountManager accountManager,
@@ -186,7 +186,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private AccountItemBinding binding;
+        private final AccountItemBinding binding;
         private User user;
 
         AccountViewHolderItem(@NonNull AccountItemBinding binding) {

@@ -40,13 +40,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class AuthenticatorActivityIT extends AbstractIT {
     private static final String URL = "cloud.nextcloud.com";
-    @Rule public IntentsTestRule<AuthenticatorActivity> activityRule = new IntentsTestRule<>(AuthenticatorActivity.class,
-                                                                                             true,
-                                                                                             false);
-
     @Rule
     public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
         Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    @Rule public IntentsTestRule<AuthenticatorActivity> activityRule = new IntentsTestRule<>(AuthenticatorActivity.class,
+                                                                                             true,
+                                                                                             false);
 
     @Test
     @ScreenshotTest

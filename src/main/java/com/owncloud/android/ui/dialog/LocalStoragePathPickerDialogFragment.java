@@ -58,7 +58,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
     public static final String LOCAL_STORAGE_PATH_PICKER_FRAGMENT = "LOCAL_STORAGE_PATH_PICKER_FRAGMENT";
 
-    private static Set<String> internalStoragePaths = new HashSet<>();
+    private static final Set<String> internalStoragePaths = new HashSet<>();
 
     static {
         internalStoragePaths.add("/storage/emulated/legacy");

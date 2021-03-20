@@ -68,14 +68,13 @@ public abstract class SyncOperation extends RemoteOperation {
 
 
     /**
-	 * Synchronously executes the remote operation
-     *
+     * Synchronously executes the remote operation
+     * <p>
      * Do not call this method from the main thread.
      *
-	 * @param client	Client object to reach an ownCloud server during the execution of the o
-     *                  peration.
+     * @param client         Client object to reach an ownCloud server during the execution of the o peration.
      * @param storageManager
-	 * @return			Result of the operation.
+     * @return Result of the operation.
      */
     public RemoteOperationResult execute(OwnCloudClient client,
                                          FileDataStorageManager storageManager) {

@@ -34,11 +34,11 @@
 
         <ImageView
             android:id="@+id/searchViewIcon"
-            android:layout_height="@dimen/user_icon_size"
             android:layout_width="@dimen/user_icon_size"
-            android:padding="@dimen/standard_half_padding"
-            android:contentDescription="@string/avatar"
+            android:layout_height="@dimen/user_icon_size"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/avatar"
+            android:padding="@dimen/standard_half_padding"
             android:src="@drawable/ic_search_grey" />
 
         <androidx.appcompat.widget.SearchView

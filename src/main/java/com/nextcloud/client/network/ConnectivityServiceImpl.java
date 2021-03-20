@@ -41,13 +41,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
 
-    static class GetRequestBuilder implements Function1<String, GetMethod> {
-        @Override
-        public GetMethod invoke(String url) {
-            return new GetMethod(url, false);
-        }
-    }
-
     ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
                             UserAccountManager accountManager,
                             ClientFactory clientFactory,
@@ -81,6 +74,13 @@ class ConnectivityServiceImpl implements ConnectivityService {
             return result;
         } else {
             return !getConnectivity().isConnected();
+        }
+    }
+
+    static class GetRequestBuilder implements Function1<String, GetMethod> {
+        @Override
+        public GetMethod invoke(String url) {
+            return new GetMethod(url, false);
         }
     }
 

@@ -1,0 +1,40 @@
+name: "Blue color on dark mode"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    blueDark:
+        runs-on: macOS-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: set up JDK 1.8
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 1.8
+            -   name: Build gplay
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    ./gradlew assembleGplayDebug
+            -   name: Delete old comments
+                env:
+                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+                    GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+                run: scripts/deleteOldComments.sh "Blue-Dark" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"
+            -   name: run tests
+                uses: reactivecircus/android-emulator-runner@v2
+                with:
+                    api-level: 27
+                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=blue -Pandroid.testInstrumentationRunnerArguments.DARKMODE=dark
+            -   name: upload failing results
+                if: ${{ failure() }}
+                env:
+                    LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
+                    LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
+                    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+                    GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+                run:
+                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "Blue-Dark" "Screenshot" ${{github.event.number}} "$GIT_USERNAME" "$GIT_TOKEN"

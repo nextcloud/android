@@ -82,10 +82,10 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                     int trackColor = Color.argb(77, Color.red(thumbColor), Color.green(thumbColor), Color.blue(thumbColor));
                     int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
                     thumbColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
+                        new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                        new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
                     trackColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked},
+                        new int[][]{new int[]{android.R.attr.state_checked},
                                 new int[]{}},
                             new int[]{trackColor, trackColorUnchecked});
                 }

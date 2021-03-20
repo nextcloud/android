@@ -182,8 +182,8 @@ public final class MimeTypeUtil {
         }
 
         int color = ThemeColorUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
-                                            true,
-                                            context);
+                                                 true,
+                                                 context);
         return ThemeDrawableUtils.tintDrawable(drawableId, color);
     }
 

@@ -29,8 +29,8 @@ import android.graphics.Bitmap;
 import com.caverock.androidsvg.SVG;
 
 public class SVGorImage {
-    private SVG svg;
-    private Bitmap bitmap;
+    private final SVG svg;
+    private final Bitmap bitmap;
 
     public SVGorImage(SVG svg, Bitmap bitmap) {
         this.svg = svg;

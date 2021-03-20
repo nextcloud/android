@@ -165,8 +165,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Otherwise behaves like the checkbox was
-     * clicked.
-     * Notifies the container activity in any case.
+     * clicked. Notifies the container activity in any case.
      */
     @Override
     public void onItemClicked(File file) {

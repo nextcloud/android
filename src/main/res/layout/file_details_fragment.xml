@@ -68,8 +68,8 @@
                     android:id="@+id/size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/two_line_primary_text_size"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_primary_text_size"
                     tools:text="@string/placeholder_fileSize" />
 
                 <TextView
@@ -88,8 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:textSize="@dimen/two_line_primary_text_size"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_primary_text_size"
                     tools:text="@string/placeholder_media_time" />
 
                 <ImageView
@@ -143,8 +143,8 @@
                 android:id="@+id/progressText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/two_line_primary_text_size"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:textSize="@dimen/two_line_primary_text_size"
                 android:text="@string/downloader_download_in_progress_ticker" />
 
             <ProgressBar
@@ -183,8 +183,8 @@
         app:tabGravity="center"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/AppTabTextAppearance"
-        app:tabTextColor="@color/text_color"
-        app:tabInlineLabel="true" />
+        app:tabInlineLabel="true"
+        app:tabTextColor="@color/text_color" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"

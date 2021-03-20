@@ -90,7 +90,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private OwnCloudClient client;
     @Inject CurrentAccountProvider currentAccount;
     @Inject ClientFactory clientFactory;
-    private Button positiveButton;
+    ChooseTemplateBinding binding;
 
     public enum Type {
         DOCUMENT,
@@ -98,7 +98,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         PRESENTATION
     }
 
-    ChooseTemplateBinding binding;
+    private Button positiveButton;
 
     @NextcloudServer(max = 18) // will be removed in favor of generic direct editing
     public static ChooseRichDocumentsTemplateDialogFragment newInstance(OCFile parentFolder, Type type) {
@@ -254,11 +254,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
-        private OwnCloudClient client;
-        private WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Template template;
-        private String path;
-        private User user;
+        private final OwnCloudClient client;
+        private final WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Template template;
+        private final String path;
+        private final User user;
         private OCFile file;
 
         CreateFileFromTemplateTask(ChooseRichDocumentsTemplateDialogFragment chooseTemplateDialogFragment,
@@ -266,7 +266,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                    Template template,
                                    String path,
                                    User user
-        ) {
+                                  ) {
             this.client = client;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;
@@ -330,8 +330,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     private static class FetchTemplateTask extends AsyncTask<Type, Void, List<Template>> {
 
-        private OwnCloudClient client;
-        private WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final OwnCloudClient client;
+        private final WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
 
         FetchTemplateTask(ChooseRichDocumentsTemplateDialogFragment chooseTemplateDialogFragment, OwnCloudClient client) {
             this.client = client;

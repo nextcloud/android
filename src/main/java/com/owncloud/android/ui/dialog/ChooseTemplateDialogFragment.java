@@ -83,18 +83,18 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_CREATOR = "CREATOR";
-    private static final String ARG_HEADLINE = "HEADLINE";
+    public static final int SINGLE_TEMPLATE = 1;
     private static final String TAG = ChooseTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
-    public static final int SINGLE_TEMPLATE = 1;
+    private static final String ARG_HEADLINE = "HEADLINE";
 
     private TemplateAdapter adapter;
     private OCFile parentFolder;
-    private String title;
+    ChooseTemplateBinding binding;
     @Inject ClientFactory clientFactory;
     private Creator creator;
     @Inject CurrentAccountProvider currentAccount;
-    private Button positiveButton;
+    private String title;
 
     public enum Type {
         DOCUMENT,
@@ -102,7 +102,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         PRESENTATION
     }
 
-    ChooseTemplateBinding binding;
+    private Button positiveButton;
 
     public static ChooseTemplateDialogFragment newInstance(OCFile parentFolder, Creator creator, String headline) {
         ChooseTemplateDialogFragment frag = new ChooseTemplateDialogFragment();
@@ -279,12 +279,12 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
-        private ClientFactory clientFactory;
-        private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Template template;
-        private String path;
-        private Creator creator;
-        private User user;
+        private final ClientFactory clientFactory;
+        private final WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Template template;
+        private final String path;
+        private final Creator creator;
+        private final User user;
         private OCFile file;
 
         CreateFileFromTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
@@ -293,7 +293,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                                    Template template,
                                    String path,
                                    Creator creator
-        ) {
+                                  ) {
             this.clientFactory = clientFactory;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;
@@ -372,10 +372,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     private static class FetchTemplateTask extends AsyncTask<Void, Void, TemplateList> {
 
-        private User user;
-        private ClientFactory clientFactory;
-        private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Creator creator;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private final WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Creator creator;
 
         FetchTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
                           ClientFactory clientFactory,

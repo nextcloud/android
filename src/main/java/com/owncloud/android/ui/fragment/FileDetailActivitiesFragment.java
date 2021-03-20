@@ -139,7 +139,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater,container,false);
+        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         setupView();
@@ -459,10 +459,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String message;
-        private String fileId;
-        private VersionListInterface.CommentCallback callback;
-        private OwnCloudClient client;
+        private final String message;
+        private final String fileId;
+        private final VersionListInterface.CommentCallback callback;
+        private final OwnCloudClient client;
 
         private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
                                   OwnCloudClient client) {

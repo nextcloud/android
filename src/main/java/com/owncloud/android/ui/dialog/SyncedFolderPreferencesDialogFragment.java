@@ -193,7 +193,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadExistingCheckbox = view.findViewById(R.id.setting_instant_upload_existing_checkbox);
 
         mUploadUseSubfoldersCheckbox = view.findViewById(
-                R.id.setting_instant_upload_path_use_subfolders_checkbox);
+            R.id.setting_instant_upload_path_use_subfolders_checkbox);
 
         ThemeCheckableUtils.tintCheckbox(accentColor,
                                          mUploadOnWifiCheckbox,
@@ -215,10 +215,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
             mLocalFolderPath.setText(
-                    DisplayUtils.createTextWithSpan(
-                            String.format(
-                                    getString(R.string.synced_folders_preferences_folder_path),
-                                    mSyncedFolder.getLocalPath()),
+                DisplayUtils.createTextWithSpan(
+                    String.format(
+                        getString(R.string.synced_folders_preferences_folder_path),
+                        mSyncedFolder.getLocalPath()),
                             mSyncedFolder.getFolderName(),
                             new StyleSpan(Typeface.BOLD)));
             mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(
@@ -294,11 +294,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     private void checkAndUpdateSaveButtonState() {
-        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
-            mView.findViewById(R.id.save).setEnabled(true);
-        } else {
-            mView.findViewById(R.id.save).setEnabled(false);
-        }
+        mView.findViewById(R.id.save).setEnabled(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null);
 
         checkWritableFolder();
     }

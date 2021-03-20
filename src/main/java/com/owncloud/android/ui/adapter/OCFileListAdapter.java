@@ -108,19 +108,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int showFilenameColumnThreshold = 4;
     private final ComponentsGetter transferServiceGetter;
     private final String userId;
-    private Activity activity;
-    private AppPreferences preferences;
+    private final Activity activity;
+    private final AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
-    private List<OCFile> mFilesAll = new ArrayList<>();
-    private boolean hideItemOptions;
+    private final List<OCFile> mFilesAll = new ArrayList<>();
+    private final boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
     private boolean multiSelect;
-    private Set<OCFile> checkedFiles;
+    private final Set<OCFile> checkedFiles;
 
     private FileDataStorageManager mStorageManager;
     private User user;
-    private OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final OCFileListFragmentInterface ocFileListFragmentInterface;
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
@@ -131,7 +131,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_IMAGE = 2;
     private static final int VIEWTYPE_HEADER = 3;
 
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;

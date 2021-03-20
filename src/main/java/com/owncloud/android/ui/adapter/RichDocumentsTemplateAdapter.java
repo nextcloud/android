@@ -35,8 +35,8 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +50,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocumentsTemplateAdapter.ViewHolder> {
 
     private List<Template> templateList = new ArrayList<>();
-    private ClickListener clickListener;
-    private Context context;
-    private ChooseRichDocumentsTemplateDialogFragment.Type type;
-    private CurrentAccountProvider currentAccountProvider;
-    private ClientFactory clientFactory;
-    private Template selectedTemplate;
+    private final ClickListener clickListener;
+    private final Context context;
+    private final ChooseRichDocumentsTemplateDialogFragment.Type type;
+    private final CurrentAccountProvider currentAccountProvider;
+    private final ClientFactory clientFactory;
     private final int colorSelected;
     private final int colorUnselected;
+    private Template selectedTemplate;
 
     public RichDocumentsTemplateAdapter(
         ChooseRichDocumentsTemplateDialogFragment.Type type,
@@ -65,7 +65,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ClientFactory clientFactory
-    ) {
+                                       ) {
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;

@@ -75,12 +75,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String FILE = "file";
     private static final String ACTION_TYPE_WEB = "WEB";
-    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
-    private ForegroundColorSpan foregroundColorSpanBlack;
+    private final StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
+    private final ForegroundColorSpan foregroundColorSpanBlack;
 
-    private List<Notification> notificationsList;
-    private OwnCloudClient client;
-    private NotificationsActivity notificationsActivity;
+    private final List<Notification> notificationsList;
+    private final OwnCloudClient client;
+    private final NotificationsActivity notificationsActivity;
 
     public NotificationListAdapter(OwnCloudClient client, NotificationsActivity notificationsActivity) {
         this.notificationsList = new ArrayList<>();

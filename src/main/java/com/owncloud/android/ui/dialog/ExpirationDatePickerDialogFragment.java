@@ -102,13 +102,13 @@ public class ExpirationDatePickerDialogFragment
             chosenDate.get(Calendar.DAY_OF_MONTH)
         );
         dialog.setButton(
-                Dialog.BUTTON_NEUTRAL,
-                getText(R.string.share_via_link_unset_password),
-                (dialog1, which) -> {
-                    if (share != null) {
-                        ((FileActivity) requireActivity()).getFileOperationsHelper().setExpirationDateToShare(share, -1);
-                    }
-                });
+            Dialog.BUTTON_NEUTRAL,
+            getText(R.string.share_via_link_unset_password),
+            (dialog1, which) -> {
+                if (share != null) {
+                    ((FileActivity) requireActivity()).getFileOperationsHelper().setExpirationDateToShare(share, -1);
+                }
+            });
 
         dialog.show();
         dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));

@@ -648,7 +648,7 @@ public final class FileStorageUtils {
         public static final StandardDirectory CAMERA = new StandardDirectory(
             Environment.DIRECTORY_DCIM,
             R.string.storage_camera,
-            R.drawable.ic_camera
+            R.drawable.ic_photo_cam
         );
 
         public static final StandardDirectory DOCUMENTS;

@@ -54,7 +54,7 @@ public class LoadingDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create a view by inflating desired layout
-        View v = inflater.inflate(R.layout.loading_dialog, container,  false);
+        View v = inflater.inflate(R.layout.loading_dialog, container, false);
 
         // set value
         TextView tv = v.findViewById(R.id.loadingText);

@@ -23,15 +23,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="clip_horizontal"
-              android:orientation="vertical"
-              android:padding="@dimen/standard_padding">
+    android:orientation="vertical"
+    android:padding="@dimen/standard_padding">
 
     <TextView
         android:id="@+id/label_file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/upload_file_dialog_filename"
-        tools:text="@string/upload_file_dialog_filename"/>
+        tools:text="@string/upload_file_dialog_filename" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_input_container"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
         android:text="@string/upload_file_dialog_filetype"
-        tools:text="@string/upload_file_dialog_filetype"/>
+        tools:text="@string/upload_file_dialog_filetype" />
 
     <Spinner
         android:id="@+id/file_type"

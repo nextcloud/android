@@ -83,8 +83,8 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     public static final String NULL_STRING = "null";
 
-    private ContentResolver contentResolver;
-    private ContentProviderClient contentProviderClient;
+    private final ContentResolver contentResolver;
+    private final ContentProviderClient contentProviderClient;
     private Account account;
 
     public FileDataStorageManager(Account account, ContentResolver contentResolver) {

@@ -61,11 +61,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
     private static final String TAG = UserAccountManagerImpl.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
-    private Context context;
-    private AccountManager accountManager;
+    private final Context context;
+    private final AccountManager accountManager;
 
     public static UserAccountManagerImpl fromContext(Context context) {
-        AccountManager am = (AccountManager)context.getSystemService(Context.ACCOUNT_SERVICE);
+        AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         return new UserAccountManagerImpl(context, am);
     }
 

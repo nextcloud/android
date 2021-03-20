@@ -111,8 +111,8 @@ public class ExtendedListFragment extends Fragment implements
     public static final float minColumnSize = 2.0f;
 
     private int maxColumnSize = 5;
-    private int maxColumnSizePortrait = 5;
-    private int maxColumnSizeLandscape = 10;
+    private final int maxColumnSizePortrait = 5;
+    private final int maxColumnSizeLandscape = 10;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -137,7 +137,7 @@ public class ExtendedListFragment extends Fragment implements
 
     protected SearchView searchView;
     private ImageView closeButton;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
@@ -616,7 +616,7 @@ public class ExtendedListFragment extends Fragment implements
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
                                 ThemeDrawableUtils.tintDrawable(icon,
-                                                                ThemeColorUtils.primaryColor(getContext(),true)));
+                                                                ThemeColorUtils.primaryColor(getContext(), true)));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

@@ -61,14 +61,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private static final int showFilenameColumnThreshold = 4;
-    private AppPreferences preferences;
-    private Context mContext;
+    private final AppPreferences preferences;
+    private final Context mContext;
     private List<File> mFiles = new ArrayList<>();
-    private List<File> mFilesAll = new ArrayList<>();
-    private boolean mLocalFolderPicker;
+    private final List<File> mFilesAll = new ArrayList<>();
+    private final boolean mLocalFolderPicker;
     private boolean gridView = false;
-    private LocalFileListFragmentInterface localFileListFragmentInterface;
-    private Set<File> checkedFiles;
+    private final LocalFileListFragmentInterface localFileListFragmentInterface;
+    private final Set<File> checkedFiles;
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
@@ -156,7 +156,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 // checkbox
                 if (isCheckedFile(file)) {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                            .getColor(R.color.selected_item_background));
+                                                                     .getColor(R.color.selected_item_background));
                     gridViewHolder.checkbox.setImageDrawable(
                         ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
                                                         ThemeColorUtils.primaryColor(mContext)));
@@ -172,9 +172,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemClicked(finalFile));
+                    .onItemClicked(finalFile));
                 gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemCheckboxClicked(finalFile));
+                    .onItemCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {

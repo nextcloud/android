@@ -360,7 +360,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
     }
-    
+
     /**
      * setup drawer header, basically the logo color
      */
@@ -653,11 +653,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null) {
-            if (chosenFile != null && isRoot(chosenFile)) {
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            } else {
-                mDrawerToggle.setDrawerIndicatorEnabled(false);
-            }
+            mDrawerToggle.setDrawerIndicatorEnabled(chosenFile != null && isRoot(chosenFile));
         }
     }
 

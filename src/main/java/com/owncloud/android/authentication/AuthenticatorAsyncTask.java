@@ -46,7 +46,7 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
 
     private static final boolean SUCCESS_IF_ABSENT = false;
 
-    private WeakReference<Context> mWeakContext;
+    private final WeakReference<Context> mWeakContext;
     private final WeakReference<OnAuthenticatorTaskListener> mListener;
 
     public AuthenticatorAsyncTask(Activity activity) {

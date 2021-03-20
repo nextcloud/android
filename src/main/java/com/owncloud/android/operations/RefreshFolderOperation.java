@@ -87,20 +87,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
             RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
-    /** Time stamp for the synchronization process in progress */
-    private long mCurrentSyncTime;
+    /**
+     * Time stamp for the synchronization process in progress
+     */
+    private final long mCurrentSyncTime;
 
     /** Remote folder to synchronize */
     private OCFile mLocalFolder;
 
-    /** Access to the local database */
-    private FileDataStorageManager mStorageManager;
+    /**
+     * Access to the local database
+     */
+    private final FileDataStorageManager mStorageManager;
 
-    /** Account where the file to synchronize belongs */
-    private Account mAccount;
+    /**
+     * Account where the file to synchronize belongs
+     */
+    private final Account mAccount;
 
-    /** Android context; necessary to send requests to the download service */
-    private Context mContext;
+    /**
+     * Android context; necessary to send requests to the download service
+     */
+    private final Context mContext;
 
     /** Files and folders contained in the synchronized folder after a successful operation */
     private List<OCFile> mChildren;
@@ -112,28 +120,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     private int mFailsInKeptInSyncFound;
 
     /**
-     * Map of remote and local paths to files that where locally stored in a location
-     * out of the ownCloud folder and couldn't be copied automatically into it
+     * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
+     * couldn't be copied automatically into it
      **/
-    private Map<String, String> mForgottenLocalFiles;
+    private final Map<String, String> mForgottenLocalFiles;
 
     /**
      * 'True' means that this operation is part of a full account synchronization
      */
-    private boolean mSyncFullAccount;
+    private final boolean mSyncFullAccount;
 
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
 
     /** 'True' means that Etag will be ignored */
-    private boolean mIgnoreETag;
+    private final boolean mIgnoreETag;
 
     /**
      * 'True' means that no share and no capabilities will be updated
      */
-    private boolean mOnlyFileMetadata;
+    private final boolean mOnlyFileMetadata;
 
-    private List<SynchronizeFileOperation> mFilesToSyncContents;
+    private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
 

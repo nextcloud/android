@@ -33,7 +33,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.

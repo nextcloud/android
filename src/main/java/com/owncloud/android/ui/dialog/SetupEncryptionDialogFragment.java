@@ -149,7 +149,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private Dialog createDialog(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
-                .setNeutralButton(R.string.common_cancel, null)
+            .setNeutralButton(R.string.common_cancel, null)
                 .setTitle(R.string.end_to_end_encryption_title);
 
         Dialog dialog = builder.create();
@@ -233,69 +233,22 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    @VisibleForTesting
+    public void showMnemonicInfo() {
+        requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
-            textView.setText(R.string.end_to_end_encryption_retrieving_keys);
-            positiveButton.setVisibility(View.INVISIBLE);
-            neutralButton.setVisibility(View.INVISIBLE);
-        }
+        textView.setText(R.string.end_to_end_encryption_keywords_description);
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            // fetch private/public key
-            // if available
-            //  - store public key
-            //  - decrypt private key, store unencrypted private key in database
+        passphraseTextView.setText(generateMnemonicString(true));
 
-            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user.toPlatformAccount(), getContext());
+        passphraseTextView.setVisibility(View.VISIBLE);
+        positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
+        positiveButton.setVisibility(View.VISIBLE);
 
-            if (publicKeyResult.isSuccess()) {
-                Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
+        neutralButton.setVisibility(View.VISIBLE);
+        ThemeButtonUtils.themeBorderlessButton(positiveButton, neutralButton);
 
-                String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
-                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY,
-                                                            publicKeyFromServer);
-            } else {
-                return null;
-            }
-
-            RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
-                new GetPrivateKeyOperation().execute(user.toPlatformAccount(), getContext());
-
-            if (privateKeyResult.isSuccess()) {
-                Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
-
-                keyResult = KEY_EXISTING_USED;
-                return privateKeyResult.getResultData().getKey();
-            } else {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String privateKey) {
-            super.onPostExecute(privateKey);
-
-            if (privateKey == null) {
-                // first show info
-                try {
-                    keyWords = EncryptionUtils.getRandomWords(12, requireContext());
-                    showMnemonicInfo();
-                } catch (IOException e) {
-                    textView.setText(R.string.common_error);
-                }
-            } else if (!privateKey.isEmpty()) {
-                textView.setText(R.string.end_to_end_encryption_enter_password);
-                passwordField.setVisibility(View.VISIBLE);
-                positiveButton.setVisibility(View.VISIBLE);
-            } else {
-                Log_OC.e(TAG, "Got empty private key string");
-            }
-        }
+        keyResult = KEY_GENERATE;
     }
 
     public class GenerateNewKeysAsyncTask extends AsyncTask<Void, Void, String> {
@@ -399,24 +352,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     }
 
     @VisibleForTesting
-    public void showMnemonicInfo() {
-        requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
-
-        textView.setText(R.string.end_to_end_encryption_keywords_description);
-
-        passphraseTextView.setText(generateMnemonicString(true));
-
-        passphraseTextView.setVisibility(View.VISIBLE);
-        positiveButton.setText(R.string.end_to_end_encryption_confirm_button);
-        positiveButton.setVisibility(View.VISIBLE);
-
-        neutralButton.setVisibility(View.VISIBLE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, neutralButton);
-
-        keyResult = KEY_GENERATE;
-    }
-
-    @VisibleForTesting
     public void errorSavingKeys() {
         keyResult = KEY_FAILED;
 
@@ -425,6 +360,71 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
         positiveButton.setVisibility(View.VISIBLE);
         positiveButton.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+    }
+
+    public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            textView.setText(R.string.end_to_end_encryption_retrieving_keys);
+            positiveButton.setVisibility(View.INVISIBLE);
+            neutralButton.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            // fetch private/public key
+            // if available
+            //  - store public key
+            //  - decrypt private key, store unencrypted private key in database
+
+            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
+            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user.toPlatformAccount(), getContext());
+
+            if (publicKeyResult.isSuccess()) {
+                Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
+
+                String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
+                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY,
+                                                            publicKeyFromServer);
+            } else {
+                return null;
+            }
+
+            RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
+                new GetPrivateKeyOperation().execute(user.toPlatformAccount(), getContext());
+
+            if (privateKeyResult.isSuccess()) {
+                Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
+
+                keyResult = KEY_EXISTING_USED;
+                return privateKeyResult.getResultData().getKey();
+            } else {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String privateKey) {
+            super.onPostExecute(privateKey);
+
+            if (privateKey == null) {
+                // first show info
+                try {
+                    keyWords = EncryptionUtils.getRandomWords(12, requireContext());
+                    showMnemonicInfo();
+                } catch (IOException e) {
+                    textView.setText(R.string.common_error);
+                }
+            } else if (!privateKey.isEmpty()) {
+                textView.setText(R.string.end_to_end_encryption_enter_password);
+                passwordField.setVisibility(View.VISIBLE);
+                positiveButton.setVisibility(View.VISIBLE);
+            } else {
+                Log_OC.e(TAG, "Got empty private key string");
+            }
+        }
     }
 
     @VisibleForTesting

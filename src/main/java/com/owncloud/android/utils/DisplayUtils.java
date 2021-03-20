@@ -130,7 +130,7 @@ public final class DisplayUtils {
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
 
-    private static Map<String, String> mimeType2HumanReadable;
+    private static final Map<String, String> mimeType2HumanReadable;
 
     static {
         mimeType2HumanReadable = new HashMap<>();
@@ -730,7 +730,7 @@ public final class DisplayUtils {
             constructor.setAccessible(true);
             Object vdcInflateDelegate = constructor.newInstance();
 
-            Class<?> args[] = {String.class, inflateDelegateClass};
+            Class<?>[] args = {String.class, inflateDelegateClass};
             Method addDelegate = AppCompatDrawableManager.class.getDeclaredMethod("addDelegate", args);
             addDelegate.setAccessible(true);
             addDelegate.invoke(drawableManager, "vector", vdcInflateDelegate);

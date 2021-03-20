@@ -137,7 +137,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
                 continue;
             }
             if (view instanceof ImageButton) {
-                ThemeButtonUtils.colorImageButton((ImageButton)view, color);
+                ThemeButtonUtils.colorImageButton((ImageButton) view, color);
             }
             if (view instanceof TextView) {
                 ((TextView)view).setTextColor(color);
