@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
     <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="battery_optimization_title">Optimización da batería</string>
+    <string name="brute_force_delay">Atrasado por mor de demasiados intentos errados</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
     <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller cartafol local…</string>
     <string name="choose_remote_folder">Escoller cartafol remoto…</string>
+    <string name="choose_template_helper_text">Escolla un modelo e introduza un nome de ficheiro.</string>
     <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
+    <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
     <string name="create_new">Crear novo</string>
     <string name="create_new_document">Crear un documento novo</string>
@@ -193,6 +196,7 @@
     <string name="dev_version_no_new_version_available">Non hai versión nova dispoñíbel.</string>
     <string name="dialog_close">Pechar</string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo non está dispoñíbel no seu teléfono.</string>
+    <string name="direct_login_failed">Produciuse un fallo no acceso mediante ligazón directa.</string>
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Rexeitar</string>
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
@@ -385,6 +389,7 @@
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para o envío de rexistros. Instale un cliente de correo-e.</string>
     <string name="login">Acceder</string>
+    <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
     <string name="logs_menu_delete">Eliminar rexistros</string>
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_menu_search">Buscar rexistros</string>
@@ -576,6 +581,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
     <string name="send_note">Enviar nota o destinatario</string>

@@ -3,6 +3,7 @@
     <string name="about_android">Android-aplikaĵo %1$s</string>
     <string name="about_title">Pri</string>
     <string name="about_version">versio %1$s</string>
+    <string name="about_version_with_build">versio %1$s, kunmetaĵo n-o %2$s</string>
     <string name="account_creation_failed">Kreado de konto malsukcesis</string>
     <string name="account_icon">Konta piktogramo</string>
     <string name="account_not_found">Konto ne trovita!</string>
@@ -539,6 +540,10 @@
     <string name="storage_movies">Videaĵoj</string>
     <string name="storage_music">Muziko</string>
     <string name="storage_pictures">Bildoj</string>
+    <string name="store_full_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nEbloj:\n• facila, kaj moderna fasado, kiu adaptiĝas al la etoso de via servilo\n• alŝuti dosierojn al via Nextcloud‑servilo…\n• …kaj kunhavigi ilin kun aliuloj\n• sinkronigi (samtempigi) viajn ŝatatajn dosierojn kaj dosierujojn\n• serĉi tra ĉiuj dosierujoj en via servilo\n• aŭtomate alŝuti fotojn kaj filmetojn faritajn per via aparato\n• sciigoj por resti informita\n• subteno por pluraj kontoj\n• sekurigi atingon al viaj datumoj per fingropremaĵo aŭ PIN‑kodo\n• integrigo kun DAVx5 (antaŭe DAVdroid) por facile sinkronigi kalendarojn kaj kontaktojn\n\nBonvolu raporti ĉiujn problemojn ĉe https://github.com/nextcloud/android/issues kaj pridiskuti la aplikaĵon ĉe https://help.nextcloud.com/c/clients/android\n\nĈu Nextcloud estas nova por vi?Nextcloud estas privata servilo por sinkronigi dosierojn kaj komunikadi. Ĝi estas libera programaro, vi povas gastigi vian propran servilon aŭ pagi firmaon. Tial vi regas vian fotojn, kalendarojn, kontakt‑datumojn, dokumentojn kaj ĉion alian.\n\nPliaj informoj ĉe https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nTio ĉi estas oficiala testa (programista) versio liveranta ĉiutagan specimenon de novaj netestitaj ebloj, kiuj povas kaŭzi nestabilecon aŭ eĉ perdon de viaj datumoj. Tiu ĉi aplikaĵo celas al uzantoj, kiuj volas testi kaj raporti eventualajn erarojn. Ne uzu ĝin por grava laboro!\n\nKaj tiu ĉi testa kaj la stabila versioj estas elŝuteblaj el F-Droid kaj povas esti instalitaj samtempe.</string>
+    <string name="store_short_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas</string>
+    <string name="store_short_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas (testa versio)</string>
     <string name="stream">Elsendflui per...</string>
     <string name="stream_not_possible_headline">Ena elsendfluo ne eblas</string>
     <string name="stream_not_possible_message">Elŝutu la aŭdovidan dosieron anstataŭe aŭ uzu eksteran aplikaĵon.</string>

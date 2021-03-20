@@ -68,7 +68,8 @@
                     android:id="@+id/size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_primary_text_size"
                     tools:text="@string/placeholder_fileSize" />
 
                 <TextView
@@ -80,14 +81,15 @@
                     android:paddingEnd="@dimen/standard_quarter_padding"
                     android:text="@string/info_separator"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
-                    android:textSize="@dimen/two_line_secondary_text_size" />
+                    android:textSize="@dimen/two_line_primary_text_size" />
 
                 <TextView
                     android:id="@+id/last_modification_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:textSize="16sp"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_primary_text_size"
                     tools:text="@string/placeholder_media_time" />
 
                 <ImageView
@@ -112,6 +114,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/overflow_menu"
             style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:contentDescription="@string/overflow_menu"
@@ -140,6 +143,8 @@
                 android:id="@+id/progressText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:textSize="@dimen/two_line_primary_text_size"
                 android:text="@string/downloader_download_in_progress_ticker" />
 
             <ProgressBar
@@ -178,6 +183,7 @@
         app:tabGravity="center"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/AppTabTextAppearance"
+        app:tabInlineLabel="true"
         app:tabTextColor="@color/text_color" />
 
     <androidx.viewpager.widget.ViewPager

@@ -58,7 +58,7 @@ public final class PassCodeManager {
      */
     private static final int PASS_CODE_TIMEOUT = 5000;
 
-    private AppPreferences preferences;
+    private final AppPreferences preferences;
     private int visibleActivitiesCounter;
 
 
@@ -127,7 +127,7 @@ public final class PassCodeManager {
     }
 
     private boolean passCodeShouldBeRequested(Long timestamp) {
-        return (SystemClock.elapsedRealtime() - timestamp) > PASS_CODE_TIMEOUT &&
+        return Math.abs(SystemClock.elapsedRealtime() - timestamp) > PASS_CODE_TIMEOUT &&
             visibleActivitiesCounter <= 0 && isPassCodeEnabled();
     }
 
@@ -136,7 +136,7 @@ public final class PassCodeManager {
     }
 
     private boolean deviceCredentialsShouldBeRequested(Long timestamp, Activity activity) {
-        return (SystemClock.elapsedRealtime() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 &&
+        return Math.abs(SystemClock.elapsedRealtime() - timestamp) > PASS_CODE_TIMEOUT && visibleActivitiesCounter <= 0 &&
             deviceCredentialsAreEnabled(activity);
     }
 

@@ -23,17 +23,19 @@ package com.owncloud.android.operations.common;
 import android.content.Context;
 import android.os.Handler;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
+import androidx.annotation.NonNull;
+
 
 /**
- * Operation which execution involves both interactions with an ownCloud server and
- * with local data in the device.
- *
+ * Operation which execution involves both interactions with an ownCloud server and with local data in the device.
+ * <p>
  * Provides methods to execute the operation both synchronously or asynchronously.
  */
 public abstract class SyncOperation extends RemoteOperation {
@@ -66,24 +68,32 @@ public abstract class SyncOperation extends RemoteOperation {
 
 
     /**
-	 * Synchronously executes the remote operation
-     *
+     * Synchronously executes the remote operation
+     * <p>
      * Do not call this method from the main thread.
      *
-	 * @param client	Client object to reach an ownCloud server during the execution of the o
-     *                  peration.
+     * @param client         Client object to reach an ownCloud server during the execution of the o peration.
      * @param storageManager
-	 * @return			Result of the operation.
-	 */
-	public RemoteOperationResult execute(OwnCloudClient client,
+     * @return Result of the operation.
+     */
+    public RemoteOperationResult execute(OwnCloudClient client,
                                          FileDataStorageManager storageManager) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                    "NULL storage manager");
+                                                   "NULL storage manager");
         }
         this.storageManager = storageManager;
-		return super.execute(client);
-	}
+        return super.execute(client);
+    }
+
+    public RemoteOperationResult execute(@NonNull NextcloudClient client, FileDataStorageManager storageManager) {
+        if (storageManager == null) {
+            throw new IllegalArgumentException("Trying to execute a sync operation with a NULL storage manager");
+        }
+        this.storageManager = storageManager;
+
+        return run(client);
+    }
 
 
     /**

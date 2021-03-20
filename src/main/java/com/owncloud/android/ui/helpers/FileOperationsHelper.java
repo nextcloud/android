@@ -38,13 +38,11 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
@@ -83,7 +81,6 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -547,6 +544,31 @@ public class FileOperationsHelper {
         }
     }
 
+    public void openFileAsRichDocument(OCFile file, Context context) {
+        Intent collaboraWebViewIntent = new Intent(context, RichDocumentsEditorWebView.class);
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(collaboraWebViewIntent);
+    }
+
+    public void openFileWithTextEditor(OCFile file, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
+    }
+
+    public void openRichWorkspaceWithTextEditor(OCFile file, String url, Context context) {
+        Intent textEditorIntent = new Intent(context, TextEditorWebView.class);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text");
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
+        textEditorIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        context.startActivity(textEditorIntent);
+    }
+
     @NonNull
     private Intent createOpenFileIntent(OCFile file) {
         String storagePath = file.getStoragePath();
@@ -981,43 +1003,6 @@ public class FileOperationsHelper {
         return new File(storageDir + File.separator + "scanDocUpload.pdf");
     }
 
-    public void setPictureAs(OCFile file, View view) {
-        if (file != null) {
-            Context context = MainApp.getAppContext();
-            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
-            Uri uri;
-
-            try {
-                if (file.isDown()) {
-                    File externalFile = new File(file.getStoragePath());
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        uri = FileProvider.getUriForFile(context,
-                                                         context.getResources().getString(R.string.file_provider_authority), externalFile);
-                    } else {
-                        uri = Uri.fromFile(externalFile);
-                    }
-                } else {
-                    uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
-                                        context.getResources().getString(R.string.image_cache_provider_authority) +
-                                        file.getRemotePath());
-                }
-
-                intent.setDataAndType(uri, file.getMimeType());
-                fileActivity.startActivityForResult(Intent.createChooser(intent,
-                                                                         fileActivity.getString(R.string.set_as)),
-                                                    200);
-
-                intent.setDataAndType(uri, file.getMimeType());
-            } catch (ActivityNotFoundException exception) {
-                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
-            }
-        } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
-        }
-    }
-
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.
      *
@@ -1122,3 +1107,4 @@ public class FileOperationsHelper {
         return stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
     }
 }
+

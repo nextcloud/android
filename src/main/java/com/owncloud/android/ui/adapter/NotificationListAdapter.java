@@ -56,10 +56,11 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -74,12 +75,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder> {
     private static final String FILE = "file";
     private static final String ACTION_TYPE_WEB = "WEB";
-    private StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
-    private ForegroundColorSpan foregroundColorSpanBlack;
+    private final StyleSpan styleSpanBold = new StyleSpan(Typeface.BOLD);
+    private final ForegroundColorSpan foregroundColorSpanBlack;
 
-    private List<Notification> notificationsList;
-    private OwnCloudClient client;
-    private NotificationsActivity notificationsActivity;
+    private final List<Notification> notificationsList;
+    private final OwnCloudClient client;
+    private final NotificationsActivity notificationsActivity;
 
     public NotificationListAdapter(OwnCloudClient client, NotificationsActivity notificationsActivity) {
         this.notificationsList = new ArrayList<>();
@@ -176,10 +177,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
-            int primaryColor = ThemeUtils.primaryColor(notificationsActivity);
+            int primaryColor = ThemeColorUtils.primaryColor(notificationsActivity);
 
             if (action.primary) {
-                ThemeUtils.colorPrimaryButton(button, notificationsActivity);
+                ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
             } else {
                 button.setBackgroundColor(resources.getColor(R.color.grey_200));
                 button.setTextColor(primaryColor);

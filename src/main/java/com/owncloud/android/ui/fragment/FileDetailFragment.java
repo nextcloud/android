@@ -62,7 +62,9 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeBarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -204,7 +206,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
-            ThemeUtils.colorHorizontalProgressBar(binding.progressBar, ThemeUtils.primaryAccentColor(getContext()));
+            ThemeBarUtils.colorHorizontalProgressBar(binding.progressBar, ThemeColorUtils.primaryAccentColor(getContext()));
             progressListener = new ProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
             binding.favorite.setOnClickListener(this);
@@ -227,11 +229,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setupViewPager() {
         binding.tabLayout.removeAllTabs();
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
 
-        binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        binding.tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
+        ThemeLayoutUtils.colorTabLayout(getContext().getApplicationContext(), binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);
@@ -417,11 +418,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 break;
             }
             case R.id.favorite: {
-                if (getFile().isFavorite()) {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
-                } else {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
-                }
+                containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
                 setFavoriteIconStatus(!getFile().isFavorite());
                 break;
             }
@@ -558,7 +555,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         Bitmap resizedImage;
 
         if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
+            String tagId = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId();
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
@@ -567,7 +564,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             } else {
                 // show thumbnail while loading resized image
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId());
 
                 if (thumbnail != null) {
                     toolbarActivity.setPreviewImageBitmap(thumbnail);
@@ -694,7 +691,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         private int lastPercent;
-        private WeakReference<ProgressBar> progressBarReference;
+        private final WeakReference<ProgressBar> progressBarReference;
 
         ProgressListener(ProgressBar progressBar) {
             progressBarReference = new WeakReference<>(progressBar);

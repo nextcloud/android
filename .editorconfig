@@ -13,13 +13,16 @@ max_line_length=120
 indent_style=space
 indent_size=4
 
-charset=utf-8
+[*.yml]
+max_line_length = 150
+
+charset = utf-8
 
 # Trimming is good for consistency
-trim_trailing_whitespace=true
+trim_trailing_whitespace = true
 # I've seen cases where a missing new_line was ignored on *nix systems.
 # Never again with this setting!
-insert_final_newline=true
+insert_final_newline = true
 
 [*.properties]
 # Exception for Java properties files should be encoded latin1 (aka iso8859-1)

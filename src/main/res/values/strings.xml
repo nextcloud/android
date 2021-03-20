@@ -121,12 +121,12 @@
     <string name="common_save">Save</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading…</string>
-    <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
+    <string name="common_skip">Skip</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -723,10 +723,6 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
-    <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_scan_doc_page_counter" translatable="false">%d/%d</string>
-    <string name="upload_scan_doc_crop_error">Error cropping image</string>
-    <string name="upload_scan_doc_fail_to_upload">Fail to upload scanned document!</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
@@ -956,14 +952,9 @@
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
-    <string name="scanned_document">Scanned document</string>
-    <string name="scan_doc_rotate_image">Rotate image</string>
-    <string name="scan_doc_delete_page">Delete page</string>
-    <string name="scan_doc_retake_picture">Retake picture</string>
-    <string name="scan_doc_crop_image">Crop image</string>
-    <string name="scan_doc_reset_image">Reset</string>
-    <string name="scan_doc_invert_image">Invert image</string>
-    <string name="scan_doc_rename_document">Rename document</string>
-    <string name="scan_doc_previous_image">Previous image</string>
-    <string name="scan_doc_next_image">Next image</string>
+    <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
+    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
+    <string name="create">Create</string>
+    <string name="select_one_template">Please select one template</string>
+    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
 </resources>

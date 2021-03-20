@@ -102,7 +102,10 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeFabUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -206,7 +209,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         ADD_GRID_AND_SORT_WITH_SEARCH
     }
 
-    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
+    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private final List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
@@ -292,7 +295,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -320,7 +323,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -343,7 +345,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getUser(),
             preferences,
-            accountManager,
             mContainerActivity,
             this,
             hideItemOptions,
@@ -433,7 +434,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileActivity activity = (FileActivity) getActivity();
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
             mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
                                                                              this,
                                                                              deviceInfo,
@@ -572,9 +573,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void showTemplate(Creator creator) {
-        ChooseTemplateDialogFragment.newInstance(mFile, creator).show(requireActivity().getSupportFragmentManager(),
-                                                                      DIALOG_CREATE_DOCUMENT);
+    public void showTemplate(Creator creator, String headline) {
+        ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
+                                                                                DIALOG_CREATE_DOCUMENT);
     }
 
     private void updateLayout() {
@@ -585,21 +586,119 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
-        }
-        if (mSwitchGridViewButton != null) {
-            setGridSwitchButton();
+        @Override
+        public void onDrawerOpened (@NonNull View drawerView){
+            // nothing to do
         }
 
-        // registerFabListener();
-        setFabVisible(!mHideFab);
+        /**
+         * When the navigation drawer is closed, action mode is recovered in the same state as was
+         * when the drawer was (started to be) opened.
+         *
+         * @param drawerView Navigation drawer just closed.
+         */
+        @Override
+        public void onDrawerClosed (@NonNull View drawerView){
+            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
+                FragmentActivity actionBarActivity = getActivity();
+                actionBarActivity.startActionMode(mMultiChoiceModeListener);
 
-        // FAB
-        setFabEnabled(mFile != null && mFile.canWrite());
+                getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
 
-        invalidateActionMode();
-    }
+                mActiveActionMode.invalidate();
+
+                mSelectionWhenActionModeClosedByDrawer.clear();
+            }
+        }
+
+        /**
+         * If the action mode is active when the navigation drawer starts to move, the action
+         * mode is closed and the selection stored to be recovered when the drawer is closed.
+         *
+         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+         */
+        @Override
+        public void onDrawerStateChanged ( int newState){
+            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
+                mSelectionWhenActionModeClosedByDrawer.addAll(((OCFileListAdapter) getRecyclerView().getAdapter())
+                                                                  .getCheckedItems());
+                mActiveActionMode.finish();
+                mActionModeClosedByDrawer = true;
+            }
+        }
+
+        /**
+         * Update action mode bar when an item is selected / unselected in the list
+         */
+        @Override
+        public void onItemCheckedStateChanged (ActionMode mode,int position, long id, boolean checked){
+            // nothing to do here
+        }
+
+        /**
+         * Load menu and customize UI when action mode is started.
+         */
+        @Override
+        public boolean onCreateActionMode (ActionMode mode, Menu menu){
+            mActiveActionMode = mode;
+            // Determine if actionMode is "new" or not (already affected by item-selection)
+            mIsActionModeNew = true;
+
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.item_file, menu);
+            mode.invalidate();
+
+            //set actionMode color
+            ThemeToolbarUtils.colorStatusBar(getActivity(), ThemeColorUtils.actionModeColor(requireContext()));
+
+            // hide FAB in multi selection mode
+            setFabVisible(false);
+
+            mAdapter.setMultiSelect(true);
+            return true;
+        }
+
+        /**
+         * Updates available action in menu depending on current selection.
+         */
+        @Override
+        public boolean onPrepareActionMode (ActionMode mode, Menu menu){
+            final int checkedCount = mAdapter.getCheckedItems().size();
+            Set<OCFile> checkedFiles = mAdapter.getCheckedItems();
+            String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
+            mode.setTitle(title);
+            FileMenuFilter mf = new FileMenuFilter(
+                mAdapter.getFiles().size(),
+                checkedFiles,
+                mContainerActivity,
+                getActivity(),
+                false,
+                deviceInfo,
+                accountManager.getUser()
+            );
+
+            mf.filter(menu, false);
+
+            // Determine if we need to finish the action mode because there are no items selected
+            if (checkedCount == 0 && !mIsActionModeNew) {
+                exitSelectionMode();
+            }
+
+            if (mSortButton != null) {
+                mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
+            }
+            if (mSwitchGridViewButton != null) {
+                setGridSwitchButton();
+            }
+
+            // registerFabListener();
+            setFabVisible(!mHideFab);
+
+            // FAB
+            setFabEnabled(mFile != null && mFile.canWrite());
+
+            invalidateActionMode();
+        }
 
     /**
      * Init listener that will handle interactions in multiple selection mode.
@@ -1174,24 +1273,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // nothing to do
         }
 
-        /**
-         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
-         * (started to be) opened.
-         *
-         * @param drawerView Navigation drawer just closed.
-         */
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
-                FragmentActivity actionBarActivity = getActivity();
-                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+        if(mSortButton !=null)
 
-                getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
+        {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
+        }
+        if(mSwitchGridViewButton !=null)
 
-                mActiveActionMode.invalidate();
+        {
+            setGridSwitchButton();
+        }
 
-                mSelectionWhenActionModeClosedByDrawer.clear();
-            }
+        getAdapter().
+
+        setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
+
+                mActiveActionMode.invalidate()
+
+                mSelectionWhenActionModeClosedByDrawer.clear()
+    }
         }
 
         /**
@@ -1651,8 +1751,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected void setTitle(@StringRes final int title) {
         getActivity().runOnUiThread(() -> {
             if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
-                                           title, getContext());
+                ThemeToolbarUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
+                                                  title, getContext());
             }
         });
     }
@@ -1663,7 +1763,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
 
                 if (actionBar != null) {
-                    ThemeUtils.setColoredTitle(actionBar, title, getContext());
+                    ThemeToolbarUtils.setColoredTitle(actionBar, title, getContext());
                 }
             }
         });
@@ -1812,7 +1912,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.hide();
                 }
@@ -1862,10 +1962,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.setEnabled(false);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
                 }
             });
         }

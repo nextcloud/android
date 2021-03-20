@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -99,7 +98,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         webview.addJavascriptInterface(new RichDocumentsMobileInterface(), "RichDocumentsMobileInterface");
 
         webview.setWebChromeClient(new WebChromeClient() {
-            RichDocumentsEditorWebView activity = RichDocumentsEditorWebView.this;
+            final RichDocumentsEditorWebView activity = RichDocumentsEditorWebView.this;
 
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,

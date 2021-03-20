@@ -138,6 +138,26 @@ public class DialogFragmentIT extends AbstractIT {
 
     @Test
     @ScreenshotTest
+    public void testEnforcedPasswordDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+        SharePasswordDialogFragment sut = SharePasswordDialogFragment.newInstance(new OCFile("/"), true, false);
+        showDialog(sut);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testOptionalPasswordDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+        SharePasswordDialogFragment sut = SharePasswordDialogFragment.newInstance(new OCFile("/"), true, true);
+        showDialog(sut);
+    }
+
+    @Test
+    @ScreenshotTest
     public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
@@ -278,12 +298,7 @@ public class DialogFragmentIT extends AbstractIT {
             }
 
             @Override
-            public void scanDocUpload() {
-                
-            }
-
-            @Override
-            public void showTemplate(Creator creator) {
+            public void showTemplate(Creator creator, String headline) {
 
             }
 

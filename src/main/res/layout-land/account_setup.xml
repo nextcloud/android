@@ -46,8 +46,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/default_login_width"
+            android:minWidth="@dimen/default_login_width"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/standard_half_padding">
@@ -55,83 +57,84 @@
             <FrameLayout
                 android:id="@+id/host_url_frame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/zero"
-                android:background="@color/primary">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/host_url_container"
+                    style="@style/Widget.App.Login.TextInputLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="@string/auth_host_url"
-                        android:labelFor="@+id/host_url_input"
-                        android:textColor="@color/login_text_color" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/auth_host_url"
+                    android:theme="@style/TextInputLayoutLogin"
+                    app:endIconContentDescription="@string/test_server_button"
+                    app:endIconDrawable="@drawable/arrow_right"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/login_text_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/host_url_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/minimum_size_for_touchable_area"
-                        android:layout_gravity="bottom"
-                        android:drawablePadding="@dimen/alternate_half_padding"
-                        android:inputType="textUri"
-                        android:paddingStart="@dimen/zero"
+                        android:gravity="top"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
+                        android:lines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/standard_padding"
                         android:paddingEnd="@dimen/alternate_padding_right"
-                        android:textColor="@color/login_text_color"
-                        android:textColorHint="@color/login_text_hint_color">
+                        android:scrollbars="vertical"
+                        android:textColor="@color/login_text_color">
 
                         <requestFocus />
 
                     </com.google.android.material.textfield.TextInputEditText>
 
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/test_server_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="@dimen/alternate_half_padding"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/test_server_button"
-                    android:onClick="onTestServerConnectionClick"
-                    android:padding="@dimen/zero"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/arrow_right"
-                    android:tint="@color/login_btn_tint" />
-
+                </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/host_url_input_helper_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_quarter_padding"
+                android:paddingEnd="@dimen/standard_half_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
+                android:text="@string/login_url_helper_text"
+                android:textColor="@color/white_helper_text" />
 
             <TextView
                 android:id="@+id/server_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/alternate_half_margin"
                 android:contentDescription="@string/auth_testing_connection"
-                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/display_text_min_height"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_eight_padding"
+                android:paddingEnd="@dimen/standard_eight_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
                 android:text="@string/auth_testing_connection"
                 android:textColor="@color/login_text_color"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
 
             <TextView
                 android:id="@+id/auth_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/auth_unauthorized"
-                app:drawableStartCompat="@android:drawable/stat_notify_sync"
                 android:drawablePadding="@dimen/alternate_half_padding"
                 android:gravity="center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_eight_padding"
+                android:paddingEnd="@dimen/standard_eight_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
                 android:text="@string/auth_unauthorized"
-                android:textColor="@color/login_text_color" />
+                android:textColor="@color/login_text_color"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
 
             <ImageButton
                 android:id="@+id/scan_qr"

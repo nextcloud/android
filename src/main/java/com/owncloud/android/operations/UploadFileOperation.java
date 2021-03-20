@@ -111,14 +111,14 @@ public class UploadFileOperation extends SyncOperation {
      */
     private OCFile mOldFile;
     private String mRemotePath;
-    private String mFolderUnlockToken;
+    private final String mFolderUnlockToken;
     private boolean mRemoteFolderToBeCreated;
-    private FileUploader.NameCollisionPolicy mNameCollisionPolicy;
-    private int mLocalBehaviour;
+    private final FileUploader.NameCollisionPolicy mNameCollisionPolicy;
+    private final int mLocalBehaviour;
     private int mCreatedBy;
-    private boolean mOnWifiOnly;
-    private boolean mWhileChargingOnly;
-    private boolean mIgnoringPowerSaveMode;
+    private final boolean mOnWifiOnly;
+    private final boolean mWhileChargingOnly;
+    private final boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
 
     private boolean mWasRenamed;
@@ -126,14 +126,14 @@ public class UploadFileOperation extends SyncOperation {
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
-    private String mOriginalStoragePath;
+    private final String mOriginalStoragePath;
     private final Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
     private OnRenameListener mRenameUploadListener;
 
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
 
-    private Context mContext;
+    private final Context mContext;
 
     private UploadFileRemoteOperation mUploadOperation;
 
@@ -690,11 +690,6 @@ public class UploadFileOperation extends SyncOperation {
     private RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
 
-        // check that internet is not behind walled garden
-        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-            remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
-        }
-
         // check that connectivity conditions are met and delays the upload otherwise
         Connectivity connectivity = connectivityService.getConnectivity();
         if (mOnWifiOnly && (!connectivity.isWifi() || connectivity.isMetered())) {
@@ -712,13 +707,18 @@ public class UploadFileOperation extends SyncOperation {
         // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && powerManagementService.isPowerSavingEnabled()) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
-            remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
         }
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
-            remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
+        // check that internet is not behind walled garden
+        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
+            remoteOperationResult = new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         return remoteOperationResult;

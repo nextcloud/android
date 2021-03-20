@@ -1,4 +1,4 @@
-/**
+/*
  *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
@@ -47,14 +47,15 @@ import androidx.core.content.res.ResourcesCompat;
 public class StorageMigration {
     private static final String TAG = StorageMigration.class.getName();
 
-    private Context mContext;
-    private String mSourceStoragePath;
-    private String mTargetStoragePath;
+    private final Context mContext;
+    private final String mSourceStoragePath;
+    private final String mTargetStoragePath;
 
     private StorageMigrationProgressListener mListener;
 
     public interface StorageMigrationProgressListener {
         void onStorageMigrationFinished(String storagePath, boolean succeed);
+
         void onCancelMigration();
     }
 
@@ -321,7 +322,7 @@ public class StorageMigration {
     static private class FileMigrationTask extends FileMigrationTaskBase {
         private class MigrationException extends Exception {
             private static final long serialVersionUID = -4575848188034992066L;
-            private int mResId;
+            private final int mResId;
 
             MigrationException(int resId) {
                 super();

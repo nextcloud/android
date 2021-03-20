@@ -83,8 +83,8 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     public static final String NULL_STRING = "null";
 
-    private ContentResolver contentResolver;
-    private ContentProviderClient contentProviderClient;
+    private final ContentResolver contentResolver;
+    private final ContentProviderClient contentProviderClient;
     private Account account;
 
     public FileDataStorageManager(Account account, ContentResolver contentResolver) {
@@ -2041,6 +2041,8 @@ public class FileDataStorageManager {
                           capability.getServerBackground());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN,
                           capability.getServerSlogan());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_LOGO,
+                          capability.getServerLogo());
         contentValues.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION,
                           capability.getEndToEndEncryption().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT,
@@ -2126,6 +2128,15 @@ public class FileDataStorageManager {
         return capability;
     }
 
+    public boolean capabilityExistsForAccount(String accountName) {
+        Cursor cursor = getCapabilityCursorForAccount(accountName);
+
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+
+        return exists;
+    }
+
     private OCCapability createCapabilityInstance(Cursor cursor) {
         OCCapability capability = null;
         if (cursor != null) {
@@ -2176,6 +2187,7 @@ public class FileDataStorageManager {
             capability.setServerElementColor(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR));
             capability.setServerBackground(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL));
             capability.setServerSlogan(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN));
+            capability.setServerLogo(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_LOGO));
             capability.setEndToEndEncryption(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION));
             capability.setServerBackgroundDefault(
                 getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT));

@@ -117,7 +117,10 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.StringUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -300,12 +303,12 @@ public class FileDisplayActivity extends FileActivity
                 AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                     .setTitle(R.string.wrong_storage_path)
                     .setMessage(R.string.wrong_storage_path_desc)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
                     .setIcon(R.drawable.ic_settings)
                     .create();
 
                 alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -326,7 +329,7 @@ public class FileDisplayActivity extends FileActivity
                                                   R.string.permission_storage_access,
                                                   Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
-                ThemeUtils.colorSnackbar(this, snackbar);
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
@@ -768,7 +771,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        ThemeUtils.themeSearchView(searchView, this);
+        ThemeToolbarUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
@@ -939,7 +942,8 @@ public class FileDisplayActivity extends FileActivity
                             return;
                         }
 
-                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(),
+                                                           new String[]{renamedFile.getAbsolutePath()},
                                                            FileUploader.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
@@ -983,15 +987,21 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode);
+        String basePath = data.getStringExtra(UploadFilesActivity.LOCAL_BASE_PATH);
+        requestUploadOfFilesFromFileSystem(basePath, filePaths, resultCode);
     }
 
-    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
+    private void requestUploadOfFilesFromFileSystem(String localBasePath, String[] filePaths, int resultCode) {
         if (filePaths != null) {
+            if (!localBasePath.endsWith("/")) {
+                localBasePath = localBasePath + "/";
+            }
+
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
             for (int j = 0; j < remotePaths.length; j++) {
-                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+                String relativePath = StringUtils.removePrefix(filePaths[j], localBasePath);
+                remotePaths[j] = remotePathBase + relativePath;
             }
 
             int behaviour;
@@ -1020,12 +1030,12 @@ public class FileDisplayActivity extends FileActivity
                 remotePaths,
                 null,           // MIME type will be detected from file name
                 behaviour,
-                false,          // do not create parent folder if not existent
+                true,
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
                 FileUploader.NameCollisionPolicy.ASK_USER
-            );
+                                      );
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -1054,13 +1064,13 @@ public class FileDisplayActivity extends FileActivity
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
         UriUploader uploader = new UriUploader(
-                this,
-                streamsToUpload,
-                remotePath,
-                getAccount(),
-                behaviour,
-                false, // Not show waiting dialog while file is being copied from private storage
-                null  // Not needed copy temp task listener
+            this,
+            streamsToUpload,
+            remotePath,
+            getUser().orElseThrow(RuntimeException::new),
+            behaviour,
+            false, // Not show waiting dialog while file is being copied from private storage
+            null  // Not needed copy temp task listener
         );
 
         uploader.uploadUris();
@@ -1181,6 +1191,17 @@ public class FileDisplayActivity extends FileActivity
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
+        // Listen for sync messages
+        if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        }
+
         if (!(leftFragment instanceof OCFileListFragment)) {
             return;
         }
@@ -1205,17 +1226,6 @@ public class FileDisplayActivity extends FileActivity
         } else {
             ocFileListFragment.listDirectory(startFile, false, false);
             updateActionBarTitleAndHomeButton(startFile);
-        }
-
-        // Listen for sync messages
-        if (!ocFileListFragment.isSearchFragment()) {
-            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         }
 
         // Listen for upload messages

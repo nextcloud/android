@@ -77,10 +77,10 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +93,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
@@ -193,7 +194,7 @@ public class FileUploader extends Service
     @Inject PowerManagementService powerManagementService;
     @Inject LocalBroadcastManager localBroadcastManager;
 
-    private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
+    private final IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
     /**
      * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent
@@ -213,42 +214,61 @@ public class FileUploader extends Service
     }
 
     /**
-     * Service initialization
+     * Retry a subset of all the stored failed uploads.
+     *
+     * @param context      Caller {@link Context}
+     * @param account      If not null, only failed uploads to this OC account will be retried; otherwise, uploads of
+     *                     all accounts will be retried.
+     * @param uploadResult If not null, only failed uploads with the result specified will be retried; otherwise, failed
+     *                     uploads due to any result will be retried.
      */
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        AndroidInjection.inject(this);
-        Log_OC.d(TAG, "Creating service");
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper, this);
-        mBinder = new FileUploaderBinder();
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
-            getApplicationContext().getResources().getString(R.string.app_name))
-            .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(ThemeUtils.primaryColor(getApplicationContext(), true));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
+    public static void retryFailedUploads(
+        @NonNull final Context context,
+        @Nullable final Account account,
+        @NonNull final UploadsStorageManager uploadsStorageManager,
+        @NonNull final ConnectivityService connectivityService,
+        @NonNull final UserAccountManager accountManager,
+        @NonNull final PowerManagementService powerManagementService,
+        @Nullable final UploadResult uploadResult
+                                         ) {
+        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+        if (failedUploads.length == 0) {
+            //nothing to do
+            return;
         }
 
-        mNotification = builder.build();
+        Account currentAccount = null;
+        boolean resultMatch;
+        boolean accountMatch;
 
-        // TODO Add UploadResult.KILLED?
-        int failedCounter = mUploadsStorageManager.failInProgressUploads(UploadResult.SERVICE_INTERRUPTED);
-        if (failedCounter > 0) {
-            resurrection();
+        final Connectivity connectivity = connectivityService.getConnectivity();
+        final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
+        final boolean gotWifi = connectivity.isWifi();
+        final BatteryStatus batteryStatus = powerManagementService.getBattery();
+        final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
+        final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
+
+        for (OCUpload failedUpload : failedUploads) {
+            accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
+            resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
+            if (accountMatch && resultMatch) {
+                if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
+                    currentAccount = failedUpload.getAccount(accountManager);
+                }
+
+                if (!new File(failedUpload.getLocalPath()).exists()) {
+                    if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
+                        failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
+                        uploadsStorageManager.updateUpload(failedUpload);
+                    }
+                } else {
+
+                    if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
+                        retryUpload(context, currentAccount, failedUpload);
+                    }
+                }
+            }
         }
-
-        // add AccountsUpdatedListener
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.addOnAccountsUpdatedListener(this, null, false);
     }
 
     /**
@@ -741,95 +761,42 @@ public class FileUploader extends Service
     }
 
     /**
-     * Updates the status notification with the result of an upload operation.
-     *
-     * @param uploadResult Result of the upload operation.
-     * @param upload       Finished upload operation
+     * Service initialization
      */
-    private void notifyUploadResult(UploadFileOperation upload, RemoteOperationResult uploadResult) {
-        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
-        // cancelled operation or success -> silent removal of progress notification
-        if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AndroidInjection.inject(this);
+        Log_OC.d(TAG, "Creating service");
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        mServiceLooper = thread.getLooper();
+        mServiceHandler = new ServiceHandler(mServiceLooper, this);
+        mBinder = new FileUploaderBinder();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
+            getApplicationContext().getResources().getString(R.string.app_name))
+            .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+            .setColor(ThemeColorUtils.primaryColor(getApplicationContext(), true));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
         }
 
-        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+        mNotification = builder.build();
 
-        // Only notify if the upload fails
-        if (!uploadResult.isCancelled() &&
-            !uploadResult.isSuccess() &&
-            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
-            !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)) {
-
-            int tickerId = R.string.uploader_upload_failed_ticker;
-
-            String content;
-
-            // check credentials error
-            boolean needsToUpdateCredentials = uploadResult.getCode() == ResultCode.UNAUTHORIZED;
-            if (needsToUpdateCredentials) {
-                tickerId = R.string.uploader_upload_failed_credentials_error;
-            } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) { // check file conflict
-                tickerId = R.string.uploader_upload_failed_sync_conflict_error;
-            }
-
-            mNotificationBuilder
-                .setTicker(getString(tickerId))
-                .setContentTitle(getString(tickerId))
-                .setAutoCancel(true)
-                .setOngoing(false)
-                .setProgress(0, 0, false);
-
-            content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
-
-            if (needsToUpdateCredentials) {
-                // let the user update credentials with one click
-                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                updateAccountCredentials.putExtra(
-                    AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
-                );
-                updateAccountCredentials.putExtra(
-                    AuthenticatorActivity.EXTRA_ACTION,
-                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                );
-
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
-                    this,
-                    (int) System.currentTimeMillis(),
-                    updateAccountCredentials,
-                    PendingIntent.FLAG_ONE_SHOT
-                ));
-            } else {
-                Intent intent;
-                if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
-                    intent = ConflictsResolveActivity.createIntent(upload.getFile(),
-                                                                   upload.getAccount(),
-                                                                   upload.getOCUploadId(),
-                                                                   Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                                                   this);
-                } else {
-                    intent = UploadListActivity.createIntent(upload.getFile(),
-                                                             upload.getAccount(),
-                                                             Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                                             this);
-                }
-
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
-                                                                                (int) System.currentTimeMillis(),
-                                                                                intent,
-                                                                                0)
-                                                     );
-            }
-
-            mNotificationBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+        // TODO Add UploadResult.KILLED?
+        int failedCounter = mUploadsStorageManager.failInProgressUploads(UploadResult.SERVICE_INTERRUPTED);
+        if (failedCounter > 0) {
+            resurrection();
         }
+
+        // add AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.addOnAccountsUpdatedListener(this, null, false);
     }
 
     /**
@@ -1042,55 +1009,96 @@ public class FileUploader extends Service
     }
 
     /**
-     * Retry a subset of all the stored failed uploads.
+     * Updates the status notification with the result of an upload operation.
      *
-     * @param context      Caller {@link Context}
-     * @param account      If not null, only failed uploads to this OC account will be retried; otherwise, uploads of
-     *                     all accounts will be retried.
-     * @param uploadResult If not null, only failed uploads with the result specified will be retried; otherwise, failed
-     *                     uploads due to any result will be retried.
+     * @param uploadResult Result of the upload operation.
+     * @param upload       Finished upload operation
      */
-    public static void retryFailedUploads(
-        @NonNull final Context context,
-        @Nullable final Account account,
-        @NonNull final UploadsStorageManager uploadsStorageManager,
-        @NonNull final ConnectivityService connectivityService,
-        @NonNull final UserAccountManager accountManager,
-        @NonNull final PowerManagementService powerManagementService,
-        @Nullable final UploadResult uploadResult
-    ) {
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        Account currentAccount = null;
-        boolean resultMatch;
-        boolean accountMatch;
+    @SuppressFBWarnings("DMI")
+    private void notifyUploadResult(UploadFileOperation upload, RemoteOperationResult uploadResult) {
+        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
+        // cancelled operation or success -> silent removal of progress notification
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
 
-        final Connectivity connectivity = connectivityService.getConnectivity();
-        final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
-        final boolean gotWifi = connectivity.isWifi();
-        final BatteryStatus batteryStatus = powerManagementService.getBattery();
-        final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-        final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
+        // Only notify if the upload fails
+        if (!uploadResult.isCancelled() &&
+            !uploadResult.isSuccess() &&
+            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
+            !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)) {
 
-        for (OCUpload failedUpload : failedUploads) {
-            accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
-            resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
-            if (accountMatch && resultMatch) {
-                if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
-                    currentAccount = failedUpload.getAccount(accountManager);
-                }
+            int tickerId = R.string.uploader_upload_failed_ticker;
 
-                if (!new File(failedUpload.getLocalPath()).exists()) {
-                    if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
-                        failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                        uploadsStorageManager.updateUpload(failedUpload);
-                    }
-                } else {
+            String content;
 
-                    if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
-                        retryUpload(context, currentAccount, failedUpload);
-                    }
-                }
+            // check credentials error
+            boolean needsToUpdateCredentials = uploadResult.getCode() == ResultCode.UNAUTHORIZED;
+            if (needsToUpdateCredentials) {
+                tickerId = R.string.uploader_upload_failed_credentials_error;
+            } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) { // check file conflict
+                tickerId = R.string.uploader_upload_failed_sync_conflict_error;
             }
+
+            mNotificationBuilder
+                .setTicker(getString(tickerId))
+                .setContentTitle(getString(tickerId))
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setProgress(0, 0, false);
+
+            content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
+
+            if (needsToUpdateCredentials) {
+                // let the user update credentials with one click
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                updateAccountCredentials.putExtra(
+                    AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
+                                                 );
+                updateAccountCredentials.putExtra(
+                    AuthenticatorActivity.EXTRA_ACTION,
+                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+                                                 );
+
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+                    this,
+                    (int) System.currentTimeMillis(),
+                    updateAccountCredentials,
+                    PendingIntent.FLAG_ONE_SHOT
+                                                                               ));
+            } else {
+                Intent intent;
+                if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
+                    intent = ConflictsResolveActivity.createIntent(upload.getFile(),
+                                                                   upload.getAccount(),
+                                                                   upload.getOCUploadId(),
+                                                                   Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                                                   this);
+                } else {
+                    intent = UploadListActivity.createIntent(upload.getFile(),
+                                                             upload.getAccount(),
+                                                             Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                                             this);
+                }
+
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
+                                                                                (int) System.currentTimeMillis(),
+                                                                                intent,
+                                                                                0)
+                                                     );
+            }
+
+            mNotificationBuilder.setContentText(content);
+            if (!uploadResult.isSuccess()) {
+                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
+            }
+
         }
     }
 
@@ -1137,8 +1145,42 @@ public class FileUploader extends Service
     }
 
     /**
+     * Upload worker. Performs the pending uploads in the order they were requested.
+     * <p>
+     * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
+     */
+    private static class ServiceHandler extends Handler {
+        // don't make it a final class, and don't remove the static ; lint will
+        // warn about a possible memory leak
+        private final FileUploader mService;
+
+        public ServiceHandler(Looper looper, FileUploader service) {
+            super(looper);
+            if (service == null) {
+                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            }
+            mService = service;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            @SuppressWarnings("unchecked")
+            List<String> requestedUploads = (List<String>) msg.obj;
+            if (msg.obj != null) {
+                for (String requestedUpload : requestedUploads) {
+                    mService.uploadFile(requestedUpload);
+                }
+            }
+            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+            mService.stopForeground(true);
+            mService.stopSelf(msg.arg1);
+        }
+    }
+
+    /**
      * Binder to let client components to perform operations on the queue of uploads.
-     *
+     * <p>
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
@@ -1146,7 +1188,7 @@ public class FileUploader extends Service
         /**
          * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
+        private final Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
 
         /**
          * Cancels a pending or current upload of a remote file.
@@ -1375,40 +1417,6 @@ public class FileUploader extends Service
          */
         private String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
-        }
-    }
-
-
-    /**
-     * Upload worker. Performs the pending uploads in the order they were requested.
-     *
-     * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
-     */
-    private static class ServiceHandler extends Handler {
-        // don't make it a final class, and don't remove the static ; lint will
-        // warn about a possible memory leak
-        private FileUploader mService;
-
-        public ServiceHandler(Looper looper, FileUploader service) {
-            super(looper);
-            if (service == null) {
-                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
-            }
-            mService = service;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            @SuppressWarnings("unchecked")
-            List<String> requestedUploads = (List<String>) msg.obj;
-            if (msg.obj != null) {
-                for (String requestedUpload : requestedUploads) {
-                    mService.uploadFile(requestedUpload);
-                }
-            }
-            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
-            mService.stopForeground(true);
-            mService.stopSelf(msg.arg1);
         }
     }
 }

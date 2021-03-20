@@ -283,7 +283,7 @@
     <string name="favorite">افزوردن به موارد دلخواه</string>
     <string name="favorite_icon">مورد ‌علاقه</string>
     <string name="file_delete">حذف</string>
-    <string name="file_detail_activity_error">خطا در بازیابی فعالیت ها برای پرونده</string>
+    <string name="file_detail_activity_error">خطا در بازیابی فعالیت‌ها برای فایل</string>
     <string name="file_details_no_content">بارگیری جزئیات انجام نشد</string>
     <string name="file_icon">فایل</string>
     <string name="file_keep">نگاه داشتن</string>

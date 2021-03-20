@@ -44,14 +44,10 @@ import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -73,7 +69,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -83,7 +79,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -98,8 +95,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,20 +108,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int showFilenameColumnThreshold = 4;
     private final ComponentsGetter transferServiceGetter;
     private final String userId;
-    private Activity activity;
-    private AppPreferences preferences;
-    private UserAccountManager accountManager;
+    private final Activity activity;
+    private final AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
-    private List<OCFile> mFilesAll = new ArrayList<>();
-    private boolean hideItemOptions;
+    private final List<OCFile> mFilesAll = new ArrayList<>();
+    private final boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
     private boolean multiSelect;
-    private Set<OCFile> checkedFiles;
+    private final Set<OCFile> checkedFiles;
 
     private FileDataStorageManager mStorageManager;
     private User user;
-    private OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final OCFileListFragmentInterface ocFileListFragmentInterface;
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
@@ -137,7 +131,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEWTYPE_IMAGE = 2;
     private static final int VIEWTYPE_HEADER = 3;
 
-    private List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
+    private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
@@ -146,7 +140,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Activity activity,
         User user,
         AppPreferences preferences,
-        UserAccountManager accountManager,
         ComponentsGetter transferServiceGetter,
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
@@ -155,7 +148,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
-        this.accountManager = accountManager;
         this.user = user;
         hideItemOptions = argHideItemOptions;
         this.gridView = gridView;
@@ -337,8 +329,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OCFileListFooterViewHolder) {
             OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
             footerViewHolder.footerText.setText(getFooterText());
-            footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(activity),
-                                                                                   PorterDuff.Mode.SRC_IN);
+            footerViewHolder.progressBar.getIndeterminateDrawable()
+                .setColorFilter(ThemeColorUtils.primaryColor(activity), PorterDuff.Mode.SRC_IN);
             footerViewHolder.progressBar.setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof OCFileListHeaderViewHolder) {
@@ -370,8 +362,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else if (isCheckedFile(file)) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                  .getColor(R.color.selected_item_background));
-                gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                                                 ThemeUtils.primaryColor(activity)));
+                gridViewHolder.checkbox.setImageDrawable(
+                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                    ThemeColorUtils.primaryColor(activity)));
             } else {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -397,9 +390,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
 
-                Resources resources = activity.getResources();
-                float avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius);
-
                 if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !multiSelect && !gridView &&
                     !hideItemOptions) {
                     itemViewHolder.sharedAvatars.setVisibility(View.VISIBLE);
@@ -420,58 +410,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
 
-                    int shareeSize = Math.min(sharees.size(), 3);
-                    int w = DisplayUtils.convertDpToPixel(40, activity);
-                    int margin = DisplayUtils.convertDpToPixel(24, activity);
-                    int size = 60 * (shareeSize - 1) + w;
-
-                    for (int i = 0; i < shareeSize; i++) {
-                        ShareeUser sharee = sharees.get(i);
-
-                        ImageView avatar = new ImageView(activity);
-
-                        if (i == 0 && sharees.size() > 3) {
-                            avatar.setImageResource(R.drawable.ic_people);
-                            ThemeUtils.setIconColor(avatar.getDrawable());
-                        } else {
-                            switch (sharee.getShareType()) {
-                                case GROUP:
-                                case EMAIL:
-                                case ROOM:
-                                case CIRCLE:
-                                    ThemeUtils.createAvatar(sharee.getShareType(), avatar, activity);
-                                    break;
-
-                                default:
-                                    if (sharee.getUserId().contains("@")) {
-                                        showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
-                                    } else {
-                                        avatar.setTag(sharee);
-                                        DisplayUtils.setAvatar(user,
-                                                               sharee.getUserId(),
-                                                               sharee.getDisplayName(),
-                                                               this,
-                                                               avatarRadius,
-                                                               resources,
-                                                               avatar,
-                                                               activity);
-                                    }
-                            }
-                        }
-
-                        avatar.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
-
-                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(w, w);
-                        layoutParams.setMargins(0, 0, i * margin, 0);
-                        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        avatar.setLayoutParams(layoutParams);
-                        itemViewHolder.sharedAvatars.addView(avatar);
-
-                        ViewGroup.LayoutParams rememberParam = itemViewHolder.sharedAvatars.getLayoutParams();
-                        rememberParam.width = size;
-
-                        itemViewHolder.sharedAvatars.setLayoutParams(rememberParam);
-                    }
+                    itemViewHolder.sharedAvatars.setAvatars(user, sharees);
+                    itemViewHolder.sharedAvatars.setOnClickListener(
+                        view -> ocFileListFragmentInterface.onShareIconClick(file));
                 } else {
                     itemViewHolder.sharedAvatars.setVisibility(View.GONE);
                     itemViewHolder.sharedAvatars.removeAllViews();
@@ -565,41 +506,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
     }
-
-    private void showFederatedShareAvatar(String user, float avatarRadius, Resources resources, ImageView avatar) {
-        // maybe federated share
-        String[] split = user.split("@");
-        String userId = split[0];
-        String server = split[1];
-
-        String url = "https://" + server + "/index.php/avatar/" + userId + "/" +
-            DisplayUtils.convertDpToPixel(avatarRadius, activity);
-
-        Drawable placeholder;
-        try {
-            placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = ThemeUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
-                                                                              R.drawable.account_circle_white, null),
-                                                  R.color.black);
-        }
-
-        avatar.setTag(null);
-        Glide.with(activity).load(url)
-            .asBitmap()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(new BitmapImageViewTarget(avatar) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    avatar.setImageDrawable(circularBitmapDrawable);
-                }
-            });
-        }
 
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
@@ -1282,7 +1188,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView overflowMenu;
 
         @BindView(R.id.sharedAvatars)
-        public RelativeLayout sharedAvatars;
+        public AvatarGroupLayout sharedAvatars;
 
         private OCFileListItemViewHolder(View itemView) {
             super(itemView);

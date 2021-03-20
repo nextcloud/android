@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
     <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
+    <string name="brute_force_delay">Слишком много неверных попыток, операция отложена</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
     <string name="changelog_dev_version">Журнал изменений версии для разработчиков</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
+    <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
@@ -173,10 +175,11 @@
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_shares">Не удалось получить перечень общих ресурсов</string>
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
+    <string name="create">Создать</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_new">Создать</string>
     <string name="create_new_document">Создать документ</string>
-    <string name="create_new_folder">Создать новую папку</string>
+    <string name="create_new_folder">Создать папку</string>
     <string name="create_new_presentation">Создать презентацию</string>
     <string name="create_new_spreadsheet">Создать таблицу</string>
     <string name="create_rich_workspace">Добавить информацию о папке</string>
@@ -193,6 +196,7 @@
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="dialog_close">Закрыть</string>
     <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
+    <string name="direct_login_failed">Не удалось войти по прямой ссылке.</string>
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
@@ -306,6 +310,7 @@
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
+    <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Выберите одно из действий:</string>
     <string name="file_migration_failed_dir_already_exists">Папка «Nextcloud» уже существует</string>
     <string name="file_migration_failed_not_enough_space">Недостаточно свободного места</string>
@@ -319,6 +324,7 @@
     <string name="file_migration_preparing">Подготовка переноса…</string>
     <string name="file_migration_restoring_accounts_configuration">Восстановление параметров учётной записи…</string>
     <string name="file_migration_saving_accounts_configuration">Сохранение параметров учётной записи…</string>
+    <string name="file_migration_source_not_readable">Действительно изменить расположение папки хранения данных на «%1$s»?\n\nВнимание: придётся заново скачать все данные.</string>
     <string name="file_migration_source_not_readable_title">Исходный каталог недоступен для чтения.</string>
     <string name="file_migration_updating_index">Обновление индекса…</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
@@ -365,15 +371,15 @@
     <string name="host_not_available">Сервер недоступен</string>
     <string name="host_your_own_server">Развернуть собственный сервер</string>
     <string name="in_folder">в папку %1$s</string>
-    <string name="instant_upload_existing">Также передать существующие файлы</string>
+    <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
     <string name="invisible">Невидимая</string>
     <string name="label_empty">Метка не может быть пустой</string>
     <string name="link">Ссылка</string>
-    <string name="link_share_allow_upload_and_editing">Разрешить приём и редактирование</string>
-    <string name="link_share_file_drop">Хранилище (только приём файлов)</string>
+    <string name="link_share_allow_upload_and_editing">Разрешить загрузку и редактирование</string>
+    <string name="link_share_file_drop">Хранилище (только загрузка файлов)</string>
     <string name="link_share_read_only">Только для чтения</string>
     <string name="list_layout">Вид списком</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
@@ -383,6 +389,7 @@
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>
     <string name="login">Войти</string>
+    <string name="login_url_helper_text">Ссылка для в %1$s через веб-интерфейс для использования в браузере.</string>
     <string name="logs_menu_delete">Удалить журнал</string>
     <string name="logs_menu_refresh">Обновить</string>
     <string name="logs_menu_search">Искать в журнале</string>
@@ -573,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="select_all">Выбрать все</string>
+    <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
     <string name="select_template">Выбрать шаблон</string>
     <string name="send">Отправить</string>
     <string name="send_note">Отправить примечание получателю</string>
@@ -761,7 +769,7 @@
     <string name="uploader_top_message">Выбрать каталог для передачи</string>
     <string name="uploader_upload_failed_content_single">Не удалось передать файл «%1$s»</string>
     <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
-    <string name="uploader_upload_failed_sync_conflict_error">Конфликт при передаче файла</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Конфликт при загрузке файла</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Выберите сохраняемую версию файла %1$s</string>
     <string name="uploader_upload_failed_ticker">Ошибка передачи на сервер</string>
     <string name="uploader_upload_files_behaviour">Параметры передачи:</string>
@@ -817,6 +825,8 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Укажите ваше состояние</string>
+    <string name="wrong_storage_path">Папка хранения данных не существует.</string>
+    <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
         <item quantity="few">Не удалось синхронизировать %1$d файлов (конфликтов: %2$d)</item>

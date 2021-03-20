@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -74,18 +74,18 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 Switch switchView = (Switch) child;
 
                 if(thumbColorStateList == null && trackColorStateList == null) {
-                    int thumbColor = ThemeUtils.primaryAccentColor(getContext());
-                    if (ThemeUtils.darkTheme(getContext()) &&
+                    int thumbColor = ThemeColorUtils.primaryAccentColor(getContext());
+                    if (ThemeColorUtils.darkTheme(getContext()) &&
                         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                         thumbColor = Color.WHITE;
                     }
                     int trackColor = Color.argb(77, Color.red(thumbColor), Color.green(thumbColor), Color.blue(thumbColor));
                     int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
                     thumbColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
+                        new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                        new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
                     trackColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked},
+                        new int[][]{new int[]{android.R.attr.state_checked},
                                 new int[]{}},
                             new int[]{trackColor, trackColorUnchecked});
                 }

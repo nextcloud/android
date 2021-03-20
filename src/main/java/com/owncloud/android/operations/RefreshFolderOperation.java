@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -86,20 +87,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
             RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
-    /** Time stamp for the synchronization process in progress */
-    private long mCurrentSyncTime;
+    /**
+     * Time stamp for the synchronization process in progress
+     */
+    private final long mCurrentSyncTime;
 
     /** Remote folder to synchronize */
     private OCFile mLocalFolder;
 
-    /** Access to the local database */
-    private FileDataStorageManager mStorageManager;
+    /**
+     * Access to the local database
+     */
+    private final FileDataStorageManager mStorageManager;
 
-    /** Account where the file to synchronize belongs */
-    private Account mAccount;
+    /**
+     * Account where the file to synchronize belongs
+     */
+    private final Account mAccount;
 
-    /** Android context; necessary to send requests to the download service */
-    private Context mContext;
+    /**
+     * Android context; necessary to send requests to the download service
+     */
+    private final Context mContext;
 
     /** Files and folders contained in the synchronized folder after a successful operation */
     private List<OCFile> mChildren;
@@ -111,28 +120,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     private int mFailsInKeptInSyncFound;
 
     /**
-     * Map of remote and local paths to files that where locally stored in a location
-     * out of the ownCloud folder and couldn't be copied automatically into it
+     * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
+     * couldn't be copied automatically into it
      **/
-    private Map<String, String> mForgottenLocalFiles;
+    private final Map<String, String> mForgottenLocalFiles;
 
     /**
      * 'True' means that this operation is part of a full account synchronization
      */
-    private boolean mSyncFullAccount;
+    private final boolean mSyncFullAccount;
 
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
 
     /** 'True' means that Etag will be ignored */
-    private boolean mIgnoreETag;
+    private final boolean mIgnoreETag;
 
     /**
      * 'True' means that no share and no capabilities will be updated
      */
-    private boolean mOnlyFileMetadata;
+    private final boolean mOnlyFileMetadata;
 
-    private List<SynchronizeFileOperation> mFilesToSyncContents;
+    private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
 
@@ -278,12 +287,18 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateUserProfile() {
-        GetUserProfileOperation update = new GetUserProfileOperation();
-        RemoteOperationResult result = update.execute(mStorageManager, mContext);
-        if (!result.isSuccess()) {
-            Log_OC.w(TAG, "Couldn't update user profile from server");
-        } else {
-            Log_OC.i(TAG, "Got display name: " + result.getData().get(0));
+        try {
+            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
+
+            RemoteOperationResult<UserInfo> result = new GetUserProfileOperation().execute(nextcloudClient,
+                                                                                           mStorageManager);
+            if (!result.isSuccess()) {
+                Log_OC.w(TAG, "Couldn't update user profile from server");
+            } else {
+                Log_OC.i(TAG, "Got display name: " + result.getResultData());
+            }
+        } catch (AccountUtils.AccountNotFoundException e) {
+            Log_OC.e(this, "Error updating profile", e);
         }
     }
 
@@ -308,10 +323,11 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
-        RemoteOperationResult result = new DirectEditingObtainRemoteOperation().execute(mAccount, mContext);
+        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(mAccount,
+                                                                                                       mContext);
 
         if (result.isSuccess()) {
-            DirectEditing directEditing = (DirectEditing) result.getSingleData();
+            DirectEditing directEditing = result.getResultData();
             String json = new Gson().toJson(directEditing);
             arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING, json);
         } else {
@@ -333,10 +349,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             return;
         }
 
-        RemoteOperationResult result = new GetPredefinedStatusesRemoteOperation().execute(client);
+        RemoteOperationResult<ArrayList<PredefinedStatus>> result =
+            new GetPredefinedStatusesRemoteOperation().execute(client);
 
         if (result.isSuccess()) {
-            ArrayList<PredefinedStatus> predefinedStatuses = (ArrayList<PredefinedStatus>) result.getSingleData();
+            ArrayList<PredefinedStatus> predefinedStatuses = result.getResultData();
             String json = new Gson().toJson(predefinedStatuses);
             arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS, json);
         } else {

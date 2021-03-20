@@ -42,7 +42,8 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,17 +58,17 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = UserListAdapter.class.getSimpleName();
 
-    private float accountAvatarRadiusDimension;
+    private final float accountAvatarRadiusDimension;
     private final BaseActivity context;
     private List<UserListItem> values;
     private Listener accountListAdapterListener;
-    private UserAccountManager accountManager;
+    private final UserAccountManager accountManager;
 
     public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
     public static final int KEY_USER_INFO_REQUEST_CODE = 13;
-    private ClickListener clickListener;
-    private boolean showAddAccount;
-    private boolean showDotsMenu;
+    private final ClickListener clickListener;
+    private final boolean showAddAccount;
+    private final boolean showDotsMenu;
 
     public UserListAdapter(BaseActivity context,
                            UserAccountManager accountManager,
@@ -185,14 +186,14 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private AccountItemBinding binding;
+        private final AccountItemBinding binding;
         private User user;
 
         AccountViewHolderItem(@NonNull AccountItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
-            ThemeUtils.tintDrawable(binding.ticker.getDrawable(), ThemeUtils.primaryColor(context, true));
+            ThemeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), ThemeColorUtils.primaryColor(context, true));
 
             binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {

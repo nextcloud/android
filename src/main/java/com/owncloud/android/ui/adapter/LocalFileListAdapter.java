@@ -38,11 +38,13 @@ import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -59,14 +61,14 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private static final int showFilenameColumnThreshold = 4;
-    private AppPreferences preferences;
-    private Context mContext;
+    private final AppPreferences preferences;
+    private final Context mContext;
     private List<File> mFiles = new ArrayList<>();
-    private List<File> mFilesAll = new ArrayList<>();
-    private boolean mLocalFolderPicker;
+    private final List<File> mFilesAll = new ArrayList<>();
+    private final boolean mLocalFolderPicker;
     private boolean gridView = false;
-    private LocalFileListFragmentInterface localFileListFragmentInterface;
-    private Set<File> checkedFiles;
+    private final LocalFileListFragmentInterface localFileListFragmentInterface;
+    private final Set<File> checkedFiles;
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
@@ -100,14 +102,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void addAllFilesToCheckedFiles() {
-        for (File file : mFiles) {
-
-            // only select files
-            if (file.isFile()) {
-                checkedFiles.add(file);
-            }
-
-        }
+        checkedFiles.addAll(mFiles);
     }
 
     public void removeAllFilesFromCheckedFiles() {
@@ -119,15 +114,25 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public String[] getCheckedFilesPath() {
-        List<String> result = new ArrayList<>();
-
-        for (File file : checkedFiles) {
-            result.add(file.getAbsolutePath());
-        }
+        List<String> result = listFilesRecursive(checkedFiles);
 
         Log_OC.d(TAG, "Returning " + result.size() + " selected files");
 
         return result.toArray(new String[0]);
+    }
+
+    public List<String> listFilesRecursive(Collection<File> files) {
+        List<String> result = new ArrayList<>();
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                result.addAll(listFilesRecursive(getFiles(file)));
+            } else {
+                result.add(file.getAbsolutePath());
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -151,9 +156,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 // checkbox
                 if (isCheckedFile(file)) {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                            .getColor(R.color.selected_item_background));
-                    gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                            ThemeUtils.primaryColor(mContext)));
+                                                                     .getColor(R.color.selected_item_background));
+                    gridViewHolder.checkbox.setImageDrawable(
+                        ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                        ThemeColorUtils.primaryColor(mContext)));
                 } else {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                     gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -162,15 +168,13 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.thumbnail.setTag(file.hashCode());
                 setThumbnail(file, gridViewHolder.thumbnail, mContext);
 
-                if (file.isDirectory()) {
-                    gridViewHolder.checkbox.setVisibility(View.GONE);
-                } else {
-                    gridViewHolder.checkbox.setVisibility(View.VISIBLE);
-                }
+                gridViewHolder.checkbox.setVisibility(View.VISIBLE);
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemClicked(finalFile));
+                    .onItemClicked(finalFile));
+                gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
+                    .onItemCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {

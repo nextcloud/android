@@ -70,7 +70,8 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -141,69 +142,37 @@ public class ContactListFragment extends FileFragment implements Injectable {
         inflater.inflate(R.menu.fragment_contact_list, menu);
     }
 
-    @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    private final AsyncTask<Void, Void, Boolean> loadContactsTask = new AsyncTask<Void, Void, Boolean>() {
 
-        binding = ContactlistFragmentBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-
-        setHasOptionsMenu(true);
-
-        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
-
-        if (contactsPreferenceActivity != null) {
-            ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
-            if (actionBar != null) {
-                ThemeUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-            contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
+        @Override
+        protected void onPreExecute() {
+            setLoadingMessage();
         }
 
-        if (savedInstanceState == null) {
-            contactListAdapter = new ContactListAdapter(accountManager, clientFactory, getContext(), vCards);
-        } else {
-            Set<Integer> checkedItems = new HashSet<>();
-            int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
-            if (itemsArray != null) {
-                for (int checkedItem : itemsArray) {
-                    checkedItems.add(checkedItem);
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if (!isCancelled()) {
+                File file = new File(ocFile.getStoragePath());
+                try {
+                    vCards.addAll(Ezvcard.parse(file).all());
+                    Collections.sort(vCards, new VCardComparator());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
+                    return Boolean.FALSE;
                 }
+                return Boolean.TRUE;
             }
-            if (checkedItems.size() > 0) {
-                onMessageEvent(new VCardToggleEvent(true));
-            }
-            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards, checkedItems);
-        }
-        binding.contactlistRecyclerview.setAdapter(contactListAdapter);
-        binding.contactlistRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        ocFile = getArguments().getParcelable(FILE_NAME);
-        setFile(ocFile);
-        User user = getArguments().getParcelable(USER);
-        fileDownloader = new TransferManagerConnection(getActivity(), user);
-        fileDownloader.registerTransferListener(this::onDownloadUpdate);
-        fileDownloader.bind();
-        if (!ocFile.isDown()) {
-            Request request = new Request(user, ocFile, Direction.DOWNLOAD);
-            fileDownloader.enqueue(request);
-        } else {
-            loadContactsTask.execute();
+            return Boolean.FALSE;
         }
 
-        binding.contactlistRestoreSelected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkAndAskForContactsWritePermission()) {
-                    getAccountForImport();
-                }
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            if (!isCancelled()) {
+                binding.loadingListContainer.setVisibility(View.GONE);
+                contactListAdapter.replaceVCards(vCards);
             }
-        });
-
-        binding.contactlistRestoreSelected.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-
-        return view;
-    }
+        }
+    };
 
     @Override
     public void onDetach() {
@@ -445,10 +414,95 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
+    @Override
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        binding = ContactlistFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        setHasOptionsMenu(true);
+
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+
+        if (contactsPreferenceActivity != null) {
+            ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
+            if (actionBar != null) {
+                ThemeToolbarUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
+        }
+
+        if (savedInstanceState == null) {
+            contactListAdapter = new ContactListAdapter(accountManager, clientFactory, getContext(), vCards);
+        } else {
+            Set<Integer> checkedItems = new HashSet<>();
+            int[] itemsArray = savedInstanceState.getIntArray(CHECKED_ITEMS_ARRAY_KEY);
+            if (itemsArray != null) {
+                for (int checkedItem : itemsArray) {
+                    checkedItems.add(checkedItem);
+                }
+            }
+            if (checkedItems.size() > 0) {
+                onMessageEvent(new VCardToggleEvent(true));
+            }
+            contactListAdapter = new ContactListAdapter(accountManager, getContext(), vCards, checkedItems);
+        }
+        binding.contactlistRecyclerview.setAdapter(contactListAdapter);
+        binding.contactlistRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ocFile = getArguments().getParcelable(FILE_NAME);
+        setFile(ocFile);
+        User user = getArguments().getParcelable(USER);
+        fileDownloader = new TransferManagerConnection(getActivity(), user);
+        fileDownloader.registerTransferListener(this::onDownloadUpdate);
+        fileDownloader.bind();
+        if (!ocFile.isDown()) {
+            Request request = new Request(user, ocFile, Direction.DOWNLOAD);
+            fileDownloader.enqueue(request);
+        } else {
+            loadContactsTask.execute();
+        }
+
+        binding.contactlistRestoreSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkAndAskForContactsWritePermission()) {
+                    getAccountForImport();
+                }
+            }
+        });
+
+        binding.contactlistRestoreSelected.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+
+        return view;
+    }
+
+    private Unit onDownloadUpdate(Transfer download) {
+        final Activity activity = getActivity();
+        if (download.getState() == TransferState.COMPLETED && activity != null) {
+            ocFile = download.getFile();
+            loadContactsTask.execute();
+        }
+        return Unit.INSTANCE;
+    }
+
+    public static class VCardComparator implements Comparator<VCard> {
+        @Override
+        public int compare(VCard o1, VCard o2) {
+            String contac1 = getDisplayName(o1);
+            String contac2 = getDisplayName(o2);
+
+            return contac1.compareToIgnoreCase(contac2);
+        }
+
+
+    }
+
     private class ContactsAccount {
-        private String displayName;
-        private String name;
-        private String type;
+        private final String displayName;
+        private final String name;
+        private final String type;
 
         ContactsAccount(String displayName, String name, String type) {
             this.displayName = displayName;
@@ -478,59 +532,6 @@ public class ContactListFragment extends FileFragment implements Injectable {
         }
     }
 
-    private Unit onDownloadUpdate(Transfer download) {
-        final Activity activity = getActivity();
-        if (download.getState() == TransferState.COMPLETED && activity != null) {
-            ocFile = download.getFile();
-            loadContactsTask.execute();
-        }
-        return Unit.INSTANCE;
-    }
-
-    public static class VCardComparator implements Comparator<VCard> {
-        @Override
-        public int compare(VCard o1, VCard o2) {
-            String contac1 = getDisplayName(o1);
-            String contac2 = getDisplayName(o2);
-
-            return contac1.compareToIgnoreCase(contac2);
-        }
-
-
-    }
-
-    private AsyncTask<Void, Void, Boolean> loadContactsTask = new AsyncTask<Void, Void, Boolean>() {
-
-        @Override
-        protected void onPreExecute() {
-            setLoadingMessage();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            if (!isCancelled()) {
-                File file = new File(ocFile.getStoragePath());
-                try {
-                    vCards.addAll(Ezvcard.parse(file).all());
-                    Collections.sort(vCards, new VCardComparator());
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "IO Exception: " + file.getAbsolutePath());
-                    return Boolean.FALSE;
-                }
-                return Boolean.TRUE;
-            }
-            return Boolean.FALSE;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean bool) {
-            if (!isCancelled()) {
-                binding.loadingListContainer.setVisibility(View.GONE);
-                contactListAdapter.replaceVCards(vCards);
-            }
-        }
-    };
-
     public static String getDisplayName(VCard vCard) {
         if (vCard.getFormattedName() != null) {
             return vCard.getFormattedName().getValue();
@@ -550,9 +551,9 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     private List<VCard> vCards;
     private Set<Integer> checkedVCards;
 
-    private Context context;
+    private final Context context;
 
-    private UserAccountManager accountManager;
+    private final UserAccountManager accountManager;
     private ClientFactory clientFactory;
 
     ContactListAdapter(UserAccountManager accountManager, ClientFactory clientFactory, Context context,
@@ -680,7 +681,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
         if (checked) {
             checkedTextView.getCheckMarkDrawable()
-                .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
+                .setColorFilter(ThemeColorUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
         } else {
             checkedTextView.getCheckMarkDrawable().clearColorFilter();
         }
@@ -690,7 +691,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         holder.getName().setChecked(!holder.getName().isChecked());
 
         if (holder.getName().isChecked()) {
-            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeUtils.primaryColor(context),
+            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeColorUtils.primaryColor(context),
                                                                    PorterDuff.Mode.SRC_ATOP);
 
             checkedVCards.add(verifiedPosition);

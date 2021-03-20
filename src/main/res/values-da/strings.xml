@@ -173,6 +173,7 @@
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
+    <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="create_new">Opret ny</string>
     <string name="create_new_document">Lav nyt dokument</string>
@@ -524,6 +525,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
+    <string name="prefs_storage_path">Lagringsmappe for data</string>
     <string name="prefs_sycned_folders_summary">Administrér mapper til auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>

@@ -31,14 +31,35 @@
         android:layout_marginEnd="@dimen/zero"
         android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/commentInputField"
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/activity_icon_width"
+            android:layout_height="@dimen/activity_icon_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/zero"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_user" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/commentInputField_container"
             android:layout_width="0dp"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_weight="1"
             android:hint="@string/new_comment"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:textColorHint="@color/secondary_text_color" />
+            android:paddingTop="@dimen/standard_padding">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/commentInputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions|textCapSentences"
+                android:scrollbars="vertical">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submitComment"

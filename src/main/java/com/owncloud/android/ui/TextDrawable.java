@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui;
 
-import android.accounts.Account;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -31,9 +30,9 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.NextcloudServer;
 
 import java.util.Locale;
 
@@ -47,24 +46,24 @@ public class TextDrawable extends Drawable {
     /**
      * the text to be rendered.
      */
-    private String mText;
+    private final String mText;
 
     /**
      * the text paint to be rendered.
      */
-    private Paint mTextPaint;
+    private final Paint mTextPaint;
 
     /**
      * the background to be rendered.
      */
-    private Paint mBackground;
+    private final Paint mBackground;
 
     /**
      * the radius of the circular background to be rendered.
      */
-    private float mRadius;
+    private final float mRadius;
 
-    private boolean bigText = false;
+    private final boolean bigText = false;
 
     /**
      * Create a TextDrawable with the given radius.
@@ -95,13 +94,13 @@ public class TextDrawable extends Drawable {
      * creates an avatar in form of a TextDrawable with the first letter of the account name in a circle with the given
      * radius.
      *
-     * @param account    user account
+     * @param user       user account
      * @param radiusInDp the circle's radius
      * @return the avatar as a TextDrawable
      */
     @NonNull
-    public static TextDrawable createAvatar(Account account, float radiusInDp) {
-        String username = UserAccountManager.getDisplayName(account);
+    public static TextDrawable createAvatar(User user, float radiusInDp) {
+        String username = UserAccountManager.getDisplayName(user.toPlatformAccount());
         return createNamedAvatar(username, radiusInDp);
     }
 

@@ -24,7 +24,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.ContentResolver;
-import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,7 +58,10 @@ import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -80,6 +83,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FileDetailActivitiesFragment extends Fragment implements
     ActivityListInterface,
+    DisplayUtils.AvatarGenerationListener,
     VersionListInterface.View,
     Injectable {
 
@@ -135,13 +139,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater,container,false);
+        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         setupView();
 
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
 
         fetchAndSetData(-1);
 
@@ -170,14 +174,18 @@ public class FileDetailActivitiesFragment extends Fragment implements
             }
         };
 
-        binding.commentInputField.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
-
         binding.submitComment.setOnClickListener(v -> submitComment());
 
-        ThemeUtils.themeEditText(getContext(), binding.commentInputField, false);
+        ThemeTextInputUtils.colorTextInput(binding.commentInputFieldContainer,
+                                           binding.commentInputField,
+                                           ThemeColorUtils.primaryColor(getContext()));
+
+        DisplayUtils.setAvatar(user,
+                               this,
+                               getResources().getDimension(R.dimen.activity_icon_radius),
+                               getResources(),
+                               binding.avatar,
+                               getContext());
 
         return view;
     }
@@ -439,12 +447,22 @@ public class FileDetailActivitiesFragment extends Fragment implements
         operationsHelper.restoreFileVersion(fileVersion);
     }
 
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        binding.avatar.setImageDrawable(avatarDrawable);
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        return false;
+    }
+
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String message;
-        private String fileId;
-        private VersionListInterface.CommentCallback callback;
-        private OwnCloudClient client;
+        private final String message;
+        private final String fileId;
+        private final VersionListInterface.CommentCallback callback;
+        private final OwnCloudClient client;
 
         private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
                                   OwnCloudClient client) {

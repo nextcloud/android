@@ -61,6 +61,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -88,13 +90,18 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -141,7 +148,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
     private AccountManager mAccountManager;
-    private Stack<String> mParents = new Stack<>();
+    private final static Charset FILENAME_ENCODING = StandardCharsets.UTF_8;
     private List<Parcelable> mStreamsToUpload;
     private String mUploadPath;
     private OCFile mFile;
@@ -157,8 +164,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private boolean mUploadFromTmpFile;
     private String mSubjectText;
     private String mExtraText;
-
-    private final static Charset FILENAME_ENCODING = Charset.forName("UTF-8");
+    private final Stack<String> mParents = new Stack<>();
 
     private LinearLayout mEmptyListContainer;
     private TextView mEmptyListMessage;
@@ -277,6 +283,366 @@ public class ReceiveExternalFilesActivity extends FileActivity
         populateDirectoryList();
     }
 
+    private void setupActionBarSubtitle() {
+        ActionBar actionBar = getSupportActionBar();
+
+        if (isHaveMultipleAccount()) {
+            ThemeToolbarUtils.setColoredSubtitle(actionBar, getAccount().name, this);
+        } else if (actionBar != null) {
+            actionBar.setSubtitle(null);
+        }
+    }
+
+    private void populateDirectoryList() {
+        setContentView(R.layout.receive_external_files);
+        setupEmptyList();
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
+        setupActionBarSubtitle();
+
+        ListView mListView = findViewById(android.R.id.list);
+
+        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
+        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
+
+        String current_dir = mParents.peek();
+        boolean notRoot = mParents.size() > 1;
+
+        if (actionBar != null) {
+            if (TextUtils.isEmpty(current_dir)) {
+                ThemeToolbarUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
+            } else {
+                ThemeToolbarUtils.setColoredTitle(actionBar, current_dir, this);
+            }
+
+            actionBar.setDisplayHomeAsUpEnabled(notRoot);
+            actionBar.setHomeButtonEnabled(notRoot);
+        }
+
+        String full_path = generatePath(mParents);
+
+        Log_OC.d(TAG, "Populating view with content of : " + full_path);
+
+        mFile = getStorageManager().getFileByPath(full_path);
+        if (mFile != null) {
+            List<OCFile> files = getStorageManager().getFolderContent(mFile, false);
+
+            if (files.isEmpty()) {
+                setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
+                                       R.drawable.uploads);
+            } else {
+                mEmptyListContainer.setVisibility(View.GONE);
+
+                files = sortFileList(files);
+
+                List<Map<String, Object>> data = new LinkedList<>();
+                for (OCFile f : files) {
+                    Map<String, Object> h = new HashMap<>();
+                    h.put("dirname", f);
+                    data.add(h);
+                }
+
+                UploaderAdapter sa = new UploaderAdapter(this,
+                                                         data,
+                                                         R.layout.uploader_list_item_layout,
+                                                         new String[]{"dirname"},
+                                                         new int[]{R.id.filename},
+                                                         getStorageManager(),
+                                                         getUser().get());
+
+                mListView.setAdapter(sa);
+            }
+            MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
+            ThemeButtonUtils.colorPrimaryButton(btnChooseFolder, this);
+            btnChooseFolder.setOnClickListener(this);
+
+            if (mFile.canWrite()) {
+                btnChooseFolder.setEnabled(true);
+                ThemeButtonUtils.colorPrimaryButton(btnChooseFolder, this);
+            } else {
+                btnChooseFolder.setEnabled(false);
+                btnChooseFolder.setBackgroundColor(Color.GRAY);
+            }
+
+            ThemeToolbarUtils.colorStatusBar(this);
+
+            ThemeToolbarUtils.tintBackButton(actionBar, this);
+
+            Button btnNewFolder = findViewById(R.id.uploader_cancel);
+            btnNewFolder.setTextColor(ThemeColorUtils.primaryColor(this, true));
+            btnNewFolder.setOnClickListener(this);
+
+            mListView.setOnItemClickListener(this);
+
+            sortButton = findViewById(R.id.sort_button);
+            FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
+            sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mParents.size() <= SINGLE_PARENT) {
+            super.onBackPressed();
+        } else {
+            mParents.pop();
+            String full_path = generatePath(mParents);
+            startSyncFolderOperation(getStorageManager().getFileByPath(full_path));
+            populateDirectoryList();
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // click on folder in the list
+        Log_OC.d(TAG, "on item click");
+        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
+        tmpFiles = sortFileList(tmpFiles);
+
+        if (tmpFiles.isEmpty()) {
+            return;
+        }
+        // filter on dirtype
+        Vector<OCFile> files = new Vector<>();
+        files.addAll(tmpFiles);
+
+        if (files.size() < position) {
+            throw new IndexOutOfBoundsException("Incorrect item selected");
+        }
+        if (files.get(position).isFolder()) {
+            OCFile folderToEnter = files.get(position);
+            startSyncFolderOperation(folderToEnter);
+            mParents.push(folderToEnter.getFileName());
+            populateDirectoryList();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        // click on button
+        switch (v.getId()) {
+            case R.id.uploader_choose_folder:
+                mUploadPath = "";   // first element in mParents is root dir, represented by "";
+                // init mUploadPath with "/" results in a "//" prefix
+                for (String p : mParents) {
+                    mUploadPath += p + OCFile.PATH_SEPARATOR;
+                }
+
+                if (mUploadFromTmpFile) {
+                    DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
+                    dialog.show(getSupportFragmentManager(), null);
+                } else {
+                    Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+                    uploadFiles();
+                }
+                break;
+
+            case R.id.uploader_cancel:
+                finish();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Wrong element clicked");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
+        if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
+            if (resultCode == RESULT_CANCELED) {
+                finish();
+            }
+            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
+            if (accounts.length == 0) {
+                DialogNoAccount dialog = new DialogNoAccount();
+                dialog.show(getSupportFragmentManager(), null);
+            } else {
+                // there is no need for checking for is there more then one
+                // account at this point
+                // since account setup can set only one account at time
+                setAccount(accounts[0], false);
+                populateDirectoryList();
+            }
+        }
+    }
+
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
+                                       @DrawableRes final int icon) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                mEmptyListHeadline.setText(headline);
+                mEmptyListMessage.setText(message);
+                mEmptyListIcon.setImageDrawable(
+                    ThemeDrawableUtils.tintDrawable(icon, ThemeColorUtils.primaryColor(this, true)));
+                mEmptyListIcon.setVisibility(View.VISIBLE);
+                mEmptyListMessage.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void uploadFiles() {
+
+        UriUploader uploader = new UriUploader(
+            this,
+            mStreamsToUpload,
+            mUploadPath,
+            getUser().orElseThrow(RuntimeException::new),
+            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            true, // Show waiting dialog while file is being copied from private storage
+            this  // Copy temp task listener
+        );
+
+        UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
+
+        // Save the path to shared preferences; even if upload is not possible, user chose the folder
+        preferences.setLastUploadPath(mUploadPath);
+
+        if (resultCode == UriUploader.UriUploaderResultCode.OK) {
+            finish();
+        } else {
+
+            int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;
+            int messageResId = R.string.common_error_unknown;
+
+            if (resultCode == UriUploader.UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD) {
+                messageResId = R.string.uploader_error_message_no_file_to_upload;
+                messageResTitle = R.string.uploader_error_title_no_file_to_upload;
+            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
+                messageResId = R.string.uploader_error_message_read_permission_not_granted;
+            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_UNKNOWN) {
+                messageResId = R.string.common_error_unknown;
+            }
+
+            showErrorDialog(
+                messageResId,
+                messageResTitle
+                           );
+        }
+    }
+
+    protected void setupEmptyList() {
+        mEmptyListContainer = findViewById(R.id.empty_list_view);
+        mEmptyListMessage = findViewById(R.id.empty_list_view_text);
+        mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
+        mEmptyListIcon = findViewById(R.id.empty_list_icon);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_receive_external_files, menu);
+
+        if (!isHaveMultipleAccount()) {
+            MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);
+            switchAccountMenu.setVisible(false);
+        }
+
+        // tint search event
+        final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+
+        MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
+        newFolderMenuItem.setEnabled(mFile.canWrite());
+
+        // hacky as no default way is provided
+        ThemeToolbarUtils.themeSearchView(searchView, this);
+
+        return true;
+    }
+
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir());
+    }
+
+    private void startSyncFolderOperation(OCFile folder) {
+        long currentSyncTime = System.currentTimeMillis();
+
+        mSyncInProgress = true;
+
+        // perform folder synchronization
+        RemoteOperation syncFolderOp = new RefreshFolderOperation(folder,
+                                                                  currentSyncTime,
+                                                                  false,
+                                                                  false,
+                                                                  getStorageManager(),
+                                                                  getAccount(),
+                                                                  getApplicationContext()
+        );
+        syncFolderOp.execute(getAccount(), this, null, null);
+    }
+
+    private List<OCFile> sortFileList(List<OCFile> files) {
+        FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
+        return sortOrder.sortCloudFiles(files);
+    }
+
+    private String generatePath(Stack<String> dirs) {
+        String full_path = "";
+
+        for (String a : dirs) {
+            full_path += a + OCFile.PATH_SEPARATOR;
+        }
+        return full_path;
+    }
+
+    private void prepareStreamsToUpload() {
+        Intent intent = getIntent();
+
+        if (Intent.ACTION_SEND.equals(intent.getAction())) {
+            mStreamsToUpload = new ArrayList<>();
+            mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
+        } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
+            mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        }
+
+        if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
+            mStreamsToUpload = null;
+            saveTextsFromIntent(intent);
+        }
+    }
+
+    private void saveTextsFromIntent(Intent intent) {
+        if (!MimeType.TEXT_PLAIN.equals(intent.getType())) {
+            return;
+        }
+        mUploadFromTmpFile = true;
+
+        mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (mSubjectText == null) {
+            mSubjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
+            if (mSubjectText == null) {
+                mSubjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
+            }
+        }
+        mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    }
+
+    private boolean somethingToUpload() {
+        return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
+            mUploadFromTmpFile);
+    }
+
+    public void uploadFile(String tmpName, String filename) {
+        FileUploader.uploadNewFile(
+            getBaseContext(),
+            getAccount(),
+            tmpName,
+            mFile.getRemotePath() + filename,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            FileUploader.NameCollisionPolicy.ASK_USER
+                                  );
+        finish();
+    }
+
     public static class DialogNoAccount extends DialogFragment {
         @NonNull
         @Override
@@ -285,7 +651,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text),
-                    getString(R.string.app_name)));
+                                             getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, (dialog, which) -> {
                 // using string value since in API7 this
@@ -297,9 +663,79 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
                 startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
             });
-            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, (dialog, which) -> getActivity().finish());
+            builder.setNeutralButton(R.string.uploader_wrn_no_account_quit_btn_text,
+                                     (dialog, which) -> getActivity().finish());
             return builder.create();
         }
+    }
+
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+
+
+        if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
+        }
+
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     *
+     * @param operation Creation operation performed.
+     * @param result    Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
+                                               RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() - 1);
+            String newFolder = remotePath.substring(remotePath.lastIndexOf('/') + 1);
+            mParents.push(newFolder);
+            populateDirectoryList();
+        } else {
+            try {
+                DisplayUtils.showSnackMessage(
+                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                                             );
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message ", e);
+            }
+        }
+    }
+
+
+    /**
+     * Loads the target folder initialize shown to the user.
+     * <p/>
+     * The target account has to be chosen before this method is called.
+     */
+    private void initTargetFolder() {
+        if (getStorageManager() == null) {
+            throw new IllegalStateException("Do not call this method before initializing mStorageManager");
+        }
+
+        if (mParents.empty()) {
+            String lastPath = preferences.getLastUploadPath();
+            // "/" equals root-directory
+            if (OCFile.ROOT_PATH.equals(lastPath)) {
+                mParents.add("");
+            } else {
+                String[] dir_names = lastPath.split(OCFile.PATH_SEPARATOR);
+                mParents.clear();
+                mParents.addAll(Arrays.asList(dir_names));
+            }
+        }
+
+        // make sure that path still exists, if it doesn't pop the stack and try the previous path
+        while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
+            mParents.pop();
+        }
+    }
+
+    private boolean isHaveMultipleAccount() {
+        return mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length > 1;
     }
 
     public static class DialogInputUploadFilename extends DialogFragment implements Injectable {
@@ -355,7 +791,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             ArrayAdapter<String> adapter
-                    = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
+                = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             int selectPos = 0;
@@ -388,30 +824,31 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFileCategory = CATEGORY_URL;
             } else if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
-                String texts[] = extraText.split("\n");
+                String[] texts = extraText.split("\n");
                 mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add(String.format(str,URL_FILE_SUFFIX));
+                adapter.add(String.format(str, URL_FILE_SUFFIX));
 
                 mText.add(internetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+                adapter.add(String.format(str, WEBLOC_FILE_SUFFIX));
 
                 mText.add(internetShortcutDesktopText(texts[2], texts[0]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
-                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+                adapter.add(String.format(str, DESKTOP_FILE_SUFFIX));
 
                 selectPos = preferences.getUploadMapFileExtensionUrlSelectedPos();
                 mFileCategory = CATEGORY_MAPS_URL;
             }
 
-            final EditText userInput = view.findViewById(R.id.user_input);
+            final TextInputEditText userInput = view.findViewById(R.id.user_input);
+            final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
-            userInput.setHighlightColor(ThemeUtils.primaryColor(getContext()));
             userInput.requestFocus();
+            ThemeTextInputUtils.colorTextInput(userInputContainer, userInput, ThemeColorUtils.primaryColor(getContext()));
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
@@ -472,7 +909,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     ((ReceiveExternalFilesActivity) getActivity()).uploadFile(tmpName, filename);
                 }
             });
-            builder.setNegativeButton(R.string.common_cancel, (dialog, id) -> dialog.cancel());
+            builder.setNeutralButton(R.string.common_cancel, (dialog, id) -> dialog.cancel());
 
             return builder.create();
         }
@@ -506,8 +943,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         }
 
-        private void setFilename(EditText inputText, int selectPos)
-        {
+        private void setFilename(EditText inputText, int selectPos) {
             String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
             inputText.setText(filename);
             int selectionStart = 0;
@@ -515,13 +951,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
             int selectionEnd = extensionStart >= 0 ? extensionStart : filename.length();
             if (selectionEnd >= 0) {
                 inputText.setSelection(
-                        Math.min(selectionStart, selectionEnd),
-                        Math.max(selectionStart, selectionEnd));
+                    Math.min(selectionStart, selectionEnd),
+                    Math.max(selectionStart, selectionEnd));
             }
         }
 
         private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
-            String texts[] = extraText.split("\n");
+            String[] texts = extraText.split("\n");
             if (texts.length != EXTRA_TEXT_LENGTH) {
                 return false;
             }
@@ -560,18 +996,18 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private String internetShortcutUrlText(String url) {
             return "[InternetShortcut]\r\n" +
-                    "URL=" + url + "\r\n";
+                "URL=" + url + "\r\n";
         }
 
         private String internetShortcutWeblocText(String url) {
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
-                    "<plist version=\"1.0\">\n" +
-                    "<dict>\n" +
-                    "<key>URL</key>\n" +
-                    "<string>" + url + "</string>\n" +
-                    "</dict>\n" +
-                    "</plist>\n";
+                "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
+                "<plist version=\"1.0\">\n" +
+                "<dict>\n" +
+                "<key>URL</key>\n" +
+                "<string>" + url + "</string>\n" +
+                "</dict>\n" +
+                "</plist>\n";
         }
 
         private String internetShortcutDesktopText(String url, String filename) {
@@ -604,435 +1040,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             return file;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mParents.size() <= SINGLE_PARENT) {
-            super.onBackPressed();
-        } else {
-            mParents.pop();
-            String full_path = generatePath(mParents);
-            startSyncFolderOperation(getStorageManager().getFileByPath(full_path));
-            populateDirectoryList();
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // click on folder in the list
-        Log_OC.d(TAG, "on item click");
-        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
-        tmpFiles = sortFileList(tmpFiles);
-
-        if (tmpFiles.isEmpty()) {
-            return;
-        }
-        // filter on dirtype
-        Vector<OCFile> files = new Vector<>();
-        files.addAll(tmpFiles);
-
-        if (files.size() < position) {
-            throw new IndexOutOfBoundsException("Incorrect item selected");
-        }
-        if (files.get(position).isFolder()){
-            OCFile folderToEnter = files.get(position);
-            startSyncFolderOperation(folderToEnter);
-            mParents.push(folderToEnter.getFileName());
-            populateDirectoryList();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        // click on button
-        switch (v.getId()) {
-            case R.id.uploader_choose_folder:
-                mUploadPath = "";   // first element in mParents is root dir, represented by "";
-                // init mUploadPath with "/" results in a "//" prefix
-                for (String p : mParents) {
-                    mUploadPath += p + OCFile.PATH_SEPARATOR;
-                }
-
-                if (mUploadFromTmpFile) {
-                    DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
-                    dialog.show(getSupportFragmentManager(), null);
-                } else {
-                    Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
-                    uploadFiles();
-                }
-                break;
-
-            case R.id.uploader_cancel:
-                finish();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Wrong element clicked");
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
-        if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
-            if (resultCode == RESULT_CANCELED) {
-                finish();
-            }
-            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
-            if (accounts.length == 0) {
-                DialogNoAccount dialog = new DialogNoAccount();
-                dialog.show(getSupportFragmentManager(), null);
-            } else {
-                // there is no need for checking for is there more then one
-                // account at this point
-                // since account setup can set only one account at time
-                setAccount(accounts[0], false);
-                populateDirectoryList();
-            }
-        }
-    }
-
-    private void setupActionBarSubtitle() {
-        ActionBar actionBar = getSupportActionBar();
-
-        if (isHaveMultipleAccount()) {
-            ThemeUtils.setColoredSubtitle(actionBar, getAccount().name, this);
-        } else if (actionBar != null) {
-            actionBar.setSubtitle(null);
-        }
-    }
-
-    private void populateDirectoryList() {
-        setContentView(R.layout.receive_external_files);
-        setupEmptyList();
-        setupToolbar();
-        ActionBar actionBar = getSupportActionBar();
-        setupActionBarSubtitle();
-
-        ListView mListView = findViewById(android.R.id.list);
-
-        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
-        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
-
-        String current_dir = mParents.peek();
-        boolean notRoot = mParents.size() > 1;
-
-        if (actionBar != null) {
-            if (TextUtils.isEmpty(current_dir)) {
-                ThemeUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
-            } else {
-                ThemeUtils.setColoredTitle(actionBar, current_dir, this);
-            }
-
-            actionBar.setDisplayHomeAsUpEnabled(notRoot);
-            actionBar.setHomeButtonEnabled(notRoot);
-        }
-
-        String full_path = generatePath(mParents);
-
-        Log_OC.d(TAG, "Populating view with content of : " + full_path);
-
-        mFile = getStorageManager().getFileByPath(full_path);
-        if (mFile != null) {
-            List<OCFile> files = getStorageManager().getFolderContent(mFile, false);
-
-            if (files.isEmpty()) {
-                setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
-                        R.drawable.uploads);
-            } else {
-                mEmptyListContainer.setVisibility(View.GONE);
-
-                files = sortFileList(files);
-
-                List<Map<String, Object>> data = new LinkedList<>();
-                for (OCFile f : files) {
-                    Map<String, Object> h = new HashMap<>();
-                    h.put("dirname", f);
-                    data.add(h);
-                }
-
-                UploaderAdapter sa = new UploaderAdapter(this,
-                                                         data,
-                                                         R.layout.uploader_list_item_layout,
-                                                         new String[]{"dirname"},
-                                                         new int[]{R.id.filename},
-                                                         getStorageManager(),
-                                                         getUser().get());
-
-                mListView.setAdapter(sa);
-            }
-            MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
-            ThemeUtils.colorPrimaryButton(btnChooseFolder, this);
-            btnChooseFolder.setOnClickListener(this);
-
-            if (mFile.canWrite()) {
-                btnChooseFolder.setEnabled(true);
-                ThemeUtils.colorPrimaryButton(btnChooseFolder, this);
-            } else {
-                btnChooseFolder.setEnabled(false);
-                btnChooseFolder.setBackgroundColor(Color.GRAY);
-            }
-
-            ThemeUtils.colorStatusBar(this);
-
-            ThemeUtils.tintBackButton(actionBar, this);
-
-            Button btnNewFolder = findViewById(R.id.uploader_cancel);
-            btnNewFolder.setTextColor(ThemeUtils.primaryColor(this, true));
-            btnNewFolder.setOnClickListener(this);
-
-            mListView.setOnItemClickListener(this);
-
-            sortButton = findViewById(R.id.sort_button);
-            FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-            sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
-            sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
-        }
-    }
-
-    protected void setupEmptyList() {
-        mEmptyListContainer = findViewById(R.id.empty_list_view);
-        mEmptyListMessage = findViewById(R.id.empty_list_view_text);
-        mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
-        mEmptyListIcon = findViewById(R.id.empty_list_icon);
-    }
-
-    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
-                                       @DrawableRes final int icon) {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                mEmptyListHeadline.setText(headline);
-                mEmptyListMessage.setText(message);
-                mEmptyListIcon.setImageDrawable(ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(this, true)));
-                mEmptyListIcon.setVisibility(View.VISIBLE);
-                mEmptyListMessage.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    @Override
-    public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir());
-    }
-
-    private void startSyncFolderOperation(OCFile folder) {
-        long currentSyncTime = System.currentTimeMillis();
-
-        mSyncInProgress = true;
-
-        // perform folder synchronization
-        RemoteOperation syncFolderOp = new RefreshFolderOperation(folder,
-                                                                        currentSyncTime,
-                                                                        false,
-                                                                        false,
-                                                                        getStorageManager(),
-                                                                        getAccount(),
-                                                                        getApplicationContext()
-                                                                      );
-        syncFolderOp.execute(getAccount(), this, null, null);
-    }
-
-    private List<OCFile> sortFileList(List<OCFile> files) {
-        FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-        return sortOrder.sortCloudFiles(files);
-    }
-
-    private String generatePath(Stack<String> dirs) {
-        String full_path = "";
-
-        for (String a : dirs) {
-            full_path += a + OCFile.PATH_SEPARATOR;
-        }
-        return full_path;
-    }
-
-    private void prepareStreamsToUpload() {
-        Intent intent = getIntent();
-
-        if (Intent.ACTION_SEND.equals(intent.getAction())) {
-            mStreamsToUpload = new ArrayList<>();
-            mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
-        } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
-            mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        }
-
-        if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
-            mStreamsToUpload = null;
-            saveTextsFromIntent(intent);
-        }
-    }
-
-    private void saveTextsFromIntent(Intent intent) {
-        if (!MimeType.TEXT_PLAIN.equals(intent.getType())) {
-            return;
-        }
-        mUploadFromTmpFile = true;
-
-        mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-        if (mSubjectText == null) {
-            mSubjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
-            if (mSubjectText == null) {
-                mSubjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
-            }
-        }
-        mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    }
-
-    private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
-                mUploadFromTmpFile);
-    }
-
-    public void uploadFile(String tmpName, String filename) {
-        FileUploader.uploadNewFile(
-            getBaseContext(),
-            getAccount(),
-            tmpName,
-            mFile.getRemotePath() + filename,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            FileUploader.NameCollisionPolicy.ASK_USER
-        );
-        finish();
-    }
-
-    public void uploadFiles() {
-
-        UriUploader uploader = new UriUploader(
-            this,
-            mStreamsToUpload,
-            mUploadPath,
-            getAccount(),
-            FileUploader.LOCAL_BEHAVIOUR_DELETE,
-            true, // Show waiting dialog while file is being copied from private storage
-            this  // Copy temp task listener
-        );
-
-        UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
-
-        // Save the path to shared preferences; even if upload is not possible, user chose the folder
-        preferences.setLastUploadPath(mUploadPath);
-
-        if (resultCode == UriUploader.UriUploaderResultCode.OK) {
-            finish();
-        } else {
-
-            int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;
-            int messageResId = R.string.common_error_unknown;
-
-            if (resultCode == UriUploader.UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD) {
-                messageResId = R.string.uploader_error_message_no_file_to_upload;
-                messageResTitle = R.string.uploader_error_title_no_file_to_upload;
-            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
-                messageResId = R.string.uploader_error_message_read_permission_not_granted;
-            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_UNKNOWN) {
-                messageResId = R.string.common_error_unknown;
-            }
-
-            showErrorDialog(
-                    messageResId,
-                    messageResTitle
-            );
-        }
-    }
-
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        super.onRemoteOperationFinish(operation, result);
-
-
-        if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
-        }
-
-    }
-
-    /**
-     * Updates the view associated to the activity after the finish of an operation
-     * trying create a new folder
-     *
-     * @param operation Creation operation performed.
-     * @param result    Result of the creation.
-     */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
-                                               RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() - 1);
-            String newFolder = remotePath.substring(remotePath.lastIndexOf('/') + 1);
-            mParents.push(newFolder);
-            populateDirectoryList();
-        } else {
-            try {
-                DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
-
-            } catch (NotFoundException e) {
-                Log_OC.e(TAG, "Error while trying to show fail message ", e);
-            }
-        }
-    }
-
-
-    /**
-     * Loads the target folder initialize shown to the user.
-     * <p/>
-     * The target account has to be chosen before this method is called.
-     */
-    private void initTargetFolder() {
-        if (getStorageManager() == null) {
-            throw new IllegalStateException("Do not call this method before initializing mStorageManager");
-        }
-
-        if (mParents.empty()) {
-            String lastPath = preferences.getLastUploadPath();
-            // "/" equals root-directory
-            if (OCFile.ROOT_PATH.equals(lastPath)) {
-                mParents.add("");
-            } else {
-                String[] dir_names = lastPath.split(OCFile.PATH_SEPARATOR);
-                mParents.clear();
-                mParents.addAll(Arrays.asList(dir_names));
-            }
-        }
-
-        // make sure that path still exists, if it doesn't pop the stack and try the previous path
-        while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
-            mParents.pop();
-        }
-    }
-
-    private boolean isHaveMultipleAccount() {
-        return mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length > 1;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_receive_external_files, menu);
-
-        if (!isHaveMultipleAccount()) {
-            MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);
-            switchAccountMenu.setVisible(false);
-        }
-
-        // tint search event
-        final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
-
-        MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
-        newFolderMenuItem.setEnabled(mFile.canWrite());
-
-        // hacky as no default way is provided
-        ThemeUtils.themeSearchView(searchView, this);
-
-        return true;
     }
 
     @Override

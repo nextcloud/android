@@ -32,7 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Calendar;
 
@@ -102,18 +102,18 @@ public class ExpirationDatePickerDialogFragment
             chosenDate.get(Calendar.DAY_OF_MONTH)
         );
         dialog.setButton(
-                Dialog.BUTTON_NEUTRAL,
-                getText(R.string.share_via_link_unset_password),
-                (dialog1, which) -> {
-                    if (share != null) {
-                        ((FileActivity) requireActivity()).getFileOperationsHelper().setExpirationDateToShare(share, -1);
-                    }
-                });
+            Dialog.BUTTON_NEUTRAL,
+            getText(R.string.share_via_link_unset_password),
+            (dialog1, which) -> {
+                if (share != null) {
+                    ((FileActivity) requireActivity()).getFileOperationsHelper().setExpirationDateToShare(share, -1);
+                }
+            });
 
         dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
 
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();

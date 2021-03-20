@@ -32,17 +32,7 @@ import androidx.annotation.Nullable;
  */
 public interface AppPreferences {
 
-    /**
-     * Preferences listener. Callbacks should be invoked on main thread.
-     *
-     * Maintainers should extend this interface with callbacks for specific
-     * events.
-     */
-    interface Listener {
-        default void onDarkThemeModeChanged(DarkMode mode) {
-            /* default empty implementation */
-        };
-    }
+    void increasePinWrongAttempts();
 
     /**
      * Registers preferences listener. It no-ops if listener
@@ -60,15 +50,19 @@ public interface AppPreferences {
     void removeListener(@Nullable Listener listener);
 
     void setKeysReInitEnabled();
+
     boolean isKeysReInitEnabled();
 
     void setPushToken(String pushToken);
+
     String getPushToken();
 
     boolean instantPictureUploadEnabled();
+
     boolean instantVideoUploadEnabled();
 
     boolean isShowHiddenFilesEnabled();
+
     void setShowHiddenFilesEnabled(boolean enabled);
 
     /**
@@ -151,6 +145,7 @@ public interface AppPreferences {
     void setLastUploadPath(String path);
 
     String getLockPreference();
+
     void setLockPreference(String lockPreference);
 
     /**
@@ -208,6 +203,7 @@ public interface AppPreferences {
     void setAutoUploadSplitEntriesEnabled(boolean splitOut);
 
     boolean isAutoUploadInitialized();
+
     void setAutoUploadInit(boolean autoUploadInit);
 
     /**
@@ -239,6 +235,7 @@ public interface AppPreferences {
      * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
      */
     FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder);
+
     FileSortOrder getSortOrderByType(FileSortOrder.Type type);
 
 
@@ -257,15 +254,19 @@ public interface AppPreferences {
     void setLegacyClean(boolean legacyClean);
 
     boolean isKeysMigrationEnabled();
+
     void setKeysMigrationEnabled(boolean enabled);
 
     boolean isStoragePathFixEnabled();
+
     void setStoragePathFixEnabled(boolean enabled);
 
     boolean isShowDetailedTimestampEnabled();
+
     void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp);
 
     boolean isShowMediaScanNotifications();
+
     void setShowMediaScanNotifications(boolean showMediaScanNotification);
 
     /**
@@ -297,9 +298,11 @@ public interface AppPreferences {
     void setUploaderBehaviour(int uploaderBehaviour);
 
     float getGridColumns();
+
     void setGridColumns(float gridColumns);
 
     long getLockTimestamp();
+
     void setLockTimestamp(long timestamp);
 
     /**
@@ -355,4 +358,19 @@ public interface AppPreferences {
     boolean isPowerCheckDisabled();
 
     void setPowerCheckDisabled(boolean value);
+
+    void resetPinWrongAttempts();
+
+    int pinBruteForceDelay();
+
+    /**
+     * Preferences listener. Callbacks should be invoked on main thread.
+     * <p>
+     * Maintainers should extend this interface with callbacks for specific events.
+     */
+    interface Listener {
+        default void onDarkThemeModeChanged(DarkMode mode) {
+            /* default empty implementation */
+        }
+    }
 }

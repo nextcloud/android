@@ -25,7 +25,7 @@ import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,7 +175,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private void shareByLink() {
         if (file.isSharedViaLink()) {
             ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
-        } else if (sharingPublicPasswordEnforced) {
+        } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();
         } else {
@@ -194,9 +194,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(ThemeUtils.primaryColor(getContext()), PorterDuff.Mode.SRC_IN);
-        shareImageView.getDrawable().mutate().setColorFilter(ThemeUtils.fontColor(getContext()),
-                PorterDuff.Mode.SRC_IN);
+        shareImageView.getBackground().setColorFilter(ThemeColorUtils.primaryColor(getContext().getApplicationContext(),
+                                                                                   true),
+                                                      PorterDuff.Mode.SRC_IN);
+        shareImageView.getDrawable().mutate().setColorFilter(ThemeColorUtils.fontColor(getContext().getApplicationContext()),
+                                                             PorterDuff.Mode.SRC_IN);
     }
 
     private void showResharingNotAllowedSnackbar() {

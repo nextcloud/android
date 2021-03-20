@@ -30,7 +30,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -80,13 +80,12 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getActivity());
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                   alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL),
+                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
         }
     }
 
