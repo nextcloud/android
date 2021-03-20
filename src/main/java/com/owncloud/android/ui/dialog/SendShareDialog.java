@@ -175,7 +175,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private void shareByLink() {
         if (file.isSharedViaLink()) {
             ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
-        } else if (sharingPublicPasswordEnforced) {
+        } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();
         } else {
