@@ -116,6 +116,7 @@
     <string name="common_save">儲存</string>
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
+    <string name="common_skip">略過</string>
     <string name="common_switch_account">切換賬號</string>
     <string name="common_switch_to_account">切換到賬號</string>
     <string name="common_unknown">不詳</string>
@@ -748,7 +749,7 @@
     <string name="upload_item_action_button">上傳動作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
-    <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟用自動上傳。</string>
+    <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟動自動上傳。</string>
     <string name="upload_list_resolve_conflict">解決抵觸</string>
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
