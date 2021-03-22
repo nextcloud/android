@@ -47,7 +47,7 @@
     <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
     <string name="auth_connection_established">連線已建立</string>
     <string name="auth_fail_get_user_name">您的伺服器並未回傳正確的用戶名稱，請您聯絡相關管理人員。</string>
-    <string name="auth_host_url">伺服器位址 https://…</string>
+    <string name="auth_host_url">伺服器位址 https：//…</string>
     <string name="auth_incorrect_address_title">伺服器位址格式錯誤</string>
     <string name="auth_incorrect_path_title">找不到伺服器</string>
     <string name="auth_no_net_conn_title">無網絡連線</string>
@@ -169,7 +169,7 @@
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
     <string name="copy_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
-    <string name="copy_file_not_found">無法複製檔案,請確認檔案是否存在</string>
+    <string name="copy_file_not_found">無法複製檔案，請確認檔案是否存在</string>
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
     <string name="copy_to">複製到…</string>
@@ -277,7 +277,7 @@
     <string name="etm_download_enqueue_test_download">入隊測試下載</string>
     <string name="etm_download_path">遠端路徑</string>
     <string name="etm_downloader">下載器</string>
-    <string name="etm_migrations">遷移 (APP 升級)</string>
+    <string name="etm_migrations">遷移（APP 升級)</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
     <string name="fab_label">新增或上傳</string>
@@ -340,12 +340,12 @@
     <string name="filedetails_sync_file">同步</string>
     <string name="filedisplay_no_file_selected">未選擇任何檔案</string>
     <string name="filename_empty">文件名不可為空白</string>
-    <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt;：\" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">檔名至少要有一個有效字元</string>
     <string name="filename_hint">檔名</string>
     <string name="first_run_1_text">在您的控制下維持資料的安全</string>
     <string name="first_run_2_text">安全地協作及傳輸檔案</string>
-    <string name="first_run_3_text">容易使用的Webmail,行事曆&amp;聯絡人</string>
+    <string name="first_run_3_text">容易使用的Webmail，行事曆&amp;聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議&amp;研討會</string>
     <string name="folder_already_exists">文件夾已存在</string>
     <string name="folder_confirm_create">建立</string>
@@ -397,7 +397,7 @@
     <string name="logs_menu_send">通過電郵發送紀錄</string>
     <string name="logs_status_filtered">記錄：%1$dkB，符合查詢%2$d/%3$d，耗時%4$dms</string>
     <string name="logs_status_loading">載入中…</string>
-    <string name="logs_status_not_filtered">記錄檔: %1$d kB（不篩選）</string>
+    <string name="logs_status_not_filtered">記錄檔： %1$d kB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
@@ -428,7 +428,7 @@
     <string name="network_error_connect_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
     <string name="network_error_socket_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
-    <string name="network_host_not_available">無法完成現在的動作,伺服器無法使用</string>
+    <string name="network_host_not_available">無法完成現在的動作，伺服器無法使用</string>
     <string name="new_comment">新留言…</string>
     <string name="new_media_folder_detected">偵測新媒體資料夾 %1$s</string>
     <string name="new_media_folder_photos">相片</string>
@@ -479,10 +479,10 @@
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_filename">placeholder。txt</string>
+    <string name="placeholder_media_time">12：23：45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="placeholder_timestamp">2012/05/18 12：23 PM</string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切換</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
@@ -499,7 +499,7 @@
     <string name="prefs_calendar_contacts">同步日曆&amp;通訊錄</string>
     <string name="prefs_calendar_contacts_address_resolve_error">此賬戶的伺服器位址無法被 DAVx5（以前稱為DAVdroid）解析</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
-    <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定DAVx5協定(以前稱為DAVdroid)(版本v1.3.0以上)</string>
+    <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定DAVx5協定(以前稱為DAVdroid)(版本v1。3。0以上)</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
@@ -511,7 +511,7 @@
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身分驗證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
     <string name="prefs_enable_media_scan_notifications_summary">發現新的多媒體資料夾時通知</string>
-    <string name="prefs_gpl_v2">GNU General Public License, 第二版</string>
+    <string name="prefs_gpl_v2">GNU General Public License， 第二版</string>
     <string name="prefs_help">幫助</string>
     <string name="prefs_imprint">法律聲明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會…</string>
@@ -654,7 +654,7 @@
     <string name="ssl_validator_label_validity_from">從：</string>
     <string name="ssl_validator_label_validity_to">至：</string>
     <string name="ssl_validator_no_info_about_error">- 沒有關於這個錯誤的說明</string>
-    <string name="ssl_validator_not_saved">無法儲存憑證</string>
+    <string name="ssl_validator_not_saved">無法儲存證書</string>
     <string name="ssl_validator_null_cert">這個憑證無法被顯示</string>
     <string name="ssl_validator_question">是否仍要信任這個伺服器的憑證？</string>
     <string name="ssl_validator_reason_cert_expired">- 伺服器憑證已過期</string>
@@ -671,7 +671,7 @@
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https：//github。com/nextcloud/android/issues 舉報所有問題，並於 https：//help。nextcloud。com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https：//nextcloud。com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -689,7 +689,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="sync_folder_failed_content">無法完成資料夾 %1$s 的同步作業</string>
-    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
+    <string name="sync_foreign_files_forgotten_explanation">於1。3。16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些近端端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
     <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>
@@ -727,12 +727,12 @@
     <string name="unset_favorite">從最愛中移除</string>
     <string name="unshare">撤回分享</string>
     <string name="unshare_link_file_error">嘗試取消分享檔案或資料夾時發生錯誤</string>
-    <string name="unshare_link_file_no_exist">無法取消分享,請確認檔案是否存在</string>
+    <string name="unshare_link_file_no_exist">無法取消分享，請確認檔案是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消分享這個檔案</string>
     <string name="unsharing_failed">取消分享失敗</string>
     <string name="untrusted_domain">存取未受信任的域名，更多資訊請參照文件</string>
     <string name="update_link_file_error">嘗試更新分享時發生錯誤</string>
-    <string name="update_link_file_no_exist">無法更新,請確認檔案是否存在</string>
+    <string name="update_link_file_no_exist">無法更新，請確認檔案是否存在</string>
     <string name="update_link_forbidden_permissions">更新這個分享</string>
     <string name="updating_share_failed">上傳分享失敗</string>
     <string name="upload_cannot_create_file">無法建立近端檔案</string>
@@ -741,9 +741,9 @@
     <string name="upload_direct_camera_upload">從相機上傳</string>
     <string name="upload_file_dialog_filename">檔案名稱</string>
     <string name="upload_file_dialog_filetype">檔案類型</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 地圖捷徑 (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 地圖捷徑（%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">網路捷徑(%s)</string>
-    <string name="upload_file_dialog_filetype_snippet_text">片段文字檔(.txt)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">片段文字檔(。txt)</string>
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
     <string name="upload_item_action_button">上傳動作按鈕</string>
@@ -754,7 +754,7 @@
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
-    <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
+    <string name="upload_old_android">加密功能只適用於 Android 5。0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足會無法將所選檔案複製到 %1$s 資料夾中。是否要改成移動它們？</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
@@ -800,7 +800,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">找不到近端的檔案</string>
     <string name="uploads_view_upload_status_failed_permission_error">權限錯誤</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
-    <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中...</string>
+    <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中。。。</string>
     <string name="uploads_view_upload_status_service_interrupted">App 中斷運作</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_unknown_fail">未知錯誤</string>
@@ -829,7 +829,7 @@
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。 退回默認值。 請檢查設置以調整數據存儲資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="other">無法同步 %1$d 檔案 (抵觸: %2$d)</item>
+        <item quantity="other">無法同步 %1$d 檔案（抵觸： %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">%2$s 資料夾中的%1$d個檔案無法被複製到</item>

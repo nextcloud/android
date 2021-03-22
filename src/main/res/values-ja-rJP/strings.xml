@@ -173,6 +173,7 @@
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
+    <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新しい文書を作成する</string>
@@ -214,6 +215,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_favorites">お気に入り</string>
+    <string name="drawer_item_gallery">メディア</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
@@ -473,6 +475,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
+    <string name="player_stop">中止</string>
     <string name="power_save_check_dialog_message">省電力チェックを無効にすると、バッテリー残量が少ないときにもファイルのアップロードを行う場合があります！</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
