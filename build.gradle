@@ -66,6 +66,7 @@ ext {
     byteBuddyVersion = "1.10.21"
     espressoVersion = "3.3.0"
     workRuntime = "2.5.0"
+    scanbotSdkVersion = "1.80.1"
 
     ciBuild = System.getenv("CI") == "true"
 
@@ -80,6 +81,14 @@ repositories {
 
     flatDir {
         dirs 'libs'
+    }
+
+    // Scanbot SDK maven repos:
+    maven {
+        url 'https://nexus.scanbot.io/nexus/content/repositories/releases/'
+    }
+    maven {
+        url 'https://nexus.scanbot.io/nexus/content/repositories/snapshots/'
     }
 }
 
@@ -407,6 +416,9 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+
+    //scanbot sdk
+    implementation "io.scanbot:sdk-package-1:$scanbotSdkVersion"
 }
 
 spotbugs {

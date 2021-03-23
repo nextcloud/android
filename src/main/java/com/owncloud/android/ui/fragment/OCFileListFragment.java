@@ -75,6 +75,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.ScanDocumentActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -482,6 +483,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ((FileActivity) getActivity()).getAccount(),
                 FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
         );
+    }
+
+    @Override
+    public void scanDocument() {
+        startActivity(new Intent(getActivity(),ScanDocumentActivity.class));
     }
 
     @Override
