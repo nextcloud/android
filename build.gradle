@@ -318,7 +318,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.vanniktech:emoji-google:0.7.0'
 
