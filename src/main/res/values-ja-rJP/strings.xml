@@ -114,6 +114,7 @@
     <string name="common_save">保存</string>
     <string name="common_send">送信</string>
     <string name="common_share">共有</string>
+    <string name="common_skip">スキップ</string>
     <string name="common_switch_account">アカウント変更</string>
     <string name="common_switch_to_account">アカウントに変更</string>
     <string name="common_unknown">不明</string>
@@ -173,6 +174,7 @@
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
+    <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新しい文書を作成する</string>
@@ -214,6 +216,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_favorites">お気に入り</string>
+    <string name="drawer_item_gallery">メディア</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
@@ -473,6 +476,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
+    <string name="player_stop">中止</string>
     <string name="power_save_check_dialog_message">省電力チェックを無効にすると、バッテリー残量が少ないときにもファイルのアップロードを行う場合があります！</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
@@ -654,7 +658,7 @@
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
     <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
-    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
+    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム（開発プレビューバージョン）</string>
     <string name="stream">ストリームと...</string>

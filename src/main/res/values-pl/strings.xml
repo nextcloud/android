@@ -116,6 +116,7 @@
     <string name="common_save">Zapisz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
+    <string name="common_skip">Pomiń</string>
     <string name="common_switch_account">Przełącz konto</string>
     <string name="common_switch_to_account">Przełącz na konto</string>
     <string name="common_unknown">nieznane</string>
@@ -374,7 +375,7 @@
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="invalid_url">Błędny adres URL</string>
+    <string name="invalid_url">Nieprawidłowy adres URL</string>
     <string name="invisible">Niewidoczny</string>
     <string name="label_empty">Etykieta nie może być pusta</string>
     <string name="link">Odnośnik</string>

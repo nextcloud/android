@@ -116,6 +116,7 @@
     <string name="common_save">儲存</string>
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
+    <string name="common_skip">略過</string>
     <string name="common_switch_account">切換帳號</string>
     <string name="common_switch_to_account">切換到帳號</string>
     <string name="common_unknown">未知</string>

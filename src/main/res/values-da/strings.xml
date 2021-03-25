@@ -173,6 +173,7 @@
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
+    <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="create_new">Opret ny</string>
     <string name="create_new_document">Lav nyt dokument</string>

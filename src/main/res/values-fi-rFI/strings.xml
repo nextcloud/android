@@ -324,6 +324,7 @@
     <string name="file_migration_preparing">Valmistellaan migraatiota…</string>
     <string name="file_migration_restoring_accounts_configuration">Palautetaan tilin asetuksia…</string>
     <string name="file_migration_saving_accounts_configuration">Tallennetaan tilin asetuksia…</string>
+    <string name="file_migration_source_not_readable">Haluatko yhä vaihtaa tallennuspolun %1$s?\n\nHuomio: Kaikki data täytyy ladata uudestaan.</string>
     <string name="file_migration_source_not_readable_title">Lähdekansio ei ole luettavissa</string>
     <string name="file_migration_updating_index">Päivitetään indeksiä…</string>
     <string name="file_migration_use_data_folder">Käytä</string>
@@ -529,6 +530,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
+    <string name="prefs_sycned_folders_summary">Hallinnoi kansioita automaattista latausta varten</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
     <string name="prefs_theme_title">Teema</string>
@@ -822,6 +824,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
     <string name="whats_your_status">Mikä on tilatietosi?</string>
+    <string name="wrong_storage_path">Tiedostokansiota ei ole olemassa!</string>
+    <string name="wrong_storage_path_desc">Tämä voi johtua varmuuskopion palautuksesta toisella laitteella. Palautetaan oletusasetukset. Tarkista tiedostokansion asetukset.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>
         <item quantity="other">Ei voitu synkronoida %1$d tiedostoa (ristiriidat: %2$d)</item>

@@ -116,6 +116,7 @@
     <string name="common_save">Bewaren</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
+    <string name="common_skip">Overslaan</string>
     <string name="common_switch_account">Account wisselen</string>
     <string name="common_switch_to_account">Wisselen naar account</string>
     <string name="common_unknown">onbekend</string>

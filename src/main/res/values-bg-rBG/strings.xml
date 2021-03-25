@@ -27,15 +27,18 @@
     <string name="actionbar_sort">Сортирай</string>
     <string name="active_user">Активен потребител</string>
     <string name="activities_no_results_headline">Все още няма активност</string>
+    <string name="activities_no_results_message">Все още няма действия като добавяне, промени и споделяния</string>
     <string name="activity_chooser_send_file_title">Изпращане</string>
     <string name="activity_chooser_title">Изпращане на връзка чрез…</string>
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Добави още една връзка</string>
+    <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="allow_creating">Разреши създаването</string>
     <string name="allow_deleting">Разреши изтриването</string>
     <string name="allow_editing">Разреши редактиране</string>
     <string name="allow_resharing">Може да споделя повторно</string>
+    <string name="appbar_search_in">Търсене в %s</string>
     <string name="associated_account_not_found">Свързания профил не е намерен!</string>
     <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
@@ -43,6 +46,7 @@
     <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила</string>
     <string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
     <string name="auth_connection_established">Осъществена е връзка</string>
+    <string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора.</string>
     <string name="auth_host_url">Адрес на сървъра https://…</string>
     <string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
     <string name="auth_incorrect_path_title">Сървърът не е открит</string>
@@ -74,6 +78,7 @@
     <string name="autoupload_disable_power_save_check">Деактивирайте проверката за икономия на енергия</string>
     <string name="autoupload_hide_folder">Скрий папката</string>
     <string name="avatar">Аватар</string>
+    <string name="away">Винаги</string>
     <string name="battery_optimization_close">Затваряне</string>
     <string name="battery_optimization_disable">Изключване</string>
     <string name="battery_optimization_message">Възможно е устройството ви да има активирана оптимизация на батерията. AutoUpload работи правилно само, ако изключите това приложение от него.</string>
@@ -83,7 +88,10 @@
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
+    <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
+    <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
+    <string name="clear_status_message">Изчистване на съобщението за състоянието</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
     <string name="clipboard_text_copied">Връзката е копирана</string>
@@ -105,6 +113,9 @@
     <string name="common_save">Запазване</string>
     <string name="common_send">Изпращане</string>
     <string name="common_share">Сподели</string>
+    <string name="common_skip">Пропусни</string>
+    <string name="common_switch_account">Смяна на профил</string>
+    <string name="common_switch_to_account">Превключване към профил</string>
     <string name="common_unknown">неясна</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Тестване на бета версия</string>
@@ -158,6 +169,7 @@
     <string name="copy_to">Копирай в…</string>
     <string name="could_not_download_image">Пълното изображение не можа да се изтегли</string>
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
+    <string name="create">Създай</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
     <string name="create_new">Създай нов</string>
     <string name="create_new_document">Нов документ</string>
@@ -176,10 +188,12 @@
     <string name="dev_version_new_version_available">Има нова версия.</string>
     <string name="dev_version_no_information_available">Няма налична информация.</string>
     <string name="dev_version_no_new_version_available">Няма нова версия.</string>
+    <string name="dialog_close">Затвори</string>
     <string name="digest_algorithm_not_available">Алгоритъмът не се поддържа от вашия телефон.</string>
     <string name="disable_new_media_folder_detection_notifications">Изключване</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="dismiss_notification_description">Спри известията</string>
+    <string name="dnd">Не безпокой</string>
     <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
     <string name="downloader_download_failed_content">%1$sне може да бъде изтеглен</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
@@ -209,6 +223,7 @@
     <string name="drawer_quota">%1$s от %2$s използвани</string>
     <string name="drawer_quota_unlimited">%1$s използвани</string>
     <string name="drawer_synced_folders">Автоматично качване</string>
+    <string name="edit_label">Промяна на име</string>
     <string name="encrypted">Включване на криптиране</string>
     <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
     <string name="end_to_end_encryption_decrypting">Декриптиране...</string>
@@ -228,6 +243,7 @@
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: операциите не могат да бъдат изпълнени</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
+    <string name="error_report_issue_action">Докладване за грешка</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
