@@ -43,7 +43,7 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
+    <color name="primary">#E20074</color>
     <color name="primary_dark">#006AA3</color>
     <color name="color_accent">#007cc2</color>
     <color name="login_text_color">#ffffff</color>

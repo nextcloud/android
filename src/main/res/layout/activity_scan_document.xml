@@ -21,6 +21,7 @@
 
     <Button
         android:id="@+id/flashToggle"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
@@ -31,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
+        android:visibility="gone"
         android:text="Automatic" />
 
     <TextView
@@ -58,6 +60,7 @@
 
     <io.scanbot.sdk.ui.camera.ShutterButton
         android:id="@+id/shutterButton"
+        app:shutterButtonAutoOuterColor="@color/primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

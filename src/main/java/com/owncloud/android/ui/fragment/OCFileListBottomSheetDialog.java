@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -134,6 +135,13 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         if (!deviceInfo.hasCamera(getContext())) {
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
+            binding.menuScanDocument.setVisibility(View.GONE);
+        }
+
+        //check if scanbot sdk licence is valid or not
+        //hide the view if license is not valid
+        if(!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)){
+           // binding.menuScanDocument.setVisibility(View.GONE);
         }
 
         // create rich workspace

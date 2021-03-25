@@ -1,13 +1,14 @@
-package com.owncloud.android.utils
+package com.nmc.android.utils
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import com.owncloud.android.lib.common.utils.Log_OC
 import io.scanbot.sdk.ScanbotSDK
 
 object ScanBotSdkUtils {
     private val TAG = ScanBotSdkUtils::class.java.simpleName
 
-    fun isScanBotLicenseValid(activity: AppCompatActivity): Boolean {
+    @JvmStatic
+    fun isScanBotLicenseValid(activity: Activity): Boolean {
         // Check the license status:
         val licenseInfo = ScanbotSDK(activity).licenseInfo
         Log_OC.d(TAG, "License status: ${licenseInfo.status}")

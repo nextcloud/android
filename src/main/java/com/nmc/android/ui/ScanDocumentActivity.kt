@@ -1,4 +1,4 @@
-package com.owncloud.android.ui.activity
+package com.nmc.android.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -273,6 +273,7 @@ class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.Res
                             // why you need the permission and ask if he wants
                             // to accept it (the rationale)
                             Toast.makeText(this, "You cannot scan document without camera permission.",Toast.LENGTH_SHORT).show()
+                            finish()
                             // askPermission()
                         }
                         // else if ( /* possibly check more permissions...*/) {
