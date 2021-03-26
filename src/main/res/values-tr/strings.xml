@@ -116,6 +116,7 @@
     <string name="common_save">Kaydet</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
+    <string name="common_skip">Atla</string>
     <string name="common_switch_account">Hesabı değiştir</string>
     <string name="common_switch_to_account">Şu hesaba geç</string>
     <string name="common_unknown">bilinmiyor</string>
