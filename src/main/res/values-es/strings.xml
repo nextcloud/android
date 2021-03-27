@@ -116,6 +116,7 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
+    <string name="common_skip">Omitir</string>
     <string name="common_switch_account">Cambiar de cuenta</string>
     <string name="common_switch_to_account">Cambiar a la cuenta</string>
     <string name="common_unknown">desconocido</string>
