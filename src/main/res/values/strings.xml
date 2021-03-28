@@ -724,6 +724,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
+    <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
@@ -803,6 +804,7 @@
     <string name="battery_optimization_close">Close</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
+    <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="uploader_upload_files_behaviour_not_writable">source folder is read-only; file will only be uploaded</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="scanQR_description">Login via QR code</string>
