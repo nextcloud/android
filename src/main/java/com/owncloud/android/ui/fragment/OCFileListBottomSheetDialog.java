@@ -183,6 +183,11 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             dismiss();
         });
 
+        binding.menuScanDocUpload.setOnClickListener(v -> {
+            actions.scanDocUpload();
+            dismiss();
+        });
+
         binding.menuUploadFiles.setOnClickListener(v -> {
             actions.uploadFiles();
             dismiss();

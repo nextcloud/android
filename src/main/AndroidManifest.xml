@@ -126,18 +126,30 @@
                 <data android:pathPattern="/..*/..*/f/..*" />
                 <data android:pathPattern="/..*/..*/..*/f/..*" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/users_and_groups_searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/users_and_groups_searchable" />
         </activity>
+        <activity
+            android:name="nz.mega.documentscanner.DocumentScannerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/Theme.ownCloud"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
+            tools:replace="android:theme" />
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
-        <activity android:name=".ui.activity.NotificationsActivity"/>
+        <activity android:name=".ui.activity.NotificationsActivity" />
         <activity android:name=".ui.activity.CommunityActivity" />
-        <activity android:name=".ui.activities.ActivitiesActivity"
+        <activity
+            android:name=".ui.activities.ActivitiesActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".ui.activity.SyncedFoldersActivity"/>
+        <activity android:name=".ui.activity.SyncedFoldersActivity" />
+
         <receiver android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver" />
         <receiver android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver" />
+
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ExternalSiteWebView"
                   android:configChanges="orientation|screenSize|keyboardHidden" />
