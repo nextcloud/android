@@ -145,6 +145,10 @@ android {
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86'
+        }
+
         flavorDimensions "default"
 
         buildTypes {
@@ -289,6 +293,8 @@ dependencies {
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
+    implementation 'com.github.meganz:AndroidDocumentScanner:2.0.6'
+
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
@@ -376,6 +382,9 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+
+    // tool to find memory leaks
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 }
 
 configurations.all {

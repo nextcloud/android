@@ -125,6 +125,36 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/menu_scan_doc_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_scan_doc_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_scan_document"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/upload_scan_doc_upload"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+    </LinearLayout>
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -133,7 +163,7 @@
         android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
-        android:background="@color/list_divider_background"/>
+        android:background="@color/list_divider_background" />
 
     <LinearLayout
         android:id="@+id/menu_mkdir"

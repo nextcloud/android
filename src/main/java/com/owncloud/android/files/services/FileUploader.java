@@ -78,6 +78,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
@@ -195,7 +196,7 @@ public class FileUploader extends Service
     @Inject PowerManagementService powerManagementService;
     @Inject LocalBroadcastManager localBroadcastManager;
 
-    private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
+    private final IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
     /**
      * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent
@@ -1128,7 +1129,7 @@ public class FileUploader extends Service
 
     /**
      * Binder to let client components to perform operations on the queue of uploads.
-     *
+     * <p>
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
@@ -1136,7 +1137,7 @@ public class FileUploader extends Service
         /**
          * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
+        private final Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
 
         /**
          * Cancels a pending or current upload of a remote file.
@@ -1365,41 +1366,6 @@ public class FileUploader extends Service
          */
         private String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
-        }
-    }
-
-
-    /**
-     * Upload worker. Performs the pending uploads in the order they were requested.
-     *
-     * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
-     */
-    private static class ServiceHandler extends Handler {
-        // don't make it a final class, and don't remove the static ; lint will
-        // warn about a possible memory leak
-        private FileUploader mService;
-
-        public ServiceHandler(Looper looper, FileUploader service) {
-            super(looper);
-            if (service == null) {
-                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
-            }
-            mService = service;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            @SuppressWarnings("unchecked")
-            List<String> requestedUploads = (List<String>) msg.obj;
-            if (msg.obj != null) {
-                for (String requestedUpload : requestedUploads) {
-                    mService.uploadFile(requestedUpload);
-                }
-            }
-            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
-            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
-            mService.stopForeground(true);
-            mService.stopSelf(msg.arg1);
         }
     }
 }

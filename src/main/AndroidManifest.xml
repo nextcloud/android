@@ -119,6 +119,13 @@
                 android:resource="@xml/users_and_groups_searchable" />
         </activity>
         <activity
+            android:name="nz.mega.documentscanner.DocumentScannerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/Theme.ownCloud"
+            android:windowSoftInputMode="stateHidden|adjustNothing"
+            tools:replace="android:theme" />
+        <activity
             android:name=".ui.activity.ManageAccountsActivity"
             android:exported="false" />
         <activity

@@ -92,7 +92,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,6 +109,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import nz.mega.documentscanner.DocumentScannerActivity;
 
 /**
  * Helper implementation for file operations locally and remote.
@@ -123,9 +124,9 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
 
-    private FileActivity fileActivity;
-    private CurrentAccountProvider currentAccount;
-    private ConnectivityService connectivityService;
+    private final FileActivity fileActivity;
+    private final CurrentAccountProvider currentAccount;
+    private final ConnectivityService connectivityService;
 
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -145,7 +146,7 @@ public class FileOperationsHelper {
         InputStreamReader fr = null;
         BufferedReader br = null;
         try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), Charset.forName("UTF-8"));
+            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
             br = new BufferedReader(fr);
 
             String line;
@@ -1064,6 +1065,15 @@ public class FileOperationsHelper {
             }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
+        }
+    }
+
+    public void scanFromCamera(Activity activity, int requestCode) {
+        Intent scanIntent = DocumentScannerActivity.getIntent(activity);
+        if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
+            activity.startActivityForResult(scanIntent, requestCode);
+        } else {
+            PermissionUtil.requestCameraPermission(activity);
         }
     }
 
