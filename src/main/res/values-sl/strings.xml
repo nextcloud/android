@@ -84,6 +84,7 @@
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
     <string name="battery_optimization_no_setting">Ni mogoče neposredno odpreti nastavitev baterije. Prilagoditi jih bo treba ročno.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
     <string name="checkbox">Izbirno polje</string>
@@ -115,6 +116,7 @@
     <string name="common_save">Shrani</string>
     <string name="common_send">Pošlji</string>
     <string name="common_share">Souporaba</string>
+    <string name="common_skip">Preskoči</string>
     <string name="common_switch_account">Preklopi račun</string>
     <string name="common_switch_to_account">Preklopi v drug račun</string>
     <string name="common_unknown">neznano</string>
@@ -195,6 +197,7 @@
     <string name="dev_version_no_new_version_available">Ni objavljene nove različice.</string>
     <string name="dialog_close">Zapri</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
+    <string name="direct_login_failed">Prijava prek neposredne povezave je spodletela.</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>

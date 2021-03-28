@@ -6,7 +6,7 @@
     <string name="about_version_with_build">wersja %1$s, kompilacja #%2$s</string>
     <string name="account_creation_failed">Błąd tworzenia konta</string>
     <string name="account_icon">Ikona konta</string>
-    <string name="account_not_found">Nie znaleziono konta</string>
+    <string name="account_not_found">Nie znaleziono konta!</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane wysyłanie</string>
     <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
