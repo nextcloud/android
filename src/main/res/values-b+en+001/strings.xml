@@ -116,6 +116,7 @@
     <string name="common_save">Save</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
+    <string name="common_skip">Skip</string>
     <string name="common_switch_account">Switch account</string>
     <string name="common_switch_to_account">Switch to account</string>
     <string name="common_unknown">unknown</string>
