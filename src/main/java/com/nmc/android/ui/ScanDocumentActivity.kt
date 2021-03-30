@@ -1,21 +1,21 @@
 package com.nmc.android.ui
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -42,21 +42,25 @@ import io.scanbot.sdk.persistence.PageFileStorage
 import io.scanbot.sdk.process.CropOperation
 import io.scanbot.sdk.process.ImageFilterType
 import io.scanbot.sdk.process.Operation
+import io.scanbot.sdk.process.PDFPageSize
 import io.scanbot.sdk.ui.PolygonView
 import io.scanbot.sdk.ui.camera.ShutterButton
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.ArrayList
 
 class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.ResultHandler {
+
     private lateinit var cameraView: ScanbotCameraView
     private lateinit var polygonView: PolygonView
     private lateinit var resultView: ImageView
     private lateinit var userGuidanceHint: TextView
     private lateinit var autoSnappingToggleButton: Button
     private lateinit var shutterButton: ShutterButton
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var contourDetectorFrameHandler: ContourDetectorFrameHandler
     private lateinit var autoSnappingController: DocumentAutoSnappingController
@@ -72,6 +76,8 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     private lateinit var opticalCharacterRecognizer: OpticalCharacterRecognizer
     private lateinit var pageFileStorage: PageFileStorage
     private lateinit var pageProcessor: PageProcessor
+
+    private val uiScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
@@ -102,7 +108,7 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
             }
         })
         resultView = findViewById<View>(R.id.result) as ImageView
-
+        progressBar = findViewById(R.id.pbScanDocument)
         polygonView = findViewById<View>(R.id.polygonView) as PolygonView
         polygonView.setFillColor(POLYGON_FILL_COLOR)
         polygonView.setFillColorOK(POLYGON_FILL_COLOR_OK)
@@ -147,10 +153,20 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     private fun askPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager
-                .PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-            PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                CAMERA_PERMISSION_REQUEST_CODE)
+                .PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
         }
     }
 
@@ -232,6 +248,10 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     }
 
     private fun processPictureTaken(image: ByteArray, imageOrientation: Int) {
+        runOnUiThread {
+            progressBar.visibility = View.VISIBLE
+            //cameraView.visibility = View.GONE
+        }
         // Here we get the full image from the camera.
         // Please see https://github.com/doo/Scanbot-SDK-Examples/wiki/Handling-camera-picture
         // This is just a demo showing the detected document image as a downscaled(!) preview image.
@@ -241,8 +261,8 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         // Please note: In this simple demo we downscale the original image to 1/8 for the preview!
         //options.inSampleSize = 8
         // Typically you will need the full resolution of the original image! So please change the "inSampleSize" value to 1!
-        options.inSampleSize = 1;
-        var originalBitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
+        options.inSampleSize = 1
+        var originalBitmap = BitmapFactory.decodeByteArray(image, 0, image.size, options)
 
         // Rotate the original image based on the imageOrientation value.
         // Required for some Android devices like Samsung!
@@ -266,10 +286,14 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         operations.add(CropOperation(detector.polygonF!!))
         val documentImage = scanbotSDK.imageProcessor().processBitmap(originalBitmap, operations, false)
 
-       //  val file = saveImage(documentImage)
-       // Log.d("SCANNING","File : $file")
-        if (documentImage != null)
-            RecognizeTextWithoutPDFTask(documentImage).execute()
+        //  val file = saveImage(documentImage)
+        // Log.d("SCANNING","File : $file")
+        if (documentImage != null) {
+            uiScope.launch {
+                recognizeTextWithoutPDFTask(documentImage)
+            }
+        }
+        // RecognizeTextWithoutPDFTask(documentImage).execute()
 
         //resultView.post { resultView.setImageBitmap(documentImage) }
 
@@ -315,7 +339,8 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                                 "manually.", Toast.LENGTH_LONG
                         ).show()
                     } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
-                        || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission ) {
+                        || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission
+                    ) {
                         // user did NOT check "never ask again"
                         // this is a good place to explain the user
                         // why you need the permission and ask if he wants
@@ -337,24 +362,10 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         }
     }
 
-    private fun saveImage(bmp: Bitmap?): File {
-        val bytes = ByteArrayOutputStream()
-        bmp?.compress(Bitmap.CompressFormat.PNG, 0, bytes)
-        val f = File(
-            Environment.getExternalStorageDirectory()
-                .toString() + File.separator + "testimage.png"
-        )
-        f.createNewFile()
-        val fo = FileOutputStream(f)
-        fo.write(bytes.toByteArray())
-        fo.close()
-        return f
-    }
-
-    private inner class RecognizeTextWithoutPDFTask(private val bitmap: Bitmap) : AsyncTask<Void, Void, OcrResult?>
-        () {
-        override fun doInBackground(vararg voids: Void): OcrResult? {
-            return try {
+    private suspend fun recognizeTextWithoutPDFTask(bitmap: Bitmap) {
+        withContext(Dispatchers.Default) {
+            val ocrResult: OcrResult?
+            try {
                 //val bitmap = loadImage()
                 val newPageId = pageFileStorage.add(bitmap)
                 val page = Page(newPageId, emptyList(), DetectionResult.OK, ImageFilterType.BINARIZED)
@@ -364,45 +375,48 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                 val pages = listOf(processedPage)
                 val languages = setOf(Language.ENG)
 
-                opticalCharacterRecognizer.recognizeTextFromPages(pages, languages)
+                // opticalCharacterRecognizer.recognizeTextFromPages(pages, languages)
 
-                //opticalCharacterRecognizer.recognizeTextWithPdfFromPages(pages, PDFPageSize.A4, languages)
+                ocrResult = opticalCharacterRecognizer.recognizeTextWithPdfFromPages(pages, PDFPageSize.A4, languages)
             } catch (e: IOException) {
                 throw RuntimeException(e)
             }
-        }
+            withContext(Dispatchers.Main) {
+                progressBar.visibility = View.GONE
 
+                ocrResult.let {
+                    Log.d("SCANNING", "Scanning done")
+                    if (it.ocrPages.isNotEmpty()) {
+                        Log.d("Main Activity", it.recognizedText)
 
-        override fun onPostExecute(ocrResult: OcrResult?) {
-            // progressView.visibility = View.GONE
+                        // Toast.makeText(this@MainActivity,
+                        //     """
+                        //         Recognized page content:
+                        //         ${it.recognizedText}
+                        //         """.trimIndent(),
+                        //     Toast.LENGTH_LONG).show()
 
-            ocrResult?.let {
-                Log.d("SCANNING","Scanning done")
-                if (it.ocrPages.isNotEmpty()) {
-                    Log.d("Main Activity", it.recognizedText)
+                        // bounding boxes and text results of recognized paragraphs, lines and words:
+                        /* for(ocr in it.ocrPages){
+                             Log.d("Main Activity","Lines: ${ocr.lines}")
+                             Log.d("Main Activity","Para: ${ocr.paragraphs}")
+                             Log.d("Main Activity","Words: ${ocr.words}")
+                         }*/
+                    }
 
-                    // Toast.makeText(this@MainActivity,
-                    //     """
-                    //         Recognized page content:
-                    //         ${it.recognizedText}
-                    //         """.trimIndent(),
-                    //     Toast.LENGTH_LONG).show()
-
-                    // bounding boxes and text results of recognized paragraphs, lines and words:
-                      /* for(ocr in it.ocrPages){
-                           Log.d("Main Activity","Lines: ${ocr.lines}")
-                           Log.d("Main Activity","Para: ${ocr.paragraphs}")
-                           Log.d("Main Activity","Words: ${ocr.words}")
-                       }*/
                 }
 
+                ocrResult.sandwichedPdfDocumentFile?.let { file ->
+
+                    Log.d("Main Activity", file.path)
+
+                    val intent = Intent()
+                    intent.putExtra(EXTRA_SCAN_DOCUMENT_PATH, file.path)
+                    setResult(RESULT_OK, intent)
+                    finish()
+
+                }
             }
-
-       /*     ocrResult?.sandwichedPdfDocumentFile?.let { file ->
-
-                Log.d("Main Activity", file.path)
-
-            }*/
         }
     }
 
@@ -410,5 +424,15 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         private val POLYGON_FILL_COLOR = Color.parseColor("#55ff0000")
         private val POLYGON_FILL_COLOR_OK = Color.parseColor("#4400ff00")
         private const val CAMERA_PERMISSION_REQUEST_CODE: Int = 811
+
+        @JvmStatic
+        val EXTRA_SCAN_DOCUMENT_PATH = ScanDocumentActivity::class.java.canonicalName +
+            ".EXTRA_SCAN_DOCUMENT_PATH"
+
+        @JvmStatic
+        fun startScanDocumentActivityForResult(activity: Activity, requestCode: Int) {
+            val intent = Intent(activity, ScanDocumentActivity::class.java)
+            activity.startActivityForResult(intent, requestCode)
+        }
     }
 }

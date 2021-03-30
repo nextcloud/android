@@ -487,7 +487,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void scanDocument() {
-        startActivity(new Intent(getActivity(),ScanDocumentActivity.class));
+        ScanDocumentActivity.startScanDocumentActivityForResult(
+            getActivity(),
+            FileDisplayActivity.REQUEST_CODE__SCAN_DOCUMENT);
     }
 
     @Override
