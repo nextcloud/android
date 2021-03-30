@@ -6,8 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -28,13 +33,24 @@ import io.scanbot.sdk.camera.ScanbotCameraView
 import io.scanbot.sdk.contourdetector.ContourDetectorFrameHandler
 import io.scanbot.sdk.contourdetector.DocumentAutoSnappingController
 import io.scanbot.sdk.core.contourdetector.DetectionResult
+import io.scanbot.sdk.docprocessing.PageProcessor
+import io.scanbot.sdk.entity.Language
+import io.scanbot.sdk.ocr.OpticalCharacterRecognizer
+import io.scanbot.sdk.ocr.process.OcrResult
+import io.scanbot.sdk.persistence.Page
+import io.scanbot.sdk.persistence.PageFileStorage
 import io.scanbot.sdk.process.CropOperation
+import io.scanbot.sdk.process.ImageFilterType
 import io.scanbot.sdk.process.Operation
 import io.scanbot.sdk.ui.PolygonView
 import io.scanbot.sdk.ui.camera.ShutterButton
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.ArrayList
 
-class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.ResultHandler {
+class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.ResultHandler {
     private lateinit var cameraView: ScanbotCameraView
     private lateinit var polygonView: PolygonView
     private lateinit var resultView: ImageView
@@ -52,13 +68,18 @@ class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.Res
     private var autoSnappingEnabled = true
     private val ignoreBadAspectRatio = true
 
+    //OCR
+    private lateinit var opticalCharacterRecognizer: OpticalCharacterRecognizer
+    private lateinit var pageFileStorage: PageFileStorage
+    private lateinit var pageProcessor: PageProcessor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
         askPermission()
         setContentView(R.layout.activity_scan_document)
-        //supportActionBar!!.hide()
         scanbotSDK = ScanbotSDK(this)
+        initOCR()
         cameraView = findViewById<View>(R.id.camera) as ScanbotCameraView
 
         // In this example we demonstrate how to lock the orientation of the UI (Activity)
@@ -124,9 +145,19 @@ class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.Res
     }
 
     private fun askPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager
+                .PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                CAMERA_PERMISSION_REQUEST_CODE)
         }
+    }
+
+    private fun initOCR() {
+        opticalCharacterRecognizer = scanbotSDK.ocrRecognizer()
+        pageFileStorage = scanbotSDK.pageFileStorage()
+        pageProcessor = scanbotSDK.pageProcessor()
     }
 
     override fun onResume() {
@@ -208,31 +239,45 @@ class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.Res
         // Decode Bitmap from bytes of original image:
         val options = BitmapFactory.Options()
         // Please note: In this simple demo we downscale the original image to 1/8 for the preview!
-        options.inSampleSize = 8
+        //options.inSampleSize = 8
         // Typically you will need the full resolution of the original image! So please change the "inSampleSize" value to 1!
-        //options.inSampleSize = 1;
-        var originalBitmap = BitmapFactory.decodeByteArray(image, 0, image.size, options)
+        options.inSampleSize = 1;
+        var originalBitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
 
         // Rotate the original image based on the imageOrientation value.
         // Required for some Android devices like Samsung!
         if (imageOrientation > 0) {
             val matrix = Matrix()
             matrix.setRotate(imageOrientation.toFloat(), originalBitmap.width / 2f, originalBitmap.height / 2f)
-            originalBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, false)
+            originalBitmap = Bitmap.createBitmap(
+                originalBitmap,
+                0,
+                0,
+                originalBitmap.width,
+                originalBitmap.height,
+                matrix,
+                false
+            )
         }
         val detector = scanbotSDK.contourDetector()
         // Run document detection on original image:
         detector.detect(originalBitmap)
         val operations: MutableList<Operation> = ArrayList()
         operations.add(CropOperation(detector.polygonF!!))
-        val documentImage = scanbotSDK.imageProcessor().process(originalBitmap, operations, false)
-        resultView.post { resultView.setImageBitmap(documentImage) }
+        val documentImage = scanbotSDK.imageProcessor().processBitmap(originalBitmap, operations, false)
+
+       //  val file = saveImage(documentImage)
+       // Log.d("SCANNING","File : $file")
+        if (documentImage != null)
+            RecognizeTextWithoutPDFTask(documentImage).execute()
+
+        //resultView.post { resultView.setImageBitmap(documentImage) }
 
         // continue scanning
-        cameraView.postDelayed({
+/*        cameraView.postDelayed({
             cameraView.continuousFocus()
             cameraView.startPreview()
-        }, 1000)
+        }, 1000)*/
     }
 
     private fun setAutoSnapEnabled(enabled: Boolean) {
@@ -254,36 +299,111 @@ class ScanDocumentActivity: AppCompatActivity(), ContourDetectorFrameHandler.Res
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //permission is granted
                 //Nothing to be done
-            }else{
+            } else {
                 //permission not granted
-                    for(permission  in permissions) {
-                        val showRationale = shouldShowRequestPermissionRationale(permission)
-                        if (!showRationale) {
-                            // user also CHECKED "never ask again"
-                            // you can either enable some fall back,
-                            // disable features of your app
-                            // or open another dialog explaining
-                            // again the permission and directing to
-                            // the app setting
-                            Toast.makeText(this, "Please navigate to App info in settings and give permission " +
-                                "manually.",Toast.LENGTH_LONG).show()
-                        } else if (Manifest.permission.CAMERA == permission) {
-                            // user did NOT check "never ask again"
-                            // this is a good place to explain the user
-                            // why you need the permission and ask if he wants
-                            // to accept it (the rationale)
-                            Toast.makeText(this, "You cannot scan document without camera permission.",Toast.LENGTH_SHORT).show()
-                            finish()
-                            // askPermission()
-                        }
-                        // else if ( /* possibly check more permissions...*/) {
-                        // }
+                for (permission in permissions) {
+                    val showRationale = shouldShowRequestPermissionRationale(permission)
+                    if (!showRationale) {
+                        // user also CHECKED "never ask again"
+                        // you can either enable some fall back,
+                        // disable features of your app
+                        // or open another dialog explaining
+                        // again the permission and directing to
+                        // the app setting
+                        Toast.makeText(
+                            this, "Please navigate to App info in settings and give permission " +
+                                "manually.", Toast.LENGTH_LONG
+                        ).show()
+                    } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
+                        || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission ) {
+                        // user did NOT check "never ask again"
+                        // this is a good place to explain the user
+                        // why you need the permission and ask if he wants
+                        // to accept it (the rationale)
+                        Toast.makeText(
+                            this,
+                            "You cannot scan document without camera permission.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
+                        // askPermission()
                     }
+                    // else if ( /* possibly check more permissions...*/) {
+                    // }
+                }
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+    }
 
+    private fun saveImage(bmp: Bitmap?): File {
+        val bytes = ByteArrayOutputStream()
+        bmp?.compress(Bitmap.CompressFormat.PNG, 0, bytes)
+        val f = File(
+            Environment.getExternalStorageDirectory()
+                .toString() + File.separator + "testimage.png"
+        )
+        f.createNewFile()
+        val fo = FileOutputStream(f)
+        fo.write(bytes.toByteArray())
+        fo.close()
+        return f
+    }
+
+    private inner class RecognizeTextWithoutPDFTask(private val bitmap: Bitmap) : AsyncTask<Void, Void, OcrResult?>
+        () {
+        override fun doInBackground(vararg voids: Void): OcrResult? {
+            return try {
+                //val bitmap = loadImage()
+                val newPageId = pageFileStorage.add(bitmap)
+                val page = Page(newPageId, emptyList(), DetectionResult.OK, ImageFilterType.BINARIZED)
+
+                val processedPage = pageProcessor.detectDocument(page)
+
+                val pages = listOf(processedPage)
+                val languages = setOf(Language.ENG)
+
+                opticalCharacterRecognizer.recognizeTextFromPages(pages, languages)
+
+                //opticalCharacterRecognizer.recognizeTextWithPdfFromPages(pages, PDFPageSize.A4, languages)
+            } catch (e: IOException) {
+                throw RuntimeException(e)
+            }
+        }
+
+
+        override fun onPostExecute(ocrResult: OcrResult?) {
+            // progressView.visibility = View.GONE
+
+            ocrResult?.let {
+                Log.d("SCANNING","Scanning done")
+                if (it.ocrPages.isNotEmpty()) {
+                    Log.d("Main Activity", it.recognizedText)
+
+                    // Toast.makeText(this@MainActivity,
+                    //     """
+                    //         Recognized page content:
+                    //         ${it.recognizedText}
+                    //         """.trimIndent(),
+                    //     Toast.LENGTH_LONG).show()
+
+                    // bounding boxes and text results of recognized paragraphs, lines and words:
+                      /* for(ocr in it.ocrPages){
+                           Log.d("Main Activity","Lines: ${ocr.lines}")
+                           Log.d("Main Activity","Para: ${ocr.paragraphs}")
+                           Log.d("Main Activity","Words: ${ocr.words}")
+                       }*/
+                }
+
+            }
+
+       /*     ocrResult?.sandwichedPdfDocumentFile?.let { file ->
+
+                Log.d("Main Activity", file.path)
+
+            }*/
+        }
     }
 
     companion object {

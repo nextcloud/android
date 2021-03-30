@@ -802,6 +802,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             })
             //enable sdkFilesDir if custom file directory has to be set
             //.sdkFilesDirectory(this,getExternalFilesDir(null))
+            .prepareOCRLanguagesBlobs(true)
             .initialize(this);
     }
 }

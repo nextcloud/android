@@ -418,7 +418,8 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     //scanbot sdk
-    implementation "io.scanbot:sdk-package-1:$scanbotSdkVersion"
+    //implementation "io.scanbot:sdk-package-1:$scanbotSdkVersion"
+    implementation "io.scanbot:sdk-package-2:$scanbotSdkVersion"
 }
 
 spotbugs {

@@ -273,6 +273,14 @@
 		<item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <style name="Theme.ownCloud.Splash" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+    </style>
+
 	<style name="Theme.ownCloud.Widget.ActionBar"
 		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
 		<item name="android:background">@color/primary</item>
