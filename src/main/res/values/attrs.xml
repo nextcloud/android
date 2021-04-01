@@ -2,7 +2,9 @@
 <resources>
 	<string-array name="pref_behaviour_entries" translatable="false">
 		<item>@string/pref_behaviour_entries_keep_file</item>
+<!--
 		<item>@string/pref_behaviour_entries_move</item>
+-->
 		<item>@string/pref_behaviour_entries_delete_file</item>
 	</string-array>
 

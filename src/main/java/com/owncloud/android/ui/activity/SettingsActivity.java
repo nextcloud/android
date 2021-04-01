@@ -238,7 +238,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         /* About App */
         Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
-            pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
+            pAboutApp.setTitle(getString(R.string.app_name));
 
             String buildNumber = getResources().getString(R.string.buildNumber);
 
@@ -716,7 +716,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        ListPreference themePref = (ListPreference) findPreference("darkMode");
+        /*ListPreference themePref = (ListPreference) findPreference("darkMode");
 
         List<String> themeEntries = new ArrayList<>(3);
         themeEntries.add(getString(R.string.prefs_value_theme_light));
@@ -742,7 +742,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             MainApp.setAppTheme(mode);
 
             return true;
-        });
+        });*/
     }
 
     private String getAppVersion() {

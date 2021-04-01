@@ -518,7 +518,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_license">Lizenz</string>
-    <string name="prefs_lock">App-PIN</string>
+    <string name="prefs_lock">Sicherheit</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
     <string name="prefs_lock_device_credentials_not_setup">Keine Geräte-Anmeldedaten eingerichtet.</string>
     <string name="prefs_lock_none">Nichts</string>
@@ -532,7 +532,7 @@
     <string name="prefs_storage_path">Speicherordner</string>
     <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
-    <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
+    <string name="prefs_synced_folders_remote_path_title">Zielorder in Deiner MagentaCLOUD</string>
     <string name="prefs_theme_title">Design</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>

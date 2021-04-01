@@ -1,26 +1,29 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:tint="#0082c9"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
-    <path
-        android:fillColor="#FF000000"
-        android:pathData="M10,4H4c-1.1,0 -1.99,0.9 -1.99,2L2,18c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2V8c0,-1.1 -0.9,-2 -2,-2h-8l-2,-2z" />
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+  <path
+      android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+      android:fillColor="#53baf2"/>
+  <path
+      android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+      android:strokeAlpha="0.25"
+      android:fillColor="#317cb3"
+      android:fillAlpha="0.25"/>
+  <path
+      android:pathData="M58,16H4V53a2,2 0,0 0,2 2H58a2,2 0,0 0,2 -2V18A2,2 0,0 0,58 16Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="54.82999"
+          android:startX="32.01"
+          android:endY="15.919989"
+          android:endX="32.01"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF53BAF2"/>
+        <item android:offset="1" android:color="#FF7ECBF5"/>
+      </gradient>
+    </aapt:attr>
+  </path>
 </vector>

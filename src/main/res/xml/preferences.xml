@@ -26,10 +26,10 @@
         <ListPreference
             android:title="@string/prefs_storage_path"
             android:key="storage_path"/>
-        <ListPreference
+     <!--   <ListPreference
             android:title="@string/prefs_theme_title"
             android:key="darkMode"
-            android:summary="%s" />
+            android:summary="%s" />-->
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"
@@ -64,9 +64,9 @@
             android:title="@string/drawer_synced_folders"
             android:key="syncedFolders"
             android:summary="@string/prefs_sycned_folders_summary"/>
-		<Preference android:title="@string/prefs_calendar_contacts"
+		<!--<Preference android:title="@string/prefs_calendar_contacts"
 					android:key="calendar_contacts"
-					android:summary="@string/prefs_calendar_contacts_summary" />
+					android:summary="@string/prefs_calendar_contacts_summary" />-->
 		<Preference
 			android:title="@string/actionbar_contacts"
 			android:key="contacts"
@@ -76,7 +76,9 @@
 			android:key="mnemonic"
 			android:summary="Displays your E2E 12 words passphrase" />
 		<Preference android:title="@string/prefs_help" android:key="help" />
+<!--
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
+-->
 		<Preference android:title="@string/logs_title" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 	</PreferenceCategory>
@@ -85,14 +87,14 @@
 			android:title="@string/privacy"
 			android:id="@+id/privacy"
 			android:key="privacy"/>
-		<Preference
+	<!--	<Preference
 			android:title="@string/prefs_sourcecode"
 			android:id="@+id/sourcecode"
 			android:key="sourcecode"/>
 		<Preference
 			android:title="@string/prefs_license"
 			android:id="@+id/license"
-			android:key="license"/>
+			android:key="license"/>-->
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
 	</PreferenceCategory>
 

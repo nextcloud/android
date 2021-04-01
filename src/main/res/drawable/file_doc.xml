@@ -1,24 +1,30 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="72dp" android:viewportHeight="16"
-    android:viewportWidth="16" android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#49abea" android:pathData="m2.5,1c-0.28,0 -0.5,0.22 -0.5,0.5v13c0,0.28 0.22,0.5 0.5,0.5h11c0.28,0 0.5,-0.22 0.5,-0.5v-10.5l-3,-3h-8.5zM4,3h6v1h-6v-1zM4,6h5v1h-5v-1zM4,9h8v1h-8v-1zM4,12h4v1h-4v-1z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+  <path
+      android:pathData="M55,19V58a2,2 0,0 1,-2 2H11a2,2 0,0 1,-2 -2V6a2,2 0,0 1,2 -2H40Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="60.000034"
+          android:startX="32.010014"
+          android:endY="4.0000343"
+          android:endX="32.010014"
+          android:type="linear">
+        <item android:offset="0" android:color="#FFDDD6D3"/>
+        <item android:offset="0.39" android:color="#FFE9E4E2"/>
+        <item android:offset="1" android:color="#FFE9E4E2"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M55,19H42a2,2 0,0 1,-2 -2V4Z"
+      android:strokeAlpha="0.7"
+      android:fillColor="#b9ada7"
+      android:fillAlpha="0.7"/>
+  <path
+      android:pathData="M19,27L45,27v3L19,30ZM19,38L45,38L45,35L19,35ZM19,46L45,46L45,43L19,43Z"
+      android:fillColor="#948983"/>
 </vector>
