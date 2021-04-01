@@ -71,7 +71,6 @@
     <string name="auth_wrong_connection_title">Không thể thiết lập kết nối</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">được giữ trong thư mục gốc, vì nó chỉ được đọc</string>
     <string name="auto_upload_on_wifi">Chỉ tải lên khi có mạng Wi-Fi không trả phí</string>
-    <string name="auto_upload_path">/Tự động tải lên</string>
     <string name="autoupload_configure">Thiết lập</string>
     <string name="autoupload_create_new_custom_folder">Tạo mới một thư mục tùy chỉnh</string>
     <string name="autoupload_custom_folder">Thiết đặt một thư mục tùy chỉnh</string>
@@ -311,7 +310,7 @@
     <string name="file_migration_cleaning">Đang xóa…</string>
     <string name="file_migration_dialog_title">Đang cập nhật thư mục lưu trữ dữ liệu</string>
     <string name="file_migration_directory_already_exists">Thư mục dữ liệu đã tồn tại. Chọn một trong mục theo dây:</string>
-    <string name="file_migration_failed_dir_already_exists">Thư mục Nextcloud đã tồn tại</string>
+    <string name="file_migration_failed_dir_already_exists">Thư mục vWorkspace đã tồn tại</string>
     <string name="file_migration_failed_not_enough_space">Cần thêm dung lượng trống</string>
     <string name="file_migration_failed_not_readable">Không thể đọc tệp nguồn</string>
     <string name="file_migration_failed_not_writable">Không thể ghi tới tệp đích</string>
@@ -595,7 +594,7 @@
     <string name="share_internal_link_to_file_text">Liên kết chia sẻ nội bộ chỉ hoạt động đối với người dùng có quyền truy cập vào tệp này</string>
     <string name="share_internal_link_to_folder_text">Liên kết chia sẻ nội bộ chỉ hoạt động đối với người dùng có quyền truy cập vào thư mục này</string>
     <string name="share_known_remote_on_clarification">trên %1$s</string>
-    <string name="share_link">Chia sẽ liên kết</string>
+    <string name="share_link">Chia sẻ liên kết</string>
     <string name="share_link_empty_password">Bạn hãy nhập một mật khẩu</string>
     <string name="share_link_file_error">Đã xảy ra lỗi khi cố gắng chia sẻ tệp hoặc thư mục này.</string>
     <string name="share_link_file_no_exist">Không thể chia sẻ. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
@@ -719,7 +718,7 @@
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
     <string name="unset_favorite">Xóa khỏi ưa thích</string>
-    <string name="unshare">Bỏ chia sẽ</string>
+    <string name="unshare">Bỏ chia sẻ</string>
     <string name="unshare_link_file_error">Đã xảy ra lỗi khi cố gắng hủy chia sẻ tệp hoặc thư mục này.</string>
     <string name="unshare_link_file_no_exist">Không thể ngừng chia sẻ. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
     <string name="unshare_link_forbidden_permissions">bỏ chia sẽ tập tin này</string>

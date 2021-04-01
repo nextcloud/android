@@ -91,6 +91,8 @@
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
     <string name="clear_notifications_failed">Az értesítések törlése sikertelen.</string>
+    <string name="clear_status_message">Állapotüzenet törlése</string>
+    <string name="clear_status_message_after">Állapotüzenet törlése ennyi idő után:</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
     <string name="clipboard_no_text_to_copy">Nem érkezett szöveg a vágólapra másoláshoz</string>
     <string name="clipboard_text_copied">Hivatkozás másolva</string>
@@ -112,6 +114,7 @@
     <string name="common_save">Mentés</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
+    <string name="common_skip">Kihagyás</string>
     <string name="common_switch_account">Fiókváltás</string>
     <string name="common_switch_to_account">Váltás fiókra</string>
     <string name="common_unknown">ismeretlen</string>
@@ -444,6 +447,8 @@
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
     <string name="oneHour">1 óra</string>
+    <string name="online">Elérhető</string>
+    <string name="online_status">Online állapot</string>
     <string name="outdated_server">A kiszolgáló elérte az életciklusa végét, kérjük frissítsen!</string>
     <string name="overflow_menu">További menü</string>
     <string name="pass_code_configure_your_pass_code">Írja be a számkódodat</string>
@@ -472,6 +477,7 @@
     <string name="pref_behaviour_entries_move">áthelyezve az alkalmazásmappába</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Mit tegyen, ha a fájl már létezik?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Kérdezzen rá mindig</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Feltöltés megszakítása</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Távoli verzió felülírása</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Új verzió átnevezése</string>
     <string name="pref_instant_name_collision_policy_title">Mit tegyen, ha a fájl már létezik?</string>
