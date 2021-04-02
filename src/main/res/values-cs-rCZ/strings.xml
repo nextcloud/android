@@ -84,7 +84,7 @@
     <string name="battery_optimization_message">Vaše zařízení má zapnuté snížení vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
-    <string name="brute_force_delay">Odloženo z důvodu mnoha špatných pokusů</string>
+    <string name="brute_force_delay">Odloženo z důvodu příliš mnoha nesprávných pokusů</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
     <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
@@ -197,7 +197,7 @@
     <string name="dev_version_no_new_version_available">Není k dispozici žádná novější verze.</string>
     <string name="dialog_close">Zavřít</string>
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
-    <string name="direct_login_failed">Přihlášení přes přímý odkaz selhalo!</string>
+    <string name="direct_login_failed">Přihlášení se prostřednictvím přímého odkazu se nezdařilo!</string>
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit upozornění</string>

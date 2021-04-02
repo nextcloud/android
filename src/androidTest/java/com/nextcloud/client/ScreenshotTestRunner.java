@@ -30,9 +30,9 @@ import android.os.Bundle;
 import com.facebook.testing.screenshot.ScreenshotRunner;
 import com.github.tmurakami.dexopener.DexOpener;
 
-import androidx.test.runner.AndroidJUnitRunner;
+import com.karumi.shot.ShotTestRunner;
 
-public class ScreenshotTestRunner extends AndroidJUnitRunner {
+public class ScreenshotTestRunner extends ShotTestRunner {
 
     @Override
     public Application newApplication(ClassLoader cl, String className, Context context)
@@ -47,17 +47,5 @@ public class ScreenshotTestRunner extends AndroidJUnitRunner {
         }
 
         return super.newApplication(cl, className, context);
-    }
-
-    @Override
-    public void onCreate(Bundle args) {
-        super.onCreate(args);
-        ScreenshotRunner.onCreate(this, args);
-    }
-
-    @Override
-    public void finish(int resultCode, Bundle results) {
-        ScreenshotRunner.onDestroy();
-        super.finish(resultCode, results);
     }
 }
