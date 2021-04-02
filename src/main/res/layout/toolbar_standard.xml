@@ -44,7 +44,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sort_button"
-                style="@style/Nextcloud.Material.TextButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
@@ -53,12 +53,12 @@
                 android:text="@string/menu_item_sort_by_date_newest_first"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                android:textColor="@color/fontAppbar"
+                android:textColor="@color/primary"
                 android:textSize="14sp"
                 app:icon="@drawable/ic_keyboard_arrow_down"
                 app:iconGravity="textEnd"
-                app:iconSize="16dp"
-                app:iconTint="@color/fontAppbar"
+                app:iconSize="12dp"
+                app:iconTint="@color/primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -72,10 +72,19 @@
                 android:contentDescription="@string/action_switch_grid_view"
                 app:cornerRadius="24dp"
                 app:icon="@drawable/ic_view_module"
-                app:iconTint="@color/fontAppbar"
+                app:iconTint="@color/text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/toolbar_divider"
+                android:layout_width="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sort_button"
+                android:layout_height="0.5dp"
+                android:background="@color/toolbar_divider_background"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- default toolbar -->

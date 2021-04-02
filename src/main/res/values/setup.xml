@@ -66,7 +66,7 @@
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
-    <string name="url_help">https://help.nextcloud.com/c/clients/android/</string>
+    <string name="url_help">https://cloud.telekom-dienste.de/hilfe</string>
     <bool name="privacy_enabled">true</bool>
     <string name="privacy_url">https://nextcloud.com/privacy</string>
     <bool name="imprint_enabled">false</bool>

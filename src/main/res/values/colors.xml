@@ -23,11 +23,13 @@
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="white_helper_text">#B3FFFFFF</color>
-    <color name="text_color">#333333</color>
+    <color name="text_color">#191919 </color>
+    <color name="text_color_old">#333333</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eeeeee</color>
+    <color name="toolbar_divider_background">#b2b2b2</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
