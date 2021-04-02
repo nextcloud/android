@@ -65,7 +65,7 @@
     <string name="auth_unauthorized">錯誤的用戶名或密碼</string>
     <string name="auth_unknown_error_exception_title">未知錯誤：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的HTTP錯誤！</string>
-    <string name="auth_unknown_error_title">發生了不詳的錯誤！</string>
+    <string name="auth_unknown_error_title">發生了未知的錯誤！</string>
     <string name="auth_unknown_host_title">無法找到主機</string>
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
@@ -106,7 +106,7 @@
     <string name="common_delete">刪除</string>
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
-    <string name="common_error_unknown">不明錯誤</string>
+    <string name="common_error_unknown">未知錯誤</string>
     <string name="common_loading">載入中…</string>
     <string name="common_no">否</string>
     <string name="common_ok">確定</string>
