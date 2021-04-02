@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
     <string name="battery_optimization_no_setting">Postavke baterije ne mogu se izravno pokrenuti. Podesite ih ručno u postavkama.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="brute_force_delay">Odgođeno zbog previše pogrešnih pokušaja</string>
     <string name="certificate_load_problem">Došlo je do poteškoća prilikom učitavanja vjerodajnice.</string>
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
+    <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
     <string name="clear_notifications_failed">Brisanje obavijesti nije uspjelo.</string>
     <string name="clear_status_message">Izbriši poruku statusa</string>
@@ -114,6 +116,7 @@
     <string name="common_save">Spremi</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Dijeli</string>
+    <string name="common_skip">Preskoči</string>
     <string name="common_switch_account">Zamijeni račun</string>
     <string name="common_switch_to_account">Prebaci na račun</string>
     <string name="common_unknown">nepoznato</string>
@@ -173,6 +176,7 @@
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
     <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
+    <string name="create">Stvori</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
     <string name="create_new">Stvori novi</string>
     <string name="create_new_document">Stvori novi dokument</string>
@@ -193,6 +197,7 @@
     <string name="dev_version_no_new_version_available">Nema nove inačice.</string>
     <string name="dialog_close">Zatvori</string>
     <string name="digest_algorithm_not_available">Algoritam sažetka nije dostupan na vašem uređaju.</string>
+    <string name="direct_login_failed">Prijava putem izravne poveznice nije uspjela!</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogući</string>
     <string name="dismiss">Zanemari</string>
     <string name="dismiss_notification_description">Zanemari obavijest</string>
@@ -306,6 +311,7 @@
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
     <string name="file_migration_checking_destination">Provjera odredišta...</string>
     <string name="file_migration_cleaning">Čišćenje…</string>
+    <string name="file_migration_dialog_title">Ažuriranje mape za pohranu datoteka</string>
     <string name="file_migration_directory_already_exists">Mapa za podatke već postoji. Odaberite jedno od sljedećeg:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud mapa već postoji</string>
     <string name="file_migration_failed_not_enough_space">Potrebno je više prostora</string>
@@ -319,6 +325,7 @@
     <string name="file_migration_preparing">Priprema migracije...</string>
     <string name="file_migration_restoring_accounts_configuration">Vraćanje konfiguracije računa...</string>
     <string name="file_migration_saving_accounts_configuration">Spremanje konfiguracije računa...</string>
+    <string name="file_migration_source_not_readable">Želite li i dalje promijeniti mapu za pohranu podataka na %1$s?\n\nNapomena: morat ćete ponovno preuzeti sve podatke.</string>
     <string name="file_migration_source_not_readable_title">Izvorna mapa nije čitljiva!</string>
     <string name="file_migration_updating_index">Ažuriranje indeksa...</string>
     <string name="file_migration_use_data_folder">Koristi</string>
@@ -383,6 +390,7 @@
     <string name="log_send_mail_subject">Zapisnici aplikacija za Android %1$s</string>
     <string name="log_send_no_mail_app">Nije pronađena nijedna aplikacija za slanje zapisa. Instalirajte klijent e-pošte.</string>
     <string name="login">Prijava</string>
+    <string name="login_url_helper_text">Poveznica do vašeg web-sučelja %1$s kada ga otvorite u pregledniku.</string>
     <string name="logs_menu_delete">Izbriši zapise</string>
     <string name="logs_menu_refresh">Osvježi</string>
     <string name="logs_menu_search">Pretraži zapise</string>
@@ -522,6 +530,7 @@
     <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
+    <string name="prefs_storage_path">Mapa za pohranu podataka</string>
     <string name="prefs_sycned_folders_summary">Upravljanje mapama za automatsko otpremanje</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena mapa</string>
@@ -572,6 +581,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendar i kontakti</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="select_all">Odaberi sve</string>
+    <string name="select_one_template">Odaberite jedan predložak</string>
     <string name="select_template">Odaberi predložak</string>
     <string name="send">Pošalji</string>
     <string name="send_note">Pošalji bilješku primatelju</string>
