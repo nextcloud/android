@@ -206,7 +206,7 @@
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
-    <string name="downloader_download_failed_ticker">Pobieranie nieudane</string>
+    <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
     <string name="downloader_download_in_progress_ticker">Pobieram…</string>
