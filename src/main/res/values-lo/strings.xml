@@ -684,6 +684,7 @@
     <string name="sync_fail_ticker_unauthorized">Sync ບໍ່ສຳເລັດ, ເຂົ້າລະບົບອີກຄັ້ງ</string>
     <string name="sync_file_nothing_to_do_msg">ເນື້ອໃນຂອງຟາຍໄດ້ຖືກເຂົ້າແຟ້ມແລ້ວ</string>
     <string name="sync_folder_failed_content">ບໍ່ສາມາດ Sync ໂຟນເດີ%1$s</string>
+    <string name="sync_foreign_files_forgotten_explanation">ເວີຊັ້ນ 1.3.16, ຟາຍອັບໂຫຼດຈາກ ອຸປະກອນນີ້ແມ່ນສຳເນົາ %1$sເຂົ້າໃນ ໂຟນເດີ ເພື່ອປ້ອງກັນຂໍ້ມຸນເສຍຫາຍ ເມື່ອ synced ຟາຍກັບຫຼາຍບັນຊີ.\n\n ເນື່ອງຈາກການປ່ຽນແປງນີ້, ທຸກຟາຍອັບອັບໂຫຼດດ້ວຍເວີຊັ້ນໃໝ່ແມ່ນຖືກສຳເນົາເຂົ້າ%2$sໃນໂຟນເດີ. ເເຕ່ວ່າ, ໃນຂະນະການປ້ອງກັນຜິດພາດໃນລະຫວ່າງການດຳເນີນງານ. ທ່ານ ອາດຈະອອກຈາກຟາຍເຮັດເປັນ ລິ້ງ%3$s ຫຼື ຍ້າຍຟາຍເຂົ້າໃນໂຟນເດິ%1$s, ເພື່ອຮັກສາລິງໄວ້%4$s. \n\nໃນໂຟນເດີຟາຍ, ແລະ ເຮັດເປັນຟາຍ%5$sທີ່ເຊື່ຶອມຕໍ່ກັນໃນໄລຍະໄກ.</string>
     <string name="sync_foreign_files_forgotten_ticker">ລຶມບາງຟາຍພາຍໃນ </string>
     <string name="sync_in_progress">ກຳລັງນຳຟາຍເວີຊັ້ນລ່າສຸດ</string>
     <string name="sync_not_enough_space_dialog_action_choose">ເລືອກທີ່ຈະ sync</string>
