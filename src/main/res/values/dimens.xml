@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="splash_image_size">100dp</dimen>
+    <dimen name="splash_image_size">92dp</dimen>
+    <dimen name="splash_inner_image_size">72dp</dimen>
 </resources>

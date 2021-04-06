@@ -7,9 +7,8 @@
     android:background="@color/primary">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/transparent"
+        android:layout_width="@dimen/splash_image_size"
+        android:layout_height="@dimen/splash_image_size"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -18,16 +17,18 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSplash"
-            android:layout_width="@dimen/splash_image_size"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_magentacloud" />
+            android:layout_gravity="center"
+            android:layout_width="@dimen/splash_inner_image_size"
+            android:layout_height="@dimen/splash_inner_image_size"
+            app:srcCompat="@drawable/ic_magentacloud_product_logo" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="MagentaCLOUD"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvSplash"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
