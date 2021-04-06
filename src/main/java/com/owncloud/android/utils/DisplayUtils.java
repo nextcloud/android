@@ -573,7 +573,7 @@ public final class DisplayUtils {
                                         int width,
                                         int height) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-            .using(new CustomGlideUriLoader(currentAccountProvider, clientFactory), InputStream.class)
+            .using(new CustomGlideUriLoader(currentAccountProvider.getUser(), clientFactory), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
             .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)

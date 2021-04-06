@@ -52,6 +52,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
@@ -222,5 +223,10 @@ class AppModule {
     @Provides
     LocalBroadcastManager localBroadcastManager(Context context) {
         return LocalBroadcastManager.getInstance(context);
+    }
+
+    @Provides
+    FileDataStorageManager storageManager(CurrentAccountProvider currentAccountProvider, Context context) {
+        return new FileDataStorageManager(currentAccountProvider.getCurrentAccount(), context.getContentResolver());
     }
 }

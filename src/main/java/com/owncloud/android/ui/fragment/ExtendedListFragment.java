@@ -59,6 +59,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -220,9 +221,9 @@ public class ExtendedListFragment extends Fragment implements
             if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
                 && !(getActivity() instanceof UploadFilesActivity)) {
                 if (getActivity() instanceof FileDisplayActivity) {
-                    OCFileListFragment fileFragment = ((FileDisplayActivity) getActivity()).getListOfFilesFragment();
-                    if (fileFragment != null) {
-                        fileFragment.setFabVisible(!hasFocus);
+                    Fragment fragment = ((FileDisplayActivity) getActivity()).getLeftFragment();
+                    if (fragment instanceof OCFileListFragment) {
+                        ((OCFileListFragment) fragment).setFabVisible(!hasFocus);
                     }
                 }
                 if (TextUtils.isEmpty(searchView.getQuery())) {
@@ -317,8 +318,18 @@ public class ExtendedListFragment extends Fragment implements
                 } else {
                     handler.post(() -> {
                         if (adapter instanceof OCFileListAdapter) {
-                            EventBus.getDefault().post(new SearchEvent(query,
-                                                                       SearchRemoteOperation.SearchType.FILE_SEARCH));
+                            if (accountManager
+                                .getUser()
+                                .getServer()
+                                .getVersion()
+                                .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
+                            ) {
+                                ((FileDisplayActivity) activity).performUnifiedSearch(query);
+                            } else {
+                                EventBus.getDefault().post(
+                                    new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
+                                                          );
+                            }
                         } else if (adapter instanceof LocalFileListAdapter) {
                             LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
                             localFileListAdapter.filter(query);

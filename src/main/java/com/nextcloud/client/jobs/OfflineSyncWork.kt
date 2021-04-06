@@ -109,13 +109,16 @@ class OfflineSyncWork constructor(
         if (files != null) {
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
-                val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile.remotePath,
-                    user,
-                    true,
-                    context
-                )
-                synchronizeFileOperation.execute(storageManager, context)
+
+                ocFile?.let {
+                    val synchronizeFileOperation = SynchronizeFileOperation(
+                        it.remotePath,
+                        user,
+                        true,
+                        context
+                    )
+                    synchronizeFileOperation.execute(storageManager, context)
+                }
             }
         }
         // recursive into folder

@@ -146,7 +146,8 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
-    public OCFile getFileByLocalPath(String path) {
+    public @Nullable
+    OCFile getFileByLocalPath(String path) {
         Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile ocFile = null;
 
