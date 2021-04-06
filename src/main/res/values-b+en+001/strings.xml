@@ -218,7 +218,7 @@
     <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
-    <string name="drawer_item_on_device">On device</string>
+    <string name="drawer_item_on_device">Available offline</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>

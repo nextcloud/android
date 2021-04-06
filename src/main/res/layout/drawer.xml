@@ -50,6 +50,7 @@
             <TextView
                 android:id="@+id/drawer_quota_link"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/alternate_half_padding" />
 

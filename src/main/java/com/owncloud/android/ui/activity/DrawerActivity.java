@@ -643,7 +643,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     final ExternalLink firstQuota = quotas.get(0);
                     mQuotaTextLink.setText(firstQuota.name);
                     mQuotaTextLink.setClickable(true);
-                    mQuotaTextLink.setVisibility(View.VISIBLE);
+                    mQuotaTextLink.setVisibility(View.GONE);
                     mQuotaTextLink.setOnClickListener(v -> {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
