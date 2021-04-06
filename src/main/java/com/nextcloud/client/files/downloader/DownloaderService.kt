@@ -97,11 +97,16 @@ class DownloaderService : Service() {
             )
         }
 
-        val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request
-        val downloader = getDownloader(request.user)
-        downloader.enqueue(request)
+        val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request?
 
-        logger.d(TAG, "Enqueued new download: ${request.uuid} ${request.file.remotePath}")
+        if (request != null) {
+            val downloader = getDownloader(request.user)
+            downloader.enqueue(request)
+
+            logger.d(TAG, "Enqueued new download: ${request.uuid} ${request.file.remotePath}")
+        } else {
+            logger.e(TAG, "No request!")
+        }
 
         return START_NOT_STICKY
     }

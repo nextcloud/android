@@ -32,6 +32,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import dagger.android.AndroidInjection
@@ -137,12 +138,17 @@ class PlayerService : Service() {
     }
 
     private fun onActionPlay(intent: Intent) {
-        val user: User = intent.getParcelableExtra(EXTRA_USER) as User
-        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE) as OCFile
+        val user: User? = intent.getParcelableExtra(EXTRA_USER) as User?
+        val file: OCFile? = intent.getParcelableExtra(EXTRA_FILE) as OCFile?
         val startPos = intent.getIntExtra(EXTRA_START_POSITION_MS, 0)
         val autoPlay = intent.getBooleanExtra(EXTRA_AUTO_PLAY, true)
-        val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
-        player.play(item)
+
+        if (user == null || file == null) {
+            Log_OC.e(this, "User or file null")
+        } else {
+            val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
+            player.play(item)
+        }
     }
 
     private fun onActionStop() {
@@ -157,7 +163,7 @@ class PlayerService : Service() {
 
     private fun startForeground(currentFile: OCFile) {
         val ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name))
-        val content = getString(R.string.media_state_playing, currentFile.getFileName())
+        val content = getString(R.string.media_state_playing, currentFile.fileName)
         notificationBuilder.setSmallIcon(R.drawable.ic_play_arrow)
         notificationBuilder.setWhen(System.currentTimeMillis())
         notificationBuilder.setOngoing(true)

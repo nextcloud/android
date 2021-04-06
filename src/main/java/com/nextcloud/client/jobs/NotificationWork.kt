@@ -115,14 +115,18 @@ class NotificationWork constructor(
                             String(decryptedSubject),
                             DecryptedPushMessage::class.java
                         )
-                        if (decryptedPushMessage.delete) {
-                            notificationManager.cancel(decryptedPushMessage.nid)
-                        } else if (decryptedPushMessage.deleteAll) {
-                            notificationManager.cancelAll()
-                        } else {
-                            val user = accountManager.getUser(signatureVerification.getAccount().name)
-                                .orElseThrow { RuntimeException() }
-                            fetchCompleteNotification(user, decryptedPushMessage)
+                        when {
+                            decryptedPushMessage.delete -> {
+                                notificationManager.cancel(decryptedPushMessage.nid)
+                            }
+                            decryptedPushMessage.deleteAll -> {
+                                notificationManager.cancelAll()
+                            }
+                            else -> {
+                                val user = accountManager.getUser(signatureVerification.getAccount().name)
+                                    .orElseThrow { RuntimeException() }
+                                fetchCompleteNotification(user, decryptedPushMessage)
+                            }
                         }
                     }
                 } catch (e1: GeneralSecurityException) {
@@ -205,8 +209,7 @@ class NotificationWork constructor(
                     actionIntent,
                     PendingIntent.FLAG_CANCEL_CURRENT
                 )
-                var icon: Int
-                icon = if (action.primary) {
+                val icon: Int = if (action.primary) {
                     R.drawable.ic_check_circle
                 } else {
                     R.drawable.ic_check_circle_outline
@@ -272,61 +275,58 @@ class NotificationWork constructor(
             val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)
             val accountName = intent.getStringExtra(KEY_NOTIFICATION_ACCOUNT)
             if (numericNotificationId != 0) {
-                Thread(
-                    Runnable {
-                        val notificationManager = context.getSystemService(
-                            Activity.NOTIFICATION_SERVICE
-                        ) as NotificationManager
-                        var oldNotification: android.app.Notification? = null
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
-                            for (statusBarNotification in notificationManager.activeNotifications) {
-                                if (numericNotificationId == statusBarNotification.id) {
-                                    oldNotification = statusBarNotification.notification
-                                    break
-                                }
+                Thread {
+                    val notificationManager = context.getSystemService(
+                        Activity.NOTIFICATION_SERVICE
+                    ) as NotificationManager
+                    var oldNotification: android.app.Notification? = null
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        for (statusBarNotification in notificationManager.activeNotifications) {
+                            if (numericNotificationId == statusBarNotification.id) {
+                                oldNotification = statusBarNotification.notification
+                                break
                             }
-                            cancel(context, numericNotificationId)
                         }
-                        try {
-                            val optionalUser = accountManager.getUser(accountName)
-                            if (optionalUser.isPresent) {
-                                val user = optionalUser.get()
-                                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                                    .getClientFor(user.toOwnCloudAccount(), context)
-                                val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
-                                val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
-                                val success: Boolean
-                                success = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
-                                    val resultCode = executeAction(actionType, actionLink, client)
-                                    resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
-                                } else {
-                                    DeleteNotificationRemoteOperation(numericNotificationId)
-                                        .execute(client).isSuccess
-                                }
-                                if (success) {
-                                    if (oldNotification == null) {
-                                        cancel(context, numericNotificationId)
-                                    }
-                                } else {
-                                    notificationManager.notify(numericNotificationId, oldNotification)
-                                }
-                            }
-                        } catch (e: IOException) {
-                            Log_OC.e(TAG, "Error initializing client", e)
-                        } catch (e: OperationCanceledException) {
-                            Log_OC.e(TAG, "Error initializing client", e)
-                        } catch (e: AuthenticatorException) {
-                            Log_OC.e(TAG, "Error initializing client", e)
-                        }
+                        cancel(context, numericNotificationId)
                     }
-                ).start()
+                    try {
+                        val optionalUser = accountManager.getUser(accountName)
+                        if (optionalUser.isPresent) {
+                            val user = optionalUser.get()
+                            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                                .getClientFor(user.toOwnCloudAccount(), context)
+                            val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
+                            val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
+                            val success: Boolean
+                            success = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
+                                val resultCode = executeAction(actionType, actionLink, client)
+                                resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
+                            } else {
+                                DeleteNotificationRemoteOperation(numericNotificationId)
+                                    .execute(client).isSuccess
+                            }
+                            if (success) {
+                                if (oldNotification == null) {
+                                    cancel(context, numericNotificationId)
+                                }
+                            } else {
+                                notificationManager.notify(numericNotificationId, oldNotification)
+                            }
+                        }
+                    } catch (e: IOException) {
+                        Log_OC.e(TAG, "Error initializing client", e)
+                    } catch (e: OperationCanceledException) {
+                        Log_OC.e(TAG, "Error initializing client", e)
+                    } catch (e: AuthenticatorException) {
+                        Log_OC.e(TAG, "Error initializing client", e)
+                    }
+                }.start()
             }
         }
 
         @Suppress("ReturnCount") // legacy code
-        private fun executeAction(actionType: String, actionLink: String, client: OwnCloudClient): Int {
-            val method: HttpMethod
-            method = when (actionType) {
+        private fun executeAction(actionType: String?, actionLink: String?, client: OwnCloudClient): Int {
+            val method: HttpMethod = when (actionType) {
                 "GET" -> GetMethod(actionLink)
                 "POST" -> Utf8PostMethod(actionLink)
                 "DELETE" -> DeleteMethod(actionLink)
