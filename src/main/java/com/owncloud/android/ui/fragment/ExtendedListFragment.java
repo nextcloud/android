@@ -366,7 +366,6 @@ public class ExtendedListFragment extends Fragment implements
         mRecyclerView.setEmptyView(v.findViewById(R.id.empty_list_view));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.addItemDecoration(new SimpleListItemDividerDecoration(getContext(),R.drawable.item_divider));
 
         mScale = preferences.getGridColumns();
         setGridViewColumns(1f);

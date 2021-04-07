@@ -41,6 +41,7 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
     private final Rect bounds = new Rect();
     private Drawable divider;
     private int leftPadding = 0;
+    private boolean hasFooter;
 
     /**
      * Default divider will be used
@@ -55,9 +56,12 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
 
     /**
      * Custom divider will be used
+     *
+     * @param hasFooter if recyclerview has footer and no divider should be shown for footer then pass true else false
      */
-    public SimpleListItemDividerDecoration(Context context, int resId) {
+    public SimpleListItemDividerDecoration(Context context, int resId, boolean hasFooter) {
         super(context, DividerItemDecoration.VERTICAL);
+        this.hasFooter = hasFooter;
         divider = ContextCompat.getDrawable(context, resId);
     }
 
@@ -69,12 +73,17 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
         if (parent.getClipToPadding()) {
             right = parent.getWidth() - parent.getPaddingRight();
             canvas.clipRect(leftPadding, parent.getPaddingTop(), right,
-                    parent.getHeight() - parent.getPaddingBottom());
+                            parent.getHeight() - parent.getPaddingBottom());
         } else {
             right = parent.getWidth();
         }
 
-        final int childCount = parent.getChildCount();
+        int childCount = parent.getChildCount();
+
+        if (hasFooter) {
+            childCount = childCount - 1;
+        }
+
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
             parent.getDecoratedBoundsWithMargins(child, bounds);
