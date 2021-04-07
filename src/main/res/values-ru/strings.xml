@@ -116,6 +116,7 @@
     <string name="common_save">Сохранить</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
+    <string name="common_skip">Пропустить</string>
     <string name="common_switch_account">Переключить учётную запись</string>
     <string name="common_switch_to_account">Переключить учётную запись</string>
     <string name="common_unknown">неизвестно</string>

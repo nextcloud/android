@@ -65,7 +65,7 @@
     <string name="auth_unauthorized">錯誤的用戶名或密碼</string>
     <string name="auth_unknown_error_exception_title">未知錯誤：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的HTTP錯誤！</string>
-    <string name="auth_unknown_error_title">發生了不詳的錯誤！</string>
+    <string name="auth_unknown_error_title">發生了未知的錯誤！</string>
     <string name="auth_unknown_host_title">無法找到主機</string>
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
@@ -106,7 +106,7 @@
     <string name="common_delete">刪除</string>
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
-    <string name="common_error_unknown">不明錯誤</string>
+    <string name="common_error_unknown">未知錯誤</string>
     <string name="common_loading">載入中…</string>
     <string name="common_no">否</string>
     <string name="common_ok">確定</string>
@@ -499,7 +499,7 @@
     <string name="prefs_calendar_contacts">同步日曆&amp;通訊錄</string>
     <string name="prefs_calendar_contacts_address_resolve_error">此賬戶的伺服器位址無法被 DAVx5（以前稱為DAVdroid）解析</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
-    <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定DAVx5協定(以前稱為DAVdroid)(版本v1。3。0以上)</string>
+    <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定 DAVx5 協定（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
@@ -689,7 +689,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="sync_folder_failed_content">無法完成資料夾 %1$s 的同步作業</string>
-    <string name="sync_foreign_files_forgotten_explanation">於1。3。16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
+    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些近端端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
     <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>
@@ -754,7 +754,7 @@
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
-    <string name="upload_old_android">加密功能只適用於 Android 5。0 及以上版本</string>
+    <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足會無法將所選檔案複製到 %1$s 資料夾中。是否要改成移動它們？</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
@@ -800,7 +800,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">找不到近端的檔案</string>
     <string name="uploads_view_upload_status_failed_permission_error">權限錯誤</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
-    <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中。。。</string>
+    <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中...</string>
     <string name="uploads_view_upload_status_service_interrupted">App 中斷運作</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
     <string name="uploads_view_upload_status_unknown_fail">未知錯誤</string>
