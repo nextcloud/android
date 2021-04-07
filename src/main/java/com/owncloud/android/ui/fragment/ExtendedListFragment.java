@@ -66,6 +66,7 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
@@ -191,6 +192,8 @@ public class ExtendedListFragment extends Fragment implements
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         ThemeToolbarUtils.themeSearchView(searchView, requireContext());
@@ -363,6 +366,7 @@ public class ExtendedListFragment extends Fragment implements
         mRecyclerView.setEmptyView(v.findViewById(R.id.empty_list_view));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.addItemDecoration(new SimpleListItemDividerDecoration(getContext(),R.drawable.item_divider));
 
         mScale = preferences.getGridColumns();
         setGridViewColumns(1f);

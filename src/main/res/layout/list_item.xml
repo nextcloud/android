@@ -156,7 +156,8 @@
             android:paddingStart="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:tint="@color/secondary_text_color" />
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -169,7 +170,8 @@
             android:focusable="true"
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
-            android:src="@drawable/ic_unshared" />
+            android:src="@drawable/ic_unshared"
+            app:tint="@color/secondary_text_color" />
 
         <RelativeLayout
             android:id="@+id/sharedAvatars"
@@ -205,7 +207,8 @@
             android:focusable="true"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:src="@drawable/ic_dots_vertical" />
+            android:src="@drawable/ic_dots_vertical"
+            app:tint="@color/secondary_text_color" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -25,18 +25,18 @@
     <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#191919 </color>
     <color name="text_color_old">#333333</color>
-    <color name="drawer_text_color">@color/secondary_text_color</color>
+    <color name="drawer_text_color">#666666</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eeeeee</color>
-    <color name="toolbar_divider_background">#b2b2b2</color>
     <color name="fg_contrast">#656565</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="secondary_text_color">#666666</color>
+    <color name="secondary_text_color">#b2b2b2</color>
     <color name="highlight_textColor_Warning">#e53935</color>
+    <color name="check_green_color">#73c354</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
@@ -74,8 +74,8 @@
     <color name="color_dark_transparent">#40162233</color>
 
     <!-- Multiselect backgrounds -->
-    <color name="action_mode_background">@color/fontAppbar</color>
-    <color name="selected_item_background">#ECECEC</color>
+    <color name="action_mode_background">@color/white</color>
+    <color name="selected_item_background">#F2F2F2</color>
 
     <color name="drawer_menu_icon">#757575</color>
     <color name="bg_fallback_highlight">#616161</color>
@@ -89,6 +89,6 @@
 
     <!-- App bar -->
     <color name="appbar">@android:color/white</color>
-    <color name="fontAppbar">#666666</color>
+    <color name="fontAppbar">#191919</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
 </resources>

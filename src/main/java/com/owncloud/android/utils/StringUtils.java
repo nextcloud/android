@@ -21,6 +21,11 @@
 package com.owncloud.android.utils;
 
 
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,7 +63,7 @@ public final class StringUtils {
                     matcher.group(),
                     String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color,
                                   matcher.group())
-                );
+                                                            );
                 matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
             }
             matcher.appendTail(stringBuffer);
@@ -67,5 +72,20 @@ public final class StringUtils {
         } else {
             return "";
         }
+    }
+
+    /**
+     * make the passed text bold
+     *
+     * @param fullText   actual text
+     * @param textToBold to be bold
+     * @return
+     */
+    public static Spannable makeTextBold(String fullText, String textToBold) {
+        Spannable spannable = new SpannableString(fullText);
+        int indexStart = fullText.indexOf(textToBold);
+        int indexEnd = indexStart + textToBold.length();
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), indexStart, indexEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
     }
 }

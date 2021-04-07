@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.utils.StringUtils
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         const val SPLASH_DURATION = 1500L
     }
 
-    private lateinit var splashLabel : AppCompatTextView
+    private lateinit var splashLabel: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +29,10 @@ class SplashActivity : AppCompatActivity() {
         scheduleSplashScreen()
     }
 
-    private fun setSplashTitle(){
+    private fun setSplashTitle() {
         val appName = resources.getString(R.string.app_name)
         val textToBold = resources.getString(R.string.project_name)
-        val spannable = SpannableString(appName)
-        val indexStart = appName.indexOf(textToBold)
-        val indexEnd = indexStart + textToBold.length
-        spannable.setSpan(StyleSpan(Typeface.BOLD), indexStart, indexEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        splashLabel.text= spannable
+        splashLabel.text = StringUtils.makeTextBold(appName, textToBold)
     }
 
     private fun scheduleSplashScreen() {

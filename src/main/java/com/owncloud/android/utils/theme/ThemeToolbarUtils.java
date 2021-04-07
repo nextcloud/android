@@ -35,6 +35,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.StringUtils;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -73,7 +74,14 @@ public final class ThemeToolbarUtils {
      */
     public static void setColoredTitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
-            Spannable text = new SpannableString(title);
+
+            Spannable text;
+            if (title.contains(context.getResources().getString(R.string.project_name))) {
+                text = StringUtils.makeTextBold(title, context.getResources().getString(R.string.project_name));
+            }else{
+                text = new SpannableString(title);
+            }
+
             text.setSpan(new ForegroundColorSpan(ThemeColorUtils.appBarPrimaryFontColor(context)),
                          0,
                          text.length(),

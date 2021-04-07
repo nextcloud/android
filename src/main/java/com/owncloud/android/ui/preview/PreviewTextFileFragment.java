@@ -31,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
@@ -248,6 +249,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search);
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         if (searchOpen) {

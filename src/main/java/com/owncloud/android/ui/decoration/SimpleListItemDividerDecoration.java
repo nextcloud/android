@@ -28,6 +28,7 @@ import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
 
     private final Rect bounds = new Rect();
     private Drawable divider;
-    private int leftPadding;
+    private int leftPadding = 0;
 
     /**
      * Default divider will be used
@@ -50,6 +51,14 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
         divider = styledAttributes.getDrawable(0);
         leftPadding = Math.round(72 * (context.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
         styledAttributes.recycle();
+    }
+
+    /**
+     * Custom divider will be used
+     */
+    public SimpleListItemDividerDecoration(Context context, int resId) {
+        super(context, DividerItemDecoration.VERTICAL);
+        divider = ContextCompat.getDrawable(context, resId);
     }
 
     @Override
