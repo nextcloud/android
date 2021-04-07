@@ -90,6 +90,7 @@
     <string name="checkbox">Bellik gutusy</string>
     <string name="choose_local_folder">ýerli bukjany saýlaň ...</string>
     <string name="choose_remote_folder">Uzakdan bukjany saýlaň…</string>
+    <string name="choose_template_helper_text">Şablon saýlaň we faýl giriziň</string>
     <string name="choose_which_file">Haýsy faýly gorap saklamalydygyny saýlaň!</string>
     <string name="clear_notifications_failed">Duýduryşlary pozup bolmady</string>
     <string name="clear_status_message">Status habaryny arassalaň</string>
@@ -115,6 +116,7 @@
     <string name="common_save">Saklamak</string>
     <string name="common_send">Iber</string>
     <string name="common_share">Paýlaş</string>
+    <string name="common_skip">Geçiň</string>
     <string name="common_switch_account">Hasaby çalşyň</string>
     <string name="common_switch_to_account">Hasaba geçiň</string>
     <string name="common_unknown">näbelli</string>
@@ -174,6 +176,7 @@
     <string name="could_not_download_image">Doly suraty göçürip alyp bolmady</string>
     <string name="could_not_retrieve_shares">Paýlary alyp bolmady</string>
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
+    <string name="create">Dörediň</string>
     <string name="create_dir_fail_msg">Bukjany döredip bolmady</string>
     <string name="create_new">Täzesini dörediň</string>
     <string name="create_new_document">Täze resminama dörediň</string>
@@ -578,6 +581,7 @@
     <string name="screenshot_06_davdroid_heading">Senenama &amp;aragatnaşyklar</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
+    <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>
     <string name="send">Iber</string>
     <string name="send_note">Alyja bellik iberiň</string>
@@ -670,7 +674,7 @@
     <string name="store_full_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma.\n\n Aýratynlyklary:\n * Serweriňiziň temasyna laýyk gelýän aňsat, döwrebap interfeýs\n * Nextcloud serweriňize faýl ýükläň\n* Olary beýlekiler bilen paýlaşyň\n * Halaýan faýllaryňyzy we bukjalaryňyzy sinhronlaň\ n * Serweriňizdäki ähli bukjalarda gözläň\ n * Enjamyňyz tarapyndan düşürilen suratlar we wideolar üçin awtomatiki ýüklemek\n * Duýduryşlary bilen ähli täzelikleriň habarynda boluň \n * Bir näçe hasaplaryňyz üçin goldaw \n * Barmak yzy ýa-da PIN kodynyň kömegi bilen siziň maglumatlaryňyza ygtybarly girmek \n  Integrasiýa DAVx5 bilen (öň DAVdroid ady bilen tanalýardy) &amp;Aragatnaşyklaryň senenamasyny sinhronlamasyny aňsat gurnamak üçin \n\n Haýyş edýäris ähli ýüze çykýan meseleleri habar beriň https://github.com/nextcloud/android/issues we bu programmany ara alyp maslahatlaşmak üçin
 
 https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud” şahsy umumy düýp faýl sinhronlamasy &amp;we aragatnaşyk serweri. Bu mugt programma üpjünçiligi, ony özbaşdak ýerleşdirip bilersiňiz ýa-da siziň üçin buny ýerine ýetirjek kompaniýa töläp bilersiňiz. Şeýlelik bilen, suratlaryňyzy, senenamaňyzy we aragatnaşyk maglumatlaryňyzy, resminamalaryňyzy we beýleki zatlary dolandyrýarsyňyz. \ N \ n Nextcloud-dan https://nextcloud.com sahypasyna giriň.</string>
-    <string name="store_full_dev_desc">Özüňizi gözegçilikde saklaýan öndürijilik platformasy. \ N Bu resmi ösüş wersiýasy bolup, durnuksyzlyga we maglumatlaryň ýitmegine sebäp bolup biljek islendik täze synag edilmedik funksiýanyň gündelik nusgasyny görkezýär. Programma, synamak isleýän we näsazlyklar ýüze çykan halatynda habar bermek isleýän ulanyjylar üçin. Önümli işiňiz üçin ulanmaň! \ N \ nBu resmi dev we adaty wersiýa F-droid-de bar we şol bir wagtyň özünde gurup bolýar.</string>
+    <string name="store_full_dev_desc">Özüňizi gözegçilikde saklaýan öndürijilik platformasy. \ NBu, durnuksyzlyga we maglumatlaryň ýitmegine sebäp bolup biljek islendik täze synag edilmedik funksiýanyň gündelik nusgasyny görkezýän resmi ösüş wersiýasy. Programma synamak isleýän ulanyjylar üçin we näsazlyklar ýüze çykan halatynda habar bermek üçin. Önümçilikli işiňiz üçin ulanmaň! \ N \ n Bu resmi dev we adaty wersiýa F-droid-de bar we şol bir wagtyň özünde gurup bolýar.</string>
     <string name="store_short_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma</string>
     <string name="store_short_dev_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma (deslapky wersiýa)</string>
     <string name="stream">Bilen akym…</string>
@@ -687,7 +691,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="sync_fail_ticker_unauthorized">Sinhronlamak şowsuz boldy, gaýtadan giriň</string>
     <string name="sync_file_nothing_to_do_msg">Faýl mazmuny eýýäm sinhronlaşdyryldy</string>
     <string name="sync_folder_failed_content">Papkany sinhronlamak tamamlanyp bilmedi%1$s</string>
-    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
+    <string name="sync_foreign_files_forgotten_explanation">1.3.16 wersiýasyna görä, bir enjam birnäçe hasap bilen sinhronlananda maglumatlaryň ýitmeginiň öňüni almak üçin bu enjamdan ýüklenen faýllar ýerli %1$sbukja göçürilýär. \n\n Bu üýtgeşmä görä, bu programmanyň öňki wersiýalary bilen ýüklenen ähli faýllar bardy %2$sbukjasyna göçürildi. Şeýle-de bolsa, ýalňyşlyk hasaby sinhronlamak wagtynda bu amalyň tamamlanmagynyň öňüni aldy. Faýly (lar) bolşy ýaly goýup, baglanyşygy pozup%3$s ýa-da faýly (-lary) bukja geçirip%1$s, baglanyşygy saklap bilersiňiz%4$s. \ N \ n Aşakda ýerli faýl (lar) we uzakdaky faýl (lar) %5$sbar. </string>
     <string name="sync_foreign_files_forgotten_ticker">Käbir ýerli faýllar ýatdan çykaryldy</string>
     <string name="sync_in_progress">Faýlyň iň soňky wersiýasyny alýas.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Sinhronlamagy saýlaň</string>
