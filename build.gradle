@@ -55,7 +55,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.33"
+    daggerVersion = "2.34"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
