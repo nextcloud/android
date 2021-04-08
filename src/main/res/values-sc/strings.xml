@@ -474,7 +474,7 @@
     <string name="pass_code_wrong">Còdighe de atzessu isballiadu</string>
     <string name="permission_allow">Permite</string>
     <string name="permission_deny">Nega</string>
-    <string name="permission_storage_access">Sunt rechestos àteros permissos pro carrigare e iscarrigare documentos.</string>
+    <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
