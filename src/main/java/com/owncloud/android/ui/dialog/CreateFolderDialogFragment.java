@@ -97,7 +97,7 @@ public class CreateFolderDialogFragment
         // Setup layout
         binding.userInput.setText("");
         binding.userInput.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.userInputContainer, binding.userInput, primaryColor);
+       // ThemeTextInputUtils.colorTextInput(binding.userInputContainer, binding.userInput, primaryColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

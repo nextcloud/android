@@ -62,6 +62,7 @@
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
     <color name="icon_on_nc_grey">#000000</color>
+    <color name="et_highlight_color">#77c4ff</color>
 
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>

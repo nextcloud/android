@@ -79,16 +79,16 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
-        int primaryColor = ThemeColorUtils.primaryColor(getContext(), true);
+        /*int primaryColor = ThemeColorUtils.primaryColor(getContext(), true);
         ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
         ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
         ThemeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
-        ThemeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
+        ThemeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);*/
 
-        binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
-                ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
+        //binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud, ThemeUtils
+        // .getDefaultDisplayNameForRootFolder(getContext())));
 
-        OCCapability capability = fileActivity.getCapabilities();
+      /*  OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
             capability.getRichDocuments().isTrue() &&
             capability.getRichDocumentsDirectEditing().isTrue() &&
@@ -132,7 +132,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                 }
             }
         }
-
+*/
         if (!deviceInfo.hasCamera(getContext())) {
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
             binding.menuScanDocument.setVisibility(View.GONE);
@@ -140,12 +140,13 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         //check if scanbot sdk licence is valid or not
         //hide the view if license is not valid
+        // TODO: 08-04-2021 Enable the code once the license key added
         if(!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)){
            // binding.menuScanDocument.setVisibility(View.GONE);
         }
 
         // create rich workspace
-        if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+       /* if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
                                              user,
                                              MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null && !file.isEncrypted()) {
@@ -160,7 +161,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             }
         } else {
             binding.menuCreateRichWorkspace.setVisibility(View.GONE);
-        }
+        }*/
 
         setupClickListener();
 

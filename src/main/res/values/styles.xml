@@ -158,6 +158,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
     </style>
 
 	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
@@ -192,10 +193,11 @@
 
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorAccent">@color/transparent</item>
-        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">bold</item>
+        <item name="strokeColor">@color/text_color</item>
     </style>
 
     <style name="OutlineLoginButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

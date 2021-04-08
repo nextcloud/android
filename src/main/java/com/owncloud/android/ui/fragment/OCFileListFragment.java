@@ -1504,7 +1504,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-        getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+
+        if (getArguments()!=null) getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
 
         setFabVisible(true);
     }

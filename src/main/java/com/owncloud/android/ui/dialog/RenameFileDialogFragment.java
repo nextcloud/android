@@ -34,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
@@ -50,12 +51,12 @@ import androidx.fragment.app.DialogFragment;
 
 
 /**
- *  Dialog to input a new name for a file or folder to rename.
- *
- *  Triggers the rename operation when name is confirmed.
+ * Dialog to input a new name for a file or folder to rename.
+ * <p>
+ * Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
-        extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
@@ -65,8 +66,8 @@ public class RenameFileDialogFragment
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
      *
-     * @param file            File to rename.
-     * @return                Dialog ready to show.
+     * @param file File to rename.
+     * @return Dialog ready to show.
      */
     public static RenameFileDialogFragment newInstance(OCFile file) {
         RenameFileDialogFragment frag = new RenameFileDialogFragment();
@@ -82,12 +83,13 @@ public class RenameFileDialogFragment
         super.onStart();
 
         int color = ThemeColorUtils.primaryAccentColor(getContext());
+        int primaryColor = ThemeColorUtils.primaryColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor);
         }
     }
 
@@ -104,9 +106,9 @@ public class RenameFileDialogFragment
         // Setup layout
         String currentName = mTargetFile.getFileName();
         binding.userInput.setText(currentName);
-        ThemeTextInputUtils.colorTextInput(binding.userInputContainer,
+        /*ThemeTextInputUtils.colorTextInput(binding.userInputContainer,
                                            binding.userInput,
-                                           ThemeColorUtils.primaryColor(getActivity()));
+                                           ThemeColorUtils.primaryColor(getActivity()));*/
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
@@ -117,7 +119,7 @@ public class RenameFileDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNeutralButton(R.string.common_cancel, this)
+            .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
         Dialog d = builder.create();
 

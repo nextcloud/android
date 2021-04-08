@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding"
+        android:visibility="gone"
         android:text="@string/add_to_cloud"
         android:textSize="@dimen/bottom_sheet_text_size"
         android:textColor="@color/text_color"/>
@@ -40,7 +41,7 @@
         android:orientation="horizontal"
         android:background="?android:attr/selectableItemBackground"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingTop="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_half_padding"
         tools:ignore="UseCompoundDrawables">
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_upload"
-            app:tint="@color/primary"/>
+            app:tint="@color/text_color"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,8 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
-            android:src="@drawable/ic_import"
-            app:tint="@color/primary"/>
+            android:src="@drawable/ic_file_collection"
+            app:tint="@color/text_color"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +114,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_camera"
-            app:tint="@color/primary" />
+            app:tint="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -144,7 +145,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_baseline_format_shapes_24"
-            app:tint="@color/primary" />
+            app:tint="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -164,6 +165,7 @@
         android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:background="@color/list_divider_background"/>
 
@@ -176,7 +178,7 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_padding"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -185,7 +187,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_create_dir"
-            app:tint="@color/primary"/>
+            app:tint="@color/text_color"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -201,6 +203,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
@@ -345,6 +348,7 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_padding"
+        android:visibility="gone"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView

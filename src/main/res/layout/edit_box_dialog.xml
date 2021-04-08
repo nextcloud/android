@@ -23,11 +23,6 @@
     android:layout_height="match_parent"
     android:padding="@dimen/standard_padding">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/user_input_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user_input"
@@ -35,12 +30,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="top"
+            android:textColorHighlight="@color/et_highlight_color"
             android:importantForAutofill="no"
             android:inputType="textNoSuggestions|textCapSentences"
             android:scrollbars="vertical">
 
         </com.google.android.material.textfield.TextInputEditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>
