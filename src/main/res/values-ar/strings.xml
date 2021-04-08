@@ -9,7 +9,7 @@
     <string name="account_not_found">الحساب غير موجود </string>
     <string name="action_clear_failed_uploads">مسح الملفات التي فشل رفعها</string>
     <string name="action_edit">تعديل</string>
-    <string name="action_empty_notifications">أزل جميع التنبيهات</string>
+    <string name="action_empty_notifications">إزالة جميع التنبيهات</string>
     <string name="action_empty_trashbin">تفريغ سلة المهملات</string>
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
@@ -34,6 +34,8 @@
     <string name="add_another_public_share_link">إضافة رابط آخر</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_to_cloud">أضفه إلى %1$s</string>
+    <string name="allow_creating">السماح بالإنشاء</string>
+    <string name="allow_deleting">السماح بالحذف</string>
     <string name="allow_editing">السماح بالتعديلات</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="appbar_search_in">بحث في %s</string>
@@ -111,6 +113,7 @@
     <string name="common_save">حفظ</string>
     <string name="common_send">أرسل</string>
     <string name="common_share">شارك</string>
+    <string name="common_skip">تخطي</string>
     <string name="common_switch_account">تبديل الحساب</string>
     <string name="common_switch_to_account">تبديل إلى حساب</string>
     <string name="common_unknown">غير معروف</string>
@@ -168,6 +171,7 @@
     <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
+    <string name="create">إنشاء</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="create_new">إنشاء جديد</string>
     <string name="create_new_document">أنشئ مستندا جديدا</string>
@@ -186,6 +190,7 @@
     <string name="dev_version_new_version_available">هناك نسخة جديدة متوفرة</string>
     <string name="dev_version_no_information_available">لا توجد معلومات متاحة.</string>
     <string name="dev_version_no_new_version_available">لا توجد هناك أية نسخة جديدة متوفرة.</string>
+    <string name="dialog_close">إغلاق</string>
     <string name="digest_algorithm_not_available">خوارزمه الموجز ليست متوفرة على هاتفك.</string>
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
@@ -471,12 +476,14 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">هذه مساحة محجوزة</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
+    <string name="player_stop">إيقاف</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">ترك في مجلد الأصل</string>
     <string name="pref_behaviour_entries_move">تم نقله إلى مجلد التطبيق</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">إسئلني كل مرة</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">إلغاء التحميل</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">استبدال النسخة البعيدة</string>
     <string name="pref_instant_name_collision_policy_entries_rename">إعادة تسمية الإصدار الجديد</string>
     <string name="pref_instant_name_collision_policy_title">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
@@ -515,6 +522,8 @@
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
+    <string name="prefs_storage_path">مجلد تخزين البيانات</string>
+    <string name="prefs_sycned_folders_summary">إدارة الملفات للتحميل التلقائي</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">المظهر</string>
@@ -565,6 +574,7 @@
     <string name="screenshot_06_davdroid_heading">التقويم &amp; جهات الإتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="select_all">تحديد الكل</string>
+    <string name="select_one_template">الرجاء تحديد قالب واحد</string>
     <string name="select_template">حدد قالب</string>
     <string name="send">ارسال</string>
     <string name="send_note">إرسال ملاحظة إلى المستلم</string>
@@ -589,6 +599,7 @@
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="share_link_optional_password_title">ادخل كلمة سرية اختيارية</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
+    <string name="share_link_with_label">مشاركة الرابط (%1$s)</string>
     <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
     <string name="share_password_title">محمي بكلمة مرور</string>

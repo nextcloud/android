@@ -116,6 +116,7 @@
     <string name="common_save">Tallenna</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
+    <string name="common_skip">Ohita</string>
     <string name="common_switch_account">Vaihda käyttäjä</string>
     <string name="common_switch_to_account">Vaihda käyttäjään</string>
     <string name="common_unknown">tuntematon</string>

@@ -86,6 +86,7 @@
     <string name="battery_optimization_title">ການເພີ່ມປະສີດທິພາບແບັດເຕີລີ</string>
     <string name="brute_force_delay">ລ່າຊ້າ ຍ້ອນຄວາມພະຍາຍາມທີ່ຜິດຫລາຍເກີນ ໄປ</string>
     <string name="certificate_load_problem">ມີບັນຫາໃນການໂຫຼດການຢັ້ງຢືນ</string>
+    <string name="changelog_dev_version">ເວີຊັ້ນຂອງ Changelog</string>
     <string name="checkbox">ເຄື່ອງໝາຍກ່ອງ</string>
     <string name="choose_local_folder">ເລືອກໂຟນເດີພາຍໃນເຄື່ອງ...</string>
     <string name="choose_remote_folder">ເລືອກໂຟນເດີໄລຍະໄກ...</string>
@@ -122,6 +123,7 @@
     <string name="common_yes">ແມ່ນແລ້ວ</string>
     <string name="community_beta_headline">ທົດສອບເລເວີຊັ້ນ</string>
     <string name="community_beta_text">ລວມຄຸນນີ້ລວມມີລັກສະນະທີ່ກໍາລັງຈະມາເຖິງທັງຫມົດແລະມັນຢູ່ໃນຂອບເຂດທີ່ມີເລືອດອອກຫຼາຍ. Bugs/errors ສາມາດເກີດຂຶ້ນໄດ້, ຖ້າແລະເມື່ອມັນເຮັດ, ກະລຸນາລາຍງານການຄົ້ນພົບຂອງທ່ານ, ກະລຸນາລາຍງານການຄົ້ນພົບຂອງທ່ານ.</string>
+    <string name="community_contribute_forum_forum">ເສວະນາ</string>
     <string name="community_contribute_forum_text">ການຊ່ວຍເຫຼືອ</string>
     <string name="community_contribute_github_text">ກວດກາ, ດັດແກ້ ແລະ ຂຽນລະຫັດ, ເບິ່ງ %1$sສຳລັບລາຍລະອຽດ.</string>
     <string name="community_contribute_headline">ປະກອບສ່ວນ</string>
@@ -390,6 +392,7 @@
     <string name="login">ເຂົ້າລະບົບ</string>
     <string name="login_url_helper_text">ການເຊື່ອມຕໍ່ເວັບໄຊຂອງທ່ານ %1$sເມື່ອທ່ານເປີດມັນໃນເວັບໄຊ</string>
     <string name="logs_menu_delete">ລຶບ</string>
+    <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_search">ຊອກຫາການບັນທຶກ</string>
     <string name="logs_menu_send">ສົ່ງບັນທຶກໂດຍອີເມລ</string>
     <string name="logs_status_filtered">ບັນທຶກ:%1$dkB, ແບບສອບຖາມກົງກັນ%2$d/%3$d ໃນ%4$dວິນາທີ</string>
@@ -668,6 +671,8 @@
     <string name="storage_movies">ລະຄອນໂທລະທັດ</string>
     <string name="storage_music">ເພງ</string>
     <string name="storage_pictures">ຮູບພາບ</string>
+    <string name="store_full_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້ \n\nFeatures:\n* ງ່າຍ, ທັນສະໃໝ  ເໝາະສົມກັບເຊີເວີຂອງທ່ານ\n* ການອັບໂຫຼດຟາຍໄປຍັງເຊີເວີ  Nextcloud \n*  ການແບ່ງປັນກັບເຊີເວີອຶ່ນ \n* ຮັກສາ syn ຟາຍ ແລະ ໂຟນເດີຂອງທ່ານ \n*  ຄົ້ນຫາໂຟນເດີທັງໝົດຢຸ່ໃນເຊເວີຂອງທ່ານ\n* ອັບໂຫຼດຮຸບ ແລະ ວິດິໂອອັດຕະໂນມັດໃນອຸປະກອນຂອງທ່ານ \n* ອັບເດດດ້ວຍການແຈ້ງເຕືອນ\n*  ການສະຫັບສະໜຸນບັນຊີ\n*  ຄວາມປອດໄພໃນການເຂົ້າເຖິງຂໍ້ມູນຂອງທ່ານດ້ວຍສະເເກນລາຍນິ້ວມື ຫຼື ລະຫັດຜ່ານ\n*  ການລວມເຂົ້າກັນກັບ DAVx5  (ດັ່ງທີ່ຮຸ້ກັນ  DAVdroid) ງ່າຍໃນການຕິດຕັ້ງປະຕິທິນ &amp;ການຕິດຕໍ່\n\n ກະລຸນາລາຍງານບັນຫາທັງໝົດທີ່  https://github.com/nextcloud/android/issues ແລະ ຂຽນໃນແອັບນີ້ືິ້ https://help.nextcloud.com/c//clients/android\n\nNew to Nextcloud?  Nextcloud ແມ່ນການ sync ຟາຍສ່ວນຕົວ&amp; ເຊີເວີການແບ່ງປັນ  ແລະ ການສື່ສານ. ເປັນຊອບແວ, ແລະ ທ່ານສາມາດຈັດການຕົວທ່ານເອງ ຫຼື ຈ່າຍໃຫ້ບໍລິສັດເພື່ອຈັດການໃຫ້ທ່ານ. ວິທີນີ້ , ທ່ານວສາມາດຄວບຄຸມຮຸບພາບ, ປະຕິທິນ ແລະ ຂໍ້ມຸນຕິດຕໍ່, ເອກະສານ ແລະ ທຸກຢ່າງຂອງທ່ານ\n\nCheck out Nextcloud ທີ່ https://nextcloud.com</string>
+    <string name="store_full_dev_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້  .\n ເປັນເວີຊັ້ນການພັດທະນາຢ່າງເປັນທາງການ ຊຶ່ງມີຕົວຢ່າງການເຮັດວຽກທີ່ຍັງບໍ່ໄດ້ທົດລອງອາດເຮັດໃຫ້ເກີດຄວາມບໍ່ສະຖຽນ ແລະ ການສູນເສຍຂອງຂໍ້ມູນ  ແອັບນີ້ສຳລັບຜູ້ທີ່ ຍິນດີຈະທົດລອງ ແລະ ລາຍງານຂໍ້ບົກຜ່ອງ. ຫ້າມໃຊ້ສຳລັບວຽກຕົວຈິງຂອງທ່ານ!\n\n ໃຫ້ຜູ້ພັດທະນາ ແລະ ເວີຊັ້ນຢ່າງເປັນທາງການພ້ອມໃຊ້ງານໃນ F-droid ແລະ ສາມາດຕິດຕັ້ງໄດ້ໃນເວລາດຽວກັນ. </string>
     <string name="store_short_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້</string>
     <string name="store_short_dev_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້ (ເວີຊັ້ນຕົວຢ່າງ)</string>
     <string name="stream">ກະຈາຍດ້ວຍ</string>
