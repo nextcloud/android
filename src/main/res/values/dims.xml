@@ -129,7 +129,7 @@
     <dimen name="synced_folders_control_width">80dp</dimen>
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
-    <dimen name="button_corner_radius">24dp</dimen>
+    <dimen name="button_corner_radius">4dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="drawer_header_height">130dp</dimen>
     <dimen name="account_action_button_margin">12dp</dimen>

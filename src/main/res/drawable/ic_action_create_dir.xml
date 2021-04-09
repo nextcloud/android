@@ -1,23 +1,22 @@
-<!--
-    @author Austin Andrews
-    Copyright (C) 2018 Austin Andrews
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#FFF" android:pathData="M10,4L12,6H20A2,2 0 0,1 22,8V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10M15,9V12H12V14H15V17H17V14H20V12H17V9H15Z" />
+  <group>
+    <clip-path
+        android:pathData="M1,2l21.9995,0l0,19.5l-21.9995,0z"/>
+    <path
+        android:pathData="M2.4995,18.5C2.4815,19.31 3.1235,19.981 3.9335,20C3.9555,20.001 3.9785,20.001 3.9995,20L19.9995,20C20.8115,20.018 21.4815,19.375 21.4995,18.564C21.5005,18.543 21.5005,18.521 21.4995,18.5L21.4995,5.5L11.4995,5.5C10.7745,5.497 10.0855,5.188 9.6005,4.65L9.1495,4.2C8.7135,3.759 8.1205,3.507 7.4995,3.5L2.4995,3.5L2.4995,18.5ZM3.9995,21.5C2.3435,21.5 0.9995,20.157 0.9995,18.5L0.9995,2L7.4995,2C8.5285,2.004 9.5075,2.439 10.1995,3.2L10.6495,3.65C10.8875,3.857 11.1865,3.98 11.4995,4L22.9995,4L22.9995,18.5C22.9995,20.157 21.6565,21.5 19.9995,21.5L3.9995,21.5Z"
+        android:strokeWidth="1"
+        android:fillColor="#262626"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <path
+      android:pathData="M11.2505,15.5547L11.2505,13.3047L9.0005,13.3047C8.5855,13.3047 8.2505,12.9697 8.2505,12.5547C8.2505,12.1407 8.5855,11.8047 9.0005,11.8047L11.2505,11.8047L11.2505,9.5547C11.2505,9.1407 11.5855,8.8047 12.0005,8.8047C12.4145,8.8047 12.7505,9.1407 12.7505,9.5547L12.7505,11.8047L15.0005,11.8047C15.4145,11.8047 15.7505,12.1407 15.7505,12.5547C15.7505,12.9697 15.4145,13.3047 15.0005,13.3047L12.7505,13.3047L12.7505,15.5547C12.7505,15.9697 12.4145,16.3047 12.0005,16.3047C11.5855,16.3047 11.2505,15.9697 11.2505,15.5547"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

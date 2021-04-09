@@ -82,14 +82,14 @@ public class RenameFileDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
+        //int color = ThemeColorUtils.primaryAccentColor(getContext());
         int primaryColor = ThemeColorUtils.primaryColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor);
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor);
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.text_color));
         }
     }
 
