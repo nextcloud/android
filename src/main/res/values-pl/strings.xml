@@ -727,7 +727,7 @@
     <string name="unset_favorite">Usuń z ulubionych</string>
     <string name="unshare">Zatrzymaj udostępnianie</string>
     <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub katalogu.</string>
-    <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Sprawdź, czy plik istnieje.</string>
+    <string name="unshare_link_file_no_exist">Nie można anulować udostępnienia. Sprawdź, czy plik istnieje.</string>
     <string name="unshare_link_forbidden_permissions">aby anulować udostępnianie tego pliku</string>
     <string name="unsharing_failed">Zatrzymywanie udostępnienia nie powiodło się</string>
     <string name="untrusted_domain">Dostęp przez niezaufaną domenę. Więcej informacji można znaleźć w dokumentacji.</string>
