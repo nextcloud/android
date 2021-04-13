@@ -74,7 +74,7 @@
     <string name="autoupload_configure">Cunfigura</string>
     <string name="autoupload_create_new_custom_folder">Crea cunfiguratzione de cartella personalizada noa</string>
     <string name="autoupload_custom_folder">Cunfigura una cartella personalizada</string>
-    <string name="autoupload_disable_power_save_check">Disativa controllu de rispàrmiu energia</string>
+    <string name="autoupload_disable_power_save_check">Disativa controllu de rispàrmiu de energia</string>
     <string name="autoupload_hide_folder">Cua sa cartella</string>
     <string name="avatar">Avatar</string>
     <string name="away">A tesu</string>
@@ -329,7 +329,7 @@
     <string name="file_migration_use_data_folder">Imprea</string>
     <string name="file_migration_waiting_for_unfinished_sync">Abetende sincronizatzione prena...</string>
     <string name="file_not_found">Archìviu no agatadu</string>
-    <string name="file_not_synced">No at fatu a sincronizare su documentu. Ammustrende s\'ùrtima versione a disponimentu.</string>
+    <string name="file_not_synced">No at fatu a sincronizare su documentu. Mustrende s\'ùrtima versione a disponimentu.</string>
     <string name="file_rename">Torra a numenare</string>
     <string name="file_version_restored_error">Errore in su recùperu de sa versione documentu!</string>
     <string name="file_version_restored_successfully">Recùperu de sa versione documentu fatu.</string>
@@ -440,19 +440,19 @@
     <string name="note_could_not_sent">No at fatu a imbiare sa nota</string>
     <string name="note_icon_hint">Icona de is notas</string>
     <string name="notification_action_failed">No at fatu a esecutare s\'atzione.</string>
-    <string name="notification_channel_download_description">Ammustrat istadu de iscarrigamentu</string>
+    <string name="notification_channel_download_description">Mustrat istadu de iscarrigamentu</string>
     <string name="notification_channel_download_name">Iscàrriga canale de notìfica</string>
     <string name="notification_channel_file_observer_description">Càstiat is documentos pro càmbios</string>
     <string name="notification_channel_file_observer_name">Osservadore de documentos</string>
-    <string name="notification_channel_file_sync_description">Ammustrat s\'istadu de sincronizatzione de is archìvios e is resurtados</string>
+    <string name="notification_channel_file_sync_description">Mustrat s\'istadu de sincronizatzione de is archìvios e is resurtados</string>
     <string name="notification_channel_file_sync_name">Sincronizadore de documentos</string>
-    <string name="notification_channel_general_description">Ammustra notìficas pro is cartellas de media noas e cosas sìmiles</string>
+    <string name="notification_channel_general_description">Mustra notìficas pro is cartellas de media noas e cosas sìmiles</string>
     <string name="notification_channel_general_name">Notìficas generales</string>
     <string name="notification_channel_media_description">Istadu de su riprodutore de mùsica</string>
     <string name="notification_channel_media_name">Riprodutore de media</string>
-    <string name="notification_channel_push_description">Ammustrat notìficas imbiadas dae su serbidore: mentovus in cummentos, rètzidas de cundivisiones remotas noas, publicatziones de chie amministrat etc.</string>
+    <string name="notification_channel_push_description">Mustrat notìficas imbiadas dae su serbidore: mentovus in cummentos, rètzidas de cumpartziduras remotas noas, publicatziones de chie amministrat etc.</string>
     <string name="notification_channel_push_name">Notìficas de ispinta</string>
-    <string name="notification_channel_upload_description">Ammustrat istadu de carrigamentu</string>
+    <string name="notification_channel_upload_description">Mustrat istadu de carrigamentu</string>
     <string name="notification_channel_upload_name">Càrriga canale de notìfica</string>
     <string name="notification_icon">Icona de notìfica</string>
     <string name="notifications_no_results_headline">Peruna notìfica</string>
@@ -506,7 +506,7 @@
     <string name="prefs_category_more">Àteru</string>
     <string name="prefs_daily_contacts_sync_summary">Còpia de seguresa de is cuntatos ònnia die</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
-    <string name="prefs_e2e_no_device_credentials">Pro ammustrare sa menmònica ativa is credentziales de su dispositivu.</string>
+    <string name="prefs_e2e_no_device_credentials">Pro mustrare sa menmònica ativa is credentziales de su dispositivu.</string>
     <string name="prefs_enable_media_scan_notifications">Mustra is notìficas de iscansione de is media</string>
     <string name="prefs_enable_media_scan_notifications_summary">Imbia notìficas subra cartellas de media agatadas dae pagu</string>
     <string name="prefs_gpl_v2">GNU General Public License, versione 2</string>
@@ -524,7 +524,7 @@
     <string name="prefs_lock_using_passcode">Còdighe de atzessu</string>
     <string name="prefs_manage_accounts">Gesti is contos</string>
     <string name="prefs_recommend">Cussigia·ddu a un\'amistade tua</string>
-    <string name="prefs_show_hidden_files">Ammustra documentos cuados</string>
+    <string name="prefs_show_hidden_files">Mustra documentos cuados</string>
     <string name="prefs_sourcecode">Otene su còdighe sorgente</string>
     <string name="prefs_storage_path">Cartella de archiviatzione de is datos</string>
     <string name="prefs_sycned_folders_summary">Gesti cartellas pro carrigamentu automàticu</string>
@@ -535,7 +535,7 @@
     <string name="prefs_value_theme_light">Craru</string>
     <string name="preview_image_description">Anteprima de s\'immàgine</string>
     <string name="preview_image_error_no_local_file">Perunu archìviu locale de ammustrare in anteprima</string>
-    <string name="preview_image_error_unknown_format">No at fatu a ammustrare s\'immàgine</string>
+    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'immàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
     <string name="public_share_name">Nùmene nou</string>
@@ -647,7 +647,7 @@
     <string name="ssl_validator_label_validity_to">A:</string>
     <string name="ssl_validator_no_info_about_error">- Peruna informatzione subra de s\'errore</string>
     <string name="ssl_validator_not_saved">No at fatu a sarvare su tzertificadu</string>
-    <string name="ssl_validator_null_cert">No at fatu a ammustrare su tzertificadu</string>
+    <string name="ssl_validator_null_cert">No at fatu a mustrare su tzertificadu</string>
     <string name="ssl_validator_question">Ti boles fidare in cada manera de custu tzertificadu?</string>
     <string name="ssl_validator_reason_cert_expired">- Su tzertificadu de su serbidore est iscadidu</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Su tzertificadu de su serbidore no est seguru</string>
@@ -655,7 +655,7 @@
     <string name="ssl_validator_reason_hostname_not_verified">- S\'URL non currispondet a su nùmene òspite in su tzertificadu</string>
     <string name="status_message">Messàgiu de istadu</string>
     <string name="storage_camera">Fotocamera</string>
-    <string name="storage_choose_location">Sèbera su logu de su depòsitu</string>
+    <string name="storage_choose_location">Sèbera sa positzione de s\'archiviatzione</string>
     <string name="storage_description_default">Predefinida</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Iscarrigamentos</string>
@@ -663,7 +663,7 @@
     <string name="storage_movies">Film</string>
     <string name="storage_music">Mùsica</string>
     <string name="storage_pictures">Immàgines</string>
-    <string name="store_full_desc">Sa prataforma auto-retzida chi ti lassat in controllu. \n\nCaraterìsticas:\n* Fàtzile, interfache moderna, adata a su tema de su serbidore tuo\n* Càrriga archìvios a su serbidore Nextcloud tuo\n* Cumpartzi•ddos cun àtere\n* Mantene sa sincronizatzione de is archìvios e cartellas preferidas tuas\n* Chirca in is cartellas in su serbidore tuo\n* Auto-carrigamentu de fotografias e vìdeos fatos cun su dispositivu tuo\n* Mantene•ti passu passu cun is notìficas\n* Atzessu a is datos seguru cun pin o imprenta de pòddighes\n* Integratzione cun DAVx5 (su betzu DAVdroid) po una cunfiguratzione fàtzile de su calendàriu&amp;Sincronizatzione de is cuntatos\n\nSinnala totu is problemas a https://github.com/nextcloud/android/issues e faedda de s\'aplicatzione a https://help.nextcloud.com/c/clients/android\n\n Prima bia in Nextcloud? Nextcloud est unu serbidore de sincronizatzione&amp; cundivisione e comunicatzione de archìvios privados. Est unu programa lìberu, e ddu podes retzire tue etotu o pagare una cumpangia pro ddu fàghere pro tene. In custa manera, tenes su controllu de is fotografias, de su calendàriu e de is datos de is cuntatos tuos, de is archìvios e de totu s\'àtere. </string>
+    <string name="store_full_desc">Sa prataforma auto-retzida chi ti lassat in controllu. \n\nCaraterìsticas:\n* Fàtzile, interfache moderna, adata a su tema de su serbidore tuo\n* Càrriga archìvios a su serbidore Nextcloud tuo\n* Cumpartzi•ddos cun àtere\n* Mantene sa sincronizatzione de is archìvios e cartellas preferidas tuas\n* Chirca in is cartellas in su serbidore tuo\n* Auto-carrigamentu de fotografias e vìdeos fatos cun su dispositivu tuo\n* Mantene•ti passu passu cun is notìficas\n* Atzessu a is datos seguru cun pin o imprenta de pòddighes\n* Integratzione cun DAVx5 (su betzu DAVdroid) po una cunfiguratzione fàtzile de su calendàriu&amp;Sincronizatzione de is cuntatos\n\nSinnala totu is problemas a https://github.com/nextcloud/android/issues e faedda de s\'aplicatzione a https://help.nextcloud.com/c/clients/android\n\n Prima bia in Nextcloud? Nextcloud est unu serbidore de sincronizatzione&amp; cumpartzidura e comunicatzione de archìvios privados. Est unu programa lìberu, e ddu podes retzire tue etotu o pagare una cumpangia pro ddu fàghere pro tene. In custa manera, tenes su controllu de is fotografias, de su calendàriu e de is datos de is cuntatos tuos, de is archìvios e de totu s\'àtere. </string>
     <string name="store_full_dev_desc">Sa prataforma de produtividade chi ti lassat in controllu.\nCustu est sa versione ufitziale de isvilupu, chi cada die mustrat un\'esempru de cada funtzionalidade noa no proada e chi podet causare instabilidade e pèrdida de datos. S\'aplicatzione est pro utentes chi bolent proare, e diant dèpere sinnalare is errore chi podent acuntèssere. Non dda imprees pro traballu produtivu!\n\nS\'isvilupu ufitziale e sa versione regolare s\'agatant in F-droid, e si podent installare in su matessi momentu.</string>
     <string name="store_short_desc">Sa prataforma de produtividade chi ti lassat in controllu</string>
     <string name="store_short_dev_desc">Sa prataforma de produtividade chi ti lassat in controllu (versione de anteprima de s\'isvilupu)</string>
@@ -837,7 +837,7 @@
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Ammustra%1$d cartella cuada</item>
-        <item quantity="other">Ammustra%1$d cartellas cuadas</item>
+        <item quantity="other">Mustra%1$d cartellas cuadas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seletzionadu</item>
