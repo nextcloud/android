@@ -1,0 +1,4 @@
+l10n: Unify spelling
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
