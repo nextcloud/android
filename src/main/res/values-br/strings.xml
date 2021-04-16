@@ -111,7 +111,6 @@
     <string name="common_share">Rannan</string>
     <string name="common_switch_account">Cheñch kont</string>
     <string name="common_switch_to_account">Cheñch d\'ar gont</string>
-    <string name="common_unknown">dianv</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Arnodañ ar stumm diorenañ</string>
     <string name="community_beta_text">Endalc\'h a ra pep perzh a ze a n\'eo ket stabil. Fazioù a c\'hell don, m\'a ha pa vez outo, mar-plij kelaouit petra o peus kavet.</string>
@@ -382,7 +381,6 @@
     <string name="manage_space_clear_data">Lemel ar roadennoù</string>
     <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikad ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
     <string name="manage_space_title">Merañ ar plas</string>
-    <string name="media_err_invalid_progressive_playback">N\'eo ket posuple d\'ar restr media bezhañ lakaet e red</string>
     <string name="media_err_io">ne vez ket lennet ar restr media</string>
     <string name="media_err_malformed">Ar restr media en deus en enc\'hodañ fal</string>
     <string name="media_err_timeout">Re hir a amzer o klask lenn ar restr</string>
@@ -726,7 +724,6 @@
     <string name="uploader_error_message_read_permission_not_granted">N\'eo ket aotreet %1$s da lenn ur restr resevet</string>
     <string name="uploader_error_message_source_file_not_copied">Dibosupl eo eilan d\'un teuliad dibadus. Klaskit adkas anezhañ.</string>
     <string name="uploader_error_message_source_file_not_found">N\'eo ket bet ar restr da bellkas. Sellit m\'az eus ouzh ar restr gouelnnet.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">N\'eo ket posupl pellkas ar restr</string>
     <string name="uploader_error_title_no_file_to_upload">Restr ebet da pellkas</string>
     <string name="uploader_info_dirname">Anv teuliad</string>
     <string name="uploader_top_message">Choaz an teuliad pellkas</string>

@@ -101,7 +101,6 @@
     <string name="common_save">Konservi</string>
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
-    <string name="common_unknown">nekonata</string>
     <string name="common_yes">Jes</string>
     <string name="community_beta_headline">Testu la beta-version</string>
     <string name="community_beta_text">Ĝi enhavas ĉiujn venontajn funkciojn, kaj ĝi estas freŝfreŝa. Eraroj povas okazi: se kaj kiam tio okazas, bonvolu raporti ilin.</string>
@@ -321,7 +320,6 @@
     <string name="manage_space_clear_data">Forviŝi datumojn</string>
     <string name="manage_space_description">Agordoj, datumbazo kaj servilatestiloj el la servilo %1$s estos forigitaj porĉiame. \n\nElŝutitaj dosieroj estos konservitaj.\n\nTiu operacio povas longe daŭri.</string>
     <string name="manage_space_title">Administri spacon</string>
-    <string name="media_err_invalid_progressive_playback">La aŭdovida dosiero ne eblis esti flue elsendita</string>
     <string name="media_err_io">Ne eblis legi la aŭdovidan dosieron</string>
     <string name="media_err_malformed">La aŭdovida dosiero havas neĝustan kodadon</string>
     <string name="media_err_timeout">Provado ludi la dosieron eltempiĝis</string>
@@ -616,7 +614,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s ne estas permesita legi ricevitan dosieron</string>
     <string name="uploader_error_message_source_file_not_copied">Ne eblis kopii dosieron al provizora dosierujo. Provu resendi ĝin.</string>
     <string name="uploader_error_message_source_file_not_found">La dosiero elektita por alŝuto ne troveblas. Bonvolu kontroli, ĉu la dosiero ekzistas.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Tiu dosiero ne alŝuteblas.</string>
     <string name="uploader_error_title_no_file_to_upload">Neniu dosiero alŝutenda</string>
     <string name="uploader_info_dirname">Dosierujnomo</string>
     <string name="uploader_top_message">Elekti alŝutan dosierujon</string>

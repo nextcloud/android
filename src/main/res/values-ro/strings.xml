@@ -119,7 +119,6 @@
     <string name="common_skip">Sari peste</string>
     <string name="common_switch_account">Schimba contul</string>
     <string name="common_switch_to_account">Schimbă pe contul</string>
-    <string name="common_unknown">necunoscut</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testează versiunea în curs de dezvoltare</string>
     <string name="community_beta_text">Aceasta include toate funcționalitățile viitoare și conține cele mai noi tehnologii. Pot apărea erori, când acest lucru se întâmplă, vă rugăm să raportați despre asta.</string>
@@ -358,7 +357,6 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi transmis</string>
     <string name="media_err_io">Nu s-a putut citi fișierul media</string>
     <string name="media_err_malformed">Fișierul media are codare incorectă</string>
     <string name="media_err_timeout">Încercarea de a reda fișierul a expirat</string>
@@ -585,7 +583,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nu are permisiunea de a citi un fișier primit</string>
     <string name="uploader_error_message_source_file_not_copied">Fișierul nu a putut fi copiat într-un dosar temporar. Încercați să-l retrimiteți.</string>
     <string name="uploader_error_message_source_file_not_found">Fișierul selectat pentru încărcare nu a fost găsit. Verificați dacă există fișierul.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Acest fișier nu poate fi încărcat</string>
     <string name="uploader_error_title_no_file_to_upload">Niciun fișier disponibil pentru încărcare</string>
     <string name="uploader_info_dirname">Nume director</string>
     <string name="uploader_top_message">Alege dosarul pentru încărcare</string>

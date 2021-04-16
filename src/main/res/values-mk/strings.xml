@@ -117,7 +117,6 @@
     <string name="common_skip">Прескокни</string>
     <string name="common_switch_account">Промени сметка</string>
     <string name="common_switch_to_account">Промени сметка</string>
-    <string name="common_unknown">непознат</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Test the dev version</string>
     <string name="community_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
@@ -384,7 +383,6 @@
     <string name="manage_space_clear_data">Исчисти податоци</string>
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>
-    <string name="media_err_invalid_progressive_playback">Датотеката неможе да се емитува</string>
     <string name="media_err_io">Неможе да се прочита датотеката</string>
     <string name="media_err_malformed">Медиа датотеката не е точно енкодирана</string>
     <string name="media_err_timeout">Тајм аут при обидот за репродукција</string>
@@ -725,7 +723,6 @@
     <string name="uploader_error_message_read_permission_not_granted">На %1$s не му е дозволено да ги гледа прикачените датотеки</string>
     <string name="uploader_error_message_source_file_not_copied">Неможе да се копира датотеката во привремена папка. Обидете се да ја препратите.</string>
     <string name="uploader_error_message_source_file_not_found">Избраната датотека за прикачување не е пронајдена. Проверете дали датотеката постои.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Оваа датотека неможе да се прикачи</string>
     <string name="uploader_error_title_no_file_to_upload">Нема датотеки за прикачување</string>
     <string name="uploader_info_dirname">Име на папка</string>
     <string name="uploader_top_message">Изберете папка за прикачување</string>

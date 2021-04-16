@@ -110,7 +110,6 @@
     <string name="common_share">שיתוף</string>
     <string name="common_switch_account">החלף חשבון</string>
     <string name="common_switch_to_account">עבור אל חשבון</string>
-    <string name="common_unknown">לא ידוע</string>
     <string name="common_yes">כן</string>
     <string name="community_beta_headline">בדיקת גרסת הפיתוח</string>
     <string name="community_beta_text">לרבות כל התכונות הקרבות וזה כבר בהליכי פיתוח. תקלות/שגיאות עשויות להתרחש, אפילו כשהן מתרחשות, נא לדווח לנו על הממצאים שלך.</string>
@@ -374,7 +373,6 @@
     <string name="manage_space_clear_data">ניקוי מידע</string>
     <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. \n\nקבצים שירדו ישארו ללא שינוי.\n\nהתהליך ימשך זמן מה.</string>
     <string name="manage_space_title">ניהול מקום</string>
-    <string name="media_err_invalid_progressive_playback">לא ניתן להזרים את קובץ המדיה</string>
     <string name="media_err_io">לא ניתן לקרוא את קובץ המדיה</string>
     <string name="media_err_malformed">לקובץ המידע יש קידוד שגוי</string>
     <string name="media_err_timeout">הניסיון לנגן את הקובץ ארך זמן רב מדי</string>
@@ -726,7 +724,6 @@
     <string name="uploader_error_message_read_permission_not_granted">ל- %1$s אסור לקרוא קובץ מתקבל</string>
     <string name="uploader_error_message_source_file_not_copied">לא ניתן להעתיק את הקובץ לתיקייה זמנית. נא לנסות לשלוח אותו מחדש.</string>
     <string name="uploader_error_message_source_file_not_found">הקובץ שנבחר להעלאה לא נמצא. נא לבדוק האם הקובץ קיים.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">לא ניתן להעלות קובץ זה</string>
     <string name="uploader_error_title_no_file_to_upload">אין קובץ להעלאה</string>
     <string name="uploader_info_dirname">שם התיקייה</string>
     <string name="uploader_top_message">יש לבחור בתיקיית העלאה</string>

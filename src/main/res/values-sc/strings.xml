@@ -117,7 +117,6 @@
     <string name="common_share">Cumpartzi</string>
     <string name="common_switch_account">Passa a àteru contu</string>
     <string name="common_switch_to_account">Passa a su contu</string>
-    <string name="common_unknown">non connotu</string>
     <string name="common_yes">Eja</string>
     <string name="community_beta_headline">Proa sa versione dispositivu</string>
     <string name="community_beta_text">Custu includet is funtziones imbenientes e de tecnologia avantzada. Is errores ddoe podent èssere, duncas si nd\'agatas, signala·ddos.</string>
@@ -401,7 +400,6 @@
     <string name="manage_space_clear_data">Lìmpia is datos</string>
     <string name="manage_space_description">Impostatziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti s\'ispàtziu</string>
-    <string name="media_err_invalid_progressive_playback">Su cuntenutu multimediale non podet èssere trasmìtidu</string>
     <string name="media_err_io">No at fatu a lèghere su documentu media</string>
     <string name="media_err_malformed">Sa codìfica de su cuntenutu multimediale no es curreta</string>
     <string name="media_err_timeout">S\'intentu pro reprodùere su cuntenutu nch\'est iscàdidu</string>
@@ -755,7 +753,6 @@
     <string name="uploader_error_message_read_permission_not_granted">A %1$s no est permìtidu de lèghere un\'archìviu retzidu</string>
     <string name="uploader_error_message_source_file_not_copied">No at fatu a copiare s\'archìviu in una cartella temporànea. Proa a ddu torrare a imbiare.</string>
     <string name="uploader_error_message_source_file_not_found">Archìviu seletzionadu pro su carrigamentu no agatadu. Controlla si esistit.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Custu archìviu non faghet a ddu carrigare</string>
     <string name="uploader_error_title_no_file_to_upload">Perunu archìviu de carrigare</string>
     <string name="uploader_info_dirname">Nùmene de sa cartella</string>
     <string name="uploader_top_message">Sebera sa cartella de carrigamentu</string>

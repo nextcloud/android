@@ -119,7 +119,6 @@
     <string name="common_skip">Omitir</string>
     <string name="common_switch_account">Cambiar de cuenta</string>
     <string name="common_switch_to_account">Cambiar a la cuenta</string>
-    <string name="common_unknown">desconocido</string>
     <string name="common_yes">Sí</string>
     <string name="community_beta_headline">Probar la versión de desarrollo</string>
     <string name="community_beta_text">Esto incluye todas las características por llegar y es bastante inestable. Pueden ocurrir fallos y errores. Cuando sucedan infórmanos, por favor.</string>
@@ -403,7 +402,6 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_title">Gestionar espacio</string>
-    <string name="media_err_invalid_progressive_playback">El archivo de medios no puede ser transmitido</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
     <string name="media_err_timeout">Tiempo de espera agotado en el intento de reproducción</string>
@@ -764,7 +762,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s no está autorizado a leer un archivo recibido</string>
     <string name="uploader_error_message_source_file_not_copied">No se ha podido copiar el archivo a una carpeta temporal. Intenta volver a enviarlo.</string>
     <string name="uploader_error_message_source_file_not_found">No se encuentra el archivo seleccionado para subir. Por favor, comprueba que el archivo existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">No se puede subir este archivo</string>
     <string name="uploader_error_title_no_file_to_upload">Ningún archivo para subir</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
     <string name="uploader_top_message">Elegir carpeta de subida</string>

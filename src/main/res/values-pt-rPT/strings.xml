@@ -108,7 +108,6 @@
     <string name="common_share">Partilhar</string>
     <string name="common_switch_account">Trocar de conta</string>
     <string name="common_switch_to_account">Trocar para a conta</string>
-    <string name="common_unknown">desconhecido</string>
     <string name="common_yes">Sim</string>
     <string name="community_beta_headline">Teste a versão de desenvolvimento</string>
     <string name="community_beta_text">Inclui todas as futuras e mais recentes funcionalidades. Falhas/erros podem ocorrer, se e quando tal acontecer, por favor, reporte as suas descobertas.</string>
@@ -344,7 +343,6 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">As definiçóes, base de dados e certificados de servidor referentes aos dados de %1$s serão eliminados paras sempre. \n\nOs ficheiros transferidos serão mantidos inalterados.\n\nEste processo pode demorar algum tempo.</string>
     <string name="manage_space_title">Gerir espaço</string>
-    <string name="media_err_invalid_progressive_playback">O ficheiro de multimédia não pode ser transmitido</string>
     <string name="media_err_io">Não foi possível ler o ficheiro de multimédia</string>
     <string name="media_err_malformed">O ficheiro de multimédia tem codificação incorreta</string>
     <string name="media_err_timeout">Tentativa de reproduzir o ficheiro expirou</string>
@@ -652,7 +650,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não está autorizado para ler um ficheiro recebido</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o ficheiro para uma pasta temporária. Tente reenviá-lo.</string>
     <string name="uploader_error_message_source_file_not_found">Não foi encontrado o ficheiro selecionado para envio. Por favor, verifique se o ficheiro existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Este ficheiro não pode ser enviado</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum ficheiro para enviar</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_top_message">Escolha uma pasta para envio</string>

@@ -116,7 +116,6 @@
     <string name="common_share">Διαμοιρασμός</string>
     <string name="common_switch_account">Αλλαγή λογαριασμού</string>
     <string name="common_switch_to_account">Αλλαγή σε λογαριασμό</string>
-    <string name="common_unknown">άγνωστο</string>
     <string name="common_yes">Ναι</string>
     <string name="community_beta_headline">Δοκιμή της έκδοσης προγραμματιστή</string>
     <string name="community_beta_text">Αυτό περιλαμβάνει όλες τις επερχόμενες λειτουργίες και δαθέτει ό,τι τελευταίο έχει ενσωματωθεί. Σφάλματα μπορεί να προκύψουν, εάν και εφόσον αυτό συμβεί, σας παρακαλούμε να μας τα αναφέρετε.</string>
@@ -396,7 +395,6 @@
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
     <string name="manage_space_title">Διαχείριση χώρου</string>
-    <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
     <string name="media_err_io">Αδυναμία ανάγνωσης αρχείου πολυμέσων</string>
     <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
     <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
@@ -755,7 +753,6 @@
     <string name="uploader_error_message_read_permission_not_granted">Ο %1$s δεν επιτρέπεται να αναγνώσει ένα ληφθέν αρχείο</string>
     <string name="uploader_error_message_source_file_not_copied">Παρουσιάστηκε σφάλμα κατά την αντιγραφή του αρχείου στον προσωρινό φάκελο. Παρακαλούμε δοκιμάστε να στείλετε ξανά.</string>
     <string name="uploader_error_message_source_file_not_found">Το αρχείο προς αποστολή δεν βρέθηκε στην τοποθεσία. Παρακαλώ ελέγξτε εάν υπάρχει το αρχείο.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Το αρχείο δεν μπορεί να μεταφορτωθεί</string>
     <string name="uploader_error_title_no_file_to_upload">Κανένα αρχείο για μεταφόρτωση</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
     <string name="uploader_top_message">Επιλογή φακέλου μεταφόρτωσης</string>

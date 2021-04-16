@@ -102,7 +102,6 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
-    <string name="common_unknown">desconocido</string>
     <string name="common_yes">Sí</string>
     <string name="community_beta_headline">Probar la versión de desarrollo</string>
     <string name="community_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
@@ -294,7 +293,6 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones, base de datos y certificados del servior de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transformado a un flujo</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
     <string name="media_err_timeout">El intento de reproducir el archivo sobrepasó el tiempo de espera</string>
@@ -510,7 +508,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s no tiene permitido leer un archivo recibido</string>
     <string name="uploader_error_message_source_file_not_copied">No fue posible copiar el archivo a una carpeta temporal. Por favor intenta enviarlo de nuevo.</string>
     <string name="uploader_error_message_source_file_not_found">El archivo seleccionado para cargar no fue encontrado. Por favor verifica si el archivo existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Este archivo no puede ser cargado</string>
     <string name="uploader_error_title_no_file_to_upload">No hay un archivo a cargar</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
     <string name="uploader_top_message">Selecciona la carpeta de cargas</string>

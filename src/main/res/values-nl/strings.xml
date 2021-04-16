@@ -119,7 +119,6 @@
     <string name="common_skip">Overslaan</string>
     <string name="common_switch_account">Account wisselen</string>
     <string name="common_switch_to_account">Wisselen naar account</string>
-    <string name="common_unknown">onbekend</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test de dev versie</string>
     <string name="community_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
@@ -403,7 +402,6 @@
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_title">Beheer ruimte</string>
-    <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
     <string name="media_err_io">Kon het mediabestand niet lezen</string>
     <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
     <string name="media_err_timeout">Time-out tijdens het afspelen</string>
@@ -764,7 +762,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s heeft geen toestemming om een ontvangen bestand te lezen</string>
     <string name="uploader_error_message_source_file_not_copied">Er trad een fout op bij het kopiëren van het bestand naar een tijdelijke map. Probeer het opnieuw te versturen.</string>
     <string name="uploader_error_message_source_file_not_found">Voor upload geselecteerde bestand niet gevonden. Controleer of het bestaat.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Dit bestand kan niet worden geüpload</string>
     <string name="uploader_error_title_no_file_to_upload">Niets te uploaden</string>
     <string name="uploader_info_dirname">Mapnaam</string>
     <string name="uploader_top_message">Kies een uploadmap</string>

@@ -116,7 +116,6 @@
     <string name="common_share">هم‌رسانی</string>
     <string name="common_switch_account">تعویض حساب</string>
     <string name="common_switch_to_account">تعویض به حساب</string>
-    <string name="common_unknown">نامشخص</string>
     <string name="common_yes">بله</string>
     <string name="community_beta_headline">امتحان نسخه در حال توسعه</string>
     <string name="community_beta_text">این شامل تمام ویژگی های آینده است و در حالت خطرناک قرار دارد. اشکالات / خطاها ممکن است رخ دهد، در صورت وقوع، لطفاً یافته های خود را گزارش دهید.</string>
@@ -397,7 +396,6 @@
     <string name="manage_space_clear_data">باکسازی اطلاعات</string>
     <string name="manage_space_description">تنظیمات، دیتابیس و گواهی‌های سرور از داده‌های %1$s برای همیشه حذف خواهند شد. فایل‌های دریافت‌شده دست‌‌نخورده باقی می‌مانند. این روند ممکن است زمان‌بر باشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>
-    <string name="media_err_invalid_progressive_playback">فایل رسانه ای قابل پخش نیست</string>
     <string name="media_err_io">فایل رسانه ای را نمی توان خواند</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">تلاش برای پخش فایل به پایان رسیده است</string>
@@ -757,7 +755,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$sمجاز به خواندن یک فایل دریافتی نیست</string>
     <string name="uploader_error_message_source_file_not_copied">فایل را نمی توان به یک پوشه موقت کپی کرد. سعی کنید آن را دوباره ارسال کنید.</string>
     <string name="uploader_error_message_source_file_not_found">پرونده انتخاب شده برای آپلود پیدا نشد لطفا بررسی کنید که آیا فایل وجود دارد.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">این فایل را نمی توان آپلود کرد</string>
     <string name="uploader_error_title_no_file_to_upload">هیچ فایلی برای آپلود وجود ندارد</string>
     <string name="uploader_info_dirname">نام پوشه</string>
     <string name="uploader_top_message">پوشه آپلود را انتخاب کنید </string>

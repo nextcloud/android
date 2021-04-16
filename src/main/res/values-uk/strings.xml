@@ -117,7 +117,6 @@
     <string name="common_share">Поділитися</string>
     <string name="common_switch_account">Перемкнути обліковий запис</string>
     <string name="common_switch_to_account">Перейти до облікового запису</string>
-    <string name="common_unknown">невідомо</string>
     <string name="common_yes">Так</string>
     <string name="community_beta_headline">Перевірте версію розробника</string>
     <string name="community_beta_text">Це включає усі нові розробки, є ранньою версією. Можуть траплятися вади та помилки. Будемо вдячні за зворотній зв\'язок щодо них.</string>
@@ -398,7 +397,6 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було завантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
-    <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
     <string name="media_err_timeout">Час на відтворення файлу вичерпано</string>
@@ -758,7 +756,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_error_message_source_file_not_copied">Неможливо скопіювати файл до тимчасової теки. Спробуйте знову</string>
     <string name="uploader_error_message_source_file_not_found">Файл вибраний для вивантаження не знайдено. Будь-ласка перевірте чи файл існує</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Цей файл неможливо вивантажити</string>
     <string name="uploader_error_title_no_file_to_upload">Відсутні файли для вивантаження</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
     <string name="uploader_top_message">Оберіть каталог вивантаження</string>
