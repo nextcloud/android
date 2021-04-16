@@ -90,9 +90,11 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
+import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
+import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
-import static com.owncloud.android.files.services.FileUploader.LOCAL_BEHAVIOUR_MOVE;
+import static com.owncloud.android.files.services.FileUploader.LOCAL_BEHAVIOUR_DELETE;
 
 public class DocumentsStorageProvider extends DocumentsProvider {
 
@@ -192,7 +194,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
 
-        boolean needsDownload = !ocFile.isDown() || hasServerChange(document);
+        int accessMode = ParcelFileDescriptor.parseMode(mode);
+        boolean writeOnly = (accessMode & MODE_WRITE_ONLY) != 0;
+        boolean wasNotYetStored = ocFile.getStoragePath() == null;
+        boolean needsDownload = (!writeOnly || wasNotYetStored) && (!ocFile.isDown() || hasServerChange(document));
         if (needsDownload) {
             if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
@@ -210,8 +215,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         File file = new File(ocFile.getStoragePath());
 
-        int accessMode = ParcelFileDescriptor.parseMode(mode);
-        if (accessMode != ParcelFileDescriptor.MODE_READ_ONLY) {
+        if (accessMode != MODE_READ_ONLY) {
             // The calling thread is not guaranteed to have a Looper, so we can't block it with the OnCloseListener.
             // Thus, we are unable to do a synchronous upload and have to start an asynchronous one.
             Handler handler = new Handler(context.getMainLooper());
@@ -229,7 +233,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                             context,
                             account,
                             ocFile,
-                            LOCAL_BEHAVIOUR_MOVE,
+                            LOCAL_BEHAVIOUR_DELETE,
                             NameCollisionPolicy.OVERWRITE,
                             false);
                     } else { // error, no upload needed
