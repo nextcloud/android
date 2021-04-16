@@ -119,7 +119,6 @@
     <string name="common_skip">Geçiň</string>
     <string name="common_switch_account">Hasaby çalşyň</string>
     <string name="common_switch_to_account">Hasaba geçiň</string>
-    <string name="common_unknown">näbelli</string>
     <string name="common_yes">Hawa</string>
     <string name="community_beta_headline">Döredijinin wersiýasyny barla</string>
     <string name="community_beta_text">Bu öňümizdäki ähli aýratynlyklary öz içine alýar we iň gyrada ýerleşýär. Ýalňyşlyklar / ýalňyşlyklar bolup biler, eger we haçan bolsa, netijeleriňizi habar bermegiňizi haýyş edýäris.</string>
@@ -403,7 +402,6 @@
     <string name="manage_space_clear_data">Maglumatlary arassala</string>
     <string name="manage_space_description">Sazlamalar, maglumatlar binýady we serwer şahadatnamalary %1$shemişelik ýok ediler. \n\n Ýüklenen faýllar elýeterli bolmaz. \n\n Bu amal birneme wagt alyp biler.</string>
     <string name="manage_space_title">Boş ýeri dolandyryň</string>
-    <string name="media_err_invalid_progressive_playback">Mediýa faýly akymly bolup bilmez</string>
     <string name="media_err_io">Media faýly okap bolmady</string>
     <string name="media_err_malformed">Media faýlynda nädogry kodlama bar</string>
     <string name="media_err_timeout">Faýl oýnamak synanyşygy gutardy</string>
@@ -766,7 +764,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="uploader_error_message_read_permission_not_granted">%1$sAlnan faýly okamaga rugsat berilmeýär</string>
     <string name="uploader_error_message_source_file_not_copied">Faýly wagtlaýyn bukja göçürip bolmady. Ibermäge synanyşyň.</string>
     <string name="uploader_error_message_source_file_not_found">Ýüklemek üçin saýlanan faýl tapylmady. Öňki faýlyň bardygyny ýa-da ýokdugyny barlaň</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Bu faýly ýükläp bolmaýar</string>
     <string name="uploader_error_title_no_file_to_upload">Ýüklemeli faýl ýok</string>
     <string name="uploader_info_dirname">Papkanyň ady</string>
     <string name="uploader_top_message">Ýükleme bukjany saýlaň</string>

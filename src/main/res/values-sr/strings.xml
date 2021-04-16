@@ -112,7 +112,6 @@
     <string name="common_share">Подели</string>
     <string name="common_switch_account">Пребаци налог</string>
     <string name="common_switch_to_account">Пребаци на налог</string>
-    <string name="common_unknown">непознато</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Тестирајте развојну верзију</string>
     <string name="community_beta_text">Ово укључује све надолазеће функционалности па може бити нестабилна. Ако приметите пропусте или грешке, пријавите нам.</string>
@@ -384,7 +383,6 @@
     <string name="manage_space_clear_data">Очисти податке</string>
     <string name="manage_space_description">Поставке, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ преузети фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_title">Управљање простором</string>
-    <string name="media_err_invalid_progressive_playback">Медијски фајл не може да се пусти</string>
     <string name="media_err_io">Не могу да прочитам медијски фајл</string>
     <string name="media_err_malformed">Медијски фајл има неисправно кодирање знакова</string>
     <string name="media_err_timeout">Време за пуштање фајла је истекло</string>
@@ -733,7 +731,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s није дозвољено да чита примљени фајл</string>
     <string name="uploader_error_message_source_file_not_copied">Не могу да копирам фајл у привремену фасциклу. Пошаљите га поново.</string>
     <string name="uploader_error_message_source_file_not_found">Фајл за отпремање није нађен. Проверите да ли постоји.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Фајл се не може отпремити</string>
     <string name="uploader_error_title_no_file_to_upload">Нема фајлова за отпремање</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
     <string name="uploader_top_message">Одредите фасциклу за отпремање</string>

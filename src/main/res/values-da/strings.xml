@@ -117,7 +117,6 @@
     <string name="common_skip">Spring over</string>
     <string name="common_switch_account">Skift konto</string>
     <string name="common_switch_to_account">Skift til konto</string>
-    <string name="common_unknown">ukendt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test versionen under udvikling</string>
     <string name="community_beta_text">Dette indeholder alle nye features og er på alleryderste forkant. Bugs/fejl kan forekomme, og når det sker, venligst rapporter dine observationer.</string>
@@ -397,7 +396,6 @@
     <string name="manage_space_clear_data">Fjern data</string>
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>
-    <string name="media_err_invalid_progressive_playback">Mediefilen kan ikke streames</string>
     <string name="media_err_io">Kunne ikke læse mediefil</string>
     <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>
     <string name="media_err_timeout">Ventetid på forsøg på afspilning udløbet</string>
@@ -759,7 +757,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploader_error_message_read_permission_not_granted">%1$s har ikke tilladelse til at læse en modtaget fil</string>
     <string name="uploader_error_message_source_file_not_copied">Kunne ikke kopiere file til midlertidig mappe. Prøv at sende igen </string>
     <string name="uploader_error_message_source_file_not_found">Filen valgt til overførelse er ikke fundet, Kontrollere venligst at filen findes </string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan ikke uploades</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen filer til upload</string>
     <string name="uploader_info_dirname">Mappenavn</string>
     <string name="uploader_top_message">Vælg upload mappe</string>

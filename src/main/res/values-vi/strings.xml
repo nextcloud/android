@@ -118,7 +118,6 @@
     <string name="common_skip">Bỏ qua</string>
     <string name="common_switch_account">Chuyển tài khoản</string>
     <string name="common_switch_to_account">Chuyển đến tài khoản</string>
-    <string name="common_unknown">không biết</string>
     <string name="common_yes">Yes</string>
     <string name="community_beta_headline">Kiểm tra phiên bản nhà phát triển</string>
     <string name="community_beta_text">Điều này bao gồm tất cả các tính năng sắp tới. Lỗi có thể xảy ra, khi chúng xảy ra, vui lòng báo cáo chúng.</string>
@@ -218,6 +217,7 @@
     <string name="drawer_item_activities">Hoạt động</string>
     <string name="drawer_item_all_files">Tất cả tệp tin</string>
     <string name="drawer_item_favorites">Ưa thích</string>
+    <string name="drawer_item_gallery">Phương tiện</string>
     <string name="drawer_item_home">Trang nhất</string>
     <string name="drawer_item_notifications">Thông báo</string>
     <string name="drawer_item_on_device">Trên thiết bị</string>
@@ -399,7 +399,6 @@
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
     <string name="manage_space_description">Các cài đặt, cơ sở dữ liệu và chứng chỉ máy chủ từ dữ liệu của %1$s sẽ bị xóa vĩnh viễn. \n\nTệp đã tải xuống sẽ được giữ nguyên.\n\nQuá trình này có thể mất một lúc.</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
-    <string name="media_err_invalid_progressive_playback">Không thể phát trực tuyến tệp media</string>
     <string name="media_err_io">Không thể đọc tập tin media</string>
     <string name="media_err_malformed">Tệp media có mã hóa không chính xác</string>
     <string name="media_err_timeout">Cố gắng phát tệp đã hết thời gian chờ</string>
@@ -499,6 +498,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Thiết lập đồng bộ lịch &amp; danh bạ</string>
     <string name="prefs_category_about">Thông tin</string>
     <string name="prefs_category_details">Chi tiết</string>
+    <string name="prefs_category_dev">Phát triển</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>
@@ -739,6 +739,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Tệp văn bản(.txt)</string>
     <string name="upload_file_dialog_title">Nhập tên tệp và loại tệp để tải lên</string>
     <string name="upload_files">Tải lên tập tin</string>
+    <string name="upload_item_action_button">Nút hành động tải mục lên</string>
     <string name="upload_list_delete">Xóa</string>
     <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
     <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>
@@ -756,7 +757,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s không được phép đọc một tệp đã nhận</string>
     <string name="uploader_error_message_source_file_not_copied">Không thể sao chép tệp vào thư mục tạm thời. Thử gửi lại.</string>
     <string name="uploader_error_message_source_file_not_found">Không tìm thấy tệp đã chọn để tải lên. Vui lòng kiểm tra xem liệu tệp có tồn tại hay không.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Không thể tải tệp này</string>
     <string name="uploader_error_title_no_file_to_upload">Không có tệp để tải lên</string>
     <string name="uploader_info_dirname">Tên thư mục</string>
     <string name="uploader_top_message">Chọn thư mục tải lên</string>
@@ -815,6 +815,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Sao chép tệp từ bộ nhớ riêng</string>
     <string name="what_s_new_image">Hình ảnh mới là gì</string>
     <string name="whats_new_skip">Bỏ qua</string>
+    <string name="whats_new_title">Mới trong %1$s</string>
     <string name="whats_your_status">Trạng thái của bạn là gì?</string>
     <string name="wrong_storage_path">Thư mục lưu trữ dữ liệu không tồn tại!</string>
     <string name="wrong_storage_path_desc">Điều này có thể là do khôi phục sao lưu trên một thiết bị khác. Trở lại mặc định. Vui lòng kiểm tra cài đặt để điều chỉnh thư mục lưu trữ dữ liệu.</string>

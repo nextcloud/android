@@ -89,7 +89,6 @@
     <string name="common_save">Salvesta</string>
     <string name="common_send">Saada</string>
     <string name="common_share">Jaga</string>
-    <string name="common_unknown">tundmatu</string>
     <string name="common_yes">Jah</string>
     <string name="community_beta_headline">Testi arendusversiooni</string>
     <string name="community_beta_text">See sisaldab kõiki tulevasi funktsioona. Bugisid/vigu võib esineda ja kui nii juhtub, siis palun andke sellest teada.</string>
@@ -391,7 +390,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s ei ole lubatud saabunud faili lugeda.</string>
     <string name="uploader_error_message_source_file_not_copied">Faili kopeerimine ajutisse kausta ebaõnnestus. Palun proovi see uuesti saata.</string>
     <string name="uploader_error_message_source_file_not_found">Üleslaadimiseks valitud faili ei leitud. Palun kontrolli, kas valisid õige faili.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Seda faili ei saa üles laadida</string>
     <string name="uploader_error_title_no_file_to_upload">Puuduvad üleslaetavad failid</string>
     <string name="uploader_info_dirname">Kausta nimi</string>
     <string name="uploader_top_message">Vali üleslaadimise kaust</string>

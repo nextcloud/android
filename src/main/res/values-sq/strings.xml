@@ -105,7 +105,6 @@
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
     <string name="common_switch_account">Ndrysho Llogarinë</string>
-    <string name="common_unknown">panjohur</string>
     <string name="common_yes">Po</string>
     <string name="community_beta_headline">Testoni versionin Beta</string>
     <string name="community_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe ky është vetëm fillimi. Buget/gabimet  mund të ndodhin, nëse dhe kur të ndodhin, ju lutemi të raportoni për gjetjet tuaja. </string>
@@ -364,7 +363,6 @@
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nSkedarët e shkarkuar do të ruhen të paprekura.\n\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_title">Administroni hapësirë</string>
-    <string name="media_err_invalid_progressive_playback">Skedari media s’mund të transmetohet</string>
     <string name="media_err_io">S\'u lexua dot skedari media</string>
     <string name="media_err_malformed">Skedar media i koduar jo si duhet</string>
     <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
@@ -691,7 +689,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s s’është lejuar të lexojë një kartelë të marrë</string>
     <string name="uploader_error_message_source_file_not_copied">Ndodhi një gabim teksa kopjohej skedari në një dosje e përkohshme. Ju lutem, provo ta ridërgosh.</string>
     <string name="uploader_error_message_source_file_not_found">Skedari i përzgjedhur për ngarkim nuk u gjet. Ju lutem kontrolloni nëse skedari ekziston.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Ky skendar nuk mund të ngarkohet</string>
     <string name="uploader_error_title_no_file_to_upload">Pa kartelë për ngarkim</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
     <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>

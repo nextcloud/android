@@ -99,7 +99,6 @@
     <string name="common_save">Saglabāt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
-    <string name="common_unknown">nezināms</string>
     <string name="common_yes">Jā</string>
     <string name="community_beta_headline">Testēt dev versiju</string>
     <string name="community_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
@@ -291,7 +290,6 @@
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks dzēsti pilnībā. \n\nLejupielādētās datnes paliks neskartas.\n\nŠis proces var aizņemt mazliet laika.</string>
     <string name="manage_space_title">Pārvaldīt vietu</string>
-    <string name="media_err_invalid_progressive_playback">Nevar straumēt multivides datni</string>
     <string name="media_err_io">Nevarēja nolasīt medija datni</string>
     <string name="media_err_malformed">Multivides datnei nav pareizs kodējums</string>
     <string name="media_err_timeout">Mēģinājums atskaņot datni noilga</string>
@@ -494,7 +492,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nav atļauts lasīt saņemto datni</string>
     <string name="uploader_error_message_source_file_not_copied">Nevarēja pārkopēt datni uz pagaidu mapi. Lūdzu mēģini sūtīt vēlreiz.</string>
     <string name="uploader_error_message_source_file_not_found">Augšupielādējamā datne netika atrasta. Lūdzu pārbaudi vai datne eksistē.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Šo datni nevar augšupielādēt</string>
     <string name="uploader_error_title_no_file_to_upload">Nav datņu augšupielādei</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
     <string name="uploader_top_message">Izvēlies augšupielādes mapi</string>

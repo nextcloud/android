@@ -116,7 +116,6 @@
     <string name="common_skip">تخطي</string>
     <string name="common_switch_account">تبديل الحساب</string>
     <string name="common_switch_to_account">تبديل إلى حساب</string>
-    <string name="common_unknown">غير معروف</string>
     <string name="common_yes">نعم</string>
     <string name="community_beta_headline">جرب  إصدار المطورين</string>
     <string name="community_beta_text">يشمل هذا جميع المميزات الحديثة ويعتبر طليعة الإصدارات. الأخطاء متوَّقعة، لذا إذا حصلت أخطاء، نرجو منك الإبلاغ عنهم.</string>
@@ -396,7 +395,6 @@
 
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
-    <string name="media_err_invalid_progressive_playback">ملف الوسائط ﻻ يمكن عرضه</string>
     <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
     <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
     <string name="media_err_timeout">انتهت مهلة محاولة تشغيل الملف</string>
@@ -759,7 +757,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s غير مسموح له أن يقرأ ملفاً مستلماً</string>
     <string name="uploader_error_message_source_file_not_copied">لا يمكن نسخ الملف إلى مجلد مؤقت. حاول إعادة إرساله.</string>
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_top_message">إختر مجلد للرفع</string>
