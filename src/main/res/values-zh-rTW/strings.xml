@@ -402,6 +402,7 @@
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
+    <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
     <string name="media_err_malformed">媒體檔案編碼不正確</string>
     <string name="media_err_timeout">嘗試播放檔案逾時</string>
@@ -762,6 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允許讀取接收的檔案</string>
     <string name="uploader_error_message_source_file_not_copied">複製檔案到暫存資料夾時發生錯誤，請再試一次</string>
     <string name="uploader_error_message_source_file_not_found">該位置無法找到要上傳的檔案，請檢查該檔案是否存在</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳檔案</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>

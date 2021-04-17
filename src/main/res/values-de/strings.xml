@@ -402,6 +402,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
+    <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
@@ -763,6 +764,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
     <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte versuchen Sie erneut die Datei zu senden.</string>
     <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfen Sie ob die Datei existiert.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
     <string name="uploader_info_dirname">Ordnername</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>

@@ -402,6 +402,7 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
+    <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
     <string name="media_err_timeout">Upłynął limit czasu podczas próby odtwarzania pliku</string>
@@ -762,6 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie jest autoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_copied">Nie udało się skopiować pliku do tymczasowego katalogu. Spróbuj ponownie.</string>
     <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Sprawdź, czy plik istnieje.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_title_no_file_to_upload">Brak pliku do wysłania</string>
     <string name="uploader_info_dirname">Nazwa katalogu</string>
     <string name="uploader_top_message">Wybierz katalog do wysłania</string>
