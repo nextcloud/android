@@ -399,6 +399,7 @@
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
     <string name="manage_space_description">Các cài đặt, cơ sở dữ liệu và chứng chỉ máy chủ từ dữ liệu của %1$s sẽ bị xóa vĩnh viễn. \n\nTệp đã tải xuống sẽ được giữ nguyên.\n\nQuá trình này có thể mất một lúc.</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
+    <string name="media_err_invalid_progressive_playback">Không thể truyền tệp phương tiện này</string>
     <string name="media_err_io">Không thể đọc tập tin media</string>
     <string name="media_err_malformed">Tệp media có mã hóa không chính xác</string>
     <string name="media_err_timeout">Cố gắng phát tệp đã hết thời gian chờ</string>
@@ -757,6 +758,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s không được phép đọc một tệp đã nhận</string>
     <string name="uploader_error_message_source_file_not_copied">Không thể sao chép tệp vào thư mục tạm thời. Thử gửi lại.</string>
     <string name="uploader_error_message_source_file_not_found">Không tìm thấy tệp đã chọn để tải lên. Vui lòng kiểm tra xem liệu tệp có tồn tại hay không.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Không thể tải tệp này lên</string>
     <string name="uploader_error_title_no_file_to_upload">Không có tệp để tải lên</string>
     <string name="uploader_info_dirname">Tên thư mục</string>
     <string name="uploader_top_message">Chọn thư mục tải lên</string>
