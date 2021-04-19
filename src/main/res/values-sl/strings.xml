@@ -402,6 +402,7 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
+    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče predvajati v pretoku</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
     <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
@@ -762,6 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusi znova poslati kasneje.</string>
     <string name="uploader_error_message_source_file_not_found">Datoteke, izbrane za pošiljanje v oblak, ni mogoče najti. Ali datoteka obstaja?</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Te datoteke ni mogoče poslati</string>
     <string name="uploader_error_title_no_file_to_upload">Ni izbrane datoteke za pošiljanje</string>
     <string name="uploader_info_dirname">Ime mape</string>
     <string name="uploader_top_message">Izberi mapo za pošiljanje</string>
