@@ -116,7 +116,6 @@
     <string name="common_skip">Пропусни</string>
     <string name="common_switch_account">Смяна на профил</string>
     <string name="common_switch_to_account">Превключване към профил</string>
-    <string name="common_unknown">неясна</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Тестване на бета версия</string>
     <string name="community_beta_text">Това включва всички най-нови функционалности. Грешки и проблеми могат да възникнат, ако и когато възникнат, моля да докладвате.</string>
@@ -368,7 +367,6 @@
     <string name="manage_space_clear_data">Изчисти данните</string>
     <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_title">Управление на място</string>
-    <string name="media_err_invalid_progressive_playback">Медийният файл не може да бъде излъчен</string>
     <string name="media_err_io">Медия файлът не може да бъде прочетен</string>
     <string name="media_err_malformed">Неправилно кодиран медиен файл</string>
     <string name="media_err_timeout">Опитът за възпроизвеждане на файла беше неуспешен</string>
@@ -658,7 +656,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s нямате право да четете получения фаил</string>
     <string name="uploader_error_message_source_file_not_copied">Неуспешно копиране на файл във временна папка. Моля опитайте да го изпратите отново</string>
     <string name="uploader_error_message_source_file_not_found">Селектирания за качване файл не е намерен. Моля проверете дали файлът съществува.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Този файл не може да бъде качен</string>
     <string name="uploader_error_title_no_file_to_upload">Няма файл за качване</string>
     <string name="uploader_info_dirname">Име на папката</string>
     <string name="uploader_top_message">Изберете папка в която да се качват</string>

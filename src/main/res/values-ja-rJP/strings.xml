@@ -117,7 +117,6 @@
     <string name="common_skip">スキップ</string>
     <string name="common_switch_account">アカウント変更</string>
     <string name="common_switch_to_account">アカウントに変更</string>
-    <string name="common_unknown">不明</string>
     <string name="common_yes">はい</string>
     <string name="community_beta_headline">開発バージョンをテスト</string>
     <string name="community_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
@@ -366,6 +365,7 @@
     <string name="hint_password">パスワード</string>
     <string name="host_not_available">サーバーが利用できません</string>
     <string name="host_your_own_server">自分のサーバーをホストする</string>
+    <string name="in_folder">フォルダー%1$sの中で</string>
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -396,7 +396,6 @@
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
-    <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
     <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>
     <string name="media_err_timeout">再生試行がタイムアウトしました</string>
@@ -750,7 +749,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
     <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーできませんでした。再送してください。</string>
     <string name="uploader_error_message_source_file_not_found">選択したアップロードするファイルが見つかりません。ファイルが存在するかどうか確認してください。</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>

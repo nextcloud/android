@@ -113,7 +113,6 @@
     <string name="common_share">Zdieľať</string>
     <string name="common_switch_account">Prepnúť účet</string>
     <string name="common_switch_to_account">Prepnúť na účet</string>
-    <string name="common_unknown">neznámy</string>
     <string name="common_yes">Áno</string>
     <string name="community_beta_headline">Testovať vývojovú verziu</string>
     <string name="community_beta_text">Táto verzia obsahuje všetký pripravované funkcie. Je veľmi nestabilná a môže obsahovať chyby. Ak na ne natrafíte, prosím nahláste nám ich.</string>
@@ -385,7 +384,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>
-    <string name="media_err_invalid_progressive_playback">Multimediálny súbor sa nedá streamovať</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
     <string name="media_err_malformed">Súbor médií má neplatné kódovanie</string>
     <string name="media_err_timeout">Vypršal čas pri pokuse o prehratie</string>
@@ -733,7 +731,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie je oprávnený čítať prijatý súbor</string>
     <string name="uploader_error_message_source_file_not_copied">Pri kopírovaní súboru do dočasného priečinka došlo k chybe. Skúste prosím znova.</string>
     <string name="uploader_error_message_source_file_not_found">Súbor, ktorý sa pokúšate nahrať nebol nájdený. Overte prosím či súbor existuje.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Súbor nie je možné nahrať</string>
     <string name="uploader_error_title_no_file_to_upload">Žiadny súbor pre nahratie</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
     <string name="uploader_top_message">Vyber priečinok pre nahratie</string>

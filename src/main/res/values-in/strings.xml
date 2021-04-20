@@ -95,7 +95,6 @@
     <string name="common_save">Simpan</string>
     <string name="common_send">Kirim</string>
     <string name="common_share">Bagikan</string>
-    <string name="common_unknown">tidak diketahui</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Uji versi dev</string>
     <string name="community_beta_text">Ini termasuk semua fitur yang akan datang.  Bug/galat bisa terjadi, bila terjadi harap laporkan ke kami.</string>
@@ -277,7 +276,6 @@
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
-    <string name="media_err_invalid_progressive_playback">Berkas media tidak bisa di streaming</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
     <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
@@ -488,7 +486,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
     <string name="uploader_error_message_source_file_not_copied">Tidak dapat menyalin ke folder sementara. Coba untuk ngirim ulang</string>
     <string name="uploader_error_message_source_file_not_found">Berkas yang diunggah tidak ditemukan. Periksa kembali berkas tersebut</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Berkas ini tidak dapat diunggah</string>
     <string name="uploader_error_title_no_file_to_upload">Tidak ada berkas untuk diunggah</string>
     <string name="uploader_info_dirname">Nama folder</string>
     <string name="uploader_top_message">Pilih folder untuk mengunggah</string>

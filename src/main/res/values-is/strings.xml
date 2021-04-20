@@ -110,7 +110,6 @@
     <string name="common_share">Deila</string>
     <string name="common_switch_account">Skipta um notandaaðgang</string>
     <string name="common_switch_to_account">Skipta í notandaaðgang</string>
-    <string name="common_unknown">óþekkt</string>
     <string name="common_yes">Já</string>
     <string name="community_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="community_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
@@ -380,7 +379,6 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
-    <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
     <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
@@ -727,7 +725,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s hefur ekki heimild til að lesa móttekna skrá</string>
     <string name="uploader_error_message_source_file_not_copied">Gat ekki afritað skrá í bráðabirgðamöppu. Prófaðu að endursenda hana.</string>
     <string name="uploader_error_message_source_file_not_found">Skrá sem valin var til sendingar fannst ekki. Athugaðu hvort skráin sé til</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Ekki er hægt að senda þessa skrá inn</string>
     <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
     <string name="uploader_info_dirname">Heiti möppu</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>

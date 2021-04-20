@@ -103,7 +103,6 @@
     <string name="common_save">Sačuvaj</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Podeli</string>
-    <string name="common_unknown">nepoznato</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testirajte razvojnu verziju</string>
     <string name="community_beta_text">Ovo uključuje sve funkcionalnosti koje tek dolaze i najnoviji i najsvežiji kôd. To znači i da mogu lako da se pojave greške. Ako ih uočite, molimo da ih prijavite.</string>
@@ -334,7 +333,6 @@
     <string name="manage_space_clear_data">Očisti podatke</string>
     <string name="manage_space_description">Podešavanja, baza i serverski sertifikati od podataka sa %1$s će biti zauvek obrisani. \n\nVeć skinuti fajlovi neće biti dirani.\n\nOvo može potrajati.</string>
     <string name="manage_space_title">Upravljanje prostorom</string>
-    <string name="media_err_invalid_progressive_playback">Multimedijalni fajl ne može da se pusti</string>
     <string name="media_err_io">Ne mogu da pročitam multimedijalni fajl</string>
     <string name="media_err_malformed">Multimedijalni fajl ima neispravno kodiranje znakova</string>
     <string name="media_err_timeout">Isteklo vreme pokušavajući da pustim fajl</string>
@@ -650,7 +648,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nije dozvoljeno čitati primljeni fajl</string>
     <string name="uploader_error_message_source_file_not_copied">Ne mogu da kopiram fajl na privremenu lokaciju. Pokušajte da ga ponovo pošaljete.</string>
     <string name="uploader_error_message_source_file_not_found">Odabrani fajl nije pronađen. Proverite da li postoji.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Fajl ne može biti otpremljen.</string>
     <string name="uploader_error_title_no_file_to_upload">Nema fajlova za učitavanje</string>
     <string name="uploader_info_dirname">Naziv fascikle</string>
     <string name="uploader_top_message">Izaberite fascikle za otpremanje</string>

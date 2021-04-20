@@ -116,7 +116,6 @@
     <string name="common_share">Dela</string>
     <string name="common_switch_account">Växla konto</string>
     <string name="common_switch_to_account">Växla till konto</string>
-    <string name="common_unknown">okänt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testa utvecklingsversionen</string>
     <string name="community_beta_text">Detta inkluderar alla kommande funktioner och mycket \"bleeding edge\" (den allra senaste koden). Fel/buggar kan uppstå, om och när de gör det, vänligen meddela oss vad du hittar för fel så att vi kan åtgärda dem.</string>
@@ -395,7 +394,6 @@
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nHämtade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
     <string name="manage_space_title">Hantera utrymme</string>
-    <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
@@ -755,7 +753,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
     <string name="uploader_info_dirname">Mappnamn</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>

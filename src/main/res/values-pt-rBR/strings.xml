@@ -119,7 +119,6 @@
     <string name="common_skip">Pular</string>
     <string name="common_switch_account">Mudar de conta</string>
     <string name="common_switch_to_account">Mudar para a conta</string>
-    <string name="common_unknown">desconhecido</string>
     <string name="common_yes">Sim</string>
     <string name="community_beta_headline">Teste a versão de desenvolvimento</string>
     <string name="community_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e se acontecerem, informe-nos.</string>
@@ -403,7 +402,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
-    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
+    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
@@ -764,7 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o arquivo para uma pasta temporária. Tente reenviá-lo.</string>
     <string name="uploader_error_message_source_file_not_found">O arquivo selecionado para envio não foi encontrado. Verifique se ele existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pôde ser enviado</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pode ser carregado</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>

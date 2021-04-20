@@ -119,7 +119,6 @@
     <string name="common_skip">略過</string>
     <string name="common_switch_account">切換賬號</string>
     <string name="common_switch_to_account">切換到賬號</string>
-    <string name="common_unknown">不詳</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請舉報給我們。</string>
@@ -441,7 +440,7 @@
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
     <string name="note_icon_hint">記事本圖示</string>
-    <string name="notification_action_failed">執行的動作失敗</string>
+    <string name="notification_action_failed">無法執行操作。</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name">下載通知頻道</string>
     <string name="notification_channel_file_observer_description">檢查變動的檔案</string>
@@ -746,7 +745,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">片段文字檔(。txt)</string>
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
-    <string name="upload_item_action_button">上傳動作按鈕</string>
+    <string name="upload_item_action_button">上傳操作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟動自動上傳。</string>
@@ -764,7 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允許讀取接收的檔案</string>
     <string name="uploader_error_message_source_file_not_copied">複製檔案到暫存資料夾時發生錯誤，請再試一次</string>
     <string name="uploader_error_message_source_file_not_found">該位置無法找到要上傳的檔案，請檢查該檔案是否存在</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳檔案</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳此檔案</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>

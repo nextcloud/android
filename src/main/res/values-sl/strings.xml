@@ -119,7 +119,6 @@
     <string name="common_skip">Preskoči</string>
     <string name="common_switch_account">Preklopi račun</string>
     <string name="common_switch_to_account">Preklopi v drug račun</string>
-    <string name="common_unknown">neznano</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Preizkušanje razvojne različice</string>
     <string name="community_beta_text">To vključuje vse prihajajoče zmožnosti programa. Hrošči in napake se pojavljajo in ko se, je priporočljivo poslati poročilo za razhroščevanje.</string>
@@ -403,7 +402,7 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
-    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče prikazati v pretoku</string>
+    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče predvajati v pretoku</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
     <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>

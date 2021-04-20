@@ -119,7 +119,6 @@
     <string name="common_skip">略過</string>
     <string name="common_switch_account">切換帳號</string>
     <string name="common_switch_to_account">切換到帳號</string>
-    <string name="common_unknown">未知</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>

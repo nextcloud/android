@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
+    <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
     <string name="changelog_dev_version">Notes de version de la version de développement</string>
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
+    <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
@@ -114,9 +116,9 @@
     <string name="common_save">Enregistrer</string>
     <string name="common_send">Envoyer</string>
     <string name="common_share">Partager</string>
+    <string name="common_skip">Passer</string>
     <string name="common_switch_account">Basculer de compte</string>
     <string name="common_switch_to_account">Utiliser ce compte</string>
-    <string name="common_unknown">Inconnu</string>
     <string name="common_yes">Oui</string>
     <string name="community_beta_headline">Testez la version de dév</string>
     <string name="community_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">Impossible de télécharger l\'image complète</string>
     <string name="could_not_retrieve_shares">Impossible de récupérer les partages</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
+    <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_new">Créer un nouveau</string>
     <string name="create_new_document">Créer une nouveau document</string>
@@ -401,7 +404,6 @@ Attention la suppression est irréversible.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
-    <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
@@ -579,6 +581,7 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_06_davdroid_heading">Agenda &amp; Contacts</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
     <string name="select_all">Tout sélectionner</string>
+    <string name="select_one_template">Veuillez sélectionner un modèle</string>
     <string name="select_template">Sélectionnez un modèle</string>
     <string name="send">Envoyer</string>
     <string name="send_note">Envoyer la note au destinataire</string>
@@ -761,7 +764,6 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
     <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
     <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
