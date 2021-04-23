@@ -122,7 +122,7 @@
             android:name="nz.mega.documentscanner.DocumentScannerActivity"
             android:launchMode="singleTop"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/Theme.ownCloud"
+            android:theme="@style/DocumentScannerTheme"
             android:windowSoftInputMode="stateHidden|adjustNothing"
             tools:replace="android:theme" />
         <activity
