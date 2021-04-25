@@ -193,7 +193,9 @@ class ChooseAccountDialogFragment :
     }
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
-        binding.currentAccount.userIcon.setImageDrawable(avatarDrawable)
+        if (_binding != null) {
+            binding.currentAccount.userIcon.setImageDrawable(avatarDrawable)
+        }
     }
 
     override fun onAccountClicked(user: User?) {
