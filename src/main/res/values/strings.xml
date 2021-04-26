@@ -387,9 +387,9 @@
 
     <string name="logs_title">Logs</string>
     <string name="logs_menu_refresh">Refresh</string>
-    <string name="logs_menu_send">Send logs by e-mail</string>
+    <string name="logs_menu_send">Send logs by email</string>
     <string name="logs_menu_delete">Delete logs</string>
-    <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
+    <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
 
     <string name="actionbar_move">Move</string>
@@ -557,7 +557,7 @@
     <string name="whats_new_skip">Skip</string>
 
     <!-- User information -->
-    <string name="user_info_email">E-mail</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Phone number</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_website">Website</string>
