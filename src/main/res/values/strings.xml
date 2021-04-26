@@ -981,6 +981,33 @@
     <string name="share_settings">Settings</string>
     <string name="common_confirm">Confirm</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
+
+    <!-- Override scan library -->
+    <string name="scan_title_crop" context="Screen title for cropping current scan">Crop</string>
+    <string name="scan_title_save_scan" context="Screen title for saving current scan">Save scan</string>
+    <string name="scan_action_add" context="Action text to add a new page">Add</string>
+    <string name="scan_action_save" context="Action text to save document">Save</string>
+    <string name="scan_action_retake" context="Action text to retake current scan picture">Retake</string>
+    <string name="scan_file_name" context="Document scanner file name">File name</string>
+    <string name="scan_file_type" context="Input field description in the document save screen">File type</string>
+    <string name="scan_quality" context="Input field description in the document save screen">Quality</string>
+    <string name="scan_destination" context="Input field description in the document save screen">Destination</string>
+    <string name="scan_quality_high" context="Document scanner high quality option">High</string>
+    <string name="scan_quality_medium" context="Document scanner medium quality option">Medium</string>
+    <string name="scan_quality_low" context="Document scanner low quality option">Low</string>
+    <string name="scan_dialog_discard_title" context="Title text shown on document scanner dialog to discard scan">Discard scan?</string>
+    <string name="scan_dialog_discard_body" context="Body text shown on document scanner dialog to discard scan">The current scan will be lost</string>
+    <string name="scan_dialog_discard_all_title" context="Title text shown on document scanner dialog to discard scan all scans">Discard all scans?</string>
+    <string name="scan_dialog_discard_all_body" context="Body text shown on document scanner dialog to discard all scans">The current document will be lost</string>
+    <string name="scan_dialog_discard_action" context="Action text shown on document scanner dialog to discard scans">Discard</string>
+    <string name="scan_dialog_delete_body" context="Body text shown on document scanner dialog to delete current scan">Delete current scan?</string>
+    <string name="scan_requires_permission" context="Message shown when users deny camera permissions to scan documents">Camera permissions are needed to scan documents</string>
+    <string name="scan_incorrect_name" context="Error text for incorrect name">Incorrect name</string>
+    <string name="scan_invalid_characters" context="Error text for invalid characters">Invalid characters</string>
+    <string name="scan_snackbar_incorrect_name" context="Snackbar text for incorrect name">Correct your filename before proceeding</string>
+    <string name="scan_snackbar_invalid_characters" context="Snackbar text for invalid characters">The following characters are not allowed: \" * / : &lt; > \? \ |</string>
+    <string name="scan_dialog_progress" context="Dialog message showing file progress">Preparing %1$s. Please wait…</string>
+    <string name="strict_mode">Strict mode: no http connection allowed!</string>
     <string name="fullscreen">Fullscreen</string>
     <string name="destination_filename">Destination filename</string>
     <string name="suggest">Suggest</string>
