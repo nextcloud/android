@@ -380,12 +380,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
     <string name="log_send_mail_subject">%1$s Android-apploggar</string>
-    <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
     <string name="logs_menu_delete">Ta bort loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
-    <string name="logs_menu_send">Skicka loggar via e-post</string>
     <string name="logs_status_filtered">Loggar: %1$d kB, frågan matchade %2$d / %3$d på %4$d ms</string>
     <string name="logs_status_loading">Läser in…</string>
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
@@ -798,7 +796,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på icke-uppmätt Wi-Fi</string>
     <string name="user_icon">Användare</string>
     <string name="user_info_address">Adress</string>
-    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>

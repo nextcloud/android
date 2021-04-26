@@ -349,12 +349,10 @@
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="local_folder_list_empty">Nuk ka më dosje më tej.</string>
     <string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
-    <string name="log_send_no_mail_app">S’u gjet aplikacion për dërgim regjistrimesh. Ju lutemi, instaloni një aplikacion email-esh.</string>
     <string name="login">Hyni</string>
     <string name="logs_menu_delete">Fshini shkrimet</string>
     <string name="logs_menu_refresh">Rifresko</string>
     <string name="logs_menu_search">Kërko shkrimet</string>
-    <string name="logs_menu_send">Dërgo shkrimet me e-mail</string>
     <string name="logs_status_filtered">Shkrimet: %1$dkB, pyetja përputhet%2$d/%3$d në%4$dms</string>
     <string name="logs_status_loading">Duke u ngarkuar…</string>
     <string name="logs_status_not_filtered">Shkrimet: %1$dkB, pa filter</string>
@@ -733,7 +731,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="user_icon">Përdorues</string>
     <string name="user_info_address">Adresa</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numri i telefonit</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

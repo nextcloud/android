@@ -281,7 +281,6 @@
     <string name="local_file_not_found_message">Datne lokālajā datņu sistēmā netika atrasta</string>
     <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
     <string name="log_send_mail_subject">%1$s Android lietotnes žurnāli</string>
-    <string name="log_send_no_mail_app">Nav atrasta neviena lietotne notikumu žurnāla sūtīšanai. Lūdzu instalējiet e-pasta klientu.</string>
     <string name="login">Pieteikties</string>
     <string name="logs_menu_refresh">Atsvaidzināt</string>
     <string name="logs_status_loading">Notiek ielāde...</string>
@@ -532,7 +531,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
-    <string name="user_info_email">E-pasts</string>
     <string name="user_info_phone">Tālruņa numurs</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Mājaslapa</string>

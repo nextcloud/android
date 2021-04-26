@@ -382,12 +382,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
-    <string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
     <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
-    <string name="logs_menu_send">ログをメールで送信</string>
     <string name="logs_status_filtered">ログ: %1$d kB, 一致 %2$d 件 / %3$d 件、%4$d ms </string>
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>
@@ -794,7 +792,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">制限なしのWi-Fiを待機中</string>
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
-    <string name="user_info_email">メール</string>
     <string name="user_info_phone">電話番号</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ウェブサイト</string>

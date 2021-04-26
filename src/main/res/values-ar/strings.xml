@@ -377,12 +377,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">لا توجد مجلدات أخرى.</string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
-    <string name="log_send_no_mail_app">لم يتم العثور على تطبيق لإرسال السجلات. الرجاء تثبيت عميل بريد إلكتروني.</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logs_menu_delete">احذف السجلات</string>
     <string name="logs_menu_refresh">إنعاش</string>
     <string name="logs_menu_search">البحث في السجلات</string>
-    <string name="logs_menu_send">إرسال سجلات بالبريد الإلكتروني</string>
     <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
     <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
@@ -802,7 +800,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">في انتظار شبكة Wi-Fi غير محدودة</string>
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
-    <string name="user_info_email">البريد الإلكتروني</string>
     <string name="user_info_phone"> رقم الهاتف</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>

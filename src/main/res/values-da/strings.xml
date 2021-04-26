@@ -382,12 +382,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Der er ikke flere mapper.</string>
     <string name="log_send_mail_subject">%1$s Android-app - logge</string>
-    <string name="log_send_no_mail_app">Ingen app til forsendelse af logs fundet. Venligst installer en e-mail app.</string>
     <string name="login">Log ind</string>
     <string name="logs_menu_delete">Slet logs</string>
     <string name="logs_menu_refresh">Opdatér</string>
     <string name="logs_menu_search">Søg i log</string>
-    <string name="logs_menu_send">Send logs på mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, forespørgsel fandt %2$d / %3$d på  %4$d ms</string>
     <string name="logs_status_loading">Indlæser…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, ingen filter</string>
@@ -802,7 +800,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på ubegrænset Wi-Fi</string>
     <string name="user_icon">Bruger</string>
     <string name="user_info_address">Adresse</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

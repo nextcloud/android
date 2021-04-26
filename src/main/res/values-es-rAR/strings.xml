@@ -382,12 +382,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
     <string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
-    <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Favor de instalar un cliente de correo electrónico. </string>
     <string name="login">Iniciar sesión</string>
     <string name="logs_menu_delete">Eliminar registros</string>
     <string name="logs_menu_refresh">Recargar</string>
     <string name="logs_menu_search">Buscar registros</string>
-    <string name="logs_menu_send">Enviar registros por e-mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, consulta encontrada %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Cargando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sin filtro</string>
@@ -800,7 +798,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando Wi-Fi no medida</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
-    <string name="user_info_email">Correo electrónico</string>
     <string name="user_info_phone">Número telefónico</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>

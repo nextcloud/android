@@ -383,12 +383,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Тут відсутні інші каталоги.</string>
     <string name="log_send_mail_subject">%1$s Android лог додатку</string>
-    <string name="log_send_no_mail_app">Не знайдено застосунку для надсилання журналу. Будь ласка, встановіть поштовий клієнт.</string>
     <string name="login">Увійти</string>
     <string name="logs_menu_delete">Вилучити журнал</string>
     <string name="logs_menu_refresh">Оновити</string>
     <string name="logs_menu_search">Шукати у журналі</string>
-    <string name="logs_menu_send">Надіслати журнал ел.поштою</string>
     <string name="logs_status_filtered">Журнал: %1$d кБ, збіг запиту %2$d / %3$d за %4$d мс</string>
     <string name="logs_status_loading">Завантаження…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фільтру</string>
@@ -801,7 +799,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекати на безлімітний Wi-Fi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
-    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>

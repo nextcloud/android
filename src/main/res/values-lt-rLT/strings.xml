@@ -388,12 +388,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
     <string name="log_send_mail_subject">%1$s Android žurnalai</string>
-    <string name="log_send_no_mail_app">Nėra programėlės įrašams siųsti. Prašome instaliuoti el. pašto klientą.</string>
     <string name="login">Prisijungti</string>
     <string name="logs_menu_delete">Ištrinti žurnalus</string>
     <string name="logs_menu_refresh">Įkelti iš naujo</string>
     <string name="logs_menu_search">Ieškoti žurnalo įrašų</string>
-    <string name="logs_menu_send">Siųsti žurnalo įrašus el. pašto adresu</string>
     <string name="logs_status_filtered">Žurnalo įrašai: %1$d kB, užklausą atitiko %2$d/%3$d per %4$d ms</string>
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="logs_status_not_filtered">Žurnalo įrašai: %1$d kB, nėra filtro</string>
@@ -807,7 +805,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
     <string name="user_icon">Naudotojas</string>
     <string name="user_info_address">Adresas</string>
-    <string name="user_info_email">El. paštas</string>
     <string name="user_info_phone">Telefono numeris</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Svetainė</string>
