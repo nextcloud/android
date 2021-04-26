@@ -367,12 +367,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">N\'ez eus teuliad all ebet</string>
     <string name="log_send_mail_subject">%1$s kazetenn meziant Android</string>
-    <string name="log_send_no_mail_app">Meziant ebet evit kas ar gazetennoù. Staliit un c\'hliant postel mar-plij.</string>
     <string name="login">kennaskañ</string>
     <string name="logs_menu_delete">Lemel ar gazetennoù</string>
     <string name="logs_menu_refresh">Freskaat</string>
     <string name="logs_menu_search">Klast kazetennoù</string>
-    <string name="logs_menu_send">Kas dre e-mail ar gazetennoù</string>
     <string name="logs_status_filtered">Kazetenn : %1$d kB, goulenn a glot %2$d / %3$d e %4$d ms</string>
     <string name="logs_status_loading">O Kargañ</string>
     <string name="logs_status_not_filtered">kazetennoù : %1$d kB, filtr ebet</string>
@@ -768,7 +766,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">O gortoz kargañ</string>
     <string name="user_icon">Implijer</string>
     <string name="user_info_address">Chom-lec\'h</string>
-    <string name="user_info_email">Postel</string>
     <string name="user_info_phone">Niverenn pellgomzer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Lec\'hien web</string>

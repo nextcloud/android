@@ -211,7 +211,6 @@
     <string name="local_file_not_found_message">No se encontró el archivo en sistema de archivos local</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
     <string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
-    <string name="log_send_no_mail_app">No se encontró alguna aplicación para el envío de bitácoras. Por favor instala un cliente de correo electrónico. </string>
     <string name="login">Iniciar sesión</string>
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_status_loading">Cargando...</string>
@@ -440,7 +439,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="user_icon">Ususario</string>
     <string name="user_info_address">Dirección</string>
-    <string name="user_info_email">Correo electrónico</string>
     <string name="user_info_phone">Número telefónico</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>

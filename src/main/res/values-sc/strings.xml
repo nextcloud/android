@@ -3,6 +3,7 @@
     <string name="about_android">%1$s Aplicatzione de Android</string>
     <string name="about_title">In contu de</string>
     <string name="about_version">versione %1$s</string>
+    <string name="about_version_with_build">versione %1$s, versione #%2$s</string>
     <string name="account_creation_failed">Errore in sa creatzione de su contu</string>
     <string name="account_icon">Icona de su contu</string>
     <string name="account_not_found">Contu no agatadu!</string>
@@ -73,7 +74,7 @@
     <string name="auto_upload_path">/AutoCarrigamentu</string>
     <string name="autoupload_configure">Cunfigura</string>
     <string name="autoupload_create_new_custom_folder">Crea cunfiguratzione de cartella personalizada noa</string>
-    <string name="autoupload_custom_folder">Cunfigura una cartella personalizada</string>
+    <string name="autoupload_custom_folder">Imposta una cartella personalizada</string>
     <string name="autoupload_disable_power_save_check">Disativa controllu de rispàrmiu de energia</string>
     <string name="autoupload_hide_folder">Cua sa cartella</string>
     <string name="avatar">Avatar</string>
@@ -115,6 +116,7 @@
     <string name="common_save">Sarva</string>
     <string name="common_send">Imbia</string>
     <string name="common_share">Cumpartzi</string>
+    <string name="common_skip">Brinca</string>
     <string name="common_switch_account">Passa a àteru contu</string>
     <string name="common_switch_to_account">Passa a su contu</string>
     <string name="common_yes">Eja</string>
@@ -162,7 +164,7 @@
     <string name="contacts_preferences_no_file_found">Perunu archìviu agatadu</string>
     <string name="contacts_preferences_something_strange_happened">Non s\'est agatada s\'ùrtima còpia de seguresa tua!</string>
     <string name="contacts_read_permission">Tocat de donare su permissu pro lèghere sa lista de cuntatos</string>
-    <string name="copied_to_clipboard">Copiadu in is apuntos</string>
+    <string name="copied_to_clipboard">Copiadu in punta de billete</string>
     <string name="copy_file_error">Ddoe at àpidu un\'errore in sa còpia de su documentu o de sa cartella</string>
     <string name="copy_file_invalid_into_descendent">No est possìbile a copiare una cartella a intro de una de is cartellas in suta </string>
     <string name="copy_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
@@ -291,7 +293,7 @@
     <string name="file_keep">Mantene</string>
     <string name="file_list_empty">Càrriga cuntenutos o sincroniza·ti cun su dispositivu tuo.</string>
     <string name="file_list_empty_favorite_headline">Ancora perunu preferidu</string>
-    <string name="file_list_empty_favorites_filter_list">Is documentos e is cartellas chi marcas comente preferidos ant a essire inoghe.</string>
+    <string name="file_list_empty_favorites_filter_list">Is archìvios e is cartellas chi marcas comente preferidos ant a aparèssere inoghe.</string>
     <string name="file_list_empty_headline">Perunu archìviu inoghe</string>
     <string name="file_list_empty_headline_search">Perunu resurtadu in custa cartella</string>
     <string name="file_list_empty_headline_server_search">Perunu resurtadu</string>
@@ -350,7 +352,7 @@
     <string name="folder_picker_choose_button_text">Sèbera</string>
     <string name="forbidden_permissions">Non tenes su permissu%s</string>
     <string name="forbidden_permissions_copy">de copiare custu documentu</string>
-    <string name="forbidden_permissions_create">de creare custu documentu</string>
+    <string name="forbidden_permissions_create">de creare custu archìviu</string>
     <string name="forbidden_permissions_delete">de cantzellare custu documentu</string>
     <string name="forbidden_permissions_move">de tramudare custu documentu</string>
     <string name="forbidden_permissions_rename">de torrare a numenare custu documentu</string>
@@ -377,21 +379,19 @@
     <string name="label_empty">S\'eticheta non podet èssere bòida</string>
     <string name="link">Ligòngiu</string>
     <string name="link_share_allow_upload_and_editing">Permite carrigamentu e modìficas</string>
-    <string name="link_share_file_drop">Trìsina documentu (isceti pro carrigare)</string>
-    <string name="link_share_read_only">Letura ebbia</string>
+    <string name="link_share_file_drop">Trìsina archìviu (isceti pro carrigare)</string>
+    <string name="link_share_read_only">Isceti letura</string>
     <string name="list_layout">Istrutura in elencu</string>
     <string name="local_file_list_empty">Non ddoe at documentos in custa cartella.</string>
     <string name="local_file_not_found_message">Documentu no agatadu in su sistema de documentos locale</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ddoe sunt àteras cartellas.</string>
     <string name="log_send_mail_subject">%1$s registros de s\'aplicatzione Android</string>
-    <string name="log_send_no_mail_app">No est è istada agatada peruna aplicatzione pro imbiare is log. Installa unu cliente de posta eletrònica.</string>
     <string name="login">Intra</string>
     <string name="login_url_helper_text">Su ligàmene a s\'interfache de rete tua  %1$s cando dd\'aberis in su navigadore.</string>
     <string name="logs_menu_delete">Cantzella log</string>
     <string name="logs_menu_refresh">Agiorna</string>
     <string name="logs_menu_search">Chirca log</string>
-    <string name="logs_menu_send">Imbia log tràmite posta eletrònica</string>
     <string name="logs_status_filtered">Log: %1$d kB, query dedicada %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Carrighende…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, perunu filtru</string>
@@ -400,6 +400,7 @@
     <string name="manage_space_clear_data">Lìmpia is datos</string>
     <string name="manage_space_description">Impostatziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti s\'ispàtziu</string>
+    <string name="media_err_invalid_progressive_playback">S\'archìviu multimediale non podet èssere trasmìtidu</string>
     <string name="media_err_io">No at fatu a lèghere su documentu media</string>
     <string name="media_err_malformed">Sa codìfica de su cuntenutu multimediale no es curreta</string>
     <string name="media_err_timeout">S\'intentu pro reprodùere su cuntenutu nch\'est iscàdidu</string>
@@ -509,6 +510,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">Imbia notìficas subra cartellas de media agatadas dae pagu</string>
     <string name="prefs_gpl_v2">GNU General Public License, versione 2</string>
     <string name="prefs_help">Agiudu</string>
+    <string name="prefs_imprint">Imprenta</string>
     <string name="prefs_instant_behaviour_dialogTitle">Su documentu originale at a èssere...</string>
     <string name="prefs_instant_behaviour_title">Su documentu originale at a èssere...</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Regolle in sutacartellas subra sa base de annu e mese</string>
@@ -518,6 +520,7 @@
     <string name="prefs_lock_device_credentials_enabled">Credentziales de su dispositivu ativadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Peruna credentziale de su dispositivu cunfigurada.</string>
     <string name="prefs_lock_none">Peruna</string>
+    <string name="prefs_lock_title">Ampara s\'aplicatzione impreende</string>
     <string name="prefs_lock_using_device_credentials">Credentziales de su dispositivu</string>
     <string name="prefs_lock_using_passcode">Còdighe de atzessu</string>
     <string name="prefs_manage_accounts">Gesti is contos</string>
@@ -531,6 +534,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Iscuru</string>
     <string name="prefs_value_theme_light">Craru</string>
+    <string name="prefs_value_theme_system">Sistema de sighida</string>
     <string name="preview_image_description">Anteprima de s\'immàgine</string>
     <string name="preview_image_error_no_local_file">Perunu archìviu locale de ammustrare in anteprima</string>
     <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'immàgine</string>
@@ -603,11 +607,13 @@
     <string name="share_no_expiration_date_label">Imposta data de iscadèntzia</string>
     <string name="share_no_password_title">Imposta sa crae</string>
     <string name="share_password_title">Amparadu dae una crae</string>
-    <string name="share_privilege_unshare">Unshare</string>
+    <string name="share_privilege_unshare">Annulla sa cumpartzidura</string>
     <string name="share_remote_clarification">%1$s (remotu)</string>
     <string name="share_room_clarification">%1$s (tzarrada)</string>
+    <string name="share_search">Nùmene, ID de sa nue federada o indiritzu de posta ...</string>
     <string name="share_send_note">Notas pro sa persone destinatària</string>
     <string name="share_via_link_hide_download">Cua iscarrigamentu</string>
+    <string name="share_via_link_menu_password_label">Bàrdia crae (%1$s)</string>
     <string name="share_via_link_section_title">Cumpartzi ligòngiu</string>
     <string name="share_via_link_send_link_label">Imbia ligòngiu</string>
     <string name="share_via_link_unset_password">No impostadu</string>
@@ -617,6 +623,7 @@
     <string name="shared_icon_shared">cumpartzidu</string>
     <string name="shared_icon_shared_via_link">cumpartzidu cun ligòngiu</string>
     <string name="shared_with_you_by">Cumpartzidu cun te dae %1$s</string>
+    <string name="sharee_add_failed">Agiunta de cumpartzidura faddida</string>
     <string name="signup_with_provider">Registra•ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
@@ -657,7 +664,7 @@
     <string name="storage_description_default">Predefinida</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Iscarrigamentos</string>
-    <string name="storage_internal_storage">Depòsitu internu</string>
+    <string name="storage_internal_storage">Archiviatzione interna</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Mùsica</string>
     <string name="storage_pictures">Immàgines</string>
@@ -668,8 +675,8 @@
     <string name="stream">Direta cun...</string>
     <string name="stream_not_possible_headline">Su flussu internu non est possìbile</string>
     <string name="stream_not_possible_message">Iscàrriga media o imprea s\'aplicatzione de foras.</string>
-    <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun te </string>
-    <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun te</string>
+    <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
+    <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>
     <string name="sync_conflicts_in_favourites_ticker">Si sunt agatados cunflitos</string>
     <string name="sync_current_folder_was_removed">Sa cartella %1$s no esistit prus</string>
     <string name="sync_fail_content">No at fatu a sincronizare %1$s</string>
@@ -679,6 +686,7 @@
     <string name="sync_fail_ticker_unauthorized">Sincronizatzione faddida, torra a intrare</string>
     <string name="sync_file_nothing_to_do_msg">Cuntenutos de is archìvios giai sincronizados</string>
     <string name="sync_folder_failed_content">No at fatu a agabbare cun sa sincronizatzione de sa cartella %1$s </string>
+    <string name="sync_foreign_files_forgotten_explanation">Dae sa versione 1.3.16, is archìvios carrigados dae custu dispositivu sunt copiados in sa cartella locale %1$s pro prevenire sa pèrdida de datos candu un\'archìviu est sincronizadu cun contos mùltiplos.\n\nPro custu càmbiu, totu is archìvios carrigados cun versiones pretzedentes a custa sunt istados copiados in sa cartella%2$s. Però un\'errore at impedidu de acumprire s\'operatzione in sa sincronizatzione de su contu. Podes lassare s\'archìviu (o is archìvios) comente est e cantzellare su ligòngiu a %3$s, o tramudàre s\'archìviu (o is archìvios) a sa cartella %1$s e mantènnere su ligòngiu a %4$s.\n\nA suta sunt elencados is archìvios locales e cussos remotos in %5$s a is chi fiant giai ligongiados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Carchi archìviu locale s\'est iscaressidu</string>
     <string name="sync_in_progress">Recuperende is versiones prus reghentes de s\'archìviu.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Sèbera ite boles sincronizare</string>
@@ -702,7 +710,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura pro is archìvios chi esistint giai</string>
     <string name="thumbnail_for_new_file_desc">Miniatura pro archìviu nou</string>
-    <string name="timeout_richDocuments">Su carrigamentu trigat meda...</string>
+    <string name="timeout_richDocuments">Su carrigamentu istentat meda...</string>
     <string name="today">Oe</string>
     <string name="trashbin_activity_title">Archìvios cantzellados</string>
     <string name="trashbin_empty_headline">Archìvios no cantzellados</string>
@@ -753,9 +761,10 @@
     <string name="uploader_error_message_read_permission_not_granted">A %1$s no est permìtidu de lèghere un\'archìviu retzidu</string>
     <string name="uploader_error_message_source_file_not_copied">No at fatu a copiare s\'archìviu in una cartella temporànea. Proa a ddu torrare a imbiare.</string>
     <string name="uploader_error_message_source_file_not_found">Archìviu seletzionadu pro su carrigamentu no agatadu. Controlla si esistit.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Custu archìviu non faghet a ddu carrigare</string>
     <string name="uploader_error_title_no_file_to_upload">Perunu archìviu de carrigare</string>
     <string name="uploader_info_dirname">Nùmene de sa cartella</string>
-    <string name="uploader_top_message">Sebera sa cartella de carrigamentu</string>
+    <string name="uploader_top_message">Sèbera sa cartella de carrigamentu</string>
     <string name="uploader_upload_failed_content_single">No at fatu a carrigare %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Carrigamentu faddidu, torra a intrare</string>
     <string name="uploader_upload_failed_sync_conflict_error">Cunflitu in su carrigamentu de s\'archìviu</string>
@@ -798,7 +807,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Abetende su Wi-Fi chene lìmites</string>
     <string name="user_icon">Utente</string>
     <string name="user_info_address">Indiritzu</string>
-    <string name="user_info_email">Posta eletrònica</string>
     <string name="user_info_phone">Nùmeru de telèfonu</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situ internet</string>

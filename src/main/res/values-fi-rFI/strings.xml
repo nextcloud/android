@@ -387,12 +387,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
-    <string name="log_send_no_mail_app">Lokien lähettämiseen soveltuvaa sovellusta ei löytynyt. Asenna sähköpostisovellus.</string>
     <string name="login">Kirjaudu sisään</string>
     <string name="logs_menu_delete">Poista lokitiedot</string>
     <string name="logs_menu_refresh">Päivitä</string>
     <string name="logs_menu_search">Etsi lokitiedoista</string>
-    <string name="logs_menu_send">Lähetä lokitiedot sähköpostiin</string>
     <string name="logs_status_filtered">Lokit: %1$d kt, kyselyä vastasi %2$d / %3$d ajassa %4$d ms</string>
     <string name="logs_status_loading">Ladataan…</string>
     <string name="logs_status_not_filtered">Lokit: %1$d kt, ei filtteriä</string>
@@ -806,7 +804,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan laskuttamatonta Wi-Fi-yhteyttä</string>
     <string name="user_icon">Käyttäjä</string>
     <string name="user_info_address">Osoite</string>
-    <string name="user_info_email">Sähköposti</string>
     <string name="user_info_phone">Puhelinnumero</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Verkkosivusto</string>

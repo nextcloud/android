@@ -427,7 +427,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Laadimise ootel</string>
     <string name="user_icon">Kasutaja</string>
     <string name="user_info_address">Aadress</string>
-    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefoninumber</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Veebileht</string>

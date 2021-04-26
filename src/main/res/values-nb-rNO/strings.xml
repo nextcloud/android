@@ -382,12 +382,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
     <string name="log_send_mail_subject">%1$s Android-app-logger</string>
-    <string name="log_send_no_mail_app">Fant ingen app til å sende logger med. Vennligst installer en e-post-klient.</string>
     <string name="login">Logg inn</string>
     <string name="logs_menu_delete">Slett logg</string>
     <string name="logs_menu_refresh">Oppdater</string>
     <string name="logs_menu_search">Søk loggen</string>
-    <string name="logs_menu_send">Sende logg med e-post</string>
     <string name="logs_status_filtered">Logg: %1$d kB, spørring funnet%2$d / %3$d iløpet av %4$d ms</string>
     <string name="logs_status_loading">Laster…</string>
     <string name="logs_status_not_filtered">Logg: %1$d kB, ingen filter</string>
@@ -800,7 +798,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på ubegrenset trådløs tilkobling</string>
     <string name="user_icon">Bruker</string>
     <string name="user_info_address">Adresse</string>
-    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Nettsted</string>

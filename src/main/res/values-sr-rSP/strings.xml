@@ -319,12 +319,10 @@
     <string name="local_file_not_found_message">Fajl nije nađen u lokalnom sistemu fajlova</string>
     <string name="local_folder_list_empty">Nema više fascikli</string>
     <string name="log_send_mail_subject">Zapisnici %1$s Android aplikacije</string>
-    <string name="log_send_no_mail_app">Nema aplikacije za slanje dnevnika. Instalirajte klijent za e-poštu.</string>
     <string name="login">Prijava</string>
     <string name="logs_menu_delete">Obriši zapisnike</string>
     <string name="logs_menu_refresh">Osveži</string>
     <string name="logs_menu_search">Pretraži zapisnike</string>
-    <string name="logs_menu_send">Pošalji zapisnike e-poštom</string>
     <string name="logs_status_filtered">Zapisnici: %1$d kB, upit je pronašao %2$d/%3$d za %4$dms</string>
     <string name="logs_status_loading">Učitavam…</string>
     <string name="logs_status_not_filtered">Zapisnici: %1$d kB, bez filtriranja</string>
@@ -689,7 +687,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Čekam punjenje</string>
     <string name="user_icon">Korisnik </string>
     <string name="user_info_address">Adresa</string>
-    <string name="user_info_email">Adresa e-pošte</string>
     <string name="user_info_phone">Broj telefona</string>
     <string name="user_info_twitter">Tviter</string>
     <string name="user_info_website">Sajt</string>

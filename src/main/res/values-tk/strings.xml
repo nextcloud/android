@@ -387,13 +387,11 @@
     <string name="local_folder_friendly_path">%1$sýada%2$s</string>
     <string name="local_folder_list_empty">Başga bukjalar ýok.</string>
     <string name="log_send_mail_subject">%1$sAndroid programma ýazgylary</string>
-    <string name="log_send_no_mail_app">Žurnallary ibermek üçin programma tapylmady. E-poçta müşderisini gurmagyňyzy haýyş edýäris.</string>
     <string name="login">Giriň</string>
     <string name="login_url_helper_text">Brauzerde açanyňyzda %1$sweb interfeýsiňize baglanyşyk.</string>
     <string name="logs_menu_delete">Žurnallary pozuň</string>
     <string name="logs_menu_refresh">Täzelemek</string>
     <string name="logs_menu_search">Log-faylar gözlemek</string>
-    <string name="logs_menu_send">Žurnallary e-poçta bilen iberiň</string>
     <string name="logs_status_filtered">Žurnallar:%1$d kB, talap gabat geldi%2$d / %3$diçinde %4$dms</string>
     <string name="logs_status_loading">Ýüklenýär…</string>
     <string name="logs_status_not_filtered">Žurnallar:%1$d kB, filtrsiz</string>
@@ -809,7 +807,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="uploads_view_upload_status_waiting_for_wifi">Ölçegsiz Wi-Fi garaşmak</string>
     <string name="user_icon">Ulanyjy</string>
     <string name="user_info_address">Salgysy</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefon belgisi</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

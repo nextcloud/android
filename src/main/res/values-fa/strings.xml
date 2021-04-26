@@ -382,12 +382,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
     <string name="log_send_mail_subject">%1$s لاگ‌های برنامه های اندروید</string>
-    <string name="log_send_no_mail_app">هیچ برنامه ای برای ارسال تاریخچه یافت نشد. لطفاً یک سرویس گیرنده ایمیل نصب کنید.</string>
     <string name="login">Log in</string>
     <string name="logs_menu_delete">حذف لاگ‌ها</string>
     <string name="logs_menu_refresh">تازه‌سازی</string>
     <string name="logs_menu_search">جستجو تاریخچه ها</string>
-    <string name="logs_menu_send">ارسال لاگ‌ها با ایمیل</string>
     <string name="logs_status_filtered">وقایع: %1$d kB, پرس و جو مطابقت دارد %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">درحال بارگیری...</string>
     <string name="logs_status_not_filtered">وقایع: %1$d kB, بدون فیلتر</string>
@@ -800,7 +798,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">انتظار برای اتصال به وای‌فای نامحدود</string>
     <string name="user_icon">کاربر</string>
     <string name="user_info_address">نشانی</string>
-    <string name="user_info_email">پست الکترونیک</string>
     <string name="user_info_phone">شماره تلفن</string>
     <string name="user_info_twitter">توییتر</string>
     <string name="user_info_website">وب‌ سایت</string>

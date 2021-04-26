@@ -369,12 +369,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">.Нема повеќе папки</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
-    <string name="log_send_no_mail_app">Нема пронајдено апликација за испраќање на записи. Инсталирајте клиент за е-пошта.</string>
     <string name="login">Најава</string>
     <string name="logs_menu_delete">Избриши записи</string>
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Пребарувај записи</string>
-    <string name="logs_menu_send">Испрати записи преку е-пошта</string>
     <string name="logs_status_filtered">Записи: %1$d kB, совпаднати барања %2$d / %3$d во %4$d ms</string>
     <string name="logs_status_loading">Се вчитува…</string>
     <string name="logs_status_not_filtered">Записи: %1$d kB, без филтер</string>
@@ -767,7 +765,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Чека полнење</string>
     <string name="user_icon">Корисник</string>
     <string name="user_info_address">Адреса</string>
-    <string name="user_info_email">е-пошта</string>
     <string name="user_info_phone">Телефонски број</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Веб страна</string>
