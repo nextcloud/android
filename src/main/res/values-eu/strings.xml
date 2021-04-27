@@ -807,6 +807,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Mugarik ez duen Wi-Fiaren zain</string>
     <string name="user_icon">Erabiltzailea</string>
     <string name="user_info_address">Helbidea</string>
+    <string name="user_info_email">E-posta</string>
     <string name="user_info_phone">Telefono zenbakia</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webgunea</string>

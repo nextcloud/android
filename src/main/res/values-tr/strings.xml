@@ -387,11 +387,13 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
     <string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
+    <string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
     <string name="login">Oturum Aç</string>
     <string name="login_url_helper_text">%1$s web arayüzü için web tarayıcıda açacağınız bağlantı.</string>
     <string name="logs_menu_delete">Günlükleri sil</string>
     <string name="logs_menu_refresh">Yenile</string>
     <string name="logs_menu_search">Günlük arama</string>
+    <string name="logs_menu_send">Günlükler e-posta ile gönderilsin</string>
     <string name="logs_status_filtered">Günlük kayıtları: %1$d kB, Eşleşen kayıt: %2$d / %3$d, Süre: %4$d ms</string>
     <string name="logs_status_loading">Yükleniyor …</string>
     <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>
@@ -807,6 +809,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Kullanıma göre ücretlendirilmeyen Wi-Fi bekleniyor</string>
     <string name="user_icon">Kullanıcı</string>
     <string name="user_info_address">Adres</string>
+    <string name="user_info_email">E-posta</string>
     <string name="user_info_phone">Telefon numarası</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web sitesi</string>
