@@ -44,6 +44,11 @@
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
 
+    <style name="ThemePreference" parent="BaseTheme.ownCloud">
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+    </style>
+
+
     <style name="FallbackThemingThemeBase" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="actionModeBackground">@color/action_mode_background</item>
         <item name="android:alertDialogTheme">@style/FallbackTheming.Dialog</item>

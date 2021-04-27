@@ -1374,6 +1374,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         addRemoveRecyclerViewItemDecorator();
     }
 
+    public void switchToMediaGridView() {
+        if (!isGridEnabled()) {
+            switchLayoutManager(true);
+        }
+
+        //remove already added item decorator
+        if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
+            if (getRecyclerView().getItemDecorationCount() > 0) {
+                getRecyclerView().removeItemDecoration(simpleListItemDividerDecoration);
+                getRecyclerView().removeItemDecoration(mediaGridItemDecoration);
+            }
+        }
+    }
+
     private void addRemoveRecyclerViewItemDecorator() {
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
             if (getRecyclerView().getItemDecorationCount() > 0) {

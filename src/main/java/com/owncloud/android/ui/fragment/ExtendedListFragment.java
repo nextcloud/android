@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -117,7 +118,7 @@ public class ExtendedListFragment extends Fragment implements
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
-    //private ScaleGestureDetector mScaleGestureDetector;
+    private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
     protected MaterialButton mSwitchGridViewButton;
@@ -367,20 +368,7 @@ public class ExtendedListFragment extends Fragment implements
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mScale = preferences.getGridColumns();
         setGridViewColumns(1f);
-
-       // mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
-
-        getRecyclerView().setOnTouchListener((view, motionEvent) -> {
-            //mScaleGestureDetector.onTouchEvent(motionEvent);
-
-            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                view.performClick();
-            }
-
-            return false;
-        });
 
         // Pull-down to refresh layout
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
@@ -391,6 +379,26 @@ public class ExtendedListFragment extends Fragment implements
         mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
 
         return v;
+    }
+
+    /**
+     * method to enable recyclerview zooming for grid view
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    public void enableRecyclerViewGridZooming() {
+        mScale = preferences.getGridColumns();
+
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
+
+        getRecyclerView().setOnTouchListener((view, motionEvent) -> {
+            mScaleGestureDetector.onTouchEvent(motionEvent);
+
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                view.performClick();
+            }
+
+            return false;
+        });
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

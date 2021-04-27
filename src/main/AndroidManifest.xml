@@ -173,7 +173,7 @@
         </activity>
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:theme="@style/Theme.ownCloud"/>
+            android:theme="@style/ThemePreference"/>
         <activity
             android:name=".ui.preview.PreviewImageActivity"
             android:theme="@style/Theme.ownCloud.Overlay" />

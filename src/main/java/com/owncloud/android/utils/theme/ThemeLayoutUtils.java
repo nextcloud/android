@@ -37,10 +37,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 public final class ThemeLayoutUtils {
     public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
         int primaryColor = ThemeColorUtils.primaryColor(context);
-        int darkColor = ThemeColorUtils.primaryDarkColor(context);
-        int accentColor = ThemeColorUtils.primaryAccentColor(context);
+       /* int darkColor = ThemeColorUtils.primaryDarkColor(context);
+        int accentColor = ThemeColorUtils.primaryAccentColor(context);*/
 
-        swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+        swipeRefreshLayout.setColorSchemeColors(primaryColor);
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
     }
 

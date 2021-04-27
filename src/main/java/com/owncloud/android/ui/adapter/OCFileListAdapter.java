@@ -76,6 +76,7 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -146,6 +147,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
 
+    private boolean isMediaGallery;//flag to check user is on media gallery
+
     public OCFileListAdapter(
         Activity activity,
         User user,
@@ -155,7 +158,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView
-    ) {
+                            ) {
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -170,7 +173,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (this.user != null) {
             AccountManager platformAccountManager = AccountManager.get(this.activity);
             userId = platformAccountManager.getUserData(this.user.toPlatformAccount(),
-                                                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                                                        com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
         } else {
             userId = "";
         }
@@ -186,6 +189,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setMultiSelect(boolean bool) {
         multiSelect = bool;
         notifyDataSetChanged();
+    }
+
+    public void setMediaGallery(boolean mediaGallery) {
+        isMediaGallery = mediaGallery;
     }
 
     public boolean isCheckedFile(OCFile file) {
@@ -368,28 +375,36 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          activity,
                          gridViewHolder.shimmerThumbnail, preferences);
 
+            //remove padding if gallery media is there else enable padding
+            if (isMediaGallery) {
+                gridViewHolder.thumbnail.setPadding(0, 0, 0, 0);
+            } else if (!isMediaGallery && gridView && getItemViewType(position) == VIEWTYPE_IMAGE){
+                int padding = activity.getResources().getDimensionPixelSize(R.dimen.standard_padding);
+                gridViewHolder.thumbnail.setPadding(padding, padding, padding, padding);
+            }
+
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
-                if (gridView){
+                if (gridView) {
                     gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                      .getColor(R.color.selected_item_background));
                 }
             } else if (isCheckedFile(file)) {
-                if (gridView){
+                if (gridView) {
                     gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                      .getColor(R.color.selected_item_background));
                 }
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked);
 
-               // gridViewHolder.checkbox.setImageDrawable(
-                 //   ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked, R.color.check_green_color));
+                // gridViewHolder.checkbox.setImageDrawable(
+                //   ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked, R.color.check_green_color));
             } else {
-                if (gridView){
+                if (gridView) {
                     gridViewHolder.selectedItemBackground.setVisibility(View.INVISIBLE);
-                }else {
+                } else {
                     gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 }
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -557,7 +572,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (multiSelect) {
                 gridViewHolder.checkbox.setVisibility(View.VISIBLE);
             } else {
-                gridViewHolder.checkbox.setVisibility(gridView ? View.INVISIBLE: View.GONE);
+                gridViewHolder.checkbox.setVisibility(gridView ? View.INVISIBLE : View.GONE);
             }
 
             if (holder instanceof OCFileListGridItemViewHolder) {
@@ -618,7 +633,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     avatar.setImageDrawable(circularBitmapDrawable);
                 }
             });
-        }
+    }
 
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
@@ -650,7 +665,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                );
+                                                                                );
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     stopShimmer(shimmerThumbnail, thumbnailView);
@@ -737,7 +752,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         if (holder instanceof OCFileListGridImageViewHolder) {
             LoaderImageView thumbnailShimmer = ((OCFileListGridImageViewHolder) holder).shimmerThumbnail;
-            if (thumbnailShimmer.getVisibility() == View.VISIBLE){
+            if (thumbnailShimmer.getVisibility() == View.VISIBLE) {
                 thumbnailShimmer.setImageResource(R.drawable.background);
                 thumbnailShimmer.resetLoader();
             }
@@ -916,7 +931,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFile directory,
         FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice, String limitToMimeType
-    ) {
+                             ) {
         this.onlyOnDevice = onlyOnDevice;
 
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
@@ -946,7 +961,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         notifyDataSetChanged();
     }
-
 
 
     public void setData(List<Object> objects,

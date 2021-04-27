@@ -86,21 +86,20 @@
 
             <ImageView
                 android:id="@+id/localFileIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_quarter_padding"
+                android:layout_width="@dimen/grid_item_icons_size"
+                android:layout_height="@dimen/grid_item_icons_size"
                 android:layout_gravity="bottom|end"
                 android:layout_marginTop="@dimen/standard_quarter_margin"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/synced_icon"
-                android:src="@drawable/ic_checkbox_marked" />
+                android:src="@drawable/ic_synced" />
 
         </FrameLayout>
 
         <ImageView
             android:id="@+id/favorite_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/grid_item_icons_size"
+            android:layout_height="@dimen/grid_item_icons_size"
             android:layout_gravity="top|end"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:contentDescription="@string/favorite_icon"
