@@ -79,6 +79,7 @@ import com.nmc.android.ui.ScanDocumentActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -202,6 +203,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private FloatingActionButton mFabMain;
 
     private SimpleListItemDividerDecoration simpleListItemDividerDecoration;
+    private MediaGridItemDecoration mediaGridItemDecoration;
 
     @Inject DeviceInfo deviceInfo;
 
@@ -356,6 +358,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             isGridViewPreferred(mFile)
         );
         simpleListItemDividerDecoration = new SimpleListItemDividerDecoration(getContext(), R.drawable.item_divider, true);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
+        mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
         setRecyclerViewAdapter(mAdapter);
 
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
@@ -1375,9 +1379,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getRecyclerView().getItemDecorationCount() > 0) {
                 getRecyclerView().removeItemDecoration(simpleListItemDividerDecoration);
             }
+            if (getRecyclerView().getItemDecorationCount() == 0) {
+                getRecyclerView().addItemDecoration(mediaGridItemDecoration);
+                int padding = getResources().getDimensionPixelSize(R.dimen.grid_recyclerview_padding);
+                getRecyclerView().setPadding(padding, padding, padding, padding);
+            }
         } else {
+            if (getRecyclerView().getItemDecorationCount() > 0) {
+                getRecyclerView().removeItemDecoration(mediaGridItemDecoration);
+            }
             if (getRecyclerView().getItemDecorationCount() == 0) {
                 getRecyclerView().addItemDecoration(simpleListItemDividerDecoration);
+                getRecyclerView().setPadding(0, 0, 0, 0);
             }
         }
     }
@@ -1505,7 +1518,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
 
-        if (getArguments()!=null) getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+        if (getArguments() != null) {
+            getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+        }
 
         setFabVisible(true);
     }

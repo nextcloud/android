@@ -2,4 +2,5 @@
 <resources>
     <dimen name="splash_image_size">92dp</dimen>
     <dimen name="splash_inner_image_size">72dp</dimen>
+    <dimen name="grid_recyclerview_padding">4dp</dimen>
 </resources>

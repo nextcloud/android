@@ -36,6 +36,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -368,17 +369,29 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          gridViewHolder.shimmerThumbnail, preferences);
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
-                gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
-                                                                 .getColor(R.color.selected_item_background));
+                if (gridView){
+                    gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
+                }else {
+                    gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
+                                                                     .getColor(R.color.selected_item_background));
+                }
             } else if (isCheckedFile(file)) {
-                gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
-                                                                 .getColor(R.color.selected_item_background));
+                if (gridView){
+                    gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
+                }else {
+                    gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
+                                                                     .getColor(R.color.selected_item_background));
+                }
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked);
 
                // gridViewHolder.checkbox.setImageDrawable(
                  //   ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked, R.color.check_green_color));
             } else {
-                gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
+                if (gridView){
+                    gridViewHolder.selectedItemBackground.setVisibility(View.INVISIBLE);
+                }else {
+                    gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
+                }
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
             }
 
@@ -544,7 +557,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (multiSelect) {
                 gridViewHolder.checkbox.setVisibility(View.VISIBLE);
             } else {
-                gridViewHolder.checkbox.setVisibility(View.GONE);
+                gridViewHolder.checkbox.setVisibility(gridView ? View.INVISIBLE: View.GONE);
             }
 
             if (holder instanceof OCFileListGridItemViewHolder) {
@@ -1329,6 +1342,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @BindView(R.id.unreadComments)
         public ImageView unreadComments;
+
+        @BindView(R.id.selectedItemBackground)
+        public View selectedItemBackground;
 
         private OCFileListGridImageViewHolder(View itemView) {
             super(itemView);

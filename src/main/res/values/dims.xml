@@ -68,7 +68,7 @@
     <dimen name="alternate_fragment_margin">15dp</dimen>
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
-    <dimen name="grid_item_text_size">16sp</dimen>
+    <dimen name="grid_item_text_size">14sp</dimen>
     <dimen name="seek_bar_height">32dp</dimen>
     <dimen name="search_users_groups_layout_width">200dp</dimen>
     <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
@@ -108,14 +108,14 @@
     <dimen name="grid_image_icon_margin">14dp</dimen>
     <dimen name="grid_image_icon_padding">14dp</dimen>
     <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_width">16dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
+    <dimen name="grid_item_local_file_indicator_layout_width">24dp</dimen>
+    <dimen name="grid_item_local_file_indicator_layout_height">24dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="grid_sync_item_layout_counter_text_size">22sp</dimen>
     <dimen name="list_item_favorite_action_layout_width">14dp</dimen>
     <dimen name="list_item_favorite_action_layout_height">14dp</dimen>
-    <dimen name="list_item_local_file_indicator_layout_width">12dp</dimen>
-    <dimen name="list_item_local_file_indicator_layout_height">12dp</dimen>
+    <dimen name="list_item_local_file_indicator_layout_width">24dp</dimen>
+    <dimen name="list_item_local_file_indicator_layout_height">24dp</dimen>
     <dimen name="preview_error_image_layout_width">72dp</dimen>
     <dimen name="preview_error_image_layout_height">72dp</dimen>
     <dimen name="preview_error_text_size">26sp</dimen>

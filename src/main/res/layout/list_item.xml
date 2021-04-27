@@ -59,11 +59,12 @@
 
         <ImageView
             android:id="@+id/localFileIndicator"
-            android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
-            android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_synced"
+            android:padding="@dimen/standard_quarter_padding"
+            android:src="@drawable/ic_checkbox_marked"
             app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
             app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
@@ -71,8 +72,8 @@
 
         <ImageView
             android:id="@+id/favorite_action"
-            android:layout_width="@dimen/list_item_favorite_action_layout_width"
-            android:layout_height="@dimen/list_item_favorite_action_layout_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/favorite"
             android:src="@drawable/favorite"
             app:layout_constraintBottom_toTopOf="@+id/thumbnail_layout"
@@ -211,4 +212,17 @@
             app:tint="@color/secondary_text_color" />
 
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:alpha="0.7"
+        android:id="@+id/selectedItemBackground"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/selected_item_background"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

@@ -117,7 +117,7 @@ public class ExtendedListFragment extends Fragment implements
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
-    private ScaleGestureDetector mScaleGestureDetector;
+    //private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
     protected MaterialButton mSwitchGridViewButton;
@@ -370,10 +370,10 @@ public class ExtendedListFragment extends Fragment implements
         mScale = preferences.getGridColumns();
         setGridViewColumns(1f);
 
-        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
+       // mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
 
         getRecyclerView().setOnTouchListener((view, motionEvent) -> {
-            mScaleGestureDetector.onTouchEvent(motionEvent);
+            //mScaleGestureDetector.onTouchEvent(motionEvent);
 
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 view.performClick();
