@@ -343,7 +343,7 @@
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит как минимум один недопустимый символ</string>
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
-    <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
+    <string name="first_run_2_text">Защищённая совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
