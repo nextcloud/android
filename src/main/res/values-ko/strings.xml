@@ -383,12 +383,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
-    <string name="log_send_no_mail_app">로그를 보내는 데 사용할 수 있는 앱이 없습니다. 이메일 앱을 설치하십시오.</string>
     <string name="login">로그인</string>
     <string name="logs_menu_delete">로그 삭제</string>
     <string name="logs_menu_refresh">새로 고침</string>
     <string name="logs_menu_search">로그 검색</string>
-    <string name="logs_menu_send">이메일로 로그 보내기</string>
     <string name="logs_status_filtered">로그: %1$d kB, 쿼리가 %3$d개 중에서 %2$d개 를 찾음, 소요시간 %4$d ms</string>
     <string name="logs_status_loading">불러오는 중…</string>
     <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>
@@ -822,7 +820,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">측정되지 않는 Wi-Fi 대기 중</string>
     <string name="user_icon">사용자</string>
     <string name="user_info_address">주소</string>
-    <string name="user_info_email">이메일</string>
     <string name="user_info_phone">전화번호</string>
     <string name="user_info_twitter">트위터</string>
     <string name="user_info_website">웹사이트</string>

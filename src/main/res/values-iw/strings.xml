@@ -359,12 +359,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">אין תיקיות נוספות.</string>
     <string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
-    <string name="log_send_no_mail_app">לא נמצא יישומון לשליחת רישומים. נא להתקין לקוח דוא״ל.</string>
     <string name="login">כניסה</string>
     <string name="logs_menu_delete">מחיקת יומנים</string>
     <string name="logs_menu_refresh">רענון</string>
     <string name="logs_menu_search">חיפוש ביומנים</string>
-    <string name="logs_menu_send">שליחת יומנים בדוא״ל</string>
     <string name="logs_status_filtered">יומן: %1$d ק״ב, השאילתה תפסה %2$d / %3$d תוך %4$d מילישניות</string>
     <string name="logs_status_loading">בטעינה…</string>
     <string name="logs_status_not_filtered">יומנים: %1$d ק״ב, בלי סינון</string>
@@ -768,7 +766,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">בהמתנה לטעינה</string>
     <string name="user_icon">משתמש</string>
     <string name="user_info_address">כתובת</string>
-    <string name="user_info_email">דוא״ל</string>
     <string name="user_info_phone">מספר טלפון</string>
     <string name="user_info_twitter">טוויטר</string>
     <string name="user_info_website">אתר</string>

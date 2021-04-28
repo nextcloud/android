@@ -311,7 +311,6 @@
     <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo</string>
     <string name="local_folder_list_empty">Ne estas plia dosierujo.</string>
     <string name="log_send_mail_subject">Protokoloj de Android-aplikaĵo %1$s</string>
-    <string name="log_send_no_mail_app">Neniu aplikaĵo troveblis por sendi protokolojn. Bonvolu instali retpoŝtilon.</string>
     <string name="login">Ensaluti</string>
     <string name="logs_menu_refresh">Aktualigi</string>
     <string name="logs_status_loading">Ŝargado...</string>
@@ -655,7 +654,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Atendo de la ŝargo de via aparato</string>
     <string name="user_icon">Uzanto</string>
     <string name="user_info_address">Adreso</string>
-    <string name="user_info_email">Retpoŝtadreso</string>
     <string name="user_info_phone">Telefonnumero</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Retejo</string>

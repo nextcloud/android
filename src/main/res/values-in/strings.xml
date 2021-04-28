@@ -267,7 +267,6 @@
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="local_folder_list_empty">Tidak ada folder lagi.</string>
     <string name="log_send_mail_subject">%1$s Android apl log</string>
-    <string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
     <string name="login">Masuk</string>
     <string name="logs_menu_refresh">Segarkan</string>
     <string name="logs_status_loading">Memuat…</string>
@@ -525,7 +524,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
-    <string name="user_info_email">Surel</string>
     <string name="user_info_phone">Nomor telepon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situs web</string>

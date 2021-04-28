@@ -370,12 +370,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
-    <string name="log_send_no_mail_app">Aplikácia na odoslanie logov nenájdená. Prosím nainštalujte emailovú aplikáciu.</string>
     <string name="login">Prihlásiť sa</string>
     <string name="logs_menu_delete">Zmazať záznamy</string>
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
-    <string name="logs_menu_send">Poslať záznamy e-mailom</string>
     <string name="logs_status_filtered">Záznamy: %1$d kB, Vyhovujúci dopyt %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Načítava sa…</string>
     <string name="logs_status_not_filtered">Záznamy: %1$d kB, bez filtra</string>
@@ -776,7 +774,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čakanie na nemerané Wi-Fi</string>
     <string name="user_icon">Používateľ</string>
     <string name="user_info_address">Adresa</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefónne číslo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web stránka</string>

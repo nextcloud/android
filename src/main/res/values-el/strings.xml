@@ -381,12 +381,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
-    <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής ιστορικού συστήματος. Παρακαλούμε εγκαταστήστε μια εφαρμογή ηλεκτρονικού ταχυδρομείου.</string>
     <string name="login">Είσοδος</string>
     <string name="logs_menu_delete">Διαγραφή καταγραφών</string>
     <string name="logs_menu_refresh">Ανανέωση</string>
     <string name="logs_menu_search">Αναζήτηση καταγραφών</string>
-    <string name="logs_menu_send">Αποστολή καταγραφών μέσω e-mail</string>
     <string name="logs_status_filtered">Καταγραφές:%1$dkB, ενημερώθηκαν %2$d / %3$dσε %4$d ms</string>
     <string name="logs_status_loading">Φορτώνει…</string>
     <string name="logs_status_not_filtered">Αρχεία καταγραφής: %1$d kb, χωρίς φίλτρο</string>
@@ -798,7 +796,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για μη μετρημένο ασύρματο δίκτυο.</string>
     <string name="user_icon">Χρήστης</string>
     <string name="user_info_address">Διεύθυνση</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Αριθμός τηλεφώνου</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Ιστοσελίδα</string>

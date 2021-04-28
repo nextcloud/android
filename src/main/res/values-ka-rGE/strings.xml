@@ -244,7 +244,6 @@
     <string name="local_file_not_found_message">ლოკალურ ფაილ-სისტემაში ფაილი ვერ მოიძებნა</string>
     <string name="local_folder_list_empty">მომდევნო დირექტორიები არაა.</string>
     <string name="log_send_mail_subject">%1$s Android აპლიკაციის ლოგები.</string>
-    <string name="log_send_no_mail_app">აპლიკაცია ლოგების გადასაგზავნად ვერ იქნა ნაპოვნი. გთხოვთ ელ-ფოსტის კლიენტი დააყენოთ ახლიდან.</string>
     <string name="login">ლოგინი</string>
     <string name="logs_menu_refresh">განახლება</string>
     <string name="logs_status_loading">იტვირთება…</string>
@@ -496,7 +495,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="user_icon">მომხმარებელი</string>
     <string name="user_info_address">მისამართი</string>
-    <string name="user_info_email">ელ-ფოსტა</string>
     <string name="user_info_phone">ტელეფონის ნომერი</string>
     <string name="user_info_twitter">Twitter-ი</string>
     <string name="user_info_website">ვებ-საიტი</string>

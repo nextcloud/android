@@ -369,12 +369,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нема више фасцикли</string>
     <string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
-    <string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
     <string name="login">Пријава</string>
     <string name="logs_menu_delete">Обриши записнике</string>
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Претражи записнике</string>
-    <string name="logs_menu_send">Пошаљи записнике е-поштом</string>
     <string name="logs_status_filtered">Записници: %1$d kB, упит је пронашао %2$d/%3$d за %4$dms</string>
     <string name="logs_status_loading">Учитавам…</string>
     <string name="logs_status_not_filtered">Записници: %1$d kB, без филтрирања</string>
@@ -776,7 +774,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу без ограничења протока</string>
     <string name="user_icon">Корисник </string>
     <string name="user_info_address">Адреса</string>
-    <string name="user_info_email">Адреса е-поште</string>
     <string name="user_info_phone">Број телефона</string>
     <string name="user_info_twitter">Твитер</string>
     <string name="user_info_website">Веб страна</string>

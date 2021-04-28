@@ -334,7 +334,6 @@
     <string name="local_file_not_found_message">Ficheiros não encontrados no sistema de ficheiros local</string>
     <string name="local_folder_list_empty">Não existem mais pastas.</string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
-    <string name="log_send_no_mail_app">Nenhuma aplicação de envio de registos encontrada. Por favor, instale um cliente e-mail.</string>
     <string name="login">Iniciar Sessão</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_status_loading">A carregar...</string>
@@ -693,7 +692,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">A aguardar carregamento</string>
     <string name="user_icon">Utilizador</string>
     <string name="user_info_address">Endereço</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número de telefone</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site da Internet</string>

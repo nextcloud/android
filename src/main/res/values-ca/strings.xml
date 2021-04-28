@@ -383,12 +383,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
-    <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació d\'enviament de registres. Si us plau instal·leu un client de correu electrònic.</string>
     <string name="login">Inicia la sessió</string>
     <string name="logs_menu_delete">Suprimeix els registres</string>
     <string name="logs_menu_refresh">Actualitza</string>
     <string name="logs_menu_search">Cerca als registres</string>
-    <string name="logs_menu_send">Envia els registres per correu electrònic</string>
     <string name="logs_status_filtered">Registres: %1$d kB, la consulta ha trobat %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">S\'està carregant…</string>
     <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>
@@ -801,7 +799,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant una wifi sense mètrica de consum de dades</string>
     <string name="user_icon">Usuari</string>
     <string name="user_info_address">Adreça</string>
-    <string name="user_info_email">Correu electrònic</string>
     <string name="user_info_phone">Número de telèfon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Pàgina web</string>

@@ -348,7 +348,6 @@
     <string name="local_file_not_found_message">Fișierul nu a fost găsit în sistemul local</string>
     <string name="local_folder_list_empty">Nu există dosare.</string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
-    <string name="log_send_no_mail_app">Nu s-a găsit nicio aplicație capabilă să trimită înregistrări. Vă rugăm să instalați o aplicație pentru mail.</string>
     <string name="login">Autentificare</string>
     <string name="logs_menu_refresh">Reîmprospătează</string>
     <string name="logs_status_loading">Se încarcă…</string>
@@ -622,7 +621,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Se așteaptă încărcarea dispozitivului</string>
     <string name="user_icon">Utilizator</string>
     <string name="user_info_address">Adresă</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Număr telefon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>

@@ -365,12 +365,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
-    <string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
     <string name="login">Skrá inn</string>
     <string name="logs_menu_delete">Eyða atvikaskrám</string>
     <string name="logs_menu_refresh">Endurnýja</string>
     <string name="logs_menu_search">Leita í atvikaskrám</string>
-    <string name="logs_menu_send">Senda atvikaskrár með tölvupósti</string>
     <string name="logs_status_filtered">Atvikaskráning: %1$d kB, fyrirspurn samsvaraði %2$d / %3$d á %4$d ms</string>
     <string name="logs_status_loading">Hleð inn…</string>
     <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>
@@ -769,7 +767,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="user_icon">Notandi</string>
     <string name="user_info_address">Vistfang</string>
-    <string name="user_info_email">Tölvupóstur</string>
     <string name="user_info_phone">Símanúmer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>

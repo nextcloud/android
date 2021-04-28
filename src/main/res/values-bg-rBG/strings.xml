@@ -354,12 +354,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
     <string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
-    <string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
     <string name="login">Вписване</string>
     <string name="logs_menu_delete">Изтрий журналите</string>
     <string name="logs_menu_refresh">Опресни</string>
     <string name="logs_menu_search">Търсене на журнали</string>
-    <string name="logs_menu_send">Изпрати журналите по имейл</string>
     <string name="logs_status_loading">Зареждане…</string>
     <string name="logs_status_not_filtered">Журнали: %1$d kB, без филтър</string>
     <string name="logs_title">Журнали</string>
@@ -696,7 +694,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
     <string name="user_icon">Потребител</string>
     <string name="user_info_address">Адрес</string>
-    <string name="user_info_email">Имейл</string>
     <string name="user_info_phone">Телефонен номер</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Интернет страница</string>

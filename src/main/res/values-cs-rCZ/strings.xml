@@ -37,7 +37,7 @@
     <string name="allow_creating">Povolit vytváření</string>
     <string name="allow_deleting">Povolit mazání</string>
     <string name="allow_editing">Povolit úpravy</string>
-    <string name="allow_resharing">Povolit sdílet dále</string>
+    <string name="allow_resharing">Povolit sdílet dál dalším</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
@@ -402,6 +402,7 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z dat %1$s budou natrvalo smazány. \n\nStažené soubory zůstanou beze změny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_title">Spravovat úložný prostor</string>
+    <string name="media_err_invalid_progressive_playback">Soubor s médii se nedaří proudově vysílat (stream)</string>
     <string name="media_err_io">Nepodařilo se přečíst soubor médií</string>
     <string name="media_err_malformed">Soubor médií nemá platné kódování</string>
     <string name="media_err_timeout">Překročen časový limit pokusu o přehrání souboru</string>
@@ -783,6 +784,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="uploader_error_message_read_permission_not_granted">%1$s nemá oprávnění číst přijatý soubor</string>
     <string name="uploader_error_message_source_file_not_copied">Došlo k chybě při kopírování souboru do dočasné složky. Zkuste zopakovat odeslání.</string>
     <string name="uploader_error_message_source_file_not_found">Soubor označený k nahrání nebyl nalezen. Zkontrolujte zda soubor existuje.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Soubor se nedaří nahrát</string>
     <string name="uploader_error_title_no_file_to_upload">Žádný soubor k nahrání</string>
     <string name="uploader_info_dirname">Název složky</string>
     <string name="uploader_top_message">Vybrat složku pro nahrávání</string>

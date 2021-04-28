@@ -387,13 +387,11 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Não há outras pastas.</string>
     <string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
-    <string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
     <string name="login">Entrar</string>
     <string name="login_url_helper_text">O link para a interface da web do seu  %1$s quando você o abre no navegador.</string>
     <string name="logs_menu_delete">Excluir logs</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Pesquisar logs</string>
-    <string name="logs_menu_send">Enviar logs por e-mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, pesquisa confere %2$d / %3$d em %4$d ms</string>
     <string name="logs_status_loading">Carregando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
@@ -809,7 +807,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Aguardando pelo Wi-Fi não medido</string>
     <string name="user_icon">Usuário</string>
     <string name="user_info_address">Endereço</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número do telefone</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
