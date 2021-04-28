@@ -276,12 +276,12 @@ dependencies {
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
-    kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
-    kapt 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    kapt 'org.glassfish.jaxb:jaxb-core:3.0.1'
+    kapt 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
     annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-core:3.0.1'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
