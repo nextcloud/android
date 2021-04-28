@@ -151,7 +151,7 @@
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_new_file">Nuevo archivo</string>
     <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
-    <string name="contactlist_account_chooser_title">Escoge la cuenta para importar</string>
+    <string name="contactlist_account_chooser_title">Elija una cuenta para importar</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
     <string name="contacts_automatic_backup">Copia de seguridad automática</string>

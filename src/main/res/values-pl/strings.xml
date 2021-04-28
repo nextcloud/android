@@ -816,7 +816,7 @@
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
-    <string name="username">Użytkownik</string>
+    <string name="username">Nazwa użytkownika</string>
     <string name="version_dev_download">Pobierz</string>
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
