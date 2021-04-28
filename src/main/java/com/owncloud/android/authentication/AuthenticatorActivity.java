@@ -242,6 +242,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
     private int primaryColor = R.color.primary;
+    private boolean strictMode = false;
 
     @VisibleForTesting
     public AccountSetupBinding getAccountSetupBinding() {
@@ -382,6 +383,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             url = getResources().getString(R.string.webview_login_url);
         }
 
+        if (url.startsWith(HTTPS_PROTOCOL)) {
+            strictMode = true;
+        }
+
         accountSetupWebviewBinding.loginWebview.loadUrl(url, headers);
 
         setClient();
@@ -421,6 +426,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
                     parseAndLoginFromWebView(url);
+                    return true;
+                }
+                if (strictMode && url.startsWith(HTTP_PROTOCOL)) {
+                    Snackbar.make(view, R.string.strict_mode, Snackbar.LENGTH_LONG).show();
                     return true;
                 }
                 return false;
