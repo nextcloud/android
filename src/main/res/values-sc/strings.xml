@@ -65,7 +65,7 @@
     <string name="auth_unauthorized">Crae o nùmene utente isballiadu</string>
     <string name="auth_unknown_error_exception_title">Errore non connotu: %1$s</string>
     <string name="auth_unknown_error_http_title">Ddoe at àpidu un\'errore HTTP disconnotu!</string>
-    <string name="auth_unknown_error_title">Ddoe at àpidu un\'errore disconnotu!</string>
+    <string name="auth_unknown_error_title">B\'at àpidu un\'errore disconnotu!</string>
     <string name="auth_unknown_host_title">Non s\'agatat su host</string>
     <string name="auth_unsupported_multiaccount">%1$s non suportat prus de unu contu </string>
     <string name="auth_wrong_connection_title">No at fatu a istabilire una connessione</string>
@@ -695,7 +695,7 @@
     <string name="sync_not_enough_space_dialog_title">Non ddoe at bastante ispàtziu</string>
     <string name="sync_status_button">Butone de s\'istadu de sincronizatzione</string>
     <string name="sync_string_files">Archìvios</string>
-    <string name="synced_folder_settings_button">Butone de is cunfiguratziones</string>
+    <string name="synced_folder_settings_button">Butone de is impostatziones</string>
     <string name="synced_folders_configure_folders">Cunfigura cartellas</string>
     <string name="synced_folders_new_info">Su carrigamentu automàticu s\'est totu agiornadu. Torra a cunfigurare su carrigamentu automàticu dae su menu printzipale.\n\nImprea su carrigamentu automàticu estèndidu nou.</string>
     <string name="synced_folders_no_results">Peruna cartella de media agatada</string>
