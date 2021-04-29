@@ -78,7 +78,7 @@ public class RenameFileDialogFragment
 
     }
 
-    @Override
+ /*   @Override
     public void onStart() {
         super.onStart();
 
@@ -91,7 +91,7 @@ public class RenameFileDialogFragment
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor);
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.text_color));
         }
-    }
+    }*/
 
     @NonNull
     @Override

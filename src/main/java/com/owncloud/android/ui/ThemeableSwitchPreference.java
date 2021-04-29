@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
@@ -37,8 +38,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 
 /**
- * Themeable switch preference
- * TODO Migrate to androidx
+ * Themeable switch preference TODO Migrate to androidx
  */
 public class ThemeableSwitchPreference extends SwitchPreference {
 
@@ -73,21 +73,49 @@ public class ThemeableSwitchPreference extends SwitchPreference {
             if (child instanceof Switch) {
                 Switch switchView = (Switch) child;
 
-                if(thumbColorStateList == null && trackColorStateList == null) {
-                    int thumbColor = ThemeColorUtils.primaryAccentColor(getContext());
+                if (thumbColorStateList == null && trackColorStateList == null) {
+                    int thumbColorCheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
+                    int thumbColorUncheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_unchecked_enabled);
+                    int thumbColorCheckedDisabled =
+                         getContext().getResources().getColor(R.color.switch_thumb_checked_disabled);
+                    int thumbColorUncheckedDisabled =
+                         getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
+
+                    int[][] states = new int[][]{
+                        new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
+                        new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
+                        new int[]{android.R.attr.state_enabled}, // enabled and unchecked
+                        new int[]{-android.R.attr.state_enabled}  // disabled and unchecked
+                    };
+
+                    int[] thumbColors = new int[]{
+                        thumbColorCheckedEnabled,
+                        thumbColorCheckedDisabled,
+                        thumbColorUncheckedEnabled,
+                        thumbColorUncheckedDisabled
+                    };
+
+                    thumbColorStateList = new ColorStateList(states, thumbColors);
+
+                    int trackColorCheckedEnabled =
+                        getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
+                    int trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.dark_grey);
                     if (ThemeColorUtils.darkTheme(getContext()) &&
                         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                        thumbColor = Color.WHITE;
+                        trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
                     }
-                    int trackColor = Color.argb(77, Color.red(thumbColor), Color.green(thumbColor), Color.blue(thumbColor));
-                    int trackColorUnchecked = getContext().getResources().getColor(R.color.switch_track_color_unchecked);
-                    thumbColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                            new int[]{thumbColor, getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
-                    trackColorStateList = new ColorStateList(
-                            new int[][]{new int[]{android.R.attr.state_checked},
-                                new int[]{}},
-                            new int[]{trackColor, trackColorUnchecked});
+                    int trackColorCheckedDisabled =
+                         getContext().getResources().getColor(R.color.switch_track_checked_disabled);
+                    int trackColorUncheckedDisabled =
+                         getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
+
+                    int[] trackColors = new int[]{
+                        trackColorCheckedEnabled,
+                        trackColorCheckedDisabled,
+                        trackColorUncheckedEnabled,
+                        trackColorUncheckedDisabled
+                    };
+                    trackColorStateList = new ColorStateList(states, trackColors);
                 }
 
                 // setting the thumb color

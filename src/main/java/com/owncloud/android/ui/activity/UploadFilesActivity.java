@@ -24,8 +24,11 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -176,7 +179,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         // Set input controllers
         MaterialButton cancelButton = findViewById(R.id.upload_files_btn_cancel);
-        cancelButton.setTextColor(ThemeColorUtils.primaryColor(this, true));
+        //cancelButton.setTextColor(ThemeColorUtils.primaryColor(this, true));
         cancelButton.setOnClickListener(this);
 
         MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
@@ -194,11 +197,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source));
 
-        ArrayAdapter<String> behaviourAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> behaviourAdapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item,
                                                                    behaviours);
         behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBehaviourSpinner.setAdapter(behaviourAdapter);
         mBehaviourSpinner.setSelection(localBehaviour);
+        mBehaviourSpinner.getBackground().setColorFilter(getResources().getColor(R.color.primary),PorterDuff.Mode.SRC_IN);
 
         // setup the toolbar
         setupToolbar();
@@ -218,6 +222,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         showToolbarSpinner();
         mToolbarSpinner.setAdapter(mDirectories);
+        mToolbarSpinner.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         mToolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -257,7 +262,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private void fillDirectoryDropdown() {
         File currentDir = mCurrentDir;
         while (currentDir != null && currentDir.getParentFile() != null) {
-            mDirectories.add(currentDir.getName());
+            if (currentDir.getName().equals("0")) {
+                mDirectories.add(getResources().getString(R.string.storage_internal_storage));
+            }else{
+                mDirectories.add(currentDir.getName());
+            }
             currentDir = currentDir.getParentFile();
         }
         mDirectories.add(File.separator);

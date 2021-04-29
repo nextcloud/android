@@ -81,7 +81,8 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+        ThemeButtonUtils.themeBorderlessButton(getResources().getColor(R.color.primary),
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
     }
 
     @Override
@@ -119,7 +120,6 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     @Override
     public void onStop() {
         unbinder.unbind();
-
         super.onStop();
     }
 
@@ -138,12 +138,13 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
                 Environment.getExternalStoragePublicDirectory(standardDirectory.getName()).getAbsolutePath());
         }
 
-        String sdCard = getString(R.string.storage_internal_storage);
         for (String dir : FileStorageUtils.getStorageDirectories(requireActivity())) {
             if (internalStoragePaths.contains(dir)) {
-                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, sdCard, dir);
+                String internalStorage = getString(R.string.storage_internal_storage);
+                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, internalStorage, dir);
             } else {
-                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, new File(dir).getName(), dir);
+                String sdCard = getString(R.string.storage_sd_card);
+                addIfExists(storagePathItems, R.drawable.ic_sd, sdCard, dir);
             }
         }
 

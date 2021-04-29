@@ -633,7 +633,7 @@ public class ExtendedListFragment extends Fragment implements
                         mEmptyListIcon.setImageResource(icon);
                     }
 
-                    mEmptyListIcon.setVisibility(View.VISIBLE);
+                    mEmptyListIcon.setVisibility(View.GONE);
                     mEmptyListMessage.setVisibility(View.VISIBLE);
                 }
             }

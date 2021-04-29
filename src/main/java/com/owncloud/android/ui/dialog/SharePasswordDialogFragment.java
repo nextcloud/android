@@ -22,6 +22,8 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -62,7 +64,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private boolean createShare;
     private boolean askForPassword;
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -73,7 +75,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
             ThemeButtonUtils.themeBorderlessButton(getResources().getColor(R.color.highlight_textColor_Warning),
                                                    alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
-    }
+    }*/
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
@@ -140,7 +142,18 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         binding.sharePassword.setText("");
         ThemeTextInputUtils.colorTextInput(binding.sharePasswordContainer,
                                            binding.sharePassword,
-                                           ThemeColorUtils.primaryColor(getActivity()));
+                                           getResources().getColor(R.color.secondary_text_color));
+        binding.sharePassword.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        binding.sharePasswordContainer.setDefaultHintTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                Color.GRAY,
+                getResources().getColor(R.color.text_color)
+            }
+        ));
         binding.sharePassword.requestFocus();
 
         int title;

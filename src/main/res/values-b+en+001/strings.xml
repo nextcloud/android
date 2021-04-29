@@ -229,6 +229,8 @@
     <string name="drawer_open">Open sidebar</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
+    <string name="drawer_quota_percentage">%d %% Storage used</string>
+    <string name="drawer_quota_usage">%1$s of %2$s GB</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="edit_label">Change name</string>
     <string name="encrypted">Set as encrypted</string>
@@ -658,7 +660,7 @@
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
     <string name="status_message">Status message</string>
     <string name="storage_camera">Camera</string>
-    <string name="storage_choose_location">Choose storage location</string>
+    <string name="storage_choose_location">Choose Source</string>
     <string name="storage_description_default">Default</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
@@ -823,6 +825,7 @@
     <string name="whats_your_status">What\'s your status?</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
+    <string name="storage_sd_card">SD Card</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>

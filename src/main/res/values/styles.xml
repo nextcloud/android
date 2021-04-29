@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -19,10 +18,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<!-- General ownCloud app style -->
-	<style name="BaseTheme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-    	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
-    	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+    <!-- General ownCloud app style -->
+    <style name="BaseTheme.ownCloud" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>
         <item name="actionModeBackground">@color/action_mode_background</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
@@ -40,6 +39,10 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- Navigation view styling -->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/primary</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -63,6 +66,10 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- Navigation view styling -->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/primary</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -79,7 +86,7 @@
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 
-	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
@@ -103,14 +110,13 @@
         <item name="android:textAllCaps">false</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
-	</style>
+    </style>
 
-    <style name="FallbackTheming.Dialog.ButtonStyle"
-        parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+    <style name="FallbackTheming.Dialog.ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/text_color</item>
     </style>
 
-	<!-- separate action bar style for activities without an action bar -->
+    <!-- separate action bar style for activities without an action bar -->
     <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="actionModeBackground">@color/action_mode_background</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
@@ -126,6 +132,10 @@
         <item name="windowNoTitle">true</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <!-- Navigation view styling -->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/primary</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -146,14 +156,14 @@
     </style>
 
     <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
-		<item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowBackground">@color/primary</item>
         <item name="colorControlNormal">@color/login_text_color</item>
         <item name="colorControlActivated">@color/login_text_color</item>
         <item name="colorControlHighlight">@color/login_text_color</item>
-		<item name="colorAccent">@color/login_text_hint_color</item>
-		<item name="android:textColorHint">@color/login_text_hint_color</item>
+        <item name="colorAccent">@color/login_text_hint_color</item>
+        <item name="android:textColorHint">@color/login_text_hint_color</item>
         <item name="android:navigationBarColor">@color/primary</item>
-	</style>
+    </style>
 
     <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
 
@@ -164,31 +174,34 @@
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
     </style>
 
-	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
-		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+    <style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-	</style>
+    </style>
 
-	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-		<item name="colorAccent">@color/color_accent</item>
-		<item name="android:windowFrame">@color/transparent</item>
-		<item name="android:windowBackground">@color/transparent</item>
-		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
-	</style>
+    <style name="ProgressDialogTheme" parent="ownCloud.Dialog">
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:windowFrame">@color/transparent</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
+    </style>
 
-	<style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
-		<!-- Close button icon -->
-		<item name="closeIcon">@drawable/ic_close</item>
-		<!-- Search button icon -->
-		<item name="searchIcon">@drawable/ic_search_grey</item>
-		<!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
-		<!--<item name="suggestionRowLayout">...</item>-->
-	</style>
+    <style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
+        <!-- Close button icon -->
+        <item name="closeIcon">@drawable/ic_close</item>
+        <!-- Search button icon -->
+        <item name="searchIcon">@drawable/ic_search_grey</item>
+        <!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
+        <!--<item name="suggestionRowLayout">...</item>-->
+    </style>
 
-	<style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="colorButtonNormal">@color/secondary_button_background_color</item>
         <item name="android:textColor">@color/secondary_button_text_color</item>
         <item name="android:textAllCaps">false</item>
@@ -248,40 +261,40 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-	<!-- separat translucent action bar style -->
-	<style name="Theme.ownCloud.OverlayBase" parent="Theme.ownCloud">
-		<item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
-		<item name="android:windowActionBarOverlay">true</item>
-		<item name="android:windowFullscreen">true</item>
-		<!-- Support library compatibility -->
-		<item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
-		<item name="windowActionBarOverlay">true</item>
-	</style>
+    <!-- separat translucent action bar style -->
+    <style name="Theme.ownCloud.OverlayBase" parent="Theme.ownCloud">
+        <item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
 
     <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
-	<!-- ACTION BAR STYLES -->
-	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.MaterialComponents.Toolbar">
-		<item name="android:background">@color/color_transparent</item>
-		<item name="android:windowActionBarOverlay">true</item>
-		<!-- Support library compatibility -->
-		<item name="background">@color/color_transparent</item>
-		<item name="windowActionBarOverlay">true</item>
-	</style>
+    <!-- ACTION BAR STYLES -->
+    <style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/color_transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/color_transparent</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
 
-	<!-- Launch screen -->
-	<style name="Theme.ownCloud.Launcher">
+    <!-- Launch screen -->
+    <style name="Theme.ownCloud.Launcher">
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/primary</item>
         <item name="android:windowBackground">@drawable/launch_screen</item>
         <item name="android:textColorHint">@color/secondary_text_color</item>
-	</style>
+    </style>
 
-	<style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.MaterialComponents.DayNight">
+    <style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.MaterialComponents.DayNight">
         <item name="android:windowFullscreen">true</item>
-		<item name="colorAccent">@color/color_accent</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="Theme.ownCloud.Splash" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
@@ -292,49 +305,55 @@
         <item name="colorPrimaryDark">@color/primary</item>
     </style>
 
-	<style name="Theme.ownCloud.Widget.ActionBar"
-		parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
-		<item name="android:background">@color/primary</item>
-		<item name="background">@color/primary</item>
-    	<item name="android:textColor">@color/text_color</item>
-    	<item name="android:shadowColor">@color/actionbar_shadow</item>
-    	<item name="android:shadowRadius">1</item>
-    	<item name="android:shadowDy">1</item>
-    	<item name="android:backgroundSplit">@drawable/split_action_bg</item>
-	</style>
+    <style name="Theme.ownCloud.Widget.ActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="android:background">@color/primary</item>
+        <item name="background">@color/primary</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:shadowColor">@color/actionbar_shadow</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:backgroundSplit">@drawable/split_action_bg</item>
+    </style>
 
-	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
-		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/color_accent</item>
+    <!-- Dialogs -->
+    <style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="windowNoTitle">false</item>
+        <item name="colorAccent">@color/color_accent</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
     </style>
 
-	<style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
-		<item name="windowNoTitle">true</item>
-		<item name="colorAccent">@color/color_accent</item>
-	</style>
+    <style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
 
-	<style name="NavigationView_ItemTextAppearance">
-		<item name="android:ellipsize">end</item>
-		<item name="android:listDivider">@color/transparent</item>
+    <style name="NavigationView_ItemTextAppearance">
+        <item name="android:ellipsize">end</item>
+        <item name="android:listDivider">@color/transparent</item>
         <!-- Color of text and icon when selected -->
-        <item name="colorPrimary">@color/drawer_active_item_background</item>
-	</style>
+        <item name="colorPrimary">@color/text_color</item>
+    </style>
+
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+    </style>
 
     <style name="PassCodeStyle">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
-  		<item name="android:gravity">center</item>
-  		<item name="android:layout_margin">10dp</item>
-  		<item name="android:inputType">numberDecimal</item>
-  		<item name="android:numeric">decimal</item>
-		<item name="android:digits">1234567890</item>
-		<item name="android:maxLength">1</item>
-		<item name="android:password">true</item>
-		<item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:numeric">decimal</item>
+        <item name="android:digits">1234567890</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:password">true</item>
+        <item name="android:maxLines">1</item>
         <item name="colorPrimary">@color/text_color</item>
     </style>
 
@@ -343,13 +362,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-	<!-- Text styles -->
-	<style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
-		<item name="android:textSize">26sp</item>
-		<item name="android:textColor">@color/text_color</item>
-	</style>
-	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
-	</style>
+    <!-- Text styles -->
+    <style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
 
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
@@ -382,9 +401,9 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
-		<item name="android:textSize">16sp</item>
-		<item name="textAllCaps">false</item>
+    <style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
 
@@ -446,7 +465,7 @@
 
     <style name="ActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
         <item name="titleTextStyle">@style/ActionModeTitleTextStyle</item>
-     <item name="closeItemLayout">@layout/action_mode_close_layout</item>
+        <item name="closeItemLayout">@layout/action_mode_close_layout</item>
     </style>
 
     <style name="ActionModeTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
@@ -455,6 +474,22 @@
 
     <style name="ActionModeIconStyle" parent="Widget.AppCompat.Light.ActionButton.CloseMode">
         <item name="android:tint">#ff0</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/bg_spinner</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="NeutralButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
 </resources>

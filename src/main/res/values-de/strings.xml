@@ -232,6 +232,8 @@
     <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
+    <string name="drawer_quota_percentage">Speicher zu %d %% belegt</string>
+    <string name="drawer_quota_usage">%1$s von %2$s GB</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="edit_label">Name ändern</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
@@ -662,7 +664,7 @@
     <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
     <string name="status_message">Statusnachricht</string>
     <string name="storage_camera">Kamera</string>
-    <string name="storage_choose_location">Speicherort auswählen</string>
+    <string name="storage_choose_location">Wählen Sie Quelle</string>
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumente</string>
     <string name="storage_downloads">Downloads</string>
@@ -828,6 +830,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
+    <string name="storage_sd_card">SD-Karte</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>

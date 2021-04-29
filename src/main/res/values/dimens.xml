@@ -6,4 +6,7 @@
     <dimen name="list_item_icons_size">16dp</dimen>
     <dimen name="grid_item_icons_size">24dp</dimen>
     <dimen name="media_grid_item_rv_spacing">6dp</dimen>
+    <dimen name="txt_size_14sp">14sp</dimen>
+    <dimen name="txt_size_16sp">16sp</dimen>
+    <dimen name="txt_size_18sp">18sp</dimen>
 </resources>

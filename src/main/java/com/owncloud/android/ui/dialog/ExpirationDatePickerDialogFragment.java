@@ -111,10 +111,9 @@ public class ExpirationDatePickerDialogFragment
                 });
 
         dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.text_color));
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.text_color));
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();
         picker.setMinDate(tomorrowInMillis - 1000);

@@ -31,6 +31,8 @@
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
+    <string name="drawer_quota_percentage">%d %% Storage used</string>
+    <string name="drawer_quota_usage">%1$s of %2$s GB</string>
     <string name="drawer_close">Close sidebar</string>
     <string name="drawer_open">Open sidebar</string>
     <string name="prefs_category_general">General</string>
@@ -821,7 +823,7 @@
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="new_notification">New Notification</string>
-    <string name="storage_choose_location">Choose storage location</string>
+    <string name="storage_choose_location">Choose Source</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
@@ -957,4 +959,5 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
+    <string name="storage_sd_card">SD Card</string>
 </resources>

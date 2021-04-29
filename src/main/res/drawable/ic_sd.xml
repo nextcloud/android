@@ -1,23 +1,12 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2019 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#fff" android:pathData="M18,8H16V4H18M15,8H13V4H15M12,8H10V4H12M18,2H10L4,8V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V4A2,2 0 0,0 18,2Z" />
+  <path
+      android:pathData="M21,1L21,20C21,21.65 19.65,23 18,23L18,23L6,23C4.35,23 3,21.65 3,20L3,20L3,7.5L9.5,1L21,1ZM19.5,2.5L10.1,2.5L4.5,8.1L4.5,20C4.5,20.85 5.15,21.5 6,21.5L6,21.5L18,21.5C18.85,21.5 19.5,20.85 19.5,20L19.5,20L19.5,2.5ZM14.5,9C15.9,9 17,10.1 17,11.5L17,11.5L17,16.5C17,17.9 15.9,19 14.5,19L14.5,19L9.5,19C8.1,19 7,17.9 7,16.5L7,16.5L7,11.5C7,10.1 8.1,9 9.5,9L9.5,9ZM14.5,10.5L9.5,10.5C8.95,10.5 8.5,10.95 8.5,11.5L8.5,11.5L8.5,16.5C8.5,17.05 8.95,17.5 9.5,17.5L9.5,17.5L14.5,17.5C15.05,17.5 15.5,17.05 15.5,16.5L15.5,16.5L15.5,11.5C15.5,10.95 15.05,10.5 14.5,10.5L14.5,10.5Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

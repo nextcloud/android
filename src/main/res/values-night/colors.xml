@@ -46,9 +46,17 @@
 
     <color name="drawer_menu_icon">#ffffff</color>
     <color name="bg_fallback_highlight">#737373</color>
-    <color name="switch_thumb_color_unchecked">#2a2a2a</color>
-    <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
+
+    <!-- Switch Compat Colors -->
+    <color name="switch_thumb_checked_enabled">@color/primary</color>
+    <color name="switch_track_checked_enabled">#F399C7</color>
+    <color name="switch_thumb_checked_disabled">#4C4C4C</color>
+    <color name="switch_track_checked_disabled">#666</color>
+    <color name="switch_thumb_unchecked_enabled">#FFFFFF</color>
+    <color name="switch_track_unchecked_enabled">#B2B2B2</color>
+    <color name="switch_thumb_unchecked_disabled">#4C4C4C</color>
+    <color name="switch_track_unchecked_disabled">#666</color>
 
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>

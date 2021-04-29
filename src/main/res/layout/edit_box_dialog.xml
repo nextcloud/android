@@ -23,13 +23,13 @@
     android:layout_height="match_parent"
     android:padding="@dimen/standard_padding">
 
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="top"
+            android:backgroundTint="@color/secondary_text_color"
             android:textColorHighlight="@color/et_highlight_color"
             android:importantForAutofill="no"
             android:inputType="textNoSuggestions|textCapSentences"

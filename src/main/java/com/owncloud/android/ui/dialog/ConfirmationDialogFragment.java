@@ -71,7 +71,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return frag;
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
 
@@ -80,7 +80,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-    }
+    }*/
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
         mListener = listener;

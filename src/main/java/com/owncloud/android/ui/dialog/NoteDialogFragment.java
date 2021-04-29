@@ -23,6 +23,8 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +77,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         share = getArguments().getParcelable(ARG_SHARE);
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -83,12 +85,11 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-    }
+    }*/
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int primaryColor = ThemeColorUtils.primaryColor(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -98,8 +99,19 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         // Setup layout
         binding.noteText.setText(share.getNote());
         binding.noteText.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
-
+        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText,
+                                           getResources().getColor(R.color.secondary_text_color));
+        binding.noteText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        binding.noteContainer.setDefaultHintTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                Color.GRAY,
+                getResources().getColor(R.color.text_color)
+            }
+        ));
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)

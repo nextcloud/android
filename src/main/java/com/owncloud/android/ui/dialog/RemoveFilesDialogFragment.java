@@ -124,7 +124,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         return newInstance(list);
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -136,7 +136,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
     }
-
+*/
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

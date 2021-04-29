@@ -72,6 +72,7 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -130,7 +131,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private Uri serverBaseUri;
 
     private ListPreference lock;
-    private SwitchPreference showHiddenFiles;
+    private ThemeableSwitchPreference showHiddenFiles;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -142,8 +143,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-
-    private int summaryTextColor;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -160,7 +159,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ListView listView = getListView();
         listView.setDivider(getResources().getDrawable(R.drawable.item_divider));
 
-        summaryTextColor = getResources().getColor(R.color.primary);
         setupActionBar();
 
         // Register context menu for list of preferences.
@@ -566,7 +564,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
                                             boolean fShowHiddenFilesEnabled, int accentColor) {
-        showHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+        showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
         showHiddenFiles.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_show_hidden_files),
                                                                 accentColor));
         if (fShowHiddenFilesEnabled) {

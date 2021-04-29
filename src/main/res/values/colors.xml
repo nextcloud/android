@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2012 Bartek Przybylski
@@ -23,9 +22,9 @@
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="white_helper_text">#B3FFFFFF</color>
-    <color name="text_color">#191919 </color>
+    <color name="text_color">#191919</color>
     <color name="text_color_old">#333333</color>
-    <color name="drawer_text_color">#666666</color>
+    <color name="drawer_text_color">@color/text_color</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eeeeee</color>
@@ -43,6 +42,7 @@
     <color name="actionbar_shadow">#222222</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_600">#666666</color>
+    <color name="dark_grey">#101010</color>
 
     <!-- standard material color definitions -->
 
@@ -80,9 +80,17 @@
 
     <color name="drawer_menu_icon">#757575</color>
     <color name="bg_fallback_highlight">#616161</color>
-    <color name="switch_thumb_color_unchecked">#FFFFFF</color>
-    <color name="switch_track_color_unchecked">#4D000000</color>
-    <color name="drawer_active_item_background">#80000000</color>
+    <color name="drawer_active_item_background">#919191</color>
+
+    <!-- Switch Compat Colors -->
+    <color name="switch_thumb_checked_enabled">@color/primary</color>
+    <color name="switch_track_checked_enabled">#F399C7</color>
+    <color name="switch_thumb_checked_disabled">#F2F2F2</color>
+    <color name="switch_track_checked_disabled">#F2F2F2</color>
+    <color name="switch_thumb_unchecked_enabled">#FFFFFF</color>
+    <color name="switch_track_unchecked_enabled">#B2B2B2</color>
+    <color name="switch_thumb_unchecked_disabled">#F2F2F2</color>
+    <color name="switch_track_unchecked_disabled">#F2F2F2</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
@@ -92,4 +100,5 @@
     <color name="appbar">@android:color/white</color>
     <color name="fontAppbar">#191919</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
+    <color name="progress_bar_background">#E5E5E5</color>
 </resources>

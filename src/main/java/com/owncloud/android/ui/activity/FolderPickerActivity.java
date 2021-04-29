@@ -408,11 +408,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
 
         if (mCancelBtn != null) {
-            if (this instanceof FilePickerActivity) {
+          /*  if (this instanceof FilePickerActivity) {
                 ThemeButtonUtils.colorPrimaryButton(mCancelBtn, this);
-            } else {
+            } else {*/
                 mCancelBtn.setTextColor(getResources().getColor(R.color.text_color));
-            }
+           // }
             mCancelBtn.setOnClickListener(this);
         }
     }

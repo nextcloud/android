@@ -169,8 +169,7 @@
             android:focusable="true"
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
-            android:src="@drawable/ic_unshared"
-            app:tint="@color/secondary_text_color" />
+            android:src="@drawable/ic_unshared" />
 
         <RelativeLayout
             android:id="@+id/sharedAvatars"

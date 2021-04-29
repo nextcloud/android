@@ -83,7 +83,9 @@ public final class ThemeAvatarUtils {
                 break;
 
             case EMAIL:
-                avatar.setImageResource(R.drawable.ic_email);
+                //avatar.setImageResource(R.drawable.ic_email);
+                avatar.setImageDrawable(
+                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_unshared, R.color.primary));
                 avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
                                                                  R.drawable.round_bgnd,
                                                                  null));
