@@ -66,8 +66,8 @@ public final class ThemeCheckableUtils {
         int[][] states = new int[][]{
             new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
             new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
-            new int[]{android.R.attr.state_enabled}, // enabled and unchecked
-            new int[]{-android.R.attr.state_enabled}  // disabled and unchecked
+            new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
+            new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
         };
 
         int[] thumbColors = new int[]{

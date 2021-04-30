@@ -52,11 +52,11 @@
     <color name="switch_thumb_checked_enabled">@color/primary</color>
     <color name="switch_track_checked_enabled">#F399C7</color>
     <color name="switch_thumb_checked_disabled">#4C4C4C</color>
-    <color name="switch_track_checked_disabled">#666</color>
+    <color name="switch_track_checked_disabled">#666666</color>
     <color name="switch_thumb_unchecked_enabled">#FFFFFF</color>
     <color name="switch_track_unchecked_enabled">#B2B2B2</color>
     <color name="switch_thumb_unchecked_disabled">#4C4C4C</color>
-    <color name="switch_track_unchecked_disabled">#666</color>
+    <color name="switch_track_unchecked_disabled">#666666</color>
 
     <!-- App bar -->
     <color name="appbar">#1E1E1E</color>
