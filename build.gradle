@@ -323,7 +323,7 @@ dependencies {
     implementation 'com.vanniktech:emoji-google:0.7.0'
 
     implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:4.1.0'
-    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.1.0'
+    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.4.0'
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
