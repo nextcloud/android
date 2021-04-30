@@ -336,7 +336,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         try {
             client = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
-        } catch (AccountUtils.AccountNotFoundException e) {
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
             Log_OC.e(this, "Update of predefined status not possible!");
             return;
         }
