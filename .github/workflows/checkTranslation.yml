@@ -1,0 +1,14 @@
+name: "Transifex"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    translationCheck:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Check Transifex
+                run: |
+                    [[ $(git diff src/main/res/values/strings.xml | grep -e "^-[^-]" -c) -gt 0 ]] && echo "Do not modify already translated strings, instead create a new one" && exit 1
