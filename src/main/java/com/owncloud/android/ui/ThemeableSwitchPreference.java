@@ -81,6 +81,14 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                     int thumbColorUncheckedDisabled =
                          getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
 
+                    if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                        thumbColorCheckedDisabled =
+                            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
+                        thumbColorUncheckedDisabled =
+                            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled_dark);
+                    }
+
                     int[][] states = new int[][]{
                         new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
                         new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
@@ -100,15 +108,19 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                     int trackColorCheckedEnabled =
                         getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
                     int trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.dark_grey);
-                    if (ThemeColorUtils.darkTheme(getContext()) &&
-                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                        trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
-                    }
                     int trackColorCheckedDisabled =
                          getContext().getResources().getColor(R.color.switch_track_checked_disabled);
                     int trackColorUncheckedDisabled =
                          getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
 
+                    if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                        trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
+                        trackColorCheckedDisabled =
+                            MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
+                        trackColorUncheckedDisabled =
+                            MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled_dark);
+                    }
                     int[] trackColors = new int[]{
                         trackColorCheckedEnabled,
                         trackColorCheckedDisabled,

@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -633,8 +634,13 @@ public class ExtendedListFragment extends Fragment implements
                         mEmptyListIcon.setImageResource(icon);
                     }
 
-                    mEmptyListIcon.setVisibility(View.GONE);
-                    mEmptyListMessage.setVisibility(View.VISIBLE);
+                    if (getActivity() instanceof UploadFilesActivity) {
+                        mEmptyListIcon.setVisibility(View.GONE);
+                        mEmptyListMessage.setVisibility(View.GONE);
+                    }else{
+                        mEmptyListIcon.setVisibility(View.VISIBLE);
+                        mEmptyListMessage.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });

@@ -154,7 +154,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         ThemeCheckableUtils.tintSwitch(backupSwitch, ThemeColorUtils.primaryAccentColor(getContext()));
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
-        backupSwitch.setEnabled(false);
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override

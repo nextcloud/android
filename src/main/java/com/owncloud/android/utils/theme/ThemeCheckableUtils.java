@@ -28,6 +28,7 @@ import android.graphics.Color;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -39,17 +40,40 @@ import androidx.core.widget.CompoundButtonCompat;
 public final class ThemeCheckableUtils {
     public static void tintCheckbox(int color, AppCompatCheckBox... checkBoxes) {
         if (checkBoxes != null) {
+
+            int checkEnabled = MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_enabled);
+            int checkDisabled = MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_disabled);
+            int uncheckEnabled =
+                MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_enabled);
+            int uncheckDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_disabled);
+
+            if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+                AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                checkDisabled =
+                    MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_disabled_dark);
+                 uncheckDisabled =
+                    MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_disabled_dark);
+            }
+
+            int[][] states = new int[][]{
+                new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
+                new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
+                new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
+                new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
+            };
+
+            int[] colors = new int[]{
+                checkEnabled,
+                checkDisabled,
+                uncheckEnabled,
+                uncheckDisabled
+            };
+
+            ColorStateList checkColorStateList = new ColorStateList(states, colors);
+
             for (AppCompatCheckBox checkBox : checkBoxes) {
-                CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
-                    new int[][]{
-                        new int[]{-android.R.attr.state_checked},
-                        new int[]{android.R.attr.state_checked},
-                    },
-                    new int[]{
-                        Color.GRAY,
-                        color
-                    }
-                ));
+                CompoundButtonCompat.setButtonTintList(checkBox, checkColorStateList);
             }
         }
     }
@@ -62,6 +86,15 @@ public final class ThemeCheckableUtils {
             MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled);
         int thumbColorUncheckedDisabled =
             MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
+
+        if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            thumbColorCheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
+            thumbColorUncheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled_dark);
+        }
+
 
         int[][] states = new int[][]{
             new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
@@ -86,6 +119,14 @@ public final class ThemeCheckableUtils {
             MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled);
         int trackColorUncheckedDisabled =
             MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
+
+        if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            trackColorCheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
+            trackColorUncheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled_dark);
+        }
 
         int[] trackColors = new int[]{
             trackColorCheckedEnabled,

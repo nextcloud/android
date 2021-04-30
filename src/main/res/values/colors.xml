@@ -91,6 +91,18 @@
     <color name="switch_track_unchecked_enabled">#B2B2B2</color>
     <color name="switch_thumb_unchecked_disabled">#F2F2F2</color>
     <color name="switch_track_unchecked_disabled">#F2F2F2</color>
+    <color name="switch_thumb_checked_disabled_dark">#4C4C4C</color>
+    <color name="switch_track_checked_disabled_dark">#666666</color>
+    <color name="switch_thumb_unchecked_disabled_dark">#4C4C4C</color>
+    <color name="switch_track_unchecked_disabled_dark">#666666</color>
+
+    <!-- Checkbox Colors -->
+    <color name="checkbox_checked_enabled">@color/primary</color>
+    <color name="checkbox_unchecked_enabled">#B2B2B2</color>
+    <color name="checkbox_checked_disabled">#B2B2B2</color>
+    <color name="checkbox_unchecked_disabled">#CCCCCC</color>
+    <color name="checkbox_checked_disabled_dark">#4C4C4C</color>
+    <color name="checkbox_unchecked_disabled_dark">#4C4C4C</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>

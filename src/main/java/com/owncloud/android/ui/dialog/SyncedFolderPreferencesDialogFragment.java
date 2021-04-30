@@ -353,7 +353,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setEnabled(enable);
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setAlpha(alpha);
 
-        if (enable) {
+        mUploadOnWifiCheckbox.setEnabled(enable);
+        mUploadOnChargingCheckbox.setEnabled(enable);
+        mUploadExistingCheckbox.setEnabled(enable);
+        mUploadUseSubfoldersCheckbox.setEnabled(enable);
+
+        //commented as enabled/disabled colors will be handled via ColorList
+       /* if (enable) {
             ThemeCheckableUtils.tintCheckbox(ThemeColorUtils.primaryAccentColor(getContext()),
                                              mUploadOnWifiCheckbox,
                                              mUploadOnChargingCheckbox,
@@ -365,7 +371,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                              mUploadOnChargingCheckbox,
                                              mUploadExistingCheckbox,
                                              mUploadUseSubfoldersCheckbox);
-        }
+        }*/
 
         checkWritableFolder();
     }
