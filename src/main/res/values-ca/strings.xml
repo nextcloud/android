@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">El vostre dispositiu pot tenir l\'optimització de bateria activada. AutoUpload només funciona correctament si hi excluïu aquesta aplicació.</string>
     <string name="battery_optimization_no_setting">No s\'han pogut iniciar els ajustaments de bateria directament. Si us plau, ajusteu-los manualment a paràmetres.</string>
     <string name="battery_optimization_title">Optimització de la bateria</string>
+    <string name="brute_force_delay">S\'ha endarrerit perquè s\'han produït massa intents erronis</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
     <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
+    <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
@@ -114,6 +116,7 @@
     <string name="common_save">Desa</string>
     <string name="common_send">Envia</string>
     <string name="common_share">Compartir</string>
+    <string name="common_skip">Omet</string>
     <string name="common_switch_account">Canvia el compte</string>
     <string name="common_switch_to_account">Canvia el compte</string>
     <string name="common_yes">Sí</string>
@@ -172,6 +175,7 @@
     <string name="could_not_download_image">No s\'ha pogut descarregar la imatge completa</string>
     <string name="could_not_retrieve_shares">No s\'ha pogut recuperar la compartició</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
+    <string name="create">Crea</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="create_new">Crear nou</string>
     <string name="create_new_document">Crea un nou document</string>
@@ -383,10 +387,13 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
+    <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació per enviar els registres. Instal·leu un client de correu electrònic.</string>
     <string name="login">Inicia la sessió</string>
+    <string name="login_url_helper_text">Enllaç a la interfície web del %1$s quan l\'obriu en el navegador.</string>
     <string name="logs_menu_delete">Suprimeix els registres</string>
     <string name="logs_menu_refresh">Actualitza</string>
     <string name="logs_menu_search">Cerca als registres</string>
+    <string name="logs_menu_send">Envia els registres per correu electrònic</string>
     <string name="logs_status_filtered">Registres: %1$d kB, la consulta ha trobat %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">S\'està carregant…</string>
     <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>
@@ -395,6 +402,7 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
+    <string name="media_err_invalid_progressive_playback">No es pot reproduir el fitxer multimèdia</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
     <string name="media_err_timeout">Ha exhaurit el temps d\'espera per reproduir el fitxer</string>
@@ -572,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">Calendari i contactes</string>
     <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="select_all">Selecciona-ho tot</string>
+    <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
     <string name="send_note">Envia una nota al destinatari</string>
@@ -754,6 +763,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s no té permisos per llegir un dels fitxers rebuts</string>
     <string name="uploader_error_message_source_file_not_copied">No s\'ha pogut copiar el fitxer a una carpeta temporal. Proveu de tornar-lo a enviar.</string>
     <string name="uploader_error_message_source_file_not_found">No s\'ha trobat el fitxer seleccionat per a la càrrega. Comproveu si el fitxer existeix.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Aquest fitxer no es pot pujar</string>
     <string name="uploader_error_title_no_file_to_upload">No hi ha fitxers per carregar</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
     <string name="uploader_top_message">Escolliu la carpeta de càrrega</string>
@@ -799,6 +809,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant una wifi sense mètrica de consum de dades</string>
     <string name="user_icon">Usuari</string>
     <string name="user_info_address">Adreça</string>
+    <string name="user_info_email">Correu electrònic</string>
     <string name="user_info_phone">Número de telèfon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Pàgina web</string>
