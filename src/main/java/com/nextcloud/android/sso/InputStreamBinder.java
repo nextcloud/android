@@ -32,7 +32,6 @@ import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
@@ -507,10 +506,10 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     @VisibleForTesting
-    public static NameValuePair[] convertListToNVP(Collection<Pair<String, String>> list) {
+    public static NameValuePair[] convertListToNVP(Collection<com.nextcloud.android.sso.api.QueryPair> list) {
         NameValuePair[] nvp = new NameValuePair[list.size()];
         int i = 0;
-        for (Pair<String, String> pair : list) {
+        for (com.nextcloud.android.sso.api.QueryPair pair : list) {
             nvp[i] = new NameValuePair(pair.first, pair.second);
             i++;
         }

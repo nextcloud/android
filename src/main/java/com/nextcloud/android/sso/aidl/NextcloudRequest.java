@@ -41,8 +41,6 @@
 
 package com.nextcloud.android.sso.aidl;
 
-import android.util.Pair;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -57,7 +55,7 @@ public class NextcloudRequest implements Serializable {
     private String method;
     private Map<String, List<String>> header = new HashMap<>();
     private Map<String, String> parameter = new HashMap<>();
-    private final Collection<Pair<String, String>> parameterV2 = new LinkedList<>();
+    private final Collection<com.nextcloud.android.sso.api.QueryPair> parameterV2 = new LinkedList<>();
     private String requestBody;
     private String url;
     private String token;
@@ -172,7 +170,7 @@ public class NextcloudRequest implements Serializable {
         return this.followRedirects;
     }
 
-    public Collection<Pair<String, String>> getParameterV2() {
+    public Collection<com.nextcloud.android.sso.api.QueryPair> getParameterV2() {
         return parameterV2;
     }
 }
