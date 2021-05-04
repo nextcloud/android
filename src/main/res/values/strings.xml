@@ -905,7 +905,7 @@
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
-    <string name="qr_could_not_be_read">QR Code could not be read!</string>
+    <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="add_another_public_share_link">Add another link</string>
     <string name="unshare">Unshare</string>
