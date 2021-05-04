@@ -27,10 +27,12 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * This API is for an integration with the <a href="https://github.com/stefan-niedermann/nextcloud-deck">Nextcloud
  * Deck</a> app for android.
+ * @see <a href="https://apps.nextcloud.com/apps/deck">Deck Server App</a>
  */
 public interface DeckApi {
 
@@ -41,9 +43,23 @@ public interface DeckApi {
      * @param user         The user that is affected by the notification
      * @return If notification can be consumed by Deck, a PendingIntent opening notification link in Deck app; empty
      * value otherwise
-     * @see <a href="https://apps.nextcloud.com/apps/deck">Deck Server App</a>
      */
     @NonNull
     Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull final Notification notification,
                                                             @NonNull final User user);
+
+    /**
+     * Creates a PendingIntent that can be used to open a Deck card in the Deck app
+     *
+     * @param link   URL to the card
+     * @param cardId The ID of the card
+     * @param user         The user that wants to open the card
+     * @return If parameters can be consumed by Deck, a PendingIntent opening the wanted card in Deck app; empty
+     * value otherwise
+     */
+    @NonNull
+    Optional<PendingIntent> createOpenDeckCardActionIntent(@NonNull final String link, @NonNull final String cardId,
+                                                            @NonNull final User user,
+                                                            @Nullable final String subject,
+                                                            @Nullable final String message);
 }

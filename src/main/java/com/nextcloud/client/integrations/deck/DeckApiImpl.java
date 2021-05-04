@@ -30,11 +30,12 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class DeckApiImpl implements DeckApi {
 
     static final String APP_NAME = "deck";
-    static final String[] DECK_APP_PACKAGES = new String[] {
+    static final String[] DECK_APP_PACKAGES = new String[]{
         "it.niedermann.nextcloud.deck",
         "it.niedermann.nextcloud.deck.play",
         "it.niedermann.nextcloud.deck.dev"
@@ -61,7 +62,8 @@ public class DeckApiImpl implements DeckApi {
 
     @NonNull
     @Override
-    public Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull Notification notification, @NonNull User user) {
+    public Optional<PendingIntent> createForwardToDeckActionIntent(@NonNull Notification notification,
+                                                                   @NonNull User user) {
         if (APP_NAME.equalsIgnoreCase(notification.app)) {
             final Intent intent = new Intent();
             for (String appPackage : DECK_APP_PACKAGES) {
@@ -74,14 +76,30 @@ public class DeckApiImpl implements DeckApi {
         return Optional.empty();
     }
 
-    private PendingIntent createPendingIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(context, 0, putExtrasToIntent(intent, notification, user),
-                                         PendingIntent.FLAG_ONE_SHOT);
+    @NonNull
+    @Override
+    public Optional<PendingIntent> createOpenDeckCardActionIntent(@NonNull String link, @NonNull String cardId,
+                                                                   @NonNull User user,
+                                                                   @Nullable String subject,
+                                                                   @Nullable String message) {
+        final Intent intent = new Intent();
+        for (String appPackage : DECK_APP_PACKAGES) {
+            intent.setClassName(appPackage, DECK_ACTIVITY_TO_START);
+            if (packageManager.resolveActivity(intent, 0) != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(EXTRA_ACCOUNT, user.getAccountName())
+                    .putExtra(EXTRA_LINK, link)
+                    .putExtra(EXTRA_OBJECT_ID, cardId)
+                    .putExtra(EXTRA_SUBJECT, subject)
+                    .putExtra(EXTRA_MESSAGE, message);
+                return Optional.of(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT));
+            }
+        }
+        return Optional.empty();
     }
 
-    private Intent putExtrasToIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {
-        return intent
+    private PendingIntent createPendingIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .putExtra(EXTRA_ACCOUNT, user.getAccountName())
             .putExtra(EXTRA_LINK, notification.getLink())
             .putExtra(EXTRA_OBJECT_ID, notification.getObjectId())
@@ -91,5 +109,6 @@ public class DeckApiImpl implements DeckApi {
             .putExtra(EXTRA_MESSAGE_RICH, notification.getMessageRich())
             .putExtra(EXTRA_USER, notification.getUser())
             .putExtra(EXTRA_NID, notification.getNotificationId());
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
     }
 }
