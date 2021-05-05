@@ -122,6 +122,11 @@
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
     <string name="buildNumber" translatable="false"></string>
+    <string name="scan_save_file_type_pdf" translatable="false">PDF</string>
+    <string name="scan_save_file_type_jpg" translatable="false">JPG</string>
+    <string name="scan_save_file_type_png" translatable="false">PNG</string>
+    <string name="scan_save_file_type_pdf_ocr" translatable="false">PDF (OCR)</string>
+
 </resources>
 
 

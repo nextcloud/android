@@ -801,7 +801,7 @@
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
-    <string name="file_details_no_content">Failed to load details</string>
+    <string name="file_details_no_content">Faisled to load details</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="uploader_upload_files_behaviour_not_writable">source folder is read-only; file will only be uploaded</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
@@ -960,4 +960,37 @@
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="storage_sd_card">SD Card</string>
+    <string name="result_scan_doc_dont_move">Do not move</string>
+    <string name="result_scan_doc_move_closer">Move closer</string>
+    <string name="result_scan_doc_perspective">Perspective</string>
+    <string name="result_scan_doc_no_doc">No document</string>
+    <string name="result_scan_doc_bg_noisy">Background too noisy</string>
+    <string name="result_scan_doc_aspect_ratio">Wrong aspect ratio.\nRotate your device.</string>
+    <string name="result_scan_doc_poor_light">Poor light</string>
+    <string name="scanned_doc_count">%d of %d</string>
+    <string name="title_edit_scan">Edit Scan</string>
+    <string name="title_crop_scan">Crop Scan</string>
+    <string name="crop_btn_reset_crop_text">Reset Crop</string>
+    <string name="crop_btn_detect_doc_text">Detect Document</string>
+    <string name="edit_scan_filter_dialog_title">Apply Filter</string>
+    <string name="edit_scan_filter_none">No Filter</string>
+    <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
+    <string name="edit_scan_filter_color_enhanced">Photo Filter</string>
+    <string name="edit_scan_filter_b_n_w">Black &amp; White</string>
+    <string name="edit_scan_filter_color_document">Document Filter</string>
+    <string name="edit_scan_filter_grey">Grayscale</string>
+    <string name="automatic">Automatic</string>
+    <string name="flash">Flash</string>
+    <string name="title_save_as">Save as</string>
+    <string name="scan_save_filename">Filename</string>
+    <string name="scan_save_location">Location</string>
+    <string name="scan_save_location_root">Root folder</string>
+    <string name="scan_save_file_type">File type</string>
+    <string name="scan_save_without_text_recognition">Save without text recognition</string>
+    <string name="scan_save_with_text_recognition">Save with text recognition</string>
+    <string name="scan_save_file_type_txt">Textfile (txt)</string>
+    <string name="scan_save_pdf_password">PDF-Password</string>
+    <string name="scan_save_set_password_hint">Set password</string>
+    <string name="scan_save_no_file_select_toast">Please select at least one filetype</string>
+
 </resources>

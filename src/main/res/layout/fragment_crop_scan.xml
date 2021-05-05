@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.scanbot.sdk.ui.EditPolygonImageView
+        android:id="@+id/crop_polygon_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="40dp"
+        app:cornerImageSrc="@drawable/ui_crop_corner_handle"
+        app:edgeColor="@color/primary"
+        android:layout_marginBottom="@dimen/standard_margin"
+        app:edgeImageSrc="@drawable/ui_crop_side_handle"
+        app:editPolygonHandleSize="48dp"
+        app:editPolygonStrokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/crop_btn_reset_borders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:magneticLineTreshold="10dp" />
+
+    <io.scanbot.sdk.ui.MagnifierView
+        android:id="@+id/magnifier"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/crop_btn_reset_borders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:magnifierImageSrc="@drawable/ui_crop_magnifier"
+        app:magnifierMargin="16dp"
+        app:magnifierRadius="36dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/crop_btn_reset_borders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_double_margin"
+        android:paddingLeft="@dimen/standard_double_padding"
+        android:paddingRight="@dimen/standard_double_padding"
+        android:text="@string/crop_btn_reset_crop_text"
+        style="@style/Button.Borderless.Normal"
+        app:cornerRadius="@dimen/button_corner_radius"
+        android:textColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

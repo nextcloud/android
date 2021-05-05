@@ -36,6 +36,7 @@
     <color name="grey_200">#818181</color>
     <color name="nc_grey">#222222</color>
     <color name="icon_on_nc_grey">#ffffff</color>
+    <color name="grey">#373535</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>

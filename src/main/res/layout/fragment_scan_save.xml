@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/save_scan_bottom_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_filename_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/scan_save_filename"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/scan_save_filename_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:padding="@dimen/standard_padding"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toStartOf="@+id/scan_save_filename_input_edit_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_text"
+                tools:text="scan_201555-5566" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/scan_save_filename_input_edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_text" />
+
+            <View
+                android:id="@+id/scan_save_filename_input_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:background="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_input" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_location_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/scan_save_location"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_input_divider" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/scan_save_location_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:padding="@dimen/standard_padding"
+                android:text="@string/scan_save_location_root"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toStartOf="@+id/scan_save_location_edit_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_location_text" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/scan_save_location_edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_location_text" />
+
+            <View
+                android:id="@+id/scan_save_location_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_location_input" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_file_type_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/scan_save_file_type"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_location_divider" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/scan_save_file_type_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:padding="@dimen/standard_padding"
+                android:text="@string/scan_save_location_root"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_file_type_text" />
+
+
+            <View
+                android:id="@+id/scan_save_file_type_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:background="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_file_type_input" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_without_txt_recognition_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/scan_save_without_text_recognition"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_file_type_divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_without_txt_recognition_pdf_check_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_double_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/scan_save_file_type_pdf"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_text" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/scan_save_without_txt_recognition_pdf_checkbox"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_double_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_pdf_check_label" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_without_txt_recognition_jpg_check_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/scan_save_file_type_jpg"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toStartOf="@+id/scan_save_without_txt_recognition_png_check_label"
+                app:layout_constraintStart_toEndOf="@+id/scan_save_without_txt_recognition_pdf_check_label"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_text" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/scan_save_without_txt_recognition_jpg_checkbox"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintEnd_toStartOf="@+id/scan_save_without_txt_recognition_png_checkbox"
+                app:layout_constraintStart_toEndOf="@+id/scan_save_without_txt_recognition_pdf_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_jpg_check_label" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_without_txt_recognition_png_check_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_double_margin"
+                android:text="@string/scan_save_file_type_png"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_text" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/scan_save_without_txt_recognition_png_checkbox"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_double_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_png_check_label" />
+
+            <View
+                android:id="@+id/scan_save_without_txt_recognition_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:background="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_png_checkbox" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_with_txt_recognition_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/scan_save_with_text_recognition"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_with_txt_recognition_pdf_check_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_double_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/scan_save_file_type_pdf_ocr"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_text" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/scan_save_with_txt_recognition_pdf_checkbox"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_double_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintEnd_toEndOf="@+id/scan_save_with_txt_recognition_pdf_check_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_pdf_check_label" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/scan_save_with_txt_recognition_txt_check_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/scan_save_file_type_txt"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_text" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/scan_save_with_txt_recognition_txt_checkbox"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_txt_check_label" />
+
+            <View
+                android:id="@+id/scan_save_with_txt_recognition_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_txt_checkbox" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scan_save_pdf_password_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:text="@string/scan_save_pdf_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_divider" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/scan_save_pdf_password_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan_save_pdf_password_switch"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/scan_save_pdf_password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="@string/scan_save_set_password_hint"
+                    android:padding="@dimen/standard_padding"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/txt_size_15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/save_scan_bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:background="@color/secondary_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/save_scan_btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_scan_btn_cancel"
+        style="@style/OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/common_cancel"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save_scan_btn_save"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_scan_btn_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/common_save"
+        android:theme="@style/Button.Primary"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/save_scan_btn_cancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

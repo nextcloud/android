@@ -9,4 +9,6 @@
     <dimen name="txt_size_14sp">14sp</dimen>
     <dimen name="txt_size_16sp">16sp</dimen>
     <dimen name="txt_size_18sp">18sp</dimen>
+    <dimen name="txt_size_15sp">15sp</dimen>
+    <dimen name="crop_corner_size">15dp</dimen>
 </resources>

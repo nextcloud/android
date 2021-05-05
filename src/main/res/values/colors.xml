@@ -43,6 +43,7 @@
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_600">#666666</color>
     <color name="dark_grey">#101010</color>
+    <color name="grey">#F2F2F2</color>
 
     <!-- standard material color definitions -->
 
@@ -113,4 +114,6 @@
     <color name="fontAppbar">#191919</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
     <color name="progress_bar_background">#E5E5E5</color>
+    <color name="neptune">#77b6bb</color>
+    <color name="neptune_50">#5077b6bb</color>
 </resources>

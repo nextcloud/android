@@ -177,10 +177,14 @@ public abstract class ToolbarActivity extends BaseActivity {
         //}
     }
 
+    public void showHideToolbar(boolean isShow){
+        mDefaultToolbar.setVisibility(isShow  ? View.VISIBLE : View.GONE);
+    }
+
     /**
      * Updates title bar and home buttons (state and icon).
      */
-    protected void updateActionBarTitleAndHomeButtonByString(String title) {
+    public void updateActionBarTitleAndHomeButtonByString(String title) {
         String titleToSet = getString(R.string.app_name);    // default
 
         if (title != null) {

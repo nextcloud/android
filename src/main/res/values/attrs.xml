@@ -20,4 +20,13 @@
         <item>@string/pref_instant_name_collision_policy_entries_rename</item>
         <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
     </string-array>
+
+    <string-array name="edit_scan_filter_values" translatable="false">
+        <item>@string/edit_scan_filter_none</item>
+        <item>@string/edit_scan_filter_color_enhanced</item>
+        <item>@string/edit_scan_filter_color_document</item>
+        <item>@string/edit_scan_filter_grey</item>
+        <item>@string/edit_scan_filter_b_n_w</item>
+        <item>@string/edit_scan_filter_pure_binarized</item>
+    </string-array>
 </resources>

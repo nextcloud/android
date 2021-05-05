@@ -1,28 +1,29 @@
 package com.nmc.android.ui
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButton
+import com.nmc.android.OnDocScanListener
+import com.nmc.android.OnFragmentChangeListener
+import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
@@ -47,18 +48,16 @@ import io.scanbot.sdk.ui.PolygonView
 import io.scanbot.sdk.ui.camera.ShutterButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.ArrayList
 
-class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.ResultHandler {
+class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandler {
 
     private lateinit var cameraView: ScanbotCameraView
     private lateinit var polygonView: PolygonView
-    private lateinit var resultView: ImageView
-    private lateinit var userGuidanceHint: TextView
-    private lateinit var autoSnappingToggleButton: Button
+    private lateinit var userGuidanceHint: AppCompatTextView
+    private lateinit var autoSnappingToggleButton: MaterialButton
     private lateinit var shutterButton: ShutterButton
     private lateinit var progressBar: ProgressBar
 
@@ -79,14 +78,42 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
 
     private val uiScope = CoroutineScope(Dispatchers.Main)
 
+    private lateinit var onDocScanListener: OnDocScanListener
+    private lateinit var onFragmentChangeListener: OnFragmentChangeListener
+
+    private lateinit var calledFrom: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
+        arguments?.getString(ARG_CALLED_FROM)?.let {
+            calledFrom = it
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onDocScanListener = context as OnDocScanListener
+            onFragmentChangeListener = context as OnFragmentChangeListener
+        } catch (ignored: Exception) {
+
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
+        if (requireActivity() is ScanActivity) {
+            (requireActivity() as ScanActivity).showHideToolbar(false)
+        }
+        return inflater.inflate(R.layout.fragment_scan_document, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         askPermission()
-        setContentView(R.layout.activity_scan_document)
-        scanbotSDK = ScanbotSDK(this)
+        scanbotSDK = (requireActivity() as ScanActivity).scanbotSDK
         initOCR()
-        cameraView = findViewById<View>(R.id.camera) as ScanbotCameraView
+        cameraView = view.findViewById<View>(R.id.camera) as ScanbotCameraView
 
         // In this example we demonstrate how to lock the orientation of the UI (Activity)
         // as well as the orientation of the taken picture to portrait.
@@ -107,11 +134,10 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                 }, 700)
             }
         })
-        resultView = findViewById<View>(R.id.result) as ImageView
-        progressBar = findViewById(R.id.pbScanDocument)
-        polygonView = findViewById<View>(R.id.polygonView) as PolygonView
-        polygonView.setFillColor(POLYGON_FILL_COLOR)
-        polygonView.setFillColorOK(POLYGON_FILL_COLOR_OK)
+        progressBar = view.findViewById(R.id.scan_doc_progress_bar)
+        polygonView = view.findViewById<View>(R.id.polygonView) as PolygonView
+        // polygonView.setFillColor(POLYGON_FILL_COLOR)
+        //polygonView.setFillColorOK(POLYGON_FILL_COLOR_OK)
 
         contourDetectorFrameHandler = ContourDetectorFrameHandler.attach(cameraView, scanbotSDK.contourDetector())
 
@@ -131,18 +157,27 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                 processPictureTaken(image, imageOrientation)
             }
         })
-        userGuidanceHint = findViewById(R.id.userGuidanceHint)
+        userGuidanceHint = view.findViewById(R.id.userGuidanceHint)
 
-        shutterButton = findViewById(R.id.shutterButton)
+        shutterButton = view.findViewById(R.id.shutterButton)
         shutterButton.setOnClickListener { cameraView.takePicture(false) }
         shutterButton.visibility = View.VISIBLE
 
-        findViewById<View>(R.id.flashToggle).setOnClickListener {
+        view.findViewById<View>(R.id.scan_doc_btn_flash).setOnClickListener {
             flashEnabled = !flashEnabled
             cameraView.useFlash(flashEnabled)
         }
+        view.findViewById<View>(R.id.scan_doc_btn_cancel).setOnClickListener {
+            //if fragment opened from Edit Scan Fragment then on cancel click it should go to that fragment
+            if (calledFrom == EditScannedDocumentFragment.TAG) {
+                openEditScanFragment()
+            } else {
+                //else default behaviour
+                (requireActivity() as ScanActivity).onBackPressed()
+            }
+        }
 
-        autoSnappingToggleButton = findViewById(R.id.autoSnappingToggle)
+        autoSnappingToggleButton = view.findViewById(R.id.scan_doc_btn_automatic)
         autoSnappingToggleButton.setOnClickListener {
             autoSnappingEnabled = !autoSnappingEnabled
             setAutoSnapEnabled(autoSnappingEnabled)
@@ -151,16 +186,22 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     }
 
     private fun askPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager
                 .PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                this,
+                requireActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) !=
             PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                this, arrayOf(
+                requireActivity(), arrayOf(
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -189,9 +230,12 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     override fun handle(result: FrameHandlerResult<ContourDetectorFrameHandler.DetectedFrame, SdkLicenseError>): Boolean {
         // Here you are continuously notified about contour detection results.
         // For example, you can show a user guidance text depending on the current detection status.
-        userGuidanceHint.post {
-            if (result is FrameHandlerResult.Success<*>) {
-                showUserGuidance((result as FrameHandlerResult.Success<ContourDetectorFrameHandler.DetectedFrame>).value.detectionResult)
+        //don't update the text if fragment is removing
+        if (!isRemoving) {
+            userGuidanceHint.post {
+                if (result is FrameHandlerResult.Success<*>) {
+                    showUserGuidance((result as FrameHandlerResult.Success<ContourDetectorFrameHandler.DetectedFrame>).value.detectionResult)
+                }
             }
         }
         return false // typically you need to return false
@@ -206,40 +250,40 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         }
 
         // Make sure to reset the default polygon fill color (see the ignoreBadAspectRatio case).
-        polygonView.setFillColor(POLYGON_FILL_COLOR)
+        //polygonView.setFillColor(POLYGON_FILL_COLOR)
         when (result) {
             DetectionResult.OK -> {
-                userGuidanceHint.text = "Don't move"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_dont_move)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.OK_BUT_TOO_SMALL -> {
-                userGuidanceHint.text = "Move closer"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_move_closer)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.OK_BUT_BAD_ANGLES -> {
-                userGuidanceHint.text = "Perspective"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_perspective)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.ERROR_NOTHING_DETECTED -> {
-                userGuidanceHint.text = "No Document"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_no_doc)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.ERROR_TOO_NOISY -> {
-                userGuidanceHint.text = "Background too noisy"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_bg_noisy)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.OK_BUT_BAD_ASPECT_RATIO -> {
                 if (ignoreBadAspectRatio) {
-                    userGuidanceHint.text = "Don't move"
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_dont_move)
                     // change polygon color to "OK"
-                    polygonView.setFillColor(POLYGON_FILL_COLOR_OK)
+                    // polygonView.setFillColor(POLYGON_FILL_COLOR_OK)
                 } else {
-                    userGuidanceHint.text = "Wrong aspect ratio.\n Rotate your device."
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_aspect_ratio)
                 }
                 userGuidanceHint.visibility = View.VISIBLE
             }
             DetectionResult.ERROR_TOO_DARK -> {
-                userGuidanceHint.text = "Poor light"
+                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_poor_light)
                 userGuidanceHint.visibility = View.VISIBLE
             }
             else -> userGuidanceHint.visibility = View.GONE
@@ -248,7 +292,8 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
     }
 
     private fun processPictureTaken(image: ByteArray, imageOrientation: Int) {
-        runOnUiThread {
+        requireActivity().runOnUiThread {
+            cameraView.onPause()
             progressBar.visibility = View.VISIBLE
             //cameraView.visibility = View.GONE
         }
@@ -289,9 +334,12 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         //  val file = saveImage(documentImage)
         // Log.d("SCANNING","File : $file")
         if (documentImage != null) {
-            uiScope.launch {
-                recognizeTextWithoutPDFTask(documentImage)
-            }
+            onDocScanListener.addScannedDoc(FileUtils.saveImage(requireContext(), documentImage, null))
+            openEditScanFragment()
+
+            /*  uiScope.launch {
+                  recognizeTextWithoutPDFTask(documentImage)
+              }*/
         }
         // RecognizeTextWithoutPDFTask(documentImage).execute()
 
@@ -304,11 +352,21 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         }, 1000)*/
     }
 
+    private fun openEditScanFragment() {
+        onFragmentChangeListener.onReplaceFragment(
+            EditScannedDocumentFragment.newInstance(0), ScanActivity
+                .FRAGMENT_EDIT_SCAN_TAG, false
+        )
+    }
+
     private fun setAutoSnapEnabled(enabled: Boolean) {
         autoSnappingController.isEnabled = enabled
         contourDetectorFrameHandler.isEnabled = enabled
         polygonView.visibility = if (enabled) View.VISIBLE else View.GONE
-        autoSnappingToggleButton.text = "Automatic ${if (enabled) "ON" else "OFF"}"
+        autoSnappingToggleButton.text = resources.getString(R.string.automatic) + " ${
+            if (enabled) "ON" else
+                "OFF"
+        }"
         if (enabled) {
             shutterButton.showAutoButton()
         } else {
@@ -335,7 +393,7 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                         // again the permission and directing to
                         // the app setting
                         Toast.makeText(
-                            this, "Please navigate to App info in settings and give permission " +
+                            requireContext(), "Please navigate to App info in settings and give permission " +
                                 "manually.", Toast.LENGTH_LONG
                         ).show()
                     } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
@@ -346,11 +404,11 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
                         // why you need the permission and ask if he wants
                         // to accept it (the rationale)
                         Toast.makeText(
-                            this,
+                            requireContext(),
                             "You cannot scan document without camera permission.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        finish()
+                        requireActivity().finish()
                         // askPermission()
                     }
                     // else if ( /* possibly check more permissions...*/) {
@@ -410,10 +468,10 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
 
                     Log.d("Main Activity", file.path)
 
-                    val intent = Intent()
+                    /*val intent = Intent()
                     intent.putExtra(EXTRA_SCAN_DOCUMENT_PATH, file.path)
-                    setResult(RESULT_OK, intent)
-                    finish()
+                    requireActivity().setResult(Activity.RESULT_OK, intent)
+                    requireActivity().finish()*/
 
                 }
             }
@@ -426,13 +484,24 @@ class ScanDocumentActivity : AppCompatActivity(), ContourDetectorFrameHandler.Re
         private const val CAMERA_PERMISSION_REQUEST_CODE: Int = 811
 
         @JvmStatic
-        val EXTRA_SCAN_DOCUMENT_PATH = ScanDocumentActivity::class.java.canonicalName +
+        val EXTRA_SCAN_DOCUMENT_PATH = ScanDocumentFragment::class.java.canonicalName +
             ".EXTRA_SCAN_DOCUMENT_PATH"
 
         @JvmStatic
-        fun startScanDocumentActivityForResult(activity: Activity, requestCode: Int) {
-            val intent = Intent(activity, ScanDocumentActivity::class.java)
-            activity.startActivityForResult(intent, requestCode)
+        val ARG_CALLED_FROM = "arg called_From"
+
+        /* @JvmStatic
+         fun startScanDocumentActivityForResult(activity: Activity, requestCode: Int) {
+             val intent = Intent(activity, ScanDocumentFragment::class.java)
+             activity.startActivityForResult(intent, requestCode)
+         }*/
+        @JvmStatic
+        fun newInstance(calledFrom: String): ScanDocumentFragment {
+            val args = Bundle()
+            args.putString(ARG_CALLED_FROM, calledFrom)
+            val fragment = ScanDocumentFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

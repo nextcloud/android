@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/editScannedViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/editScanDocCountLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/editScanDocCountLabel"
+        tools:text="10 of 23"
+        android:paddingRight="@dimen/alternate_padding"
+        android:paddingLeft="@dimen/alternate_padding"
+        android:paddingTop="@dimen/standard_quarter_padding"
+        android:paddingBottom="@dimen/standard_quarter_padding"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:background="@drawable/grey_curve_bg"
+        android:textSize="@dimen/txt_size_14sp"
+        android:textColor="@color/text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editScanBottomDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/editScanBottomDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/secondary_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/editScanBottomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/editScanBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_half_padding"
+        app:layout_constraintBottom_toTopOf="@+id/editScanEndDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/scanMoreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/text_color"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_plus" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cropDocButton"
+            android:layout_width="wrap_content"
+            android:tint="@color/text_color"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_crop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/filterDocButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_half_padding"
+            android:tint="@color/text_color"
+            android:src="@drawable/ic_filter" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rotateDocButton"
+            android:tint="@color/text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_rotate_right" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/deleteDocButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/text_color"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_remove" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/editScanEndDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/secondary_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

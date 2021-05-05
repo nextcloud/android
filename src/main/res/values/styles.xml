@@ -43,6 +43,8 @@
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/primary</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <!-- ActionBar Menu Item Text Color Style -->
+        <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -70,6 +72,8 @@
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/primary</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <!-- ActionBar Menu Item Text Color Style -->
+        <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -136,6 +140,8 @@
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/primary</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <!-- ActionBar Menu Item Text Color Style -->
+        <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -167,9 +173,9 @@
 
     <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
 
-	<style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
-		<item name="colorAccent">@color/primary</item>
-		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+    <style name="ownCloud.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/primary</item>
+        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
@@ -245,6 +251,11 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Button.Borderless.Normal" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@drawable/borderless_btn</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="Button.Borderless.Destructive" parent="Widget.MaterialComponents.Button.TextButton">
