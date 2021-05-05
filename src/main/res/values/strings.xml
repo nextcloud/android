@@ -485,7 +485,7 @@
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
-    <string name="maintenance_mode">Server in maintenance mode</string>
+    <string name="maintenance_mode">Server is in maintenance mode</string>
     <string name="offline_mode">No internet connection</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
