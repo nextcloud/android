@@ -55,9 +55,7 @@
                 android:layout_margin="@dimen/grid_image_icon_margin"
                 android:contentDescription="@null"
                 android:visibility="gone"
-                app:corners="6"
-                app:height_weight="0.6"
-                app:width_weight="0.4" />
+                app:corners="6" />
 
             <com.owncloud.android.ui.SquareImageView
                 android:id="@+id/thumbnail"

@@ -230,6 +230,8 @@ public class EditScannedDocumentFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
+                onFragmentChangeListener.onReplaceFragment(SaveScannedDocumentFragment.newInstance(),
+                                                           ScanActivity.FRAGMENT_SAVE_SCAN_TAG, false);
                 break;
         }
         return super.onOptionsItemSelected(item);

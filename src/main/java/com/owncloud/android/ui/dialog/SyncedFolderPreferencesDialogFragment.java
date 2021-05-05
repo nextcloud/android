@@ -208,7 +208,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mCancel = view.findViewById(R.id.cancel);
         mSave = view.findViewById(R.id.save);
 
-        ThemeButtonUtils.themeBorderlessButton(mCancel, mSave);
+        //ThemeButtonUtils.themeBorderlessButton(mCancel, mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());

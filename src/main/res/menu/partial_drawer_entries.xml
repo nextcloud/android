@@ -88,6 +88,12 @@
             android:icon="@drawable/nav_trashbin"
             android:orderInCategory="2"
             android:title="@string/drawer_item_trashbin"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/nav_settings"
+            android:orderInCategory="4"
+            android:title="@string/actionbar_settings"/>
     </group>
 
     <!--
@@ -109,11 +115,7 @@
             android:icon="@drawable/nav_contacts"
             android:orderInCategory="3"
             android:title="@string/actionbar_contacts"/>
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/nav_settings"
-            android:orderInCategory="4"
-            android:title="@string/actionbar_settings"/>
+
         <item
             android:id="@+id/nav_community"
             android:icon="@drawable/nav_community"

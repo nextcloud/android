@@ -27,22 +27,19 @@ import butterknife.Unbinder;
 
 public class SaveScannedDocumentFragment extends Fragment {
 
-    private static final String ARG_CURRENT_INDEX = "current_index";
-    protected static final String TAG = "EditScannedDocumentFragment";
+    protected static final String TAG = "SaveScannedDocumentFragment";
 
     public SaveScannedDocumentFragment() {
     }
 
-    public static SaveScannedDocumentFragment newInstance(int currentIndex) {
+    public static SaveScannedDocumentFragment newInstance() {
         Bundle args = new Bundle();
-        args.putInt(ARG_CURRENT_INDEX, currentIndex);
         SaveScannedDocumentFragment fragment = new SaveScannedDocumentFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     private Unbinder unbinder;
-    private ViewPagerFragmentAdapter pagerFragmentAdapter;
     private OnFragmentChangeListener onFragmentChangeListener;
     private OnDocScanListener onDocScanListener;
 

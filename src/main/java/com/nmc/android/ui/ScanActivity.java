@@ -27,6 +27,8 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     protected static final String FRAGMENT_SCAN_TAG = "SCAN_FRAGMENT_TAG";
     protected static final String FRAGMENT_EDIT_SCAN_TAG = "EDIT_SCAN_FRAGMENT_TAG";
     protected static final String FRAGMENT_CROP_SCAN_TAG = "CROP_SCAN_FRAGMENT_TAG";
+    protected static final String FRAGMENT_SAVE_SCAN_TAG = "SAVE_SCAN_FRAGMENT_TAG";
+
     protected static final String TAG = "ScanActivity";
 
     private ActivityScanBinding binding;
