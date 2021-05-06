@@ -398,7 +398,6 @@
     <string name="logs_status_loading">Cargando…</string>
     <string name="logs_status_not_filtered">Registrós: %1$d kB, sin filtros</string>
     <string name="logs_title">Registros</string>
-    <string name="maintenance_mode">Servidor en modo mantenimiento</string>
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_title">Gestionar espacio</string>

@@ -396,7 +396,6 @@
     <string name="logs_status_loading">Učitavanje…</string>
     <string name="logs_status_not_filtered">Zapisi: %1$d kB, bez filtra</string>
     <string name="logs_title">Zapisi</string>
-    <string name="maintenance_mode">Poslužitelj u načinu održavanja</string>
     <string name="manage_space_clear_data">Izbriši podatke</string>
     <string name="manage_space_description">Trajno će se izbrisati postavke, baze podataka i vjerodajnice poslužitelja iz podataka %1$s. \n\nPreuzete datoteke ostat će nepromijenjene.\n\nOvaj postupak može potrajati.</string>
     <string name="manage_space_title">Upravljaj prostorom</string>

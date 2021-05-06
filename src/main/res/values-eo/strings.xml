@@ -315,7 +315,6 @@
     <string name="logs_menu_refresh">Aktualigi</string>
     <string name="logs_status_loading">Ŝargado...</string>
     <string name="logs_title">Protokoloj</string>
-    <string name="maintenance_mode">La servilo estas en reĝimo de prizorgado</string>
     <string name="manage_space_clear_data">Forviŝi datumojn</string>
     <string name="manage_space_description">Agordoj, datumbazo kaj servilatestiloj el la servilo %1$s estos forigitaj porĉiame. \n\nElŝutitaj dosieroj estos konservitaj.\n\nTiu operacio povas longe daŭri.</string>
     <string name="manage_space_title">Administri spacon</string>

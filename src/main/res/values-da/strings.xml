@@ -390,7 +390,6 @@
     <string name="logs_status_loading">Indlæser…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, ingen filter</string>
     <string name="logs_title">Logs</string>
-    <string name="maintenance_mode">Server i vedligeholdelsestilstand</string>
     <string name="manage_space_clear_data">Fjern data</string>
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>

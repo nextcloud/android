@@ -361,7 +361,6 @@
     <string name="logs_status_loading">Зареждане…</string>
     <string name="logs_status_not_filtered">Журнали: %1$d kB, без филтър</string>
     <string name="logs_title">Журнали</string>
-    <string name="maintenance_mode">Режимът за поддръжка е включен</string>
     <string name="manage_space_clear_data">Изчисти данните</string>
     <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_title">Управление на място</string>

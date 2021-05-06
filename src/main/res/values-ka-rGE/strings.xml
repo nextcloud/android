@@ -248,7 +248,6 @@
     <string name="logs_menu_refresh">განახლება</string>
     <string name="logs_status_loading">იტვირთება…</string>
     <string name="logs_title">ლოგები</string>
-    <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>
     <string name="manage_space_clear_data">მონაცემების გასუფთავება</string>
     <string name="manage_space_description"> %1$s-ის მონაცემებიდან პარამეტრები, მონაცემთა ბაზა და სერტიფიკატები სამუდამოდ წაიშლება.\n\nგადმოწერილი ფაილები დარჩება ხელუხლებელი.\n\nეს პროცესი გასტანს გარკვეულ დროს.</string>
     <string name="manage_space_title">მოცულობის მენეჯმენტი</string>
