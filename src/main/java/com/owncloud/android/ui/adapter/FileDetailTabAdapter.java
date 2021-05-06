@@ -52,9 +52,9 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
             default:
-                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
+                /*fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
                 return fileDetailActivitiesFragment;
-            case 1:
+            case 1:*/
                 fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
                 return fileDetailSharingFragment;
         }

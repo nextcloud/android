@@ -6,11 +6,11 @@ import java.io.File;
 import java.util.List;
 
 public interface OnDocScanListener {
-    void addScannedDoc(File file);
+    void addScannedDoc(Bitmap file);
 
-    List<File> getScannedDocs();
+    List<Bitmap> getScannedDocs();
 
-    boolean removedScannedDoc(File file);
+    boolean removedScannedDoc(Bitmap file);
 
-    File replaceScannedDoc(int index, File newFile);
+    Bitmap replaceScannedDoc(int index, Bitmap newFile);
 }

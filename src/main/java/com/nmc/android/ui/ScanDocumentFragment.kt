@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.nmc.android.OnDocScanListener
 import com.nmc.android.OnFragmentChangeListener
-import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
@@ -334,7 +333,8 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         //  val file = saveImage(documentImage)
         // Log.d("SCANNING","File : $file")
         if (documentImage != null) {
-            onDocScanListener.addScannedDoc(FileUtils.saveImage(requireContext(), documentImage, null))
+            onDocScanListener.addScannedDoc(documentImage)
+           // onDocScanListener.addScannedDoc(FileUtils.saveImage(requireContext(), documentImage, null))
             openEditScanFragment()
 
             /*  uiScope.launch {
@@ -354,7 +354,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
     private fun openEditScanFragment() {
         onFragmentChangeListener.onReplaceFragment(
-            EditScannedDocumentFragment.newInstance(0), ScanActivity
+            EditScannedDocumentFragment.newInstance(onDocScanListener.scannedDocs.size-1), ScanActivity
                 .FRAGMENT_EDIT_SCAN_TAG, false
         )
     }

@@ -1,5 +1,6 @@
 package com.nmc.android.ui;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.nmc.android.OnDocScanListener;
 import com.nmc.android.utils.FileUtils;
+import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.R;
 
 import java.io.File;
@@ -28,6 +31,7 @@ import butterknife.Unbinder;
 import io.scanbot.sdk.ScanbotSDK;
 import io.scanbot.sdk.process.FilterOperation;
 import io.scanbot.sdk.process.ImageFilterType;
+import io.scanbot.sdk.process.RotateOperation;
 import io.scanbot.sdk.ui.EditPolygonImageView;
 
 public class ScanPagerFragment extends Fragment {
@@ -37,10 +41,10 @@ public class ScanPagerFragment extends Fragment {
     public ScanPagerFragment() {
     }
 
-    public static ScanPagerFragment newInstance(File file) {
+    public static ScanPagerFragment newInstance(int i) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_SCANNED_DOC_PATH, file.getPath());
+        args.putInt(ARG_SCANNED_DOC_PATH, i);
 
         ScanPagerFragment fragment = new ScanPagerFragment();
         fragment.setArguments(args);
@@ -48,7 +52,7 @@ public class ScanPagerFragment extends Fragment {
     }
 
     private Unbinder unbinder;
-    private String scannedDocPath;
+    //private String scannedDocPath;
     @BindView(R.id.editScannedImageView) EditPolygonImageView editPolygonImageView;
     @BindView(R.id.editScanImageProgressBar) ProgressBar progressBar;
 
@@ -61,12 +65,24 @@ public class ScanPagerFragment extends Fragment {
 
     private long lastRotationEventTs = 0L;
     private int rotationDegrees = 0;
+    private int index;
+
+    private OnDocScanListener onDocScanListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try{
+            onDocScanListener = (OnDocScanListener)context;
+        }
+        catch (Exception ignored){}
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            scannedDocPath = getArguments().getString(ARG_SCANNED_DOC_PATH);
+            index = getArguments().getInt(ARG_SCANNED_DOC_PATH);
         }
     }
 
@@ -83,18 +99,33 @@ public class ScanPagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
-        File file = new File(scannedDocPath);
-        originalBitmap = FileUtils.convertFileToBitmap(file);
+        //File file = new File(scannedDocPath);
+        //originalBitmap = FileUtils.convertFileToBitmap(file);
         // previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
-        loadImage();
+       // loadImage();
+        setUpBitmap();
+    }
+
+    private void setUpBitmap(){
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                originalBitmap = onDocScanListener.getScannedDocs().get(index);
+                previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                   loadImage();
+                    }
+                });
+            }
+        });
     }
 
     private void loadImage() {
         if (previewBitmap != null) {
             editPolygonImageView.setImageBitmap(previewBitmap);
-            //Glide.with(requireContext()).load(previewBitmap).asBitmap().into(imageView);
         } else {
-            //Glide.with(requireContext()).load(originalBitmap).asBitmap().into(imageView);
             editPolygonImageView.setImageBitmap(originalBitmap);
         }
     }
@@ -114,6 +145,14 @@ public class ScanPagerFragment extends Fragment {
         rotationDegrees += 90;
         editPolygonImageView.rotateClockwise();
         lastRotationEventTs = System.currentTimeMillis();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap rotatedBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
+                                                                           new ArrayList<>(Collections.singletonList(new RotateOperation(rotationDegrees))),false);
+                onDocScanListener.replaceScannedDoc(index, rotatedBitmap);
+            }
+        });
     }
 
     public void applyFilter(ImageFilterType imageFilterType) {
@@ -121,6 +160,7 @@ public class ScanPagerFragment extends Fragment {
         executorService.execute(() -> {
             previewBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
                                                                 new ArrayList<>(Collections.singletonList(new FilterOperation(imageFilterType))), false);
+           onDocScanListener.replaceScannedDoc(index, previewBitmap);
             handler.post(() -> {
                 progressBar.setVisibility(View.GONE);
                 loadImage();

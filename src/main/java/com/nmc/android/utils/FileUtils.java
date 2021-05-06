@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class FileUtils {
     }
 
     public static File getOutputMediaFile(Context context) {
-        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), SCANNED_DIRECTORY_NAME);
+        File file = new File(MainApp.getStoragePath(), MainApp.getDataFolder());
         if (!file.exists()) {
             file.mkdir();
         }

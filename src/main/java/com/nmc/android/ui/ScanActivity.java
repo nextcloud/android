@@ -18,6 +18,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import io.scanbot.sdk.ScanbotSDK;
@@ -34,11 +35,11 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     private ActivityScanBinding binding;
     private ScanbotSDK scanbotSDK;
 
-    private final List<File> scannedImages = new ArrayList<>();
+    private final List<Bitmap> scannedImages = new ArrayList<>();
 
-    public static void openScanActivity(Context context) {
+    public static void openScanActivity(Context context, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
-        context.startActivity(intent);
+        ((AppCompatActivity)context).startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -98,8 +99,13 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     private void onBackPressHandle() {
         Fragment editScanFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_EDIT_SCAN_TAG);
         Fragment cropScanFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_CROP_SCAN_TAG);
-        if (cropScanFragment != null) {
-            onReplaceFragment(EditScannedDocumentFragment.newInstance(0), FRAGMENT_EDIT_SCAN_TAG, false);
+        Fragment saveScanFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_SAVE_SCAN_TAG);
+        if (cropScanFragment != null || saveScanFragment != null) {
+            int index = 0;
+            if (cropScanFragment instanceof CropScannedDocumentFragment){
+                index = ((CropScannedDocumentFragment)cropScanFragment).getScannedDocIndex();
+            }
+            onReplaceFragment(EditScannedDocumentFragment.newInstance(index), FRAGMENT_EDIT_SCAN_TAG, false);
         } else if (editScanFragment != null) {
             createScanFragment(null);
         } else {
@@ -116,19 +122,19 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     }
 
     @Override
-    public void addScannedDoc(File file) {
+    public void addScannedDoc(Bitmap file) {
         if (file != null) {
             scannedImages.add(file);
         }
     }
 
     @Override
-    public List<File> getScannedDocs() {
+    public List<Bitmap> getScannedDocs() {
         return scannedImages;
     }
 
     @Override
-    public boolean removedScannedDoc(File file) {
+    public boolean removedScannedDoc(Bitmap file) {
         if (scannedImages.size() > 0 && file != null) {
             return scannedImages.remove(file);
         }
@@ -136,7 +142,7 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     }
 
     @Override
-    public File replaceScannedDoc(int index, File newFile) {
+    public Bitmap replaceScannedDoc(int index, Bitmap newFile) {
         if (scannedImages.size() > 0 && newFile != null && index >= 0 && scannedImages.size() - 1 >= index) {
             return scannedImages.set(index, newFile);
         }

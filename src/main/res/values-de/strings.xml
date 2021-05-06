@@ -889,4 +889,5 @@
     <string name="scan_save_pdf_password">PDF-Passwort</string>
     <string name="scan_save_set_password_hint">Passwort setzen</string>
     <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
+    <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
 </resources>

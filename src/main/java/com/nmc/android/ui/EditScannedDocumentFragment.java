@@ -2,6 +2,7 @@ package com.nmc.android.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +16,6 @@ import com.nmc.android.OnFragmentChangeListener;
 import com.nmc.android.adapters.ViewPagerFragmentAdapter;
 import com.owncloud.android.R;
 
-import java.io.File;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -67,7 +67,8 @@ public class EditScannedDocumentFragment extends Fragment {
     @BindView(R.id.deleteDocButton)
     AppCompatImageView deleteButton;
 
-    private File selectedScannedDocFile;
+    private Bitmap selectedScannedDocFile;
+    private int currentSelectedItemIndex;
     private int currentItemIndex;
 
     private AlertDialog applyFilterDialog;
@@ -113,23 +114,23 @@ public class EditScannedDocumentFragment extends Fragment {
 
     private void setUpViewPager() {
         pagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
-        List<File> filesList = onDocScanListener.getScannedDocs();
+        List<Bitmap> filesList = onDocScanListener.getScannedDocs();
         if (filesList.size() == 0) {
-            onScanMore();
+            onScanMore(true);
             return;
         }
         for (int i = 0; i < filesList.size(); i++) {
-            pagerFragmentAdapter.addFragment(ScanPagerFragment.newInstance(filesList.get(i)));
+            pagerFragmentAdapter.addFragment(ScanPagerFragment.newInstance(i));
         }
         imageViewPager.setAdapter(pagerFragmentAdapter);
-
+        imageViewPager.post(() -> imageViewPager.setCurrentItem(currentItemIndex, false));
         imageViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                currentItemIndex = position;
+                super.onPageSelected(position);
+                currentSelectedItemIndex = position;
                 selectedScannedDocFile = filesList.get(position);
                 updateDocCountText(position, filesList.size());
-                super.onPageSelected(position);
             }
         });
 
@@ -150,17 +151,17 @@ public class EditScannedDocumentFragment extends Fragment {
     void onClickListener(View view) {
         switch (view.getId()) {
             case R.id.scanMoreButton:
-                onScanMore();
+                onScanMore(false);
                 break;
             case R.id.cropDocButton:
-                onFragmentChangeListener.onReplaceFragment(CropScannedDocumentFragment.newInstance(selectedScannedDocFile, currentItemIndex),
+                onFragmentChangeListener.onReplaceFragment(CropScannedDocumentFragment.newInstance(currentSelectedItemIndex),
                                                            ScanActivity.FRAGMENT_CROP_SCAN_TAG, false);
                 break;
             case R.id.filterDocButton:
                 showApplyFilterDialog();
                 break;
             case R.id.rotateDocButton:
-                Fragment fragment = pagerFragmentAdapter.getFragment(currentItemIndex);
+                Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
                 if (fragment instanceof ScanPagerFragment) {
                     ((ScanPagerFragment) fragment).rotate();
                 }
@@ -175,8 +176,13 @@ public class EditScannedDocumentFragment extends Fragment {
         }
     }
 
-    private void onScanMore() {
-        onFragmentChangeListener.onReplaceFragment(ScanDocumentFragment.newInstance(TAG),
+    /**
+     * check if fragment has to open on + button click or when all scans removed
+     *
+     * @param isNoItem
+     */
+    private void onScanMore(boolean isNoItem) {
+        onFragmentChangeListener.onReplaceFragment(ScanDocumentFragment.newInstance(isNoItem ? ScanActivity.TAG : TAG),
                                                    ScanActivity.FRAGMENT_SCAN_TAG, false);
     }
 
@@ -214,7 +220,7 @@ public class EditScannedDocumentFragment extends Fragment {
     }
 
     private void applyFilter(ImageFilterType imageFilterType) {
-        Fragment fragment = pagerFragmentAdapter.getFragment(currentItemIndex);
+        Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
         if (fragment instanceof ScanPagerFragment) {
             ((ScanPagerFragment) fragment).applyFilter(imageFilterType);
         }
