@@ -327,7 +327,6 @@
     <string name="logs_status_loading">Učitavam…</string>
     <string name="logs_status_not_filtered">Zapisnici: %1$d kB, bez filtriranja</string>
     <string name="logs_title">Zapisnici</string>
-    <string name="maintenance_mode">Server u režimu održavanja</string>
     <string name="manage_space_clear_data">Očisti podatke</string>
     <string name="manage_space_description">Podešavanja, baza i serverski sertifikati od podataka sa %1$s će biti zauvek obrisani. \n\nVeć skinuti fajlovi neće biti dirani.\n\nOvo može potrajati.</string>
     <string name="manage_space_title">Upravljanje prostorom</string>

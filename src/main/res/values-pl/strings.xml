@@ -398,7 +398,6 @@
     <string name="logs_status_loading">Ładowanie…</string>
     <string name="logs_status_not_filtered">Dziennik: %1$d kB, bez filtra</string>
     <string name="logs_title">Dziennik</string>
-    <string name="maintenance_mode">Serwer w trybie konserwacji</string>
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>

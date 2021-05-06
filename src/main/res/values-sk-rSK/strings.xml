@@ -378,7 +378,6 @@
     <string name="logs_status_loading">Načítava sa…</string>
     <string name="logs_status_not_filtered">Záznamy: %1$d kB, bez filtra</string>
     <string name="logs_title">Záznamy</string>
-    <string name="maintenance_mode">Server je v režime údržby</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>

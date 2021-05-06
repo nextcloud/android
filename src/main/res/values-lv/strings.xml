@@ -285,7 +285,6 @@
     <string name="logs_menu_refresh">Atsvaidzināt</string>
     <string name="logs_status_loading">Notiek ielāde...</string>
     <string name="logs_title">Žurnāli</string>
-    <string name="maintenance_mode">Serveris ir uzturēšanas režīmā</string>
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks dzēsti pilnībā. \n\nLejupielādētās datnes paliks neskartas.\n\nŠis proces var aizņemt mazliet laika.</string>
     <string name="manage_space_title">Pārvaldīt vietu</string>

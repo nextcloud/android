@@ -271,7 +271,6 @@
     <string name="logs_menu_refresh">Segarkan</string>
     <string name="logs_status_loading">Memuat…</string>
     <string name="logs_title">Log</string>
-    <string name="maintenance_mode">Server dalam proses perawatan.</string>
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>

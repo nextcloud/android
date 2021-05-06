@@ -398,7 +398,6 @@
     <string name="logs_status_loading">Carregando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
     <string name="logs_title">Logs</string>
-    <string name="maintenance_mode">O servidor está em modo de manutenção</string>
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
