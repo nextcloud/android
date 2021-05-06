@@ -396,7 +396,6 @@
     <string name="logs_status_loading">Загрузка…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фильтра</string>
     <string name="logs_title">Журнал</string>
-    <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>

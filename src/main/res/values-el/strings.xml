@@ -389,7 +389,6 @@
     <string name="logs_status_loading">Φορτώνει…</string>
     <string name="logs_status_not_filtered">Αρχεία καταγραφής: %1$d kb, χωρίς φίλτρο</string>
     <string name="logs_title">Καταγραφές</string>
-    <string name="maintenance_mode">Ο διακομιστής είναι σε κατάσταση συντήρησης</string>
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
     <string name="manage_space_title">Διαχείριση χώρου</string>

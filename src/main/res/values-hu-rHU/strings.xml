@@ -396,7 +396,6 @@
     <string name="logs_status_loading">Betöltés…</string>
     <string name="logs_status_not_filtered">Naplók: %1$d kB, nincs szűrő</string>
     <string name="logs_title">Naplók</string>
-    <string name="maintenance_mode">A kiszolgáló karbantartási módban van</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_description">A beállítások, az adatbázisok és a kiszolgáló tanúsítványok véglegesen törlésre kerülnek %1$s adataiból. \n\nA letöltött fájlok érintetlenek maradnak.\n\nEz eltarthat egy darabig.</string>
     <string name="manage_space_title">Tárhelykezelés</string>

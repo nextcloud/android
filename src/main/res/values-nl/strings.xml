@@ -398,7 +398,6 @@
     <string name="logs_status_loading">Laden…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, geen filter</string>
     <string name="logs_title">Logs</string>
-    <string name="maintenance_mode">Server in onderhoudsmodus</string>
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_title">Beheer ruimte</string>

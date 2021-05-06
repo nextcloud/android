@@ -398,7 +398,6 @@
     <string name="logs_status_loading">S\'està carregant…</string>
     <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>
     <string name="logs_title">Registres</string>
-    <string name="maintenance_mode">Servidor en mode de manteniment</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>

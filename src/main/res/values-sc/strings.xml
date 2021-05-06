@@ -396,7 +396,6 @@
     <string name="logs_status_loading">Carrighende…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, perunu filtru</string>
     <string name="logs_title">Log</string>
-    <string name="maintenance_mode">Serbidore in modalidade de mantenidura</string>
     <string name="manage_space_clear_data">Lìmpia is datos</string>
     <string name="manage_space_description">Impostatziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti s\'ispàtziu</string>
