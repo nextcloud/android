@@ -1,3 +1,16 @@
+## 3.16.0 (May, 05, 2021)
+
+Enhance sharing 
+Update template section when creating new files
+Pin protection update
+Updated notification handling during updates @newhinton
+UI improvements
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+
+For a full list, please see https://github.com/nextcloud/android/milestone/55
+
 ## 3.15.1 (March, 10, 2021)
 
 - share fix
