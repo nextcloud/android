@@ -1,0 +1,5 @@
+l10n: Spelling unification
+attached view to parent when calling Inflater
+Prevent NPE on non-existing account
+Update translations
+Update Nextcloud Android library
