@@ -398,6 +398,7 @@
     <string name="logs_status_loading">Kargatzen…</string>
     <string name="logs_status_not_filtered">Egunkariak: %1$d kB, iragazkirik ez</string>
     <string name="logs_title">Egunkariak</string>
+    <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
