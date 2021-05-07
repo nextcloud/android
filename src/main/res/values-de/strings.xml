@@ -398,6 +398,7 @@
     <string name="logs_status_loading">Lade…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
     <string name="logs_title">Protokolle (Logs)</string>
+    <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>

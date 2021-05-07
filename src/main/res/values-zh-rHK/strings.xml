@@ -398,6 +398,7 @@
     <string name="logs_status_loading">載入中…</string>
     <string name="logs_status_not_filtered">記錄檔： %1$d kB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
+    <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>

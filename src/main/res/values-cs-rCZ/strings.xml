@@ -398,6 +398,7 @@
     <string name="logs_status_loading">Načítání…</string>
     <string name="logs_status_not_filtered">Záznamy událostí: %1$d kB, žádný filtr</string>
     <string name="logs_title">Záznamy událostí</string>
+    <string name="maintenance_mode">Na serveru probíhá údržba</string>
     <string name="manage_space_clear_data">Vyčistit data</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z dat %1$s budou natrvalo smazány. \n\nStažené soubory zůstanou beze změny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_title">Spravovat úložný prostor</string>
