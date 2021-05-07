@@ -253,6 +253,15 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (webview.canGoBackOrForward(-2)) {
+            webview.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
+
     private class RichDocumentsMobileInterface extends MobileInterface {
         @JavascriptInterface
         public void insertGraphic() {
