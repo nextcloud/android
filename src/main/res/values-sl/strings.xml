@@ -398,6 +398,7 @@
     <string name="logs_status_loading">Poteka nalaganje …</string>
     <string name="logs_status_not_filtered">Dnevniki: %1$d kB, brez filtra</string>
     <string name="logs_title">Dnevniki</string>
+    <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>

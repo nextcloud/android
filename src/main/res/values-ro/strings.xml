@@ -352,6 +352,7 @@
     <string name="logs_menu_refresh">Reîmprospătează</string>
     <string name="logs_status_loading">Se încarcă…</string>
     <string name="logs_title">Înregistrări</string>
+    <string name="maintenance_mode">Server în modul mentenanță</string>
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>

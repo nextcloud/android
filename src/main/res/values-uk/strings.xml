@@ -391,6 +391,7 @@
     <string name="logs_status_loading">Завантаження…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фільтру</string>
     <string name="logs_title">Журнал подій</string>
+    <string name="maintenance_mode">Сервер у режимі обслуговування</string>
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було завантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>

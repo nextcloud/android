@@ -395,6 +395,7 @@
     <string name="logs_status_loading">Ladataan…</string>
     <string name="logs_status_not_filtered">Lokit: %1$d kt, ei filtteriä</string>
     <string name="logs_title">Lokit</string>
+    <string name="maintenance_mode">Palvelin on huoltotilassa</string>
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
     <string name="manage_space_description">Asetukset, tietokanta ja palvelinsertifikaatit %1$s:n tiedoista poistetaan pysyvästi. \n\nLadatut tiedostot säilyvät koskemattomina.\n\nTämä voi kestä jonkin aikaa.</string>
     <string name="manage_space_title">Hallitse tilaa</string>

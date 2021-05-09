@@ -390,6 +390,7 @@
     <string name="logs_status_loading">Laster…</string>
     <string name="logs_status_not_filtered">Logg: %1$d kB, ingen filter</string>
     <string name="logs_title">Logger</string>
+    <string name="maintenance_mode">Server i vedlikeholdsmodus</string>
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>

@@ -398,7 +398,7 @@
     <string name="logs_status_loading">正在加载…</string>
     <string name="logs_status_not_filtered">日志：%1$d kB，没有筛选</string>
     <string name="logs_title">日志</string>
-    <string name="maintenance_mode">服务器处于维护模式下 </string>
+    <string name="maintenance_mode">服务器处于维护模式</string>
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>

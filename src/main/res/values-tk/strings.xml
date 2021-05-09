@@ -396,6 +396,7 @@
     <string name="logs_status_loading">Ýüklenýär…</string>
     <string name="logs_status_not_filtered">Žurnallar:%1$d kB, filtrsiz</string>
     <string name="logs_title">Žurnallar</string>
+    <string name="maintenance_mode">Serwer bejeriş tertibinde</string>
     <string name="manage_space_clear_data">Maglumatlary arassala</string>
     <string name="manage_space_description">Sazlamalar, maglumatlar binýady we serwer şahadatnamalary %1$shemişelik ýok ediler. \n\n Ýüklenen faýllar elýeterli bolmaz. \n\n Bu amal birneme wagt alyp biler.</string>
     <string name="manage_space_title">Boş ýeri dolandyryň</string>

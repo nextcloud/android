@@ -396,6 +396,7 @@
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="logs_status_not_filtered">Žurnalo įrašai: %1$d kB, nėra filtro</string>
     <string name="logs_title">Žurnalai</string>
+    <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>

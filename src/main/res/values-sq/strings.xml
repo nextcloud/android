@@ -357,6 +357,7 @@
     <string name="logs_status_loading">Duke u ngarkuar…</string>
     <string name="logs_status_not_filtered">Shkrimet: %1$dkB, pa filter</string>
     <string name="logs_title">Regjistrat</string>
+    <string name="maintenance_mode">Shërbyesi në gjëndje mirëmbajtjeje</string>
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nSkedarët e shkarkuar do të ruhen të paprekura.\n\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_title">Administroni hapësirë</string>

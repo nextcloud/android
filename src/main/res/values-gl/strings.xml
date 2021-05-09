@@ -396,6 +396,7 @@
     <string name="logs_status_loading">Cargando…</string>
     <string name="logs_status_not_filtered">Rexistros: %1$d kB, sen filtrar</string>
     <string name="logs_title">Rexistros</string>
+    <string name="maintenance_mode">Servidor en modo de mantemento</string>
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados de xeito permanente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados conservaranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Xestionar o espazo</string>

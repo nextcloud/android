@@ -390,6 +390,7 @@
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>
     <string name="logs_title">ログ</string>
+    <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>

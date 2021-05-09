@@ -396,6 +396,7 @@
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>
     <string name="logs_title">Logs</string>
+    <string name="maintenance_mode">Server in maintenance mode</string>
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>

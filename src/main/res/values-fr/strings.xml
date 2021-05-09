@@ -398,6 +398,7 @@ Attention la suppression est irréversible.</string>
     <string name="logs_status_loading">Chargement…</string>
     <string name="logs_status_not_filtered">Journaux: %1$d ko, pas de filtre</string>
     <string name="logs_title">Journaux</string>
+    <string name="maintenance_mode">Serveur en maintenance</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>

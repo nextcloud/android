@@ -375,6 +375,7 @@
     <string name="logs_status_loading">O Kargañ</string>
     <string name="logs_status_not_filtered">kazetennoù : %1$d kB, filtr ebet</string>
     <string name="logs_title">Kazetennoù</string>
+    <string name="maintenance_mode">Servijour er mod trezalc\'hiñ</string>
     <string name="manage_space_clear_data">Lemel ar roadennoù</string>
     <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikad ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
     <string name="manage_space_title">Merañ ar plas</string>

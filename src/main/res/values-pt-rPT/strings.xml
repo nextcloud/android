@@ -338,6 +338,7 @@
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_status_loading">A carregar...</string>
     <string name="logs_title">Registos de Alterações</string>
+    <string name="maintenance_mode">Servidor em manutenção</string>
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">As definiçóes, base de dados e certificados de servidor referentes aos dados de %1$s serão eliminados paras sempre. \n\nOs ficheiros transferidos serão mantidos inalterados.\n\nEste processo pode demorar algum tempo.</string>
     <string name="manage_space_title">Gerir espaço</string>

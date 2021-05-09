@@ -390,6 +390,7 @@
     <string name="logs_status_loading">درحال بارگیری...</string>
     <string name="logs_status_not_filtered">وقایع: %1$d kB, بدون فیلتر</string>
     <string name="logs_title">لاگ‌ها</string>
+    <string name="maintenance_mode">سرور در حالت تعمیر و نگهداری</string>
     <string name="manage_space_clear_data">باکسازی اطلاعات</string>
     <string name="manage_space_description">تنظیمات، دیتابیس و گواهی‌های سرور از داده‌های %1$s برای همیشه حذف خواهند شد. فایل‌های دریافت‌شده دست‌‌نخورده باقی می‌مانند. این روند ممکن است زمان‌بر باشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>

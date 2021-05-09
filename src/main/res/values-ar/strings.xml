@@ -385,6 +385,7 @@
     <string name="logs_status_loading">التحميل جارٍ…</string>
     <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
     <string name="logs_title">السجلات</string>
+    <string name="maintenance_mode">الخادوم في وضع الصيانة</string>
     <string name="manage_space_clear_data">مسح البيانات</string>
     <string name="manage_space_description">ستحذف الإعدادات وقواعد البيانات وشهادة الخادم من %1$s نهائياً.
 

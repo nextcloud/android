@@ -231,6 +231,7 @@
     <string name="logs_menu_refresh">Värskenda</string>
     <string name="logs_status_loading">Laadimine…</string>
     <string name="logs_title">Logid</string>
+    <string name="maintenance_mode">Server on hooldusrežiimis</string>
     <string name="manage_space_clear_data">Tühjenda andmed</string>
     <string name="manage_space_title">Ruumi haldamine</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>

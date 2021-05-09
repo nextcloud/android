@@ -377,6 +377,7 @@
     <string name="logs_status_loading">Се вчитува…</string>
     <string name="logs_status_not_filtered">Записи: %1$d kB, без филтер</string>
     <string name="logs_title">Записи</string>
+    <string name="maintenance_mode">Серверот е во мод за одржување</string>
     <string name="manage_space_clear_data">Исчисти податоци</string>
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>

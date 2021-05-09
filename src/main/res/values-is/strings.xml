@@ -373,6 +373,7 @@
     <string name="logs_status_loading">Hleð inn…</string>
     <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>
     <string name="logs_title">Aðgerðaskrár</string>
+    <string name="maintenance_mode">Þjónn í viðhaldsham</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
