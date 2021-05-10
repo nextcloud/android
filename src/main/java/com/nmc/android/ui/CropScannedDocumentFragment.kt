@@ -38,10 +38,8 @@ class CropScannedDocumentFragment : Fragment() {
 
     @BindView(R.id.crop_polygon_view)
     lateinit var editPolygonImageView: EditPolygonImageView
-
     @BindView(R.id.magnifier)
     lateinit var magnifierView: MagnifierView
-
     @BindView(R.id.crop_btn_reset_borders)
     lateinit var resetBordersButton: MaterialButton
 
@@ -54,9 +52,6 @@ class CropScannedDocumentFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      /*  arguments?.getString(ARG_SCANNED_DOC_PATH)?.let {
-            scannedDocPath = it
-        }*/
         arguments?.getInt(ARG_SCANNED_DOC_INDEX)?.let {
             scannedDocIndex = it
         }
@@ -86,18 +81,36 @@ class CropScannedDocumentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         unbinder = ButterKnife.bind(this, view)
         scanbotSDK = (requireActivity() as ScanActivity).scanbotSDK
-        InitImageViewTask().executeOnExecutor(Executors.newSingleThreadExecutor())
+        detectDocument()
     }
 
     @OnClick(R.id.crop_btn_reset_borders)
     fun onClickListener(view: View) {
         when (view.id) {
             R.id.crop_btn_reset_borders -> {
-                InitImageViewTask().executeOnExecutor(Executors.newSingleThreadExecutor())
+                if(resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))){
+                    updateButtonText(resources.getString(R.string.crop_btn_detect_doc_text))
+                    resetCrop()
+                }else if(resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_detect_doc_text))){
+                    updateButtonText(resources.getString(R.string.crop_btn_reset_crop_text))
+                    detectDocument()
+                }
             }
         }
     }
 
+    private fun updateButtonText(label: String){
+        resetBordersButton.tag = label
+        resetBordersButton.text = label
+    }
+
+    private fun resetCrop(){
+
+    }
+
+    private fun detectDocument() {
+        InitImageViewTask().executeOnExecutor(Executors.newSingleThreadExecutor())
+    }
 
     // We use AsyncTask only for simplicity here. Avoid using it in your production app due to memory leaks, etc!
     internal inner class InitImageViewTask : AsyncTask<Void?, Void?, InitImageResult>() {
@@ -186,13 +199,11 @@ class CropScannedDocumentFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_SCANNED_DOC_PATH = "scanned_doc_path"
         private const val ARG_SCANNED_DOC_INDEX = "scanned_doc_index"
 
         @JvmStatic
         fun newInstance(index: Int): CropScannedDocumentFragment {
             val args = Bundle()
-            //args.putString(ARG_SCANNED_DOC_PATH, file.path)
             args.putInt(ARG_SCANNED_DOC_INDEX, index)
             val fragment = CropScannedDocumentFragment()
             fragment.arguments = args

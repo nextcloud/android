@@ -37,6 +37,8 @@
                 android:id="@+id/scan_save_filename_input"
                 android:layout_width="0dp"
                 android:enabled="false"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:padding="@dimen/standard_padding"
@@ -357,6 +359,8 @@
                     android:id="@+id/scan_save_pdf_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="@string/scan_save_set_password_hint"
                     android:padding="@dimen/standard_padding"
@@ -407,5 +411,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/save_scan_btn_cancel" />
+
+    <ProgressBar
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/saveScanProgressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

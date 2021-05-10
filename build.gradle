@@ -169,24 +169,24 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.t_systems.android.webdav'
                 dimension "default"
             }
 
             gplay {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.t_systems.android.webdav'
                 dimension "default"
             }
 
             versionDev {
-                applicationId "com.nextcloud.android.beta"
+                applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
                 versionCode 20200129
                 versionName "20200129"
             }
 
             qa {
-                applicationId "com.nextcloud.android.qa"
+                applicationId "com.t_systems.android.webdav.qa"
                 dimension "default"
                 versionCode 1
                 versionName "1"
@@ -278,6 +278,7 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation files('src/main/libs/itextpdf-5.5.6.jar')
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"

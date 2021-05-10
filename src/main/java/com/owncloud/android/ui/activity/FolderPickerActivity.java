@@ -84,6 +84,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         ".EXTRA_CURRENT_FOLDER";
     public static final String MOVE = "MOVE";
     public static final String COPY = "COPY";
+    public static final String CHOOSE_LOCATION = "CHOOSE_LOCATION";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -129,6 +130,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     break;
                 case COPY:
                     caption = getResources().getText(R.string.copy_to).toString();
+                    mSearchOnlyFolders = true;
+                    mDoNotEnterEncryptedFolder = true;
+                    break;
+                case CHOOSE_LOCATION:
+                    caption = getResources().getText(R.string.choose_location).toString();
                     mSearchOnlyFolders = true;
                     mDoNotEnterEncryptedFolder = true;
                     break;

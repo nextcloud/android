@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_double_margin"
         android:paddingLeft="@dimen/standard_double_padding"
+        android:tag="@string/crop_btn_reset_crop_text"
         android:paddingRight="@dimen/standard_double_padding"
         android:text="@string/crop_btn_reset_crop_text"
         style="@style/Button.Borderless.Normal"

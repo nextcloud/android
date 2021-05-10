@@ -73,7 +73,7 @@ public class CreateFolderDialogFragment
 
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -81,7 +81,7 @@ public class CreateFolderDialogFragment
 
         ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-    }
+    }*/
 
     @NonNull
     @Override

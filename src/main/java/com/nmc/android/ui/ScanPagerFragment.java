@@ -18,6 +18,7 @@ import com.owncloud.android.R;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -72,10 +73,10 @@ public class ScanPagerFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        try{
-            onDocScanListener = (OnDocScanListener)context;
+        try {
+            onDocScanListener = (OnDocScanListener) context;
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     }
 
     @Override
@@ -102,11 +103,11 @@ public class ScanPagerFragment extends Fragment {
         //File file = new File(scannedDocPath);
         //originalBitmap = FileUtils.convertFileToBitmap(file);
         // previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
-       // loadImage();
+        // loadImage();
         setUpBitmap();
     }
 
-    private void setUpBitmap(){
+    private void setUpBitmap() {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -115,7 +116,7 @@ public class ScanPagerFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                   loadImage();
+                        loadImage();
                     }
                 });
             }
@@ -149,18 +150,21 @@ public class ScanPagerFragment extends Fragment {
             @Override
             public void run() {
                 Bitmap rotatedBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
-                                                                           new ArrayList<>(Collections.singletonList(new RotateOperation(rotationDegrees))),false);
+                                                                           new ArrayList<>(Collections.singletonList(new RotateOperation(rotationDegrees))), false);
                 onDocScanListener.replaceScannedDoc(index, rotatedBitmap);
             }
         });
     }
 
-    public void applyFilter(ImageFilterType imageFilterType) {
+    public void applyFilter(ImageFilterType... imageFilterType) {
         progressBar.setVisibility(View.VISIBLE);
         executorService.execute(() -> {
-            previewBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
-                                                                new ArrayList<>(Collections.singletonList(new FilterOperation(imageFilterType))), false);
-           onDocScanListener.replaceScannedDoc(index, previewBitmap);
+            List<FilterOperation> filterOperationList = new ArrayList<>();
+            for (ImageFilterType filters : imageFilterType) {
+                filterOperationList.add(new FilterOperation(filters));
+            }
+            previewBitmap = scanbotSDK.imageProcessor().process(originalBitmap, filterOperationList, false);
+            onDocScanListener.replaceScannedDoc(index, previewBitmap);
             handler.post(() -> {
                 progressBar.setVisibility(View.GONE);
                 loadImage();

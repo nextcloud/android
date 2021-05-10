@@ -42,7 +42,7 @@
 
     <item
         android:id="@+id/action_see_details"
-        android:title="@string/share_dialog_title"
+        android:title="@string/share"
         app:showAsAction="never"
         android:showAsAction="never" />
 

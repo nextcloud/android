@@ -199,7 +199,7 @@ public class EditScannedDocumentFragment extends Fragment {
                                       } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_pure_binarized))) {
                                           applyFilter(ImageFilterType.PURE_BINARIZED);
                                       } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_enhanced))) {
-                                          applyFilter(ImageFilterType.COLOR_ENHANCED);
+                                          applyFilter(ImageFilterType.COLOR_ENHANCED, ImageFilterType.EDGE_HIGHLIGHT);
                                       } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_document))) {
                                           applyFilter(ImageFilterType.COLOR_DOCUMENT);
                                       } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_grey))) {
@@ -219,7 +219,7 @@ public class EditScannedDocumentFragment extends Fragment {
         applyFilterDialog.show();
     }
 
-    private void applyFilter(ImageFilterType imageFilterType) {
+    private void applyFilter(ImageFilterType... imageFilterType) {
         Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
         if (fragment instanceof ScanPagerFragment) {
             ((ScanPagerFragment) fragment).applyFilter(imageFilterType);

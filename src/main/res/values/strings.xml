@@ -984,7 +984,7 @@
     <string name="title_save_as">Save as</string>
     <string name="scan_save_filename">Filename</string>
     <string name="scan_save_location">Location</string>
-    <string name="scan_save_location_root">Root folder</string>
+    <string name="scan_save_location_root">/Root folder</string>
     <string name="scan_save_file_type">File type</string>
     <string name="scan_save_without_text_recognition">Save without text recognition</string>
     <string name="scan_save_with_text_recognition">Save with text recognition</string>
@@ -993,5 +993,6 @@
     <string name="scan_save_set_password_hint">Set password</string>
     <string name="scan_save_no_file_select_toast">Please select at least one filetype</string>
     <string name="scan_save_file_type_text">You can save the file with or without text recognition. Multiple selection is allowed.</string>
+    <string name="choose_location">Choose location</string>
 
 </resources>

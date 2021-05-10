@@ -881,7 +881,7 @@
     <string name="title_save_as">Speichern unter</string>
     <string name="scan_save_filename">Dateiname</string>
     <string name="scan_save_location">Speicherort</string>
-    <string name="scan_save_location_root">Hauptverzeichnis</string>
+    <string name="scan_save_location_root">/Hauptverzeichnis</string>
     <string name="scan_save_file_type">Dateityp</string>
     <string name="scan_save_without_text_recognition">Save without text recognition</string>
     <string name="scan_save_with_text_recognition">Save with text recognition</string>
@@ -890,4 +890,5 @@
     <string name="scan_save_set_password_hint">Passwort setzen</string>
     <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
     <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
+    <string name="choose_location">Speicherort wählen</string>
 </resources>
