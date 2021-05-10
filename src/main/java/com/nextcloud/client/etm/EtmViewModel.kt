@@ -49,7 +49,7 @@ import javax.inject.Inject
 @SuppressLint("StaticFieldLeak")
 class EtmViewModel @Inject constructor(
     private val context: Context,
-    private val defaultPreferences: SharedPreferences,
+    internal val defaultPreferences: SharedPreferences,
     private val platformAccountManager: AccountManager,
     private val accountManager: UserAccountManager,
     private val resources: Resources,

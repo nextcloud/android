@@ -26,26 +26,13 @@ import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Assume
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class EtmActivityTest : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
-
-    @Before
-    fun before() {
-        // tests only on NC 18
-        Assume.assumeTrue(
-            storageManager
-                .getCapability(account.name)
-                .version.compareTo(OwnCloudVersion.nextcloud_18) == 0
-        )
-    }
 
     @Test
     @ScreenshotTest
@@ -61,6 +48,16 @@ class EtmActivityTest : AbstractIT() {
     @ScreenshotTest
     fun preferences() {
         val sut: EtmActivity = activityRule.launchActivity(null)
+        val preferences = sut.getSharedPreferences()
+
+        preferences.edit().apply {
+            clear()
+            putString("TEST", "ONLY_DUMMY_VALUES")
+            putBoolean("autoUploadEntriesSplitOut", true)
+            putString("darkMode", "SYSTEM")
+            putString("lock", "none")
+            commit()
+        }
 
         UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(0) }
 
