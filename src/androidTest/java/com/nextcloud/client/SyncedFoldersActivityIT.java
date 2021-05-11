@@ -39,7 +39,6 @@ import org.junit.Test;
 import java.util.Objects;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -48,10 +47,6 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<SyncedFoldersActivity> activityRule = new IntentsTestRule<>(SyncedFoldersActivity.class,
                                                                                              true,
                                                                                              false);
-
-    @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
     @ScreenshotTest

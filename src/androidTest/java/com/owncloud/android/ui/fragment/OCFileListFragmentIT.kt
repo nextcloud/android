@@ -22,13 +22,7 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.Manifest
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.rule.GrantPermissionRule
-import com.nextcloud.client.device.BatteryStatus
-import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.network.Connectivity
-import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -39,37 +33,8 @@ import org.junit.Test
 import java.io.File
 
 class OCFileListFragmentIT : AbstractOnServerIT() {
-    companion object {
-        val SECOND_IN_MILLIS = 1000L
-        val RESULT_PER_PAGE = 50
-    }
-
     @get:Rule
     val activityRule = IntentsTestRule(FileDisplayActivity::class.java, true, false)
-
-    @get:Rule
-    val permissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
-        override fun isInternetWalled(): Boolean {
-            return false
-        }
-
-        override fun getConnectivity(): Connectivity {
-            return Connectivity.CONNECTED_WIFI
-        }
-    }
-
-    private val powerManagementServiceMock: PowerManagementService = object : PowerManagementService {
-        override val isPowerSavingEnabled: Boolean
-            get() = false
-
-        override val isPowerSavingExclusionAvailable: Boolean
-            get() = false
-
-        override val battery: BatteryStatus
-            get() = BatteryStatus()
-    }
 
     @Test
     @SuppressWarnings("MagicNumber")

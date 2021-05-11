@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.net.Uri;
@@ -41,7 +40,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -55,9 +53,6 @@ public class DrawerActivityIT extends AbstractIT {
                                                                                            true,
                                                                                            false);
 
-    @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
     private static Account account1;
     private static User user1;
     private static Account account2;

@@ -22,8 +22,6 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.Manifest;
-
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -36,16 +34,11 @@ import java.io.File;
 import java.io.IOException;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 public class PreviewTextFileFragmentTest extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
-
-    @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Test
     // @ScreenshotTest // todo run without real server
