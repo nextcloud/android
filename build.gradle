@@ -210,6 +210,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
     }
 
     tasks.register("checkstyle", Checkstyle) {
@@ -278,7 +279,6 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation files('src/main/libs/itextpdf-5.5.6.jar')
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
@@ -421,6 +421,11 @@ dependencies {
     //scanbot sdk
     //implementation "io.scanbot:sdk-package-1:$scanbotSdkVersion"
     implementation "io.scanbot:sdk-package-2:$scanbotSdkVersion"
+
+    //apache pdf-box for encrypting pdf files
+    implementation (group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.1'){
+        exclude group: "commons-logging"
+    }
 }
 
 spotbugs {

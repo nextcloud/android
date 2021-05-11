@@ -21,8 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
-import com.nmc.android.OnDocScanListener
-import com.nmc.android.OnFragmentChangeListener
+import com.nmc.android.interfaces.OnDocScanListener
+import com.nmc.android.interfaces.OnFragmentChangeListener
 import com.owncloud.android.R
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
@@ -103,6 +103,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         //supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         if (requireActivity() is ScanActivity) {
             (requireActivity() as ScanActivity).showHideToolbar(false)
+            (requireActivity() as ScanActivity).showHideDefaultToolbarDivider(false)
         }
         return inflater.inflate(R.layout.fragment_scan_document, container, false)
     }
@@ -334,7 +335,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         // Log.d("SCANNING","File : $file")
         if (documentImage != null) {
             onDocScanListener.addScannedDoc(documentImage)
-           // onDocScanListener.addScannedDoc(FileUtils.saveImage(requireContext(), documentImage, null))
+            // onDocScanListener.addScannedDoc(FileUtils.saveImage(requireContext(), documentImage, null))
             openEditScanFragment()
 
             /*  uiScope.launch {
@@ -354,7 +355,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
     private fun openEditScanFragment() {
         onFragmentChangeListener.onReplaceFragment(
-            EditScannedDocumentFragment.newInstance(onDocScanListener.scannedDocs.size-1), ScanActivity
+            EditScannedDocumentFragment.newInstance(onDocScanListener.scannedDocs.size - 1), ScanActivity
                 .FRAGMENT_EDIT_SCAN_TAG, false
         )
     }
@@ -468,11 +469,6 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
                     Log.d("Main Activity", file.path)
 
-                    /*val intent = Intent()
-                    intent.putExtra(EXTRA_SCAN_DOCUMENT_PATH, file.path)
-                    requireActivity().setResult(Activity.RESULT_OK, intent)
-                    requireActivity().finish()*/
-
                 }
             }
         }
@@ -482,10 +478,6 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         private val POLYGON_FILL_COLOR = Color.parseColor("#55ff0000")
         private val POLYGON_FILL_COLOR_OK = Color.parseColor("#4400ff00")
         private const val CAMERA_PERMISSION_REQUEST_CODE: Int = 811
-
-        @JvmStatic
-        val EXTRA_SCAN_DOCUMENT_PATH = ScanDocumentFragment::class.java.canonicalName +
-            ".EXTRA_SCAN_DOCUMENT_PATH"
 
         @JvmStatic
         val ARG_CALLED_FROM = "arg called_From"

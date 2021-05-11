@@ -3,6 +3,7 @@ package com.nmc.android.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -28,6 +29,7 @@ public class FileUtils {
     private static final String SCANNED_FILE_PREFIX = "scan_";
     private static final int JPG_FILE_TYPE = 1;
     private static final int PNG_FILE_TYPE = 2;
+    private static final String SCANNED_DIRECTORY_NAME = "Scans";
 
     public static File saveJpgImage(Context context, Bitmap bitmap, String imageName) {
         return saveImage(context, bitmap, imageName, JPG_FILE_TYPE);
@@ -94,7 +96,7 @@ public class FileUtils {
     }
 
     public static File getOutputMediaFile(Context context) {
-        File file = new File(MainApp.getStoragePath(), MainApp.getDataFolder());
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), SCANNED_DIRECTORY_NAME);
         if (!file.exists()) {
             file.mkdir();
         }

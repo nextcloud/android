@@ -1,6 +1,7 @@
 package com.nmc.android.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,12 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.nmc.android.OnDocScanListener;
-import com.nmc.android.utils.FileUtils;
+import com.nmc.android.interfaces.OnDocScanListener;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +23,7 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.HandlerCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
@@ -69,6 +69,9 @@ public class ScanPagerFragment extends Fragment {
     private int index;
 
     private OnDocScanListener onDocScanListener;
+    private AlertDialog applyFilterDialog;
+    private int selectedFilter = 0;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -137,6 +140,10 @@ public class ScanPagerFragment extends Fragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+
+        if (applyFilterDialog != null && applyFilterDialog.isShowing()) {
+            applyFilterDialog.dismiss();
+        }
     }
 
     public void rotate() {
@@ -156,7 +163,40 @@ public class ScanPagerFragment extends Fragment {
         });
     }
 
-    public void applyFilter(ImageFilterType... imageFilterType) {
+    public void showApplyFilterDialog() {
+        String[] filterArray = getResources().getStringArray(R.array.edit_scan_filter_values);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.edit_scan_filter_dialog_title)
+            .setSingleChoiceItems(filterArray,
+                                  selectedFilter,
+                                  (dialog, which) -> {
+                                      selectedFilter = which;
+                                      if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_none))) {
+                                          applyFilter(ImageFilterType.NONE);
+                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_pure_binarized))) {
+                                          applyFilter(ImageFilterType.PURE_BINARIZED);
+                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_enhanced))) {
+                                          applyFilter(ImageFilterType.COLOR_ENHANCED, ImageFilterType.EDGE_HIGHLIGHT);
+                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_document))) {
+                                          applyFilter(ImageFilterType.COLOR_DOCUMENT);
+                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_grey))) {
+                                          applyFilter(ImageFilterType.GRAYSCALE);
+                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_b_n_w))) {
+                                          applyFilter(ImageFilterType.BLACK_AND_WHITE);
+                                      }
+
+                                      dialog.dismiss();
+                                  })
+            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                }
+            });
+        applyFilterDialog = builder.create();
+        applyFilterDialog.show();
+    }
+
+    private void applyFilter(ImageFilterType... imageFilterType) {
         progressBar.setVisibility(View.VISIBLE);
         executorService.execute(() -> {
             List<FilterOperation> filterOperationList = new ArrayList<>();

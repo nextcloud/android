@@ -1,7 +1,6 @@
 package com.nmc.android.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nmc.android.OnDocScanListener;
-import com.nmc.android.OnFragmentChangeListener;
+import com.nmc.android.interfaces.OnDocScanListener;
+import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.nmc.android.adapters.ViewPagerFragmentAdapter;
 import com.owncloud.android.R;
 
@@ -20,7 +19,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
@@ -29,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.scanbot.sdk.process.ImageFilterType;
 
 public class EditScannedDocumentFragment extends Fragment {
 
@@ -71,9 +68,6 @@ public class EditScannedDocumentFragment extends Fragment {
     private int currentSelectedItemIndex;
     private int currentItemIndex;
 
-    private AlertDialog applyFilterDialog;
-    private int selectedFilter = 0;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +92,8 @@ public class EditScannedDocumentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (requireActivity() instanceof ScanActivity) {
             ((ScanActivity) requireActivity()).showHideToolbar(true);
+            ((ScanActivity) requireActivity()).showHideDefaultToolbarDivider(true);
             ((ScanActivity) requireActivity()).updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.title_edit_scan));
-
         }
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_edit_scanned_document, container, false);
@@ -158,7 +152,7 @@ public class EditScannedDocumentFragment extends Fragment {
                                                            ScanActivity.FRAGMENT_CROP_SCAN_TAG, false);
                 break;
             case R.id.filterDocButton:
-                showApplyFilterDialog();
+                showFilterDialog();
                 break;
             case R.id.rotateDocButton:
                 Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
@@ -186,43 +180,10 @@ public class EditScannedDocumentFragment extends Fragment {
                                                    ScanActivity.FRAGMENT_SCAN_TAG, false);
     }
 
-    private void showApplyFilterDialog() {
-        String[] filterArray = getResources().getStringArray(R.array.edit_scan_filter_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.edit_scan_filter_dialog_title)
-            .setSingleChoiceItems(filterArray,
-                                  selectedFilter,
-                                  (dialog, which) -> {
-                                      selectedFilter = which;
-                                      if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_none))) {
-                                          applyFilter(ImageFilterType.NONE);
-                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_pure_binarized))) {
-                                          applyFilter(ImageFilterType.PURE_BINARIZED);
-                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_enhanced))) {
-                                          applyFilter(ImageFilterType.COLOR_ENHANCED, ImageFilterType.EDGE_HIGHLIGHT);
-                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_color_document))) {
-                                          applyFilter(ImageFilterType.COLOR_DOCUMENT);
-                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_grey))) {
-                                          applyFilter(ImageFilterType.GRAYSCALE);
-                                      } else if (filterArray[which].equalsIgnoreCase(getResources().getString(R.string.edit_scan_filter_b_n_w))) {
-                                          applyFilter(ImageFilterType.BLACK_AND_WHITE);
-                                      }
-
-                                      dialog.dismiss();
-                                  })
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                }
-            });
-        applyFilterDialog = builder.create();
-        applyFilterDialog.show();
-    }
-
-    private void applyFilter(ImageFilterType... imageFilterType) {
+    private void showFilterDialog() {
         Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
         if (fragment instanceof ScanPagerFragment) {
-            ((ScanPagerFragment) fragment).applyFilter(imageFilterType);
+            ((ScanPagerFragment) fragment).showApplyFilterDialog();
         }
     }
 
@@ -249,10 +210,6 @@ public class EditScannedDocumentFragment extends Fragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
-        if (applyFilterDialog != null && applyFilterDialog.isShowing()) {
-            applyFilterDialog.dismiss();
-        }
-
     }
 
 }

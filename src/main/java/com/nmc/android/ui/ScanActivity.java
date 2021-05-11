@@ -6,13 +6,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.nmc.android.OnDocScanListener;
-import com.nmc.android.OnFragmentChangeListener;
+import com.nmc.android.interfaces.OnDocScanListener;
+import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityScanBinding;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
     private ActivityScanBinding binding;
     private ScanbotSDK scanbotSDK;
 
-    private final List<Bitmap> scannedImages = new ArrayList<>();
+    public static final List<Bitmap> scannedImages = new ArrayList<>();
 
     public static void openScanActivity(Context context, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
@@ -48,6 +47,7 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
         // Inflate and set the layout view
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        scannedImages.clear();
         initScanbotSDK();
         setupToolbar();
         if (getSupportActionBar() != null) {

@@ -26,6 +26,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,5 +89,9 @@ public final class StringUtils {
         int indexEnd = indexStart + textToBold.length();
         spannable.setSpan(new StyleSpan(Typeface.BOLD), indexStart, indexEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
+    }
+
+    public static List<String> convertStringToList(String input) {
+        return Arrays.asList(input.split("\\s*,\\s*"));
     }
 }

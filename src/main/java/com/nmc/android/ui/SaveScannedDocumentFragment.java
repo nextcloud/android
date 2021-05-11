@@ -1,30 +1,31 @@
 package com.nmc.android.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.nmc.android.OnDocScanListener;
-import com.nmc.android.OnFragmentChangeListener;
+import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nmc.android.interfaces.OnDocScanListener;
+import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.nmc.android.utils.FileUtils;
 import com.nmc.android.utils.KeyboardUtils;
 import com.owncloud.android.R;
@@ -34,19 +35,10 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,19 +54,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.scanbot.sdk.ScanbotSDK;
-import io.scanbot.sdk.core.contourdetector.DetectionResult;
-import io.scanbot.sdk.entity.Language;
 import io.scanbot.sdk.ocr.OpticalCharacterRecognizer;
-import io.scanbot.sdk.ocr.process.OcrResult;
-import io.scanbot.sdk.persistence.Page;
 import io.scanbot.sdk.persistence.PageFileStorage;
-import io.scanbot.sdk.process.PDFPageSize;
 import io.scanbot.sdk.process.PDFRenderer;
 
-import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static java.util.Collections.emptyList;
-
-public class SaveScannedDocumentFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+public class SaveScannedDocumentFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Injectable {
 
     protected static final String TAG = "SaveScannedDocumentFragment";
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
@@ -92,6 +76,14 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     private Unbinder unbinder;
     private OnFragmentChangeListener onFragmentChangeListener;
     private OnDocScanListener onDocScanListener;
+
+    public static final String SAVE_TYPE_PDF = "pdf";
+    public static final String SAVE_TYPE_PNG = "png";
+    public static final String SAVE_TYPE_JPG = "jpg";
+    public static final String SAVE_TYPE_PDF_OCR = "pdf_ocr";
+    public static final String SAVE_TYPE_TXT = "txt";
+
+    public static final String EXTRA_SCAN_DOC_REMOTE_PATH = "scan_doc_remote_path";
 
     @BindView(R.id.scan_save_nested_scroll_view)
     NestedScrollView nestedScrollView;
@@ -131,6 +123,10 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
     private Handler handler = HandlerCompat.createAsync(Looper.getMainLooper());
     private boolean isFileNameEditable = false;
+    private String remotePath = "/";
+    private OCFile remoteFilePath;
+
+    @Inject BackgroundJobManager backgroundJobManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,6 +151,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (requireActivity() instanceof ScanActivity) {
             ((ScanActivity) requireActivity()).showHideToolbar(true);
+            ((ScanActivity) requireActivity()).showHideDefaultToolbarDivider(true);
             ((ScanActivity) requireActivity()).updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.title_save_as));
         }
         return inflater.inflate(R.layout.fragment_scan_save, container, false);
@@ -203,6 +200,14 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         pdfOcrCheckBox.setOnCheckedChangeListener(this);
         txtFileCheckBox.setOnCheckedChangeListener(this);
         pdfPasswordSwitch.setOnCheckedChangeListener(this);
+
+        fileNameInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                enableFileNameEditing();
+                return true;
+            }
+            return false;
+        });
     }
 
     private void enableDisablePdfPasswordSwitch() {
@@ -228,11 +233,13 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         isFileNameEditable = !isFileNameEditable;
         fileNameInput.setEnabled(isFileNameEditable);
         if (isFileNameEditable) {
+            fileNameEditBtn.setImageResource(R.drawable.ic_tick);
             KeyboardUtils.showSoftKeyboard(requireContext(), fileNameInput);
+            fileNameInput.setSelection(fileNameInput.getText().toString().trim().length());
         } else {
+            fileNameEditBtn.setImageResource(R.drawable.ic_pencil_edit);
             KeyboardUtils.hideKeyboardFrom(requireContext(), fileNameInput);
         }
-        fileNameInput.setSelection(fileNameInput.getText().toString().trim().length());
     }
 
 
@@ -274,175 +281,47 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
             DisplayUtils.showSnackMessage(requireActivity(), R.string.scan_save_no_file_select_toast);
             return;
         }
-        //do file save
-        //savePDFFiles();
-        //savePngFiles(fileName);
-        savePDFFiles(fileName);
-        //savePDFWithOCR(fileName);
-        //saveTextFile(fileName);
-    }
 
-    private void savePngFiles(String fileName) {
-        progressBar.setVisibility(View.VISIBLE);
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "===IMAGE FILES SAVE STARTED===");
-                List<Bitmap> bitmapList = onDocScanListener.getScannedDocs();
-                for (int i = 0; i < bitmapList.size(); i++) {
-                    String newFileName = fileName;
-                    Bitmap bitmap = bitmapList.get(i);
-                    if (i > 0) {
-                        newFileName += "(" + i + ")";
-                    }
-                    File pngFile = FileUtils.savePngImage(requireContext(), bitmap, newFileName);
-                    File jpgFile = FileUtils.saveJpgImage(requireContext(), bitmap, newFileName);
-                    Log.d(TAG, "IMAGE FILEs : " + pngFile + "\n" + jpgFile);
-                    //FileUtils.writeTextToFile(requireContext(),"", fileName);
-                }
-
-                Log.d(TAG, "===IMAGE FILES SAVED===");
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
-
-
-    }
-
-    private void savePDFFiles(String fileName) {
-        progressBar.setVisibility(View.VISIBLE);
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "===PDF FILES SAVE STARTED===");
-
-                List<Page> pageList = getScannedPages();
-
-                File pdfFile = pdfRenderer.renderDocumentFromPages(pageList, PDFPageSize.A4);
-                if (pdfFile != null) {
-                    File renamedFile = new File(pdfFile.getParent() + PATH_SEPARATOR + fileName + ".pdf");
-                    if (pdfFile.renameTo(renamedFile)) {
-                        Log.d(TAG, "File successfully renamed");
-                    }
-                    Log.d(TAG, "===PDF FILES SAVED=== : " + pdfFile + "\n" + renamedFile);
-                    pdfWithPassword(renamedFile);
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
-
-        // Log.d(TAG, "PDF file path : " + pdfFile.getPath());
-    }
-
-    private void pdfWithPassword(File pdfFile) {
-        try {
-            String userPassword = "a";
-            String ownerPassword = "b";
-            OutputStream fos = new FileOutputStream(pdfFile);
-            Document document = new Document();
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, fos);
-            pdfWriter.setEncryption(userPassword.getBytes(),
-                                    ownerPassword.getBytes(),
-                                    PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
-            Log.d(TAG, "PASSWORD PDF DONE");
-        } catch (FileNotFoundException | DocumentException e) {
-            e.printStackTrace();
+        StringBuilder fileTypesStringBuilder = new StringBuilder();
+        if (pdfCheckBox.isChecked()) {
+            fileTypesStringBuilder.append(SAVE_TYPE_PDF);
+            fileTypesStringBuilder.append(",");
+        }
+        if (jpgCheckBox.isChecked()) {
+            fileTypesStringBuilder.append(SAVE_TYPE_PNG);
+            fileTypesStringBuilder.append(",");
+        }
+        if (pngCheckBox.isChecked()) {
+            fileTypesStringBuilder.append(SAVE_TYPE_JPG);
+            fileTypesStringBuilder.append(",");
+        }
+        if (pdfOcrCheckBox.isChecked()) {
+            fileTypesStringBuilder.append(SAVE_TYPE_PDF_OCR);
+            fileTypesStringBuilder.append(",");
+        }
+        if (txtFileCheckBox.isChecked()) {
+            fileTypesStringBuilder.append(SAVE_TYPE_TXT);
+        }
+        String pdfPassword = pdfPasswordEt.getText().toString().trim();
+        if (pdfPasswordSwitch.isChecked() && TextUtils.isEmpty(pdfPassword)) {
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_link_empty_password);
+            return;
         }
 
+        //start the save and upload worker
+        backgroundJobManager.scheduleImmediateScanDocUploadJob(
+            fileTypesStringBuilder.toString(),
+            fileName,
+            remotePath,
+            pdfPassword);
 
-    }
-
-
-    @NotNull
-    private List<Page> getScannedPages() {
-        List<Page> pageList = new ArrayList<>();
-        for (Bitmap bitmap : onDocScanListener.getScannedDocs()) {
-            Page page = new Page(pageFileStorage.add(bitmap), emptyList(),
-                                 DetectionResult.OK);
-            pageList.add(page);
-        }
-        return pageList;
-    }
-
-    private void savePDFWithOCR(String fileName) {
-        progressBar.setVisibility(View.VISIBLE);
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "===PDF OCR FILES SAVE STARTED===");
-                Set<Language> set = new HashSet<>(Collections.singletonList(Language.ENG));
-                OcrResult ocrResult = opticalCharacterRecognizer.recognizeTextWithPdfFromPages(getScannedPages(), PDFPageSize.A4, set);
-                List<OcrResult.OCRPage> ocrPageList = ocrResult.ocrPages;
-                if (ocrPageList.size() > 0) {
-                    String ocrText = ocrResult.getRecognizedText();
-                }
-                File ocrPDFFile = ocrResult.sandwichedPdfDocumentFile;
-                if (ocrPDFFile != null) {
-                    File renamedFile = new File(ocrPDFFile.getParent() + PATH_SEPARATOR + fileName + "_OCR.pdf");
-                    if (ocrPDFFile.renameTo(renamedFile)) {
-                        Log.d(TAG, "OCR File successfully renamed");
-                    }
-                    Log.d(TAG, "===OCR PDF FILES SAVED=== : " + ocrPDFFile + "\n" + renamedFile);
-                    pdfWithPassword(renamedFile);
-
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
-    }
-
-    private void saveTextFile(String fileName) {
-        progressBar.setVisibility(View.VISIBLE);
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "===TXT FILES SAVE STARTED===");
-                Set<Language> set = new HashSet<>(Collections.singletonList(Language.ENG));
-                List<Bitmap> bitmapList = onDocScanListener.getScannedDocs();
-                for (int i = 0; i < bitmapList.size(); i++) {
-                    String newFileName = fileName;
-                    Bitmap bitmap = bitmapList.get(i);
-                    if (i > 0) {
-                        newFileName += "(" + i + ")";
-                    }
-                    Page page = new Page(pageFileStorage.add(bitmap), emptyList(),
-                                         DetectionResult.OK);
-                    List<Page> pageList = new ArrayList<>();
-                    pageList.add(page);
-                    OcrResult ocrResult = opticalCharacterRecognizer.recognizeTextFromPages(pageList, set);
-                    List<OcrResult.OCRPage> ocrPageList = ocrResult.ocrPages;
-
-                    if (ocrPageList.size() > 0) {
-                        String ocrText = ocrResult.getRecognizedText();
-                        File txtFile = FileUtils.writeTextToFile(requireContext(), ocrText, newFileName);
-                        Log.d(TAG, "TXT FILE : " + txtFile);
-                    }
-                }
-                Log.d(TAG, "===TXT FILES SAVED===");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
+        //send the result back with the selected remote path to open selected remote path
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_SCAN_DOC_REMOTE_PATH, remoteFilePath);
+        intent.putExtras(bundle);
+        requireActivity().setResult(Activity.RESULT_OK, intent);
+        requireActivity().finish();
     }
 
     @Override
@@ -473,6 +352,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     private void updateSaveLocationText(String path) {
+        remotePath = path;
         if (path.equalsIgnoreCase("/")) {
             path = getResources().getString(R.string.scan_save_location_root);
         }
@@ -486,6 +366,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
                 if (data != null) {
                     OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
                     if (chosenFolder != null) {
+                        remoteFilePath = chosenFolder;
                         updateSaveLocationText(chosenFolder.getRemotePath());
                     }
                 }

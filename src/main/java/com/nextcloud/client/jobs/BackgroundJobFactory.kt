@@ -36,6 +36,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nmc.android.jobs.ScanDocUploadWorker
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -87,6 +88,7 @@ class BackgroundJobFactory @Inject constructor(
             MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
             NotificationWork::class -> createNotificationWork(context, workerParameters)
             AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
+            ScanDocUploadWorker::class -> createScanDocUploadWork(context, workerParameters)
             else -> null // caller falls back to default factory
         }
     }
@@ -188,6 +190,15 @@ class BackgroundJobFactory @Inject constructor(
             backgroundJobManager.get(),
             clock,
             eventBus
+        )
+    }
+
+    private fun createScanDocUploadWork(context: Context, params: WorkerParameters): ScanDocUploadWorker {
+        return ScanDocUploadWorker(
+            context = context,
+            params = params,
+            notificationManager,
+            accountManager
         )
     }
 }

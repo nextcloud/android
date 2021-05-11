@@ -6,6 +6,7 @@ import android.graphics.Matrix
 import android.graphics.PointF
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.Menu
@@ -19,8 +20,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
 import com.google.android.material.button.MaterialButton
-import com.nmc.android.OnDocScanListener
-import com.nmc.android.OnFragmentChangeListener
+import com.nmc.android.interfaces.OnDocScanListener
+import com.nmc.android.interfaces.OnFragmentChangeListener
 import com.nmc.android.utils.ScanBotSdkUtils
 import com.owncloud.android.R
 import io.scanbot.sdk.ScanbotSDK
@@ -38,8 +39,10 @@ class CropScannedDocumentFragment : Fragment() {
 
     @BindView(R.id.crop_polygon_view)
     lateinit var editPolygonImageView: EditPolygonImageView
+
     @BindView(R.id.magnifier)
     lateinit var magnifierView: MagnifierView
+
     @BindView(R.id.crop_btn_reset_borders)
     lateinit var resetBordersButton: MaterialButton
 
@@ -71,6 +74,7 @@ class CropScannedDocumentFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (requireActivity() is ScanActivity) {
             (requireActivity() as ScanActivity).showHideToolbar(true)
+            (requireActivity() as ScanActivity).showHideDefaultToolbarDivider(true)
             (requireActivity() as ScanActivity).updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.title_crop_scan))
         }
         setHasOptionsMenu(true)
@@ -88,10 +92,10 @@ class CropScannedDocumentFragment : Fragment() {
     fun onClickListener(view: View) {
         when (view.id) {
             R.id.crop_btn_reset_borders -> {
-                if(resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))){
+                if (resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))) {
                     updateButtonText(resources.getString(R.string.crop_btn_detect_doc_text))
                     resetCrop()
-                }else if(resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_detect_doc_text))){
+                } else if (resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_detect_doc_text))) {
                     updateButtonText(resources.getString(R.string.crop_btn_reset_crop_text))
                     detectDocument()
                 }
@@ -99,13 +103,26 @@ class CropScannedDocumentFragment : Fragment() {
         }
     }
 
-    private fun updateButtonText(label: String){
+    private fun updateButtonText(label: String) {
         resetBordersButton.tag = label
         resetBordersButton.text = label
     }
 
-    private fun resetCrop(){
+    private fun resetCrop() {
+        editPolygonImageView.polygon = getResetPolygons()
+    }
 
+    private fun getResetPolygons(): List<PointF> {
+        val polygonList = mutableListOf<PointF>()
+        val pointF = PointF(0.0f, 0.0f)
+        val pointF1 = PointF(1.0f, 0.0f)
+        val pointF2 = PointF(1.0f, 1.0f)
+        val pointF3 = PointF(0.0f, 1.0f)
+        polygonList.add(pointF)
+        polygonList.add(pointF1)
+        polygonList.add(pointF2)
+        polygonList.add(pointF3)
+        return  polygonList
     }
 
     private fun detectDocument() {
@@ -131,7 +148,6 @@ class CropScannedDocumentFragment : Fragment() {
                 DetectionResult.OK_BUT_BAD_ANGLES,
                 DetectionResult.OK_BUT_TOO_SMALL,
                 DetectionResult.OK_BUT_BAD_ASPECT_RATIO -> {
-
                     InitImageResult(linesPair, polygon!!)
                 }
                 else -> InitImageResult(Pair(listOf(), listOf()), listOf())
@@ -145,6 +161,10 @@ class CropScannedDocumentFragment : Fragment() {
             // set detected polygon and lines into EditPolygonImageView
             editPolygonImageView.polygon = initImageResult.polygon
             editPolygonImageView.setLines(initImageResult.linesPair.first, initImageResult.linesPair.second)
+
+            if (initImageResult.polygon.isNullOrEmpty()){
+                resetCrop()
+            }
         }
     }
 
@@ -163,14 +183,16 @@ class CropScannedDocumentFragment : Fragment() {
                 documentImage = Bitmap.createBitmap(it, 0, 0, it.width, it.height, matrix, true)
             }
             onDocScanListener.replaceScannedDoc(scannedDocIndex, documentImage)
-           /* onDocScanListener.replaceScannedDoc(
-                scannedDocIndex, FileUtils.saveImage(
-                    requireContext(),
-                    documentImage, null
-                )
-            )*/
-            onFragmentChangeListener.onReplaceFragment(EditScannedDocumentFragment.newInstance(scannedDocIndex), ScanActivity
-                .FRAGMENT_EDIT_SCAN_TAG, false)
+            /* onDocScanListener.replaceScannedDoc(
+                 scannedDocIndex, FileUtils.saveImage(
+                     requireContext(),
+                     documentImage, null
+                 )
+             )*/
+            onFragmentChangeListener.onReplaceFragment(
+                EditScannedDocumentFragment.newInstance(scannedDocIndex), ScanActivity
+                    .FRAGMENT_EDIT_SCAN_TAG, false
+            )
             // resultImageView.setImageBitmap(resizeForPreview(documentImage!!))
         }
     }
@@ -194,7 +216,7 @@ class CropScannedDocumentFragment : Fragment() {
         unbinder.unbind()
     }
 
-    fun getScannedDocIndex() : Int{
+    fun getScannedDocIndex(): Int {
         return scannedDocIndex
     }
 

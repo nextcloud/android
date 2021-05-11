@@ -71,6 +71,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
+    private View mDefaultToolbarDivider;
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
@@ -95,6 +96,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
+        mDefaultToolbarDivider = findViewById(R.id.default_toolbar_divider);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -179,6 +181,9 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     public void showHideToolbar(boolean isShow){
         mDefaultToolbar.setVisibility(isShow  ? View.VISIBLE : View.GONE);
+    }
+    public void showHideDefaultToolbarDivider(boolean isShow){
+        mDefaultToolbarDivider.setVisibility(isShow  ? View.VISIBLE : View.GONE);
     }
 
     /**

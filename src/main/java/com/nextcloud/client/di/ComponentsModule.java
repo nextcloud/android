@@ -29,6 +29,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
@@ -210,4 +211,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract DownloaderService fileDownloaderService();
+
+    @ContributesAndroidInjector
+    abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
 }

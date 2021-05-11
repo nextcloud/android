@@ -52,6 +52,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.ui.ScanActivity;
@@ -184,6 +186,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject BackgroundJobManager backgroundJobManager;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;

@@ -360,6 +360,7 @@
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="foreground_service_download">Dateien werden heruntergeladen…</string>
     <string name="foreground_service_upload">Dateien werden hochgeladen…</string>
+    <string name="foreground_service_save">Saving files…</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_move">Alle verschieben</string>
@@ -457,6 +458,8 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
+    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
@@ -891,4 +894,5 @@
     <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
     <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
     <string name="choose_location">Speicherort wählen</string>
+    <string name="common_select">Wählen</string>
 </resources>

@@ -83,15 +83,15 @@
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="switch_grid_view_button,sort_button" />
-            
+
             <View
                 android:id="@+id/toolbar_divider"
                 android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarBarrier"
-                android:layout_height="0.5dp"
-                android:background="@color/secondary_text_color"/>
+                app:layout_constraintTop_toBottomOf="@+id/toolbarBarrier" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- default toolbar -->
@@ -138,6 +138,14 @@
                     app:backgroundTint="@color/fontAppbar"
                     app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
             </androidx.appcompat.widget.Toolbar>
+
+            <View
+                android:id="@+id/default_toolbar_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:visibility="gone"
+                android:layout_below="@+id/toolbar"
+                android:background="@color/secondary_text_color" />
 
         </RelativeLayout>
 

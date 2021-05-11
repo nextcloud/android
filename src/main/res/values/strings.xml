@@ -608,6 +608,7 @@
 
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreground_service_download">Downloading files…</string>
+    <string name="foreground_service_save">Saving files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
@@ -671,6 +672,8 @@
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
     <string name="notification_channel_file_observer_name">File observer</string>
     <string name="notification_channel_file_observer_description">Monitors files for changes</string>
+    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
+    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
 
     <string name="account_not_found">Account not found!</string>
 
@@ -994,5 +997,6 @@
     <string name="scan_save_no_file_select_toast">Please select at least one filetype</string>
     <string name="scan_save_file_type_text">You can save the file with or without text recognition. Multiple selection is allowed.</string>
     <string name="choose_location">Choose location</string>
+    <string name="common_select">Select</string>
 
 </resources>

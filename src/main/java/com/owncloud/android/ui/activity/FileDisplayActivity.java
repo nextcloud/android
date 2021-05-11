@@ -62,6 +62,7 @@ import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanDocumentFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -944,34 +945,18 @@ public class FileDisplayActivity extends FileActivity
             );
         } else if (requestCode == REQUEST_CODE__SCAN_DOCUMENT && resultCode == RESULT_OK) {
 
-            String path = data.getStringExtra(ScanDocumentFragment.getEXTRA_SCAN_DOCUMENT_PATH());
+            OCFile remoteFilePath = data.getParcelableExtra(SaveScannedDocumentFragment.EXTRA_SCAN_DOC_REMOTE_PATH);
+            if (remoteFilePath==null){
+                remoteFilePath = getCurrentDir();
+            }
 
-            Log_OC.d(this,"Scan Document path: "+path);
+            Log_OC.d(this,"Scan Document save remote path: "+remoteFilePath.getRemotePath());
 
-            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
-                @Override
-                public void onCheckAvailableSpaceStart() {
-                    Log_OC.d(this, "onCheckAvailableSpaceStart");
-                }
+            OCFileListFragment fileListFragment = getListOfFilesFragment();
+            if (fileListFragment != null) {
+                fileListFragment.onItemClicked(remoteFilePath);
+            }
 
-                @Override
-                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
-
-                    if (hasEnoughSpaceAvailable) {
-                       /* File file = new File(filesToUpload[0]);
-                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
-
-                        if (!file.renameTo(renamedFile)) {
-                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
-                            return;
-                        }*/
-
-                        requestUploadOfFilesFromFileSystem(new String[]{path},
-                                                           FileUploader.LOCAL_BEHAVIOUR_DELETE);
-                    }
-                }
-            }, new String[]{path}).execute();
         }
         else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -116,7 +116,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         }
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        //ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setEnabled(false);
     }
 

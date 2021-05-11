@@ -534,6 +534,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
                               context, NotificationManager.IMPORTANCE_DEFAULT);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_SCAN_DOC_SAVE,
+                              R.string.notification_channel_scan_doc_save,
+                              R.string.notification_channel_scan_doc_save_description, context);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }

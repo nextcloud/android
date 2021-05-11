@@ -1,4 +1,4 @@
-package com.nmc.android;
+package com.nmc.android.interfaces;
 
 import androidx.fragment.app.Fragment;
 

@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_padding"
-                android:src="@drawable/ic_edit"
+                android:src="@drawable/ic_pencil_edit"
                 android:tint="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_text" />
@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_padding"
-                android:src="@drawable/ic_edit"
+                android:src="@drawable/ic_pencil_edit"
                 android:tint="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_location_text" />
