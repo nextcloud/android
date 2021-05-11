@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
@@ -31,7 +32,7 @@ class UploadFilesActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
+    @ScreenshotTest // as this test might differ on each emulator, use it only on CI
     fun open() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
