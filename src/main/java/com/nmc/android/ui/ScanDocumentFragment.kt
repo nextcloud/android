@@ -57,6 +57,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
     private lateinit var polygonView: PolygonView
     private lateinit var userGuidanceHint: AppCompatTextView
     private lateinit var autoSnappingToggleButton: MaterialButton
+    private lateinit var flashToggleButton: MaterialButton
     private lateinit var shutterButton: ShutterButton
     private lateinit var progressBar: ProgressBar
 
@@ -134,6 +135,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                 }, 700)
             }
         })
+        flashToggleButton = view.findViewById(R.id.scan_doc_btn_flash)
         progressBar = view.findViewById(R.id.scan_doc_progress_bar)
         polygonView = view.findViewById<View>(R.id.polygonView) as PolygonView
         // polygonView.setFillColor(POLYGON_FILL_COLOR)
@@ -163,9 +165,10 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         shutterButton.setOnClickListener { cameraView.takePicture(false) }
         shutterButton.visibility = View.VISIBLE
 
-        view.findViewById<View>(R.id.scan_doc_btn_flash).setOnClickListener {
+        flashToggleButton.setOnClickListener {
             flashEnabled = !flashEnabled
             cameraView.useFlash(flashEnabled)
+            toggleFlashButtonUI()
         }
         view.findViewById<View>(R.id.scan_doc_btn_cancel).setOnClickListener {
             //if fragment opened from Edit Scan Fragment then on cancel click it should go to that fragment
@@ -183,6 +186,18 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
             setAutoSnapEnabled(autoSnappingEnabled)
         }
         autoSnappingToggleButton.post { setAutoSnapEnabled(autoSnappingEnabled) }
+
+        toggleFlashButtonUI()
+    }
+
+    private fun toggleFlashButtonUI() {
+        if (flashEnabled) {
+            flashToggleButton.setIconTintResource(R.color.primary)
+            flashToggleButton.setTextColor(resources.getColor(R.color.primary))
+        } else {
+            flashToggleButton.setIconTintResource(R.color.secondary_text_color)
+            flashToggleButton.setTextColor(resources.getColor(R.color.secondary_text_color))
+        }
     }
 
     private fun askPermission() {
@@ -364,13 +379,15 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         autoSnappingController.isEnabled = enabled
         contourDetectorFrameHandler.isEnabled = enabled
         polygonView.visibility = if (enabled) View.VISIBLE else View.GONE
-        autoSnappingToggleButton.text = resources.getString(R.string.automatic) + " ${
+        /*autoSnappingToggleButton.text = resources.getString(R.string.automatic) + " ${
             if (enabled) "ON" else
                 "OFF"
-        }"
+        }"*/
         if (enabled) {
+            autoSnappingToggleButton.setTextColor(resources.getColor(R.color.primary))
             shutterButton.showAutoButton()
         } else {
+            autoSnappingToggleButton.setTextColor(resources.getColor(R.color.secondary_text_color))
             shutterButton.showManualButton()
             userGuidanceHint.visibility = View.GONE
         }
