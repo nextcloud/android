@@ -157,24 +157,24 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.client'
+                applicationId 'de.magentacloud.next.dev2.android.client'
                 dimension "default"
             }
 
             gplay {
-                applicationId 'com.nextcloud.client'
+                applicationId 'de.magentacloud.next.dev2.android.client'
                 dimension "default"
             }
 
             versionDev {
-                applicationId "com.nextcloud.android.beta"
+                applicationId 'de.magentacloud.next.dev2.android.client'
                 dimension "default"
                 versionCode 20200129
                 versionName "20200129"
             }
 
             qa {
-                applicationId "com.nextcloud.android.qa"
+                applicationId 'de.magentacloud.next.dev2.android.client'
                 dimension "default"
                 versionCode 1
                 versionName "1"

@@ -5,24 +5,24 @@
     <bool name="dev_version_direct_download_enabled">false</bool>
 
     <!-- App name  and other strings-->
-    <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name="users_and_groups_search_authority">com.nextcloud.android.providers.UsersAndGroupsSearchProvider</string>
-    <string name="users_and_groups_share_with">com.nextcloud.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
-    <string name="document_provider_authority">org.nextcloud.documents</string>
-    <string name="file_provider_authority">org.nextcloud.files</string>
-    <string name="image_cache_provider_authority">org.nextcloud.imageCache.provider</string>
+    <string name="app_name">MagentaCLOUD</string>
+    <string name="account_type">de.magentacloud.next.dev2</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">de.magentacloud.next.dev2</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">de.magentacloud.next.dev2.android.providers.UsersAndGroupsSearchProvider</string>
+    <string name="users_and_groups_share_with">de.magentacloud.next.dev2.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
+    <string name="document_provider_authority">de.magentacloud.next.dev2.documents</string>
+    <string name="file_provider_authority">de.magentacloud.next.dev2.files</string>
+    <string name="image_cache_provider_authority">de.magentacloud.next.dev2.imageCache.provider</string>
     <string name="db_file">nextcloud.db</string>
     <string name="db_name">nextcloud</string>
-    <string name="data_folder">nextcloud</string>
-    <string name="default_display_name_for_root_folder">Nextcloud</string>
+    <string name="data_folder">de.magentacloud.next.dev2</string>
+    <string name="default_display_name_for_root_folder">MagentaCLOUD</string>
     <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
     <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
 
     <!-- URLs and flags related -->
-    <bool name="show_server_url_input">true</bool>
-    <bool name="show_provider_or_own_installation">true</bool>
+    <bool name="show_server_url_input">false</bool>
+    <bool name="show_provider_or_own_installation">false</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
     <!-- Flags to enable/disable some features -->
@@ -43,14 +43,14 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
-    <color name="primary_dark">#006AA3</color>
-    <color name="color_accent">#007cc2</color>
+    <color name="primary">#E20074</color>
+    <color name="primary_dark">#7c0040</color>
+    <color name="color_accent">#E20074</color>
     <color name="login_text_color">#ffffff</color>
-    <color name="login_text_hint_color">#7fC0E3</color>
+    <color name="login_text_hint_color">#ffffff</color>
 
     <!-- Multiaccount support -->
-    <bool name="multiaccount_support">true</bool>
+    <bool name="multiaccount_support">false</bool>
 
     <!-- Drawer options -->
     <bool name="recently_added_enabled">false</bool>
@@ -66,18 +66,18 @@
     <bool name="show_hidden_files_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
-    <string name="url_help">https://help.nextcloud.com/c/clients/android/</string>
+    <string name="url_help">https://cloud.telekom-dienste.de/hilfe</string>
     <bool name="privacy_enabled">true</bool>
-    <string name="privacy_url">https://nextcloud.com/privacy</string>
+    <string name="privacy_url">https://static.magentacloud.de/privacy/datenschutzhinweise_web.htm</string>
     <bool name="imprint_enabled">false</bool>
-    <bool name="recommend_enabled">true</bool>
+    <bool name="recommend_enabled">false</bool>
     <bool name="logger_enabled">false</bool>
     <bool name="sourcecode_enabled">true</bool>
     <string name="sourcecode_url" translatable="false">https://github.com/nextcloud/android</string>
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>
-    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=de.magentacloud.next.dev2.android.client"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
 
     <!-- synced folder light; if enabled: move to setting & global upload settings -->
@@ -91,7 +91,7 @@
     <string name="mail_logger"></string>
 
     <!-- Determine is participate enabled -->
-    <bool name="participate_enabled">true</bool>
+    <bool name="participate_enabled">false</bool>
     <!-- Participate links -->
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link" translatable="false">https://download.nextcloud.com/android/dev/latest.apk</string>
@@ -107,7 +107,7 @@
     <string name="login_data_own_scheme" translatable="false">nc</string>
     <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
-    <string name="webview_login_url" translatable="false"></string>
+    <string name="webview_login_url" translatable="false">https://dev2.next.magentacloud.de/index.php/login/flow</string>
 
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
@@ -120,7 +120,7 @@
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
-    <string name="buildNumber" translatable="false"></string>
+    <string name="buildNumber" translatable="false">5587</string>
 </resources>
 
 
