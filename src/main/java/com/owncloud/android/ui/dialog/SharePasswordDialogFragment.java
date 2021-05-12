@@ -23,6 +23,8 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -62,7 +64,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private boolean createShare;
     private boolean askForPassword;
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -71,7 +73,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
         alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
-    }
+    }*/
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
@@ -136,13 +138,22 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         // Setup layout
         EditText inputText = binding.sharePassword;
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        inputText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
         inputText.setText("");
-        ThemeUtils.themeEditText(getContext(), inputText, false);
+        //ThemeUtils.themeEditText(getContext(), inputText, false);
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
                                                  PorterDuff.Mode.SRC_ATOP);
-
+        inputText.setDefaultHintTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                Color.GRAY,
+                getResources().getColor(R.color.text_color)
+            }
+        ));
         int title;
         if (askForPassword) {
             title = R.string.share_link_optional_password_title;

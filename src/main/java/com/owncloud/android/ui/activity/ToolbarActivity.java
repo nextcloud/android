@@ -43,6 +43,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.StringUtils;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
@@ -67,6 +68,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private LinearLayout mInfoBox;
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
+    private View mDefaultToolbarDivider;
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
@@ -91,6 +93,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
+        mDefaultToolbarDivider = findViewById(R.id.default_toolbar_divider);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -158,25 +161,33 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
-        if (isShow) {
+        /*if (isShow) {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
             ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
-        } else {
+        } else {*/
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
             ThemeUtils.colorStatusBar(this);
-        }
+       // }
+    }
+
+    public void showHideToolbar(boolean isShow){
+        mDefaultToolbar.setVisibility(isShow  ? View.VISIBLE : View.GONE);
+    }
+
+    public void showHideDefaultToolbarDivider(boolean isShow){
+        mDefaultToolbarDivider.setVisibility(isShow  ? View.VISIBLE : View.GONE);
     }
 
     /**
      * Updates title bar and home buttons (state and icon).
      */
-    protected void updateActionBarTitleAndHomeButtonByString(String title) {
+    public void updateActionBarTitleAndHomeButtonByString(String title) {
         String titleToSet = getString(R.string.app_name);    // default
 
         if (title != null) {

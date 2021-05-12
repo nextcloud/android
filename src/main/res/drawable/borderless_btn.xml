@@ -24,6 +24,6 @@
         android:color="@color/disabled_text" />
 
     <item
-        android:color="@color/color_accent"/>
+        android:color="@color/primary"/>
         
 </selector>

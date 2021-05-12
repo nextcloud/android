@@ -2,7 +2,9 @@
 <resources>
 	<string-array name="pref_behaviour_entries" translatable="false">
 		<item>@string/pref_behaviour_entries_keep_file</item>
+<!--
 		<item>@string/pref_behaviour_entries_move</item>
+-->
 		<item>@string/pref_behaviour_entries_delete_file</item>
 	</string-array>
 
@@ -17,5 +19,13 @@
         <item>@string/pref_instant_name_collision_policy_entries_overwrite</item>
         <item>@string/pref_instant_name_collision_policy_entries_rename</item>
         <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
+    </string-array>
+
+    <string-array name="edit_scan_filter_values" translatable="false">
+        <item>@string/edit_scan_filter_none</item>
+        <item>@string/edit_scan_filter_color_document</item>
+        <item>@string/edit_scan_filter_grey</item>
+        <item>@string/edit_scan_filter_b_n_w</item>
+        <item>@string/edit_scan_filter_color_enhanced</item>
     </string-array>
 </resources>

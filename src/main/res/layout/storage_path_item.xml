@@ -21,6 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingTop="@dimen/standard_half_padding"
     android:paddingBottom="@dimen/standard_half_padding"
@@ -36,6 +37,7 @@
         android:contentDescription="@string/user_icon"
         android:paddingStart="@dimen/standard_padding"
         android:paddingLeft="@dimen/standard_padding"
+        app:tint="@color/text_color"
         android:paddingEnd="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding"
         android:src="@drawable/ic_user" />

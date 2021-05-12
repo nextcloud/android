@@ -1,25 +1,41 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="24dp" android:tint="#969696"
-    android:viewportHeight="24" android:viewportWidth="24"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M19.1,12.9a2.8,2.8 0,0 0,0.1 -0.9,2.8 2.8,0 0,0 -0.1,-0.9l2.1,-1.6a0.7,0.7 0,0 0,0.1 -0.6L19.4,5.5a0.7,0.7 0,0 0,-0.6 -0.2l-2.4,1a6.5,6.5 0,0 0,-1.6 -0.9l-0.4,-2.6a0.5,0.5 0,0 0,-0.5 -0.4H10.1a0.5,0.5 0,0 0,-0.5 0.4L9.3,5.4a5.6,5.6 0,0 0,-1.7 0.9l-2.4,-1a0.4,0.4 0,0 0,-0.5 0.2l-2,3.4c-0.1,0.2 0,0.4 0.2,0.6l2,1.6a2.8,2.8 0,0 0,-0.1 0.9,2.8 2.8,0 0,0 0.1,0.9L2.8,14.5a0.7,0.7 0,0 0,-0.1 0.6l1.9,3.4a0.7,0.7 0,0 0,0.6 0.2l2.4,-1a6.5,6.5 0,0 0,1.6 0.9l0.4,2.6a0.5,0.5 0,0 0,0.5 0.4h3.8a0.5,0.5 0,0 0,0.5 -0.4l0.3,-2.6a5.6,5.6 0,0 0,1.7 -0.9l2.4,1a0.4,0.4 0,0 0,0.5 -0.2l2,-3.4c0.1,-0.2 0,-0.4 -0.2,-0.6ZM12,15.6A3.6,3.6 0,1 1,15.6 12,3.6 3.6,0 0,1 12,15.6Z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+  <path
+      android:pathData="M55,19V58a2,2 0,0 1,-2 2H11a2,2 0,0 1,-2 -2V6a2,2 0,0 1,2 -2H40">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="60.000004"
+          android:startX="31.999996"
+          android:endY="4.000004"
+          android:endX="31.999996"
+          android:type="linear">
+        <item android:offset="0" android:color="#FFDDD6D3"/>
+        <item android:offset="0.39" android:color="#FFE9E4E2"/>
+        <item android:offset="1" android:color="#FFE9E4E2"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M55,19H42a2,2 0,0 1,-2 -2V4"
+      android:strokeAlpha="0.7"
+      android:fillColor="#b9ada7"
+      android:fillAlpha="0.7"/>
+  <path
+      android:pathData="M41.08,35.7a8.62,8.62 0,0 0,-0.16 -1.61L44,31.53a12.62,12.62 0,0 0,-2.39 -4.13l-3.75,1.38a9.12,9.12 0,0 0,-2.79 -1.61l-0.68,-3.94a12.53,12.53 0,0 0,-4.78 0l-0.68,3.94a9.12,9.12 0,0 0,-2.79 1.61L22.39,27.4A12.62,12.62 0,0 0,20 31.53l3.08,2.56a8.72,8.72 0,0 0,0 3.22L20,39.88A12.62,12.62 0,0 0,22.39 44l3.75,-1.38a9.12,9.12 0,0 0,2.79 1.61l0.68,3.94a12.53,12.53 0,0 0,4.78 0l0.68,-3.94a9.12,9.12 0,0 0,2.79 -1.61L41.61,44A12.62,12.62 0,0 0,44 39.88l-3.07,-2.56A9.57,9.57 0,0 0,41.08 35.7ZM32,41.15a5.45,5.45 0,1 1,5.45 -5.45A5.44,5.44 0,0 1,32 41.15Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="48.510002"
+          android:startX="32.01"
+          android:endY="21.580004"
+          android:endX="32.01"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF595959"/>
+        <item android:offset="1" android:color="#FF7A7A7A"/>
+      </gradient>
+    </aapt:attr>
+  </path>
 </vector>

@@ -32,6 +32,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
@@ -122,6 +123,8 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search);
         searchView.setOnQueryTextListener(this);
         searchView.setMaxWidth(Integer.MAX_VALUE);
 

@@ -44,8 +44,8 @@
 
     <!-- Colors -->
     <color name="primary">#E20074</color>
-    <color name="primary_dark">#7c0040</color>
-    <color name="color_accent">#E20074</color>
+    <color name="primary_dark">#006AA3</color>
+    <color name="color_accent">#007cc2</color>
     <color name="login_text_color">#ffffff</color>
     <color name="login_text_hint_color">#ffffff</color>
 
@@ -121,6 +121,10 @@
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
     <string name="buildNumber" translatable="false">5587</string>
+    <string name="scan_save_file_type_pdf" translatable="false">PDF</string>
+    <string name="scan_save_file_type_jpg" translatable="false">JPG</string>
+    <string name="scan_save_file_type_png" translatable="false">PNG</string>
+    <string name="scan_save_file_type_pdf_ocr" translatable="false">PDF (OCR)</string>
 </resources>
 
 

@@ -221,7 +221,7 @@
     <string name="drawer_item_gallery">Medien</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
-    <string name="drawer_item_on_device">Auf dem Gerät</string>
+    <string name="drawer_item_on_device">Offline verfügba</string>
     <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
@@ -232,6 +232,8 @@
     <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
+    <string name="drawer_quota_percentage">Speicher zu %d %% belegt</string>
+    <string name="drawer_quota_usage">%1$s von %2$s GB</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="edit_label">Name ändern</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
@@ -358,6 +360,7 @@
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="foreground_service_download">Dateien werden heruntergeladen…</string>
     <string name="foreground_service_upload">Dateien werden hochgeladen…</string>
+    <string name="foreground_service_save">Dateien werden gespeichert...</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_move">Alle verschieben</string>
@@ -455,6 +458,8 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_scan_doc_save">Gescannte Documente speichern Benachrichtigungskanal</string>
+    <string name="notification_channel_scan_doc_save_description">Speicherprozess zeigen</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
@@ -518,7 +523,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_license">Lizenz</string>
-    <string name="prefs_lock">App-PIN</string>
+    <string name="prefs_lock">Sicherheit</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
     <string name="prefs_lock_device_credentials_not_setup">Keine Geräte-Anmeldedaten eingerichtet.</string>
     <string name="prefs_lock_none">Nichts</string>
@@ -532,7 +537,7 @@
     <string name="prefs_storage_path">Speicherordner</string>
     <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
-    <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
+    <string name="prefs_synced_folders_remote_path_title">Zielorder in Deiner MagentaCLOUD</string>
     <string name="prefs_theme_title">Design</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
@@ -662,7 +667,7 @@
     <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
     <string name="status_message">Statusnachricht</string>
     <string name="storage_camera">Kamera</string>
-    <string name="storage_choose_location">Speicherort auswählen</string>
+    <string name="storage_choose_location">Wählen Sie Quelle</string>
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumente</string>
     <string name="storage_downloads">Downloads</string>
@@ -739,6 +744,7 @@
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
     <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
+    <string name="upload_scan_document">Dokument scannen</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>
@@ -828,6 +834,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
+    <string name="storage_sd_card">SD-Karte</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
@@ -852,4 +859,40 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+
+    <string name="result_scan_doc_dont_move">Nicht bewegen</string>
+    <string name="result_scan_doc_move_closer">Näher heranbewegen</string>
+    <string name="result_scan_doc_perspective">Perspektive</string>
+    <string name="result_scan_doc_no_doc">Kein Dokument</string>
+    <string name="result_scan_doc_bg_noisy">Hintergrund zu unruhig</string>
+    <string name="result_scan_doc_aspect_ratio">Falsches Bildformat.\nDrehen Sie Ihr Gerät.</string>
+    <string name="result_scan_doc_poor_light">Schwaches Licht</string>
+    <string name="scanned_doc_count">%d von %d</string>
+    <string name="title_edit_scan">Scam Bearbeiten</string>
+    <string name="title_crop_scan">Scan beschneiden</string>
+    <string name="crop_btn_reset_crop_text">Rahmen zurÃ¼cksetzen</string>
+    <string name="crop_btn_detect_doc_text">Dokument erkenne</string>
+    <string name="edit_scan_filter_dialog_title">Filter anwenden</string>
+    <string name="edit_scan_filter_none">Kein Filter</string>
+    <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
+    <string name="edit_scan_filter_color_enhanced">Foto Filter</string>
+    <string name="edit_scan_filter_b_n_w">Black &amp; White</string>
+    <string name="edit_scan_filter_color_document">Dokument Filter</string>
+    <string name="edit_scan_filter_grey">Grau</string>
+    <string name="automatic">Automatisch</string>
+    <string name="flash">Blitz</string>
+    <string name="title_save_as">Speichern unter</string>
+    <string name="scan_save_filename">Dateiname</string>
+    <string name="scan_save_location">Speicherort</string>
+    <string name="scan_save_location_root">/Hauptverzeichnis</string>
+    <string name="scan_save_file_type">Dateityp</string>
+    <string name="scan_save_without_text_recognition">Speichern ohne Texterkennung</string>
+    <string name="scan_save_with_text_recognition">Speichern mit Texterkennung</string>
+    <string name="scan_save_file_type_txt">Textdokument (txt)</string>
+    <string name="scan_save_pdf_password">PDF-Passwort</string>
+    <string name="scan_save_set_password_hint">Passwort setzen</string>
+    <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
+    <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
+    <string name="choose_location">Speicherort wählen</string>
+    <string name="common_select">Auswählen</string>
 </resources>

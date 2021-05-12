@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
-    <string name="drawer_item_on_device">On device</string>
+    <string name="drawer_item_on_device">Available offline</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
@@ -31,12 +31,14 @@
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
+    <string name="drawer_quota_percentage">%d %% Storage used</string>
+    <string name="drawer_quota_usage">%1$s of %2$s GB</string>
     <string name="drawer_close">Close sidebar</string>
     <string name="drawer_open">Open sidebar</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_lock">App passcode</string>
+    <string name="prefs_lock">Security</string>
     <string name="prefs_lock_title">Protect app using</string>
     <string name="prefs_lock_none">None</string>
     <string name="prefs_lock_using_passcode">Passcode</string>
@@ -320,7 +322,7 @@
 
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
-    <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
+    <string name="prefs_synced_folders_remote_path_title">Target folder in your MagentaCLOUD</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
@@ -607,6 +609,7 @@
 
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreground_service_download">Downloading files…</string>
+    <string name="foreground_service_save">Saving files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
@@ -670,6 +673,8 @@
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
     <string name="notification_channel_file_observer_name">File observer</string>
     <string name="notification_channel_file_observer_description">Monitors files for changes</string>
+    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
+    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
 
     <string name="account_not_found">Account not found!</string>
 
@@ -723,6 +728,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
+    <string name="upload_scan_document">Scan Document</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
@@ -821,7 +827,7 @@
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="new_notification">New Notification</string>
-    <string name="storage_choose_location">Choose storage location</string>
+    <string name="storage_choose_location">Choose Source</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
@@ -952,4 +958,46 @@
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
+    <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
+    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
+    <string name="create">Create</string>
+    <string name="select_one_template">Please select one template</string>
+    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
+    <string name="storage_sd_card">SD Card</string>
+    <string name="result_scan_doc_dont_move">Do not move</string>
+    <string name="result_scan_doc_move_closer">Move closer</string>
+    <string name="result_scan_doc_perspective">Perspective</string>
+    <string name="result_scan_doc_no_doc">No document</string>
+    <string name="result_scan_doc_bg_noisy">Background too noisy</string>
+    <string name="result_scan_doc_aspect_ratio">Wrong aspect ratio.\nRotate your device.</string>
+    <string name="result_scan_doc_poor_light">Poor light</string>
+    <string name="scanned_doc_count">%d of %d</string>
+    <string name="title_edit_scan">Edit Scan</string>
+    <string name="title_crop_scan">Crop Scan</string>
+    <string name="crop_btn_reset_crop_text">Reset Crop</string>
+    <string name="crop_btn_detect_doc_text">Detect Document</string>
+    <string name="edit_scan_filter_dialog_title">Apply Filter</string>
+    <string name="edit_scan_filter_none">No Filter</string>
+    <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
+    <string name="edit_scan_filter_color_enhanced">Photo Filter</string>
+    <string name="edit_scan_filter_b_n_w">Black &amp; White</string>
+    <string name="edit_scan_filter_color_document">Document Filter</string>
+    <string name="edit_scan_filter_grey">Grayscale</string>
+    <string name="automatic">Automatic</string>
+    <string name="flash">Flash</string>
+    <string name="title_save_as">Save as</string>
+    <string name="scan_save_filename">Filename</string>
+    <string name="scan_save_location">Location</string>
+    <string name="scan_save_location_root">/Root folder</string>
+    <string name="scan_save_file_type">File type</string>
+    <string name="scan_save_without_text_recognition">Save without text recognition</string>
+    <string name="scan_save_with_text_recognition">Save with text recognition</string>
+    <string name="scan_save_file_type_txt">Textfile (txt)</string>
+    <string name="scan_save_pdf_password">PDF-Password</string>
+    <string name="scan_save_set_password_hint">Set password</string>
+    <string name="scan_save_no_file_select_toast">Please select at least one filetype</string>
+    <string name="scan_save_file_type_text">You can save the file with or without text recognition. Multiple selection is allowed.</string>
+    <string name="choose_location">Choose location</string>
+    <string name="common_select">Select</string>
+
 </resources>

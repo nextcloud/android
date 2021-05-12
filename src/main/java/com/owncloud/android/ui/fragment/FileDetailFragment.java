@@ -227,7 +227,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setupViewPager() {
         binding.tabLayout.removeAllTabs();
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
+        //binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
 
         binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -238,9 +238,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout) {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (activeTab == 0) {
+                /*if (activeTab == 0) {
                     getFileDetailActivitiesFragment().markCommentsAsRead();
-                }
+                }*/
 
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
@@ -250,13 +250,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             public void onTabSelected(TabLayout.Tab tab) {
                 binding.pager.setCurrentItem(tab.getPosition());
 
-                if (tab.getPosition() == 0) {
+               /* if (tab.getPosition() == 0) {
                     FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
 
                     if (fragment != null) {
                         fragment.markCommentsAsRead();
                     }
-                }
+                }*/
             }
 
             @Override
@@ -270,7 +270,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        binding.tabLayout.getTabAt(activeTab).select();
+        //binding.tabLayout.getTabAt(activeTab).select();
     }
 
     @Override

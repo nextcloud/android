@@ -177,8 +177,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_default"
-        app:tabGravity="center"
-        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
         app:tabTextAppearance="@style/AppTabTextAppearance"
         app:tabTextColor="@color/text_color" />
 

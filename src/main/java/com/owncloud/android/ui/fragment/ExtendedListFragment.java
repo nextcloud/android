@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -33,6 +34,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +68,7 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -188,6 +191,8 @@ public class ExtendedListFragment extends Fragment implements
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         ThemeUtils.themeSearchView(searchView, requireContext());
@@ -361,8 +366,25 @@ public class ExtendedListFragment extends Fragment implements
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mScale = preferences.getGridColumns();
         setGridViewColumns(1f);
+
+        // Pull-down to refresh layout
+        mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        mRefreshListLayout.setOnRefreshListener(this);
+
+        mSortButton = getActivity().findViewById(R.id.sort_button);
+        mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
+
+        return v;
+    }
+
+    /**
+     * method to enable recyclerview zooming for grid view
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    public void enableRecyclerViewGridZooming() {
+        mScale = preferences.getGridColumns();
 
         mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
 
@@ -375,16 +397,6 @@ public class ExtendedListFragment extends Fragment implements
 
             return false;
         });
-
-        // Pull-down to refresh layout
-        mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
-        mRefreshListLayout.setOnRefreshListener(this);
-
-        mSortButton = getActivity().findViewById(R.id.sort_button);
-        mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
-
-        return v;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
@@ -618,8 +630,13 @@ public class ExtendedListFragment extends Fragment implements
                         mEmptyListIcon.setImageResource(icon);
                     }
 
-                    mEmptyListIcon.setVisibility(View.VISIBLE);
-                    mEmptyListMessage.setVisibility(View.VISIBLE);
+                    if (getActivity() instanceof UploadFilesActivity) {
+                        mEmptyListIcon.setVisibility(View.GONE);
+                        mEmptyListMessage.setVisibility(View.GONE);
+                    }else{
+                        mEmptyListIcon.setVisibility(View.VISIBLE);
+                        mEmptyListMessage.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });

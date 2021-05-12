@@ -33,18 +33,10 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/uploader_list_separator"
-            android:contentDescription="@null"/>
-
-    </LinearLayout>
+        android:layout_height="0.5dp"
+        android:background="@color/secondary_text_color" />
 
     <LinearLayout
         android:id="@+id/upload_options"
@@ -68,6 +60,7 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            style="@style/SpinnerTheme"
             android:id="@+id/upload_files_spinner_behaviour"
             android:layout_weight="1"/>
     </LinearLayout>
@@ -85,7 +78,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_weight="1"
+            app:icon="@drawable/ic_close"
+            app:iconGravity="textStart"
             android:text="@string/common_cancel"
+            app:iconTint="@color/text_color"
             style="@style/OutlinedButton"
             app:cornerRadius="@dimen/button_corner_radius" />
 
@@ -94,6 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:icon="@drawable/ic_cut_paste"
+            app:iconGravity="textStart"
             android:text="@string/uploader_btn_upload_text"
             android:theme="@style/Button.Primary"
             app:cornerRadius="@dimen/button_corner_radius" />

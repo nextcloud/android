@@ -48,6 +48,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
+import android.widget.ListView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -71,6 +72,7 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -93,7 +95,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * An Activity that allows the user to change the application's settings.
- *
+ * <p>
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class SettingsActivity extends ThemedPreferenceActivity
@@ -102,7 +104,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    public static final String PREFERENCE_LOCK= "lock";
+    public static final String PREFERENCE_LOCK = "lock";
 
     public static final String LOCK_NONE = "none";
     public static final String LOCK_PASSCODE = "passcode";
@@ -125,7 +127,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private Uri serverBaseUri;
 
     private ListPreference lock;
-    private SwitchPreference showHiddenFiles;
+    private ThemeableSwitchPreference showHiddenFiles;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -150,12 +152,15 @@ public class SettingsActivity extends ThemedPreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
+        ListView listView = getListView();
+        listView.setDivider(getResources().getDrawable(R.drawable.item_divider));
+
         setupActionBar();
 
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        int accentColor = ThemeUtils.primaryAccentColor(this);
+        int accentColor = ThemeUtils.appBarPrimaryFontColor(this);
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
@@ -234,7 +239,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
         /* About App */
         Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
-            pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
+            pAboutApp.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.app_name),
+                                                              accentColor));
 
             String buildNumber = getResources().getString(R.string.buildNumber);
 
@@ -265,6 +271,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // privacy
         boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
         Preference privacyPreference = findPreference("privacy");
+        privacyPreference.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.privacy),
+                                                                  accentColor));
         if (privacyPreference != null) {
             if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
                 privacyPreference.setOnPreferenceClickListener(preference -> {
@@ -279,7 +287,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                    getResources().getString(R.string.privacy));
+                                            getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
                             intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
@@ -317,19 +325,19 @@ public class SettingsActivity extends ThemedPreferenceActivity
         preferenceCategoryMore.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_more),
                 accentColor));
 
-        setupAutoUploadPreference(preferenceCategoryMore);
+        setupAutoUploadPreference(preferenceCategoryMore, accentColor);
 
         setupCalendarPreference(preferenceCategoryMore);
 
-        setupContactsBackupPreference(preferenceCategoryMore);
+        setupContactsBackupPreference(preferenceCategoryMore, accentColor);
 
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
-        setupHelpPreference(preferenceCategoryMore);
+        setupHelpPreference(preferenceCategoryMore, accentColor);
 
         setupRecommendPreference(preferenceCategoryMore);
 
-        setupLoggingPreference(preferenceCategoryMore);
+        setupLoggingPreference(preferenceCategoryMore, accentColor);
 
         setupImprintPreference(preferenceCategoryMore);
 
@@ -358,10 +366,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
+    private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
+        pLogger.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.logs_title),
+                                                                accentColor));
         if (pLogger != null) {
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(preference -> {
@@ -375,7 +385,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
             }
         }
     }
-
 
 
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
@@ -393,11 +402,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
                     String downloadUrlFDroid = getString(R.string.fdroid_link);
                     String downloadUrls = String.format(getString(R.string.recommend_urls),
-                            downloadUrlGooglePlayStore, downloadUrlFDroid);
+                                                        downloadUrlGooglePlayStore, downloadUrlFDroid);
 
                     String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
                     String recommendText = String.format(getString(R.string.recommend_text),
-                            appName, downloadUrls);
+                                                         appName, downloadUrls);
 
                     intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                     intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -437,9 +446,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
+    private void setupHelpPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp = findPreference("help");
+        pHelp.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_help),
+                                                                accentColor));
         if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(preference -> {
@@ -457,8 +468,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore) {
+    private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         Preference autoUpload = findPreference("syncedFolders");
+        autoUpload.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
+                                                           accentColor));
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryMore.removePreference(autoUpload);
         } else {
@@ -470,10 +483,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupContactsBackupPreference(PreferenceCategory preferenceCategoryMore) {
+    private void setupContactsBackupPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
-                && getResources().getBoolean(R.bool.contacts_backup);
+            && getResources().getBoolean(R.bool.contacts_backup);
         Preference pContactsBackup = findPreference("contacts");
+        pContactsBackup.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.actionbar_contacts),
+                                                                accentColor));
         if (pContactsBackup != null) {
             if (contactsBackupEnabled) {
                 pContactsBackup.setOnPreferenceClickListener(preference -> {
@@ -498,9 +513,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
                         DisplayUtils.showSnackMessage(
-                                activity,
-                                R.string.prefs_calendar_contacts_address_resolve_error
-                        );
+                            activity,
+                            R.string.prefs_calendar_contacts_address_resolve_error
+                                                     );
                     }
                     return true;
                 });
@@ -521,11 +536,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
-        setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
+        setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled, accentColor);
 
-        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled, accentColor);
 
-        setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
+        setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications, accentColor);
 
         if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled
             && fShowMediaScanNotifications) {
@@ -534,17 +549,20 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
-                                                 boolean fShowMediaScanNotifications) {
+                                                 boolean fShowMediaScanNotifications, int accentColor) {
         SwitchPreference mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
-
+        mShowMediaScanNotifications.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
+                                                                            accentColor));
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
         }
     }
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
-                                            boolean fShowHiddenFilesEnabled) {
-        showHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+                                            boolean fShowHiddenFilesEnabled, int accentColor) {
+        showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
+        showHiddenFiles.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_show_hidden_files),
+                                                                accentColor));
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
                 preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
@@ -557,8 +575,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
-                                     boolean deviceCredentialsEnabled) {
+                                     boolean deviceCredentialsEnabled, int accentColor) {
         lock = (ListPreference) findPreference(PREFERENCE_LOCK);
+        lock.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_lock),
+                                                     accentColor));
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
             ArrayList<String> lockEntries = new ArrayList<>(3);
             lockEntries.add(getString(R.string.prefs_lock_none));
@@ -574,7 +594,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 lockEntries.remove(1);
                 lockValues.remove(1);
             } else if (!deviceCredentialsEnabled || Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                    !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
+                !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 lockEntries.remove(2);
                 lockValues.remove(2);
             }
@@ -618,6 +638,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
             final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
+            pUploadOnWifiCheckbox.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.auto_upload_on_wifi),
+                                                                          accentColor));
             pUploadOnWifiCheckbox.setChecked(
                 arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
@@ -631,7 +653,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
             if (pSyncedFolder != null) {
                 if (getResources().getBoolean(R.bool.syncedFolder_light)
-                        && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     pSyncedFolder.setOnPreferenceClickListener(preference -> {
                         Intent intent = new Intent(this, SyncedFoldersActivity.class);
                         startActivity(intent);
@@ -650,9 +672,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)){
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                    !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
+                !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
@@ -684,6 +706,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 accentColor));
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
+        prefStoragePath.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
+                                                                accentColor));
         if (prefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -712,7 +736,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        ListPreference themePref = (ListPreference) findPreference("darkMode");
+        /*ListPreference themePref = (ListPreference) findPreference("darkMode");
 
         List<String> themeEntries = new ArrayList<>(3);
         themeEntries.add(getString(R.string.prefs_value_theme_light));
@@ -738,7 +762,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             MainApp.setAppTheme(mode);
 
             return true;
-        });
+        });*/
     }
 
     private String getAppVersion() {
@@ -797,7 +821,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
+                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
@@ -818,7 +842,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -833,7 +856,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
                 SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
@@ -855,9 +878,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
             DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
-                        RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
+            data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
+                             RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
+                RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             changeLockSetting(LOCK_NONE);
             DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
             if (!LOCK_NONE.equals(pendingLock)) {

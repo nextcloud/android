@@ -18,10 +18,12 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
+        style="@style/Widget.Custom.NavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -29,8 +31,6 @@
         android:background="@color/appbar"
         android:fitsSystemWindows="true"
         android:theme="@style/NavigationView_ItemTextAppearance"
-        app:headerLayout="@layout/drawer_header"
-        app:itemTextColor="@color/drawer_text_color"
         app:menu="@menu/partial_drawer_entries">
 
         <LinearLayout
@@ -41,26 +41,50 @@
             android:background="@color/appbar"
             android:clickable="false"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:visibility="gone">
+            android:paddingBottom="@dimen/standard_padding"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/secondary_text_color" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/drawer_quota_usage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/standard_half_padding"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_18sp"
+                app:drawableStartCompat="@drawable/ic_magentacloud_product_logo"
+                tools:text="1.2 of 5 GB" />
 
             <TextView
                 android:id="@+id/drawer_quota_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/alternate_half_padding" />
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:visibility="gone" />
 
             <ProgressBar
                 android:id="@+id/drawer_quota_ProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
-                android:scaleY="1.4"
+                android:progress="50"
+                android:progressDrawable="@drawable/custom_progress_bar"
+                android:scaleY="0.35"
                 android:text="@string/drawer_quota" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -68,9 +92,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/alternate_half_padding"
-                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
                 android:text="@string/drawer_quota"
-                android:textColor="@color/drawer_text_color" />
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_14sp" />
 
         </LinearLayout>
 

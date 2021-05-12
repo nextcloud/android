@@ -24,6 +24,8 @@ package com.owncloud.android.ui.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +86,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         share = getArguments().getParcelable(ARG_SHARE);
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -94,12 +96,11 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }
+    }*/
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -109,10 +110,19 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Setup layout
         noteEditText.setText(share.getNote());
-        noteEditText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         noteEditText.requestFocus();
-        ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, accentColor);
-
+        ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, getResources().getColor(R.color.secondary_text_color));
+        noteEditText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        noteEditTextInputLayout.setDefaultHintTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                Color.GRAY,
+                getResources().getColor(R.color.text_color)
+            }
+        ));
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
@@ -152,7 +162,6 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     @Override
     public void onStop() {
         unbinder.unbind();
-
         super.onStop();
     }
 }

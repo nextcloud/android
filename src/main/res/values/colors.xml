@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2012 Bartek Przybylski
@@ -22,8 +21,8 @@
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="text_color">#333333</color>
-    <color name="drawer_text_color">@color/secondary_text_color</color>
+    <color name="text_color">#191919</color>
+    <color name="drawer_text_color">@color/text_color</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eeeeee</color>
@@ -32,14 +31,17 @@
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="secondary_text_color">#666666</color>
+    <color name="secondary_text_color">#b2b2b2</color>
     <color name="highlight_textColor_Warning">#e53935</color>
+    <color name="check_green_color">#73c354</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
     <color name="actionbar_shadow">#222222</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_600">#666666</color>
+    <color name="dark_grey">#101010</color>
+    <color name="grey">#F2F2F2</color>
 
     <!-- standard material color definitions -->
 
@@ -59,6 +61,7 @@
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
     <color name="icon_on_nc_grey">#000000</color>
+    <color name="et_highlight_color">#77c4ff</color>
 
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
@@ -71,14 +74,34 @@
     <color name="color_dark_transparent">#40162233</color>
 
     <!-- Multiselect backgrounds -->
-    <color name="action_mode_background">@color/fontAppbar</color>
-    <color name="selected_item_background">#ECECEC</color>
+    <color name="action_mode_background">@color/white</color>
+    <color name="selected_item_background">#F2F2F2</color>
 
     <color name="drawer_menu_icon">#757575</color>
     <color name="bg_fallback_highlight">#616161</color>
-    <color name="switch_thumb_color_unchecked">#FFFFFF</color>
-    <color name="switch_track_color_unchecked">#4D000000</color>
-    <color name="drawer_active_item_background">#80000000</color>
+    <color name="drawer_active_item_background">#919191</color>
+
+    <!-- Switch Compat Colors -->
+    <color name="switch_thumb_checked_enabled">@color/primary</color>
+    <color name="switch_track_checked_enabled">#F399C7</color>
+    <color name="switch_thumb_checked_disabled">#F2F2F2</color>
+    <color name="switch_track_checked_disabled">#F2F2F2</color>
+    <color name="switch_thumb_unchecked_enabled">#FFFFFF</color>
+    <color name="switch_track_unchecked_enabled">#B2B2B2</color>
+    <color name="switch_thumb_unchecked_disabled">#F2F2F2</color>
+    <color name="switch_track_unchecked_disabled">#F2F2F2</color>
+    <color name="switch_thumb_checked_disabled_dark">#4C4C4C</color>
+    <color name="switch_track_checked_disabled_dark">#666666</color>
+    <color name="switch_thumb_unchecked_disabled_dark">#4C4C4C</color>
+    <color name="switch_track_unchecked_disabled_dark">#666666</color>
+
+    <!-- Checkbox Colors -->
+    <color name="checkbox_checked_enabled">@color/primary</color>
+    <color name="checkbox_unchecked_enabled">#B2B2B2</color>
+    <color name="checkbox_checked_disabled">#B2B2B2</color>
+    <color name="checkbox_unchecked_disabled">#CCCCCC</color>
+    <color name="checkbox_checked_disabled_dark">#4C4C4C</color>
+    <color name="checkbox_unchecked_disabled_dark">#4C4C4C</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
@@ -86,6 +109,9 @@
 
     <!-- App bar -->
     <color name="appbar">@android:color/white</color>
-    <color name="fontAppbar">#666666</color>
+    <color name="fontAppbar">#191919</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
+    <color name="progress_bar_background">#E5E5E5</color>
+    <color name="neptune">#77b6bb</color>
+    <color name="neptune_50">#5077b6bb</color>
 </resources>

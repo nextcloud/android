@@ -100,10 +100,19 @@ interface BackgroundJobManager {
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
 
+    fun scheduleImmediateScanDocUploadJob(
+        saveFileTypes: String,
+        docFileName: String,
+        remotePathToUpload: String,
+        pdfPassword: String?
+    ): LiveData<JobInfo?>
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()
 
     fun pruneJobs()
     fun cancelAllJobs()
+
+    fun isWorkScheduled(tag: String): Boolean
 }

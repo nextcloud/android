@@ -65,7 +65,7 @@ public class RenamePublicShareDialogFragment
 
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
 
@@ -78,11 +78,10 @@ public class RenamePublicShareDialogFragment
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         }
     }
-
+*/
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
 
         // Inflate the layout for the dialog
@@ -94,8 +93,8 @@ public class RenamePublicShareDialogFragment
         EditText inputText = binding.userInput;
         inputText.setText(publicShare.getLabel());
         inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
+        //inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        //inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

@@ -71,7 +71,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return frag;
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
 
@@ -81,7 +81,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }
+    }*/
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
         mListener = listener;

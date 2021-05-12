@@ -231,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:text="@string/instant_upload_existing"
                         android:textAppearance="?attr/textAppearanceListItem" />
                 </RelativeLayout>
@@ -375,6 +375,7 @@
             android:id="@+id/delete"
             style="@style/Button.Borderless.Destructive"
             android:layout_width="wrap_content"
+            android:textColor="@color/text_color"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:text="@string/common_delete" />
@@ -387,6 +388,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancel"
                 style="@style/Button.Borderless"
+                android:textColor="@color/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/common_cancel" />

@@ -179,10 +179,12 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        int color = ThemeUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
+       /* int color = ThemeUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
                                             true,
                                             context);
-        return ThemeUtils.tintDrawable(drawableId, color);
+        return ThemeUtils.tintDrawable(drawableId, color);*/
+
+        return  ContextCompat.getDrawable(context, drawableId);
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {

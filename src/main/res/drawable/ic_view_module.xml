@@ -1,23 +1,12 @@
-<!--
-    @author Google LLC
-    Copyright (C) 2018 Google LLC
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#FFFFFF" android:pathData="M16,5V11H21V5M10,11H15V5H10M16,18H21V12H16M10,18H15V12H10M4,18H9V12H4M4,11H9V5H4V11Z" />
+  <path
+      android:pathData="M8,13C9.4,13 10.5,14.1 10.5,15.5L10.5,15.5L10.5,19.5C10.5,20.9 9.4,22 8,22L8,22L4,22C2.6,22 1.5,20.9 1.5,19.5L1.5,19.5L1.5,15.5C1.5,14.1 2.6,13 4,13L4,13ZM19,13C20.4,13 21.5,14.1 21.5,15.5L21.5,15.5L21.5,19.5C21.5,20.9 20.4,22 19,22L19,22L15,22C13.6,22 12.5,20.9 12.5,19.5L12.5,19.5L12.5,15.5C12.5,14.1 13.6,13 15,13L15,13ZM8,14.5L4,14.5C3.45,14.5 3,14.95 3,15.5L3,15.5L3,19.5C3,20.05 3.45,20.5 4,20.5L4,20.5L8,20.5C8.55,20.5 9,20.05 9,19.5L9,19.5L9,15.5C9,14.95 8.55,14.5 8,14.5L8,14.5ZM19,14.5L15,14.5C14.45,14.5 14,14.95 14,15.5L14,15.5L14,19.5C14,20.05 14.45,20.5 15,20.5L15,20.5L19,20.5C19.55,20.5 20,20.05 20,19.5L20,19.5L20,15.5C20,14.95 19.55,14.5 19,14.5L19,14.5ZM8,2C9.4,2 10.5,3.1 10.5,4.5L10.5,4.5L10.5,8.5C10.5,9.9 9.4,11 8,11L8,11L4,11C2.6,11 1.5,9.9 1.5,8.5L1.5,8.5L1.5,4.5C1.5,3.1 2.6,2 4,2L4,2ZM19,2C20.4,2 21.5,3.1 21.5,4.5L21.5,4.5L21.5,8.5C21.5,9.9 20.4,11 19,11L19,11L15,11C13.6,11 12.5,9.9 12.5,8.5L12.5,8.5L12.5,4.5C12.5,3.1 13.6,2 15,2L15,2ZM8,3.5L4,3.5C3.45,3.5 3,3.95 3,4.5L3,4.5L3,8.5C3,9.05 3.45,9.5 4,9.5L4,9.5L8,9.5C8.55,9.5 9,9.05 9,8.5L9,8.5L9,4.5C9,3.95 8.55,3.5 8,3.5L8,3.5ZM19,3.5L15,3.5C14.45,3.5 14,3.95 14,4.5L14,4.5L14,8.5C14,9.05 14.45,9.5 15,9.5L15,9.5L19,9.5C19.55,9.5 20,9.05 20,8.5L20,8.5L20,4.5C20,3.95 19.55,3.5 19,3.5L19,3.5Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

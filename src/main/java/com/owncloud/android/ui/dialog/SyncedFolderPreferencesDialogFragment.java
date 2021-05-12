@@ -205,7 +205,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         ThemeUtils.themeDialogActionButton(mCancel);
 
         mSave = view.findViewById(R.id.save);
-        ThemeUtils.themeDialogActionButton(mSave);
+        //ThemeUtils.themeDialogActionButton(mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());
@@ -350,7 +350,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setEnabled(enable);
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setAlpha(alpha);
 
-        if (enable) {
+        mUploadOnWifiCheckbox.setEnabled(enable);
+        mUploadOnChargingCheckbox.setEnabled(enable);
+        mUploadExistingCheckbox.setEnabled(enable);
+        mUploadUseSubfoldersCheckbox.setEnabled(enable);
+
+        //commented as enabled/disabled colors will be handled via ColorList
+        /*if (enable) {
             int accentColor = ThemeUtils.primaryAccentColor(getContext());
             ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
             ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
@@ -361,7 +367,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, Color.GRAY);
             ThemeUtils.tintCheckbox(mUploadExistingCheckbox, Color.GRAY);
             ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, Color.GRAY);
-        }
+        }*/
 
         checkWritableFolder();
     }

@@ -109,6 +109,12 @@ import dagger.android.HasAndroidInjector;
 import de.cotech.hw.SecurityKeyManager;
 import de.cotech.hw.SecurityKeyManagerConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.scanbot.sap.IScanbotSDKLicenseErrorHandler;
+import io.scanbot.sap.SdkFeature;
+import io.scanbot.sap.SdkLicenseInfo;
+import io.scanbot.sap.Status;
+import io.scanbot.sdk.ScanbotSDK;
+import io.scanbot.sdk.ScanbotSDKInitializer;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 
@@ -183,24 +189,39 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     /**
-     * Temporary getter replacing Dagger DI
-     * TODO: remove when cleaning DI in NContentObserverJob
+     * Temporary getter replacing Dagger DI TODO: remove when cleaning DI in NContentObserverJob
      */
     public AppPreferences getPreferences() {
         return preferences;
     }
 
     /**
-     * Temporary getter replacing Dagger DI
-     * TODO: remove when cleaning DI in NContentObserverJob
+     * Temporary getter replacing Dagger DI TODO: remove when cleaning DI in NContentObserverJob
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
     }
 
+    private final String licenseKey =
+        "eTa/V1k8ZE3z+yK0iA1KK1oQVwHgsy" +
+            "JtZ9eaJeNpaGjqvRY2+4IZq8uVY/wU" +
+            "xzHz4h64P9B5vPTQz9eERr2rWAQylq" +
+            "OkioHEGRZ9HsLW+NPnixQv88JOZ3fX" +
+            "UzP7rBuRLxkyy7RKuNo/FHwmV31zOf" +
+            "JjdP3faauKIcb5BgLY/SFJ/1MsotK2" +
+            "JiOIYw5/cj/FkLq37WkeJR+QkD17vJ" +
+            "GaOVZHv/HRS9xj2QUZXFzRcFp/c9yF" +
+            "FUAZrui1CeBBfHA9uyO0ke4hBzNb9M" +
+            "VpXSM/cNt654T06jOSiSkGjB52ejNN" +
+            "eF61DwKNKpVFXV27DUsqBsMaOEMSb2" +
+            "U5iqCEkwWTuQ==\nU2NhbmJvdFNESw" +
+            "pjb20udF9zeXN0ZW1zLmFuZHJvaWQu" +
+            "d2ViZGF2CjE2NTA5MzExOTkKMTE1NT" +
+            "Y3OAoy\n";
+
     private String getAppProcessName() {
         String processName = "";
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
             final int ownPid = android.os.Process.myPid();
             final List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
@@ -298,6 +319,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         backgroundJobManager.startMediaFoldersDetectionJob();
 
         registerGlobalPassCodeProtection();
+
+        initialiseScanBotSDK();
     }
 
     private void registerGlobalPassCodeProtection() {
@@ -433,7 +456,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final PowerManagementService powerManagementService,
         final BackgroundJobManager backgroundJobManager,
         final Clock clock
-    ) {
+                                         ) {
         updateToAutoUpload();
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -511,6 +534,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
                               context, NotificationManager.IMPORTANCE_DEFAULT);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_SCAN_DOC_SAVE,
+                              R.string.notification_channel_scan_doc_save,
+                              R.string.notification_channel_scan_doc_save_description, context);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }
@@ -766,16 +793,36 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
 
     public static void setAppTheme(DarkMode mode) {
-        switch (mode) {
+      /*  switch (mode) {
             case LIGHT:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
             case DARK:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
-            case SYSTEM:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
-        }
+            case SYSTEM:*/
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+       /*         break;
+        }*/
+    }
+
+    /**
+     * method to initialise the ScanBot SDK
+     */
+    private void initialiseScanBotSDK() {
+        new ScanbotSDKInitializer()
+            .withLogging(BuildConfig.DEBUG)
+            .license(this, licenseKey)
+            .licenceErrorHandler((status, sdkFeature) -> {
+                // Handle license errors here:
+                Log_OC.d(TAG, "License status: " + status.name());
+                if (sdkFeature != SdkFeature.NoSdkFeature) {
+                    Log_OC.d(TAG, "Missing SDK feature in license: " + sdkFeature.name());
+                }
+            })
+            //enable sdkFilesDir if custom file directory has to be set
+            //.sdkFilesDirectory(this,getExternalFilesDir(null))
+            .prepareOCRLanguagesBlobs(true)
+            .initialize(this);
     }
 }

@@ -383,6 +383,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 item.setEnabled(false);
             }
         }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_see_details);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     @Override

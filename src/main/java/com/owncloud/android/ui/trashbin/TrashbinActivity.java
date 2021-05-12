@@ -42,6 +42,7 @@ import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.adapter.TrashbinListAdapter;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
 import com.owncloud.android.utils.DisplayUtils;
@@ -124,6 +125,7 @@ public class TrashbinActivity extends DrawerActivity implements
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFooter(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new SimpleListItemDividerDecoration(this, R.drawable.item_divider, true));
 
         ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
         binding.swipeContainingList.setOnRefreshListener(this::loadFolder);

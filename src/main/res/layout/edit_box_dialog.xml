@@ -29,7 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/hint_name"
+        android:backgroundTint="@color/secondary_text_color"
+        android:textColorHighlight="@color/et_highlight_color"
         android:importantForAutofill="no"
         android:inputType="textNoSuggestions|textCapSentences"/>
 

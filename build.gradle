@@ -63,6 +63,8 @@ ext {
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.10.19"
     espressoVersion = "3.3.0"
+    workRuntime = "2.5.0"
+    scanbotSdkVersion = "1.80.1"
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -77,6 +79,14 @@ repositories {
 
     flatDir {
         dirs 'libs'
+    }
+
+    // Scanbot SDK maven repos:
+    maven {
+        url 'https://nexus.scanbot.io/nexus/content/repositories/releases/'
+    }
+    maven {
+        url 'https://nexus.scanbot.io/nexus/content/repositories/snapshots/'
     }
 }
 
@@ -157,24 +167,24 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'de.magentacloud.next.dev2.android.client'
+                applicationId 'com.t_systems.android.webdav'
                 dimension "default"
             }
 
             gplay {
-                applicationId 'de.magentacloud.next.dev2.android.client'
+                applicationId 'com.t_systems.android.webdav'
                 dimension "default"
             }
 
             versionDev {
-                applicationId 'de.magentacloud.next.dev2.android.client'
+                applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
                 versionCode 20200129
                 versionName "20200129"
             }
 
             qa {
-                applicationId 'de.magentacloud.next.dev2.android.client'
+                applicationId "com.t_systems.android.webdav.qa"
                 dimension "default"
                 versionCode 1
                 versionName "1"
@@ -198,6 +208,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
     }
 
     tasks.register("checkstyle", Checkstyle) {
@@ -404,6 +415,15 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+
+    //scanbot sdk
+    //implementation "io.scanbot:sdk-package-1:$scanbotSdkVersion"
+    implementation "io.scanbot:sdk-package-2:$scanbotSdkVersion"
+
+    //apache pdf-box for encrypting pdf files
+    implementation (group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.1'){
+        exclude group: "commons-logging"
+    }
 }
 
 spotbugs {

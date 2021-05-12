@@ -114,11 +114,11 @@ public class ConflictsResolveDialog extends DialogFragment {
             return;
         }
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        //int color = ThemeUtils.primaryAccentColor(getContext());
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         setPositiveButtonStatus(false);
 
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+        //alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
     }
 
     @Override

@@ -27,10 +27,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
+import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 
@@ -52,6 +55,7 @@ public class GalleryFragment extends OCFileListFragment {
     private AsyncTask photoSearchTask;
     private SearchEvent searchEvent;
     private boolean refresh;
+    private MediaGridItemDecoration mediaGridItemDecoration;
 
     public GalleryFragment() {
         this.refresh = false;
@@ -95,6 +99,8 @@ public class GalleryFragment extends OCFileListFragment {
             }
         });
 
+        enableRecyclerViewGridZooming();
+
         Log_OC.i(this, "onCreateView() in GalleryFragment end");
         return v;
     }
@@ -105,7 +111,14 @@ public class GalleryFragment extends OCFileListFragment {
 
         currentSearchType = SearchType.GALLERY_SEARCH;
 
-        switchToGridView();
+        switchToMediaGridView();
+        mAdapter.setMediaGallery(true);
+        if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
+            int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_item_rv_spacing);
+            mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
+            getRecyclerView().addItemDecoration(mediaGridItemDecoration);
+            getRecyclerView().setPadding(spacing, spacing, spacing, spacing);
+        }
 
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();

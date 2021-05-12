@@ -1,25 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="24dp" android:tint="#757575"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M5.355,11.5C5.61,12.03 5.915,12.535 6.265,13L6.265,13L2,13L2,19.145C2,19.34 2.16,19.5 2.355,19.5L2.355,19.5L10.17,19.5L12,21.33L12,16.4C12.41,16.46 12.825,16.5 13.255,16.505C13.34,16.505 13.42,16.49 13.505,16.49L13.505,16.49L13.505,22.34C13.505,22.995 12.97,23.425 12.415,23.425C12.145,23.425 11.875,23.325 11.655,23.105L11.655,23.105L9.55,21L2.355,21C1.33,21 0.5,20.17 0.5,19.145L0.5,19.145L0.5,11.5ZM19.5,10.06L23.5,12.405L23.5,14.235L20.99,13.6L20.99,13.6L20.99,19.855C20.99,21.955 19.4,22.275 18.53,22.205C17.185,22.095 16.105,21.15 16.12,20.05C16.14,18.95 17.24,18.13 18.59,18.22C18.91,18.245 19.22,18.32 19.5,18.43L19.5,18.43L19.5,10.06ZM13.25,0.5C17.255,0.5 20.5,3.745 20.5,7.75C20.5,8.125 20.46,8.495 20.405,8.855L20.405,8.855L18.985,8.02C18.99,7.93 19,7.84 19,7.75C19,4.58 16.42,2 13.25,2C10.08,2 7.5,4.58 7.5,7.75C7.5,10.92 10.08,13.5 13.25,13.5C15.22,13.5 16.965,12.5 18,10.985L18,10.985L18,13.22C16.725,14.325 15.07,15 13.25,15C9.245,15 6,11.755 6,7.75C6,3.745 9.245,0.5 13.25,0.5ZM11.5,5.17L16.115,7.835L11.5,10.5L11.5,5.17Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

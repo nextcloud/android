@@ -1,0 +1,125 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scan_doc_btn_automatic"
+        style="@style/Button.Borderless.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:text="@string/automatic"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_size_14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scan_doc_btn_flash"
+        style="@style/Button.Borderless.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_flash"
+        app:iconSize="20dp"
+        app:iconTint="@color/primary"
+        app:iconPadding="@dimen/standard_quarter_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_quarter_padding"
+        android:text="@string/flash"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_size_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <io.scanbot.sdk.camera.ScanbotCameraView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/standard_margin"
+        app:layout_constraintBottom_toTopOf="@+id/shutterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_doc_btn_automatic">
+
+        <io.scanbot.sdk.ui.PolygonView
+            android:id="@+id/polygonView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:polygonStrokeColor="@color/neptune"
+            app:polygonFillColorOK="@color/neptune_50"
+            app:polygonFillColor="@color/neptune_50"
+            app:polygonStrokeColorOK="@color/neptune"
+            app:polygonStrokeWidth="1dp" />
+
+    </io.scanbot.sdk.camera.ScanbotCameraView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scan_doc_btn_cancel"
+        style="@style/Button.Borderless.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:padding="@dimen/standard_padding"
+        android:text="@string/common_cancel"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/txt_size_15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/userGuidanceHint"
+        android:layout_width="160dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/grey_transparent_curve_bg"
+        android:gravity="center"
+        android:paddingLeft="24dp"
+        android:paddingTop="@dimen/alternate_padding"
+        android:paddingRight="24dp"
+        android:paddingBottom="@dimen/alternate_padding"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_size_15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/shutterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_doc_btn_automatic"
+        tools:text="No Document"
+        tools:visibility="visible" />
+
+    <io.scanbot.sdk.ui.camera.ShutterButton
+        android:id="@+id/shutterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:elevation="6dp"
+        app:shutterButtonManualImage="@drawable/ic_camera"
+        app:shutterButtonManualOuterColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shutterButtonAutoOuterColor="@color/primary" />
+
+    <ProgressBar
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:indeterminateTint="@color/primary"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/scan_doc_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

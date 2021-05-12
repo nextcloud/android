@@ -89,6 +89,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,6 +104,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
@@ -140,7 +142,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Reference to the navigation view header.
      */
-    private View mNavigationViewHeader;
+   // private View mNavigationViewHeader;
 
     /**
      * Flag to signal if the account chooser is active.
@@ -167,6 +169,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private TextView mQuotaTextPercentage;
     private TextView mQuotaTextLink;
+    private AppCompatTextView mQuotaTextUsage;
 
     /**
      * runnable that will be executed after the drawer has been closed.
@@ -203,9 +206,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null) {
 
             // Setting up drawer header
-            mNavigationViewHeader = mNavigationView.getHeaderView(0);
+           /* mNavigationViewHeader = mNavigationView.getHeaderView(0);
             FrameLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-            setupDrawerHeader(drawerHeader);
+            setupDrawerHeader(drawerHeader);*/
 
             setupDrawerMenu(mNavigationView);
             getAndDisplayUserQuota();
@@ -262,10 +265,11 @@ public abstract class DrawerActivity extends ToolbarActivity
      * setup quota elements of the drawer.
      */
     private void setupQuotaElement() {
-        mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
-        mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
-        mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
+        mQuotaView = (LinearLayout) mNavigationView.findViewById(R.id.drawer_quota);
+        mQuotaProgressBar = (ProgressBar)  mNavigationView.findViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaTextPercentage = (TextView)  mNavigationView.findViewById(R.id.drawer_quota_percentage);
+        mQuotaTextUsage = (AppCompatTextView)  mNavigationView.findViewById(R.id.drawer_quota_usage);
+        mQuotaTextLink = (TextView)  mNavigationView.findViewById(R.id.drawer_quota_link);
         ThemeUtils.colorProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
     }
 
@@ -591,7 +595,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param quotaValue {@link GetUserInfoRemoteOperation#SPACE_UNLIMITED} or other to determinate state
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
-        if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
+       /* if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota_unlimited),
                 DisplayUtils.bytesToHumanReadable(usedSpace)));
@@ -600,9 +604,20 @@ public abstract class DrawerActivity extends ToolbarActivity
                 getString(R.string.drawer_quota),
                 DisplayUtils.bytesToHumanReadable(usedSpace),
                 DisplayUtils.bytesToHumanReadable(totalSpace)));
-        }
+        }*/
+
+
+        String usageText = String.format(
+            getString(R.string.drawer_quota_usage),
+            DisplayUtils.bytesToHumanReadable(usedSpace),
+            DisplayUtils.bytesToHumanReadable(totalSpace));
+
+        mQuotaTextUsage.setText(StringUtils.makeTextBold(usageText, DisplayUtils.bytesToHumanReadable(usedSpace)));
 
         mQuotaProgressBar.setProgress(relative);
+
+        mQuotaTextPercentage.setText(String.format(
+            getString(R.string.drawer_quota_percentage), relative));
 
         ThemeUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
@@ -634,7 +649,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     final ExternalLink firstQuota = quotas.get(0);
                     mQuotaTextLink.setText(firstQuota.name);
                     mQuotaTextLink.setClickable(true);
-                    mQuotaTextLink.setVisibility(View.VISIBLE);
+                    mQuotaTextLink.setVisibility(View.GONE);
                     mQuotaTextLink.setOnClickListener(v -> {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
@@ -924,7 +939,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @return The view if found or <code>null</code> otherwise.
      */
     private View findQuotaViewById(int id) {
-        View v = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
+        View v = ((NavigationView) findViewById(R.id.nav_view)).findViewById(id);
 
         if (v != null) {
             return v;

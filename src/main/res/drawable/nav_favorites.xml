@@ -1,25 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="24dp" android:tint="#757575"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M23.55,9.4C23.3,8.7 22.7,8.2 21.95,8.15L15.95,7.7L13.7,2.15C13.4,1.45 12.75,1 12,1C11.25,1 10.6,1.45 10.3,2.15L8,7.75L2,8.2C1.25,8.25 0.65,8.75 0.4,9.45C0.15,10.15 0.4,10.9 0.95,11.4L5.55,15.3L4.15,21.1C4,21.8 4.25,22.55 4.85,23C5.15,23.25 5.55,23.35 5.9,23.35C6.25,23.35 6.55,23.25 6.85,23.1L12,19.9L17.1,23.1C17.75,23.5 18.5,23.45 19.1,23.05C19.7,22.6 19.95,21.85 19.8,21.15L18.35,15.3L22.95,11.4C23.55,10.85 23.8,10.1 23.55,9.4ZM22.05,10.2L16.75,14.7L18.4,21.45C18.45,21.65 18.35,21.75 18.3,21.8C18.25,21.85 18.1,21.9 17.95,21.8L12,18.1L6.1,21.75C5.95,21.85 5.8,21.8 5.75,21.75C5.7,21.7 5.6,21.6 5.65,21.4L7.3,14.65L2,10.15C1.85,10.05 1.9,9.9 1.9,9.8C1.9,9.75 2,9.6 2.15,9.6L9.1,9.1L11.75,2.65C11.8,2.5 11.9,2.5 12,2.5C12.1,2.5 12.2,2.55 12.3,2.7L14.95,9.15L21.9,9.65C22.1,9.65 22.15,9.8 22.15,9.85C22.15,9.95 22.15,10.1 22.05,10.2Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

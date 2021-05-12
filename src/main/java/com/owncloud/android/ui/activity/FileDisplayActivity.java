@@ -50,6 +50,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -61,6 +62,8 @@ import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nmc.android.ui.SaveScannedDocumentFragment;
+import com.nmc.android.ui.ScanDocumentFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -187,6 +190,7 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
+    public static final int REQUEST_CODE__SCAN_DOCUMENT = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -236,7 +240,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         // Set the default theme to replace the launch screen theme.
-        setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
+        //setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
         /// Load of saved instance state
@@ -761,6 +765,8 @@ public class FileDisplayActivity extends FileActivity
         menu.findItem(R.id.action_select_all).setVisible(false);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search);
         searchMenuItem.setVisible(false);
         mSearchText.setOnClickListener(v -> {
             showSearchView();
@@ -935,7 +941,22 @@ public class FileDisplayActivity extends FileActivity
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
             );
-        } else {
+        } else if (requestCode == REQUEST_CODE__SCAN_DOCUMENT && resultCode == RESULT_OK) {
+
+            OCFile remoteFilePath = data.getParcelableExtra(SaveScannedDocumentFragment.EXTRA_SCAN_DOC_REMOTE_PATH);
+            if (remoteFilePath==null){
+                remoteFilePath = getCurrentDir();
+            }
+
+            Log_OC.d(this,"Scan Document save remote path: "+remoteFilePath.getRemotePath());
+
+            OCFileListFragment fileListFragment = getListOfFilesFragment();
+            if (fileListFragment != null) {
+                fileListFragment.onItemClicked(remoteFilePath);
+            }
+
+        }
+        else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

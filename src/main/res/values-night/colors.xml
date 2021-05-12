@@ -24,6 +24,7 @@
     <color name="text_color_inverse">#000000</color>
     <color name="secondary_text_color">#A5A5A5</color>
     <color name="list_divider_background">#222222</color>
+    <color name="check_green_color">#73c354</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>
@@ -34,6 +35,7 @@
     <color name="grey_200">#818181</color>
     <color name="nc_grey">#222222</color>
     <color name="icon_on_nc_grey">#ffffff</color>
+    <color name="grey">#373535</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>
@@ -44,8 +46,6 @@
 
     <color name="drawer_menu_icon">#ffffff</color>
     <color name="bg_fallback_highlight">#737373</color>
-    <color name="switch_thumb_color_unchecked">#2a2a2a</color>
-    <color name="switch_track_color_unchecked">#B3FFFFFF</color>
     <color name="drawer_active_item_background">@color/white</color>
 
     <!-- App bar -->

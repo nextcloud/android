@@ -1,5 +1,41 @@
-<vector android:height="24dp" android:tint="#969696"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+  <path
+      android:pathData="M55,19V58a2,2 0,0 1,-2 2H11a2,2 0,0 1,-2 -2V6a2,2 0,0 1,2 -2H40Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="60.000004"
+          android:startX="31.999996"
+          android:endY="4.010003"
+          android:endX="31.999996"
+          android:type="linear">
+        <item android:offset="0" android:color="#FFDDD6D3"/>
+        <item android:offset="0.39" android:color="#FFE9E4E2"/>
+        <item android:offset="1" android:color="#FFE9E4E2"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M55,19H42a2,2 0,0 1,-2 -2V4Z"
+      android:strokeAlpha="0.7"
+      android:fillColor="#b9ada7"
+      android:fillAlpha="0.7"/>
+  <path
+      android:pathData="M46.34,34.94a0.43,0.43 0,0 0,0 -0.73,14 14,0 0,0 -7.68,-2.43L38.1,31.78l0.39,-0.36a14,14 0,0 0,3.81 -7.11,0.43 0.43,0 0,0 -0.51,-0.52 14.09,14.09 0,0 0,-7.14 3.73,5.11 5.11,0 0,0 -0.39,0.42c0,-0.18 0,-0.36 0,-0.54A14.07,14.07 0,0 0,32 19.68a0.42,0.42 0,0 0,-0.72 0,14 14,0 0,0 -2.42,7.69c0,0.2 0,0.39 0,0.58 -0.13,-0.14 -0.24,-0.27 -0.37,-0.4a13.9,13.9 0,0 0,-7.09 -3.81,0.43 0.43,0 0,0 -0.52,0.51 14,14 0,0 0,3.72 7.15l0.42,0.4 -0.54,0a13.9,13.9 0,0 0,-7.7 2.33,0.43 0.43,0 0,0 0,0.73 13.86,13.86 0,0 0,7.67 2.42L25,37.28c-0.13,0.12 -0.26,0.23 -0.39,0.36a14,14 0,0 0,-3.81 7.12,0.42 0.42,0 0,0 0.51,0.51 13.89,13.89 0,0 0,7.14 -3.72c0.14,-0.14 0.26,-0.28 0.39,-0.43 0,0.18 0,0.36 0,0.54a14,14 0,0 0,2.32 7.73,0.43 0.43,0 0,0 0.73,0 14.12,14.12 0,0 0,2.42 -7.7c0,-0.19 0,-0.38 0,-0.58 0.12,0.14 0.24,0.27 0.37,0.4a14,14 0,0 0,7.09 3.82,0.43 0.43,0 0,0 0.51,-0.51 14.08,14.08 0,0 0,-3.71 -7.16l-0.42,-0.4 0.53,0A14,14 0,0 0,46.34 34.94ZM33.26,35.55a2,2 0,1 1,-0.69 -2.75A2,2 0,0 1,33.26 35.55Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="49.570004"
+          android:startX="31.549997"
+          android:endY="19.480003"
+          android:endX="31.549997"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF992C99"/>
+        <item android:offset="1" android:color="#FFB35CB3"/>
+      </gradient>
+    </aapt:attr>
+  </path>
 </vector>

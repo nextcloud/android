@@ -72,7 +72,7 @@ public class CreateFolderDialogFragment
 
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
 
@@ -80,9 +80,11 @@ public class CreateFolderDialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }
+    }*/
 
     @NonNull
     @Override
@@ -116,7 +118,6 @@ public class CreateFolderDialogFragment
 
         return d;
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
