@@ -195,8 +195,8 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
             flashToggleButton.setIconTintResource(R.color.primary)
             flashToggleButton.setTextColor(resources.getColor(R.color.primary))
         } else {
-            flashToggleButton.setIconTintResource(R.color.secondary_text_color)
-            flashToggleButton.setTextColor(resources.getColor(R.color.secondary_text_color))
+            flashToggleButton.setIconTintResource(R.color.grey_600)
+            flashToggleButton.setTextColor(resources.getColor(R.color.grey_600))
         }
     }
 
@@ -387,7 +387,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
             autoSnappingToggleButton.setTextColor(resources.getColor(R.color.primary))
             shutterButton.showAutoButton()
         } else {
-            autoSnappingToggleButton.setTextColor(resources.getColor(R.color.secondary_text_color))
+            autoSnappingToggleButton.setTextColor(resources.getColor(R.color.grey_600))
             shutterButton.showManualButton()
             userGuidanceHint.visibility = View.GONE
         }

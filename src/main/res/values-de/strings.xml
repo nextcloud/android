@@ -458,8 +458,8 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
-    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
-    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
+    <string name="notification_channel_scan_doc_save">Gescannte Documente speichern Benachrichtigungskanal</string>
+    <string name="notification_channel_scan_doc_save_description">Speicherprozess zeigen</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
