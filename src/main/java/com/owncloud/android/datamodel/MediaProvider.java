@@ -33,7 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -180,7 +180,7 @@ public final class MediaProvider {
                         R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(activity));
 
-                ThemeSnackbarUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
+                ThemeUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
                 snackbar.show();
             } else {

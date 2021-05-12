@@ -53,7 +53,6 @@
             android:paddingTop="@dimen/standard_padding"
             android:paddingEnd="@dimen/zero"
             android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textSize="@dimen/two_line_primary_text_size"
             tools:text="@string/placeholder_filename" />
 
         <TextView
@@ -64,7 +63,6 @@
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:paddingEnd="@dimen/zero"
             android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textSize="@dimen/two_line_primary_text_size"
             tools:text="@string/placeholder_sentence" />
 
         <GridLayout
@@ -86,7 +84,6 @@
             android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
             android:paddingEnd="@dimen/zero"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="@dimen/two_line_primary_text_size"
             tools:text="@string/placeholder_sentence" />
 
     </LinearLayout>

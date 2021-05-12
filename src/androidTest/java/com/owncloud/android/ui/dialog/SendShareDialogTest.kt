@@ -54,7 +54,7 @@ class SendShareDialogTest : AbstractIT() {
 
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         shortSleep()
-        shortSleep()
+
         sut.requireDialog().window?.decorView.let { screenshot(it) }
     }
 }

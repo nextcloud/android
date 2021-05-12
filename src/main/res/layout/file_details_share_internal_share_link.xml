@@ -45,24 +45,22 @@
         android:src="@drawable/ic_external" />
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_width="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/shareInternalLink"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/share_internal_link"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/two_line_primary_text_size" />
+            android:textColor="@color/text_color" />
 
         <TextView
             android:id="@+id/shareInternalLinkText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/two_line_primary_text_size"
+            android:layout_width="wrap_content"
             tools:text="@string/share_internal_link_to_folder_text" />
     </LinearLayout>
 

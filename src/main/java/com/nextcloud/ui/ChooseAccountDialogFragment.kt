@@ -37,7 +37,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
-import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.ui.StatusDrawable
@@ -48,8 +47,9 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.ThemeUtils
+import kotlinx.android.synthetic.main.account_item.*
+import kotlinx.android.synthetic.main.dialog_choose_account.*
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -67,9 +67,6 @@ class ChooseAccountDialogFragment :
     private lateinit var accountManager: UserAccountManager
     private var currentStatus: Status? = null
 
-    private var _binding: DialogChooseAccountBinding? = null
-    private val binding get() = _binding!!
-
     @Inject
     lateinit var clientFactory: ClientFactory
 
@@ -82,11 +79,9 @@ class ChooseAccountDialogFragment :
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogChooseAccountBinding.inflate(LayoutInflater.from(requireContext()))
-        dialogView = binding.root
-
+        dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_choose_account, null)
         return MaterialAlertDialogBuilder(requireContext())
-            .setView(binding.root)
+            .setView(dialogView)
             .create()
     }
 
@@ -96,27 +91,27 @@ class ChooseAccountDialogFragment :
         currentUser?.let { user ->
 
             // Defining user picture
-            binding.currentAccount.userIcon.tag = user.accountName
+            user_icon.tag = user.accountName
             DisplayUtils.setAvatar(
                 user,
                 this,
                 resources.getDimension(R.dimen.list_item_avatar_icon_radius),
                 resources,
-                binding.currentAccount.userIcon,
+                user_icon,
                 context
             )
 
             // Defining user texts, accounts, etc.
-            binding.currentAccount.userName.text = user.toOwnCloudAccount().displayName
-            binding.currentAccount.ticker.visibility = View.GONE
-            binding.currentAccount.account.text = user.accountName
+            user_name.text = user.toOwnCloudAccount().displayName
+            ticker.visibility = View.GONE
+            account.text = user.accountName
 
             // Defining user right indicator
-            val icon = ThemeDrawableUtils.tintDrawable(
+            val icon = ThemeUtils.tintDrawable(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                ThemeColorUtils.primaryColor(requireContext(), true)
+                ThemeUtils.primaryColor(requireContext(), true)
             )
-            binding.currentAccount.accountMenu.setImageDrawable(icon)
+            account_menu.setImageDrawable(icon)
 
             // Creating adapter for accounts list
             val adapter = UserListAdapter(
@@ -127,21 +122,20 @@ class ChooseAccountDialogFragment :
                 false,
                 false
             )
-
-            binding.accountsList.adapter = adapter
+            accounts_list.adapter = adapter
 
             // Creating listeners for quick-actions
-            binding.currentAccount.root.setOnClickListener {
+            current_account.setOnClickListener {
                 dismiss()
             }
-            binding.addAccount.setOnClickListener {
+            add_account.setOnClickListener {
                 (activity as DrawerActivity).openAddAccount()
             }
-            binding.manageAccounts.setOnClickListener {
+            manage_accounts.setOnClickListener {
                 (activity as DrawerActivity).openManageAccounts()
             }
 
-            binding.setStatus.setOnClickListener {
+            set_status.setOnClickListener {
                 val setStatusDialog = SetStatusDialogFragment.newInstance(accountManager.user, currentStatus)
                 setStatusDialog.show((activity as DrawerActivity).supportFragmentManager, "fragment_set_status")
 
@@ -152,14 +146,14 @@ class ChooseAccountDialogFragment :
                 .getCapability(user)
 
             if (capability.userStatus.isTrue) {
-                binding.statusView.visibility = View.VISIBLE
+                statusView.visibility = View.VISIBLE
             }
 
             RetrieveStatusAsyncTask(user, this, clientFactory).execute()
         }
     }
 
-    private fun getAccountListItems(): List<UserListItem> {
+    private fun getAccountListItems(): List<UserListItem>? {
         val users = accountManager.allUsers
         val adapterUserList: MutableList<UserListItem> = ArrayList(users.size)
         // Remove the current account from the adapter to display only other accounts
@@ -184,7 +178,7 @@ class ChooseAccountDialogFragment :
             }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return dialogView
     }
 
@@ -193,7 +187,9 @@ class ChooseAccountDialogFragment :
     }
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
-        binding.currentAccount.userIcon.setImageDrawable(avatarDrawable)
+        if (user_icon != null) {
+            user_icon.setImageDrawable(avatarDrawable)
+        }
     }
 
     override fun onAccountClicked(user: User?) {
@@ -208,26 +204,18 @@ class ChooseAccountDialogFragment :
         currentStatus = newStatus
 
         val size = DisplayUtils.convertDpToPixel(STATUS_SIZE_IN_DP, context)
-        binding.currentAccount.ticker.background = null
-        binding.currentAccount.ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
-        binding.currentAccount.ticker.visibility = View.VISIBLE
+        ticker.background = null
+        ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
+        ticker.visibility = View.VISIBLE
 
-        binding.currentAccount.status.let {
-            if (newStatus.message.isNullOrBlank()) {
-                it.text = ""
-                it.visibility = View.GONE
-            } else {
-                it.text = newStatus.message
-                it.visibility = View.VISIBLE
-            }
+        if (newStatus.message.isNullOrBlank()) {
+            status.text = ""
+            status.visibility = View.GONE
+        } else {
+            status.text = newStatus.message
+            status.visibility = View.VISIBLE
         }
 
         view?.invalidate()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
     }
 }

@@ -40,8 +40,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -126,10 +125,10 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         if (progressBar != null) {
             if (progressBar instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) progressBar;
-                ThemeBarUtils.colorHorizontalSeekBar(seeker, getContext());
+                ThemeUtils.colorHorizontalSeekBar(seeker, getContext());
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                ThemeBarUtils.colorHorizontalProgressBar(progressBar, ThemeColorUtils.primaryAccentColor(getContext()));
+                ThemeUtils.colorHorizontalProgressBar(progressBar, ThemeUtils.primaryAccentColor(getContext()));
             }
             progressBar.setMax(1000);
         }

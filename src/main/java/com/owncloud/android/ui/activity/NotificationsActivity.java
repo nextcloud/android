@@ -49,7 +49,7 @@ import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
 import com.owncloud.android.ui.notifications.NotificationsContract;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -101,8 +101,8 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
 
-        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
-        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingEmpty);
+        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingEmpty);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
@@ -202,7 +202,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
     @VisibleForTesting
     public void populateList(List<Notification> notifications) {
-        initializeAdapter();
         adapter.setNotificationItems(notifications);
         binding.loadingContent.setVisibility(View.GONE);
 
@@ -221,7 +220,19 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            initializeAdapter();
+            if (client == null && optionalUser.isPresent()) {
+                try {
+                    User user = optionalUser.get();
+                    client = clientFactory.create(user);
+                } catch (ClientFactory.CreationException e) {
+                    Log_OC.e(TAG, "Error initializing client", e);
+                }
+            }
+
+            if (adapter == null) {
+                adapter = new NotificationListAdapter(client, this);
+                binding.list.setAdapter(adapter);
+            }
 
             RemoteOperation getRemoteNotificationOperation = new GetNotificationsRemoteOperation();
             final RemoteOperationResult result = getRemoteNotificationOperation.execute(client);
@@ -240,25 +251,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         });
 
         t.start();
-    }
-
-    private void initializeClient() {
-        if (client == null && optionalUser.isPresent()) {
-            try {
-                User user = optionalUser.get();
-                client = clientFactory.create(user);
-            } catch (ClientFactory.CreationException e) {
-                Log_OC.e(TAG, "Error initializing client", e);
-            }
-        }
-    }
-
-    private void initializeAdapter() {
-        initializeClient();
-        if (adapter == null) {
-            adapter = new NotificationListAdapter(client, this);
-            binding.list.setAdapter(adapter);
-        }
     }
 
     private void hideRefreshLayoutLoader() {

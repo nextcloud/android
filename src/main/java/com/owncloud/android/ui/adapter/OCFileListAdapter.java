@@ -83,10 +83,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -340,8 +337,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OCFileListFooterViewHolder) {
             OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
             footerViewHolder.footerText.setText(getFooterText());
-            footerViewHolder.progressBar.getIndeterminateDrawable()
-                .setColorFilter(ThemeColorUtils.primaryColor(activity), PorterDuff.Mode.SRC_IN);
+            footerViewHolder.progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryColor(activity),
+                                                                                   PorterDuff.Mode.SRC_IN);
             footerViewHolder.progressBar.setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof OCFileListHeaderViewHolder) {
@@ -373,9 +370,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else if (isCheckedFile(file)) {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                  .getColor(R.color.selected_item_background));
-                gridViewHolder.checkbox.setImageDrawable(
-                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                    ThemeColorUtils.primaryColor(activity)));
+                gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                                                 ThemeUtils.primaryColor(activity)));
             } else {
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -436,14 +432,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         if (i == 0 && sharees.size() > 3) {
                             avatar.setImageResource(R.drawable.ic_people);
-                            ThemeDrawableUtils.setIconColor(avatar.getDrawable());
+                            ThemeUtils.setIconColor(avatar.getDrawable());
                         } else {
                             switch (sharee.getShareType()) {
                                 case GROUP:
                                 case EMAIL:
                                 case ROOM:
                                 case CIRCLE:
-                                    ThemeAvatarUtils.createAvatar(sharee.getShareType(), avatar, activity);
+                                    ThemeUtils.createAvatar(sharee.getShareType(), avatar, activity);
                                     break;
 
                                 case FEDERATED:
@@ -584,10 +580,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = ThemeDrawableUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
-                                                                                      R.drawable.account_circle_white,
-                                                                                      null),
-                                                          R.color.black);
+            placeholder = ThemeUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
+                                                                              R.drawable.account_circle_white, null),
+                                                  R.color.black);
         }
 
         avatar.setTag(null);

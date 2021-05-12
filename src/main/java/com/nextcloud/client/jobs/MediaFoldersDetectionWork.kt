@@ -54,7 +54,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOV
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.ThemeUtils
 import java.util.ArrayList
 import java.util.Random
 
@@ -200,7 +200,7 @@ class MediaFoldersDetectionWork constructor(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(ThemeColorUtils.primaryColor(context))
+            .setColor(ThemeUtils.primaryColor(context))
             .setSubText(user.accountName)
             .setContentTitle(contentTitle)
             .setContentText(subtitle)

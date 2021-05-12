@@ -105,12 +105,3 @@ This is handy if one wants to make changes both to files app and library:
 - sync project with gradle files
 
 Now every change in library can be directly used in files app.
-
-### 6. Troubleshooting
-
-#### 1. Compilation fails with "java.lang.OutOfMemoryError: Java heap space" error
-The default settings for Gradle is to limit the compilation to 1GB of heap.
-You can increase that value by :
-- adding `org.gradle.jvmargs=-Xmx4G` to `gradle.properties`
-- running gradlew(.bat) with this command line : `GRADLE_OPTS="-Xmx4G" ./gradlew clean build"
-

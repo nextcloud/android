@@ -355,10 +355,4 @@ public interface AppPreferences {
     boolean isPowerCheckDisabled();
 
     void setPowerCheckDisabled(boolean value);
-
-    void increasePinWrongAttempts();
-
-    void resetPinWrongAttempts();
-
-    int pinBruteForceDelay();
 }

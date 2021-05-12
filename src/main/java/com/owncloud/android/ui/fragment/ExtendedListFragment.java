@@ -67,10 +67,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -193,10 +190,10 @@ public class ExtendedListFragment extends Fragment implements
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        ThemeToolbarUtils.themeSearchView(searchView, requireContext());
+        ThemeUtils.themeSearchView(searchView, requireContext());
 
         SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
-        theTextArea.setHighlightColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        theTextArea.setHighlightColor(ThemeUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 
@@ -381,7 +378,7 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
-        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);
@@ -615,8 +612,7 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                ThemeDrawableUtils.tintDrawable(icon,
-                                                                ThemeColorUtils.primaryColor(getContext(),true)));
+                                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(getContext(), true)));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

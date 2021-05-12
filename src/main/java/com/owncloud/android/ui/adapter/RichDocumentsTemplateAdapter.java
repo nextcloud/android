@@ -26,16 +26,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
 import java.util.ArrayList;
@@ -43,6 +43,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Adapter for handling Templates, used to create files out of it via RichDocuments app
@@ -55,9 +57,6 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     private ChooseRichDocumentsTemplateDialogFragment.Type type;
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
-    private Template selectedTemplate;
-    private final int colorSelected;
-    private final int colorUnselected;
 
     public RichDocumentsTemplateAdapter(
         ChooseRichDocumentsTemplateDialogFragment.Type type,
@@ -71,19 +70,13 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.clientFactory = clientFactory;
-        colorSelected = ThemeColorUtils.primaryColor(context, true);
-        colorUnselected = context.getResources().getColor(R.color.grey_200);
     }
 
     @NonNull
     @Override
     @NextcloudServer(max = 18) // remove entire class
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RichDocumentsTemplateAdapter.ViewHolder(
-            TemplateButtonBinding.inflate(LayoutInflater.from(parent.getContext()),
-                                          parent,
-                                          false)
-        );
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.template_button, parent, false));
     }
 
     @Override
@@ -95,15 +88,6 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         this.templateList = templateList;
     }
 
-    public void setTemplateAsActive(Template template) {
-        selectedTemplate = template;
-        notifyDataSetChanged();
-    }
-
-    public Template getSelectedTemplate() {
-        return selectedTemplate;
-    }
-
     @Override
     public int getItemCount() {
         return templateList.size();
@@ -111,12 +95,17 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TemplateButtonBinding binding;
+        @BindView(R.id.name)
+        public TextView name;
+
+        @BindView(R.id.thumbnail)
+        public ImageView thumbnail;
+
         private Template template;
 
-        public ViewHolder(@NonNull TemplateButtonBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -154,15 +143,9 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 load(template.getThumbnailLink())
                 .placeholder(placeholder)
                 .error(placeholder)
-                .into(binding.template);
+                .into(thumbnail);
 
-            binding.templateName.setText(template.getName());
-
-            if (template == selectedTemplate) {
-                binding.templateContainer.setStrokeColor(colorSelected);
-            } else {
-                binding.templateContainer.setStrokeColor(colorUnselected);
-            }
+            name.setText(template.getName());
         }
     }
 

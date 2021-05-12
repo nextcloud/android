@@ -43,16 +43,13 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PasscodelockBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Arrays;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PassCodeActivity extends AppCompatActivity implements Injectable {
@@ -93,26 +90,26 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding = PasscodelockBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        int elementColor = ThemeColorUtils.primaryColor(this, true);
+        int elementColor = ThemeUtils.primaryColor(this);
 
-        ThemeButtonUtils.themeBorderlessButton(ThemeColorUtils.primaryColor(this, true), binding.cancel);
+        ThemeUtils.themeDialogActionButton(binding.cancel);
 
         passCodeEditTexts[0] = binding.txt0;
-        ThemeTextInputUtils.colorEditText(passCodeEditTexts[0], elementColor);
-        ThemeTextInputUtils.themeEditText(this, passCodeEditTexts[0], false);
+        ThemeUtils.colorEditText(passCodeEditTexts[0], elementColor);
+        ThemeUtils.themeEditText(this, passCodeEditTexts[0], false);
         passCodeEditTexts[0].requestFocus();
 
         passCodeEditTexts[1] = binding.txt1;
-        ThemeTextInputUtils.colorEditText(passCodeEditTexts[1], elementColor);
-        ThemeTextInputUtils.themeEditText(this, passCodeEditTexts[1], false);
+        ThemeUtils.colorEditText(passCodeEditTexts[1], elementColor);
+        ThemeUtils.themeEditText(this, passCodeEditTexts[1], false);
 
         passCodeEditTexts[2] = binding.txt2;
-        ThemeTextInputUtils.colorEditText(passCodeEditTexts[2], elementColor);
-        ThemeTextInputUtils.themeEditText(this, passCodeEditTexts[2], false);
+        ThemeUtils.colorEditText(passCodeEditTexts[2], elementColor);
+        ThemeUtils.themeEditText(this, passCodeEditTexts[2], false);
 
         passCodeEditTexts[3] = binding.txt3;
-        ThemeTextInputUtils.colorEditText(passCodeEditTexts[3], elementColor);
-        ThemeTextInputUtils.themeEditText(this, passCodeEditTexts[3], false);
+        ThemeUtils.colorEditText(passCodeEditTexts[3], elementColor);
+        ThemeUtils.themeEditText(this, passCodeEditTexts[3], false);
 
         Window window = getWindow();
         if (window != null) {
@@ -124,8 +121,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             binding.header.setText(R.string.pass_code_enter_pass_code);
             binding.explanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(false);      // no option to cancel
-
-            showDelay();
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             if (savedInstanceState != null) {
@@ -179,10 +174,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
     }
 
-    @VisibleForTesting
-    public PasscodelockBinding getBinding() {
-        return binding;
-    }
 
     /**
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
@@ -239,22 +230,18 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private void processFullPassCode() {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode()) {
-                preferences.resetPinWrongAttempts();
-
                 /// pass code accepted in request, user is allowed to access the app
                 AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
                 hideSoftKeyboard();
                 finish();
 
             }  else {
-                preferences.increasePinWrongAttempts();
-
                 showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
-                preferences.setLockTimestamp(SystemClock.elapsedRealtime());
+                AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
@@ -300,8 +287,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding.header.setText(headerMessage);                          // TODO check if really needed
         binding.explanation.setVisibility(explanationVisibility); // TODO check if really needed
         clearBoxes();
-
-        showDelay();
     }
 
 
@@ -393,38 +378,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         setResult(RESULT_OK, resultIntent);
 
         finish();
-    }
-
-    private void showDelay() {
-        int delay = preferences.pinBruteForceDelay();
-
-        if (delay > 0) {
-            binding.explanation.setText(R.string.brute_force_delay);
-            binding.explanation.setVisibility(View.VISIBLE);
-            binding.txt0.setEnabled(false);
-            binding.txt1.setEnabled(false);
-            binding.txt2.setEnabled(false);
-            binding.txt3.setEnabled(false);
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(delay * 1000);
-
-                        runOnUiThread(() -> {
-                            binding.explanation.setVisibility(View.INVISIBLE);
-                            binding.txt0.setEnabled(true);
-                            binding.txt1.setEnabled(true);
-                            binding.txt2.setEnabled(true);
-                            binding.txt3.setEnabled(true);
-                        });
-                    } catch (InterruptedException e) {
-                        Log_OC.e(this, "Could not delay password input prompt");
-                    }
-                }
-            }).start();
-        }
     }
 
 

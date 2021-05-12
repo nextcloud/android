@@ -20,7 +20,8 @@
 
 package com.owncloud.android.operations;
 
-import com.nextcloud.client.account.User;
+import android.accounts.Account;
+
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -35,17 +36,19 @@ import java.util.ArrayList;
  */
 public class CheckCurrentCredentialsOperation extends SyncOperation {
 
-    private final User user;
+    private Account mAccount;
 
-    public CheckCurrentCredentialsOperation(User user) {
-        this.user = user;
+    public CheckCurrentCredentialsOperation(Account account) {
+        if (account == null) {
+            throw new IllegalArgumentException("NULL account");
+        }
+        mAccount = account;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
-        boolean validAccount = user.nameEquals(getStorageManager().getAccount().name);
-        if (!validAccount) {
+        if (!getStorageManager().getAccount().name.equals(mAccount.name)) {
             result = new RemoteOperationResult(new IllegalStateException(
                 "Account to validate is not the account connected to!")
             );
@@ -53,10 +56,9 @@ public class CheckCurrentCredentialsOperation extends SyncOperation {
             RemoteOperation check = new ExistenceCheckRemoteOperation(OCFile.ROOT_PATH, false);
             result = check.execute(client);
             ArrayList<Object> data = new ArrayList<>();
-            data.add(user.toPlatformAccount());
+            data.add(mAccount);
             result.setData(data);
         }
-
         return result;
     }
 

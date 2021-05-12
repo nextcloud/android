@@ -32,7 +32,7 @@ import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -67,14 +67,14 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         switch (share.getShareType()) {
             case GROUP:
                 name = context.getString(R.string.share_group_clarification, name);
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case CIRCLE:
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case FEDERATED:
                 name = context.getString(R.string.share_remote_clarification, name);

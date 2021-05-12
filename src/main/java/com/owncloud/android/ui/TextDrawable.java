@@ -31,9 +31,9 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.NextcloudServer;
 
 import java.util.Locale;
 
@@ -95,13 +95,14 @@ public class TextDrawable extends Drawable {
      * creates an avatar in form of a TextDrawable with the first letter of the account name in a circle with the given
      * radius.
      *
-     * @param user        user account
-     * @param radiusInDp  the circle's radius
+     * @param account    user account
+     * @param radiusInDp the circle's radius
      * @return the avatar as a TextDrawable
      */
     @NonNull
-    public static TextDrawable createAvatar(User user, float radiusInDp) {
-        String username = UserAccountManager.getDisplayName(user.toPlatformAccount());
+    @NextcloudServer(max = 12)
+    public static TextDrawable createAvatar(Account account, float radiusInDp) {
+        String username = UserAccountManager.getDisplayName(account);
         return createNamedAvatar(username, radiusInDp);
     }
 
@@ -114,6 +115,7 @@ public class TextDrawable extends Drawable {
      * @return the avatar as a TextDrawable
      */
     @NonNull
+    @NextcloudServer(max = 12)
     public static TextDrawable createAvatarByUserId(String userId, float radiusInDp) {
         return createNamedAvatar(userId, radiusInDp);
     }

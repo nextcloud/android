@@ -8,7 +8,7 @@
       "client_info": {
         "mobilesdk_app_id": "",
         "android_client_info": {
-          "package_name": "com.nextcloud.client"
+          "package_name": "de.magentacloud.next.dev2.android.client"
         }
       },
       "oauth_client": [],

@@ -53,11 +53,10 @@ public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
     protected com.owncloud.android.lib.resources.users.Status doInBackground(Void... voids) {
         try {
             NextcloudClient client = clientFactory.createNextcloudClient(user);
-            RemoteOperationResult<com.owncloud.android.lib.resources.users.Status> result =
-                new GetStatusRemoteOperation().execute(client);
+            RemoteOperationResult result = new GetStatusRemoteOperation().execute(client);
 
             if (result.isSuccess()) {
-                return result.getResultData();
+                return (com.owncloud.android.lib.resources.users.Status) result.getSingleData();
             } else {
                 return new com.owncloud.android.lib.resources.users.Status(StatusType.OFFLINE, "", "", -1);
             }
@@ -73,5 +72,6 @@ public class RetrieveStatusAsyncTask extends AsyncTask<Void, Void, Status> {
         if (fragment != null && fragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
             fragment.setStatus(status, fragment.requireContext());
         }
+
     }
 }

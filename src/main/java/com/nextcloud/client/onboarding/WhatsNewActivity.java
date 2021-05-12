@@ -37,8 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import javax.inject.Inject;
 
@@ -86,7 +85,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mPager.addOnPageChangeListener(this);
 
         mForwardFinishButton = findViewById(R.id.forward);
-        ThemeButtonUtils.colorImageButton(mForwardFinishButton, fontColor);
+        ThemeUtils.colorImageButton(mForwardFinishButton, fontColor);
 
         mForwardFinishButton.setOnClickListener(view -> {
             if (mProgress.hasNextStep()) {

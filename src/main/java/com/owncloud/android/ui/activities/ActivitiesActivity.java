@@ -40,7 +40,7 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         // setup toolbar
         setupToolbar();
 
-        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);

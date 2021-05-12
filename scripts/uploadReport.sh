@@ -52,11 +52,6 @@ BRANCH_TYPE=$BRANCH-$TYPE
 
 set -e
 
-if [ -z $USER ] || [ -z $PASS ]; then
-    echo "USER or PASS is empty!"
-    exit 1
-fi
-
 if [ $TYPE = "IT" ]; then
     FOLDER=build/reports/androidTests/connected/flavors/GPLAY
 elif [ $TYPE = "Unit" ]; then

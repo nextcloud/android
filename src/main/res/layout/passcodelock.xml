@@ -18,7 +18,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
@@ -72,12 +71,12 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
+                        android:cursorVisible="true"
                         android:focusable="true"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
-                        tools:text="123">
+                        android:textCursorDrawable="@color/primary">
 
                         <requestFocus />
                     </com.google.android.material.textfield.TextInputEditText>
@@ -85,7 +84,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt1"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
+                        android:cursorVisible="true"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
@@ -93,7 +92,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt2"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
+                        android:cursorVisible="true"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
@@ -101,7 +100,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt3"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
+                        android:cursorVisible="true"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />

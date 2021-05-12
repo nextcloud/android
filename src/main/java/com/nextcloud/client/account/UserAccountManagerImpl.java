@@ -31,13 +31,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -361,14 +361,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
             // add userId
             try {
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                NextcloudClient nextcloudClient = OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getNextcloudClientFor(ocAccount, context);
+                OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                    .getClientFor(ocAccount, context);
 
-                RemoteOperationResult<UserInfo> result = remoteUserNameOperation.execute(nextcloudClient);
+                RemoteOperationResult result = remoteUserNameOperation.execute(client);
 
                 if (result.isSuccess()) {
-                    UserInfo userInfo = result.getResultData();
+                    UserInfo userInfo = (UserInfo) result.getData().get(0);
                     userId = userInfo.id;
                     displayName = userInfo.displayName;
                 } else {

@@ -56,7 +56,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.NotificationsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.ThemeUtils
 import dagger.android.AndroidInjection
 import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
@@ -163,7 +163,7 @@ class NotificationWork constructor(
         val notificationBuilder = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(ThemeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
+            .setColor(ThemeUtils.primaryColor(user.toPlatformAccount(), false, context))
             .setShowWhen(true)
             .setSubText(user.accountName)
             .setContentTitle(notification.getSubject())
@@ -218,7 +218,7 @@ class NotificationWork constructor(
             NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-                .setColor(ThemeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
+                .setColor(ThemeUtils.primaryColor(user.toPlatformAccount(), false, context))
                 .setShowWhen(true)
                 .setSubText(user.accountName)
                 .setContentTitle(context.getString(R.string.new_notification))

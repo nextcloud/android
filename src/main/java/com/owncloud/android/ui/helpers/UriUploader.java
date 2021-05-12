@@ -18,11 +18,11 @@
  */
 package com.owncloud.android.ui.helpers;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcelable;
 
-import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -30,6 +30,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.UriUtils;
 
 import java.util.ArrayList;
@@ -39,27 +40,27 @@ import androidx.fragment.app.FragmentManager;
 
 /**
  * This class examines URIs pointing to files to upload and then requests {@link FileUploader} to upload them.
- * <p>
- * URIs with scheme file:// do not require any previous processing, their path is sent to {@link FileUploader} to find
- * the source file.
- * <p>
- * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app, and that
- * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
- * passed {@link FileUploader}.
+ *
+ * URIs with scheme file:// do not require any previous processing, their path is sent to {@link FileUploader}
+ * to find the source file.
+ *
+ * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app,
+ * and that persistency permission is not granted. Due to this, contents of the file are temporary copied by
+ * the OC app, and then passed {@link FileUploader}.
  */
 public class UriUploader {
 
     private final String TAG = UriUploader.class.getSimpleName();
 
-    private final FileActivity mActivity;
-    private final List<Parcelable> mUrisToUpload;
-    private final CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener mCopyTmpTaskListener;
+    private FileActivity mActivity;
+    private List<Parcelable> mUrisToUpload;
+    private CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener mCopyTmpTaskListener;
 
-    private final int mBehaviour;
+    private int mBehaviour;
 
-    private final String mUploadPath;
-    private User user;
-    private final boolean mShowWaitingDialog;
+    private String mUploadPath;
+    private Account mAccount;
+    private boolean mShowWaitingDialog;
 
     private UriUploaderResultCode mCode = UriUploaderResultCode.OK;
 
@@ -74,7 +75,7 @@ public class UriUploader {
             FileActivity activity,
             List<Parcelable> uris,
             String uploadPath,
-            User user,
+            Account account,
             int behaviour,
             boolean showWaitingDialog,
             CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener copyTmpTaskListener
@@ -82,7 +83,7 @@ public class UriUploader {
         mActivity = activity;
         mUrisToUpload = uris;
         mUploadPath = uploadPath;
-        this.user = user;
+        mAccount = account;
         mBehaviour = behaviour;
         mShowWaitingDialog = showWaitingDialog;
         mCopyTmpTaskListener = copyTmpTaskListener;
@@ -101,11 +102,6 @@ public class UriUploader {
                 Uri sourceUri = (Uri) sourceStream;
                 if (sourceUri != null) {
                     String displayName = UriUtils.getDisplayNameForUri(sourceUri, mActivity);
-
-                    if (displayName == null) {
-                        throw new IllegalStateException("DisplayName may not be null!");
-                    }
-
                     String remotePath = mUploadPath + displayName;
 
                     if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
@@ -142,6 +138,11 @@ public class UriUploader {
         return mCode;
     }
 
+    private String generateDiplayName() {
+        return mActivity.getString(R.string.common_unknown) +
+                "-" + DisplayUtils.unixTimeToHumanReadable(System.currentTimeMillis());
+    }
+
     /**
      * Requests the upload of a file in the local file system to {@link FileUploader} service.
      *
@@ -156,7 +157,7 @@ public class UriUploader {
     private void requestUpload(String localPath, String remotePath) {
         FileUploader.uploadNewFile(
             mActivity,
-            user.toPlatformAccount(),
+            mAccount,
             localPath,
             remotePath,
             mBehaviour,
@@ -195,11 +196,11 @@ public class UriUploader {
 
         copyTask.execute(
                 CopyAndUploadContentUrisTask.makeParamsToExecute(
-                    user,
-                    sourceUris,
-                    remotePaths,
-                    mBehaviour,
-                    mActivity.getContentResolver()
+                        mAccount,
+                        sourceUris,
+                        remotePaths,
+                        mBehaviour,
+                        mActivity.getContentResolver()
                 )
         );
     }

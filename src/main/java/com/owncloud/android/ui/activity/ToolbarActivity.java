@@ -42,10 +42,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
@@ -82,11 +79,11 @@ public abstract class ToolbarActivity extends BaseActivity {
      * to use the toolbar.
      */
     private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
-        int fontColor = ThemeColorUtils.appBarPrimaryFontColor(this);
+        int fontColor = ThemeUtils.appBarPrimaryFontColor(this);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        ThemeToolbarUtils.colorStatusBar(this);
+        ThemeUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
@@ -111,11 +108,11 @@ public abstract class ToolbarActivity extends BaseActivity {
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
         if (mToolbar.getOverflowIcon() != null) {
-            ThemeDrawableUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
+            ThemeUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
         }
 
         if (mToolbar.getNavigationIcon() != null) {
-            ThemeDrawableUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
+            ThemeUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
         }
     }
 
@@ -166,13 +163,13 @@ public abstract class ToolbarActivity extends BaseActivity {
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            ThemeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
+            ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
-            ThemeToolbarUtils.colorStatusBar(this);
+            ThemeUtils.colorStatusBar(this);
         }
     }
 
@@ -188,7 +185,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        ThemeToolbarUtils.setColoredTitle(actionBar, titleToSet, this);
+        ThemeUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {

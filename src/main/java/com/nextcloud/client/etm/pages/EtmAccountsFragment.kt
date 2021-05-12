@@ -29,11 +29,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.owncloud.android.R
-import com.owncloud.android.databinding.FragmentEtmAccountsBinding
+import kotlinx.android.synthetic.main.fragment_etm_accounts.*
+import kotlinx.android.synthetic.main.fragment_etm_preferences.*
 
 class EtmAccountsFragment : EtmBaseFragment() {
-    private var _binding: FragmentEtmAccountsBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +40,7 @@ class EtmAccountsFragment : EtmBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentEtmAccountsBinding.inflate(inflater, container, false)
-
-        return binding.root
+        return inflater.inflate(R.layout.fragment_etm_accounts, container, false)
     }
 
     override fun onResume() {
@@ -55,7 +52,7 @@ class EtmAccountsFragment : EtmBaseFragment() {
                 builder.append("\t${it.key}: ${it.value}\n")
             }
         }
-        binding.etmAccountsText.text = builder.toString()
+        etm_accounts_text.text = builder.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -75,14 +72,8 @@ class EtmAccountsFragment : EtmBaseFragment() {
     private fun onClickedShare() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_SUBJECT, "Nextcloud accounts information")
-        intent.putExtra(Intent.EXTRA_TEXT, binding.etmAccountsText.text)
+        intent.putExtra(Intent.EXTRA_TEXT, etm_accounts_text.text)
         intent.type = "text/plain"
         startActivity(intent)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
     }
 }

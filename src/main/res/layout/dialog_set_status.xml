@@ -338,19 +338,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/activity_row_layout_height"
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/emojiCard"
                 android:layout_width="@dimen/activity_row_layout_height"
                 android:layout_height="@dimen/activity_row_layout_height"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/standard_eighth_margin"
-                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/standard_half_margin"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:cardCornerRadius="24dp"
                 app:cardElevation="0dp">
 
                 <com.vanniktech.emoji.EmojiEditText
@@ -361,30 +359,18 @@
                     android:cursorVisible="false"
                     android:gravity="center"
                     android:text="@string/default_emoji"
-                    android:textSize="24sp" />
+                    android:textSize="25sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customStatusInput_container"
+            <EditText
+                android:id="@+id/customStatusInput"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="@string/whats_your_status">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customStatusInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:importantForAutofill="no"
-                    android:inputType="textAutoCorrect"
-                    android:scrollbars="vertical">
-
-                </com.google.android.material.textfield.TextInputEditText>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+                android:hint="@string/whats_your_status"
+                android:importantForAutofill="no"
+                android:inputType="textAutoCorrect" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

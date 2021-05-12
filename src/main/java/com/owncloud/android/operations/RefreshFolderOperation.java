@@ -34,7 +34,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
-import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -279,18 +278,12 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateUserProfile() {
-        try {
-            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
-
-            RemoteOperationResult<UserInfo> result = new GetUserProfileOperation().execute(nextcloudClient,
-                                                                                           mStorageManager);
-            if (!result.isSuccess()) {
-                Log_OC.w(TAG, "Couldn't update user profile from server");
-            } else {
-                Log_OC.i(TAG, "Got display name: " + result.getResultData());
-            }
-        } catch (AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(this, "Error updating profile", e);
+        GetUserProfileOperation update = new GetUserProfileOperation();
+        RemoteOperationResult result = update.execute(mStorageManager, mContext);
+        if (!result.isSuccess()) {
+            Log_OC.w(TAG, "Couldn't update user profile from server");
+        } else {
+            Log_OC.i(TAG, "Got display name: " + result.getData().get(0));
         }
     }
 
@@ -315,11 +308,10 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
-        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(mAccount,
-                                                                                                       mContext);
+        RemoteOperationResult result = new DirectEditingObtainRemoteOperation().execute(mAccount, mContext);
 
         if (result.isSuccess()) {
-            DirectEditing directEditing = result.getResultData();
+            DirectEditing directEditing = (DirectEditing) result.getSingleData();
             String json = new Gson().toJson(directEditing);
             arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING, json);
         } else {
@@ -341,11 +333,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             return;
         }
 
-        RemoteOperationResult<ArrayList<PredefinedStatus>> result =
-            new GetPredefinedStatusesRemoteOperation().execute(client);
+        RemoteOperationResult result = new GetPredefinedStatusesRemoteOperation().execute(client);
 
         if (result.isSuccess()) {
-            ArrayList<PredefinedStatus> predefinedStatuses = result.getResultData();
+            ArrayList<PredefinedStatus> predefinedStatuses = (ArrayList<PredefinedStatus>) result.getSingleData();
             String json = new Gson().toJson(predefinedStatuses);
             arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS, json);
         } else {

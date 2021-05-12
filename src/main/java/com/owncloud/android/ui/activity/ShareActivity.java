@@ -38,7 +38,7 @@ import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -91,7 +91,7 @@ public class ShareActivity extends FileActivity {
         // Name
         binding.shareFileName.setText(getResources().getString(R.string.share_file, file.getFileName()));
 
-        binding.shareHeaderDivider.getBackground().setColorFilter(ThemeColorUtils.primaryAccentColor(this),
+        binding.shareHeaderDivider.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(this),
                                                                   PorterDuff.Mode.SRC_ATOP);
 
         // Size

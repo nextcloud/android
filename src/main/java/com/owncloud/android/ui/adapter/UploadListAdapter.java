@@ -68,8 +68,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -113,7 +112,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.title.setText(String.format(parentActivity.getString(R.string.uploads_view_group_header),
                                                      group.getGroupName(), group.getGroupItemCount()));
-        headerViewHolder.title.setTextColor(ThemeColorUtils.primaryAccentColor(parentActivity));
+        headerViewHolder.title.setTextColor(ThemeUtils.primaryAccentColor(parentActivity));
 
         headerViewHolder.title.setOnClickListener(v -> toggleSectionExpanded(section));
 
@@ -276,8 +275,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                ThemeBarUtils.colorHorizontalProgressBar(itemViewHolder.progressBar,
-                                                         ThemeColorUtils.primaryAccentColor(parentActivity));
+                ThemeUtils.colorHorizontalProgressBar(itemViewHolder.progressBar,
+                                                      ThemeUtils.primaryAccentColor(parentActivity));
                 itemViewHolder.progressBar.setProgress(0);
                 itemViewHolder.progressBar.setVisibility(View.VISIBLE);
 

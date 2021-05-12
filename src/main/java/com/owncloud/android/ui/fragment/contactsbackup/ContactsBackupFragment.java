@@ -52,12 +52,7 @@ import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -144,15 +139,15 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
         if (actionBar != null) {
-            ThemeToolbarUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts), getContext());
+            ThemeUtils.setColoredTitle(actionBar, getString(R.string.actionbar_contacts), getContext());
 
             actionBar.setDisplayHomeAsUpEnabled(true);
-            ThemeToolbarUtils.tintBackButton(actionBar, getContext());
+            ThemeUtils.tintBackButton(actionBar, getContext());
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeCheckableUtils.tintSwitch(backupSwitch, ThemeColorUtils.primaryAccentColor(getContext()));
+        ThemeUtils.tintSwitch(backupSwitch, ThemeUtils.primaryAccentColor(getContext()));
         backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -189,8 +184,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        ThemeButtonUtils.colorPrimaryButton(backupNow, getContext());
-        ThemeButtonUtils.colorPrimaryButton(contactsDatePickerBtn, getContext());
+        ThemeUtils.colorPrimaryButton(backupNow, getContext());
+        ThemeUtils.colorPrimaryButton(contactsDatePickerBtn, getContext());
 
         return view;
     }
@@ -381,7 +376,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                                 PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)
                         );
 
-                ThemeSnackbarUtils.colorSnackbar(contactsPreferenceActivity, snackbar);
+                ThemeUtils.colorSnackbar(contactsPreferenceActivity, snackbar);
 
                 snackbar.show();
 
@@ -455,8 +450,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             datePickerDialog.setTitle("");
             datePickerDialog.show();
 
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(),true));
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryColor(getContext(),true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryColor(getContext(), true));
 
             // set background to transparent
             datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(0x00000000);

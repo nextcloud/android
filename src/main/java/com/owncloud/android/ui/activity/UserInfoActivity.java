@@ -48,12 +48,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
@@ -61,8 +59,7 @@ import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -139,11 +136,10 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            ThemeToolbarUtils.tintBackButton(actionBar, this);
+            ThemeUtils.tintBackButton(actionBar, this);
         }
 
-        binding.userinfoList.setAdapter(
-            new UserInfoAdapter(null, ThemeColorUtils.primaryColor(getAccount(), true, this)));
+        binding.userinfoList.setAdapter(new UserInfoAdapter(null, ThemeUtils.primaryColor(getAccount(), true, this)));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -214,7 +210,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             if (backgroundImageView != null) {
 
                 String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-                int primaryColor = ThemeColorUtils.primaryColor(getAccount(), false, this);
+                int primaryColor = ThemeUtils.primaryColor(getAccount(), false, this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image
@@ -262,7 +258,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                                binding.userinfoIcon,
                                this);
 
-        int tint = ThemeColorUtils.primaryColor(user.toPlatformAccount(), true, this);
+        int tint = ThemeUtils.primaryColor(user.toPlatformAccount(), true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             binding.userinfoFullName.setText(userInfo.getDisplayName());
@@ -320,21 +316,12 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     private void fetchAndSetData() {
         Thread t = new Thread(() -> {
-            NextcloudClient nextcloudClient;
-
-            try {
-                nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(),
-                                                                              this);
-            } catch (AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(this, "Error retrieving user info", e);
-                return;
-            }
-
-            RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
+            RemoteOperation getRemoteUserInfoOperation = new GetUserInfoRemoteOperation();
+            RemoteOperationResult result = getRemoteUserInfoOperation.execute(user.toPlatformAccount(), this);
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                if (result.isSuccess() && result.getResultData() != null) {
-                    userInfo = result.getResultData();
+                if (result.isSuccess() && result.getData() != null) {
+                    userInfo = (UserInfo) result.getData().get(0);
 
                     runOnUiThread(() -> populateUserInfoUi(userInfo));
                 } else {

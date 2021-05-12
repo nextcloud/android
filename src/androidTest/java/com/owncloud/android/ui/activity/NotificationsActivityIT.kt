@@ -48,8 +48,6 @@ class NotificationsActivityIT : AbstractIT() {
     fun empty() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
-        waitForIdleSync()
-
         sut.runOnUiThread { sut.populateList(ArrayList<Notification>()) }
 
         shortSleep()

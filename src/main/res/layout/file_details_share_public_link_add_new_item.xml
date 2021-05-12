@@ -44,8 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:text="@string/share_via_link_section_title"
-        android:textSize="@dimen/two_line_primary_text_size" />
+        android:text="@string/share_via_link_section_title" />
 
     <ImageView
         android:id="@+id/add_new_public_share_link"

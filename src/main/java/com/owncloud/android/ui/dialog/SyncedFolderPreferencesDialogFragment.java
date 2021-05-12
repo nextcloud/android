@@ -46,9 +46,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 
@@ -153,7 +151,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        int accentColor = ThemeColorUtils.primaryAccentColor(getContext());
+        int accentColor = ThemeUtils.primaryAccentColor(getContext());
 
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
@@ -179,7 +177,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         // find/saves UI elements
         mEnabledSwitch = view.findViewById(R.id.sync_enabled);
-        ThemeCheckableUtils.tintSwitch(mEnabledSwitch, accentColor);
+        ThemeUtils.tintSwitch(mEnabledSwitch, accentColor);
 
         mLocalFolderPath = view.findViewById(R.id.synced_folders_settings_local_folder_path);
 
@@ -187,28 +185,27 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mRemoteFolderSummary = view.findViewById(R.id.remote_folder_summary);
 
         mUploadOnWifiCheckbox = view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
 
         mUploadOnChargingCheckbox = view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
 
         mUploadExistingCheckbox = view.findViewById(R.id.setting_instant_upload_existing_checkbox);
+        ThemeUtils.tintCheckbox(mUploadExistingCheckbox, accentColor);
 
         mUploadUseSubfoldersCheckbox = view.findViewById(
                 R.id.setting_instant_upload_path_use_subfolders_checkbox);
-
-        ThemeCheckableUtils.tintCheckbox(accentColor,
-                                         mUploadOnWifiCheckbox,
-                                         mUploadOnChargingCheckbox,
-                                         mUploadExistingCheckbox,
-                                         mUploadUseSubfoldersCheckbox);
+        ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
 
         mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
 
         mNameCollisionPolicySummary = view.findViewById(R.id.setting_instant_name_collision_policy_summary);
 
         mCancel = view.findViewById(R.id.cancel);
-        mSave = view.findViewById(R.id.save);
+        ThemeUtils.themeDialogActionButton(mCancel);
 
-        ThemeButtonUtils.themeBorderlessButton(mCancel, mSave);
+        mSave = view.findViewById(R.id.save);
+        ThemeUtils.themeDialogActionButton(mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());
@@ -354,17 +351,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setAlpha(alpha);
 
         if (enable) {
-            ThemeCheckableUtils.tintCheckbox(ThemeColorUtils.primaryAccentColor(getContext()),
-                                             mUploadOnWifiCheckbox,
-                                             mUploadOnChargingCheckbox,
-                                             mUploadExistingCheckbox,
-                                             mUploadUseSubfoldersCheckbox);
+            int accentColor = ThemeUtils.primaryAccentColor(getContext());
+            ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, accentColor);
+            ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, accentColor);
+            ThemeUtils.tintCheckbox(mUploadExistingCheckbox, accentColor);
+            ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, accentColor);
         } else {
-            ThemeCheckableUtils.tintCheckbox(Color.GRAY,
-                                             mUploadOnWifiCheckbox,
-                                             mUploadOnChargingCheckbox,
-                                             mUploadExistingCheckbox,
-                                             mUploadUseSubfoldersCheckbox);
+            ThemeUtils.tintCheckbox(mUploadOnWifiCheckbox, Color.GRAY);
+            ThemeUtils.tintCheckbox(mUploadOnChargingCheckbox, Color.GRAY);
+            ThemeUtils.tintCheckbox(mUploadExistingCheckbox, Color.GRAY);
+            ThemeUtils.tintCheckbox(mUploadUseSubfoldersCheckbox, Color.GRAY);
         }
 
         checkWritableFolder();

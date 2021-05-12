@@ -39,9 +39,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +49,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -115,9 +114,11 @@ public class ConflictsResolveDialog extends DialogFragment {
             return;
         }
 
+        int color = ThemeUtils.primaryAccentColor(getContext());
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-        positiveButton.setEnabled(false);
+        setPositiveButtonStatus(false);
+
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
     }
 
     @Override
@@ -152,9 +153,8 @@ public class ConflictsResolveDialog extends DialogFragment {
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
 
-        ThemeCheckableUtils.tintCheckbox(ThemeColorUtils.primaryColor(getContext()),
-                                         binding.newCheckbox,
-                                         binding.existingCheckbox);
+        ThemeUtils.tintCheckbox(binding.newCheckbox, ThemeUtils.primaryColor(getContext()));
+        ThemeUtils.tintCheckbox(binding.existingCheckbox, ThemeUtils.primaryColor(getContext()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -171,7 +171,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
                 }
             })
-            .setNeutralButton(R.string.common_cancel, (dialog, which) -> {
+            .setNegativeButton(R.string.common_cancel, (dialog, which) -> {
                 if (listener != null) {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
@@ -207,7 +207,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                                        getContext());
 
         View.OnClickListener checkBoxClickListener = v -> {
-            positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
         };
 
         binding.newCheckbox.setOnClickListener(checkBoxClickListener);
@@ -215,14 +215,25 @@ public class ConflictsResolveDialog extends DialogFragment {
 
         binding.newFileContainer.setOnClickListener(v -> {
             binding.newCheckbox.setChecked(!binding.newCheckbox.isChecked());
-            positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
         });
         binding.existingFileContainer.setOnClickListener(v -> {
             binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked());
-            positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
+            setPositiveButtonStatus(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
         });
 
         return builder.create();
+    }
+
+    private void setPositiveButtonStatus(boolean enabled) {
+        if (enabled) {
+            positiveButton.setTextColor(ThemeUtils.primaryAccentColor(requireContext()));
+        } else {
+            positiveButton.setTextColor(ResourcesCompat.getColor(requireContext().getResources(),
+                                                                 R.color.grey_200,
+                                                                 null));
+        }
+        positiveButton.setEnabled(enabled);
     }
 
     public void showDialog(AppCompatActivity activity) {

@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 public class DeepLinkLoginActivity extends AuthenticatorActivity {
     @Override
@@ -29,7 +29,7 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity {
                 LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
 
                 TextView loginText = findViewById(R.id.loginInfo);
-                loginText.setTextColor(ThemeColorUtils.fontColor(this));
+                loginText.setTextColor(ThemeUtils.fontColor(this));
                 loginText.setText(String.format("Login with %1$s to %2$s", loginUrlInfo.username,
                                                 loginUrlInfo.serverAddress));
             } catch (IllegalArgumentException e) {

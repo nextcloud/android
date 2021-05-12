@@ -38,8 +38,7 @@ import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -153,9 +152,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 if (isCheckedFile(file)) {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
                             .getColor(R.color.selected_item_background));
-                    gridViewHolder.checkbox.setImageDrawable(
-                        ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                        ThemeColorUtils.primaryColor(mContext)));
+                    gridViewHolder.checkbox.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                            ThemeUtils.primaryColor(mContext)));
                 } else {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                     gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);

@@ -13,9 +13,6 @@ max_line_length=120
 indent_style=space
 indent_size=4
 
-[*.yml]
-max_line_length=150
-
 charset=utf-8
 
 # Trimming is good for consistency

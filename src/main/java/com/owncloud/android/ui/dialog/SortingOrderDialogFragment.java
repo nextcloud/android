@@ -34,8 +34,7 @@ import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -96,7 +95,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         mCancel = view.findViewById(R.id.cancel);
-        mCancel.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        mCancel.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
 
         mTaggedViews = new View[12];
         mTaggedViews[0] = view.findViewById(R.id.sortByNameAscending);
@@ -131,13 +130,13 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        final int color = ThemeColorUtils.primaryColor(null, true, true, getContext());
+        final int color = ThemeUtils.primaryColor(null, true, true, getContext());
         for (View view: mTaggedViews) {
             if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;
             }
             if (view instanceof ImageButton) {
-                ThemeButtonUtils.colorImageButton((ImageButton)view, color);
+                ThemeUtils.colorImageButton((ImageButton)view, color);
             }
             if (view instanceof TextView) {
                 ((TextView)view).setTextColor(color);

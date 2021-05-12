@@ -672,7 +672,7 @@ public class OperationsService extends Service {
                         break;
 
                     case ACTION_CHECK_CURRENT_CREDENTIALS:
-                    operation = new CheckCurrentCredentialsOperation(user);
+                    operation = new CheckCurrentCredentialsOperation(account);
                         break;
 
                     case ACTION_RESTORE_VERSION:

@@ -31,7 +31,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -71,7 +71,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText(R.string.share_link);
             }
 
-            ThemeAvatarUtils.colorIconImageViewWithBackground(binding.icon, context);
+            ThemeUtils.colorIconImageViewWithBackground(binding.icon, context);
         }
 
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));

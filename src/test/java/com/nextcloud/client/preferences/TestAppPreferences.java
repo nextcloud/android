@@ -13,7 +13,6 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
@@ -157,19 +156,6 @@ public class TestAppPreferences {
             inOrder.verify(editor).remove("instant_video_upload_on_charging");
             inOrder.verify(editor).remove("prefs_instant_behaviour");
             inOrder.verify(editor).apply();
-        }
-
-        @Test
-        public void testBruteForceDelay() {
-            assertEquals(0, appPreferences.computeBruteForceDelay(0));
-            assertEquals(0, appPreferences.computeBruteForceDelay(2));
-            assertEquals(1, appPreferences.computeBruteForceDelay(3));
-            assertEquals(1, appPreferences.computeBruteForceDelay(5));
-            assertEquals(2, appPreferences.computeBruteForceDelay(6));
-            assertEquals(3, appPreferences.computeBruteForceDelay(11));
-            assertEquals(8, appPreferences.computeBruteForceDelay(25));
-            assertEquals(10, appPreferences.computeBruteForceDelay(50));
-            assertEquals(10, appPreferences.computeBruteForceDelay(100));
         }
     }
 }

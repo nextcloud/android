@@ -68,7 +68,7 @@
             android:shadowDy="0"
             android:shadowRadius="2"
             android:textColor="@color/white"
-            android:textSize="@dimen/two_line_primary_text_size"
+            android:textSize="@dimen/file_details_username_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/userinfo_icon"
