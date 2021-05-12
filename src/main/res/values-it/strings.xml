@@ -387,6 +387,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ci sono ulteriori cartelle.</string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
+    <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
     <string name="login">Accedi</string>
     <string name="login_url_helper_text">Il collegamento alla tua interfaccia web di %1$s quando la apri nel browser.</string>
     <string name="logs_menu_delete">Elimina log</string>
@@ -397,7 +398,7 @@
     <string name="logs_status_loading">Caricamento in corso…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, nessun filtro</string>
     <string name="logs_title">Log</string>
-    <string name="maintenance_mode">Server in manutenzione</string>
+    <string name="maintenance_mode">Il server è in modalità di manutenzione</string>
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>

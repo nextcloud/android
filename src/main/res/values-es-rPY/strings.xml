@@ -216,7 +216,6 @@
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_status_loading">Cargando...</string>
     <string name="logs_title">Bitácoras</string>
-    <string name="maintenance_mode">El servidor está en modo mantenimiento</string>
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones, base de datos y certificados del servior de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>

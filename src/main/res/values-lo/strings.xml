@@ -396,7 +396,6 @@
     <string name="logs_status_loading">ກຳລັງໂຫຼດ</string>
     <string name="logs_status_not_filtered">ບັນທຶກ:%1$d kB, ບໍ່ມີຕົວກອງ</string>
     <string name="logs_title">ບັນທຶກ</string>
-    <string name="maintenance_mode">ເຊີເວີຢູ່ ໃນການບໍາລຸງຮັກສາ</string>
     <string name="manage_space_clear_data">ລ້າງຂໍ້ມູນ</string>
     <string name="manage_space_description">ການຕັ້ງຄ່າ, ຖານຂໍ້ມູນ ແລະ ໃບຢັ້ງຢືນເຊີເວີຈາກຂໍ້ມູນ %1$s\'s ຈະຖືກລຶບອອກຢ່າງຖາວອນ. \n\nຟາຍທີ່ຖືກໂຫຼດບໍ່ໄດ້ເກັບຮັກສາໄວ້.\n\nຂະບວນການນີ້ຈະໃຊ້ເວລາໄລຍະຫນຶ່ງ.</string>
     <string name="manage_space_title">ຈັດການພື້ນທີ່</string>

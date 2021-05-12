@@ -367,7 +367,6 @@
     <string name="logs_status_loading">בטעינה…</string>
     <string name="logs_status_not_filtered">יומנים: %1$d ק״ב, בלי סינון</string>
     <string name="logs_title">יומנים</string>
-    <string name="maintenance_mode">שרת במצב תחזוקה</string>
     <string name="manage_space_clear_data">ניקוי מידע</string>
     <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. \n\nקבצים שירדו ישארו ללא שינוי.\n\nהתהליך ימשך זמן מה.</string>
     <string name="manage_space_title">ניהול מקום</string>
