@@ -255,11 +255,6 @@ android {
 
     check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     buildFeatures {
         dataBinding true
         viewBinding true
