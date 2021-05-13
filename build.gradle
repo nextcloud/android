@@ -18,8 +18,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
-        classpath('com.hiya:jacoco-android:0.2')
+        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.hiya:jacoco-android:0.2'
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.16.0"
