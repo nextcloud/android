@@ -680,6 +680,7 @@
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
+    <string name="strict_mode">严格模式：不允许 http 连接！</string>
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
