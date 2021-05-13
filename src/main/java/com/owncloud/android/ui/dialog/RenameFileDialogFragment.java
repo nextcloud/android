@@ -79,20 +79,6 @@ public class RenameFileDialogFragment
 
     }
 
- /*   @Override
-    public void onStart() {
-        super.onStart();
-
-        int color = ThemeUtils.primaryAccentColor(getContext());
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        }
-    }*/
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -106,15 +92,13 @@ public class RenameFileDialogFragment
         // Setup layout
         String currentName = mTargetFile.getFileName();
         EditText inputText = binding.userInput;
-        //inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
         inputText.setText(currentName);
-        //ThemeUtils.themeEditText(getContext(), inputText, false);
+
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         inputText.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
         inputText.requestFocus();
-        //inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

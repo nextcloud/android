@@ -432,7 +432,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 progressBar.setVisibility(View.GONE);
                 mLoginWebView.setVisibility(View.VISIBLE);
 
-                ThemeUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                //ThemeUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
                 getWindow().setNavigationBarColor(primaryColor);
             }
 

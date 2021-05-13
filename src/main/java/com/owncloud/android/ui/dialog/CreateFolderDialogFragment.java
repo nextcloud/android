@@ -72,24 +72,9 @@ public class CreateFolderDialogFragment
 
     }
 
-   /* @Override
-    public void onStart() {
-        super.onStart();
-
-        int color = ThemeUtils.primaryAccentColor(getContext());
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }*/
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
 
         // Inflate the layout for the dialog
@@ -100,8 +85,6 @@ public class CreateFolderDialogFragment
         EditText inputText = v.findViewById(R.id.user_input);
         inputText.setText("");
         inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

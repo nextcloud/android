@@ -64,17 +64,6 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private boolean createShare;
     private boolean askForPassword;
 
-   /* @Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(getContext()));
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-                .setTextColor(getResources().getColor(R.color.highlight_textColor_Warning));
-    }*/
-
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
@@ -140,20 +129,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         EditText inputText = binding.sharePassword;
         inputText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
         inputText.setText("");
-        //ThemeUtils.themeEditText(getContext(), inputText, false);
         inputText.requestFocus();
-        inputText.getBackground().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                 PorterDuff.Mode.SRC_ATOP);
-        inputText.setDefaultHintTextColor(new ColorStateList(
-            new int[][]{
-                new int[]{-android.R.attr.state_focused},
-                new int[]{android.R.attr.state_focused},
-            },
-            new int[]{
-                Color.GRAY,
-                getResources().getColor(R.color.text_color)
-            }
-        ));
         int title;
         if (askForPassword) {
             title = R.string.share_link_optional_password_title;

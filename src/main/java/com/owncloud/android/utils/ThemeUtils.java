@@ -289,7 +289,14 @@ public final class ThemeUtils {
      */
     public static void setColoredTitle(@Nullable ActionBar actionBar, String title, Context context) {
         if (actionBar != null) {
-            Spannable text = new SpannableString(title);
+
+            Spannable text;
+            if (title.contains(context.getResources().getString(R.string.project_name))) {
+                text = StringUtils.makeTextBold(title, context.getResources().getString(R.string.project_name));
+            }else{
+                text = new SpannableString(title);
+            }
+
             text.setSpan(new ForegroundColorSpan(appBarPrimaryFontColor(context)),
                          0,
                          text.length(),
@@ -468,10 +475,10 @@ public final class ThemeUtils {
 
     public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
         int primaryColor = ThemeUtils.primaryColor(context);
-        int darkColor = ThemeUtils.primaryDarkColor(context);
-        int accentColor = ThemeUtils.primaryAccentColor(context);
+        //int darkColor = ThemeUtils.primaryDarkColor(context);
+        //int accentColor = ThemeUtils.primaryAccentColor(context);
 
-        swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
+        swipeRefreshLayout.setColorSchemeColors(primaryColor);
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
     }
 
@@ -610,16 +617,39 @@ public final class ThemeUtils {
     }
 
     public static void tintCheckbox(AppCompatCheckBox checkBox, int color) {
-        CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
-            new int[][]{
-                new int[]{-android.R.attr.state_checked},
-                new int[]{android.R.attr.state_checked},
-            },
-            new int[]{
-                Color.GRAY,
-                color
-            }
-        ));
+
+        int checkEnabled = MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_enabled);
+        int checkDisabled = MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_disabled);
+        int uncheckEnabled =
+            MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_enabled);
+        int uncheckDisabled =
+            MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_disabled);
+
+        if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            checkDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_disabled_dark);
+            uncheckDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_disabled_dark);
+        }
+
+        int[][] states = new int[][]{
+            new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
+            new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
+            new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
+            new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
+        };
+
+        int[] colors = new int[]{
+            checkEnabled,
+            checkDisabled,
+            uncheckEnabled,
+            uncheckDisabled
+        };
+
+        ColorStateList checkColorStateList = new ColorStateList(states, colors);
+
+        CompoundButtonCompat.setButtonTintList(checkBox, checkColorStateList);
     }
 
     public static void tintSwitch(SwitchCompat switchView, int color) {
@@ -631,17 +661,68 @@ public final class ThemeUtils {
             switchView.setTextColor(color);
         }
 
-        int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
+        int thumbColorCheckedEnabled = MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
+        int thumbColorUncheckedEnabled = MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_enabled);
+        int thumbColorCheckedDisabled =
+            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled);
+        int thumbColorUncheckedDisabled =
+            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
+
+        if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            thumbColorCheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
+            thumbColorUncheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled_dark);
+        }
+
+
+        int[][] states = new int[][]{
+            new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
+            new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
+            new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
+            new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
+        };
+
+        int[] thumbColors = new int[]{
+            thumbColorCheckedEnabled,
+            thumbColorCheckedDisabled,
+            thumbColorUncheckedEnabled,
+            thumbColorUncheckedDisabled
+        };
+
+        ColorStateList thumbColorStateList = new ColorStateList(states, thumbColors);
+
+        int trackColorCheckedEnabled =
+            MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_enabled);
+        int trackColorUncheckedEnabled = MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
+        int trackColorCheckedDisabled =
+            MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled);
+        int trackColorUncheckedDisabled =
+            MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
+
+        if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            trackColorCheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
+            trackColorUncheckedDisabled =
+                MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled_dark);
+        }
+
+        int[] trackColors = new int[]{
+            trackColorCheckedEnabled,
+            trackColorCheckedDisabled,
+            trackColorUncheckedEnabled,
+            trackColorUncheckedDisabled
+        };
+        ColorStateList trackColorStateList = new ColorStateList(states, trackColors);
 
         // setting the thumb color
-        DrawableCompat.setTintList(switchView.getThumbDrawable(), new ColorStateList(
-            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-            new int[]{color, Color.WHITE}));
+        DrawableCompat.setTintList(switchView.getThumbDrawable(), thumbColorStateList);
 
         // setting the track color
-        DrawableCompat.setTintList(switchView.getTrackDrawable(), new ColorStateList(
-            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-            new int[]{trackColor, MainApp.getAppContext().getResources().getColor(R.color.switch_track_color_unchecked)}));
+        DrawableCompat.setTintList(switchView.getTrackDrawable(), trackColorStateList);
+
     }
 
     public static Drawable tintDrawable(@DrawableRes int id, int color) {
@@ -905,7 +986,9 @@ public final class ThemeUtils {
                 break;
 
             case EMAIL:
-                avatar.setImageResource(R.drawable.ic_email);
+                //avatar.setImageResource(R.drawable.ic_email);
+                avatar.setImageDrawable(
+                    ThemeUtils.tintDrawable(R.drawable.ic_unshared, R.color.primary));
                 avatar.setBackground(ResourcesCompat.getDrawable(context.getResources(),
                                                                  R.drawable.round_bgnd,
                                                                  null));

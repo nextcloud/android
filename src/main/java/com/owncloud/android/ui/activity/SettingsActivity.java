@@ -58,7 +58,6 @@ import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -81,7 +80,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -239,7 +237,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         /* About App */
         Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
-            pAboutApp.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.app_name),
+            pAboutApp.setTitle(ThemeUtils.getColoredTitle(getString(R.string.app_name),
                                                               accentColor));
 
             String buildNumber = getResources().getString(R.string.buildNumber);
@@ -271,7 +269,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // privacy
         boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
         Preference privacyPreference = findPreference("privacy");
-        privacyPreference.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.privacy),
+        privacyPreference.setTitle(ThemeUtils.getColoredTitle(getString(R.string.privacy),
                                                                   accentColor));
         if (privacyPreference != null) {
             if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
@@ -370,9 +368,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
-        pLogger.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.logs_title),
-                                                                accentColor));
         if (pLogger != null) {
+            pLogger.setTitle(ThemeUtils.getColoredTitle(getString(R.string.logs_title),
+                                                        accentColor));
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
@@ -449,7 +447,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupHelpPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp = findPreference("help");
-        pHelp.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_help),
+        pHelp.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_help),
                                                                 accentColor));
         if (pHelp != null) {
             if (helpEnabled) {
@@ -470,7 +468,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         Preference autoUpload = findPreference("syncedFolders");
-        autoUpload.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
+        autoUpload.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                            accentColor));
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryMore.removePreference(autoUpload);
@@ -487,7 +485,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
             && getResources().getBoolean(R.bool.contacts_backup);
         Preference pContactsBackup = findPreference("contacts");
-        pContactsBackup.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.actionbar_contacts),
+        pContactsBackup.setTitle(ThemeUtils.getColoredTitle(getString(R.string.actionbar_contacts),
                                                                 accentColor));
         if (pContactsBackup != null) {
             if (contactsBackupEnabled) {
@@ -551,7 +549,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
                                                  boolean fShowMediaScanNotifications, int accentColor) {
         SwitchPreference mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
-        mShowMediaScanNotifications.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
+        mShowMediaScanNotifications.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_storage_path),
                                                                             accentColor));
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
@@ -561,7 +559,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
                                             boolean fShowHiddenFilesEnabled, int accentColor) {
         showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
-        showHiddenFiles.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_show_hidden_files),
+        showHiddenFiles.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_show_hidden_files),
                                                                 accentColor));
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
@@ -577,7 +575,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled, int accentColor) {
         lock = (ListPreference) findPreference(PREFERENCE_LOCK);
-        lock.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_lock),
+        lock.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_lock),
                                                      accentColor));
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
             ArrayList<String> lockEntries = new ArrayList<>(3);
@@ -638,7 +636,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
-            pUploadOnWifiCheckbox.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.auto_upload_on_wifi),
+            pUploadOnWifiCheckbox.setTitle(ThemeUtils.getColoredTitle(getString(R.string.auto_upload_on_wifi),
                                                                           accentColor));
             pUploadOnWifiCheckbox.setChecked(
                 arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
@@ -706,7 +704,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 accentColor));
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
-        prefStoragePath.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
+        prefStoragePath.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_storage_path),
                                                                 accentColor));
         if (prefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();

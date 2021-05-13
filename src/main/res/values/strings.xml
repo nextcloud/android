@@ -32,7 +32,7 @@
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
     <string name="drawer_quota_percentage">%d %% Storage used</string>
-    <string name="drawer_quota_usage">%1$s of %2$s GB</string>
+    <string name="drawer_quota_usage">%1$s of %2$s</string>
     <string name="drawer_close">Close sidebar</string>
     <string name="drawer_open">Open sidebar</string>
     <string name="prefs_category_general">General</string>

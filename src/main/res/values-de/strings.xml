@@ -233,7 +233,7 @@
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_quota_percentage">Speicher zu %d %% belegt</string>
-    <string name="drawer_quota_usage">%1$s von %2$s GB</string>
+    <string name="drawer_quota_usage">%1$s von %2$s</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="edit_label">Name ändern</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>

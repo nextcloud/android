@@ -86,18 +86,6 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         share = getArguments().getParcelable(ARG_SHARE);
     }
 
-   /* @Override
-    public void onStart() {
-        super.onStart();
-
-        int color = ThemeUtils.primaryAccentColor(getContext());
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }*/
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

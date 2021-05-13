@@ -76,7 +76,7 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         return frag;
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
 
@@ -88,7 +88,7 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
         }
-    }
+    }*/
 
     @NonNull
     @Override

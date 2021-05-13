@@ -113,7 +113,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                     int trackColorUncheckedDisabled =
                          getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
 
-                    if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
+                    if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
                         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                         trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
                         trackColorCheckedDisabled =
