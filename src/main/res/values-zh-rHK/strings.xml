@@ -226,7 +226,7 @@
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">回收桶</string>
-    <string name="drawer_item_uploads_list">上載</string>
+    <string name="drawer_item_uploads_list">上傳</string>
     <string name="drawer_item_videos">影片</string>
     <string name="drawer_logout">登出</string>
     <string name="drawer_open">開啟側邊攔</string>
@@ -759,7 +759,7 @@
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
     <string name="uploader_btn_alternative_text">選擇</string>
-    <string name="uploader_btn_upload_text">上戴</string>
+    <string name="uploader_btn_upload_text">上傳</string>
     <string name="uploader_error_message_no_file_to_upload">接收的資料不包含任何有效的檔案</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允許讀取接收的檔案</string>
     <string name="uploader_error_message_source_file_not_copied">複製檔案到暫存資料夾時發生錯誤，請再試一次</string>
