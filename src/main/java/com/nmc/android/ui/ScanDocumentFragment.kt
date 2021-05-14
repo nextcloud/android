@@ -24,6 +24,7 @@ import com.google.android.material.button.MaterialButton
 import com.nmc.android.interfaces.OnDocScanListener
 import com.nmc.android.interfaces.OnFragmentChangeListener
 import com.owncloud.android.R
+import com.owncloud.android.utils.DisplayUtils
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
 import io.scanbot.sdk.camera.CameraOpenCallback
@@ -410,10 +411,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // or open another dialog explaining
                         // again the permission and directing to
                         // the app setting
-                        Toast.makeText(
-                            requireContext(), "Please navigate to App info in settings and give permission " +
-                                "manually.", Toast.LENGTH_LONG
-                        ).show()
+                        DisplayUtils.showSnackMessage(requireActivity(), R.string.storage_permission_rationale)
                     } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
                         || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission
                     ) {
@@ -421,11 +419,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // this is a good place to explain the user
                         // why you need the permission and ask if he wants
                         // to accept it (the rationale)
-                        Toast.makeText(
-                            requireContext(),
-                            "You cannot scan document without camera permission.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        DisplayUtils.showSnackMessage(requireActivity(), R.string.storage_permission_denied)
                         requireActivity().finish()
                         // askPermission()
                     }
@@ -438,72 +432,12 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         }
     }
 
-    private suspend fun recognizeTextWithoutPDFTask(bitmap: Bitmap) {
-        withContext(Dispatchers.Default) {
-            val ocrResult: OcrResult?
-            try {
-                //val bitmap = loadImage()
-                val newPageId = pageFileStorage.add(bitmap)
-                val page = Page(newPageId, emptyList(), DetectionResult.OK, ImageFilterType.BINARIZED)
-
-                val processedPage = pageProcessor.detectDocument(page)
-
-                val pages = listOf(processedPage)
-                val languages = setOf(Language.ENG)
-
-                // opticalCharacterRecognizer.recognizeTextFromPages(pages, languages)
-
-                ocrResult = opticalCharacterRecognizer.recognizeTextWithPdfFromPages(pages, PDFPageSize.A4, languages)
-            } catch (e: IOException) {
-                throw RuntimeException(e)
-            }
-            withContext(Dispatchers.Main) {
-                progressBar.visibility = View.GONE
-
-                ocrResult.let {
-                    Log.d("SCANNING", "Scanning done")
-                    if (it.ocrPages.isNotEmpty()) {
-                        Log.d("Main Activity", it.recognizedText)
-
-                        // Toast.makeText(this@MainActivity,
-                        //     """
-                        //         Recognized page content:
-                        //         ${it.recognizedText}
-                        //         """.trimIndent(),
-                        //     Toast.LENGTH_LONG).show()
-
-                        // bounding boxes and text results of recognized paragraphs, lines and words:
-                        /* for(ocr in it.ocrPages){
-                             Log.d("Main Activity","Lines: ${ocr.lines}")
-                             Log.d("Main Activity","Para: ${ocr.paragraphs}")
-                             Log.d("Main Activity","Words: ${ocr.words}")
-                         }*/
-                    }
-
-                }
-
-                ocrResult.sandwichedPdfDocumentFile?.let { file ->
-
-                    Log.d("Main Activity", file.path)
-
-                }
-            }
-        }
-    }
-
     companion object {
-        private val POLYGON_FILL_COLOR = Color.parseColor("#55ff0000")
-        private val POLYGON_FILL_COLOR_OK = Color.parseColor("#4400ff00")
         private const val CAMERA_PERMISSION_REQUEST_CODE: Int = 811
 
         @JvmStatic
         val ARG_CALLED_FROM = "arg called_From"
 
-        /* @JvmStatic
-         fun startScanDocumentActivityForResult(activity: Activity, requestCode: Int) {
-             val intent = Intent(activity, ScanDocumentFragment::class.java)
-             activity.startActivityForResult(intent, requestCode)
-         }*/
         @JvmStatic
         fun newInstance(calledFrom: String): ScanDocumentFragment {
             val args = Bundle()

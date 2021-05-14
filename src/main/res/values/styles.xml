@@ -40,6 +40,9 @@
         <item name="actionModeStyle">@style/ActionModeStyle</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
+        <!-- SnackBar Styling -->
+        <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
+        <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -84,6 +87,9 @@
         <item name="actionModeStyle">@style/ActionModeStyle</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
+        <!-- SnackBar Styling -->
+        <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
+        <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -147,6 +153,9 @@
         <item name="actionModeStyle">@style/ActionModeStyle</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
+        <!-- SnackBar Styling -->
+        <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
+        <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -492,6 +501,15 @@
         <item name="android:popupBackground">@color/popup_menu_bg</item>
         <item name="android:textColor">@color/popup_menu_txt_color</item>
         <item name="android:popupElevation">20dp</item>
+    </style>
+
+    <style name="SnackBarBackgroundStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:backgroundTint">@color/snackbar_bg_color</item>
+        <item name="backgroundTint">@color/snackbar_bg_color</item>
+    </style>
+
+    <style name="SnackBarTextViewStyle" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">@color/snackbar_txt_color</item>
     </style>
 
 </resources>

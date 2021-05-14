@@ -999,5 +999,7 @@
     <string name="scan_save_file_type_text">You can save the file with or without text recognition. Multiple selection is allowed.</string>
     <string name="choose_location">Choose location</string>
     <string name="common_select">Select</string>
+    <string name="storage_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
+    <string name="storage_permission_denied">You cannot scan document without camera permission.</string>
 
 </resources>
