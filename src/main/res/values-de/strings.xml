@@ -895,6 +895,6 @@
     <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
     <string name="choose_location">Speicherort wählen</string>
     <string name="common_select">Auswählen</string>
-    <string name="storage_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
-    <string name="storage_permission_denied">You cannot scan document without camera permission.</string>
+    <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
+    <string name="camera_permission_denied">You cannot scan document without camera permission.</string>
 </resources>

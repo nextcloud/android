@@ -5,16 +5,13 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
@@ -35,21 +32,14 @@ import io.scanbot.sdk.contourdetector.ContourDetectorFrameHandler
 import io.scanbot.sdk.contourdetector.DocumentAutoSnappingController
 import io.scanbot.sdk.core.contourdetector.DetectionResult
 import io.scanbot.sdk.docprocessing.PageProcessor
-import io.scanbot.sdk.entity.Language
 import io.scanbot.sdk.ocr.OpticalCharacterRecognizer
-import io.scanbot.sdk.ocr.process.OcrResult
-import io.scanbot.sdk.persistence.Page
 import io.scanbot.sdk.persistence.PageFileStorage
 import io.scanbot.sdk.process.CropOperation
-import io.scanbot.sdk.process.ImageFilterType
 import io.scanbot.sdk.process.Operation
-import io.scanbot.sdk.process.PDFPageSize
 import io.scanbot.sdk.ui.PolygonView
 import io.scanbot.sdk.ui.camera.ShutterButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.IOException
 import java.util.ArrayList
 
 class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandler {
@@ -411,7 +401,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // or open another dialog explaining
                         // again the permission and directing to
                         // the app setting
-                        DisplayUtils.showSnackMessage(requireActivity(), R.string.storage_permission_rationale)
+                        DisplayUtils.showSnackMessage(requireActivity(), R.string.camera_permission_rationale)
                     } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
                         || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission
                     ) {
@@ -419,7 +409,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // this is a good place to explain the user
                         // why you need the permission and ask if he wants
                         // to accept it (the rationale)
-                        DisplayUtils.showSnackMessage(requireActivity(), R.string.storage_permission_denied)
+                        DisplayUtils.showSnackMessage(requireActivity(), R.string.camera_permission_denied)
                         requireActivity().finish()
                         // askPermission()
                     }
