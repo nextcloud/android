@@ -398,6 +398,7 @@
     <string name="logs_status_loading">Yükleniyor …</string>
     <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>
     <string name="logs_title">Günlükler</string>
+    <string name="maintenance_mode">Sunucu bakım kipinde</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
@@ -676,6 +677,7 @@
     <string name="stream">Şununla akıt …</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
+    <string name="strict_mode">Kısıtlı kip: http bağlantılarına izin verilmez!</string>
     <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>

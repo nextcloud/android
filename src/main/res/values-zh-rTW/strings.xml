@@ -677,6 +677,7 @@
     <string name="stream">串流……</string>
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
+    <string name="strict_mode">嚴格模式：不允許 http 連線！</string>
     <string name="subject_shared_with_you">「%1$s」已經與您分享</string>
     <string name="subject_user_shared_with_you">%1$s 分享了「%2$s」給您</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
