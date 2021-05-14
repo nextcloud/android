@@ -1,4 +1,5 @@
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.internal.jvm.Jvm
 
 // Gradle build file
 //
@@ -37,6 +38,8 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+
+println "Gradle uses Java ${Jvm.current()}"
 
 configurations {
     ktlint
