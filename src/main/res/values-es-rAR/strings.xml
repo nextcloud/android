@@ -301,7 +301,7 @@
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">Cargando…</string>
-    <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de achivo. </string>
+    <string name="file_list_no_app_for_file_type">No se cuenta con una aplicación que maneje este tipo de archivo. </string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
@@ -391,7 +391,7 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, sin filtro</string>
     <string name="logs_title">Registros</string>
     <string name="manage_space_clear_data">Borrar datos</string>
-    <string name="manage_space_description">Las configuraciones , base de datos y certificados del servior de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
+    <string name="manage_space_description">Las configuraciones , base de datos y certificados del servidor de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>
@@ -477,7 +477,7 @@
     <string name="power_save_check_dialog_message">¡La desactivación de la verificación de ahorro de energía puede provocar la carga de archivos cuando la batería está baja!</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
-    <string name="pref_behaviour_entries_move">movido a la capreta de la aplicación</string>
+    <string name="pref_behaviour_entries_move">movido a la carpeta de la aplicación</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">¿Qué hacer si el archivo ya existe?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Preguntarme cada vez</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Saltar carga</string>
@@ -489,7 +489,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">La dirección del servidor para la cuenta no se pudo resolver para DAVx5 (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (anteriormente conocido como DAVdroid) (v1.3.0 +) para la cuenta actual</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronizacion del calendario &amp; contactos </string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronización del calendario &amp; contactos </string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Dev</string>
