@@ -64,8 +64,8 @@ public class ThemeableSwitchPreference extends SwitchPreference {
     }
 
     private void findSwitch(ViewGroup viewGroup) {
-        ColorStateList thumbColorStateList = null;
-        ColorStateList trackColorStateList = null;
+        ColorStateList thumbColorStateList;
+        ColorStateList trackColorStateList;
 
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
@@ -73,62 +73,60 @@ public class ThemeableSwitchPreference extends SwitchPreference {
             if (child instanceof Switch) {
                 Switch switchView = (Switch) child;
 
-                if (thumbColorStateList == null && trackColorStateList == null) {
-                    int thumbColorCheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
-                    int thumbColorUncheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_unchecked_enabled);
-                    int thumbColorCheckedDisabled =
-                        getContext().getResources().getColor(R.color.switch_thumb_checked_disabled);
-                    int thumbColorUncheckedDisabled =
-                        getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
+                int thumbColorCheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
+                int thumbColorUncheckedEnabled =  getContext().getResources().getColor(R.color.switch_thumb_unchecked_enabled);
+                int thumbColorCheckedDisabled =
+                    getContext().getResources().getColor(R.color.switch_thumb_checked_disabled);
+                int thumbColorUncheckedDisabled =
+                    getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
 
-                    if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
-                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                        thumbColorCheckedDisabled =
-                            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
-                        thumbColorUncheckedDisabled =
-                            MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled_dark);
-                    }
-
-                    int[][] states = new int[][]{
-                        new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
-                        new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
-                        new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
-                        new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
-                    };
-
-                    int[] thumbColors = new int[]{
-                        thumbColorCheckedEnabled,
-                        thumbColorCheckedDisabled,
-                        thumbColorUncheckedEnabled,
-                        thumbColorUncheckedDisabled
-                    };
-
-                    thumbColorStateList = new ColorStateList(states, thumbColors);
-
-                    int trackColorCheckedEnabled =
-                        getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
-                    int trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.dark_grey);
-                    int trackColorCheckedDisabled =
-                         getContext().getResources().getColor(R.color.switch_track_checked_disabled);
-                    int trackColorUncheckedDisabled =
-                         getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
-
-                    if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
-                        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                        trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
-                        trackColorCheckedDisabled =
-                            MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
-                        trackColorUncheckedDisabled =
-                            MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled_dark);
-                    }
-                    int[] trackColors = new int[]{
-                        trackColorCheckedEnabled,
-                        trackColorCheckedDisabled,
-                        trackColorUncheckedEnabled,
-                        trackColorUncheckedDisabled
-                    };
-                    trackColorStateList = new ColorStateList(states, trackColors);
+                if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    thumbColorCheckedDisabled =
+                        MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
+                    thumbColorUncheckedDisabled =
+                        MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled_dark);
                 }
+
+                int[][] states = new int[][]{
+                    new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // enabled and checked
+                    new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // disabled and checked
+                    new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // enabled and unchecked
+                    new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked}  // disabled and unchecked
+                };
+
+                int[] thumbColors = new int[]{
+                    thumbColorCheckedEnabled,
+                    thumbColorCheckedDisabled,
+                    thumbColorUncheckedEnabled,
+                    thumbColorUncheckedDisabled
+                };
+
+                thumbColorStateList = new ColorStateList(states, thumbColors);
+
+                int trackColorCheckedEnabled =
+                    getContext().getResources().getColor(R.color.switch_thumb_checked_enabled);
+                int trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.dark_grey);
+                int trackColorCheckedDisabled =
+                     getContext().getResources().getColor(R.color.switch_track_checked_disabled);
+                int trackColorUncheckedDisabled =
+                     getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
+
+                if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
+                    trackColorCheckedDisabled =
+                        MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
+                    trackColorUncheckedDisabled =
+                        MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled_dark);
+                }
+                int[] trackColors = new int[]{
+                    trackColorCheckedEnabled,
+                    trackColorCheckedDisabled,
+                    trackColorUncheckedEnabled,
+                    trackColorUncheckedDisabled
+                };
+                trackColorStateList = new ColorStateList(states, trackColors);
 
                 // setting the thumb color
                 DrawableCompat.setTintList(switchView.getThumbDrawable(), thumbColorStateList);

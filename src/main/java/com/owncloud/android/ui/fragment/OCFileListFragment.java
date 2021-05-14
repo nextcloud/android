@@ -130,6 +130,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -537,7 +538,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(getActivity(), R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, view);
         popup.inflate(R.menu.item_file);
         FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                Collections.singleton(file),

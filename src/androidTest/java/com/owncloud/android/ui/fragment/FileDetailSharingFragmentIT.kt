@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.fragment
 
 import android.widget.ImageView
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.client.TestActivity
@@ -520,7 +521,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut.refreshCapabilitiesFromDB()
 
         val overflowMenuShareLink = ImageView(targetContext)
-        val popup = PopupMenu(targetContext, overflowMenuShareLink)
+        val ctw = ContextThemeWrapper(targetContext, R.style.CustomPopupTheme)
+        val popup = PopupMenu(ctw, overflowMenuShareLink)
         popup.inflate(R.menu.item_user_sharing_settings)
         val userShare = OCShare().apply {
             isFolder = true

@@ -38,10 +38,6 @@
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
-        <!-- Navigation view styling -->
-        <item name="colorNavigationItem">@color/menu_item_color_state</item>
-        <item name="colorNavigationItemSelected">@color/primary</item>
-        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
@@ -50,8 +46,28 @@
 
     <style name="ThemePreference" parent="BaseTheme.ownCloud">
         <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="android:alertDialogTheme">@style/DialogPreferenceTheme</item>
+        <item name="alertDialogTheme">@style/DialogPreferenceTheme</item>
+        <item name="android:dialogTheme">@style/DialogPreferenceTheme</item>
     </style>
 
+    <style name="DialogPreferenceTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:windowBackground">@color/alert_bg_color</item>
+        <item name="android:textColor">@color/alert_txt_color</item>
+        <item name="android:textColorSecondary">@color/alert_txt_color</item>
+        <!-- button styles -->
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
+        <!-- list row item color -->
+        <item name="android:textColorAlertDialogListItem">@color/alert_txt_color</item>
+        <item name="textColorAlertDialogListItem">@color/alert_txt_color</item>
+    </style>
 
     <style name="FallbackThemingThemeBase" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="actionModeBackground">@color/action_mode_background</item>
@@ -66,10 +82,6 @@
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
-        <!-- Navigation view styling -->
-        <item name="colorNavigationItem">@color/menu_item_color_state</item>
-        <item name="colorNavigationItemSelected">@color/primary</item>
-        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
@@ -88,7 +100,7 @@
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 
-	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
@@ -133,10 +145,6 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="windowNoTitle">true</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
-        <!-- Navigation view styling -->
-        <item name="colorNavigationItem">@color/menu_item_color_state</item>
-        <item name="colorNavigationItemSelected">@color/primary</item>
-        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <!-- ActionBar Menu Item Text Color Style -->
         <item name="android:actionMenuTextColor">@color/primary</item>
     </style>
@@ -174,8 +182,12 @@
         <item name="colorAccent">@color/primary</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:windowBackground">@color/bg_default</item>
-        <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:windowBackground">@color/alert_bg_color</item>
+        <item name="android:textColorPrimary">@color/alert_txt_color</item>
+        <!-- button styles -->
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
@@ -184,7 +196,7 @@
     <style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-	</style>
+    </style>
 
     <style name="ProgressDialogTheme" parent="ownCloud.Dialog">
         <item name="colorAccent">@color/color_accent</item>
@@ -197,7 +209,7 @@
         <!-- Close button icon -->
         <item name="closeIcon">@drawable/ic_close</item>
         <!-- Search button icon -->
-        <item name="searchIcon">@drawable/ic_search_grey</item>
+        <item name="searchIcon">@drawable/ic_search</item>
         <!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
         <!--<item name="suggestionRowLayout">...</item>-->
     </style>
@@ -325,7 +337,7 @@
     <style name="Theme.ownCloud.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="windowNoTitle">false</item>
         <item name="colorAccent">@color/color_accent</item>
-        <item name="android:windowBackground">@color/bg_default</item>
+        <item name="android:windowBackground">@color/alert_bg_color</item>
         <item name="android:textAllCaps">false</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
@@ -345,20 +357,20 @@
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
-        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+        <item name="itemBackground">@drawable/menu_background_color_state</item>
     </style>
 
     <style name="PassCodeStyle">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
-  		<item name="android:gravity">center</item>
-  		<item name="android:layout_margin">10dp</item>
-  		<item name="android:inputType">numberDecimal</item>
-  		<item name="android:numeric">decimal</item>
-		<item name="android:digits">1234567890</item>
-		<item name="android:maxLength">1</item>
-		<item name="android:password">true</item>
-		<item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:numeric">decimal</item>
+        <item name="android:digits">1234567890</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:password">true</item>
+        <item name="android:maxLines">1</item>
         <item name="colorPrimary">@color/text_color</item>
     </style>
 
@@ -375,8 +387,7 @@
 
     <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
 
-	<style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-    </style>
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
 
     <style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
@@ -386,9 +397,9 @@
 
     <style name="ThemeOverlay.AppTheme.PopupMenu" parent="ThemeOverlay.MaterialComponents.Dark">
         <!-- popup menu background - NEVER "android:background" !!! in themes -->
-        <item name="android:colorBackground">@color/bg_default</item>
+        <item name="android:colorBackground">@color/popup_menu_bg</item>
         <!-- popup menu item text color -->
-        <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColorPrimary">@color/popup_menu_txt_color</item>
     </style>
 
     <style name="MaterialListItemSingleLine">
@@ -455,6 +466,7 @@
 
     <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:popupBackground">@color/spinner_bg_color</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
@@ -462,11 +474,24 @@
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">@color/alert_txt_color</item>
     </style>
 
     <style name="NeutralButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">@color/alert_txt_color</item>
+    </style>
+
+    <style name="CustomPopupTheme">
+        <!-- if using android.widget.PopupMenu -->
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <!-- if using android.support.v7.widget.PopupMenu -->
+        <item name="popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="PopupMenu" parent="ThemeOverlay.AppTheme.PopupMenu">
+        <item name="android:popupBackground">@color/popup_menu_bg</item>
+        <item name="android:textColor">@color/popup_menu_txt_color</item>
+        <item name="android:popupElevation">20dp</item>
     </style>
 
 </resources>

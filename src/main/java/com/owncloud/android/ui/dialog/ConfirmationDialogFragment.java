@@ -71,17 +71,6 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return frag;
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-
-        int color = ThemeUtils.primaryAccentColor(getContext());
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }*/
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
         mListener = listener;

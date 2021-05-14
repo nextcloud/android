@@ -36,7 +36,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/secondary_text_color" />
+        android:background="@color/divider_color" />
 
     <LinearLayout
         android:id="@+id/upload_options"
@@ -91,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:icon="@drawable/ic_cut_paste"
+            app:iconTint="@color/white"
             app:iconGravity="textStart"
             android:text="@string/uploader_btn_upload_text"
             android:theme="@style/Button.Primary"

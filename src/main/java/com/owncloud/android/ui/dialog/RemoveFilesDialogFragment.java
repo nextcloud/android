@@ -124,19 +124,6 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         return newInstance(list);
     }
 
-   /* @Override
-    public void onStart() {
-        super.onStart();
-
-        int color = ThemeUtils.primaryAccentColor(getActivity());
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
-    }
-*/
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

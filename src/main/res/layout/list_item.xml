@@ -156,7 +156,7 @@
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
             android:visibility="gone"
-            app:tint="@color/secondary_text_color" />
+            app:tint="@color/list_icon_color" />
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -206,7 +206,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:src="@drawable/ic_dots_vertical"
-            app:tint="@color/secondary_text_color" />
+            app:tint="@color/list_icon_color" />
 
     </RelativeLayout>
 

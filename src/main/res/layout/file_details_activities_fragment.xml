@@ -48,7 +48,7 @@
             android:contentDescription="@string/common_send"
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_send"
-            app:iconTint="@color/grey_600"/>
+            app:iconTint="@color/grey_60"/>
 
     </LinearLayout>
 

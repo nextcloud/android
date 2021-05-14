@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -288,7 +289,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     }
 
     private void onOverflowIconClicked(int section, SyncedFolderDisplayItem item, View view) {
-        PopupMenu popup = new PopupMenu(context, view);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(context, R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, view);
         popup.inflate(R.menu.synced_folders_adapter);
         popup.setOnMenuItemClickListener(i -> optionsItemSelected(i, section, item));
         popup.getMenu()

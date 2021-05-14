@@ -22,7 +22,6 @@
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="text_color">#191919</color>
-    <color name="drawer_text_color">@color/text_color</color>
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#eeeeee</color>
@@ -31,18 +30,40 @@
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="secondary_text_color">#b2b2b2</color>
+    <color name="secondary_text_color">@color/grey_30</color>
     <color name="highlight_textColor_Warning">#e53935</color>
     <color name="check_green_color">#73c354</color>
+    <color name="icon_color">#191919</color>
+    <color name="sort_text_color">@color/primary</color>
+    <color name="divider_color">@color/grey_30</color>
+    <color name="list_icon_color">@color/grey_30</color>
+    <color name="nav_selected_bg_color">@color/grey_0</color>
+    <color name="nav_txt_unselected_color">#191919</color>
+    <color name="nav_txt_selected_color">@color/primary</color>
+    <color name="nav_icon_unselected_color">#191919</color>
+    <color name="nav_icon_selected_color">@color/primary</color>
+    <color name="nav_divider_color">@color/grey_30</color>
+    <color name="nav_bg_color">@android:color/white</color>
+    <color name="drawer_quota_txt_color">#191919</color>
+    <color name="spinner_bg_color">@android:color/white</color>
+    <color name="scan_doc_bg_color">@color/grey_0</color>
+    <color name="scan_text_color">#191919</color>
+    <color name="scan_edit_bottom_color">@color/grey_0</color>
+    <color name="scan_count_bg_color">@color/grey_30</color>
+    <color name="snackbar_bg_color">@color/design_snackbar_background_color</color>
+    <color name="snackbar_txt_color">@color/white</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
     <color name="actionbar_shadow">#222222</color>
     <color name="grey_200">#EEEEEE</color>
-    <color name="grey_600">#666666</color>
+    <color name="grey_60">#666666</color>
     <color name="dark_grey">#101010</color>
-    <color name="grey">#F2F2F2</color>
-
+    <color name="grey_0">#F2F2F2</color>
+    <color name="grey_30">#B2B2B2</color>
+    <color name="grey_70">#4C4C4C</color>
+    <color name="grey_10">#E5E5E5</color>
+    <color name="grey_80">#333333</color>
     <!-- standard material color definitions -->
 
     <!-- level colors for info notifications/visualisations -->
@@ -62,6 +83,13 @@
     <color name="nc_grey">#ededed</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="et_highlight_color">#77c4ff</color>
+    <color name="popup_menu_bg">#FFFFFF</color>
+    <color name="popup_menu_txt_color">#191919</color>
+    <color name="alert_bg_color">#FFFFFF</color>
+    <color name="alert_txt_color">#191919</color>
+    <color name="bottom_sheet_bg_color">#FFFFFF</color>
+    <color name="bottom_sheet_icon_color">#191919</color>
+    <color name="bottom_sheet_txt_color">#191919</color>
 
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
@@ -75,7 +103,7 @@
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/white</color>
-    <color name="selected_item_background">#F2F2F2</color>
+    <color name="selected_item_background">@color/grey_0</color>
 
     <color name="drawer_menu_icon">#757575</color>
     <color name="bg_fallback_highlight">#616161</color>
@@ -84,24 +112,24 @@
     <!-- Switch Compat Colors -->
     <color name="switch_thumb_checked_enabled">@color/primary</color>
     <color name="switch_track_checked_enabled">#F399C7</color>
-    <color name="switch_thumb_checked_disabled">#F2F2F2</color>
-    <color name="switch_track_checked_disabled">#F2F2F2</color>
+    <color name="switch_thumb_checked_disabled">@color/grey_0</color>
+    <color name="switch_track_checked_disabled">@color/grey_0</color>
     <color name="switch_thumb_unchecked_enabled">#FFFFFF</color>
-    <color name="switch_track_unchecked_enabled">#B2B2B2</color>
-    <color name="switch_thumb_unchecked_disabled">#F2F2F2</color>
-    <color name="switch_track_unchecked_disabled">#F2F2F2</color>
-    <color name="switch_thumb_checked_disabled_dark">#4C4C4C</color>
-    <color name="switch_track_checked_disabled_dark">#666666</color>
-    <color name="switch_thumb_unchecked_disabled_dark">#4C4C4C</color>
-    <color name="switch_track_unchecked_disabled_dark">#666666</color>
+    <color name="switch_track_unchecked_enabled">@color/grey_30</color>
+    <color name="switch_thumb_unchecked_disabled">@color/grey_0</color>
+    <color name="switch_track_unchecked_disabled">@color/grey_0</color>
+    <color name="switch_thumb_checked_disabled_dark">@color/grey_70</color>
+    <color name="switch_track_checked_disabled_dark">@color/grey_60</color>
+    <color name="switch_thumb_unchecked_disabled_dark">@color/grey_70</color>
+    <color name="switch_track_unchecked_disabled_dark">@color/grey_60</color>
 
     <!-- Checkbox Colors -->
     <color name="checkbox_checked_enabled">@color/primary</color>
-    <color name="checkbox_unchecked_enabled">#B2B2B2</color>
-    <color name="checkbox_checked_disabled">#B2B2B2</color>
+    <color name="checkbox_unchecked_enabled">@color/grey_30</color>
+    <color name="checkbox_checked_disabled">@color/grey_30</color>
     <color name="checkbox_unchecked_disabled">#CCCCCC</color>
-    <color name="checkbox_checked_disabled_dark">#4C4C4C</color>
-    <color name="checkbox_unchecked_disabled_dark">#4C4C4C</color>
+    <color name="checkbox_checked_disabled_dark">@color/grey_70</color>
+    <color name="checkbox_unchecked_disabled_dark">@color/grey_70</color>
 
     <!-- Excluded from future app dark theme -->
     <color name="themed_fg">#FFFFFF</color>
@@ -111,7 +139,7 @@
     <color name="appbar">@android:color/white</color>
     <color name="fontAppbar">#191919</color>
     <color name="fontSecondaryAppbar">#A5A5A5</color>
-    <color name="progress_bar_background">#E5E5E5</color>
+    <color name="progress_bar_background">@color/grey_10</color>
     <color name="neptune">#77b6bb</color>
     <color name="neptune_50">#5077b6bb</color>
 </resources>

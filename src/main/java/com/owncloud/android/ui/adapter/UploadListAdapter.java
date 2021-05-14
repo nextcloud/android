@@ -74,6 +74,7 @@ import java.io.File;
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -527,7 +528,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                        OCUpload item,
                                        String status,
                                        View view) {
-        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(MainApp.getAppContext(), R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, view);
         popup.inflate(R.menu.upload_list_item_file_conflict);
         popup.setOnMenuItemClickListener(i -> {
             switch (i.getItemId()) {

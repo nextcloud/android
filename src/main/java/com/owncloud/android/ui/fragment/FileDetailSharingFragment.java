@@ -75,6 +75,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -307,7 +308,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (ThemeUtils.themingEnabled(requireContext())) {
             requireContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
-        PopupMenu popup = new PopupMenu(requireContext(), overflowMenu);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(requireContext(), R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, overflowMenu);
         popup.inflate(R.menu.item_user_sharing_settings);
         prepareUserOptionsMenu(popup.getMenu(), share);
         popup.setOnMenuItemClickListener(item -> userOptionsItemSelected(popup.getMenu(), item, share));
@@ -357,8 +359,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             // use grey as fallback for elements where custom theming is not available
             requireContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
-
-        PopupMenu popup = new PopupMenu(requireContext(), overflowMenuShareLink);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(requireContext(), R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, overflowMenuShareLink);
         if (ShareType.EMAIL == publicShare.getShareType()) {
             popup.inflate(R.menu.fragment_file_detail_sharing_email_link);
         } else {

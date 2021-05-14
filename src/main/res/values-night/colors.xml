@@ -25,6 +25,17 @@
     <color name="secondary_text_color">#A5A5A5</color>
     <color name="list_divider_background">#222222</color>
     <color name="check_green_color">#73c354</color>
+    <color name="icon_color">#FFFFFF</color>
+    <color name="sort_text_color">@color/grey_30</color>
+    <color name="nav_selected_bg_color">@color/grey_60</color>
+    <color name="nav_txt_unselected_color">@color/grey_0</color>
+    <color name="nav_txt_selected_color">@color/grey_0</color>
+    <color name="nav_icon_unselected_color">@color/grey_30</color>
+    <color name="nav_icon_selected_color">#FFFFFF</color>
+    <color name="nav_divider_color">@color/grey_30</color>
+    <color name="nav_bg_color">@color/grey_80</color>
+    <color name="drawer_quota_txt_color">#FFFFFF</color>
+    <color name="spinner_bg_color">@color/grey_80</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>
@@ -35,11 +46,24 @@
     <color name="grey_200">#818181</color>
     <color name="nc_grey">#222222</color>
     <color name="icon_on_nc_grey">#ffffff</color>
-    <color name="grey">#373535</color>
+    <color name="divider_color">@color/grey_70</color>
+    <color name="popup_menu_bg">@color/grey_80</color>
+    <color name="popup_menu_txt_color">@color/grey_0</color>
+    <color name="alert_bg_color">@color/grey_80</color>
+    <color name="alert_txt_color">@color/grey_0</color>
+    <color name="bottom_sheet_bg_color">@color/grey_80</color>
+    <color name="bottom_sheet_icon_color">@color/grey_30</color>
+    <color name="bottom_sheet_txt_color">@color/grey_0</color>
+    <color name="scan_doc_bg_color">#121212</color>
+    <color name="scan_text_color">@color/grey_0</color>
+    <color name="scan_edit_bottom_color">@color/grey_80</color>
+    <color name="scan_count_bg_color">@color/grey_80</color>
+    <color name="snackbar_bg_color">@color/grey_80</color>
+    <color name="snackbar_txt_color">@color/grey_0</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>
-    <color name="selected_item_background">#373535</color>
+    <color name="selected_item_background">@color/grey_80</color>
 
     <color name="filelist_icon_background">#222222</color>
     <color name="standard_grey">#DADADA</color>
@@ -49,6 +73,6 @@
     <color name="drawer_active_item_background">@color/white</color>
 
     <!-- App bar -->
-    <color name="appbar">#1E1E1E</color>
+    <color name="appbar">#121212</color>
     <color name="fontAppbar">@android:color/white</color>
 </resources>

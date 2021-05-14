@@ -54,12 +54,12 @@
                 android:text="@string/menu_item_sort_by_date_newest_first"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                android:textColor="@color/primary"
+                android:textColor="@color/sort_text_color"
                 android:textSize="14sp"
                 app:icon="@drawable/ic_keyboard_arrow_down"
                 app:iconGravity="textEnd"
                 app:iconSize="12dp"
-                app:iconTint="@color/primary"
+                app:iconTint="@color/sort_text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,7 @@
                 android:contentDescription="@string/action_switch_grid_view"
                 app:cornerRadius="24dp"
                 app:icon="@drawable/ic_view_module"
-                app:iconTint="@color/text_color"
+                app:iconTint="@color/icon_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -89,7 +89,7 @@
                 android:id="@+id/toolbar_divider"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbarBarrier" />
@@ -126,7 +126,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/appbar"
+                android:background="@color/bg_default"
                 android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
                 app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 tools:visibility="gone">
@@ -146,7 +146,7 @@
                 android:layout_height="0.5dp"
                 android:visibility="gone"
                 android:layout_below="@+id/toolbar"
-                android:background="@color/secondary_text_color" />
+                android:background="@color/divider_color" />
 
         </RelativeLayout>
 

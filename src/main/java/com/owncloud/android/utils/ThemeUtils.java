@@ -293,7 +293,7 @@ public final class ThemeUtils {
             Spannable text;
             if (title.contains(context.getResources().getString(R.string.project_name))) {
                 text = StringUtils.makeTextBold(title, context.getResources().getString(R.string.project_name));
-            }else{
+            } else {
                 text = new SpannableString(title);
             }
 

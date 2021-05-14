@@ -180,6 +180,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         ThemeUtils.tintCheckbox(jpgCheckBox, 0);
         ThemeUtils.tintCheckbox(pdfOcrCheckBox, 0);
         ThemeUtils.tintCheckbox(txtFileCheckBox, 0);
+        ThemeUtils.colorPrimaryButton(saveButton, requireContext());
 
         pdfOcrCheckBox.setChecked(true);
         ThemeUtils.colorTextInputLayout(pdfPasswordInputLayout, getResources().getColor(R.color.secondary_text_color));

@@ -70,6 +70,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.res.ResourcesCompat;
 
 /**
@@ -216,7 +217,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private void onOverflowIconClicked(View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
+        ContextThemeWrapper ctw = new ContextThemeWrapper(getActivity(), R.style.CustomPopupTheme);
+        PopupMenu popup = new PopupMenu(ctw, view);
         popup.inflate(R.menu.fragment_file_detail);
         prepareOptionsMenu(popup.getMenu());
 

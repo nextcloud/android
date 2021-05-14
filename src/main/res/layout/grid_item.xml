@@ -69,7 +69,7 @@
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/shared_icon_shared_via_link"
                 android:src="@drawable/shared_via_link"
-                app:tint="@color/secondary_text_color" />
+                app:tint="@color/list_icon_color" />
 
             <ImageView
                 android:id="@+id/unreadComments"

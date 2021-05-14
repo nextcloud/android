@@ -66,7 +66,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginRight="@dimen/standard_margin"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_filename_input" />
@@ -115,7 +115,7 @@
                 android:id="@+id/scan_save_location_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_location_input" />
@@ -156,7 +156,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginRight="@dimen/standard_margin"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_file_type_msg" />
@@ -254,7 +254,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:layout_marginRight="@dimen/standard_margin"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_without_txt_recognition_png_checkbox" />
@@ -328,7 +328,7 @@
                 android:id="@+id/scan_save_with_txt_recognition_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/secondary_text_color"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scan_save_with_txt_recognition_txt_checkbox" />
@@ -385,7 +385,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginBottom="@dimen/standard_margin"
-        android:background="@color/secondary_text_color"
+        android:background="@color/divider_color"
         app:layout_constraintBottom_toTopOf="@+id/save_scan_btn_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

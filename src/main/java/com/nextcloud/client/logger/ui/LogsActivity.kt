@@ -22,6 +22,7 @@ package com.nextcloud.client.logger.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -87,7 +88,8 @@ class LogsActivity : ToolbarActivity() {
         menuInflater.inflate(R.menu.activity_logs, menu)
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
-
+            val searchIcon: ImageView = this.findViewById(androidx.appcompat.R.id.search_button)
+            searchIcon.setImageResource(R.drawable.ic_search)
             ThemeUtils.themeSearchView(this, context)
         }
         return super.onCreateOptionsMenu(menu)

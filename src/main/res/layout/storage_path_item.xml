@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/bg_default"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/user_icon"
         android:paddingStart="@dimen/standard_padding"
         android:paddingLeft="@dimen/standard_padding"

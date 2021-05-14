@@ -65,7 +65,7 @@
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_margin"
             android:contentDescription="@string/fab_label"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -119,7 +119,7 @@
             android:contentDescription="@string/overflow_menu"
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_dots_vertical"
-            app:iconTint="@color/grey_600" />
+            app:iconTint="@color/grey_60" />
     </LinearLayout>
 
     <LinearLayout
@@ -162,7 +162,7 @@
             android:contentDescription="@string/common_cancel"
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_cancel"
-            app:iconTint="@color/grey_600"
+            app:iconTint="@color/grey_60"
             android:layout_marginTop="@dimen/standard_eighth_margin"/>
 
     </LinearLayout>

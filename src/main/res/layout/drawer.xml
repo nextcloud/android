@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_weight="1"
-        android:background="@color/appbar"
+        android:background="@color/nav_bg_color"
         android:fitsSystemWindows="true"
         android:theme="@style/NavigationView_ItemTextAppearance"
         app:menu="@menu/partial_drawer_entries">
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/appbar"
+            android:background="@color/nav_bg_color"
             android:clickable="false"
             android:orientation="vertical"
             android:paddingTop="@dimen/standard_half_padding"
@@ -49,7 +49,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/secondary_text_color" />
+                android:background="@color/nav_divider_color" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/drawer_quota_usage"
@@ -60,7 +60,7 @@
                 android:paddingLeft="@dimen/standard_padding"
                 android:paddingTop="@dimen/standard_padding"
                 android:paddingRight="@dimen/standard_padding"
-                android:textColor="@color/text_color"
+                android:textColor="@color/drawer_quota_txt_color"
                 android:textSize="@dimen/txt_size_18sp"
                 app:drawableStartCompat="@drawable/ic_magentacloud_product_logo"
                 tools:text="1.2 of 5 GB" />
@@ -82,9 +82,9 @@
                 android:layout_marginRight="@dimen/standard_margin"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
-                android:progress="50"
+                tools:progress="50"
                 android:progressDrawable="@drawable/custom_progress_bar"
-                android:scaleY="0.35"
+                android:scaleY="0.30"
                 android:text="@string/drawer_quota" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -95,7 +95,7 @@
                 android:paddingLeft="@dimen/standard_padding"
                 android:paddingRight="@dimen/standard_padding"
                 android:text="@string/drawer_quota"
-                android:textColor="@color/text_color"
+                android:textColor="@color/drawer_quota_txt_color"
                 android:textSize="@dimen/txt_size_14sp" />
 
         </LinearLayout>

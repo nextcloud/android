@@ -706,8 +706,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
-            int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = ThemeUtils.primaryColor(null, true, true, this);
+            int drawerDefaultTxtColor = getResources().getColor(R.color.nav_txt_unselected_color);
+            int drawerActiveTxtColor = getResources().getColor(R.color.nav_txt_selected_color);
+
+            int drawerDefaultIconColor = getResources().getColor(R.color.nav_icon_unselected_color);
+            int drawerActiveIconColor = getResources().getColor(R.color.nav_icon_selected_color);
 
             currentItem.setChecked(true);
 
@@ -716,11 +719,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     if (menuItem == currentItem) {
-                        ThemeUtils.tintDrawable(currentItem.getIcon(), activeColor);
-                        ThemeUtils.tintMenuItemText(currentItem, activeColor);
+                        ThemeUtils.tintDrawable(currentItem.getIcon(), drawerActiveIconColor);
+                        ThemeUtils.tintMenuItemText(currentItem, drawerActiveTxtColor);
                     } else {
-                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerColor);
-                        ThemeUtils.tintMenuItemText(menuItem, drawerColor);
+                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerDefaultIconColor);
+                        ThemeUtils.tintMenuItemText(menuItem, drawerDefaultTxtColor);
                     }
                 }
             }

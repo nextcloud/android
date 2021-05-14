@@ -72,6 +72,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -472,7 +473,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public void onOptionItemClicked(User user, View view) {
         if (view.getId() == R.id.account_menu) {
-            PopupMenu popup = new PopupMenu(this, view);
+            ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.CustomPopupTheme);
+            PopupMenu popup = new PopupMenu(ctw, view);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
 
             if(accountManager.getUser().equals(user)) {

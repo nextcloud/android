@@ -90,6 +90,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -151,7 +152,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         addPreferencesFromResource(R.xml.preferences);
 
         ListView listView = getListView();
-        listView.setDivider(getResources().getDrawable(R.drawable.item_divider));
+        listView.setDivider(ResourcesCompat.getDrawable(getResources(), R.drawable.item_divider, null));
 
         setupActionBar();
 
