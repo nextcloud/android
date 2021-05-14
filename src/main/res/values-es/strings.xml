@@ -328,7 +328,7 @@
     <string name="file_migration_source_not_readable_title">¡No se puede leer el archivo de origen!</string>
     <string name="file_migration_updating_index">Actualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciónes terminen…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciones terminen…</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
