@@ -1,0 +1,8 @@
+Java 8 is now default
+Android Studio 4.2
+Gradle 6.7
+Avatar generation can take long, so better check if ChooseAccountDialogFragment is still active
+Prevent http redirection if https is used during login
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
