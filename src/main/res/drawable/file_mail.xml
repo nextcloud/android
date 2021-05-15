@@ -1,0 +1,13 @@
+<!--
+  Icon provided by Android Material Library in Apache License 2.0
+-->
+<vector  android:height="72dp" android:tint="#969696"
+    android:viewportHeight="24" android:viewportWidth="24"
+    android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M22,6c0,-1.133333 -0.9,-2 -2,-2L4,4c-1.1,0 -2,0.9 -2,2v12c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,6zM20,6l-8,5 -8,-5h16zM20,18L4,18L4,8l8,5 8,-5v10z"/>
+</vector>
+
+
+
