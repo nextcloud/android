@@ -24,12 +24,12 @@
 package com.owncloud.android.ui.trashbin;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
@@ -68,7 +68,6 @@ public class TrashbinActivity extends DrawerActivity implements
     TrashbinContract.View,
     Injectable {
 
-    private static final String TAG = TrashbinActivity.class.getSimpleName();
     private static final String ARG_TARGET_ACCOUNT_NAME = "TARGET_ACCOUNT_NAME";
 
     public static final int EMPTY_LIST_COUNT = 1;
@@ -76,7 +75,6 @@ public class TrashbinActivity extends DrawerActivity implements
     @Inject CurrentAccountProvider accountProvider;
     @Inject ClientFactory clientFactory;
     private TrashbinListAdapter trashbinListAdapter;
-    private User user;
 
     @VisibleForTesting
     TrashbinPresenter trashbinPresenter;
@@ -87,14 +85,13 @@ public class TrashbinActivity extends DrawerActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = accountProvider.getUser();
+        final User user = accountProvider.getUser();
         final String targetAccount = getIntent().getStringExtra(ARG_TARGET_ACCOUNT_NAME);
-        if (!user.getAccountName().equals(targetAccount)) {
-            final boolean accountSwitchSuccessful = getUserAccountManager().setCurrentOwnCloudAccount(targetAccount);
-            if (accountSwitchSuccessful) {
-                user = getUserAccountManager().getUser(targetAccount).orElse(user);
-            } else {
-                Log.w(TAG, "Tried to switch current account to \"" + targetAccount + "\", but could not be found.");
+        if (!user.nameEquals(targetAccount)) {
+            if (!getUserAccountManager().setCurrentOwnCloudAccount(targetAccount)) {
+                Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show();
+                finish();
+                return;
             }
         }
 
@@ -133,7 +130,7 @@ public class TrashbinActivity extends DrawerActivity implements
             getStorageManager(),
             preferences,
             this,
-            user
+            getUserAccountManager().getUser()
         );
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
