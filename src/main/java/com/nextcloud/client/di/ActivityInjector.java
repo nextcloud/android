@@ -23,6 +23,9 @@ package com.nextcloud.client.di;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+
+import com.adjust.sdk.Adjust;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import dagger.android.AndroidInjection;
@@ -48,12 +51,12 @@ public class ActivityInjector implements Application.ActivityLifecycleCallbacks 
 
     @Override
     public final void onActivityResumed(Activity activity) {
-        // not needed
+        Adjust.onResume();
     }
 
     @Override
     public final void onActivityPaused(Activity activity) {
-        // not needed
+        Adjust.onPause();
     }
 
     @Override

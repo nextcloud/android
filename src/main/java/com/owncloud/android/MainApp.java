@@ -40,6 +40,8 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustConfig;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -271,6 +273,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         insertConscrypt();
 
         initSecurityKeyManager();
+
+        //adjust sdk has to be initialised before registerActivityLifecycleCallbacks method
+        //https://github.com/adjust/android_sdk#api-level-14-and-higher
+        initialiseAdjustSDK();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
@@ -801,7 +807,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case SYSTEM:*/
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
        /*         break;
         }*/
     }
@@ -825,4 +831,16 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             .prepareOCRLanguagesBlobs(true)
             .initialize(this);
     }
+
+    /**
+     * method to initialise Adjust SDK
+     */
+    private void initialiseAdjustSDK(){
+        // TODO: 17-05-2021 Add Adjust App Token
+        String appToken = "{YourAppToken}";
+        String environment = BuildConfig.DEBUG ? AdjustConfig.ENVIRONMENT_SANDBOX : AdjustConfig.ENVIRONMENT_PRODUCTION;
+        AdjustConfig config = new AdjustConfig(this, appToken, environment);
+        Adjust.onCreate(config);
+    }
+
 }
