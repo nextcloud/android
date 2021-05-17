@@ -305,7 +305,7 @@ dependencies {
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
-    implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
+    implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.3' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'org.parceler:parceler-api:1.1.13'
     kapt 'org.parceler:parceler:1.1.13'
