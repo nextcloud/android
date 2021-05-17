@@ -23,6 +23,7 @@
  */
 package com.owncloud.android.ui.trashbin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,8 +70,6 @@ public class TrashbinActivity extends DrawerActivity implements
     TrashbinContract.View,
     Injectable {
 
-    private static final String ARG_TARGET_ACCOUNT_NAME = "TARGET_ACCOUNT_NAME";
-
     public static final int EMPTY_LIST_COUNT = 1;
     @Inject AppPreferences preferences;
     @Inject CurrentAccountProvider accountProvider;
@@ -87,7 +86,7 @@ public class TrashbinActivity extends DrawerActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final User currentUser = getUser().orElse(accountProvider.getUser());
-        final String targetAccount = getIntent().getStringExtra(ARG_TARGET_ACCOUNT_NAME);
+        final String targetAccount = getIntent().getStringExtra(Intent.EXTRA_USER);
         if (targetAccount != null && !currentUser.nameEquals(targetAccount)) {
             final Optional<User> targetUser = getUserAccountManager().getUser(targetAccount);
             if (targetUser.isPresent()) {
