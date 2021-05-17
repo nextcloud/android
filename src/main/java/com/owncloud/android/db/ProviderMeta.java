@@ -56,12 +56,15 @@ public class ProviderMeta {
 
         private static final String CONTENT_PREFIX = "content://";
 
-        public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/");
-        public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/file");
-        public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/dir");
+        public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/");
+        public static final Uri EXTERNAL_CONTENT_URI = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/");
+
+        public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/file");
+        public static final Uri EXTERNAL_CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/file");
+
+        public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/dir");
+        public static final Uri EXTERNAL_CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX + MainApp.getExternalAuthority() + "/dir");
+
         public static final Uri CONTENT_URI_SHARE = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/shares");
         public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse(CONTENT_PREFIX
@@ -148,6 +151,17 @@ public class ProviderMeta {
             FILE_UNREAD_COMMENTS_COUNT,
             FILE_SHAREES,
             FILE_RICH_WORKSPACE));
+
+        public static final List<String> FILE_RESTRICTED_COLUMNS = Collections.unmodifiableList(Arrays.asList(
+            _ID,
+            FILE_NAME,
+            FILE_PATH,
+            FILE_CREATION,
+            FILE_MODIFIED,
+            FILE_CONTENT_LENGTH,
+            FILE_CONTENT_TYPE,
+            FILE_STORAGE_PATH,
+            FILE_LAST_SYNC_DATE));
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 

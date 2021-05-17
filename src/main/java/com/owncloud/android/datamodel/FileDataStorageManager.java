@@ -75,7 +75,7 @@ import androidx.annotation.VisibleForTesting;
 public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
 
-    private static final String AND = " = ? AND ";
+    protected static final String AND = " = ? AND ";
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert insert file to database ";
     private static final String SENDING_TO_FILECONTENTPROVIDER_MSG = "Sending %d operations to FileContentProvider";
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
@@ -874,7 +874,7 @@ public class FileDataStorageManager {
         }
     }
 
-    private List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
+    protected List<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
         List<OCFile> folderContent = new ArrayList<>();
 
         Uri requestURI = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(parentId));
@@ -943,7 +943,7 @@ public class FileDataStorageManager {
         return isExists;
     }
 
-    private Cursor getFileCursorForValue(String key, String value) {
+    protected Cursor getFileCursorForValue(String key, String value) {
         Cursor cursor;
         if (getContentResolver() != null) {
             cursor = getContentResolver()
@@ -976,7 +976,7 @@ public class FileDataStorageManager {
         return getFileById(fileId);
     }
 
-    private OCFile createFileInstance(Cursor cursor) {
+    protected OCFile createFileInstance(Cursor cursor) {
         OCFile ocFile = null;
         if (cursor != null) {
             ocFile = new OCFile(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
