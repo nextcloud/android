@@ -677,6 +677,7 @@
     <string name="stream">Transmititu honekin...</string>
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
     <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
+    <string name="strict_mode">Modu zorrotza: ez da http konexiorik onartzen!</string>
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>
