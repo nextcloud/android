@@ -29,6 +29,7 @@ package com.owncloud.android.files.services;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -449,6 +450,7 @@ public class FileUploader extends Service
     /**
      * Start a new {@link UploadFileOperation}.
      */
+    @SuppressLint("SdCardPath")
     private void startNewUpload(
         User user,
         List<String> requestedUploads,
@@ -461,6 +463,11 @@ public class FileUploader extends Service
         OCFile file,
         boolean disableRetries
                                ) {
+        if (file.getStoragePath().startsWith("/data/data/")) {
+            Log_OC.d(TAG, "Upload from sensitive path is not allowed");
+            return;
+        }
+
         OCUpload ocUpload = new OCUpload(file, user.toPlatformAccount());
         ocUpload.setFileSize(file.getFileLength());
         ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
