@@ -74,7 +74,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
             int status = get.execute(client);
 
-            boolean result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() == 0);
+            // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
+            boolean result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
 
             get.releaseConnection();
 
