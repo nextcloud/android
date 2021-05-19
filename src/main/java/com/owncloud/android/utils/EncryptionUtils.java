@@ -384,7 +384,7 @@ public final class EncryptionUtils {
         Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
         String trimmedCert = cert.replace("-----BEGIN CERTIFICATE-----\n", "")
-                .replace("-----END CERTIFICATE-----\n", "");
+            .replace("-----END CERTIFICATE-----\n", "");
         byte[] encodedCert = trimmedCert.getBytes(StandardCharsets.UTF_8);
         byte[] decodedCert = org.apache.commons.codec.binary.Base64.decodeBase64(encodedCert);
 
@@ -394,6 +394,17 @@ public final class EncryptionUtils {
         PublicKey realPublicKey = certificate.getPublicKey();
 
         cipher.init(Cipher.ENCRYPT_MODE, realPublicKey);
+
+        byte[] bytes = encodeStringToBase64Bytes(string);
+        byte[] cryptedBytes = cipher.doFinal(bytes);
+
+        return encodeBytesToBase64String(cryptedBytes);
+    }
+
+    public static String encryptStringAsymmetric(String string, PublicKey publicKey) throws NoSuchPaddingException,
+        NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance(RSA_CIPHER);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
         byte[] bytes = encodeStringToBase64Bytes(string);
         byte[] cryptedBytes = cipher.doFinal(bytes);
@@ -414,7 +425,7 @@ public final class EncryptionUtils {
             throws NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException,
-            InvalidKeySpecException {
+        InvalidKeySpecException {
 
         Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
@@ -423,6 +434,16 @@ public final class EncryptionUtils {
         KeyFactory kf = KeyFactory.getInstance(RSA);
         PrivateKey privateKey = kf.generatePrivate(keySpec);
 
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+
+        byte[] bytes = decodeStringToBase64Bytes(string);
+        byte[] encodedBytes = cipher.doFinal(bytes);
+
+        return decodeBase64BytesToString(encodedBytes);
+    }
+
+    public static String decryptStringAsymmetric(String string, PrivateKey privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance(RSA_CIPHER);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
 
         byte[] bytes = decodeStringToBase64Bytes(string);
