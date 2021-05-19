@@ -192,6 +192,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         isMediaGallery = mediaGallery;
     }
 
+    public boolean isMediaGallery() {
+        return isMediaGallery;
+    }
+
     public boolean isCheckedFile(OCFile file) {
         return checkedFiles.contains(file);
     }
