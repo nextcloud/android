@@ -277,6 +277,12 @@ class ConnectivityServiceTest {
         }
 
         @Test
+        fun `status 204 and no content length means internet is not walled`() {
+            mockResponse(contentLength = -1, status = HttpStatus.SC_NO_CONTENT)
+            assertFalse(connectivityService.isInternetWalled)
+        }
+
+        @Test
         fun `other status than 204 means internet is walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_GONE)
             assertTrue(connectivityService.isInternetWalled)
