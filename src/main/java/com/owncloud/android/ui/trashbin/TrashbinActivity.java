@@ -285,6 +285,17 @@ public class TrashbinActivity extends DrawerActivity implements
         binding.list.setVisibility(View.GONE);
     }
 
+    @VisibleForTesting
+    public void showUser() {
+        binding.loadingContent.setVisibility(View.GONE);
+        binding.list.setVisibility(View.VISIBLE);
+        binding.swipeContainingList.setRefreshing(false);
+
+        binding.emptyList.emptyListViewText.setText(getUser().get().getAccountName());
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void showError(int message) {
         if (active) {
