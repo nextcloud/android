@@ -807,7 +807,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case SYSTEM:*/
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
        /*         break;
         }*/
     }
@@ -836,10 +836,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
      * method to initialise Adjust SDK
      */
     private void initialiseAdjustSDK(){
-        // TODO: 17-05-2021 Add Adjust App Token
-        String appToken = "{YourAppToken}";
         String environment = BuildConfig.DEBUG ? AdjustConfig.ENVIRONMENT_SANDBOX : AdjustConfig.ENVIRONMENT_PRODUCTION;
-        AdjustConfig config = new AdjustConfig(this, appToken, environment);
+        AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN, environment);
         Adjust.onCreate(config);
     }
 

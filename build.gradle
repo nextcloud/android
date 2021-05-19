@@ -134,6 +134,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
 
+        buildConfigField "String", "ADJUST_APP_TOKEN", "${ADJUST_APP_TOKEN}"
+
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
