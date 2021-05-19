@@ -587,7 +587,7 @@ public final class ThemeUtils {
 
     private static void setEditTextColor(Context context, EditText editText, int color) {
         editText.setTextColor(color);
-        editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
+        editText.setHighlightColor(context.getResources().getColor(R.color.et_highlight_color));
         setEditTextCursorColor(editText, color);
         setTextViewHandlesColor(context, editText, color);
     }
@@ -603,7 +603,7 @@ public final class ThemeUtils {
         int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         setEditTextColor(context, editText, fontColor);
-        editText.setHintTextColor(appBarSecondaryFontColor(context));
+        editText.setHintTextColor(context.getResources().getColor(R.color.secondary_text_color));
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeButton.setColorFilter(fontColor);
