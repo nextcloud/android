@@ -61,6 +61,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
+import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
