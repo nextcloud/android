@@ -24,7 +24,6 @@
     <color name="text_color_inverse">#000000</color>
     <color name="secondary_text_color">#A5A5A5</color>
     <color name="list_divider_background">#222222</color>
-    <color name="check_green_color">#73c354</color>
     <color name="icon_color">#FFFFFF</color>
     <color name="sort_text_color">@color/grey_30</color>
     <color name="nav_selected_bg_color">@color/grey_60</color>
