@@ -32,6 +32,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -620,7 +621,7 @@ public final class DisplayUtils {
     /**
      * Get String data from a InputStream
      *
-     * @param inputStream        The File InputStream
+     * @param inputStream The File InputStream
      */
     public static String getData(InputStream inputStream) {
 
@@ -794,5 +795,22 @@ public final class DisplayUtils {
             default:
                 return R.string.menu_item_sort_by_name_a_z;
         }
+    }
+
+    /**
+     * check if list divider has to be shown when orientation is landscape or device is tablet
+     *
+     * @return
+     */
+    public static boolean isShowDividerForList() {
+        return isTablet() || isLandscapeOrientation();
+    }
+
+    public static boolean isTablet() {
+        return MainApp.getAppContext().getResources().getBoolean(R.bool.isTablet);
+    }
+
+    public static boolean isLandscapeOrientation() {
+        return MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 }

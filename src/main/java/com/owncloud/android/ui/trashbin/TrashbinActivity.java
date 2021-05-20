@@ -23,6 +23,7 @@
  */
 package com.owncloud.android.ui.trashbin;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.res.ResourcesCompat;
@@ -80,6 +82,8 @@ public class TrashbinActivity extends DrawerActivity implements
 
     private boolean active;
     private TrashbinActivityBinding binding;
+
+    private SimpleListItemDividerDecoration simpleListItemDividerDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +130,8 @@ public class TrashbinActivity extends DrawerActivity implements
         recyclerView.setHasFixedSize(true);
         recyclerView.setHasFooter(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new SimpleListItemDividerDecoration(this, R.drawable.item_divider, true));
+        simpleListItemDividerDecoration = new SimpleListItemDividerDecoration(this, R.drawable.item_divider, true);
+        addListItemDecorator();
 
         ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
         binding.swipeContainingList.setOnRefreshListener(this::loadFolder);
@@ -139,6 +144,23 @@ public class TrashbinActivity extends DrawerActivity implements
                                                          );
 
         loadFolder();
+    }
+
+    private void addListItemDecorator() {
+        if (DisplayUtils.isShowDividerForList()) {
+            //check and remove divider item decorator if exist then add item decorator
+            removeListDividerDecorator();
+            binding.list.addItemDecoration(simpleListItemDividerDecoration);
+        }
+    }
+
+    /**
+     * method to remove the divider item decorator
+     */
+    private void removeListDividerDecorator() {
+        if (binding.list.getItemDecorationCount() > 0) {
+            binding.list.removeItemDecoration(simpleListItemDividerDecoration);
+        }
     }
 
     protected void loadFolder() {
@@ -288,6 +310,22 @@ public class TrashbinActivity extends DrawerActivity implements
             binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //this should only run when device is not tablet because we are adding dividers in tablet for both the
+        // orientations
+        if (!DisplayUtils.isTablet()) {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //add the divider item decorator when orientation is landscape
+                addListItemDecorator();
+            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //remove the divider item decorator when orientation is portrait
+                removeListDividerDecorator();
+            }
         }
     }
 }

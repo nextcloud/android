@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.Menu;
@@ -54,11 +55,14 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -100,6 +104,8 @@ public class UploadListActivity extends FileActivity {
     LocalBroadcastManager localBroadcastManager;
 
     private UploadListLayoutBinding binding;
+
+    private SimpleListItemDividerDecoration simpleListItemDividerDecoration;
 
     public static Intent createIntent(OCFile file, Account account, Integer flag, Context context) {
         Intent intent = new Intent(context, UploadListActivity.class);
@@ -162,12 +168,31 @@ public class UploadListActivity extends FileActivity {
         int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
         binding.list.addItemDecoration(new MediaGridItemDecoration(spacing));
         binding.list.setLayoutManager(lm);
+        simpleListItemDividerDecoration = new SimpleListItemDividerDecoration(this, R.drawable.item_divider, true);
+        addListItemDecorator();
         binding.list.setAdapter(uploadListAdapter);
 
         ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
+    }
+
+    private void addListItemDecorator() {
+        if (DisplayUtils.isShowDividerForList()) {
+            //check and remove divider item decorator if exist then add item decorator
+            removeListDividerDecorator();
+            binding.list.addItemDecoration(simpleListItemDividerDecoration);
+        }
+    }
+
+    /**
+     * method to remove the divider item decorator
+     */
+    private void removeListDividerDecorator() {
+        if (binding.list.getItemDecorationCount() > 0) {
+            binding.list.removeItemDecoration(simpleListItemDividerDecoration);
+        }
     }
 
     private void loadItems() {
@@ -351,6 +376,22 @@ public class UploadListActivity extends FileActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             uploadListAdapter.loadUploadItemsFromDb();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //this should only run when device is not tablet because we are adding dividers in tablet for both the
+        // orientations
+        if (!DisplayUtils.isTablet()) {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //add the divider item decorator when orientation is landscape
+                addListItemDecorator();
+            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //remove the divider item decorator when orientation is portrait
+                removeListDividerDecorator();
+            }
         }
     }
 }

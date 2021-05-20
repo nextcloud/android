@@ -27,6 +27,7 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nmc.android.ui.ScanActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.MainApp;
@@ -209,6 +211,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private MediaGridItemDecoration mediaGridItemDecoration;
 
     @Inject DeviceInfo deviceInfo;
+
+    private int maxColumnSizeLandscape = 5;
 
     protected enum MenuItemAddRemove {
         DO_NOTHING,
@@ -1406,9 +1410,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void addRemoveRecyclerViewItemDecorator() {
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
-            if (getRecyclerView().getItemDecorationCount() > 0) {
-                getRecyclerView().removeItemDecoration(simpleListItemDividerDecoration);
-            }
+            removeListDividerDecorator();
             if (getRecyclerView().getItemDecorationCount() == 0) {
                 getRecyclerView().addItemDecoration(mediaGridItemDecoration);
                 int padding = getResources().getDimensionPixelSize(R.dimen.grid_recyclerview_padding);
@@ -1418,10 +1420,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getRecyclerView().getItemDecorationCount() > 0) {
                 getRecyclerView().removeItemDecoration(mediaGridItemDecoration);
             }
-            if (getRecyclerView().getItemDecorationCount() == 0) {
+            if (getRecyclerView().getItemDecorationCount() == 0 && DisplayUtils.isShowDividerForList()) {
                 getRecyclerView().addItemDecoration(simpleListItemDividerDecoration);
                 getRecyclerView().setPadding(0, 0, 0, 0);
             }
+        }
+    }
+
+    /**
+     * method to remove the divider item decorator
+     */
+    private void removeListDividerDecorator() {
+        if (getRecyclerView().getItemDecorationCount() > 0) {
+            getRecyclerView().removeItemDecoration(simpleListItemDividerDecoration);
         }
     }
 
@@ -1724,7 +1735,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         getActivity().runOnUiThread(() -> {
             if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
                 ThemeUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
-                                                  title, getContext());
+                                           title, getContext());
             }
         });
     }
@@ -1949,6 +1960,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (appBarLayout != null) {
                 appBarLayout.setExpanded(true);
+            }
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //this should only run when current view is not media gallery
+        if (getAdapter() != null && !getAdapter().isMediaGallery()) {
+            int maxColumnSize = (int) AppPreferencesImpl.DEFAULT_GRID_COLUMN;
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //add the divider item decorator when orientation is landscape and device is not tablet
+                //because we don't have to add divider again as it is already added
+                if (!DisplayUtils.isTablet()) {
+                    addRemoveRecyclerViewItemDecorator();
+                }
+                maxColumnSize = maxColumnSizeLandscape;
+            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //remove the divider item decorator when orientation is portrait and when device is not tablet
+                //because we have to show divider in both landscape and portrait mode
+                if (!DisplayUtils.isTablet()) {
+                    removeListDividerDecorator();
+                }
+                maxColumnSize = (int) AppPreferencesImpl.DEFAULT_GRID_COLUMN;
+            }
+
+            if (isGridEnabled()) {
+                ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
             }
         }
     }
