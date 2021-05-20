@@ -24,7 +24,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="true">
 
     <!-- The main content view -->
     <LinearLayout
@@ -140,7 +141,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/bg_default"
-                        android:onClick="onGetRCFDroidClick"
                         android:padding="@dimen/zero"
                         android:src="@drawable/fdroid"
                         android:contentDescription="@string/community_rc_fdroid" />
@@ -150,7 +150,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/bg_default"
-                        android:onClick="onGetRCPlayStoreClick"
                         android:padding="@dimen/zero"
                         android:src="@drawable/playstore"
                         android:contentDescription="@string/community_rc_play_store" />
@@ -181,7 +180,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_default"
-                    android:onClick="onGetBetaFDroidClick"
                     android:padding="@dimen/zero"
                     android:src="@drawable/fdroid"
                     android:contentDescription="@string/community_dev_fdroid" />
@@ -191,7 +189,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_default"
-                    android:onClick="onGetBetaApkClick"
                     android:padding="@dimen/zero"
                     android:src="@drawable/apk"
                     android:contentDescription="@string/community_dev_direct_download" />
