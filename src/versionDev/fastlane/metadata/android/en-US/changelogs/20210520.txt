@@ -1,0 +1,6 @@
+Avoid leaking AccountManagerService via InputStreamBinder
+Fix ConnectivityService.isInternetWalled() check when content length is -1
+l10n: Change to lowercase
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
