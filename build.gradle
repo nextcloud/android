@@ -134,6 +134,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
 
+        buildConfigField "String", "ADJUST_APP_TOKEN", "${ADJUST_APP_TOKEN}"
+
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
@@ -177,14 +179,14 @@ android {
             }
 
             versionDev {
-                applicationId "com.t_systems.android.webdav"
+                applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
                 versionCode 20200129
                 versionName "20200129"
             }
 
             qa {
-                applicationId "com.t_systems.android.webdav"
+                applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
                 versionCode 1
                 versionName "1"
@@ -424,6 +426,13 @@ dependencies {
     implementation (group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.1'){
         exclude group: "commons-logging"
     }
+
+    //Adjust SDK --> https://github.com/adjust/android_sdk
+    implementation 'com.adjust.sdk:adjust-android:4.28.1'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    //google play services identifier required for Adjust SDK
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+
 }
 
 spotbugs {

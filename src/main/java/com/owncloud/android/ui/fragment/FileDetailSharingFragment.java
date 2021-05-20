@@ -41,6 +41,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -280,6 +281,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             // create without password if not enforced by server or we don't know if enforced;
             fileOperationsHelper.shareFileViaPublicShare(file, null);
         }
+
+        //track event on creating share link
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_CREATE_SHARING_LINK);
     }
 
     private void showSendLinkTo(OCShare publicShare) {
@@ -624,8 +628,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     /**
-     * Get public link from the DB to fill in the "Share link" section in the UI.
-     * Takes into account server capabilities before reading database.
+     * Get public link from the DB to fill in the "Share link" section in the UI. Takes into account server capabilities
+     * before reading database.
      */
     public void refreshSharesFromDB() {
         ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();

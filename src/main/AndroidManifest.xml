@@ -433,6 +433,16 @@
             android:name="com.nextcloud.client.etm.EtmActivity"
             android:theme="@style/Theme.ownCloud.Toolbar" />
 
+        <!-- Adjust SDK Declarations -->
+        <receiver
+            android:name="com.adjust.sdk.AdjustReferrerReceiver"
+            android:permission="android.permission.INSTALL_PACKAGES"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
     <queries>

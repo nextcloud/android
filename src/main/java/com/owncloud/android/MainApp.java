@@ -40,6 +40,8 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustConfig;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -57,6 +59,8 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -202,22 +206,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return powerManagementService;
     }
 
-    private final String licenseKey =
-        "eTa/V1k8ZE3z+yK0iA1KK1oQVwHgsy" +
-            "JtZ9eaJeNpaGjqvRY2+4IZq8uVY/wU" +
-            "xzHz4h64P9B5vPTQz9eERr2rWAQylq" +
-            "OkioHEGRZ9HsLW+NPnixQv88JOZ3fX" +
-            "UzP7rBuRLxkyy7RKuNo/FHwmV31zOf" +
-            "JjdP3faauKIcb5BgLY/SFJ/1MsotK2" +
-            "JiOIYw5/cj/FkLq37WkeJR+QkD17vJ" +
-            "GaOVZHv/HRS9xj2QUZXFzRcFp/c9yF" +
-            "FUAZrui1CeBBfHA9uyO0ke4hBzNb9M" +
-            "VpXSM/cNt654T06jOSiSkGjB52ejNN" +
-            "eF61DwKNKpVFXV27DUsqBsMaOEMSb2" +
-            "U5iqCEkwWTuQ==\nU2NhbmJvdFNESw" +
-            "pjb20udF9zeXN0ZW1zLmFuZHJvaWQu" +
-            "d2ViZGF2CjE2NTA5MzExOTkKMTE1NT" +
-            "Y3OAoy\n";
 
     private String getAppProcessName() {
         String processName = "";
@@ -271,6 +259,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         insertConscrypt();
 
         initSecurityKeyManager();
+
+        //adjust sdk has to be initialised before registerActivityLifecycleCallbacks method
+        //https://github.com/adjust/android_sdk#api-level-14-and-higher
+        initialiseAdjustSDK();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
@@ -812,7 +804,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     private void initialiseScanBotSDK() {
         new ScanbotSDKInitializer()
             .withLogging(BuildConfig.DEBUG)
-            .license(this, licenseKey)
+            .license(this, ScanBotSdkUtils.getScanBotLicenseKey())
             .licenceErrorHandler((status, sdkFeature) -> {
                 // Handle license errors here:
                 Log_OC.d(TAG, "License status: " + status.name());
@@ -825,4 +817,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             .prepareOCRLanguagesBlobs(true)
             .initialize(this);
     }
+
+    /**
+     * method to initialise Adjust SDK
+     */
+    private void initialiseAdjustSDK() {
+        AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN,
+                                               AdjustSdkUtils.getAdjustEnvironment());
+        Adjust.onCreate(config);
+    }
+
 }

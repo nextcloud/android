@@ -19,7 +19,8 @@ steps:
     commands:
       - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
-      - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+      - sed -i s'#<bool name="
+      - is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#server#server#" gradle.properties
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - ./gradlew assembleGplay

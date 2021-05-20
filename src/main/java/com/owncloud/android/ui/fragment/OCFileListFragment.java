@@ -57,6 +57,7 @@ import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.ui.ScanActivity;
+import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -472,6 +473,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             Intent.createChooser(action, getString(R.string.upload_chooser_title)),
             FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
                                             );
+
+        //track event photo/video/any upload button click
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_PHOTO_VIDEO_UPLOAD);
     }
 
     @Override
@@ -484,6 +488,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
         }
+
+        //track event for camera upload button click
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_CAMERA_UPLOAD);
     }
 
     @Override
@@ -493,11 +500,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             ((FileActivity) getActivity()).getAccount(),
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
                                                         );
+        //track event for uploading files button click
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_FILE_UPLOAD);
     }
 
     @Override
     public void scanDocument() {
         ScanActivity.openScanActivity(getActivity(), FileDisplayActivity.REQUEST_CODE__SCAN_DOCUMENT);
+
+        //track event on Scan Document button click
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_DOCUMENT_SCAN);
     }
 
     @Override
@@ -524,6 +536,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             mContainerActivity.getFileOperationsHelper().sendShareFile(file);
         }
+
+        //track event on click of Share button
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FILE_BROWSER_SHARING);
     }
 
     @Override
