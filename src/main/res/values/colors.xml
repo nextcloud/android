@@ -32,7 +32,6 @@
     <color name="transparent">#00000000</color>
     <color name="secondary_text_color">@color/grey_30</color>
     <color name="highlight_textColor_Warning">#e53935</color>
-    <color name="check_green_color">#73c354</color>
     <color name="icon_color">#191919</color>
     <color name="sort_text_color">@color/primary</color>
     <color name="divider_color">@color/grey_30</color>
