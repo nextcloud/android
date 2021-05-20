@@ -8,7 +8,8 @@
     <string name="app_name">MagentaCLOUD</string>
     <string name="project_name">Magenta</string>
     <string name="account_type">com.t_systems.android.webdav</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">com.t_systems.android.webdav</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="authority">com.t_systems.android.webdav.provider</string>    <!-- better if was the app package with "
+    .provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.t_systems.android.webdav.android.providers.UsersAndGroupsSearchProvider</string>
     <string name="users_and_groups_share_with">com.t_systems.android.webdav.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
     <string name="document_provider_authority">com.t_systems.android.webdav.documents</string>

@@ -59,6 +59,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -835,9 +836,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     /**
      * method to initialise Adjust SDK
      */
-    private void initialiseAdjustSDK(){
-        String environment = BuildConfig.DEBUG ? AdjustConfig.ENVIRONMENT_SANDBOX : AdjustConfig.ENVIRONMENT_PRODUCTION;
-        AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN, environment);
+    private void initialiseAdjustSDK() {
+        AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN,
+                                               AdjustSdkUtils.getAdjustEnvironment());
         Adjust.onCreate(config);
     }
 

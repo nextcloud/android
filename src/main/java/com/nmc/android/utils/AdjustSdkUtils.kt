@@ -1,7 +1,9 @@
 package com.nmc.android.utils
 
 import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustConfig
 import com.adjust.sdk.AdjustEvent
+import com.owncloud.android.BuildConfig
 
 object AdjustSdkUtils {
     private val TAG = AdjustSdkUtils::class.java.simpleName
@@ -24,9 +26,24 @@ object AdjustSdkUtils {
     const val EVENT_BACKUP_MANUAL = "magentacloud-app.backup.manual"
     const val EVENT_BACKUP_AUTO = "magentacloud-app.backup.auto"
 
+    /**
+     * method to return the sdk environment for Adjust
+     */
+    @JvmStatic
+    fun getAdjustEnvironment(): String {
+        //for qa, beta, debug apk we have to use Sandbox env
+        if (BuildConfig.APPLICATION_ID.contains(".beta") || BuildConfig.DEBUG) {
+            return AdjustConfig.ENVIRONMENT_SANDBOX
+        }
+
+        //for release build apart from qa, beta flavours Prod env is used
+        return AdjustConfig.ENVIRONMENT_PRODUCTION
+    }
+
     @JvmStatic
     fun trackEvent(eventToken: String) {
-        val adjustEvent = AdjustEvent(eventToken)
-        Adjust.trackEvent(adjustEvent)
+        // TODO: 20-05-2021 Enable the code to track
+        /* val adjustEvent = AdjustEvent(eventToken)
+         Adjust.trackEvent(adjustEvent)*/
     }
 }
