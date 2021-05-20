@@ -33,11 +33,8 @@ jobs:
                     script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
             -   name: upload failing results
                 if: ${{ failure() }}
-                env:
-                    LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
-                    LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
                 run:
-                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                    scripts/uploadReport.sh ${{secrets.LOG_USERNAME}} ${{secrets.LOG_PASSWORD}} ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: Archive Espresso results
                 uses: actions/upload-artifact@v2
                 if: ${{ always() }}
