@@ -34,7 +34,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,7 +67,6 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
-import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -196,9 +194,6 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         ThemeUtils.themeSearchView(searchView, requireContext());
-
-        SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
-        theTextArea.setHighlightColor(ThemeUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 
@@ -654,8 +649,8 @@ public class ExtendedListFragment extends Fragment implements
                                            true);
                 } else if (searchType == SearchType.FILE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty,
-                                           R.drawable.ic_search_light_grey);
+                                           R.string.search_result_empty,
+                                           R.drawable.ic_search_empty);
                 } else if (searchType == SearchType.FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
                                            R.string.file_list_empty_favorites_filter_list,
@@ -671,7 +666,7 @@ public class ExtendedListFragment extends Fragment implements
                 } else if (searchType == SearchType.REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
                                            R.string.file_list_empty_search,
-                                           R.drawable.ic_search_light_grey);
+                                           R.drawable.ic_search_empty);
                 } else if (searchType == SearchType.SHARED_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
                                            R.string.file_list_empty_shared,

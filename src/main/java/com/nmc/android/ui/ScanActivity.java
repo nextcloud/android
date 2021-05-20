@@ -56,11 +56,6 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
         setupToolbar();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            final Drawable upArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_back_arrow, null);
-            if (upArrow!=null) {
-                upArrow.setColorFilter(ThemeUtils.appBarPrimaryFontColor(this), PorterDuff.Mode.SRC_ATOP);
-                getSupportActionBar().setHomeAsUpIndicator(upArrow);
-            }
         }
     }
 

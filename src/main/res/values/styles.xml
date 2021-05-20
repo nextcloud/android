@@ -43,6 +43,12 @@
         <!-- SnackBar Styling -->
         <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
+        <!-- styling action bar back button -->
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <!-- styling autocomplete text view mainly for search view cursor color-->
+        <item name="autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -90,6 +96,12 @@
         <!-- SnackBar Styling -->
         <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
+        <!-- styling action bar back button -->
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <!-- styling autocomplete text view mainly for search view cursor color-->
+        <item name="autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -156,6 +168,12 @@
         <!-- SnackBar Styling -->
         <item name="snackbarStyle">@style/SnackBarBackgroundStyle</item>
         <item name="snackbarTextViewStyle">@style/SnackBarTextViewStyle</item>
+        <!-- styling action bar back button -->
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back_arrow</item>
+        <!-- styling autocomplete text view mainly for search view cursor color-->
+        <item name="autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteCursorColorStyle</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -510,6 +528,10 @@
 
     <style name="SnackBarTextViewStyle" parent="Widget.MaterialComponents.Snackbar.TextView">
         <item name="android:textColor">@color/snackbar_txt_color</item>
+    </style>
+
+    <style name="AutoCompleteCursorColorStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor_drawable</item>
     </style>
 
 </resources>
