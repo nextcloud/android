@@ -108,10 +108,10 @@ public final class MimeTypeUtil {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
-            if (R.drawable.file_zip == iconId) {
+           /* if (R.drawable.file_zip == iconId) {
                 ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(user, true, context));
             }
-
+*/
             return icon;
         } else {
             return null;
