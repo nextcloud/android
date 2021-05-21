@@ -55,7 +55,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.33"
+    daggerVersion = "2.35.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
@@ -63,9 +63,10 @@ ext {
     mockitoVersion = "3.9.0"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.10.22"
+    byteBuddyVersion = "1.11.0"
     espressoVersion = "3.3.0"
     workRuntime = "2.5.0"
+    fidoVersion = "4.4.0"
 
     ciBuild = System.getenv("CI") == "true"
 
@@ -271,12 +272,12 @@ dependencies {
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
     kapt 'javax.xml.bind:jaxb-api:2.3.1'
-    kapt 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
-    kapt 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    kapt 'org.glassfish.jaxb:jaxb-core:3.0.1'
+    kapt 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
     annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-core:2.3.0.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-core:3.0.1'
+    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -285,13 +286,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
-    implementation "androidx.fragment:fragment:1.3.2"
+    implementation "androidx.fragment:fragment:1.3.4"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.8.0'
@@ -317,8 +318,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.vanniktech:emoji-google:0.7.0'
 
-    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido:4.1.0'
-    implementation 'com.github.cotechde.hwsecurity:hwsecurity-fido2:4.1.0'
+    implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
+    implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
@@ -330,7 +331,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     ktlint "com.pinterest:ktlint:0.41.0"
-    implementation 'org.conscrypt:conscrypt-android:2.5.1'
+    implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
