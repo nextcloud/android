@@ -479,7 +479,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                             );
 
         //track event photo/video/any upload button click
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_PHOTO_VIDEO_UPLOAD);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_PHOTO_VIDEO_UPLOAD);
     }
 
     @Override
@@ -494,7 +494,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         //track event for camera upload button click
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_CAMERA_UPLOAD);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_CAMERA_UPLOAD);
     }
 
     @Override
@@ -505,7 +505,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
                                                         );
         //track event for uploading files button click
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_FILE_UPLOAD);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_FILE_UPLOAD);
     }
 
     @Override
@@ -513,7 +513,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         ScanActivity.openScanActivity(getActivity(), FileDisplayActivity.REQUEST_CODE__SCAN_DOCUMENT);
 
         //track event on Scan Document button click
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FAB_BOTTOM_DOCUMENT_SCAN);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_DOCUMENT_SCAN);
     }
 
     @Override
@@ -542,7 +542,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         //track event on click of Share button
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_FILE_BROWSER_SHARING);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FILE_BROWSER_SHARING);
     }
 
     @Override
