@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author qidu th
- * Copyright (C) 2019 Tobias Kaminsky
+ * Copyright (C) 2019 qidu th
  * Copyright (C) 2019 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
