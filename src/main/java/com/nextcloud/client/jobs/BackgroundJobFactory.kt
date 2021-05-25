@@ -37,6 +37,7 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nmc.android.jobs.ScanDocUploadWorker
+import com.nmc.android.jobs.UploadImagesWorker
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -89,6 +90,7 @@ class BackgroundJobFactory @Inject constructor(
             NotificationWork::class -> createNotificationWork(context, workerParameters)
             AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
             ScanDocUploadWorker::class -> createScanDocUploadWork(context, workerParameters)
+            UploadImagesWorker::class -> createUploadImagesWork(context, workerParameters)
             else -> null // caller falls back to default factory
         }
     }
@@ -195,6 +197,15 @@ class BackgroundJobFactory @Inject constructor(
 
     private fun createScanDocUploadWork(context: Context, params: WorkerParameters): ScanDocUploadWorker {
         return ScanDocUploadWorker(
+            context = context,
+            params = params,
+            notificationManager,
+            accountManager
+        )
+    }
+
+    private fun createUploadImagesWork(context: Context, params: WorkerParameters): UploadImagesWorker {
+        return UploadImagesWorker(
             context = context,
             params = params,
             notificationManager,

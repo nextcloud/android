@@ -28,6 +28,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -94,12 +95,10 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
 
 /**
  * This fragment shows a preview of a downloaded image.
- *
- * Trying to get an instance with a NULL {@link OCFile} will produce an
- * {@link IllegalStateException}.
- *
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
- * instantiation too.
+ * <p>
+ * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
+ * <p>
+ * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
@@ -109,6 +108,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
+    private static final String ARG_CURRENT_INDEX = "CURRENT_INDEX";
     private static final String MIME_TYPE_PNG = "image/png";
     private static final String MIME_TYPE_GIF = "image/gif";
     private static final String MIME_TYPE_SVG = "image/svg+xml";
@@ -128,44 +128,59 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Inject DeviceInfo deviceInfo;
     private PreviewImageFragmentBinding binding;
 
+    private OnImageLoadListener onImageLoadListener;
+    private static final int rotationDegrees = 90;
+    private long lastRotationEventTs = 0L;
+    private int currentIndex;
+
+
     /**
      * Public factory method to create a new fragment that previews an image.
-     *
-     * Android strongly recommends keep the empty constructor of fragments as the only public
-     * constructor, and
-     * use {@link #setArguments(Bundle)} to set the needed arguments.
-     *
+     * <p>
+     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
+     * {@link #setArguments(Bundle)} to set the needed arguments.
+     * <p>
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of
-     *                              {@link FragmentStatePagerAdapter}
-     *                              ; TODO better solution
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
+     *                              TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
                                                    boolean ignoreFirstSavedState,
-                                                   boolean showResizedImage) {
+                                                   boolean showResizedImage,
+                                                   int currentIndex) {
         PreviewImageFragment frag = new PreviewImageFragment();
         frag.showResizedImage = showResizedImage;
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
+        args.putInt(ARG_CURRENT_INDEX, currentIndex);
         frag.setArguments(args);
         return frag;
     }
 
     /**
      * Creates an empty fragment for image previews.
-     *
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
-     * (for instance, when the device is turned a aside).
-     *
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
-     * construction
+     * <p>
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
+     * device is turned a aside).
+     * <p>
+     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
      */
     public PreviewImageFragment() {
         ignoreFirstSavedState = false;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            onImageLoadListener = (OnImageLoadListener) context;
+        } catch (Exception ignored) {
+
+        }
     }
 
     @Override
@@ -183,6 +198,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
+        currentIndex = args.getInt(ARG_CURRENT_INDEX);
         setHasOptionsMenu(true);
     }
 
@@ -232,7 +248,28 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onStart() {
         super.onStart();
-        if (getFile() != null) {
+
+        if (onImageLoadListener != null) {
+            onImageLoadListener.onImageLoadCompleted();
+        }
+
+        //get the rotated bitmap from hashmap
+        Bitmap rotatedBitmap = null;
+        if (requireActivity() instanceof PreviewImageActivity) {
+            rotatedBitmap = ((PreviewImageActivity) requireActivity()).getCurrentBitmap(currentIndex);
+        }
+
+        //set the rotated bitmap to image view if user swipes back to already rotated image
+        if (rotatedBitmap != null) {
+            binding.image.setImageBitmap(rotatedBitmap);
+            binding.image.setVisibility(View.VISIBLE);
+            binding.emptyListView.setVisibility(View.GONE);
+            binding.emptyListProgress.setVisibility(View.GONE);
+
+            //make copy of rotated bitmap to avoid issue during recycle
+            bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
+        } else if (getFile() != null) {
+
             binding.image.setTag(getFile().getFileId());
 
             Point screenSize = DisplayUtils.getScreenSize(getActivity());
@@ -261,7 +298,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     binding.image.setVisibility(View.VISIBLE);
                     binding.emptyListView.setVisibility(View.GONE);
                     binding.emptyListProgress.setVisibility(View.GONE);
-                    binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                    //not required as setting to view pager
+                    //binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
 
                     bitmap = resizedImage;
                 } else {
@@ -387,18 +425,24 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         // TODO allow renaming in PreviewImageFragment
         // TODO allow refresh file in PreviewImageFragment
         FileMenuFilter.hideMenuItems(
-                menu.findItem(R.id.action_rename_file),
-                menu.findItem(R.id.action_sync_file),
-                menu.findItem(R.id.action_select_all),
-                menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_copy),
-                menu.findItem(R.id.action_favorite),
-                menu.findItem(R.id.action_unset_favorite),
-                menu.findItem(R.id.action_see_details)
-        );
+            menu.findItem(R.id.action_rename_file),
+            menu.findItem(R.id.action_sync_file),
+            menu.findItem(R.id.action_select_all),
+            menu.findItem(R.id.action_move),
+            menu.findItem(R.id.action_copy),
+            menu.findItem(R.id.action_favorite),
+            menu.findItem(R.id.action_unset_favorite),
+            menu.findItem(R.id.action_see_details)
+                                    );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
+        }
+
+        //enable rotate image if image is png or jpg
+        //we are not rotating svg, gif or any other format of images
+        if (MimeTypeUtil.isJpgOrPngFile(getFile().getFileName())) {
+            menu.findItem(R.id.action_rotate_image).setVisible(true);
         }
     }
 
@@ -415,7 +459,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                   R.string.resharing_is_not_allowed,
                                   Snackbar.LENGTH_LONG
                                  )
-                            .show();
+                        .show();
                 } else {
                     containerActivity.getFileOperationsHelper().sendShareFile(getFile());
                 }
@@ -443,9 +487,40 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
                 return true;
 
+            case R.id.action_rotate_image:
+                rotate();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * method to rotate the image
+     */
+    private void rotate() {
+        if (System.currentTimeMillis() - lastRotationEventTs < 350) {
+            return;
+        }
+
+        //rotate the image using matrix
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotationDegrees);
+        //get the bitmap of rotated image
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        //make copy of rotated bitmap to avoid issue during recycle
+        bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
+        //set the rotated bitmap to image view
+        binding.image.setImageBitmap(bitmap);
+
+        //add the rotated bitmap to hashamp
+        if (requireActivity() instanceof PreviewImageActivity) {
+            LoadImage loadImage = new LoadImage(rotatedBitmap, null, getFile());
+            ((PreviewImageActivity) requireActivity()).addBitmap(loadImage);
+        }
+
+        lastRotationEventTs = System.currentTimeMillis();
     }
 
 
@@ -480,9 +555,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         *
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
+         * <p>
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load
+         * finishes.
          */
         private final WeakReference<PhotoView> imageViewRef;
         private final WeakReference<LinearLayout> infoViewRef;
@@ -550,7 +625,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                         try {
                             bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                    minHeight);
+                                                                                   minHeight);
 
                             if (isCancelled()) {
                                 return new LoadImage(bitmapResult, null, ocFile);
@@ -588,7 +663,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Error from access to non-existing field despite protection; file "
-                        + storagePath, e);
+                    + storagePath, e);
 
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
@@ -627,7 +702,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                            bitmap.getHeight());
+                        bitmap.getHeight());
 
                     if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
                         MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -654,7 +729,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 if (progressView != null) {
                     progressView.setVisibility(View.GONE);
                 }
-                imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                //not required as setting to view pager
+                //imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
                 imageView.setVisibility(View.VISIBLE);
             }
         }
@@ -744,7 +820,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                      Snackbar.LENGTH_INDEFINITE).show();
                                    }
                                }
-                    ).show();
+                              ).show();
             }
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());
@@ -760,8 +836,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
-     * to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
      *
      * @param file File to test if can be previewed.
      * @return 'True' if the file can be handled by the fragment.
@@ -791,8 +866,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     private void toggleImageBackground() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-                && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
-                MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
+            && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
+            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
             && getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
@@ -824,15 +899,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         return binding.image;
     }
 
-    private class LoadImage {
-        private final Bitmap bitmap;
+    public static class LoadImage {
+        public final Bitmap bitmap;
         private final Drawable drawable;
-        private final OCFile ocFile;
+        public final OCFile ocFile;
 
         LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
             this.bitmap = bitmap;
             this.drawable = drawable;
             this.ocFile = ocFile;
         }
+    }
+
+
+    public interface OnImageLoadListener {
+        void onImageLoadCompleted();
     }
 }

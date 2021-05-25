@@ -39,6 +39,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nmc.android.jobs.ScanDocUploadWorker
+import com.nmc.android.jobs.UploadImagesWorker
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.ExecutionException
@@ -79,6 +80,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_IMMEDIATE_SCAN_DOC_UPLOAD = "immediate_scan_doc_upload"
+        const val JOB_IMAGE_FILES_UPLOAD = "immediate_image_files_upload"
 
         const val JOB_TEST = "test_job"
 
@@ -388,6 +390,14 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniqueWork(JOB_IMMEDIATE_SCAN_DOC_UPLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        return workManager.getJobInfo(request.id)
+    }
+
+    override fun scheduleImmediateUploadImagesJob(): LiveData<JobInfo?> {
+        val request = oneTimeRequestBuilder(UploadImagesWorker::class, JOB_IMAGE_FILES_UPLOAD)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMAGE_FILES_UPLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
         return workManager.getJobInfo(request.id)
     }
 

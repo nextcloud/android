@@ -64,6 +64,14 @@
         app:showAsAction="never"
         android:showAsAction="never" />
 
+    <!-- rotate image will only visible for preview image -->
+    <item
+        android:id="@+id/action_rotate_image"
+        android:title="@string/action_rotate"
+        app:showAsAction="never"
+        android:visible="false"
+        android:showAsAction="never" />
+
     <item
         android:id="@+id/action_download_file"
         android:title="@string/filedetails_download"

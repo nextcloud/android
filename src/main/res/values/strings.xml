@@ -1002,5 +1002,6 @@
     <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
     <string name="camera_permission_denied">You cannot scan document without camera permission.</string>
     <string name="search_result_empty">Search for a file (at least 2 characters)</string>
+    <string name="action_rotate">Rotate</string>
 
 </resources>

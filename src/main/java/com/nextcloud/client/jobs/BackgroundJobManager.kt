@@ -107,6 +107,8 @@ interface BackgroundJobManager {
         pdfPassword: String?
     ): LiveData<JobInfo?>
 
+    fun scheduleImmediateUploadImagesJob(): LiveData<JobInfo?>
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()

@@ -29,20 +29,31 @@ public class FileUtils {
     private static final String SCANNED_FILE_PREFIX = "scan_";
     private static final int JPG_FILE_TYPE = 1;
     private static final int PNG_FILE_TYPE = 2;
-    private static final String SCANNED_DIRECTORY_NAME = "Scans";
 
     public static File saveJpgImage(Context context, Bitmap bitmap, String imageName) {
-        return saveImage(context, bitmap, imageName, JPG_FILE_TYPE);
+        return createFileAndSaveImage(context, bitmap, imageName, JPG_FILE_TYPE);
     }
 
     public static File savePngImage(Context context, Bitmap bitmap, String imageName) {
-        return saveImage(context, bitmap, imageName, PNG_FILE_TYPE);
+        return createFileAndSaveImage(context, bitmap, imageName, PNG_FILE_TYPE);
     }
 
-    private static File saveImage(Context context, Bitmap bitmap, String imageName, int fileType) {
+    public static File saveJpgImage(Context context, Bitmap bitmap, File file) {
+        return saveImage(file, bitmap, JPG_FILE_TYPE);
+    }
+
+    public static File savePngImage(Context context, Bitmap bitmap, File file) {
+        return saveImage(file, bitmap, PNG_FILE_TYPE);
+    }
+
+    private static File createFileAndSaveImage(Context context, Bitmap bitmap, String imageName, int fileType) {
+        File file = fileType == PNG_FILE_TYPE ? getPngImageName(context, imageName) : getJpgImageName(context,
+                                                                                                      imageName);
+        return saveImage(file, bitmap, fileType);
+    }
+
+    private static File saveImage(File file, Bitmap bitmap, int fileType) {
         try {
-            File file = fileType == PNG_FILE_TYPE ? getPngImageName(context, imageName) : getJpgImageName(context,
-                                                                                                          imageName);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             bitmap.compress(fileType == PNG_FILE_TYPE ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100,
                             fileOutputStream);
@@ -96,7 +107,7 @@ public class FileUtils {
     }
 
     public static File getOutputMediaFile(Context context) {
-        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), SCANNED_DIRECTORY_NAME);
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "");
         if (!file.exists()) {
             file.mkdir();
         }

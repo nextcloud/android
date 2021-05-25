@@ -898,4 +898,5 @@
     <string name="camera_permission_rationale">Bitte geben Sie unter Apps &amp; Benachrichtigungen in den Einstellungen manuell die Erlaubnis.</string>
     <string name="camera_permission_denied">Sie können keine Dokumente scannen ohne die Erlaubnis die Kamera zu verwenden.</string>
     <string name="search_result_empty">Eine Datei suchen (mindestens 2 Zeichen)</string>
+    <string name="action_rotate">Drehen</string>
 </resources>

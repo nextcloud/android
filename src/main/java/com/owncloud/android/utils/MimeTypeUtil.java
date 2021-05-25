@@ -44,9 +44,9 @@ import androidx.core.content.ContextCompat;
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
  * based on its mime type and file extension.</p>
- *
- * This class maintains all the necessary mappings fot these detections.<br/>
- * In order to add further mappings, there are up to three look up maps that need further values:
+ * <p>
+ * This class maintains all the necessary mappings fot these detections.<br/> In order to add further mappings, there
+ * are up to three look up maps that need further values:
  * <ol>
  *     <li>
  *         {@link MimeTypeUtil#FILE_EXTENSION_TO_MIMETYPE_MAPPING}<br/>
@@ -65,11 +65,17 @@ import androidx.core.content.ContextCompat;
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class MimeTypeUtil {
-    /** Mapping: icon for mime type */
+    /**
+     * Mapping: icon for mime type
+     */
     private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
-    /** Mapping: icon for main mime type (first part of a mime type declaration). */
+    /**
+     * Mapping: icon for main mime type (first part of a mime type declaration).
+     */
     private static final Map<String, Integer> MAIN_MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
-    /** Mapping: mime type for file extension. */
+    /**
+     * Mapping: mime type for file extension.
+     */
     private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING = new HashMap<>();
     public static final String MIMETYPE_TEXT_MARKDOWN = "text/markdown";
 
@@ -99,7 +105,7 @@ public final class MimeTypeUtil {
      *
      * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
      * @param filename Name, with extension.
-     * @param user user which color should be used
+     * @param user     user which color should be used
      * @return Drawable of an image resource.
      */
     @Nullable
@@ -152,9 +158,9 @@ public final class MimeTypeUtil {
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink flag if the folder is publicly shared via link
-     * @param isEncrypted flag if the folder is encrypted
-     * @param user user which color should be used
+     * @param isSharedViaLink  flag if the folder is publicly shared via link
+     * @param isEncrypted      flag if the folder is encrypted
+     * @param user             user which color should be used
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
@@ -184,7 +190,7 @@ public final class MimeTypeUtil {
                                             context);
         return ThemeUtils.tintDrawable(drawableId, color);*/
 
-        return  ContextCompat.getDrawable(context, drawableId);
+        return ContextCompat.getDrawable(context, drawableId);
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {
@@ -193,10 +199,10 @@ public final class MimeTypeUtil {
 
 
     /**
-     * Returns a single MIME type of all the possible, by inspection of the file extension, and taking
-     * into account the MIME types known by ownCloud first.
+     * Returns a single MIME type of all the possible, by inspection of the file extension, and taking into account the
+     * MIME types known by ownCloud first.
      *
-     * @param filename      Name of file
+     * @param filename Name of file
      * @return A single MIME type, "application/octet-stream" for unknown file extensions.
      */
     public static String getBestMimeTypeByFilename(String filename) {
@@ -226,12 +232,18 @@ public final class MimeTypeUtil {
         return isImage(file) || isVideo(file);
     }
 
+    //check if file is png or jpg image
+    public static boolean isJpgOrPngFile(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+        return extension.equalsIgnoreCase(".png") || extension.equalsIgnoreCase(".jpg");
+    }
+
     /**
      * @return 'True' if the mime type defines image
      */
     public static boolean isImage(String mimeType) {
         return mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("image/") &&
-                !mimeType.toLowerCase(Locale.ROOT).contains("djvu");
+            !mimeType.toLowerCase(Locale.ROOT).contains("djvu");
     }
 
     /**

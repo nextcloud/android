@@ -212,6 +212,14 @@ public final class ThumbnailsCacheManager {
         }
     }
 
+    public static void removeBitmapFromCache(String key) {
+        synchronized (mThumbnailsDiskCacheLock) {
+            if (mThumbnailCache != null) {
+                mThumbnailCache.removeKey(key);
+            }
+        }
+    }
+
     public static boolean containsBitmap(String key) {
         return mThumbnailCache.containsKey(key);
     }
