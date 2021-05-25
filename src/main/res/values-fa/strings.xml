@@ -536,7 +536,6 @@
     <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
     <string name="push_notifications_old_login">امکان ارسال اعلانات، به دلیل منقضی شدن زمان نشست ورود به سیستم وجود ندارد. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">ارسال اعلانات در حال حاضر در دسترس نیست.</string>
-    <string name="qr_could_not_be_read">کد QR قابل خواندن نیست!</string>
     <string name="recommend_subject">امتحان کردن %1$s روی دستگاه شما</string>
     <string name="recommend_text">می خواهم از شما دعوت کنم تا از %1$s در دستگاه خود استفاده کنید. بارگیری در اینجا: %2$s</string>
     <string name="recommend_urls">آدرس %1$s یا %2$s</string>

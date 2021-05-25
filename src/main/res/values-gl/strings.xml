@@ -543,7 +543,6 @@
     <string name="push_notifications_not_implemented">Foron desactivadas as notificacións do servidor por depender de servizos propietarios de Google Play.</string>
     <string name="push_notifications_old_login">Non hai notificacións do servidor por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións do servidor.</string>
-    <string name="qr_could_not_be_read">Non foi posíbel crear o código QR!</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>

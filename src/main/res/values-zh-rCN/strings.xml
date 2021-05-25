@@ -546,7 +546,6 @@
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
-    <string name="qr_could_not_be_read">不能读取二维码</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>

@@ -542,7 +542,6 @@
     <string name="push_notifications_not_implemented"> ປິດການແຈ້ງເຕືອນ         ເນື່ອງຈາກການເພິ່ງພາອາໄສການບໍລິການ Google Play ທີ່ເປັນເຈົ້າຂອງ.</string>
     <string name="push_notifications_old_login">ບໍ່ມີການແຈ້ງ ເຕືອນ ເນື່ອງ ຈາກພາກ ການເຂົ້າລະບົບ ສະໄຫມ. ກະລຸນາພິຈາລະນາການເພີ່ມບັນຊີຂອງທ່ານຄືນໃຫມ່.</string>
     <string name="push_notifications_temp_error">ການແຈ້ງເຕືອນຊຸກຍູ້ໃນປະຈຸບັນຍັງບໍ່ມີ.</string>
-    <string name="qr_could_not_be_read">QR Code ອ່ານບໍ່ໄດ້</string>
     <string name="recommend_subject">ລອງໃສ່ອຸປະກອນຂອງທ່ານ!%1$s</string>
     <string name="recommend_text">ຂ້າພະເຈົ້າຢາກເຊີນທ່ານໃຊ້ໃນອຸປະກອນຂອງທ່ານ%1$s.nDownload ທີ່ນີ້:%2$s</string>
     <string name="recommend_urls">%1$sຫລື%2$s</string>

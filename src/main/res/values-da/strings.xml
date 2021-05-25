@@ -548,7 +548,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="push_notifications_not_implemented">Push notifikationer deaktiveret på grund af proprietære afhængigheder af Google Play services.</string>
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
-    <string name="qr_could_not_be_read">QR kode kunne ikke aflæses!</string>
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>

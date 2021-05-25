@@ -517,7 +517,6 @@
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
-    <string name="qr_could_not_be_read">QR код може да се прочита!</string>
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>

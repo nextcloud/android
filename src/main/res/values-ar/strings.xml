@@ -534,7 +534,6 @@
     <string name="push_notifications_not_implemented">تم تعطيل الإشعارات الفورية بسبب التبعيات على خدمات Google Play المملوكة.</string>
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
-    <string name="qr_could_not_be_read">لا يمكن قراءة رمز الاستجابة السريعةQR!</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>

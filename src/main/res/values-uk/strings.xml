@@ -537,7 +537,6 @@
     <string name="push_notifications_not_implemented">Сповіщення push вимкнено через залежність від служби Google Play</string>
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
-    <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_text">Запрошую вас почати використовувати %1$s на вашому пристрої.\nЗвантажити можна тут: %2$s</string>
     <string name="recommend_urls">%1$s або %2$s</string>

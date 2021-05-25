@@ -546,7 +546,6 @@
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
-    <string name="qr_could_not_be_read">QR kodea ezin izan da irakurri!</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
