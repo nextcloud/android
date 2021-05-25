@@ -11,7 +11,6 @@ buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {
         google()
-        jcenter()
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
@@ -76,11 +75,10 @@ ext {
 
 repositories {
     google()
-    jcenter()
     maven { url "https://jitpack.io" }
-
-    flatDir {
-        dirs 'libs'
+    mavenCentral()
+    maven {
+        url 'https://plugins.gradle.org/m2/'
     }
 }
 
