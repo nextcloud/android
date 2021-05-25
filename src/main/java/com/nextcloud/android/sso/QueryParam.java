@@ -20,16 +20,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.android.sso.api;
+package com.nextcloud.android.sso;
 
 import java.io.Serializable;
 
-public class QueryPair implements Serializable {
-    public String first;
-    public String second;
+public class QueryParam implements Serializable {
+    public String key;
+    public String value;
 
-    public QueryPair(String first, String second) {
-        this.first = first;
-        this.second = second;
+    public QueryParam(String key, String value) {
+        this.key = key;
+        this.value = value;
     }
 }
