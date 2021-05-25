@@ -506,11 +506,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     @VisibleForTesting
-    public static NameValuePair[] convertListToNVP(Collection<com.nextcloud.android.sso.api.QueryPair> list) {
+    public static NameValuePair[] convertListToNVP(Collection<QueryParam> list) {
         NameValuePair[] nvp = new NameValuePair[list.size()];
         int i = 0;
-        for (com.nextcloud.android.sso.api.QueryPair pair : list) {
-            nvp[i] = new NameValuePair(pair.first, pair.second);
+        for (QueryParam pair : list) {
+            nvp[i] = new NameValuePair(pair.key, pair.value);
             i++;
         }
         return nvp;
