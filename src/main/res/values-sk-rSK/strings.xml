@@ -517,7 +517,6 @@
     <string name="push_notifications_not_implemented">Push notifikácie sú vypnuté z dôvodu závislosti na proprietárnych službách Google Play</string>
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
-    <string name="qr_could_not_be_read">QR kód sa nepodarilo prečítať!</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>

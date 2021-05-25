@@ -543,7 +543,6 @@
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
-    <string name="qr_could_not_be_read">QR Код не может быть прочтен!</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>

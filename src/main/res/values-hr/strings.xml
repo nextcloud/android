@@ -542,7 +542,6 @@
     <string name="push_notifications_not_implemented">Push obavijesti su onemogućene zbog ovisnosti o vlasničkim servisima trgovine Google Play.</string>
     <string name="push_notifications_old_login">Nema push obavijesti zbog zastarjele prijave. Razmislite o ponovnom dodavanju računa.</string>
     <string name="push_notifications_temp_error">Push obavijesti trenutno nisu dostupne.</string>
-    <string name="qr_could_not_be_read">Čitanje QR kôda nije uspjelo!</string>
     <string name="recommend_subject">Isprobajte %1$s na uređaju!</string>
     <string name="recommend_text">Želim vas pozvati da koristite %1$s na svom uređaju.\nPreuzmite ovdje: %2$s</string>
     <string name="recommend_urls">%1$s ili %2$s</string>

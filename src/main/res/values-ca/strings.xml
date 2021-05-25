@@ -545,7 +545,6 @@
     <string name="push_notifications_not_implemented">Les notificacions \"push\" s\'han deshabilitat a causa de dependències de serveis propietaris de Google Play.</string>
     <string name="push_notifications_old_login">No hi ha notificacions \"push\" a causa d\'un inici de sessió no actualitzat. Si us plau valoreu tornar a afegir el vostre compte.</string>
     <string name="push_notifications_temp_error">Les notificacions \"push\" no estan disponibles actualment.</string>
-    <string name="qr_could_not_be_read">No s\'ha pogut llegir el codi QR!</string>
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>

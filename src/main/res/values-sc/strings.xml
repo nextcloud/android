@@ -543,7 +543,6 @@
     <string name="push_notifications_not_implemented">Notìficas de ispinta disativadas pro more de dipendèntzias dae is serbìtzios Google Play de su propietàriu.</string>
     <string name="push_notifications_old_login">Non ddoe sunt notìficas de ispinta ca sa sessione de atzessu nch\'est passada. Torra a proare s\'atzessu a su contu tuo.</string>
     <string name="push_notifications_temp_error">Is notìficas de ispinta non sunt disponìbiles immoe</string>
-    <string name="qr_could_not_be_read">No at fatu a lèghere su còdighe QR!</string>
     <string name="recommend_subject">Proa %1$s in su dispositivu tuo!</string>
     <string name="recommend_text">Ti bògio invitare a impreare %1$s in su dispositiu tuo.\nIscarriga·ddu inoghe: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>

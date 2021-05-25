@@ -546,7 +546,6 @@
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
-    <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>

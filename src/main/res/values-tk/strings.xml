@@ -542,7 +542,6 @@
     <string name="push_notifications_not_implemented">Hususy Google Play hyzmatlaryna baglylyk sebäpli basma bildirişleri ýapylýar.</string>
     <string name="push_notifications_old_login">Könelen giriş sessiýasy sebäpli itergi habarnamalary ýok. Hasabyňyzy täzeden goşmagy göz öňünde tutmagyňyzy haýyş edýäris.</string>
     <string name="push_notifications_temp_error">Push habarnamalary häzirki wagtda elýeterli däl.</string>
-    <string name="qr_could_not_be_read">QR kody okap bolmaýar!</string>
     <string name="recommend_subject">%1$senjamyňyzda synap görüň!</string>
     <string name="recommend_text">Enjamyňyzda %1$sulanmaga çagyrmak isleýärin.\n Şu ýere ýükläň:%2$s</string>
     <string name="recommend_urls">%1$s ýa-da %2$s</string>

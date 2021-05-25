@@ -104,6 +104,7 @@
     <string name="common_save">Ruaj</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
+    <string name="common_skip">Kalo</string>
     <string name="common_switch_account">Ndrysho Llogarinë</string>
     <string name="common_yes">Po</string>
     <string name="community_beta_headline">Testoni versionin Beta</string>
@@ -157,6 +158,7 @@
     <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
+    <string name="create">Krijo</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
     <string name="create_new">Krijo të ri</string>
     <string name="create_new_document">Krijo një dokument te ri</string>
@@ -175,6 +177,7 @@
     <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>
     <string name="dev_version_no_information_available">Nuk ka informacion në gjëndje.</string>
     <string name="dev_version_no_new_version_available">Nuk ka asnjë version në gjëndje.</string>
+    <string name="dialog_close">Mbylleni</string>
     <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i gatshëm në telefonin tuaj.</string>
     <string name="disable_new_media_folder_detection_notifications">Çaktivizoje</string>
     <string name="dismiss">Hiq</string>
@@ -730,6 +733,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="user_icon">Përdorues</string>
     <string name="user_info_address">Adresa</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Numri i telefonit</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

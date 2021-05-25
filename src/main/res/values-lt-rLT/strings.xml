@@ -543,7 +543,6 @@
     <string name="push_notifications_not_implemented">Push pranešimai išjungti dėl priklausomybės nuo nuosavybinių Google Play paslaugų.</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
-    <string name="qr_could_not_be_read">Nepavyko nuskaityti QR kodo! </string>
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>

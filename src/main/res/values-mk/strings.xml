@@ -520,7 +520,6 @@
     <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
-    <string name="qr_could_not_be_read">QR Кодот неможе да се прочита!</string>
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>
     <string name="recommend_text">Сакам да те поканам за да ја користиш %1$s апликацијата на твојот уред.\nПревземи ја овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
