@@ -395,10 +395,6 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 }
 
-spotbugs {
-    toolVersion = '3.1.12'
-}
-
 configurations.all {
     resolutionStrategy{
         cacheChangingModulesFor 0, 'seconds'
