@@ -143,6 +143,8 @@ interface BackgroundJobManager {
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
 
+    fun scheduleImmediateUploadImagesJob(): LiveData<JobInfo?>
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()

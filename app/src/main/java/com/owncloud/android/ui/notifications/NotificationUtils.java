@@ -41,6 +41,7 @@ public final class NotificationUtils {
     public static final String NOTIFICATION_CHANNEL_FILE_SYNC = "NOTIFICATION_CHANNEL_FILE_SYNC";
     public static final String NOTIFICATION_CHANNEL_FILE_OBSERVER = "NOTIFICATION_CHANNEL_FILE_OBSERVER";
     public static final String NOTIFICATION_CHANNEL_PUSH = "NOTIFICATION_CHANNEL_PUSH";
+    public static final String NOTIFICATION_CHANNEL_SCAN_DOC_SAVE = "NOTIFICATION_CHANNEL_SCAN_DOC_SAVE";
 
     private NotificationUtils() {
         // utility class -> private constructor

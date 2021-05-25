@@ -157,7 +157,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             fragment = PreviewImageErrorFragment.newInstance();
 
         } else if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false, i);
         } else {
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
@@ -168,7 +168,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     fragment = PreviewMediaFragment.newInstance(file, user, 0, false);
                 } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true, i);
                 }
             }
         }

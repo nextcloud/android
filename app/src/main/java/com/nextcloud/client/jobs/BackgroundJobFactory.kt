@@ -40,6 +40,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nmc.android.jobs.UploadImagesWorker
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -266,6 +267,15 @@ class BackgroundJobFactory @Inject constructor(
             userAccountManager = accountManager,
             logger = logger,
             params = params
+        )
+    }
+
+    private fun createUploadImagesWork(context: Context, params: WorkerParameters): UploadImagesWorker {
+        return UploadImagesWorker(
+            context = context,
+            params = params,
+            notificationManager,
+            accountManager
         )
     }
 }
