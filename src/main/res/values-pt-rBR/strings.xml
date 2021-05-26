@@ -546,6 +546,7 @@
     <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
+    <string name="qr_could_not_be_read">Não foi possível ler o código QR! </string>
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
