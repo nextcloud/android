@@ -546,6 +546,7 @@
     <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a que depende de servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
+    <string name="qr_could_not_be_read">¡No se ha podido leer el código QR!</string>
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>

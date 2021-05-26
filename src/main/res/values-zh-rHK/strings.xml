@@ -546,6 +546,7 @@
     <string name="push_notifications_not_implemented">由於依賴專有的Google Play服務，推送通知已停用。</string>
     <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的賬戶。</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
+    <string name="qr_could_not_be_read">QR 碼無法讀取！</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
     <string name="recommend_text">我想邀請您在裝置上使用%1$s。\n在此處下載：%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
