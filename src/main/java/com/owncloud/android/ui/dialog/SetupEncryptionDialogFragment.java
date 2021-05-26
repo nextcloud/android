@@ -52,6 +52,7 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +61,11 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
+
+import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
+import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric;
+import static com.owncloud.android.utils.EncryptionUtils.encodeBytesToBase64String;
+import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 
 /*
  *  Dialog to setup encryption
@@ -187,24 +193,43 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                                     String privateKey = task.get();
                                     String mnemonicUnchanged = passwordField.getText().toString();
                                     String mnemonic = passwordField.getText().toString().replaceAll("\\s", "")
-                                            .toLowerCase(Locale.ROOT);
+                                        .toLowerCase(Locale.ROOT);
                                     String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                            mnemonic);
+                                                                                                   mnemonic);
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
-                                            EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
+                                                                                EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
 
                                     dialog.dismiss();
                                     Log_OC.d(TAG, "Private key successfully decrypted and stored");
 
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC,
-                                            mnemonicUnchanged);
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                                EncryptionUtils.MNEMONIC,
+                                                                                mnemonicUnchanged);
+
+                                    // check if private key and public key match
+                                    String publicKey = arbitraryDataProvider.getValue(user.getAccountName(),
+                                                                                      EncryptionUtils.PUBLIC_KEY);
+
+                                    byte[] key1 = generateKey();
+                                    String base64encodedKey = encodeBytesToBase64String(key1);
+
+                                    String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey,
+                                                                                                     publicKey);
+                                    String decryptedString = decryptStringAsymmetric(encryptedString,
+                                                                                     decryptedPrivateKey);
+
+                                    byte[] key2 = decodeStringToBase64Bytes(decryptedString);
+
+                                    if (!Arrays.equals(key1, key2)) {
+                                        throw new Exception("Keys do not match");
+                                    }
 
                                     Intent intentExisting = new Intent();
                                     intentExisting.putExtra(SUCCESS, true);
                                     intentExisting.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
                                     getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                            SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
+                                                                         SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
 
                                 } catch (Exception e) {
                                     textView.setText(R.string.end_to_end_encryption_wrong_password);
@@ -257,7 +282,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
 
                 String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
-                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY,
+                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                            EncryptionUtils.PUBLIC_KEY,
                                                             publicKeyFromServer);
             } else {
                 return null;
