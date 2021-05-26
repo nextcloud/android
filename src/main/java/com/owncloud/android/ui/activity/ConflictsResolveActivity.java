@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.ui.dialog.ConflictsResolveConsentDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
@@ -225,9 +226,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         }
 
         if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
-            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-                                                                               newFile,
-                                                                               userOptional.get());
+            ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
+                                                                                      newFile,
+                                                                                      userOptional.get());
             dialog.show(fragmentTransaction, "conflictDialog");
         } else {
             // Account was changed to a different one - just finish

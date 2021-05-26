@@ -1002,5 +1002,16 @@
     <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
     <string name="camera_permission_denied">You cannot scan document without camera permission.</string>
     <string name="search_result_empty">Search for a file (at least 2 characters)</string>
+    <string name="conflict_replace">Replace</string>
+    <string name="conflict_replace_all">Replace all</string>
+    <string name="conflict_keep_both">Keep both</string>
+    <string name="conflict_keep_both_all">Keep both for all</string>
+    <string name="conflict_more_details">More details</string>
+    <string name="conflict_cancel_keep_existing">Cancel and keep existing</string>
+    <string name="conflict_dialog_title">File conflict</string>
+    <string name="conflict_dialog_title_multiple">%d File conflicts</string>
+    <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the
+        file you are moving?</string>
+    <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
 
 </resources>

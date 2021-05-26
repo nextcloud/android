@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/standard_padding">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/replace_btn"
+        style="@style/NegativeButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/conflict_replace"
+        android:textAllCaps="false"
+        android:textSize="@dimen/txt_size_15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/keep_both_btn"
+        style="@style/NegativeButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/conflict_keep_both"
+        android:textAllCaps="false"
+        android:textSize="@dimen/txt_size_15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/replace_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/more_details_btn"
+        style="@style/NegativeButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/conflict_more_details"
+        android:textAllCaps="false"
+        android:textSize="@dimen/txt_size_15sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keep_both_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_keep_existing_btn"
+        style="@style/PositiveButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/conflict_cancel_keep_existing"
+        android:textAllCaps="false"
+        android:textSize="@dimen/txt_size_15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/more_details_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
