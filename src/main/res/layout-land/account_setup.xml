@@ -77,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="top"
                         android:importantForAutofill="no"
-                        android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
+                        android:inputType="textUri|textNoSuggestions|textEmailAddress"
                         android:lines="1"
                         android:minLines="1"
                         android:paddingStart="@dimen/standard_padding"
