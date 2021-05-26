@@ -546,7 +546,6 @@
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
-    <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>

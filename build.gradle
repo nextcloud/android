@@ -11,7 +11,6 @@ buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {
         google()
-        jcenter()
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
@@ -76,11 +75,10 @@ ext {
 
 repositories {
     google()
-    jcenter()
     maven { url "https://jitpack.io" }
-
-    flatDir {
-        dirs 'libs'
+    mavenCentral()
+    maven {
+        url 'https://plugins.gradle.org/m2/'
     }
 }
 
@@ -270,14 +268,6 @@ dependencies {
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
-
-    kapt 'javax.xml.bind:jaxb-api:2.3.1'
-    kapt 'org.glassfish.jaxb:jaxb-core:3.0.1'
-    kapt 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
-
-    annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-core:3.0.1'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2

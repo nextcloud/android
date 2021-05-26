@@ -542,7 +542,6 @@
     <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
-    <string name="qr_could_not_be_read">A QR kód nem olvasható!</string>
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>

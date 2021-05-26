@@ -536,7 +536,6 @@
     <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
-    <string name="qr_could_not_be_read">QR-kode kunne ikke leses!</string>
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>

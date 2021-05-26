@@ -512,7 +512,6 @@
     <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
-    <string name="qr_could_not_be_read">Ekki tókst að lesa QR-kóða!</string>
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
     <string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjalltækinu þínu.\nSæktu það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>

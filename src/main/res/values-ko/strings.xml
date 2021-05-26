@@ -537,7 +537,6 @@
     <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
-    <string name="qr_could_not_be_read">QR코드를 읽을 수 없습니다!</string>
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>

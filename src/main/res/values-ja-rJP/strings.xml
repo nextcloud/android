@@ -76,7 +76,7 @@
     <string name="autoupload_create_new_custom_folder">新しいカスタムフォルダセットアップを作成する</string>
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
-    <string name="autoupload_hide_folder">フォルダを隠す</string>
+    <string name="autoupload_hide_folder">フォルダーを隠す</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="battery_optimization_close">閉じる</string>
@@ -533,7 +533,6 @@
     <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
-    <string name="qr_could_not_be_read">QRコードを読み込めませんでした！</string>
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
@@ -581,7 +580,7 @@
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
-    <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダにアクセスできるユーザーにのみ機能します。</string>
+    <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダーにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_link">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
@@ -653,7 +652,7 @@
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
+    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバーにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
     <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム（開発プレビューバージョン）</string>
@@ -670,7 +669,7 @@
     <string name="sync_fail_ticker">同期の失敗</string>
     <string name="sync_fail_ticker_unauthorized">同期失敗、要 再ログイン</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
-    <string name="sync_folder_failed_content">%1$sフォルダの同期を完了できませんでした</string>
+    <string name="sync_folder_failed_content">%1$sフォルダーの同期を完了できませんでした</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン1.3.16以降、デバイスからアップロードされたファイルは %1$s ローカルフォルダーにコピーされ、単一のファイルが複数のアカウントと同期されているときにデータが失われるのを防ぎます。\n\nこの変更により、以前にこのアプリでアップロードしたすべてのファイルが %2$s フォルダーにコピーされました。しかし、アカウント同期中にエラーが発生したため操作を完了できませんでした。操作を完了させるには、ファイルをそのまま保持する場合は %3$sとのリンクを削除し、 %4$sとのリンクを保持する場合は %1$s フォルダーにファイルを移動させてください。\n\n以下にローカルファイルと リンクしている %5$s のリモートファイルのリストを表示します。</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_in_progress">最新のファイルを取得しています。</string>
@@ -791,6 +790,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">制限なしのWi-Fiを待機中</string>
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
+    <string name="user_info_email">メール</string>
     <string name="user_info_phone">電話番号</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ウェブサイト</string>
@@ -819,7 +819,7 @@
         <item quantity="other">%1$d ファイル</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="other">%1$d 件の隠しフォルダを表示する</item>
+        <item quantity="other">%1$d 件の隠しフォルダーを表示する</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d 選択</item>

@@ -33,6 +33,8 @@
     <string name="add_another_public_share_link">Adicionar outra hiperligação</string>
     <string name="add_new_public_share">Adicionar um novo link de partilha público</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
+    <string name="allow_creating">Permitir criar</string>
+    <string name="allow_deleting">Permitir eliminar</string>
     <string name="allow_editing">Permitir edição</string>
     <string name="allow_resharing">Permitir repartilha</string>
     <string name="appbar_search_in">Procurar no %s</string>
@@ -75,6 +77,7 @@
     <string name="autoupload_disable_power_save_check">Desabilitar a verificação de poupança de energia</string>
     <string name="autoupload_hide_folder">Esconder pasta</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Ausente</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
@@ -106,6 +109,7 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Partilhar</string>
+    <string name="common_skip">Saltar</string>
     <string name="common_switch_account">Trocar de conta</string>
     <string name="common_switch_to_account">Trocar para a conta</string>
     <string name="common_yes">Sim</string>
@@ -156,6 +160,7 @@
     <string name="copy_link">Copiar hiperligação</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
     <string name="copy_to">Copiar para…</string>
+    <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_new">Criar novo</string>
     <string name="create_new_document">Criar novo documento</string>
@@ -173,10 +178,12 @@
     <string name="dev_version_new_version_available">Nova versão disponível</string>
     <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
     <string name="dev_version_no_new_version_available">Nenhuma nova versão disponível</string>
+    <string name="dialog_close">Fechar</string>
     <string name="digest_algorithm_not_available">O algoritmo de resumo não está disponível no seu telemóvel</string>
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="dismiss">Dispensar</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="dnd">Não incomodar</string>
     <string name="download_latest_dev_version">Descarregar a utima versão de desenvolvimento</string>
     <string name="downloader_download_failed_content">Não foi possível transferir %1$s</string>
     <string name="downloader_download_failed_credentials_error">A transferência falhou, inicie novamente a sessão</string>
@@ -207,6 +214,7 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
+    <string name="edit_label">Alterar nome</string>
     <string name="encrypted">Definir como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>

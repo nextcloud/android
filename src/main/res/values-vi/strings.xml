@@ -543,7 +543,6 @@
     <string name="push_notifications_not_implemented">Thông báo bị tắt do phụ thuộc vào các dịch vụ độc quyền của Google Play.</string>
     <string name="push_notifications_old_login">Không có thông báo do phiên đăng nhập đã lỗi thời. Vui lòng xem xét việc thêm lại tài khoản của bạn.</string>
     <string name="push_notifications_temp_error">Thông báo hiện không khả dụng.</string>
-    <string name="qr_could_not_be_read">Mã QR không thể đọc được!</string>
     <string name="recommend_subject">Thử %1$s trên điện thoại của bạn!</string>
     <string name="recommend_text">Tôi muốn mời bạn sử dụng %1$s trên điện thoại của bạn.\nTải về: %2$s</string>
     <string name="recommend_urls">%1$s hoặc %2$s</string>

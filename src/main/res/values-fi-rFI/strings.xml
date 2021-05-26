@@ -542,7 +542,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="push_notifications_not_implemented">Push-ilmoitukset ovat pois käytöstä, koska ne riippuvat suljetuista Google Play -palveluista.</string>
     <string name="push_notifications_old_login">Ei puskusanomia johtuen vanhentuneesta kirjautumisistunnosta. Harkitse tilin uudelleenlisäämistä.</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
-    <string name="qr_could_not_be_read">QR-koodia ei voitu lukea!</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
     <string name="recommend_urls">%1$s tai %2$s</string>
