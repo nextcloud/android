@@ -146,7 +146,7 @@ else
         exit $lintValue
     fi
 
-    if [ -z "$notNull" ]; then
+    if [ -n "$notNull" ]; then
         exit 1
     fi
 
