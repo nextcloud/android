@@ -546,6 +546,7 @@
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
+    <string name="qr_could_not_be_read">QR code kan niet worden gelezen!</string>
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
