@@ -1,0 +1,11 @@
+Remove jcenter, use maven instead Remove flatDir
+Remove jaxb
+Fix: Using android:onClick on older version of the platform is broken Move to view bindings
+re-order
+check e2e keys
+prevent upload from sensitive path
+wip
+Use web/http input type
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
