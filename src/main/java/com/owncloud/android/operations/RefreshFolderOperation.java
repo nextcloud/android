@@ -35,7 +35,6 @@ import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -289,7 +288,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             } else {
                 Log_OC.i(TAG, "Got display name: " + result.getResultData());
             }
-        } catch (AccountUtils.AccountNotFoundException e) {
+        } catch (Exception e) {
             Log_OC.e(this, "Error updating profile", e);
         }
     }
@@ -336,7 +335,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         try {
             client = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
-        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
+        } catch (Exception e) {
             Log_OC.e(this, "Update of predefined status not possible!");
             return;
         }
