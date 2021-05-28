@@ -53,7 +53,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
@@ -325,7 +324,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             try {
                 nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(),
                                                                               this);
-            } catch (AccountUtils.AccountNotFoundException e) {
+            } catch (Exception e) {
                 Log_OC.e(this, "Error retrieving user info", e);
                 return;
             }
