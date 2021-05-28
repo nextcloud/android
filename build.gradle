@@ -1,4 +1,5 @@
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.internal.jvm.Jvm
 
 // Gradle build file
 //
@@ -38,6 +39,8 @@ apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
 
+println "Gradle uses Java ${Jvm.current()}"
+
 configurations {
     ktlint
 
@@ -54,7 +57,7 @@ configurations {
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.35.1"
+    daggerVersion = "2.36"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
@@ -393,10 +396,6 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
-}
-
-spotbugs {
-    toolVersion = '3.1.12'
 }
 
 configurations.all {
