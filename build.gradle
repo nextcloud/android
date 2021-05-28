@@ -308,7 +308,6 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.vanniktech:emoji-google:0.7.0'
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
