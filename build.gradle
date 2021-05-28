@@ -9,7 +9,7 @@ import org.gradle.internal.jvm.Jvm
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.5.0'
+    ext.kotlin_version = '1.5.10'
     repositories {
         google()
         maven {
@@ -308,7 +308,6 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.vanniktech:emoji-google:0.7.0'
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
