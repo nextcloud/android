@@ -636,7 +636,7 @@
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
-    <string name="subject_user_shared_with_you">%s deildi »%s« með þér</string>
+    <string name="subject_user_shared_with_you">%1$s deildi \"%2$s\" með þér</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
     <string name="sync_fail_content">Gat ekki samstillt %1$s</string>
