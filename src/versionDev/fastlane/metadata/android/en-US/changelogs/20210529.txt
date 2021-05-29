@@ -1,0 +1,8 @@
+remove duplicate gson dependency definition
+- use kotlin 1.5.0 - use kotlin-stdlib: https://medium.com/@mbonnin/the-different-kotlin-stdlibs-explained-83d7c6bf293
+Print used java version in Gradle
+Gradle 6.9
+Remove spotbug version: Access to 'toolVersion' exceeds its access rights Cannot assign a value to final field 'toolVersion'
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
