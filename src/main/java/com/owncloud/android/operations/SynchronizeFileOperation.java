@@ -29,6 +29,7 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -292,11 +293,11 @@ public class SynchronizeFileOperation extends SyncOperation {
      */
     private void requestForUpload(OCFile file) {
         FileUploader.uploadUpdateFile(
-            mContext,
-            mUser.toPlatformAccount(),
-            file,
-            FileUploader.LOCAL_BEHAVIOUR_MOVE,
-            FileUploader.NameCollisionPolicy.OVERWRITE
+                mContext,
+                mUser.toPlatformAccount(),
+                file,
+                FileUploader.LOCAL_BEHAVIOUR_MOVE,
+                NameCollisionPolicy.OVERWRITE
         );
 
         mTransferWasRequested = true;

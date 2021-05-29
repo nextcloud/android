@@ -12,7 +12,7 @@ import com.owncloud.android.datamodel.OCFile
 interface AppNotificationManager {
 
     companion object {
-        const val DOWNLOAD_NOTIFICATION_ID = 1_000_000
+        const val TRANSFER_NOTIFICATION_ID = 1_000_000
     }
 
     /**
@@ -23,16 +23,28 @@ interface AppNotificationManager {
     fun buildDownloadServiceForegroundNotification(): Notification
 
     /**
-     * Post download progress notification.
+     * Post download transfer progress notification. Subsequent calls will update
+     * currently displayed transfer notification.
+     *
      * @param fileOwner User owning the downloaded file
      * @param file File being downloaded
      * @param progress Progress as percentage (0-100)
      * @param allowPreview if true, pending intent with preview action is added to the notification
      */
-    fun postDownloadProgress(fileOwner: User, file: OCFile, progress: Int, allowPreview: Boolean = true)
+    fun postDownloadTransferProgress(fileOwner: User, file: OCFile, progress: Int, allowPreview: Boolean = true)
 
     /**
-     * Removes download progress notification.
+     * Post upload transfer progress notification. Subsequent calls will update
+     * currently displayed transfer notification.
+     *
+     * @param fileOwner User owning the downloaded file
+     * @param file File being downloaded
+     * @param progress Progress as percentage (0-100)
      */
-    fun cancelDownloadProgress()
+    fun postUploadTransferProgress(fileOwner: User, file: OCFile, progress: Int)
+
+    /**
+     * Removes download or upload progress notification.
+     */
+    fun cancelTransferNotification()
 }

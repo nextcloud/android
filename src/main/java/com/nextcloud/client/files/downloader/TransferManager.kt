@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,9 @@ package com.nextcloud.client.files.downloader
 import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
+/**
+ * Transfer manager provides API to upload and download files.
+ */
 interface TransferManager {
 
     /**
@@ -48,7 +51,7 @@ interface TransferManager {
     val status: Status
 
     /**
-     * Register transfer progress listener. Registration is idempotent - listener can be registered only once.
+     * Register transfer progress listener. Registration is idempotent - a listener will be registered only once.
      */
     fun registerTransferListener(listener: (Transfer) -> Unit)
 
@@ -58,7 +61,7 @@ interface TransferManager {
     fun removeTransferListener(listener: (Transfer) -> Unit)
 
     /**
-     * Register transfer manager status listener. Registration is idempotent - listener can be registered only once.
+     * Register transfer manager status listener. Registration is idempotent - a listener will be registered only once.
      */
     fun registerStatusListener(listener: (Status) -> Unit)
 

@@ -49,7 +49,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -2185,7 +2185,7 @@ public class FileContentProvider extends ContentProvider {
                     // make sure all existing folders set to FileUploader.NameCollisionPolicy.ASK_USER.
                     db.execSQL("UPDATE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + " SET " +
                                    ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " = " +
-                                   FileUploader.NameCollisionPolicy.ASK_USER.serialize());
+                                   NameCollisionPolicy.ASK_USER.serialize());
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
