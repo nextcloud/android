@@ -180,8 +180,8 @@
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="create_new_presentation">新しいプレゼンテーションを作成する</string>
     <string name="create_new_spreadsheet">新しいスプレッドシートを作成する</string>
-    <string name="create_rich_workspace">フォルダ情報を追加</string>
-    <string name="creates_rich_workspace">フォルダ情報を作成</string>
+    <string name="create_rich_workspace">フォルダー情報を追加</string>
+    <string name="creates_rich_workspace">フォルダー情報を作成</string>
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="date_unknown">不明</string>
     <string name="default_credentials_wrong">不正な資格情報</string>

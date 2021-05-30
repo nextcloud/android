@@ -31,6 +31,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -120,22 +121,22 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                     break;
                 case KEEP_LOCAL: // Upload
                     FileUploader.uploadUpdateFile(
-                        getBaseContext(),
-                        getAccount(),
-                        file,
-                        localBehaviour,
-                        FileUploader.NameCollisionPolicy.OVERWRITE
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            NameCollisionPolicy.OVERWRITE
                                                  );
 
                     uploadsStorageManager.removeUpload(upload);
                     break;
                 case KEEP_BOTH: // Upload
                     FileUploader.uploadUpdateFile(
-                        getBaseContext(),
-                        getAccount(),
-                        file,
-                        localBehaviour,
-                        FileUploader.NameCollisionPolicy.RENAME
+                            getBaseContext(),
+                            getAccount(),
+                            file,
+                            localBehaviour,
+                            NameCollisionPolicy.RENAME
                                                  );
 
                     uploadsStorageManager.removeUpload(upload);

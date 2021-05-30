@@ -71,6 +71,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -1001,7 +1002,7 @@ public class FileDisplayActivity extends FileActivity
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                FileUploader.NameCollisionPolicy.ASK_USER
+                NameCollisionPolicy.ASK_USER
             );
 
         } else {

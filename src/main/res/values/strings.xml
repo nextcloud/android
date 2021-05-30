@@ -856,13 +856,17 @@
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_progress">Progress</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
-    <string name="etm_downloader">Downloader</string>
-    <string name="etm_download_path">Remote path</string>
-    <string name="etm_download_enqueue_test_download">Enqueue test download</string>
-    <string name="etm_download_uuid" translatable="false">@string/etm_background_job_uuid</string>
-    <string name="etm_download_user" translatable="false">@string/etm_background_job_user</string>
-    <string name="etm_download_state" translatable="false">@string/etm_background_job_state</string>
-    <string name="etm_download_progress" translatable="false">@string/etm_background_job_progress</string>
+    <string name="etm_transfer">File transfer</string>
+    <string name="etm_transfer_remote_path">Remote path</string>
+    <string name="etm_transfer_enqueue_test_download">Enqueue test download</string>
+    <string name="etm_transfer_enqueue_test_upload">Enqueue test upload</string>
+    <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_upload">upload</string>
+    <string name="etm_transfer_type_download">download</string>
+    <string name="etm_transfer_uuid" translatable="false">@string/etm_background_job_uuid</string>
+    <string name="etm_transfer_user" translatable="false">@string/etm_background_job_user</string>
+    <string name="etm_transfer_state" translatable="false">@string/etm_background_job_state</string>
+    <string name="etm_transfer_progress" translatable="false">@string/etm_background_job_progress</string>
 
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
