@@ -1,0 +1,5 @@
+New upload manager
+Optimize writing out files to Nextcloud via SAF
+Replace fragment by fragment-ktx as suggested
+Use correct eTag to check if something has changed on server
+Update translations
