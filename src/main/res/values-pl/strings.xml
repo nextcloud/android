@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
     <string name="etm_title">Tryb testowy techniczny</string>
+    <string name="etm_transfer">Transfer pliku</string>
+    <string name="etm_transfer_enqueue_test_download">Dodaj pobieranie testowe do kolejki</string>
+    <string name="etm_transfer_enqueue_test_upload">Dodaj wysyłanie testowe do kolejki</string>
+    <string name="etm_transfer_remote_path">Zdalna ścieżka</string>
+    <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_download">pobierz</string>
+    <string name="etm_transfer_type_upload">wyślij</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>

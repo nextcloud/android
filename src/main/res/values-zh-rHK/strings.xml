@@ -279,6 +279,13 @@
     <string name="etm_migrations">遷移（APP 升級)</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
+    <string name="etm_transfer">檔案轉移</string>
+    <string name="etm_transfer_enqueue_test_download">入隊測試下載</string>
+    <string name="etm_transfer_enqueue_test_upload">入隊測試上傳</string>
+    <string name="etm_transfer_remote_path">遠端路徑</string>
+    <string name="etm_transfer_type">轉移</string>
+    <string name="etm_transfer_type_download">下載</string>
+    <string name="etm_transfer_type_upload">上傳</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
     <string name="failed_to_print">列印失敗</string>
