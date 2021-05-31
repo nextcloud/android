@@ -279,6 +279,13 @@
     <string name="etm_migrations">Aktarımlar (uygulama yükseltmesi)</string>
     <string name="etm_preferences">Ayarlar</string>
     <string name="etm_title">Mühendislik Sınama Kipi</string>
+    <string name="etm_transfer">Dosya aktarımı</string>
+    <string name="etm_transfer_enqueue_test_download">Sınama indirmesini sıraya al</string>
+    <string name="etm_transfer_enqueue_test_upload">Sınama yüklemesini sıraya al</string>
+    <string name="etm_transfer_remote_path">Uzak yol</string>
+    <string name="etm_transfer_type">Aktar</string>
+    <string name="etm_transfer_type_download">indir</string>
+    <string name="etm_transfer_type_upload">yükle</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
