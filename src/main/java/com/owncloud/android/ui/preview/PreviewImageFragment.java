@@ -56,7 +56,6 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -125,7 +124,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
-    @Inject DeviceInfo deviceInfo;
     private PreviewImageFragmentBinding binding;
 
     /**
@@ -376,7 +374,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 

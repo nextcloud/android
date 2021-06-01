@@ -28,7 +28,6 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -64,7 +63,6 @@ public class FileMenuFilter {
     private ComponentsGetter componentsGetter;
     private Context context;
     private boolean overflowMenu;
-    private DeviceInfo deviceInfo;
     private User user;
 
     /**
@@ -75,7 +73,6 @@ public class FileMenuFilter {
      * @param componentsGetter  Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      * @param overflowMenu      true if the overflow menu items are being filtered
-     * @param deviceInfo        Device information provider
      * @param user              currently active user
      */
     public FileMenuFilter(int numberOfAllFiles,
@@ -83,7 +80,6 @@ public class FileMenuFilter {
                           ComponentsGetter componentsGetter,
                           Context context,
                           boolean overflowMenu,
-                          DeviceInfo deviceInfo,
                           User user
     ) {
         this.numberOfAllFiles = numberOfAllFiles;
@@ -91,7 +87,6 @@ public class FileMenuFilter {
         this.componentsGetter = componentsGetter;
         this.context = context;
         this.overflowMenu = overflowMenu;
-        this.deviceInfo = deviceInfo;
         this.user = user;
     }
 
@@ -108,10 +103,9 @@ public class FileMenuFilter {
                           ComponentsGetter componentsGetter,
                           Context context,
                           boolean overflowMenu,
-                          DeviceInfo deviceInfo,
                           User user
     ) {
-        this(1, Collections.singletonList(file), componentsGetter, context, overflowMenu, deviceInfo, user);
+        this(1, Collections.singletonList(file), componentsGetter, context, overflowMenu, user);
     }
 
     /**
