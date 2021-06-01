@@ -1,8 +1,8 @@
 ## 3.16.1 (June, 01, 2021)
 
-Fix media tab not showing images/videos
-Connectivity checks fixed
-Crashing while retrieving avatar
+- Fix media tab not showing images/videos
+- Connectivity checks fixed
+- Crashing while retrieving avatar
 
 Minimum: NC 16 Server, Android 5.0 Lollipop 
 
@@ -11,11 +11,11 @@ For a full list, please see https://github.com/nextcloud/android/milestone/58
 
 ## 3.16.0 (May, 05, 2021)
 
-Enhance sharing 
-Update template section when creating new files
-Pin protection update
-Updated notification handling during updates @newhinton
-UI improvements
+- Enhance sharing 
+- Update template section when creating new files
+- Pin protection update
+- Updated notification handling during updates @newhinton
+- UI improvements
 
 Minimum: NC 16 Server, Android 5.0 Lollipop 
 
