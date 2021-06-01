@@ -60,12 +60,7 @@ internal class PowerManagementServiceImpl(
                 return false
             }
 
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            if (deviceInfo.apiLevel >= Build.VERSION_CODES.LOLLIPOP) {
-                return platformPowerManager.isPowerSaveMode
-            }
-            // For older versions, we just say that device is not in power save mode
-            return false
+            return platformPowerManager.isPowerSaveMode
         }
 
     override val isPowerSavingExclusionAvailable: Boolean
@@ -80,8 +75,7 @@ internal class PowerManagementServiceImpl(
                 when {
                     plugged == BatteryManager.BATTERY_PLUGGED_USB -> true
                     plugged == BatteryManager.BATTERY_PLUGGED_AC -> true
-                    deviceInfo.apiLevel >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
-                        plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
+                    plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
                     else -> false
                 }
             } ?: false

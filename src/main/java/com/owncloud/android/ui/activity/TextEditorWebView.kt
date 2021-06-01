@@ -34,14 +34,13 @@ import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import javax.inject.Inject
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var appInfo: AppInfo
     @Inject
     lateinit var deviceInfo: DeviceInfo
 
-    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
+    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

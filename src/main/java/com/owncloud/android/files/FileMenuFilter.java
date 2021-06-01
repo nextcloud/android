@@ -282,7 +282,7 @@ public class FileMenuFilter {
                             List<Integer> toHide,
                             OCCapability capability
     ) {
-        if (deviceInfo.editorSupported() || files.iterator().next().isEncrypted()) {
+        if (files.iterator().next().isEncrypted()) {
             toHide.add(R.id.action_edit);
             return;
         }
