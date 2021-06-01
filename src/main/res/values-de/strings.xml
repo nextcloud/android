@@ -279,6 +279,11 @@
     <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>
     <string name="etm_preferences">Einstellungen</string>
     <string name="etm_title">Technischer Testmodus</string>
+    <string name="etm_transfer">Dateiübertragung</string>
+    <string name="etm_transfer_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
+    <string name="etm_transfer_enqueue_test_upload">Test-Upload in die Warteschlange stellen </string>
+    <string name="etm_transfer_remote_path">Externer Pfad</string>
+    <string name="etm_transfer_type">Übertragen</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
