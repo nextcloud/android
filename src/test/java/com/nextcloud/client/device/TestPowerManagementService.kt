@@ -188,24 +188,6 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `wireless charging is not supported in API 16`() {
-            // GIVEN
-            //      device has API level 16
-            //      battery status sticky intent is available
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.JELLY_BEAN)
-
-            // WHEN
-            //      spurious wireless power source is returned
-            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
-                .thenReturn(BatteryManager.BATTERY_PLUGGED_WIRELESS)
-
-            // THEN
-            //      power source value is ignored on this API level
-            //      charging flag is false
-            assertFalse(powerManagementService.battery.isCharging)
-        }
-
-        @Test
         fun `battery status sticky intent is not available`() {
             // GIVEN
             //      device has API level P or below
