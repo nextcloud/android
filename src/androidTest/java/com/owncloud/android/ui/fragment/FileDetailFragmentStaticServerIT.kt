@@ -84,7 +84,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         richObjectList.add(RichObject("file", "1", "text.txt", "/text.txt", "link", "tag"))
 
         val previewObjectList1: ArrayList<PreviewObject> = ArrayList()
-        previewObjectList1.add(PreviewObject(1, "source", "link", true, "text/plain", "view"))
+        previewObjectList1.add(PreviewObject(1, "source", "link", true, "text/plain", "view", "text.txt"))
 
         val richObjectList2: ArrayList<RichObject> = ArrayList()
         richObjectList2.add(RichObject("user", "admin", "Admin", "", "", ""))
