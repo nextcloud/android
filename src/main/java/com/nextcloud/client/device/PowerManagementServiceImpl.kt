@@ -21,12 +21,10 @@
 
 package com.nextcloud.client.device
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
-import android.os.Build
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -71,11 +69,10 @@ internal class PowerManagementServiceImpl(
         get() {
             val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
             val isCharging = intent?.let {
-                val plugged = it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)
-                when {
-                    plugged == BatteryManager.BATTERY_PLUGGED_USB -> true
-                    plugged == BatteryManager.BATTERY_PLUGGED_AC -> true
-                    plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
+                when (it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)) {
+                    BatteryManager.BATTERY_PLUGGED_USB -> true
+                    BatteryManager.BATTERY_PLUGGED_AC -> true
+                    BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
                     else -> false
                 }
             } ?: false
