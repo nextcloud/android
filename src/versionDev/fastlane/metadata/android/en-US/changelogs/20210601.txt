@@ -1,0 +1,2 @@
+l10n: With a capital letter
+Update translations
