@@ -297,40 +297,34 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send_share_file: {
-                if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                    DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
-                } else {
-                    containerActivity.getFileOperationsHelper().sendShareFile(getFile());
-                }
-                return true;
-            }
-            case R.id.action_open_file_with: {
-                openFile();
-                return true;
-            }
-            case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-                return true;
-            }
-            case R.id.action_see_details: {
-                seeDetails();
-                return true;
-            }
-            case R.id.action_sync_file: {
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
+        int itemId = item.getItemId();
 
-            case R.id.action_edit:
-                containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (itemId == R.id.action_send_share_file) {
+            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+                DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
+            } else {
+                containerActivity.getFileOperationsHelper().sendShareFile(getFile());
+            }
+            return true;
+        } else if (itemId == R.id.action_open_file_with) {
+            openFile();
+            return true;
+        } else if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_see_details) {
+            seeDetails();
+            return true;
+        } else if (itemId == R.id.action_sync_file) {
+            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_edit) {
+            containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**

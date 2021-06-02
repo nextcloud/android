@@ -362,79 +362,59 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private boolean optionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send_file: {
-                containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
-                return true;
-            }
-            case R.id.action_open_file_with: {
-                containerActivity.getFileOperationsHelper().openFile(getFile());
-                return true;
-            }
-            case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-                return true;
-            }
-            case R.id.action_rename_file: {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
-                return true;
-            }
-            case R.id.action_cancel_sync: {
-                ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-                return true;
-            }
-            case R.id.action_download_file:
-            case R.id.action_sync_file: {
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
-            case R.id.action_set_as_wallpaper:  {
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-                return true;
-            }
-            case R.id.action_encrypted: {
-                // TODO implement or remove
-                return true;
-            }
-            case R.id.action_unset_encrypted: {
-                // TODO implement or remove
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_send_file) {
+            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
+            return true;
+        } else if (itemId == R.id.action_open_file_with) {
+            containerActivity.getFileOperationsHelper().openFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_rename_file) {
+            RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
+            return true;
+        } else if (itemId == R.id.action_cancel_sync) {
+            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
+            return true;
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_set_as_wallpaper) {
+            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
+            return true;
+        } else if (itemId == R.id.action_encrypted) {// TODO implement or remove
+            return true;
+        } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancelBtn: {
-                ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-                break;
-            }
-            case R.id.favorite: {
-                if (getFile().isFavorite()) {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
-                } else {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
-                }
-                setFavoriteIconStatus(!getFile().isFavorite());
-                break;
-            }
-            case R.id.overflow_menu: {
-                onOverflowIconClicked(v);
-                break;
-            }
-            case R.id.last_modification_timestamp: {
-                boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
-                preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
-                setFileModificationTimestamp(getFile(), showDetailedTimestamp);
-            }
-            default:
-                Log_OC.e(TAG, "Incorrect view clicked!");
-                break;
+        int id = v.getId();
+
+        if (id == R.id.cancelBtn) {
+            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
+        } else if (id == R.id.favorite) {
+            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
+            setFavoriteIconStatus(!getFile().isFavorite());
+        } else if (id == R.id.overflow_menu) {
+            onOverflowIconClicked(v);
+        } else if (id == R.id.last_modification_timestamp) {
+            boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
+            preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
+            setFileModificationTimestamp(getFile(), showDetailedTimestamp);
+
+            Log_OC.e(TAG, "Incorrect view clicked!");
+        } else {
+            Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
 

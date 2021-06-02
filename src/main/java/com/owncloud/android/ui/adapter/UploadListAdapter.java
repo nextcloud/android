@@ -531,15 +531,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         PopupMenu popup = new PopupMenu(MainApp.getAppContext(), view);
         popup.inflate(R.menu.upload_list_item_file_conflict);
         popup.setOnMenuItemClickListener(i -> {
-            switch (i.getItemId()) {
-                case R.id.action_upload_list_resolve_conflict:
-                    checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status);
-                    break;
-                case R.id.action_upload_list_delete:
-                default:
-                    removeUpload(item);
-                    break;
+            int itemId = i.getItemId();
+
+            if (itemId == R.id.action_upload_list_resolve_conflict) {
+                checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status);
+            } else {
+                removeUpload(item);
             }
+
             return true;
         });
         popup.show();
