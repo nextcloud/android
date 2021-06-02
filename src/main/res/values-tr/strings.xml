@@ -11,11 +11,11 @@
     <string name="action_edit">Düzenle</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
     <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
-    <string name="action_send_share">Gönder/Paylaş</string>
+    <string name="action_send_share">Gönder/paylaş</string>
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
     <string name="actionbar_contacts">Kişileri yedekle</string>
-    <string name="actionbar_contacts_restore">Kişileri Geri Yükle</string>
+    <string name="actionbar_contacts_restore">Kişileri geri yükle</string>
     <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
@@ -283,7 +283,9 @@
     <string name="etm_transfer_enqueue_test_download">Sınama indirmesini sıraya al</string>
     <string name="etm_transfer_enqueue_test_upload">Sınama yüklemesini sıraya al</string>
     <string name="etm_transfer_remote_path">Uzak yol</string>
-    <string name="etm_transfer_type">Aktar</string>
+    <string name="etm_transfer_type">Aktarım</string>
+    <string name="etm_transfer_type_download">İndirme</string>
+    <string name="etm_transfer_type_upload">Yükleme</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>

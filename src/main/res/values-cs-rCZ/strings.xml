@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migrace (přechod na novější verzi aplikace)</string>
     <string name="etm_preferences">Předvolby</string>
     <string name="etm_title">Vývojářský testovací režim</string>
+    <string name="etm_transfer">Přenos souboru</string>
+    <string name="etm_transfer_enqueue_test_download">Zařadit do fronty testovacího stahování</string>
+    <string name="etm_transfer_enqueue_test_upload">Zařadit do fronty testovacího nahrávání</string>
+    <string name="etm_transfer_remote_path">Cesta federovaného úložiště</string>
+    <string name="etm_transfer_type">Přenesení</string>
+    <string name="etm_transfer_type_download">Stáhnout</string>
+    <string name="etm_transfer_type_upload">Nahrát</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
