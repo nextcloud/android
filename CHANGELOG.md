@@ -1,3 +1,12 @@
+## 3.17.0 (-, -, -)
+
+- New upload manager @ezaquarii
+- UI improvements
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+For a full list, please see https://github.com/nextcloud/android/milestone/59
+
 ## 3.16.1 (June, 01, 2021)
 
 - Fix media tab not showing images/videos

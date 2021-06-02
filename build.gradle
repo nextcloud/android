@@ -126,7 +126,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 29
 
         // arguments to be passed to functional tests
