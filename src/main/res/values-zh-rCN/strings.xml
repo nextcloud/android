@@ -80,9 +80,9 @@
     <string name="avatar">头像</string>
     <string name="away">离开</string>
     <string name="battery_optimization_close">关闭</string>
-    <string name="battery_optimization_disable">禁用</string>
-    <string name="battery_optimization_message">您的设备可能已启用电池优化。 如果您从中排除此应用，则自动加载只能单独工作。</string>
-    <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
+    <string name="battery_optimization_disable">去设置</string>
+    <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
+    <string name="battery_optimization_no_setting">无法直接开启电池设置界面，请在系统设置中手动调整。</string>
     <string name="battery_optimization_title">电池优化</string>
     <string name="brute_force_delay">因过多的错误尝试而延误</string>
     <string name="certificate_load_problem">加载证书失败。</string>
