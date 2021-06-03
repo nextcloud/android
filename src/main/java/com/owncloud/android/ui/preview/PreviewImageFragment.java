@@ -56,7 +56,6 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -125,7 +124,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
-    @Inject DeviceInfo deviceInfo;
     private PreviewImageFragmentBinding binding;
 
     /**
@@ -376,7 +374,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 
@@ -407,46 +404,37 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send_share_file:
-                if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                    Snackbar.make(requireView(),
-                                  R.string.resharing_is_not_allowed,
-                                  Snackbar.LENGTH_LONG
-                                 )
-                            .show();
-                } else {
-                    containerActivity.getFileOperationsHelper().sendShareFile(getFile());
-                }
-                return true;
-
-            case R.id.action_open_file_with:
-                openFile();
-                return true;
-
-            case R.id.action_remove_file:
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-                return true;
-
-            case R.id.action_see_details:
-                seeDetails();
-                return true;
-
-            case R.id.action_download_file:
-            case R.id.action_sync_file:
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-
-            case R.id.action_set_as_wallpaper:
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_send_share_file) {
+            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+                Snackbar.make(requireView(),
+                              R.string.resharing_is_not_allowed,
+                              Snackbar.LENGTH_LONG
+                             )
+                    .show();
+            } else {
+                containerActivity.getFileOperationsHelper().sendShareFile(getFile());
+            }
+            return true;
+        } else if (itemId == R.id.action_open_file_with) {
+            openFile();
+            return true;
+        } else if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_see_details) {
+            seeDetails();
+            return true;
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_set_as_wallpaper) {
+            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
-
 
     private void seeDetails() {
         containerActivity.showDetails(getFile());
@@ -464,7 +452,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         super.onDestroy();
     }
 
-
     /**
      * Opens the previewed image with an external application.
      */
@@ -472,7 +459,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         containerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
-
 
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
         private static final int PARAMS_LENGTH = 1;
@@ -491,7 +477,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
          * Error message to show when a load fails.
          */
         private int mErrorMessageId;
-
 
         /**
          * Constructor.

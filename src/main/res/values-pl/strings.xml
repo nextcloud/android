@@ -284,6 +284,8 @@
     <string name="etm_transfer_enqueue_test_upload">Dodaj wysyłanie testowe do kolejki</string>
     <string name="etm_transfer_remote_path">Zdalna ścieżka</string>
     <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_download">Pobierz</string>
+    <string name="etm_transfer_type_upload">Wyślij</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
@@ -625,7 +627,7 @@
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
     <string name="share_with_title">Udostępnij z…</string>
-    <string name="shared_avatar_desc">Avatar użytkownika udostępniającego</string>
+    <string name="shared_avatar_desc">Awatar użytkownika udostępniającego</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared">udostępniono</string>
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>

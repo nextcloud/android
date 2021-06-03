@@ -346,6 +346,7 @@
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
+            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />

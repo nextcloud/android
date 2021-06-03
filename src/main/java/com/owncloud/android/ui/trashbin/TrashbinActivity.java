@@ -23,12 +23,14 @@
  */
 package com.owncloud.android.ui.trashbin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
@@ -36,6 +38,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.TrashbinActivityBinding;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
@@ -82,8 +85,21 @@ public class TrashbinActivity extends DrawerActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final User user = accountProvider.getUser();
-        final RemoteTrashbinRepository trashRepository = new RemoteTrashbinRepository(user, clientFactory);
+        final User currentUser = getUser().orElse(accountProvider.getUser());
+        final String targetAccount = getIntent().getStringExtra(Intent.EXTRA_USER);
+        if (targetAccount != null && !currentUser.nameEquals(targetAccount)) {
+            final Optional<User> targetUser = getUserAccountManager().getUser(targetAccount);
+            if (targetUser.isPresent()) {
+                setUser(targetUser.get());
+            } else {
+                Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+        }
+
+        final RemoteTrashbinRepository trashRepository =
+            new RemoteTrashbinRepository(getUser().orElse(accountProvider.getUser()), clientFactory);
         trashbinPresenter = new TrashbinPresenter(trashRepository, this);
 
         binding = TrashbinActivityBinding.inflate(getLayoutInflater());
@@ -118,7 +134,7 @@ public class TrashbinActivity extends DrawerActivity implements
             getStorageManager(),
             preferences,
             this,
-            getUserAccountManager().getUser()
+            getUser().orElse(accountProvider.getUser())
         );
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);
@@ -267,6 +283,17 @@ public class TrashbinActivity extends DrawerActivity implements
     public void showInitialLoading() {
         binding.loadingContent.setVisibility(View.VISIBLE);
         binding.list.setVisibility(View.GONE);
+    }
+
+    @VisibleForTesting
+    public void showUser() {
+        binding.loadingContent.setVisibility(View.GONE);
+        binding.list.setVisibility(View.VISIBLE);
+        binding.swipeContainingList.setRefreshing(false);
+
+        binding.emptyList.emptyListViewText.setText(getUser().get().getAccountName());
+        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
     }
 
     @Override

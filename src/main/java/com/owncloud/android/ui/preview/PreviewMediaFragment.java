@@ -50,7 +50,6 @@ import android.widget.LinearLayout;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.media.ErrorFormat;
 import com.nextcloud.client.media.PlayerServiceConnection;
@@ -112,7 +111,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private Uri videoUri;
     @Inject ClientFactory clientFactory;
     @Inject UserAccountManager accountManager;
-    @Inject DeviceInfo deviceInfo;
     FragmentPreviewMediaBinding binding;
     LinearLayout emptyListView;
 
@@ -325,7 +323,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 

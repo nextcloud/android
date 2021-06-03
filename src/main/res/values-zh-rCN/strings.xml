@@ -284,6 +284,8 @@
     <string name="etm_transfer_enqueue_test_upload">将测试上传加入队列</string>
     <string name="etm_transfer_remote_path">远程路径</string>
     <string name="etm_transfer_type">传输</string>
+    <string name="etm_transfer_type_download">下载</string>
+    <string name="etm_transfer_type_upload">上传</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>

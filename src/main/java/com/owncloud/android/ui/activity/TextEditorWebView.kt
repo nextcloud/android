@@ -23,10 +23,8 @@ package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
@@ -34,14 +32,13 @@ import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import javax.inject.Inject
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var appInfo: AppInfo
     @Inject
     lateinit var deviceInfo: DeviceInfo
 
-    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used >= Lollipop
+    @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -526,7 +526,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                Collections.singleton(file),
                                                mContainerActivity, getActivity(),
                                                true,
-                                               deviceInfo,
                                                accountManager.getUser());
         mf.filter(popup.getMenu(), true);
         popup.setOnMenuItemClickListener(item -> {
@@ -685,7 +684,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 accountManager.getUser()
             );
 
