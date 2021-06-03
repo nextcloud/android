@@ -81,7 +81,7 @@
     <string name="away">不在</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
-    <string name="battery_optimization_message">您的裝置可能啟用了電池優化。自動上傳功能只能在此應用程式排除的情況下才能運作。</string>
+    <string name="battery_optimization_message">您的裝置可能啟用了電池優化。 僅當您從中排除此應用程式時，自動上傳才能正常工作。</string>
     <string name="battery_optimization_no_setting">轉價電池設定頁面失敗，請在系統設定中手動調整。</string>
     <string name="battery_optimization_title">電池優化</string>
     <string name="brute_force_delay">由於嘗試過多而延遲</string>
