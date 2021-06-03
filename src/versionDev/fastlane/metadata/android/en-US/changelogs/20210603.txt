@@ -1,0 +1,12 @@
+remove deprecated test
+remove unused imports, shorten when construct
+use if/else instead of switch for menu actions
+remove unused code due to Android 5.0 support dropped
+Drop Android 5.0 support
+Add UI tests
+3rd-party-apps trashbin: Use Intent.EXTRA_USER in favor of custom String key
+3rd-party-apps trashbin: Use SessionMixin to switch to targetUser
+3rd-party-apps trashbin: Replace logging with toast, use User#nameEquals
+Allow 3rd party apps to open the trashbin for a specific account
+Update translations
+Update Nextcloud Android library
