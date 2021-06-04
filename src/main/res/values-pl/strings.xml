@@ -208,7 +208,7 @@
     <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
-    <string name="downloader_download_in_progress_ticker">Pobieram…</string>
+    <string name="downloader_download_in_progress_ticker">Pobieranie…</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
     <string name="downloader_download_succeeded_ticker">Pobrano</string>
     <string name="downloader_not_downloaded_yet">Jeszcze nie pobrane</string>
@@ -660,7 +660,7 @@
     <string name="ssl_validator_label_validity_from">Od:</string>
     <string name="ssl_validator_label_validity_to">Do:</string>
     <string name="ssl_validator_no_info_about_error">- Brak informacji o błędzie</string>
-    <string name="ssl_validator_not_saved">Nie udało się zapisac certyfikatu</string>
+    <string name="ssl_validator_not_saved">Nie udało się zapisać certyfikatu</string>
     <string name="ssl_validator_null_cert">Nie można wyświetlić certyfikatu.</string>
     <string name="ssl_validator_question">Zaakceptować certyfikat mimo wszystko?</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
