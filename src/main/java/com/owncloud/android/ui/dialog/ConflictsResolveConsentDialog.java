@@ -188,14 +188,14 @@ public class ConflictsResolveConsentDialog extends DialogFragment {
     }
 
     public void showDialog(AppCompatActivity activity) {
-        Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("conflict dialog");
+        Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("dialog");
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
 
-        this.show(ft, "conflict dialog");
+        this.show(ft, "dialog");
     }
 
     @Override

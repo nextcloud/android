@@ -30,6 +30,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.ui.dialog.ConflictsResolveConsentDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -40,18 +41,18 @@ import org.junit.Test;
 
 import java.util.Objects;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class ConflictsResolveActivityIT extends AbstractIT {
+public class ConflictsResolveActivityNewIT extends AbstractIT {
     @Rule public IntentsTestRule<ConflictsResolveActivity> activityRule =
         new IntentsTestRule<>(ConflictsResolveActivity.class, true, false);
     private boolean returnCode;
@@ -78,12 +79,12 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-                                                                           newFile,
-                                                                           UserAccountManagerImpl
+        ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
+                                                                                  newFile,
+                                                                                  UserAccountManagerImpl
                                                                                .fromContext(targetContext)
                                                                                .getUser()
-                                                                          );
+                                                                                 );
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
@@ -95,60 +96,6 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
     }
-
-//    @Test
-    // @ScreenshotTest // todo run without real server
-//    public void screenshotImages() throws IOException {
-//        FileDataStorageManager storageManager = new FileDataStorageManager(account,
-//                                                                           targetContext.getContentResolver());
-//
-//        OCFile newFile = new OCFile("/newFile.txt");
-//        newFile.setFileLength(56000);
-//        newFile.setModificationTimestamp(1522019340);
-//        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
-//
-//        File image = getFile("image.jpg");
-//
-//        assertTrue(new UploadFileRemoteOperation(image.getAbsolutePath(),
-//                                                 "/image.jpg",
-//                                                 "image/jpg",
-//                                                 "10000000").execute(client).isSuccess());
-//
-//        assertTrue(new RefreshFolderOperation(storageManager.getFileByPath("/"),
-//                                              System.currentTimeMillis(),
-//                                              false,
-//                                              true,
-//                                              storageManager,
-//                                              account,
-//                                              targetContext
-//        ).execute(client).isSuccess());
-//
-//        OCFile existingFile = storageManager.getFileByPath("/image.jpg");
-//
-//        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-//        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-//        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-//
-//        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
-//
-//        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
-//
-//        };
-//
-//        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-//                                                                           newFile,
-//                                                                           UserAccountManagerImpl
-//                                                                               .fromContext(targetContext)
-//                                                                               .getUser()
-//                                                                          );
-//        dialog.showDialog(sut);
-//        dialog.listener = listener;
-//
-//        getInstrumentation().waitForIdleSync();
-//        shortSleep();
-//
-//        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-//    }
 
     @Test
     public void cancel() {
@@ -178,7 +125,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+        ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
                                                                            newFile,
                                                                            UserAccountManagerImpl
                                                                                .fromContext(targetContext)
@@ -194,13 +141,12 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
-        onView(withText("Cancel")).perform(click());
+        onView(withId(R.id.replace_btn)).perform(pressBack());
 
         assertTrue(returnCode);
     }
 
     @Test
-    @ScreenshotTest
     public void keepExisting() {
         returnCode = false;
 
@@ -228,7 +174,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+        ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
                                                                            newFile,
                                                                            UserAccountManagerImpl
                                                                                .fromContext(targetContext)
@@ -243,17 +189,12 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.existing_checkbox)).perform(click());
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
+        onView(withId(R.id.cancel_keep_existing_btn)).perform(click());
 
         assertTrue(returnCode);
     }
 
     @Test
-    @ScreenshotTest
     public void keepNew() {
         returnCode = false;
 
@@ -282,7 +223,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+        ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
                                                                            newFile,
                                                                            UserAccountManagerImpl
                                                                                .fromContext(targetContext)
@@ -297,17 +238,12 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.new_checkbox)).perform(click());
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
+        onView(withId(R.id.replace_btn)).perform(click());
 
         assertTrue(returnCode);
     }
 
     @Test
-    @ScreenshotTest
     public void keepBoth() {
         returnCode = false;
 
@@ -335,7 +271,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+        ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
                                                                            newFile,
                                                                            UserAccountManagerImpl
                                                                                .fromContext(targetContext)
@@ -350,12 +286,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.existing_checkbox)).perform(click());
-        onView(withId(R.id.new_checkbox)).perform(click());
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
+        onView(withId(R.id.keep_both_btn)).perform(click());
 
         assertTrue(returnCode);
     }
