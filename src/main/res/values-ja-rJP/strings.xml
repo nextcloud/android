@@ -194,6 +194,7 @@
     <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
     <string name="dialog_close">閉じる</string>
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
+    <string name="direct_login_failed">ダイレクトリンクからのログインに失敗しました!</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
@@ -276,10 +277,15 @@
     <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
+    <string name="etm_transfer">ファイル転送</string>
+    <string name="etm_transfer_remote_path">リモートパス</string>
+    <string name="etm_transfer_type">転送</string>
+    <string name="etm_transfer_type_download">ダウンロード</string>
+    <string name="etm_transfer_type_upload">アップロード</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
-    <string name="failed_to_start_editor">エディタの起動に失敗しました</string>
+    <string name="failed_to_start_editor">エディターの起動に失敗しました</string>
     <string name="failed_update_ui">UIの更新に失敗しました</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
@@ -307,6 +313,7 @@
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
+    <string name="file_migration_dialog_title">データ保存フォルダーを更新</string>
     <string name="file_migration_directory_already_exists">データフォルダは既に存在します。 次のいずれかを選択します。</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudフォルダは既に存在します</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
@@ -320,6 +327,7 @@
     <string name="file_migration_preparing">移行の準備中…</string>
     <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
+    <string name="file_migration_source_not_readable">データ保存フォルダーを %1$s に変更しますか?\n\n注意: すべてのデータを再度ダウンロードする必要があります。</string>
     <string name="file_migration_source_not_readable_title">ソースフォルダが読み込めません！</string>
     <string name="file_migration_updating_index">インデックスの更新中…</string>
     <string name="file_migration_use_data_folder">利用</string>
@@ -386,13 +394,16 @@
     <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
+    <string name="logs_menu_send">メールでログを送信</string>
     <string name="logs_status_filtered">ログ: %1$d kB, 一致 %2$d 件 / %3$d 件、%4$d ms </string>
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>
     <string name="logs_title">ログ</string>
+    <string name="maintenance_mode">サーバーはメンテナンスモードです</string>
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
+    <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
     <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>
     <string name="media_err_timeout">再生試行がタイムアウトしました</string>
@@ -473,6 +484,7 @@
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
     <string name="player_stop">中止</string>
+    <string name="player_toggle">切替え</string>
     <string name="power_save_check_dialog_message">省電力チェックを無効にすると、バッテリー残量が少ないときにもファイルのアップロードを行う場合があります！</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
@@ -482,7 +494,7 @@
     <string name="pref_instant_name_collision_policy_entries_cancel">アップロードをスキップ</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">リモートのバージョンを上書きする</string>
     <string name="pref_instant_name_collision_policy_entries_rename">新しいバージョンの名前を変更</string>
-    <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在する場合、どうしますか？</string>
+    <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在するときの対応</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_address_resolve_error">このアカウントのDAVx5 (f旧称 DAVdroid)用サーバアドレスが解決できませんでした</string>
@@ -518,6 +530,8 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
+    <string name="prefs_storage_path">データ保存フォルダー</string>
+    <string name="prefs_sycned_folders_summary">自動アップロードするフォルダーを管理する</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="prefs_theme_title">テーマ</string>
@@ -533,6 +547,7 @@
     <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
+    <string name="qr_could_not_be_read">QRコードを読み込めません!</string>
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
@@ -565,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">カレンダー &amp; 連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="select_all">すべて選択</string>
+    <string name="select_one_template">テンプレートを選択してください</string>
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
     <string name="send_note">受信者にメモを送信する</string>
@@ -659,6 +675,7 @@
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
+    <string name="strict_mode">Strictモード: http接続は許可されていません</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
@@ -745,6 +762,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
     <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーできませんでした。再送してください。</string>
     <string name="uploader_error_message_source_file_not_found">選択したアップロードするファイルが見つかりません。ファイルが存在するかどうか確認してください。</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
@@ -806,6 +824,7 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">今のステータスは？</string>
+    <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>
