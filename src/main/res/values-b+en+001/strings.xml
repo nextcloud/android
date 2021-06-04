@@ -895,5 +895,11 @@
     <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
     <string name="camera_permission_denied">You cannot scan document without camera permission.</string>
     <string name="search_result_empty">Search for a file (at least 2 characters)</string>
-
+    <string name="description_add_more_scan">Add more document</string>
+    <string name="description_crop_scan">Crop scanned document</string>
+    <string name="description_filter_scan">Filter scanned document</string>
+    <string name="description_rotate_scan">Rotate scanned document</string>
+    <string name="description_delete_scan">Delete scanned document</string>
+    <string name="description_edit_filename">Edit scan filename</string>
+    <string name="description_edit_location">Edit scan location</string>
 </resources>

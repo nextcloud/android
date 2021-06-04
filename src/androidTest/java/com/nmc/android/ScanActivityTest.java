@@ -6,22 +6,18 @@ import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 
-import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.hasTextColor;
@@ -35,6 +31,9 @@ import static org.hamcrest.core.IsNot.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+/**
+ *Scan test to test the full flow of document scan from Scanning to Save page.
+ */
 public class ScanActivityTest extends AbstractIT {
 
     @Rule public ActivityScenarioRule<ScanActivity> activityRule = new ActivityScenarioRule<>(ScanActivity.class);
@@ -46,20 +45,23 @@ public class ScanActivityTest extends AbstractIT {
     private int docScanCount = 0;
 
     @Test
+    /**
+     * running all test in one test will create a flow from scanning to saving the scans
+     */
     public void runAllScanTests() {
         verifyIfToolbarHidden();
         verifyIfScanFragmentReplaced();
         verifyToggleAutomatic();
         verifyToggleFlash();
-        verifyDocScan();
-      /*verifyScanMoreDocument();
+        captureAndVerifyDocScan();
+        verifyScanMoreDocument();
         verifyApplyFilter();
         verifyRotateDocument();
         verifyImageCrop();
         verifyImageDeletion();
         verifySaveScannedDocs();
         verifyPasswordSwitch();
-        verifyPdfPasswordSwitchToggle();*/
+        verifyPdfPasswordSwitchToggle();
     }
 
     public void verifyIfToolbarHidden() {
@@ -93,22 +95,19 @@ public class ScanActivityTest extends AbstractIT {
     }
 
 
-    public void verifyDocScan() {
+    public void captureAndVerifyDocScan() {
         onView(withId(R.id.shutterButton)).perform(click());
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        shortSleep();
+        shortSleep();
+        shortSleep();
         docScanCount++;
         assertEquals(docScanCount, ScanActivity.scannedImages.size());
     }
 
     public void verifyScanMoreDocument() {
         onView(withId(R.id.scanMoreButton)).perform(click());
-        verifyDocScan();
+        captureAndVerifyDocScan();
     }
-
 
     public void verifyApplyFilter() {
         onView(withId(R.id.filterDocButton)).perform(click());
@@ -121,6 +120,10 @@ public class ScanActivityTest extends AbstractIT {
             .inRoot(isDialog())
             .check(matches(isDisplayed()))
             .perform(click());
+
+        shortSleep();
+        shortSleep();
+        shortSleep();
     }
 
 
@@ -151,7 +154,7 @@ public class ScanActivityTest extends AbstractIT {
 
         onView(withId(R.id.scan_save_filename_input)).check(matches(isDisplayed()));
         onView(withId(R.id.scan_save_location_input)).check(matches(isDisplayed()));
-        onView(withId(R.id.scan_save_nested_scroll_view)).perform(scrollTo());
+        onView(withId(R.id.scan_save_nested_scroll_view)).perform(swipeUp());
 
         onView(withId(R.id.scan_save_without_txt_recognition_pdf_checkbox)).check(matches(isDisplayed()));
         onView(withId(R.id.scan_save_without_txt_recognition_png_checkbox)).check(matches(isDisplayed()));

@@ -46,10 +46,12 @@
     <LinearLayout
         android:id="@+id/editScanBottomLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/edit_scan_bottom_bar_height"
         android:background="@color/scan_edit_bottom_color"
         android:orientation="horizontal"
-        android:padding="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_half_padding"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/editScanEndDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -57,27 +59,30 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/scanMoreButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:tint="@color/scan_text_color"
             android:layout_weight="1"
-            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/description_add_more_scan"
+            android:padding="@dimen/standard_padding"
             android:src="@drawable/ic_plus" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cropDocButton"
             android:layout_width="wrap_content"
             android:tint="@color/scan_text_color"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/description_crop_scan"
+            android:padding="@dimen/standard_padding"
             android:src="@drawable/ic_crop" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/filterDocButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/description_filter_scan"
+            android:padding="@dimen/standard_padding"
             android:tint="@color/scan_text_color"
             android:src="@drawable/ic_filter" />
 
@@ -85,18 +90,20 @@
             android:id="@+id/rotateDocButton"
             android:tint="@color/scan_text_color"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/description_rotate_scan"
+            android:padding="@dimen/standard_padding"
             android:src="@drawable/ic_rotate_right" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/deleteDocButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:tint="@color/scan_text_color"
+            android:contentDescription="@string/description_delete_scan"
             android:layout_weight="1"
-            android:padding="@dimen/standard_half_padding"
+            android:padding="@dimen/standard_padding"
             android:src="@drawable/ic_remove" />
     </LinearLayout>
 
