@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.StoragePathDialogBinding;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -45,10 +45,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Picker dialog for choosing a (storage) path.
@@ -66,10 +62,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
         internalStoragePaths.add("/mnt/sdcard");
     }
 
-    private Unbinder unbinder;
-
-    @BindView(R.id.storage_path_recycler_view)
-    RecyclerView recyclerView;
+    private StoragePathDialogBinding binding;
 
     public static LocalStoragePathPickerDialogFragment newInstance() {
         return new LocalStoragePathPickerDialogFragment();
@@ -81,7 +74,9 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+        if (alertDialog != null) {
+            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+        }
     }
 
     @Override
@@ -99,13 +94,13 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.storage_path_dialog, null, false);
+        binding = StoragePathDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         StoragePathAdapter adapter = new StoragePathAdapter(getPathList(), this);
 
-        unbinder = ButterKnife.bind(this, view);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.storagePathRecyclerView.setAdapter(adapter);
+        binding.storagePathRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -117,10 +112,9 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     }
 
     @Override
-    public void onStop() {
-        unbinder.unbind();
-
-        super.onStop();
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
     }
 
     @Override

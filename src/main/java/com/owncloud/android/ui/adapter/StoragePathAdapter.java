@@ -23,17 +23,13 @@ package com.owncloud.android.ui.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.owncloud.android.R;
+import com.owncloud.android.databinding.StoragePathItemBinding;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.StoragePathViewHolder> {
     private List<StoragePathItem> pathList;
@@ -47,8 +43,9 @@ public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.
     @NonNull
     @Override
     public StoragePathViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.storage_path_item, parent, false);
-        return new StoragePathAdapter.StoragePathViewHolder(v);
+        return new StoragePathAdapter.StoragePathViewHolder(
+            StoragePathItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+        );
     }
 
     @Override
@@ -56,8 +53,8 @@ public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.
         if (pathList != null && pathList.size() > position) {
             StoragePathItem storagePathItem = pathList.get(position);
 
-            holder.icon.setImageResource(storagePathItem.getIcon());
-            holder.name.setText(storagePathItem.getName());
+            holder.binding.icon.setImageResource(storagePathItem.getIcon());
+            holder.binding.name.setText(storagePathItem.getName());
         }
     }
 
@@ -76,15 +73,11 @@ public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.
     }
 
     class StoragePathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.icon)
-        ImageView icon;
-        @BindView(R.id.name)
-        TextView name;
+        StoragePathItemBinding binding;
 
-        public StoragePathViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
+        public StoragePathViewHolder(StoragePathItemBinding binding) {
+            super(binding.getRoot());
+            binding.getRoot().setOnClickListener(this);
         }
 
         @Override

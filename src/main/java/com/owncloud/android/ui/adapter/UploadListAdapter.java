@@ -35,12 +35,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
@@ -52,6 +47,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.UploadListHeaderBinding;
+import com.owncloud.android.databinding.UploadListItemBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -75,8 +72,6 @@ import java.io.File;
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -111,25 +106,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         UploadGroup group = uploadGroups[section];
 
-        headerViewHolder.title.setText(String.format(parentActivity.getString(R.string.uploads_view_group_header),
-                                                     group.getGroupName(), group.getGroupItemCount()));
-        headerViewHolder.title.setTextColor(ThemeColorUtils.primaryAccentColor(parentActivity));
+        headerViewHolder.binding.uploadListTitle.setText(
+            String.format(parentActivity.getString(R.string.uploads_view_group_header),
+                          group.getGroupName(), group.getGroupItemCount()));
+        headerViewHolder.binding.uploadListTitle.setTextColor(ThemeColorUtils.primaryAccentColor(parentActivity));
 
-        headerViewHolder.title.setOnClickListener(v -> toggleSectionExpanded(section));
+        headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
 
         switch (group.type) {
             case CURRENT:
-                headerViewHolder.action.setImageResource(R.drawable.ic_close);
-                break;
             case FINISHED:
-                headerViewHolder.action.setImageResource(R.drawable.ic_close);
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
                 break;
             case FAILED:
-                headerViewHolder.action.setImageResource(R.drawable.ic_sync);
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_sync);
                 break;
         }
 
-        headerViewHolder.action.setOnClickListener(v -> {
+        headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT:
                     FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
@@ -223,7 +217,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         OCUpload item = uploadGroups[section].getItem(relativePosition);
 
-        itemViewHolder.name.setText(item.getLocalPath());
+        itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
         // local file name
         File remoteFile = new File(item.getRemotePath());
@@ -231,17 +225,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         if (fileName.length() == 0) {
             fileName = File.separator;
         }
-        itemViewHolder.name.setText(fileName);
+        itemViewHolder.binding.uploadName.setText(fileName);
 
         // remote path to parent folder
-        itemViewHolder.remotePath.setText(new File(item.getRemotePath()).getParent());
+        itemViewHolder.binding.uploadRemotePath.setText(new File(item.getRemotePath()).getParent());
 
         // file size
         if (item.getFileSize() != 0) {
-            itemViewHolder.fileSize.setText(String.format("%s, ",
+            itemViewHolder.binding.uploadFileSize.setText(String.format("%s, ",
                     DisplayUtils.bytesToHumanReadable(item.getFileSize())));
         } else {
-            itemViewHolder.fileSize.setText("");
+            itemViewHolder.binding.uploadFileSize.setText("");
         }
 
         // upload date
@@ -250,36 +244,37 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                          updateTime,
                                                                          DateUtils.SECOND_IN_MILLIS,
                                                                          DateUtils.WEEK_IN_MILLIS, 0);
-        itemViewHolder.date.setText(dateString);
+        itemViewHolder.binding.uploadDate.setText(dateString);
 
         // account
         final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
         if (showUser) {
-            itemViewHolder.account.setVisibility(View.VISIBLE);
+            itemViewHolder.binding.uploadAccount.setVisibility(View.VISIBLE);
             if (optionalUser.isPresent()) {
-                itemViewHolder.account.setText(DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
+                itemViewHolder.binding.uploadAccount.setText(
+                    DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
             } else {
-                itemViewHolder.account.setText(item.getAccountName());
+                itemViewHolder.binding.uploadAccount.setText(item.getAccountName());
             }
         } else {
-            itemViewHolder.account.setVisibility(View.GONE);
+            itemViewHolder.binding.uploadAccount.setVisibility(View.GONE);
         }
 
         // Reset fields visibility
-        itemViewHolder.date.setVisibility(View.VISIBLE);
-        itemViewHolder.remotePath.setVisibility(View.VISIBLE);
-        itemViewHolder.fileSize.setVisibility(View.VISIBLE);
-        itemViewHolder.status.setVisibility(View.VISIBLE);
-        itemViewHolder.progressBar.setVisibility(View.GONE);
+        itemViewHolder.binding.uploadDate.setVisibility(View.VISIBLE);
+        itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
+        itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
+        itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
+        itemViewHolder.binding.uploadProgressBar.setVisibility(View.GONE);
 
         // Update information depending of upload details
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                ThemeBarUtils.colorHorizontalProgressBar(itemViewHolder.progressBar,
+                ThemeBarUtils.colorHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar,
                                                          ThemeColorUtils.primaryAccentColor(parentActivity));
-                itemViewHolder.progressBar.setProgress(0);
-                itemViewHolder.progressBar.setVisibility(View.VISIBLE);
+                itemViewHolder.binding.uploadProgressBar.setProgress(0);
+                itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
 
                 FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
                 if (binder != null) {
@@ -293,14 +288,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             );
                         }
                         // ... then, bind the current progress bar to listen for updates
-                        progressListener = new ProgressListener(item, itemViewHolder.progressBar);
+                        progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
                         binder.addDatatransferProgressListener(progressListener, item);
                     } else {
                         // not really uploading; stop listening progress if view is reused!
-                        if (progressListener != null && progressListener.isWrapping(itemViewHolder.progressBar)) {
+                        if (progressListener != null &&
+                            progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
                             binder.removeDatatransferProgressListener(progressListener,
-                                                                      progressListener.getUpload()   // the one that was added
-                            );
+                                                                      progressListener.getUpload() // the one that was added
+                                                                     );
                             progressListener = null;
                         }
                     }
@@ -308,27 +304,27 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     Log_OC.w(TAG, "FileUploaderBinder not ready yet for upload " + item.getRemotePath());
                 }
 
-                itemViewHolder.date.setVisibility(View.GONE);
-                itemViewHolder.fileSize.setVisibility(View.GONE);
-                itemViewHolder.progressBar.invalidate();
+                itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
+                itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
+                itemViewHolder.binding.uploadProgressBar.invalidate();
                 break;
 
             case UPLOAD_FAILED:
-                itemViewHolder.date.setVisibility(View.GONE);
+                itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
                 break;
 
             case UPLOAD_SUCCEEDED:
-                itemViewHolder.status.setVisibility(View.GONE);
+                itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
                 break;
         }
-        itemViewHolder.status.setText(status);
+        itemViewHolder.binding.uploadStatus.setText(status);
 
         // bind listeners to perform actions
         if (item.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
             // Cancel
-            itemViewHolder.button.setImageResource(R.drawable.ic_action_cancel_grey);
-            itemViewHolder.button.setVisibility(View.VISIBLE);
-            itemViewHolder.button.setOnClickListener(v -> {
+            itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
+            itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
                 FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
                 if (uploaderBinder != null) {
                     uploaderBinder.cancel(item);
@@ -338,8 +334,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
             if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
-                itemViewHolder.button.setImageResource(R.drawable.ic_dots_vertical);
-                itemViewHolder.button.setOnClickListener(view -> {
+                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical);
+                itemViewHolder.binding.uploadRightButton.setOnClickListener(view -> {
                     if (optionalUser.isPresent()) {
                         User user = optionalUser.get();
                         showItemConflictPopup(user, itemViewHolder, item, status, view);
@@ -347,20 +343,20 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 });
             } else {
                 // Delete
-                itemViewHolder.button.setImageResource(R.drawable.ic_action_delete_grey);
-                itemViewHolder.button.setOnClickListener(v -> removeUpload(item));
+                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_delete_grey);
+                itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> removeUpload(item));
             }
-            itemViewHolder.button.setVisibility(View.VISIBLE);
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
         } else {    // UploadStatus.UPLOAD_SUCCESS
-            itemViewHolder.button.setVisibility(View.INVISIBLE);
+            itemViewHolder.binding.uploadRightButton.setVisibility(View.INVISIBLE);
         }
 
-        itemViewHolder.itemLayout.setOnClickListener(null);
+        itemViewHolder.binding.uploadListItemLayout.setOnClickListener(null);
 
         // click on item
         if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
             final UploadResult uploadResult = item.getLastResult();
-            itemViewHolder.itemLayout.setOnClickListener(v -> {
+            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
                     parentActivity.getFileOperationsHelper().checkCurrentCredentials(item.getAccount(accountManager));
                     return;
@@ -384,11 +380,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 }
             });
         } else {
-            itemViewHolder.itemLayout.setOnClickListener(v -> onUploadItemClick(item));
+            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> onUploadItemClick(item));
         }
 
         // Set icon or thumbnail
-        itemViewHolder.thumbnail.setImageResource(R.drawable.file);
+        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file);
 
         /*
          * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
@@ -399,7 +395,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         fakeFileToCheatThumbnailsCacheManagerInterface.setMimeType(item.getMimeType());
 
         boolean allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(
-                fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.thumbnail
+                fakeFileToCheatThumbnailsCacheManagerInterface, itemViewHolder.binding.thumbnail
         );
 
         // TODO this code is duplicated; refactor to a common place
@@ -411,13 +407,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
             );
             if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
-                itemViewHolder.thumbnail.setImageBitmap(thumbnail);
+                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
                 if (allowedToCreateNewThumbnail) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                             new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                itemViewHolder.thumbnail, parentActivity.getStorageManager(), parentActivity.getAccount()
+                                itemViewHolder.binding.thumbnail,
+                                parentActivity.getStorageManager(),
+                                parentActivity.getAccount()
                             );
                     if (thumbnail == null) {
                         if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
@@ -432,14 +430,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                 thumbnail,
                                 task
                             );
-                    itemViewHolder.thumbnail.setImageDrawable(asyncDrawable);
+                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
                     task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(
                             fakeFileToCheatThumbnailsCacheManagerInterface, null));
                 }
             }
 
             if ("image/png".equals(item.getMimeType())) {
-                itemViewHolder.thumbnail.setBackgroundColor(parentActivity.getResources()
+                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources()
                         .getColor(R.color.bg_default));
             }
 
@@ -450,12 +448,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(file.hashCode()));
             if (thumbnail != null) {
-                itemViewHolder.thumbnail.setImageBitmap(thumbnail);
+                itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
                 if (allowedToCreateNewThumbnail) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.thumbnail);
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.binding.thumbnail);
 
                     if (MimeTypeUtil.isVideo(file)) {
                         thumbnail = ThumbnailsCacheManager.mDefaultVideo;
@@ -467,14 +465,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         new ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail,
                                                                           task);
 
-                    itemViewHolder.thumbnail.setImageDrawable(asyncDrawable);
+                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
                     task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
                     Log_OC.v(TAG, "Executing task to generate a new thumbnail");
                 }
             }
 
             if ("image/png".equalsIgnoreCase(item.getMimeType())) {
-                itemViewHolder.thumbnail.setBackgroundColor(parentActivity.getResources()
+                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources()
                         .getColor(R.color.bg_default));
             }
         } else {
@@ -484,7 +482,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                    fileName,
                                                                    user,
                                                                    parentActivity);
-                itemViewHolder.thumbnail.setImageDrawable(icon);
+                itemViewHolder.binding.thumbnail.setImageDrawable(icon);
             }
         }
     }
@@ -500,7 +498,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
             if (folder != null && folder.isFolder()) {
                 this.refreshFolder(itemViewHolder, user.toPlatformAccount(), folder, (caller, result) -> {
-                    itemViewHolder.status.setText(status);
+                    itemViewHolder.binding.uploadStatus.setText(status);
                     if (result.isSuccess()) {
                         OCFile file = storageManager.getFileByPath(remotePath);
                         if (file != null) {
@@ -549,9 +547,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         loadUploadItemsFromDb();
     }
 
-    private void refreshFolder(ItemViewHolder view, Account account, OCFile folder, OnRemoteOperationListener listener) {
-        view.itemLayout.setClickable(false);
-        view.status.setText(R.string.uploads_view_upload_status_fetching_server_version);
+    private void refreshFolder(
+        ItemViewHolder view,
+        Account account,
+        OCFile folder,
+        OnRemoteOperationListener listener) {
+        view.binding.uploadListItemLayout.setClickable(false);
+        view.binding.uploadStatus.setText(R.string.uploads_view_upload_status_fetching_server_version);
         Context context = MainApp.getAppContext();
         new RefreshFolderOperation(folder,
                                    clock.getCurrentTime(),
@@ -562,7 +564,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                    account,
                                    context)
             .execute(account, context, (caller, result) -> {
-                view.itemLayout.setClickable(true);
+                view.binding.uploadListItemLayout.setClickable(true);
                 listener.onRemoteOperationFinish(caller, result);
             }, parentActivity.getHandler());
     }
@@ -707,10 +709,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public SectionedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_HEADER) {
             return new HeaderViewHolder(
-                    LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_header, parent, false));
+                UploadListHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+            );
         } else {
             return new ItemViewHolder(
-                    LayoutInflater.from(parent.getContext()).inflate(R.layout.upload_list_item, parent, false));
+                UploadListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+            );
         }
     }
 
@@ -757,52 +761,20 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     static class HeaderViewHolder extends SectionedViewHolder {
-        @BindView(R.id.upload_list_title)
-        TextView title;
+        UploadListHeaderBinding binding;
 
-        @BindView(R.id.upload_list_action)
-        ImageView action;
-
-        HeaderViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        HeaderViewHolder(UploadListHeaderBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
     static class ItemViewHolder extends SectionedViewHolder {
-        @BindView(R.id.upload_name)
-        public TextView name;
+        UploadListItemBinding binding;
 
-        @BindView(R.id.thumbnail)
-        public ImageView thumbnail;
-
-        @BindView(R.id.upload_file_size)
-        public TextView fileSize;
-
-        @BindView(R.id.upload_date)
-        public TextView date;
-
-        @BindView(R.id.upload_status)
-        public TextView status;
-
-        @BindView(R.id.upload_account)
-        public TextView account;
-
-        @BindView(R.id.upload_remote_path)
-        public TextView remotePath;
-
-        @BindView(R.id.upload_progress_bar)
-        public ProgressBar progressBar;
-
-        @BindView(R.id.upload_right_button)
-        public  ImageButton button;
-
-        @BindView(R.id.upload_list_item_layout)
-        public LinearLayout itemLayout;
-
-        ItemViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        ItemViewHolder(UploadListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

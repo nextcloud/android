@@ -26,7 +26,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -39,6 +38,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.MultipleAccountsBinding;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
@@ -52,13 +52,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
-    @BindView(R.id.list)
-    RecyclerView listView;
+    private MultipleAccountsBinding binding;
 
     @Inject UserAccountManager accountManager;
 
@@ -72,9 +68,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.multiple_accounts, null);
-        ButterKnife.bind(this, view);
-
+        binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
         final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(parent);
@@ -86,11 +80,11 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       false,
                                                       false);
 
-        listView.setHasFixedSize(true);
-        listView.setLayoutManager(new LinearLayoutManager(activity));
-        listView.setAdapter(adapter);
+        binding.list.setHasFixedSize(true);
+        binding.list.setLayoutManager(new LinearLayoutManager(activity));
+        binding.list.setAdapter(adapter);
 
-        builder.setView(view).setTitle(R.string.common_choose_account);
+        builder.setView(binding.getRoot()).setTitle(R.string.common_choose_account);
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -131,5 +125,11 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
             parentActivity.changeAccount(user.toPlatformAccount());
         }
         dismiss();
+    }
+
+    @Override
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
     }
 }
