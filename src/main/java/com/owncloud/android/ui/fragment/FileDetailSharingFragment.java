@@ -283,7 +283,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         //track event on creating share link
-        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_CREATE_SHARING_LINK);
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_CREATE_SHARING_LINK);
     }
 
     private void showSendLinkTo(OCShare publicShare) {
