@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.22" />
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -46,16 +46,16 @@
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/thumbnail_shimmer"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
+                android:layout_width="@dimen/standard_folders_grid_item_size"
+                android:layout_height="@dimen/standard_folders_grid_item_size"
                 android:layout_gravity="center"
                 android:visibility="gone"
                 app:corners="8" />
 
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
+                android:layout_width="@dimen/standard_folders_grid_item_size"
+                android:layout_height="@dimen/standard_folders_grid_item_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:src="@drawable/folder" />

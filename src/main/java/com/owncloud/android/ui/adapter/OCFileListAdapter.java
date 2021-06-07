@@ -322,10 +322,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             case VIEWTYPE_IMAGE:
                 if (gridView) {
-                    if(isMediaGallery){
+                    if (isMediaGallery) {
                         View itemView = LayoutInflater.from(activity).inflate(R.layout.grid_image, parent, false);
                         return new OCFileListGridImageViewHolder(itemView);
-                    }else{
+                    } else {
                         View itemView = LayoutInflater.from(activity).inflate(R.layout.grid_item, parent, false);
                         return new OCFileListGridItemViewHolder(itemView);
                     }
@@ -379,7 +379,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          asyncTasks,
                          gridView,
                          activity,
-                         gridViewHolder.shimmerThumbnail, preferences);
+                         gridViewHolder.shimmerThumbnail,
+                         preferences,
+                         isMediaGallery);
 
             //remove padding if gallery media is there else enable padding
             if (isMediaGallery) {
@@ -588,14 +590,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridItemViewHolder.fileName.setText(file.getDecryptedFileName());
 
                 //if (gridView && gridImage) {
-                if(isMediaGallery){
+                if (isMediaGallery) {
                     gridItemViewHolder.fileName.setVisibility(View.GONE);
                 } else {
                    /* if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
                         gridItemViewHolder.fileName.setVisibility(View.GONE);
                     } else {*/
-                        gridItemViewHolder.fileName.setVisibility(View.VISIBLE);
-                   // }
+                    gridItemViewHolder.fileName.setVisibility(View.VISIBLE);
+                    // }
                 }
             }
 
@@ -649,7 +651,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
-        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null);
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null,
+                     false);
     }
 
     private static void setThumbnail(OCFile file,
@@ -660,33 +663,40 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                      boolean gridView,
                                      Context context,
                                      LoaderImageView shimmerThumbnail,
-                                     AppPreferences preferences) {
+                                     AppPreferences preferences,
+                                     boolean isMediaGallery) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
+            updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_folders_grid_item_size);
+            //reset the padding as this will change for files and we don't this for folders
+            thumbnailView.setPadding(0, 0, 0, 0);
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
                                                                   file.getMountType(), context));
         } else {
+            updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_files_grid_item_size);
+
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                                                                                );
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.alternate_padding);
                     stopShimmer(shimmerThumbnail, thumbnailView);
 
                     if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        if (gridView) {
-                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
-                        } else {
-                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
-                        }
+                        thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                     }
+
+                    //set the corner for both video and image thumbnail
+                    if (gridView) {
+                        BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                    } else {
+                        BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                    }
+
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
@@ -708,13 +718,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                            null);
                                 }
                                 thumbnail = BitmapUtils.drawableToBitmap(drawable);
+
+                                //set thumbnailView padding for no thumbnail
+                                setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
+
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
 
                             if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
-                                if (gridView) {
+                                //resize shimmer for gallery media
+                                if (gridView && isMediaGallery) {
                                     configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
                                 }
                                 startShimmer(shimmerThumbnail, thumbnailView);
@@ -747,11 +762,49 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             } else {
                 stopShimmer(shimmerThumbnail, thumbnailView);
+                setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
                                                                             user,
                                                                             context));
             }
+        }
+    }
+
+    /**
+     * method to set the padding to thumbnail view this is required for files so that there will be space between file
+     * and file name
+     *
+     * @param thumbnailView
+     * @param gridView
+     * @param context
+     * @param isMediaGallery
+     * @param dimensPadding
+     */
+    private static void setThumbnailViewPadding(ImageView thumbnailView, boolean gridView, Context context,
+                                                boolean isMediaGallery, int dimensPadding) {
+        if (gridView && !isMediaGallery) {
+            int padding = context.getResources().getDimensionPixelSize(dimensPadding);
+            thumbnailView.setPadding(0, 0, 0, padding);
+        }
+    }
+
+    /**
+     * method to set manual thumbnail view height and width for folders and files because we are using different size
+     * for both files and folders
+     *
+     * @param thumbnailView
+     * @param gridView
+     * @param context
+     * @param isMediaGallery
+     * @param size
+     */
+    private static void updateThumbnailViewSize(ImageView thumbnailView, boolean gridView, Context context,
+                                                boolean isMediaGallery, int size) {
+        if (gridView && !isMediaGallery) {
+            thumbnailView.getLayoutParams().width =
+                context.getResources().getDimensionPixelSize(size);
+            thumbnailView.getLayoutParams().height = context.getResources().getDimensionPixelSize(size);
         }
     }
 
@@ -909,10 +962,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
              /*   if (showShareAvatar) {
                     sharedIconView.setVisibility(View.GONE);
                 } else {*/
-                    //sharedIconView.setVisibility(View.VISIBLE);
-                    sharedIconView.setImageResource(R.drawable.ic_shared);
-                    sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
-              //  }
+                //sharedIconView.setVisibility(View.VISIBLE);
+                sharedIconView.setImageResource(R.drawable.ic_shared);
+                sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
+                //  }
             } else if (file.isSharedViaLink()) {
                 sharedIconView.setImageResource(R.drawable.ic_shared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared_via_link));
