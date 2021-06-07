@@ -899,4 +899,11 @@
     <string name="camera_permission_denied">Sie können keine Dokumente scannen ohne die Erlaubnis die Kamera zu verwenden.</string>
     <string name="search_result_empty">Eine Datei suchen (mindestens 2 Zeichen)</string>
     <string name="action_rotate">Drehen</string>
+    <string name="description_add_more_scan">Weiteres Dokument hinzufügen</string>
+    <string name="description_crop_scan">Gescanntes Dokument zuschneiden</string>
+    <string name="description_filter_scan">Gescanntes Dokument filtern</string>
+    <string name="description_rotate_scan">Gescanntes Dokument drehen</string>
+    <string name="description_delete_scan">Gescanntes Dokument löschen</string>
+    <string name="description_edit_filename">Scan-Dateinamen bearbeiten</string>
+    <string name="description_edit_location">Scan-Speicherort bearbeiten</string>
 </resources>

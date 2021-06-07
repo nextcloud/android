@@ -11,8 +11,7 @@
     <dimen name="txt_size_18sp">18sp</dimen>
     <dimen name="txt_size_15sp">15sp</dimen>
     <dimen name="crop_corner_size">15dp</dimen>
-
+    <dimen name="edit_scan_bottom_bar_height">56dp</dimen>
     <dimen name="standard_folders_grid_item_size">86dp</dimen>
     <dimen name="standard_files_grid_item_size">80dp</dimen>
-
 </resources>
