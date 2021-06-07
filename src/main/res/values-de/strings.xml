@@ -282,7 +282,7 @@
     <string name="etm_transfer">Dateiübertragung</string>
     <string name="etm_transfer_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
     <string name="etm_transfer_enqueue_test_upload">Test-Upload in die Warteschlange stellen </string>
-    <string name="etm_transfer_remote_path">Externer Pfad</string>
+    <string name="etm_transfer_remote_path">Entfernter Pfad</string>
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
