@@ -756,8 +756,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="trashbin_activity_title">Deleted files</string>
-    <string name="action_empty_trashbin">Empty trashbin</string>
-    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
+    <string name="action_empty_trashbin">Empty trash bin</string>
+    <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
