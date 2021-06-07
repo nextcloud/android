@@ -906,4 +906,14 @@
     <string name="description_delete_scan">Gescanntes Dokument löschen</string>
     <string name="description_edit_filename">Scan-Dateinamen bearbeiten</string>
     <string name="description_edit_location">Scan-Speicherort bearbeiten</string>
+    <string name="conflict_replace">Ersetzen</string>
+    <string name="conflict_replace_all">Alle ersetzen</string>
+    <string name="conflict_keep_both">Beide behalten</string>
+    <string name="conflict_keep_both_all">Beide Versionen für alle behalten</string>
+    <string name="conflict_more_details">Mehr Details</string>
+    <string name="conflict_cancel_keep_existing">Abbrechen und bestehende Datei behalten</string>
+    <string name="conflict_dialog_title">Dateikonflikt</string>
+    <string name="conflict_dialog_title_multiple">%d Dateikonflikte</string>
+    <string name="conflict_dialog_message">%1$s ist im Zielordner bereits vorhanden. Möchten Sie die bestehende Datei behalten oder überschreiben?</string>
+    <string name="conflict_dialog_message_multiple">Die Dateien sind im Zielordner bereits vorhanden. Möchten Sie die bestehenden Dateien behalten oder überschreiben?</string>
 </resources>

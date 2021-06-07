@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.ui.dialog.ConflictsResolveConsentDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
@@ -60,6 +61,10 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
      */
     public static final String EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR";
     public static final String EXTRA_EXISTING_FILE = "EXISTING_FILE";
+    /**
+     * variable to tell activity that it has been launched from test class
+     */
+    public static final String EXTRA_LAUNCHED_FROM_TEST = "LAUNCHED_FROM_TEST";
 
     private static final String TAG = ConflictsResolveActivity.class.getSimpleName();
 
@@ -225,9 +230,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         }
 
         if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
-            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-                                                                               newFile,
-                                                                               userOptional.get());
+            ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
+                                                                                      newFile,
+                                                                                      userOptional.get());
             dialog.show(fragmentTransaction, "conflictDialog");
         } else {
             // Account was changed to a different one - just finish
@@ -236,8 +241,13 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     private void showErrorAndFinish() {
-        runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
-        finish();
+        //if activity is launched from test case then don't finish the activity as it is required to show the dialog
+        //but during normal app run activity should finish during error so we have to pass it false or don't pass
+        // anything
+        if (!getIntent().getBooleanExtra(EXTRA_LAUNCHED_FROM_TEST, false)) {
+            runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
+            finish();
+        }
     }
 
     /**

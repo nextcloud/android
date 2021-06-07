@@ -1010,4 +1010,15 @@
     <string name="description_delete_scan">Delete scanned document</string>
     <string name="description_edit_filename">Edit scan filename</string>
     <string name="description_edit_location">Edit scan location</string>
+    <string name="conflict_replace">Replace</string>
+    <string name="conflict_replace_all">Replace all</string>
+    <string name="conflict_keep_both">Keep both</string>
+    <string name="conflict_keep_both_all">Keep both for all</string>
+    <string name="conflict_more_details">More details</string>
+    <string name="conflict_cancel_keep_existing">Cancel and keep existing</string>
+    <string name="conflict_dialog_title">File conflict</string>
+    <string name="conflict_dialog_title_multiple">%d File conflicts</string>
+    <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the
+        file you are moving?</string>
+    <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
 </resources>
