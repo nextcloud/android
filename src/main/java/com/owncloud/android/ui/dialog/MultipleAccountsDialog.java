@@ -54,7 +54,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
-    private MultipleAccountsBinding binding;
 
     @Inject UserAccountManager accountManager;
 
@@ -68,7 +67,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = activity.getLayoutInflater();
-        binding = MultipleAccountsBinding.inflate(inflater, null, false);
+        MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
         final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(parent);
@@ -129,7 +128,6 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
     @Override
     public void onDestroyView() {
-        binding = null;
         super.onDestroyView();
     }
 }

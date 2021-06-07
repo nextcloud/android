@@ -77,7 +77,8 @@ public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.
 
         public StoragePathViewHolder(StoragePathItemBinding binding) {
             super(binding.getRoot());
-            binding.getRoot().setOnClickListener(this);
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this);
         }
 
         @Override
