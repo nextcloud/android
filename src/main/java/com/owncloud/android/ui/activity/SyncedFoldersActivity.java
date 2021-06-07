@@ -28,7 +28,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +48,7 @@ import com.nextcloud.client.jobs.MediaFoldersDetectionWork;
 import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -83,7 +83,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -566,6 +565,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             backgroundJobManager.startImmediateFilesSyncJob(false, false);
             showBatteryOptimizationInfo();
         }
+
+        //track event when user enable/disable auto upload on/off
+        trackAutoUploadEvent(syncedFolderDisplayItem.isEnabled());
     }
 
     @Override
@@ -616,12 +618,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER
-                && resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null) {
+            && resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null) {
             OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
             syncedFolderPreferencesDialogFragment.setRemoteFolderSummary(chosenFolder.getRemotePath());
         }
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER
-                && resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null) {
+            && resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null) {
             String localPath = data.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
             syncedFolderPreferencesDialogFragment.setLocalFolderSummary(localPath);
         } else {
@@ -678,6 +680,14 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (syncedFolder.isEnabled()) {
             showBatteryOptimizationInfo();
         }
+
+        //track event when user enable/disable auto upload on/off
+        trackAutoUploadEvent(syncedFolder.isEnabled());
+    }
+
+    private void trackAutoUploadEvent(boolean enabled) {
+        AdjustSdkUtils.trackEvent(enabled ?
+                                      AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_ON : AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_OFF);
     }
 
     private void saveOrUpdateSyncedFolder(SyncedFolderDisplayItem item) {
