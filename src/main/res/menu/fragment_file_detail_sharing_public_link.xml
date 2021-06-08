@@ -37,6 +37,7 @@
         android:id="@+id/allow_editing"
         android:checkable="true"
         android:showAsAction="never"
+        android:visible="false"
         android:title="@string/allow_editing"
         app:showAsAction="never" />
     <item

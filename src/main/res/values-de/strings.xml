@@ -378,9 +378,10 @@
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
     <string name="link">Link</string>
-    <string name="link_share_allow_upload_and_editing">Hochladen und Bearbeiten erlauben</string>
-    <string name="link_share_file_drop">Dateien ablegen (nur Hochladen)</string>
-    <string name="link_share_read_only">Schreibgeschützt</string>
+    <string name="link_share_allow_upload_and_editing">Hochladen &amp; Bearbeiten</string>
+    <string name="link_share_file_drop">Sammelbox</string>
+    <string name="link_share_read_only">Nur Lesen</string>
+    <string name="link_share_editing">Bearbeiten</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
