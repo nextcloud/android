@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Fjern fejlede uploads</string>
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
-    <string name="action_empty_trashbin">Tøm skraldespand</string>
     <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
@@ -721,7 +720,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="trashbin_empty_message">Du vil kunne gendanne slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke genskabes!</string>
-    <string name="trashbin_loading_failed">indlæsning af skraldespand fejlet!</string>
     <string name="trashbin_not_emptied">Filer kunne ikke permanent slettes!</string>
     <string name="unread_comments">Der er ulæste kommentarer</string>
     <string name="unset_encrypted">Slå kryptering fra</string>

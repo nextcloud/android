@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Garbitu huts egin duten igoerak</string>
     <string name="action_edit">Aldatu</string>
     <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
-    <string name="action_empty_trashbin">Hustu zakarrontzia</string>
     <string name="action_send_share">Bidali/Partekatu</string>
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
@@ -719,7 +718,6 @@
     <string name="trashbin_empty_message">Ezabatutako fitxategiak hemendik berreskuratu ahal izango dituzu</string>
     <string name="trashbin_file_not_deleted"> %1$s fitxategia ezin da ezabatu!</string>
     <string name="trashbin_file_not_restored"> %1$s fitxategia ezin da berreskuratu!</string>
-    <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
     <string name="trashbin_not_emptied">Fitxategiak ezin dira betirako ezabatu!</string>
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>

@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
-    <string name="action_empty_trashbin">Empty trashbin</string>
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -719,7 +718,6 @@
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
-    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>

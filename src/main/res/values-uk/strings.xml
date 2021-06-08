@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Очистити невдалі вивантаження</string>
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
-    <string name="action_empty_trashbin">Пусте відро для сміття</string>
     <string name="action_send_share">Надіслати/Поширити</string>
     <string name="action_switch_grid_view">Упорядкування у формі сітки</string>
     <string name="action_switch_list_view">Упорядкування у формі списку</string>
@@ -708,7 +707,6 @@
     <string name="trashbin_empty_message">Тут можна відновити файли, які було вилучено.</string>
     <string name="trashbin_file_not_deleted">Файл %1$s неможливо вилучити!</string>
     <string name="trashbin_file_not_restored">Файл %1$s неможливо відновити!</string>
-    <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>

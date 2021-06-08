@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Limpar os envíos fallados</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
-    <string name="action_empty_trashbin">Cesto do lixo baleiro</string>
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
@@ -715,7 +714,6 @@
     <string name="trashbin_empty_message">Poderá recuperar ficheiros eliminados de aquí.</string>
     <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
     <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s!</string>
-    <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar de xeito permanente o ficheiro!</string>
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>

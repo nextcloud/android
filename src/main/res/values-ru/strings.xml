@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
-    <string name="action_empty_trashbin">Очистить корзину</string>
     <string name="action_send_share">Отправить / Открыть доступ</string>
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
@@ -715,7 +714,6 @@
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удалён!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
-    <string name="trashbin_loading_failed">Не удалась загрузить содержимое корзины!</string>
     <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>

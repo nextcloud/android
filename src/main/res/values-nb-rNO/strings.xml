@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Fjern feilede opplastinger</string>
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
-    <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
@@ -707,7 +706,6 @@
     <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
-    <string name="trashbin_loading_failed">Innlesing av papirkurv feilet!</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>

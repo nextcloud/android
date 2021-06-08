@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Notīrīt neizdevušās augšupielādes</string>
     <string name="action_edit">Rediģēt</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
-    <string name="action_empty_trashbin">Izstukšot miskasti</string>
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
@@ -465,7 +464,6 @@
     <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Dzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
-    <string name="trashbin_loading_failed">Kļūda ielādējot miskasti!</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no favorītiem</string>
     <string name="unshare">Pārtraukt dalīšanos</string>

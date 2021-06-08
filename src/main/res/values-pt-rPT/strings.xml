@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Limpar envios falhados</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notifcações</string>
-    <string name="action_empty_trashbin">Esvaziar cesto do lixo</string>
     <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
@@ -617,7 +616,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
     <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>
     <string name="trashbin_file_not_restored">Ficheiro %1$s não pôde ser restaurado!</string>
-    <string name="trashbin_loading_failed">Carregamento do cesto do lixo falhou!</string>
     <string name="trashbin_not_emptied">Os ficheiros não puderam ser permanentemente apagados!</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>

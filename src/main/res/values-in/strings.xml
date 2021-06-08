@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Bersihkan unggahan gagal.</string>
     <string name="action_edit">Sunting</string>
     <string name="action_empty_notifications">Hapus semua notifikasi</string>
-    <string name="action_empty_trashbin">Kosongkan tempat sampah</string>
     <string name="action_send_share">Kirim/Bagi</string>
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
@@ -459,7 +458,6 @@
     <string name="today">Hari ini</string>
     <string name="trashbin_activity_title">Berkas terhapus</string>
     <string name="trashbin_empty_headline">Tidak ada berkas yang dihapus.</string>
-    <string name="trashbin_loading_failed">Memuat tempat sampah gagal!</string>
     <string name="unset_favorite">Hapus dari favorit</string>
     <string name="unshare">Batalkan berbagi</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>

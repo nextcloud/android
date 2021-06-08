@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
-    <string name="action_empty_trashbin">Vacíar la papelera</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>

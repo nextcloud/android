@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
     <string name="action_edit">Променяне</string>
     <string name="action_empty_notifications">Премахнете известията</string>
-    <string name="action_empty_trashbin">Изпразни кошчето</string>
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
@@ -622,7 +621,6 @@
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>
     <string name="trashbin_file_not_deleted">Файлът %1$s не може да бъде изтрит!</string>
     <string name="trashbin_file_not_restored">Файлът %1$s не може да бъде възстановен!</string>
-    <string name="trashbin_loading_failed">Зареждането на кошчето се провали!</string>
     <string name="trashbin_not_emptied">Файловете не могат да бъдат окончателно изтрити!</string>
     <string name="unset_encrypted">Изключи криптиране</string>
     <string name="unset_favorite">Премахни от любимите</string>

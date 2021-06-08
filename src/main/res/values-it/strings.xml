@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Cancella caricamenti non riusciti</string>
     <string name="action_edit">Modifica</string>
     <string name="action_empty_notifications">Cancella tutte le notifiche</string>
-    <string name="action_empty_trashbin">Svuota cestino</string>
     <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
@@ -722,7 +721,6 @@
     <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui.</string>
     <string name="trashbin_file_not_deleted">Il file %1$s non può essere eliminato!</string>
     <string name="trashbin_file_not_restored">Il file %1$s non può essere ripristinato!</string>
-    <string name="trashbin_loading_failed">Caricamento cestino non riuscito!</string>
     <string name="trashbin_not_emptied">I file non possono essere scaricati definitivamente!</string>
     <string name="unread_comments">Sono presenti commenti non letti</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>

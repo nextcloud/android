@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
     <string name="action_edit">Edita</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
-    <string name="action_empty_trashbin">Buida la paperera</string>
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
@@ -717,7 +716,6 @@
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits.</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>
-    <string name="trashbin_loading_failed">Ha fallat la càrrega de la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no es poden suprimir permanentment!</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>

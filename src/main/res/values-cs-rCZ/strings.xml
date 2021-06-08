@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Vyčistit nezdařené nahrávání</string>
     <string name="action_edit">Upravit</string>
     <string name="action_empty_notifications">Vyčistit všechna upozornění</string>
-    <string name="action_empty_trashbin">Vyprázdnit koš</string>
     <string name="action_send_share">Poslat/sdílet</string>
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
@@ -748,7 +747,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="trashbin_empty_message">Odsud je možné obnovit smazané soubory.</string>
     <string name="trashbin_file_not_deleted">Soubor %1$s se nepodařilo smazat!</string>
     <string name="trashbin_file_not_restored">Soubor %1$s se nepodařilo obnovit!</string>
-    <string name="trashbin_loading_failed">Načtení obsahu koše se nezdařilo!</string>
     <string name="trashbin_not_emptied">Soubory se nepodařilo natrvalo smazat!</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>

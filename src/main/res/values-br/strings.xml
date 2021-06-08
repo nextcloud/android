@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Lemmel ar pellgasoù chwitet</string>
     <string name="action_edit">Cheñch</string>
     <string name="action_empty_notifications">Lemmel toud ar c\'hemenadennoù</string>
-    <string name="action_empty_trashbin">Poubelenn goullo</string>
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
@@ -676,7 +675,6 @@
     <string name="trashbin_empty_message">Posupl eo deoc\'h adtapout ar restroù lamet adalek al lec\'h mañ</string>
     <string name="trashbin_file_not_deleted">Ar restr %1$s n\'eo ket evit bezhaãn lamet !</string>
     <string name="trashbin_file_not_restored">Ar restr %1$s n\'eo ket evit bezha adlakaet !</string>
-    <string name="trashbin_loading_failed">C\'hwited eo bet kargadenn ar boubelenn</string>
     <string name="trashbin_not_emptied">N\'eo ket posupl lemel ar restr da virviken !</string>
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
     <string name="unset_encrypted">Lemel ar sifrañ</string>
