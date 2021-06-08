@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Dọn dẹp các tải lên bị lỗi</string>
     <string name="action_edit">Chỉnh sửa</string>
     <string name="action_empty_notifications">Xoá tất cả thông báo</string>
-    <string name="action_empty_trashbin">Dọn sạch thùng rác</string>
     <string name="action_send_share">Gửi/Chia sẽ</string>
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
@@ -724,7 +723,6 @@
     <string name="trashbin_empty_message">Bạn sẽ có thể khôi phục các tệp đã xóa từ đây.</string>
     <string name="trashbin_file_not_deleted">Tệp %1$s không thể bị xóa!</string>
     <string name="trashbin_file_not_restored">Tệp %1$s không thể được khôi phục!</string>
-    <string name="trashbin_loading_failed">Tải dữ liệu ở thùng rác bị lỗi!</string>
     <string name="trashbin_not_emptied">Không thể xóa tệp vĩnh viễn!</string>
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>

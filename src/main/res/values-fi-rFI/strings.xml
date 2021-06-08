@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_edit">Muokkaa</string>
     <string name="action_empty_notifications">Hylkää kaikki ilmoitukset</string>
-    <string name="action_empty_trashbin">Tyhjennä roskakori</string>
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
@@ -719,7 +718,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="trashbin_empty_message">Voit palauttaa poistettuja tiedostoja täältä.</string>
     <string name="trashbin_file_not_deleted">Tiedostoa %1$s ei voitu poistaa!</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
-    <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
     <string name="unread_comments">Lukemattomia kommentteja on olemassa</string>
     <string name="unset_encrypted">Poista salaus</string>

@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Izbriši neuspješne otpreme</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Izbriši sve obavijesti</string>
-    <string name="action_empty_trashbin">Isprazni koš za smeće</string>
     <string name="action_send_share">Pošalji/podijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
@@ -714,7 +713,6 @@
     <string name="trashbin_empty_message">Ovdje ćete moći vratiti izbrisane datoteke.</string>
     <string name="trashbin_file_not_deleted">Datoteku %1$s nije moguće izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteku %1$s nije moguće vratiti!</string>
-    <string name="trashbin_loading_failed">Učitavanje koša za smeće nije uspjelo!</string>
     <string name="trashbin_not_emptied">Datoteke nije moguće trajno izbrisati!</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>

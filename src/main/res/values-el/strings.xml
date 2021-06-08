@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
-    <string name="action_empty_trashbin">Άδειασμα κάδου</string>
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
@@ -705,7 +704,6 @@
     <string name="trashbin_empty_message">Μπορείτε να ανακτήσετε διαγραμμένα αρχεία από εδώ.</string>
     <string name="trashbin_file_not_deleted">Το αρχείο %1$s δεν μπορεί να διαγραφεί!</string>
     <string name="trashbin_file_not_restored">Το αρχείο %1$s δεν μπορεί να ανακτηθεί!</string>
-    <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>

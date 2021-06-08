@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
-    <string name="action_empty_trashbin">清空回收站</string>
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -730,7 +729,6 @@
     <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
-    <string name="trashbin_loading_failed">加载回收站失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>

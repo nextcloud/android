@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
     <string name="action_edit">編集</string>
     <string name="action_empty_notifications">全ての通知を削除</string>
-    <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
@@ -718,7 +717,6 @@
     <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
-    <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
     <string name="unread_comments">未読のコメントが存在します</string>
     <string name="unset_encrypted">暗号化解除</string>

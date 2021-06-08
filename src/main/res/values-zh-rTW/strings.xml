@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
-    <string name="action_empty_trashbin">清空回收桶</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -727,7 +726,6 @@
     <string name="trashbin_empty_message">您可以從這裡還原已刪除的檔案</string>
     <string name="trashbin_file_not_deleted">檔案 %1$s 無法被刪除！</string>
     <string name="trashbin_file_not_restored">檔案 %1$s 不能被還原！</string>
-    <string name="trashbin_loading_failed">載入回收桶失敗！</string>
     <string name="trashbin_not_emptied">無法永久刪除檔案！</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>

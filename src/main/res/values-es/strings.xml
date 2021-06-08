@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Quitar cargas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
-    <string name="action_empty_trashbin">Vaciar papelera</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -720,7 +719,6 @@
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí.</string>
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
-    <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>

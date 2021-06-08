@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
-    <string name="action_empty_trashbin">Legen prullebak</string>
     <string name="action_send_share">Versturen/Delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
@@ -727,7 +726,6 @@
     <string name="trashbin_empty_message">Van hieruit kun je verwijderde bestanden terugzetten.</string>
     <string name="trashbin_file_not_deleted">Bestand %1$s kon niet worden verwijderd!</string>
     <string name="trashbin_file_not_restored">Bestand %1$s kon niet worden hersteld!</string>
-    <string name="trashbin_loading_failed">Laden prullenbak mislukt!</string>
     <string name="trashbin_not_emptied">Bestanden konden niet permanent worden verwijderd!</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
