@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migratie (app upgrade)</string>
     <string name="etm_preferences">Voorkeuren</string>
     <string name="etm_title">Engineering Testmodus</string>
+    <string name="etm_transfer">Gegevenstransport</string>
+    <string name="etm_transfer_enqueue_test_download">Testdownload in wachtrij plaatsen</string>
+    <string name="etm_transfer_enqueue_test_upload">Testupload in wachtrij plaatsen</string>
+    <string name="etm_transfer_remote_path">Extern pad</string>
+    <string name="etm_transfer_type">Overdracht</string>
+    <string name="etm_transfer_type_download">Download</string>
+    <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
