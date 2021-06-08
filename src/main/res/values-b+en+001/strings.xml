@@ -381,6 +381,7 @@
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="link_share_read_only">Read only</string>
+    <string name="link_share_editing">Editing</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>

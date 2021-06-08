@@ -328,26 +328,32 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @VisibleForTesting
     public void prepareUserOptionsMenu(Menu menu, OCShare share) {
-        MenuItem allowEditingItem = menu.findItem(R.id.allow_editing);
-        MenuItem allowCreatingItem = menu.findItem(R.id.allow_creating);
-        MenuItem allowDeletingItem = menu.findItem(R.id.allow_deleting);
         MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
         MenuItem reshareItem = menu.findItem(R.id.allow_resharing);
+        MenuItem allowUploadAndEditingItem = menu.findItem(R.id.link_share_allow_upload_and_editing);
 
-        allowEditingItem.setChecked(canEdit(share));
+        menu.setGroupVisible(R.id.folder_permission, true);
+        if (share.isFolder()) {
+            menu.findItem(R.id.link_share_file_drop).setVisible(true);
+            allowUploadAndEditingItem.setTitle(getResources().getString(R.string.link_share_allow_upload_and_editing));
+        } else {
+            menu.findItem(R.id.link_share_file_drop).setVisible(false);
+            allowUploadAndEditingItem.setTitle(getResources().getString(R.string.link_share_editing));
+        }
+
+        // read only / allow upload and editing / file drop
+        if (isUploadAndEditingAllowed(share)) {
+            allowUploadAndEditingItem.setChecked(true);
+        } else if (isFileDrop(share) && share.isFolder()) {
+            menu.findItem(R.id.link_share_file_drop).setChecked(true);
+        } else if (isReadOnly(share)) {
+            menu.findItem(R.id.link_share_read_only).setChecked(true);
+        }
 
         if (isReshareForbidden(share)) {
             reshareItem.setVisible(false);
         }
         reshareItem.setChecked(canReshare(share));
-
-        if (file.isFolder() || share.isFolder()) {
-            allowCreatingItem.setChecked(canCreate(share));
-            allowDeletingItem.setChecked(canDelete(share));
-        } else {
-            allowCreatingItem.setVisible(false);
-            allowDeletingItem.setVisible(false);
-        }
 
         if (!capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)) {
             expirationDateItem.setVisible(false);
@@ -377,28 +383,26 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @VisibleForTesting
     public void prepareLinkOptionsMenu(Menu menu, OCShare publicShare) {
+        menu.setGroupVisible(R.id.folder_permission, true);
+        MenuItem allowUploadAndEditingItem = menu.findItem(R.id.link_share_allow_upload_and_editing);
+
         if (publicShare.isFolder()) {
-            menu.setGroupVisible(R.id.folder_permission, true);
-            menu.findItem(R.id.allow_editing).setVisible(false);
-
-            // read only / allow upload and editing / file drop
-            if (isUploadAndEditingAllowed(publicShare)) {
-                menu.findItem(R.id.link_share_allow_upload_and_editing).setChecked(true);
-            } else if (isFileDrop(publicShare)) {
-                menu.findItem(R.id.link_share_file_drop).setChecked(true);
-            } else if (isReadOnly(publicShare)) {
-                menu.findItem(R.id.link_share_read_only).setChecked(true);
-            }
+            menu.findItem(R.id.link_share_file_drop).setVisible(true);
+            allowUploadAndEditingItem.setTitle(getResources().getString(R.string.link_share_allow_upload_and_editing));
         } else {
-            menu.setGroupVisible(R.id.folder_permission, false);
-            menu.findItem(R.id.allow_editing).setVisible(true);
-
-            if (publicShare.getPermissions() > PERMISSION_EDITING_ALLOWED) {
-                menu.findItem(R.id.allow_editing).setChecked(true);
-            } else {
-                menu.findItem(R.id.allow_editing).setChecked(false);
-            }
+            menu.findItem(R.id.link_share_file_drop).setVisible(false);
+            allowUploadAndEditingItem.setTitle(getResources().getString(R.string.link_share_editing));
         }
+
+        // read only / allow upload and editing / file drop
+        if (isUploadAndEditingAllowed(publicShare)) {
+            allowUploadAndEditingItem.setChecked(true);
+        } else if (isFileDrop(publicShare) && publicShare.isFolder()) {
+            menu.findItem(R.id.link_share_file_drop).setChecked(true);
+        } else if (isReadOnly(publicShare)) {
+            menu.findItem(R.id.link_share_read_only).setChecked(true);
+        }
+
 
         Resources res = requireContext().getResources();
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
@@ -442,6 +446,23 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private boolean userOptionsItemSelected(Menu menu, MenuItem item, OCShare share) {
         switch (item.getItemId()) {
+            case R.id.link_share_read_only:
+                item.setChecked(true);
+                fileOperationsHelper.setPermissionsToShare(share, READ_PERMISSION_FLAG);
+                return true;
+            case R.id.link_share_allow_upload_and_editing:
+                item.setChecked(true);
+                if (share.isFolder()) {
+                    fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FOLDER);
+                } else {
+                    fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FILE);
+                }
+                return true;
+            case R.id.link_share_file_drop: {
+                item.setChecked(true);
+                fileOperationsHelper.setPermissionsToShare(share, CREATE_PERMISSION_FLAG);
+                return true;
+            }
             case R.id.allow_editing:
             case R.id.allow_creating:
             case R.id.allow_deleting:

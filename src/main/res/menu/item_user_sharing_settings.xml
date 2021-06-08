@@ -21,10 +21,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
+    <group
+        android:id="@+id/folder_permission"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/link_share_read_only"
+            android:title="@string/link_share_read_only" />
+        <item
+            android:id="@+id/link_share_allow_upload_and_editing"
+            android:title="@string/link_share_allow_upload_and_editing" />
+        <item
+            android:id="@+id/link_share_file_drop"
+            android:title="@string/link_share_file_drop" />
+    </group>
+
     <item
         android:id="@+id/allow_editing"
         android:checkable="true"
         android:showAsAction="never"
+        android:visible="false"
         android:title="@string/allow_editing"
         app:showAsAction="never" />
 
@@ -32,14 +47,17 @@
         android:id="@+id/allow_creating"
         android:checkable="true"
         android:showAsAction="never"
+        android:visible="false"
         android:title="@string/allow_creating"
         app:showAsAction="never" />
     <item
         android:id="@+id/allow_deleting"
         android:checkable="true"
         android:showAsAction="never"
+        android:visible="false"
         android:title="@string/allow_deleting"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/allow_resharing"
         android:checkable="true"
