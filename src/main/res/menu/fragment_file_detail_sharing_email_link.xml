@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
+  @author TSI-mc
 
   Copyright (C) 2018 Andy Scherzinger
+  Copyright (C) 2021 TSI-mc
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -38,6 +40,7 @@
         android:checkable="true"
         android:showAsAction="never"
         android:title="@string/allow_editing"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_file_download"

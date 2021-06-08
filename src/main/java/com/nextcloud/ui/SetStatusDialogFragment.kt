@@ -221,6 +221,7 @@ class SetStatusDialogFragment :
         )
     }
 
+    @Suppress("ComplexMethod")
     private fun setClearStatusAfterValue(item: Int) {
         when (item) {
             POS_DONT_CLEAR -> {
