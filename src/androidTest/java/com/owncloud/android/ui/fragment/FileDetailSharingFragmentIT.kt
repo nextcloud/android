@@ -305,19 +305,22 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertTrue(popup.menu.findItem(R.id.action_unshare).isVisible)
         assertTrue(popup.menu.findItem(R.id.action_add_another_public_share_link).isVisible)
 
-        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isVisible)
-        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
         assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isVisible)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isVisible)
+        assertFalse(popup.menu.findItem(R.id.allow_editing).isVisible)
 
-        // allow editing
+        // read-only
         publicShare.permissions = 17 // from server
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
 
-        publicShare.permissions = 19 // from server
+        // editing
+        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
 
         // hide download
         publicShare.isHideFileDownload = true
@@ -389,10 +392,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertTrue(popup.menu.findItem(R.id.action_unshare).isVisible)
         assertTrue(popup.menu.findItem(R.id.action_add_another_public_share_link).isVisible)
 
-        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isVisible)
-        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
         assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isVisible)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isVisible)
+        assertFalse(popup.menu.findItem(R.id.allow_editing).isVisible)
 
         // password protection
         publicShare.shareWith = "someValue"
@@ -435,13 +438,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         publicShare.permissions = READ_PERMISSION_FLAG
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
 
-        // allow editing
+        // read-only
         publicShare.permissions = 17 // from server
-        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
 
-        publicShare.permissions = 19 // from server
+        // upload and editing
+        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
         sut.prepareLinkOptionsMenu(popup.menu, publicShare)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+
     }
 
     @Test
@@ -470,13 +477,20 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         assertFalse(popup.menu.findItem(R.id.allow_creating).isVisible)
         assertFalse(popup.menu.findItem(R.id.allow_deleting).isVisible)
 
-        // allow editing
-        userShare.permissions = 17 // from server
-        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
+        assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isVisible)
 
-        userShare.permissions = 19 // from server
+        // read-only
+        userShare.permissions = 17 // from server
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+
+        // editing
+        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
 
         // allow reshare
         userShare.permissions = 1 // from server
@@ -529,16 +543,32 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         }
 
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.allow_creating).isVisible)
-        assertTrue(popup.menu.findItem(R.id.allow_deleting).isVisible)
+        assertFalse(popup.menu.findItem(R.id.allow_creating).isVisible)
+        assertFalse(popup.menu.findItem(R.id.allow_deleting).isVisible)
 
-        // allow editing
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isVisible)
+        assertTrue(popup.menu.findItem(R.id.link_share_file_drop).isVisible)
+
+        // read-only
         userShare.permissions = 17 // from server
-        assertFalse(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
-        userShare.permissions = 19 // from server
+        // allow upload & editing
+        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
         sut.prepareUserOptionsMenu(popup.menu, userShare)
-        assertTrue(popup.menu.findItem(R.id.allow_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
+
+        // file drop
+        userShare.permissions = 4
+        sut.prepareUserOptionsMenu(popup.menu, userShare)
+        assertFalse(popup.menu.findItem(R.id.link_share_read_only).isChecked)
+        assertFalse(popup.menu.findItem(R.id.link_share_allow_upload_and_editing).isChecked)
+        assertTrue(popup.menu.findItem(R.id.link_share_file_drop).isChecked)
 
         // allow reshare
         userShare.permissions = 1 // from server

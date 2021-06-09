@@ -418,7 +418,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return false;
         }
 
-        return (share.getPermissions() & MAXIMUM_PERMISSIONS_FOR_FOLDER) == MAXIMUM_PERMISSIONS_FOR_FOLDER;
+        return (share.getPermissions() & (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
+            MAXIMUM_PERMISSIONS_FOR_FILE)) == (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
+            MAXIMUM_PERMISSIONS_FOR_FILE);
     }
 
     @VisibleForTesting
@@ -644,8 +646,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     /**
-     * Get public link from the DB to fill in the "Share link" section in the UI.
-     * Takes into account server capabilities before reading database.
+     * Get public link from the DB to fill in the "Share link" section in the UI. Takes into account server capabilities
+     * before reading database.
      */
     public void refreshSharesFromDB() {
         ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
