@@ -962,4 +962,5 @@
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="strict_mode">Strict mode: no http connection allowed!</string>
+    <string name="fullscreen">Fullscreen</string>
 </resources>
