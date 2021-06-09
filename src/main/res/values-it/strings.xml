@@ -280,6 +280,8 @@
     <string name="etm_title">Modalità test di progettazione</string>
     <string name="etm_transfer">Trasferimento file</string>
     <string name="etm_transfer_remote_path">Percorso remoto</string>
+    <string name="etm_transfer_type">Trasferisci</string>
+    <string name="etm_transfer_type_download">Scarica</string>
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
