@@ -423,7 +423,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return false;
         }
 
-        return (share.getPermissions() & MAXIMUM_PERMISSIONS_FOR_FOLDER) == MAXIMUM_PERMISSIONS_FOR_FOLDER;
+        return (share.getPermissions() & (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
+            MAXIMUM_PERMISSIONS_FOR_FILE)) == (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
+            MAXIMUM_PERMISSIONS_FOR_FILE);
     }
 
     @VisibleForTesting
