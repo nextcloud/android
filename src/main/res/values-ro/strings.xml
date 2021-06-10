@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
     <string name="action_edit">Editare</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
-    <string name="action_empty_trashbin">Golește coșul de gunoi</string>
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>

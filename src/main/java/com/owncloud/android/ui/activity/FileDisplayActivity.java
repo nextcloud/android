@@ -129,7 +129,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -560,7 +559,7 @@ public class FileDisplayActivity extends FileActivity
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
-                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                long startPlaybackPosition = getIntent().getLongExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
                 secondFragment = PreviewMediaFragment.newInstance(file, user, startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
@@ -846,7 +845,8 @@ public class FileDisplayActivity extends FileActivity
                         second != null && second.getFile() != null ||
                         isSearchOpen()) {
                     onBackPressed();
-                } else if (getLeftFragment() instanceof FileDetailFragment) {
+                } else if (getLeftFragment() instanceof FileDetailFragment ||
+                    getLeftFragment() instanceof PreviewMediaFragment) {
                     onBackPressed();
                 } else {
                     openDrawer();
@@ -1899,7 +1899,7 @@ public class FileDisplayActivity extends FileActivity
                         renamedFile.equals(details.getFile())) {
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                        int position = ((PreviewMediaFragment) details).getPosition();
+                        long position = ((PreviewMediaFragment) details).getPosition();
                         startMediaPreview(renamedFile, position, true, true, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
@@ -2183,12 +2183,13 @@ public class FileDisplayActivity extends FileActivity
      * Stars the preview of an already down media {@link OCFile}.
      *
      * @param file                  Media {@link OCFile} to preview.
-     * @param startPlaybackPosition Media position where the playback will be started,
-     *                              in milliseconds.
-     * @param autoplay              When 'true', the playback will start without user
-     *                              interactions.
+     * @param startPlaybackPosition Media position where the playback will be started, in milliseconds.
+     * @param autoplay              When 'true', the playback will start without user interactions.
      */
-    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
+    public void startMediaPreview(OCFile file,
+                                  long startPlaybackPosition,
+                                  boolean autoplay,
+                                  boolean showPreview,
                                   boolean streamMedia) {
         Optional<User> user = getUser();
         if (!user.isPresent()) {
@@ -2363,7 +2364,7 @@ public class FileDisplayActivity extends FileActivity
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
             startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
-                              (int) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
+                              (long) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
                               (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile)bundle.get(EXTRA_FILE),

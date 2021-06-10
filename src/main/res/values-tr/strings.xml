@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Tamamlanamayan yüklemeler silinsin</string>
     <string name="action_edit">Düzenle</string>
     <string name="action_empty_notifications">Tüm bildirimleri temizle</string>
-    <string name="action_empty_trashbin">Çöp kutusunu boşalt</string>
     <string name="action_send_share">Gönder/paylaş</string>
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
@@ -727,7 +726,6 @@
     <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz.</string>
     <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
-    <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>

@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Fehlgeschlagene Uploads entfernen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
-    <string name="action_empty_trashbin">Dateien endgültig löschen</string>
+    <string name="action_empty_trashbin">Papierkorb leeren</string>
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
@@ -728,7 +728,7 @@
     <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
     <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
-    <string name="trashbin_loading_failed">Laden der gelöschten Dateien fehlgeschlagen!</string>
+    <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>

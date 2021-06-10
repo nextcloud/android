@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_edit">Szerkesztés</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
-    <string name="action_empty_trashbin">Kuka ürítése</string>
     <string name="action_send_share">Küldés/Megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
@@ -731,7 +730,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait.</string>
     <string name="trashbin_file_not_deleted">A(z) %1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">A(z) %1$s fájl nem állítható vissza!</string>
-    <string name="trashbin_loading_failed">Hiba a kuka betöltésekor!</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>

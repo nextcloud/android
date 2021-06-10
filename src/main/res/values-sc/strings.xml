@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Boga·nche is carrigamentos faddidos</string>
     <string name="action_edit">Modìfica</string>
     <string name="action_empty_notifications">Boga·nche totu is notìficas</string>
-    <string name="action_empty_trashbin">Bòida s\'àliga</string>
     <string name="action_send_share">Imbia/Cumpartzi</string>
     <string name="action_switch_grid_view">Visualizatzione a grìllia</string>
     <string name="action_switch_list_view">Visualizatzione a elencu</string>
@@ -715,7 +714,6 @@
     <string name="trashbin_empty_message">As a pòdere recuperare is archìvios cantzellados dae inoghe.</string>
     <string name="trashbin_file_not_deleted">No at fatu a cantzellare s\'archìviu %1$s!</string>
     <string name="trashbin_file_not_restored">No at fatu a recuperare s\'archìviu %1$s!</string>
-    <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Critografia non cunfigurada</string>

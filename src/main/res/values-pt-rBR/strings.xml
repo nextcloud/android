@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Apagar envios com falha</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
-    <string name="action_empty_trashbin">Esvaziar lixeira</string>
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
@@ -279,6 +278,13 @@
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
     <string name="etm_title">Modo de Teste de Engenharia</string>
+    <string name="etm_transfer">Transferência de arquivo</string>
+    <string name="etm_transfer_enqueue_test_download">Enfileirar teste e baixar</string>
+    <string name="etm_transfer_enqueue_test_upload">Enfileirar teste e enviar</string>
+    <string name="etm_transfer_remote_path">Caminho remoto</string>
+    <string name="etm_transfer_type">Transferir</string>
+    <string name="etm_transfer_type_download">Baixar</string>
+    <string name="etm_transfer_type_upload">Enviar</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
@@ -720,7 +726,6 @@
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui.</string>
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
-    <string name="trashbin_loading_failed">Falha ao abrir a lixeira!</string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>

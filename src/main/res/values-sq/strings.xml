@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
     <string name="action_edit">Përpuno</string>
     <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
-    <string name="action_empty_trashbin">Boshatis koshin e plehrave</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
@@ -649,7 +648,6 @@
     <string name="trashbin_empty_headline">Pa kartela të fshira</string>
     <string name="trashbin_file_not_deleted">Skeda %1$snuk mund të fshihej!</string>
     <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
-    <string name="trashbin_loading_failed">Ngarkimi i koshit të plehrave nuk u arrit!</string>
     <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>

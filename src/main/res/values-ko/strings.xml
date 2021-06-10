@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">실패한 업로드 삭제</string>
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
-    <string name="action_empty_trashbin">휴지통 비우기</string>
     <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
@@ -741,7 +740,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="trashbin_empty_message">여기서 삭제했던 파일들을 복구할 수 있습니다.</string>
     <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
     <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
-    <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>

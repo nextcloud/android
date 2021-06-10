@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">ການອັບໂຫຼດບໍ່ສຳເລັດ</string>
     <string name="action_edit">ແກ້ໄຂ</string>
     <string name="action_empty_notifications">ລ້າງການແຈ້ງເຕືອນທັງຫມົດ</string>
-    <string name="action_empty_trashbin">ຖັງຂີ້ເຫຍື້ອເປົ່າວ່າງ</string>
     <string name="action_send_share">ສົ່ງ/ແບ່ງປັນ</string>
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
@@ -714,7 +713,6 @@
     <string name="trashbin_empty_message">ທ່ານຈະສາມາດກຸ້ຟາຍທີ່ຖືກລຶບອອກຈາກທີ່ນີ້.</string>
     <string name="trashbin_file_not_deleted">ຟາຍ%1$sບໍ່ສາມາດລຶບໄດ້!</string>
     <string name="trashbin_file_not_restored">ຟາຍ %1$sບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
-    <string name="trashbin_loading_failed">ການໂຫຼດຖັງຂີ້ເຫຍື້ອບໍ່ສຳເລັດ!</string>
     <string name="trashbin_not_emptied">ຟາຍບໍ່ສາມາດລຶບໄດ້ຖາວອນ!</string>
     <string name="unread_comments">ຄວາມຄິດເຫັນທີ່ບໍ່ອ່ານ</string>
     <string name="unset_encrypted">ຍົກເລີິກການຕັ້ງຄ່າເຂົ້າລະຫັດຜ່ານ</string>

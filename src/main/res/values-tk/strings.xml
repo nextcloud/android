@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Şowsuz ýüklemeleri arassalaň</string>
     <string name="action_edit">Redaktirläň</string>
     <string name="action_empty_notifications">ähli bildirişleri arassala</string>
-    <string name="action_empty_trashbin">Boşadylan zibil</string>
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
@@ -716,7 +715,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="trashbin_empty_message">Öçürilen faýllary şu ýerden dikeldip bilersiňiz.</string>
     <string name="trashbin_file_not_deleted">Faýl %1$söçürilip bilinmedi!</string>
     <string name="trashbin_file_not_restored">Faýl%1$s dikeldip bolmady!</string>
-    <string name="trashbin_loading_failed">Zibil  sebedi ýüklemek başa barmady!</string>
     <string name="trashbin_not_emptied">Faýllary hemişelik pozup bolmaz!</string>
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>

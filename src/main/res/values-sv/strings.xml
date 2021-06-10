@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
     <string name="action_edit">Redigera</string>
     <string name="action_empty_notifications">Rensa alla aviseringar</string>
-    <string name="action_empty_trashbin">Töm papperskorgen</string>
     <string name="action_send_share">Skicka/Dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
@@ -705,7 +704,6 @@
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
     <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
-    <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
