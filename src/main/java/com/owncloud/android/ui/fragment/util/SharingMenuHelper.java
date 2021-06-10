@@ -163,6 +163,13 @@ public final class SharingMenuHelper {
         return null;
     }
 
+    /**
+     * method to get the current checked index from the list of permissions
+     * @param context
+     * @param share
+     * @param permissionArray
+     * @return
+     */
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             if (share.isFolder()) {

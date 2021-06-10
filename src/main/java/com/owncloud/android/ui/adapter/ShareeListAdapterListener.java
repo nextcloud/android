@@ -39,5 +39,5 @@ public interface ShareeListAdapterListener {
 
     void requestPasswordForShare(OCShare share, boolean askForPassword);
 
-    void showPermissionsDialog(OCShare share, ShareeListAdapter.OnSharePermissionChanged onSharePermissionChanged);
+    void showPermissionsDialog(OCShare share);
 }

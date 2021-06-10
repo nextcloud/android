@@ -109,12 +109,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
 
             // bind listener to edit privileges
             binding.overflowMenu.setOnClickListener(v -> listener.showUserOverflowMenu(share, binding.overflowMenu));
-            binding.shareNameLayout.setOnClickListener(v -> listener.showPermissionsDialog(share, new ShareeListAdapter.OnSharePermissionChanged() {
-                @Override
-                public void onPermissionChanged(String permissionName) {
-                    setPermissionName(permissionName);
-                }
-            }));
+            binding.shareNameLayout.setOnClickListener(v -> listener.showPermissionsDialog(share));
         } else {
             binding.overflowMenu.setVisibility(View.GONE);
         }
