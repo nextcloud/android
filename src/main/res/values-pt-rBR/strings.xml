@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Apagar envios com falha</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
+    <string name="action_empty_trashbin">Esvaziar lixeira </string>
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
@@ -726,6 +727,7 @@
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui.</string>
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
+    <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
