@@ -212,7 +212,4 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public interface OnSharePermissionChanged{
-        void onPermissionChanged(String permissionName);
-    }
 }

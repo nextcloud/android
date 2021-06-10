@@ -77,17 +77,11 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
-
         setPermissionName(permissionName);
 
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
-        binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare, new ShareeListAdapter.OnSharePermissionChanged() {
-            @Override
-            public void onPermissionChanged(String permissionName) {
-                setPermissionName(permissionName);
-            }
-        }));
+        binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
     }
 
     private void setPermissionName(String permissionName) {

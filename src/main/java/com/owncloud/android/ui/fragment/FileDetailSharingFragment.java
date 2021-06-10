@@ -407,7 +407,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     @Override
-    public void showPermissionsDialog(OCShare share, ShareeListAdapter.OnSharePermissionChanged onSharePermissionChanged) {
+    public void showPermissionsDialog(OCShare share) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         String[] permissionArray;
         if (share.isFolder()) {
@@ -417,27 +417,23 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             permissionArray =
                 requireContext().getResources().getStringArray(R.array.file_share_permission_dialog_values);
         }
+        //get the checked item position
         int checkedItem = SharingMenuHelper.getPermissionCheckedItem(requireContext(), share, permissionArray);
         builder.setSingleChoiceItems(permissionArray, checkedItem, (dialog, which) -> {
+            //if user select different options then only update the permission
             if (checkedItem != which) {
-                String permissionName = "";
-                if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_allow_upload_and_editing))) {
+                //check the selected permission on the basis of text
+                if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_allow_upload_and_editing)) || permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_editing))) {
                     if (share.isFolder()) {
                         fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FOLDER);
                     } else {
                         fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FILE);
                     }
-                    permissionName = requireContext().getResources().getString(R.string.share_permission_can_edit);
                 } else if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_read_only))) {
                     fileOperationsHelper.setPermissionsToShare(share, READ_PERMISSION_FLAG);
-                    permissionName = requireContext().getResources().getString(R.string.share_permission_view_only);
                 } else if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_file_drop))) {
                     fileOperationsHelper.setPermissionsToShare(share, CREATE_PERMISSION_FLAG);
-                    permissionName = requireContext().getResources().getString(R.string.share_permission_file_drop);
                 }
-
-                onSharePermissionChanged.onPermissionChanged(permissionName);
-
             }
             dialog.dismiss();
         });

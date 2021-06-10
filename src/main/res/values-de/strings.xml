@@ -829,9 +829,9 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
-    <string name="share_permission_view_only">View only</string>
-    <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
+    <string name="share_permission_view_only">Nur anschauen</string>
+    <string name="share_permission_can_edit">Kann bearbeiten</string>
+    <string name="share_permission_file_drop">Dateiablegen</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
