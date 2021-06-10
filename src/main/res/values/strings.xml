@@ -1023,4 +1023,7 @@
     <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the
         file you are moving?</string>
     <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
+    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_file_drop">File drop</string>
 </resources>

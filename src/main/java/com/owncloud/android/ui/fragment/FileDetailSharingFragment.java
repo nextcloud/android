@@ -24,8 +24,10 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -368,11 +370,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void prepareLinkOptionsMenu(Menu menu, OCShare publicShare) {
         preparePermissionsMenu(menu, publicShare);
 
-
         Resources res = requireContext().getResources();
         SharingMenuHelper.setupHideFileDownload(menu.findItem(R.id.action_hide_file_download),
                                                 publicShare.isHideFileDownload(),
-                                                isFileDrop(publicShare));
+                                                SharingMenuHelper.isFileDrop(publicShare));
 
         SharingMenuHelper.setupPasswordMenuItem(menu.findItem(R.id.action_password),
                                                 publicShare.isPasswordProtected());
@@ -384,6 +385,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * method to prepare permissions menu for both user options and link options
+     *
      * @param menu
      * @param share
      */
@@ -400,42 +402,52 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         // read only / allow upload and editing / file drop
-        if (isUploadAndEditingAllowed(share)) {
+        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             allowUploadAndEditingItem.setChecked(true);
-        } else if (isFileDrop(share) && share.isFolder()) {
+        } else if (SharingMenuHelper.isFileDrop(share) && share.isFolder()) {
             menu.findItem(R.id.link_share_file_drop).setChecked(true);
-        } else if (isReadOnly(share)) {
+        } else if (SharingMenuHelper.isReadOnly(share)) {
             menu.findItem(R.id.link_share_read_only).setChecked(true);
         }
     }
 
-    @VisibleForTesting
-    public boolean isUploadAndEditingAllowed(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
+    @Override
+    public void showPermissionsDialog(OCShare share, ShareeListAdapter.OnSharePermissionChanged onSharePermissionChanged) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        String[] permissionArray;
+        if (share.isFolder()) {
+            permissionArray =
+                requireContext().getResources().getStringArray(R.array.folder_share_permission_dialog_values);
+        } else {
+            permissionArray =
+                requireContext().getResources().getStringArray(R.array.file_share_permission_dialog_values);
         }
+        int checkedItem = SharingMenuHelper.getPermissionCheckedItem(requireContext(), share, permissionArray);
+        builder.setSingleChoiceItems(permissionArray, checkedItem, (dialog, which) -> {
+            if (checkedItem != which) {
+                String permissionName = "";
+                if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_allow_upload_and_editing))) {
+                    if (share.isFolder()) {
+                        fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FOLDER);
+                    } else {
+                        fileOperationsHelper.setPermissionsToShare(share, MAXIMUM_PERMISSIONS_FOR_FILE);
+                    }
+                    permissionName = requireContext().getResources().getString(R.string.share_permission_can_edit);
+                } else if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_read_only))) {
+                    fileOperationsHelper.setPermissionsToShare(share, READ_PERMISSION_FLAG);
+                    permissionName = requireContext().getResources().getString(R.string.share_permission_view_only);
+                } else if (permissionArray[which].equalsIgnoreCase(requireContext().getResources().getString(R.string.link_share_file_drop))) {
+                    fileOperationsHelper.setPermissionsToShare(share, CREATE_PERMISSION_FLAG);
+                    permissionName = requireContext().getResources().getString(R.string.share_permission_file_drop);
+                }
 
-        return (share.getPermissions() & (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
-            MAXIMUM_PERMISSIONS_FOR_FILE)) == (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
-            MAXIMUM_PERMISSIONS_FOR_FILE);
-    }
+                onSharePermissionChanged.onPermissionChanged(permissionName);
 
-    @VisibleForTesting
-    public boolean isReadOnly(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
-        }
-
-        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == READ_PERMISSION_FLAG;
-    }
-
-    @VisibleForTesting
-    public boolean isFileDrop(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
-        }
-
-        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG;
+            }
+            dialog.dismiss();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private boolean userOptionsItemSelected(Menu menu, MenuItem item, OCShare share) {
