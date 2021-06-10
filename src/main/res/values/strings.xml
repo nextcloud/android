@@ -957,4 +957,8 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
+    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_file_drop">File drop</string>
+
 </resources>
