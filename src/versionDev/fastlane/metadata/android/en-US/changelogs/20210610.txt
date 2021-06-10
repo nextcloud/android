@@ -1,0 +1,2 @@
+Use ExoPlayer for audio/video player
+Update translations
