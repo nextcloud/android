@@ -457,12 +457,14 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String message;
-        private String fileId;
-        private VersionListInterface.CommentCallback callback;
-        private OwnCloudClient client;
+        private final String message;
+        private final long fileId;
+        private final VersionListInterface.CommentCallback callback;
+        private final OwnCloudClient client;
 
-        private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
+        private SubmitCommentTask(String message,
+                                  long fileId,
+                                  VersionListInterface.CommentCallback callback,
                                   OwnCloudClient client) {
             this.message = message;
             this.fileId = fileId;
