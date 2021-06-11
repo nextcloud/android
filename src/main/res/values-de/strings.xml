@@ -372,6 +372,7 @@
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
+    <string name="fullscreen">Vollbild</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Notiz</string>
     <string name="hint_password">Passwort</string>

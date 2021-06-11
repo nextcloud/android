@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">失敗したアップロードのクリア</string>
     <string name="action_edit">編集</string>
     <string name="action_empty_notifications">全ての通知を削除</string>
+    <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
@@ -33,10 +34,10 @@
     <string name="add_another_public_share_link">別のリンクを追加</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
-    <string name="allow_creating">作成許可</string>
-    <string name="allow_deleting">削除許可</string>
+    <string name="allow_creating">作成を許可</string>
+    <string name="allow_deleting">削除を許可</string>
     <string name="allow_editing">編集を許可</string>
-    <string name="allow_resharing">再共有を許可する</string>
+    <string name="allow_resharing">再共有を許可</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
@@ -83,11 +84,13 @@
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
     <string name="battery_optimization_no_setting">バッテリーの設定を直接変更できません。手動で設定を調整してください。</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
+    <string name="brute_force_delay">大量の誤った試みによる遅延</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="changelog_dev_version">開発バージョンの変更履歴</string>
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
+    <string name="choose_template_helper_text">テンプレートを選択してファイル名を入力してください。</string>
     <string name="choose_which_file">保存するファイルを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
@@ -367,6 +370,7 @@
     <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
+    <string name="fullscreen">全画面</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
@@ -389,6 +393,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
+    <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
     <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
@@ -550,6 +555,7 @@
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="remote">(リモート)</string>
     <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
     <string name="remove_fail_msg">削除失敗</string>
     <string name="remove_notification_failed">通知の削除に失敗</string>
@@ -596,6 +602,7 @@
     <string name="share_internal_link">内部リンクを共有</string>
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダーにアクセスできるユーザーにのみ機能します。</string>
+    <string name="share_known_remote_on_clarification">%1$s上の</string>
     <string name="share_link">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
@@ -610,6 +617,7 @@
     <string name="share_privilege_unshare">共有解除</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
+    <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス ...</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
     <string name="share_via_link_menu_password_label">パスワード保護(%1$s)</string>
@@ -717,6 +725,7 @@
     <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
+    <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
     <string name="unread_comments">未読のコメントが存在します</string>
     <string name="unset_encrypted">暗号化解除</string>
@@ -823,6 +832,7 @@
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">今のステータスは？</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
+    <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>
