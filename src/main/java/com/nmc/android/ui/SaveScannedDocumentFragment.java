@@ -308,7 +308,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         }
         String pdfPassword = pdfPasswordEt.getText().toString().trim();
         if (pdfPasswordSwitch.isChecked() && TextUtils.isEmpty(pdfPassword)) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_link_empty_password);
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.save_scan_empty_pdf_password);
             return;
         }
 
