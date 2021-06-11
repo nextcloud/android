@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_edit">Muokkaa</string>
     <string name="action_empty_notifications">Hylkää kaikki ilmoitukset</string>
+    <string name="action_empty_trashbin">Tyhjennä roskakori</string>
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
@@ -278,6 +279,8 @@
     <string name="etm_migrations">Yhdistäminen (sovelluksen päivitys)</string>
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
+    <string name="etm_transfer">Tiedoston siirto</string>
+    <string name="etm_transfer_type_download">Lataa</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
@@ -364,6 +367,7 @@
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="forward">Välitä</string>
     <string name="fourHours">4 tuntia</string>
+    <string name="fullscreen">Koko näyttö</string>
     <string name="hint_name">Nimi</string>
     <string name="hint_note">Huomio</string>
     <string name="hint_password">Salasana</string>
@@ -388,6 +392,7 @@
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Sovellusta ei löytynyt lokien lähettämistä varten. Asenna sähköpostisovellus.</string>
     <string name="login">Kirjaudu sisään</string>
+    <string name="login_url_helper_text">Linkki %1$s selainkäyttöliittymääsi.</string>
     <string name="logs_menu_delete">Poista lokitiedot</string>
     <string name="logs_menu_refresh">Päivitä</string>
     <string name="logs_menu_search">Etsi lokitiedoista</string>
@@ -718,6 +723,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="trashbin_empty_message">Voit palauttaa poistettuja tiedostoja täältä.</string>
     <string name="trashbin_file_not_deleted">Tiedostoa %1$s ei voitu poistaa!</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
+    <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
     <string name="unread_comments">Lukemattomia kommentteja on olemassa</string>
     <string name="unset_encrypted">Poista salaus</string>
