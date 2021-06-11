@@ -9,7 +9,7 @@ import org.gradle.internal.jvm.Jvm
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.5.10'
+    ext.kotlin_version = '1.4.32'
     repositories {
         google()
         maven {
@@ -56,7 +56,6 @@ configurations {
 }
 
 ext {
-    jacocoVersion = "0.8.2"
     daggerVersion = "2.36"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
@@ -65,7 +64,7 @@ ext {
     mockitoVersion = "3.11.0"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.11.0"
+    byteBuddyVersion = "1.11.2"
     espressoVersion = "3.3.0"
     workRuntime = "2.5.0"
     fidoVersion = "4.4.0"
@@ -387,14 +386,6 @@ dependencies {
     androidTestImplementation 'tools.fastlane:screengrab:2.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
-
-//    jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
-//    jacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
-//    androidJacocoAgent "org.jacoco:org.jacoco.agent:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.core:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.report:${jacocoVersion}"
-//    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 }
