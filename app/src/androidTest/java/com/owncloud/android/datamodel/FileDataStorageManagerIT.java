@@ -369,4 +369,5 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
+
 }
