@@ -243,6 +243,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (result.isSuccess()) {
                 // request for the synchronization of KEPT-IN-SYNC file contents
                 startContentSynchronizations(mFilesToSyncContents);
+            } else {
+                mLocalFolder.setEtag("");
             }
 
             mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
@@ -370,7 +372,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 // check if remote and local folder are different
                 String remoteFolderETag = remoteFolder.getEtag();
                 if (remoteFolderETag != null) {
-                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtagOnServer()));
+                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
                 } else {
                     Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + ": No ETag received from server");
                 }
@@ -463,6 +465,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
+
+        // update eTag
+        mLocalFolder.setEtag(remoteFolder.getEtag());
 
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
                                                                       mLocalFolder,
