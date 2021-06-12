@@ -1,0 +1,3 @@
+Correct etag check/store when it has changed
+Update translations
+Update Nextcloud Android library
