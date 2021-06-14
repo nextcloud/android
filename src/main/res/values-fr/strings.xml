@@ -286,6 +286,8 @@ Attention la suppression est irréversible.</string>
     <string name="etm_transfer_enqueue_test_upload">Verification de la liste de téléversement</string>
     <string name="etm_transfer_remote_path">Chemin distant</string>
     <string name="etm_transfer_type">Transfert</string>
+    <string name="etm_transfer_type_download">Téléchargement</string>
+    <string name="etm_transfer_type_upload">Envoyer</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
@@ -372,6 +374,7 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="fullscreen">Plein écran</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Mot de passe</string>
