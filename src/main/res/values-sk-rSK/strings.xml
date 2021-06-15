@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
     <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
+    <string name="action_empty_trashbin">Vyprázdniť kôš</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
@@ -88,6 +89,7 @@
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="choose_local_folder">Vyberte miestny priečinok…</string>
     <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
+    <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
@@ -110,6 +112,7 @@
     <string name="common_save">Uložiť</string>
     <string name="common_send">Odoslať</string>
     <string name="common_share">Zdieľať</string>
+    <string name="common_skip">Preskočiť</string>
     <string name="common_switch_account">Prepnúť účet</string>
     <string name="common_switch_to_account">Prepnúť na účet</string>
     <string name="common_yes">Áno</string>
@@ -166,6 +169,7 @@
     <string name="copy_to">Kopírovať do…</string>
     <string name="could_not_download_image">Nie je možné stiahnuť celý obráz</string>
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
+    <string name="create">Vytvoriť</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="create_new">Vytvoriť nový</string>
     <string name="create_new_document">Vytvoriť nový dokument</string>
@@ -184,6 +188,7 @@
     <string name="dev_version_new_version_available">Je dostupná nová verzia</string>
     <string name="dev_version_no_information_available">Nie sú dostupné žiadne informácie.</string>
     <string name="dev_version_no_new_version_available">Nová verzia nie je dostupná.</string>
+    <string name="dialog_close">Zatvoriť</string>
     <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="dismiss">Odmietnuť</string>
@@ -205,6 +210,7 @@
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_all_files">Všetky súbory</string>
     <string name="drawer_item_favorites">Obľúbené</string>
+    <string name="drawer_item_gallery">Média</string>
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_item_on_device">V zariadení</string>
@@ -265,6 +271,10 @@
     <string name="etm_migrations">Migrácie (aktualizácia aplikácie)</string>
     <string name="etm_preferences">Nastavenia</string>
     <string name="etm_title">Vývojársky testovací režim</string>
+    <string name="etm_transfer">Prenos súboru</string>
+    <string name="etm_transfer_type">Prenos</string>
+    <string name="etm_transfer_type_download">Stiahnuť</string>
+    <string name="etm_transfer_type_upload">Nahrať</string>
     <string name="fab_label">Pridať alebo nahrať</string>
     <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
@@ -348,11 +358,13 @@
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
+    <string name="fullscreen">Na celú obrazovku</string>
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server nie je dostupný</string>
     <string name="host_your_own_server">Hostiť vlastný server</string>
+    <string name="in_folder">v adresári %1$s</string>
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -457,12 +469,14 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Toto je \"placeholder\"</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_toggle">prepnúť</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Čo urobiť, ak súbor už existuje?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Spýtať sa zakaždým</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Preskočiť nahrávanie</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Prepísať vzdialenú verziu</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Premenovať novú verziu</string>
     <string name="pref_instant_name_collision_policy_title">Čo urobiť, ak súbor už existuje?</string>
@@ -516,6 +530,7 @@
     <string name="push_notifications_not_implemented">Push notifikácie sú vypnuté z dôvodu závislosti na proprietárnych službách Google Play</string>
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
+    <string name="qr_could_not_be_read">QR kód nie je možné načítať!</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
@@ -770,6 +785,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čakanie na nemerané Wi-Fi</string>
     <string name="user_icon">Používateľ</string>
     <string name="user_info_address">Adresa</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Telefónne číslo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web stránka</string>
