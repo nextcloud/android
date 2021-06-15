@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
     <string name="action_edit">Editare</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
+    <string name="action_empty_trashbin">Golește coșul de gunoi</string>
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
@@ -26,7 +27,7 @@
     <string name="actionbar_sort">Sortează</string>
     <string name="active_user">Utilizator activ</string>
     <string name="activities_no_results_headline">Momentan fără activitate</string>
-    <string name="activities_no_results_message">Deocamdata nu sunt alte evenimente precum completări, schimbări și împărtășiri.</string>
+    <string name="activities_no_results_message">Deocamdată nu sunt alte evenimente precum completări, modificări și partajări.</string>
     <string name="activity_chooser_send_file_title">Trimite</string>
     <string name="activity_chooser_title">Trimite link la…</string>
     <string name="activity_icon">Activitate</string>
@@ -45,7 +46,7 @@
     <string name="auth_account_not_the_same">Utilizatorul introdus nu se potrivește cu utilizatorul acestui cont</string>
     <string name="auth_bad_oc_version_title">Versiune necunoscuta a serverului </string>
     <string name="auth_connection_established">Conexiune stabilită</string>
-    <string name="auth_fail_get_user_name">Serverul tau nu returnează un ID de utilizator corect, te rog contactează un administrator. </string>
+    <string name="auth_fail_get_user_name">Serverul tău nu returnează un ID de utilizator corect, te rog contactează un administrator. </string>
     <string name="auth_host_url">Adresa serverului https://…</string>
     <string name="auth_incorrect_address_title">Format greșit de adresă pentru server</string>
     <string name="auth_incorrect_path_title">Serverul nu a fost găsit</string>
@@ -68,7 +69,7 @@
     <string name="auth_unknown_host_title">Nu am putut găsi gazdă</string>
     <string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
     <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
-    <string name="auto_upload_file_behaviour_kept_in_folder">pastrează în directorul original deoarece este disponibil doar pentru citire</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">păstrează în directorul original deoarece este disponibil doar pentru citire</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
     <string name="autoupload_configure">Configurează</string>
@@ -77,7 +78,7 @@
     <string name="autoupload_disable_power_save_check">Dezactivează verificarea economiei de energie</string>
     <string name="autoupload_hide_folder">Ascunde director</string>
     <string name="avatar">Avatar</string>
-    <string name="away">Departe</string>
+    <string name="away">Plecat</string>
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
@@ -116,11 +117,11 @@
     <string name="common_send">Trimitere</string>
     <string name="common_share">Distribuie</string>
     <string name="common_skip">Sari peste</string>
-    <string name="common_switch_account">Schimba contul</string>
+    <string name="common_switch_account">Schimbă contul</string>
     <string name="common_switch_to_account">Schimbă pe contul</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testează versiunea în curs de dezvoltare</string>
-    <string name="community_beta_text">Aceasta include toate funcționalitățile viitoare și conține cele mai noi tehnologii. Pot apărea erori, când acest lucru se întâmplă, vă rugăm să raportați despre asta.</string>
+    <string name="community_beta_text">Aceasta include toate funcționalitățile viitoare și conține cele mai noi tehnologii. Pot apărea erori; când și dacă acest lucru se întâmplă, vă rugăm să raportați ce ați descoperit.</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ajută pe altii la </string>
     <string name="community_contribute_github_text">Revizuiește, modifică și scrie cod, vezi %1$s pentru detalii</string>
@@ -133,8 +134,8 @@
     <string name="community_rc_fdroid">Descarcă versiunea candidat de la F-Droid app</string>
     <string name="community_rc_play_store">Descarcă versiunea candidat de la magazinul Google Play</string>
     <string name="community_release_candidate_headline">Candidatul pentru lansare</string>
-    <string name="community_release_candidate_text">Versiunea candidat (RC) este o variantă a versiunii viitoare și este considerată ca fiind stabilă. Prin testarea setărilor individiuale personale ne puteți ajuta să stabilim acest lucru. Înscrie-te pentru testare în magazinul Play sau caută manual în secțiunea ”Versiuni” a lui F-Droid.</string>
-    <string name="community_testing_bug_text">Ai găsit un bug? Se intamplă ceva ciudat?</string>
+    <string name="community_release_candidate_text">Versiunea candidat (RC) este o variantă a versiunii viitoare care sperăm să devină stabilă. Prin testarea setărilor individiuale personale ne puteți ajuta să stabilim acest lucru. Înscrie-te pentru testare în magazinul Play sau caută manual în secțiunea ”Versiuni” pentru F-Droid.</string>
+    <string name="community_testing_bug_text">Ai găsit un bug? Se întâmplă ceva ciudat?</string>
     <string name="community_testing_headline">Ajută-ne să testăm</string>
     <string name="community_testing_report_text">Raportează o problemă pe Github</string>
     <string name="community_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
@@ -145,7 +146,7 @@
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
     <string name="conflict_already_existing_file">Fișierul deja există</string>
-    <string name="conflict_dialog_error">Eroare la creare!</string>
+    <string name="conflict_dialog_error">Eroare la crearea dialogului pentru conflict!</string>
     <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_new_file">Fișier nou</string>
@@ -167,12 +168,12 @@
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>
     <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
-    <string name="copy_file_not_found">Imposibil de copiat. Vă rog verificați dacă fișierul există.</string>
+    <string name="copy_file_not_found">Imposibil de copiat. Vă rugăm să verificați dacă fișierul există.</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
     <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
-    <string name="could_not_retrieve_shares">Nu am putut regăsi lista de elemente partajate</string>
+    <string name="could_not_retrieve_shares">Nu am putut obține lista partajărilor</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
@@ -195,7 +196,7 @@
     <string name="dev_version_no_new_version_available">Nu este disponibilă o versiune nouă.</string>
     <string name="dialog_close">Închide</string>
     <string name="digest_algorithm_not_available">Algoritmul \'digest\' nu este disponibil pe telefonul tău.</string>
-    <string name="direct_login_failed">Eroare la logare prin legătură directă!</string>
+    <string name="direct_login_failed">Eroare la autentificare prin legătură directă!</string>
     <string name="disable_new_media_folder_detection_notifications">Dezactivează</string>
     <string name="dismiss">Elimină</string>
     <string name="dismiss_notification_description">Elimină notificarea</string>
@@ -240,12 +241,12 @@
     <string name="end_to_end_encryption_enter_password">Introduceti parola pentru decriptare cheie personală.</string>
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
     <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
-    <string name="end_to_end_encryption_keywords_description">Toate cele 12 cuvinte împreună sunt o parolă foarte puternică, ceea ce face ca numai tu să vezi și să utilizezi documentele tale criptate. Te rog scrie-o și păstreaz-o undeva în siguranță.</string>
+    <string name="end_to_end_encryption_keywords_description">Împreună, cele 12 cuvinte sunt o parolă foarte puternică, ceea ce face ca numai tu să vezi și să utilizezi documentele tale criptate. Te rog scrie-o și păstreaz-o undeva în siguranță.</string>
     <string name="end_to_end_encryption_not_enabled">Criptarea end-to-end este dezactivată pe server.</string>
     <string name="end_to_end_encryption_passphrase_title">Te rog salvează parola de criptare formată din cele 12 cuvinte</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Recuperare chei...</string>
-    <string name="end_to_end_encryption_storing_keys">Depozitare chei</string>
+    <string name="end_to_end_encryption_retrieving_keys">Obținere chei...</string>
+    <string name="end_to_end_encryption_storing_keys">Stocare chei</string>
     <string name="end_to_end_encryption_title">Setează criptarea</string>
     <string name="end_to_end_encryption_unsuccessful">Nu s-au putut salva cheile de criptare, te rog încearcă din nou.</string>
     <string name="end_to_end_encryption_wrong_password">Eroare la decriptare. Parola greșită?</string>
@@ -340,7 +341,7 @@
     <string name="instant_upload_path">/Încărcare instantă</string>
     <string name="link">Legătură</string>
     <string name="link_share_allow_upload_and_editing">Permite încărcarea și editarea</string>
-    <string name="link_share_file_drop">Aruncă fișierul (numai încărcare)</string>
+    <string name="link_share_file_drop">Trage fișierul (numai încărcare)</string>
     <string name="link_share_read_only">Doar citire</string>
     <string name="list_layout">Aranjare listată</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
@@ -386,7 +387,7 @@
     <string name="note_could_not_sent">Nu s-a putut trimite nota</string>
     <string name="notification_action_failed">Nu s-a putut executa acțiunea</string>
     <string name="notification_channel_download_description">Arată progresul descărcării</string>
-    <string name="notification_channel_download_name">Canal de notificări descărcări</string>
+    <string name="notification_channel_download_name">Canal de notificare descărcări</string>
     <string name="notification_channel_media_name">Player media</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="notifications_no_results_message">Te rugăm să încerci mai târziu.</string>
@@ -553,9 +554,9 @@
     <string name="synced_folders_type">Tip</string>
     <string name="tags">Etichete</string>
     <string name="thirtyMinutes">30 minute</string>
-    <string name="thisWeek">Săptămâna asta</string>
+    <string name="thisWeek">Săptămâna aceasta</string>
     <string name="thumbnail">Miniatură</string>
-    <string name="today">Azi</string>
+    <string name="today">Astăzi</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
