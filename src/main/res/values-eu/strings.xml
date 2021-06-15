@@ -279,7 +279,9 @@
     <string name="etm_migrations">Migrazioak (aplikazioaren eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
     <string name="etm_title">Ingeniaritzako proba modua </string>
+    <string name="etm_transfer">Fitxategi-transferentzia</string>
     <string name="etm_transfer_enqueue_test_download">Ilaran jarri proba-deskarga</string>
+    <string name="etm_transfer_enqueue_test_upload">Ilaran jarri proba-igoera</string>
     <string name="etm_transfer_remote_path">Urruneko bide-izena</string>
     <string name="etm_transfer_type">Transferitu</string>
     <string name="etm_transfer_type_download">Jaitsi</string>
@@ -370,6 +372,7 @@
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="fullscreen">Pantaila osoa</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
     <string name="hint_password">Pasahitza</string>
@@ -551,6 +554,7 @@
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
+    <string name="qr_could_not_be_read">QR kodea ezin izan da irakurri!</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
