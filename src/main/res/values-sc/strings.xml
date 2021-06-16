@@ -387,7 +387,7 @@
     <string name="local_folder_list_empty">Non ddoe sunt àteras cartellas.</string>
     <string name="log_send_mail_subject">%1$s registros de s\'aplicatzione Android</string>
     <string name="login">Intra</string>
-    <string name="login_url_helper_text">Su ligàmene a s\'interfache de rete tua  %1$s cando dd\'aberis in su navigadore.</string>
+    <string name="login_url_helper_text">Su ligòngiu a s\'interfache de rete tua  %1$s cando dd\'aberis in su navigadore.</string>
     <string name="logs_menu_delete">Cantzella log</string>
     <string name="logs_menu_refresh">Agiorna</string>
     <string name="logs_menu_search">Chirca log</string>
@@ -807,7 +807,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situ internet</string>
     <string name="user_information_retrieval_error">Errore in su recùperu de is informatziones de s\'utente</string>
-    <string name="userinfo_no_info_headline">Peruna cunfiguratzione de datos personales</string>
+    <string name="userinfo_no_info_headline">Peruna impostatzione de datos personales</string>
     <string name="userinfo_no_info_text">Agiunghe nùmene, fotografia e detàllios de cuntatu in su profilu tuo.</string>
     <string name="username">Nùmene utente</string>
     <string name="version_dev_download">Iscàrriga</string>
