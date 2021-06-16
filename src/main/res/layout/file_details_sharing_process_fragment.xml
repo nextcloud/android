@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:background="@color/bg_default"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/standard_padding"
+        app:layout_constraintBottom_toTopOf="@+id/share_process_btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_permission_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/permissions"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:textColor="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/share_process_permission_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_permission_title">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_read_only"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/link_share_read_only" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_upload_editing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/link_share_allow_upload_and_editing" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_file_drop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/link_share_file_drop" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_advance_permission_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/advance_permissions"
+                android:textColor="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_permission_radio_group" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/share_process_hide_download_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/share_via_link_hide_download"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_advance_permission_title"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/share_process_allow_resharing_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/allow_resharing"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_hide_download_checkbox"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_set_password_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/share_no_password_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/share_process_enter_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_set_password_switch"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_set_exp_date_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:text="@string/share_no_expiration_date_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_enter_password" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_select_exp_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/standard_half_padding"
+                android:visibility="gone"
+                app:drawableEndCompat="@drawable/file_calendar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_set_exp_date_switch"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/share_process_exp_date_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_select_exp_date" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/share_process_group_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="share_process_exp_date_divider, share_process_permission_radio_group, share_process_permission_title, share_process_advance_permission_title, share_process_hide_download_checkbox, share_process_allow_resharing_checkbox, share_process_set_password_switch, share_process_set_exp_date_switch, share_process_enter_password, share_process_select_exp_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_message_title"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_height="wrap_content"
+                android:text="@string/share_send_note"
+                android:textColor="@color/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/note_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:hint="@string/hint_note"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_message_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/note_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
+                    android:minLines="10"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/share_process_group_two"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="share_process_message_title, note_container" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_process_btn_cancel"
+        style="@style/OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/common_cancel"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/share_process_btn_next"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_process_btn_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/uploader_btn_upload_text"
+        android:theme="@style/Button.Primary"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/share_process_btn_cancel" />
+</androidx.constraintlayout.widget.ConstraintLayout>

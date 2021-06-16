@@ -325,7 +325,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @VisibleForTesting
     public void prepareUserOptionsMenu(Menu menu, OCShare share) {
-        MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
+      /*  MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
         MenuItem reshareItem = menu.findItem(R.id.allow_resharing);
 
         preparePermissionsMenu(menu, share);
@@ -341,7 +341,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         SharingMenuHelper.setupExpirationDateMenuItem(menu.findItem(R.id.action_expiration_date),
                                                       share.getExpirationDate(),
-                                                      getResources());
+                                                      getResources());*/
+
+        MenuItem openInMenuItem = menu.findItem(R.id.action_share_open_in);
+        openInMenuItem.setVisible(!share.isFolder());
+
     }
 
     public void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink) {
@@ -352,12 +356,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         PopupMenu popup = new PopupMenu(requireContext(), overflowMenuShareLink);
         if (ShareType.EMAIL == publicShare.getShareType()) {
-            popup.inflate(R.menu.fragment_file_detail_sharing_email_link);
+            popup.inflate(R.menu.item_user_sharing_settings);
+            prepareUserOptionsMenu(popup.getMenu(), publicShare);
+            popup.setOnMenuItemClickListener(item -> userOptionsItemSelected(popup.getMenu(), item, publicShare));
         } else {
             popup.inflate(R.menu.fragment_file_detail_sharing_public_link);
+            prepareLinkOptionsMenu(popup.getMenu(), publicShare);
+            popup.setOnMenuItemClickListener(menuItem -> linkOptionsItemSelected(menuItem, publicShare));
         }
-        prepareLinkOptionsMenu(popup.getMenu(), publicShare);
-        popup.setOnMenuItemClickListener(menuItem -> linkOptionsItemSelected(menuItem, publicShare));
         popup.show();
     }
 
@@ -460,7 +466,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 fileOperationsHelper.setPermissionsToShare(share, CREATE_PERMISSION_FLAG);
                 return true;
             }
-            case R.id.allow_editing:
+          /*  case R.id.allow_editing:
             case R.id.allow_creating:
             case R.id.allow_deleting:
             case R.id.allow_resharing: {
@@ -471,7 +477,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                               menu.findItem(R.id.allow_creating).isChecked(),
                                                               menu.findItem(R.id.allow_deleting).isChecked()));
                 return true;
-            }
+            }*/
             case R.id.action_unshare: {
                 unshareWith(share);
                 ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
@@ -483,16 +489,33 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
                 return true;
             }
-            case R.id.action_expiration_date: {
+           /* case R.id.action_expiration_date: {
                 ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
                     .newInstance(share, share.getExpirationDate());
                 dialog.show(fileActivity.getSupportFragmentManager(),
                             ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
                 return true;
-            }
+            }*/
             case R.id.action_share_send_note:
                 NoteDialogFragment dialog = NoteDialogFragment.newInstance(share);
                 dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+                return true;
+            case R.id.action_share_open_in:
+                fileOperationsHelper.sendShareFile(file);
+                return true;
+            case R.id.action_share_advanced_permissions:
+                fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
+                                                                                FileDetailsSharingProcessFragment.newInstance(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION, !isReshareForbidden(share),
+                                                                                                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
+                                                                                FileDetailsSharingProcessFragment.TAG)
+                  .commit();
+                return true;
+            case R.id.action_share_send_new_mail:
+                fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
+                                                                                FileDetailsSharingProcessFragment.newInstance(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE, !isReshareForbidden(share),
+                                                                                                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
+                                                                                FileDetailsSharingProcessFragment.TAG)
+                .commit();
                 return true;
             default:
                 return true;
@@ -728,10 +751,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private boolean canDelete(OCShare share) {
         return (share.getPermissions() & DELETE_PERMISSION_FLAG) > 0;
-    }
-
-    private boolean canReshare(OCShare share) {
-        return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
     }
 
     @VisibleForTesting
