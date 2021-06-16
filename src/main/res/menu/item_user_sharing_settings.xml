@@ -21,7 +21,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
-    <group
+   <!-- <group
         android:id="@+id/folder_permission"
         android:checkableBehavior="single">
         <item
@@ -73,6 +73,21 @@
         android:id="@+id/action_share_send_note"
         android:showAsAction="never"
         android:title="@string/share_send_note"
+        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_share_open_in"
+        android:showAsAction="never"
+        android:title="@string/share_open_in"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_advanced_permissions"
+        android:showAsAction="never"
+        android:title="@string/share_advanced_permissions"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_send_new_mail"
+        android:showAsAction="never"
+        android:title="@string/share_send_new_email"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_unshare"

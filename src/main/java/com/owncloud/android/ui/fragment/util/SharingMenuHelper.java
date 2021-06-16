@@ -165,6 +165,7 @@ public final class SharingMenuHelper {
 
     /**
      * method to get the current checked index from the list of permissions
+     *
      * @param context
      * @param share
      * @param permissionArray
@@ -192,5 +193,9 @@ public final class SharingMenuHelper {
             }
         }
         return 0;
+    }
+
+    public static boolean canReshare(OCShare share) {
+        return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
     }
 }

@@ -457,6 +457,7 @@
     <string name="share_file">Share %1$s</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
@@ -1026,4 +1027,17 @@
     <string name="share_permission_view_only">View only</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
+    <string name="permissions">Permissions</string>
+    <string name="advance_permissions">Advance Permissions</string>
+    <string name="common_next">Next</string>
+    <string name="send_share">Send Share</string>
+    <string name="no_share_permission_selected">Please select at least one permission to share.</string>
+    <string name="share_link_empty_exp_date">You must select expiration date.</string>
+    <string name="share_link_empty_note_message">Please enter note.</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="send_email">Send email</string>
+    <string name="share_open_in">Open in...</string>
+    <string name="share_advanced_permissions">Advanced permissions</string>
+    <string name="share_send_new_email">Send new email</string>
+
 </resources>

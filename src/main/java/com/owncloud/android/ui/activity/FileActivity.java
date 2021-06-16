@@ -70,6 +70,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateNoteForShareOperation;
+import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
@@ -83,6 +84,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -232,8 +234,6 @@ public abstract class FileActivity extends DrawerActivity
     }
 
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -244,7 +244,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    protected void onPause()  {
+    protected void onPause() {
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
@@ -370,12 +370,13 @@ public abstract class FileActivity extends DrawerActivity
             showUntrustedCertDialog(result);
 
         } else if (operation == null ||
-                operation instanceof CreateShareWithShareeOperation ||
-                operation instanceof UnshareOperation ||
-                operation instanceof SynchronizeFolderOperation ||
-                operation instanceof UpdateShareViaLinkOperation ||
-                operation instanceof UpdateSharePermissionsOperation
-                ) {
+            operation instanceof CreateShareWithShareeOperation ||
+            operation instanceof UnshareOperation ||
+            operation instanceof SynchronizeFolderOperation ||
+            operation instanceof UpdateShareViaLinkOperation ||
+            operation instanceof UpdateSharePermissionsOperation ||
+            operation instanceof UpdateShareInfoOperation
+        ) {
             if (result.isSuccess()) {
                 updateFileFromDB();
 
@@ -404,7 +405,7 @@ public abstract class FileActivity extends DrawerActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateShareViaLinkOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
@@ -882,10 +883,16 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void doShareWith(String shareeName, ShareType shareType) {
-        getFileOperationsHelper().shareFileWithSharee(getFile(),
+        getSupportFragmentManager().beginTransaction().add(android.R.id.content,
+                                                           FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                         shareeName,
+                                                                                                         shareType),
+                                                           FileDetailsSharingProcessFragment.TAG)
+            .commit();
+      /*  getFileOperationsHelper().shareFileWithSharee(getFile(),
                                                       shareeName,
                                                       shareType,
-                                                      getAppropriatePermissions(shareType));
+                                                      getAppropriatePermissions(shareType));*/
     }
 
     private int getAppropriatePermissions(ShareType shareType) {

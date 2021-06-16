@@ -521,6 +521,41 @@ public class FileOperationsHelper {
         }
     }
 
+
+    /**
+     * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
+     *
+     * @param file        The file to share.
+     * @param shareeName  Name (user name or group name) of the target sharee.
+     * @param shareType   The share type determines the sharee type.
+     * @param permissions Permissions to grant to sharee on the shared file.
+     */
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions,
+                                    boolean hideFileDownload, String password, long expirationTimeInMillis, String note) {
+        if (file != null) {
+            // TODO check capability?
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(fileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
+            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
+            service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
+            service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+            service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
+            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
+
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        } else {
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+        }
+    }
+
     /**
      * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
      *
@@ -689,6 +724,20 @@ public class FileOperationsHelper {
 
         queueShareIntent(updateShareIntent);
     }
+
+    public void updateShareInformation(OCShare share, int permissions,
+                                       boolean hideFileDownload, String password, long expirationTimeInMillis) {
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
+        queueShareIntent(updateShareIntent);
+    }
+
 
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog
