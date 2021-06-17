@@ -50,6 +50,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private String sharePassword;
     private boolean hideFileDownload;
     private long expirationDateInMillis;
+    private String label;
 
     private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
                                                                                              ShareType.GROUP,
@@ -127,6 +128,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
             updateShareInfoOperation.setNote(noteMessage);
+            updateShareInfoOperation.setLabel(label);
 
             //execute and save the result in database
             RemoteOperationResult updateShareInfoResult = updateShareInfoOperation.execute(client);
@@ -156,5 +158,9 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
     public String getPath() {
         return this.path;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

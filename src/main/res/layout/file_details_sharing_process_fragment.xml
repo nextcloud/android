@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:focusableInTouchMode="true"
-    android:focusable="true"
+    android:layout_height="match_parent"
     android:background="@color/bg_default"
-    android:layout_height="match_parent">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
                 android:id="@+id/share_process_permission_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/permissions"
                 android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/permissions"
                 android:textColor="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,18 +148,47 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_process_select_exp_date" />
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_change_name_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:text="@string/edit_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_exp_date_divider" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/share_process_change_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions|textCapSentences"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_switch"
+                tools:visibility="visible" />
+
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/share_process_group_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:constraint_referenced_ids="share_process_exp_date_divider, share_process_permission_radio_group, share_process_permission_title, share_process_advance_permission_title, share_process_hide_download_checkbox, share_process_allow_resharing_checkbox, share_process_set_password_switch, share_process_set_exp_date_switch, share_process_enter_password, share_process_select_exp_date" />
+                app:constraint_referenced_ids="share_process_exp_date_divider,
+                share_process_permission_radio_group, share_process_permission_title,
+                share_process_advance_permission_title, share_process_hide_download_checkbox,
+                share_process_allow_resharing_checkbox, share_process_set_password_switch,
+                share_process_set_exp_date_switch, share_process_enter_password,
+                share_process_select_exp_date, share_process_change_name_switch,
+                share_process_change_name_et" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/share_process_message_title"
                 android:layout_width="0dp"
-                android:layout_marginTop="@dimen/standard_margin"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:text="@string/share_send_note"
                 android:textColor="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,8 +219,8 @@
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/share_process_group_two"
                 android:layout_width="wrap_content"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:constraint_referenced_ids="share_process_message_title, note_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

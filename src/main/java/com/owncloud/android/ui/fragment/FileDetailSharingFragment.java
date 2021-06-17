@@ -94,7 +94,7 @@ import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSIO
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
-    Injectable {
+    Injectable, FileDetailsSharingMenuBottomSheetActions {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
@@ -307,14 +307,23 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void showUserOverflowMenu(OCShare share, ImageView overflowMenu) {
         // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled(requireContext())) {
+       /* if (ThemeUtils.themingEnabled(requireContext())) {
             requireContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
         PopupMenu popup = new PopupMenu(requireContext(), overflowMenu);
         popup.inflate(R.menu.item_user_sharing_settings);
         prepareUserOptionsMenu(popup.getMenu(), share);
         popup.setOnMenuItemClickListener(item -> userOptionsItemSelected(popup.getMenu(), item, share));
-        popup.show();
+        popup.show();*/
+        showSharingMenuActionSheet(share);
+    }
+
+    /**
+     * show share action bottom sheet
+     * @param share
+     */
+    private void showSharingMenuActionSheet(OCShare share) {
+        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share).show();
     }
 
     /**
@@ -325,7 +334,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @VisibleForTesting
     public void prepareUserOptionsMenu(Menu menu, OCShare share) {
-      /*  MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
+        MenuItem expirationDateItem = menu.findItem(R.id.action_expiration_date);
         MenuItem reshareItem = menu.findItem(R.id.allow_resharing);
 
         preparePermissionsMenu(menu, share);
@@ -333,7 +342,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (isReshareForbidden(share)) {
             reshareItem.setVisible(false);
         }
-        reshareItem.setChecked(canReshare(share));
+        reshareItem.setChecked(SharingMenuHelper.canReshare(share));
 
         if (!capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)) {
             expirationDateItem.setVisible(false);
@@ -341,30 +350,26 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         SharingMenuHelper.setupExpirationDateMenuItem(menu.findItem(R.id.action_expiration_date),
                                                       share.getExpirationDate(),
-                                                      getResources());*/
-
-        MenuItem openInMenuItem = menu.findItem(R.id.action_share_open_in);
-        openInMenuItem.setVisible(!share.isFolder());
+                                                      getResources());
 
     }
 
     public void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink) {
-        if (ThemeUtils.themingEnabled(requireContext())) {
+       /* if (ThemeUtils.themingEnabled(requireContext())) {
             // use grey as fallback for elements where custom theming is not available
             requireContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
 
         PopupMenu popup = new PopupMenu(requireContext(), overflowMenuShareLink);
         if (ShareType.EMAIL == publicShare.getShareType()) {
-            popup.inflate(R.menu.item_user_sharing_settings);
-            prepareUserOptionsMenu(popup.getMenu(), publicShare);
-            popup.setOnMenuItemClickListener(item -> userOptionsItemSelected(popup.getMenu(), item, publicShare));
+            popup.inflate(R.menu.fragment_file_detail_sharing_email_link);
         } else {
             popup.inflate(R.menu.fragment_file_detail_sharing_public_link);
-            prepareLinkOptionsMenu(popup.getMenu(), publicShare);
-            popup.setOnMenuItemClickListener(menuItem -> linkOptionsItemSelected(menuItem, publicShare));
         }
-        popup.show();
+        prepareLinkOptionsMenu(popup.getMenu(), publicShare);
+        popup.setOnMenuItemClickListener(menuItem -> linkOptionsItemSelected(menuItem, publicShare));
+        popup.show();*/
+        showSharingMenuActionSheet(publicShare);
     }
 
     @VisibleForTesting
@@ -499,23 +504,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             case R.id.action_share_send_note:
                 NoteDialogFragment dialog = NoteDialogFragment.newInstance(share);
                 dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
-                return true;
-            case R.id.action_share_open_in:
-                fileOperationsHelper.sendShareFile(file);
-                return true;
-            case R.id.action_share_advanced_permissions:
-                fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
-                                                                                FileDetailsSharingProcessFragment.newInstance(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION, !isReshareForbidden(share),
-                                                                                                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
-                                                                                FileDetailsSharingProcessFragment.TAG)
-                  .commit();
-                return true;
-            case R.id.action_share_send_new_mail:
-                fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
-                                                                                FileDetailsSharingProcessFragment.newInstance(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE, !isReshareForbidden(share),
-                                                                                                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
-                                                                                FileDetailsSharingProcessFragment.TAG)
-                .commit();
                 return true;
             default:
                 return true;
@@ -761,5 +749,54 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     public OCFile getFile() {
         return file;
+    }
+
+    @Override
+    public void openIn(OCShare share) {
+        fileOperationsHelper.sendShareFile(file);
+    }
+
+    @Override
+    public void advancedPermissions(OCShare share) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
+    }
+
+
+    @Override
+    public void sendNewEmail(OCShare share) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE);
+    }
+
+    @Override
+    public void unShare(OCShare share) {
+        unshareWith(share);
+        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
+        if (adapter == null) {
+            DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
+            return;
+        }
+        adapter.remove(share);
+    }
+
+    @Override
+    public void sendLink(OCShare share) {
+        if (file.isSharedViaLink() && !TextUtils.isEmpty(share.getShareLink())) {
+            FileDisplayActivity.showShareLinkDialog(fileActivity, file, share.getShareLink());
+        } else {
+            showSendLinkTo(share);
+        }
+    }
+
+    @Override
+    public void addAnotherLink(OCShare share) {
+        createPublicShareLink();
+    }
+
+    private void modifyExistingShare(OCShare share, int screenTypePermission) {
+        fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
+                                                                        FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, !isReshareForbidden(share),
+                                                                                                                      capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
+                                                                        FileDetailsSharingProcessFragment.TAG)
+            .commit();
     }
 }

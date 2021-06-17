@@ -44,11 +44,14 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private boolean hideFileDownload;
     private int permissions = -1;
     private String password;
+    private String label;
 
     /**
      * Constructor
      *
      * @param share {@link OCShare} to update. Mandatory argument
+     *              <p>
+     *              this will be triggered while creating new share
      */
     public UpdateShareInfoOperation(OCShare share) {
         this.share = share;
@@ -56,6 +59,13 @@ public class UpdateShareInfoOperation extends SyncOperation {
         note = null;
     }
 
+    /**
+     * Constructor
+     *
+     * @param shareId {@link OCShare} to update. Mandatory argument
+     *                <p>
+     *                this will be triggered while modifying existing share
+     */
     public UpdateShareInfoOperation(long shareId) {
         this.shareId = shareId;
         expirationDateInMillis = 0L;
@@ -77,7 +87,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
             return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
-        // Update remote share with password
+        // Update remote share
         UpdateShareRemoteOperation updateOp = new UpdateShareRemoteOperation(share.getRemoteId());
         updateOp.setExpirationDate(expirationDateInMillis);
         updateOp.setHideFileDownload(hideFileDownload);
@@ -87,15 +97,17 @@ public class UpdateShareInfoOperation extends SyncOperation {
         if (permissions > -1) {
             updateOp.setPermissions(permissions);
         }
-        if (!TextUtils.isEmpty(password)) {
-            updateOp.setPassword(password);
-        }
+        updateOp.setPassword(password);
+        updateOp.setLabel(label);
 
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
             RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
             result = getShareOp.execute(client);
+
+            //only update the share in storage if shareId is available
+            //this will be triggered by editing existing share
             if (result.isSuccess() && shareId > 0) {
                 OCShare ocShare = (OCShare) result.getData().get(0);
                 ocShare.setPasswordProtected(!TextUtils.isEmpty(password));
@@ -125,6 +137,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
 

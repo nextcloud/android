@@ -598,9 +598,15 @@ public class OperationsService extends Service {
                         boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                                                                    false);
                         if (!TextUtils.isEmpty(remotePath)) {
-                            operation = new CreateShareWithShareeOperation(remotePath, shareeName, shareType,
-                                                                           permissions, noteMessage, sharePassword,
-                                                                           expirationDateInMillis, hideFileDownload);
+                            CreateShareWithShareeOperation createShareWithShareeOperation = new CreateShareWithShareeOperation(remotePath,
+                                                                                                                               shareeName, shareType,
+                                                                                                                               permissions, noteMessage, sharePassword,
+                                                                                                                               expirationDateInMillis, hideFileDownload);
+
+                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
+                                createShareWithShareeOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
+                            }
+                            operation = createShareWithShareeOperation;
                         }
                         break;
 
@@ -624,6 +630,10 @@ public class OperationsService extends Service {
                                 , false);
 
                             updateShare.setHideFileDownload(fileDownloadHide);
+
+                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
+                                updateShare.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
+                            }
 
                             operation = updateShare;
                         }
