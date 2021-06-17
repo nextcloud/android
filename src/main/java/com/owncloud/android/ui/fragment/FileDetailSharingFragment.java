@@ -322,7 +322,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * show share action bottom sheet
      * @param share
      */
-    private void showSharingMenuActionSheet(OCShare share) {
+    @VisibleForTesting
+    public void showSharingMenuActionSheet(OCShare share) {
         new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share).show();
     }
 

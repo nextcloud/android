@@ -146,7 +146,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
             // read only / allow upload and editing / file drop
             if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
                 binding.shareProcessPermissionUploadEditing.isChecked = true
-            } else if (SharingMenuHelper.isFileDrop(share) && share!!.isFolder) {
+            } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
                 binding.shareProcessPermissionFileDrop.isChecked = true
             } else if (SharingMenuHelper.isReadOnly(share)) {
                 binding.shareProcessPermissionReadOnly.isChecked = true
