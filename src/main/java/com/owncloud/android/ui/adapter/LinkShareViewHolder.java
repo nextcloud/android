@@ -25,12 +25,14 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 
 import androidx.annotation.NonNull;
@@ -74,7 +76,20 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             ThemeAvatarUtils.colorIconImageViewWithBackground(binding.icon, context);
         }
 
+        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
+        setPermissionName(permissionName);
+
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
+        binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+    }
+
+    private void setPermissionName(String permissionName) {
+        if (!TextUtils.isEmpty(permissionName)) {
+            binding.permissionName.setText(permissionName);
+            binding.permissionName.setVisibility(View.VISIBLE);
+        } else {
+            binding.permissionName.setVisibility(View.GONE);
+        }
     }
 }

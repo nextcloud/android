@@ -38,6 +38,7 @@
         android:checkable="true"
         android:showAsAction="never"
         android:title="@string/allow_editing"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_file_download"

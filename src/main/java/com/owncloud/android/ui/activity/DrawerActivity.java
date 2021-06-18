@@ -98,6 +98,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
@@ -132,6 +133,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -986,7 +988,13 @@ public abstract class DrawerActivity extends ToolbarActivity
             closeDrawer();
             return;
         }
-        super.onBackPressed();
+        Fragment fileDetailsSharingProcessFragment =
+            getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+        if (fileDetailsSharingProcessFragment != null) {
+            ((FileDetailsSharingProcessFragment)fileDetailsSharingProcessFragment).onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
