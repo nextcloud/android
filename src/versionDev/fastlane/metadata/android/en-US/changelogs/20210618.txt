@@ -1,0 +1,3 @@
+Create SECURITY.md
+Update translations
+Update Nextcloud Android library
