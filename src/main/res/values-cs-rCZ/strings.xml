@@ -282,7 +282,7 @@
     <string name="etm_transfer">Přenos souboru</string>
     <string name="etm_transfer_enqueue_test_download">Zařadit do fronty testovacího stahování</string>
     <string name="etm_transfer_enqueue_test_upload">Zařadit do fronty testovacího nahrávání</string>
-    <string name="etm_transfer_remote_path">Cesta federovaného úložiště</string>
+    <string name="etm_transfer_remote_path">Popis umístění na protějšku</string>
     <string name="etm_transfer_type">Přenesení</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>

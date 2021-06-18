@@ -385,13 +385,16 @@
     <string name="logs_menu_delete">Zmazať záznamy</string>
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
+    <string name="logs_menu_send">Odoslať logy e-mailom</string>
     <string name="logs_status_filtered">Záznamy: %1$d kB, Vyhovujúci dopyt %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Načítava sa…</string>
     <string name="logs_status_not_filtered">Záznamy: %1$d kB, bez filtra</string>
     <string name="logs_title">Záznamy</string>
+    <string name="maintenance_mode">Server je v móde údržby</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>
+    <string name="media_err_invalid_progressive_playback">Multimediálny súbor sa nedá streamovať</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
     <string name="media_err_malformed">Súbor médií má neplatné kódovanie</string>
     <string name="media_err_timeout">Vypršal čas pri pokuse o prehratie</string>
@@ -469,6 +472,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Toto je \"placeholder\"</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">zastaviť</string>
     <string name="player_toggle">prepnúť</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
@@ -563,6 +567,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendár a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="select_all">Vybrať všetko</string>
+    <string name="select_one_template">Vyberte jednu šablónu</string>
     <string name="select_template">Vybrať šablónu</string>
     <string name="send">Odoslať</string>
     <string name="send_note">Odoslať poznámku pre príjemcu</string>
@@ -570,6 +575,7 @@
     <string name="set_as">Nastaviť ako</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="set_status">Nastaviť stav</string>
+    <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="share">Zdieľať</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_expiration_date_label">Vyprší %1$s</string>
@@ -585,6 +591,7 @@
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
     <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
     <string name="share_link_password_title">Vložte heslo</string>
+    <string name="share_link_with_label">Zdieľať odkaz (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastaviť dátum expirácie</string>
     <string name="share_no_password_title">Nastaviť heslo</string>
     <string name="share_password_title">Chránené heslom</string>
@@ -697,6 +704,7 @@
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory.</string>
     <string name="trashbin_file_not_deleted">Súbor %1$s sa nedá vymazať!</string>
     <string name="trashbin_file_not_restored">Súbor %1$s sa nedá obnoviť!</string>
+    <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
@@ -740,6 +748,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nie je oprávnený čítať prijatý súbor</string>
     <string name="uploader_error_message_source_file_not_copied">Pri kopírovaní súboru do dočasného priečinka došlo k chybe. Skúste prosím znova.</string>
     <string name="uploader_error_message_source_file_not_found">Súbor, ktorý sa pokúšate nahrať nebol nájdený. Overte prosím či súbor existuje.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Súbor nie je možné nahrať</string>
     <string name="uploader_error_title_no_file_to_upload">Žiadny súbor pre nahratie</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
     <string name="uploader_top_message">Vyber priečinok pre nahratie</string>
