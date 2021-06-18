@@ -59,7 +59,10 @@ class TransferManagerTest {
         lateinit var client: OwnCloudClient
 
         @MockK
-        lateinit var mockTaskFactory: DownloadTask.Factory
+        lateinit var mockDownloadTaskFactory: DownloadTask.Factory
+
+        @MockK
+        lateinit var mockUploadTaskFactory: UploadTask.Factory
 
         /**
          * All task mock functions created during test run are
@@ -88,11 +91,12 @@ class TransferManagerTest {
             runner = ManualAsyncRunner()
             transferManager = TransferManagerImpl(
                 runner = runner,
-                taskFactory = mockTaskFactory,
+                downloadTaskFactory = mockDownloadTaskFactory,
+                uploadTaskFactory = mockUploadTaskFactory,
                 threads = MAX_TRANSFER_THREADS
             )
             downloadTaskResult = true
-            every { mockTaskFactory.create() } answers { createMockTask() }
+            every { mockDownloadTaskFactory.create() } answers { createMockTask() }
         }
 
         private fun createMockTask(): DownloadTask {
@@ -119,7 +123,7 @@ class TransferManagerTest {
             // WHEN
             //      download is enqueued
             val file = OCFile("/path")
-            val request = Request(user, file)
+            val request = DownloadRequest(user, file)
             transferManager.enqueue(request)
 
             // THEN
@@ -134,7 +138,7 @@ class TransferManagerTest {
             //      downloader is downloading max simultaneous files
             for (i in 0 until MAX_TRANSFER_THREADS) {
                 val file = OCFile("/running/download/path/$i")
-                val request = Request(user, file)
+                val request = DownloadRequest(user, file)
                 transferManager.enqueue(request)
                 val runningDownload = transferManager.getTransfer(request.uuid)
                 assertEquals(runningDownload?.state, TransferState.RUNNING)
@@ -143,7 +147,7 @@ class TransferManagerTest {
             // WHEN
             //      another download is enqueued
             val file = OCFile("/path")
-            val request = Request(user, file)
+            val request = DownloadRequest(user, file)
             transferManager.enqueue(request)
 
             // THEN
@@ -167,7 +171,7 @@ class TransferManagerTest {
             //      download is being observed
             val downloadUpdates = mutableListOf<Transfer>()
             transferManager.registerTransferListener { downloadUpdates.add(it) }
-            transferManager.enqueue(Request(user, file))
+            transferManager.enqueue(DownloadRequest(user, file))
 
             // WHEN
             //      download task finishes successfully
@@ -186,7 +190,7 @@ class TransferManagerTest {
             //      download is being observed
             val downloadUpdates = mutableListOf<Transfer>()
             transferManager.registerTransferListener { downloadUpdates.add(it) }
-            transferManager.enqueue(Request(user, file))
+            transferManager.enqueue(DownloadRequest(user, file))
 
             // WHEN
             //      download task fails
@@ -205,7 +209,7 @@ class TransferManagerTest {
             //      download is running
             val downloadUpdates = mutableListOf<Transfer>()
             transferManager.registerTransferListener { downloadUpdates.add(it) }
-            transferManager.enqueue(Request(user, file))
+            transferManager.enqueue(DownloadRequest(user, file))
 
             // WHEN
             //      download progress updated 4 times before completion
@@ -233,7 +237,7 @@ class TransferManagerTest {
             // WHEN
             //      multiple downloads are enqueued
             for (i in 0 until MAX_TRANSFER_THREADS * 2) {
-                transferManager.enqueue(Request(user, file))
+                transferManager.enqueue(DownloadRequest(user, file))
             }
 
             // THEN
@@ -252,7 +256,7 @@ class TransferManagerTest {
             // WHEN
             //      download is enqueued
             val file = OCFile("/path/to/file")
-            val request = Request(user, file)
+            val request = DownloadRequest(user, file)
             transferManager.enqueue(request)
 
             // THEN
@@ -265,7 +269,7 @@ class TransferManagerTest {
             // GIVEN
             //      a download is in progress
             val file = OCFile("/path/to/file")
-            val request = Request(user, file)
+            val request = DownloadRequest(user, file)
             transferManager.enqueue(request)
             assertTrue(transferManager.isRunning)
 

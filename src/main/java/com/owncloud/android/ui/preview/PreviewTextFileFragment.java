@@ -271,7 +271,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 user
             );
             mf.filter(menu, true);

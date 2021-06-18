@@ -37,7 +37,7 @@
     <string name="allow_creating">Povolit vytváření</string>
     <string name="allow_deleting">Povolit mazání</string>
     <string name="allow_editing">Povolit úpravy</string>
-    <string name="allow_resharing">Povolit sdílet dále</string>
+    <string name="allow_resharing">Povolit sdílet dál dalším</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
     <string name="auth_access_failed">Přístup se nezdařil: %1$s</string>
@@ -84,7 +84,7 @@
     <string name="battery_optimization_message">Vaše zařízení má zapnuté snížení vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_no_setting">Nedaří se spustit nastavení akumulátoru přímo. Upravte ručně v nastavení.</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
-    <string name="brute_force_delay">Odloženo z důvodu mnoha špatných pokusů</string>
+    <string name="brute_force_delay">Odloženo z důvodu příliš mnoha nesprávných pokusů</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
     <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
@@ -116,9 +116,9 @@
     <string name="common_save">Uložit</string>
     <string name="common_send">Odeslat</string>
     <string name="common_share">Sdílet</string>
+    <string name="common_skip">Přeskočit</string>
     <string name="common_switch_account">Přepnout účet</string>
     <string name="common_switch_to_account">Přepnout na účet</string>
-    <string name="common_unknown">neznámý</string>
     <string name="common_yes">Ano</string>
     <string name="community_beta_headline">Vyzkoušet vývojové sestavení</string>
     <string name="community_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby – pokud ano, nahlaste nám je prosím.</string>
@@ -196,7 +196,7 @@
     <string name="dev_version_no_new_version_available">Není k dispozici žádná novější verze.</string>
     <string name="dialog_close">Zavřít</string>
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
-    <string name="direct_login_failed">Přihlášení přes přímý odkaz selhalo!</string>
+    <string name="direct_login_failed">Přihlášení se prostřednictvím přímého odkazu se nezdařilo!</string>
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit upozornění</string>
@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migrace (přechod na novější verzi aplikace)</string>
     <string name="etm_preferences">Předvolby</string>
     <string name="etm_title">Vývojářský testovací režim</string>
+    <string name="etm_transfer">Přenos souboru</string>
+    <string name="etm_transfer_enqueue_test_download">Zařadit do fronty testovacího stahování</string>
+    <string name="etm_transfer_enqueue_test_upload">Zařadit do fronty testovacího nahrávání</string>
+    <string name="etm_transfer_remote_path">Cesta federovaného úložiště</string>
+    <string name="etm_transfer_type">Přenesení</string>
+    <string name="etm_transfer_type_download">Stáhnout</string>
+    <string name="etm_transfer_type_upload">Nahrát</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
@@ -365,6 +372,7 @@
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
     <string name="forward">Vpřed</string>
     <string name="fourHours">4 hodiny</string>
+    <string name="fullscreen">Celá obrazovka</string>
     <string name="hint_name">Jméno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
@@ -698,6 +706,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="stream">Proudově vysílat s…</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
+    <string name="strict_mode">Přísný mód: připojení přes http není povoleno!</string>
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s s vámi sdílí „%2$s“</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
@@ -847,7 +856,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
     <string name="wrong_storage_path">Složka úložiště neexistuje!</string>
-    <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením zálohy na jiném zařízení. Vráceno do původního stavu. Prosím zkontrolujte nastavení a upravte cestu k úložišti.</string>
+    <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením ze zálohy na jiném zařízení. Náhradně vráceno do výchozího stavu. Zkontrolujte nastavení a upravte popis umístění úložiště.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>

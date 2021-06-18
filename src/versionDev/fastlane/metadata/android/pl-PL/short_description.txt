@@ -1,1 +1,1 @@
-Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę 
+Oprogramowanie biurowe uruchamiane na własnym hostingu, które zapewnia kontrolę 

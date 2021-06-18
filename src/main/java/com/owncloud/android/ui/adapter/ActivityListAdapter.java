@@ -149,11 +149,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == ACTIVITY_TYPE) {
             return new ActivityViewHolder(
-                ActivityListItemBinding.inflate(LayoutInflater.from(parent.getContext()))
+                ActivityListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
             );
         } else {
             return new ActivityViewHeaderHolder(
-                ActivityListItemHeaderBinding.inflate(LayoutInflater.from(parent.getContext()))
+                ActivityListItemHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
             );
         }
     }

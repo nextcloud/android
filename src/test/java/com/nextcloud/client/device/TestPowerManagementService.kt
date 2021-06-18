@@ -31,7 +31,6 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
@@ -83,9 +82,9 @@ class TestPowerManagementService {
         @Test
         fun `power saving queries power manager on API 21+`() {
             // GIVEN
-            //      API level >= 21
+            //      API level >= 22 (since 22+ is supported)
             //      power save mode is on
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.LOLLIPOP)
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.LOLLIPOP_MR1)
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
 
             // WHEN
@@ -95,22 +94,6 @@ class TestPowerManagementService {
             //      state is obtained from platform power manager
             assertTrue(powerManagementService.isPowerSavingEnabled)
             verify(platformPowerManager).isPowerSaveMode
-        }
-
-        @Test
-        fun `power saving is not available below API 21`() {
-            // GIVEN
-            //      API level <21
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.KITKAT)
-
-            // WHEN
-            //      power save mode is checked
-
-            // THEN
-            //      power save mode is disabled
-            //      power manager is not queried
-            assertFalse(powerManagementService.isPowerSavingEnabled)
-            verify(platformPowerManager, never()).isPowerSaveMode
         }
 
         @Test
@@ -202,24 +185,6 @@ class TestPowerManagementService {
                 //      charging flag is true
                 assertTrue(powerManagementService.battery.isCharging)
             }
-        }
-
-        @Test
-        fun `wireless charging is not supported in API 16`() {
-            // GIVEN
-            //      device has API level 16
-            //      battery status sticky intent is available
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.JELLY_BEAN)
-
-            // WHEN
-            //      spurious wireless power source is returned
-            whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
-                .thenReturn(BatteryManager.BATTERY_PLUGGED_WIRELESS)
-
-            // THEN
-            //      power source value is ignored on this API level
-            //      charging flag is false
-            assertFalse(powerManagementService.battery.isCharging)
         }
 
         @Test

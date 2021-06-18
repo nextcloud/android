@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Apagar envios com falha</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
-    <string name="action_empty_trashbin">Esvaziar lixeira</string>
+    <string name="action_empty_trashbin">Esvaziar lixeira </string>
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
@@ -116,9 +116,9 @@
     <string name="common_save">Salvar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartilhar</string>
+    <string name="common_skip">Pular</string>
     <string name="common_switch_account">Mudar de conta</string>
     <string name="common_switch_to_account">Mudar para a conta</string>
-    <string name="common_unknown">desconhecido</string>
     <string name="common_yes">Sim</string>
     <string name="community_beta_headline">Teste a versão de desenvolvimento</string>
     <string name="community_beta_text">Isso inclui todos os recursos futuros e está num limite perigoso. Erros podem ocorrer e se acontecerem, informe-nos.</string>
@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
     <string name="etm_title">Modo de Teste de Engenharia</string>
+    <string name="etm_transfer">Transferência de arquivo</string>
+    <string name="etm_transfer_enqueue_test_download">Enfileirar teste e baixar</string>
+    <string name="etm_transfer_enqueue_test_upload">Enfileirar teste e enviar</string>
+    <string name="etm_transfer_remote_path">Caminho remoto</string>
+    <string name="etm_transfer_type">Transferir</string>
+    <string name="etm_transfer_type_download">Baixar</string>
+    <string name="etm_transfer_type_upload">Enviar</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
@@ -365,6 +372,7 @@
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
+    <string name="fullscreen">Tela cheia</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
     <string name="hint_password">Senha</string>
@@ -387,13 +395,13 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Não há outras pastas.</string>
     <string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
-    <string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
+    <string name="log_send_no_mail_app">Nenhum aplicativo para envio de registros encontrado. Instale um cliente de e-mail.</string>
     <string name="login">Entrar</string>
     <string name="login_url_helper_text">O link para a interface da web do seu  %1$s quando você o abre no navegador.</string>
     <string name="logs_menu_delete">Excluir logs</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Pesquisar logs</string>
-    <string name="logs_menu_send">Enviar logs por e-mail</string>
+    <string name="logs_menu_send">Enviar logs por e-mail </string>
     <string name="logs_status_filtered">Logs: %1$d kB, pesquisa confere %2$d / %3$d em %4$d ms</string>
     <string name="logs_status_loading">Carregando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
@@ -402,7 +410,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
-    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser enviado via streaming</string>
+    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
     <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
@@ -485,9 +493,9 @@
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
-    <string name="pref_behaviour_entries_delete_file">excluído</string>
+    <string name="pref_behaviour_entries_delete_file">Excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
-    <string name="pref_behaviour_entries_move">movido para a pasta aplicativos</string>
+    <string name="pref_behaviour_entries_move">Movido para a pasta aplicativos</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">O que fazer se o arquivo já existir?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Perguntar sempre</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Ignorar envio</string>
@@ -527,9 +535,9 @@
     <string name="prefs_lock_using_passcode">Senha</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
-    <string name="prefs_show_hidden_files">Exibir arquivos ocultos</string>
+    <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
-    <string name="prefs_storage_path">Pasta de armazenamente de dados</string>
+    <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
     <string name="prefs_sycned_folders_summary">Gerenciar pastas para envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
@@ -543,10 +551,10 @@
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Novo nome</string>
-    <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências dos serviços proprietários do Google Play.</string>
+    <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
-    <string name="qr_could_not_be_read">Não foi possível ler o Código QR!</string>
+    <string name="qr_could_not_be_read">Não foi possível ler o código QR! </string>
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
@@ -570,7 +578,7 @@
     <string name="screenshot_01_gridView_heading">Protegendo seus dados</string>
     <string name="screenshot_01_gridView_subline">produtividade auto hospedada</string>
     <string name="screenshot_02_listView_heading">Navegar e compartilhar</string>
-    <string name="screenshot_02_listView_subline">todas as ações na ponta de seus dedos</string>
+    <string name="screenshot_02_listView_subline">todas as ações ao seu alcance</string>
     <string name="screenshot_03_drawer_heading">Atividades, compartilhamentos, ...</string>
     <string name="screenshot_03_drawer_subline">tudo rapidamente acessível</string>
     <string name="screenshot_04_accounts_heading">Todas as suas contas</string>
@@ -677,6 +685,7 @@
     <string name="stream">Stream com…</string>
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
+    <string name="strict_mode">Modo restrito: nenhuma conexão http permitida! </string>
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
@@ -705,7 +714,7 @@
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>
-    <string name="tags">Rótulos</string>
+    <string name="tags">Etiquetas</string>
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
     <string name="thisWeek">Esta semana</string>
@@ -719,7 +728,7 @@
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui.</string>
     <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
-    <string name="trashbin_loading_failed">Falha ao abrir a lixeira!</string>
+    <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
@@ -763,7 +772,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o arquivo para uma pasta temporária. Tente reenviá-lo.</string>
     <string name="uploader_error_message_source_file_not_found">O arquivo selecionado para envio não foi encontrado. Verifique se ele existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pôde ser enviado</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pode ser carregado</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>

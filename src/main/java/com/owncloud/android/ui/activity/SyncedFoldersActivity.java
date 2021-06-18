@@ -61,6 +61,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -445,7 +446,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 false,
                 getAccount().name,
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
+                NameCollisionPolicy.ASK_USER.serialize(),
                 false,
                 clock.getCurrentTime(),
                 mediaFolder.filePaths,
@@ -524,21 +525,21 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         } else if (itemId == R.id.action_create_custom_folder) {
             Log.d(TAG, "Show custom folder dialog");
             SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
-                UNPERSISTED_ID,
-                null,
-                null,
-                true,
-                false,
-                true,
-                false,
-                getAccount().name,
-                FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
-                false,
-                clock.getCurrentTime(),
-                null,
-                MediaFolderType.CUSTOM,
-                false);
+                    UNPERSISTED_ID,
+                    null,
+                    null,
+                    true,
+                    false,
+                    true,
+                    false,
+                    getAccount().name,
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                    NameCollisionPolicy.ASK_USER.serialize(),
+                    false,
+                    clock.getCurrentTime(),
+                    null,
+                    MediaFolderType.CUSTOM,
+                    false);
             onSyncFolderSettingsClick(0, emptyCustomFolder);
 
             result = super.onOptionsItemSelected(item);

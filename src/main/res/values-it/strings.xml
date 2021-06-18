@@ -116,9 +116,9 @@
     <string name="common_save">Salva</string>
     <string name="common_send">Invia</string>
     <string name="common_share">Condividi</string>
+    <string name="common_skip">Salta</string>
     <string name="common_switch_account">Cambia account</string>
     <string name="common_switch_to_account">Cambia account</string>
-    <string name="common_unknown">sconosciuto</string>
     <string name="common_yes">Sì</string>
     <string name="community_beta_headline">Prova la versione di sviluppo</string>
     <string name="community_beta_text">Ciò include tutte le funzionalità di prossima introduzione e potrebbe presentare seri problemi di stabilità. Bug/errori possono verificars. Se e quando li riscontrerai, segnalaci le tue scoperte.</string>
@@ -279,6 +279,13 @@
     <string name="etm_migrations">Migrazioni (aggiornamento applicazione)</string>
     <string name="etm_preferences">Preferenze</string>
     <string name="etm_title">Modalità test di progettazione</string>
+    <string name="etm_transfer">Trasferimento file</string>
+    <string name="etm_transfer_enqueue_test_download">Accoda scaricamento di prova</string>
+    <string name="etm_transfer_enqueue_test_upload">Accoda caricamento di prova</string>
+    <string name="etm_transfer_remote_path">Percorso remoto</string>
+    <string name="etm_transfer_type">Trasferisci</string>
+    <string name="etm_transfer_type_download">Scarica</string>
+    <string name="etm_transfer_type_upload">Carica</string>
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
@@ -365,6 +372,7 @@
     <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
     <string name="fourHours">4 ore</string>
+    <string name="fullscreen">Schermo intero</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Password</string>
@@ -398,7 +406,7 @@
     <string name="logs_status_loading">Caricamento in corso…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, nessun filtro</string>
     <string name="logs_title">Log</string>
-    <string name="maintenance_mode">Server in manutenzione</string>
+    <string name="maintenance_mode">Il server è in modalità di manutenzione</string>
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
@@ -677,6 +685,7 @@
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
+    <string name="strict_mode">Modalità rigorosa: nessuna connessione http consentita! </string>
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>

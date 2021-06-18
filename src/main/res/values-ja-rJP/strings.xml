@@ -34,10 +34,10 @@
     <string name="add_another_public_share_link">別のリンクを追加</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
-    <string name="allow_creating">作成許可</string>
-    <string name="allow_deleting">削除許可</string>
+    <string name="allow_creating">作成を許可</string>
+    <string name="allow_deleting">削除を許可</string>
     <string name="allow_editing">編集を許可</string>
-    <string name="allow_resharing">再共有を許可する</string>
+    <string name="allow_resharing">再共有を許可</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
@@ -76,7 +76,7 @@
     <string name="autoupload_create_new_custom_folder">新しいカスタムフォルダセットアップを作成する</string>
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
-    <string name="autoupload_hide_folder">フォルダを隠す</string>
+    <string name="autoupload_hide_folder">フォルダーを隠す</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="battery_optimization_close">閉じる</string>
@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
     <string name="battery_optimization_no_setting">バッテリーの設定を直接変更できません。手動で設定を調整してください。</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
+    <string name="brute_force_delay">大量の誤った試みによる遅延</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="changelog_dev_version">開発バージョンの変更履歴</string>
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
+    <string name="choose_template_helper_text">テンプレートを選択してファイル名を入力してください。</string>
     <string name="choose_which_file">保存するファイルを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
@@ -114,9 +116,9 @@
     <string name="common_save">保存</string>
     <string name="common_send">送信</string>
     <string name="common_share">共有</string>
+    <string name="common_skip">スキップ</string>
     <string name="common_switch_account">アカウント変更</string>
     <string name="common_switch_to_account">アカウントに変更</string>
-    <string name="common_unknown">不明</string>
     <string name="common_yes">はい</string>
     <string name="community_beta_headline">開発バージョンをテスト</string>
     <string name="community_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
@@ -173,14 +175,15 @@
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
+    <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新しい文書を作成する</string>
     <string name="create_new_folder">新しいフォルダーを作成</string>
     <string name="create_new_presentation">新しいプレゼンテーションを作成する</string>
     <string name="create_new_spreadsheet">新しいスプレッドシートを作成する</string>
-    <string name="create_rich_workspace">フォルダ情報を追加</string>
-    <string name="creates_rich_workspace">フォルダ情報を作成</string>
+    <string name="create_rich_workspace">フォルダー情報を追加</string>
+    <string name="creates_rich_workspace">フォルダー情報を作成</string>
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="date_unknown">不明</string>
     <string name="default_credentials_wrong">不正な資格情報</string>
@@ -193,6 +196,7 @@
     <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
     <string name="dialog_close">閉じる</string>
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
+    <string name="direct_login_failed">ダイレクトリンクからのログインに失敗しました!</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
@@ -214,6 +218,7 @@
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_favorites">お気に入り</string>
+    <string name="drawer_item_gallery">メディア</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
@@ -274,10 +279,15 @@
     <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
+    <string name="etm_transfer">ファイル転送</string>
+    <string name="etm_transfer_remote_path">リモートパス</string>
+    <string name="etm_transfer_type">転送</string>
+    <string name="etm_transfer_type_download">ダウンロード</string>
+    <string name="etm_transfer_type_upload">アップロード</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
-    <string name="failed_to_start_editor">エディタの起動に失敗しました</string>
+    <string name="failed_to_start_editor">エディターの起動に失敗しました</string>
     <string name="failed_update_ui">UIの更新に失敗しました</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
@@ -305,6 +315,7 @@
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
+    <string name="file_migration_dialog_title">データ保存フォルダーを更新</string>
     <string name="file_migration_directory_already_exists">データフォルダは既に存在します。 次のいずれかを選択します。</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudフォルダは既に存在します</string>
     <string name="file_migration_failed_not_enough_space">空き容量が必要です</string>
@@ -318,6 +329,7 @@
     <string name="file_migration_preparing">移行の準備中…</string>
     <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中…</string>
     <string name="file_migration_saving_accounts_configuration">アカウントの設定を保存中</string>
+    <string name="file_migration_source_not_readable">データ保存フォルダーを %1$s に変更しますか?\n\n注意: すべてのデータを再度ダウンロードする必要があります。</string>
     <string name="file_migration_source_not_readable_title">ソースフォルダが読み込めません！</string>
     <string name="file_migration_updating_index">インデックスの更新中…</string>
     <string name="file_migration_use_data_folder">利用</string>
@@ -358,11 +370,13 @@
     <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
+    <string name="fullscreen">全画面</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
     <string name="host_not_available">サーバーが利用できません</string>
     <string name="host_your_own_server">自分のサーバーをホストする</string>
+    <string name="in_folder">フォルダー%1$sの中で</string>
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -379,17 +393,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
-    <string name="log_send_no_mail_app">ログを送信するアプリが見つかりません。メールクライアントをインストールしてください。</string>
+    <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
     <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
-    <string name="logs_menu_send">ログをメールで送信</string>
+    <string name="logs_menu_send">メールでログを送信</string>
     <string name="logs_status_filtered">ログ: %1$d kB, 一致 %2$d 件 / %3$d 件、%4$d ms </string>
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>
     <string name="logs_title">ログ</string>
-    <string name="maintenance_mode">サーバーはメンテナンスモードです。</string>
+    <string name="maintenance_mode">サーバーはメンテナンスモードです</string>
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
@@ -473,6 +487,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
+    <string name="player_stop">中止</string>
+    <string name="player_toggle">切替え</string>
     <string name="power_save_check_dialog_message">省電力チェックを無効にすると、バッテリー残量が少ないときにもファイルのアップロードを行う場合があります！</string>
     <string name="pref_behaviour_entries_delete_file">削除しました</string>
     <string name="pref_behaviour_entries_keep_file">元のフォルダーに保持</string>
@@ -482,7 +498,7 @@
     <string name="pref_instant_name_collision_policy_entries_cancel">アップロードをスキップ</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">リモートのバージョンを上書きする</string>
     <string name="pref_instant_name_collision_policy_entries_rename">新しいバージョンの名前を変更</string>
-    <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在する場合、どうしますか？</string>
+    <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在するときの対応</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_address_resolve_error">このアカウントのDAVx5 (f旧称 DAVdroid)用サーバアドレスが解決できませんでした</string>
@@ -518,6 +534,8 @@
     <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
+    <string name="prefs_storage_path">データ保存フォルダー</string>
+    <string name="prefs_sycned_folders_summary">自動アップロードするフォルダーを管理する</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
     <string name="prefs_theme_title">テーマ</string>
@@ -533,10 +551,11 @@
     <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
-    <string name="qr_could_not_be_read">QRコードを読み込めませんでした！</string>
+    <string name="qr_could_not_be_read">QRコードを読み込めません!</string>
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="remote">(リモート)</string>
     <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
     <string name="remove_fail_msg">削除失敗</string>
     <string name="remove_notification_failed">通知の削除に失敗</string>
@@ -566,6 +585,7 @@
     <string name="screenshot_06_davdroid_heading">カレンダー &amp; 連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="select_all">すべて選択</string>
+    <string name="select_one_template">テンプレートを選択してください</string>
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
     <string name="send_note">受信者にメモを送信する</string>
@@ -581,7 +601,8 @@
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
-    <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダにアクセスできるユーザーにのみ機能します。</string>
+    <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダーにアクセスできるユーザーにのみ機能します。</string>
+    <string name="share_known_remote_on_clarification">%1$s上の</string>
     <string name="share_link">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
@@ -596,6 +617,7 @@
     <string name="share_privilege_unshare">共有解除</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
+    <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス ...</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
     <string name="share_via_link_menu_password_label">パスワード保護(%1$s)</string>
@@ -653,13 +675,14 @@
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダをいつでも同期\n* サーバのすべてのフォルダをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
-    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、バグが発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
+    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバーにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
+    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム（開発プレビューバージョン）</string>
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
+    <string name="strict_mode">Strictモード: http接続は許可されていません</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
@@ -670,7 +693,7 @@
     <string name="sync_fail_ticker">同期の失敗</string>
     <string name="sync_fail_ticker_unauthorized">同期失敗、要 再ログイン</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
-    <string name="sync_folder_failed_content">%1$sフォルダの同期を完了できませんでした</string>
+    <string name="sync_folder_failed_content">%1$sフォルダーの同期を完了できませんでした</string>
     <string name="sync_foreign_files_forgotten_explanation">バージョン1.3.16以降、デバイスからアップロードされたファイルは %1$s ローカルフォルダーにコピーされ、単一のファイルが複数のアカウントと同期されているときにデータが失われるのを防ぎます。\n\nこの変更により、以前にこのアプリでアップロードしたすべてのファイルが %2$s フォルダーにコピーされました。しかし、アカウント同期中にエラーが発生したため操作を完了できませんでした。操作を完了させるには、ファイルをそのまま保持する場合は %3$sとのリンクを削除し、 %4$sとのリンクを保持する場合は %1$s フォルダーにファイルを移動させてください。\n\n以下にローカルファイルと リンクしている %5$s のリモートファイルのリストを表示します。</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_in_progress">最新のファイルを取得しています。</string>
@@ -808,6 +831,8 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">今のステータスは？</string>
+    <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
+    <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>
@@ -821,7 +846,7 @@
         <item quantity="other">%1$d ファイル</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="other">%1$d 件の隠しフォルダを表示する</item>
+        <item quantity="other">%1$d 件の隠しフォルダーを表示する</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d 選択</item>

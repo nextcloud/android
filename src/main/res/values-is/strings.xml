@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_edit">Breyta</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
-    <string name="action_empty_trashbin">Tæma ruslafötu</string>
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
@@ -110,7 +109,6 @@
     <string name="common_share">Deila</string>
     <string name="common_switch_account">Skipta um notandaaðgang</string>
     <string name="common_switch_to_account">Skipta í notandaaðgang</string>
-    <string name="common_unknown">óþekkt</string>
     <string name="common_yes">Já</string>
     <string name="community_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="community_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðrinum hvað varðar stöðugleika. Villur geta komið upp, og ef slíkt gerist, endilega tilkynntu um þær.</string>
@@ -366,21 +364,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
-    <string name="log_send_no_mail_app">Ekkert forrit fannst til að senda atvikaskrár. Settu upp tölvupóstforrit.</string>
     <string name="login">Skrá inn</string>
     <string name="logs_menu_delete">Eyða atvikaskrám</string>
     <string name="logs_menu_refresh">Endurnýja</string>
     <string name="logs_menu_search">Leita í atvikaskrám</string>
-    <string name="logs_menu_send">Senda atvikaskrár með tölvupósti</string>
     <string name="logs_status_filtered">Atvikaskráning: %1$d kB, fyrirspurn samsvaraði %2$d / %3$d á %4$d ms</string>
     <string name="logs_status_loading">Hleð inn…</string>
     <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>
     <string name="logs_title">Aðgerðaskrár</string>
-    <string name="maintenance_mode">Þjónn í viðhaldsham</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
-    <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
     <string name="media_err_timeout">Tilraun til að spila skrá rann út á tíma</string>
@@ -517,7 +511,6 @@
     <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
-    <string name="qr_could_not_be_read">Ekki tókst að lesa QR-kóða!</string>
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
     <string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjalltækinu þínu.\nSæktu það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>
@@ -642,7 +635,7 @@
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
-    <string name="subject_user_shared_with_you">%s deildi »%s« með þér</string>
+    <string name="subject_user_shared_with_you">%1$s deildi \"%2$s\" með þér</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
     <string name="sync_fail_content">Gat ekki samstillt %1$s</string>
@@ -683,7 +676,6 @@
     <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan.</string>
     <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
     <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
-    <string name="trashbin_loading_failed">Mistókst að hlaða inn ruslmöppu!</string>
     <string name="trashbin_not_emptied">Ekki tókst að eyða skránum endanlega!</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
@@ -727,7 +719,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s hefur ekki heimild til að lesa móttekna skrá</string>
     <string name="uploader_error_message_source_file_not_copied">Gat ekki afritað skrá í bráðabirgðamöppu. Prófaðu að endursenda hana.</string>
     <string name="uploader_error_message_source_file_not_found">Skrá sem valin var til sendingar fannst ekki. Athugaðu hvort skráin sé til</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Ekki er hægt að senda þessa skrá inn</string>
     <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
     <string name="uploader_info_dirname">Heiti möppu</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>
@@ -772,7 +763,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="user_icon">Notandi</string>
     <string name="user_info_address">Vistfang</string>
-    <string name="user_info_email">Tölvupóstur</string>
     <string name="user_info_phone">Símanúmer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>

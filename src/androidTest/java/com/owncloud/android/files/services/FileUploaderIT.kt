@@ -145,7 +145,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT
         )
 
         longSleep()
@@ -163,7 +163,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             account,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            FileUploader.NameCollisionPolicy.OVERWRITE
+            NameCollisionPolicy.OVERWRITE
         )
 
         shortSleep()
@@ -192,7 +192,7 @@ class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload,
-                FileUploader.NameCollisionPolicy.DEFAULT,
+                NameCollisionPolicy.DEFAULT,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -219,7 +219,7 @@ class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload2,
-                FileUploader.NameCollisionPolicy.RENAME,
+                NameCollisionPolicy.RENAME,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -262,7 +262,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT
         )
 
         longSleep()
@@ -280,7 +280,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             account,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            FileUploader.NameCollisionPolicy.RENAME
+            NameCollisionPolicy.RENAME
         )
 
         shortSleep()
@@ -312,7 +312,7 @@ class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload,
-                FileUploader.NameCollisionPolicy.DEFAULT,
+                NameCollisionPolicy.DEFAULT,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -338,7 +338,7 @@ class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload2,
-                FileUploader.NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.CANCEL,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -371,7 +371,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT
         )
 
         longSleep()
@@ -389,7 +389,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             account,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            FileUploader.NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.CANCEL
         )
 
         shortSleep()
@@ -416,7 +416,7 @@ class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload,
-                FileUploader.NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.CANCEL,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -441,7 +441,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             user,
             null,
             ocUpload2,
-            FileUploader.NameCollisionPolicy.CANCEL,
+            NameCollisionPolicy.CANCEL,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
@@ -476,7 +476,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT
         )
 
         longSleep()
@@ -494,7 +494,7 @@ class FileUploaderIT : AbstractOnServerIT() {
             account,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            FileUploader.NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.CANCEL
         )
 
         shortSleep()

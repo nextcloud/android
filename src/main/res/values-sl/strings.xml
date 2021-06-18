@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
-    <string name="action_empty_trashbin">Izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
@@ -84,11 +83,13 @@
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
     <string name="battery_optimization_no_setting">Ni mogoče neposredno odpreti nastavitev baterije. Prilagoditi jih bo treba ročno.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
+    <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
     <string name="clear_status_message">Počisti sporočilo stanja</string>
@@ -114,9 +115,9 @@
     <string name="common_save">Shrani</string>
     <string name="common_send">Pošlji</string>
     <string name="common_share">Souporaba</string>
+    <string name="common_skip">Preskoči</string>
     <string name="common_switch_account">Preklopi račun</string>
     <string name="common_switch_to_account">Preklopi v drug račun</string>
-    <string name="common_unknown">neznano</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Preizkušanje razvojne različice</string>
     <string name="community_beta_text">To vključuje vse prihajajoče zmožnosti programa. Hrošči in napake se pojavljajo in ko se, je priporočljivo poslati poročilo za razhroščevanje.</string>
@@ -173,6 +174,7 @@
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_shares">Naslovov mest souporabe ni mogoče pridobiti</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
+    <string name="create">Ustvari</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_new">Ustvari novo</string>
     <string name="create_new_document">Ustvari nov dokument</string>
@@ -193,6 +195,7 @@
     <string name="dev_version_no_new_version_available">Ni objavljene nove različice.</string>
     <string name="dialog_close">Zapri</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
+    <string name="direct_login_failed">Prijava prek neposredne povezave je spodletela.</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>
@@ -383,8 +386,9 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
-    <string name="log_send_no_mail_app">Nobena nameščena datoteka ne more pošiljati dnevnikov. prosim, namesti e-poštno aplikacijo.</string>
+    <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
     <string name="login">Prijava</string>
+    <string name="login_url_helper_text">Povezava do spletnega vmesnika %1$s, ki se odpre v brskalniku.</string>
     <string name="logs_menu_delete">Izbriši dnevnike</string>
     <string name="logs_menu_refresh">Osveži</string>
     <string name="logs_menu_search">Preišči dnevnike</string>
@@ -393,11 +397,11 @@
     <string name="logs_status_loading">Poteka nalaganje …</string>
     <string name="logs_status_not_filtered">Dnevniki: %1$d kB, brez filtra</string>
     <string name="logs_title">Dnevniki</string>
-    <string name="maintenance_mode">Strežnik je v načinu vzdrževanja</string>
+    <string name="maintenance_mode">Strežnik je v načinu vzdrževanja.</string>
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
-    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče prikazati v pretoku</string>
+    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče predvajati v pretoku</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
     <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
@@ -541,7 +545,6 @@
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
-    <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
@@ -575,6 +578,7 @@
     <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="select_all">Izberi vse</string>
+    <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
     <string name="send_note">Pošlji sporočilo prejemniku</string>
@@ -671,6 +675,7 @@
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
+    <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -713,7 +718,6 @@
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
-    <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
@@ -803,7 +807,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Poteka čakanje na vzpostavitev ne-merjene povezave Wi-Fi …</string>
     <string name="user_icon">Uporabnik</string>
     <string name="user_info_address">Naslov</string>
-    <string name="user_info_email">E-pošta</string>
+    <string name="user_info_email">Elektronski naslov</string>
     <string name="user_info_phone">Telefonska številka</string>
     <string name="user_info_twitter">Račun Twitter</string>
     <string name="user_info_website">Spletna stran</string>

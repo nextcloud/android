@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Исчисти ги неуспешните прикачувања</string>
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Исчисти ги сите известувања</string>
-    <string name="action_empty_trashbin">Испразни ја корпата со отпадоци</string>
     <string name="action_send_share">Испрати/Сподели</string>
     <string name="action_switch_grid_view">Мрежа</string>
     <string name="action_switch_list_view">Листа</string>
@@ -89,6 +88,7 @@
     <string name="checkbox">Поле за избирање</string>
     <string name="choose_local_folder">Избери локална папка…</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
+    <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
     <string name="clear_status_message">Тргни ја статус пораката</string>
     <string name="clear_status_message_after">Тргни го статусот после</string>
@@ -113,9 +113,9 @@
     <string name="common_save">Зачувај</string>
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
+    <string name="common_skip">Прескокни</string>
     <string name="common_switch_account">Промени сметка</string>
     <string name="common_switch_to_account">Промени сметка</string>
-    <string name="common_unknown">непознат</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Test the dev version</string>
     <string name="community_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
@@ -143,6 +143,7 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_already_existing_file">Постоечка датотека</string>
     <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
+    <string name="conflict_file_headline">Датотеки со конфликт %1$s</string>
     <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>
     <string name="conflict_new_file">Нова датотека</string>
     <string name="contaclist_restore_selected">Врати ги означените контакти</string>
@@ -170,6 +171,7 @@
     <string name="could_not_download_image">Неможе да се преземе целосната слика</string>
     <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
+    <string name="create">Креирај</string>
     <string name="create_dir_fail_msg">Не множе да креира папка</string>
     <string name="create_new">Креирај нова</string>
     <string name="create_new_document">Креирај нов документ</string>
@@ -187,6 +189,7 @@
     <string name="dev_version_new_version_available">Достапна е нова верзија</string>
     <string name="dev_version_no_information_available">Нема достапни информации</string>
     <string name="dev_version_no_new_version_available">Нема достапно нова верзија</string>
+    <string name="dialog_close">Затвори</string>
     <string name="digest_algorithm_not_available">Овој алгоритам не е поддржан од вашиот уред</string>
     <string name="disable_new_media_folder_detection_notifications">Оневозможи</string>
     <string name="dismiss">Отфрли</string>
@@ -290,6 +293,7 @@
     <string name="file_list_seconds_ago">пред секунди</string>
     <string name="file_migration_checking_destination">Проверка на дестинацијата…</string>
     <string name="file_migration_cleaning">Чистење…</string>
+    <string name="file_migration_dialog_title">Ажурирање на папка за складиште на податоци</string>
     <string name="file_migration_directory_already_exists">Папка со податоци веќе постои. Изберете една од следните:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud папка веќе постои</string>
     <string name="file_migration_failed_not_enough_space">Потребен е повеќе простор</string>
@@ -348,6 +352,7 @@
     <string name="hint_password">Лозинка</string>
     <string name="host_not_available">Серверот не е достапен</string>
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
+    <string name="in_folder">во папката %1$s</string>
     <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -363,21 +368,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">.Нема повеќе папки</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
-    <string name="log_send_no_mail_app">Нема пронајдено апликација за испраќање на записи. Инсталирајте клиент за е-пошта.</string>
     <string name="login">Најава</string>
     <string name="logs_menu_delete">Избриши записи</string>
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Пребарувај записи</string>
-    <string name="logs_menu_send">Испрати записи преку е-пошта</string>
     <string name="logs_status_filtered">Записи: %1$d kB, совпаднати барања %2$d / %3$d во %4$d ms</string>
     <string name="logs_status_loading">Се вчитува…</string>
     <string name="logs_status_not_filtered">Записи: %1$d kB, без филтер</string>
     <string name="logs_title">Записи</string>
-    <string name="maintenance_mode">Серверот е во мод за одржување</string>
     <string name="manage_space_clear_data">Исчисти податоци</string>
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>
-    <string name="media_err_invalid_progressive_playback">Датотеката неможе да се емитува</string>
     <string name="media_err_io">Неможе да се прочита датотеката</string>
     <string name="media_err_malformed">Медиа датотеката не е точно енкодирана</string>
     <string name="media_err_timeout">Тајм аут при обидот за репродукција</string>
@@ -401,6 +402,7 @@
     <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="network_error_socket_exception">Настана грешка при обидот за поврзување со серверот</string>
     <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
+    <string name="network_host_not_available">Неможе да се заврши операцијата. Серверот не е достапен.</string>
     <string name="new_comment">Нов коментар…</string>
     <string name="new_media_folder_detected">Нова папка %1$s е детектирана.</string>
     <string name="new_media_folder_photos">слика</string>
@@ -454,12 +456,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ова е резервирано место</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">стоп</string>
+    <string name="player_toggle">вклучи</string>
     <string name="power_save_check_dialog_message">Оневозможување на проверката за заштеда на енергијата може да овозможи прикачување на датотеки и кога батеријата е празна</string>
     <string name="pref_behaviour_entries_delete_file">избришана</string>
     <string name="pref_behaviour_entries_keep_file">зачувај во оргиналната папка</string>
     <string name="pref_behaviour_entries_move">премести во папката на апликацијата</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Што ако датотеката веќе постои?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Прашувај ме стално</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Прескокни прикачување</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Пребриши ја верзијата на серверот</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Преименувај ја новата верзија</string>
     <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
@@ -498,6 +503,8 @@
     <string name="prefs_recommend">Препорачај на пријател</string>
     <string name="prefs_show_hidden_files">Прикажи сокриени датотеки</string>
     <string name="prefs_sourcecode">Превземи го изворниот код</string>
+    <string name="prefs_storage_path">Папка за складиште на податоци</string>
+    <string name="prefs_sycned_folders_summary">Уреди папки за автоматско прикачување</string>
     <string name="prefs_synced_folders_local_path_title">Папка на уредот</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на серверот</string>
     <string name="prefs_theme_title">Тема</string>
@@ -512,10 +519,10 @@
     <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
-    <string name="qr_could_not_be_read">QR Кодот неможе да се прочита!</string>
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>
     <string name="recommend_text">Сакам да те поканам за да ја користиш %1$s апликацијата на твојот уред.\nПревземи ја овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="remote">(далечински)</string>
     <string name="remote_file_fetch_failed">Неуспешно барање на датотеката!</string>
     <string name="remove_fail_msg">Неуспешно бришење</string>
     <string name="remove_notification_failed">Неуспешно бришење на известувањата.</string>
@@ -543,6 +550,7 @@
     <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
     <string name="screenshot_06_davdroid_heading">Календар &amp; контакти</string>
     <string name="select_all">Избери се</string>
+    <string name="select_one_template">Изберете еден шаблон</string>
     <string name="select_template">Избери шаблон</string>
     <string name="send">Испрати</string>
     <string name="send_note">Испрати белешка до примачот</string>
@@ -557,11 +565,13 @@
     <string name="share_file">Сподели %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели внатрешен линк</string>
+    <string name="share_known_remote_on_clarification">на %1$s</string>
     <string name="share_link">Сподели линк</string>
     <string name="share_link_empty_password">Морате да внесете лозинка</string>
     <string name="share_link_forbidden_permissions">да ја споделите оваа датотека</string>
     <string name="share_link_optional_password_title">Опционално внесете лозинка</string>
     <string name="share_link_password_title">Внесете лозинка</string>
+    <string name="share_link_with_label">Сподели линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Постави рок на траење</string>
     <string name="share_no_password_title">Поставете лозинка</string>
     <string name="share_password_title">Заштитено со лозинка</string>
@@ -669,7 +679,6 @@
     <string name="trashbin_empty_headline">Нема избришани датотеки</string>
     <string name="trashbin_file_not_deleted">Датотеката %1$s неможе да се избрише!</string>
     <string name="trashbin_file_not_restored">Датотеката %1$s неможе да се врати!</string>
-    <string name="trashbin_loading_failed">Грешка при вчитување на корпата со отпадоци!</string>
     <string name="trashbin_not_emptied">Датотеките неможат да бидат избрижани трајно!</string>
     <string name="unread_comments">Постои непрочитан коментар</string>
     <string name="unset_encrypted">Отстрани енкрипција</string>
@@ -708,7 +717,6 @@
     <string name="uploader_error_message_read_permission_not_granted">На %1$s не му е дозволено да ги гледа прикачените датотеки</string>
     <string name="uploader_error_message_source_file_not_copied">Неможе да се копира датотеката во привремена папка. Обидете се да ја препратите.</string>
     <string name="uploader_error_message_source_file_not_found">Избраната датотека за прикачување не е пронајдена. Проверете дали датотеката постои.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Оваа датотека неможе да се прикачи</string>
     <string name="uploader_error_title_no_file_to_upload">Нема датотеки за прикачување</string>
     <string name="uploader_info_dirname">Име на папка</string>
     <string name="uploader_top_message">Изберете папка за прикачување</string>
@@ -753,7 +761,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Чека полнење</string>
     <string name="user_icon">Корисник</string>
     <string name="user_info_address">Адреса</string>
-    <string name="user_info_email">е-пошта</string>
     <string name="user_info_phone">Телефонски број</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Веб страна</string>

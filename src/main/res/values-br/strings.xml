@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Lemmel ar pellgasoù chwitet</string>
     <string name="action_edit">Cheñch</string>
     <string name="action_empty_notifications">Lemmel toud ar c\'hemenadennoù</string>
-    <string name="action_empty_trashbin">Poubelenn goullo</string>
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
@@ -111,7 +110,6 @@
     <string name="common_share">Rannan</string>
     <string name="common_switch_account">Cheñch kont</string>
     <string name="common_switch_to_account">Cheñch d\'ar gont</string>
-    <string name="common_unknown">dianv</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Arnodañ ar stumm diorenañ</string>
     <string name="community_beta_text">Endalc\'h a ra pep perzh a ze a n\'eo ket stabil. Fazioù a c\'hell don, m\'a ha pa vez outo, mar-plij kelaouit petra o peus kavet.</string>
@@ -368,21 +366,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">N\'ez eus teuliad all ebet</string>
     <string name="log_send_mail_subject">%1$s kazetenn meziant Android</string>
-    <string name="log_send_no_mail_app">Meziant ebet evit kas ar gazetennoù. Staliit un c\'hliant postel mar-plij.</string>
     <string name="login">kennaskañ</string>
     <string name="logs_menu_delete">Lemel ar gazetennoù</string>
     <string name="logs_menu_refresh">Freskaat</string>
     <string name="logs_menu_search">Klast kazetennoù</string>
-    <string name="logs_menu_send">Kas dre e-mail ar gazetennoù</string>
     <string name="logs_status_filtered">Kazetenn : %1$d kB, goulenn a glot %2$d / %3$d e %4$d ms</string>
     <string name="logs_status_loading">O Kargañ</string>
     <string name="logs_status_not_filtered">kazetennoù : %1$d kB, filtr ebet</string>
     <string name="logs_title">Kazetennoù</string>
-    <string name="maintenance_mode">Servijour er mod trezalc\'hiñ</string>
     <string name="manage_space_clear_data">Lemel ar roadennoù</string>
     <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikad ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
     <string name="manage_space_title">Merañ ar plas</string>
-    <string name="media_err_invalid_progressive_playback">N\'eo ket posuple d\'ar restr media bezhañ lakaet e red</string>
     <string name="media_err_io">ne vez ket lennet ar restr media</string>
     <string name="media_err_malformed">Ar restr media en deus en enc\'hodañ fal</string>
     <string name="media_err_timeout">Re hir a amzer o klask lenn ar restr</string>
@@ -518,7 +512,6 @@
     <string name="push_notifications_not_implemented">Kemenadennoù push disaotreet blam da sujudigezh war perc\'hentiez war servijoù Google Play</string>
     <string name="push_notifications_old_login">Kemenadenn push ebet blam da kozhder ar mont tre evit an dalc\'h. Adlakait o c\'hont mar-plij</string>
     <string name="push_notifications_temp_error">Kemenadennoù push  ebet evit poent</string>
-    <string name="qr_could_not_be_read">N\'eo ket posuple lenn ar c\'hod QR !</string>
     <string name="recommend_subject">Klaskit %1$s war o ardivink</string>
     <string name="recommend_text">Kinnig a reomp deoc\'h implij %1$s war o ardivink.\nPellgargit amañ : %2$s</string>
     <string name="recommend_urls">%1$s pe %2$s</string>
@@ -682,7 +675,6 @@
     <string name="trashbin_empty_message">Posupl eo deoc\'h adtapout ar restroù lamet adalek al lec\'h mañ</string>
     <string name="trashbin_file_not_deleted">Ar restr %1$s n\'eo ket evit bezhaãn lamet !</string>
     <string name="trashbin_file_not_restored">Ar restr %1$s n\'eo ket evit bezha adlakaet !</string>
-    <string name="trashbin_loading_failed">C\'hwited eo bet kargadenn ar boubelenn</string>
     <string name="trashbin_not_emptied">N\'eo ket posupl lemel ar restr da virviken !</string>
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
     <string name="unset_encrypted">Lemel ar sifrañ</string>
@@ -726,7 +718,6 @@
     <string name="uploader_error_message_read_permission_not_granted">N\'eo ket aotreet %1$s da lenn ur restr resevet</string>
     <string name="uploader_error_message_source_file_not_copied">Dibosupl eo eilan d\'un teuliad dibadus. Klaskit adkas anezhañ.</string>
     <string name="uploader_error_message_source_file_not_found">N\'eo ket bet ar restr da bellkas. Sellit m\'az eus ouzh ar restr gouelnnet.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">N\'eo ket posupl pellkas ar restr</string>
     <string name="uploader_error_title_no_file_to_upload">Restr ebet da pellkas</string>
     <string name="uploader_info_dirname">Anv teuliad</string>
     <string name="uploader_top_message">Choaz an teuliad pellkas</string>
@@ -771,7 +762,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">O gortoz kargañ</string>
     <string name="user_icon">Implijer</string>
     <string name="user_info_address">Chom-lec\'h</string>
-    <string name="user_info_email">Postel</string>
     <string name="user_info_phone">Niverenn pellgomzer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Lec\'hien web</string>

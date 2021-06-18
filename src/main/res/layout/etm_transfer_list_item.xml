@@ -34,10 +34,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_download_uuid" />
+            android:text="@string/etm_transfer_type" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/etm_transfer_type_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:src="@drawable/ic_cloud_download"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/etm_transfer_type"
+                android:layout_width="0dip"
+                android:layout_height="0dip"
+                android:layout_marginStart="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/etm_transfer_type_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@string/etm_transfer_type_download" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/etm_download_uuid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/etm_transfer_uuid" />
+
+        <TextView
+            android:id="@+id/etm_transfer_uuid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="d7edb387-0b61-4e4e-a728-ffab3055d700" />
@@ -51,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_download_path" />
+            android:text="@string/etm_transfer_remote_path" />
 
         <TextView
-            android:id="@+id/etm_download_path"
+            android:id="@+id/etm_transfer_remote_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="file path" />
@@ -69,10 +107,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_download_user" />
+            android:text="@string/etm_transfer_user" />
 
         <TextView
-            android:id="@+id/etm_download_user"
+            android:id="@+id/etm_transfer_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="user@nextcloud.com" />
@@ -87,10 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_download_state" />
+            android:text="@string/etm_transfer_state" />
 
         <TextView
-            android:id="@+id/etm_download_state"
+            android:id="@+id/etm_transfer_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="PENDING" />
@@ -98,7 +136,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/etm_download_progress_row"
+        android:id="@+id/etm_transfer_progress_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -106,10 +144,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_download_progress" />
+            android:text="@string/etm_transfer_progress" />
 
         <TextView
-            android:id="@+id/etm_download_progress"
+            android:id="@+id/etm_transfer_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="50%" />

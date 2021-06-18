@@ -13,7 +13,7 @@ import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 
@@ -191,7 +191,7 @@ public class UploadStorageManagerTest extends AbstractIT {
         upload.setFileSize(new Random().nextInt(20000) * 10000);
         upload.setUploadStatus(UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS);
         upload.setLocalAction(2);
-        upload.setNameCollisionPolicy(FileUploader.NameCollisionPolicy.ASK_USER);
+        upload.setNameCollisionPolicy(NameCollisionPolicy.ASK_USER);
         upload.setCreateRemoteFolder(false);
         upload.setUploadEndTimestamp(System.currentTimeMillis());
         upload.setLastResult(UploadResult.DELAYED_FOR_WIFI);

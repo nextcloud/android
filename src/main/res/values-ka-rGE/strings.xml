@@ -81,7 +81,6 @@
     <string name="common_save">შენახვა</string>
     <string name="common_send">გაგზავნა</string>
     <string name="common_share">გაზიარება</string>
-    <string name="common_unknown">უცნობი</string>
     <string name="common_yes">კი</string>
     <string name="community_beta_headline">დევ. ვერსიის შემოწმება</string>
     <string name="community_beta_text">იმყოფება სისხლდენის ზღვარზე და მოიცავს ყველა დამდეგ ფუნქციას. შეიძლება გამოჩნდეს შეცდომები, ასეთი შემთხვევისას გთხოვთ გვამცნობოთ რეპორტით.</string>
@@ -245,16 +244,13 @@
     <string name="local_file_not_found_message">ლოკალურ ფაილ-სისტემაში ფაილი ვერ მოიძებნა</string>
     <string name="local_folder_list_empty">მომდევნო დირექტორიები არაა.</string>
     <string name="log_send_mail_subject">%1$s Android აპლიკაციის ლოგები.</string>
-    <string name="log_send_no_mail_app">აპლიკაცია ლოგების გადასაგზავნად ვერ იქნა ნაპოვნი. გთხოვთ ელ-ფოსტის კლიენტი დააყენოთ ახლიდან.</string>
     <string name="login">ლოგინი</string>
     <string name="logs_menu_refresh">განახლება</string>
     <string name="logs_status_loading">იტვირთება…</string>
     <string name="logs_title">ლოგები</string>
-    <string name="maintenance_mode">სერვერი სარემონტო რეჟიმშია</string>
     <string name="manage_space_clear_data">მონაცემების გასუფთავება</string>
     <string name="manage_space_description"> %1$s-ის მონაცემებიდან პარამეტრები, მონაცემთა ბაზა და სერტიფიკატები სამუდამოდ წაიშლება.\n\nგადმოწერილი ფაილები დარჩება ხელუხლებელი.\n\nეს პროცესი გასტანს გარკვეულ დროს.</string>
     <string name="manage_space_title">მოცულობის მენეჯმენტი</string>
-    <string name="media_err_invalid_progressive_playback">მედია ფაილის სტრიმი ვერ ხორციელდება</string>
     <string name="media_err_io">მედია ფაილის წაკითხვა ვერ მოხერხდა</string>
     <string name="media_err_malformed">მედია ფაილს გააჩნია არასწორი კოდირება</string>
     <string name="media_err_timeout">ფაილის დაკვრის მცდელობის დრო ამოიწურა</string>
@@ -460,7 +456,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s მომხმარებელს არ აქვს უფლება წაიკითხოს ფაილი.</string>
     <string name="uploader_error_message_source_file_not_copied">ფაილის ასლი დროებით დირექტორიაში ვერ შეიქმნა. სცადეთ მისი ახლიდან გაგზავნა.</string>
     <string name="uploader_error_message_source_file_not_found">ატვირთვისთვის არჩეული ფაილი ვერ იქნა ნაპოვნი. გთხოვთ დაამოწმოთ ფაილის არსებობა.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">ამ ფაილის ატვირთვა ვერ ხერხდება</string>
     <string name="uploader_error_title_no_file_to_upload">ფაილი ატვირთვისთვის არაა</string>
     <string name="uploader_info_dirname">დირექტორიის სახელი</string>
     <string name="uploader_top_message">აირჩიეთ ატვირთვის დირექტორია</string>
@@ -499,7 +494,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="user_icon">მომხმარებელი</string>
     <string name="user_info_address">მისამართი</string>
-    <string name="user_info_email">ელ-ფოსტა</string>
     <string name="user_info_phone">ტელეფონის ნომერი</string>
     <string name="user_info_twitter">Twitter-ი</string>
     <string name="user_info_website">ვებ-საიტი</string>

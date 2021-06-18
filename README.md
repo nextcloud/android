@@ -42,12 +42,20 @@ Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/S
 Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issues](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
 
 ### Getting debug info via logcat :mag:
-#### With a computer:
-- connect the device via USB
+#### With a linux computer:
+- enable USB-Debugging in your smartphones developer settings and connect it via USB
 - open command prompt/terminal
 - enter `adb logcat | grep "$(adb shell ps | awk '/com.nextcloud.client/{print $2}')" > logcatOutput.txt` to save the output to this file
 
 **Note:** You must have [adb](https://developer.android.com/studio/releases/platform-tools.html) installed first!
+
+#### On Windows:
+- download and install [Minimal ADB and fastboot](https://forum.xda-developers.com/t/tool-minimal-adb-and-fastboot-2-9-18.2317790/#post-42407269)
+- enable USB-Debugging in your smartphones developer settings and connect it via USB
+- launch Minimal ADB and fastboot
+- enter `adb shell ps | findstr com.nextcloud.client` and use the second place of this output (it is the first integer, e.g. `18841`) as processID in the following command:
+- `adb logcat | findstr <processID> > %HOMEPATH%\Downloads\logcatOutput.txt` (This will produce a logcatOutput.txt file in your downloads)
+- if the processID is 18841, an example command is: `adb logcat | findstr 18841 > %HOMEPATH%\Downloads\logcatOutput.txt` (You might cancel the process after a while manually: it will not be exited automatically.)
 
 #### On a device (with root) :wrench:
 - open terminal app *(can be enabled in developer options)*

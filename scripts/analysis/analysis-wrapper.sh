@@ -128,7 +128,7 @@ else
     fi
 
     # check for NotNull
-    if [[ $(grep org.jetbrains.annotations src/main/* -ir -c) -gt 0 ]] ; then
+    if [[ $(grep org.jetbrains.annotations src/main/* -irl | wc -l) -gt 0 ]] ; then
         notNull="org.jetbrains.annotations.NotNull is used. Please use androidx.annotation.NonNull instead.<br><br>"
     fi
 
@@ -146,7 +146,7 @@ else
         exit $lintValue
     fi
 
-    if [ $notNull -gt 0 ]; then
+    if [ -n "$notNull" ]; then
         exit 1
     fi
 

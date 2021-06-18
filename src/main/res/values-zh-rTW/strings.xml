@@ -116,9 +116,9 @@
     <string name="common_save">儲存</string>
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
+    <string name="common_skip">略過</string>
     <string name="common_switch_account">切換帳號</string>
     <string name="common_switch_to_account">切換到帳號</string>
-    <string name="common_unknown">未知</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請回報給我們。</string>
@@ -279,6 +279,13 @@
     <string name="etm_migrations">遷移（升級應用程式）</string>
     <string name="etm_preferences">設定</string>
     <string name="etm_title">工程測試模式</string>
+    <string name="etm_transfer">檔案傳輸</string>
+    <string name="etm_transfer_enqueue_test_download">排入佇列測試下載</string>
+    <string name="etm_transfer_enqueue_test_upload">排入佇列測試上傳</string>
+    <string name="etm_transfer_remote_path">遠端路徑</string>
+    <string name="etm_transfer_type">傳輸</string>
+    <string name="etm_transfer_type_download">下載</string>
+    <string name="etm_transfer_type_upload">上傳</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
     <string name="failed_to_print">列印失敗</string>
@@ -365,6 +372,7 @@
     <string name="foreign_files_success">已經移動所有檔案</string>
     <string name="forward">向前</string>
     <string name="fourHours">4小時</string>
+    <string name="fullscreen">全螢幕</string>
     <string name="hint_name">名稱</string>
     <string name="hint_note">筆記</string>
     <string name="hint_password">密碼</string>
@@ -677,6 +685,7 @@
     <string name="stream">串流……</string>
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
+    <string name="strict_mode">嚴格模式：不允許 http 連線！</string>
     <string name="subject_shared_with_you">「%1$s」已經與您分享</string>
     <string name="subject_user_shared_with_you">%1$s 分享了「%2$s」給您</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
