@@ -977,7 +977,7 @@
     <string name="share_link_empty_note_message">Please enter note.</string>
     <string name="common_confirm">Confirm</string>
     <string name="send_email">Send email</string>
-    <string name="share_open_in">Open in...</string>
+    <string name="share_open_in">Open in…</string>
     <string name="share_advanced_permissions">Advanced permissions</string>
     <string name="share_send_new_email">Send new email</string>
 
