@@ -84,13 +84,17 @@
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
     <string name="battery_optimization_no_setting">Nieje možné otvoriť nastavenia batérie priamo. Prosím upravte ich ručne v nastaveniach. </string>
     <string name="battery_optimization_title">Optimalizácia batérie</string>
+    <string name="brute_force_delay">Spracovanie oneskorené z dôvodu veľkého množstva chybných požiadavok</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
     <string name="changelog_dev_version">Zmeny v dev verzii</string>
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="choose_local_folder">Vyberte miestny priečinok…</string>
     <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
     <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
+    <string name="choose_which_file">Vyberte ktorý súbor zachovať!</string>
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
+    <string name="clear_status_message">Vyčistiť správu o stave</string>
+    <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
     <string name="clipboard_text_copied">Odkaz skopírovaný</string>
@@ -143,6 +147,7 @@
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
+    <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_new_file">Nový súbor</string>
     <string name="contaclist_restore_selected">Obnoviť vybrané kontakty</string>
@@ -168,6 +173,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
     <string name="copy_to">Kopírovať do…</string>
     <string name="could_not_download_image">Nie je možné stiahnuť celý obráz</string>
+    <string name="could_not_retrieve_shares">Nie je možné získať zdieľania</string>
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
     <string name="create">Vytvoriť</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
@@ -190,10 +196,12 @@
     <string name="dev_version_no_new_version_available">Nová verzia nie je dostupná.</string>
     <string name="dialog_close">Zatvoriť</string>
     <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
+    <string name="direct_login_failed">Prihlásenie pomocou priameho odkazu zlyhalo!</string>
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="dismiss">Odmietnuť</string>
     <string name="dismiss_notification_description">Odmietnuť upozornenie</string>
     <string name="dnd">Nerušiť</string>
+    <string name="dontClear">Nemazať</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
@@ -272,6 +280,9 @@
     <string name="etm_preferences">Nastavenia</string>
     <string name="etm_title">Vývojársky testovací režim</string>
     <string name="etm_transfer">Prenos súboru</string>
+    <string name="etm_transfer_enqueue_test_download">Zaradiť do poradia testovacie sťahovanie</string>
+    <string name="etm_transfer_enqueue_test_upload">Zaradiť do poradia testovacie nahranie súboru</string>
+    <string name="etm_transfer_remote_path">Vzdialená cesta</string>
     <string name="etm_transfer_type">Prenos</string>
     <string name="etm_transfer_type_download">Stiahnuť</string>
     <string name="etm_transfer_type_upload">Nahrať</string>
@@ -279,6 +290,7 @@
     <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
     <string name="failed_to_start_editor">Nepodarilo sa spustiť editor</string>
+    <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
     <string name="file_delete">Zmazať</string>
@@ -305,6 +317,7 @@
     <string name="file_list_seconds_ago">pred sekundami</string>
     <string name="file_migration_checking_destination">Kontrolujem umiestnenie…</string>
     <string name="file_migration_cleaning">Čistenie…</string>
+    <string name="file_migration_dialog_title">Aktualizujem adresár dátového úložiska</string>
     <string name="file_migration_directory_already_exists">Dátový priečinok uz existuje. Vyberte jednu z možností:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud priečinok už existuje</string>
     <string name="file_migration_failed_not_enough_space">Nedostatok priestoru</string>
@@ -318,6 +331,7 @@
     <string name="file_migration_preparing">Pripravujem migráciu…</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovujem konfiguráciu účtu…</string>
     <string name="file_migration_saving_accounts_configuration">Ukladám konfiguráciu účtov…</string>
+    <string name="file_migration_source_not_readable">Ste si istý že chcete zmeniť adresár úložiska na %1$s?\n\nVšetky údaje musia byť znova stiahnuté.</string>
     <string name="file_migration_source_not_readable_title">Zdrojový priečinok nie je čitateľný!</string>
     <string name="file_migration_updating_index">Aktualizujem zoznam…</string>
     <string name="file_migration_use_data_folder">Použi</string>
@@ -381,7 +395,9 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
+    <string name="log_send_no_mail_app">Aplikácia na odoslanie logov nenájdená. Prosím nainštalujte emailovú aplikáciu.</string>
     <string name="login">Prihlásiť sa</string>
+    <string name="login_url_helper_text">Odkaz k vašemu %1$s webovému rozhraniu keď ho otvoríte v prehliadači. </string>
     <string name="logs_menu_delete">Zmazať záznamy</string>
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
@@ -452,6 +468,8 @@
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="oneHour">1 hodina</string>
+    <string name="online">Pripojené</string>
+    <string name="online_status">Stav pripojenia</string>
     <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
@@ -519,6 +537,8 @@
     <string name="prefs_recommend">Odporučiť priateľom</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
     <string name="prefs_sourcecode">Získajte zdrojový kód</string>
+    <string name="prefs_storage_path">Adresár dátového úložiska</string>
+    <string name="prefs_sycned_folders_summary">Spravovať adresár pre automatické nahrávanie</string>
     <string name="prefs_synced_folders_local_path_title">Lokálny priečinok</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_theme_title">Motív vzhľadu</string>
@@ -538,6 +558,7 @@
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
+    <string name="remote">(vzdialené)</string>
     <string name="remote_file_fetch_failed">Nepodarilo sa nájsť súbor</string>
     <string name="remove_fail_msg">Zmazanie zlyhalo</string>
     <string name="remove_notification_failed">Odstránenie upozornenia zlyhalo.</string>
@@ -584,6 +605,7 @@
     <string name="share_internal_link">Sprístupniť interný odkaz</string>
     <string name="share_internal_link_to_file_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto súboru</string>
     <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
+    <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Sprístupniť odkaz</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe.</string>
@@ -598,6 +620,7 @@
     <string name="share_privilege_unshare">Zneprístupniť</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
+    <string name="share_search">Meno, ID v rámci združeného cloudu, alebo e-mailová adresa…</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
     <string name="share_via_link_menu_password_label">Chrániť heslom (%1$s)</string>
@@ -662,6 +685,7 @@
     <string name="stream">Streamovať s…</string>
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
+    <string name="strict_mode">Striktný mód: http spojenie nie je povolené!</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
     <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
@@ -809,6 +833,9 @@
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
+    <string name="whats_your_status">Aký je váš stav?</string>
+    <string name="wrong_storage_path">Adresár pre úložisko dát neexistuje!</string>
+    <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte adresár a upravte adresár pre ukladanie údajov.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
         <item quantity="few">Nie je možné synchronizovať %1$d súbory (konflikty: %2$d)</item>
