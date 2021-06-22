@@ -31,6 +31,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -63,6 +65,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
+import com.owncloud.android.ui.asynctasks.SyncedFoldersTask;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
@@ -102,6 +105,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     private static final String[] PRIORITIZED_FOLDERS = new String[]{"Camera", "Screenshots"};
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     private static final String TAG = SyncedFoldersActivity.class.getSimpleName();
+
+    public static final int UPDATE_MY_SYNCED_VIEW = 1;
+    private Handler mSyncHandler;
+    private SyncedFoldersTask task;
 
     private SyncedFoldersLayoutBinding binding;
     private SyncedFolderAdapter adapter;
@@ -158,7 +165,17 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
 
-        // TODO: The content loading should be done asynchronously
+        // setup handler for asynchronously content loading
+        mSyncHandler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_MY_SYNCED_VIEW:
+                        onLoaded();
+                        break;
+                }
+            }
+        };
+
         setupContent();
 
         if (ThemeUtils.themingEnabled(this)) {
@@ -167,6 +184,11 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
         binding.emptyList.emptyListViewAction.setOnClickListener(v -> showHiddenItems());
     }
+
+    /**
+     * @return a Handler for message from async task
+     */
+    public Handler getHandler() { return mSyncHandler; }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,7 +247,10 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         binding.list.setLayoutManager(lm);
         binding.list.setAdapter(adapter);
 
-        load(gridWidth * 2, false);
+        task = new SyncedFoldersTask(this, gridWidth * 2, false);
+        task.execute();
+
+        showLoadingContent();
     }
 
     public void showHiddenItems() {
@@ -241,15 +266,15 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      *
      * @param perFolderMediaItemLimit the amount of media items to be loaded/shown per media folder
      */
-    private void load(final int perFolderMediaItemLimit, boolean force) {
+    public void load(final int perFolderMediaItemLimit, boolean force) {
         if (adapter.getItemCount() > 0 && !force) {
             return;
         }
-        showLoadingContent();
+
         final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
-                perFolderMediaItemLimit, this, false);
+                                                                             perFolderMediaItemLimit, this, false);
         mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit,
-                this, false));
+                                                          this, false));
 
         List<SyncedFolder> syncedFolderArrayList = syncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
@@ -266,9 +291,16 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         }
 
         List<SyncedFolderDisplayItem> syncFolderItems = sortSyncedFolderItems(
-                mergeFolderData(currentAccountSyncedFoldersList, mediaFolders));
-
+            mergeFolderData(currentAccountSyncedFoldersList, mediaFolders));
         adapter.setSyncFolderItems(syncFolderItems);
+    }
+
+    /**
+     * Process content loaded message from asynchronously background task
+     *
+     */
+    private void onLoaded()
+    {
         adapter.notifyDataSetChanged();
         showList();
 
@@ -786,6 +818,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        task.cancel(true);
     }
 
     private void showBatteryOptimizationInfo() {
