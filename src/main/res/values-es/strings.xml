@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Quitar cargas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
+    <string name="action_empty_trashbin">Vaciar papelera</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -278,6 +279,13 @@
     <string name="etm_migrations">Migraciones (actualizar app)</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Engineering Test</string>
+    <string name="etm_transfer">Transferencia de archivo</string>
+    <string name="etm_transfer_enqueue_test_download">Poner en cola el test de descarga</string>
+    <string name="etm_transfer_enqueue_test_upload">Poner en cola el test de subida</string>
+    <string name="etm_transfer_remote_path">Dirección remota</string>
+    <string name="etm_transfer_type">Transferir</string>
+    <string name="etm_transfer_type_download">Descarga</string>
+    <string name="etm_transfer_type_upload">Subir</string>
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
@@ -364,6 +372,7 @@
     <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
+    <string name="fullscreen">Pantalla completa</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contraseña</string>
@@ -719,6 +728,7 @@
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí.</string>
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
+    <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desconfigurar cifrado</string>
