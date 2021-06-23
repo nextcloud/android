@@ -895,7 +895,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void parseShares(List<Object> objects) {
-        List<OCShare> shares = new ArrayList<>();
+        ArrayList<OCShare> shares = new ArrayList<>();
 
         for (Object shareObject : objects) {
             // check type before cast as of long running data fetch it is possible that old result is filled

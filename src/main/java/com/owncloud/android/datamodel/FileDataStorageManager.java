@@ -1373,12 +1373,19 @@ public class FileDataStorageManager {
     }
 
     // TODO shares null?
-    public void saveShares(Collection<OCShare> shares) {
-        cleanShares();
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
+    public void saveShares(ArrayList<OCShare> shares) {
+        cleanShares(); // 190
+
+        ArrayList<OCShare> temp = new ArrayList<>();
+        
+        for (int i = 188; i <= 189; i++) {
+            temp.add(shares.get(i));
+        }
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(temp.size());
 
         // prepare operations to insert or update files to save in the given folder
-        for (OCShare share : shares) {
+        for (OCShare share : temp) {
             ContentValues contentValues = createContentValueForShare(share);
 
             if (shareExistsForRemoteId(share.getRemoteId())) {
