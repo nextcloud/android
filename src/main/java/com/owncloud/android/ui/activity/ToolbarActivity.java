@@ -259,8 +259,19 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageBitmap(Bitmap bitmap) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageBitmap(bitmap);
+            resetPreviewImageConfiguration();
             setPreviewImageVisibility(true);
         }
+    }
+
+    /**
+     * reset preview image configuration if required
+     * the scale type and padding are changing in sharing screen
+     * so to reset it call this method
+     */
+    private void resetPreviewImageConfiguration() {
+        mPreviewImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mPreviewImage.setPadding(0, 0, 0, 0);
     }
 
     /**
@@ -271,6 +282,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageDrawable(Drawable drawable) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageDrawable(drawable);
+            resetPreviewImageConfiguration();
             setPreviewImageVisibility(true);
         }
     }
