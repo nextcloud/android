@@ -32,14 +32,14 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/share_icon_size"
-        android:layout_height="@dimen/share_icon_size"
+        android:layout_width="@dimen/share_row_icon_size"
+        android:layout_height="@dimen/share_row_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
+        app:tint="@color/text_color"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
-        android:background="@drawable/round_bgnd"
         android:contentDescription="@string/share"
-        android:padding="@dimen/standard_half_padding"
         android:src="@drawable/shared_via_link" />
 
     <LinearLayout
@@ -72,7 +72,7 @@
             app:drawableTint="@color/primary"
             app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
             android:textColor="@color/primary"
-            android:textSize="@dimen/two_line_secondary_text_size" />
+            android:textSize="@dimen/txt_size_14sp" />
     </LinearLayout>
 
     <ImageView
@@ -84,9 +84,10 @@
         android:paddingTop="@dimen/standard_quarter_margin"
         android:paddingBottom="@dimen/standard_quarter_margin"
         android:scaleType="fitCenter"
+        app:tint="@color/primary"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
-        android:src="@drawable/ic_content_copy" />
+        android:src="@drawable/ic_clipboard" />
 
     <ImageView
         android:id="@+id/overflow_menu"
@@ -95,6 +96,7 @@
         android:contentDescription="@string/overflow_menu"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
+        app:tint="@color/primary"
         android:src="@drawable/ic_dots_vertical" />
 
 </LinearLayout>

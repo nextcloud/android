@@ -28,17 +28,16 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/user_icon_size"
-        android:layout_height="@dimen/user_icon_size"
+        android:layout_width="@dimen/share_row_icon_size"
+        android:layout_height="@dimen/share_row_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:contentDescription="@string/user_icon"
-        android:src="@drawable/ic_user" />
+        android:src="@drawable/ic_internal_share" />
 
     <LinearLayout
         android:id="@+id/share_name_layout"
@@ -66,7 +65,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="@color/primary"
-            android:textSize="@dimen/two_line_secondary_text_size"
+            android:textSize="@dimen/txt_size_14sp"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:drawableTint="@color/primary"

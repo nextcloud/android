@@ -57,6 +57,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
@@ -90,6 +91,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private View view;
     private User user;
     private boolean previewLoaded;
+    /**
+     * variable to check if custom back icon on toolbar has to be shown
+     */
+    private boolean isCustomBackIcon;
 
     private FileDetailsFragmentBinding binding;
     private ProgressListener progressListener;
@@ -157,7 +162,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return reference to the {@link FileDetailSharingFragment}
      */
     public FileDetailSharingFragment getFileDetailSharingFragment() {
-        return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailSharingFragment();
+        return (FileDetailSharingFragment)getChildFragmentManager().findFragmentByTag(FTAG_SHARING);
     }
 
     /**
@@ -166,7 +171,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return reference to the {@link FileDetailActivitiesFragment}
      */
     public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
-        return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailActivitiesFragment();
+        //return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailActivitiesFragment();
+        return null;
     }
 
     @Override
@@ -219,6 +225,23 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
+    private void replaceSharingFragment() {
+        getChildFragmentManager().beginTransaction()
+            .replace(R.id.sharing_frame_container,
+                     FileDetailSharingFragment.newInstance(getFile(), user),
+                     FTAG_SHARING).commit();
+    }
+
+    public void replaceSharingProcessFragment(String shareeName, ShareType shareType){
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
+                                                           FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                         shareeName,
+                                                                                                         shareType),
+                                                           FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
+            .commit();
+    }
+
     private void onOverflowIconClicked(View view) {
         ContextThemeWrapper ctw = new ContextThemeWrapper(getActivity(), R.style.CustomPopupTheme);
         PopupMenu popup = new PopupMenu(ctw, view);
@@ -227,55 +250,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         popup.setOnMenuItemClickListener(this::optionsItemSelected);
         popup.show();
-    }
-
-    private void setupViewPager() {
-        binding.tabLayout.removeAllTabs();
-
-        //binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
-
-        binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        binding.tabLayout.setSelectedTabIndicatorColor(ThemeUtils.primaryAccentColor(getContext()));
-
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
-        binding.pager.setAdapter(adapter);
-        binding.pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout) {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                /*if (activeTab == 0) {
-                    getFileDetailActivitiesFragment().markCommentsAsRead();
-                }*/
-
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-        });
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.pager.setCurrentItem(tab.getPosition());
-
-               /* if (tab.getPosition() == 0) {
-                    FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
-
-                    if (fragment != null) {
-                        fragment.markCommentsAsRead();
-                    }
-                }*/
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // unused at the moment
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // unused at the moment
-            }
-        });
-
-        //binding.tabLayout.getTabAt(activeTab).select();
     }
 
     @Override
@@ -301,6 +275,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (previewLoaded) {
                 toolbarActivity.setPreviewImageVisibility(true);
             }
+            toolbarActivity.showToolbarBackImage(isCustomBackIcon);
         }
 
     }
@@ -316,6 +291,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         if (toolbarActivity != null) {
             toolbarActivity.hidePreviewImage();
+            toolbarActivity.showToolbarBackImage(false);
         }
 
         super.onStop();
@@ -517,9 +493,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 setButtonsForRemote();
             }
         }
-
-        setupViewPager();
-
+        replaceSharingFragment();
         getView().invalidate();
     }
 
@@ -569,6 +543,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 updatePreviewImageUI(leftRightPadding);
 
                 previewLoaded = true;
+                isCustomBackIcon = false;
             } else {
                 if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                     String tagId = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId();
@@ -576,7 +551,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
                     if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
                         toolbarActivity.setPreviewImageBitmap(resizedImage);
+                        toolbarActivity.showToolbarBackImage(true);
                         previewLoaded = true;
+                        isCustomBackIcon = true;
                     } else {
                         // show thumbnail while loading resized image
                         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -584,7 +561,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
                         if (thumbnail != null) {
                             toolbarActivity.setPreviewImageBitmap(thumbnail);
+                            toolbarActivity.showToolbarBackImage(true);
                             previewLoaded = true;
+                            isCustomBackIcon = true;
                         } else {
                             Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                              file.getFileName(),
@@ -596,6 +575,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                             } else {
                                 toolbarActivity.setPreviewImageDrawable(drawable);
                                 previewLoaded = true;
+                                isCustomBackIcon = false;
                             }
                             updatePreviewImageUIForFiles();
                         }
@@ -626,7 +606,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                     );
 
                                 toolbarActivity.setPreviewImageDrawable(asyncDrawable);
+                                toolbarActivity.showToolbarBackImage(true);
                                 previewLoaded = true;
+                                isCustomBackIcon = false;
                                 task.execute(getFile());
                             }
                         }
@@ -638,16 +620,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                                          requireContext()));
                     updatePreviewImageUIForFiles();
                     previewLoaded = true;
+                    isCustomBackIcon = false;
                 }
             }
         } else {
             previewLoaded = false;
+            isCustomBackIcon = false;
         }
     }
 
     /**
-     * update preview image for files
-     * we are taking different paddings for files and folders
+     * update preview image for files we are taking different paddings for files and folders
      */
     private void updatePreviewImageUIForFiles() {
         int leftRightPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.standard_half_padding);

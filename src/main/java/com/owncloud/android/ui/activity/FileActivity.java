@@ -84,7 +84,6 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
-import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -105,6 +104,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_LIST_OF_FILES;
 import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LINK;
 
 
@@ -883,16 +883,10 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void doShareWith(String shareeName, ShareType shareType) {
-        getSupportFragmentManager().beginTransaction().add(android.R.id.content,
-                                                           FileDetailsSharingProcessFragment.newInstance(getFile(),
-                                                                                                         shareeName,
-                                                                                                         shareType),
-                                                           FileDetailsSharingProcessFragment.TAG)
-            .commit();
-      /*  getFileOperationsHelper().shareFileWithSharee(getFile(),
-                                                      shareeName,
-                                                      shareType,
-                                                      getAppropriatePermissions(shareType));*/
+       Fragment fragment= getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
+       if (fragment instanceof FileDetailFragment){
+           ((FileDetailFragment) fragment).replaceSharingProcessFragment(shareeName, shareType);
+       }
     }
 
     private int getAppropriatePermissions(ShareType shareType) {

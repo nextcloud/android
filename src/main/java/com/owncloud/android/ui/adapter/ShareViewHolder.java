@@ -81,7 +81,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                 break;
             case FEDERATED:
                 name = context.getString(R.string.share_remote_clarification, name);
-                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_internal_share);
                 break;
             case USER:
                 binding.icon.setTag(share.getShareWith());
@@ -95,7 +95,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                                        binding.icon,
                                        context);
             default:
-                setImage(binding.icon, name, R.drawable.ic_user);
+                setImage(binding.icon, name, R.drawable.ic_internal_share);
                 break;
         }
 

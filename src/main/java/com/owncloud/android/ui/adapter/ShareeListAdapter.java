@@ -196,7 +196,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         shares.addAll(users);
 
         // add internal share link at end
-        shares.add(new OCShare().setShareType(ShareType.INTERNAL));
+        //shares.add(new OCShare().setShareType(ShareType.INTERNAL));
     }
 
     public List<OCShare> getShares() {

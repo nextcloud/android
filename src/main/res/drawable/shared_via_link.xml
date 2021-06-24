@@ -1,36 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2015 ownCloud Inc.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="16dp"
-        android:height="16dp"
-        android:viewportWidth="16.0"
-        android:viewportHeight="16.0">
-	<path
-        android:fillColor="#FF000000"
-        android:strokeColor="#FF000000"
-        android:strokeWidth="0.0"
-        android:strokeMiterLimit="4"
-        android:pathData="M5.99 5.318a3.332 3.332 0 0 0 0 4.693c 0.116 0.118 0.226 0.22 0.355 0.315l1.383-1.383A1.4 1.4 0 0 1 7.33 6.66l3.352-3.352c 0.568-0.57 1.442-0.57 2.01 0s 0.57 1.442 0 2.01l-1.13 1.132c 0.34 0.725 0.464 1.518 0.377 2.304l2.094-2.095c1.288-1.29 1.288-3.406 0-4.694s-3.405-1.288-4.693 0L5.99 5.318z"/>
-    <path
-        android:fillColor="#FF000000"
-        android:strokeColor="#FF000000"
-        android:strokeWidth="0.0"
-        android:strokeMiterLimit="4"
-        android:pathData="M10.01 10.68a3.332 3.332 0 0 0 0-4.692 3.126 3.126 0 0 0-0.355-0.314L8.272 7.057A1.4 1.4 0 0 1 8.67 9.34l-3.35 3.35c-0.57 0.57-1.444 0.57-2.013 0.002s-0.568-1.442 0-2.01L4.44 9.55a4.288 4.288 0 0 1-0.38-2.305L1.967 9.34c-1.288 1.29-1.288 3.405 0 4.693s3.405 1.29 4.693 0l3.35-3.352z"/>
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M11.94,8.8C12.605,9.055 13.23,9.445 13.76,9.98C14.87,11.09 15.42,12.625 15.275,14.185C15.16,15.395 14.625,16.54 13.76,17.405L13.76,17.405L10.225,20.94C9.205,21.965 7.86,22.475 6.515,22.475C5.175,22.475 3.83,21.965 2.805,20.94C0.76,18.895 0.76,15.56 2.805,13.515L2.805,13.515L6.34,9.98C6.61,9.705 6.905,9.475 7.215,9.275C7.2,9.45 7.19,9.625 7.19,9.8C7.19,10.25 7.235,10.69 7.32,11.12L7.32,11.12L3.865,14.575C2.405,16.04 2.405,18.42 3.865,19.88C5.33,21.34 7.705,21.34 9.17,19.88L9.17,19.88L12.705,16.345C13.32,15.73 13.705,14.91 13.785,14.045C13.89,12.925 13.495,11.83 12.705,11.04C12.425,10.765 12.11,10.535 11.77,10.36C11.72,10.18 11.69,9.995 11.69,9.805C11.69,9.45 11.785,9.11 11.94,8.8ZM13.765,2.56C15.815,0.515 19.145,0.515 21.19,2.56C23.24,4.605 23.24,7.935 21.18,9.985L21.18,9.985L17.645,13.52C17.375,13.795 17.08,14.025 16.77,14.225C16.82,13.605 16.78,12.99 16.66,12.39L16.66,12.39L20.125,8.925C21.585,7.46 21.585,5.08 20.125,3.62C19.395,2.89 18.435,2.525 17.475,2.525C16.515,2.525 15.555,2.89 14.825,3.62L14.825,3.62L11.29,7.155C10.58,7.86 10.19,8.805 10.19,9.805C10.19,10.805 10.58,11.745 11.29,12.455C11.57,12.735 11.885,12.96 12.22,13.135C12.285,13.385 12.32,13.64 12.295,13.905C12.275,14.125 12.21,14.405 12.065,14.7C11.395,14.445 10.77,14.055 10.23,13.515C9.235,12.525 8.69,11.205 8.69,9.805C8.69,8.405 9.24,7.085 10.23,6.095L10.23,6.095Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

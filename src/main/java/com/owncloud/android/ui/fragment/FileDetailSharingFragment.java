@@ -27,7 +27,6 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -78,8 +77,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,9 +85,7 @@ import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSIO
 import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
-import static com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
@@ -691,11 +686,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                                    "");
 
 
-        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
+       /* if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
             publicShares.add(new OCShare().setShareType(ShareType.NEW_PUBLIC_LINK));
         } else {
             adapter.removeNewPublicShare();
-        }
+        }*/
 
         adapter.addShares(publicShares);
     }
@@ -799,10 +794,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void modifyExistingShare(OCShare share, int screenTypePermission) {
-        fileActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content,
-                                                                        FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, !isReshareForbidden(share),
-                                                                                                                      capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
-                                                                        FileDetailsSharingProcessFragment.TAG)
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
+                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, !isReshareForbidden(share),
+                                                                                                           capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
+                                                             FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
             .commit();
     }
 }

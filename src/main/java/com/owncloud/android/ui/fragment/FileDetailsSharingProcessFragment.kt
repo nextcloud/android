@@ -353,7 +353,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
     }
 
     private fun removeCurrentFragment() {
-        fileActivity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
     }
 
     private fun getResharePermission(): Int {

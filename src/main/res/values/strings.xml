@@ -466,7 +466,7 @@
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
+    <string name="share_search">Contact name or email</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
@@ -1028,7 +1028,7 @@
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
     <string name="permissions">Permissions</string>
-    <string name="advance_permissions">Advance Permissions</string>
+    <string name="advance_permissions">Advanced Permissions</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
@@ -1039,5 +1039,10 @@
     <string name="share_open_in">Open in…</string>
     <string name="share_advanced_permissions">Advanced permissions</string>
     <string name="share_send_new_email">Send new email</string>
+    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
+    <string name="your_message">Your Message</string>
+    <string name="personal_share_email">Personal share by mail</string>
+    <string name="create_link">Create Link</string>
+    <string name="your_shares">Your Shares</string>
 
 </resources>

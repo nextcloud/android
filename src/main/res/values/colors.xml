@@ -141,4 +141,6 @@
     <color name="progress_bar_background">@color/grey_10</color>
     <color name="neptune">#77b6bb</color>
     <color name="neptune_50">#5077b6bb</color>
+    <color name="white_trans_70">#B3FFFFFF</color>
+    <color name="share_color">#0D39DF</color>
 </resources>

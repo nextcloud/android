@@ -614,7 +614,7 @@
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
+    <string name="share_search">Contact name or email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
@@ -835,7 +835,7 @@
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
     <string name="permissions">Permissions</string>
-    <string name="advance_permissions">Advance Permissions</string>
+    <string name="advance_permissions">Advanced Permissions</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
@@ -930,4 +930,9 @@
     <string name="conflict_dialog_title_multiple">%d File conflicts</string>
     <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the file you are moving?</string>
     <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
+    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
+    <string name="your_message">Your Message</string>
+    <string name="personal_share_email">Personal share by mail</string>
+    <string name="create_link">Create Link</string>
+    <string name="your_shares">Your Shares</string>
 </resources>

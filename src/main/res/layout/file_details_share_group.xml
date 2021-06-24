@@ -36,10 +36,10 @@
         android:contentDescription="@string/share"
         android:id="@+id/copy_internal_link_icon"
         android:layout_gravity="top"
-        android:layout_height="@dimen/share_icon_size"
+        android:layout_height="@dimen/share_row_icon_size"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
-        android:layout_width="@dimen/share_icon_size"
+        android:layout_width="@dimen/share_row_icon_size"
         android:padding="@dimen/standard_half_padding"
         android:src="@drawable/ic_external" />
 
