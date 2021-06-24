@@ -812,7 +812,6 @@
     <string name="whats_new_title">جديد على %1$s</string>
     <string name="whats_your_status">ماهي حالتك؟</string>
     <plurals name="sync_fail_in_favourites_content">
-        <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="one">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="two">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="few">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
@@ -820,7 +819,6 @@
         <item quantity="other">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="zero">فشل نسخ الملف %1$d من المجلد %2$s إلى</item>
         <item quantity="one">فشل نسخ الملف %1$d من المجلد %2$s إلى</item>
         <item quantity="two">فشل نسخ الملفين %1$d من المجلد %2$s إلى</item>
         <item quantity="few">فشل نسخ الملفات %1$d من المجلد %2$s إلى</item>
@@ -828,7 +826,6 @@
         <item quantity="other">فشل نسخ الملفات %1$d من المجلد %2$s إلى</item>
     </plurals>
     <plurals name="file_list__footer__folder">
-        <item quantity="zero">%1$d مجلد</item>
         <item quantity="one">%1$d مجلد</item>
         <item quantity="two">%1$d مجلدين</item>
         <item quantity="few">%1$d مجلدات</item>
@@ -836,7 +833,6 @@
         <item quantity="other">%1$d مجلدات</item>
     </plurals>
     <plurals name="file_list__footer__file">
-        <item quantity="zero">%1$d ملف</item>
         <item quantity="one">%1$d ملف</item>
         <item quantity="two">%1$d ملفين</item>
         <item quantity="few">%1$d ملفات</item>
@@ -844,7 +840,6 @@
         <item quantity="other">%1$d ملفات</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="zero">إظهار %1$d المجلدات المخفية</item>
         <item quantity="one">إظهار %1$d المجلد المخفي</item>
         <item quantity="two">إظهار %1$d المجلدات المخفية</item>
         <item quantity="few">إظهار %1$d المجلدات المخفية</item>
@@ -852,7 +847,6 @@
         <item quantity="other">إظهار %1$d المجلدات المخفية</item>
     </plurals>
     <plurals name="items_selected_count">
-        <item quantity="zero">%d محدد</item>
         <item quantity="one">%d محدد</item>
         <item quantity="two">%d محددين</item>
         <item quantity="few">%d محددين</item>
