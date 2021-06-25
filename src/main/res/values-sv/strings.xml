@@ -824,8 +824,8 @@
         <item quantity="other">%1$d filer</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="one">Visa %1$d gömd mapp</item>
-        <item quantity="other">Visa %1$d gömda mappar</item>
+        <item quantity="one">Visa %1$d dold mapp</item>
+        <item quantity="other">Visa %1$d dolda mappar</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
