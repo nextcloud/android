@@ -171,6 +171,11 @@ android {
                 dimension "default"
             }
 
+            huawei {
+                applicationId 'com.nextcloud.client'
+                dimension "default"
+            }
+
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
