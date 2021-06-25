@@ -53,8 +53,4 @@ public interface FileDetailsSharingMenuBottomSheetActions {
      */
     void sendLink(OCShare share);
 
-    /**
-     * create another link only valid for {@link ShareType#PUBLIC_LINK}
-     */
-    void addAnotherLink(OCShare share);
 }

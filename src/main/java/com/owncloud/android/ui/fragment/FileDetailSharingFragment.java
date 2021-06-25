@@ -67,6 +67,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
@@ -171,8 +172,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             new ArrayList<>(),
                                                             this,
                                                             userId,
-                                                            user));
+                                                            user, SharingMenuHelper.isFileWithNoTextFile(getFile())));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.shareCreateNewLink.setOnClickListener(v -> createPublicShareLink());
 
         setupView();
 
@@ -693,6 +696,18 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }*/
 
         adapter.addShares(publicShares);
+
+        if ((shares != null && !shares.isEmpty()) || (publicShares != null && !publicShares.isEmpty())){
+            showHideView(false);
+        }else{
+            showHideView(true);
+        }
+    }
+
+    private void showHideView(boolean isEmptyList){
+        binding.sharesList.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
+        binding.tvYourShares.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
+        binding.tvEmptyShares.setVisibility(isEmptyList ? View.VISIBLE : View.GONE);
     }
 
 
@@ -788,15 +803,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
-    @Override
-    public void addAnotherLink(OCShare share) {
-        createPublicShareLink();
-    }
-
     private void modifyExistingShare(OCShare share, int screenTypePermission) {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
                                                              FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, !isReshareForbidden(share),
-                                                                                                           capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18)),
+                                                                                                           capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18),
+                                                                                                           SharingMenuHelper.isFileWithNoTextFile(file)),
                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();

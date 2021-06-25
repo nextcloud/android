@@ -26,7 +26,9 @@ import android.view.MenuItem;
 
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -153,11 +155,11 @@ public final class SharingMenuHelper {
     }
 
     public static String getPermissionName(Context context, OCShare share) {
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (isUploadAndEditingAllowed(share)) {
             return context.getResources().getString(R.string.share_permission_can_edit);
-        } else if (SharingMenuHelper.isReadOnly(share)) {
+        } else if (isReadOnly(share)) {
             return context.getResources().getString(R.string.share_permission_view_only);
-        } else if (SharingMenuHelper.isFileDrop(share)) {
+        } else if (isFileDrop(share)) {
             return context.getResources().getString(R.string.share_permission_file_drop);
         }
         return null;
@@ -197,5 +199,9 @@ public final class SharingMenuHelper {
 
     public static boolean canReshare(OCShare share) {
         return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
+    }
+
+    public static boolean isFileWithNoTextFile(OCFile file) {
+        return !file.isFolder() && !MimeTypeUtil.isText(file);
     }
 }

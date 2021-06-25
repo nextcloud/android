@@ -1044,5 +1044,11 @@
     <string name="personal_share_email">Personal share by mail</string>
     <string name="create_link">Create Link</string>
     <string name="your_shares">Your Shares</string>
+    <string name="link_label">Link Label</string>
+    <string name="hint_link_label">Your custom link label</string>
+    <string name="file_drop_info">With File drop, only uploading is allowed. Only you can see files and folders that have been uploaded.</string>
+    <string name="password_protection">Password Protection</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="empty_shares">No shares created yet.</string>
 
 </resources>

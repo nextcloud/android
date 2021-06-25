@@ -24,12 +24,13 @@
     android:layout_height="@dimen/sharee_list_item_size"
     android:orientation="horizontal"
     android:weightSum="1"
+    android:layout_marginTop="@dimen/standard_margin"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/share_row_icon_size"
-        android:layout_height="@dimen/share_row_icon_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
@@ -77,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:contentDescription="@string/overflow_menu"
+        app:tint="@color/primary"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
         android:src="@drawable/ic_dots_vertical" />

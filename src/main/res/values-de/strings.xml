@@ -938,4 +938,10 @@
     <string name="personal_share_email">Personal share by mail</string>
     <string name="create_link">Neuen Link erstellen</string>
     <string name="your_shares">Ihre Freigaben</string>
+    <string name="link_label">Link Label</string>
+    <string name="hint_link_label">Your custom link label</string>
+    <string name="file_drop_info">Bei der Sammelbox ist nur das Hochladen erlaubt. Nur Sie sehen Dateien und Ordner die hochgeladen worden sind.</string>
+    <string name="password_protection">Password Protection</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="empty_shares">Noch keine Freigaben erstellt.</string>
 </resources>

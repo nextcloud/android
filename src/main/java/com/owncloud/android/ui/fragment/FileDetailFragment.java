@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -63,6 +64,7 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
@@ -208,6 +210,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.emptyList.emptyListView.setVisibility(View.GONE);
         }
 
+        FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
+        fabMain.setVisibility(View.GONE);
+
         return view;
     }
 
@@ -236,7 +241,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
                                                            FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                          shareeName,
-                                                                                                         shareType),
+                                                                                                         shareType,
+                                                                                                         SharingMenuHelper.isFileWithNoTextFile(getFile())),
                                                            FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();

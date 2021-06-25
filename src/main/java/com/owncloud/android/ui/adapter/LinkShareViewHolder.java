@@ -23,14 +23,17 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -39,15 +42,17 @@ import androidx.recyclerview.widget.RecyclerView;
 class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
+    private boolean isFileWithNoTextFile;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context) {
+    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context, boolean isFileWithNoTextFile) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
+        this.isFileWithNoTextFile = isFileWithNoTextFile;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -68,15 +73,25 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
-        setPermissionName(permissionName);
+        setPermissionName(permissionName, publicShare, listener);
 
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
-        binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
     }
 
-    private void setPermissionName(String permissionName) {
+    private void setPermissionName(String permissionName, OCShare publicShare, ShareeListAdapterListener listener) {
         if (!TextUtils.isEmpty(permissionName)) {
+            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_view_only)) && isFileWithNoTextFile) {
+                int color = ResourcesCompat.getColor(context.getResources(), R.color.secondary_text_color,
+                                                     null);
+                binding.permissionName.setTextColor(color);
+
+            } else {
+                int color = ResourcesCompat.getColor(context.getResources(), R.color.primary,
+                                                     null);
+                binding.permissionName.setTextColor(color);
+                binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+            }
             binding.permissionName.setText(permissionName);
             binding.permissionName.setVisibility(View.VISIBLE);
         } else {

@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -70,22 +71,22 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         switch (share.getShareType()) {
             case GROUP:
                 name = context.getString(R.string.share_group_clarification, name);
-                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
+                //ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
-                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
+                //ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case CIRCLE:
-                ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
+                //ThemeUtils.createAvatar(share.getShareType(), binding.icon, context);
                 break;
             case FEDERATED:
                 name = context.getString(R.string.share_remote_clarification, name);
-                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_internal_share);
+                //setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_internal_share);
                 break;
             case USER:
                 binding.icon.setTag(share.getShareWith());
-                float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+               /* float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
                 DisplayUtils.setAvatar(user,
                                        share.getShareWith(),
                                        share.getSharedWithDisplayName(),
@@ -93,13 +94,13 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                                        avatarRadius,
                                        context.getResources(),
                                        binding.icon,
-                                       context);
+                                       context);*/
             default:
-                setImage(binding.icon, name, R.drawable.ic_internal_share);
+                //setImage(binding.icon, name, R.drawable.ic_internal_share);
                 break;
         }
-
         binding.name.setText(name);
+        binding.icon.setImageResource(R.drawable.ic_internal_share);
 
         if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);

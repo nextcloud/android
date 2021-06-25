@@ -43,6 +43,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         private const val ARG_SCREEN_TYPE = "arg_screen_type"
         private const val ARG_RESHARE_SHOWN = "arg_reshare_shown"
         private const val ARG_EXP_DATE_SHOWN = "arg_exp_date_shown"
+        private const val ARG_NO_TEXT_FILE = "is_file_with_no_text_file"
 
         //types of screens to be displayed
         const val SCREEN_TYPE_PERMISSION = 1 // permissions screen
@@ -52,11 +53,13 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
          * fragment instance to be called while creating new share for internal and external share
          */
         @JvmStatic
-        fun newInstance(file: OCFile, shareeName: String, shareType: ShareType): FileDetailsSharingProcessFragment {
+        fun newInstance(file: OCFile, shareeName: String, shareType: ShareType, isFileWithNoTextFile: Boolean):
+            FileDetailsSharingProcessFragment {
             val args = Bundle()
             args.putParcelable(ARG_OCFILE, file)
             args.putSerializable(ARG_SHARE_TYPE, shareType)
             args.putString(ARG_SHAREE_NAME, shareeName)
+            args.putBoolean(ARG_NO_TEXT_FILE, isFileWithNoTextFile)
             val fragment = FileDetailsSharingProcessFragment()
             fragment.arguments = args
             return fragment
@@ -66,13 +69,14 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
          * fragment instance to be called while modifying existing share information
          */
         @JvmStatic
-        fun newInstance(share: OCShare, screenType: Int, isReshareShown: Boolean, isExpirationDateShown: Boolean):
+        fun newInstance(share: OCShare, screenType: Int, isReshareShown: Boolean, isExpirationDateShown: Boolean, isFileWithNoTextFile: Boolean):
             FileDetailsSharingProcessFragment {
             val args = Bundle()
             args.putParcelable(ARG_OCSHARE, share)
             args.putInt(ARG_SCREEN_TYPE, screenType)
             args.putBoolean(ARG_RESHARE_SHOWN, isReshareShown)
             args.putBoolean(ARG_EXP_DATE_SHOWN, isExpirationDateShown)
+            args.putBoolean(ARG_NO_TEXT_FILE, isFileWithNoTextFile)
             val fragment = FileDetailsSharingProcessFragment()
             fragment.arguments = args
             return fragment
@@ -89,6 +93,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
     private var shareProcessStep = SCREEN_TYPE_PERMISSION //default screen type
     private var permission = OCShare.NO_PERMISSION //no permission
     private var chosenExpDateInMills: Long = -1 //for no expiry date
+    private var isFileWithNoTextFile: Boolean = false
 
     private var share: OCShare? = null
     private var isReshareShown: Boolean = true //show or hide reshare option
@@ -106,6 +111,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
             isReshareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
+            isFileWithNoTextFile = it.getBoolean(ARG_NO_TEXT_FILE, false)
         }
 
         fileActivity = activity as FileActivity?
@@ -178,8 +184,12 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         //show or hide expiry date
         if (isExpDateShown) {
             binding.shareProcessSetExpDateSwitch.visibility = View.VISIBLE
+            binding.dividerSharingExpDate.visibility = View.VISIBLE
+            binding.shareProcessExpirationDate.visibility = View.VISIBLE
         } else {
             binding.shareProcessSetExpDateSwitch.visibility = View.GONE
+            binding.dividerSharingExpDate.visibility = View.GONE
+            binding.shareProcessExpirationDate.visibility = View.GONE
         }
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
@@ -192,31 +202,51 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         if (shareType == ShareType.EMAIL) {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
             binding.shareProcessChangeNameEt.visibility = View.GONE
+            binding.shareProcessLinkLabel.visibility = View.GONE
+            binding.dividerSharingChangeName.visibility = View.GONE
             updateViewForExternalAndLinkShare()
+            updateFileEditingRadioButton()
         }
         //link share
         else if (shareType == ShareType.PUBLIC_LINK) {
             updateViewForExternalAndLinkShare()
             binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
+            binding.shareProcessLinkLabel.visibility = View.VISIBLE
+            binding.dividerSharingChangeName.visibility = View.VISIBLE
             if (share != null) {
                 binding.shareProcessChangeNameEt.setText(share?.label)
                 binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
             }
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
+            updateFileEditingRadioButton()
         }
         //internal share
         else {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
             binding.shareProcessChangeNameEt.visibility = View.GONE
+            binding.shareProcessLinkLabel.visibility = View.GONE
+            binding.dividerSharingChangeName.visibility = View.GONE
             binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+            binding.dividerSharingHideDownload.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
+            binding.dividerSharingAllowResharing.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
+            binding.shareProcessPwdProtection.visibility = View.GONE
+            binding.dividerSharingEnterPassword.visibility = View.GONE
             if (share != null) {
                 if (!isReshareShown) {
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+                    binding.dividerSharingAllowResharing.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
             }
+        }
+    }
+
+    private fun updateFileEditingRadioButton(){
+        if (isFileWithNoTextFile) {
+            binding.shareProcessPermissionUploadEditing.isEnabled = false
+            binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.secondary_text_color))
         }
     }
 
@@ -225,14 +255,20 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
      */
     private fun updateViewForExternalAndLinkShare() {
         binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+        binding.dividerSharingHideDownload.visibility = View.VISIBLE
         binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+        binding.dividerSharingAllowResharing.visibility = View.GONE
         binding.shareProcessSetPasswordSwitch.visibility = View.VISIBLE
+        binding.shareProcessPwdProtection.visibility = View.VISIBLE
+        binding.dividerSharingEnterPassword.visibility = View.VISIBLE
 
         if (share != null) {
             if (SharingMenuHelper.isFileDrop(share)) {
                 binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+                binding.dividerSharingHideDownload.visibility = View.GONE
             } else {
                 binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+                binding.dividerSharingHideDownload.visibility = View.VISIBLE
                 binding.shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
             }
         }
@@ -266,6 +302,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         binding.shareProcessPermissionUploadEditing.text =
             requireContext().resources.getString(R.string.link_share_allow_upload_and_editing)
         binding.shareProcessPermissionFileDrop.visibility = View.VISIBLE
+        binding.shareFileDropInfo.visibility = View.VISIBLE
     }
 
     /**
@@ -352,8 +389,12 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         }
     }
 
+    /**
+     * remove the fragment and pop it from backstack because we are adding it to backstack
+     */
     private fun removeCurrentFragment() {
         requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun getResharePermission(): Int {

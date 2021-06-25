@@ -77,11 +77,9 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
         }
 
         if (ocShare.getShareType() == ShareType.PUBLIC_LINK) {
-            binding.menuShareAddAnotherLink.setVisibility(View.VISIBLE);
-            binding.menuShareSendLink.setVisibility(View.VISIBLE);
+            binding.menuShareSendNewEmail.setVisibility(View.GONE);
         } else {
-            binding.menuShareAddAnotherLink.setVisibility(View.GONE);
-            binding.menuShareSendLink.setVisibility(View.GONE);
+            binding.menuShareSendNewEmail.setVisibility(View.VISIBLE);
         }
     }
 
@@ -111,10 +109,6 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
             dismiss();
         });
 
-        binding.menuShareAddAnotherLink.setOnClickListener(v -> {
-            actions.addAnotherLink(ocShare);
-            dismiss();
-        });
     }
 
     @Override
