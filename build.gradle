@@ -16,6 +16,10 @@ buildscript {
             url 'https://plugins.gradle.org/m2/'
         }
         mavenCentral()
+        // huawei maven
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
@@ -25,6 +29,8 @@ buildscript {
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.10.3'
+        // huawei dependencies
+        classpath 'com.huawei.agconnect:agcp:1.5.2.300'
     }
 }
 
@@ -38,6 +44,8 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+//huawei plugin
+apply plugin: 'com.huawei.agconnect'
 
 println "Gradle uses Java ${Jvm.current()}"
 
@@ -83,6 +91,10 @@ repositories {
     maven {
         url 'https://plugins.gradle.org/m2/'
     }
+    // huawei maven
+    maven {
+        url 'https://developer.huawei.com/repo/'
+    }
 }
 
 // semantic versioning for version code
@@ -94,9 +106,14 @@ def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {
         // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
-        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
-            apply from: 'gplay.gradle'
-            System.console().println("Applying gplay.gradle")
+//        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
+//            apply from: 'gplay.gradle'
+//            System.console().println("Applying gplay.gradle")
+//        }
+        if (arg.contains("Huawei") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg ==
+            "build") {
+            apply from: 'huawei.gradle'
+            System.console().println("Applying huawei.gradle")
         }
     }
 }
@@ -120,10 +137,21 @@ android {
     }
 
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "7g"
     }
 
     compileSdkVersion 29
+
+    // huawei jks
+    signingConfigs {
+        config {
+            // Replace xxx with your signing certificate.
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('testpush.jks')
+            storePassword '123456'
+        }
+    }
 
     defaultConfig {
         minSdkVersion 22
@@ -156,6 +184,12 @@ android {
         buildTypes {
             debug {
                 testCoverageEnabled (project.hasProperty('coverage'))
+                signingConfig signingConfigs.config
+            }
+            release {
+                signingConfig signingConfigs.config
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
         }
 
@@ -274,6 +308,7 @@ dependencies {
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    huaweiImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
@@ -402,6 +437,10 @@ dependencies {
 //    androidJacocoAnt "org.jacoco:org.jacoco.agent:${jacocoVersion}"
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
+
+    // Huawei Dependencies
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+    implementation 'com.huawei.hms:push:5.1.1.301'
 }
 
 configurations.all {
