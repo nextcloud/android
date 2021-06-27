@@ -486,7 +486,7 @@
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder。txt</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12：23：45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12：23 PM</string>
@@ -678,7 +678,7 @@
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https：//github。com/nextcloud/android/issues 舉報所有問題，並於 https：//help。nextcloud。com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https：//nextcloud。com 以取得更多資訊</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -751,7 +751,7 @@
     <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 地圖捷徑（%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">網路捷徑(%s)</string>
-    <string name="upload_file_dialog_filetype_snippet_text">片段文字檔(。txt)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">片段文字檔案（.txt）</string>
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
