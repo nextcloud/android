@@ -3,7 +3,9 @@
  *
  *   @author masensio
  *   @author David A. Velasco
+ *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,7 +28,6 @@ import android.text.TextUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
