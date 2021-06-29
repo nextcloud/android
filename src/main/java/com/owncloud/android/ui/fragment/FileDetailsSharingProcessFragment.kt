@@ -1,14 +1,31 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author TSI-mc
+ * Copyright (C) 2021 TSI-mc
+ * Copyright (C) 2021 Nextcloud GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.ui.fragment
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.text.TextUtils
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
@@ -17,11 +34,11 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 
 /**
@@ -32,7 +49,7 @@ import java.util.Date
  * configuration at one time.
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
-class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
+class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener {
 
     companion object {
         const val TAG = "FileDetailsSharingProcessFragment"
@@ -82,6 +99,8 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
             return fragment
         }
     }
+
+    private lateinit var onEditShareListener: FileDetailSharingFragment.OnEditShareListener
 
     private lateinit var binding: FileDetailsSharingProcessFragmentBinding
     private var fileOperationsHelper: FileOperationsHelper? = null
@@ -346,6 +365,17 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         }
     }
 
+    private fun showExpirationDateDialog() {
+        val dialog = ExpirationDatePickerDialogFragment.newInstance(chosenExpDateInMills)
+        dialog.setOnExpiryDateListener(this)
+        fileActivity?.let { it1 ->
+            dialog.show(
+                it1.supportFragmentManager,
+                ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+            )
+        }
+    }
+
     private fun showChangeNameInput(isChecked: Boolean) {
         binding.shareProcessChangeNameEt.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
@@ -447,7 +477,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
                     .text.toString().trim()
             )
         ) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_exp_date)
+            showExpirationDateDialog()
             return
         }
 
@@ -503,45 +533,14 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         removeCurrentFragment()
     }
 
-    private fun showExpirationDateDialog() {
-        // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
-        val chosenDate = Calendar.getInstance()
-        val tomorrowInMillis = chosenDate.timeInMillis + DateUtils.DAY_IN_MILLIS
-        chosenDate.timeInMillis = Math.max(chosenExpDateInMills, tomorrowInMillis)
-        // Create a new instance of DatePickerDialog
-        val dialog = DatePickerDialog(
-            requireActivity(),
-            this,
-            chosenDate[Calendar.YEAR],
-            chosenDate[Calendar.MONTH],
-            chosenDate[Calendar.DAY_OF_MONTH]
-        )
-        dialog.show()
-
-        // Prevent days in the past may be chosen
-        val picker = dialog.datePicker
-        picker.minDate = tomorrowInMillis - 1000
-
-        // Enforce spinners view; ignored by MD-based theme in Android >=5, but calendar is REALLY buggy
-        // in Android < 5, so let's be sure it never appears (in tablets both spinners and calendar are
-        // shown by default)
-        picker.calendarViewShown = false
+    /**
+     * method will be called from DrawerActivity on back press to handle screen backstack
+     */
+    fun onBackPressed() {
+        onCancelClick()
     }
 
-    /**
-     * Called when the user chooses an expiration date.
-     *
-     * @param view        View instance where the date was chosen
-     * @param year        Year of the date chosen.
-     * @param monthOfYear Month of the date chosen [0, 11]
-     * @param dayOfMonth  Day of the date chosen
-     */
-    override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        val chosenDate = Calendar.getInstance()
-        chosenDate[Calendar.YEAR] = year
-        chosenDate[Calendar.MONTH] = monthOfYear
-        chosenDate[Calendar.DAY_OF_MONTH] = dayOfMonth
-        val chosenDateInMillis = chosenDate.timeInMillis
+    override fun onDateSet(year: Int, monthOfYear: Int, dayOfMonth: Int, chosenDateInMillis: Long) {
         binding.shareProcessSelectExpDate.text = (resources.getString(
             R.string.share_expiration_date_format,
             SimpleDateFormat.getDateInstance().format(Date(chosenDateInMillis))
@@ -549,10 +548,7 @@ class FileDetailsSharingProcessFragment : Fragment(), OnDateSetListener {
         this.chosenExpDateInMills = chosenDateInMillis
     }
 
-    /**
-     * method will be called from DrawerActivity on back press to handle screen backstack
-     */
-    fun onBackPressed() {
-        onCancelClick()
+    override fun onDateUnSet() {
+        binding.shareProcessSetExpDateSwitch.isChecked = false
     }
 }

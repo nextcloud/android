@@ -5,11 +5,13 @@
  *   @author David A. Velasco
  *   @author Andy Scherzinger
  *   @author Chris Narkiewicz
+ *   @author TSI-mc
  *
  *   Copyright (C) 2011 Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -58,10 +60,10 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
-import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -235,17 +237,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             .replace(R.id.sharing_frame_container,
                      FileDetailSharingFragment.newInstance(getFile(), user),
                      FTAG_SHARING).commit();
-    }
-
-    public void replaceSharingProcessFragment(String shareeName, ShareType shareType){
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
-                                                           FileDetailsSharingProcessFragment.newInstance(getFile(),
-                                                                                                         shareeName,
-                                                                                                         shareType,
-                                                                                                         SharingMenuHelper.isFileWithNoTextFile(getFile())),
-                                                           FileDetailsSharingProcessFragment.TAG)
-            .addToBackStack(null)
-            .commit();
     }
 
     private void onOverflowIconClicked(View view) {
@@ -730,6 +721,38 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_error);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * open the sharing process fragment for creating new share
+     * @param shareeName
+     * @param shareType
+     */
+    public void initiateSharingProcess(String shareeName, ShareType shareType) {
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
+                                                                             FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                                           shareeName,
+                                                                                                                           shareType, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                             FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
+            .commit();
+    }
+
+    /**
+     * open the new sharing screen process to modify the created share
+     * @param share
+     * @param screenTypePermission
+     * @param isReshareShown
+     * @param isExpiryDateShown
+     */
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
+                                  boolean isExpiryDateShown) {
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
+                                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
+                                                                                                                           isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                             FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
+            .commit();
     }
 
     /**
