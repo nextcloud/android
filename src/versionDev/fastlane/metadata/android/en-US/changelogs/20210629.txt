@@ -1,0 +1,4 @@
+remove unused import
+Fix NPE when syncing contacts
+Lint: ignore zero, as we do not show those translated strings in case of zero/empty
+Update translations
