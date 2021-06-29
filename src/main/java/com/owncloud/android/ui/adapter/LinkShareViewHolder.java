@@ -3,8 +3,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
+ *
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +28,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.owncloud.android.R;
@@ -80,7 +82,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         setPermissionName(permissionName);
 
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
-        binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
+        binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
         binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
     }
 

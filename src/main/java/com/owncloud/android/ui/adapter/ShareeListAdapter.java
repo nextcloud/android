@@ -211,5 +211,4 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
     }
-
 }

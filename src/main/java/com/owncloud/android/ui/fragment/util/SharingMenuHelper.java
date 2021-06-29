@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author TSI-mc
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,11 +26,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.MenuItem;
 
-import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

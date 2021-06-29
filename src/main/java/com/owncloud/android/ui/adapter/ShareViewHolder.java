@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -108,7 +110,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
             setPermissionName(permissionName);
 
             // bind listener to edit privileges
-            binding.overflowMenu.setOnClickListener(v -> listener.showUserOverflowMenu(share, binding.overflowMenu));
+            binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(share));
             binding.shareNameLayout.setOnClickListener(v -> listener.showPermissionsDialog(share));
         } else {
             binding.overflowMenu.setVisibility(View.GONE);

@@ -968,17 +968,21 @@
     <string name="share_permission_view_only">View only</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
-    <string name="permissions">Permissions</string>
-    <string name="advance_permissions">Advance Permissions</string>
+    <string name="share_permissions">Share Permissions</string>
+    <string name="advanced_settings">Advanced Settings</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
     <string name="share_link_empty_exp_date">You must select expiration date.</string>
     <string name="share_link_empty_note_message">Please enter note.</string>
-    <string name="common_confirm">Confirm</string>
-    <string name="send_email">Send email</string>
+    <string name="share_copy_link">Share &amp; Copy Link</string>
+    <string name="set_note">Set Note</string>
     <string name="share_open_in">Open in…</string>
     <string name="share_advanced_permissions">Advanced permissions</string>
     <string name="share_send_new_email">Send new email</string>
+    <string name="link_name">Link Name</string>
+    <string name="delete_link">Delete Link</string>
+    <string name="share_settings">Settings</string>
+    <string name="common_confirm">Confirm</string>
 
 </resources>

@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Nextcloud Android client application
 
  @author TSI-mc
@@ -18,13 +18,19 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?attr/colorControlNormal">
-  <path
-      android:fillColor="@android:color/white"
-      android:pathData="M7,10l5,5 5,-5z"/>
-</vector>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_default"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_quick_share_permissions"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/item_quick_share_permissions"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
