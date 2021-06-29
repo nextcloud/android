@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Nextcloud Android client application
+
+ @author TSI-mc
+ Copyright (C) 2021 TSI-mc
+ Copyright (C) 2021 Nextcloud GmbH
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_default"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding">
+
+    <LinearLayout
+        android:id="@+id/menu_share_open_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_open_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_content_copy"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/share_open_in"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_advanced_permissions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_advanced_permissions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_edit"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/share_settings"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_send_new_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_send_new_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_email"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/share_send_new_email"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_send_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/menu_icon_send_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_link"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/share_via_link_send_link_label"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_unshare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_unshare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/delete_link"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_add_another_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/menu_icon_add_another_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_plus"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/add_another_public_share_link"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

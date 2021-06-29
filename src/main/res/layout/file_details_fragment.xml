@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
+  @author TSI-mc
+
   Copyright (C) 2012 Bartek Przybylski
   Copyright (C) 2017 ownCloud GmbH.
   Copyright (C) 2018 Andy Scherzinger
+  Copyright (C) 2021 TSI-mc
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -190,6 +193,12 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:id="@+id/sharing_frame_container"
+        android:layout_height="match_parent"/>
 
     <include
         android:id="@+id/empty_list"

@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
+
+  @author TSI-mc
 
   Copyright (C) 2015 ownCloud Inc.
   Copyright (C) 2018 Andy Scherzinger
+  Copyright (C) 2021 TSI-mc
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -18,39 +20,60 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
     android:layout_height="@dimen/sharee_list_item_size"
+    android:orientation="horizontal"
     android:weightSum="1"
     tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:contentDescription="@string/user_icon"
-            android:src="@drawable/ic_user" />
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/user_icon_size"
+        android:layout_height="@dimen/user_icon_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:contentDescription="@string/user_icon"
+        android:src="@drawable/ic_user" />
 
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
+        android:id="@+id/share_name_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/text_color"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/two_line_primary_text_size"
-        android:text="@string/username" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/username"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/permission_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/two_line_secondary_text_size"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            app:drawableTint="@color/primary"
+            tools:text="View only" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/overflow_menu"

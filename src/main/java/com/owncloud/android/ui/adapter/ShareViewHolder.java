@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +25,8 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,6 +35,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 
@@ -101,10 +106,23 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);
 
+            String permissionName = SharingMenuHelper.getPermissionName(context, share);
+            setPermissionName(permissionName);
+
             // bind listener to edit privileges
-            binding.overflowMenu.setOnClickListener(v -> listener.showUserOverflowMenu(share, binding.overflowMenu));
+            binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(share));
+            binding.shareNameLayout.setOnClickListener(v -> listener.showPermissionsDialog(share));
         } else {
             binding.overflowMenu.setVisibility(View.GONE);
+        }
+    }
+
+    private void setPermissionName(String permissionName) {
+        if (!TextUtils.isEmpty(permissionName)) {
+            binding.permissionName.setText(permissionName);
+            binding.permissionName.setVisibility(View.VISIBLE);
+        } else {
+            binding.permissionName.setVisibility(View.GONE);
         }
     }
 

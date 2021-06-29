@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   @author Tobias Kaminsky
   @author Andy Scherzinger
+  @author TSI-mc
+
   Copyright (C) 2020 Andy Scherzinger
   Copyright (C) 2020 Tobias Kaminsky
   Copyright (C) 2020 Nextcloud GmbH
+  Copyright (C) 2021 TSI-mc
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,6 +25,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/share_by_link_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/sharee_list_item_size"
@@ -40,18 +44,38 @@
         android:padding="@dimen/standard_half_padding"
         android:src="@drawable/shared_via_link" />
 
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
+        android:id="@+id/share_name_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/text_color"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/two_line_primary_text_size"
-        android:text="@string/share_via_link_section_title" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/share_via_link_section_title"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/permission_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            tools:text="View only"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            app:drawableTint="@color/primary"
+            app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/two_line_secondary_text_size" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/copy_link"
@@ -59,11 +83,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/copy_link"
+        android:paddingStart="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_quarter_margin"
+        android:paddingEnd="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_quarter_margin"
         android:scaleType="fitCenter"
-        android:paddingStart="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_padding"
         android:src="@drawable/ic_content_copy" />
 
     <ImageView

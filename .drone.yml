@@ -103,14 +103,7 @@ steps:
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
-      - ./gradlew assembleGplay
-      - ./gradlew assembleGplayDebug
-      - scripts/wait_for_emulator.sh
-      - ./gradlew jacocoTestGplayDebugUnitTestReport && scripts/deleteOutdatedComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-      - ./gradlew installGplayDebugAndroidTest
-      - scripts/wait_for_server.sh "server"
-      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-      - scripts/runCombinedTest.sh
+      - scripts/runCombinedTest.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
 
   - name: notify
     image: drillster/drone-email
