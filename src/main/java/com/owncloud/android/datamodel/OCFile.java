@@ -552,7 +552,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return file fileId, unique within the instance
      */
     public String getLocalId() {
-        return getRemoteId().substring(0, 8).replaceAll("^0*", "");
+        // fileId, instanceId. instanceId is 12 chars long
+        return getRemoteId().substring(0, getRemoteId().length() - 12).replaceAll("^0*", "");
     }
 
     public boolean isInConflict() {
