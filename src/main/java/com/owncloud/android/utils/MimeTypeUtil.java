@@ -445,6 +445,7 @@ public final class MimeTypeUtil {
      */
     private static void populateMimeTypeIconMapping() {
         MIMETYPE_TO_ICON_MAPPING.put("application/coreldraw", R.drawable.file_image);
+        MIMETYPE_TO_ICON_MAPPING.put("application/eml", R.drawable.file_mail);
         MIMETYPE_TO_ICON_MAPPING.put("application/epub+zip", R.drawable.file_text);
         MIMETYPE_TO_ICON_MAPPING.put("application/font-sfnt", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/font-woff", R.drawable.file_image);
@@ -613,6 +614,7 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("dotx", Collections.singletonList("application/vnd.openxmlformats-officedocument.wordprocessingml.template"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("dv", Collections.singletonList("video/dv"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("eot", Collections.singletonList("application/vnd.ms-fontobject"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("eml", Collections.singletonList("application/eml"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("epub", Collections.singletonList("application/epub+zip"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("eps", Collections.singletonList("application/postscript"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("erf", Collections.singletonList("image/x-dcraw"));
