@@ -22,9 +22,9 @@
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
-    <dimen name="file_icon_size_grid">128dp</dimen>
-    <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
-    <dimen name="file_icon_rounded_corner_radius_for_grid_mode">4dp</dimen>
+    <dimen name="file_icon_size_grid">512dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius">32dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius_for_grid_mode">16dp</dimen>
     <dimen name="file_avatar_size">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
