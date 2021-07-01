@@ -147,6 +147,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
+            binding.shareProcessPermissionReadOnly.isChecked = true
             showShareProcessFirst()
         } else {
             showShareProcessSecond()
@@ -315,6 +316,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessPermissionUploadEditing.text =
             requireContext().resources.getString(R.string.link_share_editing)
         binding.shareProcessPermissionFileDrop.visibility = View.GONE
+        binding.shareFileDropInfo.visibility = View.GONE
     }
 
     private fun updateViewForFolder() {
@@ -509,12 +511,12 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * method to validate step 2 (note screen) information
      */
     private fun validateShareProcessSecond() {
-        if (TextUtils.isEmpty(binding.noteText.text.toString().trim())) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_note_message)
-            return
-        }
         //if modifying existing share then directly update the note and send email
         if (share != null) {
+            if (TextUtils.isEmpty(binding.noteText.text.toString().trim())) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_note_message)
+                return
+            }
             fileOperationsHelper?.updateNoteToShare(share, binding.noteText.text.toString().trim())
         } else {
             //else create new share

@@ -836,9 +836,9 @@
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
     <string name="storage_sd_card">SD-Karte</string>
-    <string name="share_permission_view_only">Nur anschauen</string>
-    <string name="share_permission_can_edit">Kann bearbeiten</string>
-    <string name="share_permission_file_drop">Dateiablegen</string>
+    <string name="share_permission_read_only">Kann Lesen</string>
+    <string name="share_permission_can_edit">Kann Bearbeiten</string>
+    <string name="share_permission_file_drop">Sammelbox</string>
     <string name="permissions">Berechtigungen</string>
     <string name="advance_permissions">Erweiterte Berechtigungen</string>
     <string name="common_next">Nächster</string>

@@ -831,9 +831,9 @@
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="storage_sd_card">SD Card</string>
-    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_read_only">Read only</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
+    <string name="share_permission_file_drop">Filedrop only</string>
     <string name="permissions">Permissions</string>
     <string name="advance_permissions">Advanced Permissions</string>
     <string name="common_next">Next</string>

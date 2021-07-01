@@ -158,7 +158,7 @@ public final class SharingMenuHelper {
         if (isUploadAndEditingAllowed(share)) {
             return context.getResources().getString(R.string.share_permission_can_edit);
         } else if (isReadOnly(share)) {
-            return context.getResources().getString(R.string.share_permission_view_only);
+            return context.getResources().getString(R.string.share_permission_read_only);
         } else if (isFileDrop(share)) {
             return context.getResources().getString(R.string.share_permission_file_drop);
         }
@@ -175,15 +175,11 @@ public final class SharingMenuHelper {
      */
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            if (share.isFolder()) {
-                return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_allow_upload_and_editing);
-            } else {
-                return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_editing);
-            }
+                return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_read_only);
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_read_only);
         } else if (SharingMenuHelper.isFileDrop(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_file_drop);
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_file_drop);
         }
         return 0;//default first item selected
     }

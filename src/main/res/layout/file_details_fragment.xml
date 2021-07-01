@@ -119,6 +119,7 @@
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:contentDescription="@string/overflow_menu"
             app:cornerRadius="24dp"
+            android:visibility="gone"
             app:icon="@drawable/ic_dots_vertical"
             app:iconTint="@color/grey_60" />
     </LinearLayout>

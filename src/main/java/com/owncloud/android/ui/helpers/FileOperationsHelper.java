@@ -555,7 +555,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
             service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
-            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
+            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note==null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
 
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);

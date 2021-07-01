@@ -99,7 +99,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         binding.permissionName.setTextColor(colorStateList);
 
         if (!TextUtils.isEmpty(permissionName)) {
-            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_view_only)) && isFileWithNoTextFile) {
+            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_read_only)) && isFileWithNoTextFile) {
                 binding.permissionName.setEnabled(false);
 
             } else {

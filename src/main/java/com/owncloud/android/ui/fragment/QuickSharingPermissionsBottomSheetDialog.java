@@ -104,8 +104,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * @param position
      */
     private void handlePermissionChanged(List<QuickPermissionModel> quickPermissionModelList, int position) {
-        if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_allow_upload_and_editing))
-            || quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_editing))) {
+        if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.share_permission_can_edit))) {
             if (ocShare.isFolder()) {
                 actions.onQuickPermissionChanged(ocShare,
                                                  MAXIMUM_PERMISSIONS_FOR_FOLDER);
@@ -114,12 +113,12 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
                                                  MAXIMUM_PERMISSIONS_FOR_FILE);
             }
         } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                         .link_share_read_only))) {
+                                                                                                                                         .share_permission_read_only))) {
             actions.onQuickPermissionChanged(ocShare,
                                              READ_PERMISSION_FLAG);
 
         } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                         .link_share_file_drop))) {
+                                                                                                                                         .share_permission_file_drop))) {
             actions.onQuickPermissionChanged(ocShare,
                                              CREATE_PERMISSION_FLAG);
         }
