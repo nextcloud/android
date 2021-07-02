@@ -164,6 +164,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         binding.shareCreateNewLink.setOnClickListener(v -> createPublicShareLink());
 
+        //remove focus from search view on click of root view
+        binding.shareContainer.setOnClickListener(v-> binding.searchView.clearFocus());
+
         setupView();
 
         return view;
