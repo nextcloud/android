@@ -23,6 +23,7 @@ import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -36,7 +37,8 @@ class UploadTask(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val clientProvider: () -> OwnCloudClient
+    private val clientProvider: () -> OwnCloudClient,
+    private val fileDataStorageManager: FileDataStorageManager,
 ) {
 
     data class Result(val file: OCFile, val success: Boolean)
@@ -51,7 +53,8 @@ class UploadTask(
         private val uploadsStorageManager: UploadsStorageManager,
         private val connectivityService: ConnectivityService,
         private val powerManagementService: PowerManagementService,
-        private val clientProvider: () -> OwnCloudClient
+        private val clientProvider: () -> OwnCloudClient,
+        private val fileDataStorageManager: FileDataStorageManager
     ) {
         fun create(): UploadTask {
             return UploadTask(
@@ -59,7 +62,8 @@ class UploadTask(
                 uploadsStorageManager,
                 connectivityService,
                 powerManagementService,
-                clientProvider
+                clientProvider,
+                fileDataStorageManager
             )
         }
     }
@@ -86,7 +90,7 @@ class UploadTask(
         )
         val client = clientProvider()
         uploadsStorageManager.updateDatabaseUploadStart(op)
-        val result = op.execute(client)
+        val result = op.execute(client, fileDataStorageManager)
         uploadsStorageManager.updateDatabaseUploadResult(result, op)
         return Result(file, result.isSuccess)
     }
