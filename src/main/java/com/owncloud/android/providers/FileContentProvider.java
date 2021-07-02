@@ -403,8 +403,11 @@ public class FileContentProvider extends ContentProvider {
             case GROUP:
             case EMAIL:
             case FEDERATED:
+            case FEDERATED_GROUP:
             case ROOM:
             case CIRCLE:
+            case DECK:
+            case GUEST:
                 fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
                 break;
 

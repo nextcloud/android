@@ -1373,7 +1373,7 @@ public class FileDataStorageManager {
     }
 
     // TODO shares null?
-    public void saveShares(Collection<OCShare> shares) {
+    public void saveShares(List<OCShare> shares) {
         cleanShares();
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
 
