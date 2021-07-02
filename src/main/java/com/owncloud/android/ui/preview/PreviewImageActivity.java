@@ -124,6 +124,7 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
         setContentView(R.layout.preview_image_activity);
+        setupToolbar();
 
         //clear the static bitmap hashmap on every on create to clear old data
         bitmapHashMap.clear();
@@ -214,7 +215,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager
-                getSupportActionBar().setTitle(getFile().getFileName());
+                updateActionBarTitleAndHomeButton(getFile());
                 //if (!stateWasRecovered) {
                 initViewPager(optionalUser.get());
                 //}
@@ -257,7 +258,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public void onImageLoadCompleted() {
-        mViewPager.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+        //mViewPager.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
     }
 
     /**
@@ -413,9 +414,7 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position);
 
             if (currentFile != null) {
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(currentFile.getFileName());
-                }
+                updateActionBarTitleAndHomeButton(currentFile);
                 setDrawerIndicatorEnabled(false);
 
                 if (currentFile.isEncrypted() && !currentFile.isDown() &&
@@ -498,7 +497,7 @@ public class PreviewImageActivity extends FileActivity implements
         boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
             & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
-        if (visible) {
+       /* if (visible) {
             hideSystemUI(mFullScreenAnchorView);
             // actionBar.hide(); // propagated through
             // OnSystemUiVisibilityChangeListener()
@@ -506,7 +505,7 @@ public class PreviewImageActivity extends FileActivity implements
             showSystemUI(mFullScreenAnchorView);
             // actionBar.show(); // propagated through
             // OnSystemUiVisibilityChangeListener()
-        }
+        }*/
     }
 
     public void switchToFullScreen() {

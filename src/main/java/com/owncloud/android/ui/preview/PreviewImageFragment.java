@@ -298,8 +298,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     binding.image.setVisibility(View.VISIBLE);
                     binding.emptyListView.setVisibility(View.GONE);
                     binding.emptyListProgress.setVisibility(View.GONE);
-                    //not required as setting to view pager
-                    //binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                    binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
 
                     bitmap = resizedImage;
                 } else {
@@ -729,8 +728,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 if (progressView != null) {
                     progressView.setVisibility(View.GONE);
                 }
-                //not required as setting to view pager
-                //imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+                imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
                 imageView.setVisibility(View.VISIBLE);
             }
         }

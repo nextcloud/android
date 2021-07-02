@@ -175,8 +175,7 @@
             android:name=".ui.activity.SettingsActivity"
             android:theme="@style/ThemePreference"/>
         <activity
-            android:name=".ui.preview.PreviewImageActivity"
-            android:theme="@style/Theme.ownCloud.Overlay" />
+            android:name=".ui.preview.PreviewImageActivity" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
             android:label="@string/app_name"

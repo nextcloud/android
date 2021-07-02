@@ -27,7 +27,6 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/standard_margin"
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/image_fail" />
 
