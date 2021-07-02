@@ -160,7 +160,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
         registerForContextMenu(getListView());
 
         int accentColor = ThemeUtils.appBarPrimaryFontColor(this);
-        String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         user = accountManager.getUser();
@@ -181,7 +180,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
         setupMoreCategory(accentColor);
 
         // About
-        setupAboutCategory(accentColor, appVersion);
+        setupAboutCategory(accentColor);
+
+        //Info
+        setUpInfoCategory(accentColor);
 
         // Dev
         setupDevCategory(accentColor, preferenceScreen);
@@ -230,27 +232,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupAboutCategory(int accentColor, String appVersion) {
+    private void setupAboutCategory(int accentColor) {
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
         preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_about),
                 accentColor));
-
-        /* About App */
-        Preference pAboutApp = findPreference("about_app");
-        if (pAboutApp != null) {
-            pAboutApp.setTitle(ThemeUtils.getColoredTitle(getString(R.string.app_name),
-                                                              accentColor));
-
-            String buildNumber = getResources().getString(R.string.buildNumber);
-
-            if (TextUtils.isEmpty(buildNumber)) {
-                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
-            } else {
-                pAboutApp.setSummary(String.format(getString(R.string.about_version_with_build),
-                                                   appVersion,
-                                                   buildNumber));
-            }
-        }
 
         // license
         boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
@@ -317,6 +302,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 preferenceCategoryAbout.removePreference(sourcecodePreference);
             }
         }
+    }
+
+    private void setUpInfoCategory(int accentColor){
+        PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("info");
+        preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_info),
+                                                                    accentColor));
     }
 
     private void setupMoreCategory(int accentColor) {
@@ -762,18 +753,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
             return true;
         });*/
-    }
-
-    private String getAppVersion() {
-        String temp;
-        try {
-            PackageInfo pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-            temp = pkg.versionName;
-        } catch (NameNotFoundException e) {
-            temp = "";
-            Log_OC.e(TAG, "Error while showing about dialog", e);
-        }
-        return temp;
     }
 
     @Override

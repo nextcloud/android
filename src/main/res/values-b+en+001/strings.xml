@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">%1$s Android app</string>
     <string name="about_title">About</string>
-    <string name="about_version">version %1$s</string>
+    <string name="about_version">Version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
     <string name="account_creation_failed">Account creation failed</string>
     <string name="account_icon">Account icon</string>
@@ -914,4 +914,5 @@
     <string name="conflict_dialog_title_multiple">%d File conflicts</string>
     <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the file you are moving?</string>
     <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
+    <string name="prefs_category_info">Info</string>
 </resources>
