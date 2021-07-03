@@ -162,7 +162,7 @@ class ContactsBackupWork(
             }
         }
 
-        val request = UploadRequest.Builder(user = user, source = file.absolutePath, destination = backupFolder + file)
+        val request = UploadRequest.Builder(user, file.absolutePath, backupFolder + file.name)
             .setFileSize(file.length())
             .setNameConflicPolicy(NameCollisionPolicy.RENAME)
             .setCreateRemoteFolder(true)

@@ -66,7 +66,7 @@
     <string name="auth_unknown_error_exception_title">Errore non connotu: %1$s</string>
     <string name="auth_unknown_error_http_title">Ddoe at àpidu un\'errore HTTP disconnotu!</string>
     <string name="auth_unknown_error_title">B\'at àpidu un\'errore disconnotu!</string>
-    <string name="auth_unknown_host_title">Non s\'agatat su host</string>
+    <string name="auth_unknown_host_title">Non s\'agatat su retzidore</string>
     <string name="auth_unsupported_multiaccount">%1$s non suportat prus de unu contu </string>
     <string name="auth_wrong_connection_title">No at fatu a istabilire una connessione</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">allogadu in sa cartella originale, comente archìviu de leghidura ebbia</string>
@@ -78,7 +78,7 @@
     <string name="autoupload_disable_power_save_check">Disativa controllu de rispàrmiu de energia</string>
     <string name="autoupload_hide_folder">Cua sa cartella</string>
     <string name="avatar">Avatar</string>
-    <string name="away">A tesu</string>
+    <string name="away">Ausente</string>
     <string name="battery_optimization_close">Serra</string>
     <string name="battery_optimization_disable">Disativa</string>
     <string name="battery_optimization_message">Forsis su dispositivu tuo tenet s\'otimizatzione de sa bateria ativada. S\'AutoCarrigamentu funtzionat isceti si nch\'escludes custa aplicatzione.</string>
@@ -234,7 +234,7 @@
     <string name="drawer_quota_unlimited">%1$s impreadu</string>
     <string name="drawer_synced_folders">Carrigamentu automàticu</string>
     <string name="edit_label">Modìfica nùmene</string>
-    <string name="encrypted">Imposta comente critografadu</string>
+    <string name="encrypted">Imposta comente tzifradu</string>
     <string name="end_to_end_encryption_confirm_button">Cunfigura critografia</string>
     <string name="end_to_end_encryption_decrypting">Decritografende…</string>
     <string name="end_to_end_encryption_dialog_close">Serra</string>
@@ -377,7 +377,7 @@
     <string name="hint_note">Nota</string>
     <string name="hint_password">Crae</string>
     <string name="host_not_available">Su serbidore no est a disponimentu</string>
-    <string name="host_your_own_server">Acasàgia su serbidore tuo</string>
+    <string name="host_your_own_server">Retzi su serbidore tuo</string>
     <string name="in_folder">in sa cartella %1$s</string>
     <string name="instant_upload_existing">Càrriga puru is documentos chi esistint giai</string>
     <string name="instant_upload_on_charging">Càrriga isceti cando est carrighende sa bateria</string>
@@ -576,7 +576,7 @@
     <string name="richdocuments_failed_to_load_document">No at fatu a carrigare su documentu!</string>
     <string name="scanQR_description">Intra cun còdighe QR</string>
     <string name="screenshot_01_gridView_heading">Amparende is datos tuos</string>
-    <string name="screenshot_01_gridView_subline">produtiviade auto-acasagiada</string>
+    <string name="screenshot_01_gridView_subline">produtiviade auto-retzida</string>
     <string name="screenshot_02_listView_heading">Esplora e cumpartzi</string>
     <string name="screenshot_02_listView_subline">totu is atzione in punta de didu</string>
     <string name="screenshot_03_drawer_heading">Atividade, cumpartziduras, …</string>
@@ -731,7 +731,7 @@
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
-    <string name="unset_encrypted">Critografia non cunfigurada</string>
+    <string name="unset_encrypted">Tzifradura non cunfigurada</string>
     <string name="unset_favorite">Boga·nche·ddu dae is preferidos</string>
     <string name="unshare">Annulla sa cumpartzidura</string>
     <string name="unshare_link_file_error">Ddoe at àpidu un\'errore in s\'annullamentu de sa cumpartzidura de s\'archìviu o de sa cartella.</string>

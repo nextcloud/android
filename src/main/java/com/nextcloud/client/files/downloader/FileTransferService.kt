@@ -31,6 +31,7 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -88,6 +89,9 @@ class FileTransferService : Service() {
 
     @Inject
     lateinit var powerManagementService: PowerManagementService
+
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
     val isRunning: Boolean get() = downloaders.any { it.value.isRunning }
 
@@ -169,7 +173,8 @@ class FileTransferService : Service() {
                 uploadsStorageManager,
                 connectivityService,
                 powerManagementService,
-                { clientFactory.create(user) }
+                { clientFactory.create(user) },
+                fileDataStorageManager
             )
             val newDownloader = TransferManagerImpl(runner, downloadTaskFactory, uploadTaskFactory)
             newDownloader.registerTransferListener(this::onTransferUpdate)

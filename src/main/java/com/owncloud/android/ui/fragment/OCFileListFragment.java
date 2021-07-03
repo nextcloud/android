@@ -1555,12 +1555,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         storageManager = mContainerActivity.getStorageManager();
                     }
 
-                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
+                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
-                        if (remoteOperationResult.getData() == null || remoteOperationResult.getData().size() == 0) {
+                        if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
-                            mAdapter.setData(remoteOperationResult.getData(),
+                            mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
                                              currentSearchType,
                                              storageManager,
                                              mFile,
@@ -1570,12 +1570,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
                         if (fileDisplayActivity != null) {
-                            fileDisplayActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (fileDisplayActivity != null) {
-                                        setLoading(false);
-                                    }
+                            fileDisplayActivity.runOnUiThread(() -> {
+                                if (fileDisplayActivity != null) {
+                                    setLoading(false);
                                 }
                             });
                         }
