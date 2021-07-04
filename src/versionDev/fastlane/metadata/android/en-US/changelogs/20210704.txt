@@ -1,0 +1,6 @@
+SyncOperation always need fileDataStorageManager: throw an Exception if not properly started Fix ContactsBackupWork
+Add new ShareType: GUEST, FEDERATED_GROUP, DECK Moved SearchRemoteOperation and GetSharesRemoteOperation to use typed response
+missing share type: federated group
+revert Kotlin version to make Jacoco work again
+Update translations
+Update Nextcloud Android library
