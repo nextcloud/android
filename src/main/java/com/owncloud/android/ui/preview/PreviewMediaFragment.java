@@ -507,7 +507,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         protected void onPostExecute(Uri uri) {
             final PreviewMediaFragment previewMediaFragment = previewMediaFragmentWeakReference.get();
             final Context context = previewMediaFragment != null ? previewMediaFragment.getContext() : null;
-            if (previewMediaFragment != null && context != null) {
+            if (previewMediaFragment != null && previewMediaFragment.binding != null && context != null) {
                 if (uri != null) {
                     previewMediaFragment.videoUri = uri;
 
