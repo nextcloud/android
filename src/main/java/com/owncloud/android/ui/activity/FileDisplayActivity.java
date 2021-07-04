@@ -26,7 +26,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -72,7 +71,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -217,7 +215,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
-    private Account mLastDisplayedAccount;
+    private Optional<User> lastDisplayedUser;
     private int menuItemId = -1;
 
     @Inject
@@ -388,18 +386,12 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void checkOutdatedServer() {
-        Account account = getAccount();
+        Optional<User> user = getUser();
 
-        if (getResources().getBoolean(R.bool.show_outdated_server_warning) && account != null) {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersionForAccount(account, this);
-
-            if (serverVersion == null) {
-                serverVersion = getCapabilities().getVersion();
-            }
-
+        if (getResources().getBoolean(R.bool.show_outdated_server_warning) && user.isPresent()) {
+            OwnCloudVersion serverVersion = user.get().getServer().getVersion();
             // show outdated warning
-            if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
-                MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(serverVersion) &&
+            if (MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(serverVersion) &&
                 getCapabilities().getExtendedSupport().isFalse()) {
                 DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
             }
@@ -2422,10 +2414,8 @@ public class FileDisplayActivity extends FileActivity
             DisplayUtils.setAvatar(user, this, getResources()
                                        .getDimension(R.dimen.nav_drawer_menu_avatar_radius), getResources(),
                                    mSwitchAccountButton, this);
-
-            final String lastDisplayedAccountName = mLastDisplayedAccount != null ? mLastDisplayedAccount.name : null;
-            final boolean accountChanged = !user.getAccountName().equals(lastDisplayedAccountName);
-            if (accountChanged) {
+            final boolean userChanged = !user.nameEquals(lastDisplayedUser.orElse(null));
+            if (userChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile(user, file);
                 if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
@@ -2435,11 +2425,7 @@ public class FileDisplayActivity extends FileActivity
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
-        if (optionalUser.isPresent()) {
-            mLastDisplayedAccount = optionalUser.get().toPlatformAccount();
-        } else {
-            mLastDisplayedAccount = null;
-        }
+        lastDisplayedUser = optionalUser;
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
