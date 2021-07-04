@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Aplicació per a Android</string>
+    <string name="about_android">%1$s Aplicació per a l\'Android</string>
     <string name="about_title">Quant a</string>
     <string name="about_version">versió %1$s</string>
     <string name="about_version_with_build">versió %1$s, compilació #%2$s</string>
     <string name="account_creation_failed">Ha fallat la creació del compte</string>
     <string name="account_icon">Icona del compte</string>
     <string name="account_not_found">No s\'ha trobat el compte!</string>
-    <string name="action_clear_failed_uploads">Neteja les pujades fallides</string>
+    <string name="action_clear_failed_uploads">Esborra les pujades amb errors</string>
     <string name="action_edit">Edita</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
+    <string name="action_empty_trashbin">Buida la paperera</string>
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
@@ -204,7 +205,7 @@
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
     <string name="downloader_download_failed_content">No s\'ha pogut descarregar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La descàrrega ha fallat, torneu a iniciar la sessió</string>
-    <string name="downloader_download_failed_ticker">Ha fallat la baixada</string>
+    <string name="downloader_download_failed_ticker">S\'ha produït un error durant la baixada</string>
     <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
     <string name="downloader_download_in_progress_content">%1$d%% S\'està descarregant %2$s</string>
     <string name="downloader_download_in_progress_ticker">S\'està descarregant…</string>
@@ -278,6 +279,13 @@
     <string name="etm_migrations">Migracions (actualització d\'aplicació)</string>
     <string name="etm_preferences">Preferències</string>
     <string name="etm_title">Mode de proves d\'enginyeria</string>
+    <string name="etm_transfer">Transferència de fitxers</string>
+    <string name="etm_transfer_enqueue_test_download">Afegeix a la cua una baixada de prova</string>
+    <string name="etm_transfer_enqueue_test_upload">Afegeix a la cua una pujada de prova</string>
+    <string name="etm_transfer_remote_path">Camí remot</string>
+    <string name="etm_transfer_type">Transferència</string>
+    <string name="etm_transfer_type_download">Baixada</string>
+    <string name="etm_transfer_type_upload">Pujada</string>
     <string name="fab_label">Afegeix o carrega</string>
     <string name="failed_to_download">Ha fallat el lliurament del fitxer al gestor de descàrregues</string>
     <string name="failed_to_print">Ha fallat imprimir el fitxer</string>
@@ -364,6 +372,7 @@
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
     <string name="fourHours">4 hores</string>
+    <string name="fullscreen">Pantalla completa</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contrasenya</string>
@@ -397,6 +406,7 @@
     <string name="logs_status_loading">S\'està carregant…</string>
     <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>
     <string name="logs_title">Registres</string>
+    <string name="maintenance_mode">El servidor es troba en mode de manteniment</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
@@ -544,6 +554,7 @@
     <string name="push_notifications_not_implemented">Les notificacions \"push\" s\'han deshabilitat a causa de dependències de serveis propietaris de Google Play.</string>
     <string name="push_notifications_old_login">No hi ha notificacions \"push\" a causa d\'un inici de sessió no actualitzat. Si us plau valoreu tornar a afegir el vostre compte.</string>
     <string name="push_notifications_temp_error">Les notificacions \"push\" no estan disponibles actualment.</string>
+    <string name="qr_could_not_be_read">No s\'ha pogut llegir el codi QR!</string>
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
@@ -674,6 +685,7 @@
     <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
+    <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
@@ -716,6 +728,7 @@
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits.</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>
+    <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no es poden suprimir permanentment!</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>
@@ -767,7 +780,7 @@
     <string name="uploader_upload_failed_credentials_error">La càrrega ha fallat, torneu a iniciar la sessió</string>
     <string name="uploader_upload_failed_sync_conflict_error">Conflicte en pujar fitxer</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Escollir quina versió conservar de %1$s</string>
-    <string name="uploader_upload_failed_ticker">Ha fallat la pujada</string>
+    <string name="uploader_upload_failed_ticker">S\'ha produït un error durant la pujada</string>
     <string name="uploader_upload_files_behaviour">Opció de càrrega:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mou al fitxer a la carpeta %1$s</string>
     <string name="uploader_upload_files_behaviour_not_writable">La carpeta origen és de només lectura; el fitxer només es carregarà</string>
