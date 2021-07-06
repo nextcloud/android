@@ -86,7 +86,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 17
+def versionMinor = 18
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
