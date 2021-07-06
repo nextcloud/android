@@ -9,6 +9,7 @@ object AdjustSdkUtils {
     private val TAG = AdjustSdkUtils::class.java.simpleName
 
     const val EVENT_TOKEN_LOGIN = "gb97gb"
+    const val EVENT_TOKEN_SUCCESSFUL_LOGIN = "gx6g7g"
     const val EVENT_TOKEN_FILE_BROWSER_SHARING = "fqtiu7"
     const val EVENT_TOKEN_CREATE_SHARING_LINK = "qeyql3"
 

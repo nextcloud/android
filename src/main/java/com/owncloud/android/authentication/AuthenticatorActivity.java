@@ -89,6 +89,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -1130,6 +1131,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (onlyAdd) {
                     finish();
                 } else {
+                    //track successful login event
+                    AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN);
+
                     Intent i = new Intent(this, FileDisplayActivity.class);
                     i.setAction(FileDisplayActivity.RESTART);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
