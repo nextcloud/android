@@ -23,46 +23,48 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.ThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
+    private boolean isFileWithNoTextFile;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context) {
+    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context, boolean isFileWithNoTextFile) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
+        this.isFileWithNoTextFile = isFileWithNoTextFile;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
         if (ShareType.EMAIL == publicShare.getShareType()) {
             binding.name.setText(publicShare.getSharedWithDisplayName());
             binding.icon.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),
-                                                                      R.drawable.ic_email,
+                                                                      R.drawable.ic_external_share,
                                                                       null));
             binding.copyLink.setVisibility(View.GONE);
-
-            binding.icon.getBackground().setColorFilter(context.getResources().getColor(R.color.nc_grey),
-                                                        PorterDuff.Mode.SRC_IN);
-            binding.icon.getDrawable().mutate().setColorFilter(context.getResources().getColor(R.color.icon_on_nc_grey),
-                                                               PorterDuff.Mode.SRC_IN);
         } else {
             if (!TextUtils.isEmpty(publicShare.getLabel())) {
                 String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
@@ -71,10 +73,43 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText(R.string.share_link);
             }
 
-            ThemeUtils.colorIconImageViewWithBackground(binding.icon, context);
         }
 
+        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
+        setPermissionName(permissionName, publicShare, listener);
+
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
-        binding.overflowMenu.setOnClickListener(v -> listener.showLinkOverflowMenu(publicShare, binding.overflowMenu));
+        binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
+    }
+
+    private void setPermissionName(String permissionName, OCShare publicShare, ShareeListAdapterListener listener) {
+        ColorStateList colorStateList = new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_enabled},
+                new int[]{android.R.attr.state_enabled},
+            },
+            new int[]{
+                ResourcesCompat.getColor(context.getResources(), R.color.secondary_text_color,
+                                         null),
+                ResourcesCompat.getColor(context.getResources(), R.color.primary,
+                                         null)
+            }
+        );
+        TextViewCompat.setCompoundDrawableTintList( binding.permissionName, colorStateList);
+        binding.permissionName.setTextColor(colorStateList);
+
+        if (!TextUtils.isEmpty(permissionName)) {
+            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_read_only)) && isFileWithNoTextFile) {
+                binding.permissionName.setEnabled(false);
+
+            } else {
+                binding.permissionName.setEnabled(true);
+                binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+            }
+            binding.permissionName.setText(permissionName);
+            binding.permissionName.setVisibility(View.VISIBLE);
+        } else {
+            binding.permissionName.setVisibility(View.GONE);
+        }
     }
 }

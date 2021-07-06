@@ -28,4 +28,15 @@
         <item>@string/edit_scan_filter_b_n_w</item>
         <item>@string/edit_scan_filter_color_enhanced</item>
     </string-array>
+
+    <string-array name="folder_share_permission_dialog_values" translatable="false">
+        <item>@string/share_permission_read_only</item>
+        <item>@string/share_permission_can_edit</item>
+        <item>@string/share_permission_file_drop</item>
+    </string-array>
+
+    <string-array name="file_share_permission_dialog_values" translatable="false">
+        <item>@string/share_permission_read_only</item>
+        <item>@string/share_permission_can_edit</item>
+    </string-array>
 </resources>

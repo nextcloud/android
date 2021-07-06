@@ -14,4 +14,8 @@
     <dimen name="edit_scan_bottom_bar_height">56dp</dimen>
     <dimen name="standard_folders_grid_item_size">86dp</dimen>
     <dimen name="standard_files_grid_item_size">80dp</dimen>
+    <dimen name="txt_size_11sp">11sp</dimen>
+    <dimen name="share_row_icon_size">30dp</dimen>
+    <dimen name="create_link_button_height">55dp</dimen>
+    <dimen name="note_et_height">258dp</dimen>
 </resources>

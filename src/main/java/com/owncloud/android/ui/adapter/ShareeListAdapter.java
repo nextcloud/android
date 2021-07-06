@@ -60,18 +60,20 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private float avatarRadiusDimension;
     private String userId;
     private User user;
+    private boolean isFileWithNoTextFile;
 
     public ShareeListAdapter(Context context,
                              List<OCShare> shares,
                              ShareeListAdapterListener listener,
                              String userId,
-                             User user) {
+                             User user,
+                             boolean isFileWithNoTextFile) {
         this.context = context;
         this.shares = shares;
         this.listener = listener;
         this.userId = userId;
         this.user = user;
-
+        this.isFileWithNoTextFile = isFileWithNoTextFile;
         avatarRadiusDimension = context.getResources().getDimension(R.dimen.user_icon_radius);
 
         sortShares();
@@ -92,7 +94,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(context),
                                                                  parent,
                                                                  false),
-                    context);
+                    context, isFileWithNoTextFile);
             case NEW_PUBLIC_LINK:
                 return new NewLinkShareViewHolder(
                     FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(context),
@@ -196,7 +198,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         shares.addAll(users);
 
         // add internal share link at end
-        shares.add(new OCShare().setShareType(ShareType.INTERNAL));
+        //shares.add(new OCShare().setShareType(ShareType.INTERNAL));
     }
 
     public List<OCShare> getShares() {
@@ -211,4 +213,5 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
     }
+
 }

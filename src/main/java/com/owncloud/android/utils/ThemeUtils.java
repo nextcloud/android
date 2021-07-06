@@ -604,6 +604,7 @@ public final class ThemeUtils {
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         setEditTextColor(context, editText, fontColor);
         editText.setHintTextColor(context.getResources().getColor(R.color.secondary_text_color));
+        editText.setTextSize(16);
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         closeButton.setColorFilter(fontColor);

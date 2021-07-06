@@ -131,6 +131,15 @@
                 app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 tools:visibility="gone">
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/toolbar_back_icon"
+                    android:visibility="gone"
+                    android:padding="@dimen/standard_quarter_padding"
+                    android:background="@drawable/toolbar_back_arrow_bg"
+                    app:srcCompat="@drawable/ic_back_arrow"
+                    android:layout_height="wrap_content"/>
+
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/toolbar_spinner"
                     android:layout_width="wrap_content"

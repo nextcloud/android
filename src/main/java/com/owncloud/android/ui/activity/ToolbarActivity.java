@@ -43,13 +43,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.ThemeUtils;
-import com.owncloud.android.utils.StringUtils;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -69,6 +67,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
     private View mDefaultToolbarDivider;
+    private ImageView mToolbarBackIcon;
     private boolean isHomeSearchToolbarShow = false;
 
     @Override
@@ -94,6 +93,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
         mDefaultToolbarDivider = findViewById(R.id.default_toolbar_divider);
+        mToolbarBackIcon = findViewById(R.id.toolbar_back_icon);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -117,6 +117,9 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mToolbar.getNavigationIcon() != null) {
             ThemeUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
         }
+
+        mToolbarBackIcon.setOnClickListener(v -> onBackPressed());
+
     }
 
     public void setupToolbar() {
@@ -168,20 +171,20 @@ public abstract class ToolbarActivity extends BaseActivity {
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
             ThemeUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {*/
-            mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
-                                                                                R.animator.appbar_elevation_on));
-            mDefaultToolbar.setVisibility(View.VISIBLE);
-            mHomeSearchToolbar.setVisibility(View.GONE);
-            ThemeUtils.colorStatusBar(this);
-       // }
+        mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
+                                                                            R.animator.appbar_elevation_on));
+        mDefaultToolbar.setVisibility(View.VISIBLE);
+        mHomeSearchToolbar.setVisibility(View.GONE);
+        ThemeUtils.colorStatusBar(this);
+        // }
     }
 
-    public void showHideToolbar(boolean isShow){
-        mDefaultToolbar.setVisibility(isShow  ? View.VISIBLE : View.GONE);
+    public void showHideToolbar(boolean isShow) {
+        mDefaultToolbar.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
-    public void showHideDefaultToolbarDivider(boolean isShow){
-        mDefaultToolbarDivider.setVisibility(isShow  ? View.VISIBLE : View.GONE);
+    public void showHideDefaultToolbarDivider(boolean isShow) {
+        mDefaultToolbarDivider.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -259,8 +262,18 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageBitmap(Bitmap bitmap) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageBitmap(bitmap);
+            resetPreviewImageConfiguration();
             setPreviewImageVisibility(true);
         }
+    }
+
+    /**
+     * reset preview image configuration if required the scale type and padding are changing in sharing screen so to
+     * reset it call this method
+     */
+    private void resetPreviewImageConfiguration() {
+        mPreviewImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mPreviewImage.setPadding(0, 0, 0, 0);
     }
 
     /**
@@ -271,7 +284,29 @@ public abstract class ToolbarActivity extends BaseActivity {
     public void setPreviewImageDrawable(Drawable drawable) {
         if (mPreviewImage != null) {
             mPreviewImage.setImageDrawable(drawable);
+            resetPreviewImageConfiguration();
             setPreviewImageVisibility(true);
+        }
+    }
+
+    /**
+     * method to show/hide the toolbar custom back icon currently this is only showing for sharing details screen for
+     * thumbnail images
+     *
+     * @param show
+     */
+    public void showToolbarBackImage(boolean show) {
+        ActionBar actionBar = getSupportActionBar();
+        if (show) {
+            mToolbarBackIcon.setVisibility(View.VISIBLE);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+            }
+        } else {
+            mToolbarBackIcon.setVisibility(View.GONE);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 

@@ -457,6 +457,7 @@
     <string name="share_file">Share %1$s</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
@@ -465,7 +466,7 @@
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
+    <string name="share_search">Contact name or email</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
@@ -925,6 +926,7 @@
     <string name="allow_deleting">Allow deleting</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="link_share_read_only">Read only</string>
+    <string name="link_share_editing">Editing</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
@@ -1022,5 +1024,31 @@
     <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the
         file you are moving?</string>
     <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
+    <string name="share_permission_read_only">Read only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_file_drop">Filedrop only</string>
+    <string name="permissions">Permissions</string>
+    <string name="advance_permissions">Advanced Permissions</string>
+    <string name="common_next">Next</string>
+    <string name="send_share">Send Share</string>
+    <string name="no_share_permission_selected">Please select at least one permission to share.</string>
+    <string name="share_link_empty_exp_date">You must select expiration date.</string>
+    <string name="share_link_empty_note_message">Please enter note.</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="send_email">Send email</string>
+    <string name="share_open_in">Open in…</string>
+    <string name="share_advanced_permissions">Advanced permissions</string>
+    <string name="share_send_new_email">Send new email</string>
+    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
+    <string name="your_message">Your Message</string>
+    <string name="personal_share_email">Personal share by mail</string>
+    <string name="create_link">Create Link</string>
+    <string name="your_shares">Your Shares</string>
+    <string name="link_label">Link Label</string>
+    <string name="hint_link_label">Your custom link label</string>
+    <string name="file_drop_info">With File drop, only uploading is allowed. Only you can see files and folders that have been uploaded.</string>
+    <string name="password_protection">Password Protection</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="empty_shares">No shares created yet.</string>
     <string name="prefs_category_info">Info</string>
 </resources>

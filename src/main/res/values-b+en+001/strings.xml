@@ -381,6 +381,7 @@
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="link_share_read_only">Read only</string>
+    <string name="link_share_editing">Editing</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>
@@ -613,7 +614,7 @@
     <string name="share_privilege_unshare">Unshare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
+    <string name="share_search">Contact name or email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
@@ -830,6 +831,21 @@
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="storage_sd_card">SD Card</string>
+    <string name="share_permission_read_only">Read only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_file_drop">Filedrop only</string>
+    <string name="permissions">Permissions</string>
+    <string name="advance_permissions">Advanced Permissions</string>
+    <string name="common_next">Next</string>
+    <string name="send_share">Send Share</string>
+    <string name="no_share_permission_selected">Please select at least one permission to share.</string>
+    <string name="share_link_empty_exp_date">You must select expiration date.</string>
+    <string name="share_link_empty_note_message">Please enter note.</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="send_email">Send email</string>
+    <string name="share_open_in">Open in…</string>
+    <string name="share_advanced_permissions">Advanced permissions</string>
+    <string name="share_send_new_email">Send new email</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
@@ -915,4 +931,15 @@
     <string name="conflict_dialog_message">%1$s already exists in this location. Do you want to replace it with the file you are moving?</string>
     <string name="conflict_dialog_message_multiple">The files already exist in this location. Do you want to replace them with the files you are moving?</string>
     <string name="prefs_category_info">Info</string>
+    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
+    <string name="your_message">Your Message</string>
+    <string name="personal_share_email">Personal share by mail</string>
+    <string name="create_link">Create Link</string>
+    <string name="your_shares">Your Shares</string>
+    <string name="link_label">Link Label</string>
+    <string name="hint_link_label">Your custom link label</string>
+    <string name="file_drop_info">With File drop, only uploading is allowed. Only you can see files and folders that have been uploaded.</string>
+    <string name="password_protection">Password Protection</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="empty_shares">No shares created yet.</string>
 </resources>
