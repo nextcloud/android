@@ -11,7 +11,7 @@
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trashbin</string>
-    <string name="action_send_share">Send/Share</string>
+    <string name="action_send_share">Sharing</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
     <string name="actionbar_contacts">Back up contacts</string>

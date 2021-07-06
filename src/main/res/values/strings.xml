@@ -113,7 +113,7 @@
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
-    <string name="action_send_share">Send/Share</string>
+    <string name="action_send_share">Sharing</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
