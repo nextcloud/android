@@ -30,13 +30,13 @@ public class ModifiedAuthenticatorActivity extends AuthenticatorActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HuaweiUtils.checkPlayServices(this);
+        HuaweiUtils.checkHuaweiServices(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        GooglePlayUtils.checkPlayServices(this);
+        HuaweiUtils.checkHuaweiServices(this);
     }
 
 }
