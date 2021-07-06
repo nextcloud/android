@@ -841,7 +841,7 @@
     <string name="share_permission_file_drop">Sammelbox</string>
     <string name="permissions">Berechtigungen</string>
     <string name="advance_permissions">Erweiterte Berechtigungen</string>
-    <string name="common_next">Nächster</string>
+    <string name="common_next">Weiter</string>
     <string name="send_share">Senden Teilen</string>
     <string name="no_share_permission_selected">Bitte wählen Sie mindestens eine Berechtigung zum Teilen aus.</string>
     <string name="share_link_empty_exp_date">Sie müssen das Ablaufdatum auswählen.</string>
@@ -936,7 +936,7 @@
     <string name="prefs_category_info">die Info</string>
     <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie MagentaCloud Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
     <string name="your_message">Your Message</string>
-    <string name="personal_share_email">Personal share by mail</string>
+    <string name="personal_share_email">persönliche Freigabe per Emai</string>
     <string name="create_link">Neuen Link erstellen</string>
     <string name="your_shares">Ihre Freigaben</string>
     <string name="link_label">Link Label</string>
@@ -945,4 +945,5 @@
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">Noch keine Freigaben erstellt.</string>
+    <string name="allow_resharing_info">Sie teilen mit einer/einem MagentaCLOUD Nutzer(in). Sie können ihr oder ihm erlauben, den Ordner oder die Dateien weiterzuteilen.</string>
 </resources>

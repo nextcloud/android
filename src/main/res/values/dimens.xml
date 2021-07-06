@@ -18,4 +18,5 @@
     <dimen name="share_row_icon_size">30dp</dimen>
     <dimen name="create_link_button_height">55dp</dimen>
     <dimen name="note_et_height">258dp</dimen>
+    <dimen name="share_exp_date_divider_margin">20dp</dimen>
 </resources>

@@ -104,8 +104,8 @@
             android:id="@+id/share_file_drop_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
             android:text="@string/file_drop_info"
             android:textColor="@color/text_color"
             android:textSize="@dimen/txt_size_15sp"
@@ -175,28 +175,30 @@
             app:layout_constraintTop_toBottomOf="@+id/divider_sharing_hide_download"
             tools:visibility="visible" />
 
-        <View
-            android:id="@+id/divider_sharing_allow_resharing"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/share_process_allow_resharing_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/allow_resharing_info"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_pwd_protection"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/password_protection"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_13sp"
+        <View
+            android:id="@+id/divider_sharing_allow_resharing"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:background="@color/list_divider_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_allow_resharing" />
+            app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_info" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/share_process_set_password_switch"
@@ -209,7 +211,7 @@
             android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_pwd_protection" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_allow_resharing" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/share_process_enter_password"
@@ -238,20 +240,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/share_process_enter_password" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_expiration_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/expiration_date"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_enter_password" />
-
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/share_process_set_exp_date_switch"
             android:layout_width="match_parent"
@@ -263,7 +251,7 @@
             android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_expiration_date" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_enter_password" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_select_exp_date"
@@ -288,8 +276,8 @@
             android:id="@+id/share_process_exp_date_divider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/share_exp_date_divider_margin"
+            android:layout_marginRight="@dimen/share_exp_date_divider_margin"
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -299,25 +287,10 @@
             android:id="@+id/divider_sharing_exp_date"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_half_margin"
             android:background="@color/list_divider_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/share_process_exp_date_divider" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_link_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/link_label"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_exp_date" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/share_process_change_name_switch"
@@ -325,12 +298,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/edit_label"
+            android:text="@string/link_label"
             android:textColor="@color/text_color"
             android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_link_label" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_exp_date" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/share_process_change_name_et"
@@ -374,8 +347,7 @@
                 divider_sharing_permissions, divider_sharing_allow_resharing,
                 divider_sharing_change_name, divider_sharing_enter_password,
                 divider_sharing_exp_date,divider_sharing_hide_download,
-                share_file_drop_info, share_process_pwd_protection,
-                share_process_expiration_date, share_process_link_label" />
+                share_file_drop_info" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_message_title"

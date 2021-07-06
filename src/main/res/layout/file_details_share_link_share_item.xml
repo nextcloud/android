@@ -35,10 +35,9 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginTop="7dp"
         app:tint="@color/text_color"
-        android:layout_marginBottom="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:contentDescription="@string/share"
         android:src="@drawable/shared_via_link" />

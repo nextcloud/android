@@ -166,12 +166,11 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * returns sharee from server
-     *
+     * <p>
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formatted as "content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/"
-     *                      + {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" +
-     *                      'userQuery'
+     *                      + {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" + 'userQuery'
      * @param projection    Expected to be NULL.
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
@@ -299,8 +298,11 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             displayName = userName;
                             subline = (status.getMessage() == null || status.getMessage().isEmpty()) ? null :
                                 status.getMessage();
-                            Uri.Builder builder =
-                                Uri.parse("content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/icon")
+                            icon = R.drawable.ic_internal_share;
+
+                            //uncomment the below code to show icon with initials
+                            /*Uri.Builder builder = Uri.parse("content://com.t_systems.android.webdav.android
+                           .providers.UsersAndGroupsSearchProvider/icon")
                                     .buildUpon();
 
                             builder.appendQueryParameter("shareWith", shareWith);
@@ -311,7 +313,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                                 builder.appendQueryParameter("icon", status.getIcon());
                             }
 
-                            icon = builder.build();
+                            icon = builder.build();*/
 
                             dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                             break;
@@ -340,12 +342,22 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                     }
 
                     if (displayName != null && dataUri != null) {
-                        response.newRow()
-                            .add(count++)             // BaseColumns._ID
-                            .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
-                            .add(subline)             // SearchManager.SUGGEST_COLUMN_TEXT_2
-                            .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
-                            .add(dataUri);
+                        //if display name is empty set sublime as primary text
+                        if (displayName.equals("")) {
+                            response.newRow()
+                                .add(count++)             // BaseColumns._ID
+                                .add(subline)             // SearchManager.SUGGEST_COLUMN_TEXT_1
+                                .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_2
+                                .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
+                                .add(dataUri);
+                        } else {
+                            response.newRow()
+                                .add(count++)             // BaseColumns._ID
+                                .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                                .add(subline)             // SearchManager.SUGGEST_COLUMN_TEXT_2
+                                .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
+                                .add(dataUri);
+                        }
                     }
                 }
 
