@@ -945,4 +945,5 @@
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">Noch keine Freigaben erstellt.</string>
+    <string name="prefs_category_service">Bedienung</string>
 </resources>

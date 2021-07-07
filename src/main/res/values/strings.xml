@@ -1051,4 +1051,5 @@
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">No shares created yet.</string>
     <string name="prefs_category_info">Info</string>
+    <string name="prefs_category_service">Service</string>
 </resources>

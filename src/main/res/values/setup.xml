@@ -80,7 +80,7 @@
     <string name="sourcecode_url" translatable="false">https://github.com/nextcloud/android</string>
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
-    <string name="url_imprint"></string>
+    <string name="url_imprint">https://www.telekom.de/impressum</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.t_systems.android.webdav"</string>
     <string name="url_server_install">https://nextcloud.com/install</string>
 
