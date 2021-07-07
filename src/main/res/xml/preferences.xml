@@ -92,20 +92,24 @@
             android:title="@string/prefs_imprint" />
     </com.owncloud.android.ui.PreferenceCustomCategory>
     <com.owncloud.android.ui.PreferenceCustomCategory
-        android:key="about"
-        android:title="@string/prefs_category_about">
+        android:key="data_protection"
+        android:title="@string/prefs_category_data_privacy">
         <Preference
-            android:id="@+id/privacy"
-            android:key="privacy"
-            android:title="@string/privacy" />
-        <!--	<Preference
-                android:title="@string/prefs_sourcecode"
-                android:id="@+id/sourcecode"
-                android:key="sourcecode"/>
-            <Preference
-                android:title="@string/prefs_license"
-                android:id="@+id/license"
-                android:key="license"/>-->
+            android:id="@+id/privacy_settings"
+            android:key="privacy_settings"
+            android:title="@string/privacy_settings" />
+        <Preference
+            android:id="@+id/privacy_policy"
+            android:key="privacy_policy"
+            android:title="@string/privacy_policy" />
+        <Preference
+            android:id="@+id/sourcecode"
+            android:key="sourcecode"
+            android:title="@string/prefs_open_source" />
+        <!-- <Preference
+             android:title="@string/prefs_license"
+             android:id="@+id/license"
+             android:key="license"/>-->
     </com.owncloud.android.ui.PreferenceCustomCategory>
 
     <com.owncloud.android.ui.PreferenceCustomCategory
@@ -118,23 +122,23 @@
             android:title="@string/about_title" />
     </com.owncloud.android.ui.PreferenceCustomCategory>
 
-    <com.owncloud.android.ui.PreferenceCustomCategory
-        android:key="dev_category"
-        android:title="@string/prefs_category_dev">
-        <Preference
-            android:id="@+id/dev_link"
-            android:key="dev_link"
-            android:title="@string/download_latest_dev_version" />
+    <!-- <com.owncloud.android.ui.PreferenceCustomCategory
+         android:key="dev_category"
+         android:title="@string/prefs_category_dev">
+         <Preference
+             android:id="@+id/dev_link"
+             android:key="dev_link"
+             android:title="@string/download_latest_dev_version" />
 
-        <Preference
-            android:id="@+id/changelog_link"
-            android:key="changelog_link"
-            android:title="@string/changelog_dev_version" />
+         <Preference
+             android:id="@+id/changelog_link"
+             android:key="changelog_link"
+             android:title="@string/changelog_dev_version" />
 
-        <Preference
-            android:id="@+id/etm"
-            android:key="etm"
-            android:title="@string/etm_title" />
-    </com.owncloud.android.ui.PreferenceCustomCategory>
+         <Preference
+             android:id="@+id/etm"
+             android:key="etm"
+             android:title="@string/etm_title" />
+     </com.owncloud.android.ui.PreferenceCustomCategory>-->
 
 </PreferenceScreen>

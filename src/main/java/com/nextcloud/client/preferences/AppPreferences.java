@@ -355,4 +355,13 @@ public interface AppPreferences {
     boolean isPowerCheckDisabled();
 
     void setPowerCheckDisabled(boolean value);
+
+    /**
+     * Saves the data analysis from privacy settings
+     * on disabling it we should disable Adjust SDK tracking
+     *
+     * @param enableDataAnalysis to enable/disable data analysis
+     */
+    void setDataAnalysis(boolean enableDataAnalysis);
+    boolean isDataAnalysisEnabled();
 }

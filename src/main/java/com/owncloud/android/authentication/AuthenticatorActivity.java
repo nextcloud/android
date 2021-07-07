@@ -1132,7 +1132,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     finish();
                 } else {
                     //track successful login event
-                    AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN);
+                    AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN, preferences);
 
                     Intent i = new Intent(this, FileDisplayActivity.class);
                     i.setAction(FileDisplayActivity.RESTART);

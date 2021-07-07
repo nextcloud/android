@@ -3,6 +3,7 @@ package com.nmc.android.utils
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustConfig
 import com.adjust.sdk.AdjustEvent
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.BuildConfig
 
 object AdjustSdkUtils {
@@ -42,9 +43,15 @@ object AdjustSdkUtils {
         return AdjustConfig.ENVIRONMENT_PRODUCTION
     }
 
+    /**
+     * method to track events
+     * tracking event only if data analysis is enabled else don't track it
+     */
     @JvmStatic
-    fun trackEvent(eventToken: String) {
-         val adjustEvent = AdjustEvent(eventToken)
-         Adjust.trackEvent(adjustEvent)
+    fun trackEvent(eventToken: String, appPreferences: AppPreferences?) {
+        if (appPreferences?.isDataAnalysisEnabled == true) {
+            val adjustEvent = AdjustEvent(eventToken)
+            Adjust.trackEvent(adjustEvent)
+        }
     }
 }

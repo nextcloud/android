@@ -942,4 +942,13 @@
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">No shares created yet.</string>
+    <string name="prefs_category_data_privacy">Data Privacy</string>
+    <string name="privacy_settings">Privacy Settings</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="prefs_open_source">Used OpenSource Software</string>
+    <string name="privacy_settings_intro_text">To optimize your app, we collect anonymous data. For this we use software solutions of different partners. We would like to give you full transparency and decision-making power over the processin and collection of your anonymized usage data. You can also change your settings at any time later in the app settings under data protection. Please note, however, that data collection makes a considerable contribution to the optimization of this app and you prevent this optimization by preventing data transmission.</string>
+    <string name="required_data_collection">Required data collection</string>
+    <string name="data_collection_info">The collection of this data is necessary to be able to use esential functions of the app.</string>
+    <string name="data_analysis">Analysis-data acquisition for the design</string>
+    <string name="data_analysis_info">This data helps us to optimize the app usage for you and to identify system crashes and errors more quickly.</string>
 </resources>

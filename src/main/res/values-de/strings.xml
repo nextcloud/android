@@ -945,4 +945,13 @@
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">Noch keine Freigaben erstellt.</string>
+    <string name="prefs_category_data_privacy">Datenschutz</string>
+    <string name="privacy_settings">Datenschutz</string>
+    <string name="privacy_policy">Datenschutzbestimmungen</string>
+    <string name="prefs_open_source">Verwendete OpenSource Software</string>
+    <string name="privacy_settings_intro_text">Zur Optimierung unserer App erfassen wir anonymisierte Daten. Hierzu nutzen wir Software Lösungen verschiedener Partner. Wir möchten Ihnen volle Transparenz und Entscheidungsgewalt über die Verarbeitung und Erfassung Ihrer anonymisierten Nutzungsdaten geben. Ihre Einstellungen können Sie auch später jederzeit in den Einstellungen unter Datenschutz ändern. Bitte beachten Sie jedoch, dass die Datenerfassungen einen erheblichen Beitrag zur Optimierung dieser App leisten und Sie diese Optimierungen durch die Unterbindung der Datenübermittlung verhindern.</string>
+    <string name="required_data_collection">Required data collection</string>
+    <string name="data_collection_info">Die Erfassung dieser Daten ist notwendig, um wesentliche Funktionen der App nutzen zu können.</string>
+    <string name="data_analysis">Analysis-data acquisition for the design</string>
+    <string name="data_analysis_info">Diese Daten helfen uns, die App Nutzung für Sie zu optimieren und Systemabstürze und Fehler schneller zu identifizieren.</string>
 </resources>

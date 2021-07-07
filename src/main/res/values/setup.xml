@@ -72,12 +72,12 @@
     <bool name="help_enabled">true</bool>
     <string name="url_help">https://cloud.telekom-dienste.de/hilfe</string>
     <bool name="privacy_enabled">true</bool>
-    <string name="privacy_url">https://static.magentacloud.de/privacy/datenschutzhinweise_web.htm</string>
+    <string name="privacy_policy_url">https://static.magentacloud.de/privacy/datenschutzhinweise_app.htm</string>
     <bool name="imprint_enabled">false</bool>
     <bool name="recommend_enabled">false</bool>
     <bool name="logger_enabled">false</bool>
     <bool name="sourcecode_enabled">true</bool>
-    <string name="sourcecode_url" translatable="false">https://github.com/nextcloud/android</string>
+    <string name="sourcecode_url" translatable="false">https://static.magentacloud.de/licences/android.html</string>
     <bool name="license_enabled">true</bool>
     <string name="license_url" translatable="false">https://www.gnu.org/licenses/gpl-2.0.html</string>
     <string name="url_imprint"></string>

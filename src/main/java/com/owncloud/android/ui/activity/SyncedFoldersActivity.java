@@ -687,7 +687,8 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
     private void trackAutoUploadEvent(boolean enabled) {
         AdjustSdkUtils.trackEvent(enabled ?
-                                      AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_ON : AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_OFF);
+                                      AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_ON :
+                                      AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_OFF, preferences);
     }
 
     private void saveOrUpdateSyncedFolder(SyncedFolderDisplayItem item) {

@@ -89,6 +89,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
     private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
 
+    private static final String PREF__DATA_ANALYSIS = "data_analysis";
+
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
@@ -640,5 +642,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPowerCheckDisabled(boolean value) {
         preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply();
+    }
+
+    @Override
+    public void setDataAnalysis(boolean enableDataAnalysis) {
+        preferences.edit().putBoolean(PREF__DATA_ANALYSIS, enableDataAnalysis).apply();
+    }
+
+    @Override
+    public boolean isDataAnalysisEnabled() {
+        //default value will be true
+        return preferences.getBoolean(PREF__DATA_ANALYSIS, true);
     }
 }

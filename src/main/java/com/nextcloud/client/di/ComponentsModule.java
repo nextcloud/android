@@ -29,6 +29,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nmc.android.ui.PrivacySettingsActivity;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -143,6 +144,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract OCFileListFragment ocFileListFragment();
     @ContributesAndroidInjector abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
     @ContributesAndroidInjector abstract ScanActivity scanActivity();
+    @ContributesAndroidInjector abstract PrivacySettingsActivity privacySettingsActivity();
 
     @ContributesAndroidInjector
     abstract FileDetailSharingFragment fileDetailSharingFragment();
