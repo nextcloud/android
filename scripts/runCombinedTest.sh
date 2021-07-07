@@ -15,25 +15,26 @@ scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAM
 
 scripts/wait_for_emulator.sh
 ./gradlew jacocoTestGplayDebugUnitTestReport 
-status=$(( $status | $? ))
+stat=$?
 
-if [ ! $status -eq 0 ]; then
+if [ ! $stat -eq 0 ]; then
     bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
 fi
 
 ./gradlew installGplayDebugAndroidTest
 scripts/wait_for_server.sh "server"
 ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
-status=$(( $status | $? ))
+stat=$(( stat | $? ))
 
-if [ ! $status -eq 0 ]; then
+if [ ! $stat -eq 0 ]; then
     bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
 fi
 
 ./gradlew combinedTestReport
-status=$(( $status | $? ))
+stat=$(( stat | $? ))
 
 curl -o codecov.sh https://codecov.io/bash
 bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
 
-exit $status
+echo "Exit with: " $stat
+exit $stat
