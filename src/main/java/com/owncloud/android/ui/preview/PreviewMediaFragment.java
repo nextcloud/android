@@ -471,7 +471,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Log_OC.e(TAG, "Fullscreen: " + isFullScreen);
     }
 
-    private static class LoadStreamUrl extends AsyncTask<String, Void, Uri> {
+    private static class LoadStreamUrl extends AsyncTask<Long, Void, Uri> {
 
         private final ClientFactory clientFactory;
         private final User user;
@@ -484,7 +484,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
 
         @Override
-        protected Uri doInBackground(String... fileId) {
+        protected Uri doInBackground(Long... fileId) {
             OwnCloudClient client;
             try {
                 client = clientFactory.create(user);

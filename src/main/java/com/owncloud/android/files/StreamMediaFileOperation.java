@@ -37,7 +37,7 @@ public class StreamMediaFileOperation extends RemoteOperation {
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     private static final String STREAM_MEDIA_URL = "/ocs/v2.php/apps/dav/api/v1/direct";
 
-    private String fileID;
+    private final long fileID;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
@@ -45,7 +45,7 @@ public class StreamMediaFileOperation extends RemoteOperation {
     private static final String NODE_URL = "url";
     private static final String JSON_FORMAT = "?format=json";
 
-    public StreamMediaFileOperation(String fileID) {
+    public StreamMediaFileOperation(long fileID) {
         this.fileID = fileID;
     }
 
@@ -55,7 +55,7 @@ public class StreamMediaFileOperation extends RemoteOperation {
 
         try {
             postMethod = new Utf8PostMethod(client.getBaseUri() + STREAM_MEDIA_URL + JSON_FORMAT);
-            postMethod.setParameter("fileId", fileID);
+            postMethod.setParameter("fileId", String.valueOf(fileID));
 
             // remote request
             postMethod.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);

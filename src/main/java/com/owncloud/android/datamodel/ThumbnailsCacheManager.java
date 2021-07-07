@@ -580,10 +580,11 @@ public final class ThumbnailsCacheManager {
             mListener = listener;
         }
 
+        @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
         private Bitmap doThumbnailFromOCFileInBackground() {
             Bitmap thumbnail;
             ServerFileInterface file = (ServerFileInterface) mFile;
-            String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+            String imageKey = PREFIX_THUMBNAIL + file.getImageKey();
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);
@@ -600,7 +601,7 @@ public final class ThumbnailsCacheManager {
                         Bitmap bitmap;
                         if (MimeTypeUtil.isVideo(ocFile)) {
                             bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
-                                    MediaStore.Images.Thumbnails.MINI_KIND);
+                                                                         MediaStore.Images.Thumbnails.MINI_KIND);
                         } else {
                             bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
                         }
@@ -621,7 +622,7 @@ public final class ThumbnailsCacheManager {
 
                 if (thumbnail == null) {
                     // check if resized version is available
-                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getImageKey();
                     Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
 
                     if (resizedImage != null) {
@@ -636,18 +637,20 @@ public final class ThumbnailsCacheManager {
                                 if (file instanceof OCFile) {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
                                         pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
-                                } else {
+                                } else if (file instanceof TrashbinFile) {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
-                                            file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
+                                        ((TrashbinFile) file).getRemoteId() + "&x=" + pxW + "&y=" + pxH;
+                                } else {
+                                    return null;
                                 }
 
                                 Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
                                 getMethod = new GetMethod(uri);
                                 getMethod.setRequestHeader("Cookie",
-                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                                                           "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
 
                                 getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
-                                        RemoteOperation.OCS_API_HEADER_VALUE);
+                                                           RemoteOperation.OCS_API_HEADER_VALUE);
 
                                 int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
                                 if (status == HttpStatus.SC_OK) {

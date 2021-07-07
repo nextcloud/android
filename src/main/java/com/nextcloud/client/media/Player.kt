@@ -96,7 +96,7 @@ internal class Player(
             checkNotNull(user)
             playedFile?.let {
                 val client = clientFactory.create(user)
-                val task = LoadUrlTask(client, it.remoteId, this@Player::onDownloaded)
+                val task = LoadUrlTask(client, it.localId, this@Player::onDownloaded)
                 task.execute()
                 loadUrlTask = task
             }

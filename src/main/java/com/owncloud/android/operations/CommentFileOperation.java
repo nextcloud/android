@@ -33,15 +33,15 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class CommentFileOperation extends SyncOperation {
 
-    private String message;
-    private String fileId;
+    private final String message;
+    private final long fileId;
 
     /**
      * Constructor
      *
      * @param message Comment to store
      */
-    public CommentFileOperation(String message, String fileId) {
+    public CommentFileOperation(String message, long fileId) {
         this.message = message;
         this.fileId = fileId;
     }

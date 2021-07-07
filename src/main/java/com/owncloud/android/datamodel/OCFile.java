@@ -77,6 +77,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String etagOnServer;
     private boolean sharedViaLink;
     private String permissions;
+    private long localId; // unique fileId for the file within the instance
     private String remoteId; // The fileid namespaced by the instance fileId, globally unique
     private boolean updateThumbnailNeeded;
     private boolean downloading;
@@ -151,6 +152,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagOnServer = source.readString();
         sharedViaLink = source.readInt() == 1;
         permissions = source.readString();
+        localId = source.readLong();
         remoteId = source.readString();
         updateThumbnailNeeded = source.readInt() == 1;
         downloading = source.readInt() == 1;
@@ -184,6 +186,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(etagOnServer);
         dest.writeInt(sharedViaLink ? 1 : 0);
         dest.writeString(permissions);
+        dest.writeLong(localId);
         dest.writeString(remoteId);
         dest.writeInt(updateThumbnailNeeded ? 1 : 0);
         dest.writeInt(downloading ? 1 : 0);
@@ -250,9 +253,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
+    @Override
+    public String getImageKey() {
+        return remoteId;
+    }
+
     /**
-     * Can be used to check, whether or not this file exists in the database
-     * already
+     * Can be used to check, whether or not this file exists in the database already
      *
      * @return true, if the file exists in the database
      */
@@ -449,6 +456,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagOnServer = null;
         sharedViaLink = false;
         permissions = null;
+        localId = -1;
         remoteId = null;
         updateThumbnailNeeded = false;
         downloading = false;
@@ -546,13 +554,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return !TextUtils.isEmpty(getFileName()) && getFileName().charAt(0) == '.';
     }
 
-    /**
-     * The unique fileId for the file within the instance
-     *
-     * @return file fileId, unique within the instance
-     */
-    public String getLocalId() {
-        return getRemoteId().substring(0, 8).replaceAll("^0*", "");
+    public long getLocalId() {
+        return localId;
     }
 
     public boolean isInConflict() {
