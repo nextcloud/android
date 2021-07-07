@@ -1,0 +1,3 @@
+Bump master after split off of 3.17
+move service dismissal to handler to prevent race-condition
+Update translations
