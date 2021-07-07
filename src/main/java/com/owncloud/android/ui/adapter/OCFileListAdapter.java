@@ -360,12 +360,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                  .getColor(R.color.selected_item_background));
             } else if (isCheckedFile(file)) {
+                int  thumbnailPadding = (int) activity.getResources()
+                    .getDimension(R.dimen.grid_image_icon_padding_selected);
+
+                gridViewHolder.thumbnail.setPadding(thumbnailPadding,thumbnailPadding,thumbnailPadding,thumbnailPadding);
+
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources()
                                                                  .getColor(R.color.selected_item_background));
                 gridViewHolder.checkbox.setImageDrawable(
                     ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
                                                     ThemeColorUtils.primaryColor(activity)));
             } else {
+                int  thumbnailPadding = (int) activity.getResources()
+                    .getDimension(R.dimen.grid_image_icon_padding);
+                gridViewHolder.thumbnail.setPadding(thumbnailPadding,thumbnailPadding,thumbnailPadding,thumbnailPadding);
                 gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
             }
