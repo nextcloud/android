@@ -642,7 +642,7 @@ public class FileOperationsHelper {
      */
     public void setPermissionsToShare(OCShare share, int permissions) {
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
-        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_USER_SHARE);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_PUBLIC_SHARE);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
