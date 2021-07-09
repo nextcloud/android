@@ -961,7 +961,7 @@
         Datenverarbeitung durch Drittanbieter, finden Sie in den Einstellungen sowie in unseren %s. Sie können die
         Verwendung der Tools %s oder jederzeit über ihre %s anpassen.</string>
     <string name="login_privacy_settings_header">Datenschutz-Einstellungen</string>
-    <string name="common_accept">Accept</string>
+    <string name="common_accept">Akzeptieren</string>
     <string name="login_privacy_policy">Datenschutzhinweise</string>
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
