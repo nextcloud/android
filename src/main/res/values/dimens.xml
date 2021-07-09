@@ -19,4 +19,6 @@
     <dimen name="create_link_button_height">55dp</dimen>
     <dimen name="note_et_height">258dp</dimen>
     <dimen name="txt_size_17sp">17sp</dimen>
+    <dimen name="privacy_btn_width">160dp</dimen>
+    <dimen name="privacy_icon_size">50dp</dimen>
 </resources>

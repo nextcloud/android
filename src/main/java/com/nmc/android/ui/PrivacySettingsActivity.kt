@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPrivacySettingsBinding
@@ -14,14 +15,23 @@ import javax.inject.Inject
 class PrivacySettingsActivity : ToolbarActivity() {
 
     companion object {
+        private const val EXTRA_SHOW_SETTINGS = "show_settings_button"
+
         @JvmStatic
-        fun openPrivacySettingsActivity(context: Context) {
+        fun openPrivacySettingsActivity(context: Context, isShowSettings: Boolean) {
             val intent = Intent(context, PrivacySettingsActivity::class.java)
+            intent.putExtra(EXTRA_SHOW_SETTINGS, isShowSettings)
             context.startActivity(intent)
         }
     }
 
     private lateinit var binding: ActivityPrivacySettingsBinding
+
+    /**
+     * variable to check if save settings button needs to be shown or not
+     * currently we are showing only when user opens this activity from LoginPrivacySettingsActivity
+     */
+    private var isShowSettingsButton = false
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -34,6 +44,12 @@ class PrivacySettingsActivity : ToolbarActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.privacy_settings))
         setUpViews()
+        showHideSettingsButton()
+    }
+
+    private fun showHideSettingsButton() {
+        isShowSettingsButton = intent.getBooleanExtra(EXTRA_SHOW_SETTINGS, false)
+        binding.privacySaveSettingsBtn.visibility = if (isShowSettingsButton) View.VISIBLE else View.GONE
     }
 
     fun setUpViews() {
@@ -42,6 +58,10 @@ class PrivacySettingsActivity : ToolbarActivity() {
         binding.switchDataAnalysis.isChecked = preferences.isDataAnalysisEnabled
         binding.switchDataAnalysis.setOnCheckedChangeListener { _, isChecked ->
             preferences.setDataAnalysis(isChecked)
+        }
+        binding.privacySaveSettingsBtn.setOnClickListener {
+            //finish the activity as we are changing the setting on switch check change
+            finish()
         }
     }
 

@@ -364,4 +364,13 @@ public interface AppPreferences {
      */
     void setDataAnalysis(boolean enableDataAnalysis);
     boolean isDataAnalysisEnabled();
+
+    /**
+     * Saves the privacy policy action taken by user
+     * this will maintain the state of current privacy policy action taken
+     * @see com.nmc.android.ui.LoginPrivacySettingsActivity for actions
+     * @param userAction taken by user
+     */
+    void setPrivacyPolicyAction(int userAction);
+    int getPrivacyPolicyAction();
 }

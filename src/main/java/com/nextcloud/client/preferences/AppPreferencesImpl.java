@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -90,6 +91,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
 
     private static final String PREF__DATA_ANALYSIS = "data_analysis";
+    private static final String PREF__PRIVACY_POLICY_ACTION = "privacy_policy_action";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -653,5 +655,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     public boolean isDataAnalysisEnabled() {
         //default value will be true
         return preferences.getBoolean(PREF__DATA_ANALYSIS, true);
+    }
+
+    @Override
+    public void setPrivacyPolicyAction(int userAction) {
+        preferences.edit().putInt(PREF__PRIVACY_POLICY_ACTION, userAction).apply();
+    }
+
+    @Override
+    public int getPrivacyPolicyAction() {
+        return preferences.getInt(PREF__PRIVACY_POLICY_ACTION, LoginPrivacySettingsActivity.NO_ACTION);
     }
 }

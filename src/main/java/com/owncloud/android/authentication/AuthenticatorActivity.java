@@ -89,6 +89,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1134,10 +1135,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     //track successful login event
                     AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN, preferences);
 
-                    Intent i = new Intent(this, FileDisplayActivity.class);
-                    i.setAction(FileDisplayActivity.RESTART);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+                    //login privacy settings to accept/reject by the user after login
+                    LoginPrivacySettingsActivity.openPrivacySettingsActivity(this);
+                    finish();
                 }
             } else {
                 // init webView again
