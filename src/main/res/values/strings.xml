@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
-    <string name="drawer_item_on_device">Available offline</string>
+    <string name="drawer_item_on_device">Offline files</string>
     <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
@@ -1051,4 +1051,5 @@
     <string name="expiration_date">Expiration Date</string>
     <string name="empty_shares">No shares created yet.</string>
     <string name="prefs_category_info">Info</string>
+    <string name="drawer_item_recent_files">Recent files</string>
 </resources>

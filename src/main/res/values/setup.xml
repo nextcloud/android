@@ -58,7 +58,7 @@
 
     <!-- Drawer options -->
     <bool name="recently_added_enabled">false</bool>
-    <bool name="recently_modified_enabled">false</bool>
+    <bool name="recently_modified_enabled">true</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">false</bool>
