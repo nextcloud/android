@@ -191,6 +191,7 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
+    public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -889,7 +890,7 @@ public class FileDisplayActivity extends FileActivity
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
-                (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
                 @Override
@@ -916,31 +917,54 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
+        } else if (requestCode == REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA &&
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+            Uri fileUri = data.getData();
+
+            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
+                @Override
+                public void onCheckAvailableSpaceStart() {
+                    Log_OC.d(this, "onCheckAvailableSpaceStart");
+                }
+
+                @Override
+                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
+                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
+
+                    if (hasEnoughSpaceAvailable) {
+                        File file = new File(filesToUpload[0]);
+
+                        requestUploadOfFilesFromFileSystem(file.getParentFile().getAbsolutePath(),
+                                                           new String[]{file.getAbsolutePath()},
+                                                           FileUploader.LOCAL_BEHAVIOUR_DELETE);
+                    }
+                }
+            }, new String[]{fileUri.getPath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            requestMoveOperation(fData);
-                        }
-                    },
-                    DELAY_TO_REQUEST_OPERATIONS_LATER
-            );
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        requestMoveOperation(fData);
+                    }
+                },
+                DELAY_TO_REQUEST_OPERATIONS_LATER
+                                    );
 
         } else if (requestCode == REQUEST_CODE__COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            requestCopyOperation(fData);
-                        }
-                    },
-                    DELAY_TO_REQUEST_OPERATIONS_LATER
-            );
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        requestCopyOperation(fData);
+                    }
+                },
+                DELAY_TO_REQUEST_OPERATIONS_LATER
+                                    );
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
