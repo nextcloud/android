@@ -440,7 +440,7 @@ public final class ThumbnailsCacheManager {
 
     public static class ThumbnailGenerationTask extends AsyncTask<ThumbnailGenerationTaskObject, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
-        private static Account mAccount;
+        private User mAccount;
         private List<ThumbnailGenerationTask> mAsyncTasks;
         private Object mFile;
         private String mImageKey;
@@ -449,13 +449,13 @@ public final class ThumbnailsCacheManager {
         private Listener mListener;
         private boolean gridViewEnabled = false;
 
-        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, User user)
                 throws IllegalArgumentException {
-            this(imageView, storageManager, account, null);
+            this(imageView, storageManager, user, null);
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, List<ThumbnailGenerationTask> asyncTasks)
+                                       User user, List<ThumbnailGenerationTask> asyncTasks)
                 throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
@@ -463,15 +463,15 @@ public final class ThumbnailsCacheManager {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
             mStorageManager = storageManager;
-            mAccount = account;
+            mAccount = user;
             mAsyncTasks = asyncTasks;
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, List<ThumbnailGenerationTask> asyncTasks,
+                                       User user, List<ThumbnailGenerationTask> asyncTasks,
                                        boolean gridViewEnabled)
             throws IllegalArgumentException {
-            this(imageView, storageManager, account, asyncTasks);
+            this(imageView, storageManager, user, asyncTasks);
             this.gridViewEnabled = gridViewEnabled;
         }
 
@@ -479,12 +479,12 @@ public final class ThumbnailsCacheManager {
             return getMethod;
         }
 
-        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, User user){
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
             mStorageManager = storageManager;
-            mAccount = account;
+            mAccount = user;
             mImageViewReference = null;
         }
 
@@ -499,10 +499,7 @@ public final class ThumbnailsCacheManager {
             Bitmap thumbnail = null;
             try {
                 if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(
-                            mAccount,
-                            MainApp.getAppContext()
-                    );
+                    OwnCloudAccount ocAccount = mAccount.toOwnCloudAccount();
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }

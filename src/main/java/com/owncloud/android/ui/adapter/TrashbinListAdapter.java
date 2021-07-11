@@ -236,8 +236,10 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, storageManager,
-                                                                                       user.toPlatformAccount(), asyncTasks);
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                       storageManager,
+                                                                                       user,
+                                                                                       asyncTasks);
 
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),

@@ -559,7 +559,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
                                                                                    storageManager,
-                                                                                   user.toPlatformAccount(),
+                                                                                   user,
                                                                                    asyncTasks,
                                                                                    gridView);
                             if (thumbnail == null) {
