@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -68,16 +67,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     private ExoPlayer exoPlayer;             // view to play the file; both performs and show the playback
     private Uri mStreamUri;
 
-    /**
-     *  Called when the activity is first created.
-     *
-     *  Searches for an {@link OCFile} and ownCloud {@link Account} holding it in the starting {@link Intent}.
-     *
-     *  The {@link Account} is unnecessary if the file is downloaded; else, the {@link Account} is used to
-     *  try to stream the remote file - TODO get the streaming works
-     *
-     *  {@inheritDoc}
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,6 +206,4 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             finish();
         }
    }
-
-
 }

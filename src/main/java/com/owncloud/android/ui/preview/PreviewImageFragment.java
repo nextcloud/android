@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -159,7 +158,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
      * (for instance, when the device is turned a aside).
      *
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful
      * construction
      */
     public PreviewImageFragment() {

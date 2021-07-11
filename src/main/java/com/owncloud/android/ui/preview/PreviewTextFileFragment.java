@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +38,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -65,13 +63,27 @@ import androidx.core.view.MenuItemCompat;
 
 public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
-    private static final String EXTRA_ACCOUNT = "ACCOUNT";
+    private static final String EXTRA_USER = "USER";
+    private static final String EXTRA_OPEN_SEARCH = "SEARCH";
+    private static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
+
     private static final String TAG = PreviewTextFileFragment.class.getSimpleName();
 
     private TextLoadAsyncTask textLoadAsyncTask;
-    private Account account;
+    private User user;
 
     @Inject UserAccountManager accountManager;
+
+    public static PreviewTextFileFragment create(User user, OCFile file, boolean openSearch, String searchQuery) {
+        Bundle args = new Bundle();
+        args.putParcelable(EXTRA_FILE, file);
+        args.putParcelable(EXTRA_USER, user);
+        args.putBoolean(EXTRA_OPEN_SEARCH, openSearch);
+        args.putString(EXTRA_SEARCH_QUERY, searchQuery);
+        PreviewTextFileFragment fragment = new PreviewTextFileFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     /**
      * Creates an empty fragment for previews.
@@ -79,11 +91,11 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
      * device is turned a aside).
      * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
      */
     public PreviewTextFileFragment() {
         super();
-        account = null;
+        user = null;
     }
 
     /**
@@ -99,28 +111,28 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         Bundle args = getArguments();
 
         if (file == null) {
-            file = args.getParcelable(FileDisplayActivity.EXTRA_FILE);
+            file = args.getParcelable(EXTRA_FILE);
         }
 
-        if (account == null) {
-            account = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
+        if (user == null) {
+            user = args.getParcelable(EXTRA_USER);
         }
 
-        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
-            searchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+        if (args.containsKey(EXTRA_SEARCH_QUERY)) {
+            searchQuery = args.getString(EXTRA_SEARCH_QUERY);
         }
-        searchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
+        searchOpen = args.getBoolean(EXTRA_OPEN_SEARCH, false);
 
         if (savedInstanceState == null) {
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (account == null) {
+            if (user == null) {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
         } else {
             file = savedInstanceState.getParcelable(EXTRA_FILE);
-            account = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
+            user = savedInstanceState.getParcelable(EXTRA_USER);
         }
 
         handler = new Handler();
@@ -133,8 +145,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(PreviewTextFileFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(PreviewTextFileFragment.EXTRA_ACCOUNT, account);
-
+        outState.putParcelable(PreviewTextFileFragment.EXTRA_USER, user);
         super.onSaveInstanceState(outState);
     }
 
