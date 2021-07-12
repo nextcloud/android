@@ -38,6 +38,7 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.ThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -156,6 +157,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
+        ThemeUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
     }
 
@@ -266,7 +268,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private fun updateFileEditingRadioButton() {
         if (isFileWithNoTextFile) {
             binding.shareProcessPermissionUploadEditing.isEnabled = false
-            binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.secondary_text_color))
+            binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.share_disabled_txt_color))
         }
     }
 

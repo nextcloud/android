@@ -603,7 +603,7 @@ public final class ThemeUtils {
         int fontColor = appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         setEditTextColor(context, editText, fontColor);
-        editText.setHintTextColor(context.getResources().getColor(R.color.secondary_text_color));
+        editText.setHintTextColor(context.getResources().getColor(R.color.grey_60));
         editText.setTextSize(16);
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);

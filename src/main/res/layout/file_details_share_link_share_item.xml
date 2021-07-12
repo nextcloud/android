@@ -58,7 +58,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/share_via_link_section_title"
-            android:textColor="@color/text_color"
+            android:textColor="@color/share_list_item_txt_color"
             android:textSize="@dimen/two_line_primary_text_size" />
 
         <androidx.appcompat.widget.AppCompatTextView

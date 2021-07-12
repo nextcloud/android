@@ -35,6 +35,15 @@
     <color name="nav_bg_color">@color/grey_80</color>
     <color name="drawer_quota_txt_color">#FFFFFF</color>
     <color name="spinner_bg_color">@color/grey_80</color>
+    <color name="share_title_txt_color">#FFFFFF</color>
+    <color name="share_subtitle_txt_color">@color/grey_30</color>
+    <color name="share_info_txt_color">@color/grey_0</color>
+    <color name="share_search_border_color">@color/grey_0</color>
+    <color name="share_btn_txt_color">@color/grey_0</color>
+    <color name="share_list_item_txt_color">@color/grey_0</color>
+    <color name="share_disabled_txt_color">@color/grey_60</color>
+    <color name="share_txt_color">@color/grey_0</color>
+    <color name="share_et_divider">#FFFFFF</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>

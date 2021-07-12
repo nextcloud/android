@@ -258,6 +258,15 @@
         <item name="strokeColor">@color/text_color</item>
     </style>
 
+    <style name="ShareOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="colorAccent">@color/transparent</item>
+        <item name="android:textColor">@color/share_btn_txt_color</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeColor">@color/share_btn_txt_color</item>
+    </style>
+
     <style name="OutlineLoginButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="colorAccent">@color/transparent</item>
         <item name="android:textColor">@color/fg_inverse</item>

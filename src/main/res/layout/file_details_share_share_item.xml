@@ -37,6 +37,7 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:contentDescription="@string/user_icon"
+        app:tint="@color/text_color"
         android:src="@drawable/ic_internal_share" />
 
     <LinearLayout

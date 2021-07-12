@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_default"
+    android:background="@color/bottom_sheet_bg_color"
     android:orientation="vertical"
     android:paddingTop="@dimen/standard_padding">
 
@@ -34,7 +34,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/share_open_in"
-            android:textColor="@color/text_color"
+            android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
@@ -65,7 +65,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/share_advanced_permissions"
-            android:textColor="@color/text_color"
+            android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
@@ -96,7 +96,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/share_send_new_email"
-            android:textColor="@color/text_color"
+            android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
@@ -129,7 +129,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/share_via_link_send_link_label"
-            android:textColor="@color/text_color"
+            android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
@@ -160,7 +160,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:text="@string/unshare"
-            android:textColor="@color/text_color"
+            android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
