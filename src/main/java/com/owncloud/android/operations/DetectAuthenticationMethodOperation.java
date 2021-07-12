@@ -1,4 +1,4 @@
-/**
+/*
  * ownCloud Android client application
  *
  *   @author David A. Velasco
@@ -38,15 +38,15 @@ import java.util.Locale;
 
 /**
  * Operation to find out what authentication method requires the server to access files.
- *
+ * <p>
  * Basically, tries to access to the root folder without authorization and analyzes the response.
- *
- * When successful, the instance of {@link RemoteOperationResult} passed through
- * {@link com.owncloud.android.lib.common.operations.OnRemoteOperationListener
- * #onRemoteOperationFinish(RemoteOperation, RemoteOperationResult)} returns in
- * {@link RemoteOperationResult#getData()} a value of {@link AuthenticationMethod}.
+ * <p>
+ * When successful, the instance of {@link RemoteOperationResult} passed through {@link
+ * com.owncloud.android.lib.common.operations.OnRemoteOperationListener #onRemoteOperationFinish(RemoteOperation,
+ * RemoteOperationResult)} returns in {@link RemoteOperationResult#getResultData()} a value of {@link
+ * AuthenticationMethod}.
  */
-public class DetectAuthenticationMethodOperation extends RemoteOperation {
+public class DetectAuthenticationMethodOperation extends RemoteOperation<DetectAuthenticationMethodOperation.AuthenticationMethod> {
 
     private static final String TAG = DetectAuthenticationMethodOperation.class.getSimpleName();
 
@@ -58,7 +58,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         BEARER_TOKEN
     }
 
-    private Context mContext;
+    private final Context context;
 
     /**
      * Constructor
@@ -66,40 +66,39 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      * @param context Android context of the caller.
      */
     public DetectAuthenticationMethodOperation(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
 
     /**
-     *  Performs the operation.
-     *
-     *  Triggers a check of existence on the root folder of the server, granting
-     *  that the request is not authenticated.
-     *
-     *  Analyzes the result of check to find out what authentication method, if
-     *  any, is requested by the server.
+     * Performs the operation.
+     * <p>
+     * Triggers a check of existence on the root folder of the server, granting that the request is not authenticated.
+     * <p>
+     * Analyzes the result of check to find out what authentication method, if any, is requested by the server.
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = null;
+    protected RemoteOperationResult<AuthenticationMethod> run(OwnCloudClient client) {
+        RemoteOperationResult<AuthenticationMethod> result;
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
 
-        RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
+        RemoteOperation<Void> existenceOperation = new ExistenceCheckRemoteOperation("", context, false);
         client.clearCredentials();
         client.setFollowRedirects(false);
 
         // try to access the root folder, following redirections but not SAML SSO redirections
-        result = operation.execute(client);
-        String redirectedLocation = result.getRedirectedLocation();
-        while (!TextUtils.isEmpty(redirectedLocation) && !result.isIdPRedirection()) {
-            client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
-            result = operation.execute(client);
-            redirectedLocation = result.getRedirectedLocation();
+        RemoteOperationResult<Void> existenceResult = existenceOperation.execute(client);
+        String redirectedLocation = existenceResult.getRedirectedLocation();
+        while (!TextUtils.isEmpty(redirectedLocation) && !existenceResult.isIdPRedirection()) {
+            client.setBaseUri(Uri.parse(existenceResult.getRedirectedLocation()));
+            existenceResult = existenceOperation.execute(client);
+            redirectedLocation = existenceResult.getRedirectedLocation();
         }
 
         // analyze response
-        if (result.getHttpCode() == HttpStatus.SC_UNAUTHORIZED || result.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-            ArrayList<String> authHeaders = result.getAuthenticateHeaders();
+        if (existenceResult.getHttpCode() == HttpStatus.SC_UNAUTHORIZED ||
+            existenceResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+            ArrayList<String> authHeaders = existenceResult.getAuthenticateHeaders();
 
             for (String header : authHeaders) {
                 // currently we only support basic auth
@@ -110,23 +109,29 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
             }
             // else - fall back to UNKNOWN
 
-        } else if (result.isSuccess()) {
+        } else if (existenceResult.isSuccess()) {
             authMethod = AuthenticationMethod.NONE;
 
-        } else if (result.isIdPRedirection()) {
+        } else if (existenceResult.isIdPRedirection()) {
             authMethod = AuthenticationMethod.SAML_WEB_SSO;
         }
         // else - fall back to UNKNOWN
         Log_OC.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
 
         if (authMethod != AuthenticationMethod.UNKNOWN) {
-            result = new RemoteOperationResult(true, result.getHttpCode(), result.getHttpPhrase(), new Header[0]);
+            result = new RemoteOperationResult<>(true,
+                                                 existenceResult.getHttpCode(),
+                                                 existenceResult.getHttpPhrase(),
+                                                 new Header[0]);
+        } else {
+            result = new RemoteOperationResult<>(false,
+                                                 existenceResult.getHttpCode(),
+                                                 existenceResult.getHttpPhrase(),
+                                                 new Header[0]);
         }
-        ArrayList<Object> data = new ArrayList<>();
-        data.add(authMethod);
-        result.setData(data);
-        return result;  // same result instance, so that other errors
-        // can be handled by the caller transparently
+        result.setResultData(authMethod);
+
+        return result;  // same result instance, so that other errors can be handled by the caller transparently
     }
 
     private String authenticationMethodToString(AuthenticationMethod value) {

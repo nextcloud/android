@@ -833,7 +833,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         if (operation instanceof GetServerInfoOperation) {
             if (operation.hashCode() == mWaitingForOpId) {
-                onGetServerInfoFinish(result);
+                onGetServerInfoFinish((RemoteOperationResult<GetServerInfoOperation.ServerInfo>) result);
             }   // else nothing ; only the last check operation is considered;
             // multiple can be started if the user amends a URL quickly
 
@@ -878,7 +878,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      *
      * @param result Result of the check.
      */
-    private void onGetServerInfoFinish(RemoteOperationResult result) {
+    private void onGetServerInfoFinish(RemoteOperationResult<GetServerInfoOperation.ServerInfo> result) {
         /// update activity state
         mWaitingForOpId = Long.MAX_VALUE;
 
@@ -888,7 +888,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      2. server is installed
             //      3. we got the server version
             //      4. we got the authentication method required by the server
-            mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
+            mServerInfo = result.getResultData();
 
             // show outdated warning
             if (getResources().getBoolean(R.bool.show_outdated_server_warning) &&
@@ -905,12 +905,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mServerInfo.mBaseUrl),
                                                                                        this,
                                                                                        true);
-                    RemoteOperationResult remoteOperationResult = new GetCapabilitiesRemoteOperation().execute(client);
+                    RemoteOperationResult<OCCapability> remoteOperationResult =
+                        new GetCapabilitiesRemoteOperation().execute(client);
 
-                    if (remoteOperationResult.isSuccess() &&
-                        remoteOperationResult.getData() != null &&
-                        remoteOperationResult.getData().size() > 0) {
-                        OCCapability capability = (OCCapability) remoteOperationResult.getData().get(0);
+                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null) {
+                        OCCapability capability = remoteOperationResult.getResultData();
                         try {
                             primaryColor = Color.parseColor(capability.getServerColor());
                         } catch (Exception e) {

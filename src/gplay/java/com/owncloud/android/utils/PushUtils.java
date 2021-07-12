@@ -229,16 +229,16 @@ public final class PushUtils {
                             OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, context);
 
-                            RemoteOperationResult remoteOperationResult =
+                            RemoteOperationResult<PushResponse> remoteOperationResult =
                                 new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
                                                                                    publicKey,
                                                                                    context.getResources().getString(R.string.push_server_url))
                                     .execute(client);
 
                             if (remoteOperationResult.isSuccess()) {
-                                PushResponse pushResponse = remoteOperationResult.getPushResponseData();
+                                PushResponse pushResponse = remoteOperationResult.getResultData();
 
-                                RemoteOperationResult resultProxy = new RegisterAccountDeviceForProxyOperation(
+                                RemoteOperationResult<Void> resultProxy = new RegisterAccountDeviceForProxyOperation(
                                     context.getResources().getString(R.string.push_server_url),
                                     token, pushResponse.getDeviceIdentifier(),
                                     pushResponse.getSignature(),

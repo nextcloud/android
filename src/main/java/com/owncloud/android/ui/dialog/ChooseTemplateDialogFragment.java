@@ -279,12 +279,12 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
-        private ClientFactory clientFactory;
-        private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Template template;
-        private String path;
-        private Creator creator;
-        private User user;
+        private final ClientFactory clientFactory;
+        private final WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Template template;
+        private final String path;
+        private final Creator creator;
+        private final User user;
         private OCFile file;
 
         CreateFileFromTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
@@ -293,7 +293,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                                    Template template,
                                    String path,
                                    Creator creator
-        ) {
+                                  ) {
             this.clientFactory = clientFactory;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;
@@ -316,7 +316,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                     return "";
                 }
 
-                RemoteOperationResult newFileResult = new ReadFileRemoteOperation(path).execute(client);
+                RemoteOperationResult<RemoteFile> newFileResult = new ReadFileRemoteOperation(path).execute(client);
                 if (!newFileResult.isSuccess()) {
                     return "";
                 }
@@ -335,7 +335,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                 FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
                                                                                    context.getContentResolver());
 
-                OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
+                OCFile temp = FileStorageUtils.fillOCFile(newFileResult.getResultData());
                 storageManager.saveFile(temp);
                 file = storageManager.getFileByPath(path);
 
@@ -372,10 +372,10 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
     private static class FetchTemplateTask extends AsyncTask<Void, Void, TemplateList> {
 
-        private User user;
-        private ClientFactory clientFactory;
-        private WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Creator creator;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private final WeakReference<ChooseTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Creator creator;
 
         FetchTemplateTask(ChooseTemplateDialogFragment chooseTemplateDialogFragment,
                           ClientFactory clientFactory,

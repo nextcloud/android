@@ -135,6 +135,7 @@ public class GalleryFragment extends OCFileListFragment {
             System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
             mAdapter.setData(
                 new ArrayList<>(),
+                new ArrayList<>(),
                 SearchType.GALLERY_SEARCH,
                 mContainerActivity.getStorageManager(),
                 mFile,

@@ -33,15 +33,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class FetchTemplateOperation extends RemoteOperation {
+public class FetchTemplateOperation extends RemoteOperation<List<Template>> {
     private static final String TAG = FetchTemplateOperation.class.getSimpleName();
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     private static final String TEMPLATE_URL = "/ocs/v2.php/apps/richdocuments/api/v1/templates/";
 
-    private ChooseRichDocumentsTemplateDialogFragment.Type type;
+    private final ChooseRichDocumentsTemplateDialogFragment.Type type;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
@@ -52,14 +53,14 @@ public class FetchTemplateOperation extends RemoteOperation {
         this.type = type;
     }
 
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
+    protected RemoteOperationResult<List<Template>> run(OwnCloudClient client) {
+        RemoteOperationResult<List<Template>> result;
         GetMethod getMethod = null;
 
         try {
 
             getMethod = new GetMethod(client.getBaseUri() + TEMPLATE_URL + type.toString().toLowerCase(Locale.ENGLISH) +
-                JSON_FORMAT);
+                                          JSON_FORMAT);
 
             // remote request
             getMethod.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
@@ -73,7 +74,7 @@ public class FetchTemplateOperation extends RemoteOperation {
                 JSONObject respJSON = new JSONObject(response);
                 JSONArray templates = respJSON.getJSONObject(NODE_OCS).getJSONArray(NODE_DATA);
 
-                ArrayList<Object> templateArray = new ArrayList<>();
+                ArrayList<Template> templateArray = new ArrayList<>();
 
                 for (int i = 0; i < templates.length(); i++) {
                     JSONObject templateObject = templates.getJSONObject(i);
@@ -82,20 +83,20 @@ public class FetchTemplateOperation extends RemoteOperation {
                                                    templateObject.getString("name"),
                                                    templateObject.optString("preview"),
                                                    Template.parse(templateObject.getString("type")
-                                                                             .toUpperCase(Locale.ROOT)),
+                                                                      .toUpperCase(Locale.ROOT)),
                                                    templateObject.getString("extension")));
                 }
 
-                result = new RemoteOperationResult(true, getMethod);
-                result.setData(templateArray);
+                result = new RemoteOperationResult<>(true, getMethod);
+                result.setResultData(templateArray);
             } else {
-                result = new RemoteOperationResult(false, getMethod);
+                result = new RemoteOperationResult<>(false, getMethod);
                 client.exhaustResponse(getMethod.getResponseBodyAsStream());
             }
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
             Log_OC.e(TAG, "Get templates for typ " + type + " failed: " + result.getLogMessage(),
-                result.getException());
+                     result.getException());
         } finally {
             if (getMethod != null) {
                 getMethod.releaseConnection();

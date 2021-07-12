@@ -69,7 +69,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -210,7 +212,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
-    private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private final List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -485,11 +487,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void createRichWorkspace() {
         new Thread(() -> {
-            RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
+            RemoteOperationResult<String> result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
                 .execute(accountManager.getUser().toPlatformAccount(), requireContext());
 
             if (result.isSuccess()) {
-                String url = (String) result.getSingleData();
+                String url = result.getResultData();
                 mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile,
                                                                                              url,
                                                                                              requireContext());
@@ -590,7 +592,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /**
          * Selected items in list when action mode is closed by drawer
          */
-        private Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
+        private final Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
 
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -1296,12 +1298,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setGridSwitchButton();
         }
 
-        if (mHideFab) {
-            setFabVisible(false);
-        } else {
-            setFabVisible(true);
-            // registerFabListener();
-        }
+        // registerFabListener();
+        setFabVisible(!mHideFab);
 
         // FAB
         setFabEnabled(mFile != null && mFile.canWrite());
@@ -1513,7 +1511,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         prepareCurrentSearch(event);
         searchFragment = true;
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile, true);
+        mAdapter.setData(new ArrayList<>(),
+                         new ArrayList<>(),
+                         SearchType.NO_SEARCH,
+                         mContainerActivity.getStorageManager(),
+                         mFile,
+                         true);
 
         setFabVisible(false);
 
@@ -1530,7 +1533,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         final User currentUser = accountManager.getUser();
 
         final RemoteOperation remoteOperation;
-        if (currentSearchType != SearchType.SHARED_FILTER) {
+        if (currentSearchType == SearchType.SHARED_FILTER) {
+            remoteOperation = new GetSharesRemoteOperation();
+        } else {
             boolean searchOnlyFolders = false;
             if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
                 searchOnlyFolders = true;
@@ -1538,8 +1543,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
                                                         searchOnlyFolders);
-        } else {
-            remoteOperation = new GetSharesRemoteOperation();
         }
 
         remoteOperationAsyncTask = new AsyncTask<Void, Void, Boolean>() {
@@ -1560,11 +1563,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
-                            mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
-                                             currentSearchType,
-                                             storageManager,
-                                             mFile,
-                                             true);
+                            if (currentSearchType == SearchType.SHARED_FILTER) {
+                                mAdapter.setData(((RemoteOperationResult<List<OCShare>>) remoteOperationResult).getResultData(),
+                                                 new ArrayList<>(),
+                                                 currentSearchType,
+                                                 storageManager,
+                                                 mFile,
+                                                 true);
+                            } else {
+                                mAdapter.setData(new ArrayList<>(),
+                                                 ((RemoteOperationResult<List<RemoteFile>>) remoteOperationResult).getResultData(),
+                                                 currentSearchType,
+                                                 storageManager,
+                                                 mFile,
+                                                 true);
+                            }
                             searchEvent = event;
                         }
 
@@ -1867,7 +1880,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void resetHeaderScrollingState() {
         if (requireActivity() instanceof FileDisplayActivity) {
-            AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
+            AppBarLayout appBarLayout = requireActivity().findViewById(R.id.appbar);
 
             if (appBarLayout != null) {
                 appBarLayout.setExpanded(true);

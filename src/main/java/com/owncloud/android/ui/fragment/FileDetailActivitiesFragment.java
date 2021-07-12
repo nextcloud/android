@@ -45,6 +45,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.activities.ActivitiesResponse;
 import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOperation;
@@ -66,7 +67,6 @@ import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -294,34 +294,30 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
                 isLoadingActivities = true;
 
-                GetActivitiesRemoteOperation getRemoteNotificationOperation;
+                GetActivitiesRemoteOperation getActivitiesRemoteOperation;
 
                 if (lastGiven > 0) {
-                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId(), lastGiven);
+                    getActivitiesRemoteOperation = new GetActivitiesRemoteOperation(file.getLocalId(), lastGiven);
                 } else {
-                    getRemoteNotificationOperation = new GetActivitiesRemoteOperation(file.getLocalId());
+                    getActivitiesRemoteOperation = new GetActivitiesRemoteOperation(file.getLocalId());
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
+                RemoteOperationResult<ActivitiesResponse> result = nextcloudClient.execute(getActivitiesRemoteOperation);
 
-                ArrayList<Object> versions = null;
+                List<FileVersion> versions = null;
                 if (restoreFileVersionSupported) {
-                    ReadFileVersionsRemoteOperation readFileVersionsOperation = new ReadFileVersionsRemoteOperation(
-                        file.getLocalId());
+                    RemoteOperationResult<List<FileVersion>> fileVersionResult =
+                        new ReadFileVersionsRemoteOperation(file.getLocalId()).execute(ownCloudClient);
 
-                    RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
-
-                    if (result1.isSuccess()) {
-                        versions = result1.getData();
+                    if (fileVersionResult.isSuccess()) {
+                        versions = fileVersionResult.getResultData();
                     }
                 }
 
-                if (result.isSuccess() && result.getData() != null) {
-                    final List<Object> data = result.getData();
-                    final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
-
-                    this.lastGiven = (int) data.get(1);
+                if (result.isSuccess() && result.getResultData() != null) {
+                    final List<Object> activitiesAndVersions = (List) result.getResultData().getActivities();
+                    this.lastGiven = result.getResultData().getLastGiven();
 
                     if (activitiesAndVersions.isEmpty()) {
                         this.lastGiven = END_REACHED;
@@ -366,7 +362,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             if (file.getUnreadCommentsCount() > 0) {
                 MarkCommentsAsReadRemoteOperation unreadOperation = new MarkCommentsAsReadRemoteOperation(
                     file.getLocalId());
-                RemoteOperationResult remoteOperationResult = unreadOperation.execute(ownCloudClient);
+                RemoteOperationResult<Void> remoteOperationResult = unreadOperation.execute(ownCloudClient);
 
                 if (remoteOperationResult.isSuccess()) {
                     EventBus.getDefault().post(new CommentsEvent(file.getRemoteId()));
@@ -459,10 +455,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String message;
-        private String fileId;
-        private VersionListInterface.CommentCallback callback;
-        private OwnCloudClient client;
+        private final String message;
+        private final String fileId;
+        private final VersionListInterface.CommentCallback callback;
+        private final OwnCloudClient client;
 
         private SubmitCommentTask(String message, String fileId, VersionListInterface.CommentCallback callback,
                                   OwnCloudClient client) {

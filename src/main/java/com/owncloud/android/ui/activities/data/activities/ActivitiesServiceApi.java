@@ -35,6 +35,6 @@ public interface ActivitiesServiceApi {
         void onError (String error);
     }
 
-    void getAllActivities(int lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
+    void getAllActivities(int lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Activity>> callback);
 
 }

@@ -30,15 +30,15 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creates a new public share for a given file
  */
-public class CreateShareViaLinkOperation extends SyncOperation {
+public class CreateShareViaLinkOperation extends SyncOperation<List<OCShare>> {
 
-    private String path;
-    private String password;
+    private final String path;
+    private final String password;
 
     public CreateShareViaLinkOperation(String path, String password) {
         this.path = path;
@@ -46,7 +46,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
         CreateShareRemoteOperation createOp = new CreateShareRemoteOperation(path,
                                                                              ShareType.PUBLIC_LINK,
                                                                              "",
@@ -54,20 +54,20 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                                                                              password,
                                                                              OCShare.NO_PERMISSION);
         createOp.setGetShareDetails(true);
-        RemoteOperationResult result = createOp.execute(client);
+        RemoteOperationResult<List<OCShare>> result = createOp.execute(client);
 
         if (result.isSuccess()) {
-            if (result.getData().size() > 0) {
-                Object item = result.getData().get(0);
-                if (item instanceof OCShare) {
-                    updateData((OCShare) item);
+            if (result.getResultData().size() > 0) {
+                OCShare item = result.getResultData().get(0);
+                if (item != null) {
+                    updateData(item);
                 } else {
-                    ArrayList<Object> data = result.getData();
-                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
-                    result.setData(data);
+                    List<OCShare> data = result.getResultData();
+                    result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+                    result.setResultData(data);
                 }
             } else {
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+                result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
             }
         }
 
@@ -77,11 +77,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(path);
-        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setFolder(true);
-        } else {
-            share.setFolder(false);
-        }
+        share.setFolder(path.endsWith(FileUtils.PATH_SEPARATOR));
 
         getStorageManager().saveShare(share);
 

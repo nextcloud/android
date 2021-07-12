@@ -86,17 +86,15 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
     }
 
-    public void setTrashbinFiles(List<Object> trashbinFiles, boolean clear) {
+    public void setTrashbinFiles(List<TrashbinFile> trashbinFiles, boolean clear) {
         if (clear) {
             files.clear();
         }
 
-        for (Object file : trashbinFiles) {
-            files.add((TrashbinFile) file);
-        }
+        files.addAll(trashbinFiles);
 
         files = preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
-            FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
+                                               FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
     }

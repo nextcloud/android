@@ -24,19 +24,19 @@ package com.owncloud.android.ui.asynctasks;
 import android.accounts.Account;
 import android.os.AsyncTask;
 
+import com.nextcloud.android.lib.resources.richdocuments.RichDocumentsUrlRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RichDocumentsUrlOperation;
 import com.owncloud.android.ui.activity.EditorWebView;
 
 import java.lang.ref.WeakReference;
 
 public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
 
-    private Account account;
-    private WeakReference<EditorWebView> editorWebViewWeakReference;
-    private OCFile file;
+    private final Account account;
+    private final WeakReference<EditorWebView> editorWebViewWeakReference;
+    private final OCFile file;
 
     public RichDocumentsLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
         this.account = user.toPlatformAccount();
@@ -52,13 +52,14 @@ public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account, editorWebView);
+        RemoteOperationResult<String> result = new RichDocumentsUrlRemoteOperation(file.getLocalId())
+            .execute(account, editorWebView);
 
         if (!result.isSuccess()) {
             return "";
         }
 
-        return (String) result.getData().get(0);
+        return result.getResultData();
     }
 
     @Override

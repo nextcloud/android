@@ -29,15 +29,13 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class StreamMediaFileOperation extends RemoteOperation {
+public class StreamMediaFileOperation extends RemoteOperation<String> {
     private static final String TAG = StreamMediaFileOperation.class.getSimpleName();
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     private static final String STREAM_MEDIA_URL = "/ocs/v2.php/apps/dav/api/v1/direct";
 
-    private String fileID;
+    private final String fileId;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
@@ -45,17 +43,17 @@ public class StreamMediaFileOperation extends RemoteOperation {
     private static final String NODE_URL = "url";
     private static final String JSON_FORMAT = "?format=json";
 
-    public StreamMediaFileOperation(String fileID) {
-        this.fileID = fileID;
+    public StreamMediaFileOperation(String fileId) {
+        this.fileId = fileId;
     }
 
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
+    protected RemoteOperationResult<String> run(OwnCloudClient client) {
+        RemoteOperationResult<String> result;
         Utf8PostMethod postMethod = null;
 
         try {
             postMethod = new Utf8PostMethod(client.getBaseUri() + STREAM_MEDIA_URL + JSON_FORMAT);
-            postMethod.setParameter("fileId", fileID);
+            postMethod.setParameter("fileId", fileId);
 
             // remote request
             postMethod.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
@@ -69,18 +67,16 @@ public class StreamMediaFileOperation extends RemoteOperation {
                 JSONObject respJSON = new JSONObject(response);
                 String url = respJSON.getJSONObject(NODE_OCS).getJSONObject(NODE_DATA).getString(NODE_URL);
 
-                result = new RemoteOperationResult(true, postMethod);
-                ArrayList<Object> urlArray = new ArrayList<>();
-                urlArray.add(url);
-                result.setData(urlArray);
+                result = new RemoteOperationResult<>(true, postMethod);
+                result.setResultData(url);
             } else {
-                result = new RemoteOperationResult(false, postMethod);
+                result = new RemoteOperationResult<>(false, postMethod);
                 client.exhaustResponse(postMethod.getResponseBodyAsStream());
             }
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Get stream url for file with id " + fileID + " failed: " + result.getLogMessage(),
-                    result.getException());
+            result = new RemoteOperationResult<>(e);
+            Log_OC.e(TAG, "Get stream url for file with id " + fileId + " failed: " + result.getLogMessage(),
+                     result.getException());
         } finally {
             if (postMethod != null) {
                 postMethod.releaseConnection();

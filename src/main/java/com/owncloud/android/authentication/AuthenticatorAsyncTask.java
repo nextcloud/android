@@ -75,22 +75,23 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
 
             // Operation - try credentials
             ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(ROOT_PATH, SUCCESS_IF_ABSENT);
-            result = operation.execute(client);
+            RemoteOperationResult<Void> existenceResult = operation.execute(client);
 
             if (operation.wasRedirected()) {
                 RedirectionPath redirectionPath = operation.getRedirectionPath();
                 String permanentLocation = redirectionPath.getLastPermanentLocation();
-                result.setLastPermanentLocation(permanentLocation);
+                existenceResult.setLastPermanentLocation(permanentLocation);
             }
 
             // Operation - get display name
-            if (result.isSuccess()) {
+            if (existenceResult.isSuccess()) {
                 GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
                 result = remoteUserNameOperation.execute(nextcloudClient);
+            } else {
+                result = new RemoteOperationResult<>(existenceResult.getCode());
             }
-
         } else {
-            result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
+            result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }
 
         return result;

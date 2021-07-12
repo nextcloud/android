@@ -39,7 +39,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationsLayoutBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation;
@@ -223,13 +222,10 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         Thread t = new Thread(() -> {
             initializeAdapter();
 
-            RemoteOperation getRemoteNotificationOperation = new GetNotificationsRemoteOperation();
-            final RemoteOperationResult result = getRemoteNotificationOperation.execute(client);
+            RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation().execute(client);
 
-            if (result.isSuccess() && result.getNotificationData() != null) {
-                final List<Notification> notifications = result.getNotificationData();
-
-                runOnUiThread(() -> populateList(notifications));
+            if (result.isSuccess() && result.getResultData() != null) {
+                runOnUiThread(() -> populateList(result.getResultData()));
             } else {
                 Log_OC.d(TAG, result.getLogMessage());
                 // show error

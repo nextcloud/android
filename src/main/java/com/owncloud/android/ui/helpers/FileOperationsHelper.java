@@ -433,8 +433,8 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final User user = currentAccount.getUser();
         new Thread(() -> {
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
+            RemoteOperationResult<String> result = new StreamMediaFileOperation(file.getLocalId())
+                .execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
 
@@ -444,7 +444,7 @@ public class FileOperationsHelper {
             }
 
             Intent openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.parse((String) result.getData().get(0));
+            Uri uri = Uri.parse(result.getResultData());
 
             openFileWithIntent.setDataAndType(uri, file.getMimeType());
 

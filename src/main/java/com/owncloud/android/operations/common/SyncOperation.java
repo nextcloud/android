@@ -38,29 +38,29 @@ import androidx.annotation.NonNull;
  * <p>
  * Provides methods to execute the operation both synchronously or asynchronously.
  */
-public abstract class SyncOperation extends RemoteOperation {
+public abstract class SyncOperation<T> extends RemoteOperation<T> {
     private FileDataStorageManager storageManager;
 
     /**
      * Synchronously executes the operation on the received ownCloud account.
-     *
+     * <p>
      * Do not call this method from the main thread.
+     * <p>
+     * This method should be used whenever an ownCloud account is available, instead of {@link #execute(OwnCloudClient,
+     * com.owncloud.android.datamodel.FileDataStorageManager)}.
      *
-     * This method should be used whenever an ownCloud account is available, instead of
-     * {@link #execute(OwnCloudClient, com.owncloud.android.datamodel.FileDataStorageManager)}.
-     *
-     * @param storageManager
-     * @param context   Android context for the component calling the method.
-     * @return          Result of the operation.
+     * @param storageManager storageManager of account
+     * @param context        Android context for the component calling the method.
+     * @return Result of the operation.
      */
-    public RemoteOperationResult execute(FileDataStorageManager storageManager, Context context) {
+    public RemoteOperationResult<T> execute(FileDataStorageManager storageManager, Context context) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                    "NULL storage manager");
+                                                   "NULL storage manager");
         }
         if (storageManager.getAccount() == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                    "storage manager for a NULL account");
+                                                   "storage manager for a NULL account");
         }
         this.storageManager = storageManager;
         return super.execute(this.storageManager.getAccount(), context);
@@ -68,17 +68,16 @@ public abstract class SyncOperation extends RemoteOperation {
 
 
     /**
-	 * Synchronously executes the remote operation
-     *
+     * Synchronously executes the remote operation
+     * <p>
      * Do not call this method from the main thread.
      *
-	 * @param client	Client object to reach an ownCloud server during the execution of the o
-     *                  peration.
-     * @param storageManager
-	 * @return			Result of the operation.
+     * @param client         Client object to reach an ownCloud server during the execution of the operation.
+     * @param storageManager storageManager of account
+     * @return Result of the operation.
      */
-    public RemoteOperationResult execute(OwnCloudClient client,
-                                         FileDataStorageManager storageManager) {
+    public RemoteOperationResult<T> execute(OwnCloudClient client,
+                                            FileDataStorageManager storageManager) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
                                                    "NULL storage manager");
@@ -87,7 +86,7 @@ public abstract class SyncOperation extends RemoteOperation {
         return super.execute(client);
     }
 
-    public RemoteOperationResult execute(@NonNull NextcloudClient client, FileDataStorageManager storageManager) {
+    public RemoteOperationResult<T> execute(@NonNull NextcloudClient client, FileDataStorageManager storageManager) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a NULL storage manager");
         }
@@ -97,7 +96,7 @@ public abstract class SyncOperation extends RemoteOperation {
     }
 
 
-    /**
+    /*
      * Asynchronously executes the remote operation
      *
      * This method should be used whenever an ownCloud account is available, instead of
@@ -150,7 +149,7 @@ public abstract class SyncOperation extends RemoteOperation {
     }
 
     @Override
-    public RemoteOperationResult execute(OwnCloudClient client) {
+    public RemoteOperationResult<T> execute(OwnCloudClient client) {
         throw new IllegalArgumentException("Trying to execute a sync operation without storage provider! Please use " +
                                                "execute(OwnCloudClient client, FileDataStorageManager storageManager)" +
                                                " instead");

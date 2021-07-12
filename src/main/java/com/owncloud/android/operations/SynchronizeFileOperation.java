@@ -42,24 +42,23 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Remote operation performing the read of remote file in the ownCloud server.
  */
-public class SynchronizeFileOperation extends SyncOperation {
+public class SynchronizeFileOperation extends SyncOperation<RemoteFile> {
 
     private static final String TAG = SynchronizeFileOperation.class.getSimpleName();
 
-    private OCFile mLocalFile;
-    private String mRemotePath;
-    private OCFile mServerFile;
-    private User mUser;
-    private boolean mSyncFileContents;
-    private Context mContext;
-    private boolean mTransferWasRequested;
+    private OCFile localFile;
+    private final String remotePath;
+    private OCFile serverFile;
+    private final User user;
+    private final boolean syncFileContents;
+    private final Context context;
+    private boolean transferWasRequested;
 
     /**
-     * When 'false', uploads to the server are not done; only downloads or conflict detection.
-     * This is a temporal field.
+     * When 'false', uploads to the server are not done; only downloads or conflict detection. This is a temporal field.
      * TODO Remove when 'folder synchronization' replaces 'folder download'.
      */
-    private boolean mAllowUploads;
+    private boolean allowUploads;
 
 
     /**
@@ -82,13 +81,13 @@ public class SynchronizeFileOperation extends SyncOperation {
             boolean syncFileContents,
             Context context) {
 
-        mRemotePath = remotePath;
-        mLocalFile = null;
-        mServerFile = null;
-        mUser = user;
-        mSyncFileContents = syncFileContents;
-        mContext = context;
-        mAllowUploads = true;
+        this.remotePath = remotePath;
+        localFile = null;
+        serverFile = null;
+        this.user = user;
+        this.syncFileContents = syncFileContents;
+        this.context = context;
+        allowUploads = true;
     }
 
 
@@ -118,23 +117,23 @@ public class SynchronizeFileOperation extends SyncOperation {
             boolean syncFileContents,
             Context context) {
 
-        mLocalFile = localFile;
-        mServerFile = serverFile;
-        if (mLocalFile != null) {
-            mRemotePath = mLocalFile.getRemotePath();
-            if (mServerFile != null && !mServerFile.getRemotePath().equals(mRemotePath)) {
+        this.localFile = localFile;
+        this.serverFile = serverFile;
+        if (this.localFile != null) {
+            remotePath = this.localFile.getRemotePath();
+            if (this.serverFile != null && !this.serverFile.getRemotePath().equals(remotePath)) {
                 throw new IllegalArgumentException("serverFile and localFile do not correspond" +
-                        " to the same OC file");
+                                                       " to the same OC file");
             }
-        } else if (mServerFile != null) {
-            mRemotePath = mServerFile.getRemotePath();
+        } else if (this.serverFile != null) {
+            remotePath = this.serverFile.getRemotePath();
         } else {
             throw new IllegalArgumentException("Both serverFile and localFile are NULL");
         }
-        mUser = user;
-        mSyncFileContents = syncFileContents;
-        mContext = context;
-        mAllowUploads = true;
+        this.user = user;
+        this.syncFileContents = syncFileContents;
+        this.context = context;
+        allowUploads = true;
     }
 
 
@@ -170,61 +169,61 @@ public class SynchronizeFileOperation extends SyncOperation {
             Context context) {
 
         this(localFile, serverFile, user, syncFileContents, context);
-        mAllowUploads = allowUploads;
+        this.allowUploads = allowUploads;
     }
 
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<RemoteFile> run(OwnCloudClient client) {
 
-        RemoteOperationResult result = null;
-        mTransferWasRequested = false;
+        RemoteOperationResult<RemoteFile> result = null;
+        transferWasRequested = false;
 
-        if (mLocalFile == null) {
+        if (localFile == null) {
             // Get local file from the DB
-            mLocalFile = getStorageManager().getFileByPath(mRemotePath);
+            localFile = getStorageManager().getFileByPath(remotePath);
         }
 
-        if (!mLocalFile.isDown()) {
+        if (!localFile.isDown()) {
             /// easy decision
-            requestForDownload(mLocalFile);
-            result = new RemoteOperationResult(ResultCode.OK);
+            requestForDownload(localFile);
+            result = new RemoteOperationResult<>(ResultCode.OK);
         } else {
             /// local copy in the device -> need to think a bit more before do anything
-            if (mServerFile == null) {
-                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
+            if (serverFile == null) {
+                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);
                 result = operation.execute(client);
 
                 if (result.isSuccess()) {
-                    mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
+                    serverFile = FileStorageUtils.fillOCFile(result.getResultData());
+                    serverFile.setLastSyncDateForProperties(System.currentTimeMillis());
                 } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
                     return result;
                 }
             }
 
-            if (mServerFile != null) {
+            if (serverFile != null) {
                 /// check changes in server and local file
                 boolean serverChanged;
-                if (TextUtils.isEmpty(mLocalFile.getEtag())) {
+                if (TextUtils.isEmpty(localFile.getEtag())) {
                     // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
-                    serverChanged = mServerFile.getModificationTimestamp() !=
-                            mLocalFile.getModificationTimestampAtLastSyncForData();
+                    serverChanged = serverFile.getModificationTimestamp() !=
+                        localFile.getModificationTimestampAtLastSyncForData();
                 } else {
-                    serverChanged = !mServerFile.getEtag().equals(mLocalFile.getEtag());
+                    serverChanged = !serverFile.getEtag().equals(localFile.getEtag());
                 }
                 boolean localChanged =
-                        mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData();
+                    localFile.getLocalModificationTimestamp() > localFile.getLastSyncDateForData();
 
                 /// decide action to perform depending upon changes
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                    getStorageManager().saveConflict(mLocalFile, mServerFile.getEtag());
+                    result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
+                    getStorageManager().saveConflict(localFile, serverFile.getEtag());
 
                 } else if (localChanged) {
-                    if (mSyncFileContents && mAllowUploads) {
-                        requestForUpload(mLocalFile);
+                    if (syncFileContents && allowUploads) {
+                        requestForUpload(localFile);
                         // the local update of file properties will be done by the FileUploader
                         // service when the upload finishes
                     } else {
@@ -235,43 +234,43 @@ public class SynchronizeFileOperation extends SyncOperation {
                         // that an upload is necessary (for instance, in FileObserverService).
                         Log_OC.d(TAG, "Nothing to do here");
                     }
-                    result = new RemoteOperationResult(ResultCode.OK);
+                    result = new RemoteOperationResult<>(ResultCode.OK);
 
                 } else if (serverChanged) {
-                    mLocalFile.setRemoteId(mServerFile.getRemoteId());
+                    localFile.setRemoteId(serverFile.getRemoteId());
 
-                    if (mSyncFileContents) {
-                        requestForDownload(mLocalFile); // local, not server; we won't to keep
+                    if (syncFileContents) {
+                        requestForDownload(localFile); // local, not server; we won't to keep
                         // the value of favorite!
                         // the update of local data will be done later by the FileUploader
                         // service when the upload finishes
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
-                        mServerFile.setFavorite(mLocalFile.isFavorite());
-                        mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
-                        mServerFile.setStoragePath(mLocalFile.getStoragePath());
-                        mServerFile.setParentId(mLocalFile.getParentId());
-                        mServerFile.setEtag(mLocalFile.getEtag());
-                        getStorageManager().saveFile(mServerFile);
+                        serverFile.setFavorite(localFile.isFavorite());
+                        serverFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
+                        serverFile.setStoragePath(localFile.getStoragePath());
+                        serverFile.setParentId(localFile.getParentId());
+                        serverFile.setEtag(localFile.getEtag());
+                        getStorageManager().saveFile(serverFile);
 
                     }
-                    result = new RemoteOperationResult(ResultCode.OK);
+                    result = new RemoteOperationResult<>(ResultCode.OK);
 
                 } else {
                     // nothing changed, nothing to do
-                    result = new RemoteOperationResult(ResultCode.OK);
+                    result = new RemoteOperationResult<>(ResultCode.OK);
                 }
 
                 // safe blanket: sync'ing a not in-conflict file will clean wrong conflict markers in ancestors
                 if (result.getCode() != ResultCode.SYNC_CONFLICT) {
-                    getStorageManager().saveConflict(mLocalFile, null);
+                    getStorageManager().saveConflict(localFile, null);
                 }
             } else {
                 // remote file does not exist, deleting local copy
-                boolean deleteResult = getStorageManager().removeFile(mLocalFile, true, true);
+                boolean deleteResult = getStorageManager().removeFile(localFile, true, true);
 
                 if (deleteResult) {
-                    result = new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+                    result = new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
                 } else {
                     Log_OC.e(TAG, "Removal of local copy failed (remote file does not exist any longer).");
                 }
@@ -279,8 +278,8 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         }
 
-        Log_OC.i(TAG, "Synchronizing " + mUser.getAccountName() + ", file " + mLocalFile.getRemotePath() +
-                ": " + result.getLogMessage());
+        Log_OC.i(TAG, "Synchronizing " + user.getAccountName() + ", file " + localFile.getRemotePath() +
+            ": " + result.getLogMessage());
 
         return result;
     }
@@ -293,14 +292,14 @@ public class SynchronizeFileOperation extends SyncOperation {
      */
     private void requestForUpload(OCFile file) {
         FileUploader.uploadUpdateFile(
-                mContext,
-                mUser.toPlatformAccount(),
-                file,
-                FileUploader.LOCAL_BEHAVIOUR_MOVE,
-                NameCollisionPolicy.OVERWRITE
-        );
+            context,
+            user.toPlatformAccount(),
+            file,
+            FileUploader.LOCAL_BEHAVIOUR_MOVE,
+            NameCollisionPolicy.OVERWRITE
+                                     );
 
-        mTransferWasRequested = true;
+        transferWasRequested = true;
     }
 
 
@@ -310,26 +309,26 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file OCFile object representing the file to download
      */
     private void requestForDownload(OCFile file) {
-        Intent i = new Intent(mContext, FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_USER, mUser);
+        Intent i = new Intent(context, FileDownloader.class);
+        i.putExtra(FileDownloader.EXTRA_USER, user);
         i.putExtra(FileDownloader.EXTRA_FILE, file);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            mContext.startForegroundService(i);
+            context.startForegroundService(i);
         } else {
-            mContext.startService(i);
+            context.startService(i);
         }
 
-        mTransferWasRequested = true;
+        transferWasRequested = true;
     }
 
 
     public boolean transferWasRequested() {
-        return mTransferWasRequested;
+        return transferWasRequested;
     }
 
 
     public OCFile getLocalFile() {
-        return mLocalFile;
+        return localFile;
     }
 
 }

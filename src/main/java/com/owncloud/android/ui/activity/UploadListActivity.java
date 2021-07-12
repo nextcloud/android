@@ -287,7 +287,7 @@ public class UploadListActivity extends FileActivity {
             // Do not call super in this case; more refactoring needed around onRemoteOperationFinish :'(
             getFileOperationsHelper().setOpIdWaitingFor(Long.MAX_VALUE);
             dismissLoadingDialog();
-            Account account = (Account) result.getData().get(0);
+            Account account = ((RemoteOperationResult<Account>) result).getResultData();
             if (!result.isSuccess()) {
                 requestCredentialsUpdate(this, account);
 

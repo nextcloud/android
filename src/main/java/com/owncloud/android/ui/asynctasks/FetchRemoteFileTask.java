@@ -40,13 +40,15 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.util.List;
+
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.FILE_ID_SEARCH;
 
 public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
-    private Account account;
-    private String fileId;
-    private FileDataStorageManager storageManager;
-    private FileDisplayActivity fileDisplayActivity;
+    private final Account account;
+    private final String fileId;
+    private final FileDataStorageManager storageManager;
+    private final FileDisplayActivity fileDisplayActivity;
 
     public FetchRemoteFileTask(Account account,
                                String fileId,
@@ -62,19 +64,19 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
 
 
-        SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
-                                                                                FILE_ID_SEARCH,
-                                                                                false);
-        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(account, fileDisplayActivity);
+        RemoteOperationResult<List<RemoteFile>> remoteOperationResult = new SearchRemoteOperation(fileId,
+                                                                                                  FILE_ID_SEARCH,
+                                                                                                  false)
+            .execute(account, fileDisplayActivity);
 
-        if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-            if (remoteOperationResult.getData().isEmpty()) {
+        if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null) {
+            if (remoteOperationResult.getResultData().isEmpty()) {
                 return fileDisplayActivity.getString(R.string.remote_file_fetch_failed);
             }
-            String remotePath = ((RemoteFile) remoteOperationResult.getData().get(0)).getRemotePath();
+            String remotePath = remoteOperationResult.getResultData().get(0).getRemotePath();
 
-            ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);
-            RemoteOperationResult result = operation.execute(account, fileDisplayActivity);
+            RemoteOperationResult<RemoteFile> result = new ReadFileRemoteOperation(remotePath)
+                .execute(account, fileDisplayActivity);
 
             if (!result.isSuccess()) {
                 Exception exception = result.getException();
@@ -87,7 +89,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
                 }
             }
 
-            RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
+            RemoteFile remoteFile = result.getResultData();
 
             OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);

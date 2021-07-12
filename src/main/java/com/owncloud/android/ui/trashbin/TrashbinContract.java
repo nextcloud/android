@@ -30,7 +30,7 @@ import java.util.List;
 public interface TrashbinContract {
 
     interface View {
-        void showTrashbinFolder(List<Object> trashbinFiles);
+        void showTrashbinFolder(List<TrashbinFile> trashbinFiles);
 
         void showSnackbarError(int message, TrashbinFile file);
 

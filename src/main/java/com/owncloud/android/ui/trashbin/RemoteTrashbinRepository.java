@@ -57,10 +57,10 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
     private static class RemoveTrashbinFileTask extends AsyncTask<Void, Void, Boolean> {
 
-        private User user;
-        private ClientFactory clientFactory;
-        private TrashbinFile file;
-        private OperationCallback callback;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private final TrashbinFile file;
+        private final OperationCallback callback;
 
         private RemoveTrashbinFileTask(User user,
                                        ClientFactory clientFactory,
@@ -99,9 +99,9 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
     private static class EmptyTrashbinTask extends AsyncTask<Void, Void, Boolean> {
 
-        private User user;
-        private ClientFactory clientFactory;
-        private OperationCallback callback;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private final OperationCallback callback;
 
         private EmptyTrashbinTask(User user, ClientFactory clientFactory, OperationCallback callback) {
             this.user = user;
@@ -137,10 +137,10 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
     private static class RestoreTrashbinFileTask extends AsyncTask<Void, Void, Boolean> {
 
-        private TrashbinFile file;
-        private User user;
-        private ClientFactory clientFactory;
-        private TrashbinRepository.OperationCallback callback;
+        private final TrashbinFile file;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private final TrashbinRepository.OperationCallback callback;
 
         private RestoreTrashbinFileTask(TrashbinFile file, User user, ClientFactory clientFactory,
                                         TrashbinRepository.OperationCallback callback) {
@@ -179,11 +179,11 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
 
     private static class ReadRemoteTrashbinFolderTask extends AsyncTask<Void, Void, Boolean> {
 
-        private String remotePath;
-        private User user;
-        private ClientFactory clientFactory;
-        private List<Object> trashbinFiles;
-        private LoadFolderCallback callback;
+        private final String remotePath;
+        private final User user;
+        private final ClientFactory clientFactory;
+        private List<TrashbinFile> trashbinFiles;
+        private final LoadFolderCallback callback;
 
         private ReadRemoteTrashbinFolderTask(String remotePath, User user, ClientFactory clientFactory,
                                              LoadFolderCallback callback) {
@@ -197,9 +197,10 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
         protected Boolean doInBackground(Void... voids) {
             try {
                 OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult result = new ReadTrashbinFolderRemoteOperation(remotePath).execute(client);
+                RemoteOperationResult<List<TrashbinFile>> result =
+                    new ReadTrashbinFolderRemoteOperation(remotePath).execute(client);
                 if (result.isSuccess()) {
-                    trashbinFiles = result.getData();
+                    trashbinFiles = result.getResultData();
                     return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;

@@ -19,6 +19,7 @@
 package com.owncloud.android.ui.activities.data.activities;
 
 import com.nextcloud.common.NextcloudClient;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +50,7 @@ public class RemoteActivitiesRepositoryTest {
 
     private ActivitiesRepository mActivitiesRepository;
 
-    private List<Object> activitiesList;
+    private List<Activity> activitiesList;
 
     @Before
     public void setUpActivitiesRepository() {

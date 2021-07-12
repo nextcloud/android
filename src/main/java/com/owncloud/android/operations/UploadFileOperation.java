@@ -1320,9 +1320,9 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         ReadFileRemoteOperation operation = new ReadFileRemoteOperation(path);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<RemoteFile> result = operation.execute(client);
         if (result.isSuccess()) {
-            updateOCFile(file, (RemoteFile) result.getData().get(0));
+            updateOCFile(file, result.getResultData());
             file.setLastSyncDateForProperties(syncDate);
         } else {
             Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
