@@ -737,7 +737,7 @@
     <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe.</string>
     <string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
-    <string name="unsharing_failed">Zrušenie sprístupnenia neúspešné</string>
+    <string name="unsharing_failed">Zrušenie zdieľania neúspešné</string>
     <string name="untrusted_domain">Prísup cez nedôveryhodnú doménu.  Prosím skontrolujte dokumentáciu pre ďalšie informácie.</string>
     <string name="update_link_file_error">Pri pokuse o aktualizáciu sprístupnenia došlo k chybe.</string>
     <string name="update_link_file_no_exist">Nie je možné aktualizovať. Skontrolujte, či súbor existuje.</string>

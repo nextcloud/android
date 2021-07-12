@@ -224,7 +224,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_recently_added">Ostatnio dodane</string>
     <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
-    <string name="drawer_item_shared">Współdzielone</string>
+    <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
     <string name="drawer_item_videos">Wideo</string>
