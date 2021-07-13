@@ -678,25 +678,21 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
-     * @param client    Handler of a session with an OC server.
-     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by
-     *                  the operation.
+     * @param client Handler of a session with an OC server.
+     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by the
+     * operation.
      */
-    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
-        RemoteOperationResult result;
-
+    private RemoteOperationResult<List<OCShare>> refreshSharesForFolder(OwnCloudClient client) {
         // remote request
-        GetSharesForFileRemoteOperation operation =
-            new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(), true, true);
-        result = operation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(),
+                                                                                          true,
+                                                                                          true)
+            .execute(client);
 
         if (result.isSuccess()) {
             // update local database
             ArrayList<OCShare> shares = new ArrayList<>();
-            OCShare share;
-            for (Object obj : result.getData()) {
-                share = (OCShare) obj;
-
+            for (OCShare share : result.getResultData()) {
                 if (!ShareType.NO_SHARED.equals(share.getShareType())) {
                     shares.add(share);
                 }
