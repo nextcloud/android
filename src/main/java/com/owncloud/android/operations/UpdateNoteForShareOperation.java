@@ -29,14 +29,16 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.List;
+
 
 /**
  * Updates a note of a private share.
  */
-public class UpdateNoteForShareOperation extends SyncOperation {
+public class UpdateNoteForShareOperation extends SyncOperation<List<OCShare>> {
 
-    private long shareId;
-    private String note;
+    private final long shareId;
+    private final String note;
 
     public UpdateNoteForShareOperation(long shareId, String note) {
         this.shareId = shareId;
@@ -44,23 +46,23 @@ public class UpdateNoteForShareOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
 
         OCShare share = getStorageManager().getShareById(shareId);
 
         if (share == null) {
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         UpdateShareRemoteOperation updateOperation = new UpdateShareRemoteOperation(share.getRemoteId());
         updateOperation.setNote(note);
-        RemoteOperationResult result = updateOperation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = updateOperation.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
+            RemoteOperation<List<OCShare>> getShareOp = new GetShareRemoteOperation(share.getRemoteId());
             result = getShareOp.execute(client);
             if (result.isSuccess()) {
-                getStorageManager().saveShare((OCShare) result.getData().get(0));
+                getStorageManager().saveShare(result.getResultData().get(0));
             }
         }
 

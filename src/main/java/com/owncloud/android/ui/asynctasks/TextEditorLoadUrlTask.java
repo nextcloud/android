@@ -61,7 +61,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
+        RemoteOperationResult<String> result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.id)
             .execute(account, editorWebViewWeakReference.get());
 
 
@@ -69,7 +69,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        return (String) result.getData().get(0);
+        return result.getResultData();
     }
 
     @Override

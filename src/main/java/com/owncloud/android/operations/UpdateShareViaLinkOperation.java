@@ -21,22 +21,23 @@
 package com.owncloud.android.operations;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.List;
+
 
 /**
  * Updates an existing public share for a given file
  */
-public class UpdateShareViaLinkOperation extends SyncOperation {
+public class UpdateShareViaLinkOperation extends SyncOperation<List<OCShare>> {
     private String password;
     private Boolean hideFileDownload;
     private long expirationDateInMillis;
-    private long shareId;
+    private final long shareId;
     private String label;
 
     public UpdateShareViaLinkOperation(long shareId) {
@@ -45,7 +46,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
         OCShare publicShare = getStorageManager().getShareById(shareId);
 
         UpdateShareRemoteOperation updateOp = new UpdateShareRemoteOperation(publicShare.getRemoteId());
@@ -54,14 +55,13 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         updateOp.setHideFileDownload(hideFileDownload);
         updateOp.setLabel(label);
 
-        RemoteOperationResult result = updateOp.execute(client);
+        RemoteOperationResult<List<OCShare>> result = updateOp.execute(client);
 
         if (result.isSuccess()) {
             // Retrieve updated share / save directly with password? -> no; the password is not to be saved
-            RemoteOperation getShareOp = new GetShareRemoteOperation(publicShare.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(publicShare.getRemoteId()).execute(client);
             if (result.isSuccess()) {
-                OCShare share = (OCShare) result.getData().get(0);
+                OCShare share = result.getResultData().get(0);
                 getStorageManager().saveShare(share);
             }
         }

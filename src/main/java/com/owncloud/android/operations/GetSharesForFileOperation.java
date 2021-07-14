@@ -28,7 +28,7 @@ import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provide a list shares for a specific file.
@@ -58,20 +58,14 @@ public class GetSharesForFileOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetSharesForFileRemoteOperation operation = new GetSharesForFileRemoteOperation(mPath,
-                                                                                        mReshares, mSubfiles);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = new GetSharesForFileRemoteOperation(mPath, mReshares, mSubfiles)
+            .execute(client);
 
         if (result.isSuccess()) {
 
             // Update DB with the response
-            Log_OC.d(TAG, "File = " + mPath + " Share list size  " + result.getData().size());
-            ArrayList<OCShare> shares = new ArrayList<OCShare>();
-            for(Object obj: result.getData()) {
-                shares.add((OCShare) obj);
-            }
-
-            getStorageManager().saveSharesDB(shares);
+            Log_OC.d(TAG, "File = " + mPath + " Share list size  " + result.getResultData().size());
+            getStorageManager().saveSharesDB(result.getResultData());
 
         } else if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND) {
             // no share on the file - remove local shares

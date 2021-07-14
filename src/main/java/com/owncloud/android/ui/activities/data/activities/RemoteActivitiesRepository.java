@@ -19,6 +19,7 @@
 package com.owncloud.android.ui.activities.data.activities;
 
 import com.nextcloud.common.NextcloudClient;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 
 import java.util.List;
 
@@ -36,16 +37,16 @@ public class RemoteActivitiesRepository implements ActivitiesRepository {
     @Override
     public void getActivities(int lastGiven, @NonNull LoadActivitiesCallback callback) {
         activitiesServiceApi.getAllActivities(lastGiven,
-                                              new ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>>() {
-            @Override
-            public void onLoaded(List<Object> activities, NextcloudClient client, int lastGiven) {
-                callback.onActivitiesLoaded(activities, client, lastGiven);
-            }
+                                              new ActivitiesServiceApi.ActivitiesServiceCallback<List<Activity>>() {
+                                                  @Override
+                                                  public void onLoaded(List<Activity> activities, NextcloudClient client, int lastGiven) {
+                                                      callback.onActivitiesLoaded(activities, client, lastGiven);
+                                                  }
 
-            @Override
-            public void onError(String error) {
-                callback.onActivitiesLoadedError(error);
-            }
-        });
+                                                  @Override
+                                                  public void onError(String error) {
+                                                      callback.onActivitiesLoadedError(error);
+                                                  }
+                                              });
     }
 }

@@ -128,7 +128,7 @@ class OfflineSyncWork constructor(
         // update eTag
         @Suppress("TooGenericExceptionCaught") // legacy code
         try {
-            val updatedEtag = result.data[0] as String
+            val updatedEtag = result.resultData
             ocFolder.etagOnServer = updatedEtag
             storageManager.saveFile(ocFolder)
         } catch (e: Exception) {

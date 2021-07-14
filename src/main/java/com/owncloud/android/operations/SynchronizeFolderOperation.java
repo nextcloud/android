@@ -168,15 +168,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // remote request
-        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<RemoteFile> result = new ReadFileRemoteOperation(mRemotePath).execute(client);
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getResultData());
 
             // check if remote and local folder are different
             mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
 
-            result = new RemoteOperationResult(ResultCode.OK);
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
                     (mRemoteFolderChanged ? "changed" : "not changed"));
@@ -206,13 +205,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<List<RemoteFile>> result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
 
         if (result.isSuccess()) {
-            synchronizeData(result.getData());
+            synchronizeData(result.getResultData());
             if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
             }
         } else {
@@ -240,16 +239,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     /**
-     * Synchronizes the data retrieved from the server about the contents of the target folder
-     * with the current data in the local database.
+     * Synchronizes the data retrieved from the server about the contents of the target folder with the current data in
+     * the local database.
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
+    private void synchronizeData(List<RemoteFile> folderAndFiles) throws OperationCancelledException {
 
 
         // parse data from remote folder
-        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
+        OCFile remoteFolder = FileStorageUtils.fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
@@ -294,7 +293,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         for (int i = 1; i < folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remote = (RemoteFile) folderAndFiles.get(i);
+            remote = folderAndFiles.get(i);
             remoteFile = FileStorageUtils.fillOCFile(remote);
 
             /// new OCFile instance to merge fresh data from server with local state

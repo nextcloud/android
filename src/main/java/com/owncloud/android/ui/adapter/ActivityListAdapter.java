@@ -114,7 +114,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.isDetailView = isDetailView;
     }
 
-    public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
+    public void setActivityItems(List<Activity> activityItems, NextcloudClient client, boolean clear) {
         this.client = client;
         String sTime = "";
 
@@ -122,8 +122,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             values.clear();
         }
 
-        for (Object o : activityItems) {
-            Activity activity = (Activity) o;
+        for (Activity activity : activityItems) {
             String time;
             if (activity.getDatetime() != null) {
                 time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();

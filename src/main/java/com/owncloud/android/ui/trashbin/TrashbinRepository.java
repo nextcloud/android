@@ -29,7 +29,7 @@ import java.util.List;
  */
 public interface TrashbinRepository {
     interface LoadFolderCallback {
-        void onSuccess(List<Object> files);
+        void onSuccess(List<TrashbinFile> files);
 
         void onError(int error);
     }

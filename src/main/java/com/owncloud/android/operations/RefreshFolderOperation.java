@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
 import com.owncloud.android.lib.resources.users.PredefinedStatus;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
@@ -87,20 +88,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
             RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
-    /** Time stamp for the synchronization process in progress */
-    private long mCurrentSyncTime;
+    /**
+     * Time stamp for the synchronization process in progress
+     */
+    private final long mCurrentSyncTime;
 
     /** Remote folder to synchronize */
     private OCFile mLocalFolder;
 
-    /** Access to the local database */
-    private FileDataStorageManager mStorageManager;
+    /**
+     * Access to the local database
+     */
+    private final FileDataStorageManager mStorageManager;
 
-    /** Account where the file to synchronize belongs */
-    private Account mAccount;
+    /**
+     * Account where the file to synchronize belongs
+     */
+    private final Account mAccount;
 
-    /** Android context; necessary to send requests to the download service */
-    private Context mContext;
+    /**
+     * Android context; necessary to send requests to the download service
+     */
+    private final Context mContext;
 
     /** Files and folders contained in the synchronized folder after a successful operation */
     private List<OCFile> mChildren;
@@ -112,28 +121,28 @@ public class RefreshFolderOperation extends RemoteOperation {
     private int mFailsInKeptInSyncFound;
 
     /**
-     * Map of remote and local paths to files that where locally stored in a location
-     * out of the ownCloud folder and couldn't be copied automatically into it
+     * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
+     * couldn't be copied automatically into it
      **/
-    private Map<String, String> mForgottenLocalFiles;
+    private final Map<String, String> mForgottenLocalFiles;
 
     /**
      * 'True' means that this operation is part of a full account synchronization
      */
-    private boolean mSyncFullAccount;
+    private final boolean mSyncFullAccount;
 
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
 
     /** 'True' means that Etag will be ignored */
-    private boolean mIgnoreETag;
+    private final boolean mIgnoreETag;
 
     /**
      * 'True' means that no share and no capabilities will be updated
      */
-    private boolean mOnlyFileMetadata;
+    private final boolean mOnlyFileMetadata;
 
-    private List<SynchronizeFileOperation> mFilesToSyncContents;
+    private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
 
@@ -216,11 +225,11 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     /**
      * Performs the synchronization.
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<Void> run(OwnCloudClient client) {
         RemoteOperationResult result;
         mFailsInKeptInSyncFound = 0;
         mConflictsFound = 0;
@@ -272,8 +281,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateOCVersion(OwnCloudClient client) {
-        UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
-        RemoteOperationResult result = update.execute(client);
+        RemoteOperationResult<Void> result = new UpdateOCVersionOperation(mAccount, mContext).execute(client);
         if (result.isSuccess()) {
             // Update Capabilities for this account
             updateCapabilities();
@@ -301,8 +309,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(mAccount,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 
-        GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
-        RemoteOperationResult result = getCapabilities.execute(mStorageManager, mContext);
+        RemoteOperationResult<OCCapability> result = new GetCapabilitiesOperation().execute(mStorageManager, mContext);
         if (result.isSuccess()) {
             String newDirectEditingEtag = mStorageManager.getCapability(mAccount.name).getDirectEditingEtag();
 
@@ -355,9 +362,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
     }
 
-    private RemoteOperationResult checkForChanges(OwnCloudClient client) {
+    private RemoteOperationResult<RemoteFile> checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
-        RemoteOperationResult result;
+        RemoteOperationResult<RemoteFile> result;
         String remotePath = mLocalFolder.getRemotePath();
 
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
@@ -366,7 +373,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         result = new ReadFileRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getResultData());
 
             if (!mIgnoreETag) {
                 // check if remote and local folder are different
@@ -378,7 +385,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
-            result = new RemoteOperationResult(ResultCode.OK);
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " +
                     (mRemoteFolderChanged ? "changed" : "not changed"));
@@ -401,15 +408,15 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
+    private RemoteOperationResult<List<RemoteFile>> fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
+        RemoteOperationResult<List<RemoteFile>> result = new ReadFolderRemoteOperation(remotePath).execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
 
         if (result.isSuccess()) {
-            synchronizeData(result.getData());
+            synchronizeData(result.getResultData());
             if (mConflictsFound > 0 || mFailsInKeptInSyncFound > 0) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                 // should be a different result code, but will do the job
             }
         } else {
@@ -429,25 +436,25 @@ public class RefreshFolderOperation extends RemoteOperation {
                     mLocalFolder,
                     true,
                     mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)
-            );
+                                        );
         }
     }
 
 
     /**
-     * Synchronizes the data retrieved from the server about the contents of the target folder
-     * with the current data in the local database.
-     *
+     * Synchronizes the data retrieved from the server about the contents of the target folder with the current data in
+     * the local database.
+     * <p>
      * Grants that mChildren is updated with fresh data after execution.
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(List<Object> folderAndFiles) {
+    private void synchronizeData(List<RemoteFile> folderAndFiles) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
         // parse data from remote folder
-        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
+        OCFile remoteFolder = FileStorageUtils.fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
@@ -487,7 +494,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         for (int i = 1; i < folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remote = (RemoteFile) folderAndFiles.get(i);
+            remote = folderAndFiles.get(i);
             remoteFile = FileStorageUtils.fillOCFile(remote);
 
             // new OCFile instance to merge fresh data from server with local state
@@ -678,25 +685,21 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
-     * @param client    Handler of a session with an OC server.
-     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by
-     *                  the operation.
+     * @param client Handler of a session with an OC server.
+     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by the
+     * operation.
      */
-    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
-        RemoteOperationResult result;
-
+    private RemoteOperationResult<List<OCShare>> refreshSharesForFolder(OwnCloudClient client) {
         // remote request
-        GetSharesForFileRemoteOperation operation =
-            new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(), true, true);
-        result = operation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(),
+                                                                                          true,
+                                                                                          true)
+            .execute(client);
 
         if (result.isSuccess()) {
             // update local database
             ArrayList<OCShare> shares = new ArrayList<>();
-            OCShare share;
-            for (Object obj : result.getData()) {
-                share = (OCShare) obj;
-
+            for (OCShare share : result.getResultData()) {
                 if (!ShareType.NO_SHARED.equals(share.getShareType())) {
                     shares.add(share);
                 }

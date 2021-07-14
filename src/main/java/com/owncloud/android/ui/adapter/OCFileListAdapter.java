@@ -835,8 +835,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-
-    public void setData(List<Object> objects,
+    public void setData(List<OCShare> ocShares,
+                        List<RemoteFile> remoteFiles,
                         ExtendedListFragment.SearchType searchType,
                         FileDataStorageManager storageManager,
                         @Nullable OCFile folder,
@@ -872,11 +872,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
-            if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
-                parseShares(objects);
-            } else {
-                parseVirtuals(objects, searchType);
+        if (mStorageManager != null) {
+            if (!ocShares.isEmpty() && searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
+                parseShares(ocShares);
+            }
+
+            if (!remoteFiles.isEmpty() && searchType != ExtendedListFragment.SearchType.SHARED_FILTER) {
+                parseVirtuals(remoteFiles, searchType);
             }
         }
 
@@ -894,52 +896,48 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-    private void parseShares(List<Object> objects) {
+    private void parseShares(List<OCShare> ocShares) {
         List<OCShare> shares = new ArrayList<>();
 
-        for (Object shareObject : objects) {
+        for (OCShare ocShare : ocShares) {
             // check type before cast as of long running data fetch it is possible that old result is filled
-            if (shareObject instanceof OCShare) {
-                OCShare ocShare = (OCShare) shareObject;
+            shares.add(ocShare);
 
-                shares.add(ocShare);
+            // get ocFile from Server to have an up-to-date copy
+            RemoteOperationResult<RemoteFile> result = new ReadFileRemoteOperation(ocShare.getPath())
+                .execute(user.toPlatformAccount(), activity);
 
-                // get ocFile from Server to have an up-to-date copy
-                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(user.toPlatformAccount(),
-                                                                                                      activity);
+            if (result.isSuccess()) {
+                OCFile file = FileStorageUtils.fillOCFile(result.getResultData());
+                FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
+                file = mStorageManager.saveFileWithParent(file, activity);
 
-                if (result.isSuccess()) {
-                    OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
-                    file = mStorageManager.saveFileWithParent(file, activity);
-
-                    ShareType newShareType = ocShare.getShareType();
-                    if (newShareType == ShareType.PUBLIC_LINK) {
-                        file.setSharedViaLink(true);
-                    } else if (newShareType == ShareType.USER ||
-                        newShareType == ShareType.GROUP ||
-                        newShareType == ShareType.EMAIL ||
-                        newShareType == ShareType.FEDERATED ||
-                        newShareType == ShareType.ROOM ||
-                        newShareType == ShareType.CIRCLE) {
-                        file.setSharedWithSharee(true);
-                    }
-
-                    mStorageManager.saveFile(file);
-
-                    if (!mFiles.contains(file)) {
-                        mFiles.add(file);
-                    }
-                } else {
-                    Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
+                ShareType newShareType = ocShare.getShareType();
+                if (newShareType == ShareType.PUBLIC_LINK) {
+                    file.setSharedViaLink(true);
+                } else if (newShareType == ShareType.USER ||
+                    newShareType == ShareType.GROUP ||
+                    newShareType == ShareType.EMAIL ||
+                    newShareType == ShareType.FEDERATED ||
+                    newShareType == ShareType.ROOM ||
+                    newShareType == ShareType.CIRCLE) {
+                    file.setSharedWithSharee(true);
                 }
+
+                mStorageManager.saveFile(file);
+
+                if (!mFiles.contains(file)) {
+                    mFiles.add(file);
+                }
+            } else {
+                Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
             }
         }
 
         mStorageManager.saveShares(shares);
     }
 
-    private void parseVirtuals(List<Object> objects, ExtendedListFragment.SearchType searchType) {
+    private void parseVirtuals(List<RemoteFile> remoteFiles, ExtendedListFragment.SearchType searchType) {
         VirtualFolderType type;
         boolean onlyMedia = false;
 
@@ -951,14 +949,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 type = VirtualFolderType.GALLERY;
                 onlyMedia = true;
 
-                int lastPosition = objects.size() - 1;
+                int lastPosition = remoteFiles.size() - 1;
 
                 if (lastPosition < 0) {
                     lastTimestamp = -1;
                     break;
                 }
 
-                RemoteFile lastFile = (RemoteFile) objects.get(lastPosition);
+                RemoteFile lastFile = remoteFiles.get(lastPosition);
                 lastTimestamp = lastFile.getModifiedTimestamp() / 1000;
                 break;
             default:
@@ -968,8 +966,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         List<ContentValues> contentValues = new ArrayList<>();
 
-        for (Object remoteFile : objects) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
+        for (RemoteFile remoteFile : remoteFiles) {
+            OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.toPlatformAccount());
 
             try {

@@ -274,14 +274,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
-
-            GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user.toPlatformAccount(), getContext());
+            RemoteOperationResult<String> publicKeyResult = new GetPublicKeyOperation()
+                .execute(user.toPlatformAccount(), getContext());
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
 
-                String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
+                String publicKeyFromServer = publicKeyResult.getResultData();
                 arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
                                                             EncryptionUtils.PUBLIC_KEY,
                                                             publicKeyFromServer);
@@ -348,12 +347,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 String userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID);
                 String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
-                SendCSROperation operation = new SendCSROperation(urlEncoded);
-                RemoteOperationResult result = operation.execute(user.toPlatformAccount(), getContext());
+                RemoteOperationResult<String> result = new SendCSROperation(urlEncoded)
+                    .execute(user.toPlatformAccount(), getContext());
 
                 if (result.isSuccess()) {
                     Log_OC.d(TAG, "public key success");
-                    publicKey = (String) result.getData().get(0);
+                    publicKey = result.getResultData();
                 } else {
                     keyResult = KEY_FAILED;
                     return "";
@@ -363,24 +362,23 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
                 String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
                 String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
                 String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString,
-                        generateMnemonicString(false));
+                                                                               generateMnemonicString(false));
 
                 // upload encryptedPrivateKey
-                StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(user.toPlatformAccount(),
-                                                                                               getContext());
+                RemoteOperationResult<String> storePrivateKeyResult = new StorePrivateKeyOperation(encryptedPrivateKey)
+                    .execute(user.toPlatformAccount(), getContext());
 
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");
 
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY,
-                            privateKeyString);
+                                                                privateKeyString);
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY, publicKey);
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC,
-                            generateMnemonicString(true));
+                                                                generateMnemonicString(true));
 
                     keyResult = KEY_CREATED;
-                    return (String) storePrivateKeyResult.getData().get(0);
+                    return storePrivateKeyResult.getResultData();
                 } else {
                     DeletePublicKeyOperation deletePublicKeyOperation = new DeletePublicKeyOperation();
                     deletePublicKeyOperation.execute(user.toPlatformAccount(), getContext());

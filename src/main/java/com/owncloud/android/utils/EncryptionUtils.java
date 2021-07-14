@@ -98,7 +98,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Utils for encryption
  */
 public final class EncryptionUtils {
-    private static String TAG = EncryptionUtils.class.getSimpleName();
+    private static final String TAG = EncryptionUtils.class.getSimpleName();
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
@@ -224,7 +224,7 @@ public final class EncryptionUtils {
     public static @Nullable
     DecryptedFolderMetadata downloadFolderMetadata(OCFile folder, OwnCloudClient client,
                                                    Context context, Account account) {
-        RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
+        RemoteOperationResult<String> getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
             .execute(client);
 
         if (!getMetadataOperationResult.isSuccess()) {
@@ -233,7 +233,7 @@ public final class EncryptionUtils {
 
         // decrypt metadata
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+        String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
         String privateKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
 
         EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
@@ -795,12 +795,12 @@ public final class EncryptionUtils {
 
     public static String lockFolder(OCFile parentFile, OwnCloudClient client) throws UploadException {
         // Lock folder
-        LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId());
-        RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
+        RemoteOperationResult<String> lockFileOperationResult = new LockFileRemoteOperation(parentFile.getLocalId())
+            .execute(client);
 
         if (lockFileOperationResult.isSuccess() &&
-            !TextUtils.isEmpty((String) lockFileOperationResult.getData().get(0))) {
-            return (String) lockFileOperationResult.getData().get(0);
+            !TextUtils.isEmpty(lockFileOperationResult.getResultData())) {
+            return lockFileOperationResult.getResultData();
         } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
             throw new UploadException("Forbidden! Please try again later.)");
         } else {
@@ -818,14 +818,14 @@ public final class EncryptionUtils {
                                                                           String publicKey) throws UploadException,
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
-        GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
-        RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+        RemoteOperationResult<String> getMetadataOperationResult = new GetMetadataRemoteOperation(
+            parentFile.getLocalId()).execute(client);
 
         DecryptedFolderMetadata metadata;
 
         if (getMetadataOperationResult.isSuccess()) {
             // decrypt metadata
-            String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+            String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
 
 
             EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
@@ -855,7 +855,7 @@ public final class EncryptionUtils {
                                       String token,
                                       OwnCloudClient client,
                                       boolean metadataExists) throws UploadException {
-        RemoteOperationResult uploadMetadataOperationResult;
+        RemoteOperationResult<String> uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
             UpdateMetadataRemoteOperation storeMetadataOperation = new UpdateMetadataRemoteOperation(
@@ -873,11 +873,11 @@ public final class EncryptionUtils {
         }
     }
 
-    public static RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
+    public static RemoteOperationResult<Void> unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
             return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client);
         } else {
-            return new RemoteOperationResult(new Exception("No token available"));
+            return new RemoteOperationResult<>(new Exception("No token available"));
         }
     }
 }

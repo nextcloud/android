@@ -24,7 +24,6 @@ package com.owncloud.android.operations;
 import android.text.TextUtils;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
@@ -32,13 +31,15 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.List;
+
 
 /**
  * Updates an existing private share for a given file.
  */
-public class UpdateSharePermissionsOperation extends SyncOperation {
+public class UpdateSharePermissionsOperation extends SyncOperation<List<OCShare>> {
 
-    private long shareId;
+    private final long shareId;
     private int permissions;
     private long expirationDateInMillis;
     private String password;
@@ -57,13 +58,13 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
 
         OCShare share = getStorageManager().getShareById(shareId); // ShareType.USER | ShareType.GROUP
 
         if (share == null) {
             // TODO try to get remote share before failing?
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         path = share.getPath();
@@ -73,13 +74,12 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         updateOp.setPassword(password);
         updateOp.setPermissions(permissions);
         updateOp.setExpirationDate(expirationDateInMillis);
-        RemoteOperationResult result = updateOp.execute(client);
+        RemoteOperationResult<List<OCShare>> result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(share.getRemoteId()).execute(client);
             if (result.isSuccess()) {
-                share = (OCShare) result.getData().get(0);
+                share = result.getResultData().get(0);
                 // TODO check permissions are being saved
                 updateData(share);
             }
@@ -91,12 +91,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(path);   // TODO - check if may be moved to UpdateRemoteShareOperation
-        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setFolder(true);
-        } else {
-            share.setFolder(false);
-        }
-
+        share.setFolder(path.endsWith(FileUtils.PATH_SEPARATOR));
         share.setPasswordProtected(!TextUtils.isEmpty(password));
         getStorageManager().saveShare(share);
     }

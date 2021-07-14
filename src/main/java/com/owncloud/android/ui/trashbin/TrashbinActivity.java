@@ -248,7 +248,7 @@ public class TrashbinActivity extends DrawerActivity implements
     }
 
     @Override
-    public void showTrashbinFolder(List<Object> trashbinFiles) {
+    public void showTrashbinFolder(List<TrashbinFile> trashbinFiles) {
         if (active) {
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
             binding.swipeContainingList.setRefreshing(false);

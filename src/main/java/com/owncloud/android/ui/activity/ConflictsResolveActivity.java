@@ -189,10 +189,10 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
             new Thread(() -> {
                 try {
-                    RemoteOperationResult result = operation.execute(getAccount(), this);
+                    RemoteOperationResult<RemoteFile> result = operation.execute(getAccount(), this);
 
                     if (result.isSuccess()) {
-                        existingFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                        existingFile = FileStorageUtils.fillOCFile(result.getResultData());
                         existingFile.setLastSyncDateForProperties(System.currentTimeMillis());
 
                         startDialog();

@@ -37,12 +37,12 @@ import java.util.List;
 /**
  * Creates a new private share for a given file.
  */
-public class CreateShareWithShareeOperation extends SyncOperation {
+public class CreateShareWithShareeOperation extends SyncOperation<List<OCShare>> {
 
-    private String path;
-    private String shareeName;
-    private ShareType shareType;
-    private int permissions;
+    private final String path;
+    private final String shareeName;
+    private final ShareType shareType;
+    private final int permissions;
 
     private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
                                                                                              ShareType.GROUP,
@@ -72,7 +72,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
 
         CreateShareRemoteOperation operation = new CreateShareRemoteOperation(
             path,
@@ -83,11 +83,11 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             permissions
         );
         operation.setGetShareDetails(true);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = operation.execute(client);
 
 
-        if (result.isSuccess() && result.getData().size() > 0) {
-            OCShare share = (OCShare) result.getData().get(0);
+        if (result.isSuccess() && result.getResultData().size() > 0) {
+            OCShare share = result.getResultData().get(0);
             updateData(share);
         }
 

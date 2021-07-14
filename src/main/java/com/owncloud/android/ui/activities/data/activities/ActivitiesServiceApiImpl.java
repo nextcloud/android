@@ -36,7 +36,9 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.activities.ActivitiesResponse;
 import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -57,7 +59,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
     }
 
     @Override
-    public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
+    public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Activity>> callback) {
         GetActivityListTask getActivityListTask = new GetActivityListTask(accountManager.getUser().toPlatformAccount(),
                                                                           lastGiven,
                                                                           callback);
@@ -66,8 +68,8 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     private static class GetActivityListTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final ActivitiesServiceCallback<List<Object>> callback;
-        private List<Object> activities;
+        private final ActivitiesServiceCallback<List<Activity>> callback;
+        private List<Activity> activities;
         private Account account;
         private int lastGiven;
         private String errorMessage;
@@ -75,7 +77,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
         private GetActivityListTask(Account account,
                                     int lastGiven,
-                                    ActivitiesServiceCallback<List<Object>> callback) {
+                                    ActivitiesServiceCallback<List<Activity>> callback) {
             this.account = account;
             this.lastGiven = lastGiven;
             this.callback = callback;
@@ -99,13 +101,11 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     getRemoteActivitiesOperation = new GetActivitiesRemoteOperation();
                 }
 
-                final RemoteOperationResult result = getRemoteActivitiesOperation.execute(client);
+                final RemoteOperationResult<ActivitiesResponse> result = getRemoteActivitiesOperation.execute(client);
 
-                if (result.isSuccess() && result.getData() != null) {
-                    final ArrayList<Object> data = result.getData();
-                    activities = (ArrayList) data.get(0);
-
-                    lastGiven = (int) data.get(1);
+                if (result.isSuccess()) {
+                    activities = result.getResultData().getActivities();
+                    lastGiven = result.getResultData().getLastGiven();
                     return Boolean.TRUE;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());

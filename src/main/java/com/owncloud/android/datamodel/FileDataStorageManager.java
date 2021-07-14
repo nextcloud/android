@@ -83,8 +83,8 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     public static final String NULL_STRING = "null";
 
-    private ContentResolver contentResolver;
-    private ContentProviderClient contentProviderClient;
+    private final ContentResolver contentResolver;
+    private final ContentProviderClient contentProviderClient;
     private Account account;
 
     public FileDataStorageManager(Account account, ContentResolver contentResolver) {
@@ -309,9 +309,9 @@ public class FileDataStorageManager {
                 // remote request
                 ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
                 // TODO Deprecated
-                RemoteOperationResult result = operation.execute(getAccount(), context);
+                RemoteOperationResult<RemoteFile> result = operation.execute(getAccount(), context);
                 if (result.isSuccess()) {
-                    OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                    OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getResultData());
 
                     returnFile = saveFileWithParent(remoteFolder, context);
                 } else {

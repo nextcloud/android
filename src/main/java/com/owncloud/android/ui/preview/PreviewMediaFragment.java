@@ -493,14 +493,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 return null;
             }
 
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(fileId[0]);
-            RemoteOperationResult result = sfo.execute(client);
+            RemoteOperationResult<String> result = new StreamMediaFileOperation(fileId[0]).execute(client);
 
             if (!result.isSuccess()) {
                 return null;
             }
 
-            return Uri.parse((String) result.getData().get(0));
+            return Uri.parse(result.getResultData());
         }
 
         @Override

@@ -28,13 +28,16 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
+public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResult<List<RemoteFile>>> {
 
     private int columnCount;
     private User user;
@@ -67,15 +70,15 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
     }
 
     @Override
-    protected RemoteOperationResult doInBackground(Void... voids) {
+    protected RemoteOperationResult<List<RemoteFile>> doInBackground(Void... voids) {
         if (photoFragmentWeakReference.get() == null) {
-            return new RemoteOperationResult(new Exception("Photo fragment is null"));
+            return new RemoteOperationResult<>(new Exception("Photo fragment is null"));
         }
         GalleryFragment photoFragment = photoFragmentWeakReference.get();
         OCFileListAdapter adapter = photoFragment.getAdapter();
 
         if (isCancelled()) {
-            return new RemoteOperationResult(new Exception("Cancelled"));
+            return new RemoteOperationResult<>(new Exception("Cancelled"));
         } else {
             limit = 15 * columnCount;
 
@@ -90,34 +93,37 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             if (photoFragment.getContext() != null) {
                 return searchRemoteOperation.execute(user.toPlatformAccount(), photoFragment.getContext());
             } else {
-                return new RemoteOperationResult(new IllegalStateException("No context available"));
+                return new RemoteOperationResult<>(new IllegalStateException("No context available"));
             }
         }
     }
 
     @Override
-    protected void onPostExecute(RemoteOperationResult result) {
+    protected void onPostExecute(RemoteOperationResult<List<RemoteFile>> result) {
         if (photoFragmentWeakReference.get() != null) {
             GalleryFragment photoFragment = photoFragmentWeakReference.get();
 
-            if (result.isSuccess() && result.getData() != null && !isCancelled()) {
-                if (result.getData() == null || result.getData().size() == 0) {
+            if (result.isSuccess() && result.getResultData() != null && !isCancelled()) {
+                if (result.getResultData() == null || result.getResultData().size() == 0) {
                     photoFragment.setSearchDidNotFindNewPhotos(true);
                 } else {
                     OCFileListAdapter adapter = photoFragment.getAdapter();
 
-                    if (result.getData().size() < limit) {
+                    if (result.getResultData().size() < limit) {
                         // stop loading spinner
                         photoFragment.setSearchDidNotFindNewPhotos(true);
                     }
 
-                    adapter.setData(result.getData(),
+
+                    adapter.setData(new ArrayList<>(),
+                                    result.getResultData(),
                                     ExtendedListFragment.SearchType.GALLERY_SEARCH,
                                     storageManager,
                                     null,
                                     false);
                     adapter.notifyDataSetChanged();
-                    Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
+                    Log_OC.d(this,
+                             "Search: count: " + result.getResultData().size() + " total: " + adapter.getFiles().size());
                 }
             }
 

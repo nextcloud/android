@@ -20,6 +20,7 @@ package com.owncloud.android.ui.activities;
 
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.ui.activity.BaseActivity;
 
 import java.util.List;
@@ -27,7 +28,8 @@ import java.util.List;
 public interface ActivitiesContract {
 
     interface View {
-        void showActivities(List<Object> activities, NextcloudClient client, int lastGiven);
+        void showActivities(List<Activity> activities, NextcloudClient client, int lastGiven);
+
         void showActivitiesLoadError(String error);
         void showActivityDetailUI(OCFile ocFile);
         void showActivityDetailUIIsNull();

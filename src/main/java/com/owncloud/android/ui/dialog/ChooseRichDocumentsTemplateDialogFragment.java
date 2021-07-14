@@ -33,6 +33,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
+import com.nextcloud.android.lib.resources.richdocuments.CreateFileFromTemplateRemoteOperation;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -43,7 +44,6 @@ import com.owncloud.android.databinding.ChooseTemplateBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.files.CreateFileFromTemplateOperation;
 import com.owncloud.android.files.FetchTemplateOperation;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -254,11 +254,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
-        private OwnCloudClient client;
-        private WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
-        private Template template;
-        private String path;
-        private User user;
+        private final OwnCloudClient client;
+        private final WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final Template template;
+        private final String path;
+        private final User user;
         private OCFile file;
 
         CreateFileFromTemplateTask(ChooseRichDocumentsTemplateDialogFragment chooseTemplateDialogFragment,
@@ -266,7 +266,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                    Template template,
                                    String path,
                                    User user
-        ) {
+                                  ) {
             this.client = client;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;
@@ -276,14 +276,15 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         @Override
         protected String doInBackground(Void... voids) {
-            RemoteOperationResult result = new CreateFileFromTemplateOperation(path, template.getId()).execute(client);
+            RemoteOperationResult<String> result = new CreateFileFromTemplateRemoteOperation(path, template.getId())
+                .execute(client);
 
             if (result.isSuccess()) {
                 // get file
-                RemoteOperationResult newFileResult = new ReadFileRemoteOperation(path).execute(client);
+                RemoteOperationResult<RemoteFile> newFileResult = new ReadFileRemoteOperation(path).execute(client);
 
                 if (newFileResult.isSuccess()) {
-                    OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));
+                    OCFile temp = FileStorageUtils.fillOCFile(newFileResult.getResultData());
 
                     if (chooseTemplateDialogFragmentWeakReference.get() != null) {
                         FileDataStorageManager storageManager = new FileDataStorageManager(
@@ -292,7 +293,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                         storageManager.saveFile(temp);
                         file = storageManager.getFileByPath(path);
 
-                        return result.getData().get(0).toString();
+                        return result.getResultData();
                     } else {
                         return "";
                     }
@@ -330,8 +331,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     private static class FetchTemplateTask extends AsyncTask<Type, Void, List<Template>> {
 
-        private OwnCloudClient client;
-        private WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
+        private final OwnCloudClient client;
+        private final WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
 
         FetchTemplateTask(ChooseRichDocumentsTemplateDialogFragment chooseTemplateDialogFragment, OwnCloudClient client) {
             this.client = client;
@@ -340,15 +341,14 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         @Override
         protected List<Template> doInBackground(Type... type) {
-            FetchTemplateOperation fetchTemplateOperation = new FetchTemplateOperation(type[0]);
-            RemoteOperationResult result = fetchTemplateOperation.execute(client);
+            RemoteOperationResult<List<Template>> result = new FetchTemplateOperation(type[0]).execute(client);
 
             if (!result.isSuccess()) {
                 return new ArrayList<>();
             }
 
             List<Template> templateList = new ArrayList<>();
-            for (Object object : result.getData()) {
+            for (Object object : result.getResultData()) {
                 templateList.add((Template) object);
             }
 

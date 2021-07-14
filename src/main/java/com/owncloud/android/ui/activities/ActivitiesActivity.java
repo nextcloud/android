@@ -29,6 +29,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
@@ -176,7 +177,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     }
 
     @Override
-    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
+    public void showActivities(List<Activity> activities, NextcloudClient client, int lastGiven) {
         boolean clear = false;
         if (this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED) {
             clear = true;

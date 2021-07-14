@@ -98,10 +98,11 @@ public class FilesServiceApiImpl implements FilesServiceApi {
             try {
                 OwnCloudClient ownCloudClient = clientFactory.create(user);
                 // always update file as it could be an old state saved in database
-                RemoteOperationResult resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl).execute(ownCloudClient);
+                RemoteOperationResult<RemoteFile> resultRemoteFileOp = new ReadFileRemoteOperation(fileUrl)
+                    .execute(ownCloudClient);
 
                 if (resultRemoteFileOp.isSuccess()) {
-                    OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) resultRemoteFileOp.getData().get(0));
+                    OCFile temp = FileStorageUtils.fillOCFile(resultRemoteFileOp.getResultData());
                     remoteOcFile = baseActivity.getStorageManager().saveFileWithParent(temp, context);
 
                     if (remoteOcFile.isFolder()) {

@@ -245,7 +245,7 @@ class NotificationWork constructor(
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client)
             if (result.isSuccess) {
-                val notification = result.notificationData[0]
+                val notification = result.resultData
                 sendNotification(notification, account)
             }
         } catch (e: Exception) {
