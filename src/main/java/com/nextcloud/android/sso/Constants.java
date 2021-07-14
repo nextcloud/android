@@ -43,6 +43,7 @@ public final class Constants {
     public static final String EXCEPTION_HTTP_REQUEST_FAILED = "CE_5";
     public static final String EXCEPTION_ACCOUNT_ACCESS_DECLINED = "CE_6";
 
+
     private Constants() {
         // No instance
     }
