@@ -176,7 +176,7 @@
     <string name="could_not_retrieve_shares">No at fatu a recuperare is cumpartziduras</string>
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
     <string name="create">Crea</string>
-    <string name="create_dir_fail_msg">Impossìbile a creare sa cartella</string>
+    <string name="create_dir_fail_msg">No at fatu a creare sa cartella</string>
     <string name="create_new">Crea·nde una noa</string>
     <string name="create_new_document">Crea archìviu nou</string>
     <string name="create_new_folder">Crea cartella noa</string>
@@ -388,7 +388,7 @@
     <string name="link">Ligòngiu</string>
     <string name="link_share_allow_upload_and_editing">Permite carrigamentu e modìficas</string>
     <string name="link_share_file_drop">Trìsina archìviu (isceti pro carrigare)</string>
-    <string name="link_share_read_only">Isceti letura</string>
+    <string name="link_share_read_only">letura sola</string>
     <string name="list_layout">Istrutura in elencu</string>
     <string name="local_file_list_empty">Non ddoe at documentos in custa cartella.</string>
     <string name="local_file_not_found_message">Documentu no agatadu in su sistema de documentos locale</string>
