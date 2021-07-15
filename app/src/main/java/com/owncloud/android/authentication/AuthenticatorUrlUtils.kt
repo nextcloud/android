@@ -14,7 +14,7 @@ import java.net.URI
  */
 object AuthenticatorUrlUtils {
 
-    const val WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav"
+    private const val REMOTE_PHP_PATH = "/remote.php/dav"
 
     fun normalizeUrlSuffix(url: String): String {
         var normalizedUrl = url
@@ -29,7 +29,7 @@ object AuthenticatorUrlUtils {
         while (trimmedUrl.endsWith("/")) {
             trimmedUrl = trimmedUrl.substring(0, url.length - 1)
         }
-        val pos = trimmedUrl.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER)
+        val pos = trimmedUrl.lastIndexOf(REMOTE_PHP_PATH)
         if (pos >= 0) {
             trimmedUrl = trimmedUrl.substring(0, pos)
         }
@@ -37,8 +37,8 @@ object AuthenticatorUrlUtils {
     }
 
     private fun trimUrlWebdav(url: String): String {
-        return if (url.lowercase().endsWith(WEBDAV_PATH_4_0_AND_LATER)) {
-            url.substring(0, url.length - WEBDAV_PATH_4_0_AND_LATER.length)
+        return if (url.lowercase().endsWith(REMOTE_PHP_PATH)) {
+            url.substring(0, url.length - REMOTE_PHP_PATH.length)
         } else {
             url
         }
