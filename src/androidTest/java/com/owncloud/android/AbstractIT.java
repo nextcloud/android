@@ -156,6 +156,10 @@ public abstract class AbstractIT {
                     colorHex = "#000000";
                     break;
 
+                case "lightgreen":
+                    colorHex = "#aaff00";
+                    break;
+
                 default:
                     break;
             }

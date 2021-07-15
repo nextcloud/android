@@ -40,6 +40,10 @@ class NotificationsActivityIT : AbstractIT() {
     fun loading() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
+        waitForIdleSync()
+
+        sut.runOnUiThread { sut.setLoadingMessageEmpty() }
+
         screenshot(sut)
     }
 

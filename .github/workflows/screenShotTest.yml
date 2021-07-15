@@ -10,8 +10,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                scheme: [ Dark, Light ]
-                color: [ blue, white, black ]
+                scheme: [ Light ]
+                color: [ blue ]
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 1.8
