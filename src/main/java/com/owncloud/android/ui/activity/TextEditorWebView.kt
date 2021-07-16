@@ -25,11 +25,14 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
 import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
+import com.owncloud.android.utils.theme.ThemeUtils
 import javax.inject.Inject
 
 class TextEditorWebView : EditorWebView() {
@@ -54,6 +57,16 @@ class TextEditorWebView : EditorWebView() {
         }
 
         webview.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
+
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+            WebSettingsCompat.setForceDarkStrategy(
+                webview.settings,
+                WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+            )
+        }
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && ThemeUtils.isDarkModeActive(this)) {
+            WebSettingsCompat.setForceDark(webview.settings, WebSettingsCompat.FORCE_DARK_ON)
+        }
 
         webview.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
