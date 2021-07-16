@@ -52,22 +52,22 @@ class TextEditorWebView : EditorWebView() {
         val editor = FileMenuFilter.getEditor(contentResolver, user.get(), file.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
-            webView.settings.userAgentString = generateOnlyOfficeUserAgent()
+            getWebView().settings.userAgentString = generateOnlyOfficeUserAgent()
         }
 
-        webView.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
+        getWebView().addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
 
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
             WebSettingsCompat.setForceDarkStrategy(
-                webview.settings,
+                getWebView().settings,
                 WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
             )
         }
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && ThemeUtils.isDarkModeActive(this)) {
-            WebSettingsCompat.setForceDark(webview.settings, WebSettingsCompat.FORCE_DARK_ON)
+            WebSettingsCompat.setForceDark(getWebView().settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 
-        webview.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
+        getWebView().setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL))
     }
