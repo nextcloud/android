@@ -34,6 +34,9 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -120,18 +123,20 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      *
      * {@inheritDoc}
      */
-    public FileSyncAdapter(Context context, boolean autoInitialize) {
-        super(context, autoInitialize);
+    public FileSyncAdapter(Context context, boolean autoInitialize, UserAccountManager userAccountManager) {
+        super(context, autoInitialize, userAccountManager);
     }
-
 
     /**
      * Creates a {@link FileSyncAdapter}
      *
      * {@inheritDoc}
      */
-    public FileSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
-        super(context, autoInitialize, allowParallelSyncs);
+    public FileSyncAdapter(Context context,
+                           boolean autoInitialize,
+                           boolean allowParallelSyncs,
+                           UserAccountManager userAccountManager) {
+        super(context, autoInitialize, allowParallelSyncs, userAccountManager);
     }
 
 
@@ -258,16 +263,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
 
         // folder synchronization
-        RefreshFolderOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                                   mCurrentSyncTime,
-                                                                                   true,
-                                                                                   false,
-                                                                                   getStorageManager(),
-                                                                                   getAccount(),
-                                                                                   getContext()
-                                                                                  );
+        RefreshFolderOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                                                          mCurrentSyncTime,
+                                                                          true,
+                                                                          false,
+                                                                          getStorageManager(),
+                                                                          getUser(),
+                                                                          getContext());
         RemoteOperationResult result = synchFolderOp.execute(getClient());
-
 
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
         sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);

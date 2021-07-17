@@ -920,7 +920,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.toPlatformAccount());
+                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
                     file = mStorageManager.saveFileWithParent(file, activity);
 
                     ShareType newShareType = ocShare.getShareType();
@@ -980,7 +980,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         for (Object remoteFile : objects) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) remoteFile);
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.toPlatformAccount());
+            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
 
             try {
                 if (ExtendedListFragment.SearchType.GALLERY_SEARCH == searchType) {
@@ -997,7 +997,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                             true,
                                                                                             false,
                                                                                             mStorageManager,
-                                                                                            user.toPlatformAccount(),
+                                                                                            user,
                                                                                             activity);
                         refreshFolderOperation.execute(user.toPlatformAccount(), activity);
                     }

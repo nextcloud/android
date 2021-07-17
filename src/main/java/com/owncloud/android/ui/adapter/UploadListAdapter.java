@@ -498,7 +498,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
             OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
             if (folder != null && folder.isFolder()) {
-                this.refreshFolder(itemViewHolder, user.toPlatformAccount(), folder, (caller, result) -> {
+                this.refreshFolder(itemViewHolder, user, folder, (caller, result) -> {
                     itemViewHolder.binding.uploadStatus.setText(status);
                     if (result.isSuccess()) {
                         OCFile file = storageManager.getFileByPath(remotePath);
@@ -550,7 +550,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     private void refreshFolder(
         ItemViewHolder view,
-        Account account,
+        User user,
         OCFile folder,
         OnRemoteOperationListener listener) {
         view.binding.uploadListItemLayout.setClickable(false);
@@ -562,9 +562,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                    false,
                                    true,
                                    storageManager,
-                                   account,
+                                   user,
                                    context)
-            .execute(account, context, (caller, result) -> {
+            .execute(user.toPlatformAccount(), context, (caller, result) -> {
                 view.binding.uploadListItemLayout.setClickable(true);
                 listener.onRemoteOperationFinish(caller, result);
             }, parentActivity.getHandler());

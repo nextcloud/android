@@ -245,7 +245,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                               false,
                                               false,
                                               getStorageManager(),
-                                              account,
+                                              user,
                                               targetContext
         ).execute(client).isSuccess());
     }

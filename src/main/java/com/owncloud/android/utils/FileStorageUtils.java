@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -331,12 +332,12 @@ public final class FileStorageUtils {
      * This should be changed in the near future to avoid any chance of data loss, but we need to add some options
      * to limit hard automatic synchronizations to wifi, unless the user wants otherwise.
      *
-     * @param file      File to associate a possible 'lost' local file.
-     * @param account   Account holding file.
+     * @param file         File to associate a possible 'lost' local file.
+     * @param accountName  File owner account name.
      */
-    public static void searchForLocalFileInDefaultPath(OCFile file, Account account) {
+    public static void searchForLocalFileInDefaultPath(OCFile file, String accountName) {
         if ((file.getStoragePath() == null || !new File(file.getStoragePath()).exists()) && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(accountName, file));
             if (f.exists()) {
                 file.setStoragePath(f.getAbsolutePath());
                 file.setLastSyncDateForData(f.lastModified());

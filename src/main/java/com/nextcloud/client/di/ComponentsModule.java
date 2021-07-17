@@ -39,6 +39,7 @@ import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.CommunityActivity;
@@ -205,7 +206,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract AccountManagerService accountManagerService();
     @ContributesAndroidInjector abstract OperationsService operationsService();
     @ContributesAndroidInjector abstract PlayerService playerService();
-
-    @ContributesAndroidInjector
-    abstract FileTransferService fileDownloaderService();
+    @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
+    @ContributesAndroidInjector abstract FileSyncService fileSyncService();
 }

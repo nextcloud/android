@@ -2051,7 +2051,7 @@ public class FileDisplayActivity extends FileActivity
                                         false,
                                         ignoreETag,
                                         getStorageManager(),
-                                        getAccount(),
+                                        getUser().orElseThrow(RuntimeException::new),
                                         getApplicationContext()
                                 );
                                 synchFolderOp.execute(
@@ -2506,7 +2506,7 @@ public class FileDisplayActivity extends FileActivity
             storageManager = new FileDataStorageManager(user.toPlatformAccount(), getContentResolver());
         }
 
-        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user.toPlatformAccount(),
+        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user,
                                                                           fileId,
                                                                           storageManager,
                                                                           this);
