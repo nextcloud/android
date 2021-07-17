@@ -6,13 +6,14 @@
 #4: DRONE_PULL_REQUEST
 #5: GITHUB_TOKEN
 
-DAV_URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-artifacts/
+
 PUBLIC_URL=https://www.kaminsky.me/nc-dev/android-artifacts
 USER=$1
 PASS=$2
 BUILD=$3
 PR=$4
 GITHUB_TOKEN=$5
+DAV_URL=https://nextcloud.kaminsky.me/remote.php/dav/files/$USER/android-artifacts/
 
 if ! test -e build/outputs/apk/qa/debug/qa-debug-*.apk ; then
     exit 1

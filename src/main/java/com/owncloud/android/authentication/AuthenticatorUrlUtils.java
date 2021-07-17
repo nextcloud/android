@@ -26,11 +26,14 @@ import android.text.TextUtils;
 import java.net.URI;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Helper class for authenticator-URL related logic.
  */
 public final class AuthenticatorUrlUtils {
-    public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
+    public static final String REMOTE_PHP_PATH = "/remote.php";
 
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String HTTP_PROTOCOL = "http://";
@@ -38,12 +41,15 @@ public final class AuthenticatorUrlUtils {
     private AuthenticatorUrlUtils() {
     }
 
-    public static String normalizeUrlSuffix(String url) {
+    public static String normalizeUrlSuffix(@Nullable String url) {
+        if (url == null) {
+            return "";
+        }
         String normalizedUrl = url;
         if (normalizedUrl.endsWith("/")) {
             normalizedUrl = normalizedUrl.substring(0, normalizedUrl.length() - 1);
         }
-        return trimUrlWebdav(normalizedUrl);
+        return trimWebdavSuffix(normalizedUrl);
     }
 
     public static String normalizeUrl(String url, boolean sslWhenUnprefixed) {
@@ -66,26 +72,23 @@ public final class AuthenticatorUrlUtils {
         return normalizedUrl != null ? normalizedUrl : "";
     }
 
-    public static String trimWebdavSuffix(String url) {
+    public static @NonNull
+    String trimWebdavSuffix(@Nullable String url) {
+        if (url == null) {
+            return "";
+        }
+
         String trimmedUrl = url;
         while (trimmedUrl.endsWith("/")) {
             trimmedUrl = trimmedUrl.substring(0, url.length() - 1);
         }
 
-        int pos = trimmedUrl.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER);
+        int pos = trimmedUrl.lastIndexOf(REMOTE_PHP_PATH);
         if (pos >= 0) {
             trimmedUrl = trimmedUrl.substring(0, pos);
 
         }
         return trimmedUrl;
-    }
-
-    private static String trimUrlWebdav(String url) {
-        if (url.toLowerCase(Locale.ROOT).endsWith(WEBDAV_PATH_4_0_AND_LATER)) {
-            return url.substring(0, url.length() - WEBDAV_PATH_4_0_AND_LATER.length());
-        }
-
-        return url;
     }
 
     public static String stripIndexPhpOrAppsFiles(String url) {

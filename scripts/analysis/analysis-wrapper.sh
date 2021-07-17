@@ -26,14 +26,14 @@ echo "Branch: $3"
 
 if [ $3 = $stableBranch ]; then
     echo "New findbugs result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html"
-    curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.html --upload-file build/reports/spotbugs/spotbugs.html
+    curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/dav/files/$4/$repository-findbugs/$stableBranch.html --upload-file build/reports/spotbugs/spotbugs.html
 
     summary=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" build/reports/spotbugs/spotbugs.html | head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s"/Summary/SpotBugs ($stableBranch)/" | tr "\"" "\'" | tr -d "\r\n")
-    curl -u $4:$5 -X PUT -d "$summary" https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/findbugs-summary-$stableBranch.html
+    curl -u $4:$5 -X PUT -d "$summary" https://nextcloud.kaminsky.me/remote.php/dav/files/$4/$repository-findbugs/findbugs-summary-$stableBranch.html
 
     if [ $lintValue -ne 1 ]; then
         echo "New lint result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-lint/$stableBranch.html"
-        curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-lint/$stableBranch.html --upload-file build/reports/lint/lint.html
+        curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/dav/files/$4/$repository-lint/$stableBranch.html --upload-file build/reports/lint/lint.html
         exit 0
     fi
 else
@@ -41,10 +41,10 @@ else
         6=$stableBranch"-"$(date +%F)
     fi
     echo "New lint results at https://www.kaminsky.me/nc-dev/$repository-lint/$6.html"
-    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-lint/$6.html --upload-file build/reports/lint/lint.html
+    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/dav/files/$4/$repository-lint/$6.html --upload-file build/reports/lint/lint.html
 
     echo "New findbugs results at https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html"
-    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$6.html --upload-file build/reports/spotbugs/spotbugs.html
+    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/dav/files/$4/$repository-findbugs/$6.html --upload-file build/reports/spotbugs/spotbugs.html
 
     # delete all old comments, starting with Codacy
     oldComments=$(curl 2>/dev/null -u $1:$2 -X GET https://api.github.com/repos/nextcloud/android/issues/$7/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test("<h1>Codacy.*") | tostring)'  | grep "true|true" | tr -d "\"" | cut -f1 -d"|")

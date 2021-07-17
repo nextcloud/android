@@ -38,7 +38,6 @@ upload() {
 #7: GIT_USERNAME
 #8: GIT_TOKEN
 
-URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 ID=$3
 USER=$1
 PASS=$2
@@ -49,6 +48,7 @@ GITHUB_USER=$7
 GITHUB_PASSWORD=$8
 REMOTE_FOLDER=$ID-$TYPE-$BRANCH-$(date +%H-%M)
 BRANCH_TYPE=$BRANCH-$TYPE
+URL=https://nextcloud.kaminsky.me/remote.php/dav/files/$USER/android-integrationTests
 
 set -e
 
