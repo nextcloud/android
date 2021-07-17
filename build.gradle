@@ -59,7 +59,6 @@ ext {
     daggerVersion = "2.36"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    butterknifeVersion = "10.2.3"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.11.0"
     mockkVersion = "1.10.4"
@@ -289,8 +288,6 @@ dependencies {
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.11.0'
-    implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
     implementation 'org.lukhnos:nnio:0.2'

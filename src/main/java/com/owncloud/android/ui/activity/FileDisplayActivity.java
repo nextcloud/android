@@ -826,37 +826,34 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                FileFragment second = getSecondFragment();
-                OCFile currentDir = getCurrentDir();
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else if (
-                    currentDir != null && currentDir.getParentId() != 0 ||
-                        second != null && second.getFile() != null ||
-                        isSearchOpen()) {
-                    onBackPressed();
-                } else if (getLeftFragment() instanceof FileDetailFragment ||
-                    getLeftFragment() instanceof PreviewMediaFragment) {
-                    onBackPressed();
-                } else {
-                    openDrawer();
-                }
-                break;
-            }
-            case R.id.action_select_all: {
-                OCFileListFragment fragment = getListOfFilesFragment();
+        int itemId = item.getItemId();
 
-                if (fragment != null) {
-                    fragment.selectAllFiles(true);
-                }
-                break;
+        if (itemId == android.R.id.home) {
+            FileFragment second = getSecondFragment();
+            OCFile currentDir = getCurrentDir();
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else if (
+                currentDir != null && currentDir.getParentId() != 0 ||
+                    second != null && second.getFile() != null ||
+                    isSearchOpen()) {
+                onBackPressed();
+            } else if (getLeftFragment() instanceof FileDetailFragment ||
+                    getLeftFragment() instanceof PreviewMediaFragment) {
+                onBackPressed();
+            } else {
+                openDrawer();
             }
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        } else if (itemId == R.id.action_select_all) {
+            OCFileListFragment fragment = getListOfFilesFragment();
+
+            if (fragment != null) {
+                fragment.selectAllFiles(true);
+            }
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+        
         return retval;
     }
 
