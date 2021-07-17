@@ -212,3 +212,34 @@ trigger:
   event:
     - push
     - pull_request
+
+---
+kind: pipeline
+type: docker
+name: allScreenshots
+
+steps:
+  - name: runAllScreenshots
+    image: nextcloudci/android8:android-61
+    environment:
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GIT_TOKEN:
+        from_secret: GIT_TOKEN
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+    commands:
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - scripts/wait_for_emulator.sh
+      - scripts/runAllScreenshotCombinations noCI false
+      - mkdir build/screenshotSummary
+      - scripts/generateScreenshotOverview.sh > build/screenshotSummary/summary.html
+      - uploadScreenshotSummary.sh $LOG_USERNAME $LOG_PASSWORD
+
+trigger:
+  event:
+    - cron
+  cron:
+    - nightly
