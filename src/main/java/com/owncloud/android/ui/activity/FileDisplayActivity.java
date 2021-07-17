@@ -215,7 +215,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
-    private Optional<User> lastDisplayedUser;
+    private Optional<User> lastDisplayedUser = Optional.empty();
     private int menuItemId = -1;
 
     @Inject
