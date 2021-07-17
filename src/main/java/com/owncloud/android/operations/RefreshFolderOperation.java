@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
+import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -97,7 +98,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private FileDataStorageManager mStorageManager;
 
     /** Account where the file to synchronize belongs */
-    private Account mAccount;
+    private User user;
 
     /** Android context; necessary to send requests to the download service */
     private Context mContext;
@@ -148,7 +149,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      *                                  be fetched and updated even though the 'eTag' did not
      *                                  change.
      * @param   dataStorageManager      Interface with the local database.
-     * @param   account                 ownCloud account where the folder is located.
+     * @param   user                 ownCloud account where the folder is located.
      * @param   context                 Application context.
      */
     public RefreshFolderOperation(OCFile folder,
@@ -156,13 +157,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                                   boolean syncFullAccount,
                                   boolean ignoreETag,
                                   FileDataStorageManager dataStorageManager,
-                                  Account account,
+                                  User user,
                                   Context context) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
         mStorageManager = dataStorageManager;
-        mAccount = account;
+        this.user = user;
         mContext = context;
         mForgottenLocalFiles = new HashMap<>();
         mRemoteFolderChanged = false;
@@ -177,13 +178,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                                   boolean ignoreETag,
                                   boolean onlyFileMetadata,
                                   FileDataStorageManager dataStorageManager,
-                                  Account account,
+                                  User user,
                                   Context context) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
         mStorageManager = dataStorageManager;
-        mAccount = account;
+        this.user = user;
         mContext = context;
         mForgottenLocalFiles = new HashMap<>();
         mRemoteFolderChanged = false;
@@ -272,7 +273,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateOCVersion(OwnCloudClient client) {
-        UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(user.toPlatformAccount(), mContext);
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             // Update Capabilities for this account
@@ -282,7 +283,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateUserProfile() {
         try {
-            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
+            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), mContext);
 
             RemoteOperationResult<UserInfo> result = new GetUserProfileOperation().execute(nextcloudClient,
                                                                                            mStorageManager);
@@ -298,13 +299,13 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateCapabilities() {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
-        String oldDirectEditingEtag = arbitraryDataProvider.getValue(mAccount,
+        String oldDirectEditingEtag = arbitraryDataProvider.getValue(user,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 
         GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
         RemoteOperationResult result = getCapabilities.execute(mStorageManager, mContext);
         if (result.isSuccess()) {
-            String newDirectEditingEtag = mStorageManager.getCapability(mAccount.name).getDirectEditingEtag();
+            String newDirectEditingEtag = mStorageManager.getCapability(user.getAccountName()).getDirectEditingEtag();
 
             if (!oldDirectEditingEtag.equalsIgnoreCase(newDirectEditingEtag)) {
                 updateDirectEditing(arbitraryDataProvider, newDirectEditingEtag);
@@ -317,18 +318,18 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
-        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(mAccount,
+        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(user.toPlatformAccount(),
                                                                                                        mContext);
 
         if (result.isSuccess()) {
             DirectEditing directEditing = result.getResultData();
             String json = new Gson().toJson(directEditing);
-            arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING, json);
+            arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), ArbitraryDataProvider.DIRECT_EDITING, json);
         } else {
-            arbitraryDataProvider.deleteKeyForAccount(mAccount.name, ArbitraryDataProvider.DIRECT_EDITING);
+            arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), ArbitraryDataProvider.DIRECT_EDITING);
         }
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name,
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
                                                     ArbitraryDataProvider.DIRECT_EDITING_ETAG,
                                                     newDirectEditingEtag);
     }
@@ -337,7 +338,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         NextcloudClient client;
 
         try {
-            client = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
+            client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), mContext);
         } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
             Log_OC.e(this, "Update of predefined status not possible!");
             return;
@@ -349,9 +350,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (result.isSuccess()) {
             ArrayList<PredefinedStatus> predefinedStatuses = result.getResultData();
             String json = new Gson().toJson(predefinedStatuses);
-            arbitraryDataProvider.storeOrUpdateKeyValue(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS, json);
+            arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), ArbitraryDataProvider.PREDEFINED_STATUS, json);
         } else {
-            arbitraryDataProvider.deleteKeyForAccount(mAccount.name, ArbitraryDataProvider.PREDEFINED_STATUS);
+            arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), ArbitraryDataProvider.PREDEFINED_STATUS);
         }
     }
 
@@ -360,7 +361,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         RemoteOperationResult result;
         String remotePath = mLocalFolder.getRemotePath();
 
-        Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
+        Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
         result = new ReadFileRemoteOperation(remotePath).execute(client);
@@ -374,13 +375,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                 if (remoteFolderETag != null) {
                     mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
                 } else {
-                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + ": No ETag received from server");
+                    Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
                 }
             }
 
             result = new RemoteOperationResult(ResultCode.OK);
 
-            Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " +
+            Log_OC.i(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
                     (mRemoteFolderChanged ? "changed" : "not changed"));
 
         } else {
@@ -389,10 +390,10 @@ public class RefreshFolderOperation extends RemoteOperation {
                 removeLocalFolder();
             }
             if (result.isException()) {
-                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
+                Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
                         result.getLogMessage(), result.getException());
             } else {
-                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
+                Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
                         result.getLogMessage());
             }
         }
@@ -404,7 +405,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
-        Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
+        Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + remotePath);
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
@@ -424,7 +425,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void removeLocalFolder() {
         if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
-            String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
+            String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());
             mStorageManager.removeFolder(
                     mLocalFolder,
                     true,
@@ -472,7 +473,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
                                                                       mLocalFolder,
                                                                       getClient(),
-                                                                      mAccount,
+                                                                      user.toPlatformAccount(),
                                                                       mContext);
 
         // get current data about local contents of the folder to synchronize
@@ -509,7 +510,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             setLocalFileDataOnUpdatedFile(remoteFile, localFile, updatedFile, mRemoteFolderChanged);
 
             // check and fix, if needed, local storage path
-            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, mAccount);
+            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
             if (metadata != null) {
@@ -587,7 +588,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             );
             if (localFile.isEncrypted()) {
                 if (mLocalFolder.getStoragePath() == null) {
-                    updatedFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(mAccount.name, mLocalFolder) +
+                    updatedFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder) +
                                                    localFile.getFileName());
                 } else {
                     updatedFile.setStoragePath(mLocalFolder.getStoragePath() +
@@ -719,7 +720,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
         Log_OC.d(TAG, "Send broadcast " + event);
         Intent intent = new Intent(event);
-        intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, mAccount.name);
+        intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, user.getAccountName());
 
         if (dirRemotePath != null) {
             intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);

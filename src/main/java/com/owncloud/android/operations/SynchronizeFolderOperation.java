@@ -313,7 +313,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             updateLocalStateData(remoteFile, localFile, updatedFile);
 
             /// check and fix, if needed, local storage path
-            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.toPlatformAccount());
+            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
             if (metadata != null) {
