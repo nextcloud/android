@@ -771,6 +771,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupBinding.hostUrlInput.setText(uri);
             }
 
+            uri = AuthenticatorUrlUtils.normalizeScheme(uri);
+
             // Handle internationalized domain names
             try {
                 uri = DisplayUtils.convertIdn(uri, true);
