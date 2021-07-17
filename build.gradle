@@ -18,7 +18,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath 'com.hiya:jacoco-android:0.2'
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -60,7 +60,7 @@ ext {
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
-    mockitoVersion = "3.11.0"
+    mockitoVersion = "3.11.2"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.11.2"
