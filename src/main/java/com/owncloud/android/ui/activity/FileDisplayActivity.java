@@ -844,7 +844,6 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 openDrawer();
             }
-            break;
         } else if (itemId == R.id.action_select_all) {
             OCFileListFragment fragment = getListOfFilesFragment();
 
