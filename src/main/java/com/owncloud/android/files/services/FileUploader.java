@@ -721,7 +721,7 @@ public class FileUploader extends Service
 
         /// includes a pending intent in the notification showing the details
         Intent intent = UploadListActivity.createIntent(upload.getFile(),
-                                                        upload.getAccount(),
+                                                        upload.getUser(),
                                                         Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                         this);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
@@ -833,13 +833,13 @@ public class FileUploader extends Service
                 Intent intent;
                 if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
                     intent = ConflictsResolveActivity.createIntent(upload.getFile(),
-                                                                   upload.getAccount(),
+                                                                   upload.getUser(),
                                                                    upload.getOCUploadId(),
                                                                    Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                                    this);
                 } else {
                     intent = UploadListActivity.createIntent(upload.getFile(),
-                                                             upload.getAccount(),
+                                                             upload.getUser(),
                                                              Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                              this);
                 }

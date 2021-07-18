@@ -145,7 +145,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     private void openShareDialog() {
         Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, getFile());
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, getAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         startActivity(intent);
     }
 

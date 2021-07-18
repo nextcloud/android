@@ -598,7 +598,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private void startFullScreenVideo() {
         Intent intent = new Intent(getActivity(), PreviewVideoActivity.class);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         intent.putExtra(FileActivity.EXTRA_FILE, getFile());
         intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, exoPlayer.isPlaying());
         intent.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, videoUri);
