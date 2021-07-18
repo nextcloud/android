@@ -23,7 +23,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -59,8 +58,8 @@ public class UploadsStorageManager extends Observable {
     private static final String AND = " AND ";
     private static final int SINGLE_RESULT = 1;
 
-    private ContentResolver mContentResolver;
-    private CurrentAccountProvider currentAccountProvider;
+    private final ContentResolver contentResolver;
+    private final CurrentAccountProvider currentAccountProvider;
 
     public UploadsStorageManager(
         CurrentAccountProvider currentAccountProvider,
@@ -69,7 +68,7 @@ public class UploadsStorageManager extends Observable {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
-        mContentResolver = contentResolver;
+        this.contentResolver = contentResolver;
         this.currentAccountProvider = currentAccountProvider;
     }
 
@@ -511,7 +510,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     private ContentResolver getDB() {
-        return mContentResolver;
+        return contentResolver;
     }
 
     public long clearFailedButNotDelayedUploads() {
@@ -647,12 +646,12 @@ public class UploadsStorageManager extends Observable {
             new String[]{});
     }
 
-    public int removeAccountUploads(Account account) {
-        Log_OC.v(TAG, "Delete all uploads for account " + account.name);
+    public int removeUserUploads(User user) {
+        Log_OC.v(TAG, "Delete all uploads for account " + user.getAccountName());
         return getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
-            new String[]{account.name});
+            new String[]{user.getAccountName()});
     }
 
     public enum UploadStatus {

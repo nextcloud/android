@@ -267,23 +267,23 @@ public class ContactListFragment extends FileFragment implements Injectable {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval;
-        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        int itemId = item.getItemId();
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
+        if (itemId == android.R.id.home) {
+            ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+            if (contactsPreferenceActivity != null) {
                 contactsPreferenceActivity.onBackPressed();
-                retval = true;
-                break;
-            case R.id.action_select_all:
-                item.setChecked(!item.isChecked());
-                setSelectAllMenuItem(item, item.isChecked());
-                contactListAdapter.selectAllFiles(item.isChecked());
-                retval = true;
-                break;
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+            }
+            retval = true;
+        } else if (itemId == R.id.action_select_all) {
+            item.setChecked(!item.isChecked());
+            setSelectAllMenuItem(item, item.isChecked());
+            contactListAdapter.selectAllFiles(item.isChecked());
+            retval = true;
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 

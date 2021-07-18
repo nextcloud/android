@@ -246,21 +246,19 @@ public class UploadListActivity extends FileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
-                break;
-            case R.id.action_clear_failed_uploads:
-                uploadsStorageManager.clearFailedButNotDelayedUploads();
-                uploadListAdapter.loadUploadItemsFromDb();
-                break;
+        int itemId = item.getItemId();
 
-            default:
-                retval = super.onOptionsItemSelected(item);
+        if (itemId == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                openDrawer();
+            }
+        } else if (itemId == R.id.action_clear_failed_uploads) {
+            uploadsStorageManager.clearFailedButNotDelayedUploads();
+            uploadListAdapter.loadUploadItemsFromDb();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;

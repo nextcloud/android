@@ -40,7 +40,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -50,6 +49,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
@@ -83,8 +83,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * This Activity presents the user information.
@@ -174,20 +172,18 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.action_open_account:
-                accountClicked(user.hashCode());
-                break;
-            case R.id.action_delete_account:
-                openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
-                break;
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        int itemId = item.getItemId();
+
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.action_open_account) {
+            accountClicked(user.hashCode());
+        } else if (itemId == R.id.action_delete_account) {
+            openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 
@@ -383,13 +379,11 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         @ColorInt protected int mTintColor;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
+            protected UserInfoDetailsTableItemBinding binding;
 
-            @BindView(R.id.icon) protected ImageView icon;
-            @BindView(R.id.text) protected TextView text;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
+            public ViewHolder(UserInfoDetailsTableItemBinding binding) {
+                super(binding.getRoot());
+                this.binding = binding;
             }
         }
 
@@ -406,18 +400,21 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.user_info_details_table_item, parent, false);
-            return new ViewHolder(view);
+            return new ViewHolder(
+                UserInfoDetailsTableItemBinding.inflate(
+                    LayoutInflater.from(parent.getContext()),
+                    parent,
+                    false)
+            );
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             UserInfoDetailsItem item = mDisplayList.get(position);
-            holder.icon.setImageResource(item.icon);
-            holder.text.setText(item.text);
-            holder.icon.setContentDescription(item.iconContentDescription);
-            DrawableCompat.setTint(holder.icon.getDrawable(), mTintColor);
+            holder.binding.icon.setImageResource(item.icon);
+            holder.binding.text.setText(item.text);
+            holder.binding.icon.setContentDescription(item.iconContentDescription);
+            DrawableCompat.setTint(holder.binding.icon.getDrawable(), mTintColor);
         }
 
         @Override

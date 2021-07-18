@@ -34,15 +34,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ContactsBackupFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -71,11 +70,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import third_parties.daveKoeller.AlphanumComparator;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
@@ -89,17 +84,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
 
-    @BindView(R.id.contacts_automatic_backup)
-    public SwitchCompat backupSwitch;
-
-    @BindView(R.id.contacts_datepicker)
-    public MaterialButton contactsDatePickerBtn;
-
-    @BindView(R.id.contacts_last_backup_timestamp)
-    public TextView lastBackup;
-
-    @BindView(R.id.contacts_backup_now)
-    public MaterialButton backupNow;
+    private ContactsBackupFragmentBinding binding;
 
     @Inject BackgroundJobManager backgroundJobManager;
 
@@ -128,8 +113,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         if (ThemeUtils.themingEnabled(getContext())) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
-        View view = inflater.inflate(R.layout.contacts_backup_fragment, null);
-        ButterKnife.bind(this, view);
+
+        binding = ContactsBackupFragmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         setHasOptionsMenu(true);
 
@@ -153,31 +139,29 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeCheckableUtils.tintSwitch(backupSwitch, ThemeColorUtils.primaryAccentColor(getContext()));
-        backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
+        ThemeCheckableUtils.tintSwitch(
+            binding.contactsAutomaticBackup, ThemeColorUtils.primaryAccentColor(getContext()));
+        binding.contactsAutomaticBackup.setChecked(
+            arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
-        onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (checkAndAskForContactsReadPermission()) {
-                    if (isChecked) {
-                        setAutomaticBackup(true);
-                    } else {
-                        setAutomaticBackup(false);
-                    }
-                }
+        onCheckedChangeListener = (buttonView, isChecked) -> {
+            if (checkAndAskForContactsReadPermission()) {
+                setAutomaticBackup(isChecked);
             }
         };
 
-        backupSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
+        binding.contactsAutomaticBackup.setOnCheckedChangeListener(onCheckedChangeListener);
+        binding.contactsBackupNow.setOnClickListener(v -> backupContacts());
+        binding.contactsDatepicker.setOnClickListener(v -> openCleanDate());
 
         // display last backup
         Long lastBackupTimestamp = arbitraryDataProvider.getLongValue(user, PREFERENCE_CONTACTS_LAST_BACKUP);
 
         if (lastBackupTimestamp == -1) {
-            lastBackup.setText(R.string.contacts_preference_backup_never);
+            binding.contactsLastBackupTimestamp.setText(R.string.contacts_preference_backup_never);
         } else {
-            lastBackup.setText(DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp));
+            binding.contactsLastBackupTimestamp.setText(
+                DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp));
         }
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_CALENDAR_PICKER_OPEN, false)) {
@@ -190,8 +174,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             calendarPickerOpen = true;
         }
 
-        ThemeButtonUtils.colorPrimaryButton(backupNow, getContext());
-        ThemeButtonUtils.colorPrimaryButton(contactsDatePickerBtn, getContext());
+        ThemeButtonUtils.colorPrimaryButton(binding.contactsBackupNow, getContext());
+        ThemeButtonUtils.colorPrimaryButton(binding.contactsDatepicker, getContext());
 
         return view;
     }
@@ -250,9 +234,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     Collections.sort(backupFiles, new AlphanumComparator<>());
 
                     if (backupFiles == null || backupFiles.isEmpty()) {
-                        contactsDatePickerBtn.setVisibility(View.GONE);
+                        binding.contactsDatepicker.setVisibility(View.GONE);
                     } else {
-                        contactsDatePickerBtn.setVisibility(View.VISIBLE);
+                        binding.contactsDatepicker.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -299,9 +283,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     if (grantResults[index] >= 0) {
                         setAutomaticBackup(true);
                     } else {
-                        backupSwitch.setOnCheckedChangeListener(null);
-                        backupSwitch.setChecked(false);
-                        backupSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
+                        binding.contactsAutomaticBackup.setOnCheckedChangeListener(null);
+                        binding.contactsAutomaticBackup.setChecked(false);
+                        binding.contactsAutomaticBackup.setOnCheckedChangeListener(onCheckedChangeListener);
                     }
 
                     break;
@@ -322,7 +306,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         }
     }
 
-    @OnClick(R.id.contacts_backup_now)
     public void backupContacts() {
         if (checkAndAskForContactsReadPermission()) {
             startContactsBackupJob();
@@ -395,7 +378,6 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         }
     }
 
-    @OnClick(R.id.contacts_datepicker)
     public void openCleanDate() {
         openDate(null);
     }
@@ -465,6 +447,12 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
                     R.string.contacts_preferences_something_strange_happened);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        binding = null;
+        super.onDestroyView();
     }
 
     @Override

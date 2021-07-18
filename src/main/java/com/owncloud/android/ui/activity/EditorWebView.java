@@ -28,54 +28,39 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 public abstract class EditorWebView extends ExternalSiteWebView {
     protected Snackbar loadingSnackbar;
 
     protected String fileName;
 
-    @BindView(R.id.progressBar2)
-    ProgressBar progressBar;
-
-    @BindView(R.id.thumbnail)
-    ImageView thumbnailView;
-
-    @BindView(R.id.filename)
-    TextView fileNameTextView;
-
-    private Unbinder unbinder;
+    RichdocumentsWebviewBinding binding;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
     }
 
     protected void hideLoading() {
-        thumbnailView.setVisibility(View.GONE);
-        fileNameTextView.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        webview.setVisibility(View.VISIBLE);
+        binding.thumbnail.setVisibility(View.GONE);
+        binding.filename.setVisibility(View.GONE);
+        binding.progressBar2.setVisibility(View.GONE);
+        getWebView().setVisibility(View.VISIBLE);
 
         if (loadingSnackbar != null) {
             loadingSnackbar.dismiss();
@@ -86,10 +71,10 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         this.url = loadedUrl;
 
         if (!url.isEmpty()) {
-            getWebview().loadUrl(url);
+            this.getWebView().loadUrl(url);
 
             new Handler().postDelayed(() -> {
-                if (getWebview().getVisibility() != View.VISIBLE) {
+                if (this.getWebView().getVisibility() != View.VISIBLE) {
                     Snackbar snackbar = DisplayUtils.createSnackbar(findViewById(android.R.id.content),
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_back, v -> closeView());
@@ -107,19 +92,18 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     public void closeView() {
-        webview.destroy();
+        getWebView().destroy();
         finish();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        webViewLayout = R.layout.richdocuments_webview; // TODO rename
+    protected void bindView() {
+        binding = RichdocumentsWebviewBinding.inflate(getLayoutInflater());
+    }
 
-        showToolbar = false;
-
-        super.onCreate(savedInstanceState);
-
-        unbinder = ButterKnife.bind(this);
+    @Override
+    protected void postOnCreate() {
+        super.postOnCreate();
 
         setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
 
@@ -141,9 +125,21 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         initLoadingScreen(user.get());
     }
 
+    protected WebView getWebView() {
+        return binding.webView;
+    }
+
+    protected View getRootView() {
+        return binding.getRoot();
+    }
+
+    protected boolean showToolbarByDefault() {
+        return false;
+    }
+
     protected void initLoadingScreen(final User user) {
         setThumbnailView(user);
-        fileNameTextView.setText(fileName);
+        binding.filename.setText(fileName);
     }
 
     private void openShareDialog() {
@@ -153,24 +149,16 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         startActivity(intent);
     }
 
-    @Override
-    protected void onDestroy() {
-        unbinder.unbind();
-        webview.destroy();
-
-        super.onDestroy();
-    }
-
     protected void setThumbnailView(final User user) {
         // Todo minimize: only icon by mimetype
         OCFile file = getFile();
         if (file.isFolder()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                              file.isSharedWithSharee(),
-                                                                          file.isSharedViaLink(),
-                                                                          file.isEncrypted(),
-                                                                          file.getMountType(),
-                                                                          this));
+            binding.thumbnail.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
+                                                                                  file.isSharedWithSharee(),
+                                                                              file.isSharedViaLink(),
+                                                                              file.isEncrypted(),
+                                                                              file.getMountType(),
+                                                                              this));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -180,21 +168,21 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     if (MimeTypeUtil.isVideo(file)) {
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
+                        binding.thumbnail.setImageBitmap(withOverlay);
                     } else {
-                        thumbnailView.setImageBitmap(thumbnail);
+                        binding.thumbnail.setImageBitmap(thumbnail);
                     }
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(getResources().getColor(R.color.bg_default));
+                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default));
                 }
             } else {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
                                                              user,
                                                              getApplicationContext());
-                thumbnailView.setImageDrawable(icon);
+                binding.thumbnail.setImageDrawable(icon);
             }
         }
     }
@@ -203,7 +191,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
         if (downloadmanager == null) {
-            DisplayUtils.showSnackMessage(webview, getString(R.string.failed_to_download));
+            DisplayUtils.showSnackMessage(getWebView(), getString(R.string.failed_to_download));
             return;
         }
 

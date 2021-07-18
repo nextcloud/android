@@ -418,79 +418,65 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
 
-        switch (menuItem.getItemId()) {
-            case R.id.nav_all_files:
-                if (this instanceof FileDisplayActivity &&
-                    !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
-                    !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
-                    showFiles(false);
-                    ((FileDisplayActivity) this).browseToRoot();
-                    EventBus.getDefault().post(new ChangeMenuEvent());
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setAction(FileDisplayActivity.ALL_FILES);
-                    intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
-                    startActivity(intent);
-                }
-                break;
-            case R.id.nav_favorites:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
-                                   menuItem.getItemId());
-                break;
-            case R.id.nav_gallery:
-                startPhotoSearch(menuItem);
-                break;
-            case R.id.nav_on_device:
+        int itemId = menuItem.getItemId();
+
+        if (itemId == R.id.nav_all_files) {
+            if (this instanceof FileDisplayActivity &&
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
+                showFiles(false);
+                ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
-                showFiles(true);
-                break;
-            case R.id.nav_uploads:
-                startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                break;
-            case R.id.nav_trashbin:
-                startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                break;
-            case R.id.nav_activity:
-                startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                break;
-            case R.id.nav_notifications:
-                startActivity(NotificationsActivity.class);
-                break;
-            case R.id.nav_contacts:
-                ContactsPreferenceActivity.startActivity(this);
-                break;
-            case R.id.nav_settings:
-                startActivity(SettingsActivity.class);
-                break;
-            case R.id.nav_community:
-                startActivity(CommunityActivity.class);
-                break;
-            case R.id.nav_logout:
-                mCheckedMenuItem = -1;
-                menuItem.setChecked(false);
-                final Optional<User> optionalUser = getUser();
-                if (optionalUser.isPresent()) {
-                    UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
-                }
-                break;
-            case R.id.nav_shared:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
-                                   menuItem.getItemId());
-                break;
-            case R.id.nav_recently_modified:
-                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
-                                   menuItem.getItemId());
-                break;
-            default:
-                if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
-                    menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
-                    // external link clicked
-                    externalLinkClicked(menuItem);
-                } else {
-                    Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
-                }
-                break;
+            } else {
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALL_FILES);
+                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+                startActivity(intent);
+            }
+        } else if (itemId == R.id.nav_favorites) {
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
+                               menuItem.getItemId());
+        } else if (itemId == R.id.nav_gallery) {
+            startPhotoSearch(menuItem);
+        } else if (itemId == R.id.nav_on_device) {
+            EventBus.getDefault().post(new ChangeMenuEvent());
+            showFiles(true);
+        } else if (itemId == R.id.nav_uploads) {
+            startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        } else if (itemId == R.id.nav_trashbin) {
+            startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        } else if (itemId == R.id.nav_activity) {
+            startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        } else if (itemId == R.id.nav_notifications) {
+            startActivity(NotificationsActivity.class);
+        } else if (itemId == R.id.nav_contacts) {
+            ContactsPreferenceActivity.startActivity(this);
+        } else if (itemId == R.id.nav_settings) {
+            startActivity(SettingsActivity.class);
+        } else if (itemId == R.id.nav_community) {
+            startActivity(CommunityActivity.class);
+        } else if (itemId == R.id.nav_logout) {
+            mCheckedMenuItem = -1;
+            menuItem.setChecked(false);
+            final Optional<User> optionalUser = getUser();
+            if (optionalUser.isPresent()) {
+                UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
+            }
+        } else if (itemId == R.id.nav_shared) {
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
+                               menuItem.getItemId());
+        } else if (itemId == R.id.nav_recently_modified) {
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
+                               menuItem.getItemId());
+        } else {
+            if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
+                menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
+                // external link clicked
+                externalLinkClicked(menuItem);
+            } else {
+                Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
+            }
         }
     }
 

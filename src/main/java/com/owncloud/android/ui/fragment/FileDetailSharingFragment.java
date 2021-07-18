@@ -436,113 +436,105 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private boolean userOptionsItemSelected(Menu menu, MenuItem item, OCShare share) {
-        switch (item.getItemId()) {
-            case R.id.allow_editing:
-            case R.id.allow_creating:
-            case R.id.allow_deleting:
-            case R.id.allow_resharing: {
-                item.setChecked(!item.isChecked());
-                share.setPermissions(updatePermissionsToShare(share,
-                                                              menu.findItem(R.id.allow_resharing).isChecked(),
-                                                              menu.findItem(R.id.allow_editing).isChecked(),
-                                                              menu.findItem(R.id.allow_creating).isChecked(),
-                                                              menu.findItem(R.id.allow_deleting).isChecked()));
-                return true;
-            }
-            case R.id.action_unshare: {
-                unshareWith(share);
-                ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
-                if (adapter == null) {
-                    DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
-                    return true;
-                }
-                adapter.remove(share);
+        int itemId = item.getItemId();
 
+        if (itemId == R.id.allow_editing || itemId == R.id.allow_creating || itemId == R.id.allow_deleting || itemId == R.id.allow_resharing) {
+            item.setChecked(!item.isChecked());
+            share.setPermissions(updatePermissionsToShare(share,
+                                                          menu.findItem(R.id.allow_resharing).isChecked(),
+                                                          menu.findItem(R.id.allow_editing).isChecked(),
+                                                          menu.findItem(R.id.allow_creating).isChecked(),
+                                                          menu.findItem(R.id.allow_deleting).isChecked()));
+            return true;
+        } else if (itemId == R.id.action_unshare) {
+            unshareWith(share);
+            ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
+            if (adapter == null) {
+                DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
                 return true;
             }
-            case R.id.action_expiration_date: {
-                ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
-                    .newInstance(share, share.getExpirationDate());
-                dialog.show(fileActivity.getSupportFragmentManager(),
-                            ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
-                return true;
-            }
-            case R.id.action_share_send_note:
-                NoteDialogFragment dialog = NoteDialogFragment.newInstance(share);
-                dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
-                return true;
-            default:
-                return true;
+            adapter.remove(share);
+
+            return true;
+        } else if (itemId == R.id.action_expiration_date) {
+            ExpirationDatePickerDialogFragment dialog = ExpirationDatePickerDialogFragment
+                .newInstance(share, share.getExpirationDate());
+            dialog.show(fileActivity.getSupportFragmentManager(),
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
+            return true;
+        } else if (itemId == R.id.action_share_send_note) {
+            NoteDialogFragment dialog = NoteDialogFragment.newInstance(share);
+            dialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+            return true;
         }
+
+        return true;
     }
 
     public boolean linkOptionsItemSelected(MenuItem item, OCShare publicShare) {
-        switch (item.getItemId()) {
-            case R.id.link_share_read_only:
-                item.setChecked(true);
-                fileOperationsHelper.setPermissionsToShare(publicShare, READ_PERMISSION_FLAG);
-                return true;
-            case R.id.link_share_allow_upload_and_editing:
-                item.setChecked(true);
-                if (publicShare.isFolder()) {
-                    fileOperationsHelper.setPermissionsToShare(publicShare, MAXIMUM_PERMISSIONS_FOR_FOLDER);
-                } else {
-                    fileOperationsHelper.setPermissionsToShare(publicShare, MAXIMUM_PERMISSIONS_FOR_FILE);
-                }
-                return true;
-            case R.id.link_share_file_drop: {
-                item.setChecked(true);
-                fileOperationsHelper.setPermissionsToShare(publicShare, CREATE_PERMISSION_FLAG);
-                return true;
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.link_share_read_only) {
+            item.setChecked(true);
+            fileOperationsHelper.setPermissionsToShare(publicShare, READ_PERMISSION_FLAG);
+            return true;
+        } else if (itemId == R.id.link_share_allow_upload_and_editing) {
+            item.setChecked(true);
+            if (publicShare.isFolder()) {
+                fileOperationsHelper.setPermissionsToShare(publicShare, MAXIMUM_PERMISSIONS_FOR_FOLDER);
+            } else {
+                fileOperationsHelper.setPermissionsToShare(publicShare, MAXIMUM_PERMISSIONS_FOR_FILE);
             }
-            case R.id.allow_editing:
-                if (file.isSharedViaLink()) {
-                    item.setChecked(!item.isChecked());
-                    fileOperationsHelper.setUploadPermissionsToPublicShare(publicShare, item.isChecked());
-                }
-                return true;
-            case R.id.action_hide_file_download:
+            return true;
+        } else if (itemId == R.id.link_share_file_drop) {
+            item.setChecked(true);
+            fileOperationsHelper.setPermissionsToShare(publicShare, CREATE_PERMISSION_FLAG);
+            return true;
+        } else if (itemId == R.id.allow_editing) {
+            if (file.isSharedViaLink()) {
                 item.setChecked(!item.isChecked());
-                fileOperationsHelper.setHideFileDownloadPermissionsToPublicShare(publicShare, item.isChecked());
-                return true;
-            case R.id.action_password: {
-                requestPasswordForShare(publicShare,
-                                        capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
-                return true;
+                fileOperationsHelper.setUploadPermissionsToPublicShare(publicShare, item.isChecked());
             }
-            case R.id.action_share_expiration_date: {
-                ExpirationDatePickerDialogFragment expirationDialog = ExpirationDatePickerDialogFragment
-                    .newInstance(publicShare, publicShare.getExpirationDate());
-                expirationDialog.show(fileActivity.getSupportFragmentManager(),
-                                      ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
-                return true;
+            return true;
+        } else if (itemId == R.id.action_hide_file_download) {
+            item.setChecked(!item.isChecked());
+            fileOperationsHelper.setHideFileDownloadPermissionsToPublicShare(publicShare, item.isChecked());
+            return true;
+        } else if (itemId == R.id.action_password) {
+            requestPasswordForShare(publicShare,
+                                    capabilities.getFilesSharingPublicAskForOptionalPassword().isTrue());
+            return true;
+        } else if (itemId == R.id.action_share_expiration_date) {
+            ExpirationDatePickerDialogFragment expirationDialog = ExpirationDatePickerDialogFragment
+                .newInstance(publicShare, publicShare.getExpirationDate());
+            expirationDialog.show(fileActivity.getSupportFragmentManager(),
+                                  ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG);
+            return true;
+        } else if (itemId == R.id.action_share_send_link) {
+            if (file.isSharedViaLink() && !TextUtils.isEmpty(publicShare.getShareLink())) {
+                FileDisplayActivity.showShareLinkDialog(fileActivity, file, publicShare.getShareLink());
+            } else {
+                showSendLinkTo(publicShare);
             }
-            case R.id.action_share_send_link: {
-                if (file.isSharedViaLink() && !TextUtils.isEmpty(publicShare.getShareLink())) {
-                    FileDisplayActivity.showShareLinkDialog(fileActivity, file, publicShare.getShareLink());
-                } else {
-                    showSendLinkTo(publicShare);
-                }
-                return true;
-            }
-            case R.id.action_share_send_note:
-                NoteDialogFragment noteDialog = NoteDialogFragment.newInstance(publicShare);
-                noteDialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
-                return true;
-            case R.id.action_edit_label:
-                RenamePublicShareDialogFragment renameDialog = RenamePublicShareDialogFragment.newInstance(publicShare);
-                renameDialog.show(fileActivity.getSupportFragmentManager(),
-                                  RenamePublicShareDialogFragment.RENAME_PUBLIC_SHARE_FRAGMENT);
-                return true;
-            case R.id.action_unshare:
-                fileOperationsHelper.unshareShare(file, publicShare);
-                return true;
-            case R.id.action_add_another_public_share_link:
-                createPublicShareLink();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            return true;
+        } else if (itemId == R.id.action_share_send_note) {
+            NoteDialogFragment noteDialog = NoteDialogFragment.newInstance(publicShare);
+            noteDialog.show(fileActivity.getSupportFragmentManager(), NoteDialogFragment.NOTE_FRAGMENT);
+            return true;
+        } else if (itemId == R.id.action_edit_label) {
+            RenamePublicShareDialogFragment renameDialog = RenamePublicShareDialogFragment.newInstance(publicShare);
+            renameDialog.show(fileActivity.getSupportFragmentManager(),
+                              RenamePublicShareDialogFragment.RENAME_PUBLIC_SHARE_FRAGMENT);
+            return true;
+        } else if (itemId == R.id.action_unshare) {
+            fileOperationsHelper.unshareShare(file, publicShare);
+            return true;
+        } else if (itemId == R.id.action_add_another_public_share_link) {
+            createPublicShareLink();
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**

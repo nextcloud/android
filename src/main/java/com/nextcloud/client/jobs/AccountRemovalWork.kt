@@ -110,7 +110,7 @@ class AccountRemovalWork(
         remoceSyncedFolders(context, user.toPlatformAccount(), clock)
 
         // delete all uploads for account
-        uploadsStorageManager.removeAccountUploads(user.toPlatformAccount())
+        uploadsStorageManager.removeUserUploads(user)
 
         // delete stored E2E keys and mnemonic
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PRIVATE_KEY)
