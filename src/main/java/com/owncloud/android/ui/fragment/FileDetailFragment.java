@@ -233,7 +233,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private void replaceSharingFragment() {
-        getChildFragmentManager().beginTransaction()
+        requireActivity().getSupportFragmentManager().beginTransaction()
             .replace(R.id.sharing_frame_container,
                      FileDetailSharingFragment.newInstance(getFile(), user),
                      FTAG_SHARING).commit();

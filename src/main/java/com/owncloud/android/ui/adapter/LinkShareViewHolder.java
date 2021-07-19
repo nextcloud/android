@@ -89,7 +89,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 new int[]{android.R.attr.state_enabled},
             },
             new int[]{
-                ResourcesCompat.getColor(context.getResources(), R.color.secondary_text_color,
+                ResourcesCompat.getColor(context.getResources(), R.color.share_disabled_txt_color,
                                          null),
                 ResourcesCompat.getColor(context.getResources(), R.color.primary,
                                          null)

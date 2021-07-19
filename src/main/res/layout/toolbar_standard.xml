@@ -113,6 +113,7 @@
                     android:id="@+id/preview_image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/nav_drawer_header_height"
+                    android:background="@color/bg_default"
                     android:contentDescription="@string/preview_image_description"
                     android:scaleType="centerCrop" />
 

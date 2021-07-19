@@ -31,13 +31,13 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/alternate_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginBottom="@dimen/standard_half_margin"
         android:contentDescription="@string/user_icon"
+        app:tint="@color/text_color"
         android:src="@drawable/ic_internal_share" />
 
     <LinearLayout

@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:text="@string/placeholder_filename"
-                android:textColor="@color/text_color"
+                android:textColor="@color/share_title_txt_color"
                 android:textSize="@dimen/txt_size_14sp"
                 android:textStyle="bold"
                 tools:text="@string/placeholder_filename" />
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/txt_size_14sp"
-                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textColor="@color/share_subtitle_txt_color"
                     tools:text="@string/placeholder_fileSize" />
 
                 <TextView
@@ -80,7 +80,7 @@
                     android:paddingStart="@dimen/zero"
                     android:paddingEnd="@dimen/standard_quarter_padding"
                     android:text="@string/info_separator"
-                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textColor="@color/share_subtitle_txt_color"
                     android:textSize="@dimen/two_line_secondary_text_size" />
 
                 <TextView
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:textSize="@dimen/txt_size_14sp"
-                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textColor="@color/share_subtitle_txt_color"
                     tools:text="@string/placeholder_media_time" />
 
                 <ImageView

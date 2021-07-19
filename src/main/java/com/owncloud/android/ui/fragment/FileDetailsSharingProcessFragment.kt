@@ -38,6 +38,7 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.ThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -86,7 +87,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
          * fragment instance to be called while modifying existing share information
          */
         @JvmStatic
-        fun newInstance(share: OCShare, screenType: Int, isReshareShown: Boolean, isExpirationDateShown: Boolean, isFileWithNoTextFile: Boolean):
+        fun newInstance(
+            share: OCShare,
+            screenType: Int,
+            isReshareShown: Boolean,
+            isExpirationDateShown: Boolean,
+            isFileWithNoTextFile: Boolean
+        ):
             FileDetailsSharingProcessFragment {
             val args = Bundle()
             args.putParcelable(ARG_OCSHARE, share)
@@ -99,8 +106,6 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             return fragment
         }
     }
-
-    private lateinit var onEditShareListener: FileDetailSharingFragment.OnEditShareListener
 
     private lateinit var binding: FileDetailsSharingProcessFragmentBinding
     private var fileOperationsHelper: FileOperationsHelper? = null
@@ -152,6 +157,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
+        ThemeUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
     }
 
@@ -205,11 +211,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         if (isExpDateShown) {
             binding.shareProcessSetExpDateSwitch.visibility = View.VISIBLE
             binding.dividerSharingExpDate.visibility = View.VISIBLE
-            binding.shareProcessExpirationDate.visibility = View.VISIBLE
         } else {
             binding.shareProcessSetExpDateSwitch.visibility = View.GONE
             binding.dividerSharingExpDate.visibility = View.GONE
-            binding.shareProcessExpirationDate.visibility = View.GONE
         }
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
@@ -222,7 +226,6 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         if (shareType == ShareType.EMAIL) {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
             binding.shareProcessChangeNameEt.visibility = View.GONE
-            binding.shareProcessLinkLabel.visibility = View.GONE
             binding.dividerSharingChangeName.visibility = View.GONE
             updateViewForExternalAndLinkShare()
             updateFileEditingRadioButton()
@@ -231,7 +234,6 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         else if (shareType == ShareType.PUBLIC_LINK) {
             updateViewForExternalAndLinkShare()
             binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
-            binding.shareProcessLinkLabel.visibility = View.VISIBLE
             binding.dividerSharingChangeName.visibility = View.VISIBLE
             if (share != null) {
                 binding.shareProcessChangeNameEt.setText(share?.label)
@@ -244,18 +246,18 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         else {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
             binding.shareProcessChangeNameEt.visibility = View.GONE
-            binding.shareProcessLinkLabel.visibility = View.GONE
             binding.dividerSharingChangeName.visibility = View.GONE
             binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
             binding.dividerSharingHideDownload.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
+            binding.shareProcessAllowResharingInfo.visibility = View.VISIBLE
             binding.dividerSharingAllowResharing.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
-            binding.shareProcessPwdProtection.visibility = View.GONE
             binding.dividerSharingEnterPassword.visibility = View.GONE
             if (share != null) {
                 if (!isReshareShown) {
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+                    binding.shareProcessAllowResharingInfo.visibility = View.GONE
                     binding.dividerSharingAllowResharing.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
@@ -263,10 +265,10 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         }
     }
 
-    private fun updateFileEditingRadioButton(){
+    private fun updateFileEditingRadioButton() {
         if (isFileWithNoTextFile) {
             binding.shareProcessPermissionUploadEditing.isEnabled = false
-            binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.secondary_text_color))
+            binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.share_disabled_txt_color))
         }
     }
 
@@ -277,9 +279,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
         binding.dividerSharingHideDownload.visibility = View.VISIBLE
         binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+        binding.shareProcessAllowResharingInfo.visibility = View.GONE
         binding.dividerSharingAllowResharing.visibility = View.GONE
         binding.shareProcessSetPasswordSwitch.visibility = View.VISIBLE
-        binding.shareProcessPwdProtection.visibility = View.VISIBLE
         binding.dividerSharingEnterPassword.visibility = View.VISIBLE
 
         if (share != null) {
@@ -404,6 +406,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private fun showExpirationDateInput(isChecked: Boolean) {
         binding.shareProcessSelectExpDate.visibility = if (isChecked) View.VISIBLE else View.GONE
         binding.shareProcessExpDateDivider.visibility = if (isChecked) View.VISIBLE else View.GONE
+
+        //update margin of divider when switch is enabled/disabled
+        val margin = if (isChecked) requireContext().resources.getDimensionPixelOffset(R.dimen.standard_half_margin)
+        else 0
+        val param = binding.dividerSharingExpDate.layoutParams as ViewGroup.MarginLayoutParams
+        param.setMargins(0, margin, 0, 0)
+        binding.dividerSharingExpDate.layoutParams = param
 
         //reset the expiration date if switch is unchecked
         if (!isChecked) {

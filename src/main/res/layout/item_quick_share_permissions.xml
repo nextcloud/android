@@ -42,7 +42,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
         android:text="@string/link_share_read_only"
-        android:textColor="@color/text_color"
+        android:textColor="@color/bottom_sheet_txt_color"
         android:textSize="@dimen/bottom_sheet_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -35,7 +35,7 @@
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
             android:text="@string/share_dialog_title"
-            android:textColor="@color/text_color"
+            android:textColor="@color/share_title_txt_color"
             android:textSize="@dimen/txt_size_16sp"
             android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
             android:text="@string/sharing_description"
-            android:textColor="@color/text_color"
+            android:textColor="@color/share_info_txt_color"
             android:textSize="@dimen/txt_size_14sp" />
 
         <androidx.appcompat.widget.SearchView
@@ -58,7 +58,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_double_margin"
             android:layout_marginEnd="@dimen/standard_margin"
-            android:background="@drawable/et_background"
+            android:background="@drawable/share_search_background"
             android:hint="@string/share_search" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -75,7 +75,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share_create_new_link"
-            style="@style/OutlinedButton"
+            style="@style/ShareOutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/create_link_button_height"
             android:layout_marginStart="@dimen/standard_margin"
@@ -88,7 +88,7 @@
             app:cornerRadius="@dimen/button_corner_radius"
             app:icon="@drawable/ic_plus"
             app:iconGravity="textStart"
-            app:iconTint="@color/text_color" />
+            app:iconTint="@color/share_btn_txt_color" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

@@ -51,6 +51,15 @@
     <color name="scan_count_bg_color">@color/grey_30</color>
     <color name="snackbar_bg_color">@color/design_snackbar_background_color</color>
     <color name="snackbar_txt_color">@color/white</color>
+    <color name="share_title_txt_color">#191919</color>
+    <color name="share_subtitle_txt_color">@color/grey_30</color>
+    <color name="share_info_txt_color">#191919</color>
+    <color name="share_search_border_color">#191919</color>
+    <color name="share_btn_txt_color">#191919</color>
+    <color name="share_list_item_txt_color">#191919</color>
+    <color name="share_disabled_txt_color">@color/grey_30</color>
+    <color name="share_txt_color">#191919</color>
+    <color name="share_et_divider">#000000</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
