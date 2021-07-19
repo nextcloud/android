@@ -70,8 +70,7 @@
             android:id="@+id/nav_recently_modified"
             android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_recently_modified"
-            android:visible="false"/>
+            android:title="@string/drawer_item_recent_files" />
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"
@@ -82,6 +81,7 @@
             android:id="@+id/nav_uploads"
             android:icon="@drawable/uploads"
             android:orderInCategory="2"
+            android:visible="false"
             android:title="@string/drawer_item_uploads_list"/>
         <item
             android:id="@+id/nav_trashbin"

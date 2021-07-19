@@ -1489,7 +1489,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setTitle(R.string.drawer_item_recently_added);
                     break;
                 case RECENTLY_MODIFIED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_modified);
+                    setTitle(R.string.drawer_item_recent_files);
                     break;
                 case SHARED_FILTER:
                     setTitle(R.string.drawer_item_shared);
@@ -1821,7 +1821,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
+                event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {

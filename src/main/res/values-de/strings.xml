@@ -221,11 +221,11 @@
     <string name="drawer_item_gallery">Medien</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
-    <string name="drawer_item_on_device">Offline verfügba</string>
+    <string name="drawer_item_on_device">Offline verfügbare Dateien</string>
     <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
-    <string name="drawer_item_trashbin">Gelöschte Dateien</string>
+    <string name="drawer_item_trashbin">Papierkorb</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Abmelden</string>
@@ -967,4 +967,5 @@
     <string name="login_privacy_policy">Datenschutzhinweise</string>
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
+    <string name="drawer_item_recent_files">Neuste Dateien</string>
 </resources>
