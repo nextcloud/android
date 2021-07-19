@@ -535,6 +535,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onShareIconClick(OCFile file) {
+        //if item is selected i.e action mode is active then don't
+        //accept the click event
+        if (mActiveActionMode!=null) return;
+
         if (file.isFolder()) {
             mContainerActivity.showDetails(file, 1);
         } else {
