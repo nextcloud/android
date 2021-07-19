@@ -954,4 +954,5 @@
     <string name="data_collection_info">Die Erfassung dieser Daten ist notwendig, um wesentliche Funktionen der App nutzen zu können.</string>
     <string name="data_analysis">Analyse-Datenerfassung zur bedarfsgerechten Gestaltung</string>
     <string name="data_analysis_info">Diese Daten helfen uns, die App Nutzung für Sie zu optimieren und Systemabstürze und Fehler schneller zu identifizieren.</string>
+    <string name="prefs_category_service">Bedienung</string>
 </resources>

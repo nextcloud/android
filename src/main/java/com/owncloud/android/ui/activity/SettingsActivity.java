@@ -84,6 +84,7 @@ import javax.inject.Inject;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -180,6 +181,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // Data Privacy
         setupDataPrivacyCategory(accentColor);
 
+        //Service
+        setUpServiceCategory(accentColor);
+
         //Info
         setUpInfoCategory(accentColor);
 
@@ -193,7 +197,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         if (getResources().getBoolean(R.bool.is_beta)) {
             preferenceCategoryDev.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_dev),
-                                                                      accentColor));
+                    accentColor));
 
             /* Link to dev apks */
             Preference pDevLink = findPreference("dev_link");
@@ -339,37 +343,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
-        setupHelpPreference(preferenceCategoryMore, accentColor);
-
         setupRecommendPreference(preferenceCategoryMore);
 
         setupLoggingPreference(preferenceCategoryMore, accentColor);
 
-        setupImprintPreference(preferenceCategoryMore);
-
         loadExternalSettingLinks(preferenceCategoryMore);
-    }
-
-    private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
-        Preference pImprint = findPreference("imprint");
-        if (pImprint != null) {
-            if (imprintEnabled) {
-                pImprint.setOnPreferenceClickListener(preference -> {
-                    String imprintWeb = getString(R.string.url_imprint);
-
-                    if (!imprintWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(imprintWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
-                    }
-                    //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pImprint);
-            }
-        }
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
@@ -391,7 +369,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
             }
         }
     }
-
 
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
@@ -452,28 +429,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupHelpPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
-        boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp = findPreference("help");
-        pHelp.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_help),
-                                                  accentColor));
-        if (pHelp != null) {
-            if (helpEnabled) {
-                pHelp.setOnPreferenceClickListener(preference -> {
-                    String helpWeb = getString(R.string.url_help);
-                    if (!helpWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(helpWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
-                    }
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pHelp);
-            }
-        }
-    }
-
     private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         Preference autoUpload = findPreference("syncedFolders");
         autoUpload.setTitle(ThemeUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
@@ -493,9 +448,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
             && getResources().getBoolean(R.bool.contacts_backup);
         Preference pContactsBackup = findPreference("contacts");
-        pContactsBackup.setTitle(ThemeUtils.getColoredTitle(getString(R.string.actionbar_contacts),
-                                                            accentColor));
         if (pContactsBackup != null) {
+            pContactsBackup.setTitle(ThemeUtils.getColoredTitle(getString(R.string.actionbar_contacts),
+                                                                accentColor));
             if (contactsBackupEnabled) {
                 pContactsBackup.setOnPreferenceClickListener(preference -> {
                     ContactsPreferenceActivity.startActivityWithoutSidebar(this);
@@ -670,6 +625,57 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 }
             }
         }
+    }
+
+    private void setUpServiceCategory(int accentColor) {
+        PreferenceCategory preferenceCategoryService = (PreferenceCategory) findPreference("service");
+        preferenceCategoryService.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_service),
+                                                                      accentColor));
+        setupHelpPreference(accentColor);
+        setupImprintPreference(accentColor);
+    }
+
+    private void setupHelpPreference(int accentColor) {
+        Preference pHelp = findPreference("help");
+        if (pHelp != null) {
+            pHelp.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_help),
+                                                      accentColor));
+                pHelp.setOnPreferenceClickListener(preference -> {
+                    String helpWeb = getString(R.string.url_help);
+                    if (!helpWeb.isEmpty()) {
+                        openLinkInWebView(helpWeb, R.string.prefs_help);
+                    }
+                    return true;
+                });
+
+        }
+    }
+
+    private void setupImprintPreference(int accentColor) {
+        Preference pImprint = findPreference("imprint");
+        if (pImprint != null) {
+            pImprint.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_imprint),
+                                                         accentColor));
+            pImprint.setOnPreferenceClickListener(preference -> {
+                String imprintWeb = getString(R.string.url_imprint);
+                if (!imprintWeb.isEmpty()) {
+                    openLinkInWebView(imprintWeb, R.string.prefs_imprint);
+                }
+                //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
+                return true;
+            });
+        }
+
+    }
+
+    private void openLinkInWebView(String url, @StringRes int title) {
+        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
+                                       getResources().getString(title));
+        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
+        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+        startActivity(externalWebViewIntent);
     }
 
     private void enableLock(String lock) {

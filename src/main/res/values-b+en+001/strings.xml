@@ -952,4 +952,5 @@
         functions of the app.</string>
     <string name="data_analysis">Analysis-data acquisition for the design</string>
     <string name="data_analysis_info">This data helps us to optimize the app usage for you and to identify system crashes and errors more quickly.</string>
+    <string name="prefs_category_service">Service</string>
 </resources>

@@ -78,18 +78,12 @@
             android:key="mnemonic"
             android:summary="Displays your E2E 12 words passphrase"
             android:title="@string/prefs_e2e_mnemonic" />
-        <Preference
-            android:key="help"
-            android:title="@string/prefs_help" />
         <!--
                 <Preference android:title="@string/prefs_recommend" android:key="recommend" />
         -->
         <Preference
             android:key="logger"
             android:title="@string/logs_title" />
-        <Preference
-            android:key="imprint"
-            android:title="@string/prefs_imprint" />
     </com.owncloud.android.ui.PreferenceCustomCategory>
     <com.owncloud.android.ui.PreferenceCustomCategory
         android:key="data_protection"
@@ -110,6 +104,17 @@
              android:title="@string/prefs_license"
              android:id="@+id/license"
              android:key="license"/>-->
+    </com.owncloud.android.ui.PreferenceCustomCategory>
+
+    <com.owncloud.android.ui.PreferenceCustomCategory
+        android:key="service"
+        android:title="@string/prefs_category_service">
+        <Preference
+            android:key="help"
+            android:title="@string/prefs_help" />
+        <Preference
+            android:key="imprint"
+            android:title="@string/prefs_imprint" />
     </com.owncloud.android.ui.PreferenceCustomCategory>
 
     <com.owncloud.android.ui.PreferenceCustomCategory
