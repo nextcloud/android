@@ -1054,8 +1054,9 @@
     <string name="prefs_category_data_privacy">Data Privacy</string>
     <string name="privacy_settings">Privacy Settings</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="prefs_open_source">OpenSource Software Used</string>
-    <string name="privacy_settings_intro_text">To optimize your app, we collect anonymous data. For this we use software solutions of different partners. We would like to give you full transparency and decision-making power over the processin and collection of your anonymized usage data. You can also change your settings at any time later in the app settings under data protection. Please note, however, that data collection makes a considerable contribution to the optimization of this app and you prevent this optimization by preventing data transmission.</string>
+    <string name="prefs_open_source">Used OpenSource Software</string>
+    <string name="privacy_settings_intro_text">To optimize your app, we collect anonymous data. For this we use
+        software solutions of different partners. We would like to give you full transparency and decision-making power over the processing and collection of your anonymized usage data. You can also change your settings at any time later in the app settings under data protection. Please note, however, that data collection makes a considerable contribution to the optimization of this app and you prevent this optimization by preventing data transmission.</string>
     <string name="required_data_collection">Required data collection</string>
     <string name="data_collection_info">The collection of this data is necessary to be able to use essential
         functions of the app.</string>
@@ -1064,4 +1065,16 @@
     <string name="prefs_category_service">Service</string>
     <string name="allow_resharing_info">You are sharing with a MagentaCLOUD user and you can allow her or him to
         reshare.</string>
+    <string name="login_privacy_settings_intro_text">This app uses Cookies and similar technologies (tools). By
+        clicking Accept, you accept the processing and also the Transfer of your data to third parties. The data will
+        be used for Analysis, retargeting and to Display personalized Content and Advertising on sites and
+        third-party sites. You can find further information, including Information on data processing by third-party
+        Providers, in the Settings and in our %s. You can %s the use of the Tools or customize them at any time in the
+        %s.</string>
+    <string name="login_privacy_settings_header">Privacy Settings</string>
+    <string name="common_accept">Accept</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="login_privacy_policy">Privacy Policy</string>
+    <string name="login_privacy_reject">reject</string>
+    <string name="login_privacy_settings">Settings</string>
 </resources>

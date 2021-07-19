@@ -2,7 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,6 +27,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/standard_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginRight="@dimen/standard_margin"
                     android:text="@string/privacy_settings_intro_text"
@@ -100,6 +103,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/switch_data_analysis" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/privacy_save_settings_btn"
+                    android:layout_width="@dimen/privacy_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_double_margin"
+                    android:text="@string/save_settings"
+                    android:textStyle="normal"
+                    android:typeface="normal"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:theme="@style/Button.Primary"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_data_analysis_info" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

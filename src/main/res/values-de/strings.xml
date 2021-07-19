@@ -956,4 +956,15 @@
     <string name="data_analysis_info">Diese Daten helfen uns, die App Nutzung für Sie zu optimieren und Systemabstürze und Fehler schneller zu identifizieren.</string>
     <string name="prefs_category_service">Bedienung</string>
     <string name="allow_resharing_info">Sie teilen mit einer/einem MagentaCLOUD Nutzer(in). Sie können ihr oder ihm erlauben, den Ordner oder die Dateien weiterzuteilen.</string>
+    <string name="login_privacy_settings_intro_text">Diese App verwendet Cookies und ähnliche Technologien (Tools).
+        Mit einem Klick auf Zustimmen akzeptieren Sie die Verarbeitung und auch die Weitergabe Ihrer Daten an
+        Drittanbieter. Die Daten werden für Analysen, Retargeting und zur Ausspielung von personalisierten Inhalten
+        und Werbung auf Seiten der Telekom, sowie auf Drittanbieterseiten genutzt. Weitere Informationen, auch zur
+        Datenverarbeitung durch Drittanbieter, finden Sie in den Einstellungen sowie in unseren %s. Sie können die
+        Verwendung der Tools %s oder jederzeit über ihre %s anpassen.</string>
+    <string name="login_privacy_settings_header">Datenschutz-Einstellungen</string>
+    <string name="common_accept">Akzeptieren</string>
+    <string name="login_privacy_policy">Datenschutzhinweise</string>
+    <string name="login_privacy_reject">ablehnen</string>
+    <string name="login_privacy_settings">Einstellungen</string>
 </resources>

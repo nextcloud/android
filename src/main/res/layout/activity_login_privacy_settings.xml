@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar_standard" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_privacy"
+                    android:layout_width="@dimen/privacy_icon_size"
+                    android:layout_height="@dimen/privacy_icon_size"
+                    android:layout_marginTop="@dimen/standard_double_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_privacy_settings"
+                    app:tint="@color/primary" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_privacy_setting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:text="@string/login_privacy_settings_header"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/txt_size_18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_privacy" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_login_privacy_intro_text"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standard_double_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginRight="@dimen/standard_double_margin"
+                    tools:text="@string/login_privacy_settings_intro_text"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/txt_size_15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_privacy_setting_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/privacy_accept_btn"
+                    android:layout_width="@dimen/privacy_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_double_margin"
+                    android:text="@string/common_accept"
+                    android:textStyle="normal"
+                    android:typeface="normal"
+                    android:theme="@style/Button.Primary"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_login_privacy_intro_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

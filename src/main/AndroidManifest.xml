@@ -202,6 +202,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <activity
+            android:name="com.nmc.android.ui.LoginPrivacySettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <service
             android:name=".authentication.AccountAuthenticatorService"
             android:exported="true">

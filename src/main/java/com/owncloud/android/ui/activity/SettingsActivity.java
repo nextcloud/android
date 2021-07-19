@@ -260,9 +260,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
             privacySettingPreference.setTitle(ThemeUtils.getColoredTitle(getString(R.string.privacy_settings),
                                                                      accentColor));
             privacySettingPreference.setOnPreferenceClickListener(preference -> {
-                PrivacySettingsActivity.openPrivacySettingsActivity(this);
-                    return true;
-                });
+                PrivacySettingsActivity.openPrivacySettingsActivity(this, false);
+                return true;
+            });
         }
 
         // privacy policy
