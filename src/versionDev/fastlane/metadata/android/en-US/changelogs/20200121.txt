@@ -1,0 +1,15 @@
+a07a165fb Merge pull request #5252 from nextcloud/fix/lock-drawer-video-preview
+2f02f6bdf Added locking and unlocking of Drawer in Videos Activities/Fragments
+465b209ec Merge pull request #5216 from nextcloud/fix/lock-drawer-in-medias-activities
+b2fb207a1 Merge pull request #5234 from nextcloud/moveAddFolderInfo
+521c89d83 Merge pull request #5229 from nextcloud/colorLauncher
+d31223b59 fix gradle warning
+4ac216dd3 Merge pull request #5247 from nextcloud/dependabot/gradle/com.google.android-flexbox-2.0.1
+d0413af7b [tx-robot] updated from transifex
+f3ccaa4d1 Bump flexbox from 2.0.0 to 2.0.1
+48a9d752b [tx-robot] updated from transifex
+1c483e140 move create rich workspace into bottom sheet
+8d9148f5f Launcher: color statusbar / navigation bar in primary color
+9e8f0fda7 [tx-robot] updated from transifex
+8b1fd4f51 daily dev 20200118
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b

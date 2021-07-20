@@ -1,0 +1,23 @@
+name: "Assemble"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    flavor:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                flavor: [ Generic, Gplay ]
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: set up JDK 1.8
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 1.8
+            -   name: Build ${{ matrix.flavor }}
+                run: |
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" >> gradle.properties
+                    ./gradlew assemble${{ matrix.flavor }}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Andy Scherzinger
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shareContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_eight_padding">
+
+    <LinearLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/zero">
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_width="@dimen/user_icon_size"
+            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/avatar"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_search_grey" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/ownCloud.SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/zero"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
+            android:hint="@string/share_search"
+            app:searchIcon="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/shared_with_you_container"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding">
+
+        <ImageView
+            android:contentDescription="@string/avatar"
+            android:id="@+id/shared_with_you_avatar"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_width="@dimen/user_icon_size"
+            android:src="@drawable/ic_user" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding">
+
+            <TextView
+                android:id="@+id/shared_with_you_username"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/shared_with_you_by"
+                android:textSize="@dimen/two_line_primary_text_size" />
+
+            <LinearLayout
+                android:id="@+id/shared_with_you_note_container"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/standard_half_padding"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:contentDescription="@string/note_icon_hint"
+                    android:layout_height="16dp"
+                    android:layout_width="16dp"
+                    android:src="@drawable/file_text" />
+
+                <TextView
+                    android:id="@+id/shared_with_you_note"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_half_padding"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:divider="@drawable/divider"
+        android:dividerHeight="1dp"
+        android:id="@+id/sharesList"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+035342895 Stabilize coverage (#4070)
+71e73134b Enable coverage only in CI (#4068)
+6ca1c8858 Stabilize coverage
+a891c848d add changelog for 3.6.1 and 3.6.2 (#4069)
+e5f24ebef remove empty lines after headline
+471761452 add changelog for 3.6.1 and 3.6.2
+fcb5738a8 [tx-robot] updated from transifex
+eef4fb5fa [tx-robot] updated from transifex
+33587bd2c Enable coverage only in CI
+a42fd3b47 [tx-robot] updated from transifex
+245ea82c4 daily dev 20190524

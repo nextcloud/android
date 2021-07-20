@@ -1,0 +1,68 @@
+###################################################################
+  Nextcloud Android client                                       
+
+  Copyright (C) 2016      Nextcloud Project
+  Copyright (C) 2012-2016 ownCloud GmbH
+  Copyright (C) 2012      Bartek Przybylski
+###################################################################
+
+
+###########
+# LICENSE #
+###########
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License versions 2,
+as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+The source distribution of this program should include a full copy
+of the GNU GPL version 2 license in the LICENSE.txt file located 
+in its root directory. If not, see <http://www.gnu.org/licenses/>.
+
+
+########################
+# THIRD PARTY LICENSES #
+########################
+
+Both the source and binary distributions of this software contain
+some third party software. All the third party software included
+or linked is redistributed under the terms and conditions of their 
+original licenses. These licenses are compatible the GPL license 
+that govern this software, for the purposes they are being used.
+
+The third party software included and used by this project is:
+
+ * Apache JackRabbit 2.12.4. (included by the android-library project)
+   Copyright (C) 2004-2016 The Apache Software Foundation.
+   Licensed under Apache License, Version 2.0.
+   The library is included in the Nextcloud client APK.
+   See http://jackrabbit.apache.org/
+ 
+ * TouchImageView, 1.2.0. commit 6dbeac4f11936185ba374c73144ac431c23c9aab
+   Copyright (c) 2014 Michael Ortiz
+   Licensed under MIT License
+   This library is in the source code.
+   See https://github.com/MikeOrtiz/TouchImageView
+ 
+ * floatingactionbutton 1.10.21.
+   Copyright (c) 2014 Jerzy Chalupski
+   Licensed under Apache License, Version 2.0.
+   The library is included in the Nextcloud client APK.
+   See https://github.com/futuresimple/android-floating-action-button 
+ 
+ * AndroidSVG 1.2.1.
+   Copyright (c) 2014 Paul LeBeau
+   Licensed under Apache License, Version 2.0.
+   The library is included in the Nextcloud client APK.
+   See https://github.com/BigBadaboom/androidsvg
+   
+ * Disk LRU Cache 2.0.2.
+   Copyright (c) 2013 Jake Wharton 
+   Licensed under Apache License, Version 2.0.
+   The library is be included in the Nextcloud client APK.
+   See https://github.com/JakeWharton/DiskLruCache

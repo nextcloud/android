@@ -1,0 +1,12 @@
+79d5ffcd6 Merge pull request #4348 from nextcloud/uploadListItems
+4718a7489 formatting
+8b60ae8b9 Merge pull request #4346 from nextcloud/newAndroid
+0ec3489a4 hide user account from upload items in case device only has a single account configured
+c32ca050a Handle thread interruption when enqueueing log message (#4336)
+c4d361387 use new Android docker image
+df5a52a21 Merge pull request #4326 from nextcloud/tint
+41bce353a [tx-robot] updated from transifex
+6ca93f25b [tx-robot] updated from transifex
+de726fedd Handle thread interruption when enqueueing log message
+0f895e7ce [tx-robot] updated from transifex
+9c9dcc96c daily dev 20190817

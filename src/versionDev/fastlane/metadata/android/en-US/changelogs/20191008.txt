@@ -1,0 +1,6 @@
+a035b5817 Merge pull request #4617 from nextcloud/dependabot/gradle/com.google.code.gson-gson-2.8.6
+2d663a5a4 [tx-robot] updated from transifex
+cdc51dd1e Bump gson from 2.8.5 to 2.8.6
+89df63ab8 [tx-robot] updated from transifex
+d2ce78faf [tx-robot] updated from transifex
+8e95e815c daily dev 20191005

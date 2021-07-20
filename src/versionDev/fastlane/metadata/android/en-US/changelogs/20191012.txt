@@ -1,0 +1,7 @@
+bc618c96c Merge pull request #4658 from nextcloud/381changelog
+991a55cb6 Merge pull request #4656 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.1.1
+d4e5ecd90 3.8.1 release notes
+45f5b384d Merge pull request #4655 from nextcloud/revertDisableException
+4d512c5dd Bump detekt-gradle-plugin from 1.0.1 to 1.1.1
+e333c88a0 [tx-robot] updated from transifex
+0dbee8aa9 daily dev 20191011

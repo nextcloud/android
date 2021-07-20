@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2012 Bartek Przybylski
+  Copyright (C) 2015-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
+  Copyright (C) 2019 Tobias Kaminsky
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_padding">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_padding"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/default_login_width"
+            android:minWidth="@dimen/default_login_width"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_half_padding">
+
+            <FrameLayout
+                android:id="@+id/host_url_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/host_url_container"
+                    style="@style/Widget.App.Login.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/auth_host_url"
+                    android:theme="@style/TextInputLayoutLogin"
+                    app:endIconContentDescription="@string/test_server_button"
+                    app:endIconDrawable="@drawable/arrow_right"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/login_text_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/host_url_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:importantForAutofill="no"
+                        android:inputType="textUri|textNoSuggestions|textEmailAddress"
+                        android:lines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/alternate_padding_right"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/login_text_color">
+
+                        <requestFocus />
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/host_url_input_helper_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_quarter_padding"
+                android:paddingEnd="@dimen/standard_half_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
+                android:text="@string/login_url_helper_text"
+                android:textColor="@color/white_helper_text" />
+
+            <TextView
+                android:id="@+id/server_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/auth_testing_connection"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/display_text_min_height"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_eight_padding"
+                android:paddingEnd="@dimen/standard_eight_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
+                android:text="@string/auth_testing_connection"
+                android:textColor="@color/login_text_color"
+                android:visibility="invisible"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
+
+            <TextView
+                android:id="@+id/auth_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/auth_unauthorized"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_eight_padding"
+                android:paddingEnd="@dimen/standard_eight_padding"
+                android:paddingBottom="@dimen/standard_eight_padding"
+                android:text="@string/auth_unauthorized"
+                android:textColor="@color/login_text_color"
+                app:drawableStartCompat="@android:drawable/stat_notify_sync" />
+
+            <ImageButton
+                android:id="@+id/scan_qr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:contentDescription="@string/scanQR_description"
+                android:src="@drawable/qrcode_scan"
+                android:theme="@style/Button.Login" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

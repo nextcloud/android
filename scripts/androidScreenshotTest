@@ -1,0 +1,83 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+    echo "1: record: true/false
+2: class name
+3: method name
+4: darkMode: dark/light / \"all\" to run all screenshot combinations
+5: color"
+
+    exit
+fi
+
+cd src/androidTest/java
+
+class=$(find | grep $2 | grep -E "java$|kt$" | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##'| sed s'#\.kt##')
+
+if [[ -z $class ]]; then
+    echo "Class not found!"
+    exit 1
+fi
+
+cd ../../../
+
+if [ $1 == "true" ] ; then
+    record="-Precord"
+else
+    record=""
+fi
+
+if [ -e $3 ] ; then
+    method=""
+else
+    method="#$3"
+
+    # check if method exists
+    if [[ $(grep -c $3 $(find | grep $2 | grep -E "java$|kt$" | head -n1)) -eq 0 ]]; then
+        echo "Method not found!"
+        exit 1
+    fi
+fi
+
+if [ -e $4 ] ; then
+    darkMode=""
+else
+    darkMode="-Pandroid.testInstrumentationRunnerArguments.DARKMODE=$4"
+fi
+
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
+# check if emulator is running
+emulatorIsRunning=false
+while read line ; do
+    if [[ $(adb -s $line emu avd name 2>/dev/null | head -n1) =~ uiComparison.* ]]; then
+        emulatorIsRunning=true
+        export ANDROID_SERIAL=$line
+        break
+    fi
+done < <(adb devices | cut -f1)
+
+if [ ! $emulatorIsRunning ] ; then
+    emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+fi
+
+if [ -e $5 ] ; then
+    color=""
+else
+    color="-Pandroid.testInstrumentationRunnerArguments.COLOR=$5"
+fi
+
+if [[ $4 = "all" ]]; then
+    scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
+else
+    ./gradlew --offline gplayDebugExecuteScreenshotTests $record \
+    -Pscreenshot=true \
+    -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+    -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
+    $darkMode \
+    $color
+fi
+
+
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
+unset ANDROID_SERIAL

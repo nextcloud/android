@@ -1,0 +1,8 @@
+7201dbe4a Merge pull request #5029 from nextcloud/beautifyScreenshots
+9246373e3 beautify screenshots: no status icon, set time to 12:00, no charging, etc.
+447f74792 Merge pull request #5025 from nextcloud/dependabot/gradle/org.mockito-mockito-core-3.2.4
+2be462356 Bump mockito-core from 3.2.0 to 3.2.4
+3c8aa90fc Merge pull request #5026 from nextcloud/dependabot/gradle/daggerVersion-2.25.3
+6d63b4b07 [tx-robot] updated from transifex
+380cc0137 daily dev 20191218
+library commit: 00df7adad479c6cf397f4e589f802f5556df50da

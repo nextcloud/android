@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ownCloud Android client application
+
+    Copyright (C) 2015 ownCloud Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 2,
+    as published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+	android:padding="@dimen/standard_padding">
+
+	<TextView
+		android:id="@+id/header"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/ssl_validator_header"
+		android:paddingBottom="@dimen/standard_padding"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	<TextView
+		android:id="@+id/reason_cert_not_trusted"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="start"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
+		android:text="@string/ssl_validator_reason_cert_not_trusted"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+
+	<TextView
+		android:id="@+id/reason_cert_expired"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="start"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
+		android:text="@string/ssl_validator_reason_cert_expired"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+
+	<TextView
+		android:id="@+id/reason_cert_not_yet_valid"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="start"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
+		android:text="@string/ssl_validator_reason_cert_not_yet_valid"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+
+	<TextView
+		android:id="@+id/reason_hostname_not_verified"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="start"
+        android:paddingStart="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero"
+		android:text="@string/ssl_validator_reason_hostname_not_verified"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+
+    <ScrollView
+        android:id="@+id/details_scroll"
+        android:visibility="gone"
+    	android:padding="@dimen/standard_half_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/scroll_view_height">
+
+		<LinearLayout
+			android:id="@+id/details_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:orientation="vertical" >
+
+				<TextView
+        			android:id="@+id/label_subject"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text="@string/ssl_validator_label_subject"
+        			android:textAppearance="?android:attr/textAppearanceMedium"
+        		/>
+
+				<TextView
+				    android:id="@+id/label_subject_CN"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_CN"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_CN"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_subject_O"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_O"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_O"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_subject_OU"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_OU"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_OU"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_subject_ST"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_ST"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_ST"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_subject_C"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_C"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_C"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_subject_L"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_L"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_subject_L"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+
+				<TextView
+        			android:id="@+id/label_issuer"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text="@string/ssl_validator_label_issuer"
+        			android:textAppearance="?android:attr/textAppearanceMedium"
+        		/>
+
+				<TextView
+				    android:id="@+id/label_issuer_CN"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_CN"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_CN"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_issuer_O"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_O"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_O"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_issuer_OU"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_OU"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_OU"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_issuer_ST"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_ST"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_ST"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_issuer_C"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_C"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_C"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_issuer_L"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_L"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_issuer_L"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+        			android:id="@+id/label_validity"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text="@string/ssl_validator_label_validity"
+        			android:textAppearance="?android:attr/textAppearanceMedium"
+        		/>
+
+				<TextView
+				    android:id="@+id/label_validity_from"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_validity_from"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_validity_from"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/label_validity_to"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/ssl_validator_label_validity_to"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+				    android:id="@+id/value_validity_to"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingBottom="@dimen/alternate_half_padding"
+				    android:text=""
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+
+				<TextView
+        			android:id="@+id/label_signature"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text="@string/ssl_validator_label_signature"
+        			android:textAppearance="?android:attr/textAppearanceMedium"
+        		/>
+
+				<TextView
+        			android:id="@+id/label_signature_algorithm"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:text="@string/ssl_validator_label_signature_algorithm"
+        			android:textAppearance="?android:attr/textAppearanceSmall"
+        		/>
+
+								<TextView
+        			android:id="@+id/value_signature_algorithm"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text=""
+        			android:textAppearance="?android:attr/textAppearanceSmall"
+        		/>
+
+
+				<TextView
+        			android:id="@+id/value_signature"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+					android:paddingBottom="@dimen/alternate_half_padding"
+        			android:text=""
+        			android:textAppearance="?android:attr/textAppearanceSmall"
+        		/>
+
+		</LinearLayout>
+
+    </ScrollView>
+
+	<TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:paddingTop="@dimen/standard_padding"
+        android:text="@string/ssl_validator_question"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        >
+    </TextView>
+
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+			style="@style/Button.Borderless"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_no" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/details_btn"
+			style="@style/Button.Borderless"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/ssl_validator_btn_details_see" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ok"
+			style="@style/Button.Borderless"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_yes" />
+
+    </LinearLayout>
+
+</LinearLayout>

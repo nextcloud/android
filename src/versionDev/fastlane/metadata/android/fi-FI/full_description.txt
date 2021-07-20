@@ -1,0 +1,4 @@
+Itse ylläpidetty työalusta jota sinä kontrolloit. 
+Tämä on virallinen kehitysversio, sisältäen pävittäin vaihtuvia uusia ja testaamattomia toimintoja, jotka voivat epävakauttaa ohjelmistoa ja aiheuttaa tietojen häviämistä. Sovellus on tarkoitettu käyttäjille jotka haluavat testata ja raportoida ohjelman virheitä jos niitä tapahtuu. Älä käytä sitä työ ympäristössä!
+
+Sekä virallinen kehitysversio että normaali versio ovat saatavilla F-droid:ssa ja ne voidaan asentaa samanaikaisesti. 

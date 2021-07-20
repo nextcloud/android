@@ -1,0 +1,9 @@
+bfacbee7b Merge pull request #4630 from nextcloud/releaseProcess
+fe0796329 add imfo about hotfix and security fix releases
+f1cf050a8 Merge pull request #4626 from nextcloud/removeCustomEdit
+af7bf9b2f Merge pull request #4647 from nextcloud/fixVanishingImages
+4a9c7c806 Merge pull request #4648 from nextcloud/fixRelativePath
+a2f2da9c2 move logic completely into function prevent double subfolders
+73fc5e47e OCFiles can be retrieved also by photo search, which then do not have a parent, nor a fileId as the are only virtual files upon refreshing folder - they were found in database, but only updated with fileId=-1. - they were not found in parent folder, so we have to search them manually via file path
+cf74da7bd - remove CustomEditTextField - do not use fancy material header for textInput, but regular TextView - do not show QR button on legacy login - fix layout in tablet mode
+3e444725a daily dev 20191010

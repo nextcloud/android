@@ -1,0 +1,47 @@
+name: "Screenshot Test"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    screenshot:
+        runs-on: macOS-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                scheme: [ Dark, Light ]
+                color: [ blue, white ]
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: set up JDK 1.8
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 1.8
+            -   name: Build gplay
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    ./gradlew assembleGplayDebug
+            -   name: Delete old comments
+                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+            -   name: run tests
+                uses: reactivecircus/android-emulator-runner@v2
+                with:
+                    api-level: 27
+                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+            -   name: upload failing results
+                if: ${{ failure() }}
+                env:
+                    LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
+                    LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
+                run:
+                    scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+            -   name: Archive Espresso results
+                uses: actions/upload-artifact@v2
+                if: ${{ always() }}
+                with:
+                    name: Report-${{ matrix.color }}-${{ matrix.scheme }}
+                    path: build/reports
+                    retention-days: 4

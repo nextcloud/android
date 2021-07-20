@@ -1,0 +1,42 @@
+{
+   "metadata":{
+      "encrypted":{
+         "metadataKeys":{
+            "0":"s4k4LPDpxoO53TKwem3Lo1",
+            "2":"…",
+            "3":"NEWESTMETADATAKEY"
+         }
+      },
+      "initializationVector":"kahzfT4u86Knc+e3",
+      "sharing":{
+         "recipient":{
+            "blah@schiessle.org":"PUBLIC KEY",
+            "bjoern@schiessle.org":"PUBLIC KEY"
+         },
+         "signature":"HMACOFRECIPIENTANDNEWESTMETADATAKEY"
+      },
+      "version":1
+   },
+   "files":{
+      "ia7OEEEyXMoRa1QWQk8r":{
+         "encrypted":{
+            "key":"jtboLmgGR1OQf2uneqCVHpklQLlIwWL5TXAQ0keK",
+            "filename":"test.txt",
+            "authenticationTag":"HMAC of file",
+            "version":1
+         },
+         "metadataKey":0,
+         "initializationVector":"+mHu52HyZq+pAAIN"
+      },
+      "n9WXAIXO2wRY4R8nXwmo":{
+         "encrypted":{
+            "key":"s4k4LPDpxoO53TKwem3Lo1yJnbNUYH2KLrSFT8Ea",
+            "filename":"test2.txt",
+            "authenticationTag":"HMAC of file",
+            "version":1
+         },
+         "metadataKey":0,
+         "initializationVector":"sOFd17hCKWIv0gyB"
+      }
+   }
+} 

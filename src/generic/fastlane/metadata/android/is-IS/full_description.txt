@@ -1,0 +1,19 @@
+Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.
+
+Eiginleikar:
+* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn
+* Sendir skrár inn á Nextcloud-þjóninn þinn
+* Deilir skránum þínum með öðrum
+* Heldur eftirlætisskránum og möppunum þínum samstilltum
+* Leitar í öllum möppum á þjóninum þínum
+* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum
+* Heldur uppfærðu með tilkynningum
+* Styður við marga notandaaðganga
+* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri
+* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða
+
+Tilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android
+
+Nýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.
+
+Skoðaðu fleira um Nextcloud á https://nextcloud.com
