@@ -183,7 +183,9 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val file1 = rootDir.createFile("text/plain", RandomString.make())!!
         file1.assertRegularFile(size = 0L)
 
-        val createdETag = file1.getOCFile(storageManager)!!.etag
+        val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
+
+        assertTrue(createdETag.isNotEmpty())
 
         val content1 = "initial content".toByteArray()
 
@@ -192,8 +194,10 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content1)
         }
 
-        while (file1.getOCFile(storageManager)!!.etag == createdETag) {
+        // refresh
+        while (file1.getOCFile(storageManager)!!.etagOnServer == createdETag) {
             shortSleep()
+            rootDir.listFiles()
         }
 
         val remotePath = file1.getOCFile(storageManager)!!.remotePath

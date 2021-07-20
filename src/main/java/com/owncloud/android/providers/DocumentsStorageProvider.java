@@ -718,8 +718,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         @Override
         public final RemoteOperationResult doInBackground(Void... params) {
             Log.d(TAG, "run ReloadFolderDocumentTask(), id=" + folder.getDocumentId());
-            return new RefreshFolderOperation(folder.getFile(), System.currentTimeMillis(), false,
-                                              false, true, folder.getStorageManager(), folder.getAccount(),
+            return new RefreshFolderOperation(folder.getFile(),
+                                              System.currentTimeMillis(),
+                                              false,
+                                              true,
+                                              true,
+                                              folder.getStorageManager(),
+                                              folder.getAccount(),
                                               MainApp.getAppContext())
                 .execute(folder.getClient());
         }
