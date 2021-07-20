@@ -52,6 +52,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+
 import androidx.test.runner.AndroidJUnit4;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
@@ -142,6 +144,33 @@ public class EncryptionTestIT {
         byte[] key2 = decodeStringToBase64Bytes(decryptedString);
 
         assertTrue(Arrays.equals(key1, key2));
+    }
+
+    @Test
+    public void encryptStringAsymmetricCorrectPublicKey() throws Exception {
+        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+
+        byte[] key1 = generateKey();
+        String base64encodedKey = encodeBytesToBase64String(key1);
+
+        String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, keyPair.getPublic());
+        String decryptedString = decryptStringAsymmetric(encryptedString, keyPair.getPrivate());
+
+        byte[] key2 = decodeStringToBase64Bytes(decryptedString);
+
+        assertTrue(Arrays.equals(key1, key2));
+    }
+
+    @Test(expected = BadPaddingException.class)
+    public void encryptStringAsymmetricWrongPublicKey() throws Exception {
+        KeyPair keyPair1 = EncryptionUtils.generateKeyPair();
+        KeyPair keyPair2 = EncryptionUtils.generateKeyPair();
+
+        byte[] key1 = generateKey();
+        String base64encodedKey = encodeBytesToBase64String(key1);
+
+        String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, keyPair1.getPublic());
+        decryptStringAsymmetric(encryptedString, keyPair2.getPrivate());
     }
 
     @Test

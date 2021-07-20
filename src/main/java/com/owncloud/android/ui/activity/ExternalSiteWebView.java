@@ -38,7 +38,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.io.InputStream;
 
@@ -186,7 +186,7 @@ public class ExternalSiteWebView extends FileActivity {
     private void setupActionBar(String title) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            ThemeUtils.setColoredTitle(actionBar, title, this);
+            ThemeToolbarUtils.setColoredTitle(actionBar, title, this);
 
             if (showSidebar) {
                 actionBar.setDisplayHomeAsUpEnabled(true);

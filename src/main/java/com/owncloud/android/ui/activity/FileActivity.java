@@ -88,7 +88,8 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -198,7 +199,7 @@ public abstract class FileActivity extends DrawerActivity
             mFileOperationsHelper.setOpIdWaitingFor(
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
-            ThemeUtils.setColoredTitle(getSupportActionBar(), savedInstanceState.getString(KEY_ACTION_BAR_TITLE), this);
+            ThemeToolbarUtils.setColoredTitle(getSupportActionBar(), savedInstanceState.getString(KEY_ACTION_BAR_TITLE), this);
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -703,7 +704,7 @@ public abstract class FileActivity extends DrawerActivity
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                           Snackbar.LENGTH_LONG)
             .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-        ThemeUtils.colorSnackbar(activity, snackbar);
+        ThemeSnackbarUtils.colorSnackbar(activity, snackbar);
         snackbar.show();
     }
 
@@ -772,7 +773,7 @@ public abstract class FileActivity extends DrawerActivity
                 snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
-            ThemeUtils.colorSnackbar(this, snackbar);
+            ThemeSnackbarUtils.colorSnackbar(this, snackbar);
             snackbar.show();
         }
     }
@@ -827,7 +828,7 @@ public abstract class FileActivity extends DrawerActivity
                                                                                            operation,
                                                                                            getResources()),
                                                   Snackbar.LENGTH_LONG);
-                ThemeUtils.colorSnackbar(this, snackbar);
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             }
         }

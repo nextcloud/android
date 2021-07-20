@@ -47,6 +47,7 @@ import androidx.test.rule.GrantPermissionRule;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.web.sugar.Web.onWebView;
 import static androidx.test.espresso.web.webdriver.DriverAtoms.findElement;
@@ -86,7 +87,7 @@ public class LoginIT extends AbstractIT {
 
         onView(withId(R.id.login)).perform(click());
         onView(withId(R.id.host_url_input)).perform(typeText(baseUrl));
-        onView(withId(R.id.test_server_button)).perform(click());
+        onView(withId(R.id.host_url_input)).perform(typeTextIntoFocusedView("\n"));
 
         Thread.sleep(3000);
 

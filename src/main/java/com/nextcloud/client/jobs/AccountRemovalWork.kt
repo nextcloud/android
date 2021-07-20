@@ -92,14 +92,8 @@ class AccountRemovalWork(
         val user = optionalUser.get()
         backgroundJobManager.cancelPeriodicContactsBackup(user)
         val userRemoved = userAccountManager.removeUser(user)
-        if (userRemoved) {
-            eventBus.post(AccountRemovedEvent())
-        }
         val storageManager = FileDataStorageManager(user.toPlatformAccount(), context.contentResolver)
-        // remove all files
-        removeFiles(user, storageManager)
-        // delete all database entries
-        storageManager.deleteAllFiles()
+
         // disable daily backup
         arbitraryDataProvider.storeOrUpdateKeyValue(
             user.accountName,
@@ -108,15 +102,26 @@ class AccountRemovalWork(
         )
         // unregister push notifications
         unregisterPushNotifications(context, user, arbitraryDataProvider)
+
         // remove pending account removal
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, ManageAccountsActivity.PENDING_FOR_REMOVAL)
+
         // remove synced folders set for account
         remoceSyncedFolders(context, user.toPlatformAccount(), clock)
+
         // delete all uploads for account
         uploadsStorageManager.removeAccountUploads(user.toPlatformAccount())
-        // delete stored E2E keys
+
+        // delete stored E2E keys and mnemonic
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PRIVATE_KEY)
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PUBLIC_KEY)
+        arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.MNEMONIC)
+
+        // remove all files
+        removeFiles(user, storageManager)
+        // delete all database entries
+        storageManager.deleteAllFiles()
+
         if (remoteWipe) {
             val optionalClient = createClient(user)
             if (optionalClient.isPresent) {
@@ -127,6 +132,11 @@ class AccountRemovalWork(
         }
         // notify Document Provider
         DocumentsStorageProvider.notifyRootsChanged(context)
+
+        if (userRemoved) {
+            eventBus.post(AccountRemovedEvent())
+        }
+
         return Result.success()
     }
 

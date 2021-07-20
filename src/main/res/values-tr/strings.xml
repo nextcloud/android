@@ -116,9 +116,9 @@
     <string name="common_save">Kaydet</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
+    <string name="common_skip">Atla</string>
     <string name="common_switch_account">Hesabı değiştir</string>
     <string name="common_switch_to_account">Şu hesaba geç</string>
-    <string name="common_unknown">bilinmiyor</string>
     <string name="common_yes">Evet</string>
     <string name="community_beta_headline">Geliştirici sürümünü deneyin</string>
     <string name="community_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan eksikleri olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
@@ -279,6 +279,11 @@
     <string name="etm_migrations">Aktarımlar (uygulama yükseltmesi)</string>
     <string name="etm_preferences">Ayarlar</string>
     <string name="etm_title">Mühendislik Sınama Kipi</string>
+    <string name="etm_transfer">Dosya aktarımı</string>
+    <string name="etm_transfer_enqueue_test_download">Sınama indirmesini sıraya al</string>
+    <string name="etm_transfer_enqueue_test_upload">Sınama yüklemesini sıraya al</string>
+    <string name="etm_transfer_remote_path">Uzak yol</string>
+    <string name="etm_transfer_type">Aktar</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
@@ -393,7 +398,7 @@
     <string name="logs_menu_delete">Günlükleri sil</string>
     <string name="logs_menu_refresh">Yenile</string>
     <string name="logs_menu_search">Günlük arama</string>
-    <string name="logs_menu_send">Günlükleri e-posta ile gönder</string>
+    <string name="logs_menu_send">Günlükler e-posta ile gönderilsin</string>
     <string name="logs_status_filtered">Günlük kayıtları: %1$d kB, Eşleşen kayıt: %2$d / %3$d, Süre: %4$d ms</string>
     <string name="logs_status_loading">Yükleniyor …</string>
     <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>
@@ -677,6 +682,7 @@
     <string name="stream">Şununla akıt …</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
+    <string name="strict_mode">Kısıtlı kip: http bağlantılarına izin verilmez!</string>
     <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>

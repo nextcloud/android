@@ -116,9 +116,9 @@
     <string name="common_save">Speichern</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
+    <string name="common_skip">Überspringen</string>
     <string name="common_switch_account">Konto wechseln</string>
     <string name="common_switch_to_account">Zu Konto wechseln</string>
-    <string name="common_unknown">unbekannt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testen Sie die Entwickler-Version</string>
     <string name="community_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht komplett qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns solche bitte.</string>
@@ -279,6 +279,11 @@
     <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>
     <string name="etm_preferences">Einstellungen</string>
     <string name="etm_title">Technischer Testmodus</string>
+    <string name="etm_transfer">Dateiübertragung</string>
+    <string name="etm_transfer_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
+    <string name="etm_transfer_enqueue_test_upload">Test-Upload in die Warteschlange stellen </string>
+    <string name="etm_transfer_remote_path">Externer Pfad</string>
+    <string name="etm_transfer_type">Übertragen</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
@@ -387,13 +392,13 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Hier gibt es keine weiteren Ordner.</string>
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
-    <string name="log_send_no_mail_app">Es wurde keine App gefunden die Logs verschicken kann. Bitte installiere eine App die E-Mails verschicken kann.</string>
+    <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
     <string name="login">Anmelden</string>
     <string name="login_url_helper_text">Der Link zu Ihrem %1$s Webseite, wenn Sie dies im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>
-    <string name="logs_menu_send">Logs per E-Mail versenden</string>
+    <string name="logs_menu_send">Protokolldateien per E-Mail versenden</string>
     <string name="logs_status_filtered">Logs: %1$d kB, Abfragetreffer %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Lade…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
@@ -678,6 +683,7 @@
     <string name="stream">Streamen mit…</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
+    <string name="strict_mode">Strikter Modus: keine http-Verbindung erlaubt!</string>
     <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
     <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>

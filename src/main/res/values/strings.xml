@@ -76,7 +76,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
     <string name="uploader_error_message_no_file_to_upload">Received data did not include a valid file.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">This file can not be uploaded</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">This file cannot be uploaded</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
@@ -121,7 +121,6 @@
     <string name="common_save">Save</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading…</string>
-    <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
     <string name="common_delete">Delete</string>
@@ -214,7 +213,7 @@
     <string name="media_err_io">Could not read the media file</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">Attempt to play file timed out</string>
-    <string name="media_err_invalid_progressive_playback">The media file can not be streamed</string>
+    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
     <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
     <string name="media_rewind_description">Rewind button</string>
     <string name="media_play_pause_description">Play or pause button</string>
@@ -388,9 +387,9 @@
 
     <string name="logs_title">Logs</string>
     <string name="logs_menu_refresh">Refresh</string>
-    <string name="logs_menu_send">Send logs by e-mail</string>
+    <string name="logs_menu_send">Send logs by email</string>
     <string name="logs_menu_delete">Delete logs</string>
-    <string name="log_send_no_mail_app">No app for sending logs found. Please install an e-mail client.</string>
+    <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
 
     <string name="actionbar_move">Move</string>
@@ -485,7 +484,7 @@
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
-    <string name="maintenance_mode">Server in maintenance mode</string>
+    <string name="maintenance_mode">Server is in maintenance mode</string>
     <string name="offline_mode">No internet connection</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
@@ -558,7 +557,7 @@
     <string name="whats_new_skip">Skip</string>
 
     <!-- User information -->
-    <string name="user_info_email">E-mail</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Phone number</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_website">Website</string>
@@ -905,7 +904,7 @@
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="conflict_dialog_error">Error creating conflict dialog!</string>
-    <string name="qr_could_not_be_read">QR Code could not be read!</string>
+    <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="add_another_public_share_link">Add another link</string>
     <string name="unshare">Unshare</string>
@@ -952,4 +951,9 @@
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
+    <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
+    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
+    <string name="create">Create</string>
+    <string name="select_one_template">Please select one template</string>
+    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
 </resources>

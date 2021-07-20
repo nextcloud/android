@@ -8,7 +8,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.21-2'
+    ext.kotlin_version = '1.4.31'
     repositories {
         google()
         jcenter()
@@ -18,20 +18,19 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath('com.hiya:jacoco-android:0.2')
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.16.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.3.0'
+        classpath 'com.karumi:shot:5.10.3'
     }
 }
 
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
@@ -47,24 +46,28 @@ configurations {
         exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
 
         // check for updates every build
-        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+        }
     }
 }
 
 ext {
     jacocoVersion = "0.8.2"
-    daggerVersion = "2.30.1"
-    markwonVersion =  "4.6.1"
+    daggerVersion = "2.33"
+    markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     butterknifeVersion = "10.2.3"
-    androidLibraryVersion = "2.5.1"
-    mockitoVersion = "3.7.0"
+    androidLibraryVersion = "2.6.1"
+    mockitoVersion = "3.8.0"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.10.19"
+    byteBuddyVersion = "1.10.22"
     espressoVersion = "3.3.0"
+    workRuntime = "2.5.0"
 
-    travisBuild = System.getenv("TRAVIS") == "true"
+    ciBuild = System.getenv("CI") == "true"
 
     // allows for -D pre-dex=false to be set
     preDexEnabled = "true" == System.getProperty("pre-dex", "true")
@@ -82,7 +85,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 15
+def versionMinor = 16
 def versionPatch = 1
 def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -191,8 +194,8 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
     dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -D pre-dex=false.
-        preDexLibraries = preDexEnabled && !travisBuild
+        // Skip pre-dexing when running on CI or when disabled via -D pre-dex=false.
+        preDexLibraries = preDexEnabled && !ciBuild
     }
 
     packagingOptions {
@@ -285,15 +288,15 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.work:work-runtime:2.4.0"
-    implementation "androidx.work:work-runtime-ktx:2.4.0"
-    implementation "androidx.fragment:fragment:1.2.5"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+    implementation "androidx.work:work-runtime:$workRuntime"
+    implementation "androidx.work:work-runtime-ktx:$workRuntime"
+    implementation "androidx.fragment:fragment:1.3.1"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.8.0'
@@ -349,7 +352,7 @@ dependencies {
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
     // dependencies for local unit tests
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation 'androidx.test:core:1.3.0'
     testImplementation "org.powermock:powermock-core:$powermockVersion"
@@ -469,4 +472,8 @@ detekt {
     }
     config = files("detekt.yml")
     input = files("src/")
+}
+
+shot {
+    showOnlyFailingTestsInReports = ciBuild
 }

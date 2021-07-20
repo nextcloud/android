@@ -33,6 +33,8 @@
     <string name="add_another_public_share_link">Adicionar outra hiperligação</string>
     <string name="add_new_public_share">Adicionar um novo link de partilha público</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
+    <string name="allow_creating">Permitir criar</string>
+    <string name="allow_deleting">Permitir eliminar</string>
     <string name="allow_editing">Permitir edição</string>
     <string name="allow_resharing">Permitir repartilha</string>
     <string name="appbar_search_in">Procurar no %s</string>
@@ -75,6 +77,7 @@
     <string name="autoupload_disable_power_save_check">Desabilitar a verificação de poupança de energia</string>
     <string name="autoupload_hide_folder">Esconder pasta</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Ausente</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
@@ -106,9 +109,9 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Partilhar</string>
+    <string name="common_skip">Saltar</string>
     <string name="common_switch_account">Trocar de conta</string>
     <string name="common_switch_to_account">Trocar para a conta</string>
-    <string name="common_unknown">desconhecido</string>
     <string name="common_yes">Sim</string>
     <string name="community_beta_headline">Teste a versão de desenvolvimento</string>
     <string name="community_beta_text">Inclui todas as futuras e mais recentes funcionalidades. Falhas/erros podem ocorrer, se e quando tal acontecer, por favor, reporte as suas descobertas.</string>
@@ -157,6 +160,7 @@
     <string name="copy_link">Copiar hiperligação</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover para pasta encriptada não é actualmente suportado.</string>
     <string name="copy_to">Copiar para…</string>
+    <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_new">Criar novo</string>
     <string name="create_new_document">Criar novo documento</string>
@@ -174,10 +178,12 @@
     <string name="dev_version_new_version_available">Nova versão disponível</string>
     <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
     <string name="dev_version_no_new_version_available">Nenhuma nova versão disponível</string>
+    <string name="dialog_close">Fechar</string>
     <string name="digest_algorithm_not_available">O algoritmo de resumo não está disponível no seu telemóvel</string>
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="dismiss">Dispensar</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="dnd">Não incomodar</string>
     <string name="download_latest_dev_version">Descarregar a utima versão de desenvolvimento</string>
     <string name="downloader_download_failed_content">Não foi possível transferir %1$s</string>
     <string name="downloader_download_failed_credentials_error">A transferência falhou, inicie novamente a sessão</string>
@@ -208,6 +214,7 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
+    <string name="edit_label">Alterar nome</string>
     <string name="encrypted">Definir como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -335,16 +342,13 @@
     <string name="local_file_not_found_message">Ficheiros não encontrados no sistema de ficheiros local</string>
     <string name="local_folder_list_empty">Não existem mais pastas.</string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
-    <string name="log_send_no_mail_app">Nenhuma aplicação de envio de registos encontrada. Por favor, instale um cliente e-mail.</string>
     <string name="login">Iniciar Sessão</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_status_loading">A carregar...</string>
     <string name="logs_title">Registos de Alterações</string>
-    <string name="maintenance_mode">Servidor em manutenção</string>
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">As definiçóes, base de dados e certificados de servidor referentes aos dados de %1$s serão eliminados paras sempre. \n\nOs ficheiros transferidos serão mantidos inalterados.\n\nEste processo pode demorar algum tempo.</string>
     <string name="manage_space_title">Gerir espaço</string>
-    <string name="media_err_invalid_progressive_playback">O ficheiro de multimédia não pode ser transmitido</string>
     <string name="media_err_io">Não foi possível ler o ficheiro de multimédia</string>
     <string name="media_err_malformed">O ficheiro de multimédia tem codificação incorreta</string>
     <string name="media_err_timeout">Tentativa de reproduzir o ficheiro expirou</string>
@@ -652,7 +656,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não está autorizado para ler um ficheiro recebido</string>
     <string name="uploader_error_message_source_file_not_copied">Não foi possível copiar o ficheiro para uma pasta temporária. Tente reenviá-lo.</string>
     <string name="uploader_error_message_source_file_not_found">Não foi encontrado o ficheiro selecionado para envio. Por favor, verifique se o ficheiro existe.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Este ficheiro não pode ser enviado</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum ficheiro para enviar</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_top_message">Escolha uma pasta para envio</string>
@@ -696,7 +699,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">A aguardar carregamento</string>
     <string name="user_icon">Utilizador</string>
     <string name="user_info_address">Endereço</string>
-    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número de telefone</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site da Internet</string>

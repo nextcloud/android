@@ -28,14 +28,12 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
@@ -43,7 +41,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -82,20 +81,19 @@ public class RenameFileDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeUtils.primaryAccentColor(getContext());
+        int color = ThemeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
         }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeUtils.primaryAccentColor(getContext());
         mTargetFile = requireArguments().getParcelable(ARG_TARGET_FILE);
 
         // Inflate the layout for the dialog
@@ -105,22 +103,21 @@ public class RenameFileDialogFragment
 
         // Setup layout
         String currentName = mTargetFile.getFileName();
-        EditText inputText = binding.userInput;
-        inputText.setHighlightColor(ThemeUtils.primaryColor(getActivity()));
-        inputText.setText(currentName);
-        ThemeUtils.themeEditText(getContext(), inputText, false);
+        binding.userInput.setText(currentName);
+        ThemeTextInputUtils.colorTextInput(binding.userInputContainer,
+                                           binding.userInput,
+                                           ThemeColorUtils.primaryColor(getActivity()));
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        inputText.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
-        inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
+        binding.userInput.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
+        binding.userInput.requestFocus();
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
         Dialog d = builder.create();
 

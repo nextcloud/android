@@ -65,7 +65,8 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +202,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
-        ThemeUtils.themeSearchView(binding.searchView, requireContext());
+        ThemeToolbarUtils.themeSearchView(binding.searchView, requireContext());
 
         if (file.canReshare()) {
             binding.searchView.setQueryHint(getResources().getString(R.string.share_search));

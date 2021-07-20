@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.provider.DocumentsContract;
 import android.widget.Toast;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -69,7 +70,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      *
      * Just packages the received parameters in correct order, doesn't check anything about them.
      *
-     * @param   account             OC account to upload the shared files.
+     * @param   user                user uploading shared files
      * @param   sourceUris          Array of "content://" URIs to the files to be uploaded.
      * @param   remotePaths         Array of absolute paths in the OC account to set to the uploaded files.
      * @param   behaviour           Indicates what to do with the local file once uploaded.
@@ -93,7 +94,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      * @return  Correct array of parameters to be passed to {@link #execute(Object[])}
      */
     public static Object[] makeParamsToExecute(
-        Account account,
+        User user,
         Uri[] sourceUris,
         String[] remotePaths,
         int behaviour,
@@ -101,7 +102,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
     ) {
 
         return new Object[] {
-            account,
+            user,
             sourceUris,
             remotePaths,
             Integer.valueOf(behaviour),
@@ -119,7 +120,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
 
     /**
      * @param params    Params to execute the task; see
-     *                  {@link #makeParamsToExecute(Account, Uri[], String[], int, ContentResolver)}
+     *                  {@link #makeParamsToExecute(User, Uri[], String[], int, ContentResolver)}
      *                  for further details.
      */
     @Override
@@ -133,7 +134,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         Uri currentUri = null;
 
         try {
-            Account account = (Account) params[0];
+            User user = (User) params[0];
             Uri[] uris = (Uri[]) params[1];
             String[] remotePaths = (String[]) params[2];
             int behaviour = (Integer) params[3];
@@ -160,7 +161,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     }
                 }
 
-                fullTempPath = FileStorageUtils.getTemporalPath(account.name) + currentRemotePath;
+                fullTempPath = FileStorageUtils.getTemporalPath(user.getAccountName()) + currentRemotePath;
                 inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
                 File tempDir = cacheFile.getParentFile();
@@ -189,7 +190,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 }
 
                 requestUpload(
-                    account,
+                    user.toPlatformAccount(),
                     fullTempPath,
                     currentRemotePath,
                     behaviour,

@@ -116,9 +116,9 @@
     <string name="common_save">Bewaren</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
+    <string name="common_skip">Overslaan</string>
     <string name="common_switch_account">Account wisselen</string>
     <string name="common_switch_to_account">Wisselen naar account</string>
-    <string name="common_unknown">onbekend</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Test de dev versie</string>
     <string name="community_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
@@ -546,7 +546,7 @@
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
-    <string name="qr_could_not_be_read">QR-code kan niet worden gelezen!</string>
+    <string name="qr_could_not_be_read">QR code kan niet worden gelezen!</string>
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
@@ -677,6 +677,7 @@
     <string name="stream">Streamen met…</string>
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
+    <string name="strict_mode">Strict modus: geen http verbinding toegestaan!</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
@@ -809,7 +810,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Wachten op niet-gemeten Wi-Fi</string>
     <string name="user_icon">Gebruiker</string>
     <string name="user_info_address">Adres</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mailadres</string>
     <string name="user_info_phone">Telefoonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>

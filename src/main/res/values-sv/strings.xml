@@ -116,7 +116,6 @@
     <string name="common_share">Dela</string>
     <string name="common_switch_account">Växla konto</string>
     <string name="common_switch_to_account">Växla till konto</string>
-    <string name="common_unknown">okänt</string>
     <string name="common_yes">Ja</string>
     <string name="community_beta_headline">Testa utvecklingsversionen</string>
     <string name="community_beta_text">Detta inkluderar alla kommande funktioner och mycket \"bleeding edge\" (den allra senaste koden). Fel/buggar kan uppstå, om och när de gör det, vänligen meddela oss vad du hittar för fel så att vi kan åtgärda dem.</string>
@@ -381,21 +380,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
     <string name="log_send_mail_subject">%1$s Android-apploggar</string>
-    <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
     <string name="logs_menu_delete">Ta bort loggar</string>
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
-    <string name="logs_menu_send">Skicka loggar via e-post</string>
     <string name="logs_status_filtered">Loggar: %1$d kB, frågan matchade %2$d / %3$d på %4$d ms</string>
     <string name="logs_status_loading">Läser in…</string>
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
     <string name="logs_title">Loggar</string>
-    <string name="maintenance_mode">Server i underhållsläge</string>
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nHämtade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
     <string name="manage_space_title">Hantera utrymme</string>
-    <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
     <string name="media_err_timeout">Försök att spela upp filen tog för lång tid</string>
@@ -539,7 +534,6 @@
     <string name="push_notifications_not_implemented">Push-aviseringar har inaktiverats på grund av beroenden till skyddade Google Play-tjänster</string>
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
-    <string name="qr_could_not_be_read">QR-koden kunde inte läsas!</string>
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -755,7 +749,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_error_message_source_file_not_copied">Kunde inte kopiera filen till en temporär mapp. Prova att skicka den igen.</string>
     <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
     <string name="uploader_info_dirname">Mappnamn</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
@@ -801,7 +794,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Väntar på icke-uppmätt Wi-Fi</string>
     <string name="user_icon">Användare</string>
     <string name="user_info_address">Adress</string>
-    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>

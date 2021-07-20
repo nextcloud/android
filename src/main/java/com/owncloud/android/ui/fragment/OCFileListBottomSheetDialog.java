@@ -40,7 +40,9 @@ import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
@@ -76,11 +78,11 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
-        int primaryColor = ThemeUtils.primaryColor(getContext(), true);
-        ThemeUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
-        ThemeUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
-        ThemeUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
-        ThemeUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
+        int primaryColor = ThemeColorUtils.primaryColor(getContext(), true);
+        ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
+        ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
+        ThemeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
+        ThemeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
                 ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
@@ -121,7 +123,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                                                                             getContext()));
 
                     creatorView.setOnClickListener(v -> {
-                        actions.showTemplate(creator);
+                        actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());
                         dismiss();
                     });
 

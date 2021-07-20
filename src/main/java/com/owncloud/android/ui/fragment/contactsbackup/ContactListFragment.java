@@ -70,7 +70,8 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -154,7 +155,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         if (contactsPreferenceActivity != null) {
             ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
             if (actionBar != null) {
-                ThemeUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
+                ThemeToolbarUtils.setColoredTitle(actionBar, R.string.actionbar_contacts_restore, getContext());
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
             contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
@@ -200,7 +201,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
             }
         });
 
-        binding.contactlistRestoreSelected.setTextColor(ThemeUtils.primaryAccentColor(getContext()));
+        binding.contactlistRestoreSelected.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
 
         return view;
     }
@@ -680,7 +681,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
         if (checked) {
             checkedTextView.getCheckMarkDrawable()
-                .setColorFilter(ThemeUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
+                .setColorFilter(ThemeColorUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP);
         } else {
             checkedTextView.getCheckMarkDrawable().clearColorFilter();
         }
@@ -690,7 +691,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         holder.getName().setChecked(!holder.getName().isChecked());
 
         if (holder.getName().isChecked()) {
-            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeUtils.primaryColor(context),
+            holder.getName().getCheckMarkDrawable().setColorFilter(ThemeColorUtils.primaryColor(context),
                                                                    PorterDuff.Mode.SRC_ATOP);
 
             checkedVCards.add(verifiedPosition);

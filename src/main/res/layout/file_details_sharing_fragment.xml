@@ -16,22 +16,42 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:id="@+id/shareContainer"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shareContainer"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/standard_eight_padding"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingTop="@dimen/standard_eight_padding">
 
-    <androidx.appcompat.widget.SearchView
-        style="@style/ownCloud.SearchView"
-        android:hint="@string/share_search"
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_quarter_margin"
-        android:layout_width="match_parent" />
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/zero">
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_width="@dimen/user_icon_size"
+            android:padding="@dimen/standard_half_padding"
+            android:contentDescription="@string/avatar"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_search_grey" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/ownCloud.SearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/zero"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
+            android:hint="@string/share_search"
+            app:searchIcon="@null" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/shared_with_you_container"
@@ -63,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@string/shared_with_you_by"
-                android:textSize="16sp" />
+                android:textSize="@dimen/two_line_primary_text_size" />
 
             <LinearLayout
                 android:id="@+id/shared_with_you_note_container"

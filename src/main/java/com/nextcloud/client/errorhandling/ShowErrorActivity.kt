@@ -28,27 +28,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
+import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
-import kotlinx.android.synthetic.main.activity_show_error.*
-import kotlinx.android.synthetic.main.toolbar_standard.*
 
 class ShowErrorActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityShowErrorBinding
+
     companion object {
         const val EXTRA_ERROR_TEXT = "error"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_error)
 
-        text_view_error.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
+        binding = ActivityShowErrorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
+        binding.textViewError.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
+
+        setSupportActionBar(binding.toolbarInclude.toolbar)
         supportActionBar!!.title = createErrorTitle()
 
         val snackbar = DisplayUtils.createSnackbar(
-            error_page_container,
+            binding.errorPageContainer,
             R.string.error_report_issue_text,
             Snackbar.LENGTH_INDEFINITE
         )
@@ -60,7 +63,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun createErrorTitle() = String.format(getString(R.string.error_crash_title), getString(R.string.app_name))
 
     private fun reportIssue() {
-        ClipboardUtil.copyToClipboard(this, text_view_error.text.toString(), false)
+        ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
         val issueLink = getString(R.string.report_issue_link)
         if (issueLink.isNotEmpty()) {
             val uriUrl = Uri.parse(issueLink)
@@ -85,7 +88,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun onClickedShare() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
-        intent.putExtra(Intent.EXTRA_TEXT, text_view_error.text)
+        intent.putExtra(Intent.EXTRA_TEXT, binding.textViewError.text)
         intent.type = "text/plain"
         startActivity(intent)
     }

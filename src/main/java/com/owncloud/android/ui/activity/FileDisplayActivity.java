@@ -117,7 +117,9 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -299,12 +301,12 @@ public class FileDisplayActivity extends FileActivity
                 AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
                     .setTitle(R.string.wrong_storage_path)
                     .setMessage(R.string.wrong_storage_path_desc)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
                     .setIcon(R.drawable.ic_settings)
                     .create();
 
                 alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -325,7 +327,7 @@ public class FileDisplayActivity extends FileActivity
                                                   R.string.permission_storage_access,
                                                   Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
-                ThemeUtils.colorSnackbar(this, snackbar);
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
@@ -767,7 +769,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        ThemeUtils.themeSearchView(searchView, this);
+        ThemeToolbarUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
@@ -1023,7 +1025,7 @@ public class FileDisplayActivity extends FileActivity
                 this,
                 streamsToUpload,
                 remotePath,
-                getAccount(),
+                getUser().orElseThrow(RuntimeException::new),
                 behaviour,
                 false, // Not show waiting dialog while file is being copied from private storage
                 null  // Not needed copy temp task listener

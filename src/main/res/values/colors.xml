@@ -22,6 +22,7 @@
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#333333</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
     <color name="text_color_inverse">#ffffff</color>

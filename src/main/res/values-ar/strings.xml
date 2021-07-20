@@ -9,7 +9,7 @@
     <string name="account_not_found">الحساب غير موجود </string>
     <string name="action_clear_failed_uploads">مسح الملفات التي فشل رفعها</string>
     <string name="action_edit">تعديل</string>
-    <string name="action_empty_notifications">أزل جميع التنبيهات</string>
+    <string name="action_empty_notifications">إزالة جميع التنبيهات</string>
     <string name="action_empty_trashbin">تفريغ سلة المهملات</string>
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
@@ -34,6 +34,8 @@
     <string name="add_another_public_share_link">إضافة رابط آخر</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_to_cloud">أضفه إلى %1$s</string>
+    <string name="allow_creating">السماح بالإنشاء</string>
+    <string name="allow_deleting">السماح بالحذف</string>
     <string name="allow_editing">السماح بالتعديلات</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="appbar_search_in">بحث في %s</string>
@@ -111,9 +113,9 @@
     <string name="common_save">حفظ</string>
     <string name="common_send">أرسل</string>
     <string name="common_share">شارك</string>
+    <string name="common_skip">تخطي</string>
     <string name="common_switch_account">تبديل الحساب</string>
     <string name="common_switch_to_account">تبديل إلى حساب</string>
-    <string name="common_unknown">غير معروف</string>
     <string name="common_yes">نعم</string>
     <string name="community_beta_headline">جرب  إصدار المطورين</string>
     <string name="community_beta_text">يشمل هذا جميع المميزات الحديثة ويعتبر طليعة الإصدارات. الأخطاء متوَّقعة، لذا إذا حصلت أخطاء، نرجو منك الإبلاغ عنهم.</string>
@@ -168,6 +170,7 @@
     <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
+    <string name="create">إنشاء</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="create_new">إنشاء جديد</string>
     <string name="create_new_document">أنشئ مستندا جديدا</string>
@@ -186,6 +189,7 @@
     <string name="dev_version_new_version_available">هناك نسخة جديدة متوفرة</string>
     <string name="dev_version_no_information_available">لا توجد معلومات متاحة.</string>
     <string name="dev_version_no_new_version_available">لا توجد هناك أية نسخة جديدة متوفرة.</string>
+    <string name="dialog_close">إغلاق</string>
     <string name="digest_algorithm_not_available">خوارزمه الموجز ليست متوفرة على هاتفك.</string>
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
@@ -373,17 +377,14 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">لا توجد مجلدات أخرى.</string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
-    <string name="log_send_no_mail_app">لم يتم العثور على تطبيق لإرسال السجلات. الرجاء تثبيت عميل بريد إلكتروني.</string>
     <string name="login">تسجيل الدخول</string>
     <string name="logs_menu_delete">احذف السجلات</string>
     <string name="logs_menu_refresh">إنعاش</string>
     <string name="logs_menu_search">البحث في السجلات</string>
-    <string name="logs_menu_send">إرسال سجلات بالبريد الإلكتروني</string>
     <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
     <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
     <string name="logs_title">السجلات</string>
-    <string name="maintenance_mode">الخادوم في وضع الصيانة</string>
     <string name="manage_space_clear_data">مسح البيانات</string>
     <string name="manage_space_description">ستحذف الإعدادات وقواعد البيانات وشهادة الخادم من %1$s نهائياً.
 
@@ -391,7 +392,6 @@
 
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
-    <string name="media_err_invalid_progressive_playback">ملف الوسائط ﻻ يمكن عرضه</string>
     <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
     <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
     <string name="media_err_timeout">انتهت مهلة محاولة تشغيل الملف</string>
@@ -471,12 +471,14 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">هذه مساحة محجوزة</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
+    <string name="player_stop">إيقاف</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">ترك في مجلد الأصل</string>
     <string name="pref_behaviour_entries_move">تم نقله إلى مجلد التطبيق</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">إسئلني كل مرة</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">إلغاء التحميل</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">استبدال النسخة البعيدة</string>
     <string name="pref_instant_name_collision_policy_entries_rename">إعادة تسمية الإصدار الجديد</string>
     <string name="pref_instant_name_collision_policy_title">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
@@ -515,6 +517,8 @@
     <string name="prefs_recommend">يوصي لصديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
+    <string name="prefs_storage_path">مجلد تخزين البيانات</string>
+    <string name="prefs_sycned_folders_summary">إدارة الملفات للتحميل التلقائي</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">المظهر</string>
@@ -530,7 +534,6 @@
     <string name="push_notifications_not_implemented">تم تعطيل الإشعارات الفورية بسبب التبعيات على خدمات Google Play المملوكة.</string>
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
-    <string name="qr_could_not_be_read">لا يمكن قراءة رمز الاستجابة السريعةQR!</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
@@ -565,6 +568,7 @@
     <string name="screenshot_06_davdroid_heading">التقويم &amp; جهات الإتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="select_all">تحديد الكل</string>
+    <string name="select_one_template">الرجاء تحديد قالب واحد</string>
     <string name="select_template">حدد قالب</string>
     <string name="send">ارسال</string>
     <string name="send_note">إرسال ملاحظة إلى المستلم</string>
@@ -589,6 +593,7 @@
     <string name="share_link_forbidden_permissions">لمشاركة هذا الملف</string>
     <string name="share_link_optional_password_title">ادخل كلمة سرية اختيارية</string>
     <string name="share_link_password_title">إدخِل كلمة السر</string>
+    <string name="share_link_with_label">مشاركة الرابط (%1$s)</string>
     <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
     <string name="share_password_title">محمي بكلمة مرور</string>
@@ -748,7 +753,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s غير مسموح له أن يقرأ ملفاً مستلماً</string>
     <string name="uploader_error_message_source_file_not_copied">لا يمكن نسخ الملف إلى مجلد مؤقت. حاول إعادة إرساله.</string>
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_top_message">إختر مجلد للرفع</string>
@@ -794,7 +798,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">في انتظار شبكة Wi-Fi غير محدودة</string>
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
-    <string name="user_info_email">البريد الإلكتروني</string>
     <string name="user_info_phone"> رقم الهاتف</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>

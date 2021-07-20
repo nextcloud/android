@@ -38,6 +38,7 @@
         <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -54,9 +55,22 @@
         <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:datePickerDialogTheme">@style/FallbackDatePickerDialogTheme</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="colorPrimary">@color/text_color</item>
+        <item name="colorOnSurface">@color/text_color</item>
+        <item name="colorError">@color/hwSecurityRed</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
 
 	<style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/bg_default</item>
@@ -80,7 +94,7 @@
         <item name="windowNoTitle">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
-
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
 	</style>
 
@@ -103,6 +117,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -138,11 +153,13 @@
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
 	<style name="ownCloud.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
 	</style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
@@ -273,6 +290,7 @@
 		<item name="colorAccent">@color/color_accent</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
 	<style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
@@ -298,6 +316,7 @@
 		<item name="android:maxLength">1</item>
 		<item name="android:password">true</item>
 		<item name="android:maxLines">1</item>
+        <item name="colorPrimary">@color/text_color</item>
     </style>
 
     <style name="Theme.ownCloud.NoActionBar">
@@ -313,7 +332,35 @@
 	<style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
 	</style>
 
-	<style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.App.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Login.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorError">@color/hwSecurityRed</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="TextInputLayoutLogin" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxStrokeErrorColor">@color/white</item>
+        <item name="hintTextAppearance">@style/HintTextLogin</item>
+        <item name="errorTextAppearance">@style/HintTextLogin</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <!-- Theme attributes -->
+        <item name="android:textColorHint">#80FFFFFF</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="HintTextLogin" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 	<style name="AppTabTextAppearance" parent="@style/TextAppearance.Design.Tab">

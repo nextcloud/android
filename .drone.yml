@@ -50,7 +50,7 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.15
+        - stable-3.16
 
 services:
   - name: server
@@ -76,7 +76,7 @@ services:
 
 trigger:
   branch:
-    - stable-3.15
+    - stable-3.16
   event:
     - push
     - pull_request
@@ -110,9 +110,8 @@ steps:
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest && scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-      - ./gradlew combinedTestReport
-      - curl -o codecov.sh https://codecov.io/bash
-      - bash ./codecov.sh -t fc506ba4-33c3-43e4-a760-aada38c24fd5
+      - scripts/runCombinedTest.sh
+
   - name: notify
     image: drillster/drone-email
     settings:
@@ -133,7 +132,7 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.15
+        - stable-3.16
 
 services:
   - name: server
@@ -160,7 +159,7 @@ services:
 
 trigger:
   branch:
-    - stable-3.15
+    - stable-3.16
   event:
     - push
     - pull_request
@@ -206,11 +205,11 @@ steps:
       status:
         - failure
       branch:
-        - stable-3.15
+        - stable-3.16
 
 trigger:
   branch:
-    - stable-3.15
+    - stable-3.16
   event:
     - push
     - pull_request
