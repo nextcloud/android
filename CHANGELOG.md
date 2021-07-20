@@ -1,4 +1,15 @@
-## 3.15.1 RC2 (March, 04, 2021)
+## 3.16.1 RC1 (May, 27, 2021)
+
+Fix media tab not showing images/videos
+Connectivity checks fixed
+Crashing while retrieving avatar
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+
+For a full list, please see https://github.com/nextcloud/android/milestone/58
+
+## 3.15.1 (March, 10, 2021)
 
 - share fix
 - passcode fix
@@ -6,22 +17,24 @@
 
 For a full list, please see https://github.com/nextcloud/android/milestone/57
 
-## 3.15.1 RC1 (February, 24, 2021)
+## 3.15.0 (February, 02, 2021)
 
-- share fix
-- passcode fix
-- enhance share access
-
-For a full list, please see https://github.com/nextcloud/android/milestone/57
-
-## 3.15.0 RC1 (January, 14, 2021)
-
-Media instead of Photos: also show videos
-UI improvement (shimmer)
-Bug fixes all over the place
-Drop Android 4.4, new min version Android 5.0
+- Media instead of Photos: also show videos
+- UI Improvement (shimmer)
+- Bug fixes all over the place
+- Drop Android 4.4, new min version Android 5.0
 
 For a full list, please see https://github.com/nextcloud/android/milestone/52
+
+## 3.14.3 (January, 13, 2021)
+
+- Fix crash when clicking "+" button
+- Fix push notifications on some devices
+- Fix updating of sharee list
+- Fix crash during setting status
+- Fix Crash Sharing files to Nextcloud via Android Apps
+
+For a full list, please see https://github.com/nextcloud/android/milestone/56
 
 ## 3.14.2 (January, 13, 2021)
 

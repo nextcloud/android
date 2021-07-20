@@ -28,7 +28,6 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -44,7 +43,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -91,20 +91,19 @@ public class RenameFileDialogFragment
 
         // Setup layout
         String currentName = mTargetFile.getFileName();
-        EditText inputText = binding.userInput;
-        inputText.setText(currentName);
+        binding.userInput.setText(currentName);
 
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        inputText.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
-        inputText.requestFocus();
+        binding.userInput.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
+        binding.userInput.requestFocus();
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
         Dialog d = builder.create();
 

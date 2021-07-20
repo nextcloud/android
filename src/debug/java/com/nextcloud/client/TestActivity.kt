@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -104,9 +103,11 @@ class TestActivity :
         if (!this::storage.isInitialized) {
             storage = FileDataStorageManager(account, contentResolver)
 
-            val ocCapability = OCCapability()
-            ocCapability.versionMayor = OwnCloudVersion.nextcloud_20.majorVersionNumber
-            storage.saveCapabilities(ocCapability)
+            if (!storage.capabilityExistsForAccount(account.name)) {
+                val ocCapability = OCCapability()
+                ocCapability.versionMayor = OwnCloudVersion.nextcloud_20.majorVersionNumber
+                storage.saveCapabilities(ocCapability)
+            }
         }
 
         return storage

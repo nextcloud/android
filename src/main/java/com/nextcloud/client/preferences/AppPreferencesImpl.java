@@ -40,6 +40,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
 
@@ -89,6 +90,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
     private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
+    private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
 
     private static final String PREF__DATA_ANALYSIS = "data_analysis";
     private static final String PREF__PRIVACY_POLICY_ACTION = "privacy_policy_action";
@@ -644,6 +646,27 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPowerCheckDisabled(boolean value) {
         preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply();
+    }
+
+    public void increasePinWrongAttempts() {
+        int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
+        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, count + 1).apply();
+    }
+
+    @Override
+    public void resetPinWrongAttempts() {
+        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, 0).apply();
+    }
+
+    public int pinBruteForceDelay() {
+        int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
+
+        return computeBruteForceDelay(count);
+    }
+
+    @VisibleForTesting
+    public int computeBruteForceDelay(int count) {
+        return (int) Math.min(count / 3d, 10);
     }
 
     @Override

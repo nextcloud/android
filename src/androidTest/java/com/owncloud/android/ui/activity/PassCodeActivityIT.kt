@@ -38,6 +38,10 @@ class PassCodeActivityIT : AbstractIT() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK))
 
         waitForIdleSync()
+
+        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+
+        shortSleep()
         screenshot(sut)
     }
 
@@ -47,6 +51,10 @@ class PassCodeActivityIT : AbstractIT() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT))
 
         waitForIdleSync()
+
+        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+
+        shortSleep()
         screenshot(sut)
     }
 
@@ -56,6 +64,10 @@ class PassCodeActivityIT : AbstractIT() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT))
 
         waitForIdleSync()
+
+        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+
+        shortSleep()
         screenshot(sut)
     }
 }

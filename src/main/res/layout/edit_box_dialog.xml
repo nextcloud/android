@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    ownCloud Android client application
+    Nextcloud Android client application
 
-    Copyright (C) 2012  Bartek Przybylski
-    Copyright (C) 2015 ownCloud Inc.
+    @author Andy Scherzinger
+    Copyright (C) 2021 Andy Scherzinger
 
     This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 2,
-    as published by the Free Software Foundation.
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
+    GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU Affero General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="clip_horizontal"
-    android:orientation="vertical"
     android:padding="@dimen/standard_padding">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/user_input"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="@string/hint_name"
-        android:backgroundTint="@color/secondary_text_color"
-        android:textColorHighlight="@color/et_highlight_color"
-        android:importantForAutofill="no"
-        android:inputType="textNoSuggestions|textCapSentences"/>
+        android:hint="@string/hint_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:importantForAutofill="no"
+            android:backgroundTint="@color/secondary_text_color"
+            android:textColorHighlight="@color/et_highlight_color"
+            android:inputType="textNoSuggestions|textCapSentences"
+            android:scrollbars="vertical">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

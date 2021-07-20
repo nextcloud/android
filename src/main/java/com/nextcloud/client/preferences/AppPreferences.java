@@ -356,6 +356,12 @@ public interface AppPreferences {
 
     void setPowerCheckDisabled(boolean value);
 
+    void increasePinWrongAttempts();
+
+    void resetPinWrongAttempts();
+
+    int pinBruteForceDelay();
+
     /**
      * Saves the data analysis from privacy settings
      * on disabling it we should disable Adjust SDK tracking

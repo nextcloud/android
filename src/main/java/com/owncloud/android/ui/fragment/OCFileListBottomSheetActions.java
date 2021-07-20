@@ -70,7 +70,7 @@ public interface OCFileListBottomSheetActions {
     /**
      * open template selection for creator @link Creator
      */
-    void showTemplate(Creator creator);
+    void showTemplate(Creator creator, String headline);
 
     /**
      * open editor for rich workspace

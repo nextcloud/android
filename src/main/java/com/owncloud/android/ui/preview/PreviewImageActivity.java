@@ -60,7 +60,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.util.HashMap;
 
@@ -134,7 +134,7 @@ public class PreviewImageActivity extends FileActivity implements
         // ActionBar
         updateActionBarTitleAndHomeButton(null);
 
-        ThemeUtils.tintBackButton(actionBar, this, Color.WHITE);
+        ThemeToolbarUtils.tintBackButton(actionBar, this, Color.WHITE);
 
         mFullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility

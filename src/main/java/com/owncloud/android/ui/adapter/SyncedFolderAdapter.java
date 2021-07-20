@@ -40,7 +40,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -457,8 +458,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
 
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if (enabled) {
-            syncStatusButton.setImageDrawable(ThemeUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
-                                                                      ThemeUtils.primaryColor(context, true)));
+            syncStatusButton.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_cloud_sync_on,
+                                                                              ThemeColorUtils.primaryColor(context, true)));
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

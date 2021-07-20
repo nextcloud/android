@@ -56,7 +56,10 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -396,9 +399,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             actionBar.setDisplayHomeAsUpEnabled(!atRoot);
             actionBar.setHomeButtonEnabled(!atRoot);
 
-            ThemeUtils.tintBackButton(actionBar, this);
+            ThemeToolbarUtils.tintBackButton(actionBar, this);
 
-            ThemeUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
+            ThemeToolbarUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }
     }
 
@@ -410,13 +413,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
 
         if (mChooseBtn != null) {
-            ThemeUtils.colorPrimaryButton(mChooseBtn, this);
+            ThemeButtonUtils.colorPrimaryButton(mChooseBtn, this);
             mChooseBtn.setOnClickListener(this);
         }
 
         if (mCancelBtn != null) {
             /*if (this instanceof FilePickerActivity) {
-                ThemeUtils.colorPrimaryButton(mCancelBtn, this);
+                ThemeButtonUtils.colorPrimaryButton(mCancelBtn, this);
             } else {
                 mCancelBtn.setTextColor(getResources().getColor(R.color.text_color));
             }*/

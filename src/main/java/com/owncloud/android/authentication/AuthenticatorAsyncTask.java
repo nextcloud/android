@@ -24,9 +24,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.network.RedirectionPath;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
@@ -40,7 +42,7 @@ import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 /**
  * Async Task to verify the credentials of a user
  */
-public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOperationResult> {
+public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperationResult<UserInfo>> {
 
     private static final boolean SUCCESS_IF_ABSENT = false;
 
@@ -49,21 +51,26 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
     public AuthenticatorAsyncTask(Activity activity) {
         mWeakContext = new WeakReference<>(activity.getApplicationContext());
-        mListener = new WeakReference<>((OnAuthenticatorTaskListener)activity);
+        mListener = new WeakReference<>((OnAuthenticatorTaskListener) activity);
     }
 
     @Override
-    protected RemoteOperationResult doInBackground(Object... params) {
+    protected RemoteOperationResult<UserInfo> doInBackground(Object... params) {
 
-        RemoteOperationResult result;
+        RemoteOperationResult<UserInfo> result;
         if (params != null && params.length == 2 && mWeakContext.get() != null) {
-            String url = (String)params[0];
+            String url = (String) params[0];
             Context context = mWeakContext.get();
-            OwnCloudCredentials credentials = (OwnCloudCredentials)params[1];
+            OwnCloudCredentials credentials = (OwnCloudCredentials) params[1];
 
             // Client
             Uri uri = Uri.parse(url);
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
+            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(uri,
+                                                                                          credentials.getUsername(),
+                                                                                          credentials.toOkHttpCredentials(),
+                                                                                          context,
+                                                                                          true);
             client.setCredentials(credentials);
 
             // Operation - try credentials
@@ -79,7 +86,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
             // Operation - get display name
             if (result.isSuccess()) {
                 GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
-                result = remoteUserNameOperation.execute(client);
+                result = remoteUserNameOperation.execute(nextcloudClient);
             }
 
         } else {
@@ -90,13 +97,11 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
     }
 
     @Override
-    protected void onPostExecute(RemoteOperationResult result) {
+    protected void onPostExecute(RemoteOperationResult<UserInfo> result) {
 
-        if (result!= null)
-        {
+        if (result != null) {
             OnAuthenticatorTaskListener listener = mListener.get();
-            if (listener!= null)
-            {
+            if (listener != null) {
                 listener.onAuthenticatorTaskCallback(result);
             }
         }
@@ -106,6 +111,6 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
      */
     public interface OnAuthenticatorTaskListener{
 
-        void onAuthenticatorTaskCallback(RemoteOperationResult result);
+        void onAuthenticatorTaskCallback(RemoteOperationResult<UserInfo> result);
     }
 }

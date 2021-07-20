@@ -31,7 +31,7 @@ import android.widget.Switch;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -80,7 +80,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 int thumbColorUncheckedDisabled =
                     getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
 
-                if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+                if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
                     AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     thumbColorCheckedDisabled =
                         MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
@@ -112,7 +112,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 int trackColorUncheckedDisabled =
                      getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
 
-                if (ThemeUtils.darkTheme(MainApp.getAppContext()) &&
+                if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
                     AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
                     trackColorCheckedDisabled =

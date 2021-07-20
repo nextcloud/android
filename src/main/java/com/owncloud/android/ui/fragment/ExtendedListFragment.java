@@ -68,7 +68,10 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
@@ -193,7 +196,7 @@ public class ExtendedListFragment extends Fragment implements
         searchIcon.setImageResource(R.drawable.ic_search);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        ThemeUtils.themeSearchView(searchView, requireContext());
+        ThemeToolbarUtils.themeSearchView(searchView, requireContext());
 
         final Handler handler = new Handler();
 
@@ -365,7 +368,7 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
-        ThemeUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);
@@ -619,7 +622,8 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                ThemeUtils.tintDrawable(icon, ThemeUtils.primaryColor(getContext(), true)));
+                                ThemeDrawableUtils.tintDrawable(icon,
+                                                                ThemeColorUtils.primaryColor(getContext(),true)));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

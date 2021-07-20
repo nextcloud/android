@@ -84,11 +84,13 @@
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
     <string name="battery_optimization_no_setting">배터리 설정을 직접 시작할 수 없습니다. 설정에서 수동으로 조정하십시오.</string>
     <string name="battery_optimization_title">배터리 최적화</string>
+    <string name="brute_force_delay">잘못된 시도가 너무 많아 지연됨</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
     <string name="changelog_dev_version">Changelog 개발 버전</string>
     <string name="checkbox">체크 상자</string>
     <string name="choose_local_folder">로컬 폴더 선택</string>
     <string name="choose_remote_folder">대상 폴더 선택</string>
+    <string name="choose_template_helper_text">템플릿을 선택하고 파일 이름을 입력하세요.</string>
     <string name="choose_which_file">보관할 파일을 선택하세요!</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
     <string name="clear_status_message">상태 메시지 지움</string>
@@ -114,9 +116,9 @@
     <string name="common_save">저장</string>
     <string name="common_send">전송</string>
     <string name="common_share">공유</string>
+    <string name="common_skip">건너뛰기</string>
     <string name="common_switch_account">계정 전환</string>
     <string name="common_switch_to_account">계정으로 전환</string>
-    <string name="common_unknown">알 수 없음</string>
     <string name="common_yes">예</string>
     <string name="community_beta_headline">개발 중인 버전 테스트하기</string>
     <string name="community_beta_text">포함될 예정인 기능이 들어 있으며 완벽한 상태가 아닙니다. 버그나 오류가 발생할 수 있으며, 언제 어떻게 발생하는지 정보를 알려 주십시오.</string>
@@ -173,6 +175,7 @@
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
     <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없었습니다</string>
+    <string name="create">생성</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="create_new">새로 만들기</string>
     <string name="create_new_document">새 문서 작성</string>
@@ -384,8 +387,9 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
-    <string name="log_send_no_mail_app">로그를 보내는 데 사용할 수 있는 앱이 없습니다. 이메일 앱을 설치하십시오.</string>
+    <string name="log_send_no_mail_app">로그 전송용 앱이 없습니다. 이메일 클라이언트를 설치하십시오.</string>
     <string name="login">로그인</string>
+    <string name="login_url_helper_text">%1$s 웹 인터페이스를 브라우저에서 열면 링크됩니다.</string>
     <string name="logs_menu_delete">로그 삭제</string>
     <string name="logs_menu_refresh">새로 고침</string>
     <string name="logs_menu_search">로그 검색</string>
@@ -394,11 +398,11 @@
     <string name="logs_status_loading">불러오는 중…</string>
     <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>
     <string name="logs_title">로그</string>
-    <string name="maintenance_mode">서버가 유지 관리 모드임</string>
+    <string name="maintenance_mode">서버가 유지 관리 모드입니다.</string>
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
-    <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍할 수 없음</string>
+    <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
     <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
@@ -542,7 +546,7 @@
     <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
-    <string name="qr_could_not_be_read">QR코드를 읽을 수 없습니다!</string>
+    <string name="qr_could_not_be_read">QR 코드를 읽을 수 없습니다!</string>
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
@@ -576,6 +580,7 @@
     <string name="screenshot_06_davdroid_heading">달력 &amp; 연락처</string>
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="select_all">모두 선택</string>
+    <string name="select_one_template">하나의 템플릿을 선택하십시오</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
     <string name="send_note">메모 전달</string>
@@ -693,6 +698,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
+    <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
@@ -779,7 +785,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 님이 받은 파일을 읽을 권한이 없습니다</string>
     <string name="uploader_error_message_source_file_not_copied">파일을 임시 폴더에 저장할 수 없습니다. 다시 전송을 시도하십시오.</string>
     <string name="uploader_error_message_source_file_not_found">업로드하려고 선택한 파일을 찾을 수 없습니다. 파일이 존재하는지 확인하십시오.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">이 파일을 업로드할 수 없음</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">이 파일은 업로드 할 수 없습니다.</string>
     <string name="uploader_error_title_no_file_to_upload">업로드할 파일이 없음</string>
     <string name="uploader_info_dirname">폴더 이름</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>

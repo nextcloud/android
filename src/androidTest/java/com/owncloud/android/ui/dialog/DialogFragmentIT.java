@@ -278,7 +278,7 @@ public class DialogFragmentIT extends AbstractIT {
             }
 
             @Override
-            public void showTemplate(Creator creator) {
+            public void showTemplate(Creator creator, String headline) {
 
             }
 

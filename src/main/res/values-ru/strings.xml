@@ -116,9 +116,9 @@
     <string name="common_save">Сохранить</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
+    <string name="common_skip">Пропустить</string>
     <string name="common_switch_account">Переключить учётную запись</string>
     <string name="common_switch_to_account">Переключить учётную запись</string>
-    <string name="common_unknown">неизвестно</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Протестируйте разрабатываемую версию</string>
     <string name="community_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам.</string>
@@ -343,7 +343,7 @@
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит как минимум один недопустимый символ</string>
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
-    <string name="first_run_2_text">Защищённое совместная работа &amp;обмен файлами</string>
+    <string name="first_run_2_text">Защищённая совместная работа &amp;обмен файлами</string>
     <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
@@ -387,18 +387,15 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
-    <string name="log_send_no_mail_app">Отсутствует приложение, которое сможет отправить журналы. Установите приложение для работы с почтой.</string>
     <string name="login">Войти</string>
     <string name="login_url_helper_text">Ссылка для в %1$s через веб-интерфейс для использования в браузере.</string>
     <string name="logs_menu_delete">Удалить журнал</string>
     <string name="logs_menu_refresh">Обновить</string>
     <string name="logs_menu_search">Искать в журнале</string>
-    <string name="logs_menu_send">Отправить журнал на электронную почту</string>
     <string name="logs_status_filtered">Журнал: %1$d кБ, %2$d / %3$d совпадений по запросу за %4$d мс</string>
     <string name="logs_status_loading">Загрузка…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фильтра</string>
     <string name="logs_title">Журнал</string>
-    <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>
@@ -546,7 +543,6 @@
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
-    <string name="qr_could_not_be_read">QR Код не может быть прочтен!</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
@@ -809,7 +805,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание безлимитного Wi-Fi</string>
     <string name="user_icon">Пользователь</string>
     <string name="user_info_address">Адрес</string>
-    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Номер телефона</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Сайт</string>

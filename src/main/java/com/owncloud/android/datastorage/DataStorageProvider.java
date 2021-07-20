@@ -24,12 +24,6 @@ package com.owncloud.android.datastorage;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.datastorage.providers.EnvironmentStoragePointProvider;
-import com.owncloud.android.datastorage.providers.HardcodedStoragePointProvider;
-import com.owncloud.android.datastorage.providers.IStoragePointProvider;
-import com.owncloud.android.datastorage.providers.MountCommandStoragePointProvider;
-import com.owncloud.android.datastorage.providers.SystemDefaultStoragePointProvider;
-import com.owncloud.android.datastorage.providers.VDCStoragePointProvider;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -48,7 +48,7 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import java.util.List;
 
@@ -133,7 +133,7 @@ public class TrashbinActivity extends DrawerActivity implements
         simpleListItemDividerDecoration = new SimpleListItemDividerDecoration(this, R.drawable.item_divider, true);
         addListItemDecorator();
 
-        ThemeUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
         binding.swipeContainingList.setOnRefreshListener(this::loadFolder);
 
         findViewById(R.id.sort_button).setOnClickListener(l ->

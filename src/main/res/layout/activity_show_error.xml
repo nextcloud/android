@@ -18,12 +18,15 @@
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.nextcloud.client.errorhandling.ShowErrorActivity">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar_standard" />
+    <include layout="@layout/toolbar_standard"
+        android:id="@+id/toolbar_include"/>
+
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
 
     <ScrollView
         android:id="@+id/error_page_container"

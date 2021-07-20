@@ -112,7 +112,6 @@
     <string name="common_share">Подели</string>
     <string name="common_switch_account">Пребаци налог</string>
     <string name="common_switch_to_account">Пребаци на налог</string>
-    <string name="common_unknown">непознато</string>
     <string name="common_yes">Да</string>
     <string name="community_beta_headline">Тестирајте развојну верзију</string>
     <string name="community_beta_text">Ово укључује све надолазеће функционалности па може бити нестабилна. Ако приметите пропусте или грешке, пријавите нам.</string>
@@ -370,21 +369,17 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нема више фасцикли</string>
     <string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
-    <string name="log_send_no_mail_app">Нема апликације за слање дневника. Инсталирајте клијент за е-пошту.</string>
     <string name="login">Пријава</string>
     <string name="logs_menu_delete">Обриши записнике</string>
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Претражи записнике</string>
-    <string name="logs_menu_send">Пошаљи записнике е-поштом</string>
     <string name="logs_status_filtered">Записници: %1$d kB, упит је пронашао %2$d/%3$d за %4$dms</string>
     <string name="logs_status_loading">Учитавам…</string>
     <string name="logs_status_not_filtered">Записници: %1$d kB, без филтрирања</string>
     <string name="logs_title">Записници</string>
-    <string name="maintenance_mode">Сервер у режиму одржавања</string>
     <string name="manage_space_clear_data">Очисти податке</string>
     <string name="manage_space_description">Поставке, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ преузети фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_title">Управљање простором</string>
-    <string name="media_err_invalid_progressive_playback">Медијски фајл не може да се пусти</string>
     <string name="media_err_io">Не могу да прочитам медијски фајл</string>
     <string name="media_err_malformed">Медијски фајл има неисправно кодирање знакова</string>
     <string name="media_err_timeout">Време за пуштање фајла је истекло</string>
@@ -522,7 +517,6 @@
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
-    <string name="qr_could_not_be_read">QR код може да се прочита!</string>
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
@@ -733,7 +727,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s није дозвољено да чита примљени фајл</string>
     <string name="uploader_error_message_source_file_not_copied">Не могу да копирам фајл у привремену фасциклу. Пошаљите га поново.</string>
     <string name="uploader_error_message_source_file_not_found">Фајл за отпремање није нађен. Проверите да ли постоји.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Фајл се не може отпремити</string>
     <string name="uploader_error_title_no_file_to_upload">Нема фајлова за отпремање</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
     <string name="uploader_top_message">Одредите фасциклу за отпремање</string>
@@ -779,7 +772,6 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу без ограничења протока</string>
     <string name="user_icon">Корисник </string>
     <string name="user_info_address">Адреса</string>
-    <string name="user_info_email">Адреса е-поште</string>
     <string name="user_info_phone">Број телефона</string>
     <string name="user_info_twitter">Твитер</string>
     <string name="user_info_website">Веб страна</string>

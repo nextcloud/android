@@ -27,6 +27,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -55,6 +57,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.MainApp;
@@ -66,6 +69,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
@@ -89,15 +93,19 @@ import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.ThemeUtils;
-import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
+import com.owncloud.android.utils.theme.ThemeBarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeMenuUtils;
+import com.owncloud.android.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -259,8 +267,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
                                                          R.drawable.ic_back_arrow,
                                                          null);
-        mDrawerToggle.setHomeAsUpIndicator(ThemeUtils.tintDrawable(backArrow, ThemeUtils.appBarPrimaryFontColor(this)));
-        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeUtils.appBarPrimaryFontColor(this));
+        mDrawerToggle.setHomeAsUpIndicator(
+            ThemeDrawableUtils.tintDrawable(backArrow, ThemeColorUtils.appBarPrimaryFontColor(this)));
+        mDrawerToggle.getDrawerArrowDrawable().setColor(ThemeColorUtils.appBarPrimaryFontColor(this));
     }
 
     /**
@@ -272,14 +281,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaTextPercentage = (TextView)  mNavigationView.findViewById(R.id.drawer_quota_percentage);
         mQuotaTextUsage = (AppCompatTextView)  mNavigationView.findViewById(R.id.drawer_quota_usage);
         mQuotaTextLink = (TextView)  mNavigationView.findViewById(R.id.drawer_quota_link);
-        ThemeUtils.colorProgressBar(mQuotaProgressBar, ThemeUtils.primaryColor(this));
+        ThemeBarUtils.colorProgressBar(mQuotaProgressBar, ThemeColorUtils.primaryColor(this));
     }
 
     /**
      * setup drawer header, basically the logo color
      */
     private void setupDrawerHeader(FrameLayout drawerHeader) {
-        drawerHeader.setBackgroundColor(ThemeUtils.primaryColor(getAccount(), true, this));
+        drawerHeader.setBackgroundColor(ThemeColorUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
@@ -621,7 +630,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaTextPercentage.setText(String.format(
             getString(R.string.drawer_quota_percentage), relative));
 
-        ThemeUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+        ThemeBarUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
         updateQuotaLink();
         showQuota(true);
@@ -721,11 +730,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     if (menuItem == currentItem) {
-                        ThemeUtils.tintDrawable(currentItem.getIcon(), drawerActiveIconColor);
-                        ThemeUtils.tintMenuItemText(currentItem, drawerActiveTxtColor);
+                        ThemeDrawableUtils.tintDrawable(currentItem.getIcon(), drawerActiveIconColor);
+                        ThemeDrawableUtils.tintMenuItemText(currentItem, drawerActiveTxtColor);
                     } else {
-                        ThemeUtils.tintDrawable(menuItem.getIcon(), drawerDefaultIconColor);
-                        ThemeUtils.tintMenuItemText(menuItem, drawerDefaultTxtColor);
+                        ThemeDrawableUtils.tintDrawable(menuItem.getIcon(), drawerDefaultIconColor);
+                        ThemeDrawableUtils.tintMenuItemText(menuItem, drawerDefaultTxtColor);
                     }
                 }
             }
@@ -747,10 +756,24 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
 
             final Context context = MainApp.getAppContext();
-            RemoteOperationResult result = new GetUserInfoRemoteOperation().execute(user.toPlatformAccount(), context);
+            NextcloudClient nextcloudClient = null;
+            try {
+                nextcloudClient = OwnCloudClientManagerFactory
+                    .getDefaultSingleton()
+                    .getNextcloudClientFor(user.toOwnCloudAccount(),
+                                           context);
+            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
+                Log_OC.e(this, "Error retrieving user quota", e);
+            }
 
-            if (result.isSuccess() && result.getData() != null) {
-                final UserInfo userInfo = (UserInfo) result.getData().get(0);
+            if (nextcloudClient == null) {
+                return;
+            }
+
+            RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
+
+            if (result.isSuccess() && result.getResultData() != null) {
+                final UserInfo userInfo = result.getResultData();
                 final Quota quota = userInfo.getQuota();
 
                 if (quota != null) {
@@ -831,7 +854,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (menuItem != null) {
             if (drawable != null) {
-                menuItem.setIcon(ThemeUtils.tintDrawable(drawable, greyColor));
+                menuItem.setIcon(ThemeDrawableUtils.tintDrawable(drawable, greyColor));
             } else {
                 menuItem.setIcon(R.drawable.ic_link);
             }

@@ -58,7 +58,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import javax.inject.Inject;
 
@@ -172,7 +172,7 @@ public class UploadListActivity extends FileActivity {
         addListItemDecorator();
         binding.list.setAdapter(uploadListAdapter);
 
-        ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
+        ThemeLayoutUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();

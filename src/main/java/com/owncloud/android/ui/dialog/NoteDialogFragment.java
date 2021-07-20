@@ -21,7 +21,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -32,21 +31,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Dialog to input a multiline note for a share
@@ -58,13 +55,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     public static final String NOTE_FRAGMENT = "NOTE_FRAGMENT";
 
     private OCShare share;
-    private Unbinder unbinder;
-
-    @BindView(R.id.user_input_container)
-    public TextInputLayout noteEditTextInputLayout;
-
-    @BindView(R.id.user_input)
-    public TextInputEditText noteEditText;
+    private NoteDialogBinding binding;
 
     public static NoteDialogFragment newInstance(OCShare share) {
         NoteDialogFragment frag = new NoteDialogFragment();
@@ -92,16 +83,15 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.note_dialog, null, false);
-
-        unbinder = ButterKnife.bind(this, view);
+        binding = NoteDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         // Setup layout
-        noteEditText.setText(share.getNote());
-        noteEditText.requestFocus();
-        ThemeUtils.colorTextInputLayout(noteEditTextInputLayout, getResources().getColor(R.color.secondary_text_color));
-        noteEditText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
-        noteEditTextInputLayout.setDefaultHintTextColor(new ColorStateList(
+        binding.noteText.setText(share.getNote());
+        binding.noteText.requestFocus();
+        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
+        binding.noteText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        binding.noteContainer.setDefaultHintTextColor(new ColorStateList(
             new int[][]{
                 new int[]{-android.R.attr.state_focused},
                 new int[]{android.R.attr.state_focused},
@@ -115,7 +105,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.note_confirm, this)
-            .setNegativeButton(R.string.common_cancel, this)
+            .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.send_note);
         Dialog dialog = builder.create();
 
@@ -136,8 +126,8 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
             if (componentsGetter != null) {
                 String note = "";
 
-                if (noteEditText.getText() != null) {
-                    note = noteEditText.getText().toString().trim();
+                if (binding.noteText.getText() != null) {
+                    note = binding.noteText.getText().toString().trim();
                 }
 
                 componentsGetter.getFileOperationsHelper().updateNoteToShare(share, note);
@@ -148,8 +138,8 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     }
 
     @Override
-    public void onStop() {
-        unbinder.unbind();
-        super.onStop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

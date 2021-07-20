@@ -22,22 +22,23 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -78,19 +79,19 @@ public class CreateFolderDialogFragment
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.edit_box_dialog, null);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        EditBoxDialogBinding binding = EditBoxDialogBinding.inflate(inflater, null, false);
+        View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = v.findViewById(R.id.user_input);
-        inputText.setText("");
-        inputText.requestFocus();
+        binding.userInput.setText("");
+        binding.userInput.requestFocus();
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(v)
+        builder.setView(view)
                 .setPositiveButton(R.string.folder_confirm_create, this)
-                .setNegativeButton(R.string.common_cancel, this)
+                .setNeutralButton(R.string.common_cancel, this)
                 .setTitle(R.string.uploader_info_dirname);
         AlertDialog d = builder.create();
 

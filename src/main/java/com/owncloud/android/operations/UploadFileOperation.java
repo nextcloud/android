@@ -690,11 +690,6 @@ public class UploadFileOperation extends SyncOperation {
     private RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
 
-        // check that internet is not behind walled garden
-        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-            remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
-        }
-
         // check that connectivity conditions are met and delays the upload otherwise
         Connectivity connectivity = connectivityService.getConnectivity();
         if (mOnWifiOnly && (!connectivity.isWifi() || connectivity.isMetered())) {
@@ -719,6 +714,11 @@ public class UploadFileOperation extends SyncOperation {
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
+        // check that internet is not behind walled garden
+        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
+            remoteOperationResult =  new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         return remoteOperationResult;

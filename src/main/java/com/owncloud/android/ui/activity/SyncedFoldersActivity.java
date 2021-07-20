@@ -69,7 +69,8 @@ import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.SyncedFolderUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -203,7 +204,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ThemeUtils.primaryAccentColor(this));
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
     }
 
     /**
@@ -215,7 +216,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         adapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
         syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders);
-        ThemeUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this);
+        ThemeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         adapter.setLayoutManager(lm);
@@ -824,15 +825,13 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                         }
                     }
                 })
-                .setNegativeButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_battery_alert);
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
                 AlertDialog alertDialog = alertDialogBuilder.show();
-
-                int color = ThemeUtils.primaryAccentColor(this);
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                       alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
             }
         }
     }

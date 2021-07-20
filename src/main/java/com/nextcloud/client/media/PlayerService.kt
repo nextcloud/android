@@ -33,7 +33,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
 import dagger.android.AndroidInjection
 import java.util.Locale
 import javax.inject.Inject
@@ -97,7 +97,7 @@ class PlayerService : Service() {
         AndroidInjection.inject(this)
         player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
-        notificationBuilder.color = ThemeUtils.primaryColor(this)
+        notificationBuilder.color = ThemeColorUtils.primaryColor(this)
 
         val stop = Intent(this, PlayerService::class.java)
         stop.action = ACTION_STOP

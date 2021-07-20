@@ -22,8 +22,8 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -44,21 +44,20 @@ public class GetUserProfileOperation extends SyncOperation {
      *
      * Stored account is implicit in {@link #getStorageManager()}.
      *
-     * @return      Result of the operation. If successful, includes an instance of
+     * @return Result of the operation. If successful, includes an instance of
      *              {@link String} with the display name retrieved from the server.
      *              Call {@link RemoteOperationResult#getData()}.get(0) to get it.
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    public RemoteOperationResult<UserInfo> run(NextcloudClient client) {
 
         // get display name
-        GetUserInfoRemoteOperation getDisplayName = new GetUserInfoRemoteOperation();
-        RemoteOperationResult result = getDisplayName.execute(client);
+        RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(client);
 
         if (result.isSuccess()) {
             // store display name with account data
             AccountManager accountManager = AccountManager.get(MainApp.getAppContext());
-            UserInfo userInfo = (UserInfo) result.getData().get(0);
+            UserInfo userInfo = result.getResultData();
             Account storedAccount = getStorageManager().getAccount();
             accountManager.setUserData(storedAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
         }

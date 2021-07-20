@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PasswordDialogBinding;
@@ -39,7 +38,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -126,10 +127,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = binding.sharePassword;
-        inputText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
-        inputText.setText("");
-        inputText.requestFocus();
+        binding.sharePassword.setText("");
+        binding.sharePassword.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        binding.sharePassword.setText("");
+        binding.sharePassword.requestFocus();
+
         int title;
         if (askForPassword) {
             title = R.string.share_link_optional_password_title;

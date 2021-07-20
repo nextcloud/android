@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -877,7 +878,7 @@ public final class ThumbnailsCacheManager {
         private final Object mCallContext;
         private final Resources mResources;
         private final float mAvatarRadius;
-        private Account mAccount;
+        private User user;
         private String mUserId;
         private String mServerName;
         private Context mContext;
@@ -885,7 +886,7 @@ public final class ThumbnailsCacheManager {
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,
                                     Object callContext,
-                                    Account account,
+                                    User user,
                                     Resources resources,
                                     float avatarRadius,
                                     String userId,
@@ -893,7 +894,7 @@ public final class ThumbnailsCacheManager {
                                     Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
-            mAccount = account;
+            this.user = user;
             mResources = resources;
             mAvatarRadius = avatarRadius;
             mUserId = userId;
@@ -959,8 +960,8 @@ public final class ThumbnailsCacheManager {
             if (System.currentTimeMillis() - timestamp >= 60 * 60 * 1000 || avatar == null) {
                 GetMethod get = null;
                 try {
-                    if (mAccount != null) {
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
+                    if (user != null) {
+                        OwnCloudAccount ocAccount = user.toOwnCloudAccount();
                         mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
                     }
 
@@ -1002,7 +1003,7 @@ public final class ThumbnailsCacheManager {
                                                                             ThumbnailsCacheManager.AVATAR_TIMESTAMP,
                                                                             System.currentTimeMillis());
                             } else {
-                                return TextDrawable.createAvatar(mAccount, mAvatarRadius);
+                                return TextDrawable.createAvatar(user, mAvatarRadius);
                             }
                             break;
 
@@ -1020,7 +1021,7 @@ public final class ThumbnailsCacheManager {
                     }
                 } catch (Exception e) {
                     try {
-                        return TextDrawable.createAvatar(mAccount, mAvatarRadius);
+                        return TextDrawable.createAvatar(user, mAvatarRadius);
                     } catch (Exception e1) {
                         Log_OC.e(TAG, "Error generating fallback avatar");
                     }
@@ -1033,7 +1034,7 @@ public final class ThumbnailsCacheManager {
 
             if (avatar == null) {
                 try {
-                    return TextDrawable.createAvatar(mAccount, mAvatarRadius);
+                    return TextDrawable.createAvatar(user, mAvatarRadius);
                 } catch (Exception e1) {
                     return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user, null);
                 }

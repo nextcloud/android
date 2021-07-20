@@ -2126,6 +2126,15 @@ public class FileDataStorageManager {
         return capability;
     }
 
+    public boolean capabilityExistsForAccount(String accountName) {
+        Cursor cursor = getCapabilityCursorForAccount(accountName);
+
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+
+        return exists;
+    }
+
     private OCCapability createCapabilityInstance(Cursor cursor) {
         OCCapability capability = null;
         if (cursor != null) {

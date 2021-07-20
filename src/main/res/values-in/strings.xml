@@ -95,7 +95,6 @@
     <string name="common_save">Simpan</string>
     <string name="common_send">Kirim</string>
     <string name="common_share">Bagikan</string>
-    <string name="common_unknown">tidak diketahui</string>
     <string name="common_yes">Ya</string>
     <string name="community_beta_headline">Uji versi dev</string>
     <string name="community_beta_text">Ini termasuk semua fitur yang akan datang.  Bug/galat bisa terjadi, bila terjadi harap laporkan ke kami.</string>
@@ -268,16 +267,13 @@
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="local_folder_list_empty">Tidak ada folder lagi.</string>
     <string name="log_send_mail_subject">%1$s Android apl log</string>
-    <string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
     <string name="login">Masuk</string>
     <string name="logs_menu_refresh">Segarkan</string>
     <string name="logs_status_loading">Memuat…</string>
     <string name="logs_title">Log</string>
-    <string name="maintenance_mode">Server dalam proses perawatan.</string>
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
-    <string name="media_err_invalid_progressive_playback">Berkas media tidak bisa di streaming</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
     <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
@@ -488,7 +484,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
     <string name="uploader_error_message_source_file_not_copied">Tidak dapat menyalin ke folder sementara. Coba untuk ngirim ulang</string>
     <string name="uploader_error_message_source_file_not_found">Berkas yang diunggah tidak ditemukan. Periksa kembali berkas tersebut</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Berkas ini tidak dapat diunggah</string>
     <string name="uploader_error_title_no_file_to_upload">Tidak ada berkas untuk diunggah</string>
     <string name="uploader_info_dirname">Nama folder</string>
     <string name="uploader_top_message">Pilih folder untuk mengunggah</string>
@@ -528,7 +523,6 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
-    <string name="user_info_email">Surel</string>
     <string name="user_info_phone">Nomor telepon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situs web</string>
