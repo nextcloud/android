@@ -287,7 +287,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         ImageView searchIcon = mSearchView.findViewById(androidx.appcompat.R.id.search_button);
         searchIcon.setImageResource(R.drawable.ic_search);
         ThemeToolbarUtils.themeSearchView(mSearchView, this);
-        ThemeToolbarUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
+        ThemeDrawableUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
 

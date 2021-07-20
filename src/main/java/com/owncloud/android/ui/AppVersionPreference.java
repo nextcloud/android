@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextUtils;
 
 public class AppVersionPreference extends Preference {
 
@@ -39,9 +40,9 @@ public class AppVersionPreference extends Preference {
 
     private void updatePreferenceView(TextView title, TextView summary) {
         String appVersion = getAppVersion();
-        int accentColor = ThemeUtils.appBarPrimaryFontColor(getContext());
-        title.setText(ThemeUtils.getColoredTitle(getContext().getString(R.string.app_name),
-                                                 accentColor));
+        int accentColor = ThemeColorUtils.appBarPrimaryFontColor(getContext());
+        title.setText(ThemeTextUtils.getColoredTitle(getContext().getString(R.string.app_name),
+                                                     accentColor));
         // String buildNumber = getContext().getResources().getString(R.string.buildNumber);
 
         // if (TextUtils.isEmpty(buildNumber)) {

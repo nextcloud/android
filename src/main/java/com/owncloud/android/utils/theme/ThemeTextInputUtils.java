@@ -57,7 +57,7 @@ public final class ThemeTextInputUtils {
      * @param textInputLayout the TextInputLayout instance
      * @param color           the color to be used for the hint text and box stroke
      */
-    private static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+    public static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
         textInputLayout.setBoxStrokeColor(color);
         textInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{

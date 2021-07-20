@@ -13,7 +13,6 @@ import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityScanBinding;
 import com.owncloud.android.ui.activity.ToolbarActivity;
-import com.owncloud.android.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import io.scanbot.sdk.ScanbotSDK;

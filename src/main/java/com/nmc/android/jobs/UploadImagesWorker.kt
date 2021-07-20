@@ -16,7 +16,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
 import java.io.File
 import java.security.SecureRandom
 
@@ -101,7 +101,7 @@ class UploadImagesWorker constructor(
             NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_SCAN_DOC_SAVE)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-                .setColor(ThemeUtils.primaryColor(context, true))
+                .setColor(ThemeColorUtils.primaryColor(context, true))
                 .setContentTitle(context.resources.getString(R.string.app_name))
                 .setContentText(context.resources.getString(R.string.foreground_service_save))
                 .setAutoCancel(false)

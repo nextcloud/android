@@ -964,11 +964,6 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
-    <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
-    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
-    <string name="create">Create</string>
-    <string name="select_one_template">Please select one template</string>
-    <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="storage_sd_card">SD Card</string>
     <string name="result_scan_doc_dont_move">Do not move</string>
     <string name="result_scan_doc_move_closer">Move closer</string>

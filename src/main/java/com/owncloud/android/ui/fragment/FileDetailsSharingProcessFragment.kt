@@ -38,7 +38,9 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.ThemeUtils
+import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeCheckableUtils
+import com.owncloud.android.utils.theme.ThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -157,7 +159,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
-        ThemeUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
+        ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
     }
 

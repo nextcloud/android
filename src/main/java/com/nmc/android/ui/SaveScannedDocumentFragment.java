@@ -32,7 +32,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeCheckableUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -174,16 +177,13 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     private void initViews() {
         fileNameInput.setText(FileUtils.scannedFileName());
-        ThemeUtils.tintSwitch(pdfPasswordSwitch, 0);
-        ThemeUtils.tintCheckbox(pdfCheckBox, 0);
-        ThemeUtils.tintCheckbox(pngCheckBox, 0);
-        ThemeUtils.tintCheckbox(jpgCheckBox, 0);
-        ThemeUtils.tintCheckbox(pdfOcrCheckBox, 0);
-        ThemeUtils.tintCheckbox(txtFileCheckBox, 0);
-        ThemeUtils.colorPrimaryButton(saveButton, requireContext());
+        ThemeCheckableUtils.tintSwitch(pdfPasswordSwitch, 0);
+        ThemeCheckableUtils.tintCheckbox(0, pdfCheckBox, pngCheckBox, jpgCheckBox, pdfOcrCheckBox, txtFileCheckBox);
+        ThemeButtonUtils.colorPrimaryButton(saveButton, requireContext());
 
         pdfOcrCheckBox.setChecked(true);
-        ThemeUtils.colorTextInputLayout(pdfPasswordInputLayout, getResources().getColor(R.color.secondary_text_color));
+        ThemeTextInputUtils.colorTextInputLayout(pdfPasswordInputLayout,
+                                                 getResources().getColor(R.color.secondary_text_color));
         pdfPasswordEt.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
         pdfPasswordInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{

@@ -731,10 +731,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                 if (menuItem.getIcon() != null) {
                     if (menuItem == currentItem) {
                         ThemeDrawableUtils.tintDrawable(currentItem.getIcon(), drawerActiveIconColor);
-                        ThemeDrawableUtils.tintMenuItemText(currentItem, drawerActiveTxtColor);
+                        ThemeMenuUtils.tintMenuItemText(currentItem, drawerActiveTxtColor);
                     } else {
                         ThemeDrawableUtils.tintDrawable(menuItem.getIcon(), drawerDefaultIconColor);
-                        ThemeDrawableUtils.tintMenuItemText(menuItem, drawerDefaultTxtColor);
+                        ThemeMenuUtils.tintMenuItemText(menuItem, drawerDefaultTxtColor);
                     }
                 }
             }

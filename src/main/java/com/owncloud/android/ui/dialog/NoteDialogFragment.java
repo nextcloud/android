@@ -80,6 +80,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int primaryColor = ThemeColorUtils.primaryColor(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();

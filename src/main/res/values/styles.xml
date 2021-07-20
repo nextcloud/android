@@ -113,6 +113,10 @@
         <item name="hintTextColor">?attr/colorOnSurface</item>
     </style>
 
+    <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
+
     <style name="ThemeOverlay.App.TextInputLayout" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="colorPrimary">@color/text_color</item>
         <item name="colorOnSurface">@color/text_color</item>
