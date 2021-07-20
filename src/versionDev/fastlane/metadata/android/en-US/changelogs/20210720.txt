@@ -1,0 +1,17 @@
+Initialize last displayed user to correct empty Optional in FileDisplayActivity
+remove break due to rebase
+Update WebView
+improve spotbugs score
+remove obsolete Butterknife dependency
+implement native view bindings in activities/fragments/adapters
+replace switch statements with if/else since resource ids will be non-final in Android Gradle Plugin version 7.0
+Migrate FileDisplayActivity to User model
+Remove unused UserListItem.getAccount() method
+Fix NPE when navigating out of PreviewMediaFragment during video loading
+respect dark mode for web view
+Add license header and remove duplicate empty lines
+Normalize input URL scheme during auth process
+Remove Account from UploadsStorageManager
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
