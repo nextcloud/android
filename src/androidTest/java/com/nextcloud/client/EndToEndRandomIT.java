@@ -95,7 +95,9 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
         if (capability.getVersion().equals(new OwnCloudVersion("0.0.0"))) {
             // fetch new one
-            assertTrue(new GetCapabilitiesOperation().execute(client, getStorageManager()).isSuccess());
+            assertTrue(new GetCapabilitiesOperation(getStorageManager())
+                           .execute(client)
+                           .isSuccess());
         }
         // tests only for NC19+
         assumeTrue(getStorageManager()
@@ -464,8 +466,9 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                                            false,
                                            account,
                                            false,
-                                           targetContext)
-                       .execute(client, getStorageManager())
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
                        .isSuccess());
     }
 
@@ -614,8 +617,8 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                 Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath());
             }
 
-            assertTrue(new RemoveFileOperation(child, false, account, false, targetContext)
-                           .execute(client, getStorageManager())
+            assertTrue(new RemoveFileOperation(child, false, account, false, targetContext, getStorageManager())
+                           .execute(client)
                            .isSuccess()
                       );
         }

@@ -86,11 +86,12 @@ class UploadTask(
             applicationContext,
             upload.isUseWifiOnly,
             upload.isWhileChargingOnly,
-            false
+            false,
+            fileDataStorageManager
         )
         val client = clientProvider()
         uploadsStorageManager.updateDatabaseUploadStart(op)
-        val result = op.execute(client, fileDataStorageManager)
+        val result = op.execute(client)
         uploadsStorageManager.updateDatabaseUploadResult(result, op)
         return Result(file, result.isSuccess)
     }

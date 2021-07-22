@@ -182,9 +182,21 @@ public class UploadFileOperation extends SyncOperation {
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
-                               boolean whileChargingOnly) {
-        this(uploadsStorageManager, connectivityService, powerManagementService, user, file, upload,
-             nameCollisionPolicy, localBehaviour, context, onWifiOnly, whileChargingOnly, true);
+                               boolean whileChargingOnly,
+                               FileDataStorageManager storageManager) {
+        this(uploadsStorageManager,
+             connectivityService,
+             powerManagementService,
+             user,
+             file,
+             upload,
+             nameCollisionPolicy,
+             localBehaviour,
+             context,
+             onWifiOnly,
+             whileChargingOnly,
+             true,
+             storageManager);
     }
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
@@ -198,7 +210,10 @@ public class UploadFileOperation extends SyncOperation {
                                Context context,
                                boolean onWifiOnly,
                                boolean whileChargingOnly,
-                               boolean disableRetries) {
+                               boolean disableRetries,
+                               FileDataStorageManager storageManager) {
+        super(storageManager);
+
         if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         }
@@ -1026,8 +1041,8 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         RemoteOperationResult result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
-            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext());
-            result = syncOp.execute(client, getStorageManager());
+            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
+            result = syncOp.execute(client);
         }
         if (result.isSuccess()) {
             OCFile parentDir = getStorageManager().getFileByPath(pathToGrant);

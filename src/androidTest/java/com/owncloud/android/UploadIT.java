@@ -114,8 +114,9 @@ public class UploadIT extends AbstractOnServerIT {
                                     false,
                                     account,
                                     false,
-                                    targetContext)
-                .execute(client, getStorageManager());
+                                    targetContext,
+                                    getStorageManager())
+                .execute(client);
         }
     }
 
@@ -224,24 +225,25 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                true
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            true,
+            getStorageManager()
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
             // dummy
         });
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertFalse(result.toString(), result.isSuccess());
         assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_CHARGING, result.getCode());
     }
@@ -271,24 +273,25 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                true
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            true,
+            getStorageManager()
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
             // dummy
         });
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.toString(), result.isSuccess());
     }
 
@@ -310,24 +313,25 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setUseWifiOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                true,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            true,
+            false,
+            getStorageManager()
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
             // dummy
         });
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertFalse(result.toString(), result.isSuccess());
         assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_WIFI, result.getCode());
     }
@@ -339,24 +343,25 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setWhileChargingOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                true,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            true,
+            false,
+            getStorageManager()
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
             // dummy
         });
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.toString(), result.isSuccess());
 
         // cleanup
@@ -364,8 +369,9 @@ public class UploadIT extends AbstractOnServerIT {
                                 false,
                                 account,
                                 false,
-                                targetContext)
-            .execute(client, getStorageManager());
+                                targetContext,
+                                getStorageManager())
+            .execute(client);
     }
 
     @Test
@@ -387,24 +393,25 @@ public class UploadIT extends AbstractOnServerIT {
         ocUpload.setUseWifiOnly(true);
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                true,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            true,
+            false,
+            getStorageManager()
         );
         newUpload.setRemoteFolderToBeCreated();
         newUpload.addRenameUploadListener(() -> {
             // dummy
         });
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertFalse(result.toString(), result.isSuccess());
         assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_WIFI, result.getCode());
     }

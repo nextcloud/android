@@ -28,6 +28,7 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
@@ -67,7 +68,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     /**
      * Constructor
      */
-    public CreateFolderOperation(String remotePath, User user, Context context) {
+    public CreateFolderOperation(String remotePath, User user, Context context, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.remotePath = remotePath;
         this.user = user;
         this.context = context;

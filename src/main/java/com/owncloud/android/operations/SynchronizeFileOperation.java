@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -77,10 +78,12 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
-            String remotePath,
-            User user,
-            boolean syncFileContents,
-            Context context) {
+        String remotePath,
+        User user,
+        boolean syncFileContents,
+        Context context,
+        FileDataStorageManager storageManager) {
+        super(storageManager);
 
         mRemotePath = remotePath;
         mLocalFile = null;
@@ -112,11 +115,13 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
-            OCFile localFile,
-            OCFile serverFile,
-            User user,
-            boolean syncFileContents,
-            Context context) {
+        OCFile localFile,
+        OCFile serverFile,
+        User user,
+        boolean syncFileContents,
+        Context context,
+        FileDataStorageManager storageManager) {
+        super(storageManager);
 
         mLocalFile = localFile;
         mServerFile = serverFile;
@@ -124,7 +129,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             mRemotePath = mLocalFile.getRemotePath();
             if (mServerFile != null && !mServerFile.getRemotePath().equals(mRemotePath)) {
                 throw new IllegalArgumentException("serverFile and localFile do not correspond" +
-                        " to the same OC file");
+                                                       " to the same OC file");
             }
         } else if (mServerFile != null) {
             mRemotePath = mServerFile.getRemotePath();
@@ -162,14 +167,15 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
-            OCFile localFile,
-            OCFile serverFile,
-            User user,
-            boolean syncFileContents,
-            boolean allowUploads,
-            Context context) {
+        OCFile localFile,
+        OCFile serverFile,
+        User user,
+        boolean syncFileContents,
+        boolean allowUploads,
+        Context context,
+        FileDataStorageManager storageManager) {
 
-        this(localFile, serverFile, user, syncFileContents, context);
+        this(localFile, serverFile, user, syncFileContents, context, storageManager);
         mAllowUploads = allowUploads;
     }
 

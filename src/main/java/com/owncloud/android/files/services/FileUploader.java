@@ -490,7 +490,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            disableRetries
+            disableRetries,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
         newUpload.setCreatedBy(createdBy);
         if (isCreateRemoteFolder) {
@@ -539,7 +540,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            true
+            true,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
 
         newUpload.addDataTransferProgressListener(this);
@@ -639,7 +641,7 @@ public class FileUploader extends Service
 //                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
 //                } else {
                 /// perform the regular upload
-                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+                uploadResult = mCurrentUpload.execute(mUploadClient);
 //                }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error uploading", e);

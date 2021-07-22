@@ -203,17 +203,18 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                                                                 targetContext.getContentResolver());
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                localBehaviour,
-                targetContext,
-                false,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            localBehaviour,
+            targetContext,
+            false,
+            false,
+            getStorageManager()
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
@@ -221,7 +222,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
         OCFile parentFolder = getStorageManager()
