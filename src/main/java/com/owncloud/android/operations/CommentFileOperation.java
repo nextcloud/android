@@ -27,7 +27,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
-
 /**
  * Comment file
  */
