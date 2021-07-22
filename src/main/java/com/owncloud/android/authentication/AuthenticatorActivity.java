@@ -63,6 +63,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -73,6 +74,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -86,6 +89,8 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.app_auth.AuthStateManager;
+import com.nmc.android.app_auth.Configuration;
 import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.owncloud.android.MainApp;
@@ -124,8 +129,31 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+
+import net.openid.appauth.AppAuthConfiguration;
+import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationRequest;
+import net.openid.appauth.AuthorizationResponse;
+import net.openid.appauth.AuthorizationService;
+import net.openid.appauth.AuthorizationServiceConfiguration;
+import net.openid.appauth.AuthorizationServiceDiscovery;
+import net.openid.appauth.ClientAuthentication;
+import net.openid.appauth.ClientSecretBasic;
+import net.openid.appauth.EndSessionRequest;
+import net.openid.appauth.RegistrationRequest;
+import net.openid.appauth.RegistrationResponse;
+import net.openid.appauth.ResponseTypeValues;
+import net.openid.appauth.TokenRequest;
+import net.openid.appauth.TokenResponse;
+import net.openid.appauth.browser.AnyBrowserMatcher;
+import net.openid.appauth.browser.BrowserMatcher;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -134,16 +162,24 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -250,6 +286,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return accountSetupBinding;
     }
 
+    /* App Auth Variable Start */
+    private static final String EXTRA_FAILED = "failed";
+    private static final int RC_AUTH = 100;
+
+    private AuthorizationService mAuthService;
+    private AuthStateManager mAuthStateManager;
+    private Configuration mConfiguration;
+
+    private final AtomicReference<String> mClientId = new AtomicReference<>();
+    private final AtomicReference<AuthorizationRequest> mAuthRequest = new AtomicReference<>();
+    private final AtomicReference<CustomTabsIntent> mAuthIntent = new AtomicReference<>();
+    private CountDownLatch mAuthIntentLatch = new CountDownLatch(1);
+    private ExecutorService mExecutor;
+
+    @NonNull
+    private BrowserMatcher mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
+    /* App Auth Variable End */
+
+
     /**
      * {@inheritDoc}
      * <p>
@@ -313,7 +368,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
-            initWebViewLogin(webloginUrl, false);
+            initAppAuth();
+            //initWebViewLogin(webloginUrl, false);
         } else {
             accountSetupBinding = AccountSetupBinding.inflate(getLayoutInflater());
             setContentView(accountSetupBinding.getRoot());
@@ -736,6 +792,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     @Override
     protected void onDestroy() {
+        if (mAuthService != null) {
+            mAuthService.dispose();
+        }
+
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -749,7 +809,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri;
-        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText()!= null &&
+        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText() != null &&
             !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
             uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
         } else {
@@ -945,11 +1005,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case OK:
                 if (accountSetupBinding.hostUrlInput.getText() != null &&
                     accountSetupBinding.hostUrlInput
-                    .getText()
-                    .toString()
-                    .trim()
-                    .toLowerCase(Locale.ROOT)
-                    .startsWith(HTTP_PROTOCOL)) {
+                        .getText()
+                        .toString()
+                        .trim()
+                        .toLowerCase(Locale.ROOT)
+                        .startsWith(HTTP_PROTOCOL)) {
                     mServerStatusText = getResources().getString(R.string.auth_connection_established);
                     mServerStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1008,7 +1068,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     mServerStatusText = getResources().getString(
                         R.string.auth_unknown_error_exception_title,
                         result.getException().getMessage()
-                    );
+                                                                );
                 } else {
                     mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
                 }
@@ -1049,11 +1109,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (showWebViewLoginUrl) {
                     if (accountSetupBinding.hostUrlInput.getText() != null &&
                         accountSetupBinding.hostUrlInput
-                        .getText()
-                        .toString()
-                        .trim()
-                        .toLowerCase(Locale.ROOT)
-                        .startsWith(HTTP_PROTOCOL)) {
+                            .getText()
+                            .toString()
+                            .trim()
+                            .toLowerCase(Locale.ROOT)
+                            .startsWith(HTTP_PROTOCOL)) {
                         mAuthStatusText = getResources().getString(R.string.auth_connection_established);
                         mAuthStatusIcon = R.drawable.ic_ok;
                     } else {
@@ -1139,12 +1199,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (onlyAdd) {
                     finish();
                 } else {
-                    //track successful login event
-                    AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN, preferences);
-
-                    //login privacy settings to accept/reject by the user after login
-                    LoginPrivacySettingsActivity.openPrivacySettingsActivity(this);
-                    finish();
+                    onLoginSuccess();
                 }
             } else {
                 // init webView again
@@ -1195,6 +1250,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
+    }
+
+    private void onLoginSuccess() {
+        //track successful login event
+        AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN, preferences);
+
+        //login privacy settings to accept/reject by the user after login
+        LoginPrivacySettingsActivity.openPrivacySettingsActivity(this);
+        finish();
     }
 
     /**
@@ -1441,7 +1505,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(
                 new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-            )) {
+                                )) {
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
 
                 Uri data = getIntent().getData();
@@ -1470,7 +1534,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(
                 new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-            )) {
+                                )) {
                 Log_OC.e(TAG, "Operations service crashed");
                 mOperationsServiceBinder = null;
             }
@@ -1500,8 +1564,37 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             } else {
                 parseAndLoginFromWebView(result);
             }
+        } else if (requestCode == RC_AUTH) {
+            if (resultCode == RESULT_CANCELED) {
+                displayAuthCancelled();
+            } else {
+                if (data != null) {
+                    AuthorizationResponse response = AuthorizationResponse.fromIntent(data);
+                    AuthorizationException ex = AuthorizationException.fromIntent(data);
+                    if (response != null || ex != null) {
+                        mAuthStateManager.updateAfterAuthorization(response, ex);
+                    }
+
+                    if (response != null && response.authorizationCode != null) {
+                        // authorization code exchange is required
+                        mAuthStateManager.updateAfterAuthorization(response, ex);
+                        exchangeAuthorizationCode(response);
+                    } else if (ex != null) {
+                        accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+                        Log_OC.d(TAG,"Authorization flow failed: " + ex.getMessage());
+                        //displayNotAuthorized("Authorization flow failed: " + ex.getMessage());
+                    } else {
+                        accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+                        Log_OC.d(TAG,"No authorization state retained - reauthorization required");
+                        // displayNotAuthorized("No authorization state retained - reauthorization required");
+                    }
+                } else {
+                    displayAuthCancelled();
+                }
+            }
         }
     }
+
 
     /**
      * Obtain the X509Certificate from SslError
@@ -1541,4 +1634,345 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onFailedSavingCertificate() {
         DisplayUtils.showSnackMessage(this, R.string.ssl_validator_not_saved);
     }
+
+    /* App Auth methods starts */
+    private void initAppAuth() {
+        mExecutor = Executors.newSingleThreadExecutor();
+        mAuthStateManager = AuthStateManager.getInstance(this);
+        mConfiguration = Configuration.getInstance(this);
+
+        if (mAuthStateManager.getCurrent().isAuthorized()
+            && !mConfiguration.hasConfigurationChanged()) {
+            Log_OC.i(TAG, "User is already authenticated, proceeding to token activity");
+            successFullAuthorization();
+            /*startActivity(new Intent(this, TokenActivity.class));
+            finish();*/
+            return;
+        }
+
+        if (getIntent().getBooleanExtra(EXTRA_FAILED, false)) {
+            displayAuthCancelled();
+        }
+        accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.VISIBLE);
+        mExecutor.submit(this::initializeAppAuth);
+    }
+
+    private void displayAuthCancelled() {
+        DisplayUtils.showSnackMessage(accountSetupBinding != null ? accountSetupBinding.getRoot() :
+                                          accountSetupWebviewBinding.getRoot(),
+                                      getResources().getString(R.string.auth_cancelled));
+        finish();
+    }
+
+    /**
+     * Initializes the authorization service configuration if necessary, either from the local static values or by
+     * retrieving an OpenID discovery document.
+     */
+    @WorkerThread
+    private void initializeAppAuth() {
+        Log.i(TAG, "Initializing AppAuth");
+        recreateAuthorizationService();
+
+        if (mAuthStateManager.getCurrent().getAuthorizationServiceConfiguration() != null) {
+            // configuration is already created, skip to client initialization
+            Log.i(TAG, "auth config already established");
+            initializeClient();
+            return;
+        }
+
+        // if we are not using discovery, build the authorization service configuration directly
+        // from the static configuration values.
+        if (mConfiguration.getDiscoveryUri() == null) {
+            Log.i(TAG, "Creating auth config from res/raw/auth_config.json");
+            AuthorizationServiceConfiguration config = new AuthorizationServiceConfiguration(
+                mConfiguration.getAuthEndpointUri(),
+                mConfiguration.getTokenEndpointUri(),
+                mConfiguration.getRegistrationEndpointUri(),
+                mConfiguration.getEndSessionEndpoint());
+
+            mAuthStateManager.replace(new AuthState(config));
+            initializeClient();
+            return;
+        }
+
+        // WrongThread inference is incorrect for lambdas
+        // noinspection WrongThread
+        runOnUiThread(() -> accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.VISIBLE));
+        Log.i(TAG, "Retrieving OpenID discovery doc");
+        AuthorizationServiceConfiguration.fetchFromUrl(
+            mConfiguration.getDiscoveryUri(),
+            this::handleConfigurationRetrievalResult,
+            mConfiguration.getConnectionBuilder());
+    }
+
+    @MainThread
+    private void handleConfigurationRetrievalResult(
+        AuthorizationServiceConfiguration config,
+        AuthorizationException ex) {
+        if (config == null) {
+            Log_OC.i(TAG, "Failed to retrieve discovery document");
+            accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        Log.i(TAG, "Discovery document retrieved");
+        mAuthStateManager.replace(new AuthState(config));
+        mExecutor.submit(this::initializeClient);
+    }
+
+    /**
+     * Initiates a dynamic registration request if a client ID is not provided by the static configuration.
+     */
+    @WorkerThread
+    private void initializeClient() {
+        if (mConfiguration.getClientId() != null) {
+            Log_OC.i(TAG, "Using static client ID: " + mConfiguration.getClientId());
+            // use a statically configured client ID
+            mClientId.set(mConfiguration.getClientId());
+            runOnUiThread(this::initializeAuthRequest);
+            return;
+        }
+
+        RegistrationResponse lastResponse =
+            mAuthStateManager.getCurrent().getLastRegistrationResponse();
+        if (lastResponse != null) {
+            Log_OC.i(TAG, "Using dynamic client ID: " + lastResponse.clientId);
+            // already dynamically registered a client ID
+            mClientId.set(lastResponse.clientId);
+            runOnUiThread(this::initializeAuthRequest);
+            return;
+        }
+
+        // WrongThread inference is incorrect for lambdas
+        // noinspection WrongThread
+        runOnUiThread(() -> accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.VISIBLE));
+        Log_OC.i(TAG, "Dynamically registering client");
+
+        RegistrationRequest registrationRequest = new RegistrationRequest.Builder(
+            mAuthStateManager.getCurrent().getAuthorizationServiceConfiguration(),
+            Collections.singletonList(mConfiguration.getRedirectUri()))
+            .setTokenEndpointAuthenticationMethod(ClientSecretBasic.NAME)
+            .build();
+
+        mAuthService.performRegistrationRequest(
+            registrationRequest,
+            this::handleRegistrationResponse);
+    }
+
+    @MainThread
+    private void handleRegistrationResponse(
+        RegistrationResponse response,
+        AuthorizationException ex) {
+        mAuthStateManager.updateAfterRegistration(response, ex);
+        if (response == null) {
+            Log_OC.i(TAG, "Failed to dynamically register client : " + ex.getMessage());
+            accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        Log_OC.i(TAG, "Dynamically registered client: " + response.clientId);
+        mClientId.set(response.clientId);
+        initializeAuthRequest();
+    }
+
+    @MainThread
+    private void initializeAuthRequest() {
+        createAuthRequest("");
+        warmUpBrowser();
+    }
+
+    private void warmUpBrowser() {
+        mAuthIntentLatch = new CountDownLatch(1);
+        mExecutor.execute(() -> {
+            Log.i(TAG, "Warming up browser instance for auth request");
+            CustomTabsIntent.Builder intentBuilder =
+                mAuthService.createCustomTabsIntentBuilder(mAuthRequest.get().toUri());
+            intentBuilder.setToolbarColor(ThemeColorUtils.primaryColor(AuthenticatorActivity.this));
+            mAuthIntent.set(intentBuilder.build());
+            mAuthIntentLatch.countDown();
+            startAuth();
+        });
+    }
+
+    private void createAuthRequest(@Nullable String loginHint) {
+        Log.i(TAG, "Creating auth request for login hint: " + loginHint);
+        AuthorizationRequest.Builder authRequestBuilder = new AuthorizationRequest.Builder(
+            mAuthStateManager.getCurrent().getAuthorizationServiceConfiguration(),
+            mClientId.get(),
+            ResponseTypeValues.CODE,
+            mConfiguration.getRedirectUri())
+            .setScope(mConfiguration.getScope());
+
+        if (!TextUtils.isEmpty(loginHint)) {
+            authRequestBuilder.setLoginHint(loginHint);
+        }
+
+        mAuthRequest.set(authRequestBuilder.build());
+    }
+
+    private void recreateAuthorizationService() {
+        if (mAuthService != null) {
+            Log_OC.i(TAG, "Discarding existing AuthService instance");
+            mAuthService.dispose();
+        }
+        mAuthService = createAuthorizationService();
+        mAuthRequest.set(null);
+        mAuthIntent.set(null);
+    }
+
+    private AuthorizationService createAuthorizationService() {
+        Log_OC.i(TAG, "Creating authorization service");
+        AppAuthConfiguration.Builder builder = new AppAuthConfiguration.Builder();
+        builder.setBrowserMatcher(mBrowserMatcher);
+        builder.setConnectionBuilder(mConfiguration.getConnectionBuilder());
+
+        return new AuthorizationService(this, builder.build());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mExecutor.isShutdown()) {
+            mExecutor = Executors.newSingleThreadExecutor();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mExecutor.shutdownNow();
+    }
+
+    private void startAuth() {
+        mExecutor.submit(this::doAuth);
+    }
+
+    /**
+     * Performs the authorization request, using the browser selected in the spinner, and a user-provided `login_hint`
+     * if available.
+     */
+    @WorkerThread
+    private void doAuth() {
+        try {
+            mAuthIntentLatch.await();
+        } catch (InterruptedException ex) {
+            Log.w(TAG, "Interrupted while waiting for auth intent");
+        }
+
+        Intent intent = mAuthService.getAuthorizationRequestIntent(
+            mAuthRequest.get(),
+            mAuthIntent.get());
+        startActivityForResult(intent, RC_AUTH);
+    }
+
+     @MainThread
+    private void exchangeAuthorizationCode(AuthorizationResponse authorizationResponse) {
+        accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.VISIBLE);
+        performTokenRequest(
+                authorizationResponse.createTokenExchangeRequest(),
+                this::handleCodeExchangeResponse);
+    }
+
+    @MainThread
+    private void performTokenRequest(
+            TokenRequest request,
+            AuthorizationService.TokenResponseCallback callback) {
+        ClientAuthentication clientAuthentication;
+        try {
+            clientAuthentication = mAuthStateManager.getCurrent().getClientAuthentication();
+        } catch (ClientAuthentication.UnsupportedAuthenticationMethod ex) {
+            Log_OC.d(TAG, "Token request cannot be made, client authentication for the token "
+                            + "endpoint could not be constructed (%s)", ex);
+            accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+            DisplayUtils.showSnackMessage(accountSetupWebviewBinding.getRoot(),"Client authentication method is unsupported");
+            return;
+        }
+
+        mAuthService.performTokenRequest(
+                request,
+                clientAuthentication,
+                callback);
+    }
+
+     @WorkerThread
+    private void handleCodeExchangeResponse(
+            @Nullable TokenResponse tokenResponse,
+            @Nullable AuthorizationException authException) {
+
+        mAuthStateManager.updateAfterTokenResponse(tokenResponse, authException);
+        if (!mAuthStateManager.getCurrent().isAuthorized()) {
+            final String message = "Authorization Code exchange failed"
+                    + ((authException != null) ? authException.error : "");
+
+            //WrongThread inference is incorrect for lambdas
+            //noinspection WrongThread
+            runOnUiThread(() -> {
+                accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+                DisplayUtils.showSnackMessage(accountSetupWebviewBinding.getRoot(), message);
+            });
+        } else {
+            runOnUiThread(this::successFullAuthorization);
+        }
+    }
+
+    private void successFullAuthorization(){
+        AuthState state = mAuthStateManager.getCurrent();
+        Log.d(TAG,
+              "ID -> "+state.getRefreshToken()+" - "+state.getIdToken()+" - "+state.getAccessToken()+" - "+state.getAccessTokenExpirationTime());
+
+        //state.getRefreshToken()
+        //state.getIdToken()
+        //state.getAccessToken()
+        // if (state.getAccessToken() == null) {
+        //            accessTokenInfoView.setText(R.string.no_access_token_returned);
+        //        } else {
+        //            Long expiresAt = state.getAccessTokenExpirationTime();
+        //            if (expiresAt == null) {
+        //                accessTokenInfoView.setText(R.string.no_access_token_expiry);
+        //            } else if (expiresAt < System.currentTimeMillis()) {
+        //                accessTokenInfoView.setText(R.string.access_token_expired);
+        //            } else {
+        //                String template = getResources().getString(R.string.access_token_expires_at);
+        //                accessTokenInfoView.setText(String.format(template,
+        //                                                          DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss ZZ").print(expiresAt)));
+        //            }
+        //        }
+
+    }
+
+/*    @MainThread
+    private void endSession() {
+        AuthState currentState = mStateManager.getCurrent();
+        AuthorizationServiceConfiguration config =
+            currentState.getAuthorizationServiceConfiguration();
+        if (config.endSessionEndpoint != null) {
+            Intent endSessionIntent = mAuthService.getEndSessionRequestIntent(
+                new EndSessionRequest.Builder(config)
+                    .setIdTokenHint(currentState.getIdToken())
+                    .setPostLogoutRedirectUri(mConfiguration.getEndSessionRedirectUri())
+                    .build());
+            startActivityForResult(endSessionIntent, END_SESSION_REQUEST_CODE);
+        } else {
+            signOut();
+        }
+    }
+    @MainThread
+    private void signOut() {
+        // discard the authorization and token state, but retain the configuration and
+        // dynamic client registration (if applicable), to save from retrieving them again.
+        AuthState currentState = mStateManager.getCurrent();
+        AuthState clearedState =
+            new AuthState(currentState.getAuthorizationServiceConfiguration());
+        if (currentState.getLastRegistrationResponse() != null) {
+            clearedState.update(currentState.getLastRegistrationResponse());
+        }
+        mStateManager.replace(clearedState);
+
+        Intent mainIntent = new Intent(this, LoginActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(mainIntent);
+        finish();
+    }*/
+
+    /* App Auth methods ends */
 }

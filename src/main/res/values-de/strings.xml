@@ -974,4 +974,5 @@
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
     <string name="drawer_item_recent_files">Neuste Dateien</string>
+    <string name="auth_cancelled">Autorization Cancelled</string>
 </resources>

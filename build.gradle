@@ -136,6 +136,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
 
+        // Make sure this is consistent with the redirect URI used in res/raw/auth_config.json,
+        // or specify additional redirect URIs in AndroidManifest.xml
+        manifestPlaceholders = [
+            'appAuthRedirectScheme': 'nextmagentacloudaos'
+        ]
+
         buildConfigField "String", "ADJUST_APP_TOKEN", "${ADJUST_APP_TOKEN}"
 
         // arguments to be passed to functional tests
@@ -435,6 +441,8 @@ dependencies {
     //google play services identifier required for Adjust SDK
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
 
+    //app auth library
+    implementation 'net.openid:appauth:0.9.1'
 }
 
 spotbugs {
