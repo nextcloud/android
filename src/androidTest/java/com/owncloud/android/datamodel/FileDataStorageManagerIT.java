@@ -220,7 +220,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
                                              .acquireContentProviderClient(ProviderMeta.ProviderTableMeta.CONTENT_URI)
         );
 
-        String remotePath = "/imageFile.png";
+        String imagePath = "/imageFile.png";
         VirtualFolderType virtualType = VirtualFolderType.GALLERY;
 
         assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
@@ -228,23 +228,24 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         File imageFile = getFile("imageFile.png");
         assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
-                                                 "/imageFile.png",
+                                                 imagePath,
                                                  "image/png",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 String.valueOf((System.currentTimeMillis() - 10000) / 1000))
                        .execute(client).isSuccess());
 
         // Check that file does not yet exist in local database
-        assertNull(sut.getFileByPath("/imageFile.png"));
+        assertNull(sut.getFileByPath(imagePath));
 
+        String videoPath = "/videoFile.mp4";
         File videoFile = getFile("videoFile.mp4");
         assertTrue(new UploadFileRemoteOperation(videoFile.getAbsolutePath(),
-                                                 "/videoFile.mp4",
+                                                 videoPath,
                                                  "video/mpeg",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 String.valueOf((System.currentTimeMillis() + 10000) / 1000))
                        .execute(client).isSuccess());
 
         // Check that file does not yet exist in local database
-        assertNull(sut.getFileByPath("/videoFile.mp4"));
+        assertNull(sut.getFileByPath(videoPath));
 
         // search
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation("",
@@ -255,8 +256,10 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         TestCase.assertTrue(searchResult.isSuccess());
         TestCase.assertEquals(2, searchResult.getData().size());
 
+        // newest file must be video path (as sorted by recently modified)
         OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(0));
         sut.saveFile(ocFile);
+        assertEquals(videoPath, ocFile.getRemotePath());
 
         List<ContentValues> contentValues = new ArrayList<>();
         ContentValues cv = new ContentValues();
@@ -265,8 +268,10 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         contentValues.add(cv);
 
-        OCFile ocFile2 = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(0));
+        // second is image file, as older
+        OCFile ocFile2 = FileStorageUtils.fillOCFile((RemoteFile) searchResult.getData().get(1));
         sut.saveFile(ocFile2);
+        assertEquals(imagePath, ocFile2.getRemotePath());
 
         ContentValues cv2 = new ContentValues();
         cv2.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, virtualType.toString());
@@ -276,12 +281,10 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         sut.saveVirtuals(contentValues);
 
-        assertEquals(remotePath, ocFile.getRemotePath());
-
         assertEquals(0, sut.getFolderContent(sut.getFileByPath("/"), false).size());
 
         assertEquals(2, sut.getVirtualFolderContent(virtualType, false).size());
-        assertEquals(2, sut.getAllFiles().size());
+        assertEquals(3, sut.getAllFiles().size());
 
         // update root
         assertTrue(new RefreshFolderOperation(sut.getFileByPath("/"),
