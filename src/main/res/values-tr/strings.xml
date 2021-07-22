@@ -622,7 +622,7 @@
     <string name="share_room_clarification">%1$s (görüşme)</string>
     <string name="share_search">Ad, Birleşik Bulut Kodu ya da e-posta adresi …</string>
     <string name="share_send_note">Alıcıya not</string>
-    <string name="share_via_link_hide_download">İndirmeyi gizle</string>
+    <string name="share_via_link_hide_download">İndirme gizlensin</string>
     <string name="share_via_link_menu_password_label">Parola koruması (%1$s)</string>
     <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
     <string name="share_via_link_send_link_label">Bağlantı gönder</string>
