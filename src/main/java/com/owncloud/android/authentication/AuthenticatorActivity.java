@@ -60,6 +60,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
@@ -1787,6 +1788,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log.i(TAG, "Warming up browser instance for auth request");
             CustomTabsIntent.Builder intentBuilder =
                 mAuthService.createCustomTabsIntentBuilder(mAuthRequest.get().toUri());
+            intentBuilder.setShareState(CustomTabsIntent.SHARE_STATE_OFF);
             intentBuilder.setToolbarColor(ThemeColorUtils.primaryColor(AuthenticatorActivity.this));
             mAuthIntent.set(intentBuilder.build());
             mAuthIntentLatch.countDown();
