@@ -37,6 +37,8 @@ import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Process;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -75,10 +77,14 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -86,6 +92,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.os.HandlerCompat;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
@@ -132,7 +139,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private static final int rotationDegrees = 90;
     private long lastRotationEventTs = 0L;
     private int currentIndex;
-
+    private boolean isRotationInProgress;
+    private boolean isImageLoadingFailed;//flag to check if image loading is failed or not
+    private ExecutorService rotationExecutorService = Executors.newSingleThreadExecutor();
+    private Handler rotationHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -261,15 +271,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         //set the rotated bitmap to image view if user swipes back to already rotated image
         if (rotatedBitmap != null) {
+            isImageLoadingFailed = false;
             binding.image.setImageBitmap(rotatedBitmap);
             binding.image.setVisibility(View.VISIBLE);
             binding.emptyListView.setVisibility(View.GONE);
             binding.emptyListProgress.setVisibility(View.GONE);
+            binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
 
             //make copy of rotated bitmap to avoid issue during recycle
             bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
         } else if (getFile() != null) {
-
+            isImageLoadingFailed = false;
             binding.image.setTag(getFile().getFileId());
 
             Point screenSize = DisplayUtils.getScreenSize(getActivity());
@@ -440,7 +452,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         //enable rotate image if image is png or jpg
         //we are not rotating svg, gif or any other format of images
-        if (MimeTypeUtil.isJpgOrPngFile(getFile().getFileName())) {
+        //image loading should not be failed to show rotate images
+        if (MimeTypeUtil.isJpgOrPngFile(getFile().getFileName()) && !isImageLoadingFailed) {
             menu.findItem(R.id.action_rotate_image).setVisible(true);
         }
     }
@@ -450,7 +463,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * {@inheritDoc}
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        if (isRotationInProgress) {
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.action_send_share_file:
                 if (getFile().isSharedWithMe() && !getFile().canReshare()) {
@@ -503,25 +519,40 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             return;
         }
 
-        //rotate the image using matrix
-        Matrix matrix = new Matrix();
-        matrix.postRotate(rotationDegrees);
-        //get the bitmap of rotated image
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        //make copy of rotated bitmap to avoid issue during recycle
-        bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
-        //set the rotated bitmap to image view
-        binding.image.setImageBitmap(bitmap);
+        showHideViewDuringRotation(true);
 
-        //add the rotated bitmap to hashamp
-        if (requireActivity() instanceof PreviewImageActivity) {
-            LoadImage loadImage = new LoadImage(rotatedBitmap, null, getFile());
-            ((PreviewImageActivity) requireActivity()).addBitmap(loadImage);
-        }
+        //execute the rotation task in background
+        rotationExecutorService.execute(() -> {
+            //rotate the image using matrix
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotationDegrees);
+            //get the bitmap of rotated image
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            //make copy of rotated bitmap to avoid issue during recycle
+            bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
 
-        lastRotationEventTs = System.currentTimeMillis();
+            rotationHandler.post(() -> {
+                //set the rotated bitmap to image view
+                binding.image.setImageBitmap(bitmap);
+
+                //add the rotated bitmap to hashmap
+                if (requireActivity() instanceof PreviewImageActivity) {
+                    LoadImage loadImage = new LoadImage(rotatedBitmap, null, getFile());
+                    ((PreviewImageActivity) requireActivity()).addBitmap(loadImage);
+                }
+
+                lastRotationEventTs = System.currentTimeMillis();
+
+                showHideViewDuringRotation(false);
+            });
+        });
     }
 
+    private void showHideViewDuringRotation(boolean isRotationInProgress) {
+        this.isRotationInProgress = isRotationInProgress;
+        binding.progressBar.setVisibility(isRotationInProgress ? View.VISIBLE : View.GONE);
+        binding.image.setVisibility(isRotationInProgress ? View.INVISIBLE : View.VISIBLE);
+    }
 
     private void seeDetails() {
         containerActivity.showDetails(getFile());
@@ -683,6 +714,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         @Override
         protected void onPostExecute(LoadImage result) {
             if (result.bitmap != null || result.drawable != null) {
+                isImageLoadingFailed = false;
                 showLoadedImage(result);
             } else {
                 showErrorMessage(mErrorMessageId);
@@ -800,6 +832,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         binding.image.setVisibility(View.GONE);
         binding.emptyListView.setVisibility(View.VISIBLE);
         binding.emptyListProgress.setVisibility(View.GONE);
+        isImageLoadingFailed = true;
+        requireActivity().invalidateOptionsMenu();
     }
 
     public void setErrorPreviewMessage() {
