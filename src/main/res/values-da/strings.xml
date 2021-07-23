@@ -687,7 +687,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="stream">Stream med...</string>
     <string name="stream_not_possible_headline">Intern streaming ikke mulig</string>
     <string name="stream_not_possible_message">Hent venligst media i stedet, eller brug ekstern app.</string>
-    <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>

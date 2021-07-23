@@ -706,7 +706,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="stream">Proudově vysílat s…</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
-    <string name="strict_mode">Přísný režim: připojení přes http není povoleno!</string>
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s s vámi sdílí „%2$s“</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>

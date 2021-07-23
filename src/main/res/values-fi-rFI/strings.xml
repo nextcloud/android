@@ -680,7 +680,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
-    <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
