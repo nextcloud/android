@@ -1,7 +1,6 @@
 package com.nmc.android.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -165,7 +164,7 @@ public class ScanPagerFragment extends Fragment {
 
     public void showApplyFilterDialog() {
         String[] filterArray = getResources().getStringArray(R.array.edit_scan_filter_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle(R.string.edit_scan_filter_dialog_title)
             .setSingleChoiceItems(filterArray,
                                   selectedFilter,
@@ -187,10 +186,7 @@ public class ScanPagerFragment extends Fragment {
 
                                       dialog.dismiss();
                                   })
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                }
+            .setOnCancelListener(dialog -> {
             });
         applyFilterDialog = builder.create();
         applyFilterDialog.show();
