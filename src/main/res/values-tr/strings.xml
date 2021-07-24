@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Sınama görevi zamanla</string>
     <string name="etm_background_jobs_start_test_job">Sınama görevini başlat</string>
     <string name="etm_background_jobs_stop_test_job">Sınama görevini durdur</string>
-    <string name="etm_download_enqueue_test_download">Sınama indirmesini sıraya al</string>
-    <string name="etm_download_path">Uzak yol</string>
-    <string name="etm_downloader">İndirici</string>
     <string name="etm_migrations">Aktarımlar (uygulama yükseltmesi)</string>
     <string name="etm_preferences">Ayarlar</string>
     <string name="etm_title">Mühendislik sınama kipi</string>

@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Ajoita testityö</string>
     <string name="etm_background_jobs_start_test_job">Käynnistä testityö</string>
     <string name="etm_background_jobs_stop_test_job">Pysäytä testityö</string>
-    <string name="etm_download_enqueue_test_download">Jonota testilataus</string>
-    <string name="etm_download_path">Etäpolku</string>
-    <string name="etm_downloader">Lataaja</string>
     <string name="etm_migrations">Yhdistäminen (sovelluksen päivitys)</string>
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>

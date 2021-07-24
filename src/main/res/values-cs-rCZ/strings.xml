@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Naplánovat testovací úlohu</string>
     <string name="etm_background_jobs_start_test_job">Spustit zkušební úlohu</string>
     <string name="etm_background_jobs_stop_test_job">Zastavit zkušební úlohu</string>
-    <string name="etm_download_enqueue_test_download">Zařadit do fronty testovací stahování</string>
-    <string name="etm_download_path">Popis umístění federovaného úložiště</string>
-    <string name="etm_downloader">Nástroj pro stahování</string>
     <string name="etm_migrations">Migrace (přechod na novější verzi aplikace)</string>
     <string name="etm_preferences">Předvolby</string>
     <string name="etm_title">Vývojářský testovací režim</string>
@@ -706,6 +703,7 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="stream">Proudově vysílat s…</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
+    <string name="strict_mode">Přísný režim: připojení přes HTTP není povoleno!</string>
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s s vámi sdílí „%2$s“</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>

@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Inplannen test-job</string>
     <string name="etm_background_jobs_start_test_job">Start testtaak</string>
     <string name="etm_background_jobs_stop_test_job">Stop testtaak</string>
-    <string name="etm_download_enqueue_test_download">Testdownload in wachtrij plaatsen</string>
-    <string name="etm_download_path">Extern pad</string>
-    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migratie (app upgrade)</string>
     <string name="etm_preferences">Voorkeuren</string>
     <string name="etm_title">Engineering Testmodus</string>

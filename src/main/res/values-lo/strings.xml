@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">ຕາຕະລາງທົດສອບວຽກ</string>
     <string name="etm_background_jobs_start_test_job">ເລີ່ມທົດລອງວຽກ</string>
     <string name="etm_background_jobs_stop_test_job">ຢຸດທົດລອງວຽກ</string>
-    <string name="etm_download_enqueue_test_download">ການທົດສອບດາວໂຫຼດ Enqueue</string>
-    <string name="etm_download_path">ເສັ້ນທາງໄລຍະໄກ</string>
-    <string name="etm_downloader">ຜຸ້ດາວໂຫຼດ</string>
     <string name="etm_migrations">ການໂອນຍ້າຍ (ການຍົກລະດັບເເອັບ)</string>
     <string name="etm_preferences">ການເລືອກ</string>
     <string name="etm_title">ການທົດສອບວິສະວະກໍາ</string>

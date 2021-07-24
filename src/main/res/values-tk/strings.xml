@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Synag işini meýilleşdiriň</string>
     <string name="etm_background_jobs_start_test_job">Synag işine başlaň</string>
     <string name="etm_background_jobs_stop_test_job">Synag işini bes ediň</string>
-    <string name="etm_download_enqueue_test_download">Synagy göçürip al</string>
-    <string name="etm_download_path">Uzak ýol</string>
-    <string name="etm_downloader">Ýüklenildi</string>
     <string name="etm_migrations">Migrasiýa (programmany täzelemek)</string>
     <string name="etm_preferences">Saýlamalar</string>
     <string name="etm_title">Inženerçilik synag tertibi</string>

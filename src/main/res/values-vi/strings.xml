@@ -271,9 +271,6 @@
     <string name="etm_background_jobs_schedule_test_job">Lên lịch công việc kiểm tra</string>
     <string name="etm_background_jobs_start_test_job">Bắt đầu công việc kiểm tra</string>
     <string name="etm_background_jobs_stop_test_job">Kết thúc công việc kiểm tra</string>
-    <string name="etm_download_enqueue_test_download">Tải xuống kiếm tra enqueue</string>
-    <string name="etm_download_path">Đường dẫn từ xa</string>
-    <string name="etm_downloader">Người tải xuống</string>
     <string name="etm_migrations">Di cư (nâng cấp ứng dụng)</string>
     <string name="etm_preferences">Cài đặt</string>
     <string name="etm_title">Chế độ kiểm tra kỹ thuật</string>
