@@ -685,7 +685,6 @@
     <string name="stream">Direta cun...</string>
     <string name="stream_not_possible_headline">Su flussu internu non est possìbile</string>
     <string name="stream_not_possible_message">Iscàrriga media o imprea s\'aplicatzione de foras.</string>
-    <string name="strict_mode">Modalidade rigurosa: peruna connessione http permìtida!</string>
     <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
     <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>
     <string name="sync_conflicts_in_favourites_ticker">Si sunt agatados cunflitos</string>

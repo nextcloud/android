@@ -682,7 +682,6 @@
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
-    <string name="strict_mode">Strictモード: http接続は許可されていません</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>

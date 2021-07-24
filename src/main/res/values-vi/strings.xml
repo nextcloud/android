@@ -680,7 +680,6 @@
     <string name="stream">Phát trực tiếp với…</string>
     <string name="stream_not_possible_headline">Không thể phát trực tuyến nội bộ</string>
     <string name="stream_not_possible_message">Vui lòng tải xuống media thay thế hoặc sử dụng ứng dụng bên ngoài.</string>
-    <string name="strict_mode">Chế độ nghiêm khắc: không có kết nối http nào được cho phép!</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
