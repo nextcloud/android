@@ -6,7 +6,6 @@ import androidx.documentfile.provider.DocumentFile
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
-import com.owncloud.android.lib.common.network.WebdavUtils
 import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
 import com.owncloud.android.providers.DocumentsProviderUtils.assertReadEquals
@@ -205,7 +204,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val content2 = "new content".toByteArray()
 
         // modify content on server side
-        val putMethod = PutMethod(client.webdavUri.toString() + WebdavUtils.encodePath(remotePath))
+        val putMethod = PutMethod(client.getFilesDavUri(remotePath))
         putMethod.requestEntity = ByteArrayRequestEntity(content2)
         assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
         client.exhaustResponse(putMethod.responseBodyAsStream)
