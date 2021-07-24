@@ -16,6 +16,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -31,7 +32,7 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class CopyFileOperation extends SyncOperation {
 
-    private String srcPath;
+    private final String srcPath;
     private String targetParentPath;
 
     /**
@@ -40,7 +41,9 @@ public class CopyFileOperation extends SyncOperation {
      * @param srcPath          Remote path of the {@link OCFile} to move.
      * @param targetParentPath Path to the folder where the file will be copied into.
      */
-    public CopyFileOperation(String srcPath, String targetParentPath) {
+    public CopyFileOperation(String srcPath, String targetParentPath, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.srcPath = srcPath;
         this.targetParentPath = targetParentPath;
         if (!this.targetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {

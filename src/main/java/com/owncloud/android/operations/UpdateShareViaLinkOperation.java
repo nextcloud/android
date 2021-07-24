@@ -20,6 +20,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -36,10 +37,12 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     private String password;
     private Boolean hideFileDownload;
     private long expirationDateInMillis;
-    private long shareId;
+    private final long shareId;
     private String label;
 
-    public UpdateShareViaLinkOperation(long shareId) {
+    public UpdateShareViaLinkOperation(long shareId, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         expirationDateInMillis = 0;
         this.shareId = shareId;
     }

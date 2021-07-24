@@ -135,8 +135,8 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         // given test folder
-        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
-                       .execute(client, getStorageManager())
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext, getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         // navigate into it
@@ -162,8 +162,8 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
     public void switchToGridView() {
         activityRule.launchActivity(null);
 
-        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
-                       .execute(client, getStorageManager())
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext, getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         Espresso.onView(withId(R.id.switch_grid_view_button)).perform(click());

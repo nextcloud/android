@@ -67,7 +67,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         GetMethod getMethod = null;
 
-        String webDav = client.getDavUri().toString();
+        String webDav = client.getFilesDavUri().toString();
 
         try {
             getMethod = new GetMethod(statUrl);

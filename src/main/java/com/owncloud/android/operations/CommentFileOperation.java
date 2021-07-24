@@ -22,19 +22,19 @@
 package com.owncloud.android.operations;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
-import com.owncloud.android.operations.common.SyncOperation;
 
 
 /**
  * Comment file
  */
-public class CommentFileOperation extends SyncOperation {
+public class CommentFileOperation extends RemoteOperation {
 
-    private String message;
-    private String fileId;
+    private final String message;
+    private final String fileId;
 
     /**
      * Constructor

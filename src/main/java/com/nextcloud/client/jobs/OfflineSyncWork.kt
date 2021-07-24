@@ -113,9 +113,10 @@ class OfflineSyncWork constructor(
                     ocFile.remotePath,
                     user,
                     true,
-                    context
+                    context,
+                    storageManager
                 )
-                synchronizeFileOperation.execute(storageManager, context)
+                synchronizeFileOperation.execute(context)
             }
         }
         // recursive into folder

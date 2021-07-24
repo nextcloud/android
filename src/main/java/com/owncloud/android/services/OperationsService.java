@@ -69,7 +69,6 @@ import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
-import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -391,8 +390,6 @@ public class OperationsService extends Service {
         private RemoteOperation mCurrentOperation;
         private Target mLastTarget;
         private OwnCloudClient mOwnCloudClient;
-        private FileDataStorageManager mStorageManager;
-
 
         public ServiceHandler(Looper looper, OperationsService service) {
             super(looper);
@@ -428,31 +425,18 @@ public class OperationsService extends Service {
                     /// prepare client object to send the request to the ownCloud server
                     if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                         mLastTarget = next.first;
+                        OwnCloudAccount ocAccount;
                         if (mLastTarget.mAccount != null) {
-                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
-                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                    getClientFor(ocAccount, mService);
-
-                            mStorageManager = new FileDataStorageManager(
-                                mLastTarget.mAccount,
-                                    mService.getContentResolver()
-                            );
+                            ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
                         } else {
-                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mServerUrl, null);
-                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                    getClientFor(ocAccount, mService);
-                            mStorageManager = null;
+                            ocAccount = new OwnCloudAccount(mLastTarget.mServerUrl, null);
                         }
+                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, mService);
                     }
 
                     /// perform the operation
-                    if (mCurrentOperation instanceof SyncOperation) {
-                        result = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient,
-                                mStorageManager);
-                    } else {
-                        result = mCurrentOperation.execute(mOwnCloudClient);
-                    }
-
+                    result = mCurrentOperation.execute(mOwnCloudClient);
                 } catch (AccountsException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
@@ -523,12 +507,15 @@ public class OperationsService extends Service {
                 String newParentPath;
                 long shareId;
 
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+                                                                                           getContentResolver());
+
                 switch (action) {
                     case ACTION_CREATE_SHARE_VIA_LINK:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                         if (!TextUtils.isEmpty(remotePath)) {
-                            operation = new CreateShareViaLinkOperation(remotePath, password);
+                            operation = new CreateShareViaLinkOperation(remotePath, password, fileDataStorageManager);
                         }
                         break;
 
@@ -536,7 +523,8 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
                         if (shareId > 0) {
-                            UpdateShareViaLinkOperation updateLinkOperation = new UpdateShareViaLinkOperation(shareId);
+                            UpdateShareViaLinkOperation updateLinkOperation =
+                                new UpdateShareViaLinkOperation(shareId, fileDataStorageManager);
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                             updateLinkOperation.setPassword(password);
@@ -564,7 +552,8 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
                         if (shareId > 0) {
-                            UpdateSharePermissionsOperation updateShare = new UpdateSharePermissionsOperation(shareId);
+                            UpdateSharePermissionsOperation updateShare =
+                                new UpdateSharePermissionsOperation(shareId, fileDataStorageManager);
 
                             int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                             updateShare.setPermissions(permissions);
@@ -585,7 +574,7 @@ public class OperationsService extends Service {
                         String note = operationIntent.getStringExtra(EXTRA_SHARE_NOTE);
 
                         if (shareId > 0) {
-                            operation = new UpdateNoteForShareOperation(shareId, note);
+                            operation = new UpdateNoteForShareOperation(shareId, note, fileDataStorageManager);
                         }
                         break;
 
@@ -595,8 +584,11 @@ public class OperationsService extends Service {
                         shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
                         int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                         if (!TextUtils.isEmpty(remotePath)) {
-                            operation = new CreateShareWithShareeOperation(remotePath, shareeName, shareType,
-                                                                           permissions);
+                            operation = new CreateShareWithShareeOperation(remotePath,
+                                                                           shareeName,
+                                                                           shareType,
+                                                                           permissions,
+                                                                           fileDataStorageManager);
                         }
                         break;
 
@@ -605,7 +597,7 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
                         if (shareId > 0) {
-                            operation = new UnshareOperation(remotePath, shareId);
+                            operation = new UnshareOperation(remotePath, shareId, fileDataStorageManager);
                         }
                         break;
 
@@ -620,7 +612,7 @@ public class OperationsService extends Service {
                     case ACTION_RENAME:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, newName);
+                        operation = new RenameFileOperation(remotePath, newName, fileDataStorageManager);
                         break;
 
                     case ACTION_REMOVE:
@@ -632,12 +624,16 @@ public class OperationsService extends Service {
                                                             onlyLocalCopy,
                                                             account,
                                                             inBackground,
-                                                            getApplicationContext());
+                                                            getApplicationContext(),
+                                                            fileDataStorageManager);
                         break;
 
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        operation = new CreateFolderOperation(remotePath, user, getApplicationContext());
+                        operation = new CreateFolderOperation(remotePath,
+                                                              user,
+                                                              getApplicationContext(),
+                                                              fileDataStorageManager);
                         break;
 
                     case ACTION_SYNC_FILE:
@@ -646,7 +642,8 @@ public class OperationsService extends Service {
                         operation = new SynchronizeFileOperation(remotePath,
                                                                  user,
                                                                  syncFileContents,
-                                                                 getApplicationContext());
+                                                                 getApplicationContext(),
+                                                                 fileDataStorageManager);
                         break;
 
                     case ACTION_SYNC_FOLDER:
@@ -655,24 +652,25 @@ public class OperationsService extends Service {
                             this,                       // TODO remove this dependency from construction time
                             remotePath,
                             user,
-                            System.currentTimeMillis()  // TODO remove this dependency from construction time
+                            System.currentTimeMillis(),  // TODO remove this dependency from construction time
+                            fileDataStorageManager
                         );
                         break;
 
                     case ACTION_MOVE_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
-                        operation = new MoveFileOperation(remotePath, newParentPath);
+                        operation = new MoveFileOperation(remotePath, newParentPath, fileDataStorageManager);
                         break;
 
                     case ACTION_COPY_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
-                        operation = new CopyFileOperation(remotePath, newParentPath);
+                        operation = new CopyFileOperation(remotePath, newParentPath, fileDataStorageManager);
                         break;
 
                     case ACTION_CHECK_CURRENT_CREDENTIALS:
-                    operation = new CheckCurrentCredentialsOperation(user);
+                        operation = new CheckCurrentCredentialsOperation(user, fileDataStorageManager);
                         break;
 
                     case ACTION_RESTORE_VERSION:
