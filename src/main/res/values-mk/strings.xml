@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Исчисти ги неуспешните прикачувања</string>
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Исчисти ги сите известувања</string>
+    <string name="action_empty_trashbin">Испразни ја корпата со отпадоци</string>
     <string name="action_send_share">Испрати/Сподели</string>
     <string name="action_switch_grid_view">Мрежа</string>
     <string name="action_switch_list_view">Листа</string>
@@ -261,7 +262,6 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Задачи кој се извршуваат во позадина</string>
     <string name="etm_background_jobs_cancel_all">Откажи ги сите активности</string>
-    <string name="etm_downloader">Преземач</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="fab_label">Додади или прикачи</string>

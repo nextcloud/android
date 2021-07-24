@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Zaplanuj zadanie testowe</string>
     <string name="etm_background_jobs_start_test_job">Rozpocznij zadanie testowe</string>
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
-    <string name="etm_download_enqueue_test_download">Umieść pobieranie testowe w kolejce</string>
-    <string name="etm_download_path">Zdalna ścieżka</string>
-    <string name="etm_downloader">Aplikacja do pobierania</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
     <string name="etm_title">Tryb testowy techniczny</string>
@@ -685,6 +682,7 @@
     <string name="stream">Przesyłaj strumieniowo…</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
+    <string name="strict_mode">Tryb wymagający: połączenie HTTP nie jest dozwolone!</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>

@@ -258,9 +258,6 @@
     <string name="etm_background_jobs_schedule_test_job">Закажи пробни посао</string>
     <string name="etm_background_jobs_start_test_job">Покрени пробни посао</string>
     <string name="etm_background_jobs_stop_test_job">Заустави пробни посао</string>
-    <string name="etm_download_enqueue_test_download">Стави тест преузимање у ред чекања</string>
-    <string name="etm_download_path">Удаљена путања</string>
-    <string name="etm_downloader">Преузимач</string>
     <string name="etm_migrations">Пресељења (надоградња апликације)</string>
     <string name="etm_preferences">Поставке</string>
     <string name="etm_title">Инжењерски тест режим</string>

@@ -275,9 +275,6 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_jobs_schedule_test_job">Planifier une tâche de test</string>
     <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
-    <string name="etm_download_enqueue_test_download">Mettre en file d\'attente un téléchargement de test</string>
-    <string name="etm_download_path">Chemin distant</string>
-    <string name="etm_downloader">Téléchargeur</string>
     <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>

@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Zakaži ispitni zadatak</string>
     <string name="etm_background_jobs_start_test_job">Pokreni ispitni zadatak</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi ispitni zadatak</string>
-    <string name="etm_download_enqueue_test_download">Stavi testno preuzimanje u red čekanja</string>
-    <string name="etm_download_path">Udaljeni put</string>
-    <string name="etm_downloader">Alat za preuzimanje</string>
     <string name="etm_migrations">Migracije (nadogradnja aplikacije)</string>
     <string name="etm_preferences">Preferencije</string>
     <string name="etm_title">Inženjerski način rada za ispitivanje</string>

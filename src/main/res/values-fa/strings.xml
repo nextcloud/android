@@ -267,9 +267,6 @@
     <string name="etm_background_jobs_schedule_test_job">" در برنامه قرار دادن کار آزمایشی"</string>
     <string name="etm_background_jobs_start_test_job">شروع کار آزمایشی</string>
     <string name="etm_background_jobs_stop_test_job">کار آزمایشی را متوقف کن</string>
-    <string name="etm_download_enqueue_test_download">در صف قراردادن بارگذاری آزمایشی</string>
-    <string name="etm_download_path">مسیر ریموت</string>
-    <string name="etm_downloader">دریافت کننده</string>
     <string name="etm_migrations">مهاجرت ها (ارتقا برنامک)</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>

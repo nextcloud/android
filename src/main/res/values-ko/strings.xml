@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">테스트 작업 계획</string>
     <string name="etm_background_jobs_start_test_job">테스트 작업 시작하기</string>
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
-    <string name="etm_download_enqueue_test_download">대기열에 넣기 테스트 다운로드</string>
-    <string name="etm_download_path">원격 경로</string>
-    <string name="etm_downloader">다운로더</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>

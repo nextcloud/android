@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Pianifica operazione di prova</string>
     <string name="etm_background_jobs_start_test_job">Avvia operazione di prova</string>
     <string name="etm_background_jobs_stop_test_job">Ferma operazione di prova</string>
-    <string name="etm_download_enqueue_test_download">Annulla scaricamento di test</string>
-    <string name="etm_download_path">Percorso remoto</string>
-    <string name="etm_downloader">Strumento di scaricamento</string>
     <string name="etm_migrations">Migrazioni (aggiornamento applicazione)</string>
     <string name="etm_preferences">Preferenze</string>
     <string name="etm_title">Modalità test di progettazione</string>

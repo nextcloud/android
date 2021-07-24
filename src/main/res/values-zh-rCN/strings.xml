@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">日程测试工作</string>
     <string name="etm_background_jobs_start_test_job">开始测试工作</string>
     <string name="etm_background_jobs_stop_test_job">停止测试工作</string>
-    <string name="etm_download_enqueue_test_download">将测试下载加入队列</string>
-    <string name="etm_download_path">远程路径</string>
-    <string name="etm_downloader">下载器</string>
     <string name="etm_migrations">迁移（应用升级）</string>
     <string name="etm_preferences">设置偏好</string>
     <string name="etm_title">工程测试模式</string>
@@ -688,6 +685,7 @@
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
+    <string name="strict_mode">严格模式:不允许 HTTP 连接!</string>
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>

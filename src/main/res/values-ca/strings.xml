@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Planificar tasca de prova</string>
     <string name="etm_background_jobs_start_test_job">Iniciar tasca de prova</string>
     <string name="etm_background_jobs_stop_test_job">Aturar tasca de prova</string>
-    <string name="etm_download_enqueue_test_download">Posar a la cua una prova de descàrrega</string>
-    <string name="etm_download_path">Ruta remota</string>
-    <string name="etm_downloader">Descàrrega</string>
     <string name="etm_migrations">Migracions (actualització d\'aplicació)</string>
     <string name="etm_preferences">Preferències</string>
     <string name="etm_title">Mode de proves d\'enginyeria</string>

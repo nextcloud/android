@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">テストジョブをスケジュール</string>
     <string name="etm_background_jobs_start_test_job">テストジョブを開始</string>
     <string name="etm_background_jobs_stop_test_job">テストジョブを中断</string>
-    <string name="etm_download_enqueue_test_download">エンキューのダウンロードテスト</string>
-    <string name="etm_download_path">リモートパス</string>
-    <string name="etm_downloader">ダウンローダー</string>
     <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>

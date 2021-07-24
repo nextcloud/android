@@ -272,8 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Suplanuokite testinę užduotį</string>
     <string name="etm_background_jobs_start_test_job">Pradėti testinę užduotį</string>
     <string name="etm_background_jobs_stop_test_job">Sustabdyti testinę užduotį</string>
-    <string name="etm_download_enqueue_test_download">Užbaikite bandomąjį atsisiuntimą</string>
-    <string name="etm_download_path">Nuotolinis kelias</string>
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>

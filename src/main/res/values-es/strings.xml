@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Programar trabajo de prueba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar trabajo de prueba</string>
     <string name="etm_background_jobs_stop_test_job">Parar trabajo de prueba</string>
-    <string name="etm_download_enqueue_test_download">Poner en cola el test de descarga</string>
-    <string name="etm_download_path">Dirección remota</string>
-    <string name="etm_downloader">Descargador</string>
     <string name="etm_migrations">Migraciones (actualizar app)</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Engineering Test</string>

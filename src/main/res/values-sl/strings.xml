@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Načrtovano preizkusno opravilo</string>
     <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
-    <string name="etm_download_enqueue_test_download">Uvrsti preizkusni prejem</string>
-    <string name="etm_download_path">Oddaljena pot</string>
-    <string name="etm_downloader">Prejemalnik</string>
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>

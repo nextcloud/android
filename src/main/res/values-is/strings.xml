@@ -255,9 +255,6 @@
     <string name="etm_background_jobs_schedule_test_job">Áætla prufuverk</string>
     <string name="etm_background_jobs_start_test_job">Hefja prufuverk</string>
     <string name="etm_background_jobs_stop_test_job">Stöðva prufuverk</string>
-    <string name="etm_download_enqueue_test_download">Setja niðurhalsprófun í biðröð</string>
-    <string name="etm_download_path">Fjartengd slóð</string>
-    <string name="etm_downloader">Niðurhalsforrit</string>
     <string name="etm_migrations">Yfirfærslur (uppfærsla forrits)</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>

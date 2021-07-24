@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Test-Aufgabe planen</string>
     <string name="etm_background_jobs_start_test_job">Test-Aufgabe starten</string>
     <string name="etm_background_jobs_stop_test_job">Test-Aufgabe stoppen</string>
-    <string name="etm_download_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
-    <string name="etm_download_path">Externer Pfad</string>
-    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migrationen (App-Aktualisierung)</string>
     <string name="etm_preferences">Einstellungen</string>
     <string name="etm_title">Technischer Testmodus</string>
@@ -686,6 +683,7 @@
     <string name="stream">Streamen mit…</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
+    <string name="strict_mode">Strikter Modus: keine HTTP-Verbindung erlaubt!</string>
     <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
     <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>

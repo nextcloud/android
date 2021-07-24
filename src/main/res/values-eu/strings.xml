@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Antolatu probako lana</string>
     <string name="etm_background_jobs_start_test_job">Hasi probako lana</string>
     <string name="etm_background_jobs_stop_test_job">Gelditu probako lana</string>
-    <string name="etm_download_enqueue_test_download">Ilaran jarri proba-deskarga</string>
-    <string name="etm_download_path">Urruneko bide-izena</string>
-    <string name="etm_downloader">Deskargatzailea</string>
     <string name="etm_migrations">Migrazioak (aplikazioaren eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
     <string name="etm_title">Ingeniaritzako proba modua </string>

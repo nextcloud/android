@@ -266,9 +266,6 @@
     <string name="etm_background_jobs_schedule_test_job">جدولة مهمة تجريبية</string>
     <string name="etm_background_jobs_start_test_job">بدء المهمة التجريبية</string>
     <string name="etm_background_jobs_stop_test_job">إيقاف المهمة التجريبية</string>
-    <string name="etm_download_enqueue_test_download">إدراج بقائمة التحميل التجريبي للانتظار</string>
-    <string name="etm_download_path">المسار البعيد</string>
-    <string name="etm_downloader">مُحمل</string>
     <string name="etm_migrations">عمليات الترحيل (ترقية التطبيق)</string>
     <string name="etm_preferences">الخيارات</string>
     <string name="etm_title">وضع الهندسة التجريبي</string>

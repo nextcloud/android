@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Agenda um job de teste</string>
     <string name="etm_background_jobs_start_test_job">Executa o job de teste</string>
     <string name="etm_background_jobs_stop_test_job">Para o job de teste</string>
-    <string name="etm_download_enqueue_test_download">Coloca na fila o download de teste</string>
-    <string name="etm_download_path">Caminho remoto</string>
-    <string name="etm_downloader">Descarregador</string>
     <string name="etm_migrations">Migrações (subida de versão da aplicação)</string>
     <string name="etm_preferences">Preferências</string>
     <string name="etm_transfer">Transferência de ficheiros</string>
