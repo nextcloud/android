@@ -1,0 +1,8 @@
+For SyncOperation FileDataStorageManager is required, therefore this is now part of constructor, whereas it before was only part of .execute()
+Remove .gitmodules and references to submodules in SETUP.md
+Use new dav
+Update bundle for Fastlane
+Change to uppercase
+update bouncycastle to 1.69
+Update translations
+Update Nextcloud Android library
