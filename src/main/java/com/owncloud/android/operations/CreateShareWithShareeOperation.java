@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -54,14 +55,20 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     /**
      * Constructor.
      *
-     * @param path          Full path of the file/folder being shared.
-     * @param shareeName    User or group name of the target sharee.
-     * @param shareType     Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
-     *                      are the only valid values for the moment.
-     * @param permissions   Share permissions key as detailed in
-     *                      https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html .
+     * @param path        Full path of the file/folder being shared.
+     * @param shareeName  User or group name of the target sharee.
+     * @param shareType   Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
+     *                    are the only valid values for the moment.
+     * @param permissions Share permissions key as detailed in https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html
+     *                    .
      */
-    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
+    public CreateShareWithShareeOperation(String path,
+                                          String shareeName,
+                                          ShareType shareType,
+                                          int permissions,
+                                          FileDataStorageManager storageManager) {
+        super(storageManager);
+
         if (!supportedShareTypes.contains(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }

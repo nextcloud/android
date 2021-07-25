@@ -24,6 +24,7 @@ import android.accounts.AccountManager;
 
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -32,10 +33,14 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 /**
  * Get and save user's profile from the server.
- *
+ * <p>
  * Currently only retrieves the display name.
  */
 public class GetUserProfileOperation extends SyncOperation {
+
+    public GetUserProfileOperation(FileDataStorageManager storageManager) {
+        super(storageManager);
+    }
 
     /**
      * Performs the operation.

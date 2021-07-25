@@ -312,8 +312,8 @@ public abstract class AbstractIT {
     }
 
     public OCFile createFolder(String remotePath) {
-        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext)
-                                .execute(client, getStorageManager())
+        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext, getStorageManager())
+                                .execute(client)
                                 .isSuccess());
 
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
@@ -355,17 +355,18 @@ public abstract class AbstractIT {
                                                                                 targetContext.getContentResolver());
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false,
+            getStorageManager()
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
@@ -373,7 +374,7 @@ public abstract class AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
     }
 

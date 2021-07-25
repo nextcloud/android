@@ -73,8 +73,8 @@ public class ScreenshotsIT extends AbstractOnServerIT {
 
         // folder does not exist yet
         if (getStorageManager().getFileByEncryptedRemotePath(path) == null) {
-            SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext);
-            RemoteOperationResult result = syncOp.execute(client, getStorageManager());
+            SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
+            RemoteOperationResult result = syncOp.execute(client);
 
             assertTrue(result.isSuccess());
         }

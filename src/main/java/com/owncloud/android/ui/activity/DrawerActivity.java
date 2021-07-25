@@ -1124,8 +1124,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
                     && getStorageManager() != null) {
-                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
-                    getCapabilities.execute(getStorageManager(), getBaseContext());
+                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
+                    getCapabilities.execute(getBaseContext());
                 }
 
                 User user = accountManager.getUser();

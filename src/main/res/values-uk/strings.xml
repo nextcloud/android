@@ -268,9 +268,6 @@
     <string name="etm_background_jobs_schedule_test_job">Запланувати тестовий процес</string>
     <string name="etm_background_jobs_start_test_job">Почати тестове завдання</string>
     <string name="etm_background_jobs_stop_test_job">Завершити тестове завдання</string>
-    <string name="etm_download_enqueue_test_download">Перевірити звантаження</string>
-    <string name="etm_download_path">Віддалений шлях</string>
-    <string name="etm_downloader">Звантажувач</string>
     <string name="etm_migrations">Міграція (оновлення застосунку)</string>
     <string name="etm_preferences">Налаштування</string>
     <string name="etm_title">Режим розробника для тестування</string>

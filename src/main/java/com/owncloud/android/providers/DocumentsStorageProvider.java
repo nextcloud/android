@@ -328,8 +328,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document document = toDocument(documentId);
 
-        RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(), displayName)
-            .execute(document.getClient(), document.getStorageManager());
+        RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(),
+                                                               displayName,
+                                                               document.getStorageManager())
+            .execute(document.getClient());
 
         if (!result.isSuccess()) {
             Log_OC.e(TAG, result.toString());
@@ -352,8 +354,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         FileDataStorageManager storageManager = document.getStorageManager();
         Document targetFolder = toDocument(targetParentDocumentId);
 
-        RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
-            .execute(document.getClient(), storageManager);
+        RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(),
+                                                             targetFolder.getRemotePath(),
+                                                             document.getStorageManager())
+            .execute(document.getClient());
 
         if (!result.isSuccess()) {
             Log_OC.e(TAG, result.toString());
@@ -395,8 +399,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Document document = toDocument(sourceDocumentId);
         Document targetFolder = toDocument(targetParentDocumentId);
 
-        RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(), targetFolder.getRemotePath())
-            .execute(document.getClient(), document.getStorageManager());
+        RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(),
+                                                             targetFolder.getRemotePath(),
+                                                             document.getStorageManager())
+            .execute(document.getClient());
 
         if (!result.isSuccess()) {
             Log_OC.e(TAG, result.toString());
@@ -452,8 +458,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         RemoteOperationResult result = new CreateFolderOperation(newDirPath,
                                                                  accountManager.getUser(),
-                                                                 context)
-            .execute(targetFolder.getClient(), storageManager);
+                                                                 context,
+                                                                 storageManager)
+            .execute(targetFolder.getClient());
 
         if (!result.isSuccess()) {
             Log_OC.e(TAG, result.toString());
@@ -568,8 +575,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                false,
                                                                document.getAccount(),
                                                                true,
-                                                               context)
-            .execute(document.getClient(), document.getStorageManager());
+                                                               context,
+                                                               document.getStorageManager())
+            .execute(document.getClient());
 
         if (!result.isSuccess()) {
             throw new FileNotFoundException("Failed to delete document with documentId " + documentId);

@@ -272,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Schedule test job</string>
     <string name="etm_background_jobs_start_test_job">Start test job</string>
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
-    <string name="etm_download_enqueue_test_download">Enqueue test download</string>
-    <string name="etm_download_path">Remote path</string>
-    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_preferences">Preferences</string>
     <string name="etm_title">Engineering Test Mode</string>

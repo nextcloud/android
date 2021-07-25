@@ -284,8 +284,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         try {
             NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
 
-            RemoteOperationResult<UserInfo> result = new GetUserProfileOperation().execute(nextcloudClient,
-                                                                                           mStorageManager);
+            RemoteOperationResult<UserInfo> result = new GetUserProfileOperation(mStorageManager).execute(nextcloudClient);
             if (!result.isSuccess()) {
                 Log_OC.w(TAG, "Couldn't update user profile from server");
             } else {
@@ -301,8 +300,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(mAccount,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 
-        GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation();
-        RemoteOperationResult result = getCapabilities.execute(mStorageManager, mContext);
+        RemoteOperationResult result = new GetCapabilitiesOperation(mStorageManager).execute(mContext);
         if (result.isSuccess()) {
             String newDirectEditingEtag = mStorageManager.getCapability(mAccount.name).getDirectEditingEtag();
 
@@ -657,7 +655,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) {
         RemoteOperationResult contentsResult;
         for (SynchronizeFileOperation op : filesToSyncContents) {
-            contentsResult = op.execute(mStorageManager, mContext);   // async
+            contentsResult = op.execute(mContext);   // async
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;

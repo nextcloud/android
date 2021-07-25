@@ -46,7 +46,7 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
 
     private static final boolean SUCCESS_IF_ABSENT = false;
 
-    private WeakReference<Context> mWeakContext;
+    private final WeakReference<Context> mWeakContext;
     private final WeakReference<OnAuthenticatorTaskListener> mListener;
 
     public AuthenticatorAsyncTask(Activity activity) {
@@ -65,15 +65,21 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
 
             // Client
             Uri uri = Uri.parse(url);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
             NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(uri,
                                                                                           credentials.getUsername(),
                                                                                           credentials.toOkHttpCredentials(),
                                                                                           context,
                                                                                           true);
-            client.setCredentials(credentials);
+
+
+            // Operation - get display name
+            RemoteOperationResult<UserInfo> userInfoResult = new GetUserInfoRemoteOperation().execute(nextcloudClient);
 
             // Operation - try credentials
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
+            client.setUserId(userInfoResult.getResultData().getId());
+            client.setCredentials(credentials);
+
             ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(ROOT_PATH, SUCCESS_IF_ABSENT);
             result = operation.execute(client);
 
@@ -82,13 +88,6 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
                 String permanentLocation = redirectionPath.getLastPermanentLocation();
                 result.setLastPermanentLocation(permanentLocation);
             }
-
-            // Operation - get display name
-            if (result.isSuccess()) {
-                GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
-                result = remoteUserNameOperation.execute(nextcloudClient);
-            }
-
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }
