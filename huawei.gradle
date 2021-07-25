@@ -1,0 +1,5 @@
+dependencies {
+    // upon each update first test: new registration, receive push
+    //implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+    implementation 'com.huawei.hms:push:5.1.1.301'
+}

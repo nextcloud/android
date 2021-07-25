@@ -16,6 +16,10 @@ buildscript {
             url 'https://plugins.gradle.org/m2/'
         }
         mavenCentral()
+        // huawei maven
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
@@ -25,6 +29,8 @@ buildscript {
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.10.3'
+        // huawei dependencies
+        classpath 'com.huawei.agconnect:agcp:1.5.2.300'
     }
 }
 
@@ -38,6 +44,8 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+//huawei plugin
+apply plugin: 'com.huawei.agconnect'
 
 println "Gradle uses Java ${Jvm.current()}"
 
@@ -82,6 +90,10 @@ repositories {
     maven {
         url 'https://plugins.gradle.org/m2/'
     }
+    // huawei maven
+    maven {
+        url 'https://developer.huawei.com/repo/'
+    }
 }
 
 // semantic versioning for version code
@@ -96,6 +108,12 @@ for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()
         if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
             apply from: 'gplay.gradle'
             System.console().println("Applying gplay.gradle")
+        }
+        // any huawei, but only exact "build", as e.g. buildGeneric shall not apply huawei.grade
+        else if (arg.contains("Huawei") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg ==
+            "build") {
+            apply from: 'huawei.gradle'
+            System.console().println("Applying huawei.gradle")
         }
     }
 }
@@ -123,6 +141,17 @@ android {
     }
 
     compileSdkVersion 29
+
+    // huawei jks
+    signingConfigs {
+        huawei {
+            // Replace xxx with your signing certificate.
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('testpush.jks')
+            storePassword '123456'
+        }
+    }
 
     defaultConfig {
         minSdkVersion 22
@@ -155,6 +184,7 @@ android {
         buildTypes {
             debug {
                 testCoverageEnabled (project.hasProperty('coverage'))
+                signingConfig null
             }
         }
 
@@ -168,6 +198,13 @@ android {
             gplay {
                 applicationId 'com.nextcloud.client'
                 dimension "default"
+            }
+
+            huawei {
+                applicationId 'com.nextcloud.client'
+                dimension "default"
+                applicationIdSuffix=".huawei"
+                signingConfig signingConfigs.huawei
             }
 
             versionDev {
@@ -268,6 +305,7 @@ dependencies {
 //    implementation project('nextcloud-android-library')
     genericImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     gplayImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
+    huaweiImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     versionDevImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
     qaImplementation "com.github.nextcloud:android-library:$androidLibraryVersion"
 
