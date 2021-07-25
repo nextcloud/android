@@ -25,6 +25,7 @@ buildscript {
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.11.0'
+        classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
     }
 }
 
@@ -38,6 +39,7 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+apply plugin: 'com.facebook.testing.screenshot'
 
 println "Gradle uses Java ${Jvm.current()}"
 
