@@ -24,7 +24,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.10.3'
+        classpath 'com.karumi:shot:5.11.0'
+        classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
     }
 }
 
@@ -38,6 +39,7 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+apply plugin: 'com.facebook.testing.screenshot'
 
 println "Gradle uses Java ${Jvm.current()}"
 
@@ -278,7 +280,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.webkit:webkit:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
