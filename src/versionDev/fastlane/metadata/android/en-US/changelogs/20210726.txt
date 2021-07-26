@@ -1,0 +1,3 @@
+explicitely add facedbook-screenshot dependencies
+Fix exception when running CommentFileOperation
+Update 3rd-party dependencies
