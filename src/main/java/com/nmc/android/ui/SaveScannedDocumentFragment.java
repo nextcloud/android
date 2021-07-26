@@ -20,13 +20,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.FileUtils;
 import com.nmc.android.utils.KeyboardUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
@@ -36,6 +43,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -109,13 +117,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     private OCFile remoteFilePath;
 
     @Inject BackgroundJobManager backgroundJobManager;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
+    @Inject AppPreferences appPreferences;
 
     @Nullable
     @Override
@@ -133,7 +135,20 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initViews();
+        setDefaultRemotePath();
+        updateSaveLocationText(appPreferences.getUploadScansLastPath());
         implementCheckListeners();
+    }
+
+    /**
+     * create default OCFile if default Scan folder is selected
+     */
+    private void setDefaultRemotePath() {
+        if (remoteFilePath == null &&
+            appPreferences.getUploadScansLastPath().equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
+            remoteFilePath = new OCFile(appPreferences.getUploadScansLastPath());
+            remoteFilePath.setFolder();
+        }
     }
 
     private void initViews() {
@@ -298,6 +313,9 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
             fileName,
             remotePath,
             pdfPassword);
+
+        //save the selected location to save scans in preference
+        appPreferences.setUploadScansLastPath(remotePath);
 
         //send the result back with the selected remote path to open selected remote path
         Intent intent = new Intent();

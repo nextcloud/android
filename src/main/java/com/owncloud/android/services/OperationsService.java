@@ -50,12 +50,14 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
+import com.owncloud.android.operations.CreateFolderIfNotExistOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
@@ -126,6 +128,7 @@ public class OperationsService extends Service {
     public static final String ACTION_COPY_FILE = "COPY_FILE";
     public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
     public static final String ACTION_RESTORE_VERSION = "RESTORE_VERSION";
+    public static final String ACTION_CREATE_FOLDER_NOT_EXIST = "CREATE_FOLDER_NOT_EXIST";
 
     private ServiceHandler mOperationsHandler;
     private OperationsServiceBinder mOperationsBinder;
@@ -677,6 +680,11 @@ public class OperationsService extends Service {
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         operation = new CreateFolderOperation(remotePath, user, getApplicationContext());
+                        break;
+
+                    case ACTION_CREATE_FOLDER_NOT_EXIST:
+                        remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        operation = new CreateFolderIfNotExistOperation(remotePath, user, getApplicationContext());
                         break;
 
                     case ACTION_SYNC_FILE:

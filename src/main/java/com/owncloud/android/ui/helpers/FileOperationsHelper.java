@@ -948,6 +948,21 @@ public class FileOperationsHelper {
     }
 
     /**
+     * create folder in remote if it doesn't exist
+     * if it exist then we will ignore creating
+     * @param remotePath to be created
+     */
+    public void createFolderIfNotExist(String remotePath) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CREATE_FOLDER_NOT_EXIST);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    /**
      * Cancel the transference in downloads (files/folders) and file uploads
      *
      * @param file OCFile
