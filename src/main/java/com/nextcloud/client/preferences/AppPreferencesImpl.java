@@ -29,6 +29,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nmc.android.ui.LoginPrivacySettingsActivity;
+import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -94,6 +95,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__DATA_ANALYSIS = "data_analysis";
     private static final String PREF__PRIVACY_POLICY_ACTION = "privacy_policy_action";
+    private static final String PREF__UPLOAD_SCANS_LAST_PATH = "upload_scans_last_path";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -688,5 +690,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public int getPrivacyPolicyAction() {
         return preferences.getInt(PREF__PRIVACY_POLICY_ACTION, LoginPrivacySettingsActivity.NO_ACTION);
+    }
+
+    @Override
+    public void setUploadScansLastPath(String path) {
+        preferences.edit().putString(PREF__UPLOAD_SCANS_LAST_PATH, path).apply();
+    }
+
+    @Override
+    public String getUploadScansLastPath() {
+        return preferences.getString(PREF__UPLOAD_SCANS_LAST_PATH, ScanActivity.DEFAULT_UPLOAD_SCAN_PATH);
     }
 }

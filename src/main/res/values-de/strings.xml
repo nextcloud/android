@@ -890,9 +890,9 @@
     <string name="result_scan_doc_aspect_ratio">Falsches Bildformat.\nDrehen Sie Ihr Gerät.</string>
     <string name="result_scan_doc_poor_light">Schwaches Licht</string>
     <string name="scanned_doc_count">%d von %d</string>
-    <string name="title_edit_scan">Scam Bearbeiten</string>
+    <string name="title_edit_scan">Scan bearbeiten</string>
     <string name="title_crop_scan">Scan beschneiden</string>
-    <string name="crop_btn_reset_crop_text">Rahmen zurÃ¼cksetzen</string>
+    <string name="crop_btn_reset_crop_text">Rahmen zurücksetzen</string>
     <string name="crop_btn_detect_doc_text">Dokument erkenne</string>
     <string name="edit_scan_filter_dialog_title">Filter anwenden</string>
     <string name="edit_scan_filter_none">Kein Filter</string>
@@ -915,7 +915,7 @@
     <string name="scan_save_set_password_hint">Passwort setzen</string>
     <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
     <string name="save_scan_empty_pdf_password">Bitte geben Sie ein Passwort für das zu erstellende PDF ein oder deaktivieren Sie die Funktion.</string>
-    <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
+    <string name="scan_save_file_type_text">Sie können die gescannten Dokumente mit oder ohne Texterkennung abspeichern. Sie können auch mehrere Dateiformate auswählen.</string>
     <string name="choose_location">Speicherort wählen</string>
     <string name="common_select">Auswählen</string>
     <string name="camera_permission_rationale">Bitte geben Sie unter Apps &amp; Benachrichtigungen in den Einstellungen manuell die Erlaubnis.</string>
@@ -974,4 +974,6 @@
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
     <string name="drawer_item_recent_files">Neuste Dateien</string>
+    <string name="dialog_ok">Okay</string>
+    <string name="dialog_save_scan_message">Das Speichern kann einige Minuten in Anspruch nehmen, insbesondere wenn Sie mehrere Seiten und Dateiformate ausgewählt haben.</string>
 </resources>

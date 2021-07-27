@@ -8,14 +8,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.interfaces.OnDocScanListener;
 import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityScanBinding;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,12 +30,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import io.scanbot.sdk.ScanbotSDK;
 
-public class ScanActivity extends ToolbarActivity implements OnFragmentChangeListener, OnDocScanListener {
+public class ScanActivity extends FileActivity implements OnFragmentChangeListener, OnDocScanListener {
 
     protected static final String FRAGMENT_SCAN_TAG = "SCAN_FRAGMENT_TAG";
     protected static final String FRAGMENT_EDIT_SCAN_TAG = "EDIT_SCAN_FRAGMENT_TAG";
     protected static final String FRAGMENT_CROP_SCAN_TAG = "CROP_SCAN_FRAGMENT_TAG";
     protected static final String FRAGMENT_SAVE_SCAN_TAG = "SAVE_SCAN_FRAGMENT_TAG";
+
+    //default path to upload the scanned document
+    //if user doesn't select any location then this will be the default location
+    public static final String DEFAULT_UPLOAD_SCAN_PATH = OCFile.ROOT_PATH + "Scans" + OCFile.PATH_SEPARATOR;
 
     protected static final String TAG = "ScanActivity";
 
@@ -38,9 +48,11 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
 
     public static final List<Bitmap> scannedImages = new ArrayList<>();
 
+    @Inject AppPreferences appPreferences;
+
     public static void openScanActivity(Context context, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
-        ((AppCompatActivity)context).startActivityForResult(intent, requestCode);
+        ((AppCompatActivity) context).startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -74,6 +86,13 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
 
     @Override
     public void onReplaceFragment(Fragment fragment, String tag, boolean addToBackStack) {
+        //create the default scan folder if it doesn't exist or if user has not selected any other folder
+        //only while replacing save scan fragment
+        if (tag.equalsIgnoreCase(FRAGMENT_SAVE_SCAN_TAG)
+            && appPreferences.getUploadScansLastPath().equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
+            getFileOperationsHelper().createFolderIfNotExist(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH);
+        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.scan_frame_container, fragment, tag);
         if (addToBackStack) {
@@ -103,8 +122,8 @@ public class ScanActivity extends ToolbarActivity implements OnFragmentChangeLis
         Fragment saveScanFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_SAVE_SCAN_TAG);
         if (cropScanFragment != null || saveScanFragment != null) {
             int index = 0;
-            if (cropScanFragment instanceof CropScannedDocumentFragment){
-                index = ((CropScannedDocumentFragment)cropScanFragment).getScannedDocIndex();
+            if (cropScanFragment instanceof CropScannedDocumentFragment) {
+                index = ((CropScannedDocumentFragment) cropScanFragment).getScannedDocIndex();
             }
             onReplaceFragment(EditScannedDocumentFragment.newInstance(index), FRAGMENT_EDIT_SCAN_TAG, false);
         } else if (editScanFragment != null) {

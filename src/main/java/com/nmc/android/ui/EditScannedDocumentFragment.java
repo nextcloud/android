@@ -14,6 +14,7 @@ import com.nmc.android.interfaces.OnDocScanListener;
 import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.nmc.android.adapters.ViewPagerFragmentAdapter;
 import com.owncloud.android.R;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 
 import java.util.List;
 
