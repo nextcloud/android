@@ -2,6 +2,7 @@ package com.nmc.android.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -118,6 +119,14 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject AppPreferences appPreferences;
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //Fragment screen orientation normal both portrait and landscape
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        setRetainInstance(true);
+    }
 
     @Nullable
     @Override

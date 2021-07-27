@@ -898,7 +898,7 @@
     <string name="edit_scan_filter_none">Kein Filter</string>
     <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
     <string name="edit_scan_filter_color_enhanced">Foto Filter</string>
-    <string name="edit_scan_filter_b_n_w">Black &amp; White</string>
+    <string name="edit_scan_filter_b_n_w">Schwarz-Weiß</string>
     <string name="edit_scan_filter_color_document">Dokument Filter</string>
     <string name="edit_scan_filter_grey">Grau</string>
     <string name="automatic">Automatisch</string>
