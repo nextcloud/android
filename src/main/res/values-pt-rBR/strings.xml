@@ -682,6 +682,7 @@
     <string name="stream">Stream com…</string>
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
+    <string name="strict_mode">Modo restrito: nenhuma conexão HTTP permitida! </string>
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
