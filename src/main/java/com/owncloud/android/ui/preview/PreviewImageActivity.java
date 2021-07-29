@@ -89,6 +89,7 @@ public class PreviewImageActivity extends FileActivity implements
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
+    private static final String KEY_ROTATED_IMAGES_SIZE = "ROTATED_IMAGES_MAP_SIZE";
 
     private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
@@ -127,7 +128,11 @@ public class PreviewImageActivity extends FileActivity implements
         setupToolbar();
 
         //clear the static bitmap hashmap on every on create to clear old data
-        bitmapHashMap.clear();
+        //if saved instance is not null that means device is rotated and hashmap may have some data so no need to
+        // reset it
+        if (savedInstanceState == null || !savedInstanceState.containsKey(KEY_ROTATED_IMAGES_SIZE)) {
+            bitmapHashMap.clear();
+        }
         // Navigation Drawer
         setupDrawer();
 
@@ -232,6 +237,8 @@ public class PreviewImageActivity extends FileActivity implements
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible());
+        //set hashmap size when config changes to maintain the hashmap
+        outState.putInt(KEY_ROTATED_IMAGES_SIZE, bitmapHashMap.size());
     }
 
     @Override
