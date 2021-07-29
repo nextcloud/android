@@ -1,6 +1,8 @@
 package com.nmc.android.ui;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.nmc.android.adapters.ViewPagerFragmentAdapter;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -75,6 +79,8 @@ public class EditScannedDocumentFragment extends Fragment {
         if (getArguments() != null) {
             currentItemIndex = getArguments().getInt(ARG_CURRENT_INDEX, 0);
         }
+        //Fragment screen orientation normal both portrait and landscape
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     @Override
@@ -169,6 +175,12 @@ public class EditScannedDocumentFragment extends Fragment {
                 break;
 
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull @NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setUpViewPager();
     }
 
     /**

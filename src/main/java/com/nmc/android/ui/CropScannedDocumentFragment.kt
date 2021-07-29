@@ -1,12 +1,13 @@
 package com.nmc.android.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.Menu
@@ -52,12 +53,16 @@ class CropScannedDocumentFragment : Fragment() {
     private lateinit var originalBitmap: Bitmap
 
     private var rotationDegrees = 0
+    private var polygonPoints : List<PointF>? = null
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.getInt(ARG_SCANNED_DOC_INDEX)?.let {
             scannedDocIndex = it
         }
+        // Fragment locked in portrait screen orientation
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     }
 
     override fun onAttach(context: Context) {
@@ -109,6 +114,7 @@ class CropScannedDocumentFragment : Fragment() {
     }
 
     private fun resetCrop() {
+        polygonPoints = getResetPolygons()
         editPolygonImageView.polygon = getResetPolygons()
     }
 
@@ -159,6 +165,7 @@ class CropScannedDocumentFragment : Fragment() {
             magnifierView.setupMagnifier(editPolygonImageView)
 
             // set detected polygon and lines into EditPolygonImageView
+            polygonPoints = initImageResult.polygon
             editPolygonImageView.polygon = initImageResult.polygon
             editPolygonImageView.setLines(initImageResult.linesPair.first, initImageResult.linesPair.second)
 

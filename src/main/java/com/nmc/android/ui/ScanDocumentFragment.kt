@@ -1,7 +1,9 @@
 package com.nmc.android.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -74,11 +76,14 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
     private lateinit var calledFrom: String
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.getString(ARG_CALLED_FROM)?.let {
             calledFrom = it
         }
+        // Fragment locked in portrait screen orientation
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     }
 
     override fun onAttach(context: Context) {
@@ -109,7 +114,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
         // In this example we demonstrate how to lock the orientation of the UI (Activity)
         // as well as the orientation of the taken picture to portrait.
-        cameraView.lockToPortrait(true)
+        //cameraView.lockToPortrait(true)
 
         // See https://github.com/doo/scanbot-sdk-example-android/wiki/Using-ScanbotCameraView#preview-mode
         //cameraView.setPreviewMode(io.scanbot.sdk.camera.CameraPreviewMode.FIT_IN);

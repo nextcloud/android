@@ -36,6 +36,7 @@ class UploadImagesWorker constructor(
 
     companion object {
         const val TAG = "UploadImagesWorkerJob"
+        const val IMAGE_COMPRESSION_PERCENTAGE = 100
     }
 
     override fun doWork(): Result {
@@ -55,21 +56,21 @@ class UploadImagesWorker constructor(
 
             //if extension is jpg then save the image as jpg
             if (extension == ".jpg") {
-                val jpgFile = FileUtils.saveJpgImage(context, value.bitmap, fileNameWithoutExt)
+                val jpgFile = FileUtils.saveJpgImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
                 if (value.ocFile.isDown) {
-                  FileUtils.saveJpgImage(context, value.bitmap, File(value.ocFile.storagePath))
+                  FileUtils.saveJpgImage(context, value.bitmap, File(value.ocFile.storagePath), IMAGE_COMPRESSION_PERCENTAGE)
                 }
                 onImageSaveSuccess(value, jpgFile)
 
                 //if extension is png then save the image as png
             } else if (extension == ".png") {
-                val pngFile = FileUtils.savePngImage(context, value.bitmap, fileNameWithoutExt)
+                val pngFile = FileUtils.savePngImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
                 if (value.ocFile.isDown) {
-                    FileUtils.savePngImage(context, value.bitmap, File(value.ocFile.storagePath))
+                    FileUtils.savePngImage(context, value.bitmap, File(value.ocFile.storagePath), IMAGE_COMPRESSION_PERCENTAGE)
                 }
                 onImageSaveSuccess(value, pngFile)
             }
