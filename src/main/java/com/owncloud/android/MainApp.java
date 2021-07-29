@@ -42,6 +42,7 @@ import android.view.WindowManager;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
+import com.moengage.core.MoEngage;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -315,6 +316,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerGlobalPassCodeProtection();
 
         initialiseScanBotSDK();
+        initMoEngageSDK();
     }
 
     private void registerGlobalPassCodeProtection() {
@@ -827,6 +829,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN,
                                                AdjustSdkUtils.getAdjustEnvironment());
         Adjust.onCreate(config);
+    }
+
+    private void initMoEngageSDK(){
+        MoEngage moEngage =
+            new MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID)
+                .build();
+        MoEngage.initialise(moEngage);
     }
 
 }
