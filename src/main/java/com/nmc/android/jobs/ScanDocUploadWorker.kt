@@ -56,6 +56,7 @@ class ScanDocUploadWorker constructor(
         const val DATA_SCAN_FILE_TYPES = "data_scan_file_types"
         const val DATA_SCAN_PDF_PWD = "data_scan_pdf_pwd"
         const val DATA_DOC_FILE_NAME = "data_doc_file_name"
+        const val IMAGE_COMPRESSION_PERCENTAGE = 85
     }
 
     override fun doWork(): Result {
@@ -126,7 +127,7 @@ class ScanDocUploadWorker constructor(
                 newFileName += "($i)"
             }
 
-            val jpgFile = FileUtils.saveJpgImage(context, bitmap, newFileName)
+            val jpgFile = FileUtils.saveJpgImage(context, bitmap, newFileName, IMAGE_COMPRESSION_PERCENTAGE)
             savedFiles.add(jpgFile.path)
         }
     }
@@ -139,7 +140,7 @@ class ScanDocUploadWorker constructor(
                 newFileName += "($i)"
             }
 
-            val pngFile = FileUtils.savePngImage(context, bitmap, newFileName)
+            val pngFile = FileUtils.savePngImage(context, bitmap, newFileName, IMAGE_COMPRESSION_PERCENTAGE)
             savedFiles.add(pngFile.path)
         }
     }
