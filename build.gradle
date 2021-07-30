@@ -24,7 +24,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.11.0'
+        classpath 'com.karumi:shot:5.11.1'
         classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
     }
 }
