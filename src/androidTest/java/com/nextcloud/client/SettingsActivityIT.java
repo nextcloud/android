@@ -86,6 +86,7 @@ public class SettingsActivityIT extends AbstractIT {
         SettingsActivity sut = activityRule.launchActivity(null);
         sut.handleMnemonicRequest(intent);
 
+        Looper.myLooper().quitSafely();
         assertTrue(true); // if we reach this, everything is ok
     }
 }
