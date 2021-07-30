@@ -88,6 +88,8 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
                 String permanentLocation = redirectionPath.getLastPermanentLocation();
                 result.setLastPermanentLocation(permanentLocation);
             }
+            
+            result.setResultData(userInfoResult.getResultData());
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }
