@@ -135,7 +135,7 @@
     <string name="community_rc_play_store">Otene sa versione prèvia dae sa butega Google Play</string>
     <string name="community_release_candidate_headline">Versione prèvia</string>
     <string name="community_release_candidate_text">Sa versione prèvia (RC) est un\'istantànea de sa versione imbeniente e diat dèpere èssere istàbile. Podes fàghere una proa cun sa cunfiguratzione personale tua. Iscrie·ti pro sa proa in sa butega Play store o bae a sa setzione \"Versione\" de F-Droid.</string>
-    <string name="community_testing_bug_text">As agatadu un bug? Cosas istranas?</string>
+    <string name="community_testing_bug_text">As agatadu un\'errore? Cosas istranas?</string>
     <string name="community_testing_headline">Agiuda·nos cun una proa</string>
     <string name="community_testing_report_text">Sinnala unu problema in GitHub</string>
     <string name="community_testing_version_text">T\'interessat a nos agiudare faghende una proa de sa versione imbeniente?</string>
