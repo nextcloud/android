@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -56,6 +57,7 @@ import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -72,6 +74,14 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class DialogFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
         new IntentsTestRule<>(FileDisplayActivity.class, true, false);
+
+    @After
+    public void quitLooperIfNeeded() {
+        if (Looper.myLooper() != null) {
+            Looper.myLooper().quitSafely();
+            shortSleep();
+        }
+    }
 
     @Test
     @ScreenshotTest
@@ -168,6 +178,7 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.addAccountExplicitly(newAccount, "password", null);
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
+        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
 
 
         Account newAccount2 = new Account("user1@server.com", MainApp.getAccountType(targetContext));
@@ -175,6 +186,8 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
+        accountManager.setAuthToken(newAccount2, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
+
 
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newAccount,
                                                                                    targetContext.getContentResolver());
@@ -236,6 +249,7 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.addAccountExplicitly(newAccount, "password", null);
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
+        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
 
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newAccount,
                                                                                    targetContext.getContentResolver());
