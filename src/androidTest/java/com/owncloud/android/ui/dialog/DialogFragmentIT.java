@@ -79,7 +79,6 @@ public class DialogFragmentIT extends AbstractIT {
     public void quitLooperIfNeeded() {
         if (Looper.myLooper() != null) {
             Looper.myLooper().quitSafely();
-            shortSleep();
         }
     }
 
