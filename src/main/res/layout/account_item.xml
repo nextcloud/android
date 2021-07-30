@@ -117,7 +117,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="https://server.com/nextcloud" />
+                tools:text="https://nextcloud.nodomain/nextcloud" />
 
         </LinearLayout>
 

@@ -104,7 +104,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val emailShare = OCFile("/sharedToEmail.jpg").apply {
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
-            sharees = listOf(ShareeUser("admin@nextcloud.server.com", "admin@nextcloud.server.com", ShareType.EMAIL))
+            sharees = listOf(ShareeUser("admin@nextcloud.nodomain", "admin@nextcloud.nodomain", ShareType.EMAIL))
         }
         sut.storageManager.saveFile(emailShare)
 

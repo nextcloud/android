@@ -123,15 +123,15 @@ class TrashbinActivityIT : AbstractIT() {
 
     @Test
     fun differentUser() {
-        val temp = Account("differentUser@https://server.com", MainApp.getAccountType(targetContext))
+        val temp = Account("differentUser@https://nextcloud.nodomain", MainApp.getAccountType(targetContext))
 
         val platformAccountManager = AccountManager.get(targetContext)
         platformAccountManager.addAccountExplicitly(temp, "password", null)
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com")
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.nodomain")
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
 
         val intent = Intent()
-        intent.putExtra(Intent.EXTRA_USER, "differentUser@https://server.com")
+        intent.putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.nodomain")
         val sut: TrashbinActivity = activityRule.launchActivity(intent)
 
         val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)

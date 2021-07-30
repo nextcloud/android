@@ -164,15 +164,15 @@ public class DialogFragmentIT extends AbstractIT {
             accountManager.removeAccountExplicitly(account);
         }
 
-        Account newAccount = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+        Account newAccount = new Account("test@https://nextcloud.nodomain", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount, "password", null);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.nodomain");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
 
 
-        Account newAccount2 = new Account("user1@server.com", MainApp.getAccountType(targetContext));
+        Account newAccount2 = new Account("user1@nextcloud.nodomain", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount2, "password", null);
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.nodomain");
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
         accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
 
@@ -187,7 +187,7 @@ public class DialogFragmentIT extends AbstractIT {
         ChooseAccountDialogFragment sut =
             ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
                                                                        new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create("https://server.com"),
+                                                                       new Server(URI.create("https://nextcloud.nodomain"),
                                                                                   OwnCloudVersion.nextcloud_20)));
         FileDisplayActivity activity = showDialog(sut);
 
@@ -232,9 +232,9 @@ public class DialogFragmentIT extends AbstractIT {
             accountManager.removeAccountExplicitly(account);
         }
 
-        Account newAccount = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+        Account newAccount = new Account("test@https://nextcloud.nodomain", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount, "password", null);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.nodomain");
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
 
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newAccount,
@@ -248,7 +248,7 @@ public class DialogFragmentIT extends AbstractIT {
         ChooseAccountDialogFragment sut =
             ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
                                                                        new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create("https://server.com"),
+                                                                       new Server(URI.create("https://nextcloud.nodomain"),
                                                                                   OwnCloudVersion.nextcloud_20)));
         showDialog(sut);
     }

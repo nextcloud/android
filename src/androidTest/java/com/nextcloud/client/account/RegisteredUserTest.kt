@@ -38,7 +38,7 @@ class RegisteredUserTest {
 
     private companion object {
         fun buildTestUser(accountName: String): RegisteredUser {
-            val uri = Uri.parse("https://nextcloud.localhost.localdomain")
+            val uri = Uri.parse("https://nextcloud.nodomain")
             val credentials = OwnCloudBasicCredentials("user", "pass")
             val account = Account(accountName, "test-type")
             val ownCloudAccount = OwnCloudAccount(uri, credentials)
@@ -58,7 +58,7 @@ class RegisteredUserTest {
 
     @Before
     fun setUp() {
-        user = buildTestUser("test@nextcloud.localhost.localdomain")
+        user = buildTestUser("test@nextcloud.nodomainn")
     }
 
     @Test

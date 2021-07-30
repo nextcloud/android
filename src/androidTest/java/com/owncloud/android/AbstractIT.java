@@ -103,13 +103,13 @@ public abstract class AbstractIT {
                 }
             }
 
-            Account temp = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+            Account temp = new Account("test@https://nextcloud.nodomain", MainApp.getAccountType(targetContext));
             platformAccountManager.addAccountExplicitly(temp, "password", null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.nodomain");
             platformAccountManager.setUserData(temp, KEY_USER_ID, "test");
 
             final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-            account = userAccountManager.getAccountByName("test@https://server.com");
+            account = userAccountManager.getAccountByName("test@https://nextcloud.nodomain");
 
             if (account == null) {
                 throw new ActivityNotFoundException();

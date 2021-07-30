@@ -56,7 +56,7 @@ class AvatarIT : AbstractIT() {
             fragment.addAvatar("winston brent", avatarRadius, width, targetContext)
             fragment.addAvatar("Baker James Lorena", avatarRadius, width, targetContext)
             fragment.addAvatar("Baker  James   Lorena", avatarRadius, width, targetContext)
-            fragment.addAvatar("email@server.com", avatarRadius, width, targetContext)
+            fragment.addAvatar("email@nextcloud.nodomain", avatarRadius, width, targetContext)
         }
 
         shortSleep()
