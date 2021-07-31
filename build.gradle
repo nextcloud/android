@@ -24,7 +24,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.11.0'
+        classpath 'com.karumi:shot:5.11.1'
         classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
     }
 }
@@ -322,7 +322,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.41.0"
+    ktlint "com.pinterest:ktlint:0.42.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.13.2'

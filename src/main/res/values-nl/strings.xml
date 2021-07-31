@@ -682,6 +682,7 @@
     <string name="stream">Streamen met…</string>
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
+    <string name="strict_mode">Strict modus: geen HTTP-verbinding toegestaan!</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>

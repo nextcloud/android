@@ -682,6 +682,7 @@
     <string name="stream">Şununla akıt …</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
+    <string name="strict_mode">Kısıtlı kip: HTTP bağlantılarına izin verilmez!</string>
     <string name="subject_shared_with_you">\"%1$s\" ögesi sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>

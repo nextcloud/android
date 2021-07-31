@@ -755,7 +755,7 @@
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
-    <string name="upload_list_resolve_conflict">Rozwiązać konflikt</string>
+    <string name="upload_list_resolve_conflict">Rozwiąż konflikt</string>
     <string name="upload_local_storage_full">Pamięć lokalna pełna</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
