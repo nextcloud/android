@@ -1,0 +1,4 @@
+Pass user info result upon success
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
