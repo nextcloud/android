@@ -110,7 +110,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 3
             shareType = ShareType.EMAIL
-            sharedWithDisplayName = "admin@nextcloud.server.com"
+            sharedWithDisplayName = "admin@nextcloud.localhost"
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -132,7 +132,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 6
             shareType = ShareType.FEDERATED
-            sharedWithDisplayName = "admin@nextcloud.remoteserver.com"
+            sharedWithDisplayName = "admin@nextcloud.localhost"
             permissions = OCShare.FEDERATED_PERMISSIONS_FOR_FILE
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
