@@ -1,0 +1,3 @@
+Replace server and server.com with an invalid domain everywhere.
+Update translations
+Update Nextcloud Android library
