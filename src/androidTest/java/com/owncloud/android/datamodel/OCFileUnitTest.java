@@ -58,7 +58,7 @@ public class OCFileUnitTest {
     private static final long LAST_SYNC_DATE_FOR_PROPERTIES = 5432109876L;
     private static final long LAST_SYNC_DATE_FOR_DATA = 4321098765L;
     private static final String ETAG = "adshfas98ferqw8f9yu2";
-    private static final String PUBLIC_LINK = "https://fake.url.net/owncloud/987427448712984sdas29";
+    private static final String PUBLIC_LINK = "https://nextcloud.localhost/owncloud/987427448712984sdas29";
     private static final String PERMISSIONS = "SRKNVD";
     private static final String REMOTE_ID = "jadñgiadf8203:9jrp98v2mn3er2089fh";
     private static final String ETAG_IN_CONFLICT = "2adshfas98ferqw8f9yu";

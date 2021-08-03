@@ -65,7 +65,7 @@ class ConnectivityServiceTest {
                 return networkInfo
             }
 
-            const val SERVER_BASE_URL = "https://test.server.com"
+            const val SERVER_BASE_URL = "https://test.nextcloud.localhost"
         }
 
         @Mock
