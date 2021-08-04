@@ -29,7 +29,7 @@
     <string name="activities_no_results_headline">Aún no hay actividades</string>
     <string name="activities_no_results_message">Sin eventos como adiciones, cambios y comparticiones aún.</string>
     <string name="activity_chooser_send_file_title">Enviar</string>
-    <string name="activity_chooser_title">Enviar liga a…</string>
+    <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>
     <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace publico</string>
@@ -290,7 +290,7 @@
     <string name="failed_update_ui">Error al actualizar la interfaz gráfica</string>
     <string name="favorite">Agregar a favoritos</string>
     <string name="favorite_icon">Marcar como favorito</string>
-    <string name="file_delete">Borrar</string>
+    <string name="file_delete">Eliminar</string>
     <string name="file_icon">Archivo</string>
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Carga algún contenido o sincroniza con tus dispositivos.</string>

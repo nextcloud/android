@@ -682,6 +682,7 @@
     <string name="stream">Streamovať s…</string>
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
+    <string name="strict_mode">Striktný mód: HTTP spojenie nie je povolené!</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
     <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>

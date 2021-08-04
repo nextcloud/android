@@ -506,8 +506,8 @@
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
-    <string name="prefs_e2e_mnemonic">E2E-mnemoninen</string>
-    <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää mnemonisen, ota käyttöön laitteen valtuudet.</string>
+    <string name="prefs_e2e_mnemonic">E2E-avainkoodi</string>
+    <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää avainkoodin, ota käyttöön laitteen valtuudet.</string>
     <string name="prefs_enable_media_scan_notifications">Näytä mediakartoituksen ilmoitukset</string>
     <string name="prefs_enable_media_scan_notifications_summary">Ilmoita uusista löydetyistä mediakansioista</string>
     <string name="prefs_gpl_v2">
