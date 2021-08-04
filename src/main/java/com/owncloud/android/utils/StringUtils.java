@@ -58,7 +58,7 @@ public final class StringUtils {
                     matcher.group(),
                     String.format(Locale.getDefault(), "<font color='%d'><b>%s</b></font>", color,
                                   matcher.group())
-                );
+                                                            );
                 matcher.appendReplacement(stringBuffer, Matcher.quoteReplacement(replacement));
             }
             matcher.appendTail(stringBuffer);
@@ -70,11 +70,19 @@ public final class StringUtils {
     }
 
     public static
-    @NonNull String removePrefix(@NonNull String s, @NonNull String prefix)
-    {
-        if (s.startsWith(prefix)){
+    @NonNull
+    String removePrefix(@NonNull String s, @NonNull String prefix) {
+        if (s.startsWith(prefix)) {
             return s.substring(prefix.length());
         }
         return s;
+    }
+
+    public static String escapeStacktrace(String string) {
+        return string
+            .replaceAll("\n", "%0A")
+            .replaceAll(" ", "\\+")
+            .replaceAll("`", "%A")
+            .replaceAll("#", "%23");
     }
 }

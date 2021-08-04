@@ -31,6 +31,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.StringUtils
 
 class ShowErrorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowErrorBinding
@@ -65,8 +66,22 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
         val issueLink = getString(R.string.report_issue_link)
-        if (issueLink.isNotEmpty()) {
-            val uriUrl = Uri.parse(issueLink)
+        val template = getString(R.string.report_issue_template)
+        if (issueLink.isNotEmpty() && template.isNotEmpty()) {
+            // val uriUrl = Uri.parse(
+            //     String.format(
+            //         issueLink,
+            //         StringUtils.escapeStacktrace(
+            //             String.format(template, binding.textViewError.text.toString())
+            //         )
+            //     )
+            // )
+            val uriUrl = Uri.parse(
+                String.format(
+                    issueLink,
+                    StringUtils.escapeStacktrace(binding.textViewError.text.toString())
+                )
+            )
             val intent = Intent(Intent.ACTION_VIEW, uriUrl)
             DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available)
         }
@@ -80,7 +95,9 @@ class ShowErrorActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.error_share -> { onClickedShare(); true }
+            R.id.error_share -> {
+                onClickedShare(); true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
