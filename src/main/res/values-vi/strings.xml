@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Dọn dẹp các tải lên bị lỗi</string>
     <string name="action_edit">Chỉnh sửa</string>
     <string name="action_empty_notifications">Xoá tất cả thông báo</string>
+    <string name="action_empty_trashbin">Dọn sạch thùng rác</string>
     <string name="action_send_share">Gửi/Chia sẽ</string>
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
@@ -70,6 +71,7 @@
     <string name="auth_wrong_connection_title">Không thể thiết lập kết nối</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">được giữ trong thư mục gốc, vì nó chỉ được đọc</string>
     <string name="auto_upload_on_wifi">Chỉ tải lên khi có mạng Wi-Fi không trả phí</string>
+    <string name="auto_upload_path">/Tự động tải lên</string>
     <string name="autoupload_configure">Thiết lập</string>
     <string name="autoupload_create_new_custom_folder">Tạo mới một thư mục tùy chỉnh</string>
     <string name="autoupload_custom_folder">Thiết đặt một thư mục tùy chỉnh</string>
@@ -367,6 +369,7 @@
     <string name="foreign_files_success">Tất cả tập tin đã được dịch chuyển</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 tiếng</string>
+    <string name="fullscreen">Toàn màn hình</string>
     <string name="hint_name">Tên</string>
     <string name="hint_note">Ghi chú</string>
     <string name="hint_password">Mật khẩu</string>
@@ -677,6 +680,7 @@
     <string name="stream">Phát trực tiếp với…</string>
     <string name="stream_not_possible_headline">Không thể phát trực tuyến nội bộ</string>
     <string name="stream_not_possible_message">Vui lòng tải xuống media thay thế hoặc sử dụng ứng dụng bên ngoài.</string>
+    <string name="strict_mode">Chế độ nghiêm ngặt: Kết nối HTTP không được cho phép!</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
@@ -719,6 +723,7 @@
     <string name="trashbin_empty_message">Bạn sẽ có thể khôi phục các tệp đã xóa từ đây.</string>
     <string name="trashbin_file_not_deleted">Tệp %1$s không thể bị xóa!</string>
     <string name="trashbin_file_not_restored">Tệp %1$s không thể được khôi phục!</string>
+    <string name="trashbin_loading_failed">Tải nội dung trong thùng rác thất bại</string>
     <string name="trashbin_not_emptied">Không thể xóa tệp vĩnh viễn!</string>
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>

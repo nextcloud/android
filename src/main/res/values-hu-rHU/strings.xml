@@ -700,6 +700,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="stream">Közvetítés…</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
+    <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>

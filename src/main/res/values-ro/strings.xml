@@ -267,6 +267,12 @@
     <string name="etm_background_job_state">Stadiu</string>
     <string name="etm_background_job_user">Utilizator</string>
     <string name="etm_background_job_uuid">identificator UUID</string>
+    <string name="etm_background_jobs">Proces de fundal</string>
+    <string name="etm_background_jobs_cancel_all">Anulează toate procesele</string>
+    <string name="etm_background_jobs_prune">Curăță servicii inactive</string>
+    <string name="etm_background_jobs_schedule_test_job">Programează procese de test</string>
+    <string name="etm_background_jobs_start_test_job">Pornește procese de test</string>
+    <string name="etm_background_jobs_stop_test_job">Oprește procesul de test</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
     <string name="file_delete">Ștergeți</string>
