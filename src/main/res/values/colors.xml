@@ -61,6 +61,9 @@
     <color name="share_disabled_txt_color">@color/grey_30</color>
     <color name="share_txt_color">#191919</color>
     <color name="share_et_divider">#000000</color>
+    <color name="share_warning_txt_color">#191919</color>
+    <color name="sharing_warning_bg_color">#F6E5EB</color>
+    <color name="sharing_warning_border_color">#C16F81</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>

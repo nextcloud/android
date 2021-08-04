@@ -384,6 +384,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/share_process_message_title" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_set_password_email_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:background="@drawable/sharing_email_warning_bg"
+            android:text="@string/sharing_email_warning"
+            android:visibility="gone"
+            android:padding="@dimen/standard_padding"
+            android:textColor="@color/share_warning_txt_color"
+            android:textSize="@dimen/txt_size_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/note_text" />
+
         <androidx.constraintlayout.widget.Group
             android:id="@+id/share_process_group_two"
             android:layout_width="wrap_content"
@@ -396,7 +413,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="share_process_change_name_et, note_text" />
+            app:constraint_referenced_ids="share_process_change_name_et, tv_set_password_email_warning" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share_process_btn_cancel"
