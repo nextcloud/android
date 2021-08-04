@@ -1,28 +1,34 @@
-<!--
-    @author Google LLC
-    @author Andy Scherzinger
-    Copyright (C) 2018 Google LLC
-    Copyright (C) 2020 Andy Scherzinger
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:tint="#0082c9"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
   <path
-      android:fillColor="#FF000000"
-      android:pathData="M4,4C2.89,4 2,4.89 2,6L2,18C2,19.1046 2.8954,20 4,20L20,20C21.1046,20 22,19.1046 22,18L22,8C22,6.89 21.1,6 20,6L12,6L10,4L4,4zM12.0254,8.6133A2.0714,2.0714 0,0 1,14.0977 10.6855L14.0977,11.5137L14.5117,11.5137A0.8286,0.8286 0,0 1,15.3398 12.3418L15.3398,16.4844A0.8286,0.8286 0,0 1,14.5117 17.3145L9.5391,17.3145A0.8286,0.8286 0,0 1,8.7109 16.4844L8.7109,12.3418C8.7109,11.8819 9.0833,11.5137 9.5391,11.5137L9.9531,11.5137L9.9531,10.6855A2.0714,2.0714 0,0 1,12.0254 8.6133zM12.0254,9.4414A1.2429,1.2429 0,0 0,10.7832 10.6855L10.7832,11.5137L13.2676,11.5137L13.2676,10.6855A1.2429,1.2429 0,0 0,12.0254 9.4414zM12.0254,13.5859A0.8286,0.8286 0,0 0,11.1973 14.4141A0.8286,0.8286 0,0 0,12.0254 15.2422A0.8286,0.8286 0,0 0,12.8535 14.4141C12.8535,13.9542 12.4811,13.5859 12.0254,13.5859z"/>
+      android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+      android:fillColor="#53baf2"/>
+  <path
+      android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+      android:strokeAlpha="0.25"
+      android:fillColor="#317cb3"
+      android:fillAlpha="0.25"/>
+  <path
+      android:pathData="M58,16H4V53a2,2 0,0 0,2 2H58a2,2 0,0 0,2 -2V18A2,2 0,0 0,58 16Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startY="54.840004"
+          android:startX="31.999996"
+          android:endY="15.930003"
+          android:endX="31.999996"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF53BAF2"/>
+        <item android:offset="1" android:color="#FF7ECBF5"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M41.15,32.37h-3L38.15,28.89a6.1,6.1 0,0 0,-12.2 0v3.48h-3a0.88,0.88 0,0 0,-0.87 0.88L22.08,46.32a0.87,0.87 0,0 0,0.87 0.87h18.3a0.87,0.87 0,0 0,0.87 -0.87L42.12,33.25A0.88,0.88 0,0 0,41.15 32.37ZM32.87,39.56v3.71a0.44,0.44 0,0 1,-0.43 0.44h-0.88a0.44,0.44 0,0 1,-0.43 -0.44L31.13,39.56a2,2 0,1 1,1.74 0ZM36.36,32.37L27.64,32.37L27.64,28.89a4.36,4.36 0,0 1,8.72 0Z"
+      android:strokeAlpha="0.9"
+      android:fillColor="#fff"
+      android:fillAlpha="0.9"/>
 </vector>

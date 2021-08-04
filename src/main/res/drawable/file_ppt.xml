@@ -9,9 +9,9 @@
     <aapt:attr name="android:fillColor">
       <gradient 
           android:startY="60.000004"
-          android:startX="32.01"
+          android:startX="31.999996"
           android:endY="4.000003"
-          android:endX="32.01"
+          android:endX="31.999996"
           android:type="linear">
         <item android:offset="0" android:color="#FFDDD6D3"/>
         <item android:offset="0.39" android:color="#FFE9E4E2"/>
@@ -25,6 +25,6 @@
       android:fillColor="#b9ada7"
       android:fillAlpha="0.7"/>
   <path
-      android:pathData="M42.51,24h-21A1.49,1.49 0,0 0,20 25.49L20,27L44,27L44,25.49A1.49,1.49 0,0 0,42.51 24ZM20,46.51A1.49,1.49 0,0 0,21.49 48h21A1.49,1.49 0,0 0,44 46.51L44,29L20,29L20,46.51ZM37,31h4L41,46L37,46ZM30,35h4L34,46L30,46ZM23,39h4v7L23,46Z"
+      android:pathData="M42.5,24h-21A1.54,1.54 0,0 0,20 25.5L20,27L44,27L44,25.5A1.47,1.47 0,0 0,42.5 24ZM20,46.5A1.54,1.54 0,0 0,21.5 48h21A1.54,1.54 0,0 0,44 46.5L44,29L20,29L20,46.5ZM37,31h4L41,46L37,46ZM30,35h4L34,46L30,46ZM23,39h4v7L23,46Z"
       android:fillColor="#ff9a1e"/>
 </vector>

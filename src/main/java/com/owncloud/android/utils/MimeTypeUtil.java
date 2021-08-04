@@ -174,7 +174,7 @@ public final class MimeTypeUtil {
         int drawableId;
 
         if (isSharedViaLink) {
-            drawableId = R.drawable.folder_shared_link;
+            drawableId = R.drawable.folder_shared_users;
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.folder_shared_users;
         } else if (isEncrypted) {
@@ -555,7 +555,7 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/calendar", R.drawable.file_calendar);
         MIMETYPE_TO_ICON_MAPPING.put("text/css", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/csv", R.drawable.file_xls);
-        MIMETYPE_TO_ICON_MAPPING.put("text/html", R.drawable.file_code);
+        MIMETYPE_TO_ICON_MAPPING.put("text/html", R.drawable.file_link);
         MIMETYPE_TO_ICON_MAPPING.put("text/vcard", R.drawable.file_vcard);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-c", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-c++src", R.drawable.file_code);
