@@ -22,7 +22,8 @@
 package com.nextcloud.sso
 
 import com.nextcloud.android.sso.InputStreamBinder
-import junit.framework.Assert.assertEquals
+import com.nextcloud.android.sso.QueryParam
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class InputStreamBinderTest {
@@ -44,11 +45,11 @@ class InputStreamBinderTest {
 
     @Test
     fun convertListToNVP() {
-        val source = mutableListOf<android.util.Pair<String, String>>()
-        source.add(android.util.Pair("quality", "1024p"))
-        source.add(android.util.Pair("someOtherParameter", "parameterValue"))
-        source.add(android.util.Pair("duplicate", "1"))
-        source.add(android.util.Pair("duplicate", "2")) // here we can have same parameter multiple times
+        val source = mutableListOf<QueryParam>()
+        source.add(QueryParam("quality", "1024p"))
+        source.add(QueryParam("someOtherParameter", "parameterValue"))
+        source.add(QueryParam("duplicate", "1"))
+        source.add(QueryParam("duplicate", "2")) // here we can have same parameter multiple times
 
         val output = InputStreamBinder.convertListToNVP(source)
 
