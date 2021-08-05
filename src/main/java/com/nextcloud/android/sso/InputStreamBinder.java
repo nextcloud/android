@@ -70,8 +70,11 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.VisibleForTesting;
 
 import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_NOT_FOUND;
@@ -331,7 +334,11 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         HttpMethodBase method = buildMethod(request, client.getBaseUri(), requestBodyInputStream);
 
-        method.setQueryString(convertMapToNVP(request.getParameter()));
+        if (request.getParameterV2() != null && !request.getParameterV2().isEmpty()) {
+            method.setQueryString(convertListToNVP(request.getParameterV2()));
+        } else {
+            method.setQueryString(convertMapToNVP(request.getParameter()));
+        }
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
         for (Map.Entry<String, List<String>> header : request.getHeader().entrySet()) {
@@ -394,7 +401,12 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
         HttpMethodBase method = buildMethod(request, client.getBaseUri(), requestBodyInputStream);
 
-        method.setQueryString(convertMapToNVP(request.getParameter()));
+        if (request.getParameterV2() != null && !request.getParameterV2().isEmpty()) {
+            method.setQueryString(convertListToNVP(request.getParameterV2()));
+        } else {
+            method.setQueryString(convertMapToNVP(request.getParameter()));
+        }
+
         method.addRequestHeader("OCS-APIREQUEST", "true");
 
         for (Map.Entry<String, List<String>> header : request.getHeader().entrySet()) {
@@ -482,11 +494,23 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
     }
 
-    private static NameValuePair[] convertMapToNVP(Map<String, String> map) {
+    @VisibleForTesting
+    public static NameValuePair[] convertMapToNVP(Map<String, String> map) {
         NameValuePair[] nvp = new NameValuePair[map.size()];
         int i = 0;
         for (String key : map.keySet()) {
             nvp[i] = new NameValuePair(key, map.get(key));
+            i++;
+        }
+        return nvp;
+    }
+
+    @VisibleForTesting
+    public static NameValuePair[] convertListToNVP(Collection<QueryParam> list) {
+        NameValuePair[] nvp = new NameValuePair[list.size()];
+        int i = 0;
+        for (QueryParam pair : list) {
+            nvp[i] = new NameValuePair(pair.key, pair.value);
             i++;
         }
         return nvp;
