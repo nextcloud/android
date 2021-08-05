@@ -72,9 +72,6 @@ ext {
     fidoVersion = "4.4.0"
 
     ciBuild = System.getenv("CI") == "true"
-
-    // allows for -D pre-dex=false to be set
-    preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 }
 
 repositories {
@@ -118,10 +115,6 @@ android {
             'GoogleAppIndexingWarning',
             'MissingDefaultResource',
             'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     compileSdkVersion 29
@@ -195,11 +188,6 @@ android {
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
-
-    dexOptions {
-        // Skip pre-dexing when running on CI or when disabled via -D pre-dex=false.
-        preDexLibraries = preDexEnabled && !ciBuild
-    }
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
