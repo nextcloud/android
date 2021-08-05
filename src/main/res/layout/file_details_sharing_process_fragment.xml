@@ -348,7 +348,7 @@
                 divider_sharing_permissions, divider_sharing_allow_resharing,
                 divider_sharing_change_name, divider_sharing_enter_password,
                 divider_sharing_exp_date,divider_sharing_hide_download,
-                share_file_drop_info" />
+                share_file_drop_info, share_process_allow_resharing_info" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_message_title"
