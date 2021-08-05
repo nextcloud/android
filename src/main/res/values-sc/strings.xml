@@ -796,7 +796,7 @@
     <string name="uploads_view_group_finished_uploads">Carrigadu</string>
     <string name="uploads_view_later_waiting_to_upload">Abetende pro carrigare</string>
     <string name="uploads_view_title">Carrigamentos</string>
-    <string name="uploads_view_upload_status_cancelled">Cantzelladu</string>
+    <string name="uploads_view_upload_status_cancelled">Annulladu</string>
     <string name="uploads_view_upload_status_conflict">Cunflitu</string>
     <string name="uploads_view_upload_status_failed_connection_error">Errore de connessione</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Errore in is credentziales</string>
