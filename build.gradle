@@ -59,7 +59,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.36"
+	daggerVersion = "2.38.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="a7d017c4c7f62147f058e3bd5c30bd07707cf3aa"
@@ -276,7 +276,7 @@ dependencies {
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
