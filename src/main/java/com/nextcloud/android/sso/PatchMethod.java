@@ -1,3 +1,29 @@
+/*
+ * Nextcloud SingleSignOn
+ *
+ * @author Timo Triebensky
+ * Copyright (C) 2021 Timo Triebensky
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * More information here: https://github.com/abeluck/android-streams-ipc
+ *
+ * ====================================================================
+ *
+ * The required methods of this class are copied and customized from PostMethod.
+ */
+
 package com.nextcloud.android.sso;
 
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
@@ -5,25 +31,15 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.util.EncodingUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.Vector;
 
 public class PatchMethod extends PostMethod {
-    // -------------------------------------------------------------- Constants
-
-    /**
-     * Log object for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(PatchMethod.class);
 
     /**
      * The buffered request body consisting of <code>NameValuePair</code>s.
      */
     private Vector params = new Vector();
-
-    // ----------------------------------------------------------- Constructors
 
     /**
      * No-arg constructor.
@@ -41,13 +57,10 @@ public class PatchMethod extends PostMethod {
         super(uri);
     }
 
-    // ----------------------------------------------------- Instance Methods
-
-
     /**
-     * Returns <tt>"POST"</tt>.
+     * Returns <tt>"PATCH"</tt>.
      *
-     * @return <tt>"POST"</tt>
+     * @return <tt>"PATCH"</tt>
      * @since 2.0
      */
     @Override
@@ -55,19 +68,13 @@ public class PatchMethod extends PostMethod {
         return "PATCH";
     }
 
-
     /**
      * Returns <tt>true</tt> if there is a request body to be sent.
-     *
-     * <P>This method must be overwritten by sub-classes that implement
-     * alternative request content input methods
-     * </p>
      *
      * @return boolean
      * @since 2.0beta1
      */
     protected boolean hasRequestContent() {
-        LOG.trace("enter PatchMethod.hasRequestContent()");
         if (!this.params.isEmpty()) {
             return true;
         } else {
@@ -75,21 +82,15 @@ public class PatchMethod extends PostMethod {
         }
     }
 
-
     /**
      * Clears request body.
-     *
-     * <p>This method must be overwritten by sub-classes that implement
-     * alternative request content input methods</p>
      *
      * @since 2.0beta1
      */
     protected void clearRequestBody() {
-        LOG.trace("enter PatchMethod.clearRequestBody()");
         this.params.clear();
         super.clearRequestBody();
     }
-
 
     /**
      * Generates a request entity from the patch parameters, if present.  Calls {@link
