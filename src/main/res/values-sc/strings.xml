@@ -542,9 +542,9 @@
     <string name="prefs_value_theme_dark">Iscuru</string>
     <string name="prefs_value_theme_light">Craru</string>
     <string name="prefs_value_theme_system">Sistema de sighida</string>
-    <string name="preview_image_description">Anteprima de s\'immàgine</string>
-    <string name="preview_image_error_no_local_file">Perunu archìviu locale de ammustrare in anteprima</string>
-    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'immàgine</string>
+    <string name="preview_image_description">Anteprima de s\'imàgine</string>
+    <string name="preview_image_error_no_local_file">Perunu archìviu locale de mustrare in anteprima</string>
+    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'imàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
     <string name="public_share_name">Nùmene nou</string>
