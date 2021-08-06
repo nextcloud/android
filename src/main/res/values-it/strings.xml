@@ -682,6 +682,7 @@
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
+    <string name="strict_mode">Modalità rigorosa: nessuna connessione HTTP consentita! </string>
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
