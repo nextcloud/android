@@ -263,6 +263,20 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 }
                 break;
 
+            case "PATCH":
+                method = new PatchMethod(requestUrl);
+                if (requestBodyInputStream != null) {
+                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream);
+                    ((PatchMethod) method).setRequestEntity(requestEntity);
+                } else if (request.getRequestBody() != null) {
+                    StringRequestEntity requestEntity = new StringRequestEntity(
+                        request.getRequestBody(),
+                        CONTENT_TYPE_APPLICATION_JSON,
+                        CHARSET_UTF8);
+                    ((PatchMethod) method).setRequestEntity(requestEntity);
+                }
+                break;
+
             case "PUT":
                 method = new PutMethod(requestUrl);
                 if (requestBodyInputStream != null) {
@@ -298,8 +312,8 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 break;
 
             case "HEAD":
-                 method = new HeadMethod(requestUrl);
-                 break;
+                method = new HeadMethod(requestUrl);
+                break;
 
             default:
                 throw new UnsupportedOperationException(EXCEPTION_UNSUPPORTED_METHOD);
