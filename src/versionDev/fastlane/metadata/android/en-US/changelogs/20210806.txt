@@ -1,0 +1,9 @@
+Renamed QueryPair
+Renamed QueryPair
+Use own QueryPair implementation that supports serializable
+Fix another NPE when parameterV2 is null
+fix possible NPE
+SSO: support of parameter v2, which allows to have multiple values for same key
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
