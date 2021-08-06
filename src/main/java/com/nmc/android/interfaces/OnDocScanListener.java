@@ -10,7 +10,10 @@ public interface OnDocScanListener {
 
     List<Bitmap> getScannedDocs();
 
-    boolean removedScannedDoc(Bitmap file);
+    boolean removedScannedDoc(Bitmap file, int index);
 
-    Bitmap replaceScannedDoc(int index, Bitmap newFile);
+    //isFilterApplied will tell whether the filter is applied to the image or not
+    Bitmap replaceScannedDoc(int index, Bitmap newFile, boolean isFilterApplied);
+
+    void replaceFilterIndex(int index, int filterIndex);
 }
