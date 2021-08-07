@@ -24,7 +24,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.11.1'
+        classpath 'com.karumi:shot:5.11.2'
         classpath 'com.facebook.testing.screenshot:plugin:0.14.0'
     }
 }
@@ -62,11 +62,11 @@ ext {
 	daggerVersion = "2.38.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion ="577594fdffd1edb40f80736cadfc8671da14eed1"
-    mockitoVersion = "3.11.0"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "3.11.2"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.11.2"
+    byteBuddyVersion = "1.11.12"
     espressoVersion = "3.4.0"
     workRuntime = "2.5.0"
     fidoVersion = "4.4.0"
@@ -283,11 +283,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.webkit:webkit:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.2'
+    implementation 'androidx.exifinterface:exifinterface:1.3.3'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
-    implementation "androidx.fragment:fragment-ktx:1.3.4"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.11.0'
@@ -325,7 +325,7 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.42.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.13.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
@@ -384,7 +384,7 @@ dependencies {
     // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
-    androidTestImplementation 'tools.fastlane:screengrab:2.0.0'
+    androidTestImplementation 'tools.fastlane:screengrab:2.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
 
