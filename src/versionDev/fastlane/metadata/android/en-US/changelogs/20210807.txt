@@ -1,0 +1,8 @@
+ktlint: reformat kotlin
+Avoid redundant call to getConnectivity()
+Revert translation files that shouldn't have been changed
+don't go over 120 characters
+Use notificationID as requestcode to allow multiple android notifications
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
