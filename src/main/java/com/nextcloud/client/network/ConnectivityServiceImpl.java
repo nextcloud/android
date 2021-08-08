@@ -61,7 +61,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     @Override
     public boolean isInternetWalled() {
         Connectivity c = getConnectivity();
-        if (c.isConnected() && c.isWifi() & !c.isMetered()) {
+        if (c.isConnected() && c.isWifi() && !c.isMetered()) {
 
             Server server = accountManager.getUser().getServer();
             String baseServerAddress = server.getUri().toString();
