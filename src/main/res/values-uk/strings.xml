@@ -747,6 +747,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_error_message_source_file_not_copied">Неможливо скопіювати файл до тимчасової теки. Спробуйте знову</string>
     <string name="uploader_error_message_source_file_not_found">Файл вибраний для вивантаження не знайдено. Будь-ласка перевірте чи файл існує</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Цей файл неможливо вивантажити</string>
     <string name="uploader_error_title_no_file_to_upload">Відсутні файли для вивантаження</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
     <string name="uploader_top_message">Оберіть каталог вивантаження</string>
@@ -792,6 +793,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекати на безлімітний Wi-Fi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>
