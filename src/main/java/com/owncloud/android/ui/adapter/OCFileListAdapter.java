@@ -58,6 +58,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
@@ -146,6 +148,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
+    private SyncedFolderProvider syncedFolderProvider;
 
     private boolean isMediaGallery = false;//flag to check user is on media gallery
 
@@ -154,6 +157,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         User user,
         AppPreferences preferences,
         UserAccountManager accountManager,
+        SyncedFolderProvider syncedFolderProvider,
         ComponentsGetter transferServiceGetter,
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
@@ -167,6 +171,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         hideItemOptions = argHideItemOptions;
         this.gridView = gridView;
         checkedFiles = new HashSet<>();
+        this.syncedFolderProvider = syncedFolderProvider;
 
         this.transferServiceGetter = transferServiceGetter;
 
@@ -384,6 +389,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          activity,
                          gridViewHolder.shimmerThumbnail,
                          preferences,
+                         syncedFolderProvider,
                          isMediaGallery);
 
             //remove padding if gallery media is there else enable padding
@@ -654,7 +660,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
-        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null,
+        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null, null,
                      false);
     }
 
@@ -667,6 +673,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                      Context context,
                                      LoaderImageView shimmerThumbnail,
                                      AppPreferences preferences,
+                                     SyncedFolderProvider syncedFolderProvider,
                                      boolean isMediaGallery) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
@@ -676,6 +683,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
+                                                                  syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                   file.getMountType(), context));
         } else {
             updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_files_grid_item_size);

@@ -45,6 +45,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
@@ -54,6 +55,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -111,6 +113,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
+    @Inject Clock clock;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -195,6 +200,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (arguments == null) {
             throw new IllegalArgumentException("Arguments may not be null");
         }
+
+        syncedFolderProvider =new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
 
         setFile(arguments.getParcelable(ARG_FILE));
         user = arguments.getParcelable(ARG_USER);
@@ -537,6 +544,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 toolbarActivity.setPreviewImageDrawable(MimeTypeUtil
                                                             .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                                file.isSharedViaLink(), file.isEncrypted(),
+                                                                               syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                                file.getMountType(), requireContext()));
                 int leftRightPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.standard_padding);
                 updatePreviewImageUI(leftRightPadding);

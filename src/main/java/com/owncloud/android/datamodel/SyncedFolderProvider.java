@@ -218,6 +218,48 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * method to check if sync folder for the remote path exist in table or not
+     * @param remotePath to be check
+     * @param account for which we are looking
+     * @return
+     */
+    public boolean findByRemotePathAndAccount(String remotePath, Account account) {
+        boolean result = false;
+
+        //if path ends with / then remove the last / to work the query right way
+        //because the sub folders of synced folders will not have the slash at the end
+         if(remotePath.endsWith("/")){
+             remotePath = remotePath.substring(0, remotePath.length()-1);
+         }
+
+        Cursor cursor = mContentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " LIKE ? AND " +
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
+            new String[]{"%"+remotePath + "%", account.name},
+            null);
+
+        if (cursor != null && cursor.getCount() >= 1) {
+            result = true;
+        } else {
+            if (cursor == null) {
+                Log_OC.e(TAG, "Sync folder db cursor for remote path = " + remotePath + " in NULL.");
+            } else {
+                Log_OC.e(TAG, cursor.getCount() + " items for remote path = " + remotePath
+                    + " available in sync folder db. Expected 1 or greater than 1. Failed to update sync folder db.");
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+
+    }
+
+    /**
      *  Delete all synced folders for an account
      *
      *  @param account whose synced folders should be deleted

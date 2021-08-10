@@ -51,6 +51,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
@@ -65,6 +66,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
@@ -191,6 +193,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject Clock clock;
+    private SyncedFolderProvider syncedFolderProvider;
+
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -312,6 +317,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mFabMain != null) { // is not available in FolderPickerActivity
             ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_fab_plus, requireContext());
         }
+        syncedFolderProvider = new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
+
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -362,6 +369,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             accountManager.getUser(),
             preferences,
             accountManager,
+            syncedFolderProvider,
             mContainerActivity,
             this,
             hideItemOptions,
