@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Izbriši neuspješne otpreme</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Izbriši sve obavijesti</string>
+    <string name="action_empty_trashbin">Isprazni kantu za smeće</string>
     <string name="action_send_share">Pošalji/podijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
@@ -275,6 +276,13 @@
     <string name="etm_migrations">Migracije (nadogradnja aplikacije)</string>
     <string name="etm_preferences">Preferencije</string>
     <string name="etm_title">Inženjerski način rada za ispitivanje</string>
+    <string name="etm_transfer">Prijenos datoteka</string>
+    <string name="etm_transfer_enqueue_test_download">Stavi testno preuzimanje u red čekanja</string>
+    <string name="etm_transfer_enqueue_test_upload">Stavi testno otpremanje u red čekanja</string>
+    <string name="etm_transfer_remote_path">Udaljeni put</string>
+    <string name="etm_transfer_type">Prijenos</string>
+    <string name="etm_transfer_type_download">Preuzmi</string>
+    <string name="etm_transfer_type_upload">Otpremi</string>
     <string name="fab_label">Dodaj ili otpremi</string>
     <string name="failed_to_download">Neuspješno prosljeđivanje datoteke upravitelju preuzimanja</string>
     <string name="failed_to_print">Ispisivanje datoteke nije uspjelo</string>
@@ -361,6 +369,7 @@
     <string name="foreign_files_success">Sve datoteke su premještene</string>
     <string name="forward">Naprijed</string>
     <string name="fourHours">4 sata</string>
+    <string name="fullscreen">Cijeli zaslon</string>
     <string name="hint_name">Naziv</string>
     <string name="hint_note">Bilješka</string>
     <string name="hint_password">Zaporka</string>
@@ -383,18 +392,22 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nema drugih mapa.</string>
     <string name="log_send_mail_subject">Zapisnici aplikacija za Android %1$s</string>
+    <string name="log_send_no_mail_app">Nije pronađena nijedna aplikacija za slanje zapisa. Instalirajte klijent e-pošte.</string>
     <string name="login">Prijava</string>
     <string name="login_url_helper_text">Poveznica do vašeg web-sučelja %1$s kada ga otvorite u pregledniku.</string>
     <string name="logs_menu_delete">Izbriši zapise</string>
     <string name="logs_menu_refresh">Osvježi</string>
     <string name="logs_menu_search">Pretraži zapise</string>
+    <string name="logs_menu_send">Pošalji zapise e-poštom</string>
     <string name="logs_status_filtered">Zapisi: %1$d kB, podudarnih upita %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Učitavanje…</string>
     <string name="logs_status_not_filtered">Zapisi: %1$d kB, bez filtra</string>
     <string name="logs_title">Zapisi</string>
+    <string name="maintenance_mode">Poslužitelj je u načinu održavanja</string>
     <string name="manage_space_clear_data">Izbriši podatke</string>
     <string name="manage_space_description">Trajno će se izbrisati postavke, baze podataka i vjerodajnice poslužitelja iz podataka %1$s. \n\nPreuzete datoteke ostat će nepromijenjene.\n\nOvaj postupak može potrajati.</string>
     <string name="manage_space_title">Upravljaj prostorom</string>
+    <string name="media_err_invalid_progressive_playback">Medijsku datoteku nije moguće reproducirati strujanjem</string>
     <string name="media_err_io">Nije moguće pročitati medijsku datoteku</string>
     <string name="media_err_malformed">Medijska datoteka je neispravno kodirana</string>
     <string name="media_err_timeout">Pokušaj reprodukcije datoteke je istekao</string>
@@ -538,6 +551,7 @@
     <string name="push_notifications_not_implemented">Push obavijesti su onemogućene zbog ovisnosti o vlasničkim servisima trgovine Google Play.</string>
     <string name="push_notifications_old_login">Nema push obavijesti zbog zastarjele prijave. Razmislite o ponovnom dodavanju računa.</string>
     <string name="push_notifications_temp_error">Push obavijesti trenutno nisu dostupne.</string>
+    <string name="qr_could_not_be_read">Čitanje QR kôda nije uspjelo!</string>
     <string name="recommend_subject">Isprobajte %1$s na uređaju!</string>
     <string name="recommend_text">Želim vas pozvati da koristite %1$s na svom uređaju.\nPreuzmite ovdje: %2$s</string>
     <string name="recommend_urls">%1$s ili %2$s</string>
@@ -668,6 +682,7 @@
     <string name="stream">Strujanje s...</string>
     <string name="stream_not_possible_headline">Unutarnje strujanje nije moguće</string>
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
+    <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
     <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
     <string name="sync_conflicts_in_favourites_ticker">Postoje nepodudaranja</string>
@@ -710,6 +725,7 @@
     <string name="trashbin_empty_message">Ovdje ćete moći vratiti izbrisane datoteke.</string>
     <string name="trashbin_file_not_deleted">Datoteku %1$s nije moguće izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteku %1$s nije moguće vratiti!</string>
+    <string name="trashbin_loading_failed">Učitavanje kante za smeće nije uspjelo!</string>
     <string name="trashbin_not_emptied">Datoteke nije moguće trajno izbrisati!</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
@@ -753,6 +769,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nema dopuštenje za čitanje primljene datoteke</string>
     <string name="uploader_error_message_source_file_not_copied">Nije moguće kopirati datoteku u privremenu mapu. Pokušajte je ponovno poslati.</string>
     <string name="uploader_error_message_source_file_not_found">Datoteka odabrana za otpremanje nije pronađena. Provjerite postoji li datoteka.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Ovu datoteku nije moguće otpremiti</string>
     <string name="uploader_error_title_no_file_to_upload">Nema datoteke za otpremu</string>
     <string name="uploader_info_dirname">Naziv mape</string>
     <string name="uploader_top_message">Odaberi mapu za otpremu</string>
@@ -798,6 +815,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Čeka se nemjerena bežična (Wi-Fi) veza</string>
     <string name="user_icon">Korisnik</string>
     <string name="user_info_address">Adresa</string>
+    <string name="user_info_email">E-pošta</string>
     <string name="user_info_phone">Broj telefona</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web-mjesto</string>

@@ -314,6 +314,7 @@
     <string name="file_list_seconds_ago">secunde în urmă</string>
     <string name="file_migration_checking_destination">Se verifică destinația…</string>
     <string name="file_migration_cleaning">Curățare…</string>
+    <string name="file_migration_dialog_title">Se actualizează dosarul de stocare a datelor</string>
     <string name="file_migration_directory_already_exists">Dosarul există deja. Alege una dintre următoarele:</string>
     <string name="file_migration_failed_dir_already_exists">Dosarul Nextcloud există deja</string>
     <string name="file_migration_failed_not_enough_space">Este necesar mai mult spațiu</string>
@@ -327,12 +328,16 @@
     <string name="file_migration_preparing">Se pregătește migrarea…</string>
     <string name="file_migration_restoring_accounts_configuration">Se restabilește configurația contului…</string>
     <string name="file_migration_saving_accounts_configuration">Se salvează configurația contului…</string>
+    <string name="file_migration_source_not_readable">Încă dorești să schimbi calea de stocare în %1$s?\n\nAtenție: Toate datele vor trebui să fie descărcate din nou.</string>
     <string name="file_migration_source_not_readable_title">Dosarul sursă nu poate fi citit</string>
     <string name="file_migration_updating_index">Indexul se actualizează…</string>
     <string name="file_migration_use_data_folder">Utilizează</string>
     <string name="file_migration_waiting_for_unfinished_sync">Se așteaptă finalizarea sincronizării…</string>
     <string name="file_not_found">Fișierul nu a fost găsit</string>
+    <string name="file_not_synced">Fișierul nu a putut fi sincronizat. Aceastea sunt ultimile versiuni disponibile.</string>
     <string name="file_rename">Redenumire</string>
+    <string name="file_version_restored_error">Eroare în restaurarea acestei versiuni a fisierului!</string>
+    <string name="file_version_restored_successfully">S-a restaurat cu succes versiunea acestui fișier.</string>
     <string name="filedetails_download">Descarcă</string>
     <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
     <string name="filedetails_sync_file">Sincronizare</string>
