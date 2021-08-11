@@ -2191,7 +2191,6 @@ public class FileDisplayActivity extends FileActivity
 
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            //updateFragmentsVisibility(true);
             updateActionBarTitleAndHomeButton(file);
             setFile(file);
         } else {
@@ -2207,21 +2206,21 @@ public class FileDisplayActivity extends FileActivity
     }
 
     /**
-     * Stars the preview of a text file {@link OCFile}.
+     * Starts the preview of a text file {@link OCFile}.
      *
      * @param file Text {@link OCFile} to preview.
      */
     public void startTextPreview(OCFile file, boolean showPreview) {
+        Optional<User> optUser = getUser();
+        if (!optUser.isPresent()) {
+            // remnants of old unsafe system; do not crash, silently stop
+            return;
+        }
+        User user = optUser.get();
         if (showPreview) {
             showSortListGroup(false);
-            Bundle args = new Bundle();
-            args.putParcelable(EXTRA_FILE, file);
-            args.putParcelable(EXTRA_ACCOUNT, getAccount());
-            args.putBoolean(EXTRA_SEARCH, searchOpen);
-            args.putString(EXTRA_SEARCH_QUERY, searchQuery);
-            Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
-                                                                PreviewTextFileFragment.class.getName(), args);
-            setLeftFragment(textPreviewFragment);
+            PreviewTextFileFragment fragment = PreviewTextFileFragment.create(user, file, searchOpen, searchQuery);
+            setLeftFragment(fragment);
             binding.rightFragmentContainer.setVisibility(View.GONE);
             super.updateActionBarTitleAndHomeButton(file);
         } else {
