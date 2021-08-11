@@ -33,6 +33,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.java.util.Optional
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -45,6 +46,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.users.DeleteAppPasswordRemoteOperation
 import com.owncloud.android.lib.resources.users.RemoteWipeSuccessRemoteOperation
 import com.owncloud.android.providers.DocumentsStorageProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
@@ -133,6 +135,14 @@ class AccountRemovalWork(
         // notify Document Provider
         DocumentsStorageProvider.notifyRootsChanged(context)
 
+        // delete app password
+        val deleteAppPasswordRemoteOperation = DeleteAppPasswordRemoteOperation()
+        val optionNextcloudClient = createNextcloudClient(user)
+
+        if (optionNextcloudClient.isPresent) {
+            deleteAppPasswordRemoteOperation.execute(optionNextcloudClient.get())
+        }
+
         if (userRemoved) {
             eventBus.post(AccountRemovedEvent())
         }
@@ -196,6 +206,19 @@ class AccountRemovalWork(
             val context = MainApp.getAppContext()
             val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
             val client = factory.getClientFor(user.toOwnCloudAccount(), context)
+            Optional.of(client)
+        } catch (e: Exception) {
+            Log_OC.e(this, "Could not create client", e)
+            Optional.empty()
+        }
+    }
+
+    private fun createNextcloudClient(user: User): Optional<NextcloudClient> {
+        @Suppress("TooGenericExceptionCaught") // needs migration to newer api to get rid of exceptions
+        return try {
+            val context = MainApp.getAppContext()
+            val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
+            val client = factory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
             Optional.of(client)
         } catch (e: Exception) {
             Log_OC.e(this, "Could not create client", e)
