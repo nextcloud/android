@@ -1,0 +1,9 @@
+app_package_name 'com.nextcloud.client'
+use_tests_in_packages ['com.owncloud.android.screenshots']
+test_instrumentation_runner 'androidx.test.runner.AndroidJUnitRunner'
+
+locales(['en-US'])
+# locales(['en-GB', 'de-DE', 'es-MX', 'es-ES', 'fr-FR', 'hu-HU', 'it-IT', 'ka-GE', 'ko-KR', 'no-NO', 'nl-NL', 'pt-BR', 'ru-RU', 'sr-SR', 'tr-TR', 'en-US', 'pt-PT', 'sv-SE', 'sq-AL', 'sq-MK', 'iw-IL', 'ar-AR', 'bg-BG', 'da-DK', 'fi-FI', 'gl-ES', 'uk-UK', 'vi-VI', 'ro-RO', 'pl-PL', 'el-GR', 'ja-JP', 'eu-ES', 'lt-LT', 'es-419', 'zh-HK', 'zk-CN', 'is-IS', 'sr-SR', 'id-ID', 'cs-CZ', 'sl-SL'])
+
+# clear all previously generated screenshots in your local output directory before creating new ones
+clear_previous_screenshots true

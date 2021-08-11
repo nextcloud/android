@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud
+  Copyright (C) 2016 ownCloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_default">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <!-- sorting/layout bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sort_list_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/bg_default"
+            android:paddingTop="@dimen/standard_eight_padding"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sort_button"
+                style="@style/Nextcloud.Material.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:contentDescription="@string/actionbar_sort"
+                android:minWidth="0dp"
+                android:text="@string/menu_item_sort_by_date_newest_first"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/fontAppbar"
+                android:textSize="14sp"
+                app:icon="@drawable/ic_keyboard_arrow_down"
+                app:iconGravity="textEnd"
+                app:iconSize="16dp"
+                app:iconTint="@color/fontAppbar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/switch_grid_view_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="1dp"
+                android:contentDescription="@string/action_switch_grid_view"
+                app:cornerRadius="24dp"
+                app:icon="@drawable/ic_view_module"
+                app:iconTint="@color/fontAppbar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- default toolbar -->
+        <RelativeLayout
+            android:id="@+id/default_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/preview_image_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_drawer_header_height"
+                android:visibility="gone">
+
+                <!--                TODO add shimmer -->
+
+                <ImageView
+                    android:id="@+id/preview_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nav_drawer_header_height"
+                    android:contentDescription="@string/preview_image_description"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nav_drawer_header_height"
+                    android:background="@drawable/preview_image_gradient_shape" />
+            </FrameLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/appbar"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                tools:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/toolbar_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/fontAppbar"
+                    app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <!-- home/search toolbar -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/home_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"
+            app:background="@color/appbar"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/action_switch_grid_view"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:icon="@drawable/ic_menu"
+                    app:iconTint="@color/fontAppbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/search_text"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginEnd="18dp"
+                    android:ellipsize="end"
+                    android:gravity="start|center_vertical"
+                    android:lines="1"
+                    android:textColor="@color/fontSecondaryAppbar"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/menu_button"
+                    app:layout_constraintRight_toLeftOf="@id/switch_account_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Search in Nextcloud" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/switch_account_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:iconSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <include layout="@layout/info_box" />
+
+</com.google.android.material.appbar.AppBarLayout>

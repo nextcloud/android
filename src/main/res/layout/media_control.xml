@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015  ownCloud Inc.
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/standard_quarter_padding"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton 
+            android:id="@+id/rewindBtn" 
+            style="@android:style/MediaButton.Rew" 
+            android:contentDescription="@string/media_rewind_description"
+            />
+        <ImageButton 
+            android:id="@+id/playBtn" 
+            style="@android:style/MediaButton.Play" 
+            android:contentDescription="@string/media_play_pause_description"
+            />
+        <ImageButton 
+            android:id="@+id/forwardBtn" 
+            style="@android:style/MediaButton.Ffwd" 
+            android:contentDescription="@string/media_forward_description"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView 
+            android:id="@+id/currentTimeText"
+            android:textSize="@dimen/two_line_secondary_text_size"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/standard_quarter_padding"
+            android:paddingStart="@dimen/standard_quarter_padding"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/standard_quarter_padding"
+            android:text="@string/placeholder_media_time"
+            android:textColor="@color/text_color_inverse"
+            />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/seek_bar_height"
+            android:splitTrack="false"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView android:id="@+id/totalTimeText"
+            android:textSize="@dimen/two_line_secondary_text_size"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/standard_quarter_padding"
+            android:paddingEnd="@dimen/standard_quarter_padding"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/standard_quarter_padding"
+            android:text="@string/placeholder_media_time"
+            android:textColor="@color/text_color_inverse"
+            />
+        
+    </LinearLayout>
+
+</LinearLayout>

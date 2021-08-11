@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    version="1.1"
+    width="25.6"
+    height="25.6"
+    viewBox="0 0 24 24"
+    id="svg2"
+    inkscape:version="0.92.1 r15371"
+    sodipodi:docname="ic_list_empty_upload.svg"
+    inkscape:export-filename="C:\DEV\src\Android\Nextcloud\colorFolderNew\src\main\res\drawable-mdpi\ic_list_empty_upload.png"
+    inkscape:export-xdpi="270"
+    inkscape:export-ydpi="270">
+    <metadata
+        id="metadata10">
+        <rdf:RDF>
+            <cc:Work
+                rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type
+                    rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs
+        id="defs8"/>
+    <sodipodi:namedview
+        pagecolor="#ffffff"
+        bordercolor="#666666"
+        borderopacity="1"
+        objecttolerance="10"
+        gridtolerance="10"
+        guidetolerance="10"
+        inkscape:pageopacity="0"
+        inkscape:pageshadow="2"
+        inkscape:window-width="1920"
+        inkscape:window-height="1005"
+        id="namedview6"
+        showgrid="false"
+        inkscape:zoom="9.8333333"
+        inkscape:cx="14.338983"
+        inkscape:cy="16.067797"
+        inkscape:window-x="-9"
+        inkscape:window-y="-9"
+        inkscape:window-maximized="1"
+        inkscape:current-layer="svg2"/>
+    <path
+        d="M 9,16 V 10 H 5 l 7,-7 7,7 h -4 v 6 H 9 m -4,4 v -2 h 14 v 2 z"
+        id="path4"
+        style="fill:#888888;fill-opacity:1;opacity:0.5"
+        inkscape:connector-curvature="0"/>
+</svg>

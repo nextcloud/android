@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2018 Andy Scherzinger
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
+    <group
+        android:id="@+id/folder_permission"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/link_share_read_only"
+            android:title="@string/link_share_read_only" />
+        <item
+            android:id="@+id/link_share_allow_upload_and_editing"
+            android:title="@string/link_share_allow_upload_and_editing" />
+        <item
+            android:id="@+id/link_share_file_drop"
+            android:title="@string/link_share_file_drop" />
+    </group>
+    <item
+        android:id="@+id/allow_editing"
+        android:checkable="true"
+        android:showAsAction="never"
+        android:title="@string/allow_editing"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_hide_file_download"
+        android:checkable="true"
+        android:showAsAction="never"
+        android:title="@string/share_via_link_hide_download"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_password"
+        android:showAsAction="never"
+        android:title="@string/share_via_link_menu_password_label"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_expiration_date"
+        android:showAsAction="never"
+        android:title="@string/share_expiration_date_label"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_send_link"
+        android:showAsAction="never"
+        android:title="@string/share_via_link_send_link_label"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share_send_note"
+        android:showAsAction="never"
+        android:title="@string/share_send_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_edit_label"
+        android:showAsAction="never"
+        android:title="@string/edit_label"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_unshare"
+        android:showAsAction="never"
+        android:title="@string/unshare"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_another_public_share_link"
+        android:showAsAction="never"
+        android:title="@string/add_another_public_share_link"
+        app:showAsAction="never" />
+</menu>

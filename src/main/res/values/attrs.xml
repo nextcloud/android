@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="pref_behaviour_entries" translatable="false">
+		<item>@string/pref_behaviour_entries_keep_file</item>
+		<item>@string/pref_behaviour_entries_move</item>
+		<item>@string/pref_behaviour_entries_delete_file</item>
+	</string-array>
+
+	<string-array name="pref_behaviour_entryValues" translatable="false">
+		<item>LOCAL_BEHAVIOUR_FORGET</item>
+		<item>LOCAL_BEHAVIOUR_MOVE</item>
+		<item>LOCAL_BEHAVIOUR_DELETE</item>
+	</string-array>
+
+    <string-array name="pref_name_collision_policy_entries" translatable="false">
+        <item>@string/pref_instant_name_collision_policy_entries_always_ask</item>
+        <item>@string/pref_instant_name_collision_policy_entries_overwrite</item>
+        <item>@string/pref_instant_name_collision_policy_entries_rename</item>
+        <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
+    </string-array>
+</resources>

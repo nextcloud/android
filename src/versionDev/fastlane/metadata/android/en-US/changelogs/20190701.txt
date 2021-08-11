@@ -1,0 +1,3 @@
+712f860e9 Merge pull request #4179 from nextcloud/buttonColor
+89dff76cd [tx-robot] updated from transifex
+a6b27cc92 daily dev 20190629

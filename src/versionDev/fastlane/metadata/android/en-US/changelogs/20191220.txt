@@ -1,0 +1,22 @@
+6af95233f Merge pull request #4890 from nextcloud/directEditing
+b4c3a7d78 Merge pull request #5018 from grote/thumbnail-fix
+b20767140 fix during CI
+d23137025 Merge pull request #4829 from nextcloud/dependabot/gradle/tools.fastlane-screengrab-2.0.0
+0d84a2dd3 warning about used feature in newer SDK
+b4ea01430 use master branch
+ec2cfef13 Direct editing support - abstract EditorWebView - support direct editing endpoint
+f2627a29a enable caching
+ddffaf7b4 use custom user agent for onlyOffice
+017849959 remove unneeded static string
+f25127d6e revert to master snapshot
+95afe8c82 use editor id to use any editor
+d05de9855 use file path as parameter for open direct editing file
+300abba48 make sure TextEditor is also only used ond >= Android 5, due to security reason of javascript interface
+994817ce9 get direct editing info from endpoint
+b31cee531 prevent NPE
+d1611f633 Direct editing support - abstract EditorWebView - support direct editing endpoint
+516c464a7 override minSDK for lib
+10a667b08 Bump screengrab from 1.2.0 to 2.0.0
+9fbedb4d8 Merge pull request #4992 from nextcloud/uiComparison
+751301cd4 daily dev 20191219
+library commit: 05edb6f6357d00a5fe1d17bed816690a8c83b741

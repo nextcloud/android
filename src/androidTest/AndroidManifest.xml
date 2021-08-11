@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012-2016 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!--
+    UI Automator requires Android 4.3 (API level 18) or higher.
+
+    So this AndroidManifest will be merged with the normal one
+    (not requiring to change the minSdk) and used for UI Automator tests, and does not affect
+    the normal release/debug builds.
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="${applicationId}.test"
+    android:sharedUserId="${applicationId}.uid">
+
+</manifest>

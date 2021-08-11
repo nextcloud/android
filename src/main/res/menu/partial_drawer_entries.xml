@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2016 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+      standard menu
+      all items in this group MUST have orderInCategory="0" set
+
+    -->
+    <group
+        android:id="@+id/drawer_menu_standard"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all_files"
+            android:icon="@drawable/all_files"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_all_files"/>
+        <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_activity"
+            android:title="@string/drawer_item_activities"/>
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/nav_favorites"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_favorites"/>
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/nav_photos"
+            android:title="@string/drawer_item_gallery" />
+        <item
+            android:id="@+id/nav_videos"
+            android:icon="@drawable/nav_videos"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_videos"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_shared"
+            android:orderInCategory="0"
+            android:icon="@drawable/nav_shared"
+            android:title="@string/drawer_item_shared" />
+        <item
+            android:id="@+id/nav_on_device"
+            android:icon="@drawable/nav_on_device"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_on_device"/>
+        <item
+            android:id="@+id/nav_recently_added"
+            android:icon="@drawable/nav_recently"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_recently_added"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_recently_modified"
+            android:icon="@drawable/nav_recently"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_recently_modified"
+            android:visible="false"/>
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/nav_notifications"
+            android:title="@string/drawer_item_notifications"/>
+        <item
+            android:id="@+id/nav_uploads"
+            android:icon="@drawable/uploads"
+            android:orderInCategory="2"
+            android:title="@string/drawer_item_uploads_list"/>
+        <item
+            android:id="@+id/nav_trashbin"
+            android:icon="@drawable/nav_trashbin"
+            android:orderInCategory="2"
+            android:title="@string/drawer_item_trashbin"/>
+    </group>
+
+    <!--
+     all items in this group MUST have orderInCategory="3" set
+   -->
+    <group
+        android:id="@+id/drawer_menu_external_links"
+        android:checkableBehavior="single">
+    </group>
+
+    <!--
+      all items in this group MUST have orderInCategory="4" set
+    -->
+    <group
+        android:id="@+id/drawer_menu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/nav_contacts"
+            android:orderInCategory="3"
+            android:title="@string/actionbar_contacts"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/nav_settings"
+            android:orderInCategory="4"
+            android:title="@string/actionbar_settings"/>
+        <item
+            android:id="@+id/nav_community"
+            android:icon="@drawable/nav_community"
+            android:orderInCategory="4"
+            android:title="@string/drawer_community" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/nav_logout"
+            android:orderInCategory="4"
+            android:title="@string/drawer_logout"/>
+    </group>
+
+    <!--
+      dummy group/element as a workaround to see
+      the whole menu in case of quota being displayed
+    -->
+    <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+    </group>
+</menu>

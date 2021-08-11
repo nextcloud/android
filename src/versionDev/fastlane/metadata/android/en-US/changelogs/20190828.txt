@@ -1,0 +1,13 @@
+8a5855301 Merge pull request #4421 from nextcloud/codacy
+f7a33e5d9 activity: use lastGiven header (#4419)
+5c06b83a7 activity: use lastGiven header
+0f66801b8 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+5c091aca4 Bump hwsecurity-fido from 2.4.6 to 2.5.1 (#4420)
+cf02e861b codacy: Classes implementing Serializable should set a serialVersionUID
+56e74d2e8 codacy: Avoid really long methods.
+dfc1a5e89 codacy: Avoid instantiating new objects inside loops
+fc156a72b codacy: A class which only has private constructors should be final codacy: Avoid throwing raw exception types.
+575be806e Add printing system to RichDocuments (#4365)
+d423dd3b0 Add printing system to RichDocuments
+f708d4c91 [tx-robot] updated from transifex
+eb9cfb787 daily dev 20190827

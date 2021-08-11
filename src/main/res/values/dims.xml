@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ownCloud Android client application
+
+  Copyright (C) 2014 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_drawer_header_height">164dp</dimen>
+    <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
+    <dimen name="list_item_avatar_icon_radius">20dp</dimen>
+    <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
+    <dimen name="file_icon_size">40dp</dimen>
+    <dimen name="file_icon_size_grid">128dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
+    <dimen name="file_avatar_size">128dp</dimen>
+    <dimen name="standard_padding">16dp</dimen>
+    <dimen name="standard_double_padding">32dp</dimen>
+    <dimen name="standard_half_padding">8dp</dimen>
+    <dimen name="standard_quarter_padding">4dp</dimen>
+    <dimen name="standard_eight_padding">2dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+    <dimen name="standard_double_margin">32dp</dimen>
+    <dimen name="standard_half_margin">8dp</dimen>
+    <dimen name="standard_quarter_margin">4dp</dimen>
+    <dimen name="standard_eighth_margin">2dp</dimen>
+    <dimen name="min_list_item_size">56dp</dimen>
+    <dimen name="standard_list_item_size">72dp</dimen>
+    <dimen name="sharee_list_item_size">56dp</dimen>
+    <dimen name="two_line_primary_text_size">16sp</dimen>
+    <dimen name="two_line_secondary_text_size">12sp</dimen>
+    <dimen name="list_item_share_right_margin">12dp</dimen>
+    <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
+    <dimen name="account_action_layout_height">72dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="iconized_single_line_item_layout_height">56dp</dimen>
+    <dimen name="iconized_single_line_item_icon_size">24dp</dimen>
+    <dimen name="user_info_icon_horizontal_margin">24dp</dimen>
+    <dimen name="account_item_layout_height">72dp</dimen>
+    <dimen name="user_icon_size">40dp</dimen>
+    <dimen name="user_icon_radius">20dp</dimen>
+    <dimen name="share_icon_size">40dp</dimen>
+    <dimen name="alternate_margin">10dp</dimen>
+    <dimen name="alternate_half_margin">5dp</dimen>
+    <dimen name="alternate_padding">10dp</dimen>
+    <dimen name="synced_folder_padding_end">10dp</dimen>
+    <dimen name="alternate_half_padding">5dp</dimen>
+    <dimen name="alternate_padding_right">55dp</dimen>
+    <dimen name="display_text_min_height">32dp</dimen>
+    <dimen name="alternate_padding_independent">10dip</dimen>
+    <dimen name="activity_row_layout_min_width_independent">196dip</dimen>
+    <dimen name="user_icon_size_independent">40dip</dimen>
+    <dimen name="drawer_header_subtext">12sp</dimen>
+    <dimen name="fragment_margin">12dp</dimen>
+    <dimen name="file_download_fragment_layout_padding">20dp</dimen>
+    <dimen name="alternate_fragment_margin">15dp</dimen>
+    <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
+    <dimen name="grid_item_text_size">16sp</dimen>
+    <dimen name="seek_bar_height">32dp</dimen>
+    <dimen name="search_users_groups_layout_width">200dp</dimen>
+    <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
+    <dimen name="share_file_layout_text_size">12sp</dimen>
+    <dimen name="ssl_untrusted_cert_layout_padding">20dp</dimen>
+    <dimen name="scroll_view_height">180dp</dimen>
+    <dimen name="upload_list_item_frame_layout_width">60dp</dimen>
+    <dimen name="upload_list_item_text_size">12sp</dimen>
+    <dimen name="upload_list_item_image_size">24dp</dimen>
+    <dimen name="uploader_list_item_layout_image_margin">12dp</dimen>
+    <dimen name="media_grid_spacing">2dp</dimen>
+    <dimen name="account_item_layout_user_image_left_start_margin">12dp</dimen>
+    <dimen name="account_item_layout_user_image_margin">1dp</dimen>
+    <dimen name="restore_icon_width">24dp</dimen>
+    <dimen name="restore_icon_height">24dp</dimen>
+    <dimen name="restore_icon_layout_right_end_margin">24dp</dimen>
+    <dimen name="activity_icon_width">32dp</dimen>
+    <dimen name="activity_icon_height">32dp</dimen>
+    <dimen name="activity_icon_radius">16dp</dimen>
+    <dimen name="activity_icon_layout_right_end_margin">24dp</dimen>
+    <dimen name="activity_list_item_grid_layout_left_start_margin">-3dp</dimen>
+    <dimen name="activity_list_item_title_header_text_size">16sp</dimen>
+    <dimen name="activity_list_layout_recycler_view_margin">-3dp</dimen>
+    <dimen name="activity_row_layout_height">48dp</dimen>
+    <dimen name="notification_icon_width">32dp</dimen>
+    <dimen name="notification_icon_height">32dp</dimen>
+    <dimen name="notification_icon_layout_right_end_margin">24dp</dimen>
+    <dimen name="notification_list_item_grid_layout_left_start_margin">-3dp</dimen>
+    <dimen name="uploader_list_separator_height">1dp</dimen>
+    <dimen name="contactlist_item_icon_layout_width">40dp</dimen>
+    <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
+    <dimen name="empty_list_icon_layout_width">72dp</dimen>
+    <dimen name="empty_list_icon_layout_height">72dp</dimen>
+    <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
+    <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
+    <dimen name="grid_image_local_file_indicator_layout_height">16dp</dimen>
+    <dimen name="grid_image_icon_margin">14dp</dimen>
+    <dimen name="grid_image_icon_padding">14dp</dimen>
+    <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>
+    <dimen name="grid_item_local_file_indicator_layout_width">16dp</dimen>
+    <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
+    <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
+    <dimen name="grid_sync_item_layout_counter_text_size">22sp</dimen>
+    <dimen name="list_item_favorite_action_layout_width">14dp</dimen>
+    <dimen name="list_item_favorite_action_layout_height">14dp</dimen>
+    <dimen name="list_item_local_file_indicator_layout_width">12dp</dimen>
+    <dimen name="list_item_local_file_indicator_layout_height">12dp</dimen>
+    <dimen name="preview_error_image_layout_width">72dp</dimen>
+    <dimen name="preview_error_image_layout_height">72dp</dimen>
+    <dimen name="preview_error_text_size">26sp</dimen>
+    <dimen name="send_share_fragment_layout_margin">24dp</dimen>
+    <dimen name="send_share_fragment_layout_padding">24dp</dimen>
+    <dimen name="share_people_icon_layout_padding">12dp</dimen>
+    <dimen name="synced_folders_item_type_layout_width">32dp</dimen>
+    <dimen name="synced_folders_item_type_layout_height">32dp</dimen>
+    <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
+    <dimen name="synced_folders_recycler_view_layout_margin">-3dp</dimen>
+    <dimen name="synced_folders_control_width">80dp</dimen>
+    <dimen name="bottom_sheet_text_size">16sp</dimen>
+    <dimen name="permission_dialog_text_size">18sp</dimen>
+    <dimen name="button_corner_radius">24dp</dimen>
+    <integer name="media_grid_width">4</integer>
+    <dimen name="drawer_header_height">130dp</dimen>
+    <dimen name="account_action_button_margin">12dp</dimen>
+    <dimen name="account_action_button_height">50dp</dimen>
+    <dimen name="account_action_button_vertical_margin">10dp</dimen>
+    <dimen name="online_status_item_height">52dp</dimen>
+    <dimen name="minimum_size_for_touchable_area">48dp</dimen>
+    <dimen name="dialog_elevation">24dp</dimen>
+    <dimen name="default_login_width">400dp</dimen>
+</resources>

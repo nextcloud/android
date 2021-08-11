@@ -1,0 +1,19 @@
+Avoimen lähdekoodin Nextcloud-sovellus Android-laitteille mahdollistaa kaikkien Nextcloud-palvelimella olevien tiedostojen käyttämisen.
+
+Ominaisuudet:
+* Helppokäyttöinen, moderni käyttöliittymä, joka mukautuu palvelimen teemaan
+* Lähetä tiedostosi Nextcloud-palvelimelle
+* Jaa tiedostosi muiden kanssa
+* Pidä haluamasi tiedostot ja kansiot synkronoituna
+* Etsi kaikista palvelimella olevista kansioista
+* Lähetä automaattisesti laitteella otetut kuvat ja videot
+* Pysy ajan tasalla ilmoitusten avulla
+* Tuki useille tileille
+* Turvallinen pääsy tietoihin joko sormenjäljellä tai PIN-koodilla
+* Integraatio DAVdroidin kanssa kalenterin ja yhteystietojen synkronoimiseksi
+
+Ilmoita ongelmista osoitteessa https://github.com/nextcloud/android/issues ja keskustele sovelluksesta osoitteessa https://help.nextcloud.com/c/clients/android
+
+Mikä Nextcloud on? Nextcloud on yksityinen tiedostojen synkronointi-, jako- ja viestintäpalvelin. Se on täysin avointa lähdekoodia, ja voit ottaa sen täysin omalle vastuullesi tai maksaa kolmannelle osapuolelle palvelimen ylläpidosta. Näin ollen hallitset itse kuviasi, kalenteriasi, yhteystietojasi, asiakirjojasi ja kaikkea muuta.
+
+Tutustu Nextcloudiin osoitteessa https://nextcloud.com

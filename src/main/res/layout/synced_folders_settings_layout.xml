@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_padding">
+
+            <TextView
+                android:id="@+id/synced_folders_settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/synced_folders_preferences"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <TextView
+                android:id="@+id/synced_folders_settings_local_folder_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/synced_folders_enable_switch_container"
+            android:layout_width="@dimen/synced_folders_control_width"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/standard_padding">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sync_enabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:focusable="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/details_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/local_folder_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/local_folder_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="@string/prefs_synced_folders_local_path_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/local_folder_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/local_folder_title"
+                    android:layout_alignStart="@id/local_folder_title"
+                    android:ellipsize="middle"
+                    android:maxLines="2"
+                    android:text="@string/choose_local_folder"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/remote_folder_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/remote_folder_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="@string/prefs_synced_folders_remote_path_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/remote_folder_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/remote_folder_title"
+                    android:layout_alignStart="@id/remote_folder_title"
+                    android:ellipsize="middle"
+                    android:maxLines="2"
+                    android:text="@string/choose_remote_folder"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_on_wifi_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <TextView
+                        android:id="@+id/setting_instant_upload_on_wifi_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:text="@string/auto_upload_on_wifi"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/setting_instant_upload_on_wifi_frame"
+                    android:layout_width="@dimen/synced_folders_control_width"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_padding">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/setting_instant_upload_on_wifi_checkbox"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_on_charging_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <TextView
+                        android:id="@+id/setting_instant_upload_on_charging_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:text="@string/instant_upload_on_charging"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/setting_instant_upload_on_charging_frame"
+                    android:layout_width="@dimen/synced_folders_control_width"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_padding">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/setting_instant_upload_on_charging_checkbox"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_existing_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <TextView
+                        android:id="@+id/setting_instant_upload_existing_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="@string/instant_upload_existing"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/setting_instant_upload_existing"
+                    android:layout_width="@dimen/synced_folders_control_width"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_padding">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/setting_instant_upload_existing_checkbox"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_path_use_subfolders_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <TextView
+                        android:id="@+id/setting_instant_upload_path_use_subfolders_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:text="@string/prefs_instant_upload_path_use_subfolders_title"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/setting_instant_upload_path_use_subfolders_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/setting_instant_upload_path_use_subfolders_label"
+                        android:layout_alignStart="@id/setting_instant_upload_path_use_subfolders_label"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/prefs_instant_upload_path_use_subfolders_summary"
+                        android:textColor="?android:attr/textColorSecondary" />
+                </RelativeLayout>
+
+                <!-- Preference should place its actual preference widget here. -->
+                <LinearLayout
+                    android:id="@+id/setting_instant_upload_path_use_subfolders_frame"
+                    android:layout_width="@dimen/synced_folders_control_width"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_padding">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/setting_instant_upload_path_use_subfolders_checkbox"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_behaviour_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:clipToPadding="false"
+                android:gravity="center_vertical"
+                android:minHeight="?attr/listPreferredItemHeightSmall"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/setting_instant_behaviour_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="@string/prefs_instant_behaviour_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/setting_instant_behaviour_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/placeholder_filename"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_name_collision_policy_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:clipToPadding="false"
+                android:gravity="center_vertical"
+                android:minHeight="?attr/listPreferredItemHeightSmall"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/setting_instant_name_collision_policy_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="@string/pref_instant_name_collision_policy_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/setting_instant_name_collision_policy_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/placeholder_filename"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete"
+            style="@style/Button.Borderless.Destructive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/common_delete" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel"
+                style="@style/Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save"
+                style="@style/Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_save" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

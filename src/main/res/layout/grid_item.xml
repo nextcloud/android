@@ -1,0 +1,126 @@
+<!--
+  ownCloud Android client application
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/favorite_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:src="@drawable/favorite"
+            android:contentDescription="@string/favorite_icon"
+            app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+            app:layout_constraintTop_toTopOf="@id/frameLayout"
+            app:layout_constraintBottom_toTopOf="@id/frameLayout"/>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:id="@+id/thumbnail_shimmer"
+                android:layout_width="@dimen/standard_list_item_size"
+                android:layout_height="@dimen/standard_list_item_size"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:corners="8" />
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/standard_list_item_size"
+                android:layout_height="@dimen/standard_list_item_size"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/folder" />
+
+            <ImageView
+                android:id="@+id/sharedIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:src="@drawable/shared_via_link"
+                android:contentDescription="@string/shared_icon_shared_via_link"/>
+
+            <ImageView
+                android:id="@+id/unreadComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:contentDescription="@string/unread_comments"
+                android:focusable="true"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:src="@drawable/ic_comment_grid"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/localFileIndicator"
+                android:layout_width="@dimen/grid_item_local_file_indicator_layout_width"
+                android:layout_height="@dimen/grid_item_local_file_indicator_layout_height"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/standard_quarter_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:src="@drawable/ic_synced"
+                android:contentDescription="@string/synced_icon"/>
+
+            <ImageView
+                android:id="@+id/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_quarter_margin"
+                android:layout_marginRight="@dimen/standard_quarter_margin"
+                android:layout_gravity="center_vertical|top"
+                android:src="@android:drawable/checkbox_off_background"
+                android:contentDescription="@string/checkbox"/>
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/Filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_quarter_margin"
+        android:layout_marginRight="@dimen/standard_quarter_margin"
+        android:ellipsize="middle"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:text="@string/placeholder_filename"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/grid_item_text_size" />
+
+</com.owncloud.android.ui.SquareLinearLayout>

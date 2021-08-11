@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/standard_padding"
+    tools:context="com.owncloud.android.ui.activity.ShareActivity">
+
+    <RelativeLayout
+        android:id="@+id/shareHeaderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding">
+
+        <ImageView
+            android:id="@+id/shareFileIcon"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:contentDescription="@null"
+            android:src="@drawable/file" />
+
+        <TextView
+            android:id="@+id/shareFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_quarter_margin"
+            android:layout_toEndOf="@+id/shareFileIcon"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="@string/placeholder_filename"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size" />
+
+        <TextView
+            android:id="@+id/shareFileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shareFileName"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_quarter_margin"
+            android:layout_toEndOf="@+id/shareFileIcon"
+            android:text="@string/placeholder_fileSize"
+            android:textSize="@dimen/share_file_layout_text_size" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/share_header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_eighth_margin"
+        android:background="@color/primary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/share_fragment_container"></FrameLayout>
+
+</LinearLayout>

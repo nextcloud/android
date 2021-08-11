@@ -1,0 +1,12 @@
+adbc1f27a Merge pull request #4940 from nextcloud/changelog-master-stable-3.9.1
+e0ec1c163 Add changelog for 3.9.1
+9dcb91526 [tx-robot] updated from transifex
+92510cb16 Merge pull request #4938 from nextcloud/disableMissingDefaultResource
+a89481461 disable MissingDefaultResource
+dda56defb Merge pull request #4933 from nextcloud/appLocking
+cb0067717 Merge pull request #4926 from nextcloud/deleteChecksFor16
+fd48163e2 Merge pull request #4922 from nextcloud/themeFollowOS
+5e687f2c1 Dark mode: light, dark, follow system
+fb69c1bd5 remove all checks for <= JELLY_BEAN as we have this as our new minimum.
+683faab11 [tx-robot] updated from transifex
+c3eec4777 daily dev 20191204

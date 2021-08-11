@@ -1,0 +1,7 @@
+65026e789 Changelog for fdroid now with line breaks (#4035)
+c8f0f20be move to versionDev flavor
+16f7b4e17 deploy artifact on success (#4018)
+17765573a deploy gplay artifact on success as own QA flavor
+c382b3dd8 changelog for fdroid now with line breaks
+28159cf47 [tx-robot] updated from transifex
+1b532f86a daily dev 20190517

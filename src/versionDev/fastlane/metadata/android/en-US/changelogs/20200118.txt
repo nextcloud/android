@@ -1,0 +1,4 @@
+82de38179 Merge pull request #5220 from nextcloud/changelog-master-stable-3.10.0
+8f929ab33 Add changelog for 3.10.0
+ae6251bf6 daily dev 20200117
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b
