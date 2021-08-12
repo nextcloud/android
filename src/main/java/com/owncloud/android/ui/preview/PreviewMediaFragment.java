@@ -22,7 +22,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -79,7 +78,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * <p>
- * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will produce an {@link
+ * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link User} values will produce an {@link
  * IllegalStateException}.
  * <p>
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
@@ -147,7 +146,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
      * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the
      * device is turned a aside).
      * <p/>
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
      */
     public PreviewMediaFragment() {
         super();
