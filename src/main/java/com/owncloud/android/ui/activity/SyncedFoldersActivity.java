@@ -49,6 +49,7 @@ import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -690,6 +691,9 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         AdjustSdkUtils.trackEvent(enabled ?
                                       AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_ON :
                                       AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_OFF, preferences);
+        TealiumSdkUtils.trackEvent(enabled ?
+                                       TealiumSdkUtils.EVENT_SETTINGS_AUTO_UPLOAD_ON :
+                                       TealiumSdkUtils.EVENT_SETTINGS_AUTO_UPLOAD_OFF, preferences);
     }
 
     private void saveOrUpdateSyncedFolder(SyncedFolderDisplayItem item) {

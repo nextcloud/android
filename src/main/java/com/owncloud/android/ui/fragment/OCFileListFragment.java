@@ -60,6 +60,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nmc.android.ui.ScanActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -459,7 +460,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                              this,
                                                                              deviceInfo,
                                                                              accountManager.getUser(),
-                                                                             getCurrentFile())
+                                                                             getCurrentFile(), preferences)
                 .show());
         }
     }
@@ -483,6 +484,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         //track event photo/video/any upload button click
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_PHOTO_VIDEO_UPLOAD, preferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_PHOTO_VIDEO_UPLOAD, preferences);
     }
 
     @Override
@@ -498,6 +500,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         //track event for camera upload button click
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_CAMERA_UPLOAD, preferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_CAMERA_UPLOAD, preferences);
     }
 
     @Override
@@ -509,6 +512,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                         );
         //track event for uploading files button click
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_FILE_UPLOAD, preferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_FILE_UPLOAD, preferences);
     }
 
     @Override
@@ -517,6 +521,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         //track event on Scan Document button click
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_DOCUMENT_SCAN, preferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_DOCUMENT_SCAN, preferences);
     }
 
     @Override
@@ -549,7 +554,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         //track event on click of Share button
+        trackSharingClickEvent();
+    }
+
+    private void trackSharingClickEvent() {
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FILE_BROWSER_SHARING, preferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FILE_BROWSER_SHARING, preferences);
     }
 
     @Override
@@ -1123,6 +1133,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switch (item.getItemId()) {
                 case R.id.action_send_share_file: {
                     mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile);
+                    //track event on click of Share button
+                    trackSharingClickEvent();
                     return true;
                 }
                 case R.id.action_open_file_with: {

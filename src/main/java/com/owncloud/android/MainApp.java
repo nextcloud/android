@@ -844,8 +844,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             TealiumSdkUtils.getTealiumEnvironment());
 
         // Override for the tag management webview URL (mobile.html)
-        //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod/mobile" +
-                                                    ".html");
+        //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod/mobile" +".html");
         // Override for the tag management publish URL (compare to https://tealium.github.io/tealiumandroid/)
         //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod");
 

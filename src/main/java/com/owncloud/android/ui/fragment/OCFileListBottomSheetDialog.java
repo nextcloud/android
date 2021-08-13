@@ -29,6 +29,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
@@ -55,18 +57,21 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
     private final DeviceInfo deviceInfo;
     private final User user;
     private final OCFile file;
+    private final AppPreferences preferences;
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
                                        DeviceInfo deviceInfo,
                                        User user,
-                                       OCFile file) {
+                                       OCFile file,
+                                       AppPreferences preferences) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
         this.user = user;
         this.file = file;
+        this.preferences = preferences;
     }
 
     @Override
@@ -163,6 +168,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                               BottomSheetBehavior.from((View) binding.getRoot().getParent())
                                   .setPeekHeight(binding.getRoot().getMeasuredHeight())
                          );
+
+        //track screen view when fragment is visible
+        TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_FAB_PLUS, preferences);
     }
 
     private void setupClickListener() {

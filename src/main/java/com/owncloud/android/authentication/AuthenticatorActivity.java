@@ -88,6 +88,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -1141,6 +1142,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 } else {
                     //track successful login event
                     AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SUCCESSFUL_LOGIN, preferences);
+                    TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_SUCCESSFUL_LOGIN, preferences);
 
                     //login privacy settings to accept/reject by the user after login
                     LoginPrivacySettingsActivity.openPrivacySettingsActivity(this);
@@ -1540,5 +1542,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     public void onFailedSavingCertificate() {
         DisplayUtils.showSnackMessage(this, R.string.ssl_validator_not_saved);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //track screen view when activity is visible
+        TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_LOGIN, preferences);
     }
 }
