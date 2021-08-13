@@ -63,6 +63,7 @@ import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -84,6 +85,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
+import com.tealium.library.Tealium;
 
 import org.conscrypt.Conscrypt;
 import org.greenrobot.eventbus.EventBus;
@@ -315,6 +317,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerGlobalPassCodeProtection();
 
         initialiseScanBotSDK();
+
+        initialiseTealiumSDK();
     }
 
     private void registerGlobalPassCodeProtection() {
@@ -827,6 +831,25 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         AdjustConfig config = new AdjustConfig(this, BuildConfig.ADJUST_APP_TOKEN,
                                                AdjustSdkUtils.getAdjustEnvironment());
         Adjust.onCreate(config);
+    }
+
+    /**
+     * method to initialise Tealium SDK
+     */
+    private void initialiseTealiumSDK() {
+        Tealium.Config tealConfig = Tealium.Config.create(
+            this,
+            "telekom",
+            "magentacloud-app",
+            TealiumSdkUtils.getTealiumEnvironment());
+
+        // Override for the tag management webview URL (mobile.html)
+        //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod/mobile" +
+                                                    ".html");
+        // Override for the tag management publish URL (compare to https://tealium.github.io/tealiumandroid/)
+        //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod");
+
+        Tealium.createInstance(TealiumSdkUtils.INSTANCE_NAME, tealConfig);
     }
 
 }
