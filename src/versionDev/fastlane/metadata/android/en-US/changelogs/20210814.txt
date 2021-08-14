@@ -1,0 +1,5 @@
+catch AccountNotFoundException from createNextcloudClient
+Delete app password on account removal
+Removed Account dependency from preview fragments
+Update Nextcloud Android library
+Update 3rd-party dependencies
