@@ -147,6 +147,8 @@ android {
         targetSdkVersion 29
 
         buildConfigField "String", "ADJUST_APP_TOKEN", "${ADJUST_APP_TOKEN}"
+        buildConfigField "String", "MOENGAGE_APP_ID", "${MOENGAGE_APP_ID}"
+
 
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
@@ -280,6 +282,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
@@ -447,6 +453,10 @@ dependencies {
 
     //tealium sdk
     implementation 'com.tealium:library:5.8.0'
+
+    //MoEngage SDK
+    implementation 'com.moengage:moe-android-sdk:11.3.01'
+
 }
 
 spotbugs {

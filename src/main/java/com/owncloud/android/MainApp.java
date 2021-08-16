@@ -42,6 +42,7 @@ import android.view.WindowManager;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
+import com.moengage.core.MoEngage;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -319,6 +320,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initialiseScanBotSDK();
 
         initialiseTealiumSDK();
+
+        initMoEngageSDK();
     }
 
     private void registerGlobalPassCodeProtection() {
@@ -849,6 +852,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         //tealConfig.setOverrideTagManagementUrl("https://tags-eu.tiqcdn.com/utag/telekom/magentacloudapp/prod");
 
         Tealium.createInstance(TealiumSdkUtils.INSTANCE_NAME, tealConfig);
+    }
+
+    private void initMoEngageSDK(){
+        MoEngage moEngage =
+            new MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID)
+                .build();
+        MoEngage.initialise(moEngage);
     }
 
 }
