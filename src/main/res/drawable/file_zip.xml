@@ -8,9 +8,9 @@
       android:pathData="M55,58a2,2 0,0 1,-2 2H11a2,2 0,0 1,-2 -2V6a2,2 0,0 1,2 -2H53a2,2 0,0 1,2 2Z">
     <aapt:attr name="android:fillColor">
       <gradient 
-          android:startY="59.21997"
+          android:startY="59.220024"
           android:startX="32"
-          android:endY="3.9699707"
+          android:endY="3.9700243"
           android:endX="32"
           android:type="linear">
         <item android:offset="0" android:color="#FFDDD6D3"/>
@@ -29,10 +29,10 @@
       android:pathData="M32,2a5,5 0,0 0,-5 5L27,26L37,26L37,7A5,5 0,0 0,32 2ZM34,23L30,23L30,18h4Z">
     <aapt:attr name="android:fillColor">
       <gradient 
-          android:startY="26.00001"
-          android:startX="32.01"
-          android:endY="2.0000098"
-          android:endX="32.01"
+          android:startY="26.000004"
+          android:startX="31.999996"
+          android:endY="2.000003"
+          android:endX="31.999996"
           android:type="linear">
         <item android:offset="0" android:color="#FF808083"/>
         <item android:offset="1" android:color="#FFA6A6AE"/>
