@@ -56,6 +56,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nmc.android.ui.PrivacySettingsActivity;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -968,6 +969,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //track screen view when activity is visible
+        TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_SETTINGS, preferences);
     }
 
     @Override

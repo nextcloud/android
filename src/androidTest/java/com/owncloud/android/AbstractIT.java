@@ -21,6 +21,7 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
@@ -44,6 +45,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.mockito.Mock;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -80,6 +82,8 @@ public abstract class AbstractIT {
     protected static OwnCloudClient client;
     protected static Account account;
     protected static User user;
+    @Mock
+    protected static AppPreferences preferences;
     protected static Context targetContext;
     protected static String DARK_MODE = "";
     protected static String COLOR = "";

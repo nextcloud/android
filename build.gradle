@@ -26,6 +26,16 @@ buildscript {
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.10.3'
     }
+
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven {
+                url "https://maven.tealiumiq.com/android/releases/"
+            }
+        }
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -435,6 +445,8 @@ dependencies {
     //google play services identifier required for Adjust SDK
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
 
+    //tealium sdk
+    implementation 'com.tealium:library:5.8.0'
 }
 
 spotbugs {

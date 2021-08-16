@@ -338,7 +338,8 @@ public class DialogFragmentIT extends AbstractIT {
                                                                           action,
                                                                           info,
                                                                           user,
-                                                                          ocFile);
+                                                                          ocFile,
+                                                                          preferences);
 
         fda.runOnUiThread(sut::show);
 

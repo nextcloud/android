@@ -41,6 +41,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -282,6 +283,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         //track event on creating share link
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_CREATE_SHARING_LINK, appPreferences);
+        TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_CREATE_SHARING_LINK, appPreferences);
     }
 
     private void showSendLinkTo(OCShare publicShare) {

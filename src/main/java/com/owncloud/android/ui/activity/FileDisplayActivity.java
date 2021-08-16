@@ -64,6 +64,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanDocumentFragment;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -2453,6 +2454,9 @@ public class FileDisplayActivity extends FileActivity
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
+
+        //track screen view when activity is visible
+        TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_FILE_BROWSER, preferences);
     }
 
     @Override
