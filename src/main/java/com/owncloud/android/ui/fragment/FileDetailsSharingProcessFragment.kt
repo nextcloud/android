@@ -166,6 +166,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private fun showShareProcessFirst() {
         binding.shareProcessGroupOne.visibility = View.VISIBLE
         binding.shareProcessGroupTwo.visibility = View.GONE
+        binding.tvSetPasswordEmailWarning.visibility = View.GONE
 
         //set up UI for modifying share
         if (share != null) {
@@ -339,10 +340,21 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         if (share != null) {
             binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.send_email)
             binding.noteText.setText(share?.note)
+
+            //show the warning label if password protection is enabled
+            binding.tvSetPasswordEmailWarning.visibility =
+                if (share?.isPasswordProtected == true) View.VISIBLE
+                else View.GONE
         } else {
             binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.send_share)
             binding.noteText.setText("")
+
+            //show the warning label if password protection is enabled
+            binding.tvSetPasswordEmailWarning.visibility =
+                if (binding.shareProcessSetPasswordSwitch.isChecked) View.VISIBLE
+                else View.GONE
         }
+
         shareProcessStep = SCREEN_TYPE_NOTE
     }
 
