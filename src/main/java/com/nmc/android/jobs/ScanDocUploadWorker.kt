@@ -67,7 +67,7 @@ class ScanDocUploadWorker constructor(
         val docFileName = inputData.getString(DATA_DOC_FILE_NAME)
 
         val fileTypes = StringUtils.convertStringToList(scanDocFileTypes)
-        val bitmapList: List<Bitmap> = ScanActivity.scannedImages
+        val bitmapList: List<Bitmap> = ScanActivity.filteredImages
 
         val randomId = SecureRandom()
         val pushNotificationId = randomId.nextInt()

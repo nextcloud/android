@@ -101,7 +101,7 @@ public class ScanActivityTest extends AbstractIT {
         shortSleep();
         shortSleep();
         docScanCount++;
-        assertEquals(docScanCount, ScanActivity.scannedImages.size());
+        assertEquals(docScanCount, ScanActivity.originalScannedImages.size());
     }
 
     public void verifyScanMoreDocument() {
@@ -145,7 +145,7 @@ public class ScanActivityTest extends AbstractIT {
     public void verifyImageDeletion() {
         onView(withId(R.id.deleteDocButton)).perform(click());
         docScanCount--;
-        assertEquals(docScanCount, ScanActivity.scannedImages.size());
+        assertEquals(docScanCount, ScanActivity.originalScannedImages.size());
     }
 
 

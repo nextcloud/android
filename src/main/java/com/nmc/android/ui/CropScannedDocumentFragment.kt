@@ -189,7 +189,7 @@ class CropScannedDocumentFragment : Fragment() {
                 matrix.postRotate(rotationDegrees.toFloat())
                 documentImage = Bitmap.createBitmap(it, 0, 0, it.width, it.height, matrix, true)
             }
-            onDocScanListener.replaceScannedDoc(scannedDocIndex, documentImage)
+            onDocScanListener.replaceScannedDoc(scannedDocIndex, documentImage, false)
             /* onDocScanListener.replaceScannedDoc(
                  scannedDocIndex, FileUtils.saveImage(
                      requireContext(),

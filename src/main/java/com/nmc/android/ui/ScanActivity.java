@@ -3,8 +3,6 @@ package com.nmc.android.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,9 +12,7 @@ import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityScanBinding;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +42,10 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
     private ActivityScanBinding binding;
     private ScanbotSDK scanbotSDK;
 
-    public static final List<Bitmap> scannedImages = new ArrayList<>();
+    public static final List<Bitmap> originalScannedImages = new ArrayList<>();//list with original bitmaps
+    public static final List<Bitmap> filteredImages = new ArrayList<>();//list with bitmaps applied filters
+    public static final List<Integer> scannedImagesFilterIndex = new ArrayList<>();//list to maintain the state of
+    // applied filter index when device rotated
 
     @Inject AppPreferences appPreferences;
 
@@ -61,7 +60,9 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         // Inflate and set the layout view
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        scannedImages.clear();
+        originalScannedImages.clear();
+        filteredImages.clear();
+        scannedImagesFilterIndex.clear();
         initScanbotSDK();
         setupToolbar();
         if (getSupportActionBar() != null) {
@@ -144,28 +145,48 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
     @Override
     public void addScannedDoc(Bitmap file) {
         if (file != null) {
-            scannedImages.add(file);
+            originalScannedImages.add(file);
+            filteredImages.add(file);
+            scannedImagesFilterIndex.add(0);//no filter by default
         }
     }
 
     @Override
     public List<Bitmap> getScannedDocs() {
-        return scannedImages;
+        return filteredImages;
     }
 
     @Override
-    public boolean removedScannedDoc(Bitmap file) {
-        if (scannedImages.size() > 0 && file != null) {
-            return scannedImages.remove(file);
+    public boolean removedScannedDoc(Bitmap file, int index) {
+        //removed the filter applied index also when scanned document is removed
+        if (scannedImagesFilterIndex.size() > 0 && scannedImagesFilterIndex.size() > index) {
+            scannedImagesFilterIndex.remove(index);
+        }
+        if (originalScannedImages.size() > 0 && file != null) {
+            originalScannedImages.remove(index);
+        }
+        if (filteredImages.size() > 0 && file != null) {
+            return filteredImages.remove(file);
         }
         return false;
     }
 
     @Override
-    public Bitmap replaceScannedDoc(int index, Bitmap newFile) {
-        if (scannedImages.size() > 0 && newFile != null && index >= 0 && scannedImages.size() - 1 >= index) {
-            return scannedImages.set(index, newFile);
+    public Bitmap replaceScannedDoc(int index, Bitmap newFile, boolean isFilterApplied) {
+        //only update the original bitmap if no filter is applied
+        if (!isFilterApplied && originalScannedImages.size() > 0 && newFile != null && index >= 0 && originalScannedImages.size() - 1 >= index) {
+            originalScannedImages.set(index, newFile);
+        }
+        if (filteredImages.size() > 0 && newFile != null && index >= 0 && filteredImages.size() - 1 >= index) {
+            return filteredImages.set(index, newFile);
         }
         return null;
+    }
+
+    @Override
+    public void replaceFilterIndex(int index, int filterIndex) {
+        if (scannedImagesFilterIndex.size() > 0 && scannedImagesFilterIndex.size() > index) {
+            scannedImagesFilterIndex.set(index, filterIndex);
+        }
     }
 }
