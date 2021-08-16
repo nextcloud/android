@@ -263,7 +263,7 @@
     <string name="etm_accounts">Contos</string>
     <string name="etm_background_job_name">Nùmene de su traballu</string>
     <string name="etm_background_job_progress">Progressu</string>
-    <string name="etm_background_job_started">Incarreradu</string>
+    <string name="etm_background_job_started">Cumintzadu</string>
     <string name="etm_background_job_state">Istadu</string>
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
