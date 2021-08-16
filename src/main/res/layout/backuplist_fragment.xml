@@ -18,64 +18,71 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
-    android:orientation="vertical">
+    android:animateLayoutChanges="true">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:choiceMode="multipleChoice"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        android:layout_above="@+id/contactlist_restore_selected_container" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contactlist_recyclerview"
+    <LinearLayout
+        android:id="@+id/contactlist_restore_selected_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_default"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:choiceMode="multipleChoice"
-            tools:listitem="@layout/contactlist_list_item" />
+            android:layout_height="@dimen/uploader_list_separator_height"
+            android:contentDescription="@null"
+            android:src="@drawable/uploader_list_separator" />
 
-        <LinearLayout
-            android:id="@+id/contactlist_restore_selected_container"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/restore_selected"
+            style="@style/Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bg_default"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:text="@string/restore_selected" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/uploader_list_separator_height"
-                android:src="@drawable/uploader_list_separator"
-                android:contentDescription="@null"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/contactlist_restore_selected"
-                style="@style/Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/contaclist_restore_selected" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/loading_list_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
+
         <include layout="@layout/contactlist_list_item_shimmer" />
     </LinearLayout>
 </RelativeLayout>

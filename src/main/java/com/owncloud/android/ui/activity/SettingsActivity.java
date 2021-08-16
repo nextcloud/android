@@ -325,7 +325,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         setupCalendarPreference(preferenceCategoryMore);
 
-        setupContactsBackupPreference(preferenceCategoryMore);
+        setupBackupPreference();
 
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
@@ -474,19 +474,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupContactsBackupPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
-                && getResources().getBoolean(R.bool.contacts_backup);
-        Preference pContactsBackup = findPreference("contacts");
+    private void setupBackupPreference() {
+        Preference pContactsBackup = findPreference("backup");
         if (pContactsBackup != null) {
-            if (contactsBackupEnabled) {
-                pContactsBackup.setOnPreferenceClickListener(preference -> {
-                    ContactsPreferenceActivity.startActivityWithoutSidebar(this);
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pContactsBackup);
-            }
+            pContactsBackup.setOnPreferenceClickListener(preference -> {
+                ContactsPreferenceActivity.startActivityWithoutSidebar(this);
+                return true;
+            });
         }
     }
 

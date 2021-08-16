@@ -13,9 +13,10 @@ import androidx.core.content.ContextCompat;
 public final class PermissionUtil {
     public static final int PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     public static final int PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2;
-    public static final int PERMISSIONS_READ_CONTACTS_MANUALLY = 3;
     public static final int PERMISSIONS_WRITE_CONTACTS = 4;
     public static final int PERMISSIONS_CAMERA = 5;
+    public static final int PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6;
+    public static final int PERMISSIONS_WRITE_CALENDAR = 7;
 
     private PermissionUtil() {
         // utility class -> private constructor
