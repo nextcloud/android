@@ -456,6 +456,8 @@ dependencies {
 
     //MoEngage SDK
     implementation 'com.moengage:moe-android-sdk:11.3.01'
+    //lifecycle required for MoEngage SDK
+    implementation 'androidx.lifecycle:lifecycle-process:2.2.0'
 
 }
 
