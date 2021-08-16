@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nmc.android.utils.KeyboardUtils
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -258,12 +259,21 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
             binding.dividerSharingEnterPassword.visibility = View.GONE
             if (share != null) {
+                if (share?.isFolder == true) {
+                    //no file drop for internal share due to 403 bad request api issue
+                    binding.shareProcessPermissionFileDrop.visibility = View.GONE
+                    binding.shareFileDropInfo.visibility = View.GONE
+                }
                 if (!isReshareShown) {
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
                     binding.shareProcessAllowResharingInfo.visibility = View.GONE
                     binding.dividerSharingAllowResharing.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
+            }else if (file?.isFolder == true){
+                //no file drop for internal share due to 403 bad request api issue
+                binding.shareProcessPermissionFileDrop.visibility = View.GONE
+                binding.shareFileDropInfo.visibility = View.GONE
             }
         }
     }
@@ -398,10 +408,14 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessChangeNameEt.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
             binding.shareProcessChangeNameEt.setText("")
+            //hide keyboard when user unchecks
+            hideKeyboard()
         }
     }
 
     private fun onCancelClick() {
+        //hide keyboard when user clicks cancel button
+        hideKeyboard()
         //if modifying the existing share then on back press remove the current fragment
         if (share != null) {
             removeCurrentFragment()
@@ -441,7 +455,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         //reset the password if switch is unchecked
         if (!isChecked) {
             binding.shareProcessEnterPassword.setText("")
+            //hide keyboard when user unchecks
+            hideKeyboard()
         }
+    }
+
+    private fun hideKeyboard() {
+        KeyboardUtils.hideKeyboardFrom(requireContext(), binding.root)
     }
 
     /**
@@ -462,6 +482,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * method to validate the step 1 screen information
      */
     private fun validateShareProcessFirst() {
+        hideKeyboard()
         //get the permissions on the basis of selection
         when {
             binding.shareProcessPermissionReadOnly.isChecked -> {
@@ -534,6 +555,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * method to validate step 2 (note screen) information
      */
     private fun validateShareProcessSecond() {
+        hideKeyboard()
         //if modifying existing share then directly update the note and send email
         if (share != null) {
             if (TextUtils.isEmpty(binding.noteText.text.toString().trim())) {

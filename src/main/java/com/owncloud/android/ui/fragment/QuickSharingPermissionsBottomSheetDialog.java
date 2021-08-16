@@ -31,6 +31,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.QuickPermissionModel;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -134,8 +135,13 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
         String[] permissionArray;
         if (ocShare.isFolder()) {
-            permissionArray =
-                fileActivity.getResources().getStringArray(R.array.folder_share_permission_dialog_values);
+            if (ocShare.getShareType() == ShareType.EMAIL || ocShare.getShareType() == ShareType.PUBLIC_LINK){
+                permissionArray =
+                    fileActivity.getResources().getStringArray(R.array.folder_share_permission_dialog_values);
+            }else {
+                permissionArray =
+                    fileActivity.getResources().getStringArray(R.array.folder_internal_share_permission_dialog_values);
+            }
         } else {
             permissionArray =
                 fileActivity.getResources().getStringArray(R.array.file_share_permission_dialog_values);
