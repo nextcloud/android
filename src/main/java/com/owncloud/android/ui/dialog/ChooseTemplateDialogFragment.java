@@ -121,7 +121,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+       // ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
@@ -157,9 +157,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.filenameContainer,
-                                           binding.filename,
-                                           ThemeColorUtils.primaryColor(getContext()));
+        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();
