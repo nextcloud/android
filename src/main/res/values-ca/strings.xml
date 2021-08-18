@@ -682,6 +682,7 @@
     <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
+    <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
