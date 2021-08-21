@@ -413,10 +413,10 @@
     <string name="media_err_timeout">欲撥放的檔案已逾時</string>
     <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
     <string name="media_err_unsupported">未支援的媒體編碼</string>
-    <string name="media_forward_description">快轉按鈕</string>
+    <string name="media_forward_description">快進按鈕</string>
     <string name="media_notif_ticker">%1$s 音樂播放器</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
-    <string name="media_rewind_description">倒帶按鈕</string>
+    <string name="media_rewind_description">倒回按鈕</string>
     <string name="media_state_playing">%1$s（播放中）</string>
     <string name="menu_item_sort_by_date_newest_first">最新</string>
     <string name="menu_item_sort_by_date_oldest_first">最舊</string>

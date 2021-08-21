@@ -277,7 +277,11 @@
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
     <string name="etm_transfer">Tiedoston siirto</string>
+    <string name="etm_transfer_enqueue_test_download">Jonota testilataus</string>
+    <string name="etm_transfer_remote_path">Etäpolku</string>
+    <string name="etm_transfer_type">Siirrä</string>
     <string name="etm_transfer_type_download">Lataa</string>
+    <string name="etm_transfer_type_upload">Lähetä</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
@@ -677,6 +681,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
+    <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -755,7 +760,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_lock_failed">Kansion lukitseminen epäonnistui</string>
     <string name="upload_old_android">Salaus on mahdollista vain kun &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Riittämätön tila estää tiedostojen kopioinnin %1$s kansioon. Haluatko sen sijaan siirtää ne sinne?</string>
-    <string name="upload_sync_conflict">Synkkauskonflikti, ratkaise manuaalisesti</string>
+    <string name="upload_sync_conflict">Konflikti synkronoinnissa, ratkaise manuaalisesti</string>
     <string name="upload_unknown_error">Tuntematon virhe</string>
     <string name="uploader_btn_alternative_text">Valitse</string>
     <string name="uploader_btn_upload_text">Lähetä</string>
