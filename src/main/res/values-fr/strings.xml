@@ -684,6 +684,7 @@ Attention la suppression est irréversible.</string>
     <string name="stream">Diffuser avec…</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
+    <string name="strict_mode">Mode strict : aucune connexion HTTP n’est autorisée !</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
