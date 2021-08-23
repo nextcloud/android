@@ -500,11 +500,11 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
-    <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
+    <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (eski adı DAVdroid) sunucu adı ya da adresi çözümlenemedi</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx5 (eski adı DAVdroid) (v1.3.0+) kurulumu</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitleme ayarları</string>
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
     <string name="prefs_category_dev">Geliştirici</string>
