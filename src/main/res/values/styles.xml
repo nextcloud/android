@@ -216,7 +216,6 @@
         <item name="colorAccent">@color/primary</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:windowBackground">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="android:windowBackground">@color/alert_bg_color</item>
         <item name="android:textColorPrimary">@color/alert_txt_color</item>

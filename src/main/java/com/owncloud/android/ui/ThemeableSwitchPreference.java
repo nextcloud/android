@@ -22,7 +22,6 @@ package com.owncloud.android.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.view.View;

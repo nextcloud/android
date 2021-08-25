@@ -83,7 +83,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
             calledFrom = it
         }
         // Fragment locked in portrait screen orientation
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onAttach(context: Context) {

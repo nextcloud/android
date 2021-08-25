@@ -104,10 +104,8 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressHandle();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressHandle();
         }
         return super.onOptionsItemSelected(item);
     }

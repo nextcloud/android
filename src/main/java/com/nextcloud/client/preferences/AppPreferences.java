@@ -41,7 +41,7 @@ public interface AppPreferences {
     interface Listener {
         default void onDarkThemeModeChanged(DarkMode mode) {
             /* default empty implementation */
-        };
+        }
     }
 
     /**

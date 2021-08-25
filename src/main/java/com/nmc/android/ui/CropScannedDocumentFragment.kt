@@ -62,7 +62,7 @@ class CropScannedDocumentFragment : Fragment() {
             scannedDocIndex = it
         }
         // Fragment locked in portrait screen orientation
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onAttach(context: Context) {
@@ -136,6 +136,7 @@ class CropScannedDocumentFragment : Fragment() {
     }
 
     // We use AsyncTask only for simplicity here. Avoid using it in your production app due to memory leaks, etc!
+    @SuppressLint("StaticFieldLeak")
     internal inner class InitImageViewTask : AsyncTask<Void?, Void?, InitImageResult>() {
         private var previewBitmap: Bitmap? = null
 

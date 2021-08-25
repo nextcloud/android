@@ -25,7 +25,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.HandlerCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -111,19 +110,16 @@ public class ScanPagerFragment extends Fragment {
     }
 
     private void setUpBitmap() {
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                originalBitmap = onDocScanListener.getScannedDocs().get(index);
-                previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
-                selectedFilter = ScanActivity.scannedImagesFilterIndex.get(index);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadImage();
-                    }
-                });
-            }
+        executorService.execute(() -> {
+            originalBitmap = onDocScanListener.getScannedDocs().get(index);
+            previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
+            selectedFilter = ScanActivity.scannedImagesFilterIndex.get(index);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loadImage();
+                }
+            });
         });
     }
 
@@ -154,13 +150,10 @@ public class ScanPagerFragment extends Fragment {
         rotationDegrees += 90;
         editPolygonImageView.rotateClockwise();
         lastRotationEventTs = System.currentTimeMillis();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap rotatedBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
-                                                                           new ArrayList<>(Collections.singletonList(new RotateOperation(rotationDegrees))), false);
-                onDocScanListener.replaceScannedDoc(index, rotatedBitmap, false);
-            }
+        executorService.execute(() -> {
+            Bitmap rotatedBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
+                                                                       new ArrayList<>(Collections.singletonList(new RotateOperation(rotationDegrees))), false);
+            onDocScanListener.replaceScannedDoc(index, rotatedBitmap, false);
         });
     }
 

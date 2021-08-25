@@ -26,15 +26,9 @@ import com.nmc.android.utils.FileUtils;
 import com.nmc.android.utils.KeyboardUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
@@ -44,7 +38,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -372,16 +365,14 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case SELECT_LOCATION_REQUEST_CODE:
-                if (data != null) {
-                    OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-                    if (chosenFolder != null) {
-                        remoteFilePath = chosenFolder;
-                        updateSaveLocationText(chosenFolder.getRemotePath());
-                    }
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE) {
+            if (data != null) {
+                OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+                if (chosenFolder != null) {
+                    remoteFilePath = chosenFolder;
+                    updateSaveLocationText(chosenFolder.getRemotePath());
                 }
-                break;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

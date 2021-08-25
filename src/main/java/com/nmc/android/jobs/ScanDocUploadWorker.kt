@@ -115,7 +115,7 @@ class ScanDocUploadWorker constructor(
     private fun initScanBotSDK() {
         scanbotSDK = ScanbotSDK(context)
         pdfRenderer = scanbotSDK.pdfRenderer()
-        pageFileStorage = scanbotSDK.pageFileStorage
+        pageFileStorage = scanbotSDK.pageFileStorage()
         opticalCharacterRecognizer = scanbotSDK.ocrRecognizer()
     }
 

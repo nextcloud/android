@@ -57,7 +57,7 @@
             android:id="@+id/share_process_permission_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:orientation="vertical"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"

@@ -199,12 +199,14 @@
         <activity
             android:name="com.nmc.android.ui.PrivacySettingsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.nmc.android.ui.LoginPrivacySettingsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
 
         <service
             android:name=".authentication.AccountAuthenticatorService"
