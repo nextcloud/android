@@ -976,4 +976,5 @@
     <string name="sharing_email_warning">Password protection has been enabled. You have to provide the password to
         the recipient.\n\nIf you send a share via MagentaCLOUD and paste the password in this message, it will be
         transmitted unencrypted in plaintext.</string>
+    <string name="common_login">Login</string>
 </resources>

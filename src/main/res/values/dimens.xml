@@ -22,4 +22,7 @@
     <dimen name="share_exp_date_divider_margin">20dp</dimen>
     <dimen name="privacy_btn_width">160dp</dimen>
     <dimen name="privacy_icon_size">50dp</dimen>
+    <dimen name="login_btn_width">150dp</dimen>
+    <dimen name="login_btn_height">55dp</dimen>
+    <dimen name="login_btn_bottom_margin">48dp</dimen>
 </resources>

@@ -97,6 +97,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__PRIVACY_POLICY_ACTION = "privacy_policy_action";
     private static final String PREF__UPLOAD_SCANS_LAST_PATH = "upload_scans_last_path";
 
+    private static final String PREF__ON_BOARDING_COMPLETE = "on_boarding_complete";
+
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
@@ -700,5 +702,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getUploadScansLastPath() {
         return preferences.getString(PREF__UPLOAD_SCANS_LAST_PATH, ScanActivity.DEFAULT_UPLOAD_SCAN_PATH);
+    }
+
+    @Override
+    public void setOnBoardingComplete(boolean isCompleted) {
+        preferences.edit().putBoolean(PREF__ON_BOARDING_COMPLETE, isCompleted).apply();
+    }
+
+    @Override
+    public boolean getOnBoardingComplete() {
+        return preferences.getBoolean(PREF__ON_BOARDING_COMPLETE, false);
     }
 }

@@ -387,4 +387,10 @@ public interface AppPreferences {
      */
     void setUploadScansLastPath(String path);
     String getUploadScansLastPath();
+
+    /**
+     * Saves the on-boarding completed flag
+     */
+    void setOnBoardingComplete(boolean isCompleted);
+    boolean getOnBoardingComplete();
 }

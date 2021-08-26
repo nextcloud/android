@@ -36,6 +36,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 
 
 /**
@@ -78,6 +79,11 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                              String accountType, String authTokenType,
                              String[] requiredFeatures, Bundle options) {
         Log_OC.i(TAG, "Adding account with type " + accountType + " and auth token " + authTokenType);
+
+        //avoid launching Login screen when user is on-boarding
+        if (!FileDisplayActivity.isVisible){
+            return null;
+        }
 
         AccountManager accountManager = AccountManager.get(mContext);
         Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType(mContext));

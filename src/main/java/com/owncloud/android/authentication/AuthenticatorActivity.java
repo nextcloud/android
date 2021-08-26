@@ -118,7 +118,6 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -126,7 +125,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -329,6 +327,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         initServerPreFragment(savedInstanceState);
+
+        //reset the privacy policy action during login
+        preferences.setPrivacyPolicyAction(LoginPrivacySettingsActivity.NO_ACTION);
     }
 
     private void deleteCookies() {

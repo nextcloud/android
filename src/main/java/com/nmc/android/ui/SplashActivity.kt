@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.widget.AppCompatTextView
 import com.nextcloud.client.preferences.AppPreferences
+import com.nmc.android.ui.onboarding.OnBoardingActivity
 import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.StringUtils
@@ -39,9 +41,18 @@ class SplashActivity : BaseActivity() {
     private fun scheduleSplashScreen() {
         Handler().postDelayed(
             {
-                //check if user is logged in but has not selected privacy policy
-                //show him the privacy policy screen again
-                if (user != null && appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity.NO_ACTION) {
+                //check if on-boarding is not completed then show on-boarding screen
+                if (!appPreferences.onBoardingComplete) {
+                    OnBoardingActivity.launchOnBoardingActivity(this)
+                }
+                //if user is null then go to authenticator activity
+                else if (!user.isPresent) {
+                    startActivity(Intent(this, AuthenticatorActivity::class.java))
+                }
+                //if user is logged in but did not accepted the privacy policy then take him there
+                else if (user.isPresent && appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity
+                        .NO_ACTION
+                ) {
                     LoginPrivacySettingsActivity.openPrivacySettingsActivity(this)
                 } else {
                     startActivity(Intent(this, FileDisplayActivity::class.java))

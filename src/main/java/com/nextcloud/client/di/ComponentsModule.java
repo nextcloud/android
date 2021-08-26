@@ -34,6 +34,7 @@ import com.nmc.android.ui.PrivacySettingsActivity;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanActivity;
 import com.nmc.android.ui.SplashActivity;
+import com.nmc.android.ui.onboarding.OnBoardingActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
@@ -149,6 +150,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PrivacySettingsActivity privacySettingsActivity();
     @ContributesAndroidInjector abstract LoginPrivacySettingsActivity loginPrivacySettingsActivity();
     @ContributesAndroidInjector abstract SplashActivity splashActivity();
+    @ContributesAndroidInjector abstract OnBoardingActivity onBoardingActivity();
 
     @ContributesAndroidInjector
     abstract FileDetailSharingFragment fileDetailSharingFragment();

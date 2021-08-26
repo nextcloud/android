@@ -223,6 +223,15 @@ public class FileDisplayActivity extends FileActivity
     private Account mLastDisplayedAccount;
     private int menuItemId = -1;
 
+    /**
+     * flag is used to check if current activity is visible or not we are using this flag in @link {@link
+     * com.owncloud.android.authentication.AccountAuthenticator} to check if this activity is visible then only
+     * AccountAuthenticator should do process else not because we are showing the Splash and OnBoarding screen on app
+     * launch AccountAuthenticator is a background process which will check token and will open the
+     * AuthenticatorActivity from background to avoid this we will use this flag
+     */
+    public static boolean isVisible;
+
     @Inject
     AppPreferences preferences;
 
@@ -1168,6 +1177,7 @@ public class FileDisplayActivity extends FileActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+        isVisible = true;
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
@@ -1250,6 +1260,7 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onPause() {
         Log_OC.v(TAG, "onPause() start");
+        isVisible = false;
         if (mSyncBroadcastReceiver != null) {
             localBroadcastManager.unregisterReceiver(mSyncBroadcastReceiver);
             mSyncBroadcastReceiver = null;
