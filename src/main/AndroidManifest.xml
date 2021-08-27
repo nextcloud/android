@@ -173,24 +173,28 @@
         </activity>
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:theme="@style/ThemePreference"/>
-        <activity
-            android:name=".ui.preview.PreviewImageActivity" />
+            android:theme="@style/ThemePreference" />
+        <activity android:name=".ui.preview.PreviewImageActivity" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <activity
-            android:name="com.nmc.android.ui.SplashActivity"
+            android:name="com.nmc.android.ui.LauncherActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ownCloud.Splash" >
+            android:theme="@style/Theme.ownCloud.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.nmc.android.ui.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Splash" />
 
         <activity
             android:name="com.nmc.android.ui.ScanActivity"
@@ -432,7 +436,7 @@
         <service
             android:name=".services.AccountManagerService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
         <activity
             android:name=".ui.activity.SsoGrantPermissionActivity"
@@ -446,8 +450,8 @@
         <!-- Adjust SDK Declarations -->
         <receiver
             android:name="com.adjust.sdk.AdjustReferrerReceiver"
-            android:permission="android.permission.INSTALL_PACKAGES"
-            android:exported="true" >
+            android:exported="true"
+            android:permission="android.permission.INSTALL_PACKAGES">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
