@@ -22,6 +22,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/standard_half_padding"
     android:background="@color/bottom_sheet_bg_color">
 
     <TextView
@@ -178,7 +179,7 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -333,6 +334,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
+            android:visibility="gone"
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_half_margin"
             android:background="@color/list_divider_background" />

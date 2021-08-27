@@ -24,6 +24,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:background="?android:attr/selectableItemBackground"
     android:paddingLeft="@dimen/standard_padding"
@@ -36,6 +37,7 @@
         android:id="@+id/creator_thumbnail"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        app:tint="@color/bottom_sheet_icon_color"
         android:contentDescription="@null"
         android:src="@drawable/file_ppt" />
 
@@ -46,6 +48,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
         android:text="@string/create_new_presentation"
-        android:textColor="@color/text_color"
+        android:textColor="@color/bottom_sheet_txt_color"
         android:textSize="@dimen/bottom_sheet_text_size" />
 </LinearLayout>
