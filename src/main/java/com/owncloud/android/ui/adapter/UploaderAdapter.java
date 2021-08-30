@@ -34,6 +34,8 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable;
 import com.owncloud.android.utils.DisplayUtils;
@@ -49,14 +51,16 @@ public class UploaderAdapter extends SimpleAdapter {
     private User user;
     private FileDataStorageManager mStorageManager;
     private LayoutInflater inflater;
+    private SyncedFolderProvider syncedFolderProvider;
 
     public UploaderAdapter(Context context,
                            List<? extends Map<String, ?>> data, int resource, String[] from,
-                           int[] to, FileDataStorageManager storageManager, User user) {
+                           int[] to, FileDataStorageManager storageManager, User user, SyncedFolderProvider syncedFolderProvider) {
         super(context, data, resource, from, to);
         this.user = user;
         mStorageManager = storageManager;
         mContext = context;
+        this.syncedFolderProvider = syncedFolderProvider;
         inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -97,6 +101,7 @@ public class UploaderAdapter extends SimpleAdapter {
             final Drawable icon = MimeTypeUtil.getFolderTypeIcon(isShared,
                                                                  file.isSharedViaLink(),
                                                                  file.isEncrypted(),
+                                                                 syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                  user,
                                                                  file.getMountType(),
                                                                  mContext);

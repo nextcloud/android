@@ -39,13 +39,18 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.core.Clock;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +71,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     TextView fileNameTextView;
 
     private Unbinder unbinder;
+
+    @Inject AppPreferences preferences;
+    @Inject Clock clock;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
@@ -138,6 +148,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             finish();
             return;
         }
+        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         initLoadingScreen(user.get());
     }
 
@@ -169,6 +180,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                               file.isSharedWithSharee(),
                                                                           file.isSharedViaLink(),
                                                                           file.isEncrypted(),
+                                                                          syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                           file.getMountType(),
                                                                           this));
         } else {

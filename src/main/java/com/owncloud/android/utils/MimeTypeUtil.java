@@ -152,8 +152,8 @@ public final class MimeTypeUtil {
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted,
-                                             WebdavEntry.MountType mountType, Context context) {
-        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null, mountType, context);
+                                             boolean isAutoUploadFolder, WebdavEntry.MountType mountType, Context context) {
+        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, isAutoUploadFolder, null, mountType, context);
     }
 
     /**
@@ -168,6 +168,7 @@ public final class MimeTypeUtil {
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
+                                             boolean isAutoUploadFolder,
                                              @Nullable User user,
                                              WebdavEntry.MountType mountType,
                                              Context context) {
@@ -179,6 +180,8 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder_shared_users;
         } else if (isEncrypted) {
             drawableId = R.drawable.folder_encrypted;
+        }else if (isAutoUploadFolder) {
+            drawableId = R.drawable.folder_photo;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
         } else if (WebdavEntry.MountType.GROUP == mountType) {
@@ -196,7 +199,7 @@ public final class MimeTypeUtil {
     }
 
     public static Drawable getDefaultFolderIcon(Context context) {
-        return getFolderTypeIcon(false, false, false, WebdavEntry.MountType.INTERNAL, context);
+        return getFolderTypeIcon(false, false, false, false, WebdavEntry.MountType.INTERNAL, context);
     }
 
 

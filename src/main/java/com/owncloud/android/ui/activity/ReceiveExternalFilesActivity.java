@@ -63,11 +63,13 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -146,6 +148,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject Clock clock;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -154,6 +157,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private boolean mSyncInProgress;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -188,6 +193,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
         super.onCreate(savedInstanceState);
+
+        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
@@ -767,7 +774,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          new String[]{"dirname"},
                                                          new int[]{R.id.filename},
                                                          getStorageManager(),
-                                                         getUser().get());
+                                                         getUser().get(),
+                                                         syncedFolderProvider);
 
                 mListView.setAdapter(sa);
             }
