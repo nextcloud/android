@@ -417,6 +417,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
             return true;
+        } else if (itemId == R.id.action_stream_media) {
+            containerActivity.getFileOperationsHelper().streamMediaFile(getFile());
         } else if (itemId == MENU_FULLSCREEN_ID) {
             startFullScreenVideo();
             return true;
