@@ -96,9 +96,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     @Suppress("MagicNumber")
-        /**
-         * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }
-         */
+    /**
+     * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }
+     */
     fun listSharesFileAllShareTypes() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 1
@@ -242,10 +242,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
-        //click event
+        // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        //validate view shown on screen
+        // validate view shown on screen
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
@@ -356,10 +356,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
-        //click event
+        // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        //validate view shown on screen
+        // validate view shown on screen
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
@@ -468,10 +468,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
-        //click event
+        // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        //validate view shown on screen
+        // validate view shown on screen
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
@@ -571,10 +571,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
-        //click event
+        // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        //validate view shown on screen
+        // validate view shown on screen
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
@@ -631,7 +631,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
-    //open bottom sheet with actions
+    // open bottom sheet with actions
     private fun openAdvancedPermissions(
         sut: FileDetailSharingFragment,
         userShare: OCShare
@@ -640,7 +640,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
     }
 
-    //remove the fragment shown
+    // remove the fragment shown
     private fun goBack() {
         onView(ViewMatchers.withId(R.id.share_process_btn_cancel)).perform(ViewActions.click())
     }
@@ -677,10 +677,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     ) {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
-        //click event
+        // click event
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
 
-        //validate view shown on screen
+        // validate view shown on screen
         onView(ViewMatchers.withId(R.id.note_text)).check(matches(isDisplayed()))
     }
 
