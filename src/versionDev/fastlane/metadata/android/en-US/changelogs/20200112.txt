@@ -1,0 +1,13 @@
+ec515d0aa [tx-robot] updated from transifex
+422a61d8d Merge pull request #5136 from nextcloud/systemDefault
+6e96e99de Merge pull request #5130 from nextcloud/createRichWorkspace
+b7a7772cf Merge pull request #5122 from nextcloud/firstRun
+603825e36 update screenshot
+c4d5e41a4 Merge pull request #5143 from nextcloud/background
+c6d89edf8 only allow rich workspace creation on >= Lollipop
+87dae2ef0 show first run again
+91252852c manually increasing lint due to "autoMirrored" warning
+4c10cf5d7 launcher: correct folder position according to AS
+51fdf9461 [tx-robot] updated from transifex
+e0b77f910 daily dev 20200110
+library commit: 35b9117af8c2d3100305336d3bbd1b4ad364e4e6

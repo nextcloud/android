@@ -1,0 +1,18 @@
+272f6203b Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+75dd657ba Merge pull request #3905 from jmue/storageprovider
+8a3ea78a5 Merge pull request #4701 from nextcloud/markdownPreview_SyntaxHighlighting
+d5ff4f9a4 Fix spotbugs filter
+7f0e6beb8 try to correct regex for spotbugs ignore
+0e90952b5 increase spotbugs due to unfixable warning
+669ad540e minor refactoring due to codacy
+93f384817 proper spotbugs exclusion
+f5ebba9ef use consistent dependency referencing style
+587c8f74a Merge pull request #4716 from nextcloud/davX5loginFlow
+9eb77178e Merge pull request #4726 from nextcloud/npeNote
+1ef6f5820 ignore library code of markdown render dependencies
+bf43a798d add syntax highlighting to markdown rendering * bump gradle memory due to GC mem limit during code generation (gradle.properties)
+622cc45e7 use new login flow only when we have a server url
+ccd6dfaec NPE in setting note
+71bb3124f Merge pull request #4724 from nextcloud/dependabot/gradle/daggerVersion-2.25.2
+99368fa3f [tx-robot] updated from transifex
+1afb02567 daily dev 20191024

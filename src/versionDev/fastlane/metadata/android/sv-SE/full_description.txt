@@ -1,0 +1,4 @@
+Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.
+Detta är den officiella utvecklingsversionen, med ett dagligt urval av någon ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte det för ditt produktiva arbete!
+
+Både den officiella dev och regelbunden versionen finns på F-droid, och kan installeras samtidigt.

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.owncloud.android">
+
+    <!-- GET_ACCOUNTS is needed for API <= 22.
+        For API >= 23 results in the addition of CONTACTS group to the list of permissions that may be
+        dynamically disabled or enabled by the user after installation; but it is not important,
+        since GET_ACCOUNTS is an special case, the permission is not really needed to access accounts
+        owned by the app, our use case.
+        See note in http://developer.android.com/intl/es/reference/android/Manifest.permission.html#GET_ACCOUNTS -->
+    <uses-permission
+        android:maxSdkVersion="22"
+        android:name="android.permission.GET_ACCOUNTS" />
+
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS" />
+    <uses-permission
+        android:name="android.permission.WRITE_CONTACTS" />
+
+    <!-- USE_CREDENTIALS, MANAGE_ACCOUNTS and AUTHENTICATE_ACCOUNTS are needed for API <= 22.
+        In API >= 23 they do not exist anymore -->
+    <uses-permission
+        android:maxSdkVersion="22"
+        android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission
+        android:maxSdkVersion="22"
+        android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission
+        android:maxSdkVersion="22"
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+
+    <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
+        API >= 23; the app needs to handle this -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Next permissions are always approved in installation time, the apps needs to do nothing special in runtime -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Apps that target Android 9 (API level 28) or higher and use foreground services
+    must request the FOREGROUND_SERVICE permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <!-- Some Chromebooks don't support touch. Although not essential,
+         it's a good idea to explicitly include this declaration. -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:name=".MainApp"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:fullBackupContent="@xml/backup_config"
+        android:theme="@style/Theme.ownCloud.Toolbar"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:installLocation="internalOnly"
+        android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="UnusedAttribute">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".ui.activity.FileDisplayActivity"
+            android:launchMode="singleTop"
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.ownCloud.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="*" />
+                <data android:pathPattern="/f/..*" />
+                <data android:pathPattern="/..*/f/..*" />
+                <data android:pathPattern="/..*/..*/f/..*" />
+                <data android:pathPattern="/..*/..*/..*/f/..*" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/users_and_groups_searchable"/>
+        </activity>
+        <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.UserInfoActivity" />
+        <activity android:name=".ui.activity.NotificationsActivity"/>
+        <activity android:name=".ui.activity.CommunityActivity" />
+        <activity android:name=".ui.activities.ActivitiesActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.SyncedFoldersActivity"/>
+        <receiver android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver" />
+        <receiver android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver" />
+        <activity android:name=".ui.activity.UploadFilesActivity" />
+        <activity android:name=".ui.activity.ExternalSiteWebView"
+                  android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".ui.activity.RichDocumentsEditorWebView"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".ui.activity.TextEditorWebView"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".ui.activity.ContactsPreferenceActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
+
+                  android:taskAffinity=""
+                  android:excludeFromRecents="true"
+                  android:theme="@style/Theme.ownCloud.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:theme="@style/Theme.ownCloud" >
+        </activity>
+        <activity
+            android:name=".ui.preview.PreviewImageActivity"
+            android:theme="@style/Theme.ownCloud.Overlay" />
+        <activity
+            android:name=".ui.preview.PreviewVideoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Fullscreen" />
+
+        <service
+            android:name=".authentication.AccountAuthenticatorService"
+            android:exported="true" >
+            <intent-filter android:priority="100" >
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <service
+            android:name=".syncadapter.FileSyncService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter_files" />
+        </service>
+
+        <provider
+            android:name=".providers.FileContentProvider"
+            android:authorities="@string/authority"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/sync_string_files"
+            android:syncable="true">
+            <path-permission
+                android:pathPrefix="/shares"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/capabilities"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/uploads"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/synced_folders"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/external_links"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/arbitrary_data"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/virtual"
+                android:readPermission="false"
+                android:writePermission="false" />
+            <path-permission
+                android:pathPrefix="/filesystem"
+                android:readPermission="false"
+                android:writePermission="false" />
+        </provider>
+
+        <provider
+            android:name=".providers.UsersAndGroupsSearchProvider"
+            android:authorities="@string/users_and_groups_search_authority"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/share_search" />
+
+        <provider
+            android:name=".providers.DocumentsStorageProvider"
+            android:authorities="@string/document_provider_authority"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <!-- new provider used to generate URIs without file:// scheme (forbidden from Android 7) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/exposed_filepaths" />
+        </provider>
+
+        <provider
+            android:name=".providers.DiskLruImageCacheFileProvider"
+            android:authorities="@string/image_cache_provider_authority"
+            android:grantUriPermissions="true"
+            android:readPermission="android.permission.MANAGE_DOCUMENTS"
+            android:exported="true">
+        </provider>
+
+        <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
+        <!-- to "best before" dates in his fridge. -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities=".workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
+
+        <activity
+            android:name=".authentication.AuthenticatorActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login">
+            <intent-filter>
+                <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".authentication.DeepLinkLoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="login"
+                    android:scheme="@string/login_data_own_scheme" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".services.OperationsService" />
+        <service android:name=".files.services.FileDownloader" />
+        <service android:name="com.nextcloud.client.files.downloader.FileTransferService" />
+        <service android:name=".files.services.FileUploader" />
+        <service android:name="com.nextcloud.client.media.PlayerService"/>
+
+        <activity
+            android:name=".ui.activity.PassCodeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.activity.RequestCredentialsActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.ConflictsResolveActivity"/>
+        <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
+
+        <activity android:name="com.nextcloud.client.logger.ui.LogsActivity" />
+
+        <activity android:name="com.nextcloud.client.errorhandling.ShowErrorActivity"
+            android:theme="@style/Theme.ownCloud.Toolbar"
+            android:process=":crash"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance" />
+        <activity android:name=".ui.activity.UploadListActivity" />
+        <activity
+            android:name=".ui.trashbin.TrashbinActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
+                  android:theme="@style/Theme.ownCloud.noActionBar.Login" />
+        <activity
+            android:name="com.nextcloud.client.onboarding.FirstRunActivity"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login"
+            android:configChanges="orientation|screenSize"/>
+
+        <receiver android:name=".files.BootupBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+
+
+        <activity
+            android:name=".ui.activity.CopyToClipboardActivity"
+            android:icon="@drawable/shared_via_link"
+            android:label="@string/copy_link" />
+        <activity
+            android:name=".ui.activity.FolderPickerActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ui.activity.FilePickerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.activity.ShareActivity"
+            android:label="@string/share_dialog_title"
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/users_and_groups_searchable"/>
+        </activity>
+        <activity android:name=".ui.activity.ManageSpaceActivity"
+                  android:label="@string/manage_space_title"
+                  android:theme="@style/Theme.ownCloud" />
+
+
+        <service
+            android:name=".services.AccountManagerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name=".ui.activity.SsoGrantPermissionActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ownCloud.Dialog.NoTitle" />
+
+        <activity
+            android:name="com.nextcloud.client.etm.EtmActivity"
+            android:theme="@style/Theme.ownCloud.Toolbar" />
+    </application>
+
+    <queries>
+        <package android:name="it.niedermann.nextcloud.deck" />
+        <package android:name="it.niedermann.nextcloud.deck.play" />
+        <package android:name="it.niedermann.nextcloud.deck.dev" />
+    </queries>
+</manifest>

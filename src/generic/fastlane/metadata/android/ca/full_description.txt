@@ -1,0 +1,19 @@
+La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.
+
+Característiques:
+* Interfície fàcil i moderna, adaptada al tema emprat al vostre servidor.
+* Carregueu fitxers al vostre servidor Nextcloud.
+* Compartiu-los amb d'altres.
+* Mantingueu sincronitzades les teves vostres i fitxers favorits.
+* Cerqueu dins de totes les vostres carpetes al servidor.
+* Càrrega automatitzada de les fotos i vídeos fets al vostre dispositiu.
+* Estigueu al dia amb notificacions.
+* Suport per múltiples comptes.
+* Accés segur a les vostres dades amb empremta digital o PIN.
+* Integració amb l'aplicació DAVx5 (formalment coneguda com a DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris.
+
+Si us plau, informeu de qualsevol incidència a https://github.com/nextcloud/android/issues i intercanvieu opinions i suggeriments a https://help.nextcloud.com/c/clients/android
+
+Sou nou a Nextcloud? Nextcloud és un servidor per compartir, sincronitzar i comunicar fitxers privats. És programari lliure, i per tant podeu allotjar-lo vosaltres mateixos o pagar els serveis d'algú que us ho faci. D'aquesta manera tindreu sota el vostre control les vostres fotos, els vostres calendaris, els vostres contactes, els vostres documents i tota la resta.
+
+Si en voleu saber més, feu un cop d'ull al portal web oficial: https://nextcloud.com

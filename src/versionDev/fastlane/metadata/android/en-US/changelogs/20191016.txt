@@ -1,0 +1,17 @@
+862e5d477 Merge pull request #4537 from nextcloud/ezaquarii/migrate-ncontentobserverjob-to-workmanager
+8cbabf08e add license header
+54e5ce3ae Merge pull request #4683 from nextcloud/fixSorting
+2286981db Merge pull request #4681 from nextcloud/codacy
+1b0d548c6 fix sorting of synced folder: NPE if both enabled, but one has null folder name
+31b62a863 Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+2ab45a72a codacy: Deeply nested if..then statements are hard to read
+2dabd04aa codacy: These nested if statements could be combined
+e0802a0da codacy: Avoid using Literals in Conditional Statements
+638a5b9fc codacy: Avoid unused imports such as 'androidx.fragment.app.Fragment'
+ab6424701 codacy: Avoid unused method parameters such as 'appVersion'.
+a73031148 Merge pull request #4679 from nextcloud/dependabot/gradle/com.pinterest-ktlint-0.35.0
+26297005c [tx-robot] updated from transifex
+df6504e6b Bump ktlint from 0.34.2 to 0.35.0
+d189867d3 [tx-robot] updated from transifex
+d3b0880e3 [tx-robot] updated from transifex
+fc355d169 daily dev 20191012

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015  ownCloud Inc.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fileDownloadLL"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+    android:orientation="vertical"
+	android:layout_gravity="center"
+	android:gravity="center_vertical"
+	android:padding="@dimen/file_download_fragment_layout_padding">
+
+    <TextView
+        android:id="@+id/progressText"
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/dark_background_text_color"
+		android:text="@string/downloader_not_downloaded_yet"
+		android:layout_marginBottom="@dimen/alternate_fragment_margin" />
+
+    <LinearLayout
+        android:id="@+id/fdProgressBlock"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:layout_marginTop="@dimen/fragment_margin"
+		android:layout_marginBottom="@dimen/alternate_fragment_margin"
+		android:orientation="horizontal">
+
+		<ProgressBar android:id="@+id/progressBar"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:indeterminate="false"
+			android:indeterminateOnly="false"/>
+
+		<ImageButton
+			android:id="@+id/cancelBtn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_margin"
+			android:src="@drawable/ic_action_cancel_grey"
+			android:background="@android:color/transparent"
+			android:contentDescription="@string/common_cancel"/>
+
+	</LinearLayout>
+
+    <ImageView
+		android:id="@+id/error_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/zero"
+		android:layout_gravity="center_horizontal"
+		android:contentDescription="@string/downloader_download_failed_ticker"
+		android:src="@drawable/image_fail" />
+
+    <TextView
+        android:id="@+id/errorText"
+	    android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_margin="@dimen/file_download_fragment_display_text_margin"
+		android:textColor="@color/dark_background_text_color"
+		android:text="@string/downloader_download_failed_ticker" />
+
+</LinearLayout>
+

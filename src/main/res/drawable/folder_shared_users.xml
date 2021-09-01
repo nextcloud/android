@@ -1,0 +1,28 @@
+<!--
+    @author Google LLC
+    @author Andy Scherzinger
+    Copyright (C) 2018 Google LLC
+    Copyright (C) 2020 Andy Scherzinger
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#0082c9"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M4,4C2.89,4 2,4.89 2,6L2,18A2,2 0,0 0,4 20L20,20A2,2 0,0 0,22 18L22,8C22,6.89 21.1,6 20,6L12,6L10,4L4,4zM14.9336,8.168A1.45,1.45 0,0 1,16.3828 9.6191A1.45,1.45 0,0 1,14.9336 11.0684C14.5518,11.0684 14.2083,10.9194 13.9473,10.6777L10.5391,12.6641C10.5632,12.7752 10.584,12.886 10.584,13.002C10.584,13.118 10.5632,13.2287 10.5391,13.3398L13.9863,15.3457C14.2377,15.1185 14.5663,14.9746 14.9336,14.9746A1.4113,1.4113 0,0 1,16.3457 16.3848C16.3457,17.1629 15.7118,17.791 14.9336,17.791C14.1554,17.791 13.5215,17.1629 13.5215,16.3848C13.5215,16.2736 13.5364,16.1679 13.5605,16.0664L10.1191,14.0605C9.8581,14.3022 9.5146,14.4512 9.1328,14.4512A1.45,1.45 0,0 1,7.6836 13.002A1.45,1.45 0,0 1,9.1328 11.5527C9.5146,11.5527 9.8581,11.7017 10.1191,11.9434L13.5273,9.957C13.5032,9.8459 13.4844,9.7351 13.4844,9.6191A1.45,1.45 0,0 1,14.9336 8.168z" />
+</vector>

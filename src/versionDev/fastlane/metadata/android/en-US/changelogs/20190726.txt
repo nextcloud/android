@@ -1,0 +1,8 @@
+41c159ae4 Merge pull request #4261 from nextcloud/droneCheck
+53633991d merge commit should always run drone
+3949238de Merge pull request #4258 from nextcloud/enhanceDroneCheck
+c78c79aaf check if drone should run: also when build.gradle changed
+a7a46d823 [tx-robot] updated from transifex
+4d1016ebf Merge pull request #4256 from nextcloud/dependabot/gradle/com.pinterest-ktlint-0.34.2
+47f76f4f7 [tx-robot] updated from transifex
+12050ed47 daily dev 20190724

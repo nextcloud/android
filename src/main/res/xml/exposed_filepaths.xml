@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path name="user_files_internal" path="nextcloud/"/>
+    <files-path
+        path="log/"
+        name="log"/>
+    <cache-path
+        name="attachments"
+        path="attachments"/>
+    <external-path name="external_files" path="."/>
+    <root-path name="external_files" path="/storage/" />
+    <!-- yes, valid for ALL external storage and not only our app folder, since we can't use @string/data_folder
+    as a value for 'path' attribute; in practice, we will only generate URIs in our folders, of course -->
+</paths>

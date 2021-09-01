@@ -1,0 +1,11 @@
+59e1f7fb8 Merge pull request #4357 from nextcloud/changeDroneOrder
+c9e9fe112 Merge pull request #4597 from nextcloud/buildAgain
+7ebc88dd6 make build run again
+4f15e8741 Merge pull request #4592 from nextcloud/parentCheck
+b204db0f1 Merge pull request #4577 from nextcloud/ezaquarii/fix-npe-in-preview-media-fragment
+9876c4900 Merge pull request #4415 from nextcloud/dependabot/gradle/io.gitlab.arturbosch.detekt-detekt-gradle-plugin-1.0.1
+9a580b3a3 Merge pull request #4591 from nextcloud/dependabot/gradle/org.mockito-mockito-core-3.1.0
+f6e24eb06 if parent is null, then do a regular check, no early exit
+0dfdc6a5b Bump mockito-core from 3.0.0 to 3.1.0
+9133158fd [tx-robot] updated from transifex
+7d8474ef3 daily dev 20191002

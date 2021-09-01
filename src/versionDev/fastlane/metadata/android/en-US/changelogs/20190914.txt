@@ -1,0 +1,6 @@
+761a1c6e9 Merge pull request #4498 from nextcloud/changelog380
+537d8b59e v3.8.0
+07a720898 Merge pull request #4494 from nextcloud/dependabot/gradle/com.jakewharton-butterknife-compiler-10.2.0
+0f60e8884 Bump butterknife-compiler from 10.1.0 to 10.2.0
+8e680d30c Merge pull request #4495 from nextcloud/dependabot/gradle/com.jakewharton-butterknife-10.2.0
+81537be35 daily dev 20190913

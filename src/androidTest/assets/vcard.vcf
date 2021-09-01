@@ -1,0 +1,17 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Mustermann;Erika;;Dr.;
+FN:Dr. Erika Mustermann
+ORG:Wikimedia
+ROLE:Kommunikation
+TITLE:Redaktion & Gestaltung
+PHOTO;VALUE=URL;TYPE=JPEG:http://commons.wikimedia.org/wiki/File:Erika_Mustermann_2010.jpg
+TEL;TYPE=WORK,VOICE:+49 221 9999123
+TEL;TYPE=HOME,VOICE:+49 221 1234567
+ADR;TYPE=HOME:;;Heidestraße 17;Köln;;51147;Germany
+EMAIL;TYPE=PREF,INTERNET:erika@mustermann.de
+URL:http://de.wikipedia.org/
+REV:2014-03-01T22:11:10Z
+END:VCARD
+
+## from https://de.wikipedia.org/wiki/VCard#vCard_3.0 on 27.07.2020

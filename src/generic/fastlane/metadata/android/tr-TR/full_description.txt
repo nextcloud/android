@@ -1,0 +1,19 @@
+Sizin kontrolunuz altında barındırılan üretkenlik platformu.
+
+Özellikleri:
+* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz
+* Dosyaları Nextcloud sunucunuza yükleme
+* Başkaları ile paylaşma
+* İstediğiniz dosya ve klasörleri eşitleme
+* Sunucunuzdaki tüm klasörlerde arama
+* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme
+* Güncelleme bildirimleri
+* Birden çok hesap desteği
+* Verilere parmak izi y ada pin kodu ile güvenli erişim
+* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)
+
+Lütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın
+
+Nextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.
+
+Nextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.
