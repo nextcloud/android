@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Effacer les envois en erreur</string>
     <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
-    <string name="action_empty_trashbin">Vider la corbeille</string>
+    <string name="action_empty_trashbin">Corbeille vide</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
@@ -275,9 +275,6 @@ Attention la suppression est irréversible.</string>
     <string name="etm_background_jobs_schedule_test_job">Planifier une tâche de test</string>
     <string name="etm_background_jobs_start_test_job">Démarrer la tâche de test</string>
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
-    <string name="etm_download_enqueue_test_download">Mettre en file d\'attente un téléchargement de test</string>
-    <string name="etm_download_path">Chemin distant</string>
-    <string name="etm_downloader">Téléchargeur</string>
     <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
     <string name="etm_title">Mode test</string>
@@ -286,6 +283,8 @@ Attention la suppression est irréversible.</string>
     <string name="etm_transfer_enqueue_test_upload">Verification de la liste de téléversement</string>
     <string name="etm_transfer_remote_path">Chemin distant</string>
     <string name="etm_transfer_type">Transfert</string>
+    <string name="etm_transfer_type_download">Téléchargement</string>
+    <string name="etm_transfer_type_upload">Envoyer</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
@@ -372,6 +371,7 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="fullscreen">Plein écran</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Mot de passe</string>
@@ -684,7 +684,6 @@ Attention la suppression est irréversible.</string>
     <string name="stream">Diffuser avec…</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
-    <string name="strict_mode">Mode securisé: connection http interdite</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
@@ -727,7 +726,7 @@ Attention la suppression est irréversible.</string>
     <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
-    <string name="trashbin_loading_failed">Erreur lors du chargement de la corbeille</string>
+    <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>

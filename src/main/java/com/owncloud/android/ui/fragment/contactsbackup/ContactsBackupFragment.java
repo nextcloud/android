@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -212,27 +213,26 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             }
         }
 
-        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
-
-        String backupFolderPath = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
-        refreshBackupFolder(backupFolderPath, contactsPreferenceActivity);
+        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        if (contactsPreferenceActivity != null) {
+            String backupFolderPath = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
+            refreshBackupFolder(backupFolderPath, contactsPreferenceActivity, contactsPreferenceActivity.getStorageManager());
+        }
     }
 
     private void refreshBackupFolder(final String backupFolderPath,
-                                     final ContactsPreferenceActivity contactsPreferenceActivity) {
+                                     final Context context,
+                                     final FileDataStorageManager storageManager) {
         AsyncTask<String, Integer, Boolean> task = new AsyncTask<String, Integer, Boolean>() {
             @Override
             protected Boolean doInBackground(String... path) {
-                FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                        contactsPreferenceActivity.getContentResolver());
-
                 OCFile folder = storageManager.getFileByPath(path[0]);
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
                             false, false, storageManager, account, getContext());
 
-                    RemoteOperationResult result = operation.execute(account, getContext());
+                    RemoteOperationResult result = operation.execute(account, context);
                     return result.isSuccess();
                 } else {
                     return Boolean.FALSE;
@@ -242,9 +242,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result) {
-                    OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderPath);
+                    OCFile backupFolder = storageManager.getFileByPath(backupFolderPath);
 
-                    List<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager()
+                    List<OCFile> backupFiles = storageManager
                             .getFolderContent(backupFolder, false);
 
                     Collections.sort(backupFiles, new AlphanumComparator<>());

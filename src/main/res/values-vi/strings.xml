@@ -71,6 +71,7 @@
     <string name="auth_wrong_connection_title">Không thể thiết lập kết nối</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">được giữ trong thư mục gốc, vì nó chỉ được đọc</string>
     <string name="auto_upload_on_wifi">Chỉ tải lên khi có mạng Wi-Fi không trả phí</string>
+    <string name="auto_upload_path">/Tự động tải lên</string>
     <string name="autoupload_configure">Thiết lập</string>
     <string name="autoupload_create_new_custom_folder">Tạo mới một thư mục tùy chỉnh</string>
     <string name="autoupload_custom_folder">Thiết đặt một thư mục tùy chỉnh</string>
@@ -265,18 +266,23 @@
     <string name="etm_background_job_started">Đã bắt đầu</string>
     <string name="etm_background_job_state">Trạng thái</string>
     <string name="etm_background_job_user">Người dùng</string>
+    <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Các công việc trong nền</string>
     <string name="etm_background_jobs_cancel_all">Huỷ tất cả công việc</string>
     <string name="etm_background_jobs_prune">Prune các công việc không hoạt động</string>
     <string name="etm_background_jobs_schedule_test_job">Lên lịch công việc kiểm tra</string>
     <string name="etm_background_jobs_start_test_job">Bắt đầu công việc kiểm tra</string>
     <string name="etm_background_jobs_stop_test_job">Kết thúc công việc kiểm tra</string>
-    <string name="etm_download_enqueue_test_download">Tải xuống kiếm tra enqueue</string>
-    <string name="etm_download_path">Đường dẫn từ xa</string>
-    <string name="etm_downloader">Người tải xuống</string>
     <string name="etm_migrations">Di cư (nâng cấp ứng dụng)</string>
     <string name="etm_preferences">Cài đặt</string>
     <string name="etm_title">Chế độ kiểm tra kỹ thuật</string>
+    <string name="etm_transfer">Truyền tệp</string>
+    <string name="etm_transfer_enqueue_test_download">Cho mục tải xuống thử nghiệm vào hàng chờ</string>
+    <string name="etm_transfer_enqueue_test_upload">Cho mục tải lên thử nghiệm vào hàng chờ</string>
+    <string name="etm_transfer_remote_path">Đường dẫn trên mạng</string>
+    <string name="etm_transfer_type">Truyền</string>
+    <string name="etm_transfer_type_download">Tải xuống</string>
+    <string name="etm_transfer_type_upload">Tải lên</string>
     <string name="fab_label">Thêm hoặc tải lên</string>
     <string name="failed_to_download">Không chuyển được tệp vào trình quản lý tải xuống</string>
     <string name="failed_to_print">Không in được tệp</string>
@@ -363,6 +369,7 @@
     <string name="foreign_files_success">Tất cả tập tin đã được dịch chuyển</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 tiếng</string>
+    <string name="fullscreen">Toàn màn hình</string>
     <string name="hint_name">Tên</string>
     <string name="hint_note">Ghi chú</string>
     <string name="hint_password">Mật khẩu</string>
@@ -396,6 +403,7 @@
     <string name="logs_status_loading">Đang tải…</string>
     <string name="logs_status_not_filtered">Nhật kí: %1$d kB, không có bộ lọc</string>
     <string name="logs_title">Nhật kí</string>
+    <string name="maintenance_mode">Máy chủ đang trong chế độ bảo trì</string>
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
     <string name="manage_space_description">Các cài đặt, cơ sở dữ liệu và chứng chỉ máy chủ từ dữ liệu của %1$s sẽ bị xóa vĩnh viễn. \n\nTệp đã tải xuống sẽ được giữ nguyên.\n\nQuá trình này có thể mất một lúc.</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
@@ -543,6 +551,7 @@
     <string name="push_notifications_not_implemented">Thông báo bị tắt do phụ thuộc vào các dịch vụ độc quyền của Google Play.</string>
     <string name="push_notifications_old_login">Không có thông báo do phiên đăng nhập đã lỗi thời. Vui lòng xem xét việc thêm lại tài khoản của bạn.</string>
     <string name="push_notifications_temp_error">Thông báo hiện không khả dụng.</string>
+    <string name="qr_could_not_be_read">Không thể đọc mã QR!</string>
     <string name="recommend_subject">Thử %1$s trên điện thoại của bạn!</string>
     <string name="recommend_text">Tôi muốn mời bạn sử dụng %1$s trên điện thoại của bạn.\nTải về: %2$s</string>
     <string name="recommend_urls">%1$s hoặc %2$s</string>
@@ -671,6 +680,7 @@
     <string name="stream">Phát trực tiếp với…</string>
     <string name="stream_not_possible_headline">Không thể phát trực tuyến nội bộ</string>
     <string name="stream_not_possible_message">Vui lòng tải xuống media thay thế hoặc sử dụng ứng dụng bên ngoài.</string>
+    <string name="strict_mode">Chế độ nghiêm ngặt: Kết nối HTTP không được cho phép!</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
@@ -713,7 +723,7 @@
     <string name="trashbin_empty_message">Bạn sẽ có thể khôi phục các tệp đã xóa từ đây.</string>
     <string name="trashbin_file_not_deleted">Tệp %1$s không thể bị xóa!</string>
     <string name="trashbin_file_not_restored">Tệp %1$s không thể được khôi phục!</string>
-    <string name="trashbin_loading_failed">Tải dữ liệu ở thùng rác bị lỗi!</string>
+    <string name="trashbin_loading_failed">Tải nội dung trong thùng rác thất bại</string>
     <string name="trashbin_not_emptied">Không thể xóa tệp vĩnh viễn!</string>
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
@@ -803,7 +813,9 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Đang đợi Wi-Fi không định lượng</string>
     <string name="user_icon">Người dùng</string>
     <string name="user_info_address">Địa chỉ</string>
+    <string name="user_info_email">Email</string>
     <string name="user_info_phone">Số điện thoại</string>
+    <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Lỗi khi truy xuất thông tin người dùng</string>
     <string name="userinfo_no_info_headline">Không có thông tin cá nhân nào được đặt</string>

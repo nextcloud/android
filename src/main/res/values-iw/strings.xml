@@ -679,9 +679,9 @@
     <string name="today">היום</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>
+    <string name="trashbin_empty_message">תהיה לך אפשרות לשחזר קבצים שנמחקו דרך כאן.</string>
     <string name="trashbin_file_not_deleted">לא ניתן למחוק את הקובץ %1$s!</string>
     <string name="trashbin_file_not_restored">לא ניתן לשחזר את הקובץ %1$s!</string>
-    <string name="trashbin_loading_failed">טעינת סל האשפה נכשלה!</string>
     <string name="trashbin_not_emptied">לא ניתן למחוק קבצים לצמיתות!</string>
     <string name="unread_comments">יש תגובות שלא נקראו</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>

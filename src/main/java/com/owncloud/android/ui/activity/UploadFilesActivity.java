@@ -82,6 +82,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private static final String KEY_ALL_SELECTED = UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
     public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_FOLDER_PICKER_MODE";
+    public static final String LOCAL_BASE_PATH = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_BASE_PATH";
     public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
     public static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
 
@@ -108,6 +109,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private Menu mOptionsMenu;
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
+    private MaterialButton uploadButton;
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
@@ -178,9 +180,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         cancelButton.setTextColor(ThemeColorUtils.primaryColor(this, true));
         cancelButton.setOnClickListener(this);
 
-        MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
+        uploadButton = findViewById(R.id.upload_files_btn_upload);
         ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
+        uploadButton.setEnabled(false);
 
         int localBehaviour = preferences.getUploaderBehaviour();
 
@@ -454,6 +457,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_DELETE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
 
                 // set result code
                 switch (mBehaviourSpinner.getSelectedItemPosition()) {
@@ -546,7 +550,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      */
     @Override
     public void onFileClick(File file) {
-        // nothing to do
+        uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
     }
 
     /**

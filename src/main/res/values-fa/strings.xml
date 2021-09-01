@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">پاک کردن آپلودهای ناموفق</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_empty_notifications">پاک کردن تمام اعلانها</string>
-    <string name="action_empty_trashbin">سطح زباله خالی</string>
     <string name="action_send_share">ارسال/اشتراک گذاری</string>
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
@@ -268,9 +267,6 @@
     <string name="etm_background_jobs_schedule_test_job">" در برنامه قرار دادن کار آزمایشی"</string>
     <string name="etm_background_jobs_start_test_job">شروع کار آزمایشی</string>
     <string name="etm_background_jobs_stop_test_job">کار آزمایشی را متوقف کن</string>
-    <string name="etm_download_enqueue_test_download">در صف قراردادن بارگذاری آزمایشی</string>
-    <string name="etm_download_path">مسیر ریموت</string>
-    <string name="etm_downloader">دریافت کننده</string>
     <string name="etm_migrations">مهاجرت ها (ارتقا برنامک)</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>
@@ -707,7 +703,6 @@
     <string name="trashbin_empty_message">شما قادر خواهید بود فایل‌های حذف شده را از اینجا بازیابی کنید.</string>
     <string name="trashbin_file_not_deleted">فایل%1$s نمی تواند حذف شود!</string>
     <string name="trashbin_file_not_restored">فایل %1$s نمی تواند بازیابی شود</string>
-    <string name="trashbin_loading_failed">" بارگیری سطل زباله انجام نشد!"</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>

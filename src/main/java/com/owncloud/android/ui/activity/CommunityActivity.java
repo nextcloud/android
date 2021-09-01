@@ -25,26 +25,28 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.CommunityLayoutBinding;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.
  */
 public class CommunityActivity extends DrawerActivity {
 
+    private CommunityLayoutBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.community_layout);
+        binding = CommunityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // setup toolbar
         setupToolbar();
@@ -58,17 +60,16 @@ public class CommunityActivity extends DrawerActivity {
     }
 
     private void setupContent() {
-        TextView rcView = findViewById(R.id.community_release_candidate_text);
-        rcView.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.communityReleaseCandidateText.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView contributeIrcView = findViewById(R.id.community_contribute_irc_text);
+        TextView contributeIrcView = binding.communityContributeIrcText;
         contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeIrcView.setText(Html.fromHtml(getString(R.string.community_contribute_irc_text) + " " +
                                                     getString(R.string.community_contribute_irc_text_link,
                                                               ThemeColorUtils.primaryColorToHexString(this),
                                                               getString(R.string.irc_weblink))));
 
-        TextView contributeForumView = findViewById(R.id.community_contribute_forum_text);
+        TextView contributeForumView = binding.communityContributeForumText;
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
                                                       getString(R.string.community_contribute_forum_text_link,
@@ -76,7 +77,7 @@ public class CommunityActivity extends DrawerActivity {
                                                                 getString(R.string.help_link),
                                                                 getString(R.string.community_contribute_forum_forum))));
 
-        TextView contributeTranslationView = findViewById(R.id.community_contribute_translate_text);
+        TextView contributeTranslationView = binding.communityContributeTranslateText;
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
             getString(R.string.community_contribute_translate_link,
@@ -85,7 +86,7 @@ public class CommunityActivity extends DrawerActivity {
                       getString(R.string.community_contribute_translate_translate)) + " " +
                 getString(R.string.community_contribute_translate_text)));
 
-        TextView contributeGithubView = findViewById(R.id.community_contribute_github_text);
+        TextView contributeGithubView = binding.communityContributeGithubText;
         contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeGithubView.setText(Html.fromHtml(
             getString(R.string.community_contribute_github_text,
@@ -93,43 +94,34 @@ public class CommunityActivity extends DrawerActivity {
                                 ThemeColorUtils.primaryColorToHexString(this),
                                 getString(R.string.contributing_link)))));
 
-        MaterialButton reportButton = findViewById(R.id.community_testing_report);
+        MaterialButton reportButton = binding.communityTestingReport;
         ThemeButtonUtils.colorPrimaryButton(reportButton, this);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
-    }
 
-    public void onGetBetaFDroidClick(View view) {
-        DisplayUtils.startLinkIntent(this, R.string.fdroid_beta_link);
-    }
+        binding.communityBetaFdroid.setOnClickListener(
+            l -> DisplayUtils.startLinkIntent(this, R.string.fdroid_beta_link));
 
-    public void onGetRCFDroidClick(View view) {
-        DisplayUtils.startLinkIntent(this, R.string.fdroid_link);
-    }
+        binding.communityReleaseCandidateFdroid.setOnClickListener(
+            l -> DisplayUtils.startLinkIntent(this, R.string.fdroid_link));
 
-    public void onGetRCPlayStoreClick(View view) {
-        DisplayUtils.startLinkIntent(this, R.string.play_store_register_beta);
-    }
+        binding.communityReleaseCandidatePlaystore.setOnClickListener(
+            l -> DisplayUtils.startLinkIntent(this, R.string.play_store_register_beta));
 
-    public void onGetBetaApkClick(View view) {
-        DisplayUtils.startLinkIntent(this, R.string.beta_apk_link);
+        binding.communityBetaApk.setOnClickListener(
+            l -> DisplayUtils.startLinkIntent(this, R.string.beta_apk_link));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                openDrawer();
             }
-
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }

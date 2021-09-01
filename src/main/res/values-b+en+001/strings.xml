@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
-    <string name="action_empty_trashbin">Empty trashbin</string>
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -273,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Schedule test job</string>
     <string name="etm_background_jobs_start_test_job">Start test job</string>
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
-    <string name="etm_download_enqueue_test_download">Enqueue test download</string>
-    <string name="etm_download_path">Remote path</string>
-    <string name="etm_downloader">Downloader</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_preferences">Preferences</string>
     <string name="etm_title">Engineering Test Mode</string>
@@ -676,7 +672,6 @@
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
-    <string name="strict_mode">Strict mode: no http connection allowed!</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -719,7 +714,6 @@
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
-    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>

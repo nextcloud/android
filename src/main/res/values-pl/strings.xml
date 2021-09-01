@@ -110,7 +110,7 @@
     <string name="common_loading">Ładowanie…</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
-    <string name="common_pending">Oczekujące</string>
+    <string name="common_pending">Oczekuje</string>
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
@@ -208,7 +208,7 @@
     <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
-    <string name="downloader_download_in_progress_ticker">Pobieram…</string>
+    <string name="downloader_download_in_progress_ticker">Pobieranie…</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
     <string name="downloader_download_succeeded_ticker">Pobrano</string>
     <string name="downloader_not_downloaded_yet">Jeszcze nie pobrane</string>
@@ -224,7 +224,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_recently_added">Ostatnio dodane</string>
     <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
-    <string name="drawer_item_shared">Współdzielone</string>
+    <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
     <string name="drawer_item_videos">Wideo</string>
@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">Zaplanuj zadanie testowe</string>
     <string name="etm_background_jobs_start_test_job">Rozpocznij zadanie testowe</string>
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
-    <string name="etm_download_enqueue_test_download">Umieść pobieranie testowe w kolejce</string>
-    <string name="etm_download_path">Zdalna ścieżka</string>
-    <string name="etm_downloader">Aplikacja do pobierania</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
     <string name="etm_title">Tryb testowy techniczny</string>
@@ -284,6 +281,8 @@
     <string name="etm_transfer_enqueue_test_upload">Dodaj wysyłanie testowe do kolejki</string>
     <string name="etm_transfer_remote_path">Zdalna ścieżka</string>
     <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_download">Pobierz</string>
+    <string name="etm_transfer_type_upload">Wyślij</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
@@ -370,6 +369,7 @@
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
     <string name="fourHours">4 godziny</string>
+    <string name="fullscreen">Pełny ekran</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
     <string name="hint_password">Hasło</string>
@@ -625,7 +625,7 @@
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
     <string name="share_with_title">Udostępnij z…</string>
-    <string name="shared_avatar_desc">Avatar użytkownika udostępniającego</string>
+    <string name="shared_avatar_desc">Awatar użytkownika udostępniającego</string>
     <string name="shared_icon_share">udostępnij</string>
     <string name="shared_icon_shared">udostępniono</string>
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
@@ -658,7 +658,7 @@
     <string name="ssl_validator_label_validity_from">Od:</string>
     <string name="ssl_validator_label_validity_to">Do:</string>
     <string name="ssl_validator_no_info_about_error">- Brak informacji o błędzie</string>
-    <string name="ssl_validator_not_saved">Nie udało się zapisac certyfikatu</string>
+    <string name="ssl_validator_not_saved">Nie udało się zapisać certyfikatu</string>
     <string name="ssl_validator_null_cert">Nie można wyświetlić certyfikatu.</string>
     <string name="ssl_validator_question">Zaakceptować certyfikat mimo wszystko?</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -755,7 +755,7 @@
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>
-    <string name="upload_list_resolve_conflict">Rozwiązać konflikt</string>
+    <string name="upload_list_resolve_conflict">Rozwiąż konflikt</string>
     <string name="upload_local_storage_full">Pamięć lokalna pełna</string>
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>

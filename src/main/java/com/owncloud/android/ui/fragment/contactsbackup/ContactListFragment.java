@@ -53,6 +53,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.Direction;
+import com.nextcloud.client.files.downloader.DownloadRequest;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.Transfer;
 import com.nextcloud.client.files.downloader.TransferManagerConnection;
@@ -186,7 +187,7 @@ public class ContactListFragment extends FileFragment implements Injectable {
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
         fileDownloader.bind();
         if (!ocFile.isDown()) {
-            Request request = new Request(user, ocFile, Direction.DOWNLOAD);
+            Request request = new DownloadRequest(user, ocFile);
             fileDownloader.enqueue(request);
         } else {
             loadContactsTask.execute();

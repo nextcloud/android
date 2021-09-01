@@ -9,7 +9,6 @@
     <string name="action_clear_failed_uploads">Puhasta ebaõnnestunud üleslaadimised</string>
     <string name="action_edit">Redigeeri</string>
     <string name="action_empty_notifications">Kustuta kõik teavitused</string>
-    <string name="action_empty_trashbin">Tühjenda prügikast</string>
     <string name="action_send_share">Saada/Jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>

@@ -114,6 +114,7 @@
     <string name="common_save">Lagre</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
+    <string name="common_skip">Hopp over</string>
     <string name="common_switch_account">Bytt konto</string>
     <string name="common_switch_to_account">Bytt til konto</string>
     <string name="common_yes">Ja</string>
@@ -172,6 +173,7 @@
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente ressursen</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
+    <string name="create">Opprett</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="create_new">Opprett ny</string>
     <string name="create_new_document">Opprett nytt dokument</string>
@@ -192,6 +194,7 @@
     <string name="dev_version_no_new_version_available">Ingen ny versjon tilgjengelig.</string>
     <string name="dialog_close">Lukk</string>
     <string name="digest_algorithm_not_available">Kontrollsum-algoritmen er ikke tilgjengelig på denne enheten.</string>
+    <string name="direct_login_failed">Innlogging via direktelenke feilet!</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
@@ -268,12 +271,14 @@
     <string name="etm_background_jobs_schedule_test_job">Planlegg testjobb</string>
     <string name="etm_background_jobs_start_test_job">Start test-jobb</string>
     <string name="etm_background_jobs_stop_test_job">Stopp test-jobb</string>
-    <string name="etm_download_enqueue_test_download">Legg til testnedlasting</string>
-    <string name="etm_download_path">Ekstern sti</string>
-    <string name="etm_downloader">Nedlaster</string>
     <string name="etm_migrations">Migreringer (appoppgradering)</string>
     <string name="etm_preferences">Innstillinger</string>
     <string name="etm_title">Testmodus for ingeniørarbeid</string>
+    <string name="etm_transfer">Filoverføring</string>
+    <string name="etm_transfer_remote_path">Ekstern sti</string>
+    <string name="etm_transfer_type">Overfør</string>
+    <string name="etm_transfer_type_download">Last ned</string>
+    <string name="etm_transfer_type_upload">Last opp</string>
     <string name="fab_label">Legg til eller last opp</string>
     <string name="failed_to_download">Kunne ikke sende filen til nedlastingsbehandleren</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>
@@ -360,6 +365,7 @@
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
     <string name="fourHours">4 timer</string>
+    <string name="fullscreen">Fullskjerm</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Melding</string>
     <string name="hint_password">Passord</string>
@@ -382,17 +388,21 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
     <string name="log_send_mail_subject">%1$s Android-app-logger</string>
+    <string name="log_send_no_mail_app">Fant ingen app til å sende logger med. Vennligst installer en e-post-klient.</string>
     <string name="login">Logg inn</string>
     <string name="logs_menu_delete">Slett logg</string>
     <string name="logs_menu_refresh">Oppdater</string>
     <string name="logs_menu_search">Søk loggen</string>
+    <string name="logs_menu_send">Send logg med e-post</string>
     <string name="logs_status_filtered">Logg: %1$d kB, spørring funnet%2$d / %3$d iløpet av %4$d ms</string>
     <string name="logs_status_loading">Laster…</string>
     <string name="logs_status_not_filtered">Logg: %1$d kB, ingen filter</string>
     <string name="logs_title">Logger</string>
+    <string name="maintenance_mode">Server i vedlikeholdsmodus</string>
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>
+    <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>
     <string name="media_err_timeout">Tidsavbrudd under avspillingsforsøk</string>
@@ -536,6 +546,7 @@
     <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
+    <string name="qr_could_not_be_read">QR-koden kunne ikke leses!</string>
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -707,7 +718,7 @@
     <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
-    <string name="trashbin_loading_failed">Innlesing av papirkurv feilet!</string>
+    <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
@@ -751,6 +762,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s er har ikke tilgang til å se mottatt fil</string>
     <string name="uploader_error_message_source_file_not_copied">Kunne ikke kopiere fil til midlertidig mappe. Prøv å sende igjen.</string>
     <string name="uploader_error_message_source_file_not_found">Fil valgt for opplasting ble ikke funnet. Sjekk hvorvidt filen eksisterer.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Denne filen kan ikke lastes opp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
     <string name="uploader_info_dirname">Mappenavn</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
@@ -796,6 +808,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på ubegrenset trådløs tilkobling</string>
     <string name="user_icon">Bruker</string>
     <string name="user_info_address">Adresse</string>
+    <string name="user_info_email">E-post</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Nettsted</string>

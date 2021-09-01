@@ -243,6 +243,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (result.isSuccess()) {
                 // request for the synchronization of KEPT-IN-SYNC file contents
                 startContentSynchronizations(mFilesToSyncContents);
+            } else {
+                mLocalFolder.setEtag("");
             }
 
             mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
@@ -336,7 +338,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         try {
             client = OwnCloudClientFactory.createNextcloudClient(mAccount, mContext);
-        } catch (AccountUtils.AccountNotFoundException e) {
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
             Log_OC.e(this, "Update of predefined status not possible!");
             return;
         }
@@ -370,11 +372,9 @@ public class RefreshFolderOperation extends RemoteOperation {
                 // check if remote and local folder are different
                 String remoteFolderETag = remoteFolder.getEtag();
                 if (remoteFolderETag != null) {
-                    mRemoteFolderChanged =
-                            !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
+                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
                 } else {
-                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
-                            "No ETag received from server");
+                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + ": No ETag received from server");
                 }
             }
 
@@ -465,6 +465,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
+
+        // update eTag
+        mLocalFolder.setEtag(remoteFolder.getEtag());
 
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
                                                                       mLocalFolder,

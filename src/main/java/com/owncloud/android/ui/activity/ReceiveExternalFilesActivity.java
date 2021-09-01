@@ -69,6 +69,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -896,17 +897,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public void uploadFile(String tmpName, String filename) {
         FileUploader.uploadNewFile(
-            getBaseContext(),
-            getAccount(),
-            tmpName,
-            mFile.getRemotePath() + filename,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            FileUploader.NameCollisionPolicy.ASK_USER
+                getBaseContext(),
+                getAccount(),
+                tmpName,
+                mFile.getRemotePath() + filename,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                null,
+                true,
+                UploadFileOperation.CREATED_BY_USER,
+                false,
+                false,
+                NameCollisionPolicy.ASK_USER
         );
         finish();
     }

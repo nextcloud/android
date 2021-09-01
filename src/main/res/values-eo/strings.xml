@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Vakigi malsukcesajn alŝutojn</string>
     <string name="action_edit">Modifi</string>
     <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
-    <string name="action_empty_trashbin">Malplenigi rubujon</string>
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
@@ -574,7 +573,6 @@
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>
     <string name="trashbin_file_not_deleted">Dosiero %1$s ne povis esti forigita!</string>
     <string name="trashbin_file_not_restored">Dosiero %1$s ne povis esti restaŭrita!</string>
-    <string name="trashbin_loading_failed">Eraro dum legado de rubuj-enhavo!</string>
     <string name="trashbin_not_emptied">Dosieroj ne povis esti porĉiame forigitaj!</string>
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>

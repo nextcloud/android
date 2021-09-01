@@ -71,6 +71,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -117,6 +118,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -557,7 +559,7 @@ public class FileDisplayActivity extends FileActivity
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
-                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                long startPlaybackPosition = getIntent().getLongExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
                 secondFragment = PreviewMediaFragment.newInstance(file, user, startPlaybackPosition, autoplay);
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
@@ -843,7 +845,8 @@ public class FileDisplayActivity extends FileActivity
                         second != null && second.getFile() != null ||
                         isSearchOpen()) {
                     onBackPressed();
-                } else if (getLeftFragment() instanceof FileDetailFragment) {
+                } else if (getLeftFragment() instanceof FileDetailFragment ||
+                    getLeftFragment() instanceof PreviewMediaFragment) {
                     onBackPressed();
                 } else {
                     openDrawer();
@@ -907,7 +910,8 @@ public class FileDisplayActivity extends FileActivity
                             return;
                         }
 
-                        requestUploadOfFilesFromFileSystem(new String[]{renamedFile.getAbsolutePath()},
+                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(),
+                                                           new String[]{renamedFile.getAbsolutePath()},
                                                            FileUploader.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
@@ -951,15 +955,21 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
-        requestUploadOfFilesFromFileSystem(filePaths, resultCode);
+        String basePath = data.getStringExtra(UploadFilesActivity.LOCAL_BASE_PATH);
+        requestUploadOfFilesFromFileSystem(basePath, filePaths, resultCode);
     }
 
-    private void requestUploadOfFilesFromFileSystem(String[] filePaths, int resultCode) {
+    private void requestUploadOfFilesFromFileSystem(String localBasePath, String[] filePaths, int resultCode) {
         if (filePaths != null) {
+            if (!localBasePath.endsWith("/")) {
+                localBasePath = localBasePath + "/";
+            }
+
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
             for (int j = 0; j < remotePaths.length; j++) {
-                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+                String relativePath = StringUtils.removePrefix(filePaths[j], localBasePath);
+                remotePaths[j] = remotePathBase + relativePath;
             }
 
             int behaviour;
@@ -988,11 +998,11 @@ public class FileDisplayActivity extends FileActivity
                 remotePaths,
                 null,           // MIME type will be detected from file name
                 behaviour,
-                false,          // do not create parent folder if not existent
+                true,
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                FileUploader.NameCollisionPolicy.ASK_USER
+                NameCollisionPolicy.ASK_USER
             );
 
         } else {
@@ -1889,7 +1899,7 @@ public class FileDisplayActivity extends FileActivity
                         renamedFile.equals(details.getFile())) {
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                        int position = ((PreviewMediaFragment) details).getPosition();
+                        long position = ((PreviewMediaFragment) details).getPosition();
                         startMediaPreview(renamedFile, position, true, true, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
@@ -2173,12 +2183,13 @@ public class FileDisplayActivity extends FileActivity
      * Stars the preview of an already down media {@link OCFile}.
      *
      * @param file                  Media {@link OCFile} to preview.
-     * @param startPlaybackPosition Media position where the playback will be started,
-     *                              in milliseconds.
-     * @param autoplay              When 'true', the playback will start without user
-     *                              interactions.
+     * @param startPlaybackPosition Media position where the playback will be started, in milliseconds.
+     * @param autoplay              When 'true', the playback will start without user interactions.
      */
-    public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean showPreview,
+    public void startMediaPreview(OCFile file,
+                                  long startPlaybackPosition,
+                                  boolean autoplay,
+                                  boolean showPreview,
                                   boolean streamMedia) {
         Optional<User> user = getUser();
         if (!user.isPresent()) {
@@ -2353,7 +2364,7 @@ public class FileDisplayActivity extends FileActivity
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
             startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
-                              (int) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
+                              (long) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
                               (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile)bundle.get(EXTRA_FILE),

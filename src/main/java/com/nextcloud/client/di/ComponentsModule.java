@@ -21,7 +21,7 @@
 package com.nextcloud.client.di;
 
 import com.nextcloud.client.etm.EtmActivity;
-import com.nextcloud.client.files.downloader.DownloaderService;
+import com.nextcloud.client.files.downloader.FileTransferService;
 import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.media.PlayerService;
@@ -207,5 +207,5 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PlayerService playerService();
 
     @ContributesAndroidInjector
-    abstract DownloaderService fileDownloaderService();
+    abstract FileTransferService fileDownloaderService();
 }

@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Очистити невдалі вивантаження</string>
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
-    <string name="action_empty_trashbin">Пусте відро для сміття</string>
     <string name="action_send_share">Надіслати/Поширити</string>
     <string name="action_switch_grid_view">Упорядкування у формі сітки</string>
     <string name="action_switch_list_view">Упорядкування у формі списку</string>
@@ -269,9 +268,6 @@
     <string name="etm_background_jobs_schedule_test_job">Запланувати тестовий процес</string>
     <string name="etm_background_jobs_start_test_job">Почати тестове завдання</string>
     <string name="etm_background_jobs_stop_test_job">Завершити тестове завдання</string>
-    <string name="etm_download_enqueue_test_download">Перевірити звантаження</string>
-    <string name="etm_download_path">Віддалений шлях</string>
-    <string name="etm_downloader">Звантажувач</string>
     <string name="etm_migrations">Міграція (оновлення застосунку)</string>
     <string name="etm_preferences">Налаштування</string>
     <string name="etm_title">Режим розробника для тестування</string>
@@ -708,7 +704,6 @@
     <string name="trashbin_empty_message">Тут можна відновити файли, які було вилучено.</string>
     <string name="trashbin_file_not_deleted">Файл %1$s неможливо вилучити!</string>
     <string name="trashbin_file_not_restored">Файл %1$s неможливо відновити!</string>
-    <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
@@ -752,6 +747,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_error_message_source_file_not_copied">Неможливо скопіювати файл до тимчасової теки. Спробуйте знову</string>
     <string name="uploader_error_message_source_file_not_found">Файл вибраний для вивантаження не знайдено. Будь-ласка перевірте чи файл існує</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Цей файл неможливо вивантажити</string>
     <string name="uploader_error_title_no_file_to_upload">Відсутні файли для вивантаження</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
     <string name="uploader_top_message">Оберіть каталог вивантаження</string>
@@ -797,6 +793,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекати на безлімітний Wi-Fi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>

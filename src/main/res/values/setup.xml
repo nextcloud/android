@@ -120,7 +120,7 @@
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
-    <string name="buildNumber" translatable="false">6803</string>
+    <string name="buildNumber" translatable="false">7103</string>
 </resources>
 
 

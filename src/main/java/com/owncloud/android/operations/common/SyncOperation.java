@@ -138,16 +138,23 @@ public abstract class SyncOperation extends RemoteOperation {
 	 * @param listenerHandler	Handler associated to the thread where the methods of
      *                          the listener objects must be called.
 	 * @return					Thread were the remote operation is executed.
-	 */
-	public Thread execute(OwnCloudClient client, FileDataStorageManager storageManager,
+     */
+    public Thread execute(OwnCloudClient client, FileDataStorageManager storageManager,
                           OnRemoteOperationListener listener, Handler listenerHandler) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation " +
-                    "with a NULL storage manager");
+                                                   "with a NULL storage manager");
         }
         this.storageManager = storageManager;
         return super.execute(client, listener, listenerHandler);
-	}
+    }
+
+    @Override
+    public RemoteOperationResult execute(OwnCloudClient client) {
+        throw new IllegalArgumentException("Trying to execute a sync operation without storage provider! Please use " +
+                                               "execute(OwnCloudClient client, FileDataStorageManager storageManager)" +
+                                               " instead");
+    }
 
     public FileDataStorageManager getStorageManager() {
         return this.storageManager;

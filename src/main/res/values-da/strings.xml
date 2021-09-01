@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Fjern fejlede uploads</string>
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
-    <string name="action_empty_trashbin">Tøm skraldespand</string>
+    <string name="action_empty_trashbin">Tom papirkurv</string>
     <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
@@ -273,12 +273,16 @@
     <string name="etm_background_jobs_schedule_test_job">Planlæg test job</string>
     <string name="etm_background_jobs_start_test_job">Start test job</string>
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
-    <string name="etm_download_enqueue_test_download">Sæt test download i kø</string>
-    <string name="etm_download_path">Fjern sti</string>
-    <string name="etm_downloader">Henter</string>
     <string name="etm_migrations">Migrationer (app upgrade)</string>
     <string name="etm_preferences">Indstillinger</string>
     <string name="etm_title">Udviklers test tilstand</string>
+    <string name="etm_transfer">Fil overførsel</string>
+    <string name="etm_transfer_enqueue_test_download">Sæt test download i kø</string>
+    <string name="etm_transfer_enqueue_test_upload">Sæt test upload i kø</string>
+    <string name="etm_transfer_remote_path">Ekstern sti</string>
+    <string name="etm_transfer_type">Overførsel</string>
+    <string name="etm_transfer_type_download">Hent</string>
+    <string name="etm_transfer_type_upload">Send</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
@@ -365,6 +369,7 @@
     <string name="foreign_files_success">Alle filer blev flyttet</string>
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
+    <string name="fullscreen">Fuldskærm</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Adgangskode</string>
@@ -548,6 +553,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="push_notifications_not_implemented">Push notifikationer deaktiveret på grund af proprietære afhængigheder af Google Play services.</string>
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
+    <string name="qr_could_not_be_read">QR koden kunne ikke læses!</string>
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -678,7 +684,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="stream">Stream med...</string>
     <string name="stream_not_possible_headline">Intern streaming ikke mulig</string>
     <string name="stream_not_possible_message">Hent venligst media i stedet, eller brug ekstern app.</string>
-    <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
@@ -721,7 +726,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="trashbin_empty_message">Du vil kunne gendanne slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke genskabes!</string>
-    <string name="trashbin_loading_failed">indlæsning af skraldespand fejlet!</string>
+    <string name="trashbin_loading_failed">Indlæsning af papirkurv mislykkedes!</string>
     <string name="trashbin_not_emptied">Filer kunne ikke permanent slettes!</string>
     <string name="unread_comments">Der er ulæste kommentarer</string>
     <string name="unset_encrypted">Slå kryptering fra</string>

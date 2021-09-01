@@ -30,11 +30,11 @@ import java.util.UUID
 class TransferManagerConnection(
     context: Context,
     val user: User
-) : LocalConnection<DownloaderService>(context), TransferManager {
+) : LocalConnection<FileTransferService>(context), TransferManager {
 
     private var transferListeners: MutableSet<(Transfer) -> Unit> = mutableSetOf()
     private var statusListeners: MutableSet<(TransferManager.Status) -> Unit> = mutableSetOf()
-    private var binder: DownloaderService.Binder? = null
+    private var binder: FileTransferService.Binder? = null
     private val transfersRequiringStatusRedelivery: MutableSet<UUID> = mutableSetOf()
 
     override val isRunning: Boolean
@@ -48,7 +48,7 @@ class TransferManagerConnection(
     override fun getTransfer(file: OCFile): Transfer? = binder?.getTransfer(file)
 
     override fun enqueue(request: Request) {
-        val intent = DownloaderService.createDownloadIntent(context, request)
+        val intent = FileTransferService.createTransferRequestIntent(context, request)
         context.startService(intent)
         if (!isConnected && transferListeners.size > 0) {
             transfersRequiringStatusRedelivery.add(request.uuid)
@@ -76,12 +76,12 @@ class TransferManagerConnection(
     }
 
     override fun createBindIntent(): Intent {
-        return DownloaderService.createBindIntent(context, user)
+        return FileTransferService.createBindIntent(context, user)
     }
 
     override fun onBound(binder: IBinder) {
         super.onBound(binder)
-        this.binder = binder as DownloaderService.Binder
+        this.binder = binder as FileTransferService.Binder
         transferListeners.forEach { listener ->
             binder.registerTransferListener(listener)
         }

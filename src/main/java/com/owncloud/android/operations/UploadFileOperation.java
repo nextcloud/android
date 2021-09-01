@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransfer;
@@ -113,7 +114,7 @@ public class UploadFileOperation extends SyncOperation {
     private String mRemotePath;
     private String mFolderUnlockToken;
     private boolean mRemoteFolderToBeCreated;
-    private FileUploader.NameCollisionPolicy mNameCollisionPolicy;
+    private NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
     private int mCreatedBy;
     private boolean mOnWifiOnly;
@@ -177,7 +178,7 @@ public class UploadFileOperation extends SyncOperation {
                                User user,
                                OCFile file,
                                OCUpload upload,
-                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
+                               NameCollisionPolicy nameCollisionPolicy,
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
@@ -192,7 +193,7 @@ public class UploadFileOperation extends SyncOperation {
                                User user,
                                OCFile file,
                                OCUpload upload,
-                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
+                               NameCollisionPolicy nameCollisionPolicy,
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,

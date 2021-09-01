@@ -273,14 +273,16 @@
     <string name="etm_background_jobs_schedule_test_job">Pianifica operazione di prova</string>
     <string name="etm_background_jobs_start_test_job">Avvia operazione di prova</string>
     <string name="etm_background_jobs_stop_test_job">Ferma operazione di prova</string>
-    <string name="etm_download_enqueue_test_download">Annulla scaricamento di test</string>
-    <string name="etm_download_path">Percorso remoto</string>
-    <string name="etm_downloader">Strumento di scaricamento</string>
     <string name="etm_migrations">Migrazioni (aggiornamento applicazione)</string>
     <string name="etm_preferences">Preferenze</string>
     <string name="etm_title">Modalità test di progettazione</string>
     <string name="etm_transfer">Trasferimento file</string>
+    <string name="etm_transfer_enqueue_test_download">Accoda scaricamento di prova</string>
+    <string name="etm_transfer_enqueue_test_upload">Accoda caricamento di prova</string>
     <string name="etm_transfer_remote_path">Percorso remoto</string>
+    <string name="etm_transfer_type">Trasferisci</string>
+    <string name="etm_transfer_type_download">Scarica</string>
+    <string name="etm_transfer_type_upload">Carica</string>
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
@@ -367,6 +369,7 @@
     <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
     <string name="fourHours">4 ore</string>
+    <string name="fullscreen">Schermo intero</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Password</string>
@@ -679,7 +682,7 @@
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
-    <string name="strict_mode">Modalità rigorosa: nessuna connessione http consentita! </string>
+    <string name="strict_mode">Modalità rigorosa: nessuna connessione HTTP consentita! </string>
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>

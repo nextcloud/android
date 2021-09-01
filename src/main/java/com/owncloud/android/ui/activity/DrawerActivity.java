@@ -33,21 +33,34 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.button.MaterialButton;
@@ -93,6 +106,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
+import com.owncloud.android.utils.svg.SVGorImage;
+import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
+import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
@@ -104,6 +120,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,8 +229,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // Setting up drawer header
             mNavigationViewHeader = mNavigationView.getHeaderView(0);
-            FrameLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-            setupDrawerHeader(drawerHeader);
+            updateHeader();
 
             setupDrawerMenu(mNavigationView);
             getAndDisplayUserQuota();
@@ -276,6 +292,73 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
         ThemeBarUtils.colorProgressBar(mQuotaProgressBar, ThemeColorUtils.primaryColor(this));
+    }
+
+    public void updateHeader() {
+        if (getAccount() != null &&
+            getStorageManager().getCapability(getAccount().name).getServerBackground() != null) {
+
+            OCCapability capability = getStorageManager().getCapability(getAccount().name);
+            String logo = capability.getServerLogo();
+            int primaryColor = ThemeColorUtils.primaryColor(getAccount(), false, this);
+
+            // set background to primary color
+            LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
+            drawerHeader.setBackgroundColor(ThemeColorUtils.unchangedPrimaryColor(getAccount(), this));
+
+            if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
+                // background image
+                GenericRequestBuilder<Uri, InputStream, SVGorImage, Bitmap> requestBuilder = Glide.with(this)
+                    .using(Glide.buildStreamModelLoader(Uri.class, this), InputStream.class)
+                    .from(Uri.class)
+                    .as(SVGorImage.class)
+                    .transcode(new SvgOrImageBitmapTranscoder(128, 128), Bitmap.class)
+                    .sourceEncoder(new StreamEncoder())
+                    .cacheDecoder(new FileToStreamDecoder<>(new SvgOrImageDecoder()))
+                    .decoder(new SvgOrImageDecoder());
+
+                // background image
+                SimpleTarget target = new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                        Drawable[] drawables = {new ColorDrawable(primaryColor), new BitmapDrawable(resource)};
+                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+
+                        String name = capability.getServerName();
+                        setDrawerHeaderLogo(layerDrawable, name);
+                    }
+                };
+
+                requestBuilder
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .load(Uri.parse(logo))
+                    .into(target);
+            }
+        }
+    }
+
+    private void setDrawerHeaderLogo(Drawable drawable, String name) {
+        ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
+        imageHeader.setImageDrawable(drawable);
+        imageHeader.setScaleType(ImageView.ScaleType.FIT_START);
+        imageHeader.setAdjustViewBounds(true);
+
+        imageHeader.setMaxWidth(DisplayUtils.convertDpToPixel(100f, this));
+
+        MarginLayoutParams oldParam = (MarginLayoutParams) imageHeader.getLayoutParams();
+        MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT,
+                                                           LayoutParams.MATCH_PARENT);
+        params.leftMargin = oldParam.leftMargin;
+        params.rightMargin = oldParam.rightMargin;
+
+        imageHeader.setLayoutParams(new LinearLayout.LayoutParams(params));
+
+        if (!TextUtils.isEmpty(name)) {
+            TextView serverName = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
+            serverName.setText(name);
+            serverName.setTextColor(ThemeColorUtils.unchangedFontColor(this));
+        }
+
     }
 
     /**

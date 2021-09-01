@@ -208,7 +208,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         ADD_GRID_AND_SORT_WITH_SEARCH
     }
 
-    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
+    protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
@@ -322,7 +322,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -345,7 +344,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getUser(),
             preferences,
-            accountManager,
             mContainerActivity,
             this,
             hideItemOptions,
@@ -528,7 +526,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                Collections.singleton(file),
                                                mContainerActivity, getActivity(),
                                                true,
-                                               deviceInfo,
                                                accountManager.getUser());
         mf.filter(popup.getMenu(), true);
         popup.setOnMenuItemClickListener(item -> {
@@ -687,7 +684,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 accountManager.getUser()
             );
 
@@ -1559,12 +1555,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         storageManager = mContainerActivity.getStorageManager();
                     }
 
-                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
+                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
-                        if (remoteOperationResult.getData() == null || remoteOperationResult.getData().size() == 0) {
+                        if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
-                            mAdapter.setData(remoteOperationResult.getData(),
+                            mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
                                              currentSearchType,
                                              storageManager,
                                              mFile,
@@ -1574,12 +1570,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
                         if (fileDisplayActivity != null) {
-                            fileDisplayActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (fileDisplayActivity != null) {
-                                        setLoading(false);
-                                    }
+                            fileDisplayActivity.runOnUiThread(() -> {
+                                if (fileDisplayActivity != null) {
+                                    setLoading(false);
                                 }
                             });
                         }
