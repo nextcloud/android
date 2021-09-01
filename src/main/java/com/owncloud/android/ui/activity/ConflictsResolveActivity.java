@@ -108,18 +108,17 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             localBehaviour = upload.getLocalAction();
         }
 
-        // new file was modified locally in file system
         newFile = getFile();
 
         listener = decision -> {
-            OCFile file = newFile; // local file got changed, so either upload it or replace it again by server
-            // version
+            OCFile file = newFile;
 
             switch (decision) {
                 case CANCEL:
-                    // nothing to do
+                    // Don't mark the conflict as resolved
                     break;
-                case KEEP_LOCAL: // Upload
+                case KEEP_LOCAL:
+                    // Overwrite the server version and mark conflict as resolved
                     FileUploader.uploadUpdateFile(
                             getBaseContext(),
                             getAccount(),
@@ -130,7 +129,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
                     uploadsStorageManager.removeUpload(upload);
                     break;
-                case KEEP_BOTH: // Upload
+                case KEEP_BOTH:
+                    // Upload the local file with a different name and mark conflict as resolved
                     FileUploader.uploadUpdateFile(
                             getBaseContext(),
                             getAccount(),
@@ -141,15 +141,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
                     uploadsStorageManager.removeUpload(upload);
                     break;
-                case KEEP_SERVER: // Download
-                    if (!shouldDeleteLocal()) {
-                        // Overwrite local file
-                        Intent intent = new Intent(getBaseContext(), FileDownloader.class);
-                        intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-                        intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                        intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
-                        startService(intent);
-                    }
+                case KEEP_SERVER:
+                    // Don't upload anything and mark conflict as resolved
+                    uploadsStorageManager.removeUpload(upload);
                     break;
             }
 
@@ -239,12 +233,5 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     private void showErrorAndFinish() {
         runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
         finish();
-    }
-
-    /**
-     * @return whether the local version of the files is to be deleted.
-     */
-    private boolean shouldDeleteLocal() {
-        return localBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE;
     }
 }
