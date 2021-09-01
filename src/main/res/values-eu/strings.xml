@@ -491,7 +491,7 @@
     <string name="player_toggle">txandakatu</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola desgaitzeak, fitxategiak bateria baxu dagoenean kargatzea eragin dezake!</string>
     <string name="pref_behaviour_entries_delete_file">ezabatua</string>
-    <string name="pref_behaviour_entries_keep_file">jatorrizko karpetan mantendu da</string>
+    <string name="pref_behaviour_entries_keep_file">jatorrizko karpetan mantenduko da</string>
     <string name="pref_behaviour_entries_move">aplikazioaren karpetara mugitu da</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Zer egin fitxategia dagoeneko existitzen bada?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Galdetu beti</string>
