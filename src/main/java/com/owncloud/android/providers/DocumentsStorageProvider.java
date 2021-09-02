@@ -36,11 +36,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import android.util.Log;
 import android.util.SparseArray;
+import android.widget.Toast;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -206,10 +208,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
                 RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
                 if (!result.isSuccess()) {
-                    Log_OC.e(TAG, result.toString());
-                    throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
+                    if (ocFile.isDown()) {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(() -> Toast.makeText(MainApp.getAppContext(),
+                                                          R.string.file_not_synced,
+                                                          Toast.LENGTH_SHORT).show());
+                    } else {
+                        Log_OC.e(TAG, result.toString());
+                        throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
+                    }
+                } else {
+                    saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
                 }
-                saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
             }
         }
 
