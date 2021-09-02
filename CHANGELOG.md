@@ -1,13 +1,55 @@
-## 3.16.1 RC1 (May, 27, 2021)
+## 3.17.0 RC2 (July, 14, 2021)
 
-Fix media tab not showing images/videos
-Connectivity checks fixed
-Crashing while retrieving avatar
+UI improvements (Avatar, password dialog)
+New video player for better streaming
+Many bug fixes
+
+Minimum: NC 16 Server, Android 5.1 Lollipop
+
+For a full list, please see https://github.com/nextcloud/android/milestone/59
+
+## 3.17.0 RC1 (July, 06, 2021)
+
+UI improvements (Avatar, password dialog)
+New video player for better streaming
+Many bug fixes
+
+Minimum: NC 16 Server, Android 5.1 Lollipop
+
+For a full list, please see https://github.com/nextcloud/android/milestone/59
+
+## 3.17.0 (-, -, -)
+
+- New upload manager @ezaquarii
+- UI improvements
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+For a full list, please see https://github.com/nextcloud/android/milestone/59
+
+## 3.16.1 (June, 01, 2021)
+
+- Fix media tab not showing images/videos
+- Connectivity checks fixed
+- Crashing while retrieving avatar
 
 Minimum: NC 16 Server, Android 5.0 Lollipop 
 
 
 For a full list, please see https://github.com/nextcloud/android/milestone/58
+
+## 3.16.0 (May, 05, 2021)
+
+- Enhance sharing 
+- Update template section when creating new files
+- Pin protection update
+- Updated notification handling during updates @newhinton
+- UI improvements
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+
+For a full list, please see https://github.com/nextcloud/android/milestone/55
 
 ## 3.15.1 (March, 10, 2021)
 

@@ -356,7 +356,7 @@
 
         <service android:name=".services.OperationsService" />
         <service android:name=".files.services.FileDownloader" />
-        <service android:name="com.nextcloud.client.files.downloader.DownloaderService" />
+        <service android:name="com.nextcloud.client.files.downloader.FileTransferService" />
         <service android:name=".files.services.FileUploader" />
         <service android:name="com.nextcloud.client.media.PlayerService" />
 
@@ -381,10 +381,10 @@
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity
             android:name=".ui.trashbin.TrashbinActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
-            android:theme="@style/Theme.ownCloud.noActionBar.Login" />
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
+                  android:theme="@style/Theme.ownCloud.noActionBar.Login" />
         <activity
             android:name="com.nextcloud.client.onboarding.FirstRunActivity"
             android:configChanges="orientation|screenSize"

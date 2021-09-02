@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
-    <string name="action_empty_trashbin">Papelera vacía</string>
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
@@ -268,9 +267,6 @@
     <string name="etm_background_jobs_schedule_test_job">Programar trabajo de prueba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar trabajo de prueba</string>
     <string name="etm_background_jobs_stop_test_job">Detener trabajo de prueba</string>
-    <string name="etm_download_enqueue_test_download">Test de descarga en cola</string>
-    <string name="etm_download_path">Ruta remota</string>
-    <string name="etm_downloader">Descargador</string>
     <string name="etm_migrations">Migraciones (actualización de la aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Modo de prueba de ingeniería</string>
@@ -707,7 +703,6 @@
     <string name="trashbin_empty_message">Podrás recuperar archivos borrados desde aquí.</string>
     <string name="trashbin_file_not_deleted">¡El archivo %1$s no se pudo eliminar!</string>
     <string name="trashbin_file_not_restored">¡El archivo %1$s no pudo ser restaurado!</string>
-    <string name="trashbin_loading_failed">Falló la carga de la papelera!</string>
     <string name="trashbin_not_emptied">¡Los archivos no se pudieron eliminar permanentemente!</string>
     <string name="unread_comments">Existen comentarios no leídos</string>
     <string name="unset_encrypted">Cifrado no establecido</string>

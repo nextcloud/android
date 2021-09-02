@@ -1,0 +1,9 @@
+## 3.17.0 RC1 (July, 06, 2021)
+
+UI improvements (Avatar, password dialog)
+New video player for better streaming
+Many bug fixes
+
+Minimum: NC 16 Server, Android 5.1 Lollipop
+
+For a full list, please see https://github.com/nextcloud/android/milestone/59

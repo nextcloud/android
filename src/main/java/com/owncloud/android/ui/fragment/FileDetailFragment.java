@@ -341,7 +341,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 

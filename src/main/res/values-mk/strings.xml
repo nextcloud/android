@@ -262,7 +262,6 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Задачи кој се извршуваат во позадина</string>
     <string name="etm_background_jobs_cancel_all">Откажи ги сите активности</string>
-    <string name="etm_downloader">Преземач</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="fab_label">Додади или прикачи</string>
@@ -680,7 +679,6 @@
     <string name="trashbin_empty_headline">Нема избришани датотеки</string>
     <string name="trashbin_file_not_deleted">Датотеката %1$s неможе да се избрише!</string>
     <string name="trashbin_file_not_restored">Датотеката %1$s неможе да се врати!</string>
-    <string name="trashbin_loading_failed">Грешка при вчитување на корпата со отпадоци!</string>
     <string name="trashbin_not_emptied">Датотеките неможат да бидат избрижани трајно!</string>
     <string name="unread_comments">Постои непрочитан коментар</string>
     <string name="unset_encrypted">Отстрани енкрипција</string>

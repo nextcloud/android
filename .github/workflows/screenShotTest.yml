@@ -11,7 +11,7 @@ jobs:
             fail-fast: false
             matrix:
                 scheme: [ Dark, Light ]
-                color: [ blue, white ]
+                color: [ blue, white, black ]
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 1.8

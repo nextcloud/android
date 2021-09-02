@@ -26,6 +26,7 @@ import android.os.Parcelable;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
@@ -40,7 +41,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean enabled = false;
     private boolean subfolderByDate = false;
     private Integer uploadAction;
-    private FileUploader.NameCollisionPolicy nameCollisionPolicy = FileUploader.NameCollisionPolicy.ASK_USER;
+    private NameCollisionPolicy nameCollisionPolicy = NameCollisionPolicy.ASK_USER;
     private MediaFolderType type;
     private boolean hidden = false;
     private long id;
@@ -60,7 +61,7 @@ public class SyncedFolderParcelable implements Parcelable {
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
-        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(
+        nameCollisionPolicy = NameCollisionPolicy.deserialize(
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
@@ -79,7 +80,7 @@ public class SyncedFolderParcelable implements Parcelable {
         type = MediaFolderType.getById(read.readInt());
         account = read.readString();
         uploadAction = read.readInt();
-        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(read.readInt());
+        nameCollisionPolicy = NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
     }
@@ -191,7 +192,7 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.uploadAction;
     }
 
-    public FileUploader.NameCollisionPolicy getNameCollisionPolicy() {
+    public NameCollisionPolicy getNameCollisionPolicy() {
         return this.nameCollisionPolicy;
     }
 
@@ -247,7 +248,7 @@ public class SyncedFolderParcelable implements Parcelable {
         this.subfolderByDate = subfolderByDate;
     }
 
-    public void setNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+    public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {
         this.nameCollisionPolicy = nameCollisionPolicy;
     }
 

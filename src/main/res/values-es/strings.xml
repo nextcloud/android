@@ -273,12 +273,16 @@
     <string name="etm_background_jobs_schedule_test_job">Programar trabajo de prueba</string>
     <string name="etm_background_jobs_start_test_job">Iniciar trabajo de prueba</string>
     <string name="etm_background_jobs_stop_test_job">Parar trabajo de prueba</string>
-    <string name="etm_download_enqueue_test_download">Poner en cola el test de descarga</string>
-    <string name="etm_download_path">Dirección remota</string>
-    <string name="etm_downloader">Descargador</string>
     <string name="etm_migrations">Migraciones (actualizar app)</string>
     <string name="etm_preferences">Preferencias</string>
     <string name="etm_title">Engineering Test</string>
+    <string name="etm_transfer">Transferencia de archivo</string>
+    <string name="etm_transfer_enqueue_test_download">Poner en cola el test de descarga</string>
+    <string name="etm_transfer_enqueue_test_upload">Poner en cola el test de subida</string>
+    <string name="etm_transfer_remote_path">Dirección remota</string>
+    <string name="etm_transfer_type">Transferir</string>
+    <string name="etm_transfer_type_download">Descarga</string>
+    <string name="etm_transfer_type_upload">Subir</string>
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
@@ -365,6 +369,7 @@
     <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
+    <string name="fullscreen">Pantalla completa</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contraseña</string>
@@ -677,7 +682,6 @@
     <string name="stream">Retransmisión con...</string>
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
-    <string name="strict_mode">Modo estricto: ¡ninguna conexión HTTP permitida!</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo.</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="sync_conflicts_in_favourites_ticker">Se han encontrado conflictos</string>

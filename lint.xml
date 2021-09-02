@@ -19,6 +19,7 @@
 
     <issue id="MissingQuantity">
         <ignore path="**/values-ka-rGE/strings.xml"/>
+        <ignore path="**/values-ar/strings.xml" />
     </issue>
 
     <issue id="UnusedQuantity">

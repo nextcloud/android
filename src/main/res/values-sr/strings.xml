@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Избриши неуспела отпремања</string>
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Очисти сва обавештења</string>
-    <string name="action_empty_trashbin">Испразни канту</string>
     <string name="action_send_share">Слање/Дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
@@ -259,9 +258,6 @@
     <string name="etm_background_jobs_schedule_test_job">Закажи пробни посао</string>
     <string name="etm_background_jobs_start_test_job">Покрени пробни посао</string>
     <string name="etm_background_jobs_stop_test_job">Заустави пробни посао</string>
-    <string name="etm_download_enqueue_test_download">Стави тест преузимање у ред чекања</string>
-    <string name="etm_download_path">Удаљена путања</string>
-    <string name="etm_downloader">Преузимач</string>
     <string name="etm_migrations">Пресељења (надоградња апликације)</string>
     <string name="etm_preferences">Поставке</string>
     <string name="etm_title">Инжењерски тест режим</string>
@@ -683,7 +679,6 @@
     <string name="trashbin_empty_message">Одавде ћете моћи да повратите обрисане фајлове.</string>
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
-    <string name="trashbin_loading_failed">Неуспело учитавање садржаја канте!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>

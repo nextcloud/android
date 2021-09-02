@@ -1,0 +1,3 @@
+Poți găzdui propriile tale instrumente de productivitate, tu avînd controlul total.
+Aceasta este versiunea oficială ce prezintă o mostră zilnică de funcționalități netestate, ce ar putea cauza instabilități șî pierdere de date. Aplicația este pentru utilizatori ce sunt dispuși să testeze și să raporteze eventualele erori sau probleme de funcționare. Nu folosiți această aplicație pentru muncă productivă!
+]nAmbele versiuni pentru dezvoltatori și versiunea normală sunt disponibile pe F-Droid, și pot fii instalate în același timp.

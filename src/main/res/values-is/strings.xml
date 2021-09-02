@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_edit">Breyta</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
-    <string name="action_empty_trashbin">Tæma ruslafötu</string>
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
@@ -256,9 +255,6 @@
     <string name="etm_background_jobs_schedule_test_job">Áætla prufuverk</string>
     <string name="etm_background_jobs_start_test_job">Hefja prufuverk</string>
     <string name="etm_background_jobs_stop_test_job">Stöðva prufuverk</string>
-    <string name="etm_download_enqueue_test_download">Setja niðurhalsprófun í biðröð</string>
-    <string name="etm_download_path">Fjartengd slóð</string>
-    <string name="etm_downloader">Niðurhalsforrit</string>
     <string name="etm_migrations">Yfirfærslur (uppfærsla forrits)</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>
@@ -677,7 +673,6 @@
     <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan.</string>
     <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
     <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
-    <string name="trashbin_loading_failed">Mistókst að hlaða inn ruslmöppu!</string>
     <string name="trashbin_not_emptied">Ekki tókst að eyða skránum endanlega!</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>

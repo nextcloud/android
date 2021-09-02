@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
-    <string name="action_empty_trashbin">Άδειασμα κάδου</string>
+    <string name="action_empty_trashbin">Άδειασμα απορριμάτων</string>
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
@@ -172,6 +172,7 @@
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
+    <string name="create">Δημιουργία</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="create_new">Δημιουργία νέου</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
@@ -268,9 +269,6 @@
     <string name="etm_background_jobs_schedule_test_job">Προγραμματισμός δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_start_test_job">Έναρξη δοκιμαστικής εργασίας</string>
     <string name="etm_background_jobs_stop_test_job">Τερματισμός δοκιμαστικής εργασίας</string>
-    <string name="etm_download_enqueue_test_download">Προσθήκη στην ουρά δοκιμαστικής λήψης</string>
-    <string name="etm_download_path">Διαδρομή απομακρυσμένου αρχείου</string>
-    <string name="etm_downloader">Λογισμικό λήψης αρχείων</string>
     <string name="etm_migrations">Μετεγκαταστάσεις (αναβάθμιση εφαρμογής)</string>
     <string name="etm_preferences">Προτιμήσεις</string>
     <string name="etm_title">Λειτουργία δοκιμής για Τεχνικούς</string>
@@ -705,7 +703,6 @@
     <string name="trashbin_empty_message">Μπορείτε να ανακτήσετε διαγραμμένα αρχεία από εδώ.</string>
     <string name="trashbin_file_not_deleted">Το αρχείο %1$s δεν μπορεί να διαγραφεί!</string>
     <string name="trashbin_file_not_restored">Το αρχείο %1$s δεν μπορεί να ανακτηθεί!</string>
-    <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>

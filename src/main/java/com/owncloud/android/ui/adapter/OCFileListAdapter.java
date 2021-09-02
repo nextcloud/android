@@ -45,11 +45,8 @@ import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -76,7 +73,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -87,10 +84,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -105,8 +100,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,7 +115,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final String userId;
     private Activity activity;
     private AppPreferences preferences;
-    private UserAccountManager accountManager;
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean hideItemOptions;
@@ -156,7 +148,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Activity activity,
         User user,
         AppPreferences preferences,
-        UserAccountManager accountManager,
         SyncedFolderProvider syncedFolderProvider,
         ComponentsGetter transferServiceGetter,
         OCFileListFragmentInterface ocFileListFragmentInterface,
@@ -166,7 +157,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
-        this.accountManager = accountManager;
         this.user = user;
         hideItemOptions = argHideItemOptions;
         this.gridView = gridView;
@@ -443,9 +433,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (holder instanceof OCFileListItemViewHolder) {
                 OCFileListItemViewHolder itemViewHolder = (OCFileListItemViewHolder) holder;
 
-                Resources resources = activity.getResources();
-                float avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius);
-
                 if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !multiSelect && !gridView &&
                     !hideItemOptions) {
                     itemViewHolder.sharedAvatars.setVisibility(View.GONE);//visibility gone as view not required
@@ -466,58 +453,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
 
-                    int shareeSize = Math.min(sharees.size(), 3);
-                    int w = DisplayUtils.convertDpToPixel(40, activity);
-                    int margin = DisplayUtils.convertDpToPixel(24, activity);
-                    int size = 60 * (shareeSize - 1) + w;
-
-                    for (int i = 0; i < shareeSize; i++) {
-                        ShareeUser sharee = sharees.get(i);
-
-                        ImageView avatar = new ImageView(activity);
-
-                        if (i == 0 && sharees.size() > 3) {
-                            avatar.setImageResource(R.drawable.ic_people);
-                            ThemeDrawableUtils.setIconColor(avatar.getDrawable());
-                        } else {
-                            switch (sharee.getShareType()) {
-                                case GROUP:
-                                case EMAIL:
-                                case ROOM:
-                                case CIRCLE:
-                                    ThemeAvatarUtils.createAvatar(sharee.getShareType(), avatar, activity);
-                                    break;
-
-                                case FEDERATED:
-                                    showFederatedShareAvatar(sharee.getUserId(), avatarRadius, resources, avatar);
-                                    break;
-                                default:
-                                    avatar.setTag(sharee);
-                                    DisplayUtils.setAvatar(user,
-                                                           sharee.getUserId(),
-                                                           sharee.getDisplayName(),
-                                                           this,
-                                                           avatarRadius,
-                                                           resources,
-                                                           avatar,
-                                                           activity);
-                                    break;
-                            }
-                        }
-
-                        avatar.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
-
-                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(w, w);
-                        layoutParams.setMargins(0, 0, i * margin, 0);
-                        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        avatar.setLayoutParams(layoutParams);
-                        itemViewHolder.sharedAvatars.addView(avatar);
-
-                        ViewGroup.LayoutParams rememberParam = itemViewHolder.sharedAvatars.getLayoutParams();
-                        rememberParam.width = size;
-
-                        itemViewHolder.sharedAvatars.setLayoutParams(rememberParam);
-                    }
+                    itemViewHolder.sharedAvatars.setAvatars(user, sharees);
+                    itemViewHolder.sharedAvatars.setOnClickListener(
+                        view -> ocFileListFragmentInterface.onShareIconClick(file));
                 } else {
                     itemViewHolder.sharedAvatars.setVisibility(View.GONE);
                     itemViewHolder.sharedAvatars.removeAllViews();
@@ -615,42 +553,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 showShareIcon(gridViewHolder, file);
             }
         }
-    }
-
-    private void showFederatedShareAvatar(String user, float avatarRadius, Resources resources, ImageView avatar) {
-        // maybe federated share
-        String[] split = user.split("@");
-        String userId = split[0];
-        String server = split[1];
-
-        String url = "https://" + server + "/index.php/avatar/" + userId + "/" +
-            DisplayUtils.convertDpToPixel(avatarRadius, activity);
-
-        Drawable placeholder;
-        try {
-            placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = ThemeDrawableUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
-                                                                                      R.drawable.account_circle_white,
-                                                                                      null),
-                                                          R.color.black);
-        }
-
-        avatar.setTag(null);
-        Glide.with(activity).load(url)
-            .asBitmap()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(new BitmapImageViewTarget(avatar) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    avatar.setImageDrawable(circularBitmapDrawable);
-                }
-            });
     }
 
     public static void setThumbnail(OCFile file,
@@ -1386,7 +1288,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView overflowMenu;
 
         @BindView(R.id.sharedAvatars)
-        public RelativeLayout sharedAvatars;
+        public AvatarGroupLayout sharedAvatars;
 
         private OCFileListItemViewHolder(View itemView) {
             super(itemView);

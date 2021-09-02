@@ -94,4 +94,13 @@ public final class StringUtils {
     public static List<String> convertStringToList(String input) {
         return Arrays.asList(input.split("\\s*,\\s*"));
     }
+
+    public static
+    @NonNull String removePrefix(@NonNull String s, @NonNull String prefix)
+    {
+        if (s.startsWith(prefix)){
+            return s.substring(prefix.length());
+        }
+        return s;
+    }
 }

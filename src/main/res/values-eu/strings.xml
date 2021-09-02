@@ -33,7 +33,7 @@
     <string name="activity_icon">Jarduera</string>
     <string name="add_another_public_share_link">Gehitu beste esteka bat</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
-    <string name="add_to_cloud">Gehitu %1$s(r)i</string>
+    <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="allow_creating">Baimendu sortzea</string>
     <string name="allow_deleting">Baimendu ezabatzea</string>
     <string name="allow_editing">Baimendu editatzea</string>
@@ -221,7 +221,7 @@
     <string name="drawer_item_gallery">Media</string>
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
-    <string name="drawer_item_on_device">Gailuan</string>
+    <string name="drawer_item_on_device">Gailura</string>
     <string name="drawer_item_recently_added">Berriki gehituak</string>
     <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
@@ -273,12 +273,16 @@
     <string name="etm_background_jobs_schedule_test_job">Antolatu probako lana</string>
     <string name="etm_background_jobs_start_test_job">Hasi probako lana</string>
     <string name="etm_background_jobs_stop_test_job">Gelditu probako lana</string>
-    <string name="etm_download_enqueue_test_download">Ilaran jarri proba-deskarga</string>
-    <string name="etm_download_path">Urruneko bide-izena</string>
-    <string name="etm_downloader">Deskargatzailea</string>
     <string name="etm_migrations">Migrazioak (aplikazioaren eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
     <string name="etm_title">Ingeniaritzako proba modua </string>
+    <string name="etm_transfer">Fitxategi-transferentzia</string>
+    <string name="etm_transfer_enqueue_test_download">Ilaran jarri proba-deskarga</string>
+    <string name="etm_transfer_enqueue_test_upload">Ilaran jarri proba-igoera</string>
+    <string name="etm_transfer_remote_path">Urruneko bide-izena</string>
+    <string name="etm_transfer_type">Transferitu</string>
+    <string name="etm_transfer_type_download">Jaitsi</string>
+    <string name="etm_transfer_type_upload">Kargatu</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
@@ -365,6 +369,7 @@
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="fullscreen">Pantaila osoa</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
     <string name="hint_password">Pasahitza</string>
@@ -546,6 +551,7 @@
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
+    <string name="qr_could_not_be_read">QR kodea ezin izan da irakurri!</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
@@ -676,7 +682,7 @@
     <string name="stream">Transmititu honekin...</string>
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
     <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
-    <string name="strict_mode">Modu zorrotza: ez da http konexiorik onartzen!</string>
+    <string name="strict_mode">Modu zorrotza: ez da HTTP konexiorik onartzen!</string>
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>

@@ -12,6 +12,7 @@ import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.ui.preview.PreviewImageActivity
@@ -122,7 +123,7 @@ class UploadImagesWorker constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.OVERWRITE //overwrite the images
+            NameCollisionPolicy.OVERWRITE //overwrite the images
         )
     }
 }

@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
-    <string name="action_empty_trashbin">Izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
@@ -273,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Načrtovano preizkusno opravilo</string>
     <string name="etm_background_jobs_start_test_job">Začni preizkusno opravilo</string>
     <string name="etm_background_jobs_stop_test_job">Zaustavi preizkusno opravilo</string>
-    <string name="etm_download_enqueue_test_download">Uvrsti preizkusni prejem</string>
-    <string name="etm_download_path">Oddaljena pot</string>
-    <string name="etm_downloader">Prejemalnik</string>
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
@@ -676,7 +672,6 @@
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
-    <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -719,7 +714,6 @@
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
-    <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>

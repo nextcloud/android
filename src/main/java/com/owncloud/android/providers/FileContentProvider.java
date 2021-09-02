@@ -49,7 +49,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -403,8 +403,11 @@ public class FileContentProvider extends ContentProvider {
             case GROUP:
             case EMAIL:
             case FEDERATED:
+            case FEDERATED_GROUP:
             case ROOM:
             case CIRCLE:
+            case DECK:
+            case GUEST:
                 fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
                 break;
 
@@ -783,6 +786,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
+                       + ProviderTableMeta.CAPABILITIES_SERVER_LOGO + TEXT
                        + ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
                        + ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
                        + ProviderTableMeta.CAPABILITIES_ACTIVITY + INTEGER
@@ -2184,7 +2188,7 @@ public class FileContentProvider extends ContentProvider {
                     // make sure all existing folders set to FileUploader.NameCollisionPolicy.ASK_USER.
                     db.execSQL("UPDATE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + " SET " +
                                    ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " = " +
-                                   FileUploader.NameCollisionPolicy.ASK_USER.serialize());
+                                   NameCollisionPolicy.ASK_USER.serialize());
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
@@ -2293,6 +2297,27 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #61 reset eTag to force capability refresh");
                 db.beginTransaction();
                 try {
+                    db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 62 && newVersion >= 62) {
+                Log_OC.i(SQL, "Entering in the #62 add logo to capability");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.CAPABILITIES_SERVER_LOGO + " TEXT ");
+
+                    // force refresh
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
 
                     upgraded = true;

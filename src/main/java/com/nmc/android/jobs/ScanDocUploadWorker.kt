@@ -15,6 +15,7 @@ import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -266,7 +267,7 @@ class ScanDocUploadWorker constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.RENAME
+            NameCollisionPolicy.RENAME
         )
     }
 }

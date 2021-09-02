@@ -171,7 +171,7 @@
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_unshared" />
 
-        <RelativeLayout
+        <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
             android:layout_width="100dp"
             android:layout_height="@dimen/file_icon_size"

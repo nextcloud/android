@@ -111,7 +111,7 @@
     <string name="login_data_own_scheme" translatable="false">nc</string>
     <!-- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
     If set, will replace all other login methods available -->
-    <string name="webview_login_url" translatable="false">https://dev2.next.magentacloud.de/index.php/login/flow</string>
+    <string name="webview_login_url" translatable="false">https://dev1.next.magentacloud.de/index.php/login/flow</string>
 
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
@@ -124,7 +124,9 @@
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
-    <string name="buildNumber" translatable="false">6803</string>
+    <string name="buildNumber" translatable="false">7103</string>
+
+    <!-- file types for scanned document -->
     <string name="scan_save_file_type_pdf" translatable="false">PDF</string>
     <string name="scan_save_file_type_jpg" translatable="false">JPG</string>
     <string name="scan_save_file_type_png" translatable="false">PNG</string>

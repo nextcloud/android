@@ -25,9 +25,16 @@
 
     <item
         android:id="@+id/etm_test_download"
-        android:title="@string/etm_download_enqueue_test_download"
+        android:title="@string/etm_transfer_enqueue_test_download"
         app:showAsAction="ifRoom"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_plus" />
+        android:icon="@drawable/ic_cloud_download" />
+
+    <item
+        android:id="@+id/etm_test_upload"
+        android:title="@string/etm_transfer_enqueue_test_upload"
+        app:showAsAction="ifRoom"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_cloud_upload" />
 
 </menu>

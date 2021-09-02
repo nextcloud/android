@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">실패한 업로드 삭제</string>
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
-    <string name="action_empty_trashbin">휴지통 비우기</string>
     <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
@@ -273,9 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">테스트 작업 계획</string>
     <string name="etm_background_jobs_start_test_job">테스트 작업 시작하기</string>
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
-    <string name="etm_download_enqueue_test_download">대기열에 넣기 테스트 다운로드</string>
-    <string name="etm_download_path">원격 경로</string>
-    <string name="etm_downloader">다운로더</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>
@@ -698,7 +694,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
-    <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
@@ -741,7 +736,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="trashbin_empty_message">여기서 삭제했던 파일들을 복구할 수 있습니다.</string>
     <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
     <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
-    <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>

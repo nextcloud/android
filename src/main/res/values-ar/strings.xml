@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">مسح الملفات التي فشل رفعها</string>
     <string name="action_edit">تعديل</string>
     <string name="action_empty_notifications">إزالة جميع التنبيهات</string>
-    <string name="action_empty_trashbin">تفريغ سلة المهملات</string>
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
@@ -267,9 +266,6 @@
     <string name="etm_background_jobs_schedule_test_job">جدولة مهمة تجريبية</string>
     <string name="etm_background_jobs_start_test_job">بدء المهمة التجريبية</string>
     <string name="etm_background_jobs_stop_test_job">إيقاف المهمة التجريبية</string>
-    <string name="etm_download_enqueue_test_download">إدراج بقائمة التحميل التجريبي للانتظار</string>
-    <string name="etm_download_path">المسار البعيد</string>
-    <string name="etm_downloader">مُحمل</string>
     <string name="etm_migrations">عمليات الترحيل (ترقية التطبيق)</string>
     <string name="etm_preferences">الخيارات</string>
     <string name="etm_title">وضع الهندسة التجريبي</string>
@@ -708,7 +704,6 @@
     <string name="trashbin_empty_message">ستتمكن من استعادة الملفات المحذوفة من هنا.</string>
     <string name="trashbin_file_not_deleted">الملف %1$s لا يمكن حذفه!</string>
     <string name="trashbin_file_not_restored">الملف %1$s لا يمكن إسترجاعه!</string>
-    <string name="trashbin_loading_failed">فشل تحميل سلة المهملات!</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>

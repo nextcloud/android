@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
-    <string name="action_empty_trashbin">清空回收站</string>
+    <string name="action_empty_trashbin">清空垃圾箱</string>
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -81,7 +81,7 @@
     <string name="away">离开</string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
-    <string name="battery_optimization_message">您的设备可能已启用电池优化。 如果您从中排除此应用，则自动加载只能单独工作。</string>
+    <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
     <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
     <string name="battery_optimization_title">电池优化</string>
     <string name="brute_force_delay">因过多的错误尝试而延误</string>
@@ -273,9 +273,6 @@
     <string name="etm_background_jobs_schedule_test_job">日程测试工作</string>
     <string name="etm_background_jobs_start_test_job">开始测试工作</string>
     <string name="etm_background_jobs_stop_test_job">停止测试工作</string>
-    <string name="etm_download_enqueue_test_download">将测试下载加入队列</string>
-    <string name="etm_download_path">远程路径</string>
-    <string name="etm_downloader">下载器</string>
     <string name="etm_migrations">迁移（应用升级）</string>
     <string name="etm_preferences">设置偏好</string>
     <string name="etm_title">工程测试模式</string>
@@ -284,6 +281,8 @@
     <string name="etm_transfer_enqueue_test_upload">将测试上传加入队列</string>
     <string name="etm_transfer_remote_path">远程路径</string>
     <string name="etm_transfer_type">传输</string>
+    <string name="etm_transfer_type_download">下载</string>
+    <string name="etm_transfer_type_upload">上传</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
@@ -370,6 +369,7 @@
     <string name="foreign_files_success">所有文件已被移动</string>
     <string name="forward">向前</string>
     <string name="fourHours">4 小时</string>
+    <string name="fullscreen">全屏</string>
     <string name="hint_name">名称</string>
     <string name="hint_note">备注</string>
     <string name="hint_password">密码</string>
@@ -685,7 +685,7 @@
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
-    <string name="strict_mode">严格模式：不允许 http 连接！</string>
+    <string name="strict_mode">严格模式:不允许 HTTP 连接!</string>
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
@@ -728,7 +728,7 @@
     <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
-    <string name="trashbin_loading_failed">加载回收站失败！</string>
+    <string name="trashbin_loading_failed">加载垃圾箱失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>

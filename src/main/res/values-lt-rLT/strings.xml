@@ -10,7 +10,6 @@
     <string name="action_clear_failed_uploads">Išvalyti nepavykusius įkėlimus</string>
     <string name="action_edit">Taisyti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
-    <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
@@ -273,8 +272,6 @@
     <string name="etm_background_jobs_schedule_test_job">Suplanuokite testinę užduotį</string>
     <string name="etm_background_jobs_start_test_job">Pradėti testinę užduotį</string>
     <string name="etm_background_jobs_stop_test_job">Sustabdyti testinę užduotį</string>
-    <string name="etm_download_enqueue_test_download">Užbaikite bandomąjį atsisiuntimą</string>
-    <string name="etm_download_path">Nuotolinis kelias</string>
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>
@@ -715,7 +712,6 @@
     <string name="trashbin_empty_message">Čia galėsite atkurti ištrintus failus.</string>
     <string name="trashbin_file_not_deleted">Nepavyko ištrinti failo %1$s!</string>
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
-    <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>

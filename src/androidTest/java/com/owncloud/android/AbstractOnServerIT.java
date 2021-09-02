@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -202,17 +203,17 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                                                                 targetContext.getContentResolver());
 
         UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
-            localBehaviour,
-            targetContext,
-            false,
-            false
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                localBehaviour,
+                targetContext,
+                false,
+                false
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy

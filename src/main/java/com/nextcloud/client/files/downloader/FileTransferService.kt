@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,30 +26,34 @@ import android.os.IBinder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.LocalBinder
+import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 import javax.inject.Named
 
-class DownloaderService : Service() {
+class FileTransferService : Service() {
 
     companion object {
         const val TAG = "DownloaderService"
-        const val ACTION_DOWNLOAD = "download"
+        const val ACTION_TRANSFER = "transfer"
         const val EXTRA_REQUEST = "request"
         const val EXTRA_USER = "user"
 
         fun createBindIntent(context: Context, user: User): Intent {
-            return Intent(context, DownloaderService::class.java).apply {
+            return Intent(context, FileTransferService::class.java).apply {
                 putExtra(EXTRA_USER, user)
             }
         }
 
-        fun createDownloadIntent(context: Context, request: Request): Intent {
-            return Intent(context, DownloaderService::class.java).apply {
-                action = ACTION_DOWNLOAD
+        fun createTransferRequestIntent(context: Context, request: Request): Intent {
+            return Intent(context, FileTransferService::class.java).apply {
+                action = ACTION_TRANSFER
                 putExtra(EXTRA_REQUEST, request)
             }
         }
@@ -60,8 +64,8 @@ class DownloaderService : Service() {
      */
     class Binder(
         downloader: TransferManagerImpl,
-        service: DownloaderService
-    ) : LocalBinder<DownloaderService>(service),
+        service: FileTransferService
+    ) : LocalBinder<FileTransferService>(service),
         TransferManager by downloader
 
     @Inject
@@ -77,6 +81,18 @@ class DownloaderService : Service() {
     @Inject
     lateinit var logger: Logger
 
+    @Inject
+    lateinit var uploadsStorageManager: UploadsStorageManager
+
+    @Inject
+    lateinit var connectivityService: ConnectivityService
+
+    @Inject
+    lateinit var powerManagementService: PowerManagementService
+
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
+
     val isRunning: Boolean get() = downloaders.any { it.value.isRunning }
 
     private val downloaders: MutableMap<String, TransferManagerImpl> = mutableMapOf()
@@ -86,22 +102,22 @@ class DownloaderService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (intent.action != ACTION_DOWNLOAD) {
+        if (intent.action != ACTION_TRANSFER) {
             return START_NOT_STICKY
         }
 
         if (!isRunning) {
             startForeground(
-                AppNotificationManager.DOWNLOAD_NOTIFICATION_ID,
+                AppNotificationManager.TRANSFER_NOTIFICATION_ID,
                 notificationsManager.buildDownloadServiceForegroundNotification()
             )
         }
 
         val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request
-        val downloader = getDownloader(request.user)
-        downloader.enqueue(request)
+        val transferManager = getTransferManager(request.user)
+        transferManager.enqueue(request)
 
-        logger.d(TAG, "Enqueued new download: ${request.uuid} ${request.file.remotePath}")
+        logger.d(TAG, "Enqueued new transfer: ${request.uuid} ${request.file.remotePath}")
 
         return START_NOT_STICKY
     }
@@ -109,24 +125,30 @@ class DownloaderService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         val user = intent?.getParcelableExtra<User>(EXTRA_USER)
         if (user != null) {
-            return Binder(getDownloader(user), this)
+            return Binder(getTransferManager(user), this)
         } else {
             return null
         }
     }
 
-    private fun onDownloadUpdate(transfer: Transfer) {
+    private fun onTransferUpdate(transfer: Transfer) {
         if (!isRunning) {
             logger.d(TAG, "All downloads completed")
-            notificationsManager.cancelDownloadProgress()
+            notificationsManager.cancelTransferNotification()
             stopForeground(true)
             stopSelf()
-        } else {
-            notificationsManager.postDownloadProgress(
+        } else if (transfer.direction == Direction.DOWNLOAD) {
+            notificationsManager.postDownloadTransferProgress(
                 fileOwner = transfer.request.user,
                 file = transfer.request.file,
                 progress = transfer.progress,
                 allowPreview = !transfer.request.test
+            )
+        } else if (transfer.direction == Direction.UPLOAD) {
+            notificationsManager.postUploadTransferProgress(
+                fileOwner = transfer.request.user,
+                file = transfer.request.file,
+                progress = transfer.progress
             )
         }
     }
@@ -136,7 +158,7 @@ class DownloaderService : Service() {
         logger.d(TAG, "Stopping downloader service")
     }
 
-    private fun getDownloader(user: User): TransferManagerImpl {
+    private fun getTransferManager(user: User): TransferManagerImpl {
         val existingDownloader = downloaders[user.accountName]
         return if (existingDownloader != null) {
             existingDownloader
@@ -146,8 +168,16 @@ class DownloaderService : Service() {
                 { clientFactory.create(user) },
                 contentResolver
             )
-            val newDownloader = TransferManagerImpl(runner, downloadTaskFactory)
-            newDownloader.registerTransferListener(this::onDownloadUpdate)
+            val uploadTaskFactory = UploadTask.Factory(
+                applicationContext,
+                uploadsStorageManager,
+                connectivityService,
+                powerManagementService,
+                { clientFactory.create(user) },
+                fileDataStorageManager
+            )
+            val newDownloader = TransferManagerImpl(runner, downloadTaskFactory, uploadTaskFactory)
+            newDownloader.registerTransferListener(this::onTransferUpdate)
             downloaders[user.accountName] = newDownloader
             newDownloader
         }

@@ -25,12 +25,20 @@ package com.nextcloud.ui
 import android.accounts.Account
 import android.content.Context
 import com.owncloud.android.lib.common.OwnCloudClientFactory
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.ClearStatusMessageRemoteOperation
 
 public class ClearStatusTask(val account: Account?, val context: Context?) : Function0<Boolean> {
     override fun invoke(): Boolean {
-        val client = OwnCloudClientFactory.createNextcloudClient(account, context)
+        return try {
+            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
-        return ClearStatusMessageRemoteOperation().execute(client).isSuccess
+            ClearStatusMessageRemoteOperation().execute(client).isSuccess
+        } catch (e: AccountUtils.AccountNotFoundException) {
+            Log_OC.e(this, "Error clearing status", e)
+
+            false
+        }
     }
 }

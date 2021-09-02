@@ -11,7 +11,6 @@
     <string name="action_clear_failed_uploads">Izbriši neuspela otpremanja</string>
     <string name="action_edit">Izmeni</string>
     <string name="action_empty_notifications">Očisti sva obaveštenja</string>
-    <string name="action_empty_trashbin">Isprazni kantu</string>
     <string name="action_send_share">Slanje/Deljenje</string>
     <string name="action_switch_grid_view">Prikaz mreže</string>
     <string name="action_switch_list_view">Prikaz liste</string>
@@ -607,7 +606,6 @@
     <string name="trashbin_empty_headline">Nema obrisanih fajlova</string>
     <string name="trashbin_file_not_deleted">Fajl %1$s ne može da se obriše!</string>
     <string name="trashbin_file_not_restored">Fajl %1$s ne može da se povrati!</string>
-    <string name="trashbin_loading_failed">Neuspelo učitavanje sadržaja kante!</string>
     <string name="trashbin_not_emptied">Fajl ne može da se obriše nepovratno!</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Isključi šifrovanje</string>

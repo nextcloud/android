@@ -128,6 +128,7 @@
     <string name="common_delete">Delete</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
+    <string name="common_skip">Skip</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -763,8 +764,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="trashbin_activity_title">Deleted files</string>
-    <string name="action_empty_trashbin">Empty trashbin</string>
-    <string name="trashbin_loading_failed">Loading trashbin failed!</string>
+    <string name="action_empty_trashbin">Empty trash bin</string>
+    <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
@@ -862,13 +863,17 @@
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_progress">Progress</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
-    <string name="etm_downloader">Downloader</string>
-    <string name="etm_download_path">Remote path</string>
-    <string name="etm_download_enqueue_test_download">Enqueue test download</string>
-    <string name="etm_download_uuid" translatable="false">@string/etm_background_job_uuid</string>
-    <string name="etm_download_user" translatable="false">@string/etm_background_job_user</string>
-    <string name="etm_download_state" translatable="false">@string/etm_background_job_state</string>
-    <string name="etm_download_progress" translatable="false">@string/etm_background_job_progress</string>
+    <string name="etm_transfer">File transfer</string>
+    <string name="etm_transfer_remote_path">Remote path</string>
+    <string name="etm_transfer_enqueue_test_download">Enqueue test download</string>
+    <string name="etm_transfer_enqueue_test_upload">Enqueue test upload</string>
+    <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_upload">Upload</string>
+    <string name="etm_transfer_type_download">Download</string>
+    <string name="etm_transfer_uuid" translatable="false">@string/etm_background_job_uuid</string>
+    <string name="etm_transfer_user" translatable="false">@string/etm_background_job_user</string>
+    <string name="etm_transfer_state" translatable="false">@string/etm_background_job_state</string>
+    <string name="etm_transfer_progress" translatable="false">@string/etm_background_job_progress</string>
 
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
@@ -1082,4 +1087,6 @@
     <string name="sharing_email_warning">Password protection has been enabled. You have to provide the password to
         the recipient.\n\nIf you send a share via MagentaCLOUD and paste the password in this message, it will be
         transmitted unencrypted in plaintext.</string>
+    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
+    <string name="fullscreen">Fullscreen</string>
 </resources>
