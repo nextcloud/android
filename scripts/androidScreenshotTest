@@ -57,7 +57,7 @@ while read line ; do
     fi
 done < <(adb devices | cut -f1)
 
-if [ ! $emulatorIsRunning ] ; then
+if [ "$emulatorIsRunning" == false ] ; then
     emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
 fi
 
