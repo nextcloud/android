@@ -1,0 +1,4 @@
+build: Exclude xpp3 dependency from library
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
