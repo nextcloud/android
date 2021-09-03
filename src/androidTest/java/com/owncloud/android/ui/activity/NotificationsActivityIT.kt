@@ -117,9 +117,8 @@ class NotificationsActivityIT : AbstractIT() {
             add(Action("Send usage", "link", "url", true))
             add(Action("Not now", "link", "url", false))
             add(Action("third action", "link", "url", false))
-            add(Action("Delay", "link", "url", false))    
+            add(Action("Delay", "link", "url", false))
         }
-        
 
         notifications.add(
             Notification(
