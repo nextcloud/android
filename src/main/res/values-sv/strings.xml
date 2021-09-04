@@ -683,6 +683,7 @@
     <string name="stream">Streama med…</string>
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
     <string name="stream_not_possible_message">Vänligen hämta media istället eller använd en extern app.</string>
+    <string name="strict_mode">Strikt läge: inga HTTP-anslutningar tillåtna!</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>

@@ -682,6 +682,7 @@
     <string name="stream">Retransmisión con...</string>
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
+    <string name="strict_mode">Modo estricto: ¡ninguna conexión HTTP permitida!</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo.</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="sync_conflicts_in_favourites_ticker">Se han encontrado conflictos</string>
