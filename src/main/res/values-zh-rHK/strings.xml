@@ -424,7 +424,6 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">最大</string>
     <string name="menu_item_sort_by_size_smallest_first">最小</string>
-    <string name="more">更多</string>
     <string name="move_file_error">在移動檔案或資料夾時發生了錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
