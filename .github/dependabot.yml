@@ -89,3 +89,6 @@ updates:
                     versions:
                         - ">= 1.2.17.a"
                         - "< 1.2.18"
+                -   dependency-name: com.facebook.testing.screenshot:core
+                    versions:
+                        - "< 0.14.0"
