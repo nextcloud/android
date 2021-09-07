@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
     <string name="menu_item_sort_by_size_biggest_first">大文件在前</string>
     <string name="menu_item_sort_by_size_smallest_first">小文件在前</string>
+    <string name="more">更多</string>
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
     <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
