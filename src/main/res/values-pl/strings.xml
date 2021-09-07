@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Od największych</string>
     <string name="menu_item_sort_by_size_smallest_first">Od najmniejszych</string>
+    <string name="more">Więcej</string>
     <string name="move_file_error">Wystąpił błąd podczas próby przeniesienia tego pliku lub katalogu</string>
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>

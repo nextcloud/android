@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Najväčšie prvé</string>
     <string name="menu_item_sort_by_size_smallest_first">Najmenšie prvé</string>
+    <string name="more">Viac</string>
     <string name="move_file_error">Pri pokuse o presun tohoto súboru alebo priečinka nastala chyba</string>
     <string name="move_file_invalid_into_descendent">Nie je možné presunúť priečinok do samého seba</string>
     <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
