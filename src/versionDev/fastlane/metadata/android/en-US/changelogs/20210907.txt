@@ -1,0 +1,5 @@
+Fix opening downloaded files when offline (#5265)
+Downgrade fido version to 4.1.0
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
