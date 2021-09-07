@@ -424,7 +424,6 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Büyükten küçüğe</string>
     <string name="menu_item_sort_by_size_smallest_first">Küçükten büyüğe</string>
-    <string name="more">diğer</string>
     <string name="move_file_error">Bu dosya ya da klasör taşınmaya çalışılırken bir sorun çıktı</string>
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>

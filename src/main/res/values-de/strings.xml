@@ -424,7 +424,6 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
-    <string name="more">mehr</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
