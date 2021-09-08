@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ $# -lt 2 ]; then
     echo "1: record: true/false
@@ -58,7 +59,7 @@ while read line ; do
 done < <(adb devices | cut -f1)
 
 if [ "$emulatorIsRunning" == false ] ; then
-    emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+    "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
 fi
 
 if [ -e $5 ] ; then
