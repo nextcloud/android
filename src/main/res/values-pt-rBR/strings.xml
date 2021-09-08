@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Menores primeiro</string>
+    <string name="more">Mais</string>
     <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="move_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
