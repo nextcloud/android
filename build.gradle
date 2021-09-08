@@ -67,7 +67,7 @@ ext {
     byteBuddyVersion = "1.11.2"
     espressoVersion = "3.3.0"
     workRuntime = "2.5.0"
-    fidoVersion = "4.4.0"
+    fidoVersion = "4.1.0"
 
     ciBuild = System.getenv("CI") == "true"
 
