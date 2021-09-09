@@ -18,7 +18,7 @@ scripts/wait_for_emulator.sh
 stat=$?
 
 if [ ! $stat -eq 0 ]; then
-    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "Unit" $DRONE_PULL_REQUEST $GIT_TOKEN
 fi
 
 ./gradlew installGplayDebugAndroidTest
@@ -27,7 +27,7 @@ scripts/wait_for_server.sh "server"
 stat=$(( stat | $? ))
 
 if [ ! $stat -eq 0 ]; then
-    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
 fi
 
 ./gradlew combinedTestReport
