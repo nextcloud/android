@@ -36,6 +36,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 
+@Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
     val binding: UnifiedSearchItemBinding,
     val user: User,
