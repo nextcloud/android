@@ -9,7 +9,7 @@ curl_gh() {
 deleteOldComments() {
     # delete all old comments, matching this type
     echo "Deleting old comments for $BRANCH_TYPE"
-    oldComments=$(curl_gh > /dev/null 2>&1  -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq --arg TYPE $BRANCH_TYPE '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test([$TYPE]) | tostring)'| grep "true|true" | tr -d "\"" | cut -f1 -d"|")
+    oldComments=$(curl_gh 2>/dev/null  -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq --arg TYPE $BRANCH_TYPE '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test([$TYPE]) | tostring)'| grep "true|true" | tr -d "\"" | cut -f1 -d"|")
     count=$(echo $oldComments | grep true | wc -l)
     echo "Found $count old comments"
 
