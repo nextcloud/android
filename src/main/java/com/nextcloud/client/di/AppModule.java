@@ -231,9 +231,4 @@ class AppModule {
     LocalBroadcastManager localBroadcastManager(Context context) {
         return LocalBroadcastManager.getInstance(context);
     }
-
-    @Provides
-    FileDataStorageManager storageManager(CurrentAccountProvider currentAccountProvider, Context context) {
-        return new FileDataStorageManager(currentAccountProvider.getCurrentAccount(), context.getContentResolver());
-    }
 }

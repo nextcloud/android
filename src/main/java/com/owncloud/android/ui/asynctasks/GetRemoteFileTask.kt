@@ -48,7 +48,7 @@ class GetRemoteFileTask(
             val remoteOcFile = storageManager.saveFileWithParent(temp, context)
             if (remoteOcFile.isFolder()) {
                 // perform folder synchronization
-                val synchFolderOp: RemoteOperation = RefreshFolderOperation(
+                val synchFolderOp: RemoteOperation<Any> = RefreshFolderOperation(
                     remoteOcFile,
                     System.currentTimeMillis(),
                     false,
