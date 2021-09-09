@@ -225,6 +225,8 @@
     <string name="edit_label">เปลี่ยนชื่อ</string>
     <string name="end_to_end_encryption_decrypting">กำลังถอดรหัส…</string>
     <string name="end_to_end_encryption_dialog_close">ปิด</string>
+    <string name="end_to_end_encryption_passphrase_title">จดรหัสผ่านเข้ารหัส 12 คำของคุณ</string>
+    <string name="end_to_end_encryption_password">รหัสผ่าน…</string>
     <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>
     <string name="etm_accounts">บัญชี</string>
     <string name="favorite">เพิ่มในรายการโปรด</string>
