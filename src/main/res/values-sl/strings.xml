@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
+    <string name="action_empty_trashbin">Izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
@@ -542,6 +543,7 @@
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
+    <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
@@ -714,6 +716,7 @@
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
+    <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
