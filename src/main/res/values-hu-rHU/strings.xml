@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z – A</string>
     <string name="menu_item_sort_by_size_biggest_first">Nagyobbak elöl</string>
     <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
+    <string name="more">Továbbiak</string>
     <string name="move_file_error">Hiba történt a fájl vagy mappa áthelyezése közben</string>
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
