@@ -10,8 +10,8 @@
 BRANCH=$1
 TYPE=$2
 PR=$3
-GITHUB_USER=$4
-GITHUB_PASSWORD=$5
+GITHUB_TOKEN=$4
+
 BRANCH_TYPE=$BRANCH-$TYPE
 
  # delete all old comments, matching this type
