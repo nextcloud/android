@@ -1,0 +1,3 @@
+Migrate ThumbnailCacheManager to User model
+Update translations
+Update 3rd-party dependencies
