@@ -674,6 +674,7 @@
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
+    <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -821,7 +822,6 @@
     <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
-    <string name="whats_your_status">Kako želite nastaviti stanje?</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>
     <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba nastaviti podatkovno mapo.</string>
     <plurals name="sync_fail_in_favourites_content">

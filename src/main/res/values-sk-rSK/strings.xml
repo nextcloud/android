@@ -831,7 +831,6 @@
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
-    <string name="whats_your_status">Aký je váš stav?</string>
     <string name="wrong_storage_path">Adresár pre úložisko dát neexistuje!</string>
     <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte adresár a upravte adresár pre ukladanie údajov.</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Zer da irudi berria</string>
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
-    <string name="whats_your_status">Zein da zure egoera?</string>
     <string name="wrong_storage_path">Datu-biltegiratze karpeta ez dago!</string>
     <string name="wrong_storage_path_desc">Hau babeskopia eta leheneratzea beste gailu batean egiteagatik izan daiteke. Itzuli balio lehenetsietara. Egiaztatu ezarpenak datu biltegiratze-karpeta doitzeko.</string>
     <plurals name="sync_fail_in_favourites_content">

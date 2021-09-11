@@ -829,7 +829,6 @@
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
-    <string name="whats_your_status">今のオンラインステータスは何ですか？</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
     <plurals name="sync_fail_in_favourites_content">

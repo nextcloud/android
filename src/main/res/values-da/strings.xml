@@ -831,7 +831,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="what_s_new_image">Hvad nyt billede</string>
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
-    <string name="whats_your_status">Hvad er din status</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>
     <plurals name="sync_fail_in_favourites_content">

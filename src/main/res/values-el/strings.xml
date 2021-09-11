@@ -805,7 +805,6 @@
     <string name="what_s_new_image">Ποιά είναι η νέα εικόνα</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
-    <string name="whats_your_status">Ποια είναι η κατάστασή σας;</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (διενέξεις: %2$d)</item>
         <item quantity="other">Αδύνατος συγχρονισμός %1$d αρχείων (διενέξεις: %2$d)</item>

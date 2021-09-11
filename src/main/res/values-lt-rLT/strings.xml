@@ -813,7 +813,6 @@
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
-    <string name="whats_your_status">Kokia jūsų būsena?</string>
     <string name="wrong_storage_path">Duomenų saugyklos aplanko nėra!</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
