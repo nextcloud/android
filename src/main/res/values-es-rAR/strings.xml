@@ -805,7 +805,6 @@
     <string name="what_s_new_image">Lo que es nueva imagen</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
-    <string name="whats_your_status">¿Cual es tu estado?</string>
     <string name="wrong_storage_path">¡La carpeta de almacenamiento de datos no existe!</string>
     <string name="wrong_storage_path_desc">Esto puede deberse a una restauración de copia de seguridad en otro dispositivo. Volviendo a los valores predeterminados. Compruebe la configuración para ajustar la carpeta de almacenamiento de datos.</string>
     <plurals name="sync_fail_in_favourites_content">

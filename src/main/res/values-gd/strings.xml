@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Dealbh air na tha ùr</string>
     <string name="whats_new_skip">Leum thairis air</string>
     <string name="whats_new_title">Na tha ùr ann an %1$s</string>
-    <string name="whats_your_status">Dè do staid?</string>
     <string name="wrong_storage_path">Chan eil pasgan stòradh dàta ann!</string>
     <string name="wrong_storage_path_desc">Dh’fhaoidte gun do dh’adhbharaich aiseag lethbhric-ghlèidhidh air uidheam eile seo. A’ tilleadh dhan bhun-roghainn. Thoir sùil air roghainnean a chur gleus air a’ phasgan stòradh dàta.</string>
     <plurals name="sync_fail_in_favourites_content">

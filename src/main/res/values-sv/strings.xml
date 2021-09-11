@@ -831,7 +831,6 @@
     <string name="what_s_new_image">Vad är nytt-bild</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
-    <string name="whats_your_status">Vad är din status?</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på en säkerhetskopiering som återställts på en annan enhet. Kommer använda standarden. Vänligen kontrollera inställningarna för att konfigurera datalagringsmappen.</string>
     <plurals name="sync_fail_in_favourites_content">

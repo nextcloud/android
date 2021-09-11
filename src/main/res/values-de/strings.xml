@@ -832,7 +832,6 @@
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
-    <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
     <plurals name="sync_fail_in_favourites_content">

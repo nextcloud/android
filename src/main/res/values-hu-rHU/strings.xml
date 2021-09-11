@@ -849,7 +849,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="what_s_new_image">Újdonságok kép</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
-    <string name="whats_your_status">Mi az állapota?</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
     <string name="wrong_storage_path_desc">Ennek oka lehet egy másik eszköz biztonsági mentésének visszaállítása. Visszatérés az alapértelmezettre. Ellenőrizze a beállításokat az adattárolási mappa beállításához.</string>
     <plurals name="sync_fail_in_favourites_content">

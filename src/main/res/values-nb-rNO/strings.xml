@@ -823,7 +823,6 @@
     <string name="what_s_new_image">Hva er nytt-bilde</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
-    <string name="whats_your_status">Hva er din status?</string>
     <string name="wrong_storage_path">Denne datalagringsmappen finnes ikke</string>
     <string name="wrong_storage_path_desc">Dette kan skyldes at det er gjort en backup eller gjenoppretting på en annen enhet. Går tilbake til standardinnstilling. Sjekk innstillinger for å endre datalagringsmappen.</string>
     <plurals name="sync_fail_in_favourites_content">

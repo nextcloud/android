@@ -828,7 +828,6 @@
     <string name="what_s_new_image">Hình ảnh mới là gì</string>
     <string name="whats_new_skip">Bỏ qua</string>
     <string name="whats_new_title">Mới trong %1$s</string>
-    <string name="whats_your_status">Trạng thái của bạn là gì?</string>
     <string name="wrong_storage_path">Thư mục lưu trữ dữ liệu không tồn tại!</string>
     <string name="wrong_storage_path_desc">Điều này có thể là do khôi phục sao lưu trên một thiết bị khác. Trở lại mặc định. Vui lòng kiểm tra cài đặt để điều chỉnh thư mục lưu trữ dữ liệu.</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -828,7 +828,6 @@
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
-    <string name="whats_your_status">Укажите ваше состояние</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>
     <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>
     <plurals name="sync_fail_in_favourites_content">

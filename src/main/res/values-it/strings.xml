@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
-    <string name="whats_your_status">Qual è il tuo stato?</string>
     <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
     <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Ripristino del valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione dei dati.</string>
     <plurals name="sync_fail_in_favourites_content">
