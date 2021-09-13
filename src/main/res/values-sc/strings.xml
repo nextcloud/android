@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Immàgine de ite ddoe est de nou</string>
     <string name="whats_new_skip">Brinca</string>
     <string name="whats_new_title">Prima borta in %1$s</string>
-    <string name="whats_your_status">Cale est s\'istadu tuo?</string>
     <string name="wrong_storage_path">Sa cartella de archiviatzione de datos no esistit!</string>
     <string name="wrong_storage_path_desc">Custu podet èssere ca su recùperu de sa còpia de seguresa s\'est fatu in un\'àteru dispositivu. Torrende a is cunfiguratziones predefinidas. Controlla sa cunfiguratzione pro acontzare sa cartella de archiviatzione de is datos.</string>
     <plurals name="sync_fail_in_favourites_content">

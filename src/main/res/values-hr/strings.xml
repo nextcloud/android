@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Što je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
-    <string name="whats_your_status">Koji je vaš status?</string>
     <string name="wrong_storage_path">Put pohrane ne postoji!</string>
     <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>
     <plurals name="sync_fail_in_favourites_content">

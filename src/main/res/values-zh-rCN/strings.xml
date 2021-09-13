@@ -834,7 +834,7 @@
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
-    <string name="whats_your_status">你现在是什么状态？</string>
+    <string name="whats_your_status">你什么状态？</string>
     <string name="wrong_storage_path">数据存储文件夹不存在！</string>
     <string name="wrong_storage_path_desc">这可能是由于另一台设备上的备份还原。正退回到默认。请检查设置来调整数据存储文件夹。</string>
     <plurals name="sync_fail_in_favourites_content">

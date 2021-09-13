@@ -831,7 +831,6 @@
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
-    <string name="whats_your_status">Який ваш статус?</string>
     <string name="wrong_storage_path">Папка для зберігання даних не існує!</string>
     <string name="wrong_storage_path_desc">Можливо, це пов’язано з відновленням резервної копії на іншому пристрої. Повернення до стандартного. Будь ласка, перевірте налаштування, щоб налаштувати папку для зберігання даних.</string>
     <plurals name="sync_fail_in_favourites_content">

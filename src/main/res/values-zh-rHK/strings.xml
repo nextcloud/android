@@ -831,7 +831,7 @@
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
-    <string name="whats_your_status">你目前的狀態？</string>
+    <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">

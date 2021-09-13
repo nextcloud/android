@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Handiena lehenengo</string>
     <string name="menu_item_sort_by_size_smallest_first">Txikiena lehenengo</string>
+    <string name="more">Gehiago</string>
     <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
