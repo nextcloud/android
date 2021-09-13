@@ -19,31 +19,34 @@
  */
 package com.owncloud.android.ui.unifiedsearch
 
-import com.nextcloud.android.lib.resources.search.UnifiedSearchRemoteOperation
+import com.nextcloud.android.lib.resources.search.UnifiedSearchProvidersRemoteOperation
 import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.lib.common.SearchResult
+import com.owncloud.android.lib.common.SearchProviders
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class SearchOnProviderTask(
-    private val query: String,
-    private val provider: String,
+class GetSearchProvidersTask(
     private val client: NextcloudClient
-) : () -> SearchOnProviderTask.Result {
+) : () -> GetSearchProvidersTask.Result {
 
-    data class Result(val success: Boolean = false, val searchResult: SearchResult = SearchResult())
+    companion object {
+        const val TAG = "GetSearchProviders"
+    }
+
+    data class Result(val success: Boolean = false, val providers: SearchProviders = SearchProviders())
 
     override fun invoke(): Result {
-        Log_OC.d("Unified Search", "Run task")
-        val result = UnifiedSearchRemoteOperation(provider, query).execute(client)
+        Log_OC.d(TAG, "Getting search providers")
+        val result = UnifiedSearchProvidersRemoteOperation().execute(client)
 
-        Log_OC.d("Unified Search", "Task finished: " + result.isSuccess)
-        return if (result.isSuccess && result.resultData != null) {
-            Result(
-                success = true,
-                searchResult = result.resultData as SearchResult
-            )
-        } else {
-            Result()
+        Log_OC.d(TAG, "Task finished: " + result.isSuccess)
+        return when {
+            result.isSuccess && result.resultData != null -> {
+                Result(
+                    success = true,
+                    providers = result.resultData
+                )
+            }
+            else -> Result()
         }
     }
 }

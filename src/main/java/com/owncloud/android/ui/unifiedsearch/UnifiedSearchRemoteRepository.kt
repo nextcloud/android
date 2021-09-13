@@ -24,6 +24,7 @@ package com.owncloud.android.ui.unifiedsearch
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
+import com.owncloud.android.lib.common.SearchProviders
 import com.owncloud.android.lib.common.utils.Log_OC
 
 class UnifiedSearchRemoteRepository(
@@ -31,6 +32,9 @@ class UnifiedSearchRemoteRepository(
     private val currentAccountProvider: CurrentAccountProvider,
     private val asyncRunner: AsyncRunner
 ) : IUnifiedSearchRepository {
+
+    private var providers: SearchProviders? = null
+
     override fun refresh() {
         TODO("Not yet implemented")
     }
@@ -39,10 +43,41 @@ class UnifiedSearchRemoteRepository(
         TODO("Not yet implemented")
     }
 
-    override fun loadMore(query: String, vm: UnifiedSearchViewModel) {
+    override fun loadMore(
+        query: String,
+        onResult: (UnifiedSearchResults) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
         Log_OC.d(this, "loadMore")
-        val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
-        val task = SearchOnProviderTask(query, "files", client)
-        asyncRunner.postQuickTask(task, onResult = vm::onSearchResult, onError = vm::onError)
+        fetchProviders(
+            onResult = { result ->
+                val providerIds = result.providers.map { it.id }
+                val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
+                val task = SearchOnProvidersTask(query, providerIds, client)
+                asyncRunner.postQuickTask(
+                    task = task,
+                    onResult = {
+                        onResult(UnifiedSearchResults(it.success, it.searchResults))
+                    },
+                    onError = onError
+                )
+            },
+            onError = onError
+        )
+    }
+
+    private fun fetchProviders(onResult: (SearchProviders) -> Unit, onError: (Throwable) -> Unit) {
+        Log_OC.d(this, "fetchProviders")
+        if (this.providers != null) {
+            onResult(this.providers!!)
+        } else {
+            val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
+            val task = GetSearchProvidersTask(client)
+            asyncRunner.postQuickTask(
+                task,
+                onResult = { onResult(it.providers) },
+                onError = onError
+            )
+        }
     }
 }

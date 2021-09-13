@@ -125,6 +125,7 @@ public class UnifiedSearchListAdapter extends SectionedRecyclerViewAdapter<Secti
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
+        // TODO different binding (and also maybe diff UI) for non-file results
         UnifiedSearchItemViewHolder itemViewHolder = (UnifiedSearchItemViewHolder) holder;
         SearchResultEntry entry = list.get(section).getEntries().get(relativePosition);
 

@@ -22,8 +22,12 @@
 
 package com.owncloud.android.ui.unifiedsearch
 
+import com.owncloud.android.lib.common.SearchResult
+
+data class UnifiedSearchResults(val success: Boolean, val results: List<SearchResult>)
+
 interface IUnifiedSearchRepository {
     fun refresh()
     fun startLoading()
-    fun loadMore(query: String, vm: UnifiedSearchViewModel)
+    fun loadMore(query: String, onResult: (UnifiedSearchResults) -> Unit, onError: (Throwable) -> Unit)
 }

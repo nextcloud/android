@@ -24,26 +24,36 @@ import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class SearchOnProviderTask(
+class SearchOnProvidersTask(
     private val query: String,
-    private val provider: String,
+    private val providers: List<String>,
     private val client: NextcloudClient
-) : () -> SearchOnProviderTask.Result {
+) : () -> SearchOnProvidersTask.Result {
 
-    data class Result(val success: Boolean = false, val searchResult: SearchResult = SearchResult())
+    companion object {
+        const val TAG = "SearchOnProvidersTask"
+    }
+
+    data class Result(val success: Boolean = false, val searchResults: List<SearchResult> = emptyList())
 
     override fun invoke(): Result {
-        Log_OC.d("Unified Search", "Run task")
-        val result = UnifiedSearchRemoteOperation(provider, query).execute(client)
 
-        Log_OC.d("Unified Search", "Task finished: " + result.isSuccess)
-        return if (result.isSuccess && result.resultData != null) {
-            Result(
+        Log_OC.d(TAG, "Run task")
+        val results = providers
+            .map { UnifiedSearchRemoteOperation(it, query) }
+            .map { it.execute(client) }
+
+        val success = results.isNotEmpty() && results.any { it.isSuccess }
+        Log_OC.d(TAG, "Task finished, success: $success")
+        Log_OC.d(TAG, "Providers successful: ${results.count { it.isSuccess }}")
+        Log_OC.d(TAG, "Providers successful: ${results.count { !it.isSuccess }}")
+
+        return when {
+            success -> Result(
                 success = true,
-                searchResult = result.resultData as SearchResult
+                searchResults = results.filter { it.isSuccess }.map { it.resultData }
             )
-        } else {
-            Result()
+            else -> Result()
         }
     }
 }

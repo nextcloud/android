@@ -35,7 +35,6 @@ import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
-open // legacy code had large dependencies
 class UnifiedSearchViewModel() : ViewModel() {
     lateinit var currentAccountProvider: CurrentAccountProvider
     lateinit var runner: AsyncRunner
@@ -92,7 +91,7 @@ class UnifiedSearchViewModel() : ViewModel() {
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
             isLoading.value = true
-            repository.loadMore(queryTerm, this)
+            repository.loadMore(queryTerm, this::onSearchResult, this::onError)
         }
     }
 
@@ -119,18 +118,21 @@ class UnifiedSearchViewModel() : ViewModel() {
         Log_OC.d("Unified Search", "Error: " + error.stackTrace)
     }
 
-    fun onSearchResult(result: SearchOnProviderTask.Result) {
+    fun onSearchResult(result: UnifiedSearchResults) {
         isLoading.value = false
 
         if (result.success) {
             // TODO append if already exists
-            searchResults.value = mutableListOf(result.searchResult)
+            searchResults.value = result.results.toMutableList()
         } else {
             error.value = resources.getString(R.string.search_error)
         }
 
         Log_OC.d("Unified Search", "Success: " + result.success)
-        Log_OC.d("Unified Search", "Size: " + result.searchResult.entries.size)
+        if (result.success) {
+            Log_OC.d("Unified Search", "Got results from ${result.results.size} providers")
+            Log_OC.d("Unified Search", "Total results: " + result.results.sumOf { it.entries.size })
+        }
     }
 
     @VisibleForTesting
