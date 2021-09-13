@@ -2523,4 +2523,20 @@ public class FileDisplayActivity extends FileActivity
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public void showFile(String message) {
+        dismissLoadingDialog();
+
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {
+            if (TextUtils.isEmpty(message)) {
+                OCFile temp = getFile();
+                setFile(getCurrentDir());
+                listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
+                updateActionBarTitleAndHomeButton(null);
+            } else {
+                DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+            }
+        }
+    }
 }
