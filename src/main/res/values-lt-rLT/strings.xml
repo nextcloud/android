@@ -116,6 +116,7 @@
     <string name="common_save">Įrašyti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
+    <string name="common_skip">Praleisti</string>
     <string name="common_switch_account">Perjungti paskyrą</string>
     <string name="common_switch_to_account">Prisijungti prie paskyros</string>
     <string name="common_yes">Taip</string>
@@ -275,6 +276,8 @@
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>
+    <string name="etm_transfer_remote_path">Nuotolinis kelias</string>
+    <string name="etm_transfer_type_download">Atsisiųsti</string>
     <string name="fab_label">Pridėti arba įkelti</string>
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>
@@ -363,6 +366,7 @@
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
     <string name="fourHours">4 valandos</string>
+    <string name="fullscreen">Visas ekranas</string>
     <string name="hint_name">Vardas</string>
     <string name="hint_note">Apie</string>
     <string name="hint_password">Slaptažodis</string>
@@ -413,6 +417,7 @@
     <string name="menu_item_sort_by_name_z_a">Ž - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Didžiausi pirma</string>
     <string name="menu_item_sort_by_size_smallest_first">Mažiausi pirma</string>
+    <string name="more">Daugiau</string>
     <string name="move_file_error">Klaida perkeliant failą ar aplanką</string>
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
@@ -540,6 +545,7 @@
     <string name="push_notifications_not_implemented">Push pranešimai išjungti dėl priklausomybės nuo nuosavybinių Google Play paslaugų.</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
+    <string name="qr_could_not_be_read">Nepavyko perskaityti QR kodo!</string>
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
@@ -799,6 +805,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
     <string name="user_icon">Naudotojas</string>
     <string name="user_info_address">Adresas</string>
+    <string name="user_info_email">El. paštas</string>
     <string name="user_info_phone">Telefono numeris</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Svetainė</string>

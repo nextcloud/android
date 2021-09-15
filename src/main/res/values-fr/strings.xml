@@ -426,6 +426,7 @@ Attention la suppression est irréversible.</string>
     <string name="menu_item_sort_by_name_z_a">Nom : de Z à A</string>
     <string name="menu_item_sort_by_size_biggest_first">Taille : Grand en premier</string>
     <string name="menu_item_sort_by_size_smallest_first">Taille : Petit en premier</string>
+    <string name="more">Plus</string>
     <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
@@ -832,6 +833,7 @@ Attention la suppression est irréversible.</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
+    <string name="whats_your_status">Quel est votre status ?</string>
     <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
