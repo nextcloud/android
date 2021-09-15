@@ -144,6 +144,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     fun onSearchFinished(success: Boolean) {
+        Log_OC.d(TAG, "onSearchFinished: success: $success")
         isLoading.value = false
         if (!success) {
             error.value = resources.getString(R.string.search_error)

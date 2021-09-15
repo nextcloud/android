@@ -29,14 +29,17 @@ class SearchOnProviderTask(
     private val provider: String,
     private val client: NextcloudClient
 ) : () -> SearchOnProviderTask.Result {
+    companion object {
+        private const val TAG = "SearchOnProviderTask"
+    }
 
     data class Result(val success: Boolean = false, val searchResult: SearchResult = SearchResult())
 
     override fun invoke(): Result {
-        Log_OC.d("Unified Search", "Run task")
+        Log_OC.d(TAG, "Run task")
         val result = UnifiedSearchRemoteOperation(provider, query).execute(client)
 
-        Log_OC.d("Unified Search", "Task finished: " + result.isSuccess)
+        Log_OC.d(TAG, "Task finished: " + result.isSuccess)
         return if (result.isSuccess && result.resultData != null) {
             Result(
                 success = true,
