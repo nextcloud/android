@@ -47,9 +47,13 @@ class UnifiedSearchViewModel() : ViewModel() {
     private var last: Int = -1
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val searchResults = MutableLiveData<MutableList<SearchResult>>(mutableListOf())
+    val searchResults = MutableLiveData<MutableMap<ProviderID, SearchResult>>(mutableMapOf())
     val error: MutableLiveData<String> = MutableLiveData<String>("")
     val query: MutableLiveData<String> = MutableLiveData()
+
+    companion object {
+        private const val TAG = "UnifiedSearchViewModel"
+    }
 
     @Inject
     constructor(
@@ -74,25 +78,29 @@ class UnifiedSearchViewModel() : ViewModel() {
 
     open fun refresh() {
         last = -1
-        searchResults.value = mutableListOf()
-        loadMore()
+        searchResults.value = mutableMapOf()
+        startLoading(query.value.orEmpty())
     }
 
     open fun startLoading(query: String) {
         if (!loadingStarted) {
             loadingStarted = true
             this.query.value = query
-            loadMore()
+            queryAll()
         }
     }
 
-    open fun loadMore() {
+    fun queryAll() {
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
             isLoading.value = true
-            repository.loadMore(queryTerm, this::onSearchResult, this::onError)
+            repository.queryAll(queryTerm, this::onSearchResult, this::onError, this::onSearchFinished)
         }
+    }
+
+    open fun loadMore() {
+        // TODO load more results for a single provider
     }
 
     fun openFile(fileUrl: String) {
@@ -115,23 +123,30 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     fun onError(error: Throwable) {
-        Log_OC.d("Unified Search", "Error: " + error.stackTrace)
+        Log_OC.d(TAG, "Error: " + error.stackTrace)
     }
 
-    fun onSearchResult(result: UnifiedSearchResults) {
+    @Synchronized
+    fun onSearchResult(result: UnifiedSearchResult) {
         isLoading.value = false
 
         if (result.success) {
             // TODO append if already exists
-            searchResults.value = result.results.toMutableList()
-        } else {
-            error.value = resources.getString(R.string.search_error)
+            val currentValues: MutableMap<ProviderID, SearchResult> = searchResults.value ?: mutableMapOf()
+            currentValues.put(result.provider, result.result)
+            searchResults.value = currentValues
         }
 
-        Log_OC.d("Unified Search", "Success: " + result.success)
+        Log_OC.d(TAG, "onSearchResult: Provider '${result.provider}', success: ${result.success}")
         if (result.success) {
-            Log_OC.d("Unified Search", "Got results from ${result.results.size} providers")
-            Log_OC.d("Unified Search", "Total results: " + result.results.sumOf { it.entries.size })
+            Log_OC.d(TAG, "onSearchResult: Provider '${result.provider}', result count: ${result.result.entries.size}")
+        }
+    }
+
+    fun onSearchFinished(success: Boolean) {
+        isLoading.value = false
+        if (!success) {
+            error.value = resources.getString(R.string.search_error)
         }
     }
 

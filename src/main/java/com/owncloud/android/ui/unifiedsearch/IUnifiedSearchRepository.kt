@@ -24,10 +24,17 @@ package com.owncloud.android.ui.unifiedsearch
 
 import com.owncloud.android.lib.common.SearchResult
 
-data class UnifiedSearchResults(val success: Boolean, val results: List<SearchResult>)
+typealias ProviderID = String
+
+data class UnifiedSearchResult(val provider: ProviderID, val success: Boolean, val result: SearchResult)
 
 interface IUnifiedSearchRepository {
     fun refresh()
     fun startLoading()
-    fun loadMore(query: String, onResult: (UnifiedSearchResults) -> Unit, onError: (Throwable) -> Unit)
+    fun queryAll(
+        query: String,
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
+    )
 }

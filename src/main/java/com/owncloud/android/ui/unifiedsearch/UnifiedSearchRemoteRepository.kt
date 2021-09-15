@@ -43,30 +43,48 @@ class UnifiedSearchRemoteRepository(
         TODO("Not yet implemented")
     }
 
-    override fun loadMore(
+    override fun queryAll(
         query: String,
-        onResult: (UnifiedSearchResults) -> Unit,
-        onError: (Throwable) -> Unit
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
     ) {
         Log_OC.d(this, "loadMore")
         fetchProviders(
             onResult = { result ->
                 val providerIds = result.providers.map { it.id }
+                var openRequests = providerIds.size
+                var anyError = false
                 val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
-                val task = SearchOnProvidersTask(query, providerIds, client)
-                asyncRunner.postQuickTask(
-                    task = task,
-                    onResult = {
-                        onResult(UnifiedSearchResults(it.success, it.searchResults))
-                    },
-                    onError = onError
-                )
+                providerIds
+                    .forEach { provider ->
+                        val task = SearchOnProviderTask(query, provider, client)
+                        asyncRunner.postQuickTask(
+                            task = task,
+                            onResult = {
+                                openRequests--
+                                anyError = anyError || !it.success
+                                onResult(UnifiedSearchResult(provider, it.success, it.searchResult))
+                                if (openRequests == 0) {
+                                    onFinished(!anyError)
+                                }
+                            },
+                            onError = {
+                                openRequests--
+                                anyError = true
+                                onError(it)
+                                if (openRequests == 0) {
+                                    onFinished(!anyError)
+                                }
+                            }
+                        )
+                    }
             },
             onError = onError
         )
     }
 
-    private fun fetchProviders(onResult: (SearchProviders) -> Unit, onError: (Throwable) -> Unit) {
+    fun fetchProviders(onResult: (SearchProviders) -> Unit, onError: (Throwable) -> Unit) {
         Log_OC.d(this, "fetchProviders")
         if (this.providers != null) {
             onResult(this.providers!!)

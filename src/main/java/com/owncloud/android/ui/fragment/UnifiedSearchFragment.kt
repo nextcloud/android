@@ -145,10 +145,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     @VisibleForTesting
-    fun onSearchResultChanged(list: MutableList<SearchResult>) {
+    fun onSearchResultChanged(result: MutableMap<String, SearchResult>) {
         binding.emptyList.emptyListView.visibility = View.GONE
 
-        adapter.setList(list)
+        adapter.setList(result.values.toList())
     }
 
     @VisibleForTesting

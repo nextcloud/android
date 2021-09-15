@@ -22,6 +22,7 @@ package com.owncloud.android.ui.unifiedsearch
 import com.nextcloud.android.lib.resources.search.UnifiedSearchRemoteOperation
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.SearchResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 
 class SearchOnProvidersTask(
@@ -34,24 +35,27 @@ class SearchOnProvidersTask(
         const val TAG = "SearchOnProvidersTask"
     }
 
-    data class Result(val success: Boolean = false, val searchResults: List<SearchResult> = emptyList())
+    data class Result(val success: Boolean = false, val searchResults: Map<ProviderID, SearchResult> = emptyMap())
 
     override fun invoke(): Result {
 
         Log_OC.d(TAG, "Run task")
-        val results = providers
+        val results: List<Pair<String, RemoteOperationResult<SearchResult>>> = providers
             .map { UnifiedSearchRemoteOperation(it, query) }
-            .map { it.execute(client) }
+            .map { Pair(it.provider, it.execute(client)) }
 
-        val success = results.isNotEmpty() && results.any { it.isSuccess }
+        val success = results.isNotEmpty() && results.any { it.second.isSuccess }
         Log_OC.d(TAG, "Task finished, success: $success")
-        Log_OC.d(TAG, "Providers successful: ${results.count { it.isSuccess }}")
-        Log_OC.d(TAG, "Providers successful: ${results.count { !it.isSuccess }}")
+        Log_OC.d(TAG, "Providers successful: ${results.count { it.second.isSuccess }}")
+        Log_OC.d(TAG, "Providers successful: ${results.count { !it.second.isSuccess }}")
 
         return when {
             success -> Result(
                 success = true,
-                searchResults = results.filter { it.isSuccess }.map { it.resultData }
+                searchResults = results
+                    .filter { it.second.isSuccess }
+                    .map { Pair(it.first, it.second.resultData) }
+                    .toMap()
             )
             else -> Result()
         }
