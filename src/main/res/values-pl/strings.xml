@@ -99,7 +99,7 @@
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
     <string name="clipboard_unexpected_error">Nieoczekiwany błąd podczas kopiowania do schowka</string>
-    <string name="common_back">Wróć</string>
+    <string name="common_back">Wstecz</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_choose_account">Wybierz konto</string>

@@ -268,7 +268,7 @@
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Atividades de background</string>
-    <string name="etm_background_jobs_cancel_all">Cantzella totu is traballos</string>
+    <string name="etm_background_jobs_cancel_all">Annulla totu is traballos</string>
     <string name="etm_background_jobs_prune">Elìmina atividades firmas</string>
     <string name="etm_background_jobs_schedule_test_job">Programma traballu de proa</string>
     <string name="etm_background_jobs_start_test_job">Cumintza traballu de proa</string>

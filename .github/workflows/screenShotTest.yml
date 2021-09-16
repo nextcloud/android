@@ -23,6 +23,8 @@ jobs:
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     ./gradlew assembleGplayDebug
+            -   name: Delete old comments
+                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: run tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:

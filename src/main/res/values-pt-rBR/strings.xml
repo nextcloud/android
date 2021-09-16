@@ -831,6 +831,7 @@
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
+    <string name="whats_your_status">Qual é o seu status?</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
     <plurals name="sync_fail_in_favourites_content">
