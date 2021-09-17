@@ -464,7 +464,7 @@
     <string name="notification_icon">Ikona powiadomień</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
-    <string name="offline_mode">Brak połączenia z Internetem…</string>
+    <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
