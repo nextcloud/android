@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">El más grande primero</string>
     <string name="menu_item_sort_by_size_smallest_first">El más pequeño primero</string>
+    <string name="more">Más</string>
     <string name="move_file_error">Ha habido un error al tratar de mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
@@ -830,6 +831,7 @@
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
+    <string name="whats_your_status">¿Cuál es su estado?</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
