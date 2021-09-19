@@ -423,6 +423,7 @@
     <string name="menu_item_sort_by_name_z_a">Ö - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Suurin ensin</string>
     <string name="menu_item_sort_by_size_smallest_first">Pienin ensin</string>
+    <string name="more">Lisää</string>
     <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
