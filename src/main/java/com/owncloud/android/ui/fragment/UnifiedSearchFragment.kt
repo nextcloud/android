@@ -41,6 +41,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import javax.inject.Inject
 
@@ -103,6 +104,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             clientFactory,
             requireContext()
         )
+        adapter.shouldShowFooters(true)
         adapter.setLayoutManager(gridLayoutManager)
         binding.listRoot.layoutManager = gridLayoutManager
         binding.listRoot.adapter = adapter
@@ -132,6 +134,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         openFile(searchResultEntry.remotePath())
     }
 
+    override fun onLoadMoreClicked(providerID: ProviderID) {
+        vm.loadMore(providerID)
+    }
+
     fun openFile(fileUrl: String) {
         val user = currentAccountProvider.user
         val task = GetRemoteFileTask(
@@ -145,10 +151,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     @VisibleForTesting
-    fun onSearchResultChanged(result: Map<String, SearchResult>) {
+    fun onSearchResultChanged(result: Map<String, List<SearchResult>>) {
         binding.emptyList.emptyListView.visibility = View.GONE
 
-        adapter.setData(result)
+        adapter.setInitialData(result)
     }
 
     @VisibleForTesting

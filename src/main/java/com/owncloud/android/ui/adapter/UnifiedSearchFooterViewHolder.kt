@@ -2,8 +2,8 @@
  *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
+ * @author Álvaro Brey Vilas
+ * Copyright (C) 2021 Álvaro Brey Vilas
  * Copyright (C) 2020 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,14 +23,19 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.databinding.UnifiedSearchFooterBinding
+import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 
-class UnifiedSearchHeaderViewHolder(val binding: UnifiedSearchHeaderBinding, val context: Context) :
+class UnifiedSearchFooterViewHolder(
+    val binding: UnifiedSearchFooterBinding,
+    val context: Context,
+    private val listInterface: UnifiedSearchListInterface,
+) :
     SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
-        binding.title.text = section.name
-        binding.title.setTextColor(ThemeColorUtils.primaryColor(context))
+        binding.unifiedSearchFooterLayout.setOnClickListener {
+            listInterface.onLoadMoreClicked(section.providerID)
+        }
     }
 }

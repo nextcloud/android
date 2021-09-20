@@ -49,7 +49,7 @@ class UnifiedSearchRemoteRepository(
         onError: (Throwable) -> Unit,
         onFinished: (Boolean) -> Unit
     ) {
-        Log_OC.d(this, "loadMore")
+        Log_OC.d(this, "queryAll")
         fetchProviders(
             onResult = { result ->
                 val providerIds = result.providers.map { it.id }
@@ -81,6 +81,30 @@ class UnifiedSearchRemoteRepository(
                     }
             },
             onError = onError
+        )
+    }
+
+    override fun queryProvider(
+        query: String,
+        provider: ProviderID,
+        cursor: Int?,
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
+    ) {
+        Log_OC.d(
+            this,
+            "queryProvider() called with: query = $query, provider = $provider, cursor = $cursor"
+        )
+        val client = clientFactory.createNextcloudClient(currentAccountProvider.user)
+        val task = SearchOnProviderTask(query, provider, client, cursor)
+        asyncRunner.postQuickTask(
+            task,
+            onResult = {
+                onResult(UnifiedSearchResult(provider, it.success, it.searchResult))
+                onFinished(!it.success)
+            },
+            onError
         )
     }
 

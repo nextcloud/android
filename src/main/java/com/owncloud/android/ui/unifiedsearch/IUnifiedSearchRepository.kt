@@ -28,11 +28,21 @@ typealias ProviderID = String
 
 data class UnifiedSearchResult(val provider: ProviderID, val success: Boolean, val result: SearchResult)
 
+@Suppress("LongParameterList")
 interface IUnifiedSearchRepository {
     fun refresh()
     fun startLoading()
     fun queryAll(
         query: String,
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
+    )
+
+    fun queryProvider(
+        query: String,
+        provider: ProviderID,
+        cursor: Int?,
         onResult: (UnifiedSearchResult) -> Unit,
         onError: (Throwable) -> Unit,
         onFinished: (Boolean) -> Unit

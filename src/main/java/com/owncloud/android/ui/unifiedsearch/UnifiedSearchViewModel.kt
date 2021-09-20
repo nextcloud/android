@@ -47,7 +47,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     private var last: Int = -1
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val searchResults = MutableLiveData<MutableMap<ProviderID, SearchResult>>(mutableMapOf())
+    val searchResults = MutableLiveData<MutableMap<ProviderID, MutableList<SearchResult>>>(mutableMapOf())
     val error: MutableLiveData<String> = MutableLiveData<String>("")
     val query: MutableLiveData<String> = MutableLiveData()
 
@@ -99,8 +99,22 @@ class UnifiedSearchViewModel() : ViewModel() {
         }
     }
 
-    open fun loadMore() {
-        // TODO load more results for a single provider
+    open fun loadMore(provider: ProviderID) {
+        val queryTerm = query.value.orEmpty()
+
+        if (isLoading.value != true && queryTerm.isNotBlank()) {
+            isLoading.value = true
+            val providerResults = searchResults.value?.get(provider)
+            val cursor = providerResults?.filter { it.cursor != null }?.maxOfOrNull { it.cursor!!.toInt() }
+            repository.queryProvider(
+                queryTerm,
+                provider,
+                cursor,
+                this::onSearchResult,
+                this::onError,
+                this::onSearchFinished
+            )
+        }
     }
 
     fun openFile(fileUrl: String) {
@@ -131,9 +145,10 @@ class UnifiedSearchViewModel() : ViewModel() {
         isLoading.value = false
 
         if (result.success) {
-            // TODO append if already exists
-            val currentValues: MutableMap<ProviderID, SearchResult> = searchResults.value ?: mutableMapOf()
-            currentValues.put(result.provider, result.result)
+            val currentValues: MutableMap<ProviderID, MutableList<SearchResult>> = searchResults.value ?: mutableMapOf()
+            val providerValues = currentValues[result.provider] ?: mutableListOf()
+            providerValues.add(result.result)
+            currentValues.put(result.provider, providerValues)
             searchResults.value = currentValues
         }
 

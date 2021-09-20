@@ -31,15 +31,29 @@ import com.nextcloud.client.network.ClientFactory
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.lib.common.SearchResult
-import java.util.ArrayList
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import kotlin.NotImplementedError
 import com.owncloud.android.R
+import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
+import com.owncloud.android.ui.unifiedsearch.ProviderID
+
+data class UnifiedSearchSection(val providerID: ProviderID, val results: List<SearchResult>) {
+    val itemCount: Int = results.sumOf { it.entries.size }
+
+    val name: String = results.first().name
+
+    val nextCursor: Int? = results.lastOrNull()?.cursor?.toInt()
+
+    fun getItem(index: Int) = results.flatMap { it.entries }[index]
+
+    fun hasMoreResults(): Boolean {
+        return results.last().isPaginated && nextCursor == itemCount
+    }
+}
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
@@ -55,52 +69,59 @@ class UnifiedSearchListAdapter(
         private const val FILES_PROVIDER_ID = "files"
     }
 
-    private var list: List<SearchResult> = ArrayList()
+    private var data: Map<ProviderID, List<SearchResult>> = emptyMap()
+    private var sections: List<UnifiedSearchSection> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
-            val binding = UnifiedSearchHeaderBinding.inflate(
-                LayoutInflater.from(
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                val binding = UnifiedSearchHeaderBinding.inflate(
+                    LayoutInflater.from(context), parent, false
+                )
+                UnifiedSearchHeaderViewHolder(binding, context)
+            }
+            VIEW_TYPE_FOOTER -> {
+                val binding = UnifiedSearchFooterBinding.inflate(
+                    LayoutInflater.from(context), parent, false
+                )
+                UnifiedSearchFooterViewHolder(binding, context, listInterface)
+            }
+            else -> {
+                val binding = UnifiedSearchItemBinding.inflate(
+                    LayoutInflater.from(
+                        context
+                    ),
+                    parent,
+                    false
+                )
+                UnifiedSearchItemViewHolder(
+                    binding,
+                    user,
+                    clientFactory,
+                    storageManager,
+                    listInterface,
                     context
-                ),
-                parent,
-                false
-            )
-            UnifiedSearchHeaderViewHolder(binding, context)
-        } else {
-            val binding = UnifiedSearchItemBinding.inflate(
-                LayoutInflater.from(
-                    context
-                ),
-                parent,
-                false
-            )
-            UnifiedSearchItemViewHolder(
-                binding,
-                user,
-                clientFactory,
-                storageManager,
-                listInterface,
-                context
-            )
+                )
+            }
         }
     }
 
     override fun getSectionCount(): Int {
-        return list.size
+        return sections.size
     }
 
     override fun getItemCount(section: Int): Int {
-        return list[section].entries.size
+        return sections[section].itemCount
     }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as UnifiedSearchHeaderViewHolder
-        headerViewHolder.bind(list[section])
+        headerViewHolder.bind(sections[section])
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
-        throw NotImplementedError()
+        val footerViewHolder = holder as UnifiedSearchFooterViewHolder
+        footerViewHolder.bind(sections[section])
     }
 
     override fun onBindViewHolder(
@@ -111,7 +132,7 @@ class UnifiedSearchListAdapter(
     ) {
         // TODO different binding (and also maybe diff UI) for non-file results
         val itemViewHolder = holder as UnifiedSearchItemViewHolder
-        val entry = list[section].entries[relativePosition]
+        val entry = sections[section].getItem(relativePosition)
         itemViewHolder.bind(entry)
     }
 
@@ -125,20 +146,21 @@ class UnifiedSearchListAdapter(
         }
     }
 
-    fun setData(results: Map<String, SearchResult>) {
-        // "Files" always goes first
-        val comparator =
-            Comparator { o1: Map.Entry<String, SearchResult>, o2: Map.Entry<String, SearchResult> ->
-                when {
-                    o1.key == FILES_PROVIDER_ID -> -1
-                    o2.key == FILES_PROVIDER_ID -> 1
-                    else -> 0
-                }
-            }
-
-        list = results.asSequence().sortedWith(comparator).map { it.value }.toList()
-        // TODO only update where needed
+    fun setInitialData(results: Map<String, List<SearchResult>>) {
+        data = results
+        buildSectionList()
         notifyDataSetChanged()
+    }
+
+    private fun buildSectionList() {
+        // sort so that files is always first
+        sections = data.map { UnifiedSearchSection(it.key, it.value) }.sortedWith { o1, o2 ->
+            when {
+                o1.providerID == FILES_PROVIDER_ID -> -1
+                o2.providerID == FILES_PROVIDER_ID -> 1
+                else -> 0
+            }
+        }
     }
 
     init {
