@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Очистити невдалі вивантаження</string>
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
+    <string name="action_empty_trashbin">Очистити кошик</string>
     <string name="action_send_share">Надіслати/Поширити</string>
     <string name="action_switch_grid_view">Упорядкування у формі сітки</string>
     <string name="action_switch_list_view">Упорядкування у формі списку</string>
@@ -84,11 +85,13 @@
     <string name="battery_optimization_message">Можливо, що на вашому пристрої увімкнено оптимізацію живлення від батареї. Автоматичне завантаження буде правильно працювати лише, якщо ви виключите цей застосунок зі списку оптимізації.</string>
     <string name="battery_optimization_no_setting">Неможливо відкрити налаштування батареї. Будь ласка, виконайте конфігурування самостійно у налаштуваннях.</string>
     <string name="battery_optimization_title">Оптимізація живлення</string>
+    <string name="brute_force_delay">Затримка через занадто багато неправильних спроб</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
     <string name="changelog_dev_version">Версія для розробника зі списку змін</string>
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть локальну теку...</string>
     <string name="choose_remote_folder">Виберіть віддалену теку...</string>
+    <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберігати!</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
     <string name="clear_status_message">Очистити повідомлення про стан</string>
@@ -114,6 +117,7 @@
     <string name="common_save">Зберегти</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Поділитися</string>
+    <string name="common_skip">Пропустити</string>
     <string name="common_switch_account">Перемкнути обліковий запис</string>
     <string name="common_switch_to_account">Перейти до облікового запису</string>
     <string name="common_yes">Так</string>
@@ -172,6 +176,7 @@
     <string name="could_not_download_image">Неможливо звантажити повне зображення</string>
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
+    <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
     <string name="create_new">Створити новий</string>
     <string name="create_new_document">Створити новий документ</string>
@@ -192,6 +197,7 @@
     <string name="dev_version_no_new_version_available">Відсутня нова версія</string>
     <string name="dialog_close">закрити</string>
     <string name="digest_algorithm_not_available">Цей цифровий алгоритм недоступний на вашому телефоні.</string>
+    <string name="direct_login_failed">Відмова входу за прямим посиланням!</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
     <string name="dismiss">Припинити</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
@@ -271,6 +277,13 @@
     <string name="etm_migrations">Міграція (оновлення застосунку)</string>
     <string name="etm_preferences">Налаштування</string>
     <string name="etm_title">Режим розробника для тестування</string>
+    <string name="etm_transfer">Передавання файлів</string>
+    <string name="etm_transfer_enqueue_test_download">Перевірити звантаження</string>
+    <string name="etm_transfer_enqueue_test_upload">Перевірити відвантаження</string>
+    <string name="etm_transfer_remote_path">Віддалений шлях</string>
+    <string name="etm_transfer_type">Передати</string>
+    <string name="etm_transfer_type_download">Завантажити</string>
+    <string name="etm_transfer_type_upload">Відвантажити</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
@@ -357,6 +370,7 @@
     <string name="foreign_files_success">Усі файли переміщено</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
+    <string name="fullscreen">На весь екран</string>
     <string name="hint_name">Ім\'я</string>
     <string name="hint_note">Нотатка</string>
     <string name="hint_password">Пароль</string>
@@ -379,17 +393,22 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Тут відсутні інші каталоги.</string>
     <string name="log_send_mail_subject">%1$s Android лог додатку</string>
+    <string name="log_send_no_mail_app">Не знайдено застосунку для надсилання журналу. Будь ласка, встановіть поштовий клієнт.</string>
     <string name="login">Увійти</string>
+    <string name="login_url_helper_text">Посилання на ваш веб-інтерфейс %1$s, коли ви відкриєте його у веб-переглядачі.</string>
     <string name="logs_menu_delete">Вилучити журнал</string>
     <string name="logs_menu_refresh">Оновити</string>
     <string name="logs_menu_search">Шукати у журналі</string>
+    <string name="logs_menu_send">Надіслати журнал ел.поштою</string>
     <string name="logs_status_filtered">Журнал: %1$d кБ, збіг запиту %2$d / %3$d за %4$d мс</string>
     <string name="logs_status_loading">Завантаження…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фільтру</string>
     <string name="logs_title">Журнал подій</string>
+    <string name="maintenance_mode">Сервер у режимі обслуговування</string>
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було завантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
+    <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
     <string name="media_err_timeout">Час на відтворення файлу вичерпано</string>
@@ -533,6 +552,7 @@
     <string name="push_notifications_not_implemented">Сповіщення push вимкнено через залежність від служби Google Play</string>
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
+    <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_text">Запрошую вас почати використовувати %1$s на вашому пристрої.\nЗвантажити можна тут: %2$s</string>
     <string name="recommend_urls">%1$s або %2$s</string>
@@ -566,6 +586,7 @@
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx5</string>
     <string name="select_all">Вибрати все</string>
+    <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
     <string name="send_note">Надіслати сповіщення отримувачу</string>
@@ -662,6 +683,7 @@
     <string name="stream">Транслювати з...</string>
     <string name="stream_not_possible_headline">Внутрішня трансляція неможлива</string>
     <string name="stream_not_possible_message">Будь ласка, звантажте мультимедійний файл замість використання зовнішнього застосунку</string>
+    <string name="strict_mode">Строгий режим: з\'єднання HTTP не дозволені!</string>
     <string name="subject_shared_with_you">З Вами поділилися \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s поділився \"%2$s\" з вами</string>
     <string name="sync_conflicts_in_favourites_ticker">Конфліктів знайдено</string>
@@ -704,6 +726,7 @@
     <string name="trashbin_empty_message">Тут можна відновити файли, які було вилучено.</string>
     <string name="trashbin_file_not_deleted">Файл %1$s неможливо вилучити!</string>
     <string name="trashbin_file_not_restored">Файл %1$s неможливо відновити!</string>
+    <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
@@ -747,6 +770,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_error_message_source_file_not_copied">Неможливо скопіювати файл до тимчасової теки. Спробуйте знову</string>
     <string name="uploader_error_message_source_file_not_found">Файл вибраний для вивантаження не знайдено. Будь-ласка перевірте чи файл існує</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Цей файл неможливо вивантажити</string>
     <string name="uploader_error_title_no_file_to_upload">Відсутні файли для вивантаження</string>
     <string name="uploader_info_dirname">Ім\'я теки</string>
     <string name="uploader_top_message">Оберіть каталог вивантаження</string>
@@ -792,6 +816,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекати на безлімітний Wi-Fi</string>
     <string name="user_icon">Користувач</string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Електронна пошта</string>
     <string name="user_info_phone">Номер телефону</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>
@@ -806,7 +831,6 @@
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
-    <string name="whats_your_status">Який ваш статус?</string>
     <string name="wrong_storage_path">Папка для зберігання даних не існує!</string>
     <string name="wrong_storage_path_desc">Можливо, це пов’язано з відновленням резервної копії на іншому пристрої. Повернення до стандартного. Будь ласка, перевірте налаштування, щоб налаштувати папку для зберігання даних.</string>
     <plurals name="sync_fail_in_favourites_content">

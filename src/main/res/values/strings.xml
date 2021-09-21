@@ -931,7 +931,7 @@
     <string name="set_status">Set status</string>
     <string name="online_status">Online status</string>
     <string name="status_message">Status message</string>
-    <string name="whats_your_status">What\'s your status?</string>
+    <string name="whats_your_status">What is your status?</string>
     <string name="clear_status_message_after">Clear status message after</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="set_status_message">Set status message</string>
@@ -963,4 +963,5 @@
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="fullscreen">Fullscreen</string>
+    <string name="more">More</string>
 </resources>

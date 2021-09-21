@@ -146,7 +146,7 @@
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="conflict_already_existing_file">Jo olemassa olevat tiedostot</string>
-    <string name="conflict_dialog_error">Virhe luotaessa konflikti tietoja!</string>
+    <string name="conflict_dialog_error">Virhe konfliktitietojen näyttämisessä!</string>
     <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_new_file">Uusi tiedosto</string>
@@ -277,7 +277,11 @@
     <string name="etm_preferences">Asetukset</string>
     <string name="etm_title">Kehittäjän testitila</string>
     <string name="etm_transfer">Tiedoston siirto</string>
+    <string name="etm_transfer_enqueue_test_download">Jonota testilataus</string>
+    <string name="etm_transfer_remote_path">Etäpolku</string>
+    <string name="etm_transfer_type">Siirrä</string>
     <string name="etm_transfer_type_download">Lataa</string>
+    <string name="etm_transfer_type_upload">Lähetä</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
@@ -419,6 +423,7 @@
     <string name="menu_item_sort_by_name_z_a">Ö - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Suurin ensin</string>
     <string name="menu_item_sort_by_size_smallest_first">Pienin ensin</string>
+    <string name="more">Lisää</string>
     <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
@@ -677,6 +682,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
+    <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -755,7 +761,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_lock_failed">Kansion lukitseminen epäonnistui</string>
     <string name="upload_old_android">Salaus on mahdollista vain kun &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Riittämätön tila estää tiedostojen kopioinnin %1$s kansioon. Haluatko sen sijaan siirtää ne sinne?</string>
-    <string name="upload_sync_conflict">Synkkauskonflikti, ratkaise manuaalisesti</string>
+    <string name="upload_sync_conflict">Konflikti synkronoinnissa, ratkaise manuaalisesti</string>
     <string name="upload_unknown_error">Tuntematon virhe</string>
     <string name="uploader_btn_alternative_text">Valitse</string>
     <string name="uploader_btn_upload_text">Lähetä</string>
@@ -824,7 +830,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
-    <string name="whats_your_status">Mikä on tilatietosi?</string>
     <string name="wrong_storage_path">Tiedostokansiota ei ole olemassa!</string>
     <string name="wrong_storage_path_desc">Tämä voi johtua varmuuskopion palautuksesta toisella laitteella. Palautetaan oletusasetukset. Tarkista tiedostokansion asetukset.</string>
     <plurals name="sync_fail_in_favourites_content">

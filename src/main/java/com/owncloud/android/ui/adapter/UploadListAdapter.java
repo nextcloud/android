@@ -410,12 +410,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
-                if (allowedToCreateNewThumbnail) {
+                Optional<User> user = parentActivity.getUser();
+                if (allowedToCreateNewThumbnail && user.isPresent()) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                             new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                 itemViewHolder.binding.thumbnail,
                                 parentActivity.getStorageManager(),
-                                parentActivity.getAccount()
+                                user.get()
                             );
                     if (thumbnail == null) {
                         if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {

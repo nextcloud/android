@@ -22,7 +22,6 @@
 
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -36,7 +35,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -55,11 +53,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
 
     /**
      * Creates an empty fragment for previews.
-     * <p>
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
-     * device is turned a aside).
-     * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
      */
     public PreviewTextStringFragment() {
         super();

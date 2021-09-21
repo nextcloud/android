@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">最大的放最前面</string>
     <string name="menu_item_sort_by_size_smallest_first">最小的放最前面</string>
+    <string name="more">更多</string>
     <string name="move_file_error">在移動檔案或資料夾時發生了錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
@@ -830,7 +831,7 @@
     <string name="what_s_new_image">有什麼新圖片？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
-    <string name="whats_your_status">你目前的狀態？</string>
+    <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="wrong_storage_path">資料儲存資料不存在！</string>
     <string name="wrong_storage_path_desc">這可能是因為在另一台裝置上備份還原的關係。正在汰退至預設值。請檢查設定以調整資料儲存資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">

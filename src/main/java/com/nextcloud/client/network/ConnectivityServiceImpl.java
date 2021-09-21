@@ -81,7 +81,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
             return result;
         } else {
-            return !getConnectivity().isConnected();
+            return !c.isConnected();
         }
     }
 

@@ -263,12 +263,12 @@
     <string name="etm_accounts">Contos</string>
     <string name="etm_background_job_name">Nùmene de su traballu</string>
     <string name="etm_background_job_progress">Progressu</string>
-    <string name="etm_background_job_started">Incarreradu</string>
+    <string name="etm_background_job_started">Cumintzadu</string>
     <string name="etm_background_job_state">Istadu</string>
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Atividades de background</string>
-    <string name="etm_background_jobs_cancel_all">Cantzella totu is traballos</string>
+    <string name="etm_background_jobs_cancel_all">Annulla totu is traballos</string>
     <string name="etm_background_jobs_prune">Elìmina atividades firmas</string>
     <string name="etm_background_jobs_schedule_test_job">Programma traballu de proa</string>
     <string name="etm_background_jobs_start_test_job">Cumintza traballu de proa</string>
@@ -542,9 +542,9 @@
     <string name="prefs_value_theme_dark">Iscuru</string>
     <string name="prefs_value_theme_light">Craru</string>
     <string name="prefs_value_theme_system">Sistema de sighida</string>
-    <string name="preview_image_description">Anteprima de s\'immàgine</string>
-    <string name="preview_image_error_no_local_file">Perunu archìviu locale de ammustrare in anteprima</string>
-    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'immàgine</string>
+    <string name="preview_image_description">Anteprima de s\'imàgine</string>
+    <string name="preview_image_error_no_local_file">Perunu archìviu locale de mustrare in anteprima</string>
+    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'imàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
     <string name="public_share_name">Nùmene nou</string>
@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Immàgine de ite ddoe est de nou</string>
     <string name="whats_new_skip">Brinca</string>
     <string name="whats_new_title">Prima borta in %1$s</string>
-    <string name="whats_your_status">Cale est s\'istadu tuo?</string>
     <string name="wrong_storage_path">Sa cartella de archiviatzione de datos no esistit!</string>
     <string name="wrong_storage_path_desc">Custu podet èssere ca su recùperu de sa còpia de seguresa s\'est fatu in un\'àteru dispositivu. Torrende a is cunfiguratziones predefinidas. Controlla sa cunfiguratzione pro acontzare sa cartella de archiviatzione de is datos.</string>
     <plurals name="sync_fail_in_favourites_content">

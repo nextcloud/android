@@ -36,7 +36,7 @@
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="allow_creating">Zezwalaj na tworzenie</string>
     <string name="allow_deleting">Zezwalaj na usuwanie</string>
-    <string name="allow_editing">Zezwalaj na edycję</string>
+    <string name="allow_editing">Zezwalaj na edytowanie</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
@@ -99,7 +99,7 @@
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
     <string name="clipboard_unexpected_error">Nieoczekiwany błąd podczas kopiowania do schowka</string>
-    <string name="common_back">Wróć</string>
+    <string name="common_back">Wstecz</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_choose_account">Wybierz konto</string>
@@ -383,7 +383,7 @@
     <string name="invisible">Niewidoczny</string>
     <string name="label_empty">Etykieta nie może być pusta</string>
     <string name="link">Odnośnik</string>
-    <string name="link_share_allow_upload_and_editing">Zezwalaj na przesyłanie i edycję</string>
+    <string name="link_share_allow_upload_and_editing">Zezwalaj na wysyłanie i edytowanie</string>
     <string name="link_share_file_drop">Upuszczanie pliku (tylko wysyłanie)</string>
     <string name="link_share_read_only">Tylko do odczytu</string>
     <string name="list_layout">Wygląd listy</string>
@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Od największych</string>
     <string name="menu_item_sort_by_size_smallest_first">Od najmniejszych</string>
+    <string name="more">Więcej</string>
     <string name="move_file_error">Wystąpił błąd podczas próby przeniesienia tego pliku lub katalogu</string>
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
@@ -463,7 +464,7 @@
     <string name="notification_icon">Ikona powiadomień</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
-    <string name="offline_mode">Brak połączenia z Internetem…</string>
+    <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>

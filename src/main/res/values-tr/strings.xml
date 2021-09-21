@@ -238,7 +238,7 @@
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
-    <string name="end_to_end_encryption_enter_password">Özel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
+    <string name="end_to_end_encryption_enter_password">Kişisel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor …</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnız sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Büyükten küçüğe</string>
     <string name="menu_item_sort_by_size_smallest_first">Küçükten büyüğe</string>
+    <string name="more">Diğer</string>
     <string name="move_file_error">Bu dosya ya da klasör taşınmaya çalışılırken bir sorun çıktı</string>
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
@@ -500,11 +501,11 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
-    <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
+    <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (eski adı DAVdroid) sunucu adı ya da adresi çözümlenemedi</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx5 (eski adı DAVdroid) (v1.3.0+) kurulumu</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarları</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitleme ayarları</string>
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
     <string name="prefs_category_dev">Geliştirici</string>

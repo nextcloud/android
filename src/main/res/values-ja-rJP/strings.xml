@@ -200,7 +200,7 @@
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
-    <string name="dnd">邪魔しないで</string>
+    <string name="dnd">取り込み中</string>
     <string name="dontClear">消去しない</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
@@ -277,6 +277,8 @@
     <string name="etm_preferences">環境設定</string>
     <string name="etm_title">開発者用テストモード</string>
     <string name="etm_transfer">ファイル転送</string>
+    <string name="etm_transfer_enqueue_test_download">テストダウンロードをキューに入れる</string>
+    <string name="etm_transfer_enqueue_test_upload">テストアップロードをキューに入れる</string>
     <string name="etm_transfer_remote_path">リモートパス</string>
     <string name="etm_transfer_type">転送</string>
     <string name="etm_transfer_type_download">ダウンロード</string>
@@ -421,6 +423,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">サイズ（降順）</string>
     <string name="menu_item_sort_by_size_smallest_first">サイズ（昇順）</string>
+    <string name="more">さらに表示</string>
     <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
     <string name="move_file_invalid_into_descendent">フォルダを自身の基礎となるフォルダの1つに移動することはできません</string>
     <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
@@ -672,14 +675,15 @@
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム\n\nフィーチャー：\n* 簡単でモダンなインターフェースであなたのサーバに適合\n* あなたのNextcloudサーバーにファイルをアップロード\n* ファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまたいで検索\n* あなたのデバイスで撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー&amp;連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期&amp;共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分のためのホストをたてたり、そのための有償サービスを企業から受けることが出来るので、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\nNextcloud 詳細は https://nextcloud.com まで。</string>
-    <string name="store_full_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム。\nこれは公式の開発バージョンです。テストされていない新しい機能のサンプルを毎日提供しており、不安定やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
-    <string name="store_short_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム</string>
-    <string name="store_short_dev_desc">あなたの管理下にあり続ける、自己ホスト型の生産性プラットフォーム（開発プレビューバージョン）</string>
+    <string name="store_full_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム\n\n特徴：\n* あなたのサーバと同調した、分かりやすくモダンなインターフェース\n* あなたのNextcloudサーバーにファイルをアップロード\n* それらのファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまとめて検索\n* 撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分でホストをたてたり、そのための有償サービスを企業から受けることが出来ます。これにより、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\n詳細はNextcloud（https://nextcloud.com）まで。</string>
+    <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
+    <string name="store_short_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム</string>
+    <string name="store_short_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム（開発プレビューバージョン）</string>
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
-    <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
+    <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
+    <string name="subject_shared_with_you">\"%1$s\" があなたに共有されました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
@@ -808,7 +812,7 @@
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">省電力モード解除待機中</string>
     <string name="uploads_view_upload_status_waiting_for_charging">料金を待つ</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">制限なしのWi-Fiを待機中</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">制限なしのWi-Fi接続を待っています</string>
     <string name="user_icon">ユーザー</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_email">メール</string>
@@ -826,7 +830,7 @@
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
-    <string name="whats_your_status">今のステータスは？</string>
+    <string name="whats_your_status">あなたのステータスは？</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
     <plurals name="sync_fail_in_favourites_content">

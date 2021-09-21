@@ -682,6 +682,7 @@
     <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, descarregueu el mèdia o useu una aplicació externa.</string>
+    <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
@@ -829,7 +830,6 @@
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
-    <string name="whats_your_status">Quin és el teu estat?</string>
     <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
     <string name="wrong_storage_path_desc">Això podria ser degut a una còpia de seguretat restaurada per un altre dispositiu. Revertint a la configuració per defecte. Si us plau, comprova els paràmetres per seleccionar la carpeta de dades.</string>
     <plurals name="sync_fail_in_favourites_content">

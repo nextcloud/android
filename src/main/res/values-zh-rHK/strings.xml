@@ -413,10 +413,10 @@
     <string name="media_err_timeout">欲撥放的檔案已逾時</string>
     <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
     <string name="media_err_unsupported">未支援的媒體編碼</string>
-    <string name="media_forward_description">快轉按鈕</string>
+    <string name="media_forward_description">快進按鈕</string>
     <string name="media_notif_ticker">%1$s 音樂播放器</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
-    <string name="media_rewind_description">倒帶按鈕</string>
+    <string name="media_rewind_description">倒回按鈕</string>
     <string name="media_state_playing">%1$s（播放中）</string>
     <string name="menu_item_sort_by_date_newest_first">最新</string>
     <string name="menu_item_sort_by_date_oldest_first">最舊</string>
@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">最大</string>
     <string name="menu_item_sort_by_size_smallest_first">最小</string>
+    <string name="more">更多</string>
     <string name="move_file_error">在移動檔案或資料夾時發生了錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
@@ -830,7 +831,7 @@
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
-    <string name="whats_your_status">你目前的狀態？</string>
+    <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">

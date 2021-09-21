@@ -805,7 +805,6 @@
     <string name="what_s_new_image">چه تصویر جدیدی است</string>
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>
-    <string name="whats_your_status">وضعیت شما چیست؟</string>
     <string name="wrong_storage_path">مسیر ذخیره سازی وجود ندارد!</string>
     <string name="wrong_storage_path_desc">این ممکن است به دلیل بازیابی نسخه پشتیبان در دستگاه دیگری باشد. بازگشتن به حالت پیش‌فرض. لطفا برای تنظیم مسیر ذخیره‌سازی تنظیمات را بررسی کنید.</string>
     <plurals name="sync_fail_in_favourites_content">

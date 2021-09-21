@@ -29,6 +29,7 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
     <string name="activity_chooser_title">Sūtīt saiti uz…</string>
     <string name="activity_icon">Darbības</string>
+    <string name="add_another_public_share_link">Pievienot citu saiti</string>
     <string name="add_to_cloud">Pievienot %1$s</string>
     <string name="allow_editing">Atļaut rediģēšanu</string>
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
@@ -391,6 +392,7 @@
     <string name="share_expiration_date_label">Beidzas %1$s</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
+    <string name="share_internal_link_to_file_text">Iekšējās kopīgošanas saite darbojas tikai lietotājiem, kuriem ir piekļuve šai datnei</string>
     <string name="share_link">Koplietot saiti</string>
     <string name="share_link_empty_password">Jums ir jāievada paroli</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
@@ -400,6 +402,7 @@
     <string name="share_password_title">Aizsargāts ar paroli</string>
     <string name="share_privilege_unshare">Pārtraukt dalīšanos</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
+    <string name="share_via_link_hide_download">Slēpt lejupielādi</string>
     <string name="share_via_link_menu_password_label">Aizsargāt ar paroli (%1$s)</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
     <string name="share_via_link_send_link_label">Sūtīt saiti</string>
