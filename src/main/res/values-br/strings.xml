@@ -555,7 +555,7 @@
     <string name="share_internal_link">Rannañ al liamm diabarzh</string>
     <string name="share_internal_link_to_file_text">Ar liammoù rannañ diabarzh na gerzh evit an implijourien a c\'hell tizout ar restr nemetken</string>
     <string name="share_internal_link_to_folder_text">Ar liammoù rannañ diabarzh na gerzh evit an implijourien a c\'hell tizout ar restr nemetken</string>
-    <string name="share_link">Rannan liamm</string>
+    <string name="share_link_folder">Rannan liamm</string>
     <string name="share_link_empty_password">Red eo deoc\'h lakaat o ger-tremen</string>
     <string name="share_link_file_error">Ur fazi zo bet en ur rannañur restr pe un teuliad</string>
     <string name="share_link_file_no_exist">Dibosupl rannañ. Gwiriit m\'az eus eus ar restr mar-plij.</string>

@@ -546,7 +546,7 @@
     <string name="share_internal_link">שיתוף קישור פנימי</string>
     <string name="share_internal_link_to_file_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לקובץ הזה</string>
     <string name="share_internal_link_to_folder_text">קישורי שיתוף פנימיים עובדים רק עבור משתמש עם גישה לתיקייה הזו</string>
-    <string name="share_link">קישור שיתוף</string>
+    <string name="share_link_folder">קישור שיתוף</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
     <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
     <string name="share_link_optional_password_title">ניתן להקליד ססמה</string>

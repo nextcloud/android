@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k tomuto souboru přístup</string>
     <string name="share_internal_link_to_folder_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k této složce přístup</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
-    <string name="share_link">Odkaz na sdílení</string>
+    <string name="share_link_folder">Odkaz na sdílení</string>
     <string name="share_link_empty_password">Je třeba zadat heslo</string>
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky došlo k chybě.</string>
     <string name="share_link_file_no_exist">Nedaří se sdílet – zkontrolujte zda soubor existuje.</string>

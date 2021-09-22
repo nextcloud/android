@@ -600,7 +600,8 @@
     <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link_to_folder_text">Internal share link only works for users with access to this folder</string>
     <string name="share_known_remote_on_clarification">on %1$s</string>
-    <string name="share_link">Share link</string>
+    <string name="share_link_folder">Link to folder</string>
+    <string name="share_link_file">Link to file</string>
     <string name="share_link_empty_password">You must enter a password</string>
     <string name="share_link_file_error">An error occurred while trying to share this file or folder.</string>
     <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists.</string>

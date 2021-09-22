@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj datoteci</string>
     <string name="share_internal_link_to_folder_text">Poveznicu za interno dijeljenje mogu rabiti samo korisnici koji smiju pristupiti ovoj mapi</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
-    <string name="share_link">Dijeli poveznicu</string>
+    <string name="share_link_folder">Dijeli poveznicu</string>
     <string name="share_link_empty_password">Morate unijeti zaporku</string>
     <string name="share_link_file_error">Došlo je do pogreške prilikom dijeljenja ove datoteke ili mape.</string>
     <string name="share_link_file_no_exist">Dijeljenje nije moguće. Provjerite postoji li datoteka.</string>

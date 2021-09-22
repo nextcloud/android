@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Wewnętrzny link udostępnienia działa tylko dla użytkowników z dostępem do tego pliku</string>
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępnienia działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
-    <string name="share_link">Udostępnij link</string>
+    <string name="share_link_folder">Udostępnij link</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas próby udostępnienia tego pliku lub katalogu.</string>
     <string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje.</string>

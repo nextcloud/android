@@ -582,7 +582,7 @@
     <string name="share_internal_link_to_file_text">يعمل رابط المشاركة الداخلية فقط للمستخدمين الذين لديهم حق الوصول إلى هذا الملف</string>
     <string name="share_internal_link_to_folder_text">يعمل رابط المشاركة الداخلية فقط للمستخدمين الذين لديهم حق الوصول إلى هذا المجلد</string>
     <string name="share_known_remote_on_clarification">على %1$s</string>
-    <string name="share_link">مشاركة الرابط</string>
+    <string name="share_link_folder">مشاركة الرابط</string>
     <string name="share_link_empty_password">يجب عليك إدخال كلمة مرور</string>
     <string name="share_link_file_error">حدث خطأ أثناء محاولة مشاركة هذا الملف أو المجلد.</string>
     <string name="share_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>

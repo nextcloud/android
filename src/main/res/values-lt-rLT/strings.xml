@@ -591,7 +591,7 @@
     <string name="share_internal_link_to_file_text">Vidinio bendrinimo nuoroda veikia tik naudotojams, kurie turi pireigą prie šio failo</string>
     <string name="share_internal_link_to_folder_text">Vidinio bendrinimo nuoroda veikia tik naudotojams, kurie turi pireigą prie šio failo</string>
     <string name="share_known_remote_on_clarification">ant %1$s</string>
-    <string name="share_link">Bendrinimo nuoroda</string>
+    <string name="share_link_folder">Bendrinimo nuoroda</string>
     <string name="share_link_empty_password">Privalote įvesti slaptažodį</string>
     <string name="share_link_file_error">Bandant bendrinti šį failą ar aplanką įvyko klaida.</string>
     <string name="share_link_file_no_exist">Nepavyko bendrinti. Patikrinkite, ar failas egzistuoja.</string>

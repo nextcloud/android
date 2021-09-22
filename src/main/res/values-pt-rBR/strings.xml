@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">O link de compartilhamento interno só funciona para usuários com acesso a este arquivo</string>
     <string name="share_internal_link_to_folder_text">O link de compartilhamento interno só funciona para usuários com acesso a esta pasta</string>
     <string name="share_known_remote_on_clarification">em %1$s</string>
-    <string name="share_link">Link de compartilhamento</string>
+    <string name="share_link_folder">Link de compartilhamento</string>
     <string name="share_link_empty_password">Digite uma senha</string>
     <string name="share_link_file_error">Ocorreu um erro durante ao tentar compartilhar esse arquivo ou pasta.</string>
     <string name="share_link_file_no_exist">Não foi possível compartilhar. Verifique se o arquivo existe.</string>

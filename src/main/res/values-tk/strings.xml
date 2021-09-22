@@ -589,7 +589,7 @@
     <string name="share_internal_link_to_file_text">Içerki paýlaşma baglanyşygy diňe bu faýla girip bilýän ulanyjylar üçin işleýär</string>
     <string name="share_internal_link_to_folder_text">Içerki paýlaşma baglanyşygy diňe bu bukja girip bilýän ulanyjylar üçin işleýär</string>
     <string name="share_known_remote_on_clarification">%1$sÜstünde</string>
-    <string name="share_link">Baglanyşyk paýlaş</string>
+    <string name="share_link_folder">Baglanyşyk paýlaş</string>
     <string name="share_link_empty_password">Paroly girizmeli</string>
     <string name="share_link_file_error">Bu faýly ýa-da bukjany paýlaşjak bolanda ýalňyşlyk ýüze çykdy.</string>
     <string name="share_link_file_no_exist">Paýlaşyp bolanok. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>

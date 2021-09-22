@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Liên kết chia sẻ nội bộ chỉ hoạt động đối với người dùng có quyền truy cập vào tệp này</string>
     <string name="share_internal_link_to_folder_text">Liên kết chia sẻ nội bộ chỉ hoạt động đối với người dùng có quyền truy cập vào thư mục này</string>
     <string name="share_known_remote_on_clarification">trên %1$s</string>
-    <string name="share_link">Chia sẻ liên kết</string>
+    <string name="share_link_folder">Chia sẻ liên kết</string>
     <string name="share_link_empty_password">Bạn hãy nhập một mật khẩu</string>
     <string name="share_link_file_error">Đã xảy ra lỗi khi cố gắng chia sẻ tệp hoặc thư mục này.</string>
     <string name="share_link_file_no_exist">Không thể chia sẻ. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>

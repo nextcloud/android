@@ -589,7 +589,7 @@
     <string name="share_internal_link_to_file_text">ການເຊື່ອມຕໍ່ການແບ່ງປັນການເຮັດວຽກສໍາລັບຜູ້ໃຊ້ທີ່ມີການເຂົ້າເຖິງຟາຍນີ້ເທົ່ານັ້ນ</string>
     <string name="share_internal_link_to_folder_text">ການເຊື່ອມຕໍ່ການແບ່ງປັນ ສໍາລັບຜູ້ໃຊ້ທີ່ມີການເຂົ້າເຖິງໂຟນເດີນີ້ເທົ່ານັ້ນ</string>
     <string name="share_known_remote_on_clarification">%1$s</string>
-    <string name="share_link">ແບ່ງປັນລິງ</string>
+    <string name="share_link_folder">ແບ່ງປັນລິງ</string>
     <string name="share_link_empty_password"> ທ່ານຕ້ອງໃສ່ລະຫັດຜ່ານ</string>
     <string name="share_link_file_error">ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ ການແບ່ງປັນຟາຍ ຫຼື ໂຟນເດີນີ້.</string>
     <string name="share_link_file_no_exist">ບໍ່ສາມາດແບ່ງປັນໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ຫຼືບໍ່.</string>

@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">内部共享链接仅对有权访问此文件的用户有效</string>
     <string name="share_internal_link_to_folder_text">内部共享链接仅对有权访问此文件夹的用户有效</string>
     <string name="share_known_remote_on_clarification">在 %1$s</string>
-    <string name="share_link">共享链接</string>
+    <string name="share_link_folder">共享链接</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">尝试共享此文件或文件夹时发生错误。</string>
     <string name="share_link_file_no_exist">无法共享。请检查文件是否存在。</string>

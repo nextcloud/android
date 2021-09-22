@@ -405,7 +405,7 @@
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
-    <string name="share_link">Compartir liga</string>
+    <string name="share_link_folder">Compartir liga</string>
     <string name="share_link_empty_password">Debes ingresar una contraseña</string>
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
     <string name="share_link_password_title">Ingresa una contraseña</string>

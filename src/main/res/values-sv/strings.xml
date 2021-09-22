@@ -604,7 +604,7 @@
     <string name="share_internal_link_to_file_text">Intern länkdelning fungerar bara för användare med åtkomst till den här filen</string>
     <string name="share_internal_link_to_folder_text">Intern länkdelning fungerar bara för användare med åtkomst till den här mappen</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
-    <string name="share_link">Dela länk</string>
+    <string name="share_link_folder">Dela länk</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
     <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp.</string>
     <string name="share_link_file_no_exist">Det går inte att dela. Vänligen kontrollera om filen finns.</string>

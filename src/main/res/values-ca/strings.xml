@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">L\'enllaç de compartició intern només funciona per a usuaris amb permís d\'accés a aquest fitxer</string>
     <string name="share_internal_link_to_folder_text">L\'enllaç de compartició intern només funciona per a usuaris amb permís d\'accés a aquesta carpeta</string>
     <string name="share_known_remote_on_clarification">al %1$s</string>
-    <string name="share_link">Enllaç de compartició</string>
+    <string name="share_link_folder">Enllaç de compartició</string>
     <string name="share_link_empty_password">Heu d\'escriure una contrasenya</string>
     <string name="share_link_file_error">S\'ha produït un error mentre s\'intentava compartir aquest fitxer o carpeta.</string>
     <string name="share_link_file_no_exist">No s\'ha pogut compartir. Assegureu-vos que el fitxer existeix</string>

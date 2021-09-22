@@ -594,7 +594,7 @@
     <string name="share_internal_link_to_file_text">내부 공유 링크 (이 파일에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_internal_link_to_folder_text">내부 공유 링크 (이 폴더에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_known_remote_on_clarification">%1$s 에</string>
-    <string name="share_link">링크 공유</string>
+    <string name="share_link_folder">링크 공유</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
     <string name="share_link_file_error">파일과 폴더를 공유하던 중 에러가 발생했습니다.</string>
     <string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>

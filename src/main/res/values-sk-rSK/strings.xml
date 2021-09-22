@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto súboru</string>
     <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
-    <string name="share_link">Sprístupniť odkaz</string>
+    <string name="share_link_folder">Sprístupniť odkaz</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe.</string>
     <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje.</string>

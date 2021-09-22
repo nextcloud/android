@@ -24,18 +24,14 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -67,10 +63,15 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.copyLink.setVisibility(View.GONE);
         } else {
             if (!TextUtils.isEmpty(publicShare.getLabel())) {
-                String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
-                binding.name.setText(text);
+                //String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
+                //directly show the added label to the user
+                binding.name.setText(publicShare.getLabel());
             } else {
-                binding.name.setText(R.string.share_link);
+                if (publicShare.isFolder()){
+                    binding.name.setText(R.string.share_link_folder);
+                }else {
+                    binding.name.setText(R.string.share_link_file);
+                }
             }
 
         }

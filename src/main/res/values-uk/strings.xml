@@ -583,7 +583,7 @@
     <string name="share_internal_link_to_file_text">Внутрішнє спільне посилання дійсне лише для користувачів, які мають доступ до цього файлу</string>
     <string name="share_internal_link_to_folder_text">Внутрішнє спільне посилання дійсне лише для користувачів, які мають доступ до цієї теки</string>
     <string name="share_known_remote_on_clarification">на %1$s</string>
-    <string name="share_link">Поділитися посиланням</string>
+    <string name="share_link_folder">Поділитися посиланням</string>
     <string name="share_link_empty_password">Ви повинні ввести пароль</string>
     <string name="share_link_file_error">Посилка під час надання спільного доступу до файлу чи теки.</string>
     <string name="share_link_file_no_exist">Неможливо надати спільний доступ. Будь ласка, перевірте, чи файл існує.</string>

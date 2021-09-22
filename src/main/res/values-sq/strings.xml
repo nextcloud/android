@@ -533,7 +533,7 @@
     <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
     <string name="share_internal_link_to_file_text">Lidhja e brendshme të ndarjes funksionon vetëm për përdoruesit që kanë qasje në këtë skedar</string>
     <string name="share_internal_link_to_folder_text">Lidhja e ndarjes së brendshme funksionon vetëm për përdoruesit me qasje në këtë dosje</string>
-    <string name="share_link">Lidhje ndarjeje</string>
+    <string name="share_link_folder">Lidhje ndarjeje</string>
     <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
     <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
     <string name="share_link_optional_password_title">Shkruani një fjalëkalim jo të detyrueshëm</string>

@@ -609,7 +609,8 @@
     <string name="share_internal_link_to_file_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diese Datei</string>
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_on_clarification">auf %1$s</string>
-    <string name="share_link">Link teilen</string>
+    <string name="share_link_folder">Link zum Ordner</string>
+    <string name="share_link_file">Link to file</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
     <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
     <string name="share_link_file_no_exist">Teilen nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>

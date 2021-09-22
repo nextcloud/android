@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">A belső megosztási hivatkozás csak azon felhasználóknál működik, akik hozzáférnek ehhez a fájlhoz</string>
     <string name="share_internal_link_to_folder_text">A belső megosztási hivatkozás csak azon felhasználóknál működik, akik hozzáférnek ehhez a mappához</string>
     <string name="share_known_remote_on_clarification">ezen: %1$s</string>
-    <string name="share_link">Megosztási hivatkozás</string>
+    <string name="share_link_folder">Megosztási hivatkozás</string>
     <string name="share_link_empty_password">Meg kell adnia a jelszót</string>
     <string name="share_link_file_error">Hiba történt a fájl vagy mappa megosztásakor.</string>
     <string name="share_link_file_no_exist">A megosztás sikertelen. Ellenőrizze, hogy a fájl létezik-e.</string>

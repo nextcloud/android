@@ -408,7 +408,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
-    <string name="share_link">Bagi tautan</string>
+    <string name="share_link_folder">Bagi tautan</string>
     <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
     <string name="share_link_forbidden_permissions">untuk membagikan berkas ini</string>
     <string name="share_link_password_title">Masukkan kata sandi</string>

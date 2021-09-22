@@ -559,7 +559,7 @@
     <string name="share_internal_link">Подели интерну везу</string>
     <string name="share_internal_link_to_file_text">Интерна веза дељења ради само за кориснике који имају приступ фајлу</string>
     <string name="share_internal_link_to_folder_text">Интерна веза дељења ради само за кориснике који имају приступ фасцикли</string>
-    <string name="share_link">Веза дељења</string>
+    <string name="share_link_folder">Веза дељења</string>
     <string name="share_link_empty_password">Морате унети лозинку</string>
     <string name="share_link_file_error">Десила се грешка при покушају дељења фајла или фасцикле.</string>
     <string name="share_link_file_no_exist">Не могу да делим. Проверите да ли фајл постоји.</string>

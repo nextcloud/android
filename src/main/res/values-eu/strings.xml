@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Barneko partekatze-estekak fitxategi honetarako sarbidea duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_internal_link_to_folder_text">Barneko partekatze-estekak karpeta honetarako sarbidea duten erabiltzaileentzat bakarrik balio du</string>
     <string name="share_known_remote_on_clarification">hemen: %1$s</string>
-    <string name="share_link">Partekatu esteka</string>
+    <string name="share_link_folder">Partekatu esteka</string>
     <string name="share_link_empty_password">Pasahitz bat sartu behar duzu</string>
     <string name="share_link_file_error">Errore bat gertatu da fitxategi edo karpeta hau partekatzen saiatzerakoan.</string>
     <string name="share_link_file_no_exist">Ezin izan da partekatu. Mesedez egiaztatu fitxategia existitzen dela.</string>

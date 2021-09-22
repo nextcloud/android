@@ -517,7 +517,7 @@
     <string name="share_internal_link">Сподели вътрешна връзка</string>
     <string name="share_internal_link_to_file_text">Вътрешната връзка за споделяне работи само за потребители, които имат достъп до този файл</string>
     <string name="share_internal_link_to_folder_text">Вътрешната връзка за споделяне работи само за потребители, които имат достъп до тази папка</string>
-    <string name="share_link">Връзка за споделяне</string>
+    <string name="share_link_folder">Връзка за споделяне</string>
     <string name="share_link_empty_password">Трябва да въведете парола</string>
     <string name="share_link_forbidden_permissions">за споделяне на файла</string>
     <string name="share_link_optional_password_title">Въведи опционална парола</string>

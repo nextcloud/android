@@ -605,7 +605,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_internal_link_to_file_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce fichier</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_on_clarification">le %1$s</string>
-    <string name="share_link">Lien de partage</string>
+    <string name="share_link_folder">Lien de partage</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur s\'est produite lors de la tentative de partage de ce fichier ou dossier.</string>
     <string name="share_link_file_no_exist">Impossible de partager. Veuillez vérifier si le fichier existe.</string>

@@ -566,7 +566,7 @@
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели внатрешен линк</string>
     <string name="share_known_remote_on_clarification">на %1$s</string>
-    <string name="share_link">Сподели линк</string>
+    <string name="share_link_folder">Сподели линк</string>
     <string name="share_link_empty_password">Морате да внесете лозинка</string>
     <string name="share_link_forbidden_permissions">да ја споделите оваа датотека</string>
     <string name="share_link_optional_password_title">Опционално внесете лозинка</string>

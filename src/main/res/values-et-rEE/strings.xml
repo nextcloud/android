@@ -311,7 +311,7 @@
     <string name="share_dialog_title">Jagamine</string>
     <string name="share_file">Jaga %1$s</string>
     <string name="share_group_clarification">%1$s (grupp)</string>
-    <string name="share_link">Jaga link</string>
+    <string name="share_link_folder">Jaga link</string>
     <string name="share_link_empty_password">Sa pead parooli sisestama</string>
     <string name="share_link_forbidden_permissions">faili jagamiseks</string>
     <string name="share_link_password_title">Sisesta parool</string>

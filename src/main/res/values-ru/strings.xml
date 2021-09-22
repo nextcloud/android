@@ -601,7 +601,7 @@
     <string name="share_internal_link_to_file_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этому файлу</string>
     <string name="share_internal_link_to_folder_text">Внутренние ссылки могут быть использованы только пользователями, у которых есть доступ к этой папке</string>
     <string name="share_known_remote_on_clarification">на %1$s</string>
-    <string name="share_link">Предоставление общего доступа по ссылке</string>
+    <string name="share_link_folder">Предоставление общего доступа по ссылке</string>
     <string name="share_link_empty_password">Необходимо ввести пароль</string>
     <string name="share_link_file_error">При публикации этого файла или папки произошла ошибка.</string>
     <string name="share_link_file_no_exist">Не удалось опубликовать файл, убедитесь, что он существует.</string>

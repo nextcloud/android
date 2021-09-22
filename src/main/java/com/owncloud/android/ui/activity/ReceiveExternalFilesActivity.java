@@ -797,7 +797,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             ThemeToolbarUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
-            btnNewFolder.setTextColor(ThemeColorUtils.primaryColor(this, true));
+            //btnNewFolder.setTextColor(ThemeColorUtils.primaryColor(this, true));
             btnNewFolder.setOnClickListener(this);
 
             mListView.setOnItemClickListener(this);

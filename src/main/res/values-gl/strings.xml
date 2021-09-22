@@ -590,7 +590,7 @@
     <string name="share_internal_link_to_file_text">A ligazón de compartición interna só funciona para usuarios con acceso a este ficheiro</string>
     <string name="share_internal_link_to_folder_text">A ligazón de compartición interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_on_clarification">en %1$s</string>
-    <string name="share_link">Compartir ligazón</string>
+    <string name="share_link_folder">Compartir ligazón</string>
     <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
     <string name="share_link_file_no_exist">Non é posíbel compartir, Comprobe que o ficheiro existe.</string>

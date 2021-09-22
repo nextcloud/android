@@ -582,7 +582,7 @@
     <string name="share_internal_link_to_file_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο αρχείο</string>
     <string name="share_internal_link_to_folder_text">Οι εσωτερικοί κοινόχρηστοι σύνδεσμοι λειτουργούν μόνο για χρήστες με πρόσβαση στο φάκελο</string>
     <string name="share_known_remote_on_clarification">Ανοιχτό %1$s</string>
-    <string name="share_link">Διαμοιρασμός συνδέσμου</string>
+    <string name="share_link_folder">Διαμοιρασμός συνδέσμου</string>
     <string name="share_link_empty_password">Πρέπει να εισάγετε ένα συνθηματικό</string>
     <string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού του αρχείου ή φακέλου.</string>
     <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού. Παρακαλούμε ελέγξτε αν υπάρχει το αρχείο.</string>

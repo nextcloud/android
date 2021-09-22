@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Partajarea de linkuri interne functionează numai pentru utilizatorii cu acces la acest fișier</string>
     <string name="share_internal_link_to_folder_text">Partajarea de linkuri interne functionează numai pentru utilizatorii cu acces la acest dosar</string>
     <string name="share_known_remote_on_clarification">pe %1$s</string>
-    <string name="share_link">Partajează link-ul</string>
+    <string name="share_link_folder">Partajează link-ul</string>
     <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
     <string name="share_link_file_error">A apărut o eroare în timpul trimiterii acestui fișier sau dosar.</string>
     <string name="share_link_file_no_exist">Nu se poate trimite. Vă rugăm să verificați dacă fișierul există.</string>

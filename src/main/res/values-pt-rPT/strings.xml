@@ -601,7 +601,7 @@
     <string name="share_internal_link_to_file_text">Link de partilha interno só funciona se os utilizadores tiverem acesso ao ficheiro</string>
     <string name="share_internal_link_to_folder_text">Link de partilha interno só funciona se os utilizadores tiverem acesso à pasta</string>
     <string name="share_known_remote_on_clarification">em %1$s</string>
-    <string name="share_link">Partilhar hiperligação</string>
+    <string name="share_link_folder">Partilhar hiperligação</string>
     <string name="share_link_empty_password">Você deve introduzir uma palavra-passe</string>
     <string name="share_link_file_error">Erro ao tentar partilhar este ficheiro ou pasta.</string>
     <string name="share_link_file_no_exist">Impossível partilhar. Verifique se o ficheiro existe.</string>

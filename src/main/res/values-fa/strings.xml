@@ -582,7 +582,7 @@
     <string name="share_internal_link_to_file_text">پیوند اشتراک‌گذاری داخلی فقط برای کاربرانی که به این فایل دسترسی دارند کار می‌کند</string>
     <string name="share_internal_link_to_folder_text">پیوند اشتراک‌گذاری داخلی فقط برای کاربرانی که به این پوشه دسترسی دارند کار می‌کند</string>
     <string name="share_known_remote_on_clarification">بر روی1 %1$s</string>
-    <string name="share_link">لینک را به اشتراک بگذارید</string>
+    <string name="share_link_folder">لینک را به اشتراک بگذارید</string>
     <string name="share_link_empty_password">شما باید یک رمزعبور را وارد کنید</string>
     <string name="share_link_file_error">هنگام اشتراک‌گذاری این فایل یا پوشه خطایی رخ داده است.</string>
     <string name="share_link_file_no_exist">امکان اشتراک‌گذاری وجود ندارد. لطفا موجود بودن فایل را بررسی کنید.</string>

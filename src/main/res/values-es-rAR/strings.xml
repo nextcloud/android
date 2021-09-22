@@ -582,7 +582,7 @@
     <string name="share_internal_link_to_file_text">El enlace compartido interno solo funciona para usuarios con acceso a este archivo</string>
     <string name="share_internal_link_to_folder_text">El enlace compartido interno solo funciona para usuarios con acceso a esta carpeta</string>
     <string name="share_known_remote_on_clarification">en %1$s</string>
-    <string name="share_link">Compartir enlace</string>
+    <string name="share_link_folder">Compartir enlace</string>
     <string name="share_link_empty_password">Debe ingresar una contraseña</string>
     <string name="share_link_file_error">Se presentó un error al trtatar de compartir este archivo o carpeta</string>
     <string name="share_link_file_no_exist">No fue posible compartir. Favor de revisar si el archivo existe</string>

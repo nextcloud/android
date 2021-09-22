@@ -602,7 +602,7 @@
     <string name="share_internal_link_to_file_text">内部共有リンクは、このファイルにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_internal_link_to_folder_text">内部共有リンクは、このフォルダーにアクセスできるユーザーにのみ機能します。</string>
     <string name="share_known_remote_on_clarification">%1$s上の</string>
-    <string name="share_link">URLで共有</string>
+    <string name="share_link_folder">URLで共有</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
     <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
     <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>

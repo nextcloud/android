@@ -554,7 +554,7 @@
     <string name="share_internal_link">Deila innri tengli</string>
     <string name="share_internal_link_to_file_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari skrá</string>
     <string name="share_internal_link_to_folder_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari möppu</string>
-    <string name="share_link">Deila tengli</string>
+    <string name="share_link_folder">Deila tengli</string>
     <string name="share_link_empty_password">Þú verður að setja lykilorð</string>
     <string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu.</string>
     <string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til.</string>

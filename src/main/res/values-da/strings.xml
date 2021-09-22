@@ -605,7 +605,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_internal_link_to_file_text">Internt dele link virker kun for brugere med adgang til denne fil</string>
     <string name="share_internal_link_to_folder_text">Internt dele link virker kun for brugere med adgang til denne mappe</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
-    <string name="share_link">Del link</string>
+    <string name="share_link_folder">Del link</string>
     <string name="share_link_empty_password">Du skal angive et kodeord</string>
     <string name="share_link_file_error">Der opstod en fejl under forsøget på at dele denne fil eller mappe.</string>
     <string name="share_link_file_no_exist">Kan ikke dele. Undersøg venligst om filen eksisterer.</string>

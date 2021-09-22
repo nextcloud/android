@@ -597,7 +597,7 @@
     <string name="share_internal_link_to_file_text">Intern dele-link virker bare for brukere med tilgang til til denne filen</string>
     <string name="share_internal_link_to_folder_text">Intern dele-link virker bare for brukere med tilgang til til denne mappen</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
-    <string name="share_link">Share link</string>
+    <string name="share_link_folder">Share link</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
     <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen.</string>
     <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>

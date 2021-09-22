@@ -598,7 +598,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_internal_link">Jaa sisäinen linkki</string>
     <string name="share_internal_link_to_file_text">Sisäinen jaettu linkki toimii vain käyttäjillä, joilla on oikeudet tähän tiedostoon</string>
     <string name="share_internal_link_to_folder_text">Sisäinen jaettu linkki toimii vain kayttäjillä, joilla on oikeudet tähän kansioon</string>
-    <string name="share_link">Jaa linkki</string>
+    <string name="share_link_folder">Jaa linkki</string>
     <string name="share_link_empty_password">Salasana on pakko antaa</string>
     <string name="share_link_file_error">Tiedoston tai kansion jakamisessa tapahtui virhe.</string>
     <string name="share_link_file_no_exist">Jakaminen epäonnistui. Ole hyvä ja tarkasta onko tiedosto olemassa.</string>

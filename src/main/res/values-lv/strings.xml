@@ -393,7 +393,7 @@
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link_to_file_text">Iekšējās kopīgošanas saite darbojas tikai lietotājiem, kuriem ir piekļuve šai datnei</string>
-    <string name="share_link">Koplietot saiti</string>
+    <string name="share_link_folder">Koplietot saiti</string>
     <string name="share_link_empty_password">Jums ir jāievada paroli</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
     <string name="share_link_password_title">Ievadiet paroli</string>

@@ -359,7 +359,7 @@
     <string name="share_dialog_title">გაზიარება</string>
     <string name="share_file">%1$s-ის გაზიარება</string>
     <string name="share_group_clarification">%1$s (ჯგუფი)</string>
-    <string name="share_link">ბმულის გაზიარება</string>
+    <string name="share_link_folder">ბმულის გაზიარება</string>
     <string name="share_link_empty_password">უნდა შეიყვანოთ პაროლი</string>
     <string name="share_link_forbidden_permissions">გააზიაროთ ეს ფაილი</string>
     <string name="share_link_password_title">შეიყვანეთ პაროლი</string>

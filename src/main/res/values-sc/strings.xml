@@ -603,7 +603,7 @@
     <string name="share_internal_link_to_file_text">Su ligòngiu de cumpartzidura interna funtzionat isceti pro utentes cun atzessu a custu archìviu</string>
     <string name="share_internal_link_to_folder_text">Su ligòngiu de cumpartzidura interna funtzionat isceti pro utentes cun atzessu a custa cartella</string>
     <string name="share_known_remote_on_clarification">in %1$s</string>
-    <string name="share_link">Cumpartzi ligòngiu</string>
+    <string name="share_link_folder">Cumpartzi ligòngiu</string>
     <string name="share_link_empty_password">Depes insertare una crae</string>
     <string name="share_link_file_error">Ddoe at àpidu un\'errore in sa cumpartzidura de su documentu o de sa cartella.</string>
     <string name="share_link_file_no_exist">Impossìbile a cumpartzire. Controlla si s\'archìviu esistit.</string>

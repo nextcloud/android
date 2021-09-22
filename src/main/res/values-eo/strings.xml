@@ -468,7 +468,7 @@
     <string name="share_expiration_date_label">Senvalidiĝas je %1$s</string>
     <string name="share_file">Kunhavigi %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
-    <string name="share_link">Kunhavigi ligilon</string>
+    <string name="share_link_folder">Kunhavigi ligilon</string>
     <string name="share_link_empty_password">Vi devas enigi pasvorton</string>
     <string name="share_link_forbidden_permissions">kunhavigi ĉi tiun dosieron</string>
     <string name="share_link_password_title">Enigu pasvorton</string>

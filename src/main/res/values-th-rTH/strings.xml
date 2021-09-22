@@ -302,7 +302,7 @@
     <string name="share">แชร์</string>
     <string name="share_dialog_title">แชร์ข้อมูล</string>
     <string name="share_group_clarification">%1$s (กลุ่ม)</string>
-    <string name="share_link">แชร์ลิงก์</string>
+    <string name="share_link_folder">แชร์ลิงก์</string>
     <string name="share_link_empty_password">คุณจะต้องใส่รหัสผ่าน</string>
     <string name="share_link_forbidden_permissions">เพื่อแชร์ไฟล์นี้</string>
     <string name="share_link_password_title">ป้อนรหัสผ่าน</string>

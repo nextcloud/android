@@ -593,7 +593,7 @@
     <string name="share_internal_link_to_file_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do datoteke.</string>
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
-    <string name="share_link">Povezava za souporabo</string>
+    <string name="share_link_folder">Povezava za souporabo</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
     <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
     <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
