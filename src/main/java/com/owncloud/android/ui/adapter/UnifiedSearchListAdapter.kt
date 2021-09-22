@@ -35,11 +35,13 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import com.owncloud.android.R
+import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
 import com.owncloud.android.ui.unifiedsearch.ProviderID
+import java.lang.IllegalArgumentException
 
 data class UnifiedSearchSection(val providerID: ProviderID, val results: List<SearchResult>) {
     val itemCount: Int = results.sumOf { it.entries.size }
@@ -50,6 +52,7 @@ data class UnifiedSearchSection(val providerID: ProviderID, val results: List<Se
 
     fun getItem(index: Int) = results.flatMap { it.entries }[index]
 
+    // FIXME the logic for this is actually more complicated
     fun hasMoreResults(): Boolean {
         return results.last().isPaginated && nextCursor == itemCount
     }
@@ -67,30 +70,30 @@ class UnifiedSearchListAdapter(
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val FILES_PROVIDER_ID = "files"
+        private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
     }
 
     private var data: Map<ProviderID, List<SearchResult>> = emptyMap()
     private var sections: List<UnifiedSearchSection> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
+        val layoutInflater = LayoutInflater.from(context)
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
                 val binding = UnifiedSearchHeaderBinding.inflate(
-                    LayoutInflater.from(context), parent, false
+                    layoutInflater, parent, false
                 )
                 UnifiedSearchHeaderViewHolder(binding, context)
             }
             VIEW_TYPE_FOOTER -> {
                 val binding = UnifiedSearchFooterBinding.inflate(
-                    LayoutInflater.from(context), parent, false
+                    layoutInflater, parent, false
                 )
                 UnifiedSearchFooterViewHolder(binding, context, listInterface)
             }
-            else -> {
+            VIEW_TYPE_ITEM -> {
                 val binding = UnifiedSearchItemBinding.inflate(
-                    LayoutInflater.from(
-                        context
-                    ),
+                    layoutInflater,
                     parent,
                     false
                 )
@@ -103,8 +106,16 @@ class UnifiedSearchListAdapter(
                     context
                 )
             }
+            VIEW_TYPE_EMPTY -> {
+                val binding = UnifiedSearchEmptyBinding.inflate(layoutInflater, parent, false)
+                EmptyViewHolder(binding)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
+
+    internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) :
+        SectionedViewHolder(binding.getRoot())
 
     override fun getSectionCount(): Int {
         return sections.size
@@ -120,8 +131,15 @@ class UnifiedSearchListAdapter(
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
-        val footerViewHolder = holder as UnifiedSearchFooterViewHolder
-        footerViewHolder.bind(sections[section])
+        if (sections[section].hasMoreResults()) {
+            val footerViewHolder = holder as UnifiedSearchFooterViewHolder
+            footerViewHolder.bind(sections[section])
+        }
+    }
+
+    override fun getFooterViewType(section: Int): Int = when {
+        sections[section].hasMoreResults() -> VIEW_TYPE_FOOTER
+        else -> VIEW_TYPE_EMPTY
     }
 
     override fun onBindViewHolder(
