@@ -35,14 +35,6 @@ class UnifiedSearchRemoteRepository(
 
     private var providers: SearchProviders? = null
 
-    override fun refresh() {
-        TODO("Not yet implemented")
-    }
-
-    override fun startLoading() {
-        TODO("Not yet implemented")
-    }
-
     override fun queryAll(
         query: String,
         onResult: (UnifiedSearchResult) -> Unit,

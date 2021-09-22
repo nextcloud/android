@@ -4,7 +4,7 @@
  *
  * @author Álvaro Brey Vilas
  * Copyright (C) 2021 Álvaro Brey Vilas
- * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@ import android.content.Context
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 
 class UnifiedSearchFooterViewHolder(
     val binding: UnifiedSearchFooterBinding,

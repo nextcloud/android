@@ -35,13 +35,13 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import javax.inject.Inject
 
@@ -110,10 +110,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         binding.listRoot.adapter = adapter
     }
 
-    override fun onPause() {
-        super.onPause()
-        // photoSearchTask?.cancel(true)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -151,10 +147,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     @VisibleForTesting
-    fun onSearchResultChanged(result: Map<String, List<SearchResult>>) {
+    fun onSearchResultChanged(result: List<UnifiedSearchSection>) {
         binding.emptyList.emptyListView.visibility = View.GONE
 
-        adapter.setInitialData(result)
+        adapter.setData(result)
     }
 
     @VisibleForTesting

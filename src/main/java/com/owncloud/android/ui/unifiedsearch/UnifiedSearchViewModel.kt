@@ -36,6 +36,30 @@ import javax.inject.Inject
 
 @Suppress("LongParameterList")
 class UnifiedSearchViewModel() : ViewModel() {
+    companion object {
+        private const val TAG = "UnifiedSearchViewModel"
+        private const val DEFAULT_LIMIT = 5
+        private const val FILES_PROVIDER_ID = "files"
+    }
+
+    private data class UnifiedSearchMetadata(
+        var results: MutableList<SearchResult> = mutableListOf()
+    ) {
+        fun nextCursor(): Int? = results.lastOrNull()?.cursor?.toInt()
+        fun name(): String? = results.lastOrNull()?.name
+        fun isFinished(): Boolean {
+            if (results.isEmpty()) {
+                return false
+            }
+            val lastResult = results.last()
+            return when {
+                !lastResult.isPaginated -> true
+                lastResult.entries.size < DEFAULT_LIMIT -> true
+                else -> false
+            }
+        }
+    }
+
     lateinit var currentAccountProvider: CurrentAccountProvider
     lateinit var runner: AsyncRunner
     lateinit var clientFactory: ClientFactory
@@ -44,16 +68,12 @@ class UnifiedSearchViewModel() : ViewModel() {
 
     private lateinit var repository: IUnifiedSearchRepository
     private var loadingStarted: Boolean = false
-    private var last: Int = -1
+    private var metaResults: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val searchResults = MutableLiveData<MutableMap<ProviderID, MutableList<SearchResult>>>(mutableMapOf())
+    val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
     val error: MutableLiveData<String> = MutableLiveData<String>("")
     val query: MutableLiveData<String> = MutableLiveData()
-
-    companion object {
-        private const val TAG = "UnifiedSearchViewModel"
-    }
 
     @Inject
     constructor(
@@ -77,8 +97,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     open fun refresh() {
-        last = -1
-        searchResults.value = mutableMapOf()
+        searchResults.value = mutableListOf()
         startLoading(query.value.orEmpty())
     }
 
@@ -103,17 +122,17 @@ class UnifiedSearchViewModel() : ViewModel() {
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
-            isLoading.value = true
-            val providerResults = searchResults.value?.get(provider)
-            val cursor = providerResults?.filter { it.cursor != null }?.maxOfOrNull { it.cursor!!.toInt() }
-            repository.queryProvider(
-                queryTerm,
-                provider,
-                cursor,
-                this::onSearchResult,
-                this::onError,
-                this::onSearchFinished
-            )
+            metaResults[provider]?.nextCursor()?.let { cursor ->
+                isLoading.value = true
+                repository.queryProvider(
+                    queryTerm,
+                    provider,
+                    cursor,
+                    this::onSearchResult,
+                    this::onError,
+                    this::onSearchFinished
+                )
+            }
         }
     }
 
@@ -137,7 +156,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     fun onError(error: Throwable) {
-        Log_OC.d(TAG, "Error: " + error.stackTrace)
+        Log_OC.e(TAG, "Error: " + error.stackTrace)
     }
 
     @Synchronized
@@ -145,17 +164,38 @@ class UnifiedSearchViewModel() : ViewModel() {
         isLoading.value = false
 
         if (result.success) {
-            val currentValues: MutableMap<ProviderID, MutableList<SearchResult>> = searchResults.value ?: mutableMapOf()
-            val providerValues = currentValues[result.provider] ?: mutableListOf()
-            providerValues.add(result.result)
-            currentValues.put(result.provider, providerValues)
-            searchResults.value = currentValues
+            val providerMeta = metaResults[result.provider] ?: UnifiedSearchMetadata()
+            providerMeta.results.add(result.result)
+
+            metaResults[result.provider] = providerMeta
+            genSearchResultsFromMeta()
         }
 
         Log_OC.d(TAG, "onSearchResult: Provider '${result.provider}', success: ${result.success}")
         if (result.success) {
             Log_OC.d(TAG, "onSearchResult: Provider '${result.provider}', result count: ${result.result.entries.size}")
         }
+    }
+
+    private fun genSearchResultsFromMeta() {
+        searchResults.value = metaResults
+            .filter { it.value.results.isNotEmpty() }
+            .map { (key, value) ->
+                UnifiedSearchSection(
+                    providerID = key,
+                    name = value.name()!!,
+                    entries = value.results.flatMap { it.entries },
+                    hasMoreResults = !value.isFinished()
+                )
+            }
+            .sortedWith { o1, o2 ->
+                // TODO sort with sort order from server providers?
+                when {
+                    o1.providerID == FILES_PROVIDER_ID -> -1
+                    o2.providerID == FILES_PROVIDER_ID -> 1
+                    else -> 0
+                }
+            }
     }
 
     fun onSearchFinished(success: Boolean) {
@@ -170,18 +210,6 @@ class UnifiedSearchViewModel() : ViewModel() {
     fun setRepository(repository: IUnifiedSearchRepository) {
         this.repository = repository
     }
-
-//    private fun onActivitiesRequestResult(result: GetActivityListTask.Result) {
-//        isLoading.value = false
-//        if (result.success) {
-//            val existingActivities = activities.value ?: emptyList()
-//            val newActivities = listOf(existingActivities, result.activities).flatten()
-//            last = result.last
-//            activities.value = newActivities
-//        } else {
-//            error.value = resources.getString(R.string.activities_error)
-//        }
-//    }
 
     private fun onFileRequestResult(result: GetRemoteFileTask.Result) {
         isLoading.value = false

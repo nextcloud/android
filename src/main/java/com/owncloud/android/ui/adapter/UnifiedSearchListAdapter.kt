@@ -30,7 +30,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.lib.common.SearchResult
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -40,23 +39,8 @@ import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
-import com.owncloud.android.ui.unifiedsearch.ProviderID
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import java.lang.IllegalArgumentException
-
-data class UnifiedSearchSection(val providerID: ProviderID, val results: List<SearchResult>) {
-    val itemCount: Int = results.sumOf { it.entries.size }
-
-    val name: String = results.first().name
-
-    val nextCursor: Int? = results.lastOrNull()?.cursor?.toInt()
-
-    fun getItem(index: Int) = results.flatMap { it.entries }[index]
-
-    // FIXME the logic for this is actually more complicated
-    fun hasMoreResults(): Boolean {
-        return results.last().isPaginated && nextCursor == itemCount
-    }
-}
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
@@ -69,11 +53,9 @@ class UnifiedSearchListAdapter(
     private val context: Context
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
-        private const val FILES_PROVIDER_ID = "files"
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
     }
 
-    private var data: Map<ProviderID, List<SearchResult>> = emptyMap()
     private var sections: List<UnifiedSearchSection> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
@@ -122,7 +104,7 @@ class UnifiedSearchListAdapter(
     }
 
     override fun getItemCount(section: Int): Int {
-        return sections[section].itemCount
+        return sections[section].entries.size
     }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
@@ -131,14 +113,14 @@ class UnifiedSearchListAdapter(
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
-        if (sections[section].hasMoreResults()) {
+        if (sections[section].hasMoreResults) {
             val footerViewHolder = holder as UnifiedSearchFooterViewHolder
             footerViewHolder.bind(sections[section])
         }
     }
 
     override fun getFooterViewType(section: Int): Int = when {
-        sections[section].hasMoreResults() -> VIEW_TYPE_FOOTER
+        sections[section].hasMoreResults -> VIEW_TYPE_FOOTER
         else -> VIEW_TYPE_EMPTY
     }
 
@@ -150,7 +132,7 @@ class UnifiedSearchListAdapter(
     ) {
         // TODO different binding (and also maybe diff UI) for non-file results
         val itemViewHolder = holder as UnifiedSearchItemViewHolder
-        val entry = sections[section].getItem(relativePosition)
+        val entry = sections[section].entries[relativePosition]
         itemViewHolder.bind(entry)
     }
 
@@ -164,21 +146,9 @@ class UnifiedSearchListAdapter(
         }
     }
 
-    fun setInitialData(results: Map<String, List<SearchResult>>) {
-        data = results
-        buildSectionList()
+    fun setData(sections: List<UnifiedSearchSection>) {
+        this.sections = sections
         notifyDataSetChanged()
-    }
-
-    private fun buildSectionList() {
-        // sort so that files is always first
-        sections = data.map { UnifiedSearchSection(it.key, it.value) }.sortedWith { o1, o2 ->
-            when {
-                o1.providerID == FILES_PROVIDER_ID -> -1
-                o2.providerID == FILES_PROVIDER_ID -> 1
-                else -> 0
-            }
-        }
     }
 
     init {

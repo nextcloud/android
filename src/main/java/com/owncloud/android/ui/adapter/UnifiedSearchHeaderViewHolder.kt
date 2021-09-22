@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.theme.ThemeColorUtils
 
 class UnifiedSearchHeaderViewHolder(val binding: UnifiedSearchHeaderBinding, val context: Context) :
