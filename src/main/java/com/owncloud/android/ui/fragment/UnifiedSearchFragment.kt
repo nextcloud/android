@@ -36,6 +36,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
@@ -43,6 +44,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
+import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 /**
@@ -73,23 +75,36 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory).get(UnifiedSearchViewModel::class.java)
-        vm.searchResults.observe(this, this::onSearchResultChanged)
+        setUpViewModel()
 
-        val query = savedInstanceState?.getString(ARG_QUERY).orEmpty()
-        if (query.isNotBlank()) {
-            vm.startLoading(query)
-            return
+        val query = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
+        if (!query.isNullOrEmpty()) {
+            vm.setQuery(query)
+            vm.initialQuery()
         }
+    }
 
-        val queryArgument = arguments?.getString(ARG_QUERY).orEmpty()
-        if (queryArgument.isNotBlank()) {
-            vm.startLoading(queryArgument)
+    private fun setUpViewModel() {
+        vm.searchResults.observe(this, this::onSearchResultChanged)
+        vm.isLoading.observe(this) { loading ->
+            binding.swipeContainingList.isRefreshing = loading
+        }
+        vm.error.observe(this) { error ->
+            if (!error.isNullOrEmpty()) {
+                DisplayUtils.showSnackMessage(binding.root, error)
+            }
+        }
+    }
+
+    private fun setUpBinding() {
+        binding.swipeContainingList.setOnRefreshListener {
+            vm.refresh()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
-
+        setUpBinding()
         return binding.root
     }
 
@@ -109,7 +124,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         binding.listRoot.layoutManager = gridLayoutManager
         binding.listRoot.adapter = adapter
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -148,6 +162,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     @VisibleForTesting
     fun onSearchResultChanged(result: List<UnifiedSearchSection>) {
+        Log_OC.d(TAG, "result")
         binding.emptyList.emptyListView.visibility = View.GONE
 
         adapter.setData(result)
@@ -156,10 +171,11 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     @VisibleForTesting
     fun setViewModel(testViewModel: UnifiedSearchViewModel) {
         vm = testViewModel
-        vm.searchResults.observe(this, this::onSearchResultChanged)
+        setUpViewModel()
     }
 
     companion object {
+        private const val TAG = "UnifiedSearchFragment"
         const val ARG_QUERY = "ARG_QUERY"
 
         /**

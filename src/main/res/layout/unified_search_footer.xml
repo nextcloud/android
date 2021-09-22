@@ -25,20 +25,18 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/min_list_item_size"
     android:baselineAligned="false"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="horizontal">
 
-    <View
-        android:layout_width="@dimen/standard_list_item_size"
-        android:layout_height="@dimen/standard_list_item_size"
-        android:layout_marginStart="@dimen/zero"
-        android:layout_marginEnd="@dimen/standard_quarter_padding" />
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/standard_list_item_size"
+        android:layout_marginStart="@dimen/standard_list_item_size"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical"
+        android:paddingStart="@dimen/standard_quarter_padding"
         android:text="@string/load_more_results"
         android:textColor="@color/secondary_text_color"
         tools:text="Load more results">

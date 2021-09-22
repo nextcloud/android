@@ -26,6 +26,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
     android:baselineAligned="false"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout

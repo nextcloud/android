@@ -97,19 +97,23 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     open fun refresh() {
+        metaResults = mutableMapOf()
         searchResults.value = mutableListOf()
-        startLoading(query.value.orEmpty())
+        initialQuery()
     }
 
     open fun startLoading(query: String) {
         if (!loadingStarted) {
             loadingStarted = true
             this.query.value = query
-            queryAll()
+            initialQuery()
         }
     }
 
-    fun queryAll() {
+    /**
+     * Queries all available providers
+     */
+    fun initialQuery() {
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
@@ -161,7 +165,6 @@ class UnifiedSearchViewModel() : ViewModel() {
 
     @Synchronized
     fun onSearchResult(result: UnifiedSearchResult) {
-        isLoading.value = false
 
         if (result.success) {
             val providerMeta = metaResults[result.provider] ?: UnifiedSearchMetadata()
@@ -219,5 +222,9 @@ class UnifiedSearchViewModel() : ViewModel() {
         } else {
             error.value = "Error showing search result"
         }
+    }
+
+    fun setQuery(query: String) {
+        this.query.value = query
     }
 }
