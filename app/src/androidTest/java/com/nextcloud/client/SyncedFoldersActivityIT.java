@@ -60,7 +60,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     public void testSyncedFolderDialog() {
         SyncedFolderDisplayItem item = new SyncedFolderDisplayItem(1,
                                                                    "/sdcard/DCIM/",
-                                                                   "/InstantUpload/",
+                                                                   "/Camera-Media/",
                                                                    true,
                                                                    false,
                                                                    false,
