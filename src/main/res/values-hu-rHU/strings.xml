@@ -378,7 +378,7 @@
     <string name="in_folder">%1$s mappában</string>
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Érvénytelen URL</string>
     <string name="invisible">Láthatatlan</string>
     <string name="label_empty">A címke nem lehet üres</string>

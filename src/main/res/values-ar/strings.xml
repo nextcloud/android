@@ -359,7 +359,7 @@
     <string name="host_your_own_server">استضيفوا خادمكم</string>
     <string name="instant_upload_existing">إرفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">إرفع وقت الشحن فقط</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">رابط غير صالح</string>
     <string name="invisible">عدم الظهور</string>
     <string name="label_empty">لا يمكن أن تكون التسمية فارغه</string>

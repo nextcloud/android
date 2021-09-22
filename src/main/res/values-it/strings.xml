@@ -378,7 +378,7 @@
     <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL non valido</string>
     <string name="invisible">Invisibile</string>
     <string name="label_empty">L\'etichetta non può essere vuota</string>

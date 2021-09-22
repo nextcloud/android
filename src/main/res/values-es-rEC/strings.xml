@@ -272,7 +272,7 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_password">Contraseña</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
-    <string name="instant_upload_path">/Cargas Automáticas</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invisible">Invisible</string>
     <string name="link">Liga</string>
     <string name="link_share_allow_upload_and_editing">Permitir carga y edición</string>

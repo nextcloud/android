@@ -349,7 +349,7 @@
     <string name="host_your_own_server">Ostit o servijour deoc\'h c\'hwi</string>
     <string name="instant_upload_existing">O pellkas ar restroù ivez</string>
     <string name="instant_upload_on_charging">Pellkas va vez karget nemetken</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL fall</string>
     <string name="invisible">Diwelus</string>
     <string name="label_empty">Ne c\'hell ket an dikettenn bezha goulo</string>

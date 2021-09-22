@@ -346,7 +346,7 @@
     <string name="host_your_own_server">אירוח שרת משלך</string>
     <string name="instant_upload_existing">להעלות גם קבצים קיימים</string>
     <string name="instant_upload_on_charging">להעלות רק בעת טעינה</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">כתובת שגויה</string>
     <string name="invisible">נסתרת</string>
     <string name="link">קישור</string>

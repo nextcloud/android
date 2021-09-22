@@ -365,7 +365,7 @@
     <string name="in_folder">в папці %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Неправильний URL</string>
     <string name="invisible">Невидима</string>
     <string name="label_empty">Ярлик не може бути порожнім</string>

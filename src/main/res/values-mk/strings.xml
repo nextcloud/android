@@ -355,7 +355,7 @@
     <string name="in_folder">во папката %1$s</string>
     <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Неправилна URL</string>
     <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>

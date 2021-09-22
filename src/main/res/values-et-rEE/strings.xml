@@ -216,7 +216,7 @@
     <string name="hint_note">Märge</string>
     <string name="hint_password">Parool</string>
     <string name="instant_upload_on_charging">Lae ülesse ainult laadimise ajal</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invisible">Nähtamatu</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Luba üleslaadimine ja muutmine</string>

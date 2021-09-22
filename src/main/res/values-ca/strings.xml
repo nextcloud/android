@@ -378,7 +378,7 @@
     <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
-    <string name="instant_upload_path">/CàrregaInstantània</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL no vàlida</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">L\'etiqueta no pot estar buida</string>

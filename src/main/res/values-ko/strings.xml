@@ -369,7 +369,7 @@
     <string name="in_folder">%1$s 폴더 안에</string>
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">잘못된 URL</string>
     <string name="invisible">숨겨짐</string>
     <string name="label_empty">레이블은 비워 둘 수 없습니다</string>

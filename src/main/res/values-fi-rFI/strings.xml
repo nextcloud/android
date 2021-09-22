@@ -373,7 +373,7 @@
     <string name="in_folder">kansiossa %1$s</string>
     <string name="instant_upload_existing">Siirrä myös olemassaolevat tiedostot palvelimelle</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Virheellinen URL</string>
     <string name="invisible">Näkymätön</string>
     <string name="label_empty">Nimike ei voi olla tyhjä</string>

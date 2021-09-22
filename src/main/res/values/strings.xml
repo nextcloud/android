@@ -312,7 +312,7 @@
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_existing">Also upload existing files</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="auto_upload_path">/AutoUpload</string>
 
     <string name="preview_sorry">Sorry</string>

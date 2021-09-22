@@ -378,7 +378,7 @@
     <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL baliogabea</string>
     <string name="invisible">Ikusezina</string>
     <string name="label_empty">Etiketa ezin da hutsik egon</string>
