@@ -187,7 +187,7 @@
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
-    <string name="delete_account">Excluir conta</string>
+    <string name="delete_account">Remover conta</string>
     <string name="delete_account_warning">Excluir a conta %s e remover todos os arquivos locais?\n\nEsta exclusão não pode ser desfeita.</string>
     <string name="delete_entries">Excluir entradas</string>
     <string name="deselect_all">Desmarcar todos</string>
@@ -225,7 +225,7 @@
     <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
-    <string name="drawer_item_trashbin">Arquivos excluídos</string>
+    <string name="drawer_item_trashbin">Arquivos apagados</string>
     <string name="drawer_item_uploads_list">Envios</string>
     <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_logout">Sair</string>
@@ -491,7 +491,7 @@
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
-    <string name="pref_behaviour_entries_delete_file">Excluído</string>
+    <string name="pref_behaviour_entries_delete_file">apagado</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">Movido para a pasta aplicativos</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">O que fazer se o arquivo já existir?</string>
@@ -561,7 +561,7 @@
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>
-    <string name="remove_success_msg">Excluído</string>
+    <string name="remove_success_msg">Apagado</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
@@ -569,7 +569,7 @@
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
     <string name="restore">Restaurar arquivo</string>
-    <string name="restore_button_description">Restaurar arquivo excluído</string>
+    <string name="restore_button_description">Restaurar arquivo apagado</string>
     <string name="retrieving_file">Recuperando arquivo…</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="scanQR_description">Entrar via código QR</string>
@@ -721,10 +721,10 @@
     <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
     <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="today">Hoje</string>
-    <string name="trashbin_activity_title">Arquivos excluídos</string>
-    <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
-    <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos daqui.</string>
-    <string name="trashbin_file_not_deleted">Arquivo %1$s não pôde ser excluído!</string>
+    <string name="trashbin_activity_title">Arquivos apagados</string>
+    <string name="trashbin_empty_headline">Nenhum arquivo apagado</string>
+    <string name="trashbin_empty_message">Você poderá recuperar arquivos apagados aqui.</string>
+    <string name="trashbin_file_not_deleted">O arquivo %1$s não pôde ser apagado!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
