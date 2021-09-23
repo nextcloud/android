@@ -112,7 +112,9 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         super.onViewCreated(view, savedInstanceState)
 
         if (activity is FileDisplayActivity) {
-            (activity as FileDisplayActivity).setMainFabVisible(false)
+            val fileDisplayActivity = activity as FileDisplayActivity
+            fileDisplayActivity.setMainFabVisible(false)
+            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString("\"${vm.query.value!!}\"")
         }
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
