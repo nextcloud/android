@@ -24,7 +24,6 @@ package com.owncloud.android.ui.unifiedsearch
 
 import com.owncloud.android.lib.common.SearchResult
 
-
 data class UnifiedSearchResult(val provider: ProviderID, val success: Boolean, val result: SearchResult)
 
 @Suppress("LongParameterList")

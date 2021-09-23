@@ -111,6 +111,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (activity is FileDisplayActivity) {
+            (activity as FileDisplayActivity).setMainFabVisible(false)
+        }
+
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         adapter = UnifiedSearchListAdapter(
             storageManager,

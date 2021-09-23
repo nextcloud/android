@@ -68,7 +68,7 @@ class UnifiedSearchViewModel() : ViewModel() {
 
     private lateinit var repository: IUnifiedSearchRepository
     private var loadingStarted: Boolean = false
-    private var metaResults: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
+    private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
@@ -97,7 +97,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     open fun refresh() {
-        metaResults = mutableMapOf()
+        results = mutableMapOf()
         searchResults.value = mutableListOf()
         initialQuery()
     }
@@ -126,7 +126,7 @@ class UnifiedSearchViewModel() : ViewModel() {
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
-            metaResults[provider]?.nextCursor()?.let { cursor ->
+            results[provider]?.nextCursor()?.let { cursor ->
                 isLoading.value = true
                 repository.queryProvider(
                     queryTerm,
@@ -167,10 +167,10 @@ class UnifiedSearchViewModel() : ViewModel() {
     fun onSearchResult(result: UnifiedSearchResult) {
 
         if (result.success) {
-            val providerMeta = metaResults[result.provider] ?: UnifiedSearchMetadata()
+            val providerMeta = results[result.provider] ?: UnifiedSearchMetadata()
             providerMeta.results.add(result.result)
 
-            metaResults[result.provider] = providerMeta
+            results[result.provider] = providerMeta
             genSearchResultsFromMeta()
         }
 
@@ -181,7 +181,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     private fun genSearchResultsFromMeta() {
-        searchResults.value = metaResults
+        searchResults.value = results
             .filter { it.value.results.isNotEmpty() }
             .map { (key, value) ->
                 UnifiedSearchSection(
