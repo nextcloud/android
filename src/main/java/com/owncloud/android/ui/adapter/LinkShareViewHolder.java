@@ -63,9 +63,8 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.copyLink.setVisibility(View.GONE);
         } else {
             if (!TextUtils.isEmpty(publicShare.getLabel())) {
-                //String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
-                //directly show the added label to the user
-                binding.name.setText(publicShare.getLabel());
+                String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
+                binding.name.setText(text);
             } else {
                 if (publicShare.isFolder()){
                     binding.name.setText(R.string.share_link_folder);

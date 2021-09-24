@@ -617,7 +617,7 @@
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
     <string name="share_link_optional_password_title">Passwort eingeben (optional)</string>
     <string name="share_link_password_title">Passwort eingeben</string>
-    <string name="share_link_with_label">Teile Link (%1$s)</string>
+    <string name="share_link_with_label">Link \"%1$s\"</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
     <string name="share_password_title">Passwortgeschützt</string>

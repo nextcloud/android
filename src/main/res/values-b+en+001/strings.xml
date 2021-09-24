@@ -608,7 +608,7 @@
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_password_title">Enter a password</string>
-    <string name="share_link_with_label">Share link (%1$s)</string>
+    <string name="share_link_with_label">Link \'%1$s\'</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_password_title">Password-protected</string>
