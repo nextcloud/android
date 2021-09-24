@@ -22,9 +22,13 @@ package com.owncloud.android.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,6 +37,7 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
+import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -51,7 +56,7 @@ import javax.inject.Inject
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface {
+class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -94,17 +99,24 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                 DisplayUtils.showSnackMessage(binding.root, error)
             }
         }
+        vm.query.observe(this) { query ->
+            if (activity is FileDisplayActivity) {
+                (activity as FileDisplayActivity)
+                    .updateActionBarTitleAndHomeButtonByString("\"${query}\"")
+            }
+        }
     }
 
     private fun setUpBinding() {
         binding.swipeContainingList.setOnRefreshListener {
-            vm.refresh()
+            vm.initialQuery()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
         setUpBinding()
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -180,6 +192,14 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         setUpViewModel()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val item = menu.findItem(R.id.action_search)
+        val sv = MenuItemCompat.getActionView(item) as SearchView
+        sv.setQuery(vm.query.value, false)
+        sv.setOnQueryTextListener(this)
+        sv.isIconified = false
+    }
+
     companion object {
         private const val TAG = "UnifiedSearchFragment"
         const val ARG_QUERY = "ARG_QUERY"
@@ -194,5 +214,16 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        vm.query.value = query
+        vm.initialQuery()
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        // noop
+        return true
     }
 }

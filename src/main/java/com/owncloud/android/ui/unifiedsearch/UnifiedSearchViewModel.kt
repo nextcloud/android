@@ -96,12 +96,6 @@ class UnifiedSearchViewModel() : ViewModel() {
         )
     }
 
-    open fun refresh() {
-        results = mutableMapOf()
-        searchResults.value = mutableListOf()
-        initialQuery()
-    }
-
     open fun startLoading(query: String) {
         if (!loadingStarted) {
             loadingStarted = true
@@ -111,9 +105,11 @@ class UnifiedSearchViewModel() : ViewModel() {
     }
 
     /**
-     * Queries all available providers
+     * Clears data and queries all available providers
      */
     fun initialQuery() {
+        results = mutableMapOf()
+        searchResults.value = mutableListOf()
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
