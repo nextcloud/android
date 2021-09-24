@@ -440,6 +440,13 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     args "-F", "src/**/*.kt"
 }
 
+task installGitHooks(type: Copy) {
+    from('scripts/hooks') {
+        include '*'
+    }
+    into '.git/hooks'
+}
+
 detekt {
     reports {
         xml {
