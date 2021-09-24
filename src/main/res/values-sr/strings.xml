@@ -351,7 +351,7 @@
     <string name="host_your_own_server">Поставите сопствени сервер</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Неисправан УРЛ</string>
     <string name="invisible">Невидљива</string>
     <string name="label_empty">Ознака не може да буде празна</string>

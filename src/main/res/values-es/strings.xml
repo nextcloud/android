@@ -378,7 +378,7 @@
     <string name="in_folder">en carpeta %1$s</string>
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
-    <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL no válida</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">La etiqueta no puede quedar vacía</string>

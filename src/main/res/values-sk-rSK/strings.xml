@@ -378,7 +378,7 @@
     <string name="in_folder">v adresári %1$s</string>
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Neplatná URL</string>
     <string name="invisible">Neviditeľné</string>
     <string name="label_empty">Štítok nemôže byť prázdny</string>

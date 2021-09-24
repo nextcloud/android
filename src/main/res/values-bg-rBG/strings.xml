@@ -339,7 +339,7 @@
     <string name="in_folder">в папка %1$s</string>
     <string name="instant_upload_existing">Качете и съществуващи файлове</string>
     <string name="instant_upload_on_charging">Качване само при зареждане</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Грешно URL</string>
     <string name="invisible">Невидим</string>
     <string name="label_empty">Етикетът не може да бъде празен</string>

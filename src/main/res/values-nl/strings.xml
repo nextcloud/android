@@ -378,7 +378,7 @@
     <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Ongeldige URL</string>
     <string name="invisible">Verborgen</string>
     <string name="label_empty">Label mag niet leeg zijn</string>

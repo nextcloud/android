@@ -378,7 +378,7 @@
     <string name="in_folder">u mapi %1$s</string>
     <string name="instant_upload_existing">Također otpremi postojeće datoteke</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Neispravan URL</string>
     <string name="invisible">Nevidljiva</string>
     <string name="label_empty">Oznaka ne može biti prazna</string>

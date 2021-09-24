@@ -380,7 +380,7 @@ Attention la suppression est irréversible.</string>
     <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>

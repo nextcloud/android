@@ -364,7 +364,7 @@
     <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">Cargue también archivos existentes</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
-    <string name="instant_upload_path">/SubidasInstantáneas</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL invalida</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">La etiqueta no puede estar vacía</string>

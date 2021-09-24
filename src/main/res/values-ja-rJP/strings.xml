@@ -378,7 +378,7 @@
     <string name="in_folder">フォルダー%1$sの中で</string>
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">無効なURL</string>
     <string name="invisible">隠す</string>
     <string name="label_empty">ラベルは空にできません</string>

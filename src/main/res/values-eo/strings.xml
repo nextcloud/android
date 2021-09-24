@@ -299,7 +299,7 @@
     <string name="host_not_available">Servilo nedisponebla</string>
     <string name="host_your_own_server">Gastigi vian propran servilon</string>
     <string name="instant_upload_on_charging">Nur alŝuti dum ŝargado</string>
-    <string name="instant_upload_path">/TujAlŝutado</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invisible">Nevidebla</string>
     <string name="link">Ligilo</string>
     <string name="link_share_allow_upload_and_editing">Permesi alŝuton kaj redakton</string>

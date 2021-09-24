@@ -381,7 +381,7 @@
     <string name="in_folder">in Ordner %1$s</string>
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
-    <string name="instant_upload_path">/SofortUpload</string>
+    <string name="instant_upload_path">/Kamera-Medien</string>
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>

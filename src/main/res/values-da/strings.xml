@@ -378,7 +378,7 @@
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
-    <string name="instant_upload_path">/Øjeblikkelig upload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Etiketten kan ikke være tom</string>

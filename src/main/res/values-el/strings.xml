@@ -365,7 +365,7 @@
     <string name="in_folder">Στον φάκελο %1$s</string>
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL</string>
     <string name="invisible">Αόρατος</string>
     <string name="label_empty">Η ετικέτα δεν μπορεί να είναι κενή</string>

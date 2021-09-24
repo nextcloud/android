@@ -371,7 +371,7 @@
     <string name="in_folder">aplankale %1$s</string>
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">Neteisingas URL</string>
     <string name="invisible">Nematoma</string>
     <string name="label_empty">Kortelė negali būti tuščia</string>

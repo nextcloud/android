@@ -339,7 +339,7 @@
     <string name="host_your_own_server">Hostoni serverin tuaj</string>
     <string name="instant_upload_existing">Gjithashtu ngarkoni skedarët ekzistues</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_path">/Camera-Media</string>
     <string name="invalid_url">URL e pavlefshme</string>
     <string name="invisible">I padukshëm</string>
     <string name="link">Link</string>
