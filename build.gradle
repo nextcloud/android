@@ -18,7 +18,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.0.2'
         classpath 'com.hiya:jacoco-android:0.2'
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -116,10 +116,6 @@ android {
             'GoogleAppIndexingWarning',
             'MissingDefaultResource',
             'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     compileSdkVersion 29
