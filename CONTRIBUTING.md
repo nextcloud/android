@@ -119,6 +119,14 @@ There are three build variants
 * gplay: with Google Stuff (Push notification), used for Google Play Store
 * versionDev: based on master and library master, available as direct download and FDroid
 
+### Git hooks
+We provide git hooks to make development process easier for both the developer and the reviewers.
+To install them, just run:
+
+```bash
+./gradlew installGitHooks
+```
+
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.
 * For your first contribution start a pull request on master.
