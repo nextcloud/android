@@ -277,6 +277,8 @@
     <string name="etm_preferences">Настройки</string>
     <string name="etm_title">Режим разработчика</string>
     <string name="etm_transfer">Передача файла</string>
+    <string name="etm_transfer_enqueue_test_download">Добавить вперёд очереди для тестового скачивания</string>
+    <string name="etm_transfer_enqueue_test_upload">Добавить вперёд очереди для тестовой загрузки</string>
     <string name="etm_transfer_remote_path">Удаленный путь</string>
     <string name="etm_transfer_type">Передача</string>
     <string name="etm_transfer_type_download">Скачать</string>
@@ -422,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Я − A</string>
     <string name="menu_item_sort_by_size_biggest_first">Сначала большие</string>
     <string name="menu_item_sort_by_size_smallest_first">Сначала маленькие</string>
+    <string name="more">Больше</string>
     <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
@@ -828,6 +831,7 @@
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
+    <string name="whats_your_status">Ваш статус?</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>
     <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>
     <plurals name="sync_fail_in_favourites_content">
