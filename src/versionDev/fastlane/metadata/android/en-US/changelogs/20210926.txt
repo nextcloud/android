@@ -1,0 +1,3 @@
+build.gradle: installGitHooks: add description and group
+Add simple git hooks and gradle task to install them
+Update translations
