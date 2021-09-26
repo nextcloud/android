@@ -1,0 +1,6 @@
+#!/bin/bash
+# Pre-commit hook: don't allow commits if detekt or ktlint fail. Skip with "git commit --no-verify".
+set -euo pipefail
+
+./gradlew --daemon --quiet detekt
+./gradlew --daemon --quiet ktlint
