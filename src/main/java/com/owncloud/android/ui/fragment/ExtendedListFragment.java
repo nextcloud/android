@@ -57,6 +57,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ListFragmentBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -141,6 +142,8 @@ public class ExtendedListFragment extends Fragment implements
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
+
+    private ListFragmentBinding binding;
 
     @Parcel
     public enum SearchType {
@@ -366,12 +369,14 @@ public class ExtendedListFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
-        View v = inflater.inflate(R.layout.list_fragment, null);
+        binding = ListFragmentBinding.inflate(inflater, container, false);
+        View v = binding.getRoot();
+
         setupEmptyList(v);
 
-        mRecyclerView = v.findViewById(R.id.list_root);
+        mRecyclerView = binding.listRoot;
         mRecyclerView.setHasFooter(true);
-        mRecyclerView.setEmptyView(v.findViewById(R.id.empty_list_view));
+        mRecyclerView.setEmptyView(binding.emptyList.emptyListView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -391,7 +396,7 @@ public class ExtendedListFragment extends Fragment implements
         });
 
         // Pull-down to refresh layout
-        mRefreshListLayout = v.findViewById(R.id.swipe_containing_list);
+        mRefreshListLayout = binding.swipeContainingList;
         ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
@@ -399,6 +404,12 @@ public class ExtendedListFragment extends Fragment implements
         mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
@@ -430,10 +441,10 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     protected void setupEmptyList(View view) {
-        mEmptyListContainer = view.findViewById(R.id.empty_list_view);
-        mEmptyListMessage = view.findViewById(R.id.empty_list_view_text);
-        mEmptyListHeadline = view.findViewById(R.id.empty_list_view_headline);
-        mEmptyListIcon = view.findViewById(R.id.empty_list_icon);
+        mEmptyListContainer = binding.emptyList.emptyListView;
+        mEmptyListMessage = binding.emptyList.emptyListViewText;
+        mEmptyListHeadline = binding.emptyList.emptyListViewHeadline;
+        mEmptyListIcon = binding.emptyList.emptyListIcon;
     }
 
     /**
