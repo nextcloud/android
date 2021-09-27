@@ -24,24 +24,22 @@ package com.owncloud.android.ui.fragment
 
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchRepository
-import com.owncloud.android.ui.unifiedsearch.SearchOnProviderTask
-import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
+import com.owncloud.android.ui.unifiedsearch.ProviderID
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchResult
 
-class UnifiedSearchLocalRepository : IUnifiedSearchRepository {
-    override fun refresh() {
-        TODO("Not yet implemented")
-    }
+class UnifiedSearchFakeRepository : IUnifiedSearchRepository {
 
-    override fun startLoading() {
-        TODO("Not yet implemented")
-    }
-
-    override fun loadMore(query: String, vm: UnifiedSearchViewModel) {
-        val result = SearchOnProviderTask.Result(
-            true,
-            SearchResult(
+    override fun queryAll(
+        query: String,
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
+    ) {
+        val result = UnifiedSearchResult(
+            provider = "files",
+            success = true,
+            result = SearchResult(
                 "files",
                 false,
                 listOf(
@@ -63,8 +61,46 @@ class UnifiedSearchLocalRepository : IUnifiedSearchRepository {
                     )
                 )
             )
+
         )
-        vm.onSearchResult(result)
-        Log_OC.d(this, "loadMore")
+        onResult(result)
+        onFinished(true)
+    }
+
+    override fun queryProvider(
+        query: String,
+        provider: ProviderID,
+        cursor: Int?,
+        onResult: (UnifiedSearchResult) -> Unit,
+        onError: (Throwable) -> Unit,
+        onFinished: (Boolean) -> Unit
+    ) {
+        val result = UnifiedSearchResult(
+            provider = provider,
+            success = true,
+            result = SearchResult(
+                provider,
+                false,
+                listOf(
+                    SearchResultEntry(
+                        "thumbnailUrl",
+                        "Test",
+                        "in Files",
+                        "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
+                        "icon",
+                        false
+                    ),
+                    SearchResultEntry(
+                        "thumbnailUrl",
+                        "Test1",
+                        "in Folder",
+                        "http://localhost/nc/index.php/apps/files/?dir=/folder&scrollto=test1.txt",
+                        "icon",
+                        false
+                    )
+                )
+            )
+
+        )
     }
 }

@@ -25,8 +25,8 @@ import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import org.junit.Rule
 import org.junit.Test
@@ -47,26 +47,26 @@ class UnifiedSearchFragmentIT : AbstractIT() {
 
         UiThreadStatement.runOnUiThread {
             sut.onSearchResultChanged(
-                mutableListOf(
-                    SearchResult(
-                        "Files",
-                        false,
-                        listOf(
+                listOf(
+                    UnifiedSearchSection(
+                        providerID = "files",
+                        name = "Files",
+                        entries = listOf(
                             SearchResultEntry(
                                 "thumbnailUrl",
                                 "Test",
-                                "in /Files/",
-                                "resourceUrl",
+                                "in Files",
+                                "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
                                 "icon",
                                 false
                             )
-                        )
+                        ),
+                        hasMoreResults = false
                     )
                 )
             )
         }
-
-        longSleep()
+        shortSleep()
     }
 
     @Test
@@ -74,7 +74,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
         val activity = testActivityRule.launchActivity(null)
         val sut = UnifiedSearchFragment.newInstance(null)
         val testViewModel = UnifiedSearchViewModel()
-        val localRepository = UnifiedSearchLocalRepository()
+        val localRepository = UnifiedSearchFakeRepository()
         testViewModel.setRepository(localRepository)
 
         val ocFile = OCFile("/folder/test1.txt").apply {
@@ -92,7 +92,6 @@ class UnifiedSearchFragmentIT : AbstractIT() {
             sut.setViewModel(testViewModel)
             sut.vm.startLoading("test")
         }
-
-        longSleep()
+        shortSleep()
     }
 }
