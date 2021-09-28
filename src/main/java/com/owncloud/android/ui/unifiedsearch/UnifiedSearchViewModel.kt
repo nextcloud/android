@@ -30,9 +30,12 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResult
+import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
+import android.net.Uri
+import com.owncloud.android.datamodel.OCFile
 
 @Suppress("LongParameterList")
 class UnifiedSearchViewModel() : ViewModel() {
@@ -74,6 +77,8 @@ class UnifiedSearchViewModel() : ViewModel() {
     val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
     val error: MutableLiveData<String> = MutableLiveData<String>("")
     val query: MutableLiveData<String> = MutableLiveData()
+    val browserUri: MutableLiveData<Uri> = MutableLiveData()
+    val file: MutableLiveData<OCFile> = MutableLiveData()
 
     @Inject
     constructor(
@@ -133,6 +138,15 @@ class UnifiedSearchViewModel() : ViewModel() {
                     this::onSearchFinished
                 )
             }
+        }
+    }
+
+    fun openResult(result: SearchResultEntry) {
+        if (result.fileId() != null) {
+            openFile(result.remotePath())
+        } else {
+            val uri = Uri.parse(result.resourceUrl)
+            this.browserUri.value = uri
         }
     }
 
@@ -213,8 +227,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     private fun onFileRequestResult(result: GetRemoteFileTask.Result) {
         isLoading.value = false
         if (result.success) {
-            // unifiedSearchFragment.showFile(result.file)
-            // (file as MutableLiveData).value = result.file
+            file.value = result.file
         } else {
             error.value = "Error showing search result"
         }

@@ -44,13 +44,14 @@ import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
-import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
+import android.content.Intent
+import com.owncloud.android.datamodel.OCFile
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
@@ -105,6 +106,13 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                     .updateActionBarTitleAndHomeButtonByString("\"${query}\"")
             }
         }
+        vm.browserUri.observe(this) { uri ->
+            val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(browserIntent)
+        }
+        vm.file.observe(this) {
+            showFile(it)
+        }
     }
 
     private fun setUpBinding() {
@@ -148,34 +156,22 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         _binding = null
     }
 
-    private fun showFile(result: GetRemoteFileTask.Result) {
+    private fun showFile(file: OCFile) {
         activity.let {
             if (activity is FileDisplayActivity) {
                 val fda = activity as FileDisplayActivity
-                fda.file = result.file
+                fda.file = file
                 fda.showFile("")
             }
         }
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
-        openFile(searchResultEntry.remotePath())
+        vm.openResult(searchResultEntry)
     }
 
     override fun onLoadMoreClicked(providerID: ProviderID) {
         vm.loadMore(providerID)
-    }
-
-    fun openFile(fileUrl: String) {
-        val user = currentAccountProvider.user
-        val task = GetRemoteFileTask(
-            requireContext(),
-            fileUrl,
-            clientFactory.create(currentAccountProvider.user),
-            FileDataStorageManager(user.toPlatformAccount(), requireContext().contentResolver),
-            user
-        )
-        runner.postQuickTask(task, onResult = this::showFile)
     }
 
     @VisibleForTesting
