@@ -756,7 +756,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
-                        R.drawable.uploads);
+                        R.drawable.ic_list_empty_uploads);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
 
@@ -822,8 +822,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (mEmptyListContainer != null && mEmptyListMessage != null) {
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
-                mEmptyListIcon.setImageDrawable(
-                    ThemeDrawableUtils.tintDrawable(icon, ThemeColorUtils.primaryColor(this, true)));
+                mEmptyListIcon.setImageResource(icon);
+                //mEmptyListIcon.setImageDrawable(ThemeDrawableUtils.tintDrawable(icon,ThemeColorUtils.primaryColor(this,true)));
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListMessage.setVisibility(View.VISIBLE);
             }

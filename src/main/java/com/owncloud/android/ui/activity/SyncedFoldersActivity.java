@@ -217,7 +217,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         adapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
         syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_synced_folders);
         ThemeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);

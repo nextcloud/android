@@ -190,7 +190,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
      * sets up the UI elements and loads all notification items.
      */
     private void setupContent() {
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_notification);
         setLoadingMessageEmpty();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -314,7 +314,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_notification);
 
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
