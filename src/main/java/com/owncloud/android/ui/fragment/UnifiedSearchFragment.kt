@@ -52,6 +52,7 @@ import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 import android.content.Intent
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
@@ -61,7 +62,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
-    lateinit var vm: UnifiedSearchViewModel
+    lateinit var vm: IUnifiedSearchViewModel
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -183,7 +184,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     @VisibleForTesting
-    fun setViewModel(testViewModel: UnifiedSearchViewModel) {
+    fun setViewModel(testViewModel: IUnifiedSearchViewModel) {
         vm = testViewModel
         setUpViewModel()
     }
@@ -212,8 +213,8 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         }
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        vm.query.value = query
+    override fun onQueryTextSubmit(query: String): Boolean {
+        vm.setQuery(query)
         vm.initialQuery()
         return true
     }

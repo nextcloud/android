@@ -38,7 +38,7 @@ import android.net.Uri
 import com.owncloud.android.datamodel.OCFile
 
 @Suppress("LongParameterList")
-class UnifiedSearchViewModel() : ViewModel() {
+class UnifiedSearchViewModel() : ViewModel(), IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
         private const val DEFAULT_LIMIT = 5
@@ -73,12 +73,12 @@ class UnifiedSearchViewModel() : ViewModel() {
     private var loadingStarted: Boolean = false
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
-    val error: MutableLiveData<String> = MutableLiveData<String>("")
-    val query: MutableLiveData<String> = MutableLiveData()
-    val browserUri: MutableLiveData<Uri> = MutableLiveData()
-    val file: MutableLiveData<OCFile> = MutableLiveData()
+    override val isLoading = MutableLiveData(false)
+    override val searchResults = MutableLiveData<List<UnifiedSearchSection>>(mutableListOf())
+    override val error = MutableLiveData("")
+    override val query = MutableLiveData<String>()
+    override val browserUri = MutableLiveData<Uri>()
+    override val file = MutableLiveData<OCFile>()
 
     @Inject
     constructor(
@@ -112,7 +112,7 @@ class UnifiedSearchViewModel() : ViewModel() {
     /**
      * Clears data and queries all available providers
      */
-    fun initialQuery() {
+    override fun initialQuery() {
         results = mutableMapOf()
         searchResults.value = mutableListOf()
         val queryTerm = query.value.orEmpty()
@@ -123,7 +123,7 @@ class UnifiedSearchViewModel() : ViewModel() {
         }
     }
 
-    open fun loadMore(provider: ProviderID) {
+    override fun loadMore(provider: ProviderID) {
         val queryTerm = query.value.orEmpty()
 
         if (isLoading.value != true && queryTerm.isNotBlank()) {
@@ -141,7 +141,7 @@ class UnifiedSearchViewModel() : ViewModel() {
         }
     }
 
-    fun openResult(result: SearchResultEntry) {
+    override fun openResult(result: SearchResultEntry) {
         if (result.fileId() != null) {
             openFile(result.remotePath())
         } else {
@@ -233,7 +233,7 @@ class UnifiedSearchViewModel() : ViewModel() {
         }
     }
 
-    fun setQuery(query: String) {
+    override fun setQuery(query: String) {
         this.query.value = query
     }
 }
