@@ -1,0 +1,3 @@
+add license header, clear comments in PatchMethod class
+add custom PatchMethod class to use http PATCH requests with the Nextcloud SSO api
+Update translations
