@@ -424,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Més gran primer</string>
     <string name="menu_item_sort_by_size_smallest_first">Més petit primer</string>
+    <string name="more">Més</string>
     <string name="move_file_error">Hi ha hagut un error mentre es movia aquest fitxer o carpeta</string>
     <string name="move_file_invalid_into_descendent">No és possible moure una carpeta en una de les seves pròpies carpetes</string>
     <string name="move_file_invalid_overwrite">Aquest fitxer ja existeix a la carpeta de destinació</string>
@@ -830,6 +831,7 @@
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
+    <string name="whats_your_status">Quin és el vostre estat?</string>
     <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
     <string name="wrong_storage_path_desc">Això podria ser degut a una còpia de seguretat restaurada per un altre dispositiu. Revertint a la configuració per defecte. Si us plau, comprova els paràmetres per seleccionar la carpeta de dades.</string>
     <plurals name="sync_fail_in_favourites_content">
