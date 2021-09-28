@@ -90,7 +90,8 @@ class UnifiedSearchFragmentIT : AbstractIT() {
 
         UiThreadStatement.runOnUiThread {
             sut.setViewModel(testViewModel)
-            sut.vm.startLoading("test")
+            sut.vm.setQuery("test")
+            sut.vm.initialQuery()
         }
         shortSleep()
     }
