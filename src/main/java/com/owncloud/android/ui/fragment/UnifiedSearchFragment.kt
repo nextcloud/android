@@ -51,6 +51,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 import android.content.Intent
+import androidx.core.view.updatePadding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 
@@ -124,6 +125,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
+        binding.listRoot.updatePadding(top = resources.getDimension(R.dimen.standard_half_padding).toInt())
         setUpBinding()
         setHasOptionsMenu(true)
         return binding.root

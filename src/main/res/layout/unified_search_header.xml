@@ -34,7 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="middle"
-        android:padding="@dimen/standard_half_padding"
+        android:paddingHorizontal="@dimen/standard_padding"
+        android:paddingVertical="@dimen/standard_half_padding"
         android:textColor="@color/color_accent"
         tools:text="Files" />
 </RelativeLayout>
