@@ -61,7 +61,7 @@ services:
     environment:
       EVAL: true
     commands:
-      - BRANCH='stable21' /usr/local/bin/initnc.sh
+      - BRANCH='stable22' /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
       - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
       - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
@@ -70,10 +70,11 @@ services:
       - su www-data -c "php /var/www/html/occ group:add users"
       - su www-data -c "php /var/www/html/occ group:adduser users user1"
       - su www-data -c "php /var/www/html/occ group:adduser users user2"
-      - su www-data -c "git clone -b stable21 https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
+      - su www-data -c "git clone -b stable22 https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
       - su www-data -c "php /var/www/html/occ app:enable activity"
-      - su www-data -c "git clone -b stable21 https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "git clone -b stable22 https://github.com/nextcloud/text.git /var/www/html/apps/text/"
       - su www-data -c "php /var/www/html/occ app:enable text"
+      - su www-data -c "git clone -b stable22 https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
       - /usr/local/bin/run.sh
 

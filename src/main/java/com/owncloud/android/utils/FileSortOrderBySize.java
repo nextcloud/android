@@ -55,8 +55,7 @@ public class FileSortOrderBySize extends FileSortOrder {
             } else if (o2.isFolder()) {
                 return 1;
             } else {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
             }
         });
 
@@ -82,8 +81,7 @@ public class FileSortOrderBySize extends FileSortOrder {
             } else if (o2.isFolder()) {
                 return 1;
             } else {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
             }
         });
 
@@ -108,8 +106,7 @@ public class FileSortOrderBySize extends FileSortOrder {
             } else if (o2.isDirectory()) {
                 return 1;
             } else {
-                Long obj1 = o1.length();
-                return multiplier * obj1.compareTo(o2.length());
+                return multiplier * Long.compare(o1.length(),o2.length());
             }
         });
 
