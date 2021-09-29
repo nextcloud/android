@@ -98,7 +98,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     @Inject AppPreferences preferences;
     private Account mAccountOnCreation;
-    private ArrayAdapter<String> mDirectories;
+    protected ArrayAdapter<String> mDirectories;
     private boolean mLocalFolderPickerMode;
     private boolean mSelectAll;
     private DialogFragment mCurrentDialog;

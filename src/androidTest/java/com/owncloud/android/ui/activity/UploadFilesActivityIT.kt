@@ -21,9 +21,13 @@
  */
 package com.owncloud.android.ui.activity
 
+import androidx.test.espresso.Espresso.onData
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.utils.ScreenshotTest
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.instanceOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -32,18 +36,21 @@ class UploadFilesActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
+    @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
     fun noneSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
         screenshot(sut)
+        longSleep()
     }
 
+    @Test
     fun fileSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
-        // TODO select one
+        onData(allOf(`is`(instanceOf(String::class.java)), `is`("DCIM"))).perform(click())
 
         screenshot(sut)
+        longSleep()
     }
 }
