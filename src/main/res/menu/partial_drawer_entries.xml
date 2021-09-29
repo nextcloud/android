@@ -74,7 +74,6 @@
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"
-            android:visible="false"
             android:icon="@drawable/nav_notifications"
             android:title="@string/drawer_item_notifications"/>
         <item

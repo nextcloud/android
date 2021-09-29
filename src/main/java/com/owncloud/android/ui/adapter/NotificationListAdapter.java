@@ -142,14 +142,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             downloadIcon(notification.getIcon(), holder.binding.icon);
         }
 
-        int nightModeFlag =
+       /*int nightModeFlag =
             notificationsActivity.getResources().getConfiguration().uiMode
             & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
             holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         } else {
             holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-        }
+        }*/
 
         setButtons(holder, notification);
 
@@ -182,7 +182,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             if (action.primary) {
                 ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
             } else {
-                button.setBackgroundColor(resources.getColor(R.color.grey_200));
+                button.setStrokeColorResource(primaryColor);
                 button.setTextColor(primaryColor);
             }
 
@@ -192,7 +192,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
             button.setLayoutParams(params);
-            button.setGravity(Gravity.CENTER);
+            //button.setGravity(Gravity.CENTER);
 
             button.setOnClickListener(v -> {
                 setButtonEnabled(holder, false);
