@@ -79,6 +79,9 @@
       <option name="FOR_BRACE_FORCE" value="3" />
       <option name="FIELD_ANNOTATION_WRAP" value="0" />
     </codeStyleSettings>
+    <codeStyleSettings language="Markdown">
+      <option name="RIGHT_MARGIN" value="120" />
+    </codeStyleSettings>
     <codeStyleSettings language="XML">
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
