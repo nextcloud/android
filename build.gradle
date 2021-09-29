@@ -9,7 +9,7 @@ import org.gradle.internal.jvm.Jvm
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.5.31'
     repositories {
         google()
         maven {
