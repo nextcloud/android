@@ -27,6 +27,7 @@ import android.Manifest;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
@@ -39,6 +40,7 @@ import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertNotNull;
 
 public class FileDisplayActivityScreenshotIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
@@ -64,14 +66,16 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         screenshot(sut);
     }
 
-    @Test
-    @ScreenshotTest
+    //@Test
+    //@ScreenshotTest
     public void showMediaThenAllFiles() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
+        FileDisplayActivity fileDisplayActivity = activityRule.launchActivity(null);
+        OCFileListFragment sut = fileDisplayActivity.getListOfFilesFragment();
+        assertNotNull(sut);
 
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-        sut.getListOfFilesFragment().setLoading(false);
+        sut.setFabEnabled(false);
+        sut.setEmptyListLoadingMessage();
+        sut.setLoading(false);
 
         // open drawer
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
@@ -89,11 +93,11 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
 
         // then compare screenshot
         shortSleep();
-        sut.getListOfFilesFragment().setFabEnabled(false);
-        sut.getListOfFilesFragment().setEmptyListLoadingMessage();
-        sut.getListOfFilesFragment().setLoading(false);
+        sut.setFabEnabled(false);
+        sut.setEmptyListLoadingMessage();
+        sut.setLoading(false);
         shortSleep();
-        screenshot(sut);
+        screenshot(fileDisplayActivity);
     }
 
     @Test
