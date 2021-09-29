@@ -461,3 +461,7 @@ detekt {
 shot {
     showOnlyFailingTestsInReports = ciBuild
 }
+
+jacoco {
+    toolVersion = "0.8.7"
+}
