@@ -40,7 +40,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
@@ -361,19 +361,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
 
         // remote request
-        result = new ReadFileRemoteOperation(remotePath).execute(client);
+        result = new CheckEtagRemoteOperation(remotePath, mLocalFolder.getEtagOnServer()).execute(client);
 
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-
             if (!mIgnoreETag) {
-                // check if remote and local folder are different
-                String remoteFolderETag = remoteFolder.getEtag();
-                if (remoteFolderETag != null) {
-                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
-                } else {
-                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + ": No ETag received from server");
-                }
+                mRemoteFolderChanged = result.getCode() == ResultCode.ETAG_CHANGED;
             }
 
             result = new RemoteOperationResult(ResultCode.OK);
@@ -397,7 +389,6 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         return result;
     }
-
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
