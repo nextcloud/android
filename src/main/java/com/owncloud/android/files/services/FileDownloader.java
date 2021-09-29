@@ -633,6 +633,9 @@ public class FileDownloader extends Service
 
         if (!downloadResult.isCancelled()) {
             if (downloadResult.isSuccess()) {
+                if (conflictUploadId > 0) {
+                    uploadsStorageManager.removeUpload(conflictUploadId);
+                }
                 // Dont show notification except an error has occured.
                 return;
             }
@@ -668,10 +671,6 @@ public class FileDownloader extends Service
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {
-                    if (conflictUploadId > 0) {
-                        uploadsStorageManager.removeUpload(conflictUploadId);
-                    }
-
                     // Sleep 2 seconds, so show the notification before remove it
                     NotificationUtils.cancelWithDelay(mNotificationManager,
                                                       R.string.downloader_download_succeeded_ticker, 2000);
