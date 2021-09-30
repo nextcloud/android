@@ -156,4 +156,5 @@
     <color name="neptune_50">#5077b6bb</color>
     <color name="white_trans_70">#B3FFFFFF</color>
     <color name="share_color">#0D39DF</color>
+    <color name="shared_with_me_color">#0099ff</color>
 </resources>
