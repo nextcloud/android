@@ -448,6 +448,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
         requireDialog().setTitle(R.string.common_error);
         textView.setText(R.string.end_to_end_encryption_unsuccessful);
+        passphraseTextView.setVisibility(View.GONE);
         positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
         positiveButton.setVisibility(View.VISIBLE);
         positiveButton.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
