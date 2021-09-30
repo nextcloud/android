@@ -87,7 +87,6 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
         SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
 
         RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
-        sendButtonsView.setHasFixedSize(true);
         sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
