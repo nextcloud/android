@@ -64,7 +64,7 @@ ext {
     mockitoVersion = "3.12.4"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.11.15"
+    byteBuddyVersion = "1.11.18"
     espressoVersion = "3.4.0"
     workRuntime = "2.5.0"
     fidoVersion = "4.1.0"
@@ -273,7 +273,7 @@ dependencies {
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
@@ -305,7 +305,7 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'com.vanniktech:emoji-google:0.7.0'
+    implementation 'com.vanniktech:emoji-google:0.8.0'
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
@@ -322,7 +322,7 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.42.1"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'

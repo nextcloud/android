@@ -52,6 +52,7 @@ import net.bytebuddy.utility.RandomString;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.File;
@@ -83,6 +84,9 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     private OCFile currentFolder;
     private int actionCount = 20;
     private String rootEncFolder = "/e/";
+
+    @Rule
+    public RetryTestRule retryTestRule = new RetryTestRule();
 
     @BeforeClass
     public static void initClass() {

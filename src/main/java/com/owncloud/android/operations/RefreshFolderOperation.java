@@ -290,7 +290,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             } else {
                 Log_OC.i(TAG, "Got display name: " + result.getResultData());
             }
-        } catch (AccountUtils.AccountNotFoundException e) {
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
             Log_OC.e(this, "Error updating profile", e);
         }
     }

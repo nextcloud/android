@@ -7,8 +7,8 @@ LOG_USERNAME=$4
 LOG_PASSWORD=$5
 DRONE_BUILD_NUMBER=$6
 
-scripts/deleteOutdatedComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
-scripts/deleteOutdatedComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_USERNAME $GIT_TOKEN
+scripts/deleteOldComments.sh "master" "Unit" $DRONE_PULL_REQUEST $GIT_TOKEN
+scripts/deleteOldComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
 
 ./gradlew assembleGplay
 ./gradlew assembleGplayDebug
