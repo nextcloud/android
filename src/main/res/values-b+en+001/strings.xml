@@ -562,6 +562,7 @@
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
     <string name="reshare_not_allowed">Resharing is not allowed</string>
+    <string name="reshare_allowed">Resharing is allowed</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>

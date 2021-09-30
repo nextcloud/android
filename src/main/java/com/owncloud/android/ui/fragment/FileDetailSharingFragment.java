@@ -197,20 +197,24 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void setupView() {
         setShareWithYou();
+    }
 
+    private void setUpSearchView(){
         FileDetailSharingFragmentHelper.setupSearchView(
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
         ThemeToolbarUtils.themeSearchView(binding.searchView, requireContext());
 
-        if (file.canReshare()) {
+        //if (file.canReshare()) {
             binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
-        } else {
+       /* } else {
             binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
             binding.searchView.setInputType(InputType.TYPE_NULL);
             disableSearchView(binding.searchView);
-        }
+        }*/
+        binding.searchView.setVisibility(View.VISIBLE);
+        binding.labelPersonalShare.setVisibility(View.VISIBLE);
     }
 
     private void disableSearchView(View view) {
@@ -228,10 +232,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void setShareWithYou() {
         if (accountManager.userOwnsFile(file, user)) {
             binding.sharedWithYouContainer.setVisibility(View.GONE);
+            binding.shareCreateNewLink.setVisibility(View.VISIBLE);
+            binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.sharing_description));
+            setUpSearchView();
         } else {
             binding.sharedWithYouUsername.setText(
                 String.format(getString(R.string.shared_with_you_by), file.getOwnerDisplayName()));
-            DisplayUtils.setAvatar(user,
+          /*  DisplayUtils.setAvatar(user,
                                    file.getOwnerId(),
                                    this,
                                    getResources().getDimension(
@@ -239,7 +246,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                    getResources(),
                                    binding.sharedWithYouAvatar,
                                    getContext());
-            binding.sharedWithYouAvatar.setVisibility(View.VISIBLE);
+            binding.sharedWithYouAvatar.setVisibility(View.VISIBLE);*/
 
             String note = file.getNote();
 
@@ -248,6 +255,16 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 binding.sharedWithYouNoteContainer.setVisibility(View.VISIBLE);
             } else {
                 binding.sharedWithYouNoteContainer.setVisibility(View.GONE);
+            }
+
+            if (file.canReshare()){
+                binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.reshare_allowed));
+                setUpSearchView();
+            }else{
+                binding.searchView.setVisibility(View.GONE);
+                binding.labelPersonalShare.setVisibility(View.GONE);
+                binding.shareCreateNewLink.setVisibility(View.GONE);
+                binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.reshare_not_allowed));
             }
         }
     }
