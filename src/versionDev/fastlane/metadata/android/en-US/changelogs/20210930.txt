@@ -1,0 +1,5 @@
+Enhance screenshot handling
+Fix: boxed primitive for compare
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
