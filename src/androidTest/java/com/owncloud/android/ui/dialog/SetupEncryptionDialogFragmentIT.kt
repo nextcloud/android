@@ -23,7 +23,7 @@ package com.owncloud.android.ui.dialog
 
 import android.view.Window
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
@@ -62,7 +62,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
 
         shortSleep()
 
-        UiThreadStatement.runOnUiThread {
+        runOnUiThread {
             sut.setMnemonic(keyWords)
             sut.showMnemonicInfo()
         }
@@ -81,7 +81,9 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
 
         sut.show(activity.supportFragmentManager, "1")
 
-        UiThreadStatement.runOnUiThread {
+        shortSleep()
+
+        runOnUiThread {
             sut.errorSavingKeys()
         }
 
