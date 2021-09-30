@@ -60,9 +60,10 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
             "accuse"
         )
 
-        sut.setMnemonic(keyWords)
+        shortSleep()
 
         UiThreadStatement.runOnUiThread {
+            sut.setMnemonic(keyWords)
             sut.showMnemonicInfo()
         }
 
