@@ -1,0 +1,3 @@
+Remove setHasFixedSize as it is not needed
+Update Nextcloud Android library
+Update 3rd-party dependencies
