@@ -57,7 +57,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.38.1"
+	daggerVersion = "2.39"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="50c1a57edbfc85e11baa3a7cf3eeebdf54deb760"
