@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">پاک کردن آپلودهای ناموفق</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_empty_notifications">پاک کردن تمام اعلانها</string>
+    <string name="action_empty_trashbin">خالی کردن سطل زباله</string>
     <string name="action_send_share">ارسال/اشتراک گذاری</string>
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
@@ -83,11 +84,13 @@
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
     <string name="battery_optimization_no_setting">تنظیمات باتری به طور مستقیم انجام نشد. لطفا تنظیمات را به صورت دستی تنظیم کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
+    <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
     <string name="changelog_dev_version">تغییرات نسخه در حال توسعه</string>
     <string name="checkbox">جعبه علامت</string>
     <string name="choose_local_folder">پوشه محلی را انتخاب کردن...</string>
     <string name="choose_remote_folder">پوشه راه دور را انتخاب کردن ...</string>
+    <string name="choose_template_helper_text">لطفا یک قالب را انتخاب و نامی برای پرونده وارد کنید.</string>
     <string name="choose_which_file">انتخاب کنید کدام فایل را نگه‌ دارید!</string>
     <string name="clear_notifications_failed">ناموفق بودن در پاک کردن اعلانها</string>
     <string name="clear_status_message">پیام وضعیت را پاک کن</string>
@@ -113,6 +116,7 @@
     <string name="common_save">ذخیره</string>
     <string name="common_send">ارسال</string>
     <string name="common_share">هم‌رسانی</string>
+    <string name="common_skip">پرش</string>
     <string name="common_switch_account">تعویض حساب</string>
     <string name="common_switch_to_account">تعویض به حساب</string>
     <string name="common_yes">بله</string>
@@ -171,6 +175,7 @@
     <string name="could_not_download_image">تصویر کامل دریافت نشد</string>
     <string name="could_not_retrieve_shares">امکان بازگردانی اشتراک گذاری‌ها وجود ندارد</string>
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
+    <string name="create">ساخت</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
     <string name="create_new">ایجاد جدید</string>
     <string name="create_new_document">ساختن سند جدید</string>
@@ -191,6 +196,7 @@
     <string name="dev_version_no_new_version_available">نسخه جدید موجود نیست</string>
     <string name="dialog_close">بستن</string>
     <string name="digest_algorithm_not_available">این الگوریتم خلاصه در تلفن شما موجود نیست.</string>
+    <string name="direct_login_failed">ورود از طریق پیوند مستقیم شکست خورد!</string>
     <string name="disable_new_media_folder_detection_notifications">غیرفعال کردن</string>
     <string name="dismiss">پنهان کن</string>
     <string name="dismiss_notification_description">رد کردن اعلان</string>
@@ -270,6 +276,13 @@
     <string name="etm_migrations">مهاجرت ها (ارتقا برنامک)</string>
     <string name="etm_preferences">اولویت ها</string>
     <string name="etm_title">حالت تست مهندسی</string>
+    <string name="etm_transfer">انتقال پرونده</string>
+    <string name="etm_transfer_enqueue_test_download">صف‌گذاری بارگیری امتحانی</string>
+    <string name="etm_transfer_enqueue_test_upload">صف‌گذاری بارگذاری امتحانی</string>
+    <string name="etm_transfer_remote_path">مسیر راه دور</string>
+    <string name="etm_transfer_type">انتقال</string>
+    <string name="etm_transfer_type_download">بارگیری</string>
+    <string name="etm_transfer_type_upload">بارگذاری</string>
     <string name="fab_label">اضافه یا بارگذاری کنید</string>
     <string name="failed_to_download">ارسال فایل برای  مدیر بارگیری انجام نشد</string>
     <string name="failed_to_print">چاپ پرونده انجام نشد</string>
@@ -356,6 +369,7 @@
     <string name="foreign_files_success">همه فایل‌ها انتقال یافتند</string>
     <string name="forward">ارسال کردن</string>
     <string name="fourHours">۴ ساعت</string>
+    <string name="fullscreen">تمام‌صفحه</string>
     <string name="hint_name">نام</string>
     <string name="hint_note">یادداشت</string>
     <string name="hint_password">گذرواژه</string>
@@ -378,17 +392,22 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
     <string name="log_send_mail_subject">%1$s لاگ‌های برنامه های اندروید</string>
+    <string name="log_send_no_mail_app">برنامه‌ای برای فرستادن گزارش‌ها پیدا نشد. لطفا یک کارخواه رایانامه نصب کنید.</string>
     <string name="login">Log in</string>
+    <string name="login_url_helper_text">پیوند به رابط وب %1$s شما زمانی که در مرورگر بازش می‌کنید.</string>
     <string name="logs_menu_delete">حذف لاگ‌ها</string>
     <string name="logs_menu_refresh">تازه‌سازی</string>
     <string name="logs_menu_search">جستجو تاریخچه ها</string>
+    <string name="logs_menu_send">فرستادن گزارش‌ها با رایانامه</string>
     <string name="logs_status_filtered">وقایع: %1$d kB, پرس و جو مطابقت دارد %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">درحال بارگیری...</string>
     <string name="logs_status_not_filtered">وقایع: %1$d kB, بدون فیلتر</string>
     <string name="logs_title">لاگ‌ها</string>
+    <string name="maintenance_mode">کارساز در حالت نگهداری است</string>
     <string name="manage_space_clear_data">باکسازی اطلاعات</string>
     <string name="manage_space_description">تنظیمات، دیتابیس و گواهی‌های سرور از داده‌های %1$s برای همیشه حذف خواهند شد. فایل‌های دریافت‌شده دست‌‌نخورده باقی می‌مانند. این روند ممکن است زمان‌بر باشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>
+    <string name="media_err_invalid_progressive_playback">پرونده رسانه نمی‌تواند به صورت جریان پخش شود</string>
     <string name="media_err_io">فایل رسانه ای را نمی توان خواند</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
     <string name="media_err_timeout">تلاش برای پخش فایل به پایان رسیده است</string>
@@ -405,6 +424,7 @@
     <string name="menu_item_sort_by_name_z_a">ی تا الف</string>
     <string name="menu_item_sort_by_size_biggest_first">بزرگترین اول</string>
     <string name="menu_item_sort_by_size_smallest_first">کوچک ترین اول</string>
+    <string name="more">بیشتر</string>
     <string name="move_file_error">خطایی در زمان تلاش برای انتقال این فایل یا پوشه رخ داده است</string>
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
@@ -532,6 +552,7 @@
     <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
     <string name="push_notifications_old_login">امکان ارسال اعلانات، به دلیل منقضی شدن زمان نشست ورود به سیستم وجود ندارد. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">ارسال اعلانات در حال حاضر در دسترس نیست.</string>
+    <string name="qr_could_not_be_read">کد QR قابل خواندن نیست!</string>
     <string name="recommend_subject">امتحان کردن %1$s روی دستگاه شما</string>
     <string name="recommend_text">می خواهم از شما دعوت کنم تا از %1$s در دستگاه خود استفاده کنید. بارگیری در اینجا: %2$s</string>
     <string name="recommend_urls">آدرس %1$s یا %2$s</string>
@@ -565,6 +586,7 @@
     <string name="screenshot_06_davdroid_heading">تقویم &amp; مخاطبین</string>
     <string name="screenshot_06_davdroid_subline">همگام سازی با DAVx5</string>
     <string name="select_all">انتخاب همه</string>
+    <string name="select_one_template">لطفا یک قالب را انتخاب کنید</string>
     <string name="select_template">الگو را انتخاب کنید</string>
     <string name="send">ارسال</string>
     <string name="send_note">ارسال یادداشت به گیرنده</string>
@@ -661,6 +683,7 @@
     <string name="stream">در جریان با…</string>
     <string name="stream_not_possible_headline">جریان داخلی امکان پذیر نیست</string>
     <string name="stream_not_possible_message">لطفاً به جای آن رسانه را دریافت کنید یا از برنامه خارجی استفاده کنید.</string>
+    <string name="strict_mode">حالت سخت‌گیر: اتصال HTTP مجاز نیست!</string>
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
     <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>
@@ -703,6 +726,7 @@
     <string name="trashbin_empty_message">شما قادر خواهید بود فایل‌های حذف شده را از اینجا بازیابی کنید.</string>
     <string name="trashbin_file_not_deleted">فایل%1$s نمی تواند حذف شود!</string>
     <string name="trashbin_file_not_restored">فایل %1$s نمی تواند بازیابی شود</string>
+    <string name="trashbin_loading_failed">بار کردن سطل زباله شکست خورد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>
@@ -746,6 +770,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$sمجاز به خواندن یک فایل دریافتی نیست</string>
     <string name="uploader_error_message_source_file_not_copied">فایل را نمی توان به یک پوشه موقت کپی کرد. سعی کنید آن را دوباره ارسال کنید.</string>
     <string name="uploader_error_message_source_file_not_found">پرونده انتخاب شده برای آپلود پیدا نشد لطفا بررسی کنید که آیا فایل وجود دارد.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">این پرونده نمی‌تواند بارگذاری شود</string>
     <string name="uploader_error_title_no_file_to_upload">هیچ فایلی برای آپلود وجود ندارد</string>
     <string name="uploader_info_dirname">نام پوشه</string>
     <string name="uploader_top_message">پوشه آپلود را انتخاب کنید </string>
@@ -791,6 +816,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">انتظار برای اتصال به وای‌فای نامحدود</string>
     <string name="user_icon">کاربر</string>
     <string name="user_info_address">نشانی</string>
+    <string name="user_info_email">رایانامه</string>
     <string name="user_info_phone">شماره تلفن</string>
     <string name="user_info_twitter">توییتر</string>
     <string name="user_info_website">وب‌ سایت</string>
@@ -805,6 +831,7 @@
     <string name="what_s_new_image">چه تصویر جدیدی است</string>
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>
+    <string name="whats_your_status">وضعیت شما چیست؟</string>
     <string name="wrong_storage_path">مسیر ذخیره سازی وجود ندارد!</string>
     <string name="wrong_storage_path_desc">این ممکن است به دلیل بازیابی نسخه پشتیبان در دستگاه دیگری باشد. بازگشتن به حالت پیش‌فرض. لطفا برای تنظیم مسیر ذخیره‌سازی تنظیمات را بررسی کنید.</string>
     <plurals name="sync_fail_in_favourites_content">
