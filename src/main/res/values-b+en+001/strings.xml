@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
+    <string name="action_empty_trashbin">Empty trash bin</string>
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -275,6 +276,11 @@
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_preferences">Preferences</string>
     <string name="etm_title">Engineering Test Mode</string>
+    <string name="etm_transfer">File transfer</string>
+    <string name="etm_transfer_remote_path">Remote path</string>
+    <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_download">Download</string>
+    <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
@@ -415,6 +421,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
+    <string name="more">More</string>
     <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
@@ -542,6 +549,7 @@
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
+    <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
@@ -672,6 +680,7 @@
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
+    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -714,6 +723,7 @@
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
+    <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
@@ -818,6 +828,7 @@
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
+    <string name="whats_your_status">What is your status?</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <plurals name="sync_fail_in_favourites_content">
