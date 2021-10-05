@@ -66,7 +66,7 @@ ext {
     prismVersion = "2.0.0"
     androidLibraryVersion = "rc-2.8.0-01"
     mockitoVersion = "3.12.4"
-    mockkVersion = "1.10.4"
+    mockkVersion = "1.12.0"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.11.21"
     espressoVersion = "3.4.0"
@@ -374,7 +374,7 @@ dependencies {
     }
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
-    androidTestImplementation "io.mockk:mockk-android:1.10.4"
+    androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation "com.facebook.testing.screenshot:core:0.13.0"
 
