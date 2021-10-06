@@ -237,10 +237,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout) {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (activeTab == 0) {
-                    getFileDetailActivitiesFragment().markCommentsAsRead();
+                final FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
+                if (activeTab == 0 && fragment != null) {
+                    fragment.markCommentsAsRead();
                 }
-
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
         });
@@ -248,10 +248,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 binding.pager.setCurrentItem(tab.getPosition());
-
                 if (tab.getPosition() == 0) {
-                    FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
-
+                    final FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
                     if (fragment != null) {
                         fragment.markCommentsAsRead();
                     }
