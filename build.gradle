@@ -9,7 +9,7 @@ import org.gradle.internal.jvm.Jvm
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.5.31'
     repositories {
         google()
         maven {
@@ -57,7 +57,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.39"
+	daggerVersion = "2.39.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="7ee9612bc586966ac25aefeb5b7b1c5a1f43c4fb"
@@ -460,4 +460,8 @@ detekt {
 
 shot {
     showOnlyFailingTestsInReports = ciBuild
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
