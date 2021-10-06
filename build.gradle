@@ -10,6 +10,7 @@ import org.gradle.internal.jvm.Jvm
 
 buildscript {
     ext.kotlin_version = '1.5.31'
+    ext.jacoco_version = '0.8.7'
     repositories {
         google()
         maven {
@@ -25,6 +26,9 @@ buildscript {
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.11.2'
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
+        classpath "org.jacoco:org.jacoco.report:$jacoco_version"
+        classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
     }
 }
 
@@ -379,6 +383,11 @@ configurations.all {
     resolutionStrategy{
         cacheChangingModulesFor 0, 'seconds'
         force 'org.objenesis:objenesis:2.6'
+        eachDependency { details ->
+            if ('org.jacoco' == details.requested.group) {
+                details.useVersion "$jacoco_version"
+            }
+        }
     }
 
 }
@@ -397,6 +406,8 @@ android.applicationVariants.all { variant ->
 }
 
 tasks.register("combinedTestReport", JacocoReport) {
+
+    jacocoClasspath = configurations['jacocoAnt']
 
     reports {
         xml.enabled true
@@ -449,5 +460,5 @@ shot {
 }
 
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "$jacoco_version"
 }
