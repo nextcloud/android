@@ -23,6 +23,8 @@
 package com.owncloud.android.ui.fragment
 
 import android.Manifest
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.device.BatteryStatus
@@ -71,12 +73,18 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
             get() = BatteryStatus()
     }
 
+    private fun openFile(name: String): File {
+        val ctx: Context = ApplicationProvider.getApplicationContext()
+        val externalFilesDir = ctx.getExternalFilesDir(null)
+        return File(externalFilesDir, name)
+    }
+
     @Test
     @SuppressWarnings("MagicNumber")
     fun testEnoughSpaceWithoutLocalFile() {
         val sut = OCFileListFragment()
         val ocFile = OCFile("/test.txt")
-        val file = File("/sdcard/test.txt")
+        val file = openFile("test.txt")
         file.createNewFile()
 
         ocFile.storagePath = file.absolutePath
@@ -99,7 +107,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
     fun testEnoughSpaceWithLocalFile() {
         val sut = OCFileListFragment()
         val ocFile = OCFile("/test.txt")
-        val file = File("/sdcard/test.txt")
+        val file = openFile("test.txt")
         file.writeText("123123")
 
         ocFile.storagePath = file.absolutePath
@@ -122,8 +130,8 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
     fun testEnoughSpaceWithoutLocalFolder() {
         val sut = OCFileListFragment()
         val ocFile = OCFile("/test/")
-        val file = File("/sdcard/test/")
-        File("/sdcard/test/1.txt").writeText("123123")
+        val file = openFile("test")
+        File(file, "1.txt").writeText("123123")
 
         ocFile.storagePath = file.absolutePath
 
@@ -145,9 +153,9 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
     fun testEnoughSpaceWithLocalFolder() {
         val sut = OCFileListFragment()
         val ocFile = OCFile("/test/")
-        val folder = File("/sdcard/test/")
+        val folder = openFile("test")
         folder.mkdirs()
-        val file = File("/sdcard/test/1.txt")
+        val file = File(folder, "1.txt")
         file.createNewFile()
         file.writeText("123123")
 
