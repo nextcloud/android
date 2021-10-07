@@ -22,9 +22,9 @@
  */
 package com.owncloud.android.utils.theme;
 
-import android.accounts.Account;
 import android.content.Context;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -34,22 +34,15 @@ import com.owncloud.android.lib.resources.status.OCCapability;
  */
 public final class CapabilityUtils {
     public static OCCapability getCapability(Context context) {
-        return getCapability(null, context);
-    }
-
-    private static OCCapability getCapability(Account acc, Context context) {
-        Account account = null;
-
-        if (acc != null) {
-            account = acc;
-        } else if (context != null) {
+        User user = null;
+        if (context != null) {
             // TODO: refactor when dark theme work is completed
-            account = UserAccountManagerImpl.fromContext(context).getCurrentAccount();
+            user = UserAccountManagerImpl.fromContext(context).getUser();
         }
 
-        if (account != null) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(account, context.getContentResolver());
-            return storageManager.getCapability(account.name);
+        if (user != null) {
+            FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
+            return storageManager.getCapability(user.getAccountName());
         } else {
             return new OCCapability();
         }

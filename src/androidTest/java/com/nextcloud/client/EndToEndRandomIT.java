@@ -366,7 +366,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                  "[" + i + "/" + actionCount + "] " + "Download file: " +
                      currentFolder.getDecryptedRemotePath() + fileToDownload.getDecryptedFileName());
 
-        assertTrue(new DownloadFileOperation(account, fileToDownload, targetContext)
+        assertTrue(new DownloadFileOperation(user, fileToDownload, targetContext)
                        .execute(client)
                        .isSuccess());
 

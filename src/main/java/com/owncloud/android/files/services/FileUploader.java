@@ -491,7 +491,7 @@ public class FileUploader extends Service
             onWifiOnly,
             whileChargingOnly,
             disableRetries,
-            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
+            new FileDataStorageManager(user, getContentResolver())
         );
         newUpload.setCreatedBy(createdBy);
         if (isCreateRemoteFolder) {
@@ -541,7 +541,7 @@ public class FileUploader extends Service
             onWifiOnly,
             whileChargingOnly,
             true,
-            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
+            new FileDataStorageManager(user, getContentResolver())
         );
 
         newUpload.addDataTransferProgressListener(this);
@@ -623,7 +623,7 @@ public class FileUploader extends Service
                 /// prepare client object to send the request to the ownCloud server
                 if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
                     mCurrentAccount = mCurrentUpload.getAccount();
-                    mStorageManager = new FileDataStorageManager(mCurrentAccount, getContentResolver());
+                    mStorageManager = new FileDataStorageManager(getCurrentUser().get(), getContentResolver());
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update

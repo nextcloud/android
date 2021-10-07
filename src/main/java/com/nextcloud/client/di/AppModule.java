@@ -139,7 +139,7 @@ class AppModule {
     @Provides
     FileDataStorageManager fileDataStorageManager(CurrentAccountProvider currentAccountProvider,
                                                   Context context) {
-        return new FileDataStorageManager(currentAccountProvider.getCurrentAccount(), context.getContentResolver());
+        return new FileDataStorageManager(currentAccountProvider.getUser(), context.getContentResolver());
     }
 
     @Provides

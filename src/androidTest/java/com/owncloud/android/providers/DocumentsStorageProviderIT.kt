@@ -38,7 +38,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     private val authority = context.getString(R.string.document_provider_authority)
 
     private val rootFileId = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).fileId
-    private val documentId = "${account.hashCode()}${DOCUMENTID_SEPARATOR}$rootFileId"
+    private val documentId = "${user.hashCode()}${DOCUMENTID_SEPARATOR}$rootFileId"
     private val uri = DocumentsContract.buildTreeDocumentUri(authority, documentId)
     private val rootDir get() = DocumentFile.fromTreeUri(context, uri)!!
 

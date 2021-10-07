@@ -198,6 +198,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         OCFile ocFile = document.getFile();
         Account account = document.getAccount();
+        User user = accountManager.getUser(account.name).orElseGet(accountManager::getAnonymousUser);
 
         int accessMode = ParcelFileDescriptor.parseMode(mode);
         boolean writeOnly = (accessMode & MODE_WRITE_ONLY) != 0;
@@ -208,7 +209,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
                 Log_OC.w(TAG, "Conflict found!");
             } else {
-                DownloadFileOperation downloadFileOperation = new DownloadFileOperation(account, ocFile, context);
+                DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
                 RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
                 if (!result.isSuccess()) {
                     if (ocFile.isDown()) {
@@ -674,9 +675,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         ContentResolver contentResolver = getContext().getContentResolver();
 
-        for (Account account : accountManager.getAccounts()) {
-            final FileDataStorageManager storageManager = new FileDataStorageManager(account, contentResolver);
-            rootIdToStorageManager.put(account.hashCode(), storageManager);
+        for (User user : accountManager.getAllUsers()) {
+            final FileDataStorageManager storageManager = new FileDataStorageManager(user, contentResolver);
+            rootIdToStorageManager.put(user.hashCode(), storageManager);
         }
     }
 

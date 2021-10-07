@@ -79,7 +79,7 @@ class ContactsBackupIT : AbstractOnServerIT() {
             false
         )[0]
 
-        assertTrue(DownloadFileOperation(account, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
+        assertTrue(DownloadFileOperation(user, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
 
         val backupFile = File(backupOCFile.storagePath)
 
