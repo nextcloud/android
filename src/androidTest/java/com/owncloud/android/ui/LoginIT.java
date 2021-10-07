@@ -26,6 +26,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.AbstractIT;
@@ -59,6 +60,8 @@ import static org.junit.Assert.assertEquals;
 public class LoginIT extends AbstractIT {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    @Rule
+    public RetryTestRule retryTestRule = new RetryTestRule();
 
     @Before
     public void setUp() {
