@@ -2503,7 +2503,7 @@ public class FileDisplayActivity extends FileActivity
         FileDataStorageManager storageManager = getStorageManager();
 
         if (storageManager == null) {
-            storageManager = new FileDataStorageManager(user.toPlatformAccount(), getContentResolver());
+            storageManager = new FileDataStorageManager(user, getContentResolver());
         }
 
         FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user,

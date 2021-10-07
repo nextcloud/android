@@ -390,7 +390,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+        FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                            getContentResolver());
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 

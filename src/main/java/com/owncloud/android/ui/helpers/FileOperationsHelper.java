@@ -201,7 +201,7 @@ public class FileOperationsHelper {
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
             User user = fileActivity.getUser().orElseThrow(RuntimeException::new);
-            FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
+            FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                                fileActivity.getContentResolver());
 
             // check if file is in conflict (this is known due to latest folder refresh)
@@ -314,7 +314,7 @@ public class FileOperationsHelper {
                 public void run() {
                     User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                        new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
+                        new FileDataStorageManager(user, fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
