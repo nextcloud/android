@@ -88,7 +88,7 @@ public abstract class AbstractIT {
     protected Activity currentActivity;
 
     protected FileDataStorageManager fileDataStorageManager =
-        new FileDataStorageManager(account, targetContext.getContentResolver());
+        new FileDataStorageManager(user, targetContext.getContentResolver());
 
     @BeforeClass
     public static void beforeAll() {

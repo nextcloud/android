@@ -599,7 +599,7 @@ public final class AppPreferencesImpl implements AppPreferences {
         }
 
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
-        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(), context.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
 
         String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
         OCFile prefFolder = folder;

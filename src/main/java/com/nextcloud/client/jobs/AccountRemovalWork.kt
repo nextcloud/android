@@ -94,7 +94,7 @@ class AccountRemovalWork(
         val user = optionalUser.get()
         backgroundJobManager.cancelPeriodicContactsBackup(user)
         val userRemoved = userAccountManager.removeUser(user)
-        val storageManager = FileDataStorageManager(user.toPlatformAccount(), context.contentResolver)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         // disable daily backup
         arbitraryDataProvider.storeOrUpdateKeyValue(
