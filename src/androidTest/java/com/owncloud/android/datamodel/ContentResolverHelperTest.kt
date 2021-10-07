@@ -28,6 +28,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,7 +61,10 @@ class ContentResolverHelperTest {
                 withArg { bundle ->
                     assertEquals(bundle.getString(ContentResolver.QUERY_ARG_SQL_SELECTION), SELECTION)
                     assertEquals(bundle.getInt(ContentResolver.QUERY_ARG_LIMIT), LIMIT)
-                    assertEquals(bundle.getString(ContentResolver.QUERY_ARG_SORT_COLUMNS), SORT_COLUMN)
+                    assertArrayEquals(
+                        bundle.getStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS),
+                        arrayOf(SORT_COLUMN)
+                    )
                     assertEquals(bundle.getInt(ContentResolver.QUERY_ARG_SORT_DIRECTION), SORT_DIRECTION_INT)
                 },
                 null
