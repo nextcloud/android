@@ -38,6 +38,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
+import java.lang.RuntimeException
 
 class TestActivity :
     FileActivity(),
