@@ -95,7 +95,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
     private ArbitraryDataProvider arbitraryDataProvider;
-    private Account account;
+    private User user;
     private boolean showSidebar = true;
 
     public static ContactsBackupFragment create(boolean showSidebar) {
@@ -124,9 +124,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         }
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
-
-        account = contactsPreferenceActivity.getAccount();
-        User user = contactsPreferenceActivity.getUser().orElseThrow(RuntimeException::new);
+        user = contactsPreferenceActivity.getUser().orElseThrow(RuntimeException::new);
 
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
@@ -214,9 +212,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, storageManager, account, getContext());
+                            false, false, storageManager, user, getContext());
 
-                    RemoteOperationResult result = operation.execute(account, context);
+                    RemoteOperationResult result = operation.execute(user.toPlatformAccount(), context);
                     return result.isSuccess();
                 } else {
                     return Boolean.FALSE;
@@ -341,7 +339,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             backgroundJobManager.cancelPeriodicContactsBackup(user);
         }
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                 String.valueOf(enabled));
     }
 

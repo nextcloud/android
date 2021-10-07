@@ -44,6 +44,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Toast;
 
+import com.nextcloud.client.account.AnonymousUser;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.files.downloader.DownloadTask;
@@ -91,6 +93,7 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import dagger.android.AndroidInjection;
 
 import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
@@ -376,11 +379,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Context context = getNonNullContext();
-        Account account = document.getAccount();
+        User user = document.getUser();
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
-                                                                        false, false, true, storageManager,
-                                                                        account, context)
+        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+                                                                        System.currentTimeMillis(),
+                                                                        false,
+                                                                        false,
+                                                                        true,
+                                                                        storageManager,
+                                                                        user,
+                                                                        context)
             .execute(targetFolder.getClient());
 
         if (!updateParent.isSuccess()) {
@@ -480,7 +488,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
-                                                                        targetFolder.getAccount(), context)
+                                                                        targetFolder.getUser(), context)
             .execute(targetFolder.getClient());
 
         if (!updateParent.isSuccess()) {
@@ -497,10 +505,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
 
-        Account account = targetFolder.getAccount();
+        User user = targetFolder.getUser();
 
         // create dummy file
-        File tempDir = new File(FileStorageUtils.getTemporalPath(account.name));
+        File tempDir = new File(FileStorageUtils.getTemporalPath(user.getAccountName()));
 
         if (!tempDir.exists() && !tempDir.mkdirs()) {
             throw new FileNotFoundException("Temp folder could not be created: " + tempDir.getAbsolutePath());
@@ -547,7 +555,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                         false,
                                                                         true,
                                                                         targetFolder.getStorageManager(),
-                                                                        account,
+                                                                        user,
                                                                         context)
             .execute(client);
 
@@ -742,7 +750,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                               true,
                                               true,
                                               folder.getStorageManager(),
-                                              folder.getAccount(),
+                                              folder.getUser(),
                                               MainApp.getAppContext())
                 .execute(folder.getClient());
         }
@@ -789,6 +797,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         public Account getAccount() {
             return getStorageManager().getAccount();
+        }
+
+        public User getUser() {
+            Account account = getAccount();
+            return accountManager.getUser(account.name).orElseGet(accountManager::getAnonymousUser);
         }
 
         public OCFile getFile() {

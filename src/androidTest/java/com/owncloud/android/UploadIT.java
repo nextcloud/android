@@ -104,7 +104,7 @@ public class UploadIT extends AbstractOnServerIT {
                                                                   false,
                                                                   true,
                                                                   getStorageManager(),
-                                                                  account,
+                                                                  user,
                                                                   targetContext)
             .execute(client);
 
