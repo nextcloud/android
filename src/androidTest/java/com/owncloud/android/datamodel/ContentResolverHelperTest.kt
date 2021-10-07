@@ -26,12 +26,14 @@ import android.net.Uri
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
-import io.mockk.mockk
-import io.mockk.verify
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
+import com.nhaarman.mockitokotlin2.argThat
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.verify
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 @RunWith(AndroidJUnit4::class)
 class ContentResolverHelperTest {
@@ -46,49 +48,49 @@ class ContentResolverHelperTest {
         private const val LIMIT = 10
     }
 
+    @Mock
+    lateinit var resolver: ContentResolver
+
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+    }
+
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
-    fun contentResolver_onAndroidO_usesNewAPI() {
-        val resolver: ContentResolver = mockk(relaxed = true)
+    fun contentResolver_onAndroid26_usesNewAPI() {
 
         ContentResolverHelper
             .queryResolver(resolver, URI, PROJECTION, SELECTION, null, SORT_COLUMN, SORT_DIRECTION, LIMIT)
 
-        verify {
-            resolver.query(
-                URI,
-                PROJECTION,
-                withArg { bundle ->
-                    assertEquals(bundle.getString(ContentResolver.QUERY_ARG_SQL_SELECTION), SELECTION)
-                    assertEquals(bundle.getInt(ContentResolver.QUERY_ARG_LIMIT), LIMIT)
-                    assertArrayEquals(
-                        bundle.getStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS),
-                        arrayOf(SORT_COLUMN)
-                    )
-                    assertEquals(bundle.getInt(ContentResolver.QUERY_ARG_SORT_DIRECTION), SORT_DIRECTION_INT)
-                },
-                null
-            )
-        }
+        verify(resolver).query(
+            eq(URI),
+            eq(PROJECTION),
+            argThat { bundle ->
+                bundle.getString(ContentResolver.QUERY_ARG_SQL_SELECTION) == SELECTION &&
+                    bundle.getInt(ContentResolver.QUERY_ARG_LIMIT) == LIMIT &&
+                    bundle.getStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS)!!
+                        .contentEquals(arrayOf(SORT_COLUMN)) &&
+                    bundle.getInt(ContentResolver.QUERY_ARG_SORT_DIRECTION) == SORT_DIRECTION_INT
+            },
+            null
+        )
     }
 
     @Test
     @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.N_MR1)
-    fun contentResolver_onOlderAndroid_usesOldAPI() {
-        val resolver: ContentResolver = mockk(relaxed = true)
+    fun contentResolver_onAndroidBelow26_usesOldAPI() {
 
         ContentResolverHelper
             .queryResolver(resolver, URI, PROJECTION, SELECTION, null, SORT_COLUMN, SORT_DIRECTION, LIMIT)
 
-        verify {
-            resolver.query(
-                URI,
-                PROJECTION,
-                SELECTION,
-                null,
-                "$SORT_COLUMN $SORT_DIRECTION LIMIT $LIMIT",
-                null
-            )
-        }
+        verify(resolver).query(
+            eq(URI),
+            eq(PROJECTION),
+            eq(SELECTION),
+            eq(null),
+            eq("$SORT_COLUMN $SORT_DIRECTION LIMIT $LIMIT"),
+            eq(null)
+        )
     }
 }
