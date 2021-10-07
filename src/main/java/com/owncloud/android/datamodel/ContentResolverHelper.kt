@@ -98,7 +98,7 @@ object ContentResolverHelper {
                 putString(ContentResolver.QUERY_ARG_SQL_SELECTION, selection)
             }
             if (sortColumn != null) {
-                putString(ContentResolver.QUERY_ARG_SORT_COLUMNS, sortColumn)
+                putStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS, arrayOf(sortColumn))
                 val direction = when (sortDirection) {
                     SORT_DIRECTION_ASCENDING -> ContentResolver.QUERY_SORT_DIRECTION_ASCENDING
                     else -> ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
