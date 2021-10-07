@@ -830,6 +830,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
+    <string name="whats_your_status">Mikä on tilatietosi?</string>
     <string name="wrong_storage_path">Tiedostokansiota ei ole olemassa!</string>
     <string name="wrong_storage_path_desc">Tämä voi johtua varmuuskopion palautuksesta toisella laitteella. Palautetaan oletusasetukset. Tarkista tiedostokansion asetukset.</string>
     <plurals name="sync_fail_in_favourites_content">
