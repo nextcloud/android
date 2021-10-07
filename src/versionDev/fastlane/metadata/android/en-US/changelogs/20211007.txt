@@ -1,0 +1,10 @@
+Force JaCoCo version 0.8.7
+add missing changes from #8781
+spotbugs: remove primitive boxing
+spotbugs: remove redundant nullcheck of doubleCheck
+lint: Using android:onClick on older version of the platform is broken
+AS Arctic Fox | 2020.3.1 Update to Gradle/AGP 7.0.2 Removed obsolete DSL element 'dexOptions'
+build: Use jacoco 0.8.7 for compatibility with Kotlin 1.5
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
