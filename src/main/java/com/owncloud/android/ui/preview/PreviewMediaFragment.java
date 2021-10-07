@@ -324,7 +324,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.removeItem(R.id.action_search);
-        menu.add(Menu.NONE, MENU_FULLSCREEN_ID, 99, R.string.fullscreen);
+        OCFile file = getFile();
+        if (file != null && MimeTypeUtil.isImageOrVideo(file)) {
+            menu.add(Menu.NONE, MENU_FULLSCREEN_ID, 99, R.string.fullscreen);
+        }
         inflater.inflate(R.menu.item_file, menu);
     }
 
