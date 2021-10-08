@@ -31,6 +31,8 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
 
+import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -52,18 +54,22 @@ abstract class AbstractOwnCloudSyncAdapter extends
     private Account account;
     private ContentProviderClient contentProviderClient;
     private FileDataStorageManager storageManager;
-
+    private final UserAccountManager userAccountManager;
     private OwnCloudClient client;
 
-    AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
+    AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize, UserAccountManager userAccountManager) {
         super(context, autoInitialize);
         this.setAccountManager(AccountManager.get(context));
+        this.userAccountManager = userAccountManager;
     }
 
-    AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize,
-                                       boolean allowParallelSyncs) {
+    AbstractOwnCloudSyncAdapter(Context context,
+                                boolean autoInitialize,
+                                boolean allowParallelSyncs,
+                                UserAccountManager userAccountManager) {
         super(context, autoInitialize, allowParallelSyncs);
         this.setAccountManager(AccountManager.get(context));
+        this.userAccountManager = userAccountManager;
     }
 
     void initClientForCurrentAccount() throws OperationCanceledException,
@@ -79,6 +85,12 @@ abstract class AbstractOwnCloudSyncAdapter extends
 
     public Account getAccount() {
         return this.account;
+    }
+
+    public User getUser() {
+        Account account = getAccount();
+        String accountName = account != null ? account.name : null;
+        return userAccountManager.getUser(accountName).orElseGet(userAccountManager::getAnonymousUser);
     }
 
     public ContentProviderClient getContentProviderClient() {

@@ -835,7 +835,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                         false,
                                                                         false,
                                                                         getStorageManager(),
-                                                                        getAccount(),
+                                                                        getUser().orElseThrow(RuntimeException::new),
                                                                         getApplicationContext()
                                                                       );
         syncFolderOp.execute(getAccount(), this, null, null);

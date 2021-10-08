@@ -55,7 +55,7 @@ public class DownloadIT extends AbstractOnServerIT {
                                                                   false,
                                                                   true,
                                                                   getStorageManager(),
-                                                                  account,
+                                                                  user,
                                                                   targetContext)
             .execute(client);
 

@@ -256,7 +256,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                             false,
                                                                             ignoreETag,
                                                                             getStorageManager(),
-                                                                            getAccount(),
+                                                                            getUser().orElseThrow(RuntimeException::new),
                                                                             getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
