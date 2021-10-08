@@ -20,7 +20,9 @@
 package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,21 +146,35 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
                 fileDisplayActivity.setSearchQuery(query);
             }
-            handler.postDelayed(() -> {
-                if (query != null && !query.isEmpty()) {
-                    if (getContext() != null && getContext().getResources() != null) {
-                        String coloredText = StringUtils.searchAndColor(originalText, query,
-                                                                        getContext().getResources().getColor(R.color.primary));
-                        binding.textPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
-                    }
-                } else {
-                    setText(binding.textPreview, originalText, getFile(), getActivity());
-                }
-            }, delay);
+            handler.postDelayed(() -> markText(query), delay);
         }
 
         if (delay == 0 && searchView != null) {
             searchView.clearFocus();
+        }
+    }
+
+    private void markText(String query) {
+        // called asynchronously - must check preconditions in case of UI detachment
+        if (binding == null) {
+            return;
+        }
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        final Resources resources = activity.getResources();
+        if (resources == null) {
+            return;
+        }
+
+        if (!TextUtils.isEmpty(query)) {
+            String coloredText = StringUtils.searchAndColor(originalText,
+                                                            query,
+                                                            resources.getColor(R.color.primary));
+            binding.textPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+        } else {
+            setText(binding.textPreview, originalText, getFile(), activity);
         }
     }
 
