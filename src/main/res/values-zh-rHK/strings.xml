@@ -86,7 +86,7 @@
     <string name="battery_optimization_title">電池優化</string>
     <string name="brute_force_delay">由於嘗試過多而延遲</string>
     <string name="certificate_load_problem">憑證載入時發生問題</string>
-    <string name="changelog_dev_version">更新日誌開發版本</string>
+    <string name="changelog_dev_version">開發版本更新紀錄</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇近端資料夾…</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
