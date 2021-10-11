@@ -21,7 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -79,8 +78,8 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
+        if ((activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext()))
+            || getWithoutActivity) {
             cursorFolders = ContentResolverHelper.queryResolver(contentResolver, IMAGES_MEDIA_URI,
                                                                 IMAGES_FOLDER_PROJECTION, null, null,
                                                                 IMAGES_FOLDER_SORT_COLUMN, IMAGES_SORT_DIRECTION, null);
@@ -172,22 +171,21 @@ public final class MediaProvider {
 
     private static void checkPermissions(@Nullable Activity activity) {
         if (activity != null &&
-                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
             // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil
+                .shouldShowRequestPermissionRationale(activity, PermissionUtil.getExternalStoragePermission())) {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(activity));
+                                                  R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(activity));
 
                 ThemeSnackbarUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                PermissionUtil.requestExternalStoragePermission(activity);
             }
         }
     }
@@ -199,10 +197,10 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
+        if ((activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext()))
+            || getWithoutActivity) {
             cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
-                    null, null, null);
+                                                  null, null, null);
         }
 
         List<MediaFolder> mediaFolders = new ArrayList<>();
