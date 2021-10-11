@@ -439,8 +439,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkSelfPermission(getAppContext(),
-                                                   Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
                 splitOutAutoUploadEntries(clock);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
