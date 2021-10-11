@@ -619,15 +619,16 @@ public class ExtendedListFragment extends Fragment implements
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
 
-                    if (tintIcon) {
+                    //tinting is removed
+                  /*  if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
                                 ThemeDrawableUtils.tintDrawable(icon,
                                                                 ThemeColorUtils.primaryColor(getContext(),true)));
                         }
-                    } else {
+                    } else {*/
                         mEmptyListIcon.setImageResource(icon);
-                    }
+                    //}
 
                     if (getActivity() instanceof UploadFilesActivity) {
                         mEmptyListIcon.setVisibility(View.GONE);

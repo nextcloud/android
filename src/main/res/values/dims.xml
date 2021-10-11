@@ -139,5 +139,5 @@
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
     <dimen name="dialog_elevation">24dp</dimen>
     <dimen name="default_login_width">400dp</dimen>
-    <dimen name="empty_list_icon_size">96dp</dimen>
+    <dimen name="empty_list_icon_size">120dp</dimen>
 </resources>

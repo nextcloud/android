@@ -146,7 +146,7 @@ public class UploadListActivity extends FileActivity {
     private void setupContent() {
         binding.list.setEmptyView(binding.emptyList.getRoot());
         binding.emptyList.getRoot().setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.uploads);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_uploads);
         binding.emptyList.emptyListIcon.getDrawable().mutate();
         binding.emptyList.emptyListIcon.setAlpha(0.5f);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);

@@ -1562,6 +1562,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
                     break;
 
+                case SHARED_FILTER:
+                    setEmptyListMessage(SearchType.SHARED_FILTER);
+                    break;
+
                 default:
                     setEmptyListMessage(SearchType.NO_SEARCH);
                     break;
