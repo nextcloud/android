@@ -547,7 +547,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
 
-            if (gridView || hideItemOptions || (file.isFolder() && !file.canReshare())) {
+            if (gridView || hideItemOptions //|| (file.isFolder() && !file.canReshare())
+            ) {
                 gridViewHolder.shared.setVisibility(View.GONE);
             } else {
                 showShareIcon(gridViewHolder, file);
@@ -871,14 +872,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
             sharedIconView.setVisibility(View.VISIBLE);
 
-            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-             /*   if (showShareAvatar) {
-                    sharedIconView.setVisibility(View.GONE);
-                } else {*/
+            // if (file.isSharedWithSharee() || file.isSharedWithMe()) {
+            if (file.isSharedWithMe()) {
+                //if (showShareAvatar) {
+                //sharedIconView.setVisibility(View.GONE);
+                sharedIconView.setImageResource(R.drawable.ic_shared_with_me);
+                // } else {
                 //sharedIconView.setVisibility(View.VISIBLE);
+
+                //}
+            } else if (file.isSharedWithSharee()) {
                 sharedIconView.setImageResource(R.drawable.ic_shared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
-                //  }
             } else if (file.isSharedViaLink()) {
                 sharedIconView.setImageResource(R.drawable.ic_shared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared_via_link));
