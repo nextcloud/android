@@ -78,7 +78,7 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext()))
+        if (activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())
             || getWithoutActivity) {
             cursorFolders = ContentResolverHelper.queryResolver(contentResolver, IMAGES_MEDIA_URI,
                                                                 IMAGES_FOLDER_PROJECTION, null, null,
