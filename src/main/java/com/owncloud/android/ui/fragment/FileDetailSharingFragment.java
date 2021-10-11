@@ -258,7 +258,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             }
 
             if (file.canReshare()){
-                binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.reshare_allowed));
+                binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.reshare_allowed) + " " + getResources().getString(R.string.sharing_description));
                 setUpSearchView();
             }else{
                 binding.searchView.setVisibility(View.GONE);

@@ -838,8 +838,8 @@
     <string name="storage_downloads">Downloads</string>
     <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_with_you_by">Shared with you by %1$s</string>
-    <string name="reshare_not_allowed">Resharing is not allowed</string>
-    <string name="reshare_allowed">Resharing is allowed</string>
+    <string name="reshare_not_allowed">Resharing is not allowed.</string>
+    <string name="reshare_allowed">Resharing is allowed.</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="error_retrieving_file">Error retrieving file</string>
