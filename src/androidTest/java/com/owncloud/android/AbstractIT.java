@@ -7,6 +7,7 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -217,7 +218,7 @@ public abstract class AbstractIT {
     }
 
     protected static File getDummyFile(String name) throws IOException {
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
+        File file = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.separator + name);
 
         if (file.exists()) {
             return file;
@@ -386,11 +387,15 @@ public abstract class AbstractIT {
     }
 
     protected void screenshot(View view, String prefix) {
-        Screenshot.snap(view).setName(createName(prefix)).record();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snap(view).setName(createName(prefix)).record();
+        }
     }
 
     protected void screenshot(Activity sut) {
-        Screenshot.snapActivity(sut).setName(createName()).record();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snapActivity(sut).setName(createName()).record();
+        }
     }
 
     protected void screenshot(DialogFragment dialogFragment, String prefix) {
