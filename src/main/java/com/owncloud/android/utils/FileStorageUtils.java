@@ -98,6 +98,7 @@ public final class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static String getTemporalPath(String accountName) {
+        // FIXME broken in SDK 30
         return MainApp.getStoragePath()
                 + File.separator
                 + MainApp.getDataFolder()
