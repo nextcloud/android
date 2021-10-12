@@ -69,11 +69,13 @@ public final class PassCodeManager {
     private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
         if (window != null) {
-            if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            } else {
+            //by default the window will be in secure mode
+            //the user cannot take screenshot when app moves to recent viwew
+            // if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+           /* } else {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            }
+            }*/
         }
     }
 

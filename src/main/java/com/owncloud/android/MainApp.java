@@ -60,6 +60,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.ui.SplashActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
@@ -341,7 +342,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                passCodeManager.onActivityStarted(activity);
+                //we are checking activity is not splash activity because there is timer in splash which can bypass
+                //the passcode screen. So to avoid this we are doing this check.
+                if (!(activity instanceof SplashActivity)) {
+                    passCodeManager.onActivityStarted(activity);
+                }
             }
 
             @Override
@@ -352,7 +357,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityStopped(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                passCodeManager.onActivityStopped(activity);
+                //since we are not showing passcode on splash activity so we don't need to call the stopped method as
+                //well
+                if (!(activity instanceof SplashActivity)) {
+                    passCodeManager.onActivityStopped(activity);
+                }
             }
 
             @Override
