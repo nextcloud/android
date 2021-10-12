@@ -136,7 +136,7 @@
             android:layout_marginBottom="4dp"
             android:visibility="gone"
             app:background="@color/appbar"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="25dp"
             app:cardElevation="2dp"
             app:strokeWidth="0dp"
             tools:visibility="visible">
