@@ -54,7 +54,7 @@ class GetRemoteFileTask(
                     false,
                     true,
                     storageManager,
-                    user.toPlatformAccount(),
+                    user,
                     context
                 )
                 synchFolderOp.execute(client)
