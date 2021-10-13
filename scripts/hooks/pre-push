@@ -15,7 +15,7 @@ while read local_ref local_sha remote_ref remote_sha; do
         fi
 
         # Check for commits without sign-off
-        commit=$(git rev-list --grep 'Signed-off-by' --invert-grep "$range")
+        commit=$(git rev-list --no-merges --grep 'Signed-off-by' --invert-grep "$range")
         if [ -n "$commit" ]; then
             echo >&2 "Found commits without sign-off in $local_ref. Aborting push. Offending commits:"
             echo >&2 "$commit"
