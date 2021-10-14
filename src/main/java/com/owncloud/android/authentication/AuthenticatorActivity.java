@@ -310,8 +310,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// load user interface
         if (webViewLoginMethod) {
-            setRequestedOrientation(DisplayUtils.isTablet() ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
-                                        ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            //setting orientation is not required
+            //setRequestedOrientation(DisplayUtils.isTablet() ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
+                                         //ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
             initWebViewLogin(webloginUrl, false);
