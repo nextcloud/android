@@ -180,7 +180,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    protected FileFragment.ContainerActivity mContainerActivity;
+    protected FileFragment.ScrollableHeaderContainerActivity mContainerActivity;
 
     protected OCFile mFile;
     protected OCFileListAdapter mAdapter;
@@ -252,7 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onAttach(context);
         Log_OC.i(TAG, "onAttach");
         try {
-            mContainerActivity = (FileFragment.ContainerActivity) context;
+            mContainerActivity = (FileFragment.ScrollableHeaderContainerActivity) context;
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
@@ -1850,12 +1850,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void resetHeaderScrollingState() {
-        if (requireActivity() instanceof FileDisplayActivity) {
-            AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
-
-            if (appBarLayout != null) {
-                appBarLayout.setExpanded(true);
-            }
-        }
+        mContainerActivity.resetHeaderScrollingState();
     }
 }

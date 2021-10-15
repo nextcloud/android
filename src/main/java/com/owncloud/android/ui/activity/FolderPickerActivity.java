@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -71,7 +72,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
+public class FolderPickerActivity extends FileActivity implements FileFragment.ScrollableHeaderContainerActivity,
     OnClickListener,
     OnEnforceableRefreshListener,
     Injectable,
@@ -463,6 +464,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
+        }
+    }
+
+    @Override
+    public void resetHeaderScrollingState() {
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+
+        if (appBarLayout != null) {
+            appBarLayout.setExpanded(true);
         }
     }
 
