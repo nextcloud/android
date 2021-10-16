@@ -1,0 +1,9 @@
+Revert "AndroidManifest: don't request WRITE_EXTERNAL_STORAGE above api 29"
+AndroidManifest: don't request WRITE_EXTERNAL_STORAGE above api 29
+Check if UI bindings are valid when selecting preview text
+Do not mark comments as read when FileDetailActivitiesFragment is detached
+Migrate SynchronizeFolderOperation to new User model
+Suppress fullscreen option when previewing audio files
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
