@@ -94,7 +94,7 @@ class UnifiedSearchRemoteRepository(
             task,
             onResult = {
                 onResult(UnifiedSearchResult(provider, it.success, it.searchResult))
-                onFinished(!it.success)
+                onFinished(it.success)
             },
             onError
         )
