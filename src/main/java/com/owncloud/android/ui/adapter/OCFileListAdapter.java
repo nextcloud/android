@@ -159,7 +159,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.preferences = preferences;
         this.user = user;
         hideItemOptions = argHideItemOptions;
-        this.gridView = gridView;
+        //this.gridView = gridView;
         checkedFiles = new HashSet<>();
         this.syncedFolderProvider = syncedFolderProvider;
 

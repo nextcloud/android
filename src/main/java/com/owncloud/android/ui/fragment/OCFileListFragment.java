@@ -41,6 +41,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
 
@@ -55,7 +56,6 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -84,7 +84,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.nmc.android.ui.ScanDocumentFragment;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
@@ -222,6 +221,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject DeviceInfo deviceInfo;
 
     private int maxColumnSizeLandscape = 5;
+
+    //this variable will help us to provide number of span count for grid view
+    //the width for single item is approx to 360
+    private static final int GRID_ITEM_DEFAULT_WIDTH = 360;
 
     protected enum MenuItemAddRemove {
         DO_NOTHING,
@@ -551,7 +554,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onShareIconClick(OCFile file) {
         //if item is selected i.e action mode is active then don't
         //accept the click event
-        if (mActiveActionMode!=null) return;
+        if (mActiveActionMode != null) {
+            return;
+        }
 
         if (file.isFolder()) {
             mContainerActivity.showDetails(file, 1);
@@ -628,7 +633,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void showTemplate(Creator creator, String headline) {
         ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
-                                                                      DIALOG_CREATE_DOCUMENT);
+                                                                                DIALOG_CREATE_DOCUMENT);
     }
 
     /**
@@ -1481,16 +1486,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
             });
-
         } else {
             layoutManager = new LinearLayoutManager(getContext());
         }
 
         getRecyclerView().setLayoutManager(layoutManager);
+        calculateAndUpdateSpanCount(grid);
         getRecyclerView().scrollToPosition(position);
         getAdapter().setGridView(grid);
         getRecyclerView().setAdapter(getAdapter());
         getAdapter().notifyDataSetChanged();
+    }
+
+    /**
+     * method will calculate the number of spans required for grid item and will update the span accordingly
+     *
+     * @param isGrid
+     */
+    private void calculateAndUpdateSpanCount(boolean isGrid) {
+        getRecyclerView().getViewTreeObserver().addOnGlobalLayoutListener(
+            new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    getRecyclerView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    if (isGrid) {
+                        int viewWidth = getRecyclerView().getMeasuredWidth();
+                        int newSpanCount = viewWidth / GRID_ITEM_DEFAULT_WIDTH;
+                        RecyclerView.LayoutManager layoutManager = getRecyclerView().getLayoutManager();
+                        if (layoutManager instanceof GridLayoutManager) {
+                            ((GridLayoutManager) layoutManager).setSpanCount(newSpanCount);
+                            layoutManager.requestLayout();
+                        }
+                    }
+                }
+            });
     }
 
     public OCFileListAdapter getAdapter() {
@@ -1759,7 +1788,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         getActivity().runOnUiThread(() -> {
             if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
                 ThemeToolbarUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
-                                           title, getContext());
+                                                  title, getContext());
             }
         });
     }
@@ -2012,7 +2041,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
 
             if (isGridEnabled()) {
-                ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
+                calculateAndUpdateSpanCount(true);
             }
         }
     }
