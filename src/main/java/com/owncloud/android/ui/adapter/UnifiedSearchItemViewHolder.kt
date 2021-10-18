@@ -23,6 +23,9 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -39,6 +42,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
+import com.owncloud.android.utils.theme.ThemeColorUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
@@ -65,11 +69,7 @@ class UnifiedSearchItemViewHolder(
 
         val mimetype = MimeTypeUtil.getBestMimeTypeByFilename(entry.title)
 
-        val placeholder = if (entry.icon == "icon-folder") {
-            ResourcesCompat.getDrawable(context.resources, R.drawable.folder, null)
-        } else {
-            MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context)
-        }
+        val placeholder = getPlaceholder(entry, mimetype)
 
         Glide.with(context).using(CustomGlideStreamLoader(user, clientFactory))
             .load(entry.thumbnailUrl)
@@ -81,6 +81,29 @@ class UnifiedSearchItemViewHolder(
             .into(binding.thumbnail)
 
         binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
+    }
+
+    private fun getPlaceholder(
+        entry: SearchResultEntry,
+        mimetype: String?
+    ): Drawable {
+        val drawable = with(entry.icon) {
+            when {
+                equals("icon-folder") ->
+                    ResourcesCompat.getDrawable(context.resources, R.drawable.folder, null)
+                startsWith("icon-note") ->
+                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_edit, null)
+                startsWith("icon-contacts") ->
+                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_vcard, null)
+                startsWith("icon-calendar") ->
+                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_calendar, null)
+                else ->
+                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context)
+            }
+        }
+        val color = ThemeColorUtils.primaryColor(context)
+        drawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        return drawable
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :
