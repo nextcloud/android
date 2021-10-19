@@ -142,14 +142,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             downloadIcon(notification.getIcon(), holder.binding.icon);
         }
 
-       /*int nightModeFlag =
+       int nightModeFlag =
             notificationsActivity.getResources().getConfiguration().uiMode
             & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-            holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            holder.binding.icon.setColorFilter(notificationsActivity.getResources().getColor(R.color.grey_30),
+                                               PorterDuff.Mode.SRC_IN);
         } else {
-            holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-        }*/
+            holder.binding.icon.setColorFilter(notificationsActivity.getResources().getColor(R.color.text_color),
+                                               PorterDuff.Mode.SRC_IN);
+        }
 
         setButtons(holder, notification);
 

@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOp
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.notifications.NotificationsContract;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -98,6 +99,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         // setup toolbar
         setupToolbar();
+        showHideDefaultToolbarDivider(true);
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
 
@@ -196,6 +198,10 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         binding.list.setLayoutManager(layoutManager);
+
+        SimpleListItemDividerDecoration simpleListItemDividerDecoration =
+            new SimpleListItemDividerDecoration(this, R.drawable.item_divider, false);
+        binding.list.addItemDecoration(simpleListItemDividerDecoration);
 
         fetchAndSetData();
     }
