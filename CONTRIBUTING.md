@@ -327,7 +327,7 @@ We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextc
 
 If you need to change a translation, do not change it, but give it new key. This way the translation stays backward compatible as we automatically backport translated strings to last versions.
 
-When submitting PRs with changed translations, please only submit changes to values/strings.xml and not changes to translated files. These will be overwritten by next merge of transifex-but and increase PR review.  
+When submitting PRs with changed translations, please only submit changes to values/strings.xml and not changes to translated files. These will be overwritten by next merge of transifex-bot and increase PR review.  
 
 ## Engineering practices
 
