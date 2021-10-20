@@ -5,23 +5,17 @@ on:
         branches: [ master, stable-* ]
 
 jobs:
-    qa:
+    integration-tests:
         runs-on: macos-latest
         steps:
             -   uses: actions/checkout@v2
             -   name: setup-docker
                 uses: docker-practice/actions-setup-docker@1.0.8
             -   name: Build server
-                run: docker build -f scripts/Dockerfile -t nextcloud-android-ci:${{github.event.number}}
+                run: docker build -t nextcloud-android-ci:${{github.event.number}} scripts
             -   name: Run server
                 run: docker run --rm -d nextcloud-android-ci:${{github.event.number}} -p 80:80
-            -   name: Check if secrets are available
-                run: echo "::set-output name=ok::${{ secrets.KS_PASS != '' }}"
-                id: check-secrets
-            -   uses: actions/checkout@v2
-                if: ${{ steps.check-secrets.outputs.ok == 'true' }}
             -   name: Set up JDK 11
-                if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 uses: actions/setup-java@v2
                 with:
                     distribution: "adopt"
