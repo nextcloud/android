@@ -500,9 +500,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                               R.string.notification_channel_file_sync_name,
                               R.string.notification_channel_file_sync_description, context);
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
-                              R.string.notification_channel_file_observer_name, R.string
-                                  .notification_channel_file_observer_description, context);
+                notificationManager.deleteNotificationChannel(NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
                               R.string.notification_channel_push_name, R.string
