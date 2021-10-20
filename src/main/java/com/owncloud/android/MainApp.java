@@ -529,8 +529,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                       String channelId, int channelName,
                                       int channelDescription, Context context, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
-            && getAppContext() != null
-            && notificationManager.getNotificationChannel(channelId) == null) {
+            && getAppContext() != null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
