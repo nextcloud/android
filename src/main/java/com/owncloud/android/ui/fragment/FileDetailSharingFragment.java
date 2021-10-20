@@ -41,6 +41,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -50,12 +51,14 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
+import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
@@ -109,6 +112,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private FileDetailsSharingFragmentBinding binding;
 
     @Inject UserAccountManager accountManager;
+
+    @Inject ClientFactory clientFactory;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -605,6 +610,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void requestPasswordForShare(OCShare share, boolean askForPassword) {
         SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(share, askForPassword);
         dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    }
+
+    @Override
+    public void showProfileBottomSheet(User user, String shareWith) {
+        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.Companion.getNextcloud_23())) {
+            new RetrieveHoverCardAsyncTask(user, shareWith, fileActivity, clientFactory).execute();
+        }
     }
 
     /**
