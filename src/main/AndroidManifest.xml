@@ -276,7 +276,7 @@
             android:name=".providers.DiskLruImageCacheFileProvider"
             android:authorities="@string/image_cache_provider_authority"
             android:grantUriPermissions="true"
-            android:readPermission="android.permission.MANAGE_DOCUMENTS"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
             android:exported="true">
         </provider>
 
