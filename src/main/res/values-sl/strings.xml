@@ -416,6 +416,7 @@
     <string name="menu_item_sort_by_name_z_a">po abecedi padajoče Ž–A</string>
     <string name="menu_item_sort_by_size_biggest_first">najprej največje</string>
     <string name="menu_item_sort_by_size_smallest_first">najprej najmanjše</string>
+    <string name="more">Več</string>
     <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
