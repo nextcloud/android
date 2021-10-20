@@ -155,7 +155,7 @@
                 android:layout_height="0.5dp"
                 android:visibility="gone"
                 android:layout_below="@+id/toolbar"
-                android:background="@color/divider_color" />
+                android:background="@color/toolbar_divider_color" />
 
         </RelativeLayout>
 

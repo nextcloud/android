@@ -86,4 +86,5 @@
     <!-- App bar -->
     <color name="appbar">#121212</color>
     <color name="fontAppbar">@android:color/white</color>
+    <color name="toolbar_divider_color">@color/grey_70</color>
 </resources>
