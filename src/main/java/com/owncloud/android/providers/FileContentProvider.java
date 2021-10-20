@@ -64,7 +64,10 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import dagger.android.AndroidInjection;
+
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -121,6 +124,10 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private int delete(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
+        // TODO check every where: must be in allowed key set and then we concenate " =? " to each key value to have
+        //  a proper sanitized where clause
+//        verifyColumnsSQL(where);
+
         if (isCallerNotAllowed(uri)) {
             return -1;
         }
@@ -194,6 +201,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
+            // TODO this *must* fail with new protection (as where is to be checked) 
             count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                                ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
                                    + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
@@ -215,6 +223,7 @@ public class FileContentProvider extends ContentProvider {
             if (remoteId == null) {
                 return 0;
             } else {
+                // TODO ask Lukas for a version of exploit and how to sanitize it
                 count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                                   ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
                                       + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
@@ -262,6 +271,16 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private Uri insert(SQLiteDatabase db, Uri uri, ContentValues values) {
+        // verify only for those requests that are not internal (files table)
+        switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+                verifyColumns(values);
+                break;
+        }
+
+
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
@@ -483,8 +502,26 @@ public class FileContentProvider extends ContentProvider {
         return result;
     }
 
-    private Cursor query(SQLiteDatabase db, Uri uri, String[] projectionArray, String selection, String[] selectionArgs,
+    private Cursor query(SQLiteDatabase db,
+                         Uri uri,
+                         String[] projectionArray,
+                         String selection,
+                         String[] selectionArgs,
                          String sortOrder) {
+
+        // verify only for those requests that are not internal
+        switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+                verifyColumnNames(projectionArray);
+                // TODO verify selection and sortorder
+//                verifyColumnsSQL(selection);
+//                verifyColumnsSQL(sortOrder);
+
+            default:
+                // do nothing
+        }
 
         SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
 
@@ -622,6 +659,17 @@ public class FileContentProvider extends ContentProvider {
         if (isCallerNotAllowed(uri)) {
             return -1;
         }
+        // verify only for those requests that are not internal
+        switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+//                verifyColumnsSQL(selection);
+                verifyColumns(values);
+
+            default:
+                // do nothing
+        }
 
         int count;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -637,6 +685,10 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String... selectionArgs) {
+        // TODO check every key of contentValues and match via our allowed list -> ProviderMeta:85
+        // TODO check all other insert and update methods
+        // for selection: same like delete > only pass string array of keys and we build a sql where clause here
+
         switch (mUriMatcher.match(uri)) {
             case DIRECTORY:
                 return 0;
@@ -1032,6 +1084,67 @@ public class FileContentProvider extends ContentProvider {
             default:
                 return false;
         }
+    }
+
+    @VisibleForTesting
+    public void verifyColumns(@Nullable ContentValues contentValues) {
+        if (contentValues == null) {
+            return;
+        }
+
+        for (String name : contentValues.keySet()) {
+            verifyColumnName(name);
+        }
+    }
+
+    @VisibleForTesting
+    public void verifyColumnNames(@Nullable String[] columns) {
+        if (columns == null) {
+            return;
+        }
+
+        for (String name : columns) {
+            verifyColumnName(name);
+        }
+    }
+
+
+    /**
+     * matches against ProviderMeta, to verify that only allowed columns are used
+     */
+    @VisibleForTesting
+    public void verifyColumnsSQL(@Nullable String sql) {
+        if (sql == null) {
+            return;
+        }
+
+        for (String parameter : Uri.parse(sql).getQueryParameterNames()) {
+            String sanitized = parameter.replaceAll("AND", "").replaceAll("OR", "").replaceAll("\\s+", "");
+
+            verifyColumnName(sanitized);
+        }// check plain name
+    }
+
+    @VisibleForTesting
+    public void verifyColumnName(@NonNull String columnName) {
+        if (!ProviderTableMeta.FILE_ALL_COLUMNS.contains(columnName)) {
+            throw new IllegalArgumentException(String.format("Column name \"%s\" is not allowed", columnName));
+        }
+    }
+
+    public String buildParameterizedSelection(String selection) {
+        StringBuilder stringBuilder = new StringBuilder();
+        // add = ?
+        boolean moreThanOne = false;
+        for (String string : selection.split(",")) {
+            if (moreThanOne) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(string.trim());
+            stringBuilder.append(" =?");
+            moreThanOne = true;
+        }
+        return stringBuilder.toString();
     }
 
     class DataBaseHelper extends SQLiteOpenHelper {
