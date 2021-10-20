@@ -485,11 +485,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             if (notificationManager != null) {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
-                              R.string.notification_channel_download_name,
+                              R.string.notification_channel_download_name_short,
                               R.string.notification_channel_download_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
-                              R.string.notification_channel_upload_name,
+                              R.string.notification_channel_upload_name_short,
                               R.string.notification_channel_upload_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
