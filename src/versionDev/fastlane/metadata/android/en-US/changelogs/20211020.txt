@@ -1,0 +1,3 @@
+Explicitly specify exported="true/false" for all
+Update translations
+Update Nextcloud Android library
