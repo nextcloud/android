@@ -61,12 +61,14 @@ end
 
 desc "Release phase 1: make gplay/generic for FINAL, then test it"
 lane :Final_releasePhase1 do
-    makeReleases()
+    info = androidVersion
+    makeReleases(info)
 end
 
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :Final_releasePhase2 do |options|
     info = androidVersion
+    promptVersion(info)
     checkChangelog(info)
     checkLibrary_Final()
     checkIfScreenshotsExist()
@@ -80,14 +82,14 @@ lane :Final_releasePhase2 do |options|
 end
 
 desc "Makes gplay and generic releases in ../releases/"
-lane :makeReleases do
+lane :makeReleases do |options|
     sh("mkdir -p ../release")
     sh("rm -rf ../release/*")
     sh("rm -rf ../build")
 
     SignedRelease(flavor:"Generic")
     sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
-    sh("rename 'generic-release' 'nextcloud' ../release/generic-release*")
+    sh("mv ../release/generic-release-#{options["versionCode"]}.apk ../release/nextcloud-#{options["versionCode"]}.apk")
 
     SignedRelease(flavor:"Gplay")
     sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
@@ -166,7 +168,7 @@ private_lane :checkIfAPKexists do |options|
 end
 
 desc "compute version"
-private_lane :androidVersion do |options|
+private_lane :androidVersion do
     File.open("../build.gradle","r") do |f|
         text = f.read
 
@@ -197,19 +199,22 @@ private_lane :androidVersion do |options|
             branch = "stable-" + major[1] + "." + minor[1]
         end
 
-        print "VersionCode: " + versionCode.to_s + "\n"
-        print "Name: " + name + "\n"
-        print "Tag: " + tag + "\n"
-        print "Branch: " + branch + "\n"
-        print "\ndisable IPv6 to upload to Gplay!!!\n"
-
-        answer = prompt(text: "is this okay?", boolean: true)
-
-        if !answer
-            exit
-        end
-
         { "versionCode" => versionCode.to_s, "versionName" => name, "tag" => tag, "branch" => branch }
+    end
+end
+
+desc "Show versions and prompt for confirmation"
+private_lane :promptVersion do |options|
+    print "VersionCode: " + options["versionCode"].to_s + "\n"
+    print "Name: " + options["versionName"] + "\n"
+    print "Tag: " + options["tag"] + "\n"
+    print "Branch: " + options["branch"] + "\n"
+    print "\ndisable IPv6 to upload to Gplay!!!\n"
+
+    answer = prompt(text: "is this okay?", boolean: true)
+
+    if !answer
+        exit
     end
 end
 
