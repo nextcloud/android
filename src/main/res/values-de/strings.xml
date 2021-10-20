@@ -895,7 +895,7 @@
     <string name="title_edit_scan">Scan bearbeiten</string>
     <string name="title_crop_scan">Scan beschneiden</string>
     <string name="crop_btn_reset_crop_text">Rahmen zurücksetzen</string>
-    <string name="crop_btn_detect_doc_text">Dokument erkenne</string>
+    <string name="crop_btn_detect_doc_text">Dokument erkennen</string>
     <string name="edit_scan_filter_dialog_title">Filter anwenden</string>
     <string name="edit_scan_filter_none">Kein Filter</string>
     <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
