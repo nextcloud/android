@@ -1,3 +1,13 @@
+## 3.17.1 (October, 20, 2021)
+
+fix FIDO crash
+fix crash in documents provider while offline
+updated translations
+
+Minimum: NC 16 Server, Android 5.1 Lollipop
+
+For a full list, please see https://github.com/nextcloud/android/milestone/60
+
 ## 3.17.0 (August, 19, 2021)
 
 UI improvements (Avatar, password dialog)
