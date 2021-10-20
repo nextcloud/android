@@ -7,7 +7,6 @@ ENV BRANCH="${BRANCH_ARG}"
 ENV EVAL=true
 
 RUN BRANCH="$BRANCH" /usr/local/bin/initnc.sh
-RUN echo "127.0.0.1 server" >> /etc/hosts
 RUN su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
 RUN su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
 RUN su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"
