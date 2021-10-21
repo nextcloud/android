@@ -285,9 +285,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (previewLoaded) {
                 toolbarActivity.setPreviewImageVisibility(true);
             }
-            toolbarActivity.showToolbarBackImage(isCustomBackIcon);
+            showHideCustomBackButton();
         }
 
+    }
+
+    //show custom back button for image previews
+    private void showHideCustomBackButton() {
+        if (toolbarActivity != null) {
+            toolbarActivity.showToolbarBackImage(isCustomBackIcon);
+        }
     }
 
     @Override
@@ -618,7 +625,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                 toolbarActivity.setPreviewImageDrawable(asyncDrawable);
                                 toolbarActivity.showToolbarBackImage(true);
                                 previewLoaded = true;
-                                isCustomBackIcon = false;
+                                isCustomBackIcon = true;
                                 task.execute(getFile());
                             }
                         }
@@ -637,6 +644,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             previewLoaded = false;
             isCustomBackIcon = false;
         }
+        showHideCustomBackButton();
     }
 
     /**

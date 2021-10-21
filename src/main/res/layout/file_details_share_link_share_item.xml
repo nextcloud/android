@@ -78,12 +78,12 @@
     <ImageView
         android:id="@+id/copy_link"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/copy_link"
         android:paddingTop="@dimen/standard_quarter_margin"
         android:paddingBottom="@dimen/standard_quarter_margin"
-        android:scaleType="fitCenter"
+        android:scaleType="fitStart"
         app:tint="@color/primary"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
@@ -93,10 +93,12 @@
         android:id="@+id/overflow_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:paddingTop="@dimen/standard_quarter_margin"
         android:contentDescription="@string/overflow_menu"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
         app:tint="@color/primary"
+        android:scaleType="fitStart"
         android:src="@drawable/ic_dots_vertical" />
 
 </LinearLayout>

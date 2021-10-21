@@ -79,6 +79,8 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/overflow_menu"
         app:tint="@color/primary"
+        android:paddingTop="@dimen/standard_quarter_margin"
+        android:scaleType="fitStart"
         android:paddingStart="@dimen/standard_padding"
         android:paddingEnd="@dimen/standard_padding"
         android:src="@drawable/ic_dots_vertical" />
