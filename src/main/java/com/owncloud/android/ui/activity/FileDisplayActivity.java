@@ -1804,8 +1804,9 @@ public class FileDisplayActivity extends FileActivity
             OCFile parent = getStorageManager().getFileById(file.getParentId());
             startSyncFolderOperation(parent, true, true);
 
-            if (getSecondFragment() instanceof FileDetailFragment) {
-                FileDetailFragment fileDetailFragment = (FileDetailFragment) getSecondFragment();
+            FileFragment secondFragment = getSecondFragment();
+            if (secondFragment instanceof FileDetailFragment) {
+                FileDetailFragment fileDetailFragment = (FileDetailFragment) secondFragment;
                 fileDetailFragment.getFileDetailActivitiesFragment().reload();
             }
 
