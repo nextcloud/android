@@ -1,0 +1,3 @@
+Fix GHSL-2021-1008 by using permission instead of readPermission
+Fix typo in CONTRIBUTING.md
+Update translations
