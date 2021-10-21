@@ -850,7 +850,7 @@
     <string name="permissions">Berechtigungen</string>
     <string name="advance_permissions">Erweiterte Berechtigungen</string>
     <string name="common_next">Weiter</string>
-    <string name="send_share">Senden Teilen</string>
+    <string name="send_share">Freigabe senden</string>
     <string name="no_share_permission_selected">Bitte wählen Sie mindestens eine Berechtigung zum Teilen aus.</string>
     <string name="share_link_empty_exp_date">Sie müssen das Ablaufdatum auswählen.</string>
     <string name="share_link_empty_note_message">Bitte Anmerkung eingeben.</string>

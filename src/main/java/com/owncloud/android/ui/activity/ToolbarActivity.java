@@ -323,4 +323,13 @@ public abstract class ToolbarActivity extends BaseActivity {
     public FrameLayout getPreviewImageContainer() {
         return mPreviewImageContainer;
     }
+
+    /**
+     * method will expand the toolbar using app bar if its hidden due to scrolling
+     */
+    public void expandToolbar() {
+        if (mAppBar != null) {
+            mAppBar.setExpanded(true, true);
+        }
+    }
 }
