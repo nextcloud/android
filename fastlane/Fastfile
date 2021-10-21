@@ -61,8 +61,7 @@ end
 
 desc "Release phase 1: make gplay/generic for FINAL, then test it"
 lane :Final_releasePhase1 do
-    info = androidVersion
-    makeReleases(info)
+    makeReleases()
 end
 
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
@@ -82,14 +81,15 @@ lane :Final_releasePhase2 do |options|
 end
 
 desc "Makes gplay and generic releases in ../releases/"
-lane :makeReleases do |options|
+lane :makeReleases do
+    info = androidVersion
     sh("mkdir -p ../release")
     sh("rm -rf ../release/*")
     sh("rm -rf ../build")
 
     SignedRelease(flavor:"Generic")
     sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
-    sh("mv ../release/generic-release-#{options["versionCode"]}.apk ../release/nextcloud-#{options["versionCode"]}.apk")
+    sh("mv ../release/generic-release-#{info["versionCode"]}.apk ../release/nextcloud-#{info["versionCode"]}.apk")
 
     SignedRelease(flavor:"Gplay")
     sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
