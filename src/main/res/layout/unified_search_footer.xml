@@ -37,6 +37,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="@dimen/standard_quarter_padding"
+        android:paddingEnd="0dp"
         android:text="@string/load_more_results"
         android:textColor="@color/secondary_text_color"
         tools:text="Load more results">
