@@ -73,7 +73,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     fun search() {
         val activity = testActivityRule.launchActivity(null)
         val sut = UnifiedSearchFragment.newInstance(null)
-        val testViewModel = UnifiedSearchViewModel()
+        val testViewModel = UnifiedSearchViewModel(activity.application)
         val localRepository = UnifiedSearchFakeRepository()
         testViewModel.setRepository(localRepository)
 

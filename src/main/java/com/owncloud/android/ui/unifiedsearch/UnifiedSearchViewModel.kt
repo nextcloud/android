@@ -19,26 +19,27 @@
  */
 package com.owncloud.android.ui.unifiedsearch
 
+import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import android.net.Uri
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
-import android.net.Uri
-import com.owncloud.android.datamodel.OCFile
 
 @Suppress("LongParameterList")
-class UnifiedSearchViewModel() : ViewModel(), IUnifiedSearchViewModel {
+class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
         private const val DEFAULT_LIMIT = 5
@@ -67,7 +68,9 @@ class UnifiedSearchViewModel() : ViewModel(), IUnifiedSearchViewModel {
     lateinit var runner: AsyncRunner
     lateinit var clientFactory: ClientFactory
     lateinit var resources: Resources
-    lateinit var context: Context
+
+    private val context: Context
+        get() = getApplication<Application>().applicationContext
 
     private lateinit var repository: IUnifiedSearchRepository
     private var loadingStarted: Boolean = false
@@ -82,17 +85,16 @@ class UnifiedSearchViewModel() : ViewModel(), IUnifiedSearchViewModel {
 
     @Inject
     constructor(
+        application: Application,
         currentAccountProvider: CurrentAccountProvider,
         runner: AsyncRunner,
         clientFactory: ClientFactory,
         resources: Resources,
-        context: Context
-    ) : this() {
+    ) : this(application) {
         this.currentAccountProvider = currentAccountProvider
         this.runner = runner
         this.clientFactory = clientFactory
         this.resources = resources
-        this.context = context
 
         repository = UnifiedSearchRemoteRepository(
             clientFactory,
