@@ -97,6 +97,8 @@ class UnifiedSearchItemViewHolder(
                     ResourcesCompat.getDrawable(context.resources, R.drawable.file_vcard, null)
                 startsWith("icon-calendar") ->
                     ResourcesCompat.getDrawable(context.resources, R.drawable.file_calendar, null)
+                startsWith("icon-deck") ->
+                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_deck, null)
                 else ->
                     MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context)
             }
