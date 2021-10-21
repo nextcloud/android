@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.preference.SwitchPreference;
@@ -62,6 +63,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
         }
     }
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void findSwitch(ViewGroup viewGroup) {
         ColorStateList thumbColorStateList;
         ColorStateList trackColorStateList;

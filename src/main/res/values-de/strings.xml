@@ -941,7 +941,7 @@
     <string name="conflict_dialog_title_multiple">%d Dateikonflikte</string>
     <string name="conflict_dialog_message">%1$s ist im Zielordner bereits vorhanden. Möchten Sie die bestehende Datei behalten oder überschreiben?</string>
     <string name="conflict_dialog_message_multiple">Die Dateien sind im Zielordner bereits vorhanden. Möchten Sie die bestehenden Dateien behalten oder überschreiben?</string>
-    <string name="prefs_category_info">die Info</string>
+    <string name="prefs_category_info">Info</string>
     <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie MagentaCloud Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
     <string name="your_message">Ihre Nachricht</string>
     <string name="personal_share_email">persönliche Freigabe per Emai</string>
