@@ -126,7 +126,7 @@ system ("git remote add origin https://" + git_user + ":" + git_token + "@github
 system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
 
 # commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
-system ('git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]" ')
+system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]"')
 
 # push to origin
 system ('git push origin HEAD:' + git_branch)
