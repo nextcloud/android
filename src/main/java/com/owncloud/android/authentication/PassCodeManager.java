@@ -30,6 +30,7 @@ import android.view.WindowManager;
 
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -69,10 +70,16 @@ public final class PassCodeManager {
     private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
         if (window != null) {
-            //by default the window will be in secure mode
-            //the user cannot take screenshot when app moves to recent viwew
+            //the user cannot take screenshot when app moves to recent view
             // if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            //by default the window will be in secure mode
+            //we are setting the secure mode for release build and version, dev debug build also
+            //for other debug builds we are not setting so that we can take screenshot for testing
+            //but for production it should be enabled
+            if(BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")
+                || BuildConfig.FLAVOR.equalsIgnoreCase("qa") || !BuildConfig.DEBUG) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            }
            /* } else {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
             }*/
