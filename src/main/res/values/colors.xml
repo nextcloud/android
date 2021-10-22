@@ -157,4 +157,5 @@
     <color name="white_trans_70">#B3FFFFFF</color>
     <color name="share_color">#0D39DF</color>
     <color name="shared_with_me_color">#0099ff</color>
+    <color name="toolbar_divider_color">#CCCCCC</color>
 </resources>
