@@ -507,7 +507,7 @@ public class OperationsService extends Service {
                 String newParentPath;
                 long shareId;
 
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user,
                                                                                            getContentResolver());
 
                 switch (action) {
