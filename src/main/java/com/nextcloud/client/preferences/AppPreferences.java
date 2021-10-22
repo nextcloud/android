@@ -305,7 +305,7 @@ public interface AppPreferences {
     /**
      * Gets the last seen version code right before updating.
      *
-     * @return grid columns     grid columns
+     * @return last app version code
      */
     int getLastSeenVersionCode();
 
