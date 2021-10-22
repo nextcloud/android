@@ -25,16 +25,19 @@ package com.owncloud.android.utils.theme;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.StringUtils;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -78,6 +81,15 @@ public final class ThemeToolbarUtils {
                          0,
                          text.length(),
                          Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+            //bold the magenta from magentacloud title
+            if (title.contains(context.getResources().getString(R.string.app_name))){
+                String textToBold = context.getResources().getString(R.string.project_name);
+                int indexStart = title.indexOf(textToBold);
+                int indexEnd = indexStart + textToBold.length();
+                text.setSpan(new StyleSpan(Typeface.BOLD), indexStart, indexEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
             actionBar.setTitle(text);
         }
     }
