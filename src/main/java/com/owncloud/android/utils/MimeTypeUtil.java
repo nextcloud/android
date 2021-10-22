@@ -552,6 +552,7 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.folder);
+        MIMETYPE_TO_ICON_MAPPING.put("message/rfc822", R.drawable.file_text);
     }
 
     /**
@@ -617,6 +618,7 @@ public final class MimeTypeUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("eps", Collections.singletonList("application/postscript"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("erf", Collections.singletonList("image/x-dcraw"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("exe", Collections.singletonList("application/x-ms-dos-executable"));
+        FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("eml", Collections.singletonList("message/rfc822"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("fb2", Arrays.asList("application/x-fictionbook+xml", "text/plain"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("flac", Collections.singletonList("audio/flac"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("flv", Collections.singletonList("video/x-flv"));
