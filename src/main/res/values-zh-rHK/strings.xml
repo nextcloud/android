@@ -51,7 +51,7 @@
     <string name="auth_incorrect_address_title">伺服器位址格式錯誤</string>
     <string name="auth_incorrect_path_title">找不到伺服器</string>
     <string name="auth_no_net_conn_title">無網絡連線</string>
-    <string name="auth_nossl_plain_ok_title">無法建立安全連線</string>
+    <string name="auth_nossl_plain_ok_title">無法建立安全連線。</string>
     <string name="auth_not_configured_title">伺服器設定錯誤</string>
     <string name="auth_oauth_error">未成功登入</string>
     <string name="auth_oauth_error_access_denied">認證伺服器拒絕存取</string>
@@ -195,7 +195,7 @@
     <string name="dev_version_no_information_available">沒有資訊。</string>
     <string name="dev_version_no_new_version_available">沒有新版本。</string>
     <string name="dialog_close">關閉</string>
-    <string name="digest_algorithm_not_available">這種加密算法在您的手機中無法使用</string>
+    <string name="digest_algorithm_not_available">這種加密算法在您的手機上無法使用。</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">撤銷</string>

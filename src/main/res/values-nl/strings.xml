@@ -831,6 +831,7 @@
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
+    <string name="whats_your_status">Wat is jouw status?</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
     <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>
     <plurals name="sync_fail_in_favourites_content">
