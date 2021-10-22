@@ -23,7 +23,9 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.view.View
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.accessibility.AccessibilityChecks
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
@@ -32,6 +34,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -45,8 +50,12 @@ import com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION
 import com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.utils.ScreenshotTest
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Assert.assertFalse
@@ -68,6 +77,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun before() {
         activity = testActivityRule.launchActivity(null)
         file = OCFile("/test.md").apply {
+            remoteId = "00000001"
             parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
             permissions = OCFile.PERMISSION_CAN_RESHARE
         }
@@ -223,6 +233,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun publicLinkOptionMenuFolderAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -233,6 +244,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         }
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
+        shortSleep()
+        waitForIdleSync()
 
         // check if items are visible
         onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(not(isDisplayed())))
@@ -319,6 +332,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun publicLinkOptionMenuFolderSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -331,6 +345,17 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         verifySendNewEmail(sut, publicShare)
     }
 
+    private fun setupSecondaryFragment() {
+        val secondary = FileDetailFragment.newInstance(file, user)
+        activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
+        activity.addView(
+            FloatingActionButton(activity).apply { // needed for some reason
+                visibility = View.GONE
+                id = R.id.fab_main
+            }
+        )
+    }
+
     @Test
     @Suppress("MagicNumber")
     // public link and email are handled the same way
@@ -338,6 +363,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun publicLinkOptionMenuFileAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -346,7 +372,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             shareType = ShareType.PUBLIC_LINK
             permissions = 17
         }
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
+        activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
+        waitForIdleSync()
 
         // check if items are visible
         onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(isDisplayed()))
@@ -426,6 +453,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun publicLinkOptionMenuFileSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -448,7 +476,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for advanced permissions
     fun userOptionMenuFileAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
+        suppressFDFAccessibilityChecks()
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -459,6 +489,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         }
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+        shortSleep()
+        waitForIdleSync()
 
         // check if items are visible
         onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(isDisplayed()))
@@ -470,6 +502,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+        shortSleep()
+        waitForIdleSync()
 
         // validate view shown on screen
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
@@ -518,6 +552,23 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
+    private fun suppressFDFAccessibilityChecks() {
+        AccessibilityChecks.enable().apply {
+            setSuppressingResultMatcher(
+                allOf(
+                    anyOf(
+                        matchesCheckNames(`is`("TouchTargetSizeCheck")),
+                        matchesCheckNames(`is`("SpeakableTextPresentCheck")),
+                    ),
+                    anyOf(
+                        matchesViews(ViewMatchers.withId(R.id.favorite)),
+                        matchesViews(ViewMatchers.withId(R.id.last_modification_timestamp))
+                    )
+                )
+            )
+        }
+    }
+
     @Test
     @Suppress("MagicNumber")
     // also applies for
@@ -529,6 +580,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun userOptionMenuFileSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -552,6 +604,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun userOptionMenuFolderAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
+        suppressFDFAccessibilityChecks()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -562,6 +616,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         }
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+        shortSleep()
+        waitForIdleSync()
 
         // check if items are visible
         onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(not(isDisplayed())))
@@ -636,13 +692,23 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut: FileDetailSharingFragment,
         userShare: OCShare
     ) {
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+        activity.handler.post {
+            sut.showSharingMenuActionSheet(userShare)
+        }
+        waitForIdleSync()
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
     }
 
     // remove the fragment shown
     private fun goBack() {
-        onView(ViewMatchers.withId(R.id.share_process_btn_cancel)).perform(ViewActions.click())
+        activity.handler.post {
+            val processFragment =
+                activity.supportFragmentManager.findFragmentByTag(FileDetailsSharingProcessFragment.TAG) as
+                    FileDetailsSharingProcessFragment
+            processFragment.onBackPressed()
+        }
+        shortSleep()
+        waitForIdleSync()
     }
 
     @Test
@@ -656,6 +722,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun userOptionMenuFolderSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
+        setupSecondaryFragment()
         shortSleep()
         sut.refreshCapabilitiesFromDB()
 
@@ -677,6 +744,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     ) {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
+        waitForIdleSync()
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
 
@@ -776,5 +844,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @After
     fun after() {
         activity.storageManager.cleanShares()
+        activity.finish()
     }
 }
