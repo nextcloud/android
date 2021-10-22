@@ -552,7 +552,6 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.folder);
-        MIMETYPE_TO_ICON_MAPPING.put("message/rfc822", R.drawable.file_text);
     }
 
     /**
