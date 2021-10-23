@@ -332,7 +332,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
                     return "";
                 }
 
-                FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+                FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                                    context.getContentResolver());
 
                 OCFile temp = FileStorageUtils.fillOCFile((RemoteFile) newFileResult.getData().get(0));

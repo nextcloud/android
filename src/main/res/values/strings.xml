@@ -660,16 +660,14 @@
     <string name="share">Share</string>
     <string name="link">Link</string>
 
-    <string name="notification_channel_upload_name">Upload notification channel</string>
-    <string name="notification_channel_download_name">Download notification channel</string>
+    <string name="notification_channel_upload_name_short">Uploads</string>
+    <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_download_description">Shows download progress</string>
     <string name="notification_channel_upload_description">Shows upload progress</string>
     <string name="notification_channel_media_name">Media player</string>
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
-    <string name="notification_channel_file_observer_name">File observer</string>
-    <string name="notification_channel_file_observer_description">Monitors files for changes</string>
 
     <string name="account_not_found">Account not found!</string>
 

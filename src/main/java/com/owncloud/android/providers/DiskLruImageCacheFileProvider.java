@@ -62,7 +62,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
     private OCFile getFile(Uri uri) {
         User user = accountManager.getUser();
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user.toPlatformAccount(),
+        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user,
                 MainApp.getAppContext().getContentResolver());
 
         return fileDataStorageManager.getFileByPath(uri.getPath());

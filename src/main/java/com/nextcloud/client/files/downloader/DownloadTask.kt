@@ -68,7 +68,7 @@ class DownloadTask(
         val result = op.execute(client)
         if (result.isSuccess) {
             val storageManager = FileDataStorageManager(
-                request.user.toPlatformAccount(),
+                request.user,
                 contentResolver
             )
             val file = saveDownloadedFile(op, storageManager)
