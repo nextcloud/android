@@ -949,7 +949,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void requestUploadOfFilesFromFileSystem(String localBasePath, String[] filePaths, int resultCode) {
-        if (filePaths != null) {
+        if (localBasePath != null && filePaths != null) {
             if (!localBasePath.endsWith("/")) {
                 localBasePath = localBasePath + "/";
             }
