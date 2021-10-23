@@ -1,0 +1,12 @@
+Delete unused "File observer" notification channel
+Fix notification channel strings not being updated
+Make notification channel names less technical
+fix image dimensions
+fastlane: makeReleases: call androidVersion directly instead of getting from parameter
+fastlane: Don't use rename command
+align search bar text with items
+make search bar more circular
+Deprecate FileDataStorageManager constructors depending on legacy Account
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
