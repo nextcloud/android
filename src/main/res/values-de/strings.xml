@@ -449,6 +449,7 @@
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name">Herunterlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_observer_description">Prüft auf Dateiänderungen</string>
     <string name="notification_channel_file_observer_name">Dateimonitor</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
