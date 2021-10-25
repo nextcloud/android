@@ -1,3 +1,14 @@
+## 3.18.0 RC1 (October 25, 2021)
+
+Calendar backup/restore
+Unified search
+Profile page for users
+Sharing permissions improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/61
+
 ## 3.17.1 (October, 20, 2021)
 
 - fix FIDO crash
