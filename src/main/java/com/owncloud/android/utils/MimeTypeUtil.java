@@ -328,6 +328,14 @@ public final class MimeTypeUtil {
         return isVCard(file.getMimeType()) || isVCard(getMimeTypeFromPath(file.getRemotePath()));
     }
 
+    public static boolean isCalendar(OCFile file) {
+        return isCalendar(file.getMimeType()) || isCalendar(getMimeTypeFromPath(file.getRemotePath()));
+    }
+
+    public static boolean isCalendar(String mimeType) {
+        return "text/calendar".equalsIgnoreCase(mimeType);
+    }
+
     public static boolean isFolder(String mimeType) {
         return MimeType.DIRECTORY.equalsIgnoreCase(mimeType);
     }

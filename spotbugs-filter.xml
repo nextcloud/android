@@ -45,6 +45,7 @@
 			<Package name="~butterknife\..*" />
 			<Package name="~de\.cotech\..*" />
 			<Package name="~pl\.droidsonroids\..*" />
+            <Package name="~third_parties\..*" />
 		</Or>
 	</Match>
 	 <Match>
