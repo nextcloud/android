@@ -55,6 +55,7 @@
     <Bug pattern="ANDROID_EXTERNAL_FILE_ACCESS" />
     <Bug pattern="BAS_BLOATED_ASSIGNMENT_SCOPE" />
     <Bug pattern="IMC_IMMATURE_CLASS_BAD_SERIALVERSIONUID" />
+    <Bug pattern="EI_EXPOSE_REP2" />
 
     <!-- This is unmanageable for now due to large amount of interconnected static state -->
     <Bug pattern="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
