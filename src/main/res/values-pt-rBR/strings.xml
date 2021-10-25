@@ -449,6 +449,7 @@
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name">Canal de notificação de download</string>
+    <string name="notification_channel_download_name_short">Baixados</string>
     <string name="notification_channel_file_observer_description">Monitora mudanças em arquivos</string>
     <string name="notification_channel_file_observer_name">Observador de arquivo</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
     <string name="notification_channel_upload_name">Canal de notificação de envio</string>
+    <string name="notification_channel_upload_name_short">Enviados</string>
     <string name="notification_icon">Ícone de notificação</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
