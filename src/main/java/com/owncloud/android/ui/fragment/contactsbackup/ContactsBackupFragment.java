@@ -198,7 +198,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         if (contactsPreferenceActivity != null) {
             String backupFolderPath = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
-            refreshBackupFolder(backupFolderPath, contactsPreferenceActivity, contactsPreferenceActivity.getStorageManager());
+            refreshBackupFolder(backupFolderPath,
+                                contactsPreferenceActivity.getApplicationContext(),
+                                contactsPreferenceActivity.getStorageManager());
         }
     }
 
@@ -212,7 +214,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, storageManager, user, getContext());
+                            false, false, storageManager, user, context);
 
                     RemoteOperationResult result = operation.execute(user.toPlatformAccount(), context);
                     return result.isSuccess();
