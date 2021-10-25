@@ -449,6 +449,7 @@
     <string name="notification_action_failed">執行的動作失敗</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name">下載通知頻道</string>
+    <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_observer_description">檢查變動的檔案</string>
     <string name="notification_channel_file_observer_name">檔案觀察器</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">推播通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name">上傳通知頻道</string>
+    <string name="notification_channel_upload_name_short">上傳</string>
     <string name="notification_icon">提示圖示</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
