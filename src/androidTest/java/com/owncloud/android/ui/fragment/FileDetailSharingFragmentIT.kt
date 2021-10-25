@@ -264,7 +264,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
 
@@ -392,7 +391,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
 
@@ -511,7 +509,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
 
@@ -636,7 +633,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
 
@@ -754,7 +750,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     fun testUploadAndEditingSharePermissions() {
-        val sut = FileDetailSharingFragment()
 
         val share = OCShare().apply {
             permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
@@ -780,8 +775,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun testReadOnlySharePermissions() {
-        val sut = FileDetailSharingFragment()
-
         val share = OCShare().apply {
             permissions = 17
         }
@@ -812,8 +805,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun testFileDropSharePermissions() {
-        val sut = FileDetailSharingFragment()
-
         val share = OCShare().apply {
             permissions = 4
         }
