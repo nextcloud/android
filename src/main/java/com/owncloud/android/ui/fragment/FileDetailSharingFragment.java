@@ -186,7 +186,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         try {
             onEditShareListener = (OnEditShareListener) context;
         } catch (Exception ignored) {
-            throw new IllegalArgumentException("Calling activity must implement the interface");
+            throw new IllegalArgumentException("Calling activity must implement the interface", ignored);
         }
     }
 
