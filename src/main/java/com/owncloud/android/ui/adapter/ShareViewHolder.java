@@ -48,7 +48,9 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public ShareViewHolder(FileDetailsShareShareItemBinding binding, User user, Context context) {
+    public ShareViewHolder(FileDetailsShareShareItemBinding binding,
+                           User user,
+                           Context context) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
@@ -91,6 +93,8 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                                        context.getResources(),
                                        binding.icon,
                                        context);
+
+                binding.icon.setOnClickListener(v -> listener.showProfileBottomSheet(user, share.getShareWith()));
             default:
                 setImage(binding.icon, name, R.drawable.ic_user);
                 break;

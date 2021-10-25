@@ -781,6 +781,7 @@
     <string name="hint_note">Note</string>
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
+    <string name="no_email_app_available">No App available to handle mail address</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
@@ -962,4 +963,6 @@
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="fullscreen">Fullscreen</string>
     <string name="more">More</string>
+    <string name="write_email">Send email</string>
+    <string name="no_actions">No actions for this user</string>
 </resources>
