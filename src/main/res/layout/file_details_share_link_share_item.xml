@@ -86,7 +86,7 @@
         android:scaleType="fitStart"
         app:tint="@color/primary"
         android:paddingStart="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_half_padding"
         android:src="@drawable/ic_clipboard" />
 
     <ImageView
@@ -95,7 +95,7 @@
         android:layout_height="match_parent"
         android:paddingTop="@dimen/standard_quarter_margin"
         android:contentDescription="@string/overflow_menu"
-        android:paddingStart="@dimen/standard_padding"
+        android:paddingStart="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/standard_padding"
         app:tint="@color/primary"
         android:scaleType="fitStart"
