@@ -32,8 +32,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import androidx.annotation.VisibleForTesting;
-
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
@@ -48,30 +46,6 @@ public final class SharingMenuHelper {
 
     private SharingMenuHelper() {
         // utility class -> private constructor
-    }
-
-    /**
-     * Sets checked/visiblity state on the given {@link MenuItem} based on the given criteria.
-     *
-     * @param fileListing            the {@link MenuItem} to be setup
-     * @param isFolder               flag if it is a folder
-     * @param isEditingAllowed       flag if editing is allowed
-     * @param publicSharePermissions share permissions of the link
-     */
-    public static void setupHideFileListingMenuItem(MenuItem fileListing,
-                                                    boolean isFolder,
-                                                    boolean isEditingAllowed,
-                                                    int publicSharePermissions) {
-        if (!isFolder) {
-            fileListing.setVisible(false);
-        } else {
-            if (isEditingAllowed) {
-                boolean readOnly = (publicSharePermissions & OCShare.READ_PERMISSION_FLAG) != 0;
-                fileListing.setChecked(!readOnly);
-            } else {
-                fileListing.setVisible(false);
-            }
-        }
     }
 
     /**
@@ -122,7 +96,6 @@ public final class SharingMenuHelper {
         }
     }
 
-    @VisibleForTesting
     public static boolean isUploadAndEditingAllowed(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
@@ -133,7 +106,6 @@ public final class SharingMenuHelper {
             MAXIMUM_PERMISSIONS_FOR_FILE);
     }
 
-    @VisibleForTesting
     public static boolean isReadOnly(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
@@ -142,7 +114,6 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == READ_PERMISSION_FLAG;
     }
 
-    @VisibleForTesting
     public static boolean isFileDrop(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
@@ -165,10 +136,6 @@ public final class SharingMenuHelper {
     /**
      * method to get the current checked index from the list of permissions
      *
-     * @param context
-     * @param share
-     * @param permissionArray
-     * @return
      */
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
