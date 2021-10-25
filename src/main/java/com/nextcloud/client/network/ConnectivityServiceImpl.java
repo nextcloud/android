@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,9 @@
 
 package com.nextcloud.client.network;
 
+import android.annotation.SuppressLint;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 
@@ -32,6 +34,7 @@ import com.nextcloud.operations.GetMethod;
 import org.apache.commons.httpclient.HttpStatus;
 
 import androidx.core.net.ConnectivityManagerCompat;
+import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
@@ -40,6 +43,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final UserAccountManager accountManager;
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
+    private final int sdkVersion;
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
@@ -51,17 +55,19 @@ class ConnectivityServiceImpl implements ConnectivityService {
     ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
                             UserAccountManager accountManager,
                             ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder) {
+                            GetRequestBuilder requestBuilder,
+                            int sdkVersion) {
         this.platformConnectivityManager = platformConnectivityManager;
         this.accountManager = accountManager;
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
+        this.sdkVersion = sdkVersion;
     }
 
     @Override
     public boolean isInternetWalled() {
         Connectivity c = getConnectivity();
-        if (c.isConnected() && c.isWifi()) {
+        if (c.isConnected() && c.isWifi() && !c.isMetered()) {
 
             Server server = accountManager.getUser().getServer();
             String baseServerAddress = server.getUri().toString();
@@ -76,7 +82,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
             // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
             boolean result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-
             get.releaseConnection();
 
             return result;
@@ -96,25 +101,28 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
         if (networkInfo != null) {
             boolean isConnected = networkInfo.isConnectedOrConnecting();
-
             // more detailed check
             boolean isMetered;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(
-                    platformConnectivityManager.getActiveNetwork());
-
-                if (networkCapabilities != null) {
-                    isMetered = !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-                } else {
-                    isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-                }
-            } else {
-                isMetered = ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            }
+            isMetered = isNetworkMetered();
             boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
             return new Connectivity(isConnected, isMetered, isWifi, null);
         } else {
             return Connectivity.DISCONNECTED;
+        }
+    }
+
+    @SuppressLint("NewApi") // false positive due to mocking
+    private boolean isNetworkMetered() {
+        if (sdkVersion >= android.os.Build.VERSION_CODES.M) {
+            final Network network = platformConnectivityManager.getActiveNetwork();
+            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
+            if (networkCapabilities != null) {
+                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+            } else {
+                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+            }
+        } else {
+            return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
         }
     }
 
