@@ -37,6 +37,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.nextcloud.client.RetryTestRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -68,6 +69,9 @@ import org.junit.Test
 class FileDetailSharingFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+
+    @get:Rule
+    val retryRule = RetryTestRule()
 
     lateinit var file: OCFile
     lateinit var folder: OCFile
@@ -691,6 +695,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         activity.handler.post {
             sut.showSharingMenuActionSheet(userShare)
         }
+        shortSleep()
         waitForIdleSync()
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
     }
