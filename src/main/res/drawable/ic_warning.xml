@@ -1,25 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="24dp" android:tint="#666666"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M1,21h22L12,2 1,21zM13,18h-2v-2h2v2zM13,14h-2v-4h2v4z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M23.075,18L14.6,3.32C14.0646,2.3899 13.0732,1.8167 12,1.8167C10.9268,1.8167 9.9354,2.3899 9.4,3.32L0.925,18C0.3889,18.9285 0.3891,20.0725 0.9255,21.0008C1.4618,21.9292 2.4529,22.5007 3.525,22.5L20.5,22.5C21.5677,22.4918 22.5505,21.9168 23.0808,20.9901C23.6111,20.0634 23.6089,18.9246 23.075,18ZM11,8.25L13,8.25L13,14.75L11,14.75L11,8.25ZM12,18.75C11.3096,18.75 10.75,18.1904 10.75,17.5C10.75,16.8096 11.3096,16.25 12,16.25C12.6904,16.25 13.25,16.8096 13.25,17.5C13.25,18.1904 12.6904,18.75 12,18.75L12,18.75Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

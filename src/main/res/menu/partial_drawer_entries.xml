@@ -94,6 +94,12 @@
             android:icon="@drawable/nav_settings"
             android:orderInCategory="4"
             android:title="@string/actionbar_settings"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/nav_logout"
+            android:orderInCategory="4"
+            android:title="@string/drawer_logout"/>
     </group>
 
     <!--
@@ -121,11 +127,6 @@
             android:icon="@drawable/nav_community"
             android:orderInCategory="4"
             android:title="@string/drawer_community" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/nav_logout"
-            android:orderInCategory="4"
-            android:title="@string/drawer_logout"/>
     </group>
 
     <!--
