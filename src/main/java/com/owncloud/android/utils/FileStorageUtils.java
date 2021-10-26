@@ -20,18 +20,15 @@
 package com.owncloud.android.utils;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -61,8 +58,6 @@ import javax.annotation.Nullable;
 
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * Static methods to help in access to local file system.
@@ -526,7 +521,7 @@ public final class FileStorageUtils {
             final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
             Collections.addAll(rv, rawSecondaryStorages);
         }
-        if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(context)) {
+        if (checkStoragePermission(context)) {
             rv.clear();
         }
 
