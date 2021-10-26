@@ -449,6 +449,7 @@
     <string name="notification_action_failed">执行动作失败。</string>
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_download_name">下载提醒频道</string>
+    <string name="notification_channel_download_name_short">下载</string>
     <string name="notification_channel_file_observer_description">监视文件修改</string>
     <string name="notification_channel_file_observer_name">文件监视器</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_upload_name">上传提醒频道</string>
+    <string name="notification_channel_upload_name_short">上传</string>
     <string name="notification_icon">通知图标</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>

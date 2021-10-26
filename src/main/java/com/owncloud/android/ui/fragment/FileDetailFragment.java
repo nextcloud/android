@@ -5,11 +5,13 @@
  *   @author David A. Velasco
  *   @author Andy Scherzinger
  *   @author Chris Narkiewicz
+ *   @author TSI-mc
  *
  *   Copyright (C) 2011 Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -37,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -54,6 +57,8 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
@@ -663,6 +668,55 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_error);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * open the sharing process fragment for creating new share
+     * @param shareeName
+     * @param shareType
+     */
+    public void initiateSharingProcess(String shareeName, ShareType shareType) {
+        requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
+                                                                             FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                                           shareeName,
+                                                                                                                           shareType),
+                                                                             FileDetailsSharingProcessFragment.TAG)
+            .commit();
+
+        showHideFragmentView(true);
+    }
+
+    /**
+     * method will handle the views need to be hidden when sharing process fragment shows
+     * @param isFragmentReplaced
+     */
+    public void showHideFragmentView(boolean isFragmentReplaced) {
+        binding.tabLayout.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
+        binding.pager.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
+        binding.sharingFrameContainer.setVisibility(isFragmentReplaced ? View.VISIBLE : View.GONE);
+        FloatingActionButton mFabMain = requireActivity().findViewById(R.id.fab_main);
+        if (isFragmentReplaced) {
+            mFabMain.hide();
+        } else {
+            mFabMain.show();
+        }
+    }
+
+    /**
+     * open the new sharing screen process to modify the created share
+     * @param share
+     * @param screenTypePermission
+     * @param isReshareShown
+     * @param isExpiryDateShown
+     */
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
+                                  boolean isExpiryDateShown) {
+        requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
+                                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
+                                                                                                                           isExpiryDateShown),
+                                                                             FileDetailsSharingProcessFragment.TAG)
+            .commit();
+        showHideFragmentView(true);
     }
 
     /**

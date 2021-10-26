@@ -869,6 +869,7 @@ public final class ThumbnailsCacheManager {
         private final float mAvatarRadius;
         private User user;
         private String mUserId;
+        private String displayName;
         private String mServerName;
         private Context mContext;
 
@@ -879,6 +880,7 @@ public final class ThumbnailsCacheManager {
                                     Resources resources,
                                     float avatarRadius,
                                     String userId,
+                                    String displayName,
                                     String serverName,
                                     Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
@@ -887,6 +889,7 @@ public final class ThumbnailsCacheManager {
             mResources = resources;
             mAvatarRadius = avatarRadius;
             mUserId = userId;
+            this.displayName = displayName;
             mServerName = serverName;
             mContext = context;
         }
@@ -1023,7 +1026,7 @@ public final class ThumbnailsCacheManager {
 
             if (avatar == null) {
                 try {
-                    return TextDrawable.createAvatar(user, mAvatarRadius);
+                    return TextDrawable.createAvatarByUserId(displayName, mAvatarRadius);
                 } catch (Exception e1) {
                     return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user, null);
                 }

@@ -87,7 +87,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 18
+def versionMinor = 19
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -120,7 +120,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 29
 
         // arguments to be passed to functional tests
@@ -250,6 +250,10 @@ android {
         dataBinding true
         viewBinding true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -327,6 +331,12 @@ dependencies {
     implementation "io.noties.markwon:syntax-highlight:$markwonVersion"
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
+
+    implementation ('org.mnode.ical4j:ical4j:1.0.6') {
+        ['org.apache.commons','commons-logging'].each {
+            exclude group: "$it"
+        }
+    }
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13.2'

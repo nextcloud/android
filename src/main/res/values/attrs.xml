@@ -18,4 +18,15 @@
         <item>@string/pref_instant_name_collision_policy_entries_rename</item>
         <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
     </string-array>
+
+    <string-array name="folder_share_permission_dialog_values" translatable="false">
+        <item>@string/link_share_read_only</item>
+        <item>@string/link_share_allow_upload_and_editing</item>
+        <item>@string/link_share_file_drop</item>
+    </string-array>
+
+    <string-array name="file_share_permission_dialog_values" translatable="false">
+        <item>@string/link_share_read_only</item>
+        <item>@string/link_share_editing</item>
+    </string-array>
 </resources>

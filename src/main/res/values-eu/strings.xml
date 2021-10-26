@@ -449,6 +449,7 @@
     <string name="notification_action_failed">Huts egin du ekintza exekutatzean.</string>
     <string name="notification_channel_download_description">Erakutsi deskarga egoera</string>
     <string name="notification_channel_download_name">Deskargen jakinarazpenen kanala</string>
+    <string name="notification_channel_download_name_short">Deskargak</string>
     <string name="notification_channel_file_observer_description">Fitxategien aldaketak monitorizatzen ditu</string>
     <string name="notification_channel_file_observer_name">Fitxategien behatzailea</string>
     <string name="notification_channel_file_sync_description">Fitxategien sinkronizazioaren aurrerapena eta emaitzak erakusten ditu</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">Push jakinarazpenak</string>
     <string name="notification_channel_upload_description">Erakutsi igoeraren egoera</string>
     <string name="notification_channel_upload_name">Eguneratu jakinarazpen kanala</string>
+    <string name="notification_channel_upload_name_short">Kargak</string>
     <string name="notification_icon">Jakinarazpen ikonoa</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>

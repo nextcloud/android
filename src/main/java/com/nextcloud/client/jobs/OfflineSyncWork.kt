@@ -110,7 +110,7 @@ class OfflineSyncWork constructor(
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
                 val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile.remotePath,
+                    ocFile?.remotePath,
                     user,
                     true,
                     context,

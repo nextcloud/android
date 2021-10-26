@@ -4,8 +4,10 @@
  *   @author masensio
  *   @author David A. Velasco
  *   @author Andy Scherzinger
+ *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -67,6 +69,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateNoteForShareOperation;
+import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 
@@ -112,6 +115,7 @@ public class OperationsService extends Service {
     public static final String ACTION_UPDATE_PUBLIC_SHARE = "UPDATE_PUBLIC_SHARE";
     public static final String ACTION_UPDATE_USER_SHARE = "UPDATE_USER_SHARE";
     public static final String ACTION_UPDATE_SHARE_NOTE = "UPDATE_SHARE_NOTE";
+    public static final String ACTION_UPDATE_SHARE_INFO = "UPDATE_SHARE_INFO";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
     public static final String ACTION_RENAME = "RENAME";
@@ -130,7 +134,7 @@ public class OperationsService extends Service {
     private SyncFolderHandler mSyncFolderHandler;
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>
-            mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
+        mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
     @Inject UserAccountManager accountManager;
 
@@ -155,7 +159,7 @@ public class OperationsService extends Service {
 
         // First worker thread for most of operations
         HandlerThread thread = new HandlerThread("Operations thread",
-                Process.THREAD_PRIORITY_BACKGROUND);
+                                                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mOperationsHandler = new ServiceHandler(thread.getLooper(), this);
         mOperationsBinder = new OperationsServiceBinder(mOperationsHandler);
@@ -169,8 +173,8 @@ public class OperationsService extends Service {
     /**
      * Entry point to add a new operation to the queue of operations.
      * <p/>
-     * New operations are added calling to startService(), resulting in a call to this method.
-     * This ensures the service will keep on working although the caller activity goes away.
+     * New operations are added calling to startService(), resulting in a call to this method. This ensures the service
+     * will keep on working although the caller activity goes away.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -191,8 +195,9 @@ public class OperationsService extends Service {
 
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
-                mSyncFolderHandler.add(account, remotePath,
-                        (SynchronizeFolderOperation)itemToQueue.second);
+                mSyncFolderHandler.add(account,
+                                       remotePath,
+                                       (SynchronizeFolderOperation) itemToQueue.second);
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
@@ -210,7 +215,7 @@ public class OperationsService extends Service {
 
     @Override
     public void onDestroy() {
-        Log_OC.v(TAG, "Destroying service" );
+        Log_OC.v(TAG, "Destroying service");
         // Saving cookies
         OwnCloudClientManagerFactory.getDefaultSingleton()
             .saveAllClients(this, MainApp.getAccountType(getApplicationContext()));
@@ -229,8 +234,8 @@ public class OperationsService extends Service {
     }
 
     /**
-     * Provides a binder object that clients can use to perform actions on the queue of operations,
-     * except the addition of new operations.
+     * Provides a binder object that clients can use to perform actions on the queue of operations, except the addition
+     * of new operations.
      */
     @Override
     public IBinder onBind(Intent intent) {
@@ -256,8 +261,8 @@ public class OperationsService extends Service {
     public class OperationsServiceBinder extends Binder /* implements OnRemoteOperationListener */ {
 
         /**
-         * Map of listeners that will be reported about the end of operations from a
-         * {@link OperationsServiceBinder} instance
+         * Map of listeners that will be reported about the end of operations from a {@link OperationsServiceBinder}
+         * instance
          */
         private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = new ConcurrentHashMap<>();
 
@@ -271,8 +276,8 @@ public class OperationsService extends Service {
         /**
          * Cancels a pending or current synchronization.
          *
-         * @param account       ownCloud account where the remote folder is stored.
-         * @param file          A folder in the queue of pending synchronizations
+         * @param account ownCloud account where the remote folder is stored.
+         * @param file    A folder in the queue of pending synchronizations
          */
         public void cancel(Account account, OCFile file) {
             mSyncFolderHandler.cancel(account, file);
@@ -288,12 +293,11 @@ public class OperationsService extends Service {
         /**
          * Adds a listener interested in being reported about the end of operations.
          *
-         * @param listener          Object to notify about the end of operations.
-         * @param callbackHandler   {@link Handler} to access the listener without
-         *                                         breaking Android threading protection.
+         * @param listener        Object to notify about the end of operations.
+         * @param callbackHandler {@link Handler} to access the listener without breaking Android threading protection.
          */
-        public void addOperationListener (OnRemoteOperationListener listener,
-                                          Handler callbackHandler) {
+        public void addOperationListener(OnRemoteOperationListener listener,
+                                         Handler callbackHandler) {
             synchronized (mBoundListeners) {
                 mBoundListeners.put(listener, callbackHandler);
             }
@@ -301,10 +305,9 @@ public class OperationsService extends Service {
 
 
         /**
-         * Removes a listener from the list of objects interested in the being reported about
-         * the end of operations.
+         * Removes a listener from the list of objects interested in the being reported about the end of operations.
          *
-         * @param listener      Object to notify about progress of transfer.
+         * @param listener Object to notify about progress of transfer.
          */
         public void removeOperationListener(OnRemoteOperationListener listener) {
             synchronized (mBoundListeners) {
@@ -316,8 +319,7 @@ public class OperationsService extends Service {
         /**
          * TODO - IMPORTANT: update implementation when more operations are moved into the service
          *
-         * @return  'True' when an operation that enforces the user to wait for completion is
-         *          in process.
+         * @return 'True' when an operation that enforces the user to wait for completion is in process.
          */
         public boolean isPerformingBlockingOperation() {
             return !mServiceHandler.mPendingOperations.isEmpty();
@@ -326,11 +328,11 @@ public class OperationsService extends Service {
 
         /**
          * Creates and adds to the queue a new operation, as described by operationIntent.
-         *
+         * <p>
          * Calls startService to make the operation is processed by the ServiceHandler.
          *
-         * @param operationIntent       Intent describing a new operation to queue and execute.
-         * @return                      Identifier of the operation created, or null if failed.
+         * @param operationIntent Intent describing a new operation to queue and execute.
+         * @return Identifier of the operation created, or null if failed.
          */
         public long queueNewOperation(Intent operationIntent) {
             Pair<Target, RemoteOperation> itemToQueue = newOperation(operationIntent);
@@ -347,7 +349,7 @@ public class OperationsService extends Service {
         public boolean dispatchResultIfFinished(int operationId,
                                                 OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched =
-                    mUndispatchedFinishedOperations.remove(operationId);
+                mUndispatchedFinishedOperations.remove(operationId);
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
                 return true;
@@ -357,15 +359,14 @@ public class OperationsService extends Service {
         }
 
         /**
-         * Returns True when the file described by 'file' in the ownCloud account 'account' is
-         * downloading or waiting to download.
+         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to
+         * download.
+         * <p>
+         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to
+         * download.
          *
-         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading
-         * or waiting to download.
-         *
-         * @param user          user where the remote file is stored.
-         * @param file          File to check if something is synchronizing
-         *                      / downloading / uploading inside.
+         * @param user user where the remote file is stored.
+         * @param file File to check if something is synchronizing / downloading / uploading inside.
          */
         public boolean isSynchronizing(User user, OCFile file) {
             return mSyncFolderHandler.isSynchronizing(user, file.getRemotePath());
@@ -376,7 +377,7 @@ public class OperationsService extends Service {
 
     /**
      * Operations worker. Performs the pending operations in the order they were requested.
-     *
+     * <p>
      * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
@@ -386,7 +387,7 @@ public class OperationsService extends Service {
 
 
         private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
-                new ConcurrentLinkedQueue<>();
+            new ConcurrentLinkedQueue<>();
         private RemoteOperation mCurrentOperation;
         private Target mLastTarget;
         private OwnCloudClient mOwnCloudClient;
@@ -414,7 +415,7 @@ public class OperationsService extends Service {
             //Log_OC.e(TAG, "nextOperation init" );
 
             Pair<Target, RemoteOperation> next;
-            synchronized(mPendingOperations) {
+            synchronized (mPendingOperations) {
                 next = mPendingOperations.peek();
             }
 
@@ -440,20 +441,20 @@ public class OperationsService extends Service {
                 } catch (AccountsException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
-                                e);
+                                 e);
                     } else {
                         Log_OC.e(TAG, "Error while trying to get authorization for " +
-                                mLastTarget.mAccount.name, e);
+                            mLastTarget.mAccount.name, e);
                     }
                     result = new RemoteOperationResult(e);
 
                 } catch (IOException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
-                                e);
+                                 e);
                     } else {
                         Log_OC.e(TAG, "Error while trying to get authorization for " +
-                                mLastTarget.mAccount.name, e);
+                            mLastTarget.mAccount.name, e);
                     }
                     result = new RemoteOperationResult(e);
                 } catch (Exception e) {
@@ -465,7 +466,7 @@ public class OperationsService extends Service {
                     result = new RemoteOperationResult(e);
 
                 } finally {
-                    synchronized(mPendingOperations) {
+                    synchronized (mPendingOperations) {
                         mPendingOperations.poll();
                     }
                 }
@@ -479,19 +480,18 @@ public class OperationsService extends Service {
 
     /**
      * Creates a new operation, as described by operationIntent.
-     *
+     * <p>
      * TODO - move to ServiceHandler (probably)
      *
-     * @param operationIntent       Intent describing a new operation to queue and execute.
-     * @return                      Pair with the new operation object and the information about its
-     *                              target server.
+     * @param operationIntent Intent describing a new operation to queue and execute.
+     * @return Pair with the new operation object and the information about its target server.
      */
     private Pair<Target, RemoteOperation> newOperation(Intent operationIntent) {
         RemoteOperation operation = null;
         Target target = null;
         try {
             if (!operationIntent.hasExtra(EXTRA_ACCOUNT) &&
-                    !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
+                !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
 
             } else {
@@ -583,12 +583,58 @@ public class OperationsService extends Service {
                         String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
                         shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
                         int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
+                        String noteMessage = operationIntent.getStringExtra(EXTRA_SHARE_NOTE);
+                        String sharePassword = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                        long expirationDateInMillis = operationIntent
+                            .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
+                        boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
+                                                                                   false);
                         if (!TextUtils.isEmpty(remotePath)) {
-                            operation = new CreateShareWithShareeOperation(remotePath,
-                                                                           shareeName,
-                                                                           shareType,
-                                                                           permissions,
-                                                                           fileDataStorageManager);
+                            CreateShareWithShareeOperation createShareWithShareeOperation =
+                                new CreateShareWithShareeOperation(remotePath,
+                                                                   shareeName,
+                                                                   shareType,
+                                                                   permissions,
+                                                                   noteMessage,
+                                                                   sharePassword,
+                                                                   expirationDateInMillis,
+                                                                   hideFileDownload,
+                                                                   fileDataStorageManager);
+
+                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
+                                createShareWithShareeOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
+                            }
+                            operation = createShareWithShareeOperation;
+                        }
+                        break;
+
+                    case ACTION_UPDATE_SHARE_INFO:
+                        shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
+
+                        if (shareId > 0) {
+                            UpdateShareInfoOperation updateShare = new UpdateShareInfoOperation(shareId,
+                                                                                                fileDataStorageManager);
+
+                            int permissionsToChange = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
+                            updateShare.setPermissions(permissionsToChange);
+
+                            long expirationDateInMills = operationIntent
+                                .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
+                            updateShare.setExpirationDateInMillis(expirationDateInMills);
+
+                            password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                            updateShare.setPassword(password);
+
+                            boolean fileDownloadHide = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD
+                                , false);
+
+                            updateShare.setHideFileDownload(fileDownloadHide);
+
+                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
+                                updateShare.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
+                            }
+
+                            operation = updateShare;
                         }
                         break;
 
@@ -717,12 +763,12 @@ public class OperationsService extends Service {
     /**
      * Notifies the currently subscribed listeners about the end of an operation.
      *
-     * @param operation         Finished operation.
-     * @param result            Result of the operation.
+     * @param operation Finished operation.
+     * @param result    Result of the operation.
      */
     protected void dispatchResultToOperationListeners(
-            final RemoteOperation operation, final RemoteOperationResult result
-    ) {
+        final RemoteOperation operation, final RemoteOperationResult result
+                                                     ) {
         int count = 0;
         Iterator<OnRemoteOperationListener> listeners = mOperationsBinder.mBoundListeners.keySet().iterator();
         while (listeners.hasNext()) {

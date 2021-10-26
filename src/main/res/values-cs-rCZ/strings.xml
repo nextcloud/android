@@ -449,6 +449,7 @@
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_download_name">Kanál pro upozorňování na stažení</string>
+    <string name="notification_channel_download_name_short">Stažené</string>
     <string name="notification_channel_file_observer_description">Monitoruje změny souborů</string>
     <string name="notification_channel_file_observer_name">Pozorování souborů</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">Push upozorňování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
     <string name="notification_channel_upload_name">Kanál pro upozorňování na nahrání</string>
+    <string name="notification_channel_upload_name_short">Nahrané</string>
     <string name="notification_icon">Ikona oznámení</string>
     <string name="notifications_no_results_headline">Žádná upozornění</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>

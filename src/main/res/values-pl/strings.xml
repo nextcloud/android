@@ -449,6 +449,7 @@
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name">Kanał powiadomień pobierania</string>
+    <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_observer_description">Monitoruje zmiany w plikach</string>
     <string name="notification_channel_file_observer_name">Monitor plików</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -461,6 +462,7 @@
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_upload_name">Kanał powiadomień wysyłania</string>
+    <string name="notification_channel_upload_name_short">Wysłane</string>
     <string name="notification_icon">Ikona powiadomień</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
