@@ -33,7 +33,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.text.SpannableString;
@@ -666,22 +665,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         layers[1] = bitmapDrawable;
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Activity activity = getActivity();
-            if (activity != null) {
-                int bitmapWidth;
-                int bitmapHeight;
+        Activity activity = getActivity();
+        if (activity != null) {
+            int bitmapWidth;
+            int bitmapHeight;
 
-                if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                    bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
-                } else {
-                    bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
-                }
-                layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-                layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
+            if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
+            } else {
+                bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
             }
+            layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+            layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
         }
 
         return layerDrawable;
@@ -773,10 +770,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void toggleImageBackground() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-                && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
-                MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
-            && getActivity() instanceof PreviewImageActivity) {
+        if (getFile() != null && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
+            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null &&
+            getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
             if (binding.image.getDrawable() instanceof LayerDrawable) {

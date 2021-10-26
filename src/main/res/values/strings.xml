@@ -805,7 +805,6 @@
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_close">Close</string>
-    <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="uploader_upload_files_behaviour_not_writable">source folder is read-only; file will only be uploaded</string>
