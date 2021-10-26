@@ -69,6 +69,7 @@ public final class PassCodeManager {
 
     private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
+        //not required for now
         if (window != null) {
             //the user cannot take screenshot when app moves to recent view
             // if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
@@ -76,10 +77,10 @@ public final class PassCodeManager {
             //we are setting the secure mode for release build and version, dev debug build also
             //for other debug builds we are not setting so that we can take screenshot for testing
             //but for production it should be enabled
-            if(BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")
+            /*if(BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")
                 || BuildConfig.FLAVOR.equalsIgnoreCase("qa") || !BuildConfig.DEBUG) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            }
+            }*/
            /* } else {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
             }*/
