@@ -22,16 +22,12 @@ package com.owncloud.android.utils;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.os.Build;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-
-import androidx.annotation.RequiresApi;
 
 /**
  * Utility class with methods for handling device credentials.
  */
-@RequiresApi(Build.VERSION_CODES.M)
 public final class DeviceCredentialUtils {
 
     private static final String TAG = DeviceCredentialUtils.class.getSimpleName();
