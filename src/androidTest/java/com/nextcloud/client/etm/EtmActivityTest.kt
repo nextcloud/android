@@ -47,20 +47,6 @@ class EtmActivityTest : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun preferences() {
-        val sut: EtmActivity = activityRule.launchActivity(null)
-
-        UiThreadStatement.runOnUiThread {
-            val preferences = AppPreferencesImpl.fromContext(targetContext)
-            preferences.pushToken = "Push token"
-            sut.vm.onPageSelected(0)
-        }
-
-        screenshot(sut)
-    }
-
-    @Test
-    @ScreenshotTest
     fun accounts() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 
