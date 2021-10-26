@@ -677,6 +677,9 @@
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
 
+    <string name="notification_group_general_name">General</string>
+    <string name="notification_group_transfers_name">File transfers</string>
+
     <string name="account_not_found">Account not found!</string>
 
     <string name="screenshot_01_gridView_heading">Protecting your data</string>

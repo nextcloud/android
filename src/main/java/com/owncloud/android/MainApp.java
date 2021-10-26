@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -484,31 +485,52 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
             if (notificationManager != null) {
+                notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(
+                    NotificationUtils.NOTIFICATION_GROUP_GENERAL,
+                    context.getString(R.string.notification_group_general_name)
+                ));
+
+                notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(
+                    NotificationUtils.NOTIFICATION_GROUP_TRANSFERS,
+                    context.getString(R.string.notification_group_transfers_name)
+                ));
+
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
                               R.string.notification_channel_download_name_short,
-                              R.string.notification_channel_download_description, context);
+                              R.string.notification_channel_download_description,
+                              context,
+                              NotificationUtils.NOTIFICATION_GROUP_TRANSFERS);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
                               R.string.notification_channel_upload_name_short,
-                              R.string.notification_channel_upload_description, context);
+                              R.string.notification_channel_upload_description,
+                              context,
+                              NotificationUtils.NOTIFICATION_GROUP_TRANSFERS);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
                               R.string.notification_channel_media_name,
-                              R.string.notification_channel_media_description, context);
+                              R.string.notification_channel_media_description, context,
+                              null);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC,
                               R.string.notification_channel_file_sync_name,
-                              R.string.notification_channel_file_sync_description, context);
+                              R.string.notification_channel_file_sync_description,
+                              context,
+                              NotificationUtils.NOTIFICATION_GROUP_TRANSFERS);
 
                 notificationManager.deleteNotificationChannel(NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
                               R.string.notification_channel_push_name, R.string
-                                  .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+                                  .notification_channel_push_description, context,
+                              NotificationUtils.NOTIFICATION_GROUP_GENERAL,
+                              NotificationManager.IMPORTANCE_DEFAULT);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
-                              context, NotificationManager.IMPORTANCE_DEFAULT);
+                              context,
+                              NotificationUtils.NOTIFICATION_GROUP_GENERAL,
+                              NotificationManager.IMPORTANCE_DEFAULT);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }
@@ -518,14 +540,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
-                                      int channelDescription, Context context) {
-        createChannel(notificationManager, channelId, channelName, channelDescription, context,
+                                      int channelDescription, Context context, String groupId) {
+        createChannel(notificationManager, channelId, channelName, channelDescription, context, groupId,
                       NotificationManager.IMPORTANCE_LOW);
     }
 
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
-                                      int channelDescription, Context context, int importance) {
+                                      int channelDescription, Context context, String groupId, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
             && getAppContext() != null) {
             CharSequence name = context.getString(channelName);
@@ -535,6 +557,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             channel.setDescription(description);
             channel.enableLights(false);
             channel.enableVibration(false);
+
+            if (groupId != null) {
+                channel.setGroup(groupId);
+            }
+
             notificationManager.createNotificationChannel(channel);
         }
     }
