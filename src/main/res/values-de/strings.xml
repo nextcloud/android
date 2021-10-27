@@ -14,6 +14,7 @@
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
+    <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
     <string name="actionbar_contacts">Kontakte sichern</string>
     <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
     <string name="actionbar_copy">Kopieren</string>
@@ -81,6 +82,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
+    <string name="backup_title">Kontakte &amp; Kalender-Sicherung</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
@@ -461,7 +463,7 @@
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
-    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu öffnen</string>
+    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
@@ -626,6 +628,7 @@
     <string name="set_status">Status setzen</string>
     <string name="set_status_message">Statusnachricht setzen</string>
     <string name="share">Teilen</string>
+    <string name="share_copy_link">Teilen &amp; Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
@@ -646,10 +649,10 @@
     <string name="share_link_with_label">Teile Link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
-    <string name="share_open_in">Öffnen mit …</string>
+    <string name="share_open_in">Öffnen mit…</string>
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
-    <string name="share_permission_file_drop">Datei ablegen</string>
+    <string name="share_permission_file_drop">Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_privilege_unshare">Freigabe aufheben</string>
@@ -883,6 +886,22 @@
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">%1$d Datei im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
         <item quantity="other">%1$d Dateien im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">%1$d Termin in %2$s geschrieben</item>
+        <item quantity="other">%1$d Termine in %2$s geschrieben</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">%1$d neue UID erstellt</item>
+        <item quantity="other">%1$d neue UIDs erstellt</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">%d Eintrag verarbeitet.</item>
+        <item quantity="other">%d Einträge verarbeitet.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">%d doppelter Eintrag gefunden.</item>
+        <item quantity="other">%d doppelte Einträge gefunden.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d Ordner</item>
