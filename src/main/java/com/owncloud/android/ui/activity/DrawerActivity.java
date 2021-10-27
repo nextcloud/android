@@ -41,7 +41,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -1001,8 +1000,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 setAccount(accountManager.getCurrentAccount(), false);
                 restart();
             }
-        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY &&
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && data != null) {
+        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && data != null) {
             int result = data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                                           RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE);
 
