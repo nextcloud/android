@@ -34,6 +34,7 @@
     <string name="add_another_public_share_link">Ajouter un autre lien</string>
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_creating">Autoriser la création</string>
     <string name="allow_deleting">Autoriser la suppression</string>
     <string name="allow_editing">Autoriser la modification</string>
@@ -79,12 +80,15 @@
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
+    <string name="backup_settings">Paramètres de sauvegarde</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
     <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
+    <string name="calendar">Agenda</string>
+    <string name="calendars">Agendas</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
     <string name="changelog_dev_version">Notes de version de la version de développement</string>
     <string name="checkbox">Case à cocher</string>
@@ -103,11 +107,13 @@
     <string name="common_cancel">Annuler</string>
     <string name="common_cancel_sync">Annuler la synchronisation</string>
     <string name="common_choose_account">Sélectionnez un compte</string>
+    <string name="common_confirm">Confirmer</string>
     <string name="common_delete">Supprimer</string>
     <string name="common_error">Erreur</string>
     <string name="common_error_out_memory">Mémoire insuffisante</string>
     <string name="common_error_unknown">Erreur inconnue </string>
     <string name="common_loading">Chargement…</string>
+    <string name="common_next">Suivant</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">En attente</string>
@@ -154,6 +160,7 @@
     <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
+    <string name="contacts">Contacts</string>
     <string name="contacts_automatic_backup">Sauvegarde automatique</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
     <string name="contacts_last_backup">Dernière sauvegarde</string>
@@ -185,6 +192,7 @@
     <string name="create_rich_workspace">Ajouter des commentaires au dossier</string>
     <string name="creates_rich_workspace">ajoute des commentaires au dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
+    <string name="daily_backup">Sauvegarde journalière</string>
     <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
@@ -192,6 +200,7 @@
 
 Attention la suppression est irréversible.</string>
     <string name="delete_entries">Supprimer les éléments</string>
+    <string name="delete_link">Supprimer le lien</string>
     <string name="deselect_all">Tout désélectionner</string>
     <string name="dev_version_new_version_available">Nouvelle version disponible</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
