@@ -202,7 +202,8 @@
 
         <service
             android:name=".syncadapter.FileSyncService"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
@@ -441,7 +442,8 @@
         <service
             android:name=".services.AccountManagerService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true"
+            tools:ignore="ExportedService" />
 
         <activity
             android:name=".ui.activity.SsoGrantPermissionActivity"
