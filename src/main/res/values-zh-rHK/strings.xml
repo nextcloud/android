@@ -14,6 +14,7 @@
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
+    <string name="actionbar_calendar_contacts_restore">復原通訊錄與日曆</string>
     <string name="actionbar_contacts">備份通訊錄</string>
     <string name="actionbar_contacts_restore">還原通訊錄</string>
     <string name="actionbar_copy">複製</string>
@@ -34,6 +35,7 @@
     <string name="add_another_public_share_link">添加另一個連結</string>
     <string name="add_new_public_share">添加一個新的公共連結</string>
     <string name="add_to_cloud">添加到 %1$s </string>
+    <string name="advanced_settings">進階設定</string>
     <string name="allow_creating">允許建立</string>
     <string name="allow_deleting">允許刪除</string>
     <string name="allow_editing">允許編輯</string>
@@ -79,12 +81,16 @@
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
     <string name="away">不在</string>
+    <string name="backup_settings">備份設定</string>
+    <string name="backup_title">通訊錄與日曆備份</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池優化。僅當您從中排除此應用程式時，自動上傳才能正常工作。</string>
     <string name="battery_optimization_no_setting">轉價電池設定頁面失敗，請在系統設定中手動調整。</string>
     <string name="battery_optimization_title">電池優化</string>
     <string name="brute_force_delay">由於嘗試過多而延遲</string>
+    <string name="calendar">日曆</string>
+    <string name="calendars">日曆</string>
     <string name="certificate_load_problem">憑證載入時發生問題</string>
     <string name="changelog_dev_version">開發版本更新紀錄</string>
     <string name="checkbox">核取方塊</string>
@@ -103,11 +109,13 @@
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_choose_account">選擇賬號</string>
+    <string name="common_confirm">確認</string>
     <string name="common_delete">刪除</string>
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
     <string name="common_error_unknown">未知錯誤</string>
     <string name="common_loading">載入中…</string>
+    <string name="common_next">下一</string>
     <string name="common_no">否</string>
     <string name="common_ok">確定</string>
     <string name="common_pending">等候中</string>
@@ -154,6 +162,7 @@
     <string name="contactlist_account_chooser_title">選擇賬戶以匯入</string>
     <string name="contactlist_item_icon">聯絡清單的用戶圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
+    <string name="contacts">通訊錄</string>
     <string name="contacts_automatic_backup">自動備份</string>
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_last_backup">最新備份</string>
@@ -185,16 +194,21 @@
     <string name="create_rich_workspace">新增資料夾資訊</string>
     <string name="creates_rich_workspace">建立資料夾資訊</string>
     <string name="credentials_disabled">認證方式已取消</string>
+    <string name="daily_backup">每日備份</string>
+    <string name="data_to_back_up">要備份的數據</string>
     <string name="date_unknown">不詳</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除賬戶</string>
     <string name="delete_account_warning">移除賬號%s並刪除所有近端檔案?\n\n刪除後將無法恢復。</string>
     <string name="delete_entries">刪除條目</string>
+    <string name="delete_link">刪除連結</string>
     <string name="deselect_all">取消全選</string>
+    <string name="destination_filename">目的檔案名</string>
     <string name="dev_version_new_version_available">有新版本可用</string>
     <string name="dev_version_no_information_available">沒有資訊。</string>
     <string name="dev_version_no_new_version_available">沒有新版本。</string>
     <string name="dialog_close">關閉</string>
+    <string name="did_not_check_for_dupes">沒有檢查重複項。</string>
     <string name="digest_algorithm_not_available">這種加密算法在您的手機上無法使用。</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
@@ -250,9 +264,11 @@
     <string name="end_to_end_encryption_title">設定加密</string>
     <string name="end_to_end_encryption_unsuccessful">不能儲存密鑰，請重試。</string>
     <string name="end_to_end_encryption_wrong_password">解密錯誤，密碼不正確？</string>
+    <string name="enter_destination_filename">輸入目的檔案名</string>
     <string name="enter_filename">輸入檔案名稱</string>
     <string name="error__upload__local_file_not_copied">%1$s 無法被複製到近端資料夾 %2$s</string>
     <string name="error_cant_bind_to_operations_service">嚴重錯誤：無法執行操作</string>
+    <string name="error_choosing_date">選擇日期時出錯</string>
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
     <string name="error_report_issue_action">舉報</string>
@@ -382,11 +398,15 @@
     <string name="invalid_url">無效的網址</string>
     <string name="invisible">隱藏</string>
     <string name="label_empty">標籤不可以空著</string>
+    <string name="last_backup">上次備份：%1$s</string>
     <string name="link">連結</string>
+    <string name="link_name">連結名稱</string>
     <string name="link_share_allow_upload_and_editing">允許上傳及編輯</string>
+    <string name="link_share_editing">编辑</string>
     <string name="link_share_file_drop">拖曳檔案（僅供上傳）</string>
     <string name="link_share_read_only">唯讀</string>
     <string name="list_layout">清單顯示</string>
+    <string name="load_more_results">正在載入更多結果</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
     <string name="local_file_not_found_message">近端檔案系統中找不到檔案</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -440,9 +460,13 @@
     <string name="new_media_folder_videos">影片</string>
     <string name="new_notification">新的通知</string>
     <string name="new_version_was_created">新版本已建立</string>
+    <string name="no_actions">此用戶沒有操作</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
+    <string name="no_calendar_exists">沒有日曆存在</string>
+    <string name="no_email_app_available">沒有可用於處理郵件地址的應用程式</string>
     <string name="no_mutliple_accounts_allowed">只可使用一個賬戶</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
+    <string name="no_share_permission_selected">請選取至少一個要分享的權限。</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送留言失敗</string>
     <string name="note_icon_hint">記事本圖示</string>
@@ -513,6 +537,7 @@
     <string name="prefs_category_dev">開發版</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
+    <string name="prefs_daily_backup_summary">每日備份您的日曆與通訊錄</string>
     <string name="prefs_daily_contacts_sync_summary">每日通訊錄備份</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身分驗證。</string>
@@ -571,7 +596,9 @@
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>
     <string name="restore">復原檔案</string>
+    <string name="restore_backup">復原備份</string>
     <string name="restore_button_description">復原已刪除檔案</string>
+    <string name="restore_selected">復原已選取的部份</string>
     <string name="retrieving_file">正在檢索檔案…</string>
     <string name="richdocuments_failed_to_load_document">無法加載文件！</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
@@ -587,18 +614,23 @@
     <string name="screenshot_05_autoUpload_subline">您的照片&amp;影片</string>
     <string name="screenshot_06_davdroid_heading">日曆 &amp; 通訊錄</string>
     <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
+    <string name="search_error">獲取搜索結果時出錯</string>
     <string name="select_all">全選</string>
     <string name="select_one_template">請選擇一個模板</string>
     <string name="select_template">選擇範本</string>
     <string name="send">傳送</string>
     <string name="send_note">傳留言給接收者</string>
+    <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
+    <string name="set_note">設定筆記</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
     <string name="share">分享</string>
+    <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">過期 %1$s</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_group_clarification">%1$s （群組）</string>
@@ -607,6 +639,7 @@
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取此資料夾的用戶有效</string>
     <string name="share_known_remote_on_clarification">在 %1$s</string>
     <string name="share_link">分享連結</string>
+    <string name="share_link_empty_note_message">請輸入筆記。</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
     <string name="share_link_file_error">分享檔案或資料夾時發生錯誤</string>
     <string name="share_link_file_no_exist">無法分享檔案。請確認檔案是否存在。</string>
@@ -616,12 +649,19 @@
     <string name="share_link_with_label">分享連結﹙%1$s﹚</string>
     <string name="share_no_expiration_date_label">設定屆滿日期</string>
     <string name="share_no_password_title">設定密碼</string>
+    <string name="share_open_in">開啟在...</string>
     <string name="share_password_title">受密碼保護</string>
+    <string name="share_permission_can_edit">可編輯</string>
+    <string name="share_permission_file_drop">檔案拖放</string>
+    <string name="share_permission_view_only">僅檢視</string>
+    <string name="share_permissions">分享權限</string>
     <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
     <string name="share_search">名稱、聯盟雲端 ID 或電郵地址…</string>
+    <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給接收者的訊息</string>
+    <string name="share_settings">設定</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
     <string name="share_via_link_menu_password_label">密碼保護﹙%1$s﹚</string>
     <string name="share_via_link_section_title">分享連結</string>
@@ -688,6 +728,7 @@
     <string name="strict_mode">嚴格模式：不允許 HTTP 連接！</string>
     <string name="subject_shared_with_you">已經與您分享了 \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
+    <string name="suggest">建議</string>
     <string name="sync_conflicts_in_favourites_ticker">出現抵觸</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
     <string name="sync_fail_content">無法同步%1$s</string>
@@ -834,6 +875,7 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
+    <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
     <plurals name="sync_fail_in_favourites_content">
@@ -841,6 +883,18 @@
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">%2$s 資料夾中的%1$d個檔案無法被複製到</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="other">已編寫 %1$d 事件至 %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="other">已建立 %1$d 新 UID</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="other">已處理 %d 條目。</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="other">找到 %d 個重複項。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d個資料夾</item>
