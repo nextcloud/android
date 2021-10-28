@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.SystemClock;
 import android.widget.Toast;
 
@@ -34,12 +33,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
-import androidx.annotation.RequiresApi;
-
 /**
  * Dummy activity that is used to handle the device's default authentication workflow.
  */
-@RequiresApi(Build.VERSION_CODES.M)
 public class RequestCredentialsActivity extends Activity {
 
     private static final String TAG = RequestCredentialsActivity.class.getSimpleName();

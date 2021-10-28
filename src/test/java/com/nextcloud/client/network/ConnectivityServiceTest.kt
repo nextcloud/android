@@ -120,7 +120,7 @@ class ConnectivityServiceTest {
                 accountManager,
                 clientFactory,
                 requestBuilder,
-                Build.VERSION_CODES.M
+                Build.VERSION_CODES.Q
             )
 
             whenever(networkCapabilities.hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)))

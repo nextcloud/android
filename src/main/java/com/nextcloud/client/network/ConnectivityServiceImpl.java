@@ -20,7 +20,6 @@
 
 package com.nextcloud.client.network;
 
-import android.annotation.SuppressLint;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -34,7 +33,6 @@ import com.nextcloud.operations.GetMethod;
 import org.apache.commons.httpclient.HttpStatus;
 
 import androidx.core.net.ConnectivityManagerCompat;
-import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
@@ -111,16 +109,11 @@ class ConnectivityServiceImpl implements ConnectivityService {
         }
     }
 
-    @SuppressLint("NewApi") // false positive due to mocking
     private boolean isNetworkMetered() {
-        if (sdkVersion >= android.os.Build.VERSION_CODES.M) {
-            final Network network = platformConnectivityManager.getActiveNetwork();
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-            if (networkCapabilities != null) {
-                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-            } else {
-                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            }
+        final Network network = platformConnectivityManager.getActiveNetwork();
+        NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
+        if (networkCapabilities != null) {
+            return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
         } else {
             return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
         }
