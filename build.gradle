@@ -451,6 +451,9 @@ detekt {
 
 shot {
     showOnlyFailingTestsInReports = ciBuild
+    // CI environment renders some shadows slightly different from local VMs
+    // Add a 0.5% tolerance to account for that
+    tolerance = ciBuild ? 0.5: 0
 }
 
 jacoco {
