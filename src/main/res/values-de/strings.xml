@@ -915,7 +915,7 @@
     <string name="scan_save_file_type_txt">Textdokument (txt)</string>
     <string name="scan_save_pdf_password">PDF-Passwort</string>
     <string name="scan_save_set_password_hint">Passwort setzen</string>
-    <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
+    <string name="scan_save_no_file_select_toast">Bitten wählen sie mindestens einen Dateityp zum Speichern aus.</string>
     <string name="save_scan_empty_pdf_password">Bitte geben Sie ein Passwort für das zu erstellende PDF ein oder deaktivieren Sie die Funktion.</string>
     <string name="scan_save_file_type_text">Sie können die gescannten Dokumente mit oder ohne Texterkennung abspeichern. Sie können auch mehrere Dateiformate auswählen.</string>
     <string name="choose_location">Speicherort wählen</string>

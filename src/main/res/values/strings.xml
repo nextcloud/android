@@ -1003,7 +1003,7 @@
     <string name="scan_save_file_type_txt">Textfile (txt)</string>
     <string name="scan_save_pdf_password">PDF-Password</string>
     <string name="scan_save_set_password_hint">Set password</string>
-    <string name="scan_save_no_file_select_toast">Please select at least one filetype</string>
+    <string name="scan_save_no_file_select_toast">Please select at least one filetype.</string>
     <string name="save_scan_empty_pdf_password">Please enter a password for the PDF you want to create or disable the function.</string>
     <string name="scan_save_file_type_text">You can save the file with or without text recognition. Multiple selection is allowed.</string>
     <string name="choose_location">Choose location</string>
