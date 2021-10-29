@@ -14,9 +14,10 @@ import androidx.core.content.ContextCompat
 object PermissionUtil {
     const val PERMISSIONS_EXTERNAL_STORAGE = 1
     const val PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2
-    const val PERMISSIONS_READ_CONTACTS_MANUALLY = 3
     const val PERMISSIONS_WRITE_CONTACTS = 4
     const val PERMISSIONS_CAMERA = 5
+    const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
+    const val PERMISSIONS_WRITE_CALENDAR = 7
 
     /**
      * Wrapper method for ContextCompat.checkSelfPermission().
