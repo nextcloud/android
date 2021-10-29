@@ -1,0 +1,3 @@
+ConnectivityService: handle SecurityException in getNetworkCapabilities
+fastlane: Restore version prompt for RC releases
+Update translations
