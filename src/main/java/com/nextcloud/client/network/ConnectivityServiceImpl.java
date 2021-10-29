@@ -29,6 +29,7 @@ import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.GetMethod;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
 
@@ -37,6 +38,7 @@ import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
 
+    private static final String TAG = "ConnectivityServiceImpl";
     private final ConnectivityManager platformConnectivityManager;
     private final UserAccountManager accountManager;
     private final ClientFactory clientFactory;
@@ -111,11 +113,16 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     private boolean isNetworkMetered() {
         final Network network = platformConnectivityManager.getActiveNetwork();
-        NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-        if (networkCapabilities != null) {
-            return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-        } else {
-            return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+        try {
+            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
+            if (networkCapabilities != null) {
+                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+            } else {
+                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+            }
+        } catch (RuntimeException e) {
+            Log_OC.e(TAG, "Exception when checking network capabilities", e);
+            return false;
         }
     }
 
