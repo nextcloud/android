@@ -466,6 +466,7 @@
     <string name="no_email_app_available">Aplikácia pre prácu s e-mail adresami nenájdená</string>
     <string name="no_mutliple_accounts_allowed">Povolený je iba jeden účet</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
+    <string name="no_share_permission_selected">Vyberte aspoň jedno povolenie na zdieľanie.</string>
     <string name="note_confirm">Odoslať</string>
     <string name="note_could_not_sent">Nebolo možné odoslať poznámku</string>
     <string name="note_icon_hint">Ikona poznámky</string>
@@ -536,6 +537,7 @@
     <string name="prefs_category_dev">Vývojové</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
+    <string name="prefs_daily_backup_summary">Denná záloha vašeho kalendára &amp; kontaktov</string>
     <string name="prefs_daily_contacts_sync_summary">Denná záloha vašich kontaktov</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>
@@ -618,12 +620,15 @@
     <string name="select_template">Vybrať šablónu</string>
     <string name="send">Odoslať</string>
     <string name="send_note">Odoslať poznámku pre príjemcu</string>
+    <string name="send_share">Odoslať Zdieľanie</string>
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="set_as">Nastaviť ako</string>
+    <string name="set_note">Nastaviť poznámku</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="set_status">Nastaviť stav</string>
     <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="share">Zdieľať</string>
+    <string name="share_copy_link">Zdieľať &amp; Kopírovať Odkaz</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vyprší %1$s</string>
@@ -634,6 +639,7 @@
     <string name="share_internal_link_to_folder_text">Interný odkaz na zdieľanie funguje iba pre používateľov s prístupom k tomuto adresáru</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Sprístupniť odkaz</string>
+    <string name="share_link_empty_note_message">Prosím, vložte poznámku.</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
     <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe.</string>
     <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje.</string>
@@ -646,6 +652,7 @@
     <string name="share_open_in">Otvoriť v...</string>
     <string name="share_password_title">Chránené heslom</string>
     <string name="share_permission_can_edit">Môže upravovať</string>
+    <string name="share_permission_file_drop">Vložiť súbor</string>
     <string name="share_permission_view_only">Iba pre čítanie</string>
     <string name="share_permissions">Zdieľať oprávnenia</string>
     <string name="share_privilege_unshare">Zneprístupniť</string>
@@ -882,6 +889,30 @@
         <item quantity="few">Nepodarilo sa skopírovať %1$d súbory z priečinka %2$s do</item>
         <item quantity="many">Nepodarilo sa skopírovať %1$d súborov z priečinka %2$s do</item>
         <item quantity="other">Nepodarilo sa skopírovať %1$d súborov z priečinka %2$s do</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Zapísaná %1$d udalosť do %2$s</item>
+        <item quantity="few">Zapísaných %1$d udalostí do %2$s</item>
+        <item quantity="many">Zapísaných %1$d udalostí do %2$s</item>
+        <item quantity="other">Zapísaných %1$d udalostí do %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Vytvorené %1$d nové UID</item>
+        <item quantity="few">Vytvorených %1$d nových UID</item>
+        <item quantity="many">Vytvorených %1$d nových UID</item>
+        <item quantity="other">Vytvorených %1$d nových UID</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Spracovaná %d položka.</item>
+        <item quantity="few">Spracovaných %d položiek.</item>
+        <item quantity="many">Spracovaných %d položiek.</item>
+        <item quantity="other">Spracovaných %d položiek.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Nájdený %d duplicitný záznam.</item>
+        <item quantity="few">Nájdených %d duplicitných záznamov.</item>
+        <item quantity="many">Nájdených %d duplicitných záznamov.</item>
+        <item quantity="other">Nájdených %d duplicitných záznamov.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>
