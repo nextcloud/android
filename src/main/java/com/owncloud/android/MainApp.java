@@ -244,6 +244,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
+        enableStrictMode();
+
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
@@ -425,6 +427,22 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
+    private void enableStrictMode() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                                           .detectDiskReads()
+                                           .detectDiskWrites()
+                                           .detectAll()
+                                           .penaltyLog()
+                                           .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                                       .detectLeakedSqlLiteObjects()
+                                       .detectLeakedClosableObjects()
+                                       .penaltyLog()
+                                       .build());
+        }
+    }
+
     public static void initSyncOperations(
         final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
@@ -433,7 +451,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final PowerManagementService powerManagementService,
         final BackgroundJobManager backgroundJobManager,
         final Clock clock
-    ) {
+                                         ) {
         updateToAutoUpload();
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
