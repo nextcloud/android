@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s для Android</string>
+    <string name="about_android">Приложение%1$s для Android</string>
     <string name="about_title">О программе</string>
     <string name="about_version">версия %1$s</string>
     <string name="about_version_with_build">версия %1$s, сборка # %2$s</string>
