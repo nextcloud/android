@@ -205,7 +205,7 @@ public abstract class AbstractIT {
     }
 
     protected static void createDummyFiles() throws IOException {
-        File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
+        File tempPath = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext));
         if (!tempPath.exists()) {
             assertTrue(tempPath.mkdirs());
         }
@@ -243,7 +243,7 @@ public abstract class AbstractIT {
     }
 
     public static File createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
+        File file = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.separator + name);
         if (!file.getParentFile().exists()) {
             assertTrue(file.getParentFile().mkdirs());
         }

@@ -43,7 +43,8 @@ class FileUtilTest : AbstractIT() {
 
     @Test
     fun assertSlashInput() {
-        val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + "folder")
+        val tempPath =
+            File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.pathSeparator + "folder")
         if (!tempPath.exists()) {
             Assert.assertTrue(tempPath.mkdirs())
         }
@@ -58,7 +59,7 @@ class FileUtilTest : AbstractIT() {
 
     @Test
     fun assertFolderInput() {
-        val tempPath = File(FileStorageUtils.getTemporalPath(account.name))
+        val tempPath = File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext))
         if (!tempPath.exists()) {
             Assert.assertTrue(tempPath.mkdirs())
         }
