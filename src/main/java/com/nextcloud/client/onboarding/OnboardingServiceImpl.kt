@@ -22,6 +22,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.BuildConfig
@@ -37,7 +38,7 @@ internal class OnboardingServiceImpl constructor(
 ) : OnboardingService {
 
     private companion object {
-        const val ITEM_VERSION_CODE = 99999999
+        const val ITEM_VERSION_CODE = 30185300
     }
 
     private val notSeenYet: Boolean
@@ -46,8 +47,15 @@ internal class OnboardingServiceImpl constructor(
         }
 
     override val whatsNew: Array<FeatureItem>
-        get() = if (!isFirstRun && notSeenYet) {
-            emptyArray()
+        get() = if (!isFirstRun && notSeenYet && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            arrayOf(
+                FeatureItem(
+                    R.drawable.folder_alert_outline, R.string.whats_new_storage_sdk30_title,
+                    R.string
+                        .whats_new_storage_sdk30_content,
+                    true, false
+                )
+            )
         } else {
             emptyArray()
         }
@@ -58,7 +66,7 @@ internal class OnboardingServiceImpl constructor(
         }
 
     override fun shouldShowWhatsNew(callingContext: Context): Boolean {
-        return callingContext !is PassCodeActivity && whatsNew.size > 0
+        return callingContext !is PassCodeActivity && whatsNew.isNotEmpty()
     }
 
     override fun launchActivityIfNeeded(activity: Activity) {
