@@ -113,7 +113,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         if (showWebView) {
             tv.setText(R.string.app_name);
         } else {
-            tv.setText(String.format(getString(R.string.whats_new_title), appInfo.getFormattedVersionCode()));
+            tv.setText(String.format(getString(R.string.whats_new_title), BuildConfig.VERSION_NAME));
         }
 
         updateNextButtonIfNeeded();
