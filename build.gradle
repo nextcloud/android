@@ -68,7 +68,7 @@ ext {
     mockitoVersion = "3.12.4"
     mockkVersion = "1.10.4"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.11.21"
+    byteBuddyVersion = "1.11.22"
     espressoVersion = "3.4.0"
     workRuntime = "2.5.0"
     fidoVersion = "4.1.0"
@@ -286,7 +286,7 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'org.bouncycastle:bcpkix-jdk15to18:1.69'
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'

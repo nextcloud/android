@@ -463,7 +463,7 @@
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
-    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
+    <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
