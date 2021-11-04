@@ -20,12 +20,10 @@
 package com.owncloud.android.utils;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -60,8 +58,6 @@ import javax.annotation.Nullable;
 
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * Static methods to help in access to local file system.
@@ -262,9 +258,7 @@ public final class FileStorageUtils {
     public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
         Collections.sort(files, (o1, o2) -> {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
-            Long obj1 = o1.getModificationTimestamp();
-            return multiplier * obj1.compareTo(o2.getModificationTimestamp());
+            return multiplier * Long.compare(o1.getModificationTimestamp(),o2.getModificationTimestamp());
         });
 
         return files;
@@ -333,12 +327,12 @@ public final class FileStorageUtils {
      * This should be changed in the near future to avoid any chance of data loss, but we need to add some options
      * to limit hard automatic synchronizations to wifi, unless the user wants otherwise.
      *
-     * @param file      File to associate a possible 'lost' local file.
-     * @param account   Account holding file.
+     * @param file         File to associate a possible 'lost' local file.
+     * @param accountName  File owner account name.
      */
-    public static void searchForLocalFileInDefaultPath(OCFile file, Account account) {
+    public static void searchForLocalFileInDefaultPath(OCFile file, String accountName) {
         if ((file.getStoragePath() == null || !new File(file.getStoragePath()).exists()) && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(accountName, file));
             if (f.exists()) {
                 file.setStoragePath(f.getAbsolutePath());
                 file.setLastSyncDateForData(f.lastModified());
@@ -527,7 +521,7 @@ public final class FileStorageUtils {
             final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
             Collections.addAll(rv, rawSecondaryStorages);
         }
-        if (SDK_INT >= Build.VERSION_CODES.M && checkStoragePermission(context)) {
+        if (checkStoragePermission(context)) {
             rv.clear();
         }
 

@@ -60,7 +60,7 @@ class OfflineSyncWork constructor(
         if (!powerManagementService.isPowerSavingEnabled && !connectivityService.isInternetWalled) {
             val users = userAccountManager.allUsers
             for (user in users) {
-                val storageManager = FileDataStorageManager(user.toPlatformAccount(), contentResolver)
+                val storageManager = FileDataStorageManager(user, contentResolver)
                 val ocRoot = storageManager.getFileByPath(OCFile.ROOT_PATH)
                 if (ocRoot.storagePath == null) {
                     break
@@ -110,12 +110,13 @@ class OfflineSyncWork constructor(
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
                 val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile.remotePath,
+                    ocFile?.remotePath,
                     user,
                     true,
-                    context
+                    context,
+                    storageManager
                 )
-                synchronizeFileOperation.execute(storageManager, context)
+                synchronizeFileOperation.execute(context)
             }
         }
         // recursive into folder

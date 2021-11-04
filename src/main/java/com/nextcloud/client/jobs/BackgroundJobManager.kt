@@ -72,6 +72,31 @@ interface BackgroundJobManager {
     fun startImmediateContactsBackup(user: User): LiveData<JobInfo?>
 
     /**
+     * Schedule periodic calendar backups job. Operating system will
+     * decide when to start the job.
+     *
+     * This call is idempotent - there can be only one scheduled job
+     * at any given time.
+     *
+     * @param user User for which job will be scheduled.
+     */
+    fun schedulePeriodicCalendarBackup(user: User)
+
+    /**
+     * Cancel periodic calendar backup. Existing tasks might finish, but no new
+     * invocations will occur.
+     */
+    fun cancelPeriodicCalendarBackup(user: User)
+
+    /**
+     * Immediately start single calendar backup job.
+     * This job will launch independently from periodic calendar backup.
+     *
+     * @return Job info with current status; status is null if job does not exist
+     */
+    fun startImmediateCalendarBackup(user: User): LiveData<JobInfo?>
+
+    /**
      * Immediately start contacts import job. Import job will be started only once.
      * If new job is started while existing job is running - request will be ignored
      * and currently running job will continue running.
@@ -89,6 +114,17 @@ interface BackgroundJobManager {
         vCardFilePath: String,
         selectedContacts: IntArray
     ): LiveData<JobInfo?>
+
+    /**
+     * Immediately start calendar import job. Import job will be started only once.
+     * If new job is started while existing job is running - request will be ignored
+     * and currently running job will continue running.
+     *
+     * @param calendarPaths Array of paths of calendar files to import from
+     *
+     * @return Job info with current status; status is null if job does not exist
+     */
+    fun startImmediateCalendarImport(calendarPaths: Map<String, Int>): LiveData<JobInfo?>
 
     fun schedulePeriodicFilesSyncJob()
     fun startImmediateFilesSyncJob(skipCustomFolders: Boolean = false, overridePowerSaving: Boolean = false)

@@ -181,11 +181,13 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         super.onStart();
         if (getAccount() == null) {
             finish();
+            return;
         }
 
         if (newFile == null) {
             Log_OC.e(TAG, "No file received");
             finish();
+            return;
         }
 
         if (existingFile == null) {

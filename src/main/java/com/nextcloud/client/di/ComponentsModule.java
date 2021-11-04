@@ -44,6 +44,7 @@ import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.activities.ActivitiesActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.CommunityActivity;
@@ -82,8 +83,9 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
-import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
+import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -163,13 +165,13 @@ abstract class ComponentsModule {
     abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
 
     @ContributesAndroidInjector
-    abstract ContactsBackupFragment contactsBackupFragment();
+    abstract BackupFragment contactsBackupFragment();
 
     @ContributesAndroidInjector
     abstract PreviewImageFragment previewImageFragment();
 
     @ContributesAndroidInjector
-    abstract ContactListFragment chooseContactListFragment();
+    abstract BackupListFragment chooseContactListFragment();
 
     @ContributesAndroidInjector
     abstract PreviewMediaFragment previewMediaFragment();
@@ -183,11 +185,11 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract SetStatusDialogFragment setStatusDialogFragment();
 
-    @ContributesAndroidInjector
-    abstract PreviewTextFileFragment previewTextFileFragment();
+    @ContributesAndroidInjector abstract PreviewTextFileFragment previewTextFileFragment();
+    @ContributesAndroidInjector abstract PreviewTextStringFragment previewTextStringFragment();
 
     @ContributesAndroidInjector
-    abstract PreviewTextStringFragment previewTextStringFragment();
+    abstract UnifiedSearchFragment searchFragment();
 
     @ContributesAndroidInjector
     abstract GalleryFragment photoFragment();
@@ -214,6 +216,8 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract AccountManagerService accountManagerService();
     @ContributesAndroidInjector abstract OperationsService operationsService();
     @ContributesAndroidInjector abstract PlayerService playerService();
+    @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
+    @ContributesAndroidInjector abstract FileSyncService fileSyncService();
 
     @ContributesAndroidInjector
     abstract FileTransferService fileDownloaderService();

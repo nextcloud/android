@@ -300,28 +300,23 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                    onBackPressed();
-                }
-                break;
+        int itemId = item.getItemId();
+
+        if (itemId == android.R.id.home) {
+            if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
+                onBackPressed();
             }
-            case R.id.action_select_all: {
-                item.setChecked(!item.isChecked());
-                mSelectAll = item.isChecked();
-                setSelectAllMenuItem(item, mSelectAll);
-                mFileListFragment.selectAllFiles(item.isChecked());
-                break;
-            }
-            case R.id.action_choose_storage_path: {
-                showLocalStoragePathPickerDialog();
-                break;
-            }
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        } else if (itemId == R.id.action_select_all) {
+            item.setChecked(!item.isChecked());
+            mSelectAll = item.isChecked();
+            setSelectAllMenuItem(item, mSelectAll);
+            mFileListFragment.selectAllFiles(item.isChecked());
+        } else if (itemId == R.id.action_choose_storage_path) {
+            showLocalStoragePathPickerDialog();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 

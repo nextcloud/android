@@ -828,7 +828,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="what_s_new_image">Imagem de novidades</string>
     <string name="whats_new_skip">Passar à frente</string>
     <string name="whats_new_title">Novo em %1$s</string>
-    <string name="whats_your_status">Qual é o seu estado?</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Poderá estar relacionado com a reposição de uma cópia de segurança. Revertendo para a definição de base. Verifique as definições para ajustar a localização da pasta de armazenamento dos dados.</string>
     <plurals name="sync_fail_in_favourites_content">

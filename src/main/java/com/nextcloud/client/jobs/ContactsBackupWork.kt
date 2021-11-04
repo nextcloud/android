@@ -179,7 +179,7 @@ class ContactsBackupWork(
     private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) { // -1 disables expiration
         if (daysToExpire > -1) {
             val storageManager = FileDataStorageManager(
-                user.toPlatformAccount(),
+                user,
                 applicationContext.getContentResolver()
             )
             val backupFolder: OCFile = storageManager.getFileByPath(backupFolderString)

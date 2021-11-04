@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">مسح الملفات التي فشل رفعها</string>
     <string name="action_edit">تعديل</string>
     <string name="action_empty_notifications">إزالة جميع التنبيهات</string>
+    <string name="action_empty_trashbin">تفريغ سلة المهملات</string>
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
@@ -88,6 +89,7 @@
     <string name="checkbox">مربع</string>
     <string name="choose_local_folder">إختر المجلد المحلي…</string>
     <string name="choose_remote_folder">إختر مجلد عن بُعد…</string>
+    <string name="choose_which_file">اختر أي من الملفات تريد الإحتفاظ بها!</string>
     <string name="clear_notifications_failed">فشلت في إزالة التنبيهات.</string>
     <string name="clear_status_message">مسح رسالة الحالة</string>
     <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
@@ -269,6 +271,8 @@
     <string name="etm_migrations">عمليات الترحيل (ترقية التطبيق)</string>
     <string name="etm_preferences">الخيارات</string>
     <string name="etm_title">وضع الهندسة التجريبي</string>
+    <string name="etm_transfer_type_download">تنزيل</string>
+    <string name="etm_transfer_type_upload">تحميل</string>
     <string name="fab_label">أضف أو إرفع</string>
     <string name="failed_to_download">فشلت في تمرير الملف لمدير التحميل</string>
     <string name="failed_to_print">فشلت في طباعة الملف</string>
@@ -352,11 +356,13 @@
     <string name="foreign_files_success">تم نقل كافة الملفات</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
+    <string name="fullscreen">وضع ملء الشاشة</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
     <string name="hint_password">الكلمة السرية</string>
     <string name="host_not_available">الخادم غير متوفر</string>
     <string name="host_your_own_server">استضيفوا خادمكم</string>
+    <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">إرفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">إرفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/Camera-Media</string>
@@ -404,6 +410,7 @@
     <string name="menu_item_sort_by_name_z_a">ى -أ</string>
     <string name="menu_item_sort_by_size_biggest_first">الأكبر أولا</string>
     <string name="menu_item_sort_by_size_smallest_first">الأصغر أولا</string>
+    <string name="more">المزيد</string>
     <string name="move_file_error">حدث خطأ أثناء محاولة نقل هذا الملف أو المجلد</string>
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
@@ -748,6 +755,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s غير مسموح له أن يقرأ ملفاً مستلماً</string>
     <string name="uploader_error_message_source_file_not_copied">لا يمكن نسخ الملف إلى مجلد مؤقت. حاول إعادة إرساله.</string>
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_top_message">إختر مجلد للرفع</string>
@@ -793,6 +801,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">في انتظار شبكة Wi-Fi غير محدودة</string>
     <string name="user_icon">المستخدم</string>
     <string name="user_info_address"> العنوان</string>
+    <string name="user_info_email">البريد الإلكتروني</string>
     <string name="user_info_phone"> رقم الهاتف</string>
     <string name="user_info_twitter">تويتر</string>
     <string name="user_info_website"> الموقع الإلكتروني</string>

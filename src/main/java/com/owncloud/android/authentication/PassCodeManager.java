@@ -22,7 +22,6 @@ package com.owncloud.android.authentication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.view.Window;
@@ -105,7 +104,7 @@ public final class PassCodeManager {
         }
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(timestamp, activity)) {
+            deviceCredentialsShouldBeRequested(timestamp, activity)) {
             askedForPin = true;
 
             preferences.setLockTimestamp(0);
@@ -152,8 +151,7 @@ public final class PassCodeManager {
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
         return SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(preferences.getLockPreference())
-                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        (preferences.isFingerprintUnlockEnabled()
-                                && DeviceCredentialUtils.areCredentialsAvailable(activity));
+            || (preferences.isFingerprintUnlockEnabled()
+            && DeviceCredentialUtils.areCredentialsAvailable(activity));
     }
 }

@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
@@ -68,7 +67,6 @@ import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.SyncedFolderUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
@@ -812,22 +810,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 .setMessage(getString(R.string.battery_optimization_message))
                 .setPositiveButton(getString(R.string.battery_optimization_disable), (dialog, which) -> {
                     // show instant upload
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        @SuppressLint("BatteryLife")
-                        Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                                                   Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+                    @SuppressLint("BatteryLife")
+                    Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                               Uri.parse("package:" + BuildConfig.APPLICATION_ID));
 
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        }
-                    } else {
-                        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-                        if (getPackageManager().resolveActivity(powerUsageIntent, 0) != null) {
-                            startActivity(powerUsageIntent);
-                        } else {
-                            dialog.dismiss();
-                            DisplayUtils.showSnackMessage(this, getString(R.string.battery_optimization_no_setting));
-                        }
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
                     }
                 })
                 .setNeutralButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
@@ -847,16 +835,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * @return true if battery optimization is enabled
      */
     private boolean checkIfBatteryOptimizationEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-            if (powerManager == null) {
-                return true;
-            }
-
-            return !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID);
-        } else {
+        if (powerManager == null) {
             return true;
         }
+
+        return !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID);
     }
 }

@@ -830,7 +830,6 @@
     <string name="what_s_new_image">Ce imagine este nouă</string>
     <string name="whats_new_skip">Sari peste</string>
     <string name="whats_new_title">Nou în %1$s</string>
-    <string name="whats_your_status">Care este statusul tău?</string>
     <string name="wrong_storage_path">Dosarul de stocare al datelor nu există!</string>
     <string name="wrong_storage_path_desc">Acest lucru s-ar putea datora unei rstaurări a unui backup pe un alt dispozitiv. Se restaurează opțiunea prestabilită. Vă rugăm verificați setările pentru a schimba dosarul de stocare a datelor.</string>
     <plurals name="sync_fail_in_favourites_content">

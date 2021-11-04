@@ -1139,117 +1139,100 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (checkedFiles.size() == SINGLE_SELECTION) {
             /// action only possible on a single file
             OCFile singleFile = checkedFiles.iterator().next();
-            switch (item.getItemId()) {
-                case R.id.action_send_share_file: {
-                    mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile);
-                    //track event on click of Share button
-                    trackSharingClickEvent();
-                    return true;
-                }
-                case R.id.action_open_file_with: {
-                    mContainerActivity.getFileOperationsHelper().openFile(singleFile);
-                    return true;
-                }
-                case R.id.action_stream_media: {
-                    mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
-                    return true;
-                }
-                case R.id.action_edit: {
-                    // should not be necessary, as menu item is filtered, but better play safe
-                    if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                         accountManager.getUser(),
-                                                         singleFile.getMimeType())) {
-                        mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
-                    } else {
-                        mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
-                    }
+            int itemId = item.getItemId();
 
-                    return true;
+            if (itemId == R.id.action_send_share_file) {
+                mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile);
+                //track event on click of Share button
+                trackSharingClickEvent();
+                return true;
+            } else if (itemId == R.id.action_open_file_with) {
+                mContainerActivity.getFileOperationsHelper().openFile(singleFile);
+                return true;
+            } else if (itemId == R.id.action_stream_media) {
+                mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
+                return true;
+            } else if (itemId == R.id.action_edit) {
+                // should not be necessary, as menu item is filtered, but better play safe
+                if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
+                                                     accountManager.getUser(),
+                                                     singleFile.getMimeType())) {
+                    mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                } else {
+                    mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
                 }
-                case R.id.action_rename_file: {
-                    RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile);
-                    dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
-                    return true;
-                }
-                case R.id.action_see_details: {
-                    if (mActiveActionMode != null) {
-                        mActiveActionMode.finish();
-                    }
 
-                    mContainerActivity.showDetails(singleFile);
-                    mContainerActivity.showSortListGroup(false);
-                    return true;
+                return true;
+            } else if (itemId == R.id.action_rename_file) {
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile);
+                dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
+                return true;
+            } else if (itemId == R.id.action_see_details) {
+                if (mActiveActionMode != null) {
+                    mActiveActionMode.finish();
                 }
-                case R.id.action_set_as_wallpaper: {
-                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                    return true;
-                }
-                case R.id.action_encrypted: {
-                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
-                    return true;
-                }
-                case R.id.action_unset_encrypted: {
-                    mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
-                    return true;
-                }
+
+                mContainerActivity.showDetails(singleFile);
+                mContainerActivity.showSortListGroup(false);
+                return true;
+            } else if (itemId == R.id.action_set_as_wallpaper) {
+                mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
+                return true;
+            } else if (itemId == R.id.action_encrypted) {
+                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
+                return true;
+            } else if (itemId == R.id.action_unset_encrypted) {
+                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
+                return true;
             }
         }
 
         /// actions possible on a batch of files
-        switch (item.getItemId()) {
-            case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
-                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-                return true;
-            }
-            case R.id.action_download_file:
-            case R.id.action_sync_file: {
-                syncAndCheckFiles(checkedFiles);
-                exitSelectionMode();
-                return true;
-            }
-            case R.id.action_cancel_sync: {
-                ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
-                return true;
-            }
-            case R.id.action_favorite: {
-                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
-                return true;
-            }
-            case R.id.action_unset_favorite: {
-                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
-                return true;
-            }
-            case R.id.action_move: {
-                Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-                action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
-                action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
-                action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE);
-                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
-                return true;
-            }
-            case R.id.action_copy: {
-                Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-                action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
-                action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
-                action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.COPY);
-                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
-                return true;
-            }
-            case R.id.action_select_all_action_menu: {
-                selectAllFiles(true);
-                return true;
-            }
-            case R.id.action_deselect_all_action_menu: {
-                selectAllFiles(false);
-                return true;
-            }
-            case R.id.action_send_file:
-                mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
-                return true;
-            default:
-                return false;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog =
+                RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
+            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            syncAndCheckFiles(checkedFiles);
+            exitSelectionMode();
+            return true;
+        } else if (itemId == R.id.action_cancel_sync) {
+            ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
+            return true;
+        } else if (itemId == R.id.action_favorite) {
+            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
+            return true;
+        } else if (itemId == R.id.action_unset_favorite) {
+            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
+            return true;
+        } else if (itemId == R.id.action_move) {
+            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
+            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
+            action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
+            action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE);
+            getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
+            return true;
+        } else if (itemId == R.id.action_copy) {
+            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
+            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
+            action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
+            action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.COPY);
+            getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
+            return true;
+        } else if (itemId == R.id.action_select_all_action_menu) {
+            selectAllFiles(true);
+            return true;
+        } else if (itemId == R.id.action_deselect_all_action_menu) {
+            selectAllFiles(false);
+            return true;
+        } else if (itemId == R.id.action_send_file) {
+            mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -1316,7 +1299,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                             fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
                             if (getCurrentFile() != null) {
-                                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                                fileDisplayActivity
+                                    .setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
                             }
                         }
                     });
@@ -1962,7 +1946,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
      *
-     * @param visible
+     * @param visible flag if FAB should be shown or hidden
      */
     private void showFabWithBehavior(boolean visible) {
         ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();

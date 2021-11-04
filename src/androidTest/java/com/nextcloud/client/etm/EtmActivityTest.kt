@@ -25,27 +25,15 @@ package com.nextcloud.client.etm
 import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Assume
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class EtmActivityTest : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
-
-    @Before
-    fun before() {
-        // tests only on NC 18
-        Assume.assumeTrue(
-            storageManager
-                .getCapability(account.name)
-                .version.compareTo(OwnCloudVersion.nextcloud_18) == 0
-        )
-    }
 
     @Test
     @ScreenshotTest
@@ -62,7 +50,11 @@ class EtmActivityTest : AbstractIT() {
     fun preferences() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 
-        UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(0) }
+        UiThreadStatement.runOnUiThread {
+            val preferences = AppPreferencesImpl.fromContext(targetContext)
+            preferences.pushToken = "Push token"
+            sut.vm.onPageSelected(0)
+        }
 
         screenshot(sut)
     }

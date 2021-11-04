@@ -148,7 +148,7 @@ class ChooseAccountDialogFragment :
                 dismiss()
             }
 
-            val capability = FileDataStorageManager(user.toPlatformAccount(), context?.contentResolver)
+            val capability = FileDataStorageManager(user, context?.contentResolver)
                 .getCapability(user)
 
             if (capability.userStatus.isTrue) {
