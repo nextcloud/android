@@ -54,6 +54,12 @@ internal class OnboardingServiceImpl constructor(
                     R.string
                         .whats_new_storage_sdk30_content,
                     true, false
+                ),
+                FeatureItem(
+                    R.drawable.folder_alert_outline, R.string.whats_new_storage_sdk30_title,
+                    R.string
+                        .whats_new_storage_sdk30_content_page2,
+                    true, false
                 )
             )
         } else {
