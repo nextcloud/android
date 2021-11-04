@@ -1,0 +1,5 @@
+bb30a3334 Merge pull request #4606 from nextcloud/dependabot/gradle/com.android.tools.build-gradle-3.5.1
+1936d6fee [tx-robot] updated from transifex
+613906d00 Bump gradle from 3.5.0 to 3.5.1
+1ce86c2e3 [tx-robot] updated from transifex
+53d643a1b daily dev 20191003

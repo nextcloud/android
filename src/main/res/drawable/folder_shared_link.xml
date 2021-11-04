@@ -1,0 +1,28 @@
+<!--
+    @author Google LLC
+    @author Andy Scherzinger
+    Copyright (C) 2018 Google LLC
+    Copyright (C) 2020 Andy Scherzinger
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#0082c9"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M4,4C2.89,4 2,4.89 2,6L2,18C2,19.1046 2.8954,20 4,20L20,20C21.1046,20 22,19.1046 22,18L22,8C22,6.89 21.1,6 20,6L12,6L10,4L4,4zM14.3125,8.7168C14.834,8.7168 15.3554,8.914 15.75,9.3086C16.5391,10.0977 16.5391,11.3933 15.75,12.1836L14.4668,13.4668C14.5201,12.9852 14.4446,12.4989 14.2363,12.0547L14.9297,11.3613C15.2789,11.0133 15.2777,10.4801 14.9297,10.1309C14.5817,9.7816 14.0453,9.7816 13.6973,10.1309L11.6445,12.1836A0.8577,0.8577 0,0 0,11.8867 13.582L11.041,14.4297C10.962,14.3715 10.8933,14.3086 10.8223,14.2363A2.0414,2.0414 0,0 1,10.8223 11.3613L12.875,9.3086C13.2696,8.914 13.791,8.7168 14.3125,8.7168zM13.0684,11.5801A1.9152,1.9152 0,0 1,13.2852 11.7715A2.0414,2.0414 0,0 1,13.2852 14.6465L13.2852,14.6484L11.2324,16.7012C10.4433,17.4915 9.1465,17.4903 8.3574,16.7012C7.5683,15.9121 7.5683,14.6165 8.3574,13.8262L9.6406,12.543A2.6271,2.6271 0,0 0,9.873 13.9551L9.1797,14.6484C8.8317,14.9964 8.8311,15.5309 9.1797,15.8789C9.5283,16.2269 10.0629,16.2281 10.4121,15.8789L12.4648,13.8262A0.8577,0.8577 0,0 0,12.2207 12.4277L13.0684,11.5801z" />
+</vector>

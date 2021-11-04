@@ -1,0 +1,10 @@
+2dd34a786 Merge pull request #4141 from nextcloud/sharePictureToNC
+e9c99a41e fix crash on sharing file to NC with multiple accounts
+508fa4c35 Merge pull request #4139 from nextcloud/fixDismissNotification
+c397cac2a fix dismiss notification
+42bfbd0be Merge pull request #4138 from nextcloud/showBuildNumber
+667822647 show build number, if set
+41aa54a3d Merge pull request #4134 from nextcloud/preventNpe
+25f145dd3 Merge pull request #4128 from nextcloud/androidDocker
+7059dfd11 [tx-robot] updated from transifex
+9fa0894aa daily dev 20190612

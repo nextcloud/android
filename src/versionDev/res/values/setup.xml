@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Beta indicator -->
+    <bool name="is_beta">true</bool>
+    <bool name="dev_version_direct_download_enabled">false</bool>
+
+    <!-- App name  and other strings-->
+    <string name="app_name">Nextcloud dev</string>
+    <string name="account_type">nextcloud.beta</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">org.nextcloud.beta.provider</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider</string>
+    <string name="users_and_groups_share_with">org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
+    <string name="document_provider_authority">org.nextcloud.beta.documents</string>
+    <string name="file_provider_authority">org.nextcloud.beta.files</string>
+    <string name="image_cache_provider_authority">org.nextcloud.beta.android.providers.imageCache</string>
+    <string name="default_display_name_for_root_folder">Nextcloud dev</string>
+    
+    <bool name="logger_enabled">true</bool>
+    <string name="dev_changelog">https://github.com/nextcloud/android/commits/master</string>
+
+    <!--Destination mail for sending log files -->
+    <string name="mail_logger">android@nextcloud.com</string>
+</resources>
+
+

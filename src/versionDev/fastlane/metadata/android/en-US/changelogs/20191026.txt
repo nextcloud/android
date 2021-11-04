@@ -1,0 +1,7 @@
+4f8fc49d1 Merge pull request #4730 from nextcloud/taskTwice
+ea77b4497 Merge pull request #4731 from nextcloud/markdownPreview_cleanup
+1ecd563b5 remove unused dependencies
+0444d07b0 Merge pull request #4728 from nextcloud/markdownPreview_Theming
+44fefe906 fix notification task, if it failed first
+5ec79a9ff [tx-robot] updated from transifex
+01c480f01 daily dev 20191025

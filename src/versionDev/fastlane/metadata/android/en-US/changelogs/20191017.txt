@@ -1,0 +1,3 @@
+e47daaffd Merge pull request #4684 from nextcloud/codacy2
+3ef96f887 Merge pull request #4677 from nextcloud/deprecate-set-account-logic
+4f815e47b daily dev 20191016

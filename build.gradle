@@ -1,0 +1,474 @@
+import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.internal.jvm.Jvm
+
+// Gradle build file
+//
+// This project was started in Eclipse and later moved to Android Studio. In the transition, both IDEs were supported.
+// Due to this, the files layout is not the usual in new projects created with Android Studio / gradle. This file
+// merges declarations usually split in two separates build.gradle file, one for global settings of the project in
+// its root folder, another one for the app module in subfolder of root.
+
+buildscript {
+    ext.kotlin_version = '1.5.31'
+    ext.jacoco_version = '0.8.7'
+    repositories {
+        google()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.hiya:jacoco-android:0.2'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
+        classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
+        classpath 'com.karumi:shot:5.11.2'
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
+        classpath "org.jacoco:org.jacoco.report:$jacoco_version"
+        classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
+    }
+}
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'com.hiya.jacoco-android'
+apply plugin: 'com.github.spotbugs'
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'shot'
+
+println "Gradle uses Java ${Jvm.current()}"
+
+configurations {
+    ktlint
+
+    all {
+        exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
+
+        // check for updates every build
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+        }
+    }
+}
+
+ext {
+    androidxTestVersion = "1.4.0"
+	daggerVersion = "2.39.1"
+    markwonVersion =  "4.6.2"
+    prismVersion = "2.0.0"
+    androidLibraryVersion = "rc-2.8.0-01"
+    mockitoVersion = "3.12.4"
+    mockkVersion = "1.10.4"
+    powermockVersion = "2.0.9"
+    byteBuddyVersion = "1.11.21"
+    espressoVersion = "3.4.0"
+    workRuntime = "2.5.0"
+    fidoVersion = "4.1.0"
+
+    ciBuild = System.getenv("CI") == "true"
+}
+
+repositories {
+    google()
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+    maven {
+        url 'https://plugins.gradle.org/m2/'
+    }
+}
+
+// semantic versioning for version code
+def versionMajor = 3
+def versionMinor = 18
+def versionPatch = 0
+def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
+
+for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
+    for (String arg : tr.args) {
+        // any gplay, but only exact "build", as e.g. buildGeneric shall not apply gplay.grade
+        if (arg.contains("Gplay") || arg.contains("lint") || arg.contains("ExecuteScreenshot") || arg == "build") {
+            apply from: 'gplay.gradle'
+            System.console().println("Applying gplay.gradle")
+        }
+    }
+}
+
+android {
+    lintOptions {
+        checkGeneratedSources = true
+        abortOnError false
+        htmlReport true
+        htmlOutput file("$project.buildDir/reports/lint/lint.html")
+        disable 'MissingTranslation',
+            'GradleDependency',
+            'VectorPath',
+            'IconMissingDensityFolder',
+            'IconDensities',
+            'GoogleAppIndexingWarning',
+            'MissingDefaultResource',
+            'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
+    }
+
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 29
+
+        // arguments to be passed to functional tests
+        testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
+        testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
+        testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
+        testInstrumentationRunnerArguments disableAnalytics: 'true'
+
+        multiDexEnabled true
+
+        versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+
+        if (versionBuild > 89) {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        } else if (versionBuild > 50) {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
+        } else {
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} Alpha" + (versionBuild + 1)
+        }
+
+        // adapt structure from Eclipse to Gradle/Android Studio expectations;
+        // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
+
+        flavorDimensions "default"
+
+        buildTypes {
+            debug {
+                testCoverageEnabled (project.hasProperty('coverage'))
+            }
+        }
+
+        productFlavors {
+            // used for f-droid
+            generic {
+                applicationId 'de.magentacloud.next.dev2.android.client'
+                dimension "default"
+            }
+
+            gplay {
+                applicationId 'de.magentacloud.next.dev2.android.client'
+                dimension "default"
+            }
+
+            versionDev {
+                applicationId 'de.magentacloud.next.dev2.android.client'
+                dimension "default"
+                versionCode 20200129
+                versionName "20200129"
+            }
+
+            qa {
+                applicationId 'de.magentacloud.next.dev2.android.client'
+                dimension "default"
+                versionCode 1
+                versionName "1"
+            }
+        }
+
+        testOptions {
+            unitTests.returnDefaultValues = true
+            animationsDisabled true
+        }
+    }
+
+    // adapt structure from Eclipse to Gradle/Android Studio expectations;
+    // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+    }
+
+    tasks.register("checkstyle", Checkstyle) {
+        configFile = file("${rootProject.projectDir}/checkstyle.xml")
+        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+        classpath = files()
+    }
+
+    tasks.register("pmd", Pmd) {
+        ruleSetFiles = files("${project.rootDir}/ruleset.xml")
+        ignoreFailures = true // should continue checking
+        ruleSets = []
+
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+            xml {
+                destination = file("$project.buildDir/reports/pmd/pmd.xml")
+            }
+            html {
+                destination = file("$project.buildDir/reports/pmd/pmd.html")
+            }
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        String variantName = variant.name
+        String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
+        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
+            ignoreFailures = true // should continue checking
+            effort = "max"
+            reportLevel = "medium"
+            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
+            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
+
+            reports {
+                xml.enabled = false
+                html {
+                    enabled = true
+                    destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+                }
+            }
+        }
+    }
+
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    // dependencies for app building
+    implementation 'androidx.multidex:multidex:2.0.1'
+//    implementation project('nextcloud-android-library')
+    implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
+        exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
+    }
+
+    compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
+    implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
+    implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.webkit:webkit:1.4.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.3.3'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.work:work-runtime:$workRuntime"
+    implementation "androidx.work:work-runtime-ktx:$workRuntime"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
+    compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
+    implementation 'org.lukhnos:nnio:0.2'
+    implementation 'org.bouncycastle:bcpkix-jdk15to18:1.69'
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
+    implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.2' // 'com.github.blikoon:QRCodeScanner:0.1.2'
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'org.parceler:parceler-api:1.1.13'
+    kapt 'org.parceler:parceler:1.1.13'
+    implementation('com.github.bumptech.glide:glide:3.8.0') {
+        exclude group: "com.android.support"
+    }
+    implementation 'com.caverock:androidsvg:1.4'
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'com.vanniktech:emoji-google:0.8.0'
+
+    implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
+    implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
+
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    ktlint "com.pinterest:ktlint:0.42.1"
+    implementation 'org.conscrypt:conscrypt-android:2.5.2'
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+
+    // Shimmer animation
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+
+    // dependencies for markdown rendering
+    implementation "io.noties.markwon:core:$markwonVersion"
+    implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
+    implementation "io.noties.markwon:ext-tables:$markwonVersion"
+    implementation "io.noties.markwon:ext-tasklist:$markwonVersion"
+    implementation "io.noties.markwon:html:$markwonVersion"
+
+    implementation "io.noties.markwon:syntax-highlight:$markwonVersion"
+    implementation "io.noties:prism4j:$prismVersion"
+    kapt "io.noties:prism4j-bundler:$prismVersion"
+
+    implementation ('org.mnode.ical4j:ical4j:1.0.6') {
+        ['org.apache.commons','commons-logging'].each {
+            exclude group: "$it"
+        }
+    }
+
+    // dependencies for local unit tests
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "androidx.test:core:$androidxTestVersion"
+    testImplementation "org.powermock:powermock-core:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation 'org.json:json:20210307'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "io.mockk:mockk-android:$mockkVersion"
+
+    // dependencies for instrumented tests
+    // JUnit4 Rules
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation "androidx.test:rules:$androidxTestVersion"
+    // Android JUnit Runner
+    androidTestImplementation "androidx.test:runner:$androidxTestVersion"
+    androidTestUtil "androidx.test:orchestrator:$androidxTestVersion"
+
+    // Espresso core
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
+
+    // Mocking support
+    androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
+        exclude group: "net.bytebuddy", module: "byte-buddy-android"
+    }
+    androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
+    androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
+    androidTestImplementation "io.mockk:mockk-android:1.10.4"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
+    androidTestImplementation "com.facebook.testing.screenshot:core:0.13.0"
+
+    // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
+    // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
+    //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
+
+    implementation "com.github.stateless4j:stateless4j:2.6.0"
+}
+
+configurations.all {
+    resolutionStrategy{
+        cacheChangingModulesFor 0, 'seconds'
+        force 'org.objenesis:objenesis:2.6'
+        eachDependency { details ->
+            if ('org.jacoco' == details.requested.group) {
+                details.useVersion "$jacoco_version"
+            }
+        }
+    }
+
+}
+
+tasks.withType(Test) {
+    // increased logging for tests
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "${output.baseName}-${variant.versionCode}.apk"
+    }
+}
+
+tasks.register("combinedTestReport", JacocoReport) {
+
+    jacocoClasspath = configurations['jacocoAnt']
+
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+
+    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(subprojects.sourceSets.main.output)
+    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
+        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
+    ])
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "--reporter=plain", "--reporter=plain,output=${buildDir}/ktlint.txt,src/**/*.kt"
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt"
+}
+
+task installGitHooks(type: Copy, group: "development") {
+    description = "Install git hooks"
+    from("${project.rootDir}/scripts/hooks") {
+        include '*'
+    }
+    into '.git/hooks'
+}
+
+detekt {
+    reports {
+        xml {
+            enabled = false
+        }
+    }
+    config = files("detekt.yml")
+    input = files("src/")
+}
+
+shot {
+    showOnlyFailingTestsInReports = ciBuild
+}
+
+jacoco {
+    toolVersion = "$jacoco_version"
+}

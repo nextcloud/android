@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012 Bartek Przybylski
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:ignore="AppCompatResource">
+
+    <item
+        android:id="@+id/action_edit"
+        android:title="@string/action_edit"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_favorite"
+        android:title="@string/favorite"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_unset_favorite"
+        android:title="@string/unset_favorite"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_see_details"
+        android:title="@string/actionbar_see_details"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_rename_file"
+        android:title="@string/common_rename"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_move"
+        android:title="@string/actionbar_move"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_copy"
+        android:title="@string/actionbar_copy"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_download_file"
+        android:title="@string/filedetails_download"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_stream_media"
+        android:title="@string/stream"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1" />
+
+    <item
+        android:id="@+id/action_send_share_file"
+        android:title="@string/action_send_share"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_share" />
+
+    <item
+        android:id="@+id/action_send_file"
+        android:title="@string/common_send"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_share" />
+
+    <item
+        android:id="@+id/action_open_file_with"
+        android:title="@string/actionbar_open_with"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sync_file"
+        android:title="@string/filedetails_sync_file"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_cancel_sync"
+        android:title="@string/common_cancel_sync"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_select_all_action_menu"
+        android:title="@string/select_all"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_deselect_all_action_menu"
+        android:title="@string/deselect_all"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_encrypted"
+        android:title="@string/encrypted"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_unset_encrypted"
+        android:title="@string/unset_encrypted"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_set_as_wallpaper"
+        android:title="@string/set_picture_as"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_remove_file"
+        android:title="@string/common_remove"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+</menu>

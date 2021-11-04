@@ -1,0 +1,19 @@
+6f86e497f Merge pull request #5193 from nextcloud/uploadInReadonlyFolder
+5ddc5a890 Merge pull request #5189 from nextcloud/removeLines
+2011f5211 Merge pull request #5157 from nextcloud/ezaquarii/fix-npe-in-get-user-in-user-account-manager
+4cb800ea1 Merge pull request #5187 from nextcloud/fab
+447cac9af Upload button: disable/grey when folder is read-only
+8b7d39c28 dark background to #151515 minor design changes for dark theme
+7ba3bf0cf FAB: show disabled correctly again
+f68e9e06d Merge pull request #5181 from nextcloud/vCard30
+a8f41615d Merge pull request #5172 from nextcloud/preventNPE
+b2a1245c6 Merge pull request #5175 from nextcloud/rwEnhancements
+e2c361375 [tx-robot] updated from transifex
+09183fec1 export vCard to 3.0 version
+f8c9af44a simplify if statement
+33b086195 prevent NPE
+f01cdd65a UI enhancements to rich workspaces
+b1f198ff6 [tx-robot] updated from transifex
+a4287380a [tx-robot] updated from transifex
+09d98e16c daily dev 20200112
+library commit: cb8e616b61b94bad121ed3d720476125c0ff252b

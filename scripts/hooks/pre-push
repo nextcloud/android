@@ -1,0 +1,27 @@
+#!/bin/bash
+# Pre-push: Don't allow commits without Signed-off-by. Skip with "git push --no-verify".
+set -euo pipefail
+
+z40=0000000000000000000000000000000000000000 # magic deleted ref
+
+while read local_ref local_sha remote_ref remote_sha; do
+    if [ "$local_sha" != $z40 ]; then
+        if [ "$remote_sha" = $z40 ]; then
+            # New branch, examine all commits
+            range="$(git merge-base master $local_sha)..$local_sha"
+        else
+            # Update to existing branch, examine new commits
+            range="$remote_sha..$local_sha"
+        fi
+
+        # Check for commits without sign-off
+        commit=$(git rev-list --no-merges --grep 'Signed-off-by' --invert-grep "$range")
+        if [ -n "$commit" ]; then
+            echo >&2 "Found commits without sign-off in $local_ref. Aborting push. Offending commits:"
+            echo >&2 "$commit"
+            exit 1
+        fi
+    fi
+done
+
+exit 0
