@@ -144,7 +144,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
     }
 
     override fun openResult(result: SearchResultEntry) {
-        if (result.fileId() != null) {
+        if (result.isFile) {
             openFile(result.remotePath())
         } else {
             val uri = Uri.parse(result.resourceUrl)
