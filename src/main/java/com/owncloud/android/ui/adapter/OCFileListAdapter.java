@@ -395,19 +395,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             //remove padding if gallery media is there else enable padding
             if (isMediaGallery) {
-                gridViewHolder.thumbnail.setPadding(0, 0, 0, 0);
+                gridViewHolder.getThumbnail().setPadding(0, 0, 0, 0);
             }
 
             if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
                 if (gridView) {
-                    gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
+                    gridViewHolder.getSelectedItemBackground().setVisibility(View.VISIBLE);
                 } else {
                     gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources()
                                                                      .getColor(R.color.selected_item_background));
                 }
             } else if (isCheckedFile(file)) {
                 if (gridView) {
-                    gridViewHolder.selectedItemBackground.setVisibility(View.VISIBLE);
+                    gridViewHolder.getSelectedItemBackground().setVisibility(View.VISIBLE);
                 } else {
                     gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources().getColor(R.color.selected_item_background));
                 }
@@ -417,11 +417,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 // ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked, R.color.check_green_color));
             } else {
                 if (gridView) {
-                    gridViewHolder.selectedItemBackground.setVisibility(View.INVISIBLE);
+                    gridViewHolder.getSelectedItemBackground().setVisibility(View.INVISIBLE);
                 } else {
-                    gridViewHolder.itemLayout.setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
+                    gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
                 }
-                gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
+                gridViewHolder.getCheckbox().setImageResource(R.drawable.ic_checkbox_blank_outline);
             }
 
             gridViewHolder.getItemLayout().setOnClickListener(v -> ocFileListFragmentInterface.onItemClicked(file));
@@ -1366,6 +1366,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView getUnreadComments() {
             return binding.unreadComments;
         }
+
+        @Override
+        public View getSelectedItemBackground() {
+            return binding.selectedItemBackground;
+        }
     }
 
     static class OCFileListGridItemViewHolder extends RecyclerView.ViewHolder implements ListGridItemViewHolder {
@@ -1421,6 +1426,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ImageView getUnreadComments() {
             return binding.unreadComments;
         }
+
+        @Override
+        public View getSelectedItemBackground() {
+            return binding.selectedItemBackground;
+        }
     }
 
     static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder implements ListGridImageViewHolder {
@@ -1468,6 +1478,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public View getSelectedItemBackground() {
+            return binding.selectedItemBackground;
+        }
+
+        @Override
         public ImageView getUnreadComments() {
             return binding.unreadComments;
         }
@@ -1507,6 +1522,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         View getItemLayout();
 
         ImageView getUnreadComments();
+
+        View getSelectedItemBackground();
     }
 
     interface ListGridItemViewHolder extends ListGridImageViewHolder {

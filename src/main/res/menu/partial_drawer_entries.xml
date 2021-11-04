@@ -120,6 +120,7 @@
             android:id="@+id/nav_contacts"
             android:icon="@drawable/nav_contacts"
             android:orderInCategory="3"
+            android:visible="false"
             android:title="@string/actionbar_contacts"/>
 
         <item

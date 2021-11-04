@@ -124,7 +124,6 @@
     <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 
     <string name="buildNumber" translatable="false">7991</string>
-    <string name="buildNumber" translatable="false">7103</string>
 
     <!-- file types for scanned document -->
     <string name="scan_save_file_type_pdf" translatable="false">PDF</string>

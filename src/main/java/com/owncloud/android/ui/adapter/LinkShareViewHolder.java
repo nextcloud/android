@@ -82,9 +82,6 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
         setPermissionName(permissionName, publicShare, listener);
 
-        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
-        setPermissionName(permissionName);
-
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
     }

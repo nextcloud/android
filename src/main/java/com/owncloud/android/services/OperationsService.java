@@ -687,7 +687,8 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER_NOT_EXIST:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        operation = new CreateFolderIfNotExistOperation(remotePath, user, getApplicationContext());
+                        operation = new CreateFolderIfNotExistOperation(remotePath, user, getApplicationContext(),
+                                                                        fileDataStorageManager);
                         break;
 
                     case ACTION_SYNC_FILE:

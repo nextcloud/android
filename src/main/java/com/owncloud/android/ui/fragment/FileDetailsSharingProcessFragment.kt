@@ -36,11 +36,6 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper
-import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper

@@ -8,11 +8,11 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.nmc.android.interfaces.OnDocScanListener;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ItemScannedDocBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,14 +25,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.HandlerCompat;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.scanbot.sdk.ScanbotSDK;
 import io.scanbot.sdk.process.FilterOperation;
 import io.scanbot.sdk.process.ImageFilterType;
 import io.scanbot.sdk.process.RotateOperation;
-import io.scanbot.sdk.ui.EditPolygonImageView;
 
 public class ScanPagerFragment extends Fragment {
 
@@ -51,10 +47,7 @@ public class ScanPagerFragment extends Fragment {
         return fragment;
     }
 
-    private Unbinder unbinder;
-    //private String scannedDocPath;
-    @BindView(R.id.editScannedImageView) EditPolygonImageView editPolygonImageView;
-    @BindView(R.id.editScanImageProgressBar) ProgressBar progressBar;
+    private ItemScannedDocBinding binding;
 
     private ScanbotSDK scanbotSDK;
     private Bitmap originalBitmap;
@@ -95,13 +88,13 @@ public class ScanPagerFragment extends Fragment {
         if (requireActivity() instanceof ScanActivity) {
             scanbotSDK = ((ScanActivity) requireActivity()).getScanbotSDK();
         }
-        return inflater.inflate(R.layout.item_scanned_doc, container, false);
+        binding = ItemScannedDocBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
         //File file = new File(scannedDocPath);
         //originalBitmap = FileUtils.convertFileToBitmap(file);
         // previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
@@ -125,18 +118,17 @@ public class ScanPagerFragment extends Fragment {
 
     private void loadImage() {
         if (previewBitmap != null) {
-            editPolygonImageView.setImageBitmap(previewBitmap);
+            binding.editScannedImageView.setImageBitmap(previewBitmap);
         } else {
-            editPolygonImageView.setImageBitmap(originalBitmap);
+            binding.editScannedImageView.setImageBitmap(originalBitmap);
         }
     }
 
     @Override
     public void onDestroyView() {
+        binding = null;
+
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
 
         if (applyFilterDialog != null && applyFilterDialog.isShowing()) {
             applyFilterDialog.dismiss();
@@ -148,7 +140,7 @@ public class ScanPagerFragment extends Fragment {
             return;
         }
         rotationDegrees += 90;
-        editPolygonImageView.rotateClockwise();
+        binding.editScannedImageView.rotateClockwise();
         lastRotationEventTs = System.currentTimeMillis();
         executorService.execute(() -> {
             Bitmap rotatedBitmap = scanbotSDK.imageProcessor().process(originalBitmap,
@@ -189,20 +181,20 @@ public class ScanPagerFragment extends Fragment {
     }
 
     private void applyFilter(ImageFilterType... imageFilterType) {
-        progressBar.setVisibility(View.VISIBLE);
+        binding.editScanImageProgressBar.setVisibility(View.VISIBLE);
         executorService.execute(() -> {
-            if (imageFilterType[0] != ImageFilterType.NONE){
+            if (imageFilterType[0] != ImageFilterType.NONE) {
                 List<FilterOperation> filterOperationList = new ArrayList<>();
                 for (ImageFilterType filters : imageFilterType) {
                     filterOperationList.add(new FilterOperation(filters));
                 }
                 previewBitmap = scanbotSDK.imageProcessor().process(originalBitmap, filterOperationList, false);
-            }else{
+            } else {
                 previewBitmap = ScanActivity.originalScannedImages.get(index);
             }
             onDocScanListener.replaceScannedDoc(index, previewBitmap, true);
             handler.post(() -> {
-                progressBar.setVisibility(View.GONE);
+                binding.editScanImageProgressBar.setVisibility(View.GONE);
                 loadImage();
             });
         });

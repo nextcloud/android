@@ -921,7 +921,7 @@ public abstract class FileActivity extends DrawerActivity
     public void onShareProcessClosed() {
         Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (fragment!=null){
-            ((FileDetailFragment)fragment).showHideFragmentView(false);
+            //do something
         }
     }
 }

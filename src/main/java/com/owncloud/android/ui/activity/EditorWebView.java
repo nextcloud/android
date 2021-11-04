@@ -50,10 +50,6 @@ import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 public abstract class EditorWebView extends ExternalSiteWebView {
     protected Snackbar loadingSnackbar;
 
@@ -172,6 +168,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                                   file.isSharedWithSharee(),
                                                                               file.isSharedViaLink(),
                                                                               file.isEncrypted(),
+                                                                              syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                               file.getMountType(),
                                                                               this));
         } else {

@@ -218,10 +218,5 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PlayerService playerService();
     @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
     @ContributesAndroidInjector abstract FileSyncService fileSyncService();
-
-    @ContributesAndroidInjector
-    abstract FileTransferService fileDownloaderService();
-
-    @ContributesAndroidInjector
-    abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
+    @ContributesAndroidInjector abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
 }

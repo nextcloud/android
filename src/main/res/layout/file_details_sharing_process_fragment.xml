@@ -1,344 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_default"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:paddingTop="@dimen/standard_padding"
-    android:paddingBottom="@dimen/standard_padding">
+    android:focusableInTouchMode="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding"
+        app:layout_constraintBottom_toTopOf="@+id/share_process_btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_sharing_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/share_dialog_title"
-            android:textColor="@color/share_title_txt_color"
-            android:textSize="@dimen/txt_size_16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_permission_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/permissions"
-            android:textColor="@color/share_title_txt_color"
-            android:textSize="@dimen/txt_size_16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sharing_title" />
-
-        <View
-            android:id="@+id/divider_sharing_permissions"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_permission_title" />
-
-        <RadioGroup
-            android:id="@+id/share_process_permission_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_permissions">
-
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/share_process_permission_read_only"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_sharing_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackground"
-                android:button="@null"
-                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
-                android:text="@string/link_share_read_only"
-                android:textColor="@color/share_txt_color"
-                android:textSize="@dimen/txt_size_15sp" />
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/share_dialog_title"
+                android:textColor="@color/share_title_txt_color"
+                android:textSize="@dimen/txt_size_16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/share_process_permission_upload_editing"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_permission_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/permissions"
+                android:textColor="@color/share_title_txt_color"
+                android:textSize="@dimen/txt_size_16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sharing_title" />
+
+            <View
+                android:id="@+id/divider_sharing_permissions"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_permission_title" />
+
+            <RadioGroup
+                android:id="@+id/share_process_permission_radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackground"
-                android:button="@null"
-                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
-                android:text="@string/link_share_allow_upload_and_editing"
-                android:textColor="@color/share_txt_color"
-                android:textSize="@dimen/txt_size_15sp" />
+                android:layout_gravity="end"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_permissions">
 
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/share_process_permission_file_drop"
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_read_only"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:button="@null"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                    android:text="@string/link_share_read_only"
+                    android:textColor="@color/share_txt_color"
+                    android:textSize="@dimen/txt_size_15sp" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_upload_editing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:button="@null"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                    android:text="@string/link_share_allow_upload_and_editing"
+                    android:textColor="@color/share_txt_color"
+                    android:textSize="@dimen/txt_size_15sp" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/share_process_permission_file_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:button="@null"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
+                    android:text="@string/link_share_file_drop"
+                    android:textColor="@color/share_txt_color"
+                    android:textSize="@dimen/txt_size_15sp" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_file_drop_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/file_drop_info"
+                android:textColor="@color/share_info_txt_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_permission_radio_group" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_advance_permission_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/advance_permissions"
+                android:textColor="@color/share_title_txt_color"
+                android:textSize="@dimen/txt_size_16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_file_drop_info" />
+
+            <View
+                android:id="@+id/divider_sharing_adv_permissions"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_advance_permission_title" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_hide_download_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackground"
-                android:button="@null"
-                android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
-                android:text="@string/link_share_file_drop"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/share_via_link_hide_download"
                 android:textColor="@color/share_txt_color"
-                android:textSize="@dimen/txt_size_15sp" />
+                android:textSize="@dimen/txt_size_15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_adv_permissions"
+                tools:visibility="visible" />
 
-        </RadioGroup>
+            <View
+                android:id="@+id/divider_sharing_hide_download"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_hide_download_checkbox" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_file_drop_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/file_drop_info"
-            android:textColor="@color/share_info_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_permission_radio_group" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_allow_resharing_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/allow_resharing"
+                android:textColor="@color/share_txt_color"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_hide_download"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_advance_permission_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/advance_permissions"
-            android:textColor="@color/share_title_txt_color"
-            android:textSize="@dimen/txt_size_16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_file_drop_info" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_allow_resharing_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/allow_resharing_info"
+                android:textColor="@color/share_info_txt_color"
+                android:textSize="@dimen/txt_size_15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox"
+                tools:visibility="visible" />
 
-        <View
-            android:id="@+id/divider_sharing_adv_permissions"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_advance_permission_title" />
+            <View
+                android:id="@+id/divider_sharing_allow_resharing"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_info" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/share_process_hide_download_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/share_via_link_hide_download"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_adv_permissions"
-            tools:visibility="visible" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_set_password_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/share_no_password_title"
+                android:textColor="@color/share_txt_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_allow_resharing" />
 
-        <View
-            android:id="@+id/divider_sharing_hide_download"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_hide_download_checkbox" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/share_process_enter_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:autofillHints="password"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:textColor="@color/share_txt_color"
+                android:textColorHint="@color/grey_60"
+                android:textSize="@dimen/txt_size_15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_set_password_switch"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/share_process_allow_resharing_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/allow_resharing"
-            android:visibility="gone"
-            android:textColor="@color/share_txt_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_hide_download"
-            tools:visibility="visible" />
+            <View
+                android:id="@+id/divider_sharing_enter_password"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_enter_password" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_allow_resharing_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:text="@string/allow_resharing_info"
-            android:textColor="@color/share_info_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_set_exp_date_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/share_no_expiration_date_label"
+                android:textColor="@color/share_txt_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_enter_password" />
 
-        <View
-            android:id="@+id/divider_sharing_allow_resharing"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_info" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_select_exp_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:gravity="center_vertical"
+                android:padding="@dimen/standard_half_padding"
+                android:textColor="@color/share_txt_color"
+                android:textColorHint="@color/grey_60"
+                android:textSize="@dimen/txt_size_15sp"
+                android:visibility="gone"
+                app:drawableEndCompat="@drawable/ic_calendar"
+                app:drawableTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_set_exp_date_switch"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/share_process_set_password_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/share_no_password_title"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_allow_resharing" />
+            <View
+                android:id="@+id/share_process_exp_date_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/share_exp_date_divider_margin"
+                android:layout_marginRight="@dimen/share_exp_date_divider_margin"
+                android:background="@color/share_et_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_select_exp_date" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/share_process_enter_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:autofillHints="password"
-            android:hint="@string/hint_password"
-            android:inputType="textPassword"
-            android:textColor="@color/share_txt_color"
-            android:textColorHint="@color/grey_60"
-            android:textSize="@dimen/txt_size_15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_set_password_switch"
-            tools:visibility="visible" />
+            <View
+                android:id="@+id/divider_sharing_exp_date"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_exp_date_divider" />
 
-        <View
-            android:id="@+id/divider_sharing_enter_password"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_enter_password" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_change_name_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:text="@string/link_label"
+                android:textColor="@color/share_txt_color"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_sharing_exp_date" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/share_process_set_exp_date_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/share_no_expiration_date_label"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_enter_password" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/share_process_change_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:hint="@string/hint_link_label"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions|textCapSentences"
+                android:textColor="@color/share_txt_color"
+                android:textColorHint="@color/grey_60"
+                android:textSize="@dimen/txt_size_15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_switch"
+                tools:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_select_exp_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:gravity="center_vertical"
-            android:padding="@dimen/standard_half_padding"
-            android:textColor="@color/share_txt_color"
-            android:textColorHint="@color/grey_60"
-            android:textSize="@dimen/txt_size_15sp"
-            android:visibility="gone"
-            app:drawableEndCompat="@drawable/ic_calendar"
-            app:drawableTint="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_set_exp_date_switch"
-            tools:visibility="visible" />
+            <View
+                android:id="@+id/divider_sharing_change_name"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/list_divider_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_et" />
 
-        <View
-            android:id="@+id/share_process_exp_date_divider"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/share_exp_date_divider_margin"
-            android:layout_marginRight="@dimen/share_exp_date_divider_margin"
-            android:background="@color/share_et_divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_select_exp_date" />
-
-        <View
-            android:id="@+id/divider_sharing_exp_date"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_exp_date_divider" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/share_process_change_name_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:text="@string/link_label"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider_sharing_exp_date" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/share_process_change_name_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:hint="@string/hint_link_label"
-            android:importantForAutofill="no"
-            android:inputType="textNoSuggestions|textCapSentences"
-            android:textColor="@color/share_txt_color"
-            android:textColorHint="@color/grey_60"
-            android:textSize="@dimen/txt_size_15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_switch"
-            tools:visibility="visible" />
-
-        <View
-            android:id="@+id/divider_sharing_change_name"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/list_divider_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_et" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/share_process_group_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:constraint_referenced_ids="share_process_exp_date_divider,
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/share_process_group_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="share_process_exp_date_divider,
                 share_process_permission_radio_group, share_process_permission_title,
                 share_process_advance_permission_title, share_process_hide_download_checkbox,
                 share_process_allow_resharing_checkbox, share_process_set_password_switch,
@@ -350,101 +358,97 @@
                 divider_sharing_exp_date,divider_sharing_hide_download,
                 share_file_drop_info, share_process_allow_resharing_info" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/share_process_message_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:text="@string/your_message"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/text_size_13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sharing_title" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_message_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:text="@string/your_message"
+                android:textColor="@color/share_txt_color"
+                android:textSize="@dimen/text_size_13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sharing_title" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/note_text"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/note_et_height"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:background="@drawable/share_et_bg"
-            android:gravity="top"
-            android:importantForAutofill="no"
-            android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
-            android:padding="@dimen/standard_padding"
-            android:scrollbars="vertical"
-            android:textColorHint="@color/grey_60"
-            android:textColor="@color/share_txt_color"
-            android:textSize="@dimen/txt_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_message_title" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/note_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/note_et_height"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:background="@drawable/share_et_bg"
+                android:gravity="top"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
+                android:padding="@dimen/standard_padding"
+                android:scrollbars="vertical"
+                android:textColor="@color/share_txt_color"
+                android:textColorHint="@color/grey_60"
+                android:textSize="@dimen/txt_size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_message_title" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_set_password_email_warning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:background="@drawable/sharing_email_warning_bg"
-            android:text="@string/sharing_email_warning"
-            android:visibility="gone"
-            android:padding="@dimen/standard_padding"
-            android:textColor="@color/share_warning_txt_color"
-            android:textSize="@dimen/txt_size_14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_text" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_set_password_email_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:background="@drawable/sharing_email_warning_bg"
+                android:padding="@dimen/standard_padding"
+                android:text="@string/sharing_email_warning"
+                android:textColor="@color/share_warning_txt_color"
+                android:textSize="@dimen/txt_size_14sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/note_text" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/share_process_group_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="share_process_message_title, note_text" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/share_process_group_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="share_process_message_title, note_text" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/sharing_barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="share_process_change_name_et, tv_set_password_email_warning" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/share_process_btn_cancel"
-            style="@style/ShareOutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_half_margin"
-            android:text="@string/common_cancel"
-            app:cornerRadius="@dimen/button_corner_radius"
-            app:layout_constraintEnd_toStartOf="@+id/share_process_btn_next"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharing_barrier" />
+    </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/share_process_btn_next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_half_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:text="@string/common_next"
-            android:theme="@style/Button.Primary"
-            app:cornerRadius="@dimen/button_corner_radius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/share_process_btn_cancel"
-            app:layout_constraintTop_toBottomOf="@+id/sharing_barrier" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_process_btn_cancel"
+        style="@style/ShareOutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/common_cancel"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/share_process_btn_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/share_process_btn_next" />
 
-</androidx.core.widget.NestedScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_process_btn_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/common_next"
+        android:theme="@style/Button.Primary"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/share_process_btn_cancel" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

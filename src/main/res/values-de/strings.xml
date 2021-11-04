@@ -109,13 +109,11 @@
     <string name="common_cancel">Abbrechen</string>
     <string name="common_cancel_sync">Synchronisierung abbrechen</string>
     <string name="common_choose_account">Konto auswählen</string>
-    <string name="common_confirm">Bestätigen</string>
     <string name="common_delete">Löschen</string>
     <string name="common_error">Fehler</string>
     <string name="common_error_out_memory">Nicht genügend Speicher</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
     <string name="common_loading">Lade…</string>
-    <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Ausstehend</string>
@@ -469,7 +467,6 @@
     <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
-    <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
     <string name="note_confirm">Senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
@@ -626,7 +623,6 @@
     <string name="select_template">Vorlage auswählen</string>
     <string name="send">Senden</string>
     <string name="send_note">Notiz an Empfänger senden</string>
-    <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
     <string name="set_note">Notiz setzen</string>
@@ -645,7 +641,6 @@
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_on_clarification">auf %1$s</string>
     <string name="share_link">Link teilen</string>
-    <string name="share_link_empty_note_message">Bitte Notiz eingeben.</string>
     <string name="share_link_folder">Link zum Ordner</string>
     <string name="share_link_file">Link to file</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
@@ -657,17 +652,13 @@
     <string name="share_link_with_label">Link \"%1$s\"</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
-    <string name="share_open_in">Öffnen mit…</string>
     <string name="share_password_title">Passwortgeschützt</string>
-    <string name="share_permission_can_edit">Kann bearbeiten</string>
-    <string name="share_permission_file_drop">Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Kontaktname oder Email</string>
-    <string name="share_send_new_email">Neue E-Mail senden</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>
     <string name="share_via_link_hide_download">Download verbergen</string>

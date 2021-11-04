@@ -948,8 +948,6 @@
     <string name="share_link">Share link</string>
     <string name="share_link_folder">Link to folder</string>
     <string name="share_link_file">Link to file</string>
-    <string name="allow_creating">Allow creating</string>
-    <string name="allow_deleting">Allow deleting</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="link_share_read_only">Read only</string>
     <string name="link_share_editing">Editing</string>
@@ -1069,7 +1067,6 @@
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
     <string name="share_link_empty_exp_date">You must select expiration date.</string>
     <string name="share_link_empty_note_message">Please enter note.</string>
-    <string name="common_confirm">Confirm</string>
     <string name="send_email">Send email</string>
     <string name="share_open_in">Open in…</string>
     <string name="share_advanced_permissions">Advanced permissions</string>

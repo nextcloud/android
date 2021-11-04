@@ -62,6 +62,7 @@ import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -538,11 +539,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         } else {
             showSendLinkTo(share);
         }
-    }
-
-    @Override
-    public void addAnotherLink(OCShare share) {
-        createPublicShareLink();
     }
 
     private void modifyExistingShare(OCShare share, int screenTypePermission) {

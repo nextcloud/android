@@ -471,7 +471,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_recently_modified) {
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
                                menuItem.getItemId());
-        } else {
+        } /*else if (itemId == R.id.nav_contacts){
+            ContactsPreferenceActivity.startActivity(this);
+        }*/
+        else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
                 // external link clicked
