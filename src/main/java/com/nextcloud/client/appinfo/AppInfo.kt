@@ -17,15 +17,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
+package com.nextcloud.client.appinfo
 
-import dagger.Module;
-import dagger.Provides;
+import android.content.Context
 
-@Module
-public class AppInfoModule {
-    @Provides
-    AppInfo appInfo() {
-        return new AppInfoImpl();
-    }
+/**
+ * This class provides general, static information about application
+ * build.
+ *
+ * All methods should be thread-safe.
+ */
+interface AppInfo {
+    val versionName: String
+    val versionCode: Int
+    val isDebugBuild: Boolean
+    fun getAppVersion(context: Context): String
 }

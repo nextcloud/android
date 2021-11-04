@@ -38,7 +38,6 @@ import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import javax.inject.Inject;
 
@@ -113,7 +112,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         if (showWebView) {
             tv.setText(R.string.app_name);
         } else {
-            tv.setText(String.format(getString(R.string.whats_new_title), BuildConfig.VERSION_NAME));
+            tv.setText(String.format(getString(R.string.whats_new_title), appInfo.getVersionName()));
         }
 
         updateNextButtonIfNeeded();
