@@ -338,7 +338,9 @@ dependencies {
         }
     }
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    if (!ciBuild) {
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    }
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13.2'
