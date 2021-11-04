@@ -25,7 +25,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -320,20 +319,20 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        if (!PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (!PermissionUtil.checkExternalStoragePermission(this)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                                    PermissionUtil.getExternalStoragePermission())) {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(binding.rootLayout,
                                                   R.string.permission_storage_access,
                                                   Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
                 ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(this);
+                PermissionUtil.requestExternalStoragePermission(this);
             }
         }
 
@@ -403,7 +402,7 @@ public class FileDisplayActivity extends FileActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.os.FileUtils;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -104,11 +105,11 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getTmpPath() {
-        return FileStorageUtils.getTemporalPath(account.name) + file.getRemotePath();
+        return FileStorageUtils.getInternalTemporalPath(account.name, context) + file.getRemotePath();
     }
 
     public String getTmpFolder() {
-        return FileStorageUtils.getTemporalPath(account.name);
+        return FileStorageUtils.getInternalTemporalPath(account.name, context);
     }
 
     public String getRemotePath() {
@@ -203,7 +204,8 @@ public class DownloadFileOperation extends RemoteOperation {
                     return new RemoteOperationResult(e);
                 }
             }
-            moved = tmpFile.renameTo(newFile);
+
+            moved = FileStorageUtils.moveFile(tmpFile, newFile);
             newFile.setLastModified(file.getModificationTimestamp());
             if (!moved) {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);

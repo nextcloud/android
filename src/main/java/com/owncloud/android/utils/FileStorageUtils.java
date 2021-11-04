@@ -96,7 +96,9 @@ public final class FileStorageUtils {
 
     /**
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
+     * @deprecated use {@link #getInternalTemporalPath(String, Context)}, as this one is broken on sdk >= 30
      */
+    @Deprecated
     public static String getTemporalPath(String accountName) {
         return MainApp.getStoragePath()
                 + File.separator

@@ -22,17 +22,15 @@
 
 package com.nextcloud.client;
 
-import android.Manifest;
-
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 
 public class UploadListActivityActivityIT extends AbstractIT {
@@ -41,8 +39,7 @@ public class UploadListActivityActivityIT extends AbstractIT {
                                                                                           false);
 
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     @ScreenshotTest
