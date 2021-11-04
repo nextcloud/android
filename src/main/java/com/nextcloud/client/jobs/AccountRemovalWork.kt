@@ -195,8 +195,10 @@ class AccountRemovalWork(
 
     private fun removeFiles(user: User, storageManager: FileDataStorageManager) {
         val tempDir = File(FileStorageUtils.getTemporalPath(user.accountName))
+        val internalTempDir = File(FileStorageUtils.getInternalTemporalPath(user.accountName, context))
         val saveDir = File(FileStorageUtils.getSavePath(user.accountName))
         FileStorageUtils.deleteRecursively(tempDir, storageManager)
+        FileStorageUtils.deleteRecursively(internalTempDir, storageManager)
         FileStorageUtils.deleteRecursively(saveDir, storageManager)
     }
 

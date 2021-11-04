@@ -21,7 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -54,11 +53,12 @@ public final class MediaProvider {
     private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
     private static final String IMAGES_FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
     private static final String[] IMAGES_FOLDER_PROJECTION = {MediaStore.Images.Media.BUCKET_ID,
-            MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-    private static final String IMAGES_FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
+        MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+    private static final String IMAGES_FOLDER_SORT_COLUMN = MediaStore.Images.Media.BUCKET_DISPLAY_NAME;
+    private static final String IMAGES_SORT_DIRECTION = ContentResolverHelper.SORT_DIRECTION_ASCENDING;
 
     private static final String[] VIDEOS_FOLDER_PROJECTION = {MediaStore.Video.Media.BUCKET_ID,
-            MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
+        MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
 
     private MediaProvider() {
         // utility class -> private constructor
@@ -78,17 +78,17 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
-            cursorFolders = contentResolver.query(IMAGES_MEDIA_URI, IMAGES_FOLDER_PROJECTION, null, null,
-                    IMAGES_FOLDER_SORT_ORDER);
+        if (activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())
+            || getWithoutActivity) {
+            cursorFolders = ContentResolverHelper.queryResolver(contentResolver, IMAGES_MEDIA_URI,
+                                                                IMAGES_FOLDER_PROJECTION, null, null,
+                                                                IMAGES_FOLDER_SORT_COLUMN, IMAGES_SORT_DIRECTION, null);
         }
 
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
-            String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
             Cursor cursorImages;
 
             Map<String, String> uniqueFolders = new HashMap<>();
@@ -111,13 +111,14 @@ public final class MediaProvider {
                 mediaFolder.filePaths = new ArrayList<>();
 
                 // query images
-                cursorImages = contentResolver.query(
-                    IMAGES_MEDIA_URI,
-                    FILE_PROJECTION,
-                    IMAGES_FILE_SELECTION + folder.getKey(),
-                    null,
-                    fileSortOrder
-                );
+                cursorImages = ContentResolverHelper.queryResolver(contentResolver,
+                                                                   IMAGES_MEDIA_URI,
+                                                                   FILE_PROJECTION,
+                                                                   IMAGES_FILE_SELECTION + folder.getKey(),
+                                                                   null,
+                                                                   MediaStore.Images.Media.DATE_TAKEN,
+                                                                   ContentResolverHelper.SORT_DIRECTION_DESCENDING,
+                                                                   itemLimit);
                 Log.d(TAG, "Reading images for " + mediaFolder.folderName);
 
                 if (cursorImages != null) {
@@ -170,22 +171,21 @@ public final class MediaProvider {
 
     private static void checkPermissions(@Nullable Activity activity) {
         if (activity != null &&
-                !PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
             // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil
+                .shouldShowRequestPermissionRationale(activity, PermissionUtil.getExternalStoragePermission())) {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                        R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(activity));
+                                                  R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(activity));
 
                 ThemeSnackbarUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
 
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(activity);
+                PermissionUtil.requestExternalStoragePermission(activity);
             }
         }
     }
@@ -197,17 +197,16 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkSelfPermission(activity.getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) || getWithoutActivity) {
+        if ((activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext()))
+            || getWithoutActivity) {
             cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
-                    null, null, null);
+                                                  null, null, null);
         }
 
         List<MediaFolder> mediaFolders = new ArrayList<>();
         String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
-            String fileSortOrder = MediaStore.Video.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
             Cursor cursorVideos;
 
             Map<String, String> uniqueFolders = new HashMap<>();
@@ -229,12 +228,15 @@ public final class MediaProvider {
                 mediaFolder.filePaths = new ArrayList<>();
 
                 // query videos
-                cursorVideos = contentResolver.query(
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                    FILE_PROJECTION,
-                    MediaStore.Video.Media.BUCKET_ID + "=" + folder.getKey(),
-                    null,
-                    fileSortOrder);
+                cursorVideos = ContentResolverHelper.queryResolver(contentResolver,
+                                                                   MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                                                                   FILE_PROJECTION,
+                                                                   MediaStore.Video.Media.BUCKET_ID + "=" + folder.getKey(),
+                                                                   null,
+                                                                   MediaStore.Video.Media.DATE_TAKEN,
+                                                                   ContentResolverHelper.SORT_DIRECTION_DESCENDING,
+                                                                   itemLimit);
+
                 Log.d(TAG, "Reading videos for " + mediaFolder.folderName);
 
                 if (cursorVideos != null) {

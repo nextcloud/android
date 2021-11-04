@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -48,6 +49,7 @@ public class RenameFileOperation extends SyncOperation {
     private OCFile file;
     private String remotePath;
     private String newName;
+    private Context context;
 
     /**
      * Constructor
@@ -55,11 +57,12 @@ public class RenameFileOperation extends SyncOperation {
      * @param remotePath RemotePath of the OCFile instance describing the remote file or folder to rename
      * @param newName    New name to set as the name of file.
      */
-    public RenameFileOperation(String remotePath, String newName, FileDataStorageManager storageManager) {
+    public RenameFileOperation(String remotePath, String newName, FileDataStorageManager storageManager, Context context) {
         super(storageManager);
 
         this.remotePath = remotePath;
         this.newName = newName;
+        this.context = context;
     }
 
     /**
@@ -168,7 +171,7 @@ public class RenameFileOperation extends SyncOperation {
             return false;
         }
         // create a test file
-        String tmpFolderName = FileStorageUtils.getTemporalPath("");
+        String tmpFolderName = FileStorageUtils.getInternalTemporalPath("", context);
         File testFile = new File(tmpFolderName + newName);
         File tmpFolder = testFile.getParentFile();
         if (! tmpFolder.mkdirs()) {
