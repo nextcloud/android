@@ -24,6 +24,7 @@ package com.nextcloud.client.network
 import android.accounts.AccountManager
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.network.ConnectivityServiceImpl.GetRequestBuilder
 import com.owncloud.android.AbstractOnServerIT
@@ -44,7 +45,8 @@ class ConnectivityServiceImplIT : AbstractOnServerIT() {
             connectivityManager,
             userAccountManager,
             clientFactory,
-            requestBuilder
+            requestBuilder,
+            Build.VERSION.SDK_INT
         )
 
         assertTrue(sut.connectivity.isConnected)

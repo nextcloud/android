@@ -6,10 +6,12 @@
  * @author Juan Carlos González Cabrero
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc
  *
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -201,7 +203,7 @@ public class FileOperationsHelper {
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
             User user = fileActivity.getUser().orElseThrow(RuntimeException::new);
-            FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
+            FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                                fileActivity.getContentResolver());
 
             // check if file is in conflict (this is known due to latest folder refresh)
@@ -246,8 +248,13 @@ public class FileOperationsHelper {
         fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
                 .getString(R.string.sync_in_progress)));
 
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, user, true, fileActivity);
-        RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file,
+                                                                    null,
+                                                                    user,
+                                                                    true,
+                                                                    fileActivity,
+                                                                    storageManager);
+        RemoteOperationResult result = sfo.execute(fileActivity);
 
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!),
@@ -309,13 +316,17 @@ public class FileOperationsHelper {
                 public void run() {
                     User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                            new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
+                        new FileDataStorageManager(user, fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-                    SynchronizeFileOperation sfo =
-                            new SynchronizeFileOperation(file, null, user, true, fileActivity);
-                    RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+                    SynchronizeFileOperation sfo = new SynchronizeFileOperation(file,
+                                                                                null,
+                                                                                user,
+                                                                                true,
+                                                                                fileActivity,
+                                                                                storageManager);
+                    RemoteOperationResult result = sfo.execute(fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
@@ -521,6 +532,50 @@ public class FileOperationsHelper {
         }
     }
 
+
+    /**
+     * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
+     *
+     * @param file                   The file to share.
+     * @param shareeName             Name (user name or group name) of the target sharee.
+     * @param shareType              The share type determines the sharee type.
+     * @param permissions            Permissions to grant to sharee on the shared file.
+     * @param hideFileDownload       true/false to hide file download
+     * @param password               Password to set for the public link; null or empty string to clear the current
+     *                               password
+     * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration date,
+     *                               leaving the link unrestricted. Zero makes no change.
+     * @param note                   note message for the receiver. Null or empty for no message
+     * @param label                  new label
+     */
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions,
+                                    boolean hideFileDownload, String password, long expirationTimeInMillis,
+                                    String note, String label) {
+        if (file != null) {
+            // TODO check capability?
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(fileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
+            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
+            service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
+            service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+            service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
+            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
+            service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        } else {
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
+        }
+    }
+
     /**
      * Helper method to revert to a file version. Starts a request to do it in {@link OperationsService}
      *
@@ -689,6 +744,34 @@ public class FileOperationsHelper {
 
         queueShareIntent(updateShareIntent);
     }
+
+    /**
+     * Helper method to update the share information
+     *
+     * @param share                  {@link OCShare} instance which information will be updated.
+     * @param permissions            Permissions to grant to sharee on the shared file.
+     * @param hideFileDownload       true/false to hide file download
+     * @param password               Password to set for the public link; null or empty string to clear the current
+     *                               password
+     * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration date,
+     *                               leaving the link unrestricted. Zero makes no change.
+     * @param label                  new label
+     */
+    public void updateShareInformation(OCShare share, int permissions,
+                                       boolean hideFileDownload, String password, long expirationTimeInMillis,
+                                       String label) {
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+        queueShareIntent(updateShareIntent);
+    }
+
 
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog

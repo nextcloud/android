@@ -840,7 +840,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
-    <string name="whats_your_status">지금 무엇을 하나요?</string>
     <string name="wrong_storage_path">데이터 저장 폴더가 존재하지 않습니다!</string>
     <string name="wrong_storage_path_desc">백업이 다른 장치에 복원된 것 같습니다. 초기값으로 돌아갑니다. 설정을 확인하고 데이터 저장 폴더를 조정하세요.</string>
     <plurals name="sync_fail_in_favourites_content">

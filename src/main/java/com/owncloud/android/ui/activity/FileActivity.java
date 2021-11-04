@@ -3,9 +3,11 @@
  *
  *   @author David A. Velasco
  *   @author Chris Narkiewicz
+ *   @author TSI-mc
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -70,6 +72,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateNoteForShareOperation;
+import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
@@ -112,10 +115,11 @@ import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LI
  */
 public abstract class FileActivity extends DrawerActivity
         implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
-        LoadingVersionNumberTask.VersionDevInterface {
+        LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
+    public static final String EXTRA_USER = "com.owncloud.android.ui.activity.USER";
     public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     public static final String APP_OPENED_COUNT = "APP_OPENED_COUNT";
     public static final String EXTRA_SEARCH = "com.owncloud.android.ui.activity.SEARCH";
@@ -405,7 +409,7 @@ public abstract class FileActivity extends DrawerActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateShareViaLinkOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
@@ -882,22 +886,42 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
+    /**
+     * open the new sharing process fragment to create the share
+     * @param shareeName
+     * @param shareType
+     */
     private void doShareWith(String shareeName, ShareType shareType) {
-        getFileOperationsHelper().shareFileWithSharee(getFile(),
-                                                      shareeName,
-                                                      shareType,
-                                                      getAppropriatePermissions(shareType));
+        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment!=null){
+            ((FileDetailFragment)fragment).initiateSharingProcess(shareeName, shareType);
+        }
     }
 
-    private int getAppropriatePermissions(ShareType shareType) {
-        if (getFile().isSharedWithMe()) {
-            return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
-        } else if (ShareType.FEDERATED.equals(shareType)) {
-            return getFile().isFolder() ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER :
-                OCShare.FEDERATED_PERMISSIONS_FOR_FILE;
-        } else {
-            return getFile().isFolder() ? OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
-                OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+    /**
+     * open the new sharing process to modify the created share
+     * @param share
+     * @param screenTypePermission
+     * @param isReshareShown
+     * @param isExpiryDateShown
+     */
+    @Override
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
+                                  boolean isExpiryDateShown) {
+        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment!=null){
+            ((FileDetailFragment)fragment).editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+        }
+    }
+
+    /**
+     * callback triggered on closing/finishing the sharing process
+     */
+    @Override
+    public void onShareProcessClosed() {
+        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment!=null){
+            ((FileDetailFragment)fragment).showHideFragmentView(false);
         }
     }
 }

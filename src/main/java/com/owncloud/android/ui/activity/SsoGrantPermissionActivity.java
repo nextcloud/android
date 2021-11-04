@@ -38,24 +38,17 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ActivitySsoGrantPermissionBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
 
 import java.util.UUID;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_ACCESS_DECLINED;
@@ -76,26 +69,12 @@ public class SsoGrantPermissionActivity extends BaseActivity {
     private String packageName;
     private Account account;
 
-    private Unbinder unbinder;
-
-    @BindView(R.id.appIcon)
-    ImageView appIcon;
-
-    @BindView(R.id.permissionText)
-    TextView permissionText;
-
-    @BindView(R.id.btnGrant)
-    Button grantPermissionButton;
-
-    @BindView(R.id.btnDecline)
-    Button declinePermissionButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sso_grant_permission);
 
-        unbinder = ButterKnife.bind(this);
+        ActivitySsoGrantPermissionBinding binding = ActivitySsoGrantPermissionBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         ComponentName callingActivity = getCallingActivity();
 
@@ -103,11 +82,10 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             packageName = callingActivity.getPackageName();
             String appName = getAppNameForPackage(packageName);
             account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
-            permissionText.setText(makeSpecialPartsBold(
-                    getString(R.string.single_sign_on_request_token, appName, account.name),
-                    appName,
-                    account.name)
-            );
+            binding.permissionText.setText(makeSpecialPartsBold(
+                getString(R.string.single_sign_on_request_token, appName, account.name),
+                appName,
+                account.name));
             Log.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
             Log.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
         } else {
@@ -119,17 +97,14 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         try {
             if (packageName != null) {
                 Drawable appIcon = getPackageManager().getApplicationIcon(packageName);
-                this.appIcon.setImageDrawable(appIcon);
+                binding.appIcon.setImageDrawable(appIcon);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "Error retrieving app icon", e);
         }
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
+        binding.btnDecline.setOnClickListener(v -> exitFailed());
+        binding.btnGrant.setOnClickListener(v -> grantPermission());
     }
 
     private SpannableStringBuilder makeSpecialPartsBold(String text, String... toBeStyledText) {
@@ -158,18 +133,16 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         try {
             ai = pm.getApplicationInfo(pkg, 0);
         } catch (final PackageManager.NameNotFoundException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "Error fetching app name for package", e);
         }
         return (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");
     }
 
-    @OnClick(R.id.btnDecline)
-    void exitFailed() {
+    private void exitFailed() {
         setResultAndExit(EXCEPTION_ACCOUNT_ACCESS_DECLINED);
     }
 
-    @OnClick(R.id.btnGrant)
-    void grantPermission() {
+    private void grantPermission() {
         // create token
         SharedPreferences sharedPreferences = getSharedPreferences(SSO_SHARED_PREFERENCE, Context.MODE_PRIVATE);
         String token = UUID.randomUUID().toString().replaceAll("-", "");

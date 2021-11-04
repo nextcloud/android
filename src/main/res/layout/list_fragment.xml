@@ -36,6 +36,8 @@
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/empty_list" />
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
 
 </RelativeLayout>

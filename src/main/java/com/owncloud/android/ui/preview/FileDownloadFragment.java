@@ -212,15 +212,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancelBtn: {
-                containerActivity.getFileOperationsHelper().cancelTransference(getFile());
-                getActivity().finish();
-                break;
-            }
-            default:
-                Log_OC.e(TAG, "Incorrect view clicked!");
-                break;
+        if (v.getId() == R.id.cancelBtn) {
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
+            getActivity().finish();
+        } else {
+            Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
 

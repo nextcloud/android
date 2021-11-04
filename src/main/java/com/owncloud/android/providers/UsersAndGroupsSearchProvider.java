@@ -234,7 +234,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Uri emailBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_EMAIL).build();
             Uri circleBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_CIRCLE).build();
 
-            FileDataStorageManager manager = new FileDataStorageManager(user.toPlatformAccount(),
+            FileDataStorageManager manager = new FileDataStorageManager(user,
                                                                         getContext().getContentResolver());
             boolean federatedShareAllowed = manager.getCapability(user.getAccountName())
                 .getFilesSharingFederationOutgoing()

@@ -156,7 +156,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.setStoragePath(getDummyFile("/empty.txt").absolutePath)
+        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -196,10 +196,11 @@ class FileUploaderIT : AbstractOnServerIT() {
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
-                false
+                false,
+                storageManager
             )
                 .setRemoteFolderToBeCreated()
-                .execute(client, storageManager)
+                .execute(client)
                 .isSuccess
         )
 
@@ -223,12 +224,13 @@ class FileUploaderIT : AbstractOnServerIT() {
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
-                false
+                false,
+                storageManager
             )
                 .addRenameUploadListener {
                     renameListenerWasTriggered = true
                 }
-                .execute(client, storageManager)
+                .execute(client)
                 .isSuccess
         )
 
@@ -273,7 +275,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.setStoragePath(getDummyFile("/empty.txt").absolutePath)
+        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -316,10 +318,11 @@ class FileUploaderIT : AbstractOnServerIT() {
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
-                false
+                false,
+                storageManager
             )
                 .setRemoteFolderToBeCreated()
-                .execute(client, storageManager)
+                .execute(client)
                 .isSuccess
         )
 
@@ -342,9 +345,10 @@ class FileUploaderIT : AbstractOnServerIT() {
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
-                false
+                false,
+                storageManager
             )
-                .execute(client, storageManager).isSuccess
+                .execute(client).isSuccess
         )
 
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
@@ -382,7 +386,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.setStoragePath(getDummyFile("/empty.txt").absolutePath)
+        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -420,10 +424,11 @@ class FileUploaderIT : AbstractOnServerIT() {
                 FileUploader.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
-                false
+                false,
+                storageManager
             )
                 .setRemoteFolderToBeCreated()
-                .execute(client, storageManager)
+                .execute(client)
                 .isSuccess
         )
 
@@ -445,9 +450,10 @@ class FileUploaderIT : AbstractOnServerIT() {
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
-            false
+            false,
+            storageManager
         )
-            .execute(client, storageManager)
+            .execute(client)
 
         assertFalse(uploadResult.isSuccess)
         assertTrue(uploadResult.exception is OperationCancelledException)
@@ -487,7 +493,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.setStoragePath(getDummyFile("/empty.txt").absolutePath)
+        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,

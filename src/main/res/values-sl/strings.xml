@@ -10,9 +10,11 @@
     <string name="action_clear_failed_uploads">Počisti dnevnik spodletelih pošiljanj</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Počisti vsa obvestila</string>
+    <string name="action_empty_trashbin">Izprazni smeti</string>
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
+    <string name="actionbar_calendar_contacts_restore">Obnovi stike koledarja &amp;</string>
     <string name="actionbar_contacts">Shrani stike</string>
     <string name="actionbar_contacts_restore">Obnovi stike</string>
     <string name="actionbar_copy">Kopiraj</string>
@@ -33,6 +35,7 @@
     <string name="add_another_public_share_link">Dodaj novo povezavo</string>
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
+    <string name="advanced_settings">Napredne nastavitve</string>
     <string name="allow_creating">Dovoli ustvarjanje</string>
     <string name="allow_deleting">Dovoli brisanje</string>
     <string name="allow_editing">Dovoli urejanje</string>
@@ -78,12 +81,15 @@
     <string name="autoupload_hide_folder">Skrij mapo</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
+    <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
     <string name="battery_optimization_no_setting">Ni mogoče neposredno odpreti nastavitev baterije. Prilagoditi jih bo treba ročno.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
+    <string name="calendar">Koledar</string>
+    <string name="calendars">Koledarji</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
     <string name="checkbox">Izbirno polje</string>
@@ -102,6 +108,7 @@
     <string name="common_cancel">Prekliči</string>
     <string name="common_cancel_sync">Prekliči usklajevanje</string>
     <string name="common_choose_account">Izbor računa</string>
+    <string name="common_confirm">Potrdi</string>
     <string name="common_delete">Izbriši</string>
     <string name="common_error">Napaka</string>
     <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
@@ -153,6 +160,7 @@
     <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
+    <string name="contacts">Stiki</string>
     <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
     <string name="contacts_backup_button">Shrani zdaj</string>
     <string name="contacts_last_backup">Zadnje shranjevanje</string>
@@ -184,12 +192,16 @@
     <string name="create_rich_workspace">Dodaj podrobnosti mape</string>
     <string name="creates_rich_workspace">ustvari podrobnosti mape</string>
     <string name="credentials_disabled">Poverila so onemogočena</string>
+    <string name="daily_backup">Dnevna varnostna kopija</string>
+    <string name="data_to_back_up">Podatki za varnostno kopiranje</string>
     <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>
     <string name="delete_entries">Izbriši vnose</string>
+    <string name="delete_link">Izbriši povezavo</string>
     <string name="deselect_all">Odstrani celoten izbor</string>
+    <string name="destination_filename">Ciljno ime datoteke</string>
     <string name="dev_version_new_version_available">Na voljo je nova različica</string>
     <string name="dev_version_no_information_available">Podrobnosti niso na voljo.</string>
     <string name="dev_version_no_new_version_available">Ni objavljene nove različice.</string>
@@ -275,6 +287,10 @@
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
+    <string name="etm_transfer_remote_path">Oddaljena pot</string>
+    <string name="etm_transfer_type">Prenos</string>
+    <string name="etm_transfer_type_download">Prejmi</string>
+    <string name="etm_transfer_type_upload">Pošlji</string>
     <string name="fab_label">Dodaj ali pošlji</string>
     <string name="failed_to_download">Podajanje datoteke na upravljalnik prenosov je spodletelo</string>
     <string name="failed_to_print">Tiskanje datoteke je spodletelo</string>
@@ -361,6 +377,7 @@
     <string name="foreign_files_success">Vse datoteke so premaknjene</string>
     <string name="forward">Naprej</string>
     <string name="fourHours">po 4 urah</string>
+    <string name="fullscreen">Celozaslonski način</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Opomba</string>
     <string name="hint_password">Geslo</string>
@@ -373,11 +390,15 @@
     <string name="invalid_url">Neveljaven naslov URL</string>
     <string name="invisible">Drugim nevidno</string>
     <string name="label_empty">Oznaka ne sme biti prazno polje</string>
+    <string name="last_backup">Zadnja varnostna kopija: %1$s</string>
     <string name="link">Povezava</string>
+    <string name="link_name">Ime povezave</string>
     <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
+    <string name="link_share_editing">Urejanje</string>
     <string name="link_share_file_drop">Poteg datotek v okno (samo nalaganje)</string>
     <string name="link_share_read_only">Le za branje</string>
     <string name="list_layout">Izpisana razporeditev</string>
+    <string name="load_more_results">Naloži več rezultatov</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -415,6 +436,7 @@
     <string name="menu_item_sort_by_name_z_a">po abecedi padajoče Ž–A</string>
     <string name="menu_item_sort_by_size_biggest_first">najprej največje</string>
     <string name="menu_item_sort_by_size_smallest_first">najprej najmanjše</string>
+    <string name="more">Več</string>
     <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
@@ -430,6 +452,7 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Novo obvestilo</string>
     <string name="new_version_was_created">Ustvarjena je nova različica</string>
+    <string name="no_actions">Ni dejanj za tega uporabnika</string>
     <string name="no_browser_available">Ni nameščenega programa, ki upravlja s povezavami</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
@@ -439,6 +462,7 @@
     <string name="notification_action_failed">Izvedba dejanja je spodletela</string>
     <string name="notification_channel_download_description">Pokaži napredek prejemanja</string>
     <string name="notification_channel_download_name">Kanal obvestil prejemanja</string>
+    <string name="notification_channel_download_name_short">Prejemi</string>
     <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
     <string name="notification_channel_file_observer_name">Opazovalnik datotek</string>
     <string name="notification_channel_file_sync_description">Pokaži napredek usklajevanja datotek in končana opravila</string>
@@ -451,6 +475,7 @@
     <string name="notification_channel_push_name">Potisna obvestila</string>
     <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
     <string name="notification_channel_upload_name">Kanal obvestil pošiljanja</string>
+    <string name="notification_channel_upload_name_short">Poslano</string>
     <string name="notification_icon">Obvestilna ikona</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
     <string name="notifications_no_results_message">Prosim, preveri kasneje</string>
@@ -542,6 +567,7 @@
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
+    <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
@@ -558,7 +584,9 @@
     <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
     <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
+    <string name="restore_backup">Obnovi varnostno kopijo</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
+    <string name="restore_selected">Obnovi izbrano</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke…</string>
     <string name="richdocuments_failed_to_load_document">Nalaganje dokumenta je spodletelo!</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
@@ -574,6 +602,7 @@
     <string name="screenshot_05_autoUpload_subline">za vaše slike in posnetke</string>
     <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
+    <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
     <string name="select_all">Izberi vse</string>
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
@@ -603,12 +632,17 @@
     <string name="share_link_with_label">Povezava souporabe (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
+    <string name="share_open_in">Odpri v ...</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
+    <string name="share_permission_can_edit">Lahko ureja</string>
+    <string name="share_permission_view_only">Le ogled</string>
     <string name="share_privilege_unshare">Prekini souporabo</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
     <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov…</string>
+    <string name="share_send_new_email">Pošlji novo elektronsko sporočilo</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
+    <string name="share_settings">Nastavitve</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
     <string name="share_via_link_menu_password_label">Zaščiti z geslom (%1$s)</string>
     <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
@@ -672,6 +706,7 @@
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
+    <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -714,6 +749,7 @@
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
+    <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>

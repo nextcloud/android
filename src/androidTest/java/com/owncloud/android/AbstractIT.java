@@ -88,7 +88,7 @@ public abstract class AbstractIT {
     protected Activity currentActivity;
 
     protected FileDataStorageManager fileDataStorageManager =
-        new FileDataStorageManager(account, targetContext.getContentResolver());
+        new FileDataStorageManager(user, targetContext.getContentResolver());
 
     @BeforeClass
     public static void beforeAll() {
@@ -103,13 +103,13 @@ public abstract class AbstractIT {
                 }
             }
 
-            Account temp = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+            Account temp = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
             platformAccountManager.addAccountExplicitly(temp, "password", null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost");
             platformAccountManager.setUserData(temp, KEY_USER_ID, "test");
 
             final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-            account = userAccountManager.getAccountByName("test@https://server.com");
+            account = userAccountManager.getAccountByName("test@https://nextcloud.localhost");
 
             if (account == null) {
                 throw new ActivityNotFoundException();
@@ -154,6 +154,10 @@ public abstract class AbstractIT {
 
                 case "black":
                     colorHex = "#000000";
+                    break;
+
+                case "lightgreen":
+                    colorHex = "#aaff00";
                     break;
 
                 default:
@@ -312,8 +316,8 @@ public abstract class AbstractIT {
     }
 
     public OCFile createFolder(String remotePath) {
-        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext)
-                                .execute(client, getStorageManager())
+        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext, getStorageManager())
+                                .execute(client)
                                 .isSuccess());
 
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
@@ -355,17 +359,18 @@ public abstract class AbstractIT {
                                                                                 targetContext.getContentResolver());
 
         UploadFileOperation newUpload = new UploadFileOperation(
-                uploadsStorageManager,
-                connectivityServiceMock,
-                powerManagementServiceMock,
-                user,
-                null,
-                ocUpload,
-                NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                targetContext,
-                false,
-                false
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.DEFAULT,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false,
+            getStorageManager()
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
@@ -373,7 +378,7 @@ public abstract class AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
     }
 

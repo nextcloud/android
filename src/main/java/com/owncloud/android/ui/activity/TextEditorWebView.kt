@@ -23,13 +23,15 @@ package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Bundle
 import android.widget.Toast
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
 import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
+import com.owncloud.android.utils.theme.ThemeUtils
 import javax.inject.Inject
 
 class TextEditorWebView : EditorWebView() {
@@ -39,8 +41,8 @@ class TextEditorWebView : EditorWebView() {
     lateinit var deviceInfo: DeviceInfo
 
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun postOnCreate() {
+        super.postOnCreate()
 
         if (!user.isPresent) {
             Toast.makeText(this, getString(R.string.failed_to_start_editor), Toast.LENGTH_LONG).show()
@@ -50,12 +52,22 @@ class TextEditorWebView : EditorWebView() {
         val editor = FileMenuFilter.getEditor(contentResolver, user.get(), file.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
-            webview.settings.userAgentString = generateOnlyOfficeUserAgent()
+            getWebView().settings.userAgentString = generateOnlyOfficeUserAgent()
         }
 
-        webview.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
+        getWebView().addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
 
-        webview.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+            WebSettingsCompat.setForceDarkStrategy(
+                getWebView().settings,
+                WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+            )
+        }
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && ThemeUtils.isDarkModeActive(this)) {
+            WebSettingsCompat.setForceDark(getWebView().settings, WebSettingsCompat.FORCE_DARK_ON)
+        }
+
+        getWebView().setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL))
     }

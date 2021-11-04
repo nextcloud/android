@@ -21,11 +21,9 @@
 
 package com.owncloud.android.ui.asynctasks;
 
-import android.accounts.Account;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 
-import com.owncloud.android.MainApp;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -36,23 +34,21 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.FILE_ID_SEARCH;
 
 public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
-    private Account account;
-    private String fileId;
-    private FileDataStorageManager storageManager;
-    private FileDisplayActivity fileDisplayActivity;
+    private final User user;
+    private final String fileId;
+    private final FileDataStorageManager storageManager;
+    private final FileDisplayActivity fileDisplayActivity;
 
-    public FetchRemoteFileTask(Account account,
+    public FetchRemoteFileTask(User user,
                                String fileId,
                                FileDataStorageManager storageManager,
                                FileDisplayActivity fileDisplayActivity) {
-        this.account = account;
+        this.user = user;
         this.fileId = fileId;
         this.storageManager = storageManager;
         this.fileDisplayActivity = fileDisplayActivity;
@@ -65,7 +61,8 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
                                                                                 false);
-        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(account, fileDisplayActivity);
+        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user.toPlatformAccount(),
+                                                                                    fileDisplayActivity);
 
         if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
             if (remoteOperationResult.getData().isEmpty()) {
@@ -74,7 +71,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
             String remotePath = ((RemoteFile) remoteOperationResult.getData().get(0)).getRemotePath();
 
             ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);
-            RemoteOperationResult result = operation.execute(account, fileDisplayActivity);
+            RemoteOperationResult result = operation.execute(user.toPlatformAccount(), fileDisplayActivity);
 
             if (!result.isSuccess()) {
                 Exception exception = result.getException();
@@ -90,7 +87,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
             RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
 
             OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, account);
+            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
             ocFile = storageManager.saveFileWithParent(ocFile, fileDisplayActivity);
 
             // also sync folder content
@@ -107,9 +104,9 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
                                                                                 true,
                                                                                 true,
                                                                                 storageManager,
-                                                                                account,
+                                                                                user,
                                                                                 fileDisplayActivity);
-            refreshFolderOperation.execute(account, fileDisplayActivity);
+            refreshFolderOperation.execute(user.toPlatformAccount(), fileDisplayActivity);
 
             fileDisplayActivity.setFile(ocFile);
         } else {
@@ -123,18 +120,6 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String message) {
         super.onPostExecute(message);
 
-        fileDisplayActivity.dismissLoadingDialog();
-
-        OCFileListFragment listOfFiles = fileDisplayActivity.getListOfFilesFragment();
-        if (listOfFiles != null) {
-            if (TextUtils.isEmpty(message)) {
-                OCFile temp = fileDisplayActivity.getFile();
-                fileDisplayActivity.setFile(fileDisplayActivity.getCurrentDir());
-                listOfFiles.listDirectory(fileDisplayActivity.getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
-                fileDisplayActivity.updateActionBarTitleAndHomeButton(null);
-            } else {
-                DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
-            }
-        }
+        fileDisplayActivity.showFile(message);
     }
 }

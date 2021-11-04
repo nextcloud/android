@@ -771,6 +771,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupBinding.hostUrlInput.setText(uri);
             }
 
+            uri = AuthenticatorUrlUtils.normalizeScheme(uri);
+
             // Handle internationalized domain names
             try {
                 uri = DisplayUtils.convertIdn(uri, true);
@@ -1264,6 +1266,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return false;
 
         } else {
+            UserInfo userInfo = authResult.getResultData();
+            if (userInfo == null) {
+                Log_OC.e(this, "Could not read user data!");
+                return false;
+            }
+
             mAccount = newAccount;
             mAccountMgr.addAccountExplicitly(mAccount, webViewPassword, null);
 
@@ -1287,13 +1295,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
-
-            UserInfo userInfo = authResult.getResultData();
-            if (userInfo == null) {
-                Log_OC.e(this, "Could not read user data!");
-                return false;
-            }
-
             mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
             mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
             mAccountMgr.setUserData(mAccount,

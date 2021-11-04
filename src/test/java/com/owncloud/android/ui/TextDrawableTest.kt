@@ -34,6 +34,6 @@ class TextDrawableTest {
         assertEquals("WB", TextDrawable.extractCharsFromDisplayName("winston brent"))
         assertEquals("BJ", TextDrawable.extractCharsFromDisplayName("Baker James Lorena"))
         assertEquals("BJ", TextDrawable.extractCharsFromDisplayName("Baker  James   Lorena"))
-        assertEquals("E", TextDrawable.extractCharsFromDisplayName("email@server.com"))
+        assertEquals("E", TextDrawable.extractCharsFromDisplayName("email@nextcloud.localhost"))
     }
 }

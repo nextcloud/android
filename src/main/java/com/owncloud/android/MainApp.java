@@ -120,7 +120,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_18;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_19;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
 
     private static final String TAG = MainApp.class.getSimpleName();
@@ -485,11 +485,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             if (notificationManager != null) {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
-                              R.string.notification_channel_download_name,
+                              R.string.notification_channel_download_name_short,
                               R.string.notification_channel_download_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
-                              R.string.notification_channel_upload_name,
+                              R.string.notification_channel_upload_name_short,
                               R.string.notification_channel_upload_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
@@ -500,9 +500,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                               R.string.notification_channel_file_sync_name,
                               R.string.notification_channel_file_sync_description, context);
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
-                              R.string.notification_channel_file_observer_name, R.string
-                                  .notification_channel_file_observer_description, context);
+                notificationManager.deleteNotificationChannel(NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
                               R.string.notification_channel_push_name, R.string
@@ -529,8 +527,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                       String channelId, int channelName,
                                       int channelDescription, Context context, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
-            && getAppContext() != null
-            && notificationManager.getNotificationChannel(channelId) == null) {
+            && getAppContext() != null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);

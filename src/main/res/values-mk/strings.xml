@@ -775,7 +775,6 @@
     <string name="what_s_new_image">Слика од тоа што е ново</string>
     <string name="whats_new_skip">Прескокни</string>
     <string name="whats_new_title">Ново во %1$s</string>
-    <string name="whats_your_status">Кој е вашиот статус?</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>
         <item quantity="other">Неможе да се синхронизираат %1$d датотеки (конфликти: %2$d)</item>

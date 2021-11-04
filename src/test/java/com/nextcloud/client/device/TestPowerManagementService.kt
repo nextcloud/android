@@ -82,9 +82,9 @@ class TestPowerManagementService {
         @Test
         fun `power saving queries power manager on API 21+`() {
             // GIVEN
-            //      API level >= 22 (since 22+ is supported)
+            //      API level >= 21
             //      power save mode is on
-            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.LOLLIPOP_MR1)
+            whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.Q)
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
 
             // WHEN

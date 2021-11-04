@@ -3,8 +3,10 @@
  *
  *   @author David A. Velasco
  *   @author Andy Scherzinger
+ *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
+ *   Copyright (C) 2018 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,9 +31,6 @@ import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
 import com.owncloud.android.R;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Calendar;
@@ -49,30 +48,28 @@ public class ExpirationDatePickerDialogFragment
     /** Tag for FragmentsManager */
     public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
 
-    /** Parameter constant for {@link OCShare} instance to set the expiration date */
-    private static final String ARG_SHARE = "SHARE";
-
     /** Parameter constant for date chosen initially */
     private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
-    /** Share to bind an expiration date */
-    private OCShare share;
+    private OnExpiryDateListener onExpiryDateListener;
 
     /**
      * Factory method to create new instances
      *
-     * @param share              share to bind an expiration date
      * @param chosenDateInMillis Date chosen when the dialog appears
      * @return New dialog instance
      */
-    public static ExpirationDatePickerDialogFragment newInstance(@NonNull OCShare share, long chosenDateInMillis) {
+    public static ExpirationDatePickerDialogFragment newInstance(long chosenDateInMillis) {
         Bundle arguments = new Bundle();
-        arguments.putParcelable(ARG_SHARE, share);
         arguments.putLong(ARG_CHOSEN_DATE_IN_MILLIS, chosenDateInMillis);
 
         ExpirationDatePickerDialogFragment dialog = new ExpirationDatePickerDialogFragment();
         dialog.setArguments(arguments);
         return dialog;
+    }
+
+    public void setOnExpiryDateListener(OnExpiryDateListener onExpiryDateListener) {
+        this.onExpiryDateListener = onExpiryDateListener;
     }
 
     /**
@@ -83,8 +80,6 @@ public class ExpirationDatePickerDialogFragment
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Load arguments
-        share = requireArguments().getParcelable(ARG_SHARE);
 
         // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
         final Calendar chosenDate = Calendar.getInstance();
@@ -101,14 +96,18 @@ public class ExpirationDatePickerDialogFragment
             chosenDate.get(Calendar.MONTH),
             chosenDate.get(Calendar.DAY_OF_MONTH)
         );
-        dialog.setButton(
+
+        //show unset button only when date is already selected
+        if (chosenDateInMillis > 0) {
+            dialog.setButton(
                 Dialog.BUTTON_NEUTRAL,
                 getText(R.string.share_via_link_unset_password),
                 (dialog1, which) -> {
-                    if (share != null) {
-                        ((FileActivity) requireActivity()).getFileOperationsHelper().setExpirationDateToShare(share, -1);
+                    if (onExpiryDateListener != null) {
+                        onExpiryDateListener.onDateUnSet();
                     }
                 });
+        }
 
         dialog.show();
         dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
@@ -144,9 +143,14 @@ public class ExpirationDatePickerDialogFragment
         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         long chosenDateInMillis = chosenDate.getTimeInMillis();
 
-        FileOperationsHelper operationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
-        if (share != null) {
-            operationsHelper.setExpirationDateToShare(share, chosenDateInMillis);
+        if (onExpiryDateListener != null) {
+            onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
         }
+    }
+
+    public interface OnExpiryDateListener {
+        void onDateSet(int year, int monthOfYear, int dayOfMonth, long chosenDateInMillis);
+
+        void onDateUnSet();
     }
 }

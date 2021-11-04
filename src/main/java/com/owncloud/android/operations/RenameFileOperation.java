@@ -52,11 +52,12 @@ public class RenameFileOperation extends SyncOperation {
     /**
      * Constructor
      *
-     * @param remotePath            RemotePath of the OCFile instance describing the remote file or
-     *                              folder to rename
-     * @param newName               New name to set as the name of file.
+     * @param remotePath RemotePath of the OCFile instance describing the remote file or folder to rename
+     * @param newName    New name to set as the name of file.
      */
-    public RenameFileOperation(String remotePath, String newName) {
+    public RenameFileOperation(String remotePath, String newName, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.remotePath = remotePath;
         this.newName = newName;
     }

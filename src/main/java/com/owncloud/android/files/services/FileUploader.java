@@ -490,7 +490,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            disableRetries
+            disableRetries,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
         newUpload.setCreatedBy(createdBy);
         if (isCreateRemoteFolder) {
@@ -539,7 +540,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            true
+            true,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
 
         newUpload.addDataTransferProgressListener(this);
@@ -639,7 +641,7 @@ public class FileUploader extends Service
 //                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
 //                } else {
                 /// perform the regular upload
-                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+                uploadResult = mCurrentUpload.execute(mUploadClient);
 //                }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error uploading", e);
@@ -667,16 +669,32 @@ public class FileUploader extends Service
             }
 
             // generate new Thumbnail
-            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
+            Optional<User> user = getCurrentUser();
+            if (user.isPresent()) {
+                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, user.get());
 
-            File file = new File(mCurrentUpload.getOriginalStoragePath());
-            String remoteId = mCurrentUpload.getFile().getRemoteId();
+                File file = new File(mCurrentUpload.getOriginalStoragePath());
+                String remoteId = mCurrentUpload.getFile().getRemoteId();
 
-            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+            }
         }
     }
 
+    /**
+     * Convert current account to user. This is a temporary workaround until
+     * service is migrated to new user model.
+     * 
+     * @return Optional {@link User}
+     */
+    private Optional<User> getCurrentUser() {
+        if (mCurrentAccount == null) {
+            return Optional.empty();
+        } else {
+            return accountManager.getUser(mCurrentAccount.name);
+        }
+    }
 
     /**
      * Creates a status notification to show the upload progress

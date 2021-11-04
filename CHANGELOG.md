@@ -1,29 +1,35 @@
-## 3.17.0 RC2 (July, 14, 2021)
+## 3.18.0 RC1 (October 25, 2021)
 
-UI improvements (Avatar, password dialog)
-New video player for better streaming
-Many bug fixes
+- Calendar backup/restore
+- Unified search
+- Profile page for users
+- Sharing permissions improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+
+For a full list, please see https://github.com/nextcloud/android/milestone/61
+
+## 3.17.1 (October, 20, 2021)
+
+- fix FIDO crash
+- fix crash in documents provider while offline
+- updated translations
 
 Minimum: NC 16 Server, Android 5.1 Lollipop
 
-For a full list, please see https://github.com/nextcloud/android/milestone/59
 
-## 3.17.0 RC1 (July, 06, 2021)
+For a full list, please see https://github.com/nextcloud/android/milestone/60
 
-UI improvements (Avatar, password dialog)
-New video player for better streaming
-Many bug fixes
+## 3.17.0 (August, 19, 2021)
+
+- UI improvements (Avatar, password dialog)
+- New video player for better streaming
+- Many bug fixes
+- Drop Android 5.0, new min version Android 5.1
 
 Minimum: NC 16 Server, Android 5.1 Lollipop
 
-For a full list, please see https://github.com/nextcloud/android/milestone/59
-
-## 3.17.0 (-, -, -)
-
-- New upload manager @ezaquarii
-- UI improvements
-
-Minimum: NC 16 Server, Android 5.0 Lollipop 
 
 For a full list, please see https://github.com/nextcloud/android/milestone/59
 
@@ -57,6 +63,9 @@ For a full list, please see https://github.com/nextcloud/android/milestone/55
 - passcode fix
 - enhance share access
 
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
+
 For a full list, please see https://github.com/nextcloud/android/milestone/57
 
 ## 3.15.0 (February, 02, 2021)
@@ -65,6 +74,9 @@ For a full list, please see https://github.com/nextcloud/android/milestone/57
 - UI Improvement (shimmer)
 - Bug fixes all over the place
 - Drop Android 4.4, new min version Android 5.0
+
+Minimum: NC 16 Server, Android 5.0 Lollipop 
+
 
 For a full list, please see https://github.com/nextcloud/android/milestone/52
 

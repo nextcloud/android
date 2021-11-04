@@ -361,4 +361,12 @@ public interface AppPreferences {
     void resetPinWrongAttempts();
 
     int pinBruteForceDelay();
+
+    String getUidPid();
+
+    void setUidPid(String uidPid);
+
+    long getCalendarLastBackup();
+
+    void setCalendarLastBackup(long timestamp);
 }

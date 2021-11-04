@@ -67,6 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -174,46 +175,133 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             0
                          );
 
-        for (Action action : notification.getActions()) {
-            button = new MaterialButton(notificationsActivity);
+        int primaryColor = ThemeColorUtils.primaryColor(notificationsActivity);
+        
+        List<Action> overflowActions = new ArrayList<>();
+        
+        if (notification.getActions().size() > 2) {
+            for (Action action: notification.getActions()) {
+                if (action.primary) {
+                    button = new MaterialButton(notificationsActivity);
+                    button.setAllCaps(false);
 
-            int primaryColor = ThemeColorUtils.primaryColor(notificationsActivity);
+                    button.setText(action.label);
+                    button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            if (action.primary) {
-                ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
-            } else {
-                button.setBackgroundColor(resources.getColor(R.color.grey_200));
-                button.setTextColor(primaryColor);
+                    button.setLayoutParams(params);
+                    button.setGravity(Gravity.CENTER);
+
+                    button.setOnClickListener(v -> {
+                        setButtonEnabled(holder, false);
+
+                        if (ACTION_TYPE_WEB.equals(action.type)) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(action.link));
+
+                            notificationsActivity.startActivity(intent);
+                        } else {
+                            new NotificationExecuteActionTask(client,
+                                                              holder,
+                                                              notification,
+                                                              notificationsActivity)
+                                .execute(action);
+                        }
+                    });
+
+                    ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
+                    holder.binding.buttons.addView(button);
+                } else {
+                    overflowActions.add(action);
+                }
             }
+            
+            // further actions
+            button = new MaterialButton(notificationsActivity);
+            button.setBackgroundColor(resources.getColor(R.color.grey_200));
+            button.setTextColor(primaryColor);
 
             button.setAllCaps(false);
 
-            button.setText(action.label);
+            button.setText(R.string.more);
             button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
             button.setLayoutParams(params);
             button.setGravity(Gravity.CENTER);
 
+            MaterialButton finalButton = button;
             button.setOnClickListener(v -> {
-                setButtonEnabled(holder, false);
+                PopupMenu popup = new PopupMenu(notificationsActivity, finalButton);
 
-                if (ACTION_TYPE_WEB.equals(action.type)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(action.link));
+                for (Action action : overflowActions) {
+                    popup.getMenu().add(action.label).setOnMenuItemClickListener(item -> {
+                        setButtonEnabled(holder, false);
 
-                    notificationsActivity.startActivity(intent);
-                } else {
-                    new NotificationExecuteActionTask(client,
-                                                      holder,
-                                                      notification,
-                                                      notificationsActivity)
-                        .execute(action);
+                        if (ACTION_TYPE_WEB.equals(action.type)) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(action.link));
+
+                            notificationsActivity.startActivity(intent);
+                        } else {
+                            new NotificationExecuteActionTask(client,
+                                                              holder,
+                                                              notification,
+                                                              notificationsActivity)
+                                .execute(action);
+                        }
+                        
+                        return true;
+                    });
                 }
+                
+                popup.show();
             });
 
             holder.binding.buttons.addView(button);
+        } else {
+            for (Action action : notification.getActions()) {
+                button = new MaterialButton(notificationsActivity);
+
+                if (action.primary) {
+                    ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
+                } else {
+                    button.setBackgroundColor(resources.getColor(R.color.grey_200));
+                    button.setTextColor(primaryColor);
+                }
+
+                button.setAllCaps(false);
+
+                button.setText(action.label);
+                button.setCornerRadiusResource(R.dimen.button_corner_radius);
+
+                button.setLayoutParams(params);
+                button.setGravity(Gravity.CENTER);
+
+                button.setOnClickListener(v -> {
+                    setButtonEnabled(holder, false);
+
+                    if (ACTION_TYPE_WEB.equals(action.type)) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(action.link));
+
+                        notificationsActivity.startActivity(intent);
+                    } else {
+                        new NotificationExecuteActionTask(client,
+                                                          holder,
+                                                          notification,
+                                                          notificationsActivity)
+                            .execute(action);
+                    }
+                });
+
+                holder.binding.buttons.addView(button);
+            }
         }
     }
+    
+    private void handleItemClick() {
+        
+    }
+    
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
         String text = notification.getSubjectRich();
