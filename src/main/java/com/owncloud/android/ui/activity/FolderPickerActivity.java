@@ -266,7 +266,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                             false,
                                                                             ignoreETag,
                                                                             getStorageManager(),
-                                                                            getAccount(),
+                                                                            getUser().orElseThrow(RuntimeException::new),
                                                                             getApplicationContext());
 
         refreshFolderOperation.execute(getAccount(), this, null, null);
@@ -318,22 +318,18 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case R.id.action_create_dir: {
-                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentFolder());
-                dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
-                break;
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_create_dir) {
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentFolder());
+            dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
+        } else if (itemId == android.R.id.home) {
+            OCFile currentDir = getCurrentFolder();
+            if (currentDir != null && currentDir.getParentId() != 0) {
+                onBackPressed();
             }
-            case android.R.id.home: {
-                OCFile currentDir = getCurrentFolder();
-                if (currentDir != null && currentDir.getParentId() != 0) {
-                    onBackPressed();
-                }
-                break;
-            }
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;

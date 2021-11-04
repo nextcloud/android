@@ -87,18 +87,27 @@ public class FileDataStorageManager {
     private ContentProviderClient contentProviderClient;
     private Account account;
 
+    @Deprecated
     public FileDataStorageManager(Account account, ContentResolver contentResolver) {
         this.contentProviderClient = null;
         this.contentResolver = contentResolver;
         this.account = account;
     }
 
+    public FileDataStorageManager(User user, ContentResolver contentResolver) {
+        this(user.toPlatformAccount(), contentResolver);
+    }
+
+    @Deprecated
     public FileDataStorageManager(Account account, ContentProviderClient contentProviderClient) {
         this.contentProviderClient = contentProviderClient;
         this.contentResolver = null;
         this.account = account;
     }
 
+    public FileDataStorageManager(User user, ContentProviderClient contentProviderClient) {
+        this(user.toPlatformAccount(), contentProviderClient);
+    }
 
     /**
      * Use getFileByEncryptedRemotePath() or getFileByDecryptedRemotePath()
@@ -146,7 +155,8 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
-    public OCFile getFileByLocalPath(String path) {
+    public @Nullable
+    OCFile getFileByLocalPath(String path) {
         Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile ocFile = null;
 
@@ -2402,9 +2412,5 @@ public class FileDataStorageManager {
 
     public Account getAccount() {
         return this.account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

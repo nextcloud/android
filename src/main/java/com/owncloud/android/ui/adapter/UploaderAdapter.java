@@ -119,8 +119,7 @@ public class UploaderAdapter extends SimpleAdapter {
                     // generate new Thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager,
-                                        user.toPlatformAccount());
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager, user);
                         if (thumbnail == null) {
                             if (MimeTypeUtil.isVideo(file)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;

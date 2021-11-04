@@ -28,11 +28,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
 
-class QuickSharingPermissionsAdapter(private val quickPermissionList:
-MutableList<QuickPermissionModel>, private
-val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener) :
-    RecyclerView.Adapter<RecyclerView
-    .ViewHolder>() {
+class QuickSharingPermissionsAdapter(
+    private val quickPermissionList: MutableList<QuickPermissionModel>,
+    private val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemQuickSharePermissionsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QuickSharingPermissionViewHolder(binding, binding.root, onPermissionChangeListener)
@@ -48,8 +48,10 @@ val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionCha
         return quickPermissionList.size
     }
 
-    class QuickSharingPermissionViewHolder(val binding: ItemQuickSharePermissionsBinding,
-        itemView: View, val onPermissionChangeListener: OnPermissionChangeListener) :
+    class QuickSharingPermissionViewHolder(
+        val binding: ItemQuickSharePermissionsBinding,
+        itemView: View, val onPermissionChangeListener: OnPermissionChangeListener
+    ) :
         RecyclerView
         .ViewHolder(itemView) {
 
@@ -66,14 +68,14 @@ val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionCha
                 //if user select different options then only update the permission
                 if (!quickPermissionModel.isSelected) {
                     onPermissionChangeListener.onPermissionChanged(adapterPosition)
-                }else{
+                } else {
                     //dismiss sheet on selection of same permission
                     onPermissionChangeListener.onDismissSheet()
                 }
             }
         }
 
-        interface OnPermissionChangeListener{
+        interface OnPermissionChangeListener {
             fun onPermissionChanged(position: Int)
             fun onDismissSheet()
         }

@@ -13,18 +13,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.FileUtils;
 import com.nmc.android.utils.KeyboardUtils;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.FragmentScanSaveBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -38,18 +35,10 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
-public class SaveScannedDocumentFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Injectable {
+public class SaveScannedDocumentFragment extends Fragment implements CompoundButton.OnCheckedChangeListener,
+    Injectable, View.OnClickListener {
 
     protected static final String TAG = "SaveScannedDocumentFragment";
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
@@ -64,7 +53,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         return fragment;
     }
 
-    private Unbinder unbinder;
+    private FragmentScanSaveBinding binding;
 
     public static final String SAVE_TYPE_PDF = "pdf";
     public static final String SAVE_TYPE_PNG = "png";
@@ -74,38 +63,6 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     public static final String EXTRA_SCAN_DOC_REMOTE_PATH = "scan_doc_remote_path";
 
-    @BindView(R.id.scan_save_nested_scroll_view)
-    NestedScrollView nestedScrollView;
-    @BindView(R.id.scan_save_filename_input)
-    TextInputEditText fileNameInput;
-    @BindView(R.id.scan_save_filename_input_edit_btn)
-    AppCompatImageView fileNameEditBtn;
-    @BindView(R.id.scan_save_location_input)
-    AppCompatTextView locationInput;
-    @BindView(R.id.scan_save_location_edit_btn)
-    AppCompatImageView locationEditBtn;
-    @BindView(R.id.scan_save_without_txt_recognition_pdf_checkbox)
-    AppCompatCheckBox pdfCheckBox;
-    @BindView(R.id.scan_save_without_txt_recognition_jpg_checkbox)
-    AppCompatCheckBox jpgCheckBox;
-    @BindView(R.id.scan_save_without_txt_recognition_png_checkbox)
-    AppCompatCheckBox pngCheckBox;
-    @BindView(R.id.scan_save_with_txt_recognition_pdf_checkbox)
-    AppCompatCheckBox pdfOcrCheckBox;
-    @BindView(R.id.scan_save_with_txt_recognition_txt_checkbox)
-    AppCompatCheckBox txtFileCheckBox;
-    @BindView(R.id.scan_save_pdf_password_switch)
-    SwitchCompat pdfPasswordSwitch;
-    @BindView(R.id.scan_save_pdf_password_text_input)
-    TextInputLayout pdfPasswordInputLayout;
-    @BindView(R.id.scan_save_pdf_password_et)
-    TextInputEditText pdfPasswordEt;
-    @BindView(R.id.save_scan_btn_cancel)
-    MaterialButton cancelButton;
-    @BindView(R.id.save_scan_btn_save)
-    MaterialButton saveButton;
-    @BindView(R.id.saveScanProgressBar)
-    ProgressBar progressBar;
     private boolean isFileNameEditable = false;
     private String remotePath = "/";
     private OCFile remoteFilePath;
@@ -129,17 +86,25 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
             ((ScanActivity) requireActivity()).showHideDefaultToolbarDivider(true);
             ((ScanActivity) requireActivity()).updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.title_save_as));
         }
-        return inflater.inflate(R.layout.fragment_scan_save, container, false);
+        binding = FragmentScanSaveBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
         initViews();
         setDefaultRemotePath();
         updateSaveLocationText(appPreferences.getUploadScansLastPath());
         implementCheckListeners();
+        implementClickEvent();
+    }
+
+    private void implementClickEvent() {
+        binding.scanSaveFilenameInputEditBtn.setOnClickListener(this);
+        binding.scanSaveLocationEditBtn.setOnClickListener(this);
+        binding.saveScanBtnCancel.setOnClickListener(this);
+        binding.saveScanBtnSave.setOnClickListener(this);
     }
 
     /**
@@ -154,16 +119,20 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     private void initViews() {
-        fileNameInput.setText(FileUtils.scannedFileName());
-        ThemeCheckableUtils.tintSwitch(pdfPasswordSwitch, 0);
-        ThemeCheckableUtils.tintCheckbox(0, pdfCheckBox, pngCheckBox, jpgCheckBox, pdfOcrCheckBox, txtFileCheckBox);
-        ThemeButtonUtils.colorPrimaryButton(saveButton, requireContext());
+        binding.scanSaveFilenameInput.setText(FileUtils.scannedFileName());
+        ThemeCheckableUtils.tintSwitch(binding.scanSavePdfPasswordSwitch, 0);
+        ThemeCheckableUtils.tintCheckbox(0, binding.scanSaveWithoutTxtRecognitionPdfCheckbox,
+                                         binding.scanSaveWithoutTxtRecognitionPngCheckbox,
+                                         binding.scanSaveWithoutTxtRecognitionJpgCheckbox,
+                                         binding.scanSaveWithTxtRecognitionPdfCheckbox,
+                                         binding.scanSaveWithTxtRecognitionTxtCheckbox);
+        ThemeButtonUtils.colorPrimaryButton(binding.saveScanBtnSave, requireContext());
 
-        pdfOcrCheckBox.setChecked(true);
-        ThemeTextInputUtils.colorTextInputLayout(pdfPasswordInputLayout,
+        binding.scanSaveWithTxtRecognitionPdfCheckbox.setChecked(true);
+        ThemeTextInputUtils.colorTextInputLayout(binding.scanSavePdfPasswordTextInput,
                                                  getResources().getColor(R.color.secondary_text_color));
-        pdfPasswordEt.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
-        pdfPasswordInputLayout.setDefaultHintTextColor(new ColorStateList(
+        binding.scanSavePdfPasswordEt.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
+        binding.scanSavePdfPasswordTextInput.setDefaultHintTextColor(new ColorStateList(
             new int[][]{
                 new int[]{-android.R.attr.state_focused},
                 new int[]{android.R.attr.state_focused},
@@ -176,14 +145,14 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     private void implementCheckListeners() {
-        pdfCheckBox.setOnCheckedChangeListener(this);
-        jpgCheckBox.setOnCheckedChangeListener(this);
-        pngCheckBox.setOnCheckedChangeListener(this);
-        pdfOcrCheckBox.setOnCheckedChangeListener(this);
-        txtFileCheckBox.setOnCheckedChangeListener(this);
-        pdfPasswordSwitch.setOnCheckedChangeListener(this);
+        binding.scanSaveWithoutTxtRecognitionPdfCheckbox.setOnCheckedChangeListener(this);
+        binding.scanSaveWithoutTxtRecognitionJpgCheckbox.setOnCheckedChangeListener(this);
+        binding.scanSaveWithoutTxtRecognitionPngCheckbox.setOnCheckedChangeListener(this);
+        binding.scanSaveWithTxtRecognitionPdfCheckbox.setOnCheckedChangeListener(this);
+        binding.scanSaveWithTxtRecognitionTxtCheckbox.setOnCheckedChangeListener(this);
+        binding.scanSavePdfPasswordSwitch.setOnCheckedChangeListener(this);
 
-        fileNameInput.setOnEditorActionListener((v, actionId, event) -> {
+        binding.scanSaveFilenameInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 enableFileNameEditing();
                 return true;
@@ -193,40 +162,40 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     private void enableDisablePdfPasswordSwitch() {
-        pdfPasswordSwitch.setEnabled(pdfCheckBox.isChecked() || pdfOcrCheckBox.isChecked());
-        if (!pdfCheckBox.isChecked() && !pdfOcrCheckBox.isChecked()) {
-            pdfPasswordSwitch.setChecked(false);
+        binding.scanSavePdfPasswordSwitch.setEnabled(binding.scanSaveWithoutTxtRecognitionPdfCheckbox.isChecked() || binding.scanSaveWithTxtRecognitionPdfCheckbox.isChecked());
+        if (!binding.scanSaveWithoutTxtRecognitionPdfCheckbox.isChecked() && !binding.scanSaveWithTxtRecognitionPdfCheckbox.isChecked()) {
+            binding.scanSavePdfPasswordSwitch.setChecked(false);
         }
     }
 
     private void showHidePdfPasswordInput(boolean isChecked) {
-        pdfPasswordInputLayout.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        binding.scanSavePdfPasswordTextInput.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         if (isChecked) {
-            nestedScrollView.post(() -> nestedScrollView.fullScroll(ScrollView.FOCUS_DOWN));
+            binding.scanSaveNestedScrollView.post(() -> binding.scanSaveNestedScrollView.fullScroll(ScrollView.FOCUS_DOWN));
         }
         if (isChecked) {
-            KeyboardUtils.showSoftKeyboard(requireContext(), pdfPasswordEt);
+            KeyboardUtils.showSoftKeyboard(requireContext(), binding.scanSavePdfPasswordEt);
         } else {
-            KeyboardUtils.hideKeyboardFrom(requireContext(), pdfPasswordEt);
+            KeyboardUtils.hideKeyboardFrom(requireContext(), binding.scanSavePdfPasswordEt);
         }
     }
 
     private void enableFileNameEditing() {
         isFileNameEditable = !isFileNameEditable;
-        fileNameInput.setEnabled(isFileNameEditable);
+        binding.scanSaveFilenameInput.setEnabled(isFileNameEditable);
         if (isFileNameEditable) {
-            fileNameEditBtn.setImageResource(R.drawable.ic_tick);
-            KeyboardUtils.showSoftKeyboard(requireContext(), fileNameInput);
-            fileNameInput.setSelection(fileNameInput.getText().toString().trim().length());
+            binding.scanSaveFilenameInputEditBtn.setImageResource(R.drawable.ic_tick);
+            KeyboardUtils.showSoftKeyboard(requireContext(), binding.scanSaveFilenameInput);
+            binding.scanSaveFilenameInput.setSelection(binding.scanSaveFilenameInput.getText().toString().trim().length());
         } else {
-            fileNameEditBtn.setImageResource(R.drawable.ic_pencil_edit);
-            KeyboardUtils.hideKeyboardFrom(requireContext(), fileNameInput);
+            binding.scanSaveFilenameInputEditBtn.setImageResource(R.drawable.ic_pencil_edit);
+            KeyboardUtils.hideKeyboardFrom(requireContext(), binding.scanSaveFilenameInput);
         }
     }
 
 
-    @OnClick({R.id.scan_save_filename_input_edit_btn, R.id.scan_save_location_edit_btn, R.id.save_scan_btn_cancel, R.id.save_scan_btn_save})
-    void onClickListener(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.scan_save_filename_input_edit_btn:
                 enableFileNameEditing();
@@ -247,7 +216,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     private void saveScannedFiles() {
-        String fileName = fileNameInput.getText().toString().trim();
+        String fileName = binding.scanSaveFilenameInput.getText().toString().trim();
         if (TextUtils.isEmpty(fileName)) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty);
             return;
@@ -258,34 +227,37 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
             return;
         }
 
-        if (!pdfCheckBox.isChecked() && !jpgCheckBox.isChecked() && !pngCheckBox.isChecked() && !pdfOcrCheckBox.isChecked()
-            && !txtFileCheckBox.isChecked()) {
+        if (!binding.scanSaveWithoutTxtRecognitionPdfCheckbox.isChecked()
+            && !binding.scanSaveWithoutTxtRecognitionJpgCheckbox.isChecked()
+            && !binding.scanSaveWithoutTxtRecognitionPngCheckbox.isChecked()
+            && !binding.scanSaveWithTxtRecognitionPdfCheckbox.isChecked()
+            && !binding.scanSaveWithTxtRecognitionTxtCheckbox.isChecked()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.scan_save_no_file_select_toast);
             return;
         }
 
         StringBuilder fileTypesStringBuilder = new StringBuilder();
-        if (pdfCheckBox.isChecked()) {
+        if (binding.scanSaveWithoutTxtRecognitionPdfCheckbox.isChecked()) {
             fileTypesStringBuilder.append(SAVE_TYPE_PDF);
             fileTypesStringBuilder.append(",");
         }
-        if (jpgCheckBox.isChecked()) {
+        if (binding.scanSaveWithoutTxtRecognitionJpgCheckbox.isChecked()) {
             fileTypesStringBuilder.append(SAVE_TYPE_JPG);
             fileTypesStringBuilder.append(",");
         }
-        if (pngCheckBox.isChecked()) {
+        if (binding.scanSaveWithoutTxtRecognitionPngCheckbox.isChecked()) {
             fileTypesStringBuilder.append(SAVE_TYPE_PNG);
             fileTypesStringBuilder.append(",");
         }
-        if (pdfOcrCheckBox.isChecked()) {
+        if (binding.scanSaveWithTxtRecognitionPdfCheckbox.isChecked()) {
             fileTypesStringBuilder.append(SAVE_TYPE_PDF_OCR);
             fileTypesStringBuilder.append(",");
         }
-        if (txtFileCheckBox.isChecked()) {
+        if (binding.scanSaveWithTxtRecognitionTxtCheckbox.isChecked()) {
             fileTypesStringBuilder.append(SAVE_TYPE_TXT);
         }
-        String pdfPassword = pdfPasswordEt.getText().toString().trim();
-        if (pdfPasswordSwitch.isChecked() && TextUtils.isEmpty(pdfPassword)) {
+        String pdfPassword = binding.scanSavePdfPasswordEt.getText().toString().trim();
+        if (binding.scanSavePdfPasswordSwitch.isChecked() && TextUtils.isEmpty(pdfPassword)) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.save_scan_empty_pdf_password);
             return;
         }
@@ -330,10 +302,8 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     @Override
     public void onDestroyView() {
+        binding = null;
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
     }
 
     @Override
@@ -360,7 +330,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         if (path.equalsIgnoreCase("/")) {
             path = getResources().getString(R.string.scan_save_location_root);
         }
-        locationInput.setText(path);
+        binding.scanSaveLocationInput.setText(path);
     }
 
     @Override
@@ -376,4 +346,5 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

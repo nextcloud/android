@@ -276,12 +276,10 @@ public class FileContentProvider extends ContentProvider {
                 String[] whereArgs = {remotePath, accountName};
 
                 Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
-                // ugly patch; serious refactorization is needed to reduce work in
+                // ugly patch; serious refactoring is needed to reduce work in
                 // FileDataStorageManager and bring it to FileContentProvider
-                if (doubleCheck == null || !doubleCheck.moveToFirst()) {
-                    if (doubleCheck != null) {
-                        doubleCheck.close();
-                    }
+                if (!doubleCheck.moveToFirst()) {
+                    doubleCheck.close();
                     long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
                     if (rowId > 0) {
                         return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);

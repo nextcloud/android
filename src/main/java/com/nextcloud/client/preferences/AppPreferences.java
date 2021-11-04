@@ -362,6 +362,14 @@ public interface AppPreferences {
 
     int pinBruteForceDelay();
 
+    String getUidPid();
+
+    void setUidPid(String uidPid);
+
+    long getCalendarLastBackup();
+
+    void setCalendarLastBackup(long timestamp);
+
     /**
      * Saves the data analysis from privacy settings
      * on disabling it we should disable Adjust SDK tracking

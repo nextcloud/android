@@ -100,12 +100,18 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
-     * @param   context                 Application context.
-     * @param   remotePath              Path to synchronize.
-     * @param   user                    Nextcloud account where the folder is located.
-     * @param   currentSyncTime         Time stamp for the synchronization process in progress.
+     * @param context         Application context.
+     * @param remotePath      Path to synchronize.
+     * @param user            Nextcloud account where the folder is located.
+     * @param currentSyncTime Time stamp for the synchronization process in progress.
      */
-    public SynchronizeFolderOperation(Context context, String remotePath, User user, long currentSyncTime){
+    public SynchronizeFolderOperation(Context context,
+                                      String remotePath,
+                                      User user,
+                                      long currentSyncTime,
+                                      FileDataStorageManager storageManager) {
+        super(storageManager);
+
         mRemotePath = remotePath;
         mCurrentSyncTime = currentSyncTime;
         this.user = user;
@@ -313,7 +319,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             updateLocalStateData(remoteFile, localFile, updatedFile);
 
             /// check and fix, if needed, local storage path
-            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.toPlatformAccount());
+            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
             if (metadata != null) {
@@ -383,12 +389,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
         } else {
             /// prepare content synchronization for files (any file, not just favorites)
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                    localFile,
-                    remoteFile,
-                    user,
-                    true,
-                    mContext
-                );
+                localFile,
+                remoteFile,
+                user,
+                true,
+                mContext,
+                getStorageManager()
+            );
             mFilesToSyncContents.add(operation);
         }
     }
@@ -415,11 +422,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 } else {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                            child,
-                            child.getEtagInConflict() != null ? child : null,
-                            user,
-                            true,
-                            mContext
+                        child,
+                        child.getEtagInConflict() != null ? child : null,
+                        user,
+                        true,
+                        mContext,
+                        getStorageManager()
                     );
                     mFilesToSyncContents.add(operation);
 
@@ -471,7 +479,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
-            contentsResult = op.execute(getStorageManager(), mContext);
+            contentsResult = op.execute(mContext);
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;

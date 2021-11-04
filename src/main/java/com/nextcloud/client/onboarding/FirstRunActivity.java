@@ -115,6 +115,10 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         hostOwnServerTextView.setTextColor(getResources().getColor(R.color.login_text_color));
         hostOwnServerTextView.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
+        if(!isProviderOrOwnInstallationVisible) {
+            hostOwnServerTextView.setOnClickListener(v -> onHostYourOwnServerClick());
+        }
+
         progressIndicator = findViewById(R.id.progressIndicator);
         ViewPager viewPager = findViewById(R.id.contentPanel);
 
@@ -200,7 +204,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         // unused but to be implemented due to abstract parent
     }
 
-    public void onHostYourOwnServerClick(View view) {
+    public void onHostYourOwnServerClick() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_server_install)));
         DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
     }

@@ -31,7 +31,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
-import android.os.Build
 import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
@@ -156,7 +155,12 @@ class NotificationWork constructor(
             }
             intent.putExtra(KEY_NOTIFICATION_ACCOUNT, user.accountName)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+            pendingIntent = PendingIntent.getActivity(
+                context,
+                notification.getNotificationId(),
+                intent,
+                PendingIntent.FLAG_ONE_SHOT
+            )
         }
 
         val pushNotificationId = randomId.nextInt()
@@ -278,15 +282,13 @@ class NotificationWork constructor(
                             Activity.NOTIFICATION_SERVICE
                         ) as NotificationManager
                         var oldNotification: android.app.Notification? = null
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && notificationManager != null) {
-                            for (statusBarNotification in notificationManager.activeNotifications) {
-                                if (numericNotificationId == statusBarNotification.id) {
-                                    oldNotification = statusBarNotification.notification
-                                    break
-                                }
+                        for (statusBarNotification in notificationManager.activeNotifications) {
+                            if (numericNotificationId == statusBarNotification.id) {
+                                oldNotification = statusBarNotification.notification
+                                break
                             }
-                            cancel(context, numericNotificationId)
                         }
+                        cancel(context, numericNotificationId)
                         try {
                             val optionalUser = accountManager.getUser(accountName)
                             if (optionalUser.isPresent) {

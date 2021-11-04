@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -35,7 +34,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -171,11 +169,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Creates an empty fragment for image previews.
-     * <p>
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
-     * device is turned a aside).
-     * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
+     *
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
+     * (for instance, when the device is turned a aside).
+     *
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful
+     * construction
      */
     public PreviewImageFragment() {
         ignoreFirstSavedState = false;
@@ -775,22 +774,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         layers[1] = bitmapDrawable;
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Activity activity = getActivity();
-            if (activity != null) {
-                int bitmapWidth;
-                int bitmapHeight;
+        Activity activity = getActivity();
+        if (activity != null) {
+            int bitmapWidth;
+            int bitmapHeight;
 
-                if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                    bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
-                } else {
-                    bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
-                }
-                layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-                layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
+            if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
+            } else {
+                bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
             }
+            layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+            layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
         }
 
         return layerDrawable;
@@ -883,10 +880,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void toggleImageBackground() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-            && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
-            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
-            && getActivity() instanceof PreviewImageActivity) {
+        if (getFile() != null && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
+            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null &&
+            getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
             if (binding.image.getDrawable() instanceof LayerDrawable) {

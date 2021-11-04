@@ -14,6 +14,7 @@
     <string name="action_send_share">Teilen</string>
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
+    <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
     <string name="actionbar_contacts">Kontakte sichern</string>
     <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
     <string name="actionbar_copy">Kopieren</string>
@@ -34,6 +35,7 @@
     <string name="add_another_public_share_link">Weiteren Link hinzufügen</string>
     <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="allow_creating">Erstellen erlauben</string>
     <string name="allow_deleting">Löschen erlauben</string>
     <string name="allow_editing">Bearbeitung erlauben</string>
@@ -79,12 +81,16 @@
     <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
+    <string name="backup_settings">Sicherungseinstellungen</string>
+    <string name="backup_title">Kontakte &amp; Kalender-Sicherung</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
     <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
     <string name="brute_force_delay">Durch zu viele Fehlversuche verzögert</string>
+    <string name="calendar">Kalender</string>
+    <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
     <string name="changelog_dev_version">Änderungen in der Entwicklerversion</string>
     <string name="checkbox">Checkbox</string>
@@ -154,6 +160,7 @@
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
     <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
+    <string name="contacts">Kontakte</string>
     <string name="contacts_automatic_backup">Automatisch sichern</string>
     <string name="contacts_backup_button">Jetzt sichern</string>
     <string name="contacts_last_backup">Letzte Sicherung</string>
@@ -185,16 +192,21 @@
     <string name="create_rich_workspace">Ordnerinfo hinzufügen</string>
     <string name="creates_rich_workspace">Ordnerinfo erstellen</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
+    <string name="daily_backup">Tägliche Sicherung</string>
+    <string name="data_to_back_up">Zu sichernde Daten</string>
     <string name="date_unknown">Unbekannt</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
     <string name="delete_account">Benutzerkonto löschen</string>
     <string name="delete_account_warning">Konto %s und alle lokalen Dateien löschen?\n\nLöschung kann nicht rückgängig gemacht werden.</string>
     <string name="delete_entries">Einträgen entfernen</string>
+    <string name="delete_link">Link löschen</string>
     <string name="deselect_all">Auswahl aufheben</string>
+    <string name="destination_filename">Ziel-Dateiname</string>
     <string name="dev_version_new_version_available">Neue Version verfügbar</string>
     <string name="dev_version_no_information_available">Keine Information verfügbar.</string>
     <string name="dev_version_no_new_version_available">Keine neue Version verfügbar.</string>
     <string name="dialog_close">Schließen</string>
+    <string name="did_not_check_for_dupes">Es wurde nicht auf Duplikate geprüft.</string>
     <string name="digest_algorithm_not_available">Dieser Algorithmus-Auszug ist auf Ihrem Handy nicht verfügbar.</string>
     <string name="direct_login_failed">Anmeldung über Direktlink fehlgeschlagen!</string>
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
@@ -252,9 +264,11 @@
     <string name="end_to_end_encryption_title">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_unsuccessful">Die Schlüssel konnten nicht gespeichert werden. Bitte erneut versuchen.</string>
     <string name="end_to_end_encryption_wrong_password">Fehler beim Entschlüsseln. Falsches Passwort?</string>
+    <string name="enter_destination_filename">Ziel-Dateiname eingeben</string>
     <string name="enter_filename">Bitte Dateinamen eingeben</string>
     <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
     <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
+    <string name="error_choosing_date">Fehler beim Auswählen des Datums</string>
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
     <string name="error_report_issue_action">Melden</string>
@@ -385,12 +399,15 @@
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
+    <string name="last_backup">Letzte Sicherung:%1$s</string>
     <string name="link">Link</string>
+    <string name="link_name">Link-Name</string>
     <string name="link_share_allow_upload_and_editing">Hochladen &amp; Bearbeiten</string>
     <string name="link_share_file_drop">Sammelbox</string>
     <string name="link_share_read_only">Nur Lesen</string>
     <string name="link_share_editing">Bearbeiten</string>
     <string name="list_layout">Layout der Liste</string>
+    <string name="load_more_results">Weitere Ergebnisse laden</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="local_file_not_found_message">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -428,6 +445,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
+    <string name="more">Mehr</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
@@ -443,7 +461,10 @@
     <string name="new_media_folder_videos">Video</string>
     <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
+    <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_calendar_exists">Es existieren keine Kalender</string>
+    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="note_confirm">Senden</string>
@@ -452,6 +473,7 @@
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name">Herunterlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_observer_description">Prüft auf Dateiänderungen</string>
     <string name="notification_channel_file_observer_name">Dateimonitor</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
@@ -464,6 +486,7 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
+    <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_channel_scan_doc_save">Gescannte Documente speichern Benachrichtigungskanal</string>
     <string name="notification_channel_scan_doc_save_description">Speicherprozess zeigen</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
@@ -516,6 +539,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
+    <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
     <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
@@ -575,7 +599,9 @@
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
     <string name="restore">Datei wiederherstellen</string>
+    <string name="restore_backup">Letzte Sicherung wiederherstellen</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
+    <string name="restore_selected">Ausgewählte wiederherstellen</string>
     <string name="retrieving_file">Abrufen der Datei…</string>
     <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
@@ -591,6 +617,7 @@
     <string name="screenshot_05_autoUpload_subline">ihrer Fotos &amp; Videos</string>
     <string name="screenshot_06_davdroid_heading">Kalender &amp; Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
+    <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
     <string name="select_all">Alle auswählen</string>
     <string name="select_one_template">Bitte eine Vorlage auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
@@ -598,11 +625,14 @@
     <string name="send_note">Notiz an Empfänger senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
+    <string name="set_note">Notiz setzen</string>
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_status">Status setzen</string>
     <string name="set_status_message">Statusnachricht setzen</string>
     <string name="share">Teilen</string>
+    <string name="share_copy_link">Teilen &amp; Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_file">Teile %1$s</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
@@ -610,6 +640,7 @@
     <string name="share_internal_link_to_file_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diese Datei</string>
     <string name="share_internal_link_to_folder_text">Der interne Freigabelink funktioniert nur für Benutzer mit Zugriff auf diesen Ordner</string>
     <string name="share_known_remote_on_clarification">auf %1$s</string>
+    <string name="share_link">Link teilen</string>
     <string name="share_link_folder">Link zum Ordner</string>
     <string name="share_link_file">Link to file</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
@@ -622,11 +653,14 @@
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
     <string name="share_password_title">Passwortgeschützt</string>
+    <string name="share_permission_view_only">Nur anzeigen</string>
+    <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Kontaktname oder Email</string>
     <string name="share_send_note">Notiz an Empfänger</string>
+    <string name="share_settings">Einstellungen</string>
     <string name="share_via_link_hide_download">Download verbergen</string>
     <string name="share_via_link_menu_password_label">Passwortschutz (%1$s)</string>
     <string name="share_via_link_section_title">Link teilen</string>
@@ -694,6 +728,7 @@
     <string name="strict_mode">Strikter Modus: keine HTTP-Verbindung erlaubt!</string>
     <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
     <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
+    <string name="suggest">Vorschlagen</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="sync_fail_content">Synchronisierung von %1$s konnte nicht abgeschlossen werden</string>
@@ -841,6 +876,7 @@
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
+    <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
     <string name="storage_sd_card">SD-Karte</string>
@@ -866,6 +902,22 @@
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">%1$d Datei im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
         <item quantity="other">%1$d Dateien im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">%1$d Termin in %2$s geschrieben</item>
+        <item quantity="other">%1$d Termine in %2$s geschrieben</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">%1$d neue UID erstellt</item>
+        <item quantity="other">%1$d neue UIDs erstellt</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">%d Eintrag verarbeitet.</item>
+        <item quantity="other">%d Einträge verarbeitet.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">%d doppelter Eintrag gefunden.</item>
+        <item quantity="other">%d doppelte Einträge gefunden.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d Ordner</item>

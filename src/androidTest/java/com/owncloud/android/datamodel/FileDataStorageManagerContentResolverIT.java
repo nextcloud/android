@@ -25,7 +25,7 @@ package com.owncloud.android.datamodel;
 public class FileDataStorageManagerContentResolverIT extends FileDataStorageManagerIT {
     @Override
     public void before() {
-        sut = new FileDataStorageManager(account, targetContext.getContentResolver());
+        sut = new FileDataStorageManager(user, targetContext.getContentResolver());
 
         super.before();
     }

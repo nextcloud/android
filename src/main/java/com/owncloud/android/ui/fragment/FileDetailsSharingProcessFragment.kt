@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -52,6 +53,7 @@ import java.util.Date
  * configuration at one time.
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
+@Suppress("TooManyFunctions")
 class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener {
 
     companion object {
@@ -109,21 +111,32 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         }
     }
 
+    private lateinit var onEditShareListener: FileDetailSharingFragment.OnEditShareListener
+
     private lateinit var binding: FileDetailsSharingProcessFragmentBinding
     private var fileOperationsHelper: FileOperationsHelper? = null
     private var fileActivity: FileActivity? = null
 
-    private var file: OCFile? = null //file to be share
+    private var file: OCFile? = null // file to be share
     private var shareeName: String? = null
     private lateinit var shareType: ShareType
-    private var shareProcessStep = SCREEN_TYPE_PERMISSION //default screen type
-    private var permission = OCShare.NO_PERMISSION //no permission
-    private var chosenExpDateInMills: Long = -1 //for no expiry date
+    private var shareProcessStep = SCREEN_TYPE_PERMISSION // default screen type
+    private var permission = OCShare.NO_PERMISSION // no permission
+    private var chosenExpDateInMills: Long = -1 // for no expiry date
     private var isFileWithNoTextFile: Boolean = false
 
     private var share: OCShare? = null
-    private var isReshareShown: Boolean = true //show or hide reshare option
-    private var isExpDateShown: Boolean = true //show or hide expiray date option
+    private var isReshareShown: Boolean = true // show or hide reshare option
+    private var isExpDateShown: Boolean = true // show or hide expiry date option
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onEditShareListener = context as FileDetailSharingFragment.OnEditShareListener
+        } catch (e: ClassCastException) {
+            throw IllegalStateException("Calling activity must implement the interface")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -253,28 +266,16 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
             updateFileEditingRadioButton()
         }
-        //internal share
+        // internal share
         else {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
             binding.shareProcessChangeNameEt.visibility = View.GONE
-            binding.dividerSharingChangeName.visibility = View.GONE
             binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-            binding.dividerSharingHideDownload.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
-            binding.shareProcessAllowResharingInfo.visibility = View.VISIBLE
-            binding.dividerSharingAllowResharing.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
-            binding.dividerSharingEnterPassword.visibility = View.GONE
             if (share != null) {
-                if (share?.isFolder == true) {
-                    //no file drop for internal share due to 403 bad request api issue
-                    binding.shareProcessPermissionFileDrop.visibility = View.GONE
-                    binding.shareFileDropInfo.visibility = View.GONE
-                }
                 if (!isReshareShown) {
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
-                    binding.shareProcessAllowResharingInfo.visibility = View.GONE
-                    binding.dividerSharingAllowResharing.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
             }else if (file?.isFolder == true){

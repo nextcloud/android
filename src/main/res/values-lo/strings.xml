@@ -812,7 +812,6 @@
     <string name="what_s_new_image">ຮູບພາບໃຫມ່</string>
     <string name="whats_new_skip">ຂ້າມໄປ</string>
     <string name="whats_new_title">ໃຫມ່ໃນ%1$s</string>
-    <string name="whats_your_status">ສະຖານະຂອງທ່ານແມ່ນຫຍັງ?</string>
     <string name="wrong_storage_path">ບໍ່ມີໂຟນເດີເກັບຂໍ້ມູນ!</string>
     <string name="wrong_storage_path_desc">ນີ້ອາດຈະເປັນຍ້ອນການກູ້ຄືນການສໍາຮອງໃນອຸປະກອນອື່ນ.ການກັບຄືນຄ່າເດີມບໍ່ສຳເລັດ. ກະລຸນາກວດເບິ່ງການຕັ້ງຄ່າເພື່ອປັບຟາຍການເກັບຂໍ້ມູນ.</string>
     <plurals name="sync_fail_in_favourites_content">

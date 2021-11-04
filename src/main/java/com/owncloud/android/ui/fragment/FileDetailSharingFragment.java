@@ -26,6 +26,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -39,6 +40,7 @@ import android.view.ViewGroup;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
@@ -50,12 +52,14 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
+import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -63,7 +67,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +102,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences appPreferences;
+
+    @Inject ClientFactory clientFactory;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -191,7 +196,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         try {
             onEditShareListener = (OnEditShareListener) context;
         } catch (Exception ignored) {
-            throw new IllegalArgumentException("Calling activity must implement the interface");
+            throw new IllegalArgumentException("Calling activity must implement the interface", ignored);
         }
     }
 
@@ -390,6 +395,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void requestPasswordForShare(OCShare share, boolean askForPassword) {
         SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(share, askForPassword);
         dialog.show(getChildFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    }
+
+    @Override
+    public void showProfileBottomSheet(User user, String shareWith) {
+        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.Companion.getNextcloud_23())) {
+            new RetrieveHoverCardAsyncTask(user, shareWith, fileActivity, clientFactory).execute();
+        }
     }
 
     /**

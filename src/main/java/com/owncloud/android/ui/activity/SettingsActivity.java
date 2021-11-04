@@ -31,7 +31,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -242,7 +241,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupDataPrivacyCategory(int accentColor) {
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("data_protection");
         preferenceCategoryAbout.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_data_privacy),
-                                                                    accentColor));
+                                                                        accentColor));
 
        /* // license
         boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
@@ -263,7 +262,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         Preference privacySettingPreference = findPreference("privacy_settings");
         if (privacySettingPreference != null) {
             privacySettingPreference.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.privacy_settings),
-                                                                     accentColor));
+                                                                             accentColor));
             privacySettingPreference.setOnPreferenceClickListener(preference -> {
                 PrivacySettingsActivity.openPrivacySettingsActivity(this, false);
                 return true;
@@ -275,7 +274,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         if (privacyPolicyPreference != null) {
             privacyPolicyPreference.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.privacy_policy),
-                                                                        accentColor));
+                                                                            accentColor));
             if (URLUtil.isValidUrl(getString(R.string.privacy_policy_url))) {
                 privacyPolicyPreference.setOnPreferenceClickListener(preference -> {
                     try {
@@ -311,7 +310,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         Preference sourcecodePreference = findPreference("sourcecode");
         if (sourcecodePreference != null) {
             sourcecodePreference.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_open_source),
-                                                                     accentColor));
+                                                                         accentColor));
             if (URLUtil.isValidUrl(getString(R.string.sourcecode_url))) {
                 sourcecodePreference.setOnPreferenceClickListener(preference -> {
                     Intent intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
@@ -332,19 +331,19 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setUpInfoCategory(int accentColor) {
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("info");
         preferenceCategoryAbout.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_info),
-                                                                    accentColor));
+                                                                        accentColor));
     }
 
     private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         preferenceCategoryMore.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_more),
-                                                                   accentColor));
+                                                                       accentColor));
 
         setupAutoUploadPreference(preferenceCategoryMore, accentColor);
 
         setupCalendarPreference(preferenceCategoryMore);
 
-        setupContactsBackupPreference(preferenceCategoryMore, accentColor);
+        setupBackupPreference(accentColor);
 
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
@@ -361,7 +360,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             pLogger.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.logs_title),
-                                                        accentColor));
+                                                            accentColor));
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
@@ -414,7 +413,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
-            if (!mnemonic.isEmpty() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!mnemonic.isEmpty()) {
                 if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
                     pMnemonic.setOnPreferenceClickListener(preference -> {
 
@@ -437,7 +436,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
         Preference autoUpload = findPreference("syncedFolders");
         autoUpload.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
-                                                       accentColor));
+                                                           accentColor));
         if (getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceCategoryMore.removePreference(autoUpload);
         } else {
@@ -449,21 +448,15 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupContactsBackupPreference(PreferenceCategory preferenceCategoryMore, int accentColor) {
-        boolean contactsBackupEnabled = !getResources().getBoolean(R.bool.show_drawer_contacts_backup)
-            && getResources().getBoolean(R.bool.contacts_backup);
-        Preference pContactsBackup = findPreference("contacts");
+    private void setupBackupPreference(int accentColor) {
+        Preference pContactsBackup = findPreference("backup");
         if (pContactsBackup != null) {
             pContactsBackup.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.actionbar_contacts),
-                                                                accentColor));
-            if (contactsBackupEnabled) {
-                pContactsBackup.setOnPreferenceClickListener(preference -> {
-                    ContactsPreferenceActivity.startActivityWithoutSidebar(this);
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pContactsBackup);
-            }
+                                                                    accentColor));
+            pContactsBackup.setOnPreferenceClickListener(preference -> {
+                ContactsPreferenceActivity.startActivityWithoutSidebar(this);
+                return true;
+            });
         }
     }
 
@@ -518,7 +511,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                                                  boolean fShowMediaScanNotifications, int accentColor) {
         SwitchPreference mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
         mShowMediaScanNotifications.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
-                                                                        accentColor));
+                                                                            accentColor));
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
         }
@@ -528,7 +521,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                                             boolean fShowHiddenFilesEnabled, int accentColor) {
         showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
         showHiddenFiles.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_show_hidden_files),
-                                                            accentColor));
+                                                                accentColor));
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
                 preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
@@ -544,7 +537,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                                      boolean deviceCredentialsEnabled, int accentColor) {
         lock = (ListPreference) findPreference(PREFERENCE_LOCK);
         lock.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_lock),
-                                                 accentColor));
+                                                     accentColor));
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
             ArrayList<String> lockEntries = new ArrayList<>(3);
             lockEntries.add(getString(R.string.prefs_lock_none));
@@ -559,7 +552,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             if (!passCodeEnabled) {
                 lockEntries.remove(1);
                 lockValues.remove(1);
-            } else if (!deviceCredentialsEnabled || Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+            } else if (!deviceCredentialsEnabled ||
                 !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 lockEntries.remove(2);
                 lockValues.remove(2);
@@ -593,7 +586,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategorySyncedFolders =
-                (PreferenceCategory) findPreference("synced_folders_category");
+            (PreferenceCategory) findPreference("synced_folders_category");
         preferenceCategorySyncedFolders.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                                                 accentColor));
 
@@ -605,7 +598,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.auto_upload_on_wifi),
-                                                                      accentColor));
+                                                                          accentColor));
             pUploadOnWifiCheckbox.setChecked(
                 arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
 
@@ -618,8 +611,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
             Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
             if (pSyncedFolder != null) {
-                if (getResources().getBoolean(R.bool.syncedFolder_light)
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (getResources().getBoolean(R.bool.syncedFolder_light)) {
                     pSyncedFolder.setOnPreferenceClickListener(preference -> {
                         Intent intent = new Intent(this, SyncedFoldersActivity.class);
                         startActivity(intent);
@@ -635,7 +627,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setUpServiceCategory(int accentColor) {
         PreferenceCategory preferenceCategoryService = (PreferenceCategory) findPreference("service");
         preferenceCategoryService.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_service),
-                                                                      accentColor));
+                                                                          accentColor));
         setupHelpPreference(accentColor);
         setupImprintPreference(accentColor);
     }
@@ -644,14 +636,14 @@ public class SettingsActivity extends ThemedPreferenceActivity
         Preference pHelp = findPreference("help");
         if (pHelp != null) {
             pHelp.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_help),
-                                                      accentColor));
-                pHelp.setOnPreferenceClickListener(preference -> {
-                    String helpWeb = getString(R.string.url_help);
-                    if (!helpWeb.isEmpty()) {
-                        openLinkInWebView(helpWeb, R.string.prefs_help);
-                    }
-                    return true;
-                });
+                                                          accentColor));
+            pHelp.setOnPreferenceClickListener(preference -> {
+                String helpWeb = getString(R.string.url_help);
+                if (!helpWeb.isEmpty()) {
+                    openLinkInWebView(helpWeb, R.string.prefs_help);
+                }
+                return true;
+            });
 
         }
     }
@@ -660,7 +652,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         Preference pImprint = findPreference("imprint");
         if (pImprint != null) {
             pImprint.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_imprint),
-                                                         accentColor));
+                                                             accentColor));
             pImprint.setOnPreferenceClickListener(preference -> {
                 String imprintWeb = getString(R.string.url_imprint);
                 if (!imprintWeb.isEmpty()) {
@@ -689,9 +681,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)){
+            if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
@@ -724,7 +715,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
         prefStoragePath.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_storage_path),
-                                                            accentColor));
+                                                                accentColor));
         if (prefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -882,7 +873,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
             DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
             data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                              RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
@@ -891,12 +881,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
-        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY) {
             handleMnemonicRequest(data);
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @VisibleForTesting
     public void handleMnemonicRequest(Intent data) {
         if (data == null) {

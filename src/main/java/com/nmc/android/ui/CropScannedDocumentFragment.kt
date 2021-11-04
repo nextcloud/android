@@ -16,37 +16,22 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import butterknife.Unbinder
-import com.google.android.material.button.MaterialButton
 import com.nmc.android.interfaces.OnDocScanListener
 import com.nmc.android.interfaces.OnFragmentChangeListener
 import com.nmc.android.utils.ScanBotSdkUtils
 import com.owncloud.android.R
+import com.owncloud.android.databinding.FragmentCropScanBinding
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.core.contourdetector.DetectionResult
 import io.scanbot.sdk.core.contourdetector.Line2D
 import io.scanbot.sdk.process.CropOperation
-import io.scanbot.sdk.ui.EditPolygonImageView
-import io.scanbot.sdk.ui.MagnifierView
 import java.util.concurrent.Executors
 
 class CropScannedDocumentFragment : Fragment() {
-    private lateinit var unbinder: Unbinder
+    private lateinit var binding : FragmentCropScanBinding
     private lateinit var onFragmentChangeListener: OnFragmentChangeListener
     private lateinit var onDocScanListener: OnDocScanListener
-
-    @BindView(R.id.crop_polygon_view)
-    lateinit var editPolygonImageView: EditPolygonImageView
-
-    @BindView(R.id.magnifier)
-    lateinit var magnifierView: MagnifierView
-
-    @BindView(R.id.crop_btn_reset_borders)
-    lateinit var resetBordersButton: MaterialButton
-
+    
     private var scannedDocIndex: Int = -1
     private lateinit var scanbotSDK: ScanbotSDK
 
@@ -83,24 +68,26 @@ class CropScannedDocumentFragment : Fragment() {
             (requireActivity() as ScanActivity).updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.title_crop_scan))
         }
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_crop_scan, container, false)
+        binding = FragmentCropScanBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        unbinder = ButterKnife.bind(this, view)
         scanbotSDK = (requireActivity() as ScanActivity).scanbotSDK
         detectDocument()
+        binding.cropBtnResetBorders.setOnClickListener { 
+            onClickListener(it)
+        }
     }
 
-    @OnClick(R.id.crop_btn_reset_borders)
-    fun onClickListener(view: View) {
+   private fun onClickListener(view: View) {
         when (view.id) {
             R.id.crop_btn_reset_borders -> {
-                if (resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))) {
+                if (binding.cropBtnResetBorders.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))) {
                     updateButtonText(resources.getString(R.string.crop_btn_detect_doc_text))
                     resetCrop()
-                } else if (resetBordersButton.tag.equals(resources.getString(R.string.crop_btn_detect_doc_text))) {
+                } else if (binding.cropBtnResetBorders.tag.equals(resources.getString(R.string.crop_btn_detect_doc_text))) {
                     updateButtonText(resources.getString(R.string.crop_btn_reset_crop_text))
                     detectDocument()
                 }
@@ -109,13 +96,13 @@ class CropScannedDocumentFragment : Fragment() {
     }
 
     private fun updateButtonText(label: String) {
-        resetBordersButton.tag = label
-        resetBordersButton.text = label
+        binding.cropBtnResetBorders.tag = label
+        binding.cropBtnResetBorders.text = label
     }
 
     private fun resetCrop() {
         polygonPoints = getResetPolygons()
-        editPolygonImageView.polygon = getResetPolygons()
+        binding.cropPolygonView.polygon = getResetPolygons()
     }
 
     private fun getResetPolygons(): List<PointF> {
@@ -162,13 +149,13 @@ class CropScannedDocumentFragment : Fragment() {
         }
 
         override fun onPostExecute(initImageResult: InitImageResult) {
-            editPolygonImageView.setImageBitmap(previewBitmap)
-            magnifierView.setupMagnifier(editPolygonImageView)
+            binding.cropPolygonView.setImageBitmap(previewBitmap)
+            binding.magnifier.setupMagnifier(binding.cropPolygonView)
 
-            // set detected polygon and lines into EditPolygonImageView
+            // set detected polygon and lines into binding.cropPolygonView
             polygonPoints = initImageResult.polygon
-            editPolygonImageView.polygon = initImageResult.polygon
-            editPolygonImageView.setLines(initImageResult.linesPair.first, initImageResult.linesPair.second)
+            binding.cropPolygonView.polygon = initImageResult.polygon
+            binding.cropPolygonView.setLines(initImageResult.linesPair.first, initImageResult.linesPair.second)
 
             if (initImageResult.polygon.isNullOrEmpty()){
                 resetCrop()
@@ -180,7 +167,7 @@ class CropScannedDocumentFragment : Fragment() {
 
     private fun crop() {
         // crop & warp image by selected polygon (editPolygonView.getPolygon())
-        val operations = listOf(CropOperation(editPolygonImageView.polygon))
+        val operations = listOf(CropOperation(binding.cropPolygonView.polygon))
 
         var documentImage = scanbotSDK.imageProcessor().processBitmap(originalBitmap, operations, false)
         documentImage?.let {
@@ -217,11 +204,6 @@ class CropScannedDocumentFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        unbinder.unbind()
     }
 
     fun getScannedDocIndex(): Int {

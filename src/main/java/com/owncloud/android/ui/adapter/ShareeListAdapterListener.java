@@ -24,6 +24,7 @@
 
 package com.owncloud.android.ui.adapter;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
 public interface ShareeListAdapterListener {
@@ -38,4 +39,6 @@ public interface ShareeListAdapterListener {
     void requestPasswordForShare(OCShare share, boolean askForPassword);
 
     void showPermissionsDialog(OCShare share);
+
+    void showProfileBottomSheet(User user, String shareWith);
 }

@@ -77,10 +77,10 @@
                     android:key="calendar_contacts"
                     android:summary="@string/prefs_calendar_contacts_summary" />-->
         <Preference
-            android:key="contacts"
+            android:key="backup"
             android:layout="@layout/custom_preference_layout"
-            android:summary="@string/prefs_daily_contacts_sync_summary"
-            android:title="@string/actionbar_contacts" />
+            android:summary="@string/prefs_daily_backup_summary"
+            android:title="@string/backup_title" />
         <Preference
             android:key="mnemonic"
             android:layout="@layout/custom_preference_layout"

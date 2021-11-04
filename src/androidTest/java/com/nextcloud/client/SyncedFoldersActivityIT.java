@@ -71,7 +71,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    false,
                                                                    false,
                                                                    true,
-                                                                   "test@https://server.com",
+                                                                   "test@https://nextcloud.localhost",
                                                                    0,
                                                                    0,
                                                                    true,

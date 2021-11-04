@@ -1,20 +1,21 @@
 /*
  * Nextcloud Android client application
  *
- * @author Andy Scherzinger
- * Copyright (C) 2018 Andy Scherzinger
+ * @author TSI-mc
+ * Copyright (C) 2021 TSI-mc
+ * Copyright (C) 2021 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -37,7 +38,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
     private FileDetailsSharingMenuBottomSheetFragmentBinding binding;
     private final FileDetailsSharingMenuBottomSheetActions actions;
-    private final FileActivity fileActivity;
     private final OCShare ocShare;
 
     public FileDetailSharingMenuBottomSheetDialog(FileActivity fileActivity,
@@ -45,7 +45,6 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
                                                   OCShare ocShare) {
         super(fileActivity);
         this.actions = actions;
-        this.fileActivity = fileActivity;
         this.ocShare = ocShare;
     }
 

@@ -27,8 +27,8 @@ public class FileIT extends AbstractOnServerIT {
         // folder does not exist yet
         assertNull(getStorageManager().getFileByPath(path));
 
-        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext);
-        RemoteOperationResult result = syncOp.execute(client, getStorageManager());
+        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
+        RemoteOperationResult result = syncOp.execute(client);
 
         assertTrue(result.toString(), result.isSuccess());
 
@@ -37,7 +37,7 @@ public class FileIT extends AbstractOnServerIT {
         assertTrue(file.isFolder());
 
         // cleanup
-        new RemoveFileOperation(file, false, account, false, targetContext).execute(client, getStorageManager());
+        new RemoveFileOperation(file, false, account, false, targetContext, getStorageManager()).execute(client);
     }
 
     @Test
@@ -46,8 +46,8 @@ public class FileIT extends AbstractOnServerIT {
         // folder does not exist yet
         assertNull(getStorageManager().getFileByPath(path));
 
-        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext);
-        RemoteOperationResult result = syncOp.execute(client, getStorageManager());
+        SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
+        RemoteOperationResult result = syncOp.execute(client);
         assertTrue(result.toString(), result.isSuccess());
 
         // folder exists
@@ -59,7 +59,8 @@ public class FileIT extends AbstractOnServerIT {
                                 false,
                                 account,
                                 false,
-                                targetContext)
-            .execute(client, getStorageManager());
+                                targetContext,
+                                getStorageManager())
+            .execute(client);
     }
 }

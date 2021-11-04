@@ -662,29 +662,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void onClick(View v) {
         // click on button
-        switch (v.getId()) {
-            case R.id.uploader_choose_folder:
-                mUploadPath = "";   // first element in mParents is root dir, represented by "";
-                // init mUploadPath with "/" results in a "//" prefix
-                for (String p : mParents) {
-                    mUploadPath += p + OCFile.PATH_SEPARATOR;
-                }
+        int id = v.getId();
 
-                if (mUploadFromTmpFile) {
-                    DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
-                    dialog.show(getSupportFragmentManager(), null);
-                } else {
-                    Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
-                    uploadFiles();
-                }
-                break;
+        if (id == R.id.uploader_choose_folder) {
+            mUploadPath = "";   // first element in mParents is root dir, represented by "";
+            // init mUploadPath with "/" results in a "//" prefix
+            for (String p : mParents) {
+                mUploadPath += p + OCFile.PATH_SEPARATOR;
+            }
 
-            case R.id.uploader_cancel:
-                finish();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Wrong element clicked");
+            if (mUploadFromTmpFile) {
+                DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
+                dialog.show(getSupportFragmentManager(), null);
+            } else {
+                Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+                uploadFiles();
+            }
+        } else if (id == R.id.uploader_cancel) {
+            finish();
+        } else {
+            throw new IllegalArgumentException("Wrong element clicked");
         }
     }
 
@@ -846,7 +843,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                         false,
                                                                         false,
                                                                         getStorageManager(),
-                                                                        getAccount(),
+                                                                        getUser().orElseThrow(RuntimeException::new),
                                                                         getApplicationContext()
                                                                       );
         syncFolderOp.execute(getAccount(), this, null, null);
@@ -1056,23 +1053,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case R.id.action_create_dir:
-                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
-                dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
-                break;
-            case android.R.id.home:
-                if (mParents.size() > SINGLE_PARENT) {
-                    onBackPressed();
-                }
-                break;
-            case R.id.action_switch_account:
-                showAccountChooserDialog();
-                break;
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_create_dir) {
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
+            dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
+        } else if (itemId == android.R.id.home) {
+            if (mParents.size() > SINGLE_PARENT) {
+                onBackPressed();
+            }
+        } else if (itemId == R.id.action_switch_account) {
+            showAccountChooserDialog();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 
