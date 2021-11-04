@@ -1,0 +1,4 @@
+Prevent duplicate Settings activity on back stack
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
