@@ -1,0 +1,21 @@
+What's new: add second page of info for sdk30 storage update
+AppInfo: add getVersionName, remove getFormattedVersionCode
+Use package specific action
+Add What's New view to warn users of changes in storage after sdk 30
+Add missing copyright header to PermissionUtil
+DownloadFileOperation: use moveFile instead of File.renameTo
+Use internalTemporalPath instead of temporalPath
+CONTRIBUTING: add indication that commits should be signed off.
+Fix PermissionUtil after rebase
+Fix storage permissions in debug manifest too
+MediaProvider: remove useless parens
+AbstractIT: adaptations to make integration tests work in sdk 30
+Request READ_EXTERNAL_STORAGE in API >= 30
+COntentResolverHelper: sort column must be an array
+ContentResolverHelper: add tests and proper copyright headers
+build.gradle: Bump mockK to fix test crashes in API 30 emulators
+MediaProvider: solve crash on Android 11 due to invalid contentProvider queries
+Fix some type errors after sdk 30 bump
+Bump compileSdk and targetSdk to 30
+Unified search: skip local file check for non-file results
+Update Nextcloud Android library
