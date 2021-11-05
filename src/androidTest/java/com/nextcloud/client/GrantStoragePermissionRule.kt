@@ -1,8 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Álvaro Brey Vilas
+ * Copyright (C) 2021 Álvaro Brey Vilas
+ * Copyright (C) 2021 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +16,19 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
 
-import dagger.Module;
-import dagger.Provides;
+package com.nextcloud.client
 
-@Module
-public class AppInfoModule {
-    @Provides
-    AppInfo appInfo() {
-        return new AppInfoImpl();
+import androidx.test.rule.GrantPermissionRule
+import com.owncloud.android.utils.PermissionUtil
+import org.junit.rules.TestRule
+
+class GrantStoragePermissionRule private constructor() {
+
+    companion object {
+        @JvmStatic
+        fun grant(): TestRule = GrantPermissionRule.grant(PermissionUtil.getExternalStoragePermission())
     }
 }

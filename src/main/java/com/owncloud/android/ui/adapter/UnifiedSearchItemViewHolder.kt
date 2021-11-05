@@ -59,12 +59,10 @@ class UnifiedSearchItemViewHolder(
         binding.title.text = entry.title
         binding.subline.text = entry.subline
 
-        storageManager.getFileByDecryptedRemotePath(entry.remotePath())?.let {
-            if (it.isDown) {
-                binding.localFileIndicator.visibility = View.VISIBLE
-            } else {
-                binding.localFileIndicator.visibility = View.GONE
-            }
+        if (entry.isFile && storageManager.getFileByDecryptedRemotePath(entry.remotePath()) != null) {
+            binding.localFileIndicator.visibility = View.VISIBLE
+        } else {
+            binding.localFileIndicator.visibility = View.GONE
         }
 
         val mimetype = MimeTypeUtil.getBestMimeTypeByFilename(entry.title)
