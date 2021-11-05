@@ -49,6 +49,8 @@
                     android:id="@+id/tv_login_privacy_intro_text"
                     android:layout_width="match_parent"
                     android:gravity="center"
+                    android:textAlignment="center"
+                    android:lineSpacingExtra="@dimen/standard_quarter_padding"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/standard_double_margin"
                     android:layout_marginTop="@dimen/standard_margin"
