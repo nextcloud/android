@@ -93,8 +93,8 @@
     <dimen name="activity_list_item_title_header_text_size">16sp</dimen>
     <dimen name="activity_list_layout_recycler_view_margin">-3dp</dimen>
     <dimen name="activity_row_layout_height">48dp</dimen>
-    <dimen name="notification_icon_width">32dp</dimen>
-    <dimen name="notification_icon_height">32dp</dimen>
+    <dimen name="notification_icon_width">24dp</dimen>
+    <dimen name="notification_icon_height">24dp</dimen>
     <dimen name="notification_icon_layout_right_end_margin">24dp</dimen>
     <dimen name="notification_list_item_grid_layout_left_start_margin">-3dp</dimen>
     <dimen name="uploader_list_separator_height">1dp</dimen>

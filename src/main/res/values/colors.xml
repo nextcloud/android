@@ -158,4 +158,6 @@
     <color name="share_color">#0D39DF</color>
     <color name="shared_with_me_color">#0099ff</color>
     <color name="toolbar_divider_color">#CCCCCC</color>
+    <color name="notification_sublime_color">#666666</color>
+    <color name="notification_icon_color">#191919</color>
 </resources>
