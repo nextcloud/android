@@ -107,9 +107,9 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 7
-def versionMinor = 18
+def versionMinor = 0
 def versionPatch = 0
-def versionBuild = 52 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
     for (String arg : tr.args) {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="splash_image_size">92dp</dimen>
-    <dimen name="splash_inner_image_size">72dp</dimen>
+    <dimen name="splash_image_size">116dp</dimen>
     <dimen name="grid_recyclerview_padding">4dp</dimen>
     <dimen name="list_item_icons_size">16dp</dimen>
     <dimen name="grid_item_icons_size">24dp</dimen>
@@ -23,4 +22,5 @@
     <dimen name="privacy_btn_width">160dp</dimen>
     <dimen name="privacy_icon_size">50dp</dimen>
     <dimen name="shared_with_me_icon_size">26dp</dimen>
+    <dimen name="txt_size_20sp">20sp</dimen>
 </resources>

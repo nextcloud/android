@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary">
 
-    <androidx.cardview.widget.CardView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSplash"
         android:layout_width="@dimen/splash_image_size"
         android:layout_height="@dimen/splash_image_size"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivSplash"
-            android:layout_gravity="center"
-            android:layout_width="@dimen/splash_inner_image_size"
-            android:layout_height="@dimen/splash_inner_image_size"
-            app:srcCompat="@drawable/ic_magentacloud_product_logo" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_magentacloud_splash_logo" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/tvSplash"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/txt_size_20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />

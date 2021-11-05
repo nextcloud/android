@@ -28,7 +28,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         splashLabel = findViewById(R.id.tvSplash)
         setSplashTitle()
-        scheduleSplashScreen()
+        //scheduleSplashScreen()
     }
 
     private fun setSplashTitle() {
