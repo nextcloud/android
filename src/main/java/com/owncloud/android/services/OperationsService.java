@@ -658,7 +658,7 @@ public class OperationsService extends Service {
                     case ACTION_RENAME:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, newName, fileDataStorageManager, getApplicationContext());
+                        operation = new RenameFileOperation(remotePath, newName, fileDataStorageManager);
                         break;
 
                     case ACTION_REMOVE:
