@@ -82,7 +82,7 @@ object PermissionUtil {
      */
     @JvmStatic
     fun getExternalStoragePermission(): String = when {
-        Build.VERSION.SDK_INT > Build.VERSION_CODES.R -> Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Manifest.permission.MANAGE_EXTERNAL_STORAGE
         else -> Manifest.permission.WRITE_EXTERNAL_STORAGE
     }
 
