@@ -21,6 +21,7 @@
 
 package com.nextcloud.client
 
+import android.os.Build
 import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.utils.PermissionUtil
 import org.junit.rules.TestRule
@@ -29,6 +30,15 @@ class GrantStoragePermissionRule private constructor() {
 
     companion object {
         @JvmStatic
-        fun grant(): TestRule = GrantPermissionRule.grant(PermissionUtil.getExternalStoragePermission())
+        fun grant(): TestRule = when {
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.R -> GrantPermissionRule.grant(
+                PermissionUtil
+                    .getExternalStoragePermission()
+            )
+            else -> {
+                // This rule does nothing. For now, MANAGE_EXTERNAL_STORAGE must be granted manually
+                TestRule { base, _ -> base }
+            }
+        }
     }
 }
