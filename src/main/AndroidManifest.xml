@@ -198,23 +198,23 @@
         <activity
             android:name="com.nmc.android.ui.SplashActivity"
             android:label="@string/app_name"
+            android:exported="false"
             android:theme="@style/Theme.ownCloud.Splash" />
 
         <activity
             android:name="com.nmc.android.ui.ScanActivity"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
             android:name="com.nmc.android.ui.PrivacySettingsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="com.nmc.android.ui.LoginPrivacySettingsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
             android:name=".authentication.AccountAuthenticatorService"
