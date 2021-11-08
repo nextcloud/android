@@ -104,11 +104,11 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getTmpPath() {
-        return FileStorageUtils.getInternalTemporalPath(account.name, context) + file.getRemotePath();
+        return FileStorageUtils.getTemporalPath(account.name) + file.getRemotePath();
     }
 
     public String getTmpFolder() {
-        return FileStorageUtils.getInternalTemporalPath(account.name, context);
+        return FileStorageUtils.getTemporalPath(account.name);
     }
 
     public String getRemotePath() {
