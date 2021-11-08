@@ -29,7 +29,9 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -55,7 +57,7 @@ import androidx.fragment.app.DialogFragment;
  *  Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
-        extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
@@ -107,11 +109,39 @@ public class RenameFileDialogFragment
         ThemeTextInputUtils.colorTextInput(binding.userInputContainer,
                                            binding.userInput,
                                            ThemeColorUtils.primaryColor(getActivity()));
-        int selectionStart = 0;
-        int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
-        int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        binding.userInput.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
+
+        binding.userInput.setSelection(0, getSelectionEndIndex(currentName));
         binding.userInput.requestFocus();
+
+        // Add TextChangedListener to the user input EditText
+        binding.inputWarningMessage.setText(R.string.hidden_file_name_warning);
+        binding.userInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newFileName = "";
+                if (binding.userInput.getText() != null) {
+                    newFileName = binding.userInput.getText().toString().trim();
+                }
+
+                if (!TextUtils.isEmpty(newFileName) &&
+                    TextUtils.isEmpty(newFileName.substring(0, getSelectionEndIndex(newFileName))) ) {
+                    binding.inputWarningMessage.setVisibility(View.VISIBLE);
+                }
+                else if(binding.inputWarningMessage.getVisibility() == View.VISIBLE) {
+                    binding.inputWarningMessage.setVisibility(View.GONE);
+                }
+            }
+        });
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -127,6 +157,14 @@ public class RenameFileDialogFragment
         }
 
         return d;
+    }
+
+    /**
+     * Calculate the end index of the actual file name (i.e. without the extension)
+     **/
+    private int getSelectionEndIndex(String fileName) {
+        int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf('.');
+        return extensionStart >= 0 ? extensionStart : fileName.length();
     }
 
 
@@ -146,7 +184,6 @@ public class RenameFileDialogFragment
 
             if (!FileUtils.isValidName(newFileName)) {
                 DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
-
                 return;
             }
 
