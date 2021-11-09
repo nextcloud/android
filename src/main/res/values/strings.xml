@@ -1002,9 +1002,6 @@
     <string name="no_actions">No actions for this user</string>
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
-    <string name="whats_new_storage_sdk30_title">Changes in storage access from Android 11</string>
-    <string name="whats_new_storage_sdk30_content">From Android 11 onwards, strict storage access control is enforced.\n\nAs a consequence, Nextcloud will no longer be able to write or delete files on external storage, or read files in private folders owned by other apps.</string>
-    <string name="whats_new_storage_sdk30_content_page2">Please check your auto upload items and verify that Nextcloud still has read access to the local folder.\n\nAdditionally, other applications will not be able to read Nextcloud\'s downloaded files directly from the external storage.</string>
     <string name="file_management_permission">Permissions needed</string>
     <string name="file_management_permission_text">Nextcloud needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
 </resources>
