@@ -378,13 +378,13 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithCopy() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
                                          currentFolder.getRemotePath() + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
 
-        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
                                                                                       "nonEmpty.txt");
 
@@ -396,13 +396,13 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithMove() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
                                          currentFolder.getRemotePath() + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
 
-        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
                                                                                       "nonEmpty.txt");
 
@@ -414,13 +414,13 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithForget() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
                                          currentFolder.getRemotePath() + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
-        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
                                                                                       "nonEmpty.txt");
 
@@ -432,13 +432,13 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithDelete() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
                                          currentFolder.getRemotePath() + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
 
-        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
                                                                                       "nonEmpty.txt");
 

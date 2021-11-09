@@ -39,6 +39,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.UserAccountManager;
@@ -91,6 +92,7 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -919,9 +921,9 @@ public abstract class FileActivity extends DrawerActivity
      */
     @Override
     public void onShareProcessClosed() {
-        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment!=null){
-            ((FileDetailFragment)fragment).showHideFragmentView(false);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment != null) {
+            ((FileDetailFragment) fragment).showHideFragmentView(false);
         }
     }
 }

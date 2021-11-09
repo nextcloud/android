@@ -24,10 +24,17 @@ package com.owncloud.android.utils
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
+import android.provider.Settings
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.owncloud.android.R
 
 /**
  * Created by scherzia on 29.12.2015.
@@ -39,6 +46,8 @@ object PermissionUtil {
     const val PERMISSIONS_CAMERA = 5
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
+
+    const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
     /**
      * Wrapper method for ContextCompat.checkSelfPermission().
@@ -75,8 +84,8 @@ object PermissionUtil {
      */
     @JvmStatic
     fun getExternalStoragePermission(): String = when {
-        Build.VERSION.SDK_INT < Build.VERSION_CODES.R -> Manifest.permission.WRITE_EXTERNAL_STORAGE
-        else -> Manifest.permission.READ_EXTERNAL_STORAGE
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        else -> Manifest.permission.WRITE_EXTERNAL_STORAGE
     }
 
     /**
@@ -85,8 +94,10 @@ object PermissionUtil {
      * @return `true` if app has the permission, or `false` if not.
      */
     @JvmStatic
-    fun checkExternalStoragePermission(context: Context): Boolean =
-        ContextCompat.checkSelfPermission(context, getExternalStoragePermission()) == PackageManager.PERMISSION_GRANTED
+    fun checkExternalStoragePermission(context: Context): Boolean = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager()
+        else -> checkSelfPermission(context, getExternalStoragePermission())
+    }
 
     /**
      * Request relevant external storage permission depending on SDK.
@@ -94,11 +105,31 @@ object PermissionUtil {
      * @param activity The target activity.
      */
     @JvmStatic
-    fun requestExternalStoragePermission(activity: Activity) {
-        ActivityCompat.requestPermissions(
-            activity, arrayOf(getExternalStoragePermission()),
-            PERMISSIONS_EXTERNAL_STORAGE
-        )
+    fun requestExternalStoragePermission(activity: Activity) = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> requestManageFilesPermission(activity)
+        else -> {
+            ActivityCompat.requestPermissions(
+                activity, arrayOf(getExternalStoragePermission()),
+                PERMISSIONS_EXTERNAL_STORAGE
+            )
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun requestManageFilesPermission(activity: Activity) {
+        AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.file_management_permission)
+            .setMessage(R.string.file_management_permission_text)
+            .setCancelable(false)
+            .setPositiveButton(R.string.common_ok) { dialog, _ ->
+                val intent = Intent().apply {
+                    action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+                    data = Uri.parse("package:${activity.applicationContext.packageName}")
+                }
+                activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+                dialog.dismiss()
+            }
+            .show()
     }
 
     /**
