@@ -47,16 +47,7 @@ require 'xmlsimple'
 
 # run FindBugs
 puts "running FindBugs..."
-system './gradlew assembleGplayDebug 1>/dev/null'
-
-# confirm that assemble ran w/out error
-result = $?.to_i
-if result != 0
-    puts "FAIL: failed to run ./gradlew assembleGplayDebug"
-    exit 1
-end
-
-system './gradlew spotbugsGplayDebugReport 1>/dev/null 2>&1'
+system './gradlew spotbugsGplayDebug 1>/dev/null 2>&1'
 
 # find FindBugs report file
 findbugs_reports = Dir.glob(FINDBUGS_REPORT_FILE)
