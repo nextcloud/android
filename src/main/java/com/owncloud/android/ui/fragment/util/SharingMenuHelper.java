@@ -145,7 +145,7 @@ public final class SharingMenuHelper {
                 return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_editing);
             }
         } else if (SharingMenuHelper.isReadOnly(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_read_only);
+            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_view_only);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_file_drop);
         }
