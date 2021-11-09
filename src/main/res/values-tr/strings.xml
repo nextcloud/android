@@ -873,6 +873,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
+    <string name="whats_new_storage_sdk30_content_page2">Lütfen otomatik yükleme ögelerinizi kontrol edin ve yerel klasöre Nextcloud için okuma erişiminin olduğundan emin olun.\n\nAyrıca, diğer uygulamalar indirilen Nextcloud dosyalarını doğrudan dış depolama alanından okuyamaz.</string>
+    <string name="whats_new_storage_sdk30_title">Android 11 sürümü ile değişen depolama erişimi</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
     <string name="write_email">E-posta gönder</string>

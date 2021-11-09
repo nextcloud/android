@@ -873,6 +873,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="what_s_new_image">有什麼新圖片？</string>
     <string name="whats_new_skip">略過</string>
+    <string name="whats_new_storage_sdk30_content_page2">請檢查您的自動上傳項目，並確定 Nextcloud 仍有讀取本機資料夾的權限。\n\n此外，其他應用程式將無法直接從外部儲存空間讀取 Nextcloud 的已下載檔案。</string>
+    <string name="whats_new_storage_sdk30_title">從 Android 11 開始的儲存空間存取權限的變動</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="write_email">傳送電子郵件</string>
