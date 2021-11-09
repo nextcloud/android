@@ -31,8 +31,10 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.owncloud.android.R
 
 /**
  * Created by scherzia on 29.12.2015.
@@ -115,11 +117,19 @@ object PermissionUtil {
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun requestManageFilesPermission(activity: Activity) {
-        val intent = Intent().apply {
-            action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
-            data = Uri.parse("package:${activity.applicationContext.packageName}")
-        }
-        activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+        AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.file_management_permission)
+            .setMessage(R.string.file_management_permission_text)
+            .setCancelable(false)
+            .setPositiveButton(R.string.common_ok) { dialog, _ ->
+                val intent = Intent().apply {
+                    action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+                    data = Uri.parse("package:${activity.applicationContext.packageName}")
+                }
+                activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+                dialog.dismiss()
+            }
+            .show()
     }
 
     /**

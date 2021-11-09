@@ -926,16 +926,4 @@ public abstract class FileActivity extends DrawerActivity
             ((FileDetailFragment) fragment).showHideFragmentView(false);
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
-            // if the user denies manage storage, ask it again
-            Toast.makeText(this, R.string.file_management_permission_denied, Toast.LENGTH_SHORT).show();
-            if (!PermissionUtil.checkExternalStoragePermission(this)) {
-                PermissionUtil.requestExternalStoragePermission(this);
-            }
-        }
-    }
 }
