@@ -873,6 +873,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
+    <string name="whats_new_storage_sdk30_content_page2">Je potrebné prekontrolovať položky určené na automatické nahratie a uistiť sa, že Nextcloud má právo na čítanie v lokálnom priečinku. Mimo to, ostatné aplikácie nebudú schopné čítať súbory stiahnuté prostredníctvom Nextcloudu priamo z externého úložiska.</string>
+    <string name="whats_new_storage_sdk30_title">Zmeny v prístupe k externému úložisku od verzie Androidu od 11 a vyššie</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <string name="whats_your_status">Aký je váš stav?</string>
     <string name="write_email">Odoslať email</string>

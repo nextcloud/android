@@ -873,6 +873,8 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
+    <string name="whats_new_storage_sdk30_content_page2">Sprawdź elementy automatycznego wysyłania i upewnij się, że Nextcloud nadal ma dostęp do odczytu katalogu lokalnego.\n\nPonadto, inne aplikacje nie będą w stanie odczytać pobranych plików Nextcloud bezpośrednio z pamięci zewnętrznej.</string>
+    <string name="whats_new_storage_sdk30_title">Zmiany w dostępie do pamięci od Androida 11</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
     <string name="whats_your_status">Jaki jest Twój status?</string>
     <string name="write_email">Wyślij e-mail</string>
