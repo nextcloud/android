@@ -173,7 +173,7 @@
     <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create">Креирај</string>
-    <string name="create_dir_fail_msg">Не множе да креира папка</string>
+    <string name="create_dir_fail_msg">Не може да креира папка</string>
     <string name="create_new">Креирај нова</string>
     <string name="create_new_document">Креирај нов документ</string>
     <string name="create_new_folder">Креирај нова папка</string>
