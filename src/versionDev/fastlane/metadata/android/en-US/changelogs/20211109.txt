@@ -1,0 +1,6 @@
+i18n: Minor changes to sentence
+Translation files must be one line
+Disable leakCanary for CI builds
+Use LeakCanary in debug mode
+Update translations
+Update Nextcloud Android library
