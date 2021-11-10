@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
         classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.9'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -220,26 +220,6 @@ android {
             }
             html {
                 destination = file("$project.buildDir/reports/pmd/pmd.html")
-            }
-        }
-    }
-
-    android.applicationVariants.all { variant ->
-        String variantName = variant.name
-        String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
-        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
-            ignoreFailures = true // should continue checking
-            effort = "max"
-            reportLevel = "medium"
-            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
-            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
-
-            reports {
-                xml.enabled = false
-                html {
-                    enabled = true
-                    destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
-                }
             }
         }
     }
@@ -475,4 +455,27 @@ shot {
 
 jacoco {
     toolVersion = "$jacoco_version"
+}
+
+spotbugs {
+    ignoreFailures = true // should continue checking
+    effort = "max"
+    reportLevel = "medium"
+}
+
+tasks.withType(SpotBugsTask){task ->
+    String variantNameCap = task.name.replace("spotbugs", "")
+    String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
+
+    dependsOn "compile${variantNameCap}Sources"
+
+    excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
+    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
+    reports {
+        xml.enabled = false
+        html {
+            enabled = true
+            destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+        }
+    }
 }

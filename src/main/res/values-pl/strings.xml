@@ -405,6 +405,7 @@
     <string name="link_share_editing">Edytowanie</string>
     <string name="link_share_file_drop">Upuszczanie pliku (tylko wysyłanie)</string>
     <string name="link_share_read_only">Tylko do odczytu</string>
+    <string name="link_share_view_only">Tylko podgląd</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="load_more_results">Załaduj więcej wyników</string>
     <string name="local_file_list_empty">Nie ma plików w tym katalogu.</string>

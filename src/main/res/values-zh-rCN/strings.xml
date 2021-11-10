@@ -405,6 +405,7 @@
     <string name="link_share_editing">编辑</string>
     <string name="link_share_file_drop">文件拖拽（仅上传）</string>
     <string name="link_share_read_only">只读</string>
+    <string name="link_share_view_only">仅查看</string>
     <string name="list_layout">列出的布局</string>
     <string name="load_more_results">加载更多结果</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>

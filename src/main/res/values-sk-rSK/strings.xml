@@ -405,6 +405,7 @@
     <string name="link_share_editing">Úprava</string>
     <string name="link_share_file_drop">Odovzdávanie súborov (len nahrávanie)</string>
     <string name="link_share_read_only">Iba na čítanie</string>
+    <string name="link_share_view_only">Iba pre čítanie</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="load_more_results">Načítať viac výsledkov</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>

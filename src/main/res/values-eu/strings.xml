@@ -537,6 +537,7 @@
     <string name="prefs_category_dev">Garapena</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
+    <string name="prefs_daily_backup_summary">Eguneroko babeskopia zure egutegi eta kontaktuentzat</string>
     <string name="prefs_daily_contacts_sync_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoteknikoa</string>
     <string name="prefs_e2e_no_device_credentials">Mnemoteknikoa erakusteko, gaitu gailuaren kredentzialak.</string>

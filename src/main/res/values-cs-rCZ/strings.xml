@@ -405,6 +405,7 @@
     <string name="link_share_editing">Upravování</string>
     <string name="link_share_file_drop">Přetažení souboru (pouze nahrání)</string>
     <string name="link_share_read_only">Pouze pro čtení</string>
+    <string name="link_share_view_only">Pouze prohlížet</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>
     <string name="local_file_list_empty">V této složce nejsou žádné soubory.</string>
