@@ -38,6 +38,7 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
     public static final String DEFAULT_UPLOAD_SCAN_PATH = OCFile.ROOT_PATH + "Scans" + OCFile.PATH_SEPARATOR;
 
     protected static final String TAG = "ScanActivity";
+    private static final String EXTRA_REMOTE_PATH = "com.nmc.android.ui.scan_activity.extras.remote_path";
 
     private ActivityScanBinding binding;
     private ScanbotSDK scanbotSDK;
@@ -49,8 +50,11 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
 
     @Inject AppPreferences appPreferences;
 
-    public static void openScanActivity(Context context, int requestCode) {
+    private String remotePath;
+
+    public static void openScanActivity(Context context,String remotePath, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
+        intent.putExtra(EXTRA_REMOTE_PATH, remotePath);
         ((AppCompatActivity) context).startActivityForResult(intent, requestCode);
     }
 
@@ -60,6 +64,7 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         // Inflate and set the layout view
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        remotePath= getIntent().getStringExtra(EXTRA_REMOTE_PATH);
         originalScannedImages.clear();
         filteredImages.clear();
         scannedImagesFilterIndex.clear();
@@ -68,6 +73,10 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public String getRemotePath() {
+        return remotePath;
     }
 
     @Override

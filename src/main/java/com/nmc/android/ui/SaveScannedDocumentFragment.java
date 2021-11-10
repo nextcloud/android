@@ -94,8 +94,8 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        setDefaultRemotePath();
-        updateSaveLocationText(appPreferences.getUploadScansLastPath());
+        String remotePath = setDefaultRemotePath();
+        updateSaveLocationText(remotePath);
         implementCheckListeners();
         implementClickEvent();
     }
@@ -110,12 +110,30 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     /**
      * create default OCFile if default Scan folder is selected
      */
-    private void setDefaultRemotePath() {
+    private String setDefaultRemotePath() {
+
+        //check if user has selected scan document from sub folders
+        //if yes then show that folder in location to save scanned documents
+        //else check in preferences for last selected path
+        //if no last path selected available then show default /Scans/ path
+        if (requireActivity() instanceof ScanActivity){
+            String remotePath = ((ScanActivity) requireActivity()).getRemotePath();
+            //remote path should not be null and should not be root path i.e only /
+            if (!TextUtils.isEmpty(remotePath) && !remotePath.equals("/")){
+                setRemoteFilePath(remotePath);
+                return remotePath;
+            }
+        }
         if (remoteFilePath == null &&
             appPreferences.getUploadScansLastPath().equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
-            remoteFilePath = new OCFile(appPreferences.getUploadScansLastPath());
-            remoteFilePath.setFolder();
+            setRemoteFilePath(appPreferences.getUploadScansLastPath());
         }
+        return appPreferences.getUploadScansLastPath();
+    }
+
+    private void setRemoteFilePath(String remotePath) {
+        remoteFilePath = new OCFile(remotePath);
+        remoteFilePath.setFolder();
     }
 
     private void initViews() {
