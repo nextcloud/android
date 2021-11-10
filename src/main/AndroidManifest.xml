@@ -467,5 +467,14 @@
         <package android:name="it.niedermann.nextcloud.deck" />
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND_MULTIPLE" />
+        </intent>
     </queries>
 </manifest>
