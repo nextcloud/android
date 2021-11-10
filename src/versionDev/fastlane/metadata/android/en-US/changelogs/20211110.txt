@@ -1,0 +1,14 @@
+Remove some unused resources
+Add dialog to inform the user of storage permission
+Enable StrictMode during development
+Re-try to get file management permission if user does not enable it, and show toast.
+PermissionUtil: fix version conditional
+rename "read only" -> "view only"
+Revert "Use internalTemporalPath instead of temporalPath"
+Revert "DownloadFileOperation: use moveFile instead of File.renameTo"
+Remove What's New screens for scoped storage
+Ditch scoped storage, try MANAGE_EXTERNAL_STORAGE
+spotbugs: Show list of scanned files
+build.gradle: Refactor spotbugs setup
+Update translations
+Update Nextcloud Android library
