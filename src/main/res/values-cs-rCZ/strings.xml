@@ -405,6 +405,7 @@
     <string name="link_share_editing">Upravování</string>
     <string name="link_share_file_drop">Přetažení souboru (pouze nahrání)</string>
     <string name="link_share_read_only">Pouze pro čtení</string>
+    <string name="link_share_view_only">Pouze prohlížet</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>
     <string name="local_file_list_empty">V této složce nejsou žádné soubory.</string>
@@ -894,8 +895,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
     <string name="what_s_new_image">Obrázek „Co je nového“</string>
     <string name="whats_new_skip">Přeskočit</string>
-    <string name="whats_new_storage_sdk30_content_page2">Zkontrolujte vámi nastavené položky k automatickému nahrávání a ověřte, že Nextcloud pořád má přístup pro čtení do místní složky.\nynDále, ostatní aplikace nebudou moci číst soubory, stažené Nextcloudem přímo z externího úložiště.</string>
-    <string name="whats_new_storage_sdk30_title">Změny v přístupu k úložišti od Android verze 11</string>
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
     <string name="write_email">Odeslat e-mail</string>
