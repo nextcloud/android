@@ -137,11 +137,11 @@ android {
             'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         buildConfigField "String", "ADJUST_APP_TOKEN", "${ADJUST_APP_TOKEN}"
         buildConfigField "String", "MOENGAGE_APP_ID", "${MOENGAGE_APP_ID}"
@@ -156,15 +156,19 @@ android {
 
         multiDexEnabled true
 
-        versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+        //using short version number for more readability based on Heiko comment
+        //ex: 700
+        versionCode versionMajor * 100 + versionMinor * 10 + versionPatch //* 10 + versionBuild
 
-        if (versionBuild > 89) {
+        //version name including all versions without RC and Alpha appended
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+       /* if (versionBuild > 89) {
             versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         } else if (versionBuild > 50) {
             versionName "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
         } else {
             versionName "${versionMajor}.${versionMinor}.${versionPatch} Alpha" + (versionBuild + 1)
-        }
+        }*/
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure

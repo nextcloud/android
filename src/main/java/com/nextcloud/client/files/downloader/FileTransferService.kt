@@ -113,11 +113,13 @@ class FileTransferService : Service() {
             )
         }
 
-        val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request
-        val transferManager = getTransferManager(request.user)
-        transferManager.enqueue(request)
+        val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request?
+        request?.let {
+            val transferManager = getTransferManager(it.user)
+            transferManager.enqueue(it)
 
-        logger.d(TAG, "Enqueued new transfer: ${request.uuid} ${request.file.remotePath}")
+            logger.d(TAG, "Enqueued new transfer: ${it.uuid} ${it.file.remotePath}")
+        }
 
         return START_NOT_STICKY
     }

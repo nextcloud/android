@@ -297,8 +297,7 @@ class NotificationWork constructor(
                                     .getClientFor(user.toOwnCloudAccount(), context)
                                 val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
                                 val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
-                                val success: Boolean
-                                success = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
+                                val success: Boolean = if (!TextUtils.isEmpty(actionType) && !TextUtils.isEmpty(actionLink)) {
                                     val resultCode = executeAction(actionType, actionLink, client)
                                     resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
                                 } else {
@@ -326,7 +325,7 @@ class NotificationWork constructor(
         }
 
         @Suppress("ReturnCount") // legacy code
-        private fun executeAction(actionType: String, actionLink: String, client: OwnCloudClient): Int {
+        private fun executeAction(actionType: String?, actionLink: String?, client: OwnCloudClient): Int {
             val method: HttpMethod
             method = when (actionType) {
                 "GET" -> GetMethod(actionLink)
