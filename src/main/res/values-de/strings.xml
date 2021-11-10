@@ -405,6 +405,7 @@
     <string name="link_share_editing">Bearbeitung</string>
     <string name="link_share_file_drop">Dateien ablegen (nur Hochladen)</string>
     <string name="link_share_read_only">Schreibgeschützt</string>
+    <string name="link_share_view_only">Nur anzeigen</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="load_more_results">Weitere Ergebnisse laden</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
@@ -874,8 +875,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
-    <string name="whats_new_storage_sdk30_content_page2">Bitte überprüfen Sie Ihre Auto-Upload-Elemente und stellen Sie sicher, dass Nextcloud noch Lesezugriff auf den lokalen Ordner hat.\n\nAußerdem können andere Anwendungen die von Nextcloud heruntergeladenen Dateien nicht direkt vom externen Speicher lesen.</string>
-    <string name="whats_new_storage_sdk30_title">Änderungen beim Speicherzugriff ab Android 11</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="write_email">E-Mail senden</string>

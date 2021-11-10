@@ -405,6 +405,7 @@
     <string name="link_share_editing">编辑</string>
     <string name="link_share_file_drop">文件拖拽（仅上传）</string>
     <string name="link_share_read_only">只读</string>
+    <string name="link_share_view_only">仅查看</string>
     <string name="list_layout">列出的布局</string>
     <string name="load_more_results">加载更多结果</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
@@ -876,8 +877,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
-    <string name="whats_new_storage_sdk30_content_page2">请检查您的自动上传项，并确认 Nextcloud 仍然有读取本地文件夹的权限。\n\n此外，其他应用程序将无法直接从外部存储读取 Nextcloud 的已下载文件</string>
-    <string name="whats_new_storage_sdk30_title">从 Android 11 起存储访问的变化</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你什么状态？</string>
     <string name="write_email">发送邮件</string>

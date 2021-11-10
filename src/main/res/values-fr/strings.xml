@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
     <string name="about_android">Application Android %1$s</string>
-    <string name="about_title">À propos de</string>
+    <string name="about_title">À propos</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
     <string name="account_creation_failed">Échec de création du compte</string>

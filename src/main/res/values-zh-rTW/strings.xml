@@ -405,6 +405,7 @@
     <string name="link_share_editing">編輯</string>
     <string name="link_share_file_drop">拖曳檔案（僅上傳）</string>
     <string name="link_share_read_only">唯讀</string>
+    <string name="link_share_view_only">僅檢視</string>
     <string name="list_layout">列表佈局</string>
     <string name="load_more_results">載入更多結果</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案。</string>
@@ -873,8 +874,6 @@
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="what_s_new_image">有什麼新圖片？</string>
     <string name="whats_new_skip">略過</string>
-    <string name="whats_new_storage_sdk30_content_page2">請檢查您的自動上傳項目，並確定 Nextcloud 仍有讀取本機資料夾的權限。\n\n此外，其他應用程式將無法直接從外部儲存空間讀取 Nextcloud 的已下載檔案。</string>
-    <string name="whats_new_storage_sdk30_title">從 Android 11 開始的儲存空間存取權限的變動</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="write_email">傳送電子郵件</string>
