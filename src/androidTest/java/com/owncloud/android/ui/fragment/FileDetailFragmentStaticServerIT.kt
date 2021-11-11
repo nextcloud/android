@@ -43,7 +43,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     val file = OCFile("/", "00000001")
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
         val sut = testActivityRule.launchActivity(null)
         sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user))
@@ -55,7 +55,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showFileDetailSharingFragment() {
         val sut = testActivityRule.launchActivity(null)
         sut.addFragment(FileDetailSharingFragment.newInstance(file, user))
@@ -67,7 +67,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     @Suppress("MagicNumber")
     fun showDetailsActivities() {
         val activity = testActivityRule.launchActivity(null)
@@ -138,7 +138,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showDetailsActivitiesNone() {
         val activity = testActivityRule.launchActivity(null)
         val sut = FileDetailFragment.newInstance(file, user, 0)
@@ -156,7 +156,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showDetailsActivitiesError() {
         val activity = testActivityRule.launchActivity(null)
         val sut = FileDetailFragment.newInstance(file, user, 0)
@@ -176,7 +176,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showDetailsSharing() {
         val sut = testActivityRule.launchActivity(null)
         sut.addFragment(FileDetailFragment.newInstance(file, user, 1))

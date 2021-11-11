@@ -41,7 +41,7 @@ class TrashbinActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(TrashbinActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun error() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -57,7 +57,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun files() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -75,7 +75,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun empty() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -91,7 +91,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun loading() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 

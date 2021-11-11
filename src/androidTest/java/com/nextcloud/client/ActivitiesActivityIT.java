@@ -49,7 +49,7 @@ public class ActivitiesActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void openDrawer() {
         ActivitiesActivity sut = activityRule.launchActivity(null);
 

@@ -46,7 +46,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // // @ScreenshotTest // todo run without real server
+    // @ScreenshotTest // todo run without real server
     public void displaySimpleTextFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
@@ -64,7 +64,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     }
 
     @Test
-    // // @ScreenshotTest // todo run without real server
+    // @ScreenshotTest // todo run without real server
     public void displayJavaSnippetFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 

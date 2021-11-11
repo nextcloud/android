@@ -51,7 +51,7 @@ public class SettingsActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
@@ -59,7 +59,7 @@ public class SettingsActivityIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void showMnemonic_Error() {
         SettingsActivity sut = activityRule.launchActivity(null);
         sut.handleMnemonicRequest(null);

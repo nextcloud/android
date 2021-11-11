@@ -39,7 +39,7 @@ class BackupListFragmentIT : AbstractIT() {
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CALENDAR)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showLoading() {
         val sut = testActivityRule.launchActivity(null)
         val file = OCFile("/", "00000001")
@@ -53,7 +53,7 @@ class BackupListFragmentIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showContactList() {
         val sut = testActivityRule.launchActivity(null)
         val transaction = sut.supportFragmentManager.beginTransaction()
@@ -71,7 +71,7 @@ class BackupListFragmentIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showCalendarList() {
         val sut = testActivityRule.launchActivity(null)
         val transaction = sut.supportFragmentManager.beginTransaction()
@@ -88,7 +88,7 @@ class BackupListFragmentIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showCalendarAndContactsList() {
         val sut = testActivityRule.launchActivity(null)
         val transaction = sut.supportFragmentManager.beginTransaction()

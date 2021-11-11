@@ -44,7 +44,7 @@ public class FirstRunActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 

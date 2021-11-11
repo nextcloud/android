@@ -40,7 +40,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
                                                                                         false);
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
@@ -50,7 +50,7 @@ public class ManageAccountsActivityIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void userInfoDetail() {
         ManageAccountsActivity sut = activityRule.launchActivity(null);
 

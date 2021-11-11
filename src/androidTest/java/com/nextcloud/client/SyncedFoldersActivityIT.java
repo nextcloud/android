@@ -52,7 +52,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
 
@@ -60,7 +60,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testSyncedFolderDialog() {
         SyncedFolderDisplayItem item = new SyncedFolderDisplayItem(1,
                                                                    "/sdcard/DCIM/",

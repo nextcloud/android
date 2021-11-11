@@ -34,7 +34,7 @@ class PassCodeActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(PassCodeActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun check() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK))
 
@@ -47,7 +47,7 @@ class PassCodeActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun request() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT))
 
@@ -60,7 +60,7 @@ class PassCodeActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun delete() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT))
 

@@ -92,7 +92,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testRenameFileDialog() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
@@ -102,21 +102,21 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testLoadingDialog() {
         LoadingDialog dialog = LoadingDialog.newInstance("Wait…");
         showDialog(dialog);
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testRemoveFileDialog() {
         RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new OCFile("/Test.md"));
         showDialog(dialog);
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testRemoveFilesDialog() {
         ArrayList<OCFile> toDelete = new ArrayList<>();
         toDelete.add(new OCFile("/Test.md"));
@@ -127,14 +127,14 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testRemoveFolderDialog() {
         RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new OCFile("/Folder/"));
         showDialog(dialog);
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testRemoveFoldersDialog() {
         ArrayList<OCFile> toDelete = new ArrayList<>();
         toDelete.add(new OCFile("/Folder/"));
@@ -145,7 +145,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testNewFolderDialog() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
@@ -155,7 +155,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testEnforcedPasswordDialog() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
@@ -165,7 +165,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testOptionalPasswordDialog() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
@@ -175,7 +175,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
         UserAccountManager userAccountManager = activityRule.getActivity().getUserAccountManager();
         AccountManager accountManager = AccountManager.get(targetContext);
@@ -241,7 +241,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccounts()) {
@@ -273,7 +273,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testBottomSheet() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
@@ -382,7 +382,7 @@ public class DialogFragmentIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void testProfileBottomSheet() {
         if (Looper.myLooper() == null) {
             Looper.prepare();
