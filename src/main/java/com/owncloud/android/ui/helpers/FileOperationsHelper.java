@@ -753,10 +753,11 @@ public class FileOperationsHelper {
      * @param expirationTimeInMillis Expiration date to set. A negative value clears the current expiration date,
      *                               leaving the link unrestricted. Zero makes no change.
      * @param label                  new label
+     * @param downloadLimit          download limit for link share type
      */
     public void updateShareInformation(OCShare share, int permissions,
                                        boolean hideFileDownload, String password, long expirationTimeInMillis,
-                                       String label) {
+                                       String label, String downloadLimit) {
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -766,9 +767,27 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+
+        //download limit for link share type
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_DOWNLOAD_LIMIT,
+                                   (downloadLimit == null || downloadLimit.equals("")) ? 0 : Integer.parseInt(downloadLimit));
+
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * method to fetch the download limit for the particular share
+     * Note: Download limit is only for Link share type
+     * @param shareToken of the OCShare
+     */
+    public void getShareDownloadLimit(String shareToken) {
+        Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_GET_SHARE_DOWNLOAD_LIMIT);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_TOKEN, shareToken);
+
+        queueShareIntent(updateShareIntent);
+    }
 
     public void sendShareFile(OCFile file, boolean hideNcSharingOptions) {
         // Show dialog

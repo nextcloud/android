@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -260,16 +261,21 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             if (share != null) {
                 binding.shareProcessChangeNameEt.setText(share?.label)
                 binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
-                // TODO: 10-11-2021 Handler download limit value here if exist
             }
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
 
             binding.shareProcessDownloadLimitSwitch.visibility = View.VISIBLE
             binding.dividerSharingDownloadLimit.visibility = View.VISIBLE
 
-            showDownloadLimitInput(binding.shareProcessDownloadLimitSwitch.isChecked)
+            //the input for download limit will be hidden initially
+            //and can be visible back or no depending on the api result
+            //from the download limit api
+            binding.shareProcessDownloadLimitEt.visibility = View.GONE
 
             updateFileEditingRadioButton()
+
+            //fetch the download limit for link share
+            fetchDownloadLimitForShareLink()
         }
         // internal share
         else {
@@ -571,11 +577,10 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             return
         }
 
-        if (binding.shareProcessDownloadLimitSwitch.isChecked && TextUtils.isEmpty(
-                binding.shareProcessChangeNameEt
-                    .text.toString().trim()
-            )
-        ) {
+        val downloadLimit = binding.shareProcessDownloadLimitEt
+            .text.toString().trim()
+
+        if (binding.shareProcessDownloadLimitSwitch.isChecked && TextUtils.isEmpty(downloadLimit)) {
             DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
             return
         }
@@ -586,7 +591,8 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                 share, permission, binding
                     .shareProcessHideDownloadCheckbox.isChecked,
                 binding.shareProcessEnterPassword.text.toString().trim(),
-                chosenExpDateInMills, binding.shareProcessChangeNameEt.text.toString().trim()
+                chosenExpDateInMills, binding.shareProcessChangeNameEt.text.toString().trim(),
+                downloadLimit
             )
             removeCurrentFragment()
         } else {
@@ -626,6 +632,20 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     }
 
     /**
+     * fetch the download limit for the link share
+     * the response will be received in FileActivity --> onRemoteOperationFinish() method
+     */
+    private fun fetchDownloadLimitForShareLink() {
+        //need to call this method in handler else to show progress dialog it will throw exception
+        val uiHandler = Handler()
+        uiHandler.post {
+            share?.let {
+                fileOperationsHelper?.getShareDownloadLimit(it.token)
+            }
+        }
+    }
+
+    /**
      * method will be called from DrawerActivity on back press to handle screen backstack
      */
     fun onBackPressed() {
@@ -642,5 +662,14 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
     override fun onDateUnSet() {
         binding.shareProcessSetExpDateSwitch.isChecked = false
+    }
+
+    /**
+     * will be called when download limit is fetched
+     */
+    fun onLinkShareDownloadLimitFetched(downloadLimit: Int) {
+        binding.shareProcessDownloadLimitSwitch.isChecked = downloadLimit > 0
+        showDownloadLimitInput(binding.shareProcessDownloadLimitSwitch.isChecked)
+        binding.shareProcessDownloadLimitEt.setText(if (downloadLimit > 0) downloadLimit.toString() else "")
     }
 }

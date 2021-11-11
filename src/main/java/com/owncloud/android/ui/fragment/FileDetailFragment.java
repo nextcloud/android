@@ -84,6 +84,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -754,6 +755,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
+    }
+
+    /**
+     * will be called when download limit is fetched from remote
+     * send the data to FileDetailsSharingProcessFragment to update the view
+     * @param downloadLimit download limit for the share
+     */
+    public void onLinkShareDownloadLimitFetched(int downloadLimit) {
+        Fragment fragment =
+            requireActivity().getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+        if (fragment!=null){
+            ((FileDetailsSharingProcessFragment)fragment).onLinkShareDownloadLimitFetched(downloadLimit);
+        }
     }
 
     /**

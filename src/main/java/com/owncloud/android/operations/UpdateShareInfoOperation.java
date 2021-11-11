@@ -27,10 +27,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.share_download_limit.UpdateShareDownloadLimitRemoteOperation;
 
 
 /**
@@ -38,6 +41,7 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class UpdateShareInfoOperation extends SyncOperation {
 
+    private static final String TAG = UpdateShareInfoOperation.class.getSimpleName();
     private OCShare share;
     private long shareId;
     private long expirationDateInMillis;
@@ -46,6 +50,9 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private int permissions = -1;
     private String password;
     private String label;
+
+    //download limit for link share
+    private int downloadLimit;
 
     /**
      * Constructor
@@ -116,6 +123,21 @@ public class UpdateShareInfoOperation extends SyncOperation {
             if (result.isSuccess() && shareId > 0) {
                 OCShare ocShare = (OCShare) result.getData().get(0);
                 ocShare.setPasswordProtected(!TextUtils.isEmpty(password));
+
+                //if share type is of Link Share then only we have to update the download limit if configured by user
+                if (share.getShareType() == ShareType.PUBLIC_LINK && downloadLimit > 0){
+
+                    //api will update the download limit for the particular share
+                    UpdateShareDownloadLimitRemoteOperation updateShareDownloadLimitRemoteOperation =
+                        new UpdateShareDownloadLimitRemoteOperation(ocShare.getToken(),downloadLimit);
+
+                    RemoteOperationResult downloadLimitOp =
+                        updateShareDownloadLimitRemoteOperation.execute(client);
+                    if(downloadLimitOp.isSuccess()) {
+                        Log_OC.d(TAG, "Download limit updated for the share.");
+                    }
+                }
+
                 getStorageManager().saveShare(ocShare);
             }
 
@@ -146,6 +168,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public void setDownloadLimit(int downloadLimit) {
+        this.downloadLimit = downloadLimit;
     }
 }
 
