@@ -12,30 +12,62 @@ jobs:
             matrix:
                 scheme: [ Light ]
                 color: [ blue ]
+                api-level: [ 27 ]
         steps:
             -   uses: actions/checkout@v2
-            -   name: set up JDK 11
-                uses: actions/setup-java@v2
+
+            -   name: Gradle cache
+                uses: actions/cache@v2
+                with:
+                    path: |
+                        ~/.gradle/caches
+                        ~/.gradle/wrapper
+                    key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }} }}
+            -   name: AVD cache
+                uses: actions/cache@v2
+                id: avd-cache
+                with:
+                    path: |
+                        ~/.android/avd/*
+                        ~/.android/adb*
+                    key: avd-${{ matrix.api-level }}
+
+            -   uses: actions/setup-java@v2
                 with:
                     distribution: "adopt"
                     java-version: 11
+
+            -   name: create AVD and generate snapshot for caching
+                if: steps.avd-cache.outputs.cache-hit != 'true'
+                uses: reactivecircus/android-emulator-runner@v2
+                with:
+                    api-level: ${{ matrix.api-level }}
+                    force-avd-creation: false
+                    arch: x86
+                    sdcard-path-or-size: 100M
+                    target: google_apis
+                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: echo "Generated AVD snapshot for caching."
+
             -   name: Build gplay
                 run: |
-                    mkdir -p $HOME/.gradle
-                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-                    ./gradlew assembleGplayDebug
+                    ./gradlew -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" assembleGplayDebug
+
             -   name: Delete old comments
                 if: ${{ always() }}
                 run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
-            -   name: run tests
+
+            -   name: Run screenshot tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
-                    api-level: 27
+                    api-level: ${{ matrix.api-level }}
+                    force-avd-creation: false
                     arch: x86
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: ./gradlew gplayDebugExecuteScreenshotTests -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:
@@ -43,6 +75,7 @@ jobs:
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
                 run:
                     scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+
             -   name: Archive Espresso results
                 uses: actions/upload-artifact@v2
                 if: ${{ always() }}
