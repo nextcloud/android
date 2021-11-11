@@ -57,7 +57,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     private boolean returnCode;
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void screenshotTextFiles() {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
@@ -96,7 +96,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
 //    @Test
-    // @ScreenshotTest // todo run without real server
+    // // @ScreenshotTest // todo run without real server
 //    public void screenshotImages() throws IOException {
 //        FileDataStorageManager storageManager = new FileDataStorageManager(user,
 //                                                                           targetContext.getContentResolver());
@@ -190,7 +190,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void keepExisting() {
         returnCode = false;
 
@@ -235,7 +235,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void keepNew() {
         returnCode = false;
 
@@ -281,7 +281,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void keepBoth() {
         returnCode = false;
 

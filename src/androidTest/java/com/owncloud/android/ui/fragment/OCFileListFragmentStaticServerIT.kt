@@ -43,7 +43,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     val permissionRule = GrantStoragePermissionRule.grant()
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     @Suppress("MagicNumber")
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
@@ -78,7 +78,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     /**
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
@@ -206,7 +206,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     @Suppress("MagicNumber")
     fun showRichWorkspace() {
         val sut = testActivityRule.launchActivity(null)
