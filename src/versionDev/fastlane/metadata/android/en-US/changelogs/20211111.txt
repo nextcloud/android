@@ -1,0 +1,2 @@
+Manifest: allow app to query for apps that can resolve VIEW or SEND intents
+Update translations
