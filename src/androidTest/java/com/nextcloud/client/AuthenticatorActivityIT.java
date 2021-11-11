@@ -49,7 +49,7 @@ public class AuthenticatorActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void login() {
         AuthenticatorActivity sut = activityRule.launchActivity(null);
         ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);

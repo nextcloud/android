@@ -64,7 +64,7 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // // @ScreenshotTest // todo run without real server
+    // @ScreenshotTest // todo run without real server
     public void showShares() {
         assertTrue(new ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());
         assertTrue(new CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess());

@@ -35,7 +35,7 @@ class EtmActivityTest : AbstractIT() {
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun overview() {
         val sut: Activity = activityRule.launchActivity(null)
 
@@ -45,7 +45,7 @@ class EtmActivityTest : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun accounts() {
         val sut: EtmActivity = activityRule.launchActivity(null)
 

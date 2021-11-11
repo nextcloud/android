@@ -36,7 +36,7 @@ class NotificationsActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(NotificationsActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun empty() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
@@ -50,7 +50,7 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
@@ -141,7 +141,7 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun error() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 

@@ -65,7 +65,7 @@ class AvatarIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showAvatarsWithStatus() {
         val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
         val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)

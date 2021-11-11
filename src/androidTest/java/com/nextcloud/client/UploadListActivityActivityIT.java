@@ -42,7 +42,7 @@ public class UploadListActivityActivityIT extends AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void openDrawer() {
         super.openDrawer(activityRule);
     }

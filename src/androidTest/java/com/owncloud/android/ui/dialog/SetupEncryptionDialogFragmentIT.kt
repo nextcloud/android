@@ -36,7 +36,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun showMnemonic() {
         val activity = testActivityRule.launchActivity(null)
 
@@ -73,7 +73,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     fun error() {
         val activity = testActivityRule.launchActivity(null)
 
@@ -87,9 +87,8 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
             sut.errorSavingKeys()
         }
 
-        shortSleep()
         waitForIdleSync()
 
-        screenshot(sut.requireDialog().window!!.decorView)
+        screenshot(Objects.requireNonNull<Window>(sut.requireDialog().window).decorView)
     }
 }

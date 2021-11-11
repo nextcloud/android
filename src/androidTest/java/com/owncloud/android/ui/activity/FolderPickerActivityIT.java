@@ -122,7 +122,7 @@ public class FolderPickerActivityIT extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest
+    @ScreenshotTest
     public void open() {
         FolderPickerActivity sut = activityRule.getActivity();
         OCFile origin = new OCFile("/test/file.txt");
