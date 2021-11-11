@@ -49,9 +49,13 @@ jobs:
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: echo "Generated AVD snapshot for caching."
 
-            -   name: Build gplay
+            -   name: Configure gradle daemon
                 run: |
-                    ./gradlew -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" assembleGplayDebug
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+
+            -   name: Build gplay
+                run: ./gradlew assembleGplayDebug
 
             -   name: Delete old comments
                 if: ${{ always() }}
