@@ -328,6 +328,8 @@
     <string name="file_list_loading">Ładowanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
+    <string name="file_management_permission">Potrzebne uprawnienia</string>
+    <string name="file_management_permission_text">Nextcloud do prawidłowego działania wymaga uprawnień do zarządzania plikami. Włącz je na następnym ekranie, aby kontynuować.</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
     <string name="file_migration_dialog_title">Aktualizacja katalogu przechowywania danych</string>
