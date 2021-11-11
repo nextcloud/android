@@ -1,0 +1,18 @@
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    docker-test:
+        runs-on: macos-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: setup-docker
+                uses: docker-practice/actions-setup-docker@1.0.8
+            -   name: Start nginx
+                run: |
+                    docker run --rm  -p 80:80 -d nginx
+                    sleep 5
+            -   name: Check nginx is running
+                run: |
+                    curl localhost | grep Welcome
