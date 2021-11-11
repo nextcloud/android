@@ -1033,4 +1033,7 @@
     <string name="sharing_email_warning">Der Passwortschutz ist aktiviert. Sie müssen dem Empfänger das Passwort
         selbst mitteilen.\n\nWenn Sie die Freigabe über die MagentaCLOUD verschicken und das Passwort in den
         Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
+    <string name="link_download_limit">Download Limit</string>
+    <string name="download_limit_empty">Download limit cannot be empty.</string>
+    <string name="hint_download_limit">Enter download limit</string>
 </resources>
