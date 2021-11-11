@@ -62,6 +62,7 @@ public class ActivitiesActivityIT extends AbstractIT {
             sut.getBinding().list.setVisibility(View.INVISIBLE);
         });
 
+        shortSleep();
         waitForIdleSync();
 
         screenshot(sut);
