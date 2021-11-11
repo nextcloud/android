@@ -117,7 +117,7 @@ android {
             'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
     }
 
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 23
