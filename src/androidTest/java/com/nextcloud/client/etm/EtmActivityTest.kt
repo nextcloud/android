@@ -25,7 +25,6 @@ package com.nextcloud.client.etm
 import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
