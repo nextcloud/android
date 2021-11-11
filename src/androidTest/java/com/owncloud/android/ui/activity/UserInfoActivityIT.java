@@ -39,7 +39,7 @@ public class UserInfoActivityIT extends AbstractIT {
                                                                                   false);
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     public void fullUserInfoDetail() {
         final Intent intent = new Intent(targetContext, UserInfoActivity.class);
         intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);

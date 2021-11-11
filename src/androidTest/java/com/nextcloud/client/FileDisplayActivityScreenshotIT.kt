@@ -50,7 +50,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     )
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun open() {
         val sut = activityRule.launchActivity(null)
         sut.listOfFilesFragment!!.setFabEnabled(false)
@@ -63,7 +63,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     }
 
     // @Test
-    // @ScreenshotTest
+    // // @ScreenshotTest
     fun showMediaThenAllFiles() {
         val fileDisplayActivity = activityRule.launchActivity(null)
         val sut = fileDisplayActivity.listOfFilesFragment
@@ -97,7 +97,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun drawer() {
         val sut = activityRule.launchActivity(null)
         Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())

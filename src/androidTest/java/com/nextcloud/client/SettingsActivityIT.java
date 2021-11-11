@@ -23,9 +23,14 @@
 package com.nextcloud.client;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Looper;
 
-import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.ui.activity.RequestCredentialsActivity;
+import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
@@ -34,9 +39,11 @@ import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
+import static org.junit.Assert.assertTrue;
 
-public class FirstRunActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<FirstRunActivity> activityRule = new IntentsTestRule<>(FirstRunActivity.class,
+
+public class SettingsActivityIT extends AbstractIT {
+    @Rule public IntentsTestRule<SettingsActivity> activityRule = new IntentsTestRule<>(SettingsActivity.class,
                                                                                         true,
                                                                                         false);
 
@@ -51,4 +58,33 @@ public class FirstRunActivityIT extends AbstractIT {
         screenshot(sut);
     }
 
+    @Test
+    // @ScreenshotTest
+    public void showMnemonic_Error() {
+        SettingsActivity sut = activityRule.launchActivity(null);
+        sut.handleMnemonicRequest(null);
+        shortSleep();
+        waitForIdleSync();
+
+        screenshot(sut);
+    }
+
+    @Test
+    public void showMnemonic() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+
+        Intent intent = new Intent();
+        intent.putExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE);
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(targetContext.getContentResolver());
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC, "Secret mnemonic");
+
+        SettingsActivity sut = activityRule.launchActivity(null);
+        sut.handleMnemonicRequest(intent);
+
+        Looper.myLooper().quitSafely();
+        assertTrue(true); // if we reach this, everything is ok
+    }
 }

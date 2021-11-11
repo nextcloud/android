@@ -94,13 +94,13 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun listSharesFileNone() {
         show(file)
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun listSharesFileResharingNotAllowed() {
         file.permissions = ""
 
@@ -108,7 +108,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     @Suppress("MagicNumber")
     /**
      * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }

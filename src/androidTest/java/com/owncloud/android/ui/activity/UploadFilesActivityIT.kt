@@ -31,7 +31,7 @@ class UploadFilesActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
     @Test
-    // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
+    // // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
     fun noneSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 

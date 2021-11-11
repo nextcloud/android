@@ -37,7 +37,7 @@ class SendShareDialogTest : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun showDialog() {
         val activity = testActivityRule.launchActivity(null)
 

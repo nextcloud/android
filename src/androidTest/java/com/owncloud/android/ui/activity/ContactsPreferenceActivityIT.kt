@@ -35,7 +35,7 @@ class ContactsPreferenceActivityIT : AbstractIT() {
     var activityRule = IntentsTestRule(ContactsPreferenceActivity::class.java, true, false)
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun openVCF() {
         val file = getFile("vcard.vcf")
         val vcfFile = OCFile("/contacts.vcf")
@@ -54,7 +54,7 @@ class ContactsPreferenceActivityIT : AbstractIT() {
     }
 
     @Test
-    @ScreenshotTest
+    // @ScreenshotTest
     fun openContactsPreference() {
         val sut = activityRule.launchActivity(null)
 

@@ -37,7 +37,7 @@ class PreviewImageFragmentIT : AbstractIT() {
     // manually tried to execute LoadBitmapTask, but this does not start "doInBackground", but only creates class
 
     // @Test
-    // @ScreenshotTest
+    // // @ScreenshotTest
     // fun corruptImage() {
     //     val activity = testActivityRule.launchActivity(null)
     //
@@ -54,7 +54,7 @@ class PreviewImageFragmentIT : AbstractIT() {
     // }
     //
     // @Test
-    // @ScreenshotTest
+    // // @ScreenshotTest
     // fun validImage() {
     //     val activity = testActivityRule.launchActivity(null)
     //
