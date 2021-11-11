@@ -440,6 +440,16 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             additionalFilter.add(R.id.action_send_share_file);
         }
 
+        //this condition will only run when image is rotated
+        //get the rotated bitmap from hashmap
+        if (requireActivity() instanceof PreviewImageActivity) {
+            Bitmap rotatedBitmap = ((PreviewImageActivity) requireActivity()).getCurrentBitmap(currentIndex);
+            //check if it should not be null
+            if (rotatedBitmap != null) {
+                additionalFilter.add(R.id.action_send_share_file);
+            }
+        }
+
         //enable rotate image if image is png or jpg
         //we are not rotating svg, gif or any other format of images
         //image loading should not be failed to show rotate images
