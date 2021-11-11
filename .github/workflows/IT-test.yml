@@ -20,6 +20,11 @@ jobs:
                 with:
                     distribution: "adopt"
                     java-version: 11
+            -   name: Configure gradle
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    echo "NC_TEST_SERVER_URL=http://10.0.2.2" >> $HOME/.gradle/gradle.properties
             -   name: Build gplay
                 run: |
                     mkdir -p $HOME/.gradle
@@ -32,5 +37,5 @@ jobs:
                 with:
                     api-level: 27
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.TEST_SERVER_URL=http://10.0.2.2
+                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
 
