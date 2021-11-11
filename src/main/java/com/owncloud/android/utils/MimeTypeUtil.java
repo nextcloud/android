@@ -240,7 +240,9 @@ public final class MimeTypeUtil {
     //check if file is png or jpg image
     public static boolean isJpgOrPngFile(String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf("."));
-        return extension.equalsIgnoreCase(".png") || extension.equalsIgnoreCase(".jpg");
+        return extension.equalsIgnoreCase(".png")
+            || extension.equalsIgnoreCase(".jpg")
+            || extension.equalsIgnoreCase(".jpeg");
     }
 
     /**

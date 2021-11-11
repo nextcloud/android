@@ -106,6 +106,10 @@ public class PreviewImageActivity extends FileActivity implements
     //LoadImage use is used because it will hold bitmap and OCFile which will later use for uploading
     public static final HashMap<Integer, PreviewImageFragment.LoadImage> bitmapHashMap = new HashMap<>();
 
+    //this hashmap will hold the rotated image bitmap so that when device rotated we can show the
+    //rotated bitmap
+    private static final HashMap<Integer, PreviewImageFragment.LoadImage> localBitmapHashMap = new HashMap<>();
+
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -132,6 +136,7 @@ public class PreviewImageActivity extends FileActivity implements
         // reset it
         if (savedInstanceState == null || !savedInstanceState.containsKey(KEY_ROTATED_IMAGES_SIZE)) {
             bitmapHashMap.clear();
+            localBitmapHashMap.clear();
         }
         // Navigation Drawer
         setupDrawer();
@@ -556,12 +561,13 @@ public class PreviewImageActivity extends FileActivity implements
     //add the rotated bitmap to hash map
     protected void addBitmap(PreviewImageFragment.LoadImage loadImage) {
         bitmapHashMap.put(mSavedPosition, loadImage);
+        localBitmapHashMap.put(mSavedPosition, loadImage);
     }
 
     //get bitmap for passed index
     protected Bitmap getCurrentBitmap(int index) {
-        if (bitmapHashMap.size() > 0) {
-            PreviewImageFragment.LoadImage loadImage = bitmapHashMap.get(index);
+        if (localBitmapHashMap.size() > 0) {
+            PreviewImageFragment.LoadImage loadImage = localBitmapHashMap.get(index);
             if (loadImage != null) {
                 return loadImage.bitmap;
             }
