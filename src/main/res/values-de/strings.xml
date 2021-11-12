@@ -1024,6 +1024,7 @@
         Verwendung der Tools %s oder jederzeit über ihre %s anpassen.</string>
     <string name="login_privacy_settings_header">Datenschutz-Einstellungen</string>
     <string name="common_accept">Akzeptieren</string>
+    <string name="save_settings">Einstellungen speichern</string>
     <string name="login_privacy_policy">Datenschutzhinweise</string>
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
@@ -1034,7 +1035,7 @@
         selbst mitteilen.\n\nWenn Sie die Freigabe über die MagentaCLOUD verschicken und das Passwort in den
         Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
     <string name="link_download_limit">Download Limit</string>
-    <string name="download_limit_empty">Download limit cannot be empty.</string>
-    <string name="hint_download_limit">Enter download limit</string>
-    <string name="download_limit_zero">Download limit should be greater than 0.</string>
+    <string name="download_limit_empty">Das Feld für das Download limit darf nicht leer sein.</string>
+    <string name="hint_download_limit">Downlimit eingeben</string>
+    <string name="download_limit_zero">Der Wert für das Download sollte größer als 0 sein.</string>
 </resources>
