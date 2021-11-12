@@ -115,10 +115,10 @@
             android:layout_width="match_parent"
             app:searchIcon="@null"
             android:layout_height="45dp"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_half_margin"
             android:layout_marginTop="@dimen/standard_double_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:background="@drawable/share_search_background"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            app:queryBackground="@drawable/share_search_background"
             android:hint="@string/share_search" />
 
         <androidx.appcompat.widget.AppCompatTextView
