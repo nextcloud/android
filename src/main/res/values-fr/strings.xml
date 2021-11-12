@@ -193,6 +193,7 @@
     <string name="creates_rich_workspace">ajoute des commentaires au dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
+    <string name="data_to_back_up">Données à sauvegarder</string>
     <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
@@ -202,6 +203,7 @@ Attention la suppression est irréversible.</string>
     <string name="delete_entries">Supprimer les éléments</string>
     <string name="delete_link">Supprimer le lien</string>
     <string name="deselect_all">Tout désélectionner</string>
+    <string name="destination_filename">Nom du fichier de destination</string>
     <string name="dev_version_new_version_available">Nouvelle version disponible</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
@@ -264,6 +266,7 @@ Attention la suppression est irréversible.</string>
     <string name="enter_filename">Veuillez saisir un nom de fichier</string>
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
+    <string name="error_choosing_date">Erreur lors du choix de la date</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_report_issue_action">Signaler</string>
@@ -452,8 +455,10 @@ Attention la suppression est irréversible.</string>
     <string name="new_notification">Nouvelle notification</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
+    <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse email</string>
     <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
+    <string name="no_share_permission_selected">Veuillez sélectionner au moins une permission à partager.</string>
     <string name="note_confirm">Envoyer</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
     <string name="note_icon_hint">Icône de note</string>
@@ -625,7 +630,9 @@ Attention la suppression est irréversible.</string>
     <string name="share_link_with_label">Partager le lien (%1$s)</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
+    <string name="share_open_in">Ouvrir dans...</string>
     <string name="share_password_title">Protégé par mot de passe</string>
+    <string name="share_permissions">Partager les autorisations</string>
     <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
