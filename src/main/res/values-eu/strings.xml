@@ -328,6 +328,8 @@
     <string name="file_list_loading">Kargatzen…</string>
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi-mota honetarako.</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
+    <string name="file_management_permission">Baimenak behar dira</string>
+    <string name="file_management_permission_text">Nextcloudek fitxategien kudeatze baimenak behar ditu ondo funtzionatzeko. Mesedez, gaitu ezazu hurrengo pantailan jarraitzeko.</string>
     <string name="file_migration_checking_destination">Helburua egiaztatzen...</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_dialog_title">Datu-biltegiratze karpeta eguneratzen</string>
@@ -405,6 +407,7 @@
     <string name="link_share_editing">Editatzen</string>
     <string name="link_share_file_drop">Fitxategia jaregin (kargatzeko soilik)</string>
     <string name="link_share_read_only">Irakurtzeko soilik</string>
+    <string name="link_share_view_only">Ikusi soilik</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
     <string name="load_more_results">Kargatu emaitza gehiago </string>
     <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
