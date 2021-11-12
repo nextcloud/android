@@ -11,10 +11,11 @@ jobs:
             -   uses: actions/checkout@v2
             -   name: setup-docker
                 uses: docker-practice/actions-setup-docker@1.0.8
-            -   name: Build server
-                run: docker build -t nextcloud-android-ci:${{github.event.number}} scripts
+            -   name: Pull server image
+                run: docker pull ontherunvaro/nextcloud-ci-test
             -   name: Run server
-                run: docker run --rm -p 80:80 -d nextcloud-android-ci:${{github.event.number}}
+                # https://github.com/AlvaroBrey/nextcloud-ci-test/blob/main/Dockerfile
+                run: docker run --rm -p 80:80 -d ontherunvaro/nextcloud-ci-test
             -   name: Set up JDK 11
                 uses: actions/setup-java@v2
                 with:
