@@ -9,39 +9,39 @@ jobs:
         runs-on: macos-latest
         steps:
             -   uses: actions/checkout@v2
-#            -   name: setup-docker
-#                uses: docker-practice/actions-setup-docker@1.0.8
-#            -   name: Pull server image
-#                run: docker pull ontherunvaro/nextcloud-ci-test
-#            -   name: Run server
-#                # https://github.com/AlvaroBrey/nextcloud-ci-test/blob/main/Dockerfile
-#                run: docker run --rm -p 80:80 -d ontherunvaro/nextcloud-ci-test
-#            -   name: Set up JDK 11
-#                uses: actions/setup-java@v2
-#                with:
-#                    distribution: "adopt"
-#                    java-version: 11
-#            -   name: Configure gradle
-#                run: |
-#                    mkdir -p $HOME/.gradle
-#                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-#                    echo "NC_TEST_SERVER_URL=http://10.0.2.2" >> $HOME/.gradle/gradle.properties
+            -   name: setup-docker
+                uses: docker-practice/actions-setup-docker@1.0.8
+            -   name: Pull server image
+                run: docker pull ontherunvaro/nextcloud-ci-test
+            -   name: Run server
+                # https://github.com/AlvaroBrey/nextcloud-ci-test/blob/main/Dockerfile
+                run: docker run --rm -p 80:80 -d ontherunvaro/nextcloud-ci-test
+            -   name: Set up JDK 11
+                uses: actions/setup-java@v2
+                with:
+                    distribution: "adopt"
+                    java-version: 11
+            -   name: Configure gradle
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    echo "NC_TEST_SERVER_URL=http://10.0.2.2" >> $HOME/.gradle/gradle.properties
             -   name: Patch source for test build
                 run: |
                     echo "TODO: improve this. modifying source for tests is bad practice"
                     sed -i '' 's/"is_beta">false/"is_beta">true/' src/main/res/values/setup.xml
                     sed -i '' 's/1/5/' ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
-#            -   name: Build gplay
-#                run: |
-#                    mkdir -p $HOME/.gradle
-#                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-#                    ./gradlew assembleGplayDebug
-#            -   name: Wait for server
-#                run: ./scripts/wait_for_server.sh "localhost"
-#            -   name: Run integration tests
-#                uses: reactivecircus/android-emulator-runner@v2
-#                with:
-#                    api-level: 27
-#                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-#                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
-#
+            -   name: Build gplay
+                run: |
+                    mkdir -p $HOME/.gradle
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    ./gradlew assembleGplayDebug
+            -   name: Wait for server
+                run: ./scripts/wait_for_server.sh "localhost"
+            -   name: Run integration tests
+                uses: reactivecircus/android-emulator-runner@v2
+                with:
+                    api-level: 27
+                    emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
+
