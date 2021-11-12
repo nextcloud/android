@@ -26,6 +26,11 @@ jobs:
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     echo "NC_TEST_SERVER_URL=http://10.0.2.2" >> $HOME/.gradle/gradle.properties
+            -   name: Patch source for test build
+                run: |
+                    echo "TODO: improve this. modifying source for tests is bad practice"
+                    sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+                    sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
             -   name: Build gplay
                 run: |
                     mkdir -p $HOME/.gradle
