@@ -35,6 +35,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.java.util.Optional
+import com.nmc.android.utils.FileUtils
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -118,6 +119,9 @@ class AccountRemovalWork(
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PRIVATE_KEY)
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PUBLIC_KEY)
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.MNEMONIC)
+
+        //delete the files during logout work from Directory pictures
+        FileUtils.deleteFilesFromPicturesDirectory(applicationContext)
 
         // remove all files
         removeFiles(user, storageManager)
