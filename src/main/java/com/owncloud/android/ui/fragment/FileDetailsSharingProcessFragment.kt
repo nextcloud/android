@@ -587,8 +587,12 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         val downloadLimit = binding.shareProcessDownloadLimitEt
             .text.toString().trim()
 
-        if (binding.shareProcessDownloadLimitSwitch.isChecked && TextUtils.isEmpty(downloadLimit)) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
+        if (binding.shareProcessDownloadLimitSwitch.isChecked) {
+            if (TextUtils.isEmpty(downloadLimit)) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
+            } else if (downloadLimit.toInt() <= 0){
+                DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_zero)
+            }
             return
         }
 

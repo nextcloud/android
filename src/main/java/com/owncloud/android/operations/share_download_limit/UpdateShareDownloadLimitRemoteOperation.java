@@ -34,15 +34,19 @@ import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class to update the download limit for the link share
+ * <p>
+ * API : //PUT to /ocs/v2.php/apps/files_downloadlimit/{share_token}/limit
+ *
+ * Body:
+ * {"token" : "Bpd4oEAgPqn3AbG",
+ * "limit" : 5}
+ */
 public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
 
     private static final String TAG = UpdateShareDownloadLimitRemoteOperation.class.getSimpleName();
-    // PUT --> ocs/v2.php/apps/files_downloadlimit/{token}/limit
-    //body:
-// {
-// "token" : "Bpd4oEAgPqn3AbG",
-// "limit" : 5
-//}
+
     private static final String PARAM_TOKEN = "token";
     private static final String PARAM_LIMIT = "limit";
 
@@ -62,30 +66,30 @@ public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
         RemoteOperationResult result;
         int status;
 
-        PutMethod post = null;
+        PutMethod put = null;
 
         try {
             // Post Method
-            post = new PutMethod(client.getBaseUri() + ShareDownloadLimitUtils.INSTANCE.getDownloadLimitApiPath(shareToken));
+            put = new PutMethod(client.getBaseUri() + ShareDownloadLimitUtils.INSTANCE.getDownloadLimitApiPath(shareToken));
 
-            post.setRequestHeader(CONTENT_TYPE, FORM_URLENCODED);
+            put.setRequestHeader(CONTENT_TYPE, FORM_URLENCODED);
 
             List<Pair<String, String>> parametersToUpdate = new ArrayList<>();
                 //parametersToUpdate.add(new Pair<>(PARAM_TOKEN, shareToken));
             parametersToUpdate.add(new Pair<>(PARAM_LIMIT, String.valueOf(downloadLimit)));
 
             for (Pair<String, String> parameter : parametersToUpdate) {
-                post.setRequestEntity(new StringRequestEntity(parameter.first + "=" + parameter.second,
+                put.setRequestEntity(new StringRequestEntity(parameter.first + "=" + parameter.second,
                                                               ENTITY_CONTENT_TYPE,
                                                               ENTITY_CHARSET));
             }
 
-            post.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
+            put.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
 
-            status = client.executeMethod(post);
+            status = client.executeMethod(put);
 
             if (isSuccess(status)) {
-                String response = post.getResponseBodyAsString();
+                String response = put.getResponseBodyAsString();
 
                 Log_OC.d(TAG,"Download Limit response: "+response);
 
@@ -100,7 +104,7 @@ public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
                 }
 
             } else {
-                result = new RemoteOperationResult<>(false, post);
+                result = new RemoteOperationResult<>(false, put);
             }
 
         } catch (Exception e) {
@@ -108,8 +112,8 @@ public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
             Log_OC.e(TAG, "Exception while updating share download limit", e);
 
         } finally {
-            if (post != null) {
-                post.releaseConnection();
+            if (put != null) {
+                put.releaseConnection();
             }
         }
         return result;

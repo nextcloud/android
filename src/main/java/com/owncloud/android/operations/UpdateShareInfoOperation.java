@@ -33,6 +33,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.share_download_limit.DeleteShareDownloadLimitRemoteOperation;
 import com.owncloud.android.operations.share_download_limit.UpdateShareDownloadLimitRemoteOperation;
 
 
@@ -124,19 +125,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
                 OCShare ocShare = (OCShare) result.getData().get(0);
                 ocShare.setPasswordProtected(!TextUtils.isEmpty(password));
 
-                //if share type is of Link Share then only we have to update the download limit if configured by user
-                if (share.getShareType() == ShareType.PUBLIC_LINK && downloadLimit > 0){
-
-                    //api will update the download limit for the particular share
-                    UpdateShareDownloadLimitRemoteOperation updateShareDownloadLimitRemoteOperation =
-                        new UpdateShareDownloadLimitRemoteOperation(ocShare.getToken(),downloadLimit);
-
-                    RemoteOperationResult downloadLimitOp =
-                        updateShareDownloadLimitRemoteOperation.execute(client);
-                    if(downloadLimitOp.isSuccess()) {
-                        Log_OC.d(TAG, "Download limit updated for the share.");
-                    }
-                }
+                executeShareDownloadLimitOperation(client,ocShare);
 
                 getStorageManager().saveShare(ocShare);
             }
@@ -144,6 +133,42 @@ public class UpdateShareInfoOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    /**
+     * method will be used to update or delete the download limit for the particular share
+     * @param client
+     * @param ocShare share object
+     */
+    private void executeShareDownloadLimitOperation(OwnCloudClient client,OCShare ocShare) {
+        //if share type is of Link Share then only we have to update the download limit if configured by user
+        if (ocShare.getShareType() == ShareType.PUBLIC_LINK){
+
+            //if download limit it greater than 0 then update the limit
+            //else delete the download limit
+            if (downloadLimit > 0){
+                //api will update the download limit for the particular share
+                UpdateShareDownloadLimitRemoteOperation updateShareDownloadLimitRemoteOperation =
+                    new UpdateShareDownloadLimitRemoteOperation(ocShare.getToken(), downloadLimit);
+
+                RemoteOperationResult downloadLimitOp =
+                    updateShareDownloadLimitRemoteOperation.execute(client);
+                if(downloadLimitOp.isSuccess()) {
+                    Log_OC.d(TAG, "Download limit updated for the share.");
+                }
+            }else{
+                //api will delete the download limit for the particular share
+                DeleteShareDownloadLimitRemoteOperation limitRemoteOperation =
+                    new DeleteShareDownloadLimitRemoteOperation(ocShare.getToken());
+
+                RemoteOperationResult deleteDownloadLimitOp =
+                    limitRemoteOperation.execute(client);
+                if(deleteDownloadLimitOp.isSuccess()) {
+                    Log_OC.d(TAG, "Download limit delete for the share.");
+                }
+            }
+
+        }
     }
 
     public void setExpirationDateInMillis(long expirationDateInMillis) {
