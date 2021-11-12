@@ -19,6 +19,7 @@ jobs:
                     docker run --rm --name nextcloud_server -p 80:80 -d ontherunvaro/nextcloud-ci-test
                     sleep 5
                     docker inspect nextcloud_server
+                    echo $(docker inspect nextcloud_server | jq '.[].NetworkSettings.Networks.bridge.IPAddress' -r) > /tmp/server-ip
             -   name: Set up JDK 11
                 uses: actions/setup-java@v2
                 with:
@@ -27,8 +28,9 @@ jobs:
             -   name: Configure gradle
                 run: |
                     mkdir -p $HOME/.gradle
+                    brew install jq
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-                    echo "NC_TEST_SERVER_URL=http://10.0.2.2" >> $HOME/.gradle/gradle.properties
+                    echo "NC_TEST_SERVER_BASEURL=http://$(cat /tmp/server-ip)" >> $HOME/.gradle/gradle.properties
                     cat $HOME/.gradle/gradle.properties
             -   name: Patch source for test build
                 run: |
@@ -41,11 +43,11 @@ jobs:
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
                     ./gradlew assembleGplayDebug
             -   name: Wait for server
-                run: ./scripts/wait_for_server.sh "localhost"
+                run: ./scripts/wait_for_server.sh "$(cat /tmp/server-ip)"
             -   name: Run integration tests
                 uses: reactivecircus/android-emulator-runner@v2
                 with:
                     api-level: 27
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.class=com.nextcloud.client.FileDisplayActivityIT
+                    script: ./gradlew connectedGplayDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
 
