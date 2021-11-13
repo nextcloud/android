@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
         classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.9'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -61,14 +61,14 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.39.1"
+	daggerVersion = "2.40.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "3.12.4"
-    mockkVersion = "1.10.4"
+    mockkVersion = "1.12.0"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.11.20"
+    byteBuddyVersion = "1.11.22"
     espressoVersion = "3.4.0"
     workRuntime = "2.5.0"
     fidoVersion = "4.1.0"
@@ -87,7 +87,7 @@ repositories {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 18
+def versionMinor = 19
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -117,11 +117,11 @@ android {
             'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 22
-        targetSdkVersion 29
+        minSdkVersion 23
+        targetSdkVersion 30
 
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
@@ -224,31 +224,15 @@ android {
         }
     }
 
-    android.applicationVariants.all { variant ->
-        String variantName = variant.name
-        String capVariantName = variantName.substring(0, 1).toUpperCase() + variantName.substring(1)
-        tasks.register("spotbugs${capVariantName}Report", SpotBugsTask) {
-            ignoreFailures = true // should continue checking
-            effort = "max"
-            reportLevel = "medium"
-            classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
-            excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
-
-            reports {
-                xml.enabled = false
-                html {
-                    enabled = true
-                    destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
-                }
-            }
-        }
-    }
-
     check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
 
     buildFeatures {
         dataBinding true
         viewBinding true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -282,7 +266,7 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'org.bouncycastle:bcpkix-jdk15to18:1.69'
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
@@ -294,7 +278,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
     implementation 'com.vanniktech:emoji-google:0.8.0'
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
@@ -312,7 +296,7 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.42.1"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
@@ -327,6 +311,16 @@ dependencies {
     implementation "io.noties.markwon:syntax-highlight:$markwonVersion"
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
+
+    implementation ('org.mnode.ical4j:ical4j:1.0.6') {
+        ['org.apache.commons','commons-logging'].each {
+            exclude group: "$it"
+        }
+    }
+
+    if (!ciBuild) {
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    }
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13.2'
@@ -364,7 +358,7 @@ dependencies {
     }
     androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
-    androidTestImplementation "io.mockk:mockk-android:1.10.4"
+    androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation "com.facebook.testing.screenshot:core:0.13.0"
 
@@ -461,4 +455,27 @@ shot {
 
 jacoco {
     toolVersion = "$jacoco_version"
+}
+
+spotbugs {
+    ignoreFailures = true // should continue checking
+    effort = "max"
+    reportLevel = "medium"
+}
+
+tasks.withType(SpotBugsTask){task ->
+    String variantNameCap = task.name.replace("spotbugs", "")
+    String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
+
+    dependsOn "compile${variantNameCap}Sources"
+
+    excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
+    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
+    reports {
+        xml.enabled = false
+        html {
+            enabled = true
+            destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+        }
+    }
 }

@@ -23,7 +23,7 @@
               android:layout_height="@dimen/standard_list_item_size">
 
     <ImageView
-        android:id="@+id/contactlist_item_icon"
+        android:id="@+id/icon"
         android:layout_width="@dimen/contactlist_item_icon_layout_width"
         android:layout_height="@dimen/contactlist_item_icon_layout_height"
         android:layout_margin="@dimen/standard_margin"
@@ -32,7 +32,7 @@
         android:contentDescription="@string/contactlist_item_icon"/>
 
     <CheckedTextView
-        android:id="@+id/contactlist_item_name"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_list_item_size"
         android:layout_marginEnd="@dimen/standard_margin"

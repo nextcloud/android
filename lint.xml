@@ -43,6 +43,7 @@
 
     <issue id="Typos">
         <ignore path="**/values-**/strings.xml" />
+        <ignore path="**/values/setup.xml" />
     </issue>
 
     <issue id="TrustAllX509TrustManager">

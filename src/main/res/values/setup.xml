@@ -32,10 +32,10 @@
     <bool name="show_external_links">true</bool>
     <bool name="show_outdated_server_warning">true</bool>
 
-    <!-- Contacts backup -->
-    <bool name="contacts_backup">true</bool>
+    <!-- Calendar & Contacts backup -->
     <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
+    <string name="calendar_backup_folder">/.Calendar-Backup</string>
 
     <!-- What's new -->
     <bool name="show_whats_new">true</bool>
@@ -58,7 +58,6 @@
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">false</bool>
     <bool name="show_drawer_logout">false</bool>
-    <bool name="show_drawer_contacts_backup">false</bool> <!-- if false it will shown in settings -->
 
     <!-- Help, imprint and feedback, and other things -->
     <bool name="passcode_enabled">true</bool>

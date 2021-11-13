@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,20 +24,21 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.widget.ImageView;
-
+import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
 public interface ShareeListAdapterListener {
     void copyLink(OCShare share);
 
-    void showLinkOverflowMenu(OCShare publicShare, ImageView overflowMenuShareLink);
-
-    void showUserOverflowMenu(OCShare share, ImageView overflowMenu);
+    void showSharingMenuActionSheet(OCShare share);
 
     void copyInternalLink();
 
     void createPublicShareLink();
 
     void requestPasswordForShare(OCShare share, boolean askForPassword);
+
+    void showPermissionsDialog(OCShare share);
+
+    void showProfileBottomSheet(User user, String shareWith);
 }

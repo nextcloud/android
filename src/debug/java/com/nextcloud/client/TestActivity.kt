@@ -22,11 +22,13 @@
 package com.nextcloud.client
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
+import com.owncloud.android.databinding.TestLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileDownloader
@@ -45,8 +47,11 @@ class TestActivity :
     SwipeRefreshLayout.OnRefreshListener,
     OnEnforceableRefreshListener {
     lateinit var fragment: Fragment
+    lateinit var secondaryFragment: Fragment
+
     private lateinit var storage: FileDataStorageManager
     private lateinit var fileOperation: FileOperationsHelper
+    private lateinit var binding: TestLayoutBinding
 
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
         override fun isInternetWalled(): Boolean {
@@ -61,14 +66,38 @@ class TestActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.test_layout)
+        binding = TestLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     fun addFragment(fragment: Fragment) {
         this.fragment = fragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.root, fragment)
+        transaction.replace(R.id.main_fragment, fragment)
         transaction.commit()
+    }
+
+    /**
+     * Adds a secondary fragment to the activity with the given tag.
+     *
+     * If you have to use this, your Fragments are coupled, and you should feel bad.
+     */
+    fun addSecondaryFragment(fragment: Fragment, tag: String) {
+        this.secondaryFragment = fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.secondary_fragment, fragment, tag)
+        transaction.commit()
+    }
+
+    /**
+     * Adds a View to the activity.
+     *
+     * If you have to use this, your Fragment is coupled to your Activity and you should feel bad.
+     */
+    fun addView(view: View) {
+        handler.post {
+            binding.rootLayout.addView(view)
+        }
     }
 
     override fun onBrowsedDownTo(folder: OCFile?) {

@@ -113,7 +113,7 @@ class FileTransferService : Service() {
             )
         }
 
-        val request = intent.getParcelableExtra(EXTRA_REQUEST) as Request
+        val request: Request = intent.getParcelableExtra(EXTRA_REQUEST)!!
         val transferManager = getTransferManager(request.user)
         transferManager.enqueue(request)
 

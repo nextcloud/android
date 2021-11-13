@@ -1,7 +1,6 @@
 package com.owncloud.android;
 
-import android.Manifest;
-
+import com.nextcloud.client.GrantStoragePermissionRule;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
@@ -14,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -23,7 +23,6 @@ import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.PreferenceMatchers;
 import androidx.test.filters.LargeTest;
-import androidx.test.rule.GrantPermissionRule;
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
@@ -44,8 +43,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @BeforeClass
     public static void beforeScreenshot() {
