@@ -43,6 +43,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.MediaFolderType
@@ -76,7 +77,7 @@ class MediaFoldersDetectionWork constructor(
         private const val ACCOUNT_NAME_GLOBAL = "global"
         private const val KEY_MEDIA_FOLDERS = "media_folders"
         const val NOTIFICATION_ID = "NOTIFICATION_ID"
-        private const val DISABLE_DETECTION_CLICK = "DISABLE_DETECTION_CLICK"
+        private val DISABLE_DETECTION_CLICK = MainApp.getAuthority() + "_DISABLE_DETECTION_CLICK"
     }
 
     private val randomIdGenerator = Random(clock.currentTime)
@@ -86,7 +87,6 @@ class MediaFoldersDetectionWork constructor(
         val arbitraryDataProvider = ArbitraryDataProvider(contentResolver)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val gson = Gson()
-        val arbitraryDataString: String
         val mediaFoldersModel: MediaFoldersModel
         val imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true)
         val videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true)
@@ -98,7 +98,7 @@ class MediaFoldersDetectionWork constructor(
         for (videoMediaFolder in videoMediaFolders) {
             imageMediaFolderPaths.add(videoMediaFolder.absolutePath)
         }
-        arbitraryDataString = arbitraryDataProvider.getValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS)
+        val arbitraryDataString = arbitraryDataProvider.getValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS)
         if (!TextUtils.isEmpty(arbitraryDataString)) {
             mediaFoldersModel = gson.fromJson(arbitraryDataString, MediaFoldersModel::class.java)
             // merge new detected paths with already notified ones
@@ -121,7 +121,7 @@ class MediaFoldersDetectionWork constructor(
             if (preferences.isShowMediaScanNotifications) {
                 imageMediaFolderPaths.removeAll(mediaFoldersModel.imageMediaFolders)
                 videoMediaFolderPaths.removeAll(mediaFoldersModel.videoMediaFolders)
-                if (!imageMediaFolderPaths.isEmpty() || !videoMediaFolderPaths.isEmpty()) {
+                if (imageMediaFolderPaths.isNotEmpty() || videoMediaFolderPaths.isNotEmpty()) {
                     val allUsers = userAccountManager.allUsers
                     val activeUsers: MutableList<User> = ArrayList()
                     for (user in allUsers) {

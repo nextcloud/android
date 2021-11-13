@@ -24,7 +24,6 @@ package com.owncloud.android.utils.theme;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Spannable;
@@ -134,21 +133,17 @@ public final class ThemeToolbarUtils {
         boolean isLightTheme = ThemeColorUtils.lightTheme(color);
         if (window != null) {
             window.setStatusBarColor(color);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                View decor = window.getDecorView();
-                if (isLightTheme) {
-                    int systemUiFlagLightStatusBar;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-                    } else {
-                        systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                    }
-                    decor.setSystemUiVisibility(systemUiFlagLightStatusBar);
+            View decor = window.getDecorView();
+            if (isLightTheme) {
+                int systemUiFlagLightStatusBar;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
                 } else {
-                    decor.setSystemUiVisibility(0);
+                    systemUiFlagLightStatusBar = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                 }
-            } else if (isLightTheme) {
-                window.setStatusBarColor(Color.BLACK);
+                decor.setSystemUiVisibility(systemUiFlagLightStatusBar);
+            } else {
+                decor.setSystemUiVisibility(0);
             }
         }
     }

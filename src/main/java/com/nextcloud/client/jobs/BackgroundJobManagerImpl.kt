@@ -68,6 +68,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
         const val JOB_IMMEDIATE_CONTACTS_BACKUP = "immediate_contacts_backup"
         const val JOB_IMMEDIATE_CONTACTS_IMPORT = "immediate_contacts_import"
+        const val JOB_PERIODIC_CALENDAR_BACKUP = "periodic_calendar_backup"
+        const val JOB_IMMEDIATE_CALENDAR_IMPORT = "immediate_calendar_import"
         const val JOB_PERIODIC_FILES_SYNC = "periodic_files_sync"
         const val JOB_IMMEDIATE_FILES_SYNC = "immediate_files_sync"
         const val JOB_PERIODIC_OFFLINE_SYNC = "periodic_offline_sync"
@@ -75,6 +77,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
+        const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
 
         const val JOB_TEST = "test_job"
 
@@ -85,7 +88,7 @@ internal class BackgroundJobManagerImpl(
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
         val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP)
         const val NOT_SET_VALUE = "not set"
-        const val PERIODIC_CONTACTS_BACKUP_INTERVAL_MINUTES = 24 * 60L
+        const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
 
@@ -228,7 +231,7 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = ContactsBackupWork::class,
             jobName = JOB_PERIODIC_CONTACTS_BACKUP,
-            intervalMins = PERIODIC_CONTACTS_BACKUP_INTERVAL_MINUTES,
+            intervalMins = PERIODIC_BACKUP_INTERVAL_MINUTES,
             user = user
         ).setInputData(data).build()
 
@@ -267,6 +270,26 @@ internal class BackgroundJobManagerImpl(
         return workManager.getJobInfo(request.id)
     }
 
+    override fun startImmediateCalendarImport(calendarPaths: Map<String, Int>): LiveData<JobInfo?> {
+
+        val data = Data.Builder()
+            .putAll(calendarPaths)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .build()
+
+        val request = oneTimeRequestBuilder(CalendarImportWork::class, JOB_IMMEDIATE_CALENDAR_IMPORT)
+            .setInputData(data)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_CALENDAR_IMPORT, ExistingWorkPolicy.KEEP, request)
+
+        return workManager.getJobInfo(request.id)
+    }
+
     override fun startImmediateContactsBackup(user: User): LiveData<JobInfo?> {
         val data = Data.Builder()
             .putString(ContactsBackupWork.ACCOUNT, user.accountName)
@@ -279,6 +302,39 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniqueWork(JOB_IMMEDIATE_CONTACTS_BACKUP, ExistingWorkPolicy.KEEP, request)
         return workManager.getJobInfo(request.id)
+    }
+
+    override fun startImmediateCalendarBackup(user: User): LiveData<JobInfo?> {
+        val data = Data.Builder()
+            .putString(CalendarBackupWork.ACCOUNT, user.accountName)
+            .putBoolean(CalendarBackupWork.FORCE, true)
+            .build()
+
+        val request = oneTimeRequestBuilder(CalendarBackupWork::class, JOB_IMMEDIATE_CALENDAR_BACKUP, user)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_CALENDAR_BACKUP, ExistingWorkPolicy.KEEP, request)
+        return workManager.getJobInfo(request.id)
+    }
+
+    override fun schedulePeriodicCalendarBackup(user: User) {
+        val data = Data.Builder()
+            .putString(CalendarBackupWork.ACCOUNT, user.accountName)
+            .putBoolean(CalendarBackupWork.FORCE, true)
+            .build()
+        val request = periodicRequestBuilder(
+            jobClass = CalendarBackupWork::class,
+            jobName = JOB_PERIODIC_CALENDAR_BACKUP,
+            intervalMins = PERIODIC_BACKUP_INTERVAL_MINUTES,
+            user = user
+        ).setInputData(data).build()
+
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_CALENDAR_BACKUP, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
+
+    override fun cancelPeriodicCalendarBackup(user: User) {
+        workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
     }
 
     override fun schedulePeriodicFilesSyncJob() {

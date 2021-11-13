@@ -68,9 +68,9 @@
 					android:key="calendar_contacts"
 					android:summary="@string/prefs_calendar_contacts_summary" />
 		<Preference
-			android:title="@string/actionbar_contacts"
-			android:key="contacts"
-			android:summary="@string/prefs_daily_contacts_sync_summary"/>
+            android:title="@string/backup_title"
+            android:key="backup"
+            android:summary="@string/prefs_daily_backup_summary" />
 		<Preference
 			android:title="@string/prefs_e2e_mnemonic"
 			android:key="mnemonic"

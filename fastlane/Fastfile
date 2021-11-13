@@ -48,6 +48,7 @@ end
 desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :RC_releasePhase2 do |options|
     info = androidVersion
+    promptVersion(info)
     checkChangelog(info)
     checkLibrary_RC()
     checkIfScreenshotsExist()

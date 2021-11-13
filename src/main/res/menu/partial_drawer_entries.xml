@@ -103,11 +103,6 @@
         android:id="@+id/drawer_menu_bottom"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_contacts"
-            android:icon="@drawable/nav_contacts"
-            android:orderInCategory="3"
-            android:title="@string/actionbar_contacts"/>
-        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/nav_settings"
             android:orderInCategory="4"

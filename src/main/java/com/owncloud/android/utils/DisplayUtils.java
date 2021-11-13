@@ -527,6 +527,7 @@ public final class DisplayUtils {
                                                             resources,
                                                             avatarRadius,
                                                             userId,
+                                                            displayName,
                                                             serverName,
                                                             context);
 
@@ -573,7 +574,7 @@ public final class DisplayUtils {
                                         int width,
                                         int height) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-            .using(new CustomGlideUriLoader(currentAccountProvider, clientFactory), InputStream.class)
+            .using(new CustomGlideUriLoader(currentAccountProvider.getUser(), clientFactory), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
             .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
@@ -755,8 +756,16 @@ public final class DisplayUtils {
     }
 
     static public void startLinkIntent(Activity activity, @StringRes int link) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(activity.getString(link)));
+        startLinkIntent(activity, activity.getString(link));
+    }
+
+    static public void startLinkIntent(Activity activity, Uri url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, url);
         DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+    }
+
+    static public void startLinkIntent(Activity activity, String url) {
+        startLinkIntent(activity, Uri.parse(url));
     }
 
     static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {

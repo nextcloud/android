@@ -14,6 +14,7 @@
     <string name="action_send_share">Надіслати/Поширити</string>
     <string name="action_switch_grid_view">Упорядкування у формі сітки</string>
     <string name="action_switch_list_view">Упорядкування у формі списку</string>
+    <string name="actionbar_calendar_contacts_restore">Відновлення контактів</string>
     <string name="actionbar_contacts">Зробити резервну копію контактів</string>
     <string name="actionbar_contacts_restore">Відновити контакти з резервної копії</string>
     <string name="actionbar_copy">Копіювати</string>
@@ -35,6 +36,7 @@
     <string name="add_another_public_share_link">Додати інше посилання</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_to_cloud">Додати до %1$s</string>
+    <string name="advanced_settings">Додаткові налаштування</string>
     <string name="allow_creating">Може створювати</string>
     <string name="allow_deleting">Може вилучати</string>
     <string name="allow_editing">Може редагувати</string>
@@ -80,12 +82,15 @@
     <string name="autoupload_hide_folder">Заховати теку</string>
     <string name="avatar">Світлина</string>
     <string name="away">Піти</string>
+    <string name="backup_settings">Налаштування резервного збереження</string>
     <string name="battery_optimization_close">Закрити</string>
     <string name="battery_optimization_disable">Вимкнути</string>
     <string name="battery_optimization_message">Можливо, що на вашому пристрої увімкнено оптимізацію живлення від батареї. Автоматичне завантаження буде правильно працювати лише, якщо ви виключите цей застосунок зі списку оптимізації.</string>
     <string name="battery_optimization_no_setting">Неможливо відкрити налаштування батареї. Будь ласка, виконайте конфігурування самостійно у налаштуваннях.</string>
     <string name="battery_optimization_title">Оптимізація живлення</string>
     <string name="brute_force_delay">Затримка через занадто багато неправильних спроб</string>
+    <string name="calendar">Календар</string>
+    <string name="calendars">Календарі</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
     <string name="changelog_dev_version">Версія для розробника зі списку змін</string>
     <string name="checkbox">Прапорець</string>
@@ -104,11 +109,13 @@
     <string name="common_cancel">Відмінити</string>
     <string name="common_cancel_sync">Відмінити синхронізацію</string>
     <string name="common_choose_account">Оберіть обліковий запис</string>
+    <string name="common_confirm">Підтвердити</string>
     <string name="common_delete">Видалити</string>
     <string name="common_error">Помилка</string>
     <string name="common_error_out_memory">Недостатньо пам\'яті</string>
     <string name="common_error_unknown">Невідома помилка</string>
     <string name="common_loading">Завантаження…</string>
+    <string name="common_next">Далі</string>
     <string name="common_no">Ні</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Очікування</string>
@@ -155,6 +162,7 @@
     <string name="contactlist_account_chooser_title">Виберіть обліковий запис для імпорту</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
+    <string name="contacts">Контакти</string>
     <string name="contacts_automatic_backup">Автоматичне резервне копіювання</string>
     <string name="contacts_backup_button">Створити зараз резервну копію</string>
     <string name="contacts_last_backup">Остання резервна копія</string>
@@ -186,12 +194,16 @@
     <string name="create_rich_workspace">Додати інформацію про теку</string>
     <string name="creates_rich_workspace">додавання інформації про теку</string>
     <string name="credentials_disabled">Дані авторизації не активні</string>
+    <string name="daily_backup">Щоденне резервне збереження</string>
+    <string name="data_to_back_up">Дані для резервного збереження</string>
     <string name="date_unknown">Невідомо</string>
     <string name="default_credentials_wrong">Неправильні дані авторизації</string>
     <string name="delete_account">Видалити обліковий запис</string>
     <string name="delete_account_warning">Видалити обліковий запис %s і знищити всі локальні файли?\n\nВидалення не можна буде відмінити.</string>
     <string name="delete_entries">Вилучити записи</string>
+    <string name="delete_link">Посилання на вилучення</string>
     <string name="deselect_all">Зняти всі позначки</string>
+    <string name="destination_filename">Файл призначення</string>
     <string name="dev_version_new_version_available">Доступна нова версія</string>
     <string name="dev_version_no_information_available">Відсутня інформація</string>
     <string name="dev_version_no_new_version_available">Відсутня нова версія</string>
@@ -385,6 +397,7 @@
     <string name="label_empty">Ярлик не може бути порожнім</string>
     <string name="link">Посилання</string>
     <string name="link_share_allow_upload_and_editing">Може завантажувати та редагувати</string>
+    <string name="link_share_editing">Редагування</string>
     <string name="link_share_file_drop">Сховище (тільки завантажування)</string>
     <string name="link_share_read_only">Тільки читання</string>
     <string name="list_layout">Шаблон списку</string>
@@ -425,6 +438,7 @@
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
     <string name="menu_item_sort_by_size_biggest_first">Більші попереду</string>
     <string name="menu_item_sort_by_size_smallest_first">Менші попереду</string>
+    <string name="more">Докладно</string>
     <string name="move_file_error">Виникла помилка при спробі перемістити файл або теку</string>
     <string name="move_file_invalid_into_descendent">Неможливо перемістити теку до однієї з її підтек</string>
     <string name="move_file_invalid_overwrite">Файл уже присутній в теці призначення</string>
@@ -449,6 +463,7 @@
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name">Канал сповіщень про завантаження</string>
+    <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_observer_description">Спостерігає за зміною файлів</string>
     <string name="notification_channel_file_observer_name">Перегляд файлів</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -461,6 +476,7 @@
     <string name="notification_channel_push_name">Сповіщення push</string>
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>
     <string name="notification_channel_upload_name">Канал сповіщень про завантаження</string>
+    <string name="notification_channel_upload_name_short">Завантаження</string>
     <string name="notification_icon">Значок сповіщень</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перегляньте ще раз пізніше.</string>
@@ -569,7 +585,9 @@
     <string name="resharing_is_not_allowed">Не дозволяється надання спільного доступу подалі</string>
     <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>
     <string name="restore">Відновити файл</string>
+    <string name="restore_backup">Відновити</string>
     <string name="restore_button_description">Відновити файл, який було вилучено</string>
+    <string name="restore_selected">Відновити обране</string>
     <string name="retrieving_file">Отримання файлу...</string>
     <string name="richdocuments_failed_to_load_document">Неможливо завантажити документ!</string>
     <string name="scanQR_description">Вхід з QR-кодом</string>

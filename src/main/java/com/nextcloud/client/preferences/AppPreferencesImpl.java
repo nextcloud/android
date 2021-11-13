@@ -90,6 +90,10 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
     private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
     private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
+    private static final String PREF__UID_PID = "uid_pid";
+
+    private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
+    private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -97,8 +101,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private final ListenerRegistry listeners;
 
     /**
-     * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls
-     * with key-value pairs to respective {@link com.nextcloud.client.preferences.AppPreferences.Listener} method.
+     * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to
+     * respective {@link com.nextcloud.client.preferences.AppPreferences.Listener} method.
      */
     static class ListenerRegistry implements SharedPreferences.OnSharedPreferenceChangeListener {
         private final AppPreferences preferences;
@@ -658,6 +662,26 @@ public final class AppPreferencesImpl implements AppPreferences {
         int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
 
         return computeBruteForceDelay(count);
+    }
+
+    @Override
+    public String getUidPid() {
+        return preferences.getString(PREF__UID_PID, "");
+    }
+
+    @Override
+    public void setUidPid(String uidPid) {
+        preferences.edit().putString(PREF__UID_PID, uidPid).apply();
+    }
+
+    @Override
+    public long getCalendarLastBackup() {
+        return preferences.getLong(PREF__CALENDAR_LAST_BACKUP, 0);
+    }
+
+    @Override
+    public void setCalendarLastBackup(long timestamp) {
+        preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply();
     }
 
     @VisibleForTesting

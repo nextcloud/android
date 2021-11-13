@@ -22,12 +22,12 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -39,9 +39,9 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -56,8 +56,7 @@ public class DrawerActivityIT extends AbstractIT {
                                                                                            false);
 
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
     private static Account account1;
     private static User user1;
     private static Account account2;
