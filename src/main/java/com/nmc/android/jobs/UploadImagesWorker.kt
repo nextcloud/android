@@ -3,7 +3,6 @@ package com.nmc.android.jobs
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -42,7 +41,11 @@ class UploadImagesWorker constructor(
 
     override fun doWork(): Result {
 
-        val bitmapHashMap: HashMap<Int, PreviewImageFragment.LoadImage> = PreviewImageActivity.bitmapHashMap
+
+        val bitmapHashMap: HashMap<Int, PreviewImageFragment.LoadImage> = HashMap(PreviewImageActivity.bitmapHashMap)
+
+        //clear the static bitmap once the images are stored in work manager instance
+        PreviewImageActivity.bitmapHashMap.clear()
 
         val randomId = SecureRandom()
         val pushNotificationId = randomId.nextInt()
@@ -56,7 +59,7 @@ class UploadImagesWorker constructor(
             val fileNameWithoutExt: String = fileName.replace(extension, "")
 
             //if extension is jpg then save the image as jpg
-            if (extension == ".jpg") {
+            if (extension == ".jpg"  || extension == ".jpeg") {
                 val jpgFile = FileUtils.saveJpgImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well

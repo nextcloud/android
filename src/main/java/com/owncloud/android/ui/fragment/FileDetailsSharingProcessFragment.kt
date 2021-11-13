@@ -278,12 +278,19 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
-            }else if (file?.isFolder == true){
-                //no file drop for internal share due to 403 bad request api issue
-                binding.shareProcessPermissionFileDrop.visibility = View.GONE
-                binding.shareFileDropInfo.visibility = View.GONE
+                if (share?.isFolder == true){
+                    hideFileDropView()
+                }
+            } else if (file?.isFolder == true) {
+                hideFileDropView()
             }
         }
+    }
+
+    private fun hideFileDropView() {
+        //no file drop for internal share due to 403 bad request api issue
+        binding.shareProcessPermissionFileDrop.visibility = View.GONE
+        binding.shareFileDropInfo.visibility = View.GONE
     }
 
     private fun updateFileEditingRadioButton() {

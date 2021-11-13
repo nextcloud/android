@@ -2204,7 +2204,6 @@ public class FileDisplayActivity extends FileActivity
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            showSortListGroup(false);
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
             params.setBehavior(null);
 
@@ -2212,6 +2211,10 @@ public class FileDisplayActivity extends FileActivity
             setLeftFragment(mediaFragment);
             updateActionBarTitleAndHomeButton(file);
             setFile(file);
+
+            //hide the sort dialog button after the fragment is shown
+            //else the header will be shown there
+            showSortListGroup(false);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
