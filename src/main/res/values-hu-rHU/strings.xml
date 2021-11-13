@@ -328,6 +328,8 @@
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
+    <string name="file_management_permission">Engedély szükséges</string>
+    <string name="file_management_permission_text">A Nextcloudnak fájlkezelési engedélyre van szüksége, hogy helyesen működjön. A folytatáshoz engedélyezze a következő képernyőn.</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
     <string name="file_migration_dialog_title">Adattároló mappa frissítése</string>
@@ -405,6 +407,7 @@
     <string name="link_share_editing">Szerkesztés</string>
     <string name="link_share_file_drop">Fájl ledobás (csak feltöltés)</string>
     <string name="link_share_read_only">Csak olvasható</string>
+    <string name="link_share_view_only">Csak megtekintés</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="load_more_results">További találatok betöltése</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
