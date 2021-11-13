@@ -34,6 +34,7 @@
     <string name="add_another_public_share_link">Tilføj et link mere</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
+    <string name="advanced_settings">Avancerede indstillinger</string>
     <string name="allow_creating">Tillad oprettelse</string>
     <string name="allow_deleting">Tillad sletning</string>
     <string name="allow_editing">Tillad redigering</string>
@@ -85,6 +86,8 @@
     <string name="battery_optimization_no_setting">Kan ikke starte batteriindstillinger. Tilpas venligst indstillingerne manuelt.</string>
     <string name="battery_optimization_title">Batterioptimisering</string>
     <string name="brute_force_delay">Udsat på grund af for mange forkerte forsøg</string>
+    <string name="calendar">Kalender</string>
+    <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
     <string name="changelog_dev_version">Changelog udviklingsversion</string>
     <string name="checkbox">Afkrydsningsfeldt</string>
@@ -103,11 +106,13 @@
     <string name="common_cancel">Annuller</string>
     <string name="common_cancel_sync">Annullér sync</string>
     <string name="common_choose_account">Vælg konto</string>
+    <string name="common_confirm">Bekræft</string>
     <string name="common_delete">Slet</string>
     <string name="common_error">Fejl</string>
     <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
     <string name="common_error_unknown">Ukendt fejl</string>
     <string name="common_loading">Indlæser...</string>
+    <string name="common_next">Næste</string>
     <string name="common_no">Nej</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">afventende</string>
@@ -154,6 +159,7 @@
     <string name="contactlist_account_chooser_title">Vælg konto at importere</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilladelse givet, intet importeret.</string>
+    <string name="contacts">Kontakter</string>
     <string name="contacts_automatic_backup">Automatisk backup</string>
     <string name="contacts_backup_button">Backup nu</string>
     <string name="contacts_last_backup">Sidste backup</string>
@@ -185,6 +191,7 @@
     <string name="create_rich_workspace">Tilføj mappe info</string>
     <string name="creates_rich_workspace">opretter mappe info</string>
     <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
+    <string name="daily_backup">Daglig backup</string>
     <string name="date_unknown">Ukendt</string>
     <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
     <string name="delete_account">Fjern konto</string>
@@ -312,6 +319,7 @@
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
+    <string name="file_management_permission">Tilladelser er nødvendige</string>
     <string name="file_migration_checking_destination">Tjekker destination...</string>
     <string name="file_migration_cleaning">Renser ud...</string>
     <string name="file_migration_dialog_title">Opdaterer data lagringsmappe</string>
@@ -382,6 +390,7 @@
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Etiketten kan ikke være tom</string>
+    <string name="last_backup">Seneste backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Tillad upload og redigering</string>
     <string name="link_share_file_drop">Fil drop (kun upload)</string>
@@ -441,6 +450,8 @@
     <string name="new_notification">Ny Notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
+    <string name="no_calendar_exists">Ingen kalender eksisterer</string>
+    <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="note_confirm">Send</string>
@@ -571,6 +582,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
+    <string name="restore_backup">Gendan backup</string>
     <string name="restore_button_description">Genskab slettet fil</string>
     <string name="retrieving_file">Modtager fil…</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
@@ -599,6 +611,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="share">Del</string>
     <string name="share_dialog_title">Deling</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
     <string name="share_file">Del %1$s</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
@@ -616,12 +629,14 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
+    <string name="share_open_in">Åbn i...</string>
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_privilege_unshare">Fjern deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, Fødereret Cloud ID eller email adresse ...</string>
     <string name="share_send_note">Note til modtager</string>
+    <string name="share_settings">Indstillinger</string>
     <string name="share_via_link_hide_download">Skjul download</string>
     <string name="share_via_link_menu_password_label">Beskyt med adgangskode (%1$s)</string>
     <string name="share_via_link_section_title">Del link</string>
@@ -688,6 +703,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
+    <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
     <string name="sync_fail_content">Kunne ikke synkronisere %1$s</string>
