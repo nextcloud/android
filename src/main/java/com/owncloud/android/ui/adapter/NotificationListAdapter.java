@@ -68,6 +68,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -171,7 +172,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(
-            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin),
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0
@@ -180,13 +181,19 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         for (Action action : notification.getActions()) {
             button = new MaterialButton(notificationsActivity);
 
-            int primaryColor = ThemeColorUtils.primaryColor(notificationsActivity);
-
             if (action.primary) {
-                ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
+                //ThemeButtonUtils.colorPrimaryButton(button, notificationsActivity);
+                button.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                             R.color.shared_with_me_color, null));
+                button.setTextColor(ResourcesCompat.getColor(resources,
+                                                             R.color.white, null));
             } else {
-                button.setStrokeColorResource(primaryColor);
-                button.setTextColor(primaryColor);
+                button.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                                   R.color.white, null));
+                button.setStrokeWidth(resources.getDimensionPixelSize(R.dimen.button_stroke_width));
+                button.setStrokeColorResource(R.color.shared_with_me_color);
+                button.setTextColor(ResourcesCompat.getColor(resources,
+                                                             R.color.shared_with_me_color, null));
             }
 
             button.setAllCaps(false);

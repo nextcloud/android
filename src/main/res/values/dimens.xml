@@ -24,4 +24,5 @@
     <dimen name="shared_with_me_icon_size">26dp</dimen>
     <dimen name="txt_size_20sp">20sp</dimen>
     <dimen name="notification_row_item_height">145dp</dimen>
+    <dimen name="button_stroke_width">1dp</dimen>
 </resources>

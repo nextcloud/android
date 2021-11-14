@@ -211,7 +211,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         }
 
         ThemeButtonUtils.colorPrimaryButton(binding.backupNow, getContext());
-        ThemeButtonUtils.themeBorderlessButton(binding.contactsDatepicker);
+        //ThemeButtonUtils.themeBorderlessButton(binding.contactsDatepicker);
 
         int primaryAccentColor = ThemeColorUtils.primaryAccentColor(getContext());
         binding.dataToBackUpTitle.setTextColor(primaryAccentColor);
