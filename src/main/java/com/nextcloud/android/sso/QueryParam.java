@@ -25,6 +25,8 @@ package com.nextcloud.android.sso;
 import java.io.Serializable;
 
 public class QueryParam implements Serializable {
+    private static final long serialVersionUID = 21523240203234211L; // must be same as in SSO project
+
     public String key;
     public String value;
 
