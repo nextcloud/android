@@ -178,7 +178,8 @@ class PlayerService : Service() {
             player.stop(file)
         }
 
-        stopSelf()
+        startForeground(R.string.media_notif_ticker, notificationBuilder.build())
         stopForeground(true)
+        stopSelf();
     }
 }
