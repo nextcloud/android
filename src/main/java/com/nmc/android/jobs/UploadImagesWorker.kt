@@ -9,7 +9,6 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
@@ -79,8 +78,6 @@ class UploadImagesWorker constructor(
                 onImageSaveSuccess(value, pngFile)
             }
 
-            //remove the cache for the existing image
-            ThumbnailsCacheManager.removeBitmapFromCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + value.ocFile.remoteId)
         }
 
         notificationManager.cancel(pushNotificationId)
