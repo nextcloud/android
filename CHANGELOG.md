@@ -1,9 +1,19 @@
+## 3.18.0 RC6 (November 16, 2021)
+
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
+- Minor bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/61
+
 ## 3.18.0 RC5 (November 9, 2021)
 
-Calendar backup/restore
-Unified search
-Profile page for users
-Sharing permissions improvements
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
@@ -11,10 +21,9 @@ For a full list, please see https://github.com/nextcloud/android/milestone/61
 
 ## 3.18.0 RC4 (November 4, 2021)
 
-Calendar backup/restore
-Unified search
-Profile page for users
-Sharing permissions improvements
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
@@ -22,10 +31,9 @@ For a full list, please see https://github.com/nextcloud/android/milestone/61
 
 ## 3.18.0 RC3 (November 4, 2021)
 
-Calendar backup/restore
-Unified search
-Profile page for users
-Sharing permissions improvements
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
@@ -33,9 +41,9 @@ For a full list, please see https://github.com/nextcloud/android/milestone/61
 
 ## 3.18.0 RC2 (October 28, 2021)
 
-Calendar backup/restore
-Unified search
-Sharing permissions improvements
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
