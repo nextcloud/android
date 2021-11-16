@@ -10,9 +10,11 @@
     <string name="action_clear_failed_uploads">실패한 업로드 삭제</string>
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
+    <string name="action_empty_trashbin">휴지통 비우기</string>
     <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
+    <string name="actionbar_calendar_contacts_restore">주소록 복원 &amp; 달력</string>
     <string name="actionbar_contacts">주소록 백업</string>
     <string name="actionbar_contacts_restore">주소록 복원</string>
     <string name="actionbar_copy">복사</string>
@@ -33,6 +35,7 @@
     <string name="add_another_public_share_link">다른 링크 추가</string>
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
+    <string name="advanced_settings">고급 설정</string>
     <string name="allow_creating">생성 수락</string>
     <string name="allow_deleting">삭제 수락</string>
     <string name="allow_editing">편집 허용</string>
@@ -78,12 +81,16 @@
     <string name="autoupload_hide_folder">폴더 숨기기</string>
     <string name="avatar">아바타</string>
     <string name="away">자리 비움</string>
+    <string name="backup_settings">백업 설정</string>
+    <string name="backup_title">주소록 &amp; 달력 백업</string>
     <string name="battery_optimization_close">닫기</string>
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
     <string name="battery_optimization_no_setting">배터리 설정을 직접 시작할 수 없습니다. 설정에서 수동으로 조정하십시오.</string>
     <string name="battery_optimization_title">배터리 최적화</string>
     <string name="brute_force_delay">잘못된 시도가 너무 많아 지연됨</string>
+    <string name="calendar">달력</string>
+    <string name="calendars">달력</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
     <string name="changelog_dev_version">Changelog 개발 버전</string>
     <string name="checkbox">체크 상자</string>
@@ -102,11 +109,13 @@
     <string name="common_cancel">취소</string>
     <string name="common_cancel_sync">동기화 취소</string>
     <string name="common_choose_account">계정 선택</string>
+    <string name="common_confirm">확인</string>
     <string name="common_delete">삭제</string>
     <string name="common_error">오류</string>
     <string name="common_error_out_memory">메모리 부족</string>
     <string name="common_error_unknown">알 수 없는 오류</string>
     <string name="common_loading">불러오는 중…</string>
+    <string name="common_next">다음</string>
     <string name="common_no">아니요</string>
     <string name="common_ok">확인</string>
     <string name="common_pending">대기 중</string>
@@ -153,6 +162,7 @@
     <string name="contactlist_account_chooser_title">가져올 계정 선택</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
     <string name="contactlist_no_permission">권한이 없어서 가져올 수 없습니다.</string>
+    <string name="contacts">연락처</string>
     <string name="contacts_automatic_backup">자동 백업</string>
     <string name="contacts_backup_button">지금 백업하기</string>
     <string name="contacts_last_backup">마지막 백업</string>
@@ -184,16 +194,21 @@
     <string name="create_rich_workspace">폴더 정보 추가</string>
     <string name="creates_rich_workspace">폴더 정보 만들기</string>
     <string name="credentials_disabled">인증 비활성화됨</string>
+    <string name="daily_backup">매일 백업</string>
+    <string name="data_to_back_up">백업 할 날짜</string>
     <string name="date_unknown">알 수 없음</string>
     <string name="default_credentials_wrong">인증 정보 틀림</string>
     <string name="delete_account">계정 삭제</string>
     <string name="delete_account_warning">%s 계정 및 모든 로컬 파일을 삭제하시겠습니까\n\n삭제 작업은 취소할 수 없습니다.</string>
     <string name="delete_entries">항목 삭제</string>
+    <string name="delete_link">링크 삭제</string>
     <string name="deselect_all">모두 선택 해제</string>
+    <string name="destination_filename">대상 파일이름</string>
     <string name="dev_version_new_version_available">새 버전을 사용할 수 있음</string>
     <string name="dev_version_no_information_available">정보가 없습니다.</string>
     <string name="dev_version_no_new_version_available">새로운 버전이 없습니다.</string>
     <string name="dialog_close">닫기</string>
+    <string name="did_not_check_for_dupes">중복을 확인 하지 않았습니다.</string>
     <string name="digest_algorithm_not_available">이 다이제스트 알고리즘을 이 장치에서 사용할 수 없습니다.</string>
     <string name="direct_login_failed">직접 링크롤 통한 로그인 실패!</string>
     <string name="disable_new_media_folder_detection_notifications">비활성화</string>
@@ -249,9 +264,11 @@
     <string name="end_to_end_encryption_title">암호화 설정</string>
     <string name="end_to_end_encryption_unsuccessful">키를 저장할 수 없습니다. 다시 시도하십시오.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
+    <string name="enter_destination_filename">대상 파일 이름 입력</string>
     <string name="enter_filename">파일 이름을 입력해주십시오.</string>
     <string name="error__upload__local_file_not_copied">%1$s을(를) 로컬 폴더 %2$s(으)로 복사할 수 없습니다</string>
     <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 수행할 수 없음</string>
+    <string name="error_choosing_date">날짜 선택 오류</string>
     <string name="error_comment_file">파일 주석 처리 중 오류 발생</string>
     <string name="error_crash_title">%1$s충돌</string>
     <string name="error_report_issue_action">보고</string>
@@ -275,6 +292,13 @@
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
     <string name="etm_title">엔지니어링 테스트 모드</string>
+    <string name="etm_transfer">파일 전송</string>
+    <string name="etm_transfer_enqueue_test_download">대기열에 테스트 다운로드 넣기</string>
+    <string name="etm_transfer_enqueue_test_upload">대기열에 테스트 업로드 넣기</string>
+    <string name="etm_transfer_remote_path">원격 경로</string>
+    <string name="etm_transfer_type">전송</string>
+    <string name="etm_transfer_type_download">다운로드</string>
+    <string name="etm_transfer_type_upload">업로드</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
@@ -304,6 +328,8 @@
     <string name="file_list_loading">불러오는 중…</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
     <string name="file_list_seconds_ago">초 전</string>
+    <string name="file_management_permission">권한 필요함</string>
+    <string name="file_management_permission_text">파일쓰기를 위해서는 파일 관리 권한이 필요합니다. 다음 화면에서 권한을 설정해 주세요.</string>
     <string name="file_migration_checking_destination">대상 점검 중…</string>
     <string name="file_migration_cleaning">정리 중…</string>
     <string name="file_migration_dialog_title">데이터 저장 폴더 업데이트 중</string>
@@ -361,6 +387,7 @@
     <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
+    <string name="fullscreen">전체 화면</string>
     <string name="hint_name">이름</string>
     <string name="hint_note">참고</string>
     <string name="hint_password">암호</string>
@@ -373,11 +400,16 @@
     <string name="invalid_url">잘못된 URL</string>
     <string name="invisible">숨겨짐</string>
     <string name="label_empty">레이블은 비워 둘 수 없습니다</string>
+    <string name="last_backup">마지막 백업: %1$s</string>
     <string name="link">링크</string>
+    <string name="link_name">링크 이름</string>
     <string name="link_share_allow_upload_and_editing">업로드 및 편집 허용</string>
+    <string name="link_share_editing">글 수정</string>
     <string name="link_share_file_drop">파일 보관소 (업로드만 허용)</string>
     <string name="link_share_read_only">읽기 전용</string>
+    <string name="link_share_view_only">읽기 전용</string>
     <string name="list_layout">목록 보기</string>
+    <string name="load_more_results">더 많은 결과 불러오기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -415,6 +447,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">큰 것 먼저</string>
     <string name="menu_item_sort_by_size_smallest_first">작은 것 먼저</string>
+    <string name="more">더 보기</string>
     <string name="move_file_error">이 파일이나 폴더를 이동할 수 없음</string>
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
@@ -430,15 +463,20 @@
     <string name="new_media_folder_videos">비디오</string>
     <string name="new_notification">새 알림</string>
     <string name="new_version_was_created">새 버전 생성됨</string>
+    <string name="no_actions">이 사용자를 위한 액션이 없음</string>
     <string name="no_browser_available">이 링크를 실행할 앱이 없습니다.</string>
+    <string name="no_calendar_exists">달력 없음</string>
+    <string name="no_email_app_available">메일 주소를 처리할 앱이 없음</string>
     <string name="no_mutliple_accounts_allowed">하나의 계정만 허용</string>
     <string name="no_pdf_app_available">PDF를 실행할 앱이 없습니다.</string>
+    <string name="no_share_permission_selected">공유를 위해서 적어도 하나 이상의 권한 설정을 하세요.</string>
     <string name="note_confirm">전송</string>
     <string name="note_could_not_sent">메모를 보낼 수 없습니다.</string>
     <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
     <string name="notification_channel_download_description">다운로드 진행 표시</string>
     <string name="notification_channel_download_name">다운로드 알림 채널</string>
+    <string name="notification_channel_download_name_short">다운로드</string>
     <string name="notification_channel_file_observer_description">파일 변경 사항 감시</string>
     <string name="notification_channel_file_observer_name">파일 관찰자</string>
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
@@ -451,6 +489,7 @@
     <string name="notification_channel_push_name">푸쉬 알림</string>
     <string name="notification_channel_upload_description">업로드 진행 표시</string>
     <string name="notification_channel_upload_name">업로드 알림 채널</string>
+    <string name="notification_channel_upload_name_short">업로드</string>
     <string name="notification_icon">알림 아이콘</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
@@ -501,6 +540,7 @@
     <string name="prefs_category_dev">개발</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
+    <string name="prefs_daily_backup_summary">달력 &amp; 의 연락처 매일 백업</string>
     <string name="prefs_daily_contacts_sync_summary">연락처 일간 백업</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>
     <string name="prefs_e2e_no_device_credentials">연상 기호를 표시하려면 장치 자격 증명을 활성화하십시오.</string>
@@ -559,7 +599,9 @@
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="restore">파일 복구</string>
+    <string name="restore_backup">백업 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
+    <string name="restore_selected">선택한 항목 복구</string>
     <string name="retrieving_file">파일 가져오는 중...</string>
     <string name="richdocuments_failed_to_load_document">문서를 불러올 수 없음</string>
     <string name="scanQR_description">QR 코드로 로그인</string>
@@ -575,18 +617,23 @@
     <string name="screenshot_05_autoUpload_subline">사진 &amp; 동영상</string>
     <string name="screenshot_06_davdroid_heading">달력 &amp; 연락처</string>
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
+    <string name="search_error">검색 결과 조회 오류</string>
     <string name="select_all">모두 선택</string>
     <string name="select_one_template">하나의 템플릿을 선택하십시오</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
     <string name="send_note">메모 전달</string>
+    <string name="send_share">공유 전달 </string>
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
+    <string name="set_note">메모 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="set_status">상태 설정</string>
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="share">공유</string>
+    <string name="share_copy_link">공유 &amp;의 링크 복사</string>
     <string name="share_dialog_title">공유</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
     <string name="share_file">%1$s 공유</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
@@ -595,6 +642,7 @@
     <string name="share_internal_link_to_folder_text">내부 공유 링크 (이 폴더에 접근 권한이 있는 사람만 사용가능)</string>
     <string name="share_known_remote_on_clarification">%1$s 에</string>
     <string name="share_link">링크 공유</string>
+    <string name="share_link_empty_note_message">내용을 입력해 주세요.</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
     <string name="share_link_file_error">파일과 폴더를 공유하던 중 에러가 발생했습니다.</string>
     <string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
@@ -604,12 +652,19 @@
     <string name="share_link_with_label">공유 링크 (%1$s)</string>
     <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_no_password_title">비밀번호 설정</string>
+    <string name="share_open_in">다음으로 열기…</string>
     <string name="share_password_title">비밀번호로 보호</string>
+    <string name="share_permission_can_edit">편집할 수 있음</string>
+    <string name="share_permission_file_drop">파일 떨구기</string>
+    <string name="share_permission_view_only">읽기 전용</string>
+    <string name="share_permissions">공유 권한</string>
     <string name="share_privilege_unshare">공유 해제</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
     <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
+    <string name="share_send_new_email">새 이메일 보내기</string>
     <string name="share_send_note">받는 사람 메모</string>
+    <string name="share_settings">설정</string>
     <string name="share_via_link_hide_download">다운로드 숨기기</string>
     <string name="share_via_link_menu_password_label">암호 보호(%1$s)</string>
     <string name="share_via_link_section_title">링크 공유</string>
@@ -694,8 +749,10 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
+    <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
+    <string name="suggest">제안</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
     <string name="sync_current_folder_was_removed">폴더 %1$s이(가) 더 이상 존재하지 않음</string>
     <string name="sync_fail_content">%1$s을(를) 동기화할 수 없음</string>
@@ -736,6 +793,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="trashbin_empty_message">여기서 삭제했던 파일들을 복구할 수 있습니다.</string>
     <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
     <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
+    <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
@@ -840,6 +898,8 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
+    <string name="whats_your_status">당신의 상태는?</string>
+    <string name="write_email">이메일 보내기</string>
     <string name="wrong_storage_path">데이터 저장 폴더가 존재하지 않습니다!</string>
     <string name="wrong_storage_path_desc">백업이 다른 장치에 복원된 것 같습니다. 초기값으로 돌아갑니다. 설정을 확인하고 데이터 저장 폴더를 조정하세요.</string>
     <plurals name="sync_fail_in_favourites_content">
@@ -847,6 +907,18 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">폴더 %2$s의 파일 중 %1$d개를 복사할 수 없음</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="other">%2$s에게 %1$d이벤트 쓰기</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="other">%1$d 새로운 UIDs 생성</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="other">%d항목 처리 됨</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="other">%d 중복 항목 발견</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">폴더 %1$d개</item>

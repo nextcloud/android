@@ -203,6 +203,7 @@
     <string name="delete_entries">Poista merkinnät</string>
     <string name="delete_link">Poista linkki</string>
     <string name="deselect_all">Poista valinnat</string>
+    <string name="destination_filename">Kohdetiedoston nimi</string>
     <string name="dev_version_new_version_available">Uusi versio saatavilla</string>
     <string name="dev_version_no_information_available">Ei tietoja saatavilla.</string>
     <string name="dev_version_no_new_version_available">Ei uutta versiota saatavilla.</string>
@@ -263,6 +264,7 @@
     <string name="end_to_end_encryption_title">Aseta salaus</string>
     <string name="end_to_end_encryption_unsuccessful">Avaimia ei voitu tallentaa, yritä uudelleen.</string>
     <string name="end_to_end_encryption_wrong_password">Virhe salausta purkaessa. Oliko salasana väärä?</string>
+    <string name="enter_destination_filename">Syötä kohdetiedoston nimi</string>
     <string name="enter_filename">Anna tiedostonimi</string>
     <string name="error__upload__local_file_not_copied">%1$s ei voitu kopioida paikalliskansioon %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimenpiteiden suorittaminen ei onnistu</string>
@@ -325,6 +327,7 @@
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
+    <string name="file_management_permission">Käyttöoikeus tarvitaan</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
     <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
@@ -401,6 +404,7 @@
     <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
     <string name="link_share_file_drop">Tiedostojen pudotus (vain lähetys)</string>
     <string name="link_share_read_only">Vain luku</string>
+    <string name="link_share_view_only">Vain katselu</string>
     <string name="list_layout">Luettelonäkymä</string>
     <string name="load_more_results">Lataa lisää tuloksia</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
@@ -456,6 +460,7 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uusi Ilmoitus</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
+    <string name="no_actions">Ei tapahtumia tälle käyttäjälle</string>
     <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
     <string name="no_calendar_exists">Kalenteria ei ole olemassa</string>
     <string name="no_email_app_available">Sähköpostiosoitteiden käsittelyyn ei ole saatavilla sovellusta</string>
@@ -613,8 +618,10 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="select_template">Valitse mallipohja</string>
     <string name="send">Lähetä</string>
     <string name="send_note">Lähetä huomio vastaanottajalle</string>
+    <string name="send_share">Lähetä Jaa</string>
     <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
     <string name="set_as">Aseta</string>
+    <string name="set_note">Aseta muistiinpano</string>
     <string name="set_picture_as">Käytä kuvaa</string>
     <string name="set_status">Aseta tilatieto</string>
     <string name="set_status_message">Aseta tilaviesti</string>
@@ -715,6 +722,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+    <string name="suggest">Ehdota</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="sync_fail_content">Ei voitu synkronoida %1$s</string>

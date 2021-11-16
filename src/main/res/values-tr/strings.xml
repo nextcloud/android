@@ -328,6 +328,8 @@
     <string name="file_list_loading">Yükleniyor …</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
     <string name="file_list_seconds_ago">saniyeler önce</string>
+    <string name="file_management_permission">İzinler gerekli</string>
+    <string name="file_management_permission_text">Nextcloud uygulamasının doğru çalışabilmesi için dosya yönetimi izinleri verilmelidir. Lütfen ilerlemek için sonraki ekrandan bu izinleri verin.</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
     <string name="file_migration_dialog_title">Veri depolama klasörü güncelleniyor</string>
@@ -405,6 +407,7 @@
     <string name="link_share_editing">Düzenleniyor</string>
     <string name="link_share_file_drop">Dosya bırakma (yalnız yükleme)</string>
     <string name="link_share_read_only">Salt okunur</string>
+    <string name="link_share_view_only">Yalnız görüntüleme</string>
     <string name="list_layout">Liste düzeni</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
