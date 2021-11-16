@@ -113,7 +113,7 @@ public class RenameFileDialogFragment
         binding.userInput.setSelection(0, getSelectionEndIndex(currentName));
         binding.userInput.requestFocus();
 
-        // Add TextChangedListener to the user input EditText
+        // Add TextChangedListener to the user input EditText and set the proper warning message
         binding.inputWarningMessage.setText(R.string.hidden_file_name_warning);
         binding.userInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,6 +126,10 @@ public class RenameFileDialogFragment
 
             }
 
+            /**
+             * When user enters an empty file name, the 'hidden file name' message is shown.
+             * When user enters a non-empty file name, the message is ensured to be hidden.
+             */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String newFileName = "";
