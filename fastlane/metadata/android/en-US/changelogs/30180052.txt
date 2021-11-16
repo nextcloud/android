@@ -2,7 +2,6 @@
 
 Calendar backup/restore
 Unified search
-Profile page for users
 Sharing permissions improvements
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
