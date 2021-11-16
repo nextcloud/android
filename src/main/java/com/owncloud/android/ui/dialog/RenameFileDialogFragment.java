@@ -109,8 +109,9 @@ public class RenameFileDialogFragment
         ThemeTextInputUtils.colorTextInput(binding.userInputContainer,
                                            binding.userInput,
                                            ThemeColorUtils.primaryColor(getActivity()));
-
-        binding.userInput.setSelection(0, getSelectionEndIndex(currentName));
+        int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
+        int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
+        binding.userInput.setSelection(0, selectionEnd);
         binding.userInput.requestFocus();
 
         // Add TextChangedListener to the user input EditText and set the proper warning message
@@ -127,8 +128,8 @@ public class RenameFileDialogFragment
             }
 
             /**
-             * When user enters an empty file name, the 'hidden file name' message is shown.
-             * When user enters a non-empty file name, the message is ensured to be hidden.
+             * When user enters a hidden file name, the 'hidden file' message is shown.
+             * Otherwise, the message is ensured to be hidden.
              */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -137,8 +138,7 @@ public class RenameFileDialogFragment
                     newFileName = binding.userInput.getText().toString().trim();
                 }
 
-                if (!TextUtils.isEmpty(newFileName) &&
-                    TextUtils.isEmpty(newFileName.substring(0, getSelectionEndIndex(newFileName))) ) {
+                if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
                     binding.inputWarningMessage.setVisibility(View.VISIBLE);
                 }
                 else if(binding.inputWarningMessage.getVisibility() == View.VISIBLE) {
@@ -163,14 +163,6 @@ public class RenameFileDialogFragment
         return d;
     }
 
-    /**
-     * Calculate the end index of the actual file name (i.e. without the extension)
-     **/
-    private int getSelectionEndIndex(String fileName) {
-        int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf('.');
-        return extensionStart >= 0 ? extensionStart : fileName.length();
-    }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
@@ -188,6 +180,7 @@ public class RenameFileDialogFragment
 
             if (!FileUtils.isValidName(newFileName)) {
                 DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
+
                 return;
             }
 
