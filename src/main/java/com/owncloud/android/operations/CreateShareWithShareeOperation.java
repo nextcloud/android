@@ -142,9 +142,14 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
             //once creating share link update other information
             UpdateShareInfoOperation updateShareInfoOperation = new UpdateShareInfoOperation(share, getStorageManager());
-            updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
+            if (expirationDateInMillis > 0) {
+                updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
+            }
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
-            updateShareInfoOperation.setNote(noteMessage);
+            if (!TextUtils.isEmpty(noteMessage)) {
+                updateShareInfoOperation.setNote(noteMessage);
+            }
+
             updateShareInfoOperation.setLabel(label);
 
             //execute and save the result in database
