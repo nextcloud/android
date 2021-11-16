@@ -1,0 +1,9 @@
+Unified search: createNextcloudClient should not be called from main thread
+manifest: Even more intent queries
+Expand intent query declarations in AndroidManifest
+Keep track of PlayerService state instead of restarting it before closing
+Starts foreground service before stopping it to avoid app crash when listening to an audio file
+Query Param needs serial uid
+Bugfix: Issue #9060 (Status bar with sorting/view mode disappears after playing video)
+Update translations
+Update 3rd-party dependencies
