@@ -35,6 +35,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.owncloud.android.R
+import com.owncloud.android.utils.theme.ThemeButtonUtils
 
 /**
  * Created by scherzia on 29.12.2015.
@@ -117,9 +118,12 @@ object PermissionUtil {
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun requestManageFilesPermission(activity: Activity) {
-        AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
+        val alertDialog = AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.file_management_permission)
-            .setMessage(R.string.file_management_permission_text)
+            .setMessage(
+                String.format(activity.getString(
+                    R.string.file_management_permission_text),
+                    activity.getString(R.string.app_name)))
             .setCancelable(false)
             .setPositiveButton(R.string.common_ok) { dialog, _ ->
                 val intent = Intent().apply {
@@ -129,7 +133,10 @@ object PermissionUtil {
                 activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
                 dialog.dismiss()
             }
-            .show()
+            .create()
+
+        alertDialog.show()
+        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
     }
 
     /**
