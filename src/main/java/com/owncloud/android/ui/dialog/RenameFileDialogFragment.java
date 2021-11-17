@@ -114,8 +114,9 @@ public class RenameFileDialogFragment
         binding.userInput.setSelection(0, selectionEnd);
         binding.userInput.requestFocus();
 
-        // Add TextChangedListener to the user input EditText and set the proper warning message
+        // Set the proper input warning message
         binding.inputWarningMessage.setText(R.string.hidden_file_name_warning);
+        // Add TextChangedListener to handle showing/hiding the input warning message
         binding.userInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
