@@ -328,6 +328,8 @@
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
+    <string name="file_management_permission">Недостаточно прав</string>
+    <string name="file_management_permission_text">Для корректной работы Nextcloud требуется разрешение на управление файлами. Пожалуйста, включите его на следующем экране, чтобы продолжить.</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
     <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>
@@ -405,6 +407,7 @@
     <string name="link_share_editing">Редактирование</string>
     <string name="link_share_file_drop">Хранилище (только загрузка файлов)</string>
     <string name="link_share_read_only">Только для чтения</string>
+    <string name="link_share_view_only">Для просмотра</string>
     <string name="list_layout">Вид списком</string>
     <string name="load_more_results">Показать больше результатов</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
@@ -620,8 +623,10 @@
     <string name="select_template">Выбрать шаблон</string>
     <string name="send">Отправить</string>
     <string name="send_note">Отправить примечание получателю</string>
+    <string name="send_share">Переслать</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
     <string name="set_as">Установить как</string>
+    <string name="set_note">Создать заметку</string>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="set_status">Установить состояние</string>
     <string name="set_status_message">Установить сообщение о состоянии</string>
@@ -647,6 +652,7 @@
     <string name="share_no_password_title">Задать пароль</string>
     <string name="share_open_in">Открыть в...</string>
     <string name="share_password_title">Защищено паролем</string>
+    <string name="share_permission_can_edit">Можно редактировать</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_privilege_unshare">Закрыть доступ</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>

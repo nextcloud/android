@@ -329,6 +329,8 @@
     <string name="file_list_loading">Зареждане…</string>
     <string name="file_list_no_app_for_file_type">Няма приложение, което да се справи с подобен тип файл.</string>
     <string name="file_list_seconds_ago">преди секунди</string>
+    <string name="file_management_permission">Необходими са права</string>
+    <string name="file_management_permission_text">Nextcloud се нуждае от права за управление на файлове, за да работи правилно. Моля, активирайте го на следващия екран, за да продължите.</string>
     <string name="file_migration_checking_destination">Проверка на дестинацията…</string>
     <string name="file_migration_cleaning">Почистване…</string>
     <string name="file_migration_dialog_title">Обновяване на папката за съхранение на данни</string>
@@ -406,6 +408,7 @@
     <string name="link_share_editing">Редактиране</string>
     <string name="link_share_file_drop">Само за качване</string>
     <string name="link_share_read_only">Само за четене</string>
+    <string name="link_share_view_only">Само преглед</string>
     <string name="list_layout">Оформление на списъка с емисии</string>
     <string name="load_more_results">Зареждане на още резултати</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
