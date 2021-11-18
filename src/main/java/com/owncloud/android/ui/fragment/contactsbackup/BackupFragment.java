@@ -302,8 +302,11 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
                         contactsPreferenceActivity.openDrawer();
                     }
                 } else {
-                    Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
+                    if (contactsPreferenceActivity != null) {
+                        contactsPreferenceActivity.onBackPressed();
+                    } else {
+                        requireActivity().finish();
+                    }
                 }
                 retval = true;
                 break;
