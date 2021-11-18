@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission">需要权限</string>
-    <string name="file_management_permission_text">Nextcloud 需要文件管理权限才能正常工作。请在下面的屏幕中启用它以继续。</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
     <string name="file_migration_cleaning">清除中…</string>
     <string name="file_migration_dialog_title">正在更新数据存储文件夹</string>

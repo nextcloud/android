@@ -1003,5 +1003,5 @@
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
     <string name="file_management_permission">Permissions needed</string>
-    <string name="file_management_permission_text">Nextcloud needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
+    <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
 </resources>

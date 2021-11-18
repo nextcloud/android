@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission">Berechtigungen erforderlich</string>
-    <string name="file_management_permission_text">Nextcloud benötigt Berechtigungen für die Dateiverwaltung, um richtig zu funktionieren. Um fortfahren zu können, aktivieren Sie diese bitte auf dem folgenden Bildschirm.</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>

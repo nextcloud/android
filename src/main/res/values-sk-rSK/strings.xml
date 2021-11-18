@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
     <string name="file_management_permission">Vyžadujú sa o oprávnenia</string>
-    <string name="file_management_permission_text">Nextcloud potrebuje na správne fungovanie oprávnenie na správu súborov. Ak chcete pokračovať, povoľte ho na nasledujúcej obrazovke.</string>
     <string name="file_migration_checking_destination">Kontrolujem umiestnenie…</string>
     <string name="file_migration_cleaning">Čistenie…</string>
     <string name="file_migration_dialog_title">Aktualizujem adresár dátového úložiska</string>

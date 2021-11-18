@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
     <string name="file_management_permission">Engedély szükséges</string>
-    <string name="file_management_permission_text">A Nextcloudnak fájlkezelési engedélyre van szüksége, hogy helyesen működjön. A folytatáshoz engedélyezze a következő képernyőn.</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
     <string name="file_migration_dialog_title">Adattároló mappa frissítése</string>

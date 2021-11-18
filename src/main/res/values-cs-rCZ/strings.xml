@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_management_permission">Vyžadována oprávnění</string>
-    <string name="file_management_permission_text">Aby fungovalo správně, Nextcloud potřebuje oprávnění pro správu souborů. Pokud chcete pokračovat, povolte je na následující obrazovce.</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
     <string name="file_migration_dialog_title">Aktualizuje se složka úložiště</string>

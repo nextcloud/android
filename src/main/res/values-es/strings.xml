@@ -34,6 +34,7 @@
     <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_creating">Permitir la creación</string>
     <string name="allow_deleting">Permitir la eliminación</string>
     <string name="allow_editing">Permitir edición</string>
@@ -85,6 +86,8 @@
     <string name="battery_optimization_no_setting">No se puede ir directamente a la configuración de batería. Por favor, ajústalo manualmente en tu configuración</string>
     <string name="battery_optimization_title">Optimización de batería</string>
     <string name="brute_force_delay">Retrasado debido a los muchos intentos fallidos</string>
+    <string name="calendar">Calendario</string>
+    <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
     <string name="checkbox">Casilla de verificación</string>
@@ -103,11 +106,13 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_cancel_sync">Cancelar sincronización</string>
     <string name="common_choose_account">Elige una cuenta</string>
+    <string name="common_confirm">Confirmar</string>
     <string name="common_delete">Borrar</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">No hay suficiente memoria</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_loading">Cargando…</string>
+    <string name="common_next">Siguiente</string>
     <string name="common_no">No</string>
     <string name="common_ok">Aceptar</string>
     <string name="common_pending">Pendiente</string>
@@ -154,6 +159,7 @@
     <string name="contactlist_account_chooser_title">Elija una cuenta para importar</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
+    <string name="contacts">Contactos</string>
     <string name="contacts_automatic_backup">Copia de seguridad automática</string>
     <string name="contacts_backup_button">Hacer copia de seguridad ahora</string>
     <string name="contacts_last_backup">Última copia de seguridad</string>
@@ -190,6 +196,7 @@
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Eliminar cuenta %s y borrar todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="delete_entries">Eliminar entradas</string>
+    <string name="delete_link">Eliminar enlace</string>
     <string name="deselect_all">Desmarcar todos</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
@@ -384,6 +391,7 @@
     <string name="label_empty">La etiqueta no puede quedar vacía</string>
     <string name="link">Enlace</string>
     <string name="link_share_allow_upload_and_editing">Permitir la subida y la edición</string>
+    <string name="link_share_editing">Editando</string>
     <string name="link_share_file_drop">Entrega de archivos (solo subida)</string>
     <string name="link_share_read_only">Solo lectura</string>
     <string name="list_layout">Formato de lista</string>
@@ -449,6 +457,7 @@
     <string name="notification_action_failed">Fallo al ejecutar la acción.</string>
     <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
     <string name="notification_channel_download_name">Canal de notificaciones de bajadas</string>
+    <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_observer_description">Monitorea los cambios en archivos</string>
     <string name="notification_channel_file_observer_name">Observador de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
@@ -570,6 +579,7 @@
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
+    <string name="restore_selected">Restaurar la selección</string>
     <string name="retrieving_file">Recuperando archivo…</string>
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="scanQR_description">Entrar vía código QR</string>
@@ -614,12 +624,15 @@
     <string name="share_link_with_label">Link para compartir (%1$s)</string>
     <string name="share_no_expiration_date_label">Fijar fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
+    <string name="share_open_in">Abrir con...</string>
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_privilege_unshare">Dejar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico ...</string>
+    <string name="share_send_new_email">Enviar nuevo correo electrónico</string>
     <string name="share_send_note">Nota para el destinatario</string>
+    <string name="share_settings">Configuración</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
     <string name="share_via_link_menu_password_label">Protección con contraseña (%1$s)</string>
     <string name="share_via_link_section_title">Compartir enlace</string>
@@ -832,6 +845,7 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
+    <string name="write_email">Enviar correo</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
