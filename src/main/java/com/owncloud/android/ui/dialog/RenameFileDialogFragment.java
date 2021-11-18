@@ -113,19 +113,15 @@ public class RenameFileDialogFragment
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
         binding.userInput.requestFocus();
-
-        // Set the proper input warning message
-        binding.inputWarningMessage.setText(R.string.hidden_file_name_warning);
+        
         // Add TextChangedListener to handle showing/hiding the input warning message
         binding.userInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             /**
@@ -140,10 +136,12 @@ public class RenameFileDialogFragment
                 }
 
                 if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
-                    binding.inputWarningMessage.setVisibility(View.VISIBLE);
+                    binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
                 }
-                else if(binding.inputWarningMessage.getVisibility() == View.VISIBLE) {
-                    binding.inputWarningMessage.setVisibility(View.GONE);
+                else if(binding.userInputContainer.getError() != null) {
+                    binding.userInputContainer.setError(null);
+                    // Called to remove extra padding
+                    binding.userInputContainer.setErrorEnabled(false);
                 }
             }
         });

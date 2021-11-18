@@ -21,13 +21,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/standard_padding"
-    android:orientation="vertical">
+    android:padding="@dimen/standard_padding">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/TextInputLayoutInputWarning"
         android:hint="@string/hint_name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -43,14 +43,5 @@
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/input_warning_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/list_item_lastmod_and_filesize_text"
-        android:textSize="@dimen/two_line_secondary_text_size"
-        android:visibility="gone"/>
 
 </LinearLayout>
