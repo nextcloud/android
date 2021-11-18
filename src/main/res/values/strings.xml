@@ -1074,7 +1074,7 @@
     <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
     <string name="your_message">Your Message</string>
     <string name="personal_share_email">Personal share by mail</string>
-    <string name="create_link">Create Link</string>
+    <string name="create_link">Add link</string>
     <string name="your_shares">Your Shares</string>
     <string name="link_label">Link Label</string>
     <string name="hint_link_label">Your custom link label</string>

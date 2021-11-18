@@ -880,7 +880,7 @@
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
     <string name="storage_sd_card">SD-Karte</string>
-    <string name="share_permission_read_only">Kann Lesen</string>
+    <string name="share_permission_read_only">Nur lesen</string>
     <string name="share_permission_can_edit">Kann Bearbeiten</string>
     <string name="share_permission_file_drop">Sammelbox</string>
     <string name="permissions">Berechtigungen</string>
@@ -997,7 +997,7 @@
     <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie MagentaCloud Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
     <string name="your_message">Ihre Nachricht</string>
     <string name="personal_share_email">persönliche Freigabe per Emai</string>
-    <string name="create_link">Neuen Link erstellen</string>
+    <string name="create_link">Link erstellen</string>
     <string name="your_shares">Ihre Freigaben</string>
     <string name="link_label">Link Label</string>
     <string name="hint_link_label">Your custom link label</string>
