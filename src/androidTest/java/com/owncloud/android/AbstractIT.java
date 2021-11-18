@@ -134,7 +134,7 @@ public abstract class AbstractIT {
         // color
         String colorParameter = arguments.getString("COLOR");
         if (!TextUtils.isEmpty(colorParameter)) {
-            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user,
                                                                                        targetContext.getContentResolver());
 
             String colorHex = null;
