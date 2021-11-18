@@ -52,7 +52,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -325,20 +324,20 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        if (!PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (!PermissionUtil.checkExternalStoragePermission(this)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                                    PermissionUtil.getExternalStoragePermission())) {
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(binding.rootLayout,
                                                   R.string.permission_storage_access,
                                                   Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestWriteExternalStoreagePermission(this));
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
                 ThemeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestWriteExternalStoreagePermission(this);
+                PermissionUtil.requestExternalStoragePermission(this);
             }
         }
 
@@ -408,7 +407,7 @@ public class FileDisplayActivity extends FileActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -2204,13 +2203,10 @@ public class FileDisplayActivity extends FileActivity
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
-            params.setBehavior(null);
-
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            updateActionBarTitleAndHomeButton(file);
-            setFile(file);
+            binding.rightFragmentContainer.setVisibility(View.GONE);
+            super.updateActionBarTitleAndHomeButton(file);
 
             //hide the sort dialog button after the fragment is shown
             //else the header will be shown there
