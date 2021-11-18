@@ -150,6 +150,11 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 updateShareInfoOperation.setNote(noteMessage);
             }
 
+            //update the permission using update info api
+            //because for external share the selected permission is not getting updated instead default Read Only
+            // permission is getting updated
+            updateShareInfoOperation.setPermissions(permissions);
+
             updateShareInfoOperation.setLabel(label);
 
             //execute and save the result in database
