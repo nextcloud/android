@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_management_permission">Behörighet saknas</string>
-    <string name="file_management_permission_text">Nextcloud behöver filhanteringsbehörigheter för att fungera. Godkänn detta i nästa steg för att fortsätta.</string>
     <string name="file_migration_checking_destination">Kontrollerar mål…</string>
     <string name="file_migration_cleaning">Rensar upp…</string>
     <string name="file_migration_dialog_title">Uppdaterar datalagringsmapp</string>

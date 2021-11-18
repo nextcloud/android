@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
     <string name="file_list_seconds_ago">秒前</string>
     <string name="file_management_permission">需要權限</string>
-    <string name="file_management_permission_text">Nextcloud 需要檔案管理權限才能正常運作。請在以下屏幕中啟用以繼續。</string>
     <string name="file_migration_checking_destination">檢查目的地…</string>
     <string name="file_migration_cleaning">清理中…</string>
     <string name="file_migration_dialog_title">正在更新資料儲存資料夾</string>
