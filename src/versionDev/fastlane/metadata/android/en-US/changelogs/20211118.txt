@@ -1,0 +1,5 @@
+improve detekt score
+make permission dialog brandable and themed
+use padding instead of margin for SSO dialog whitespace
+Update translations
+Update 3rd-party dependencies
