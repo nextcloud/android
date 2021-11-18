@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi-mota honetarako.</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
     <string name="file_management_permission">Baimenak behar dira</string>
-    <string name="file_management_permission_text">Nextcloudek fitxategien kudeatze baimenak behar ditu ondo funtzionatzeko. Mesedez, gaitu ezazu hurrengo pantailan jarraitzeko.</string>
     <string name="file_migration_checking_destination">Helburua egiaztatzen...</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_dialog_title">Datu-biltegiratze karpeta eguneratzen</string>

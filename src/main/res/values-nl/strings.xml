@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission">Toegang nodig</string>
-    <string name="file_management_permission_text">Nextcloud heeft machtigingen voor bestandsbeheer nodig om correct te werken. Schakel het in het volgende scherm in om door te gaan.</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
     <string name="file_migration_dialog_title">Bijwerken gegevensopslagmap</string>
@@ -899,11 +898,11 @@
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="one">Verwerkte %d invoer</item>
-        <item quantity="other">Verwerkte %d invoeren </item>
+        <item quantity="other">Verwerkte %d waarden </item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">%d dubbel invoer gevonden</item>
-        <item quantity="other">%d dubbele invoeren gevonden</item>
+        <item quantity="other">%d dubbele waarden gevonden</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappen</item>

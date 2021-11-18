@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_management_permission">Недостаточно прав</string>
-    <string name="file_management_permission_text">Для корректной работы Nextcloud требуется разрешение на управление файлами. Пожалуйста, включите его на следующем экране, чтобы продолжить.</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
     <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>

@@ -329,7 +329,6 @@
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
     <string name="file_list_seconds_ago">초 전</string>
     <string name="file_management_permission">권한 필요함</string>
-    <string name="file_management_permission_text">파일쓰기를 위해서는 파일 관리 권한이 필요합니다. 다음 화면에서 권한을 설정해 주세요.</string>
     <string name="file_migration_checking_destination">대상 점검 중…</string>
     <string name="file_migration_cleaning">정리 중…</string>
     <string name="file_migration_dialog_title">데이터 저장 폴더 업데이트 중</string>
