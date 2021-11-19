@@ -442,6 +442,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
+                //scroll to top when url loads
+                //because directly loading Telekom login page it scrolls down automatically
+                view.scrollTo(0,0);
+
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 

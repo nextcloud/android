@@ -23,8 +23,6 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -42,7 +40,6 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
-import com.owncloud.android.utils.theme.ThemeColorUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
@@ -103,9 +100,9 @@ class UnifiedSearchItemViewHolder(
                     MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context)
             }
         }
-        val color = ThemeColorUtils.primaryColor(context)
-        drawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        return drawable
+       /* val color = ThemeColorUtils.primaryColor(context)
+        drawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)*/
+        return drawable!!
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :
