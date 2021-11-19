@@ -329,6 +329,7 @@
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission">Berechtigungen erforderlich</string>
+    <string name="file_management_permission_text">%1$s benötigt die Berechtigung zur Dateiverwaltung, um ordnungsgemäß zu funktionieren. Bitte aktivieren Sie diese auf dem folgenden Bildschirm, um fortzufahren.</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>

@@ -161,7 +161,7 @@
     <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
     <string name="contactlist_account_chooser_title">Kies een account voor import</string>
     <string name="contactlist_item_icon">Contactpersonen pictogram</string>
-    <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
+    <string name="contactlist_no_permission">Geen rechten gegeven, niets geïmporteerd.</string>
     <string name="contacts">Contacten</string>
     <string name="contacts_automatic_backup">Automatische backup</string>
     <string name="contacts_backup_button">Maak nu een backup</string>
@@ -328,7 +328,8 @@
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
-    <string name="file_management_permission">Toegang nodig</string>
+    <string name="file_management_permission">Machtigingen nodig</string>
+    <string name="file_management_permission_text">%1$s heeft bestandsmanagement machtigingen nodig om correct te werken. Schakel deze in het volgende scherm in om door te gaan.</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
     <string name="file_migration_dialog_title">Bijwerken gegevensopslagmap</string>
@@ -468,7 +469,7 @@
     <string name="no_email_app_available">Geen app beschikbaar voor het openen van het mailadres</string>
     <string name="no_mutliple_accounts_allowed">Slechts één account toegestaan</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
-    <string name="no_share_permission_selected">Gelieve ten minste één toestemming te selecteren om te delen</string>
+    <string name="no_share_permission_selected">Gelieve ten minste één machtiging te selecteren om te delen</string>
     <string name="note_confirm">Versturen</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
     <string name="note_icon_hint">Notitie icoon</string>
@@ -509,7 +510,7 @@
     <string name="pass_code_wrong">Onjuiste toegangscode</string>
     <string name="permission_allow">Toestaan</string>
     <string name="permission_deny">Weigeren</string>
-    <string name="permission_storage_access">Aanvullende permessies vereist voor het uploaden en downloaden van bestanden.</string>
+    <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plaatshouder.txt</string>
@@ -656,7 +657,7 @@
     <string name="share_permission_can_edit">Kan bewerken</string>
     <string name="share_permission_file_drop">Bestandsopslag</string>
     <string name="share_permission_view_only">Alleen bekijken</string>
-    <string name="share_permissions">Toegangsrechten delen</string>
+    <string name="share_permissions">Deelmachtigingen</string>
     <string name="share_privilege_unshare">Stop met delen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
@@ -849,7 +850,7 @@
     <string name="uploads_view_upload_status_failed_file_error">Bestandsfout</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mapfout</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Lokaal bestand niet gevonden</string>
-    <string name="uploads_view_upload_status_failed_permission_error">Permissiefout</string>
+    <string name="uploads_view_upload_status_failed_permission_error">Machtigingsfout</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Niet vertrouwd servercertificaat</string>
     <string name="uploads_view_upload_status_fetching_server_version">Server-versie ophalen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App afgesloten</string>
