@@ -695,8 +695,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 if (storagePath.equals(newPath)) {
                     return true;
                 }
-
-                StorageMigration storageMigration = new StorageMigration(this, storagePath, newPath);
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 

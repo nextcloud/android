@@ -28,7 +28,7 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
 
     @Override
     public void before() {
-        sut = new FileDataStorageManager(account,
+        sut = new FileDataStorageManager(user,
                                          targetContext
                                              .getContentResolver()
                                              .acquireContentProviderClient(ProviderMeta.ProviderTableMeta.CONTENT_URI)
