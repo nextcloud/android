@@ -121,7 +121,7 @@
                 android:paddingStart="@dimen/standard_half_padding"
                 android:paddingEnd="@dimen/list_item_share_right_margin"
                 android:src="@drawable/ic_history"
-                app:tint="@color/secondary_text_color" />
+                app:tint="@color/list_icon_color" />
 
             <ImageView
                 android:id="@+id/customCheckbox"
@@ -148,7 +148,7 @@
                 android:paddingStart="@dimen/standard_half_padding"
                 android:paddingEnd="@dimen/alternate_padding"
                 android:src="@drawable/ic_dots_vertical"
-                app:tint="@color/secondary_text_color" />
+                app:tint="@color/list_icon_color" />
 
         </RelativeLayout>
 
