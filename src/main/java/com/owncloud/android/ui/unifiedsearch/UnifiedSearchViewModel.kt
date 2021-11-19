@@ -160,7 +160,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
                 context,
                 fileUrl,
                 clientFactory.create(currentAccountProvider.user),
-                FileDataStorageManager(user.toPlatformAccount(), context.contentResolver),
+                FileDataStorageManager(user, context.contentResolver),
                 user
             )
             runner.postQuickTask(task, onResult = this::onFileRequestResult)
