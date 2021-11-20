@@ -14,8 +14,6 @@
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
-    <string name="actionbar_contacts">Salvează contactele</string>
-    <string name="actionbar_contacts_restore">Restaurează contactele</string>
     <string name="actionbar_copy">Copiază</string>
     <string name="actionbar_mkdir">Dosar nou</string>
     <string name="actionbar_move">Mutare</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Adaugă un alt link</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
-    <string name="allow_creating">Permite crearea</string>
-    <string name="allow_deleting">Permite ștergerea</string>
-    <string name="allow_editing">Permite editarea</string>
     <string name="allow_resharing">Permite repartajarea</string>
     <string name="appbar_search_in">Caută in %s</string>
     <string name="associated_account_not_found">Contul asociat nu a fost găsit!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
-    <string name="battery_optimization_no_setting">Nu am putut deschide setările bateriei. Te rog modifică manual în setări.</string>
     <string name="battery_optimization_title">Optimizare baterie</string>
     <string name="brute_force_delay">Amânat datorită unui număr prea mare de încercări greșite</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_new_file">Fișier nou</string>
-    <string name="contaclist_restore_selected">Restaurează contactele selectate</string>
-    <string name="contactlist_account_chooser_title">Selectează contul de importat</string>
     <string name="contactlist_item_icon">Iconiță utilizator pentru lista de contacte</string>
     <string name="contactlist_no_permission">Nu sunt acordate permisiuni, nu s-a importat nimic.</string>
-    <string name="contacts_automatic_backup">Copie de rezervă automată</string>
     <string name="contacts_backup_button">Fă copie de rezervă acum</string>
-    <string name="contacts_last_backup">Ultima copie de rezervă</string>
-    <string name="contacts_preference_backup_never">niciodată</string>
-    <string name="contacts_preference_choose_date">Alegeți data</string>
     <string name="contacts_preferences_backup_scheduled">Programarea copiei de rezervă efectuată și va începe în scurt timp</string>
     <string name="contacts_preferences_import_scheduled">Programarea importului efectuat și va începe în scurt timp</string>
     <string name="contacts_preferences_no_file_found">Nu s-a găsit nici un fișier</string>
     <string name="contacts_preferences_something_strange_happened">Nu a putut fi găsită ultima copie de siguranță!</string>
-    <string name="contacts_read_permission">Necesită permisiunea de a citi contactele</string>
     <string name="copied_to_clipboard">Copiat în clipboard</string>
     <string name="copy_file_error">A apărut o eroare în timpul copierii fișierului sau dosarului </string>
     <string name="copy_file_invalid_into_descendent">Nu se poate copia un dosar intr-un descendent</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s din %2$s folosiți</string>
     <string name="drawer_quota_unlimited">%1$s utilizat</string>
     <string name="drawer_synced_folders">Încărcare automată</string>
-    <string name="edit_label">Schimbă numele</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -447,9 +433,6 @@
     <string name="note_icon_hint">Pictogramă pentru Notițe</string>
     <string name="notification_action_failed">Nu s-a putut executa acțiunea</string>
     <string name="notification_channel_download_description">Arată progresul descărcării</string>
-    <string name="notification_channel_download_name">Canal de notificare descărcări</string>
-    <string name="notification_channel_file_observer_description">Monitorizează fișiere pentru schimări</string>
-    <string name="notification_channel_file_observer_name">Observator de fișiere</string>
     <string name="notification_channel_file_sync_description">Arată progresul de sicronizare al fișierelor și rezultatul</string>
     <string name="notification_channel_file_sync_name">Sincronizare de fișiere</string>
     <string name="notification_channel_general_description">Arată notificări pentru dosare media noi și altele similare</string>
@@ -459,7 +442,6 @@
     <string name="notification_channel_push_description">Arată notificări push trimise de către server: Mențiuni în comentari, recepția de fișiere partajate, anunțuri postate de admin etc.</string>
     <string name="notification_channel_push_name">Notificări push</string>
     <string name="notification_channel_upload_description">Arată progresul de încărcare</string>
-    <string name="notification_channel_upload_name">Notificări legate de încărcare</string>
     <string name="notification_icon">Pictogramă pentru notificări</string>
     <string name="notifications_no_results_headline">Nu sunt notificări</string>
     <string name="notifications_no_results_message">Te rugăm să încerci mai târziu.</string>
@@ -510,7 +492,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
-    <string name="prefs_daily_contacts_sync_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pentru a arăta fraza de memorare (mnemonic) vă rugăm activați acreditările dispozitivului.</string>
     <string name="prefs_enable_media_scan_notifications">Afișează notificări despre scanarea media</string>
@@ -614,13 +595,11 @@
     <string name="share_no_expiration_date_label">Specifică data expirării</string>
     <string name="share_no_password_title">Setare parolă</string>
     <string name="share_password_title">Protejat cu parolă</string>
-    <string name="share_privilege_unshare">Oprește partajarea</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_search">Nume, ID pentru cloud-ul federalizat sau adresa de email ...</string>
     <string name="share_send_note">Notă către destinatar</string>
     <string name="share_via_link_hide_download">Ascunde descărcarea</string>
-    <string name="share_via_link_menu_password_label">Protejare cu parolă (%1$s)</string>
     <string name="share_via_link_section_title">Partajază legătură</string>
     <string name="share_via_link_send_link_label">Trimite legătură</string>
     <string name="share_via_link_unset_password">Desetează</string>
@@ -730,7 +709,6 @@
     <string name="unread_comments">Există comentarii necitite</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
     <string name="unset_favorite">Ștergeți din favorite</string>
-    <string name="unshare">Oprește partajarea</string>
     <string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să se elimine partajarea (unshare) pentru acest fișier sau folder.</string>
     <string name="unshare_link_file_no_exist">Imposibil de șters partajarea. Te rugăm să verifici dacă există fișierul.</string>
     <string name="unshare_link_forbidden_permissions">de a nu permite accesul la acest fisier</string>

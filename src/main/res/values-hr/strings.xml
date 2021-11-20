@@ -14,8 +14,6 @@
     <string name="action_send_share">Pošalji/podijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
-    <string name="actionbar_contacts">Sigurnosno kopiraj kontakte</string>
-    <string name="actionbar_contacts_restore">Vrati kontakte</string>
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premjesti</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Dodaj drugu poveznicu</string>
     <string name="add_new_public_share">Dodaj novu poveznicu za javno dijeljenje</string>
     <string name="add_to_cloud">Dodaj na %1$s</string>
-    <string name="allow_creating">Dopusti stvaranje</string>
-    <string name="allow_deleting">Dopusti brisanje</string>
-    <string name="allow_editing">Dopusti uređivanje</string>
     <string name="allow_resharing">Dopusti ponovno dijeljenje</string>
     <string name="appbar_search_in">Traži u %s</string>
     <string name="associated_account_not_found">Pripadajući račun nije pronađen!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Onemogući</string>
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
-    <string name="battery_optimization_no_setting">Postavke baterije ne mogu se izravno pokrenuti. Podesite ih ručno u postavkama.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="brute_force_delay">Odgođeno zbog previše pogrešnih pokušaja</string>
     <string name="certificate_load_problem">Došlo je do poteškoća prilikom učitavanja vjerodajnice.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_new_file">Nova datoteka</string>
-    <string name="contaclist_restore_selected">Vraćanje odabranih kontakata</string>
-    <string name="contactlist_account_chooser_title">Odaberite račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za popis kontakata</string>
     <string name="contactlist_no_permission">Nema dopuštenja, ništa nije uvezeno.</string>
-    <string name="contacts_automatic_backup">Automatsko sigurnosno kopiranje</string>
     <string name="contacts_backup_button">Sigurnosno kopiraj</string>
-    <string name="contacts_last_backup">Zadnja sigurnosna kopija</string>
-    <string name="contacts_preference_backup_never">nikad</string>
-    <string name="contacts_preference_choose_date">Odaberite datum</string>
     <string name="contacts_preferences_backup_scheduled">Sigurnosno kopiranje je zakazano i počet će uskoro</string>
     <string name="contacts_preferences_import_scheduled">Uvoz je zakazan i počet će uskoro</string>
     <string name="contacts_preferences_no_file_found">Nije pronađena datoteka</string>
     <string name="contacts_preferences_something_strange_happened">Nije moguće pronaći zadnju sigurnosnu kopiju!</string>
-    <string name="contacts_read_permission">Potrebno je dopuštenje za čitanje popisa kontakata</string>
     <string name="copied_to_clipboard">Kopirano u međuspremnik</string>
     <string name="copy_file_error">Došlo je do pogreške prilikom kopiranja ove datoteke ili mape</string>
     <string name="copy_file_invalid_into_descendent">Nije moguće kopirati mapu u jednu od svojih osnovnih mapa</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">Iskorišteno %1$s od %2$s</string>
     <string name="drawer_quota_unlimited">Upotrijebljeno %1$s</string>
     <string name="drawer_synced_folders">Automatsko otpremanje</string>
-    <string name="edit_label">Promijeni ime</string>
     <string name="encrypted">Postavi kao šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Postavi šifriranje</string>
     <string name="end_to_end_encryption_decrypting">Dešifriranje u tijeku...</string>
@@ -447,9 +433,6 @@
     <string name="note_icon_hint">Ikona bilješke</string>
     <string name="notification_action_failed">Izvršavanje radnje nije uspjelo.</string>
     <string name="notification_channel_download_description">Prikazuje napredak preuzimanja</string>
-    <string name="notification_channel_download_name">Preuzmi kanal s obavijestima</string>
-    <string name="notification_channel_file_observer_description">Prati datoteke za moguće promjene</string>
-    <string name="notification_channel_file_observer_name">Promatrač datoteka</string>
     <string name="notification_channel_file_sync_description">Prikazuje napredak i rezultate sinkronizacije datoteka</string>
     <string name="notification_channel_file_sync_name">Sinkronizacija datoteka</string>
     <string name="notification_channel_general_description">Prikazuje obavijesti o novim medijskim mapama i slično</string>
@@ -459,7 +442,6 @@
     <string name="notification_channel_push_description">Prikazuje push obavijesti koje šalje poslužitelj: navode u komentarima, primanje novih udaljenih dijeljenja, obavijesti administratora itd.</string>
     <string name="notification_channel_push_name">Push obavijesti</string>
     <string name="notification_channel_upload_description">Prikazuje napredak otpreme</string>
-    <string name="notification_channel_upload_name">Kanal za obavijesti o otpremanjima</string>
     <string name="notification_icon">Ikona obavijesti</string>
     <string name="notifications_no_results_headline">Nema obavijesti</string>
     <string name="notifications_no_results_message">Provjerite kasnije.</string>
@@ -510,7 +492,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
-    <string name="prefs_daily_contacts_sync_summary">Svakodnevno sigurnosno kopiranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonička oznaka</string>
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
     <string name="prefs_enable_media_scan_notifications">Prikaži obavijesti o skeniranju medija</string>
@@ -614,13 +595,11 @@
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi zaporku</string>
     <string name="share_password_title">Zaštićeno zaporkom</string>
-    <string name="share_privilege_unshare">Prestani dijeliti</string>
     <string name="share_remote_clarification">%1$s (udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_search">Naziv, ID udruženog oblaka ili adresa e-pošte…</string>
     <string name="share_send_note">Obavijest primatelju</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
-    <string name="share_via_link_menu_password_label">Zaštita zaporkom (%1$s)</string>
     <string name="share_via_link_section_title">Dijeli poveznicu</string>
     <string name="share_via_link_send_link_label">Pošalji poveznicu</string>
     <string name="share_via_link_unset_password">Ukloni</string>
@@ -730,7 +709,6 @@
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
     <string name="unset_favorite">Ukloni iz favorita</string>
-    <string name="unshare">Prestani dijeliti</string>
     <string name="unshare_link_file_error">Došlo je do pogreške prilikom prestanka dijeljenja ove datoteke ili mape.</string>
     <string name="unshare_link_file_no_exist">Nije moguće poništiti dijeljenje. Provjerite postoji li datoteka.</string>
     <string name="unshare_link_forbidden_permissions">kako biste poništili dijeljenje ove datoteke</string>

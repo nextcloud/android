@@ -14,8 +14,6 @@
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
-    <string name="actionbar_contacts">Fes una còpia de seguretat dels contactes</string>
-    <string name="actionbar_contacts_restore">Restaura els contactes</string>
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
     <string name="actionbar_move">Mou</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Afegeix un altre enllaç</string>
     <string name="add_new_public_share">Afegir nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
-    <string name="allow_creating">Permet crear</string>
-    <string name="allow_deleting">Permet suprimir</string>
-    <string name="allow_editing">Permet l\'edició</string>
     <string name="allow_resharing">Permet compartir de nou</string>
     <string name="appbar_search_in">Cerca a %s</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Desactiva</string>
     <string name="battery_optimization_message">El vostre dispositiu pot tenir l\'optimització de bateria activada. AutoUpload només funciona correctament si hi excluïu aquesta aplicació.</string>
-    <string name="battery_optimization_no_setting">No s\'han pogut iniciar els ajustaments de bateria directament. Si us plau, ajusteu-los manualment a paràmetres.</string>
     <string name="battery_optimization_title">Optimització de la bateria</string>
     <string name="brute_force_delay">S\'ha endarrerit perquè s\'han produït massa intents erronis</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom de la versió local.</string>
     <string name="conflict_new_file">Nou fitxer</string>
-    <string name="contaclist_restore_selected">Restaura els contactes seleccionats</string>
-    <string name="contactlist_account_chooser_title">Escolliu un compte per a importar</string>
     <string name="contactlist_item_icon">Icona d\'usuari per a la llista de contactes</string>
     <string name="contactlist_no_permission">No s\'han concedit permisos, no s\'ha importat res</string>
-    <string name="contacts_automatic_backup">Còpia de seguretat automàtica</string>
     <string name="contacts_backup_button">Fes una còpia de seguretat ara</string>
-    <string name="contacts_last_backup">Darrera còpia de seguretat</string>
-    <string name="contacts_preference_backup_never">mai</string>
-    <string name="contacts_preference_choose_date">Escolliu la data</string>
     <string name="contacts_preferences_backup_scheduled">La còpia de seguretat s\'ha planificat i començarà en breu</string>
     <string name="contacts_preferences_import_scheduled">La importació s\'ha planificat i començarà en breu</string>
     <string name="contacts_preferences_no_file_found">No s\'ha trobat cap fitxer</string>
     <string name="contacts_preferences_something_strange_happened">No es pot trobar la vostra darrera còpia de seguretat!</string>
-    <string name="contacts_read_permission">Es necessita permís per llegir els contactes</string>
     <string name="copied_to_clipboard">Copiat al porta-retalls</string>
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No és possible copiar una carpeta a cap de les que conté</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">Usats %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilitzat</string>
     <string name="drawer_synced_folders">Càrrega automàtica</string>
-    <string name="edit_label">Canvia el nom</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_confirm_button">Arranja el xifrat</string>
     <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
@@ -448,9 +434,6 @@
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
     <string name="notification_channel_download_description">Mostra el progrés de les descàrregues</string>
-    <string name="notification_channel_download_name">Canal de notificació de descàrregues</string>
-    <string name="notification_channel_file_observer_description">Vigila els canvis als fitxers</string>
-    <string name="notification_channel_file_observer_name">Observador de fitxers</string>
     <string name="notification_channel_file_sync_description">Mostra el procés de sincronització i els resultats</string>
     <string name="notification_channel_file_sync_name">Sincronització de fitxers</string>
     <string name="notification_channel_general_description">Mostra les notificacions per noves carpetes multimèdia i similars</string>
@@ -460,7 +443,6 @@
     <string name="notification_channel_push_description">Mostra les notificacions forçades enviades pel servidor: mencions als comentaris, recepció de noves comparticions remotes, anuncis enviats per un administrador, etc.</string>
     <string name="notification_channel_push_name">Notificacions forçades</string>
     <string name="notification_channel_upload_description">Mostra el progrés de càrrega</string>
-    <string name="notification_channel_upload_name">Canal de notificacions de càrregues</string>
     <string name="notification_icon">Icona de notificació</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
@@ -511,7 +493,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
-    <string name="prefs_daily_contacts_sync_summary">Còpia de seguretat diària dels vostres contactes</string>
     <string name="prefs_e2e_mnemonic">E2E mnemònic</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrar els mnemònics, si us plau activeu les credencials del dispositiu.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notificacions de cerca de mitjans</string>
@@ -615,13 +596,11 @@
     <string name="share_no_expiration_date_label">Establiu una data de caducitat</string>
     <string name="share_no_password_title">Estableix la contrasenya</string>
     <string name="share_password_title">Protegit per contrasenya</string>
-    <string name="share_privilege_unshare">Deixa de compartir</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_room_clarification">%1$s(conversa)</string>
     <string name="share_search">Nom, ID de núvol federa o adreça electrònic…</string>
     <string name="share_send_note">Nota al destinatari</string>
     <string name="share_via_link_hide_download">Amaga la descàrrega</string>
-    <string name="share_via_link_menu_password_label">Protegit amb contrasenya (%1$s)</string>
     <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
     <string name="share_via_link_send_link_label">Envia l\'enllaç</string>
     <string name="share_via_link_unset_password">No definit</string>
@@ -731,7 +710,6 @@
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>
     <string name="unset_favorite">Suprimeix-ho de preferits</string>
-    <string name="unshare">Deixa de compartir</string>
     <string name="unshare_link_file_error">S\'ha produït un error mentre s\'intentava deixar de compartir aquest fitxer o carpeta.</string>
     <string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix.</string>
     <string name="unshare_link_forbidden_permissions">per deixar de compartir aquest fitxer</string>

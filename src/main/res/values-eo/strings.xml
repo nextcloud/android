@@ -13,8 +13,6 @@
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
-    <string name="actionbar_contacts">Savkopii kontaktaron</string>
-    <string name="actionbar_contacts_restore">Restaŭri kontaktaron</string>
     <string name="actionbar_copy">Kopii</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
     <string name="actionbar_move">Movi</string>
@@ -31,7 +29,6 @@
     <string name="activity_icon">Aktivaĵoj</string>
     <string name="add_another_public_share_link">Aldoni plian ligilon</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
-    <string name="allow_editing">Permesi modifon</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
     <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
@@ -72,7 +69,6 @@
     <string name="battery_optimization_close">Fermi</string>
     <string name="battery_optimization_disable">Malŝalti</string>
     <string name="battery_optimization_message">Bateria optimumigo estas eble ŝaltita en via aparato. Aŭtomata alŝuto bone funkcias, nur se vi esceptas tiun ĉi aplikaĵon el bateria optimumigo.</string>
-    <string name="battery_optimization_no_setting">Ne eblis malfermi agordon pri baterio. Bonvolu fari tion permane.</string>
     <string name="battery_optimization_title">Bateria optimumigo</string>
     <string name="certificate_load_problem">Ekestis problemo dum ŝargo de la atestilo.</string>
     <string name="checkbox">Markobutono</string>
@@ -125,20 +121,13 @@
     <string name="confirmation_remove_folder_alert">Ĉu vi ja volas forigi %1$s kaj ĝian enhavon?</string>
     <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
     <string name="confirmation_remove_local">Nur loka</string>
-    <string name="contaclist_restore_selected">Restaŭri elektitajn kontaktojn</string>
-    <string name="contactlist_account_chooser_title">Elekti konton importota</string>
     <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
     <string name="contactlist_no_permission">Permeso ne donita, nenio importiĝis.</string>
-    <string name="contacts_automatic_backup">Aŭtomata savkopio</string>
     <string name="contacts_backup_button">Savkopii nun</string>
-    <string name="contacts_last_backup">Lasta savkopio</string>
-    <string name="contacts_preference_backup_never">neniam</string>
-    <string name="contacts_preference_choose_date">Elekti daton</string>
     <string name="contacts_preferences_backup_scheduled">Savkopiado estas planita kaj komenciĝos tre baldaŭ</string>
     <string name="contacts_preferences_import_scheduled">Importado estas planita kaj komenciĝos tre baldaŭ</string>
     <string name="contacts_preferences_no_file_found">Neniu dosiero trovebla</string>
     <string name="contacts_preferences_something_strange_happened">Ne eblis trovi vian lastan savkopion!</string>
-    <string name="contacts_read_permission">Permeso por legi kontaktojn bezonata</string>
     <string name="copied_to_clipboard">Kopiita en la tondejon</string>
     <string name="copy_file_error">Eraro okazis dum provo kopii ĉi tiun dosieron aŭ dosierujon</string>
     <string name="copy_file_invalid_into_descendent">Ne eblas kopii dosierujon en unu el ĝiaj idoj</string>
@@ -193,7 +182,6 @@
     <string name="drawer_quota">%1$s el %2$s uzataj</string>
     <string name="drawer_quota_unlimited">%1$s uzataj</string>
     <string name="drawer_synced_folders">Aŭtomata alŝuto</string>
-    <string name="edit_label">Ŝanĝi nomon</string>
     <string name="encrypted">Difini kiel ĉifrita</string>
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>
     <string name="end_to_end_encryption_decrypting">Malĉifrado...</string>
@@ -350,9 +338,6 @@
     <string name="note_could_not_sent">Ne eblis sendi noton</string>
     <string name="notification_action_failed">Malsukcesis plenumi agon.</string>
     <string name="notification_channel_download_description">Montras elŝutoplenumon</string>
-    <string name="notification_channel_download_name">Kanalo por sciigi elŝuton</string>
-    <string name="notification_channel_file_observer_description">Observas dosierojn por montri ŝanĝojn</string>
-    <string name="notification_channel_file_observer_name">Dosierobservilo</string>
     <string name="notification_channel_file_sync_description">Montras progreson de dosiera sinkronigo kaj rezultojn</string>
     <string name="notification_channel_file_sync_name">Dosiera sinkronigo</string>
     <string name="notification_channel_general_description">Montri sciigoj pri novaj aŭdovidaj dosierujoj k.s.</string>
@@ -362,7 +347,6 @@
     <string name="notification_channel_push_description">Montri tujajn sciigojn senditajn de la servilo: mencio en komentoj, ricevo de novaj foraj kunhavoj, anoncoj el la administranto, k.t.p.</string>
     <string name="notification_channel_push_name">Tujaj sciigoj</string>
     <string name="notification_channel_upload_description">Montras alŝutoprogreson</string>
-    <string name="notification_channel_upload_name">Kanalo por sciigi alŝuton</string>
     <string name="notification_icon">Piktogramo pri sciigoj</string>
     <string name="notifications_no_results_headline">Neniu sciigo</string>
     <string name="notifications_no_results_message">Bonvolu rekontroli poste.</string>
@@ -402,7 +386,6 @@
     <string name="prefs_category_dev">Programado</string>
     <string name="prefs_category_general">Ĝeneralo</string>
     <string name="prefs_category_more">Pli</string>
-    <string name="prefs_daily_contacts_sync_summary">Ĉiutaga savkopio de via kontaktaro</string>
     <string name="prefs_e2e_mnemonic">E2E (tutvoja, angle „end-to-end“) memoriga helpilo</string>
     <string name="prefs_e2e_no_device_credentials">Por montri memorigan helpilon, ŝalti uzon de akreditiloj sur via aparato.</string>
     <string name="prefs_enable_media_scan_notifications">Montri sciigoj pri aŭdvidaj dosierujoj</string>
@@ -475,12 +458,10 @@
     <string name="share_no_expiration_date_label">Uzi limdaton</string>
     <string name="share_no_password_title">Uzi pasvorton</string>
     <string name="share_password_title">Pasvorte protektita</string>
-    <string name="share_privilege_unshare">Malkunhavigi</string>
     <string name="share_remote_clarification">%1$s (fora)</string>
     <string name="share_room_clarification">%1$s (konversacio)</string>
     <string name="share_send_note">Noto por la ricevonto</string>
     <string name="share_via_link_hide_download">Kaŝi elŝuton</string>
-    <string name="share_via_link_menu_password_label">Protekti per pasvorto (%1$s)</string>
     <string name="share_via_link_section_title">Kunhavigi ligilon</string>
     <string name="share_via_link_send_link_label">Sendi ligilon</string>
     <string name="share_via_link_unset_password">Malprotekti</string>
@@ -577,7 +558,6 @@
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
     <string name="unset_favorite">Forigi el pliŝataĵoj</string>
-    <string name="unshare">Malkunhavigi</string>
     <string name="unshare_link_forbidden_permissions">malkunhavigi ĉi tiun dosieron</string>
     <string name="unsharing_failed">Malkunhavigo malsukcesis</string>
     <string name="untrusted_domain">Aliro per nefidinda domajno. Vidu la helpdokumentojn por scii pli.</string>

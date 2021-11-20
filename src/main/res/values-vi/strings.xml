@@ -14,8 +14,6 @@
     <string name="action_send_share">Gửi/Chia sẽ</string>
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
-    <string name="actionbar_contacts">Sao lưu danh bạ</string>
-    <string name="actionbar_contacts_restore">Phục hồi danh bạ</string>
     <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
     <string name="actionbar_move">Dịch chuyển</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Thêm một liên kết khác</string>
     <string name="add_new_public_share">Thêm liên kết chia sẻ công khai mới</string>
     <string name="add_to_cloud">Thêm vào %1$s</string>
-    <string name="allow_creating">Cho phép tạo</string>
-    <string name="allow_deleting">Cho phép xoá</string>
-    <string name="allow_editing">Cho phép chỉnh sửa</string>
     <string name="allow_resharing">Cho phép chia sẻ lại</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
     <string name="associated_account_not_found">Không tìm thấy tài khoản được liên kết!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Đóng</string>
     <string name="battery_optimization_disable">Tắt</string>
     <string name="battery_optimization_message">Thiết bị của bạn có thể đã bật tính năng tối ưu hóa pin. AutoUpload chỉ hoạt động bình thường nếu bạn loại trừ ứng dụng này khỏi nó.</string>
-    <string name="battery_optimization_no_setting">Không thể trực tiếp mở cài đặt pin. Hãy điều chỉnh thủ công trong cài đặt.</string>
     <string name="battery_optimization_title">Tối ưu hoá pin</string>
     <string name="brute_force_delay">Đã bị trì hoãn vì quá nhiều lần thử sai</string>
     <string name="certificate_load_problem">Có vấn đề khi tải chứng chỉ.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Tập tin xung đột %1$s</string>
     <string name="conflict_message_description">Nếu bạn chọn cả hai phiên bản, tệp trên máy sẽ có một số được thêm vào tên của nó.</string>
     <string name="conflict_new_file">Tập tin mới</string>
-    <string name="contaclist_restore_selected">Khôi phục liên hệ đã chọn</string>
-    <string name="contactlist_account_chooser_title">Chọn tài khoản để nhập</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contactlist_no_permission">Không có sự cho phép, không có gì được thêm.</string>
-    <string name="contacts_automatic_backup">Sao lưu tự động</string>
     <string name="contacts_backup_button">Sao lưu ngay</string>
-    <string name="contacts_last_backup">Lần sao lưu cuối</string>
-    <string name="contacts_preference_backup_never">không thay đổi</string>
-    <string name="contacts_preference_choose_date">Chọn ngày</string>
     <string name="contacts_preferences_backup_scheduled">Sao lưu đã lên lịch và sẽ sớm bắt đầu</string>
     <string name="contacts_preferences_import_scheduled">Đã nhập lên lịch và sẽ sớm bắt đầu</string>
     <string name="contacts_preferences_no_file_found">Không tìm thấy tập tin</string>
     <string name="contacts_preferences_something_strange_happened">Không thể tìm bản sao lưu cuối của bạn!</string>
-    <string name="contacts_read_permission">Cần có quyền đọc danh sách liên hệ</string>
     <string name="copied_to_clipboard">Sao chép vào bảng tạm</string>
     <string name="copy_file_error">Đã xảy ra lỗi khi cố gắng sao chép tệp hoặc thư mục này</string>
     <string name="copy_file_invalid_into_descendent">Không thể sao chép một thư mục vào một trong các thư mục cơ bản của chính nó</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s trên %2$s đã sử dụng</string>
     <string name="drawer_quota_unlimited">%1$s đã dùng</string>
     <string name="drawer_synced_folders">Tự động tải lên</string>
-    <string name="edit_label">Đổi tên</string>
     <string name="encrypted">Đặt mã hóa</string>
     <string name="end_to_end_encryption_confirm_button">Thiết lập mã hóa</string>
     <string name="end_to_end_encryption_decrypting">Đang giải mã…</string>
@@ -447,9 +433,6 @@
     <string name="note_icon_hint">Biểu tượng ghi chú</string>
     <string name="notification_action_failed">Thực thi hành động thất bại.</string>
     <string name="notification_channel_download_description">Hiện tiến trình tải về</string>
-    <string name="notification_channel_download_name">Thông báo các kênh tải về</string>
-    <string name="notification_channel_file_observer_description">Theo dõi các tệp để thay đổi</string>
-    <string name="notification_channel_file_observer_name">Trình quan sát tệp</string>
     <string name="notification_channel_file_sync_description">Hiển thị tiến trình đồng bộ tệp và kết quả</string>
     <string name="notification_channel_file_sync_name">Đồng bộ tập tin</string>
     <string name="notification_channel_general_description">Hiển thị thông báo cho các thư mục media mới và tương tự</string>
@@ -459,7 +442,6 @@
     <string name="notification_channel_push_description">Hiển thị thông báo do máy chủ gửi: Nhắc đến trong bình luận, nhận các chia sẻ mới từ xa, thông báo do quản trị viên đăng, v.v.</string>
     <string name="notification_channel_push_name">Thông báo đẩy</string>
     <string name="notification_channel_upload_description">Hiện tiến trình tải lên</string>
-    <string name="notification_channel_upload_name">Thông báo các kênh tải lên</string>
     <string name="notification_icon">Biểu tượng thông báo</string>
     <string name="notifications_no_results_headline">Không có thông báo</string>
     <string name="notifications_no_results_message">Hãy kiểm tra lại sau.</string>
@@ -510,7 +492,6 @@
     <string name="prefs_category_dev">Phát triển</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
-    <string name="prefs_daily_contacts_sync_summary">Sao lưu hàng ngày danh bạn của bạn</string>
     <string name="prefs_e2e_mnemonic">E2E ghi nhớ</string>
     <string name="prefs_e2e_no_device_credentials">Để hiển thị ghi nhớ, vui lòng bật thông tin đăng nhập thiết bị.</string>
     <string name="prefs_enable_media_scan_notifications">Hiển thị thông báo quét media</string>
@@ -614,13 +595,11 @@
     <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
     <string name="share_no_password_title">Đặt mật khẩu</string>
     <string name="share_password_title">Mật khẩu được bảo vệ</string>
-    <string name="share_privilege_unshare">Bỏ chia sẽ</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
     <string name="share_search">Tên, ID đám mây liên kết hoặc địa chỉ email…</string>
     <string name="share_send_note">Ghi chú cho người nhận</string>
     <string name="share_via_link_hide_download">Ẩn tải xuống</string>
-    <string name="share_via_link_menu_password_label">Mật khẩu bảo vệ (%1$s)</string>
     <string name="share_via_link_section_title">Chia sẻ liên kết</string>
     <string name="share_via_link_send_link_label">Gửi liên kết</string>
     <string name="share_via_link_unset_password">Bỏ cài đặt</string>
@@ -728,7 +707,6 @@
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
     <string name="unset_favorite">Xóa khỏi ưa thích</string>
-    <string name="unshare">Bỏ chia sẻ</string>
     <string name="unshare_link_file_error">Đã xảy ra lỗi khi cố gắng hủy chia sẻ tệp hoặc thư mục này.</string>
     <string name="unshare_link_file_no_exist">Không thể ngừng chia sẻ. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
     <string name="unshare_link_forbidden_permissions">bỏ chia sẽ tập tin này</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">Приложение%1$s для Android</string>
+    <string name="about_android">Приложение %1$s для Android</string>
     <string name="about_title">О программе</string>
     <string name="about_version">версия %1$s</string>
     <string name="about_version_with_build">версия %1$s, сборка # %2$s</string>
@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
     <string name="actionbar_calendar_contacts_restore">Восстановить контакты и календарь</string>
-    <string name="actionbar_contacts">Резервное копирование контактов</string>
-    <string name="actionbar_contacts_restore">Восстановить контакты</string>
     <string name="actionbar_copy">Копировать</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="advanced_settings">Дополнительные настройки</string>
-    <string name="allow_creating">Разрешить создавать</string>
-    <string name="allow_deleting">Разрешить удалять</string>
-    <string name="allow_editing">Разрешить редактирование</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
-    <string name="battery_optimization_no_setting">Не удалось открыть диалог настройки параметров батареи, откройте его самостоятельно и оптимизацию использования батареи для этого приложения.</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
     <string name="brute_force_delay">Слишком много неверных попыток, операция отложена</string>
     <string name="calendar">Календарь</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_new_file">Новый файл</string>
-    <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
-    <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
     <string name="contacts">Контакты</string>
-    <string name="contacts_automatic_backup">Автоматически создавать резервные копии</string>
     <string name="contacts_backup_button">Создать резервную копию сейчас</string>
-    <string name="contacts_last_backup">Последнее резервное копирование</string>
-    <string name="contacts_preference_backup_never">никогда</string>
-    <string name="contacts_preference_choose_date">Выберите дату</string>
     <string name="contacts_preferences_backup_scheduled">Резервное копирование запланировано и скоро начётся</string>
     <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
     <string name="contacts_preferences_no_file_found">Файл не найден</string>
     <string name="contacts_preferences_something_strange_happened">Не удалось найти последнюю резервную копию!</string>
-    <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
-    <string name="edit_label">Изменить имя</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
@@ -329,6 +315,7 @@
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_management_permission">Недостаточно прав</string>
+    <string name="file_management_permission_text">Для корректной работы %1$s требуется разрешение на управление файлами. Пожалуйста, включите его на следующем экране, чтобы продолжить.</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
     <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>
@@ -474,10 +461,7 @@
     <string name="note_icon_hint">Значок примечания</string>
     <string name="notification_action_failed">Не удалось выполнить задание.</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
-    <string name="notification_channel_download_name">Канал уведомления о получении</string>
     <string name="notification_channel_download_name_short">Загрузки</string>
-    <string name="notification_channel_file_observer_description">Отслеживание изменений файлов</string>
-    <string name="notification_channel_file_observer_name">Обозреватель файлов</string>
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
     <string name="notification_channel_file_sync_name">Синхронизация файлов</string>
     <string name="notification_channel_general_description">Выводить уведомление при обнаружении новых папок с медиафайлами</string>
@@ -487,7 +471,6 @@
     <string name="notification_channel_push_description">Показывать push-уведомления, отправляемые на сервер: упоминания в комментариях, прием новых общих ресурсов, объявления, размещаемые администратором и т.д.</string>
     <string name="notification_channel_push_name">Push-уведомления</string>
     <string name="notification_channel_upload_description">Ход выполнения передачи файлов на сервер</string>
-    <string name="notification_channel_upload_name">Информация о передаче файлов</string>
     <string name="notification_channel_upload_name_short">Загрузки</string>
     <string name="notification_icon">Значок уведомления</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
@@ -540,7 +523,6 @@
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря</string>
-    <string name="prefs_daily_contacts_sync_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_e2e_mnemonic">Мнемофраза E2E</string>
     <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
     <string name="prefs_enable_media_scan_notifications">Показывать уведомления о сканировании медиафайлов</string>
@@ -553,7 +535,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Будут созданы папки года и вложенные в них папки номеров месяцев</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_license">Лицензия</string>
-    <string name="prefs_lock">Код приложения</string>
+    <string name="prefs_lock">Код доступа к приложению</string>
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
     <string name="prefs_lock_device_credentials_not_setup">Системная защитная блокировка не настроена.</string>
     <string name="prefs_lock_none">Не использовать</string>
@@ -630,7 +612,9 @@
     <string name="set_status">Установить состояние</string>
     <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="share">Общий ресурс</string>
+    <string name="share_copy_link">Опубликовать и скопировать ссылку </string>
     <string name="share_dialog_title">Общий доступ</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекает %1$s</string>
     <string name="share_file">Общий ресурс «%1$s»</string>
     <string name="share_group_clarification">%1$s (группа)</string>
@@ -652,8 +636,9 @@
     <string name="share_open_in">Открыть в...</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Можно редактировать</string>
+    <string name="share_permission_file_drop">Принимать файлы</string>
     <string name="share_permission_view_only">Только просмотр</string>
-    <string name="share_privilege_unshare">Закрыть доступ</string>
+    <string name="share_permissions">Права на публикацию</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
     <string name="share_search">Имя, Federated Cloud ID (идентификатор в объединении облачных хранилищ)  или адрес электронной почты …</string>
@@ -661,7 +646,6 @@
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_settings">Настройки</string>
     <string name="share_via_link_hide_download">Скрыть загрузку</string>
-    <string name="share_via_link_menu_password_label">Защитить паролем (%1$s)</string>
     <string name="share_via_link_section_title">Общий доступ по ссылке</string>
     <string name="share_via_link_send_link_label">Отправить ссылку</string>
     <string name="share_via_link_unset_password">Сброс</string>
@@ -772,7 +756,6 @@
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>
     <string name="unset_favorite">Убрать из избранного</string>
-    <string name="unshare">Закрыть доступ</string>
     <string name="unshare_link_file_error">При попытке закрыть доступ к этому файлу или папке произошла ошибка.</string>
     <string name="unshare_link_file_no_exist">Невозможно закрыть доступ, убедитесь, что файл существует.</string>
     <string name="unshare_link_forbidden_permissions">для закрытия доступа к этому файлу</string>
@@ -887,6 +870,30 @@
         <item quantity="few">Не удалось скопировать %1$d файлов из папки %2$s в</item>
         <item quantity="many">Не удалось скопировать %1$d файлов из папки %2$s в</item>
         <item quantity="other">Не удалось скопировать %1$d файлов из папки %2$s в</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">В %2$s передано %1$d событие</item>
+        <item quantity="few">В %2$s передано %1$d события</item>
+        <item quantity="many">В %2$s передано %1$d событий</item>
+        <item quantity="other">В %2$s передано %1$d события</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Создан %1$d новый идентификатор</item>
+        <item quantity="few">Создано %1$d новых идентификатора</item>
+        <item quantity="many">Создано %1$d новых идентификаторов</item>
+        <item quantity="other">Создано %1$d новых идентификаторов</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Обработан %d объект.</item>
+        <item quantity="few">Обработано %d объекта.</item>
+        <item quantity="many">Обработано %d объектов.</item>
+        <item quantity="other">Обработано %d объекта.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Найден %d повторяющийся объект.</item>
+        <item quantity="few">Найдено %d повторяющихся объекта.</item>
+        <item quantity="many">Найдено %d повторяющихся объектов.</item>
+        <item quantity="other">Найдено %d повторяющихся объекта.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>

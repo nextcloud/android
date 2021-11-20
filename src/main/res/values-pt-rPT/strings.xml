@@ -14,8 +14,6 @@
     <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
-    <string name="actionbar_contacts">Fazer cópia de segurança dos contactos</string>
-    <string name="actionbar_contacts_restore">Restaurar contactos</string>
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Adicionar outra hiperligação</string>
     <string name="add_new_public_share">Adicionar um novo link de partilha público</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
-    <string name="allow_creating">Permitir criar</string>
-    <string name="allow_deleting">Permitir eliminar</string>
-    <string name="allow_editing">Permitir edição</string>
     <string name="allow_resharing">Permitir repartilha</string>
     <string name="appbar_search_in">Procurar no %s</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
-    <string name="battery_optimization_no_setting">Impossível aceder às configurações de bateria directamente. Por favor, ajuste manualmente as configurações.</string>
     <string name="battery_optimization_title">Optimização de bateria</string>
     <string name="brute_force_delay">Suspenso devido a demasiadas tentativas erradas</string>
     <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
@@ -149,20 +143,13 @@
     <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_message_description">Se escolher ambas as versões, o ficheiro local terá um número acrescentado ao nome.</string>
     <string name="conflict_new_file">Ficheiro novo</string>
-    <string name="contaclist_restore_selected">Restaurar contactos seleccionados</string>
-    <string name="contactlist_account_chooser_title">Escolher conta a importar</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
     <string name="contactlist_no_permission">Sem permissão concedida, nada para importar.</string>
-    <string name="contacts_automatic_backup">Cópia de segurança automática</string>
     <string name="contacts_backup_button">Fazer cópia de segurança agora</string>
-    <string name="contacts_last_backup">Última cópia de segurança</string>
-    <string name="contacts_preference_backup_never">nunca</string>
-    <string name="contacts_preference_choose_date">Escolher data</string>
     <string name="contacts_preferences_backup_scheduled">Cópia de segurança planeada e irá começar em breve</string>
     <string name="contacts_preferences_import_scheduled">Importar planeamento e irá começar em breve</string>
     <string name="contacts_preferences_no_file_found">Nenhum ficheiro encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi encontrada a sua última cópia de segurança!</string>
-    <string name="contacts_read_permission">Necessária permissão para ler a lista de contactos</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="copy_file_error">Ocorreu um erro quando tentava copiar este ficheiro ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar a pasta para uma das suas próprias pastas internas</string>
@@ -232,7 +219,6 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
-    <string name="edit_label">Alterar nome</string>
     <string name="encrypted">Definir como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -445,9 +431,6 @@
     <string name="note_icon_hint">Ícone: Nota</string>
     <string name="notification_action_failed">Falha ao executar a acção.</string>
     <string name="notification_channel_download_description">Mostra o progresso da transferência</string>
-    <string name="notification_channel_download_name">Canal de notificação de transferências</string>
-    <string name="notification_channel_file_observer_description">Monitoriza alterações nos ficheiros</string>
-    <string name="notification_channel_file_observer_name">Observador de ficheiros</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso de sincronização de ficheiros e resultados</string>
     <string name="notification_channel_file_sync_name">Sincronização de ficheiros</string>
     <string name="notification_channel_general_description">Mostrar notificações de novas pastas multimédia e similares</string>
@@ -457,7 +440,6 @@
     <string name="notification_channel_push_description">Mostrar notificações push enviadas pelo servidor: Menções em comentários, recepção de partilhas remotas, anúncios publicados por um administrador etc.</string>
     <string name="notification_channel_push_name">Notificações \"push\"</string>
     <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
-    <string name="notification_channel_upload_name">Canal de notificação de envio</string>
     <string name="notification_icon">Ícone de notificação</string>
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
@@ -508,7 +490,6 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_daily_contacts_sync_summary">Cópia de segurança diária dos seus contactos</string>
     <string name="prefs_e2e_mnemonic">Mnemónica E2</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar a mnemónica, por favor, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificações de análise de multimédia</string>
@@ -612,13 +593,11 @@
     <string name="share_no_expiration_date_label">Definir a data de expiração</string>
     <string name="share_no_password_title">Defina a senha</string>
     <string name="share_password_title">Protegido com Senha</string>
-    <string name="share_privilege_unshare">Cancelar partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
     <string name="share_search">Nome, Cloud ID federado ou endereço de email ...</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_via_link_hide_download">Ocultar transferência</string>
-    <string name="share_via_link_menu_password_label">Protegido com Senha (%1$s)</string>
     <string name="share_via_link_section_title">Partilhar hiperligação</string>
     <string name="share_via_link_send_link_label">Enviar hiperligação</string>
     <string name="share_via_link_unset_password">Retirar</string>
@@ -728,7 +707,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>
     <string name="unset_favorite">Remover dos favoritos</string>
-    <string name="unshare">Cancelar partilha</string>
     <string name="unshare_link_file_error">Erro ao tentar eliminar a partilha deste ficheiro ou pasta. </string>
     <string name="unshare_link_file_no_exist">Impossível eliminar a partilha. Verifique se o ficheiro existe.</string>
     <string name="unshare_link_forbidden_permissions">para cancelar a partilha deste ficheiro</string>
