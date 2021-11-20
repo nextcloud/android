@@ -239,12 +239,10 @@ public final class FilesSyncHelper {
             if (connectivityService.getConnectivity().isConnected() && !connectivityService.isInternetWalled()) {
                 FileUploader.retryFailedUploads(
                     context,
-                    null,
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
-                    powerManagementService,
-                    null
+                    powerManagementService
                 );
             }
         }).start();
