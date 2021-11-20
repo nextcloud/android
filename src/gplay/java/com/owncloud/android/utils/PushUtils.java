@@ -167,7 +167,7 @@ public final class PushUtils {
 
             if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
                 String arbitraryValue;
-                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
+                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
                     Gson gson = new Gson();
                     PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
                             PushConfigurationState.class);
@@ -213,7 +213,7 @@ public final class PushUtils {
                 PushConfigurationState accountPushData;
                 Gson gson = new Gson();
                 for (Account account : accountManager.getAccounts()) {
-                    providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH);
+                    providerValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH);
                     if (!TextUtils.isEmpty(providerValue)) {
                         accountPushData = gson.fromJson(providerValue,
                                 PushConfigurationState.class);
@@ -430,7 +430,7 @@ public final class PushUtils {
             signature = Signature.getInstance("SHA512withRSA");
             if (accounts.length > 0) {
                 for (Account account : accounts) {
-                    if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
+                    if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
                         pushArbitraryData = gson.fromJson(arbitraryValue, PushConfigurationState.class);
                         if (!pushArbitraryData.isShouldBeDeleted()) {
                             publicKey = (PublicKey) readKeyFromString(true, pushArbitraryData.getUserPublicKey());
