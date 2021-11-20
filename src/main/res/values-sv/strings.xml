@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
     <string name="actionbar_calendar_contacts_restore">Återställ kontakter &amp; kalender</string>
-    <string name="actionbar_contacts">Backa upp kontakter</string>
-    <string name="actionbar_contacts_restore">Återställ kontakter</string>
     <string name="actionbar_copy">Kopiera</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move">Flytta</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Lägg till en ny publik delad länk</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="advanced_settings">Avancerade inställningar</string>
-    <string name="allow_creating">Tillåt skapa</string>
-    <string name="allow_deleting">Tillåt radera</string>
-    <string name="allow_editing">Tillåt redigering</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
-    <string name="battery_optimization_no_setting">Kan inte starta batterinställningarna direkt. Justera manuellt i inställningarna.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
     <string name="brute_force_delay">Fördröjd på grund av för många misslyckade försök</string>
     <string name="calendar">Kalender</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_new_file">Ny fil</string>
-    <string name="contaclist_restore_selected">Återställ valda kontakter</string>
-    <string name="contactlist_account_chooser_title">Välj konto att importera</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
     <string name="contacts">Kontakter</string>
-    <string name="contacts_automatic_backup">Automatisk backup</string>
     <string name="contacts_backup_button">Gör backup nu</string>
-    <string name="contacts_last_backup">Senaste backup</string>
-    <string name="contacts_preference_backup_never">aldrig</string>
-    <string name="contacts_preference_choose_date">Välj datum</string>
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
-    <string name="contacts_read_permission">Tillstånd att läsa kontaktlista behövs</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
-    <string name="edit_label">Byt namn</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -474,10 +460,7 @@
     <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
-    <string name="notification_channel_download_name">Hämta aviseringskanal</string>
     <string name="notification_channel_download_name_short">Nerladdningar</string>
-    <string name="notification_channel_file_observer_description">Övervakar filer för ändringar</string>
-    <string name="notification_channel_file_observer_name">Filobservatör</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_general_description">Visa aviseringar för nya mediamappar och liknande</string>
@@ -487,7 +470,6 @@
     <string name="notification_channel_push_description">Visa push-meddelanden som skickas av servern: Omnämnanden i kommentarer, mottagning av nya fjärrandelar, meddelanden som publiceras av en administratör o.s.v.</string>
     <string name="notification_channel_push_name">Push-aviseringar</string>
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
-    <string name="notification_channel_upload_name">Ladda upp aviseringskanal</string>
     <string name="notification_channel_upload_name_short">Uppladdningar</string>
     <string name="notification_icon">Meddelandeikon</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
@@ -540,7 +522,6 @@
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender &amp; dina kontakter </string>
-    <string name="prefs_daily_contacts_sync_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_e2e_no_device_credentials">För att visa mnemonic vänligen aktivera enhetsuppgifter.</string>
     <string name="prefs_enable_media_scan_notifications">Visa aviseringar om mediescanning</string>
@@ -658,7 +639,6 @@
     <string name="share_permission_file_drop">Släpp fil</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Dela behörigheter</string>
-    <string name="share_privilege_unshare">Sluta dela</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat Cloud ID eller epost-adress</string>
@@ -666,7 +646,6 @@
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_settings">Inställningar</string>
     <string name="share_via_link_hide_download">Dölj hämtning</string>
-    <string name="share_via_link_menu_password_label">Lösenordsskydda (%1$s)</string>
     <string name="share_via_link_section_title">Dela länk</string>
     <string name="share_via_link_send_link_label">Skicka länk</string>
     <string name="share_via_link_unset_password">Inaktivera</string>
@@ -777,7 +756,6 @@
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="unset_favorite">Ta bort från favoriter</string>
-    <string name="unshare">Sluta dela</string>
     <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp.</string>
     <string name="unshare_link_file_no_exist">Det går inte att sluta dela. Vänligen kontrollera att filen finns.</string>
     <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>

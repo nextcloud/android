@@ -14,8 +14,6 @@
     <string name="action_send_share">Cuir/Co-roinn</string>
     <string name="action_switch_grid_view">Sealladh griod</string>
     <string name="action_switch_list_view">Sealladh liosta</string>
-    <string name="actionbar_contacts">Dèan lethbhreac-glèidhidh dhen luchd-aithne</string>
-    <string name="actionbar_contacts_restore">Aisig an luchd-aithne</string>
     <string name="actionbar_copy">Dèan lethbhreac</string>
     <string name="actionbar_mkdir">Pasgan ùr</string>
     <string name="actionbar_move">Gluais</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Cuir ceangal eile ris</string>
     <string name="add_new_public_share">Cuir ceangal co-roinnidh poblach ùr ris</string>
     <string name="add_to_cloud">Cuir ri %1$s</string>
-    <string name="allow_creating">Ceadaich cruthachadh</string>
-    <string name="allow_deleting">Ceadaich sguabadh às</string>
-    <string name="allow_editing">Ceadaich deasachadh</string>
     <string name="allow_resharing">Ceadaich co-roinneadh às ùr</string>
     <string name="appbar_search_in">Lorg am broinn %s</string>
     <string name="associated_account_not_found">Cha deach an cunntas co-cheangailte a lorg!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Dùin</string>
     <string name="battery_optimization_disable">Cuir à comas</string>
     <string name="battery_optimization_message">Dh’fhaoidte gu bheil piseach a’ bhataraidh an comas air an uidheam agad. Chan obraich an luchdadh suas fèin-obrachail mar bu chòir ach ma bheir thu an aplacaid seo air falbh uaithe.</string>
-    <string name="battery_optimization_no_setting">Chan urrainn dhuinn roghainnean a’ bhataraidh a chur gu dol gu dìreach. Cur gleus air a làimh sna roghainnean.</string>
     <string name="battery_optimization_title">Piseachadh a’ bhataraidh</string>
     <string name="brute_force_delay">Tha dàil air leis gun deach feuchainn ris ro thric</string>
     <string name="certificate_load_problem">Thachair duilgheadas le luchdadh an teisteanais.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Faidhle %1$s ann an còmhstri</string>
     <string name="conflict_message_description">Ma thaghas tu an dà thionndadh, thèid àireamh a chur ri ainm an fhaidhle ionadail.</string>
     <string name="conflict_new_file">Faidhle ùr</string>
-    <string name="contaclist_restore_selected">Aisig an luchd-aithne a thagh thu</string>
-    <string name="contactlist_account_chooser_title">Tagh cunntas ri ion-phortadh</string>
     <string name="contactlist_item_icon">Ìomhaigheag a’ chleachdaiche air liosta an luchd-aithne</string>
     <string name="contactlist_no_permission">Cha deach cead a thoirt ’s cha deach càil ion-phortadh.</string>
-    <string name="contacts_automatic_backup">Lethbhreac-glèidhidh fèin-obrachail</string>
     <string name="contacts_backup_button">Dèan lethbhreac-glèidhidh an-dràsta</string>
-    <string name="contacts_last_backup">An lethbhreac-glèidhidh mu dheireadh</string>
-    <string name="contacts_preference_backup_never">chan ann idir</string>
-    <string name="contacts_preference_choose_date">Tagh ceann-latha</string>
     <string name="contacts_preferences_backup_scheduled">Chaidh lethbhreac-glèidhidh a chur air an sgeideal is tòisichidh i a dh’aithghearr</string>
     <string name="contacts_preferences_import_scheduled">Chaidh ion-phortadh a chur air an sgeideal is tòisichidh i a dh’aithghearr</string>
     <string name="contacts_preferences_no_file_found">Cha deach faidhle a lorg</string>
     <string name="contacts_preferences_something_strange_happened">Cha deach an lethbhreac-glèidhidh mu dheireadh agad a lorg!</string>
-    <string name="contacts_read_permission">Tha feum air cead gus liosta an luchd-aithne a leughadh</string>
     <string name="copied_to_clipboard">Chaidh lethbhreac dheth a chur air an stòr-bhòrd</string>
     <string name="copy_file_error">Thachair mearachd le lethbhreac dhen fhaidhle no pasgan seo</string>
     <string name="copy_file_invalid_into_descendent">Cha ghabh lethbhreac de phasgan a chur am broinn fo-phasgan aige fhèin</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">Tha %1$s de %2$s ’ga chleachdadh</string>
     <string name="drawer_quota_unlimited">Tha %1$s ’ga chleachdadh</string>
     <string name="drawer_synced_folders">Luchdaich suas gu fèin-obrachail</string>
-    <string name="edit_label">Atharraich an t-ainm</string>
     <string name="encrypted">Suidhich crioptachadh air</string>
     <string name="end_to_end_encryption_confirm_button">Suidhich an crioptachadh</string>
     <string name="end_to_end_encryption_decrypting">’Ga dhì-chrioptachadh…</string>
@@ -447,9 +433,6 @@
     <string name="note_icon_hint">Ìomhaigheag nòta</string>
     <string name="notification_action_failed">Cha deach leis a’ ghnìomh.</string>
     <string name="notification_channel_download_description">Seallaidh seo adhartas an luchdaidh a-nuas</string>
-    <string name="notification_channel_download_name">Seanail brathan an luchdaidh a-nuas</string>
-    <string name="notification_channel_file_observer_description">Cumaidh seo sùil air atharraichean air faidhlichean</string>
-    <string name="notification_channel_file_observer_name">Amharc fhaidhlichean</string>
     <string name="notification_channel_file_sync_description">Seallaidh seo an t-adhartas ’s na toraidhean aig sioncronachadh nam faidhlichean</string>
     <string name="notification_channel_file_sync_name">Sioncronachadh fhaidhlichean</string>
     <string name="notification_channel_general_description">Seall brathan mu phasganan mheadhanan ùra ’s an leithid</string>
@@ -459,7 +442,6 @@
     <string name="notification_channel_push_description">Seall brathan putaidh a chuireas am frithealaiche: Iomraidhean ann am beachdan, faighinn co-roinnidhean cèine ùra, brathan air an cur le rianaire is msaa.</string>
     <string name="notification_channel_push_name">Brathan putaidh</string>
     <string name="notification_channel_upload_description">Seallaidh seo adhartas an luchdaidh suas</string>
-    <string name="notification_channel_upload_name">Seanail brathan an luchdaidh suas</string>
     <string name="notification_icon">Ìomhaigheag bratha</string>
     <string name="notifications_no_results_headline">Gun bhrath</string>
     <string name="notifications_no_results_message">Thoir sùil a-rithist an ceann greis.</string>
@@ -510,7 +492,6 @@
     <string name="prefs_category_dev">Leasachadh</string>
     <string name="prefs_category_general">Coitcheann</string>
     <string name="prefs_category_more">Barrachd</string>
-    <string name="prefs_daily_contacts_sync_summary">Lethbhreac-glèidhidh làitheil dhan luchd-aithne agad</string>
     <string name="prefs_e2e_mnemonic">Gleus cuimhneachaidh E2E</string>
     <string name="prefs_e2e_no_device_credentials">Cuir an comas teisteas an uidheim airson an gleus cuimhneachaidh a shealltainn.</string>
     <string name="prefs_enable_media_scan_notifications">Seall brathan air sganadh mheadhanan</string>
@@ -614,13 +595,11 @@
     <string name="share_no_expiration_date_label">Suidhich gum falbh an ùine air</string>
     <string name="share_no_password_title">Suidhich facal-faire</string>
     <string name="share_password_title">Fo dhìon facail-fhaire</string>
-    <string name="share_privilege_unshare">Na co-roinn tuilleadh</string>
     <string name="share_remote_clarification">%1$s (cèin)</string>
     <string name="share_room_clarification">%1$s (còmhradh)</string>
     <string name="share_search">Ainm, ID neòil cho-naisgte no seòladh puist-d…</string>
     <string name="share_send_note">Nòta dhan fhaightear</string>
     <string name="share_via_link_hide_download">Falaich an luchdadh a-nuas</string>
-    <string name="share_via_link_menu_password_label">Dìon le facal-faire (%1$s)</string>
     <string name="share_via_link_section_title">Ceangal co-roinnidh</string>
     <string name="share_via_link_send_link_label">Cuir an ceangal</string>
     <string name="share_via_link_unset_password">Neo-shuidhich</string>
@@ -730,7 +709,6 @@
     <string name="unread_comments">Tha beachd gun leughadh ann</string>
     <string name="unset_encrypted">Neo-shuidhich an crioptachadh</string>
     <string name="unset_favorite">Thoir air falbh o na h-annsachdan</string>
-    <string name="unshare">Na co-roinn tuilleadh</string>
     <string name="unshare_link_file_error">Thachair mearachd le crìochnachadh co-roinneadh an fhaidhle no pasgain seo.</string>
     <string name="unshare_link_file_no_exist">Cha ghabh an co-roinneadh a chrìochnachadh. Thoir sùil a bheil am faidhle ann.</string>
     <string name="unshare_link_forbidden_permissions">ach nach co-roinn thu am faidhle seo tuilleadh</string>

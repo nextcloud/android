@@ -14,8 +14,6 @@
     <string name="action_send_share">שליחה/שיתוף</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
-    <string name="actionbar_contacts">גיבוי אנשי קשר</string>
-    <string name="actionbar_contacts_restore">שחזור אנשי קשר</string>
     <string name="actionbar_copy">העתק</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
@@ -32,9 +30,6 @@
     <string name="activity_icon">פעילות</string>
     <string name="add_another_public_share_link">הוספת קישור נוסף</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
-    <string name="allow_creating">לאפשר יצירה</string>
-    <string name="allow_deleting">לאפשר מחיקה</string>
-    <string name="allow_editing">לאפשר עריכה</string>
     <string name="allow_resharing">לאפשר שיתוף מחדש</string>
     <string name="appbar_search_in">חפש ב %s</string>
     <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
@@ -79,7 +74,6 @@
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
-    <string name="battery_optimization_no_setting">לא ניתן להפעיל את הגדרות הסוללה ישירות. נא להגדיר ידנית דרך ההגדרות.</string>
     <string name="battery_optimization_title">מיטוב סוללה</string>
     <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
     <string name="changelog_dev_version">יומן שינויים של גרסת פיתוח</string>
@@ -140,20 +134,13 @@
     <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
     <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
     <string name="conflict_new_file">קובץ חדש</string>
-    <string name="contaclist_restore_selected">שחזור אנשי הקשר הנבחרים</string>
-    <string name="contactlist_account_chooser_title">נא לבחור חשבון לייבוא</string>
     <string name="contactlist_item_icon">סמן משתמש לרשימת אנשי קשר</string>
     <string name="contactlist_no_permission">לא ניתנה הרשאה, שום דבר לא עבר ייבוא.</string>
-    <string name="contacts_automatic_backup">גיבוי אוטומטי</string>
     <string name="contacts_backup_button">גיבוי כעת</string>
-    <string name="contacts_last_backup">גיבוי אחרון</string>
-    <string name="contacts_preference_backup_never">מעולם לא</string>
-    <string name="contacts_preference_choose_date">נא לבחור תאריך</string>
     <string name="contacts_preferences_backup_scheduled">הגיבוי תוזמן והוא יתחיל בעוד זמן קצר</string>
     <string name="contacts_preferences_import_scheduled">הייבוא תוזמן והוא יתחיל בעוד זמן קצר</string>
     <string name="contacts_preferences_no_file_found">לא נמצא קובץ</string>
     <string name="contacts_preferences_something_strange_happened">לא ניתן למצוא את הגיבוי האחרון שלך!</string>
-    <string name="contacts_read_permission">נדרשת הרשאה לקריאת רשימת אנשי הקשר</string>
     <string name="copied_to_clipboard">הועתק ללוח הגזירים</string>
     <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
     <string name="copy_file_invalid_into_descendent">אי אפשר להעתיק תיקייה לתוך אחת התיקיות שתחתיה</string>
@@ -216,7 +203,6 @@
     <string name="drawer_quota">נעשה שימוש ב־%1$s מתוך %2$s</string>
     <string name="drawer_quota_unlimited">%1$s בשימוש</string>
     <string name="drawer_synced_folders">העלאה אוטומטית</string>
-    <string name="edit_label">החלפת שם</string>
     <string name="encrypted">הגדרה כמוצפן</string>
     <string name="end_to_end_encryption_confirm_button">הגדרת הצפנה</string>
     <string name="end_to_end_encryption_decrypting">מתבצע פענוח…</string>
@@ -404,9 +390,6 @@
     <string name="note_could_not_sent">לא ניתן לשלוח מסר</string>
     <string name="notification_action_failed">הפעלת הפעולה נכשלה.</string>
     <string name="notification_channel_download_description">מציג תהליך הורדה</string>
-    <string name="notification_channel_download_name">ערוץ דיווחי הורדה</string>
-    <string name="notification_channel_file_observer_description">מעקב אחר שינויים בקבצים</string>
-    <string name="notification_channel_file_observer_name">משגיח קבצים</string>
     <string name="notification_channel_file_sync_description">הצגת תהליך סנכרון קבצים ותוצאות</string>
     <string name="notification_channel_file_sync_name">סנכרון קבצים</string>
     <string name="notification_channel_general_description">הצגת התראות לתיקיות מדיה חדשות ודומות</string>
@@ -416,7 +399,6 @@
     <string name="notification_channel_push_description">הצגת הודעות בדחיפה שנשלחות על ידי השרת: אזכורים בתגובות, קבלת שיתופים מרוחקים חדשים, הכרזות שפורסמו על ידי מנהל ועוד.</string>
     <string name="notification_channel_push_name">התרעות בדחיפה</string>
     <string name="notification_channel_upload_description">מציג תהליך העלאה</string>
-    <string name="notification_channel_upload_name">ערוץ דיווחי הלאה</string>
     <string name="notification_icon">סמל התראה</string>
     <string name="notifications_no_results_headline">אין התרעות</string>
     <string name="notifications_no_results_message">נא לבדוק שוב מאוחר יותר.</string>
@@ -462,7 +444,6 @@
     <string name="prefs_category_dev">פיתוח</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
-    <string name="prefs_daily_contacts_sync_summary">גיבוי יומי של אנשי הקשר שלך</string>
     <string name="prefs_e2e_mnemonic">תיבת זיכרון להצפנה מקצה לקצה </string>
     <string name="prefs_e2e_no_device_credentials">על מנת להציג שינון, הפעל את אישורי המכשיר.</string>
     <string name="prefs_enable_media_scan_notifications">הצגת התראות על סריקת מדיה</string>
@@ -554,12 +535,10 @@
     <string name="share_no_expiration_date_label">הגדרת תאריך תפוגה</string>
     <string name="share_no_password_title">הגדרת ססמה</string>
     <string name="share_password_title">מוגן בססמה</string>
-    <string name="share_privilege_unshare">ביטול שיתוף</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_room_clarification">%1$s (דיון)</string>
     <string name="share_send_note">מסר לנמען</string>
     <string name="share_via_link_hide_download">הסתרת הורדה</string>
-    <string name="share_via_link_menu_password_label">הגנה בססמה (%1$s)</string>
     <string name="share_via_link_section_title">קישור לשיתוף</string>
     <string name="share_via_link_send_link_label">שליחת קישור</string>
     <string name="share_via_link_unset_password">ביטול הגדרה</string>
@@ -686,7 +665,6 @@
     <string name="unread_comments">יש תגובות שלא נקראו</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
     <string name="unset_favorite">הסרה מהמועדפים</string>
-    <string name="unshare">ביטול שיתוף</string>
     <string name="unshare_link_forbidden_permissions">לבטל שיתוף לקובץ זה</string>
     <string name="unsharing_failed">ביטול השיתוף נכשל</string>
     <string name="untrusted_domain">גישה דרך שם מתחם בלתי מהימן. נא לעיין בתיעוד לקבלת פרטים נוספים.</string>

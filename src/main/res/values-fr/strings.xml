@@ -14,8 +14,6 @@
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
-    <string name="actionbar_contacts">Sauvegarde des contacts</string>
-    <string name="actionbar_contacts_restore">Restaurer les contacts</string>
     <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
@@ -35,9 +33,6 @@
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="advanced_settings">Paramètres avancés</string>
-    <string name="allow_creating">Autoriser la création</string>
-    <string name="allow_deleting">Autoriser la suppression</string>
-    <string name="allow_editing">Autoriser la modification</string>
     <string name="allow_resharing">Autoriser le repartage</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
@@ -84,7 +79,6 @@
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
-    <string name="battery_optimization_no_setting">Impossible de démarrer directement les réglages concernant la batterie. Merci de les ajuster manuellement dans les paramètres.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
     <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="calendar">Agenda</string>
@@ -156,21 +150,14 @@
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_new_file">Nouveau fichier</string>
-    <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
-    <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts">Contacts</string>
-    <string name="contacts_automatic_backup">Sauvegarde automatique</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
-    <string name="contacts_last_backup">Dernière sauvegarde</string>
-    <string name="contacts_preference_backup_never">aucune</string>
-    <string name="contacts_preference_choose_date">Sélectionner la date</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
-    <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
     <string name="copied_to_clipboard">Copié dans le presse-papier</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
@@ -246,7 +233,6 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Envoi automatique</string>
-    <string name="edit_label">Modifier le nom</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -464,9 +450,6 @@ Attention la suppression est irréversible.</string>
     <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
-    <string name="notification_channel_download_name">Canal de notification de téléchargement</string>
-    <string name="notification_channel_file_observer_description">Recherche des changements de fichiers</string>
-    <string name="notification_channel_file_observer_name">Explorateur de fichier</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
     <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
     <string name="notification_channel_general_description">Afficher les notifications pour les nouveaux dossiers de média et des dossiers similaires</string>
@@ -476,7 +459,6 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_upload_description">Afficher l\'avancement de l\'envoi</string>
-    <string name="notification_channel_upload_name">Canal de notification des envois</string>
     <string name="notification_icon">Icône de notification</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
@@ -527,7 +509,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_category_dev">Dév</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
-    <string name="prefs_daily_contacts_sync_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="prefs_enable_media_scan_notifications">Afficher les notifications d\'analyse multimédia</string>
@@ -633,13 +614,11 @@ Attention la suppression est irréversible.</string>
     <string name="share_open_in">Ouvrir dans...</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_permissions">Partager les autorisations</string>
-    <string name="share_privilege_unshare">Cesser le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
-    <string name="share_via_link_menu_password_label">Protéger par un mot de passe (%1$s)</string>
     <string name="share_via_link_section_title">Lien de partage</string>
     <string name="share_via_link_send_link_label">Envoyer le lien</string>
     <string name="share_via_link_unset_password">Désactiver</string>
@@ -749,7 +728,6 @@ Attention la suppression est irréversible.</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="unset_favorite">Supprimer des favoris</string>
-    <string name="unshare">Ne plus partager</string>
     <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
     <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier existe </string>
     <string name="unshare_link_forbidden_permissions">de cesser le partage de ce fichier</string>

@@ -14,8 +14,6 @@
     <string name="action_send_share">ارسال/اشتراک گذاری</string>
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
-    <string name="actionbar_contacts">پشتیبان گیری از مخاطبین</string>
-    <string name="actionbar_contacts_restore">بازنشانی مخاطبین</string>
     <string name="actionbar_copy">کپی کردن</string>
     <string name="actionbar_mkdir">پوشه جدید</string>
     <string name="actionbar_move">انتقال</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">پیوند دیگری اضافه کنید</string>
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
-    <string name="allow_creating">مجار به ساختن</string>
-    <string name="allow_deleting">مجاز به حذف‌کردن</string>
-    <string name="allow_editing">اجازهٔ ویرایش</string>
     <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">بستن</string>
     <string name="battery_optimization_disable">غیرفعال کردن</string>
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
-    <string name="battery_optimization_no_setting">تنظیمات باتری به طور مستقیم انجام نشد. لطفا تنظیمات را به صورت دستی تنظیم کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
     <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="conflict_new_file">پروندهٔ تازه</string>
-    <string name="contaclist_restore_selected">بازیابی مخاطبین منتخب</string>
-    <string name="contactlist_account_chooser_title">حساب را برای وارد کردن انتخاب کنید</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
     <string name="contactlist_no_permission">هیچ مجوزی داده نشده ، هیچ چیز وارد نشده است.</string>
-    <string name="contacts_automatic_backup">پشتیبان‌گیری خودکار</string>
     <string name="contacts_backup_button">همین حالا نسخه پشتیبان تهیه کن</string>
-    <string name="contacts_last_backup">آخرین پشتیبان</string>
-    <string name="contacts_preference_backup_never">هیچ وقت</string>
-    <string name="contacts_preference_choose_date">تاریخ را انتخاب کنید</string>
     <string name="contacts_preferences_backup_scheduled">تهیه نسخه پشتیبان زمان بندی شده و به زودی شروع می شود</string>
     <string name="contacts_preferences_import_scheduled">زمانبدی ها وارد شده و به زودی آغاز می شود</string>
     <string name="contacts_preferences_no_file_found">هیچ فایلی یافت نشد</string>
     <string name="contacts_preferences_something_strange_happened">آخرین نسخه پشتیبان شما پیدا نشد!</string>
-    <string name="contacts_read_permission">نیاز به مجوز برای خواندن لیست تماس</string>
     <string name="copied_to_clipboard">در حافظه رونویسی شد</string>
     <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
     <string name="copy_file_invalid_into_descendent">کپی کردن پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s از %2$s استفاده شده </string>
     <string name="drawer_quota_unlimited">"%1$sاستفاده شده "</string>
     <string name="drawer_synced_folders">بارگذاری خودکار</string>
-    <string name="edit_label">تغییر نام</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شده است</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>
@@ -448,9 +434,6 @@
     <string name="note_icon_hint">آیکون یادداشت</string>
     <string name="notification_action_failed">اقدام انجام نشد.</string>
     <string name="notification_channel_download_description">پیشرفت دانلود را نشان می دهد</string>
-    <string name="notification_channel_download_name">کانال اعلان دریافت</string>
-    <string name="notification_channel_file_observer_description">نظارت بر پرونده ها برای تغییرات</string>
-    <string name="notification_channel_file_observer_name">ناظر فایل</string>
     <string name="notification_channel_file_sync_description">پیشرفت و نتایج همگام‌سازی پرونده را نشان می دهد</string>
     <string name="notification_channel_file_sync_name">همگام‌سازی فایل</string>
     <string name="notification_channel_general_description">اعلان ها را برای پوشه های رسانه جدید و موارد مشابه نشان دهید</string>
@@ -460,7 +443,6 @@
     <string name="notification_channel_push_description">نمایش اعلانهای ارسال شده توسط سرور: موارد ذکر شده در نظرات ، دریافت اشتراک از راه دور ، اطلاعیه های ارسال شده توسط ادمین و غیره</string>
     <string name="notification_channel_push_name">ارسال اعلانات</string>
     <string name="notification_channel_upload_description">پیشرفت آپلود را نشان می دهد</string>
-    <string name="notification_channel_upload_name">کانال اعلان بارگذاری</string>
     <string name="notification_icon">نماد اعلان</string>
     <string name="notifications_no_results_headline">بدون اعلان</string>
     <string name="notifications_no_results_message">لطفا بعداً دوباره بررسی کنید</string>
@@ -511,7 +493,6 @@
     <string name="prefs_category_dev">توسعه</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
-    <string name="prefs_daily_contacts_sync_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_e2e_mnemonic">E2E حفظی</string>
     <string name="prefs_e2e_no_device_credentials">برای نمایش mnemonic ، مجوز دستگاه را فعال کنید.</string>
     <string name="prefs_enable_media_scan_notifications">نمایش اعلان‌های مربوط به اسکن رسانه</string>
@@ -615,13 +596,11 @@
     <string name="share_no_expiration_date_label">تنظیم تاریخ انقضا</string>
     <string name="share_no_password_title">تنظیم رمز عبور</string>
     <string name="share_password_title">رمز عبور  محافظت شده</string>
-    <string name="share_privilege_unshare">لغو اشتراک‌گذاری</string>
     <string name="share_remote_clarification">%1$s (از راه دور)</string>
     <string name="share_room_clarification">%1$s (گفتگو)</string>
     <string name="share_search">نام، Federated cloud ID یا ایمیل</string>
     <string name="share_send_note">یادداشت به گیرنده</string>
     <string name="share_via_link_hide_download">پنهان کردن دریافت</string>
-    <string name="share_via_link_menu_password_label">محافظت از رمز عبور (%1$s)</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_send_link_label">ارسال پیوند</string>
     <string name="share_via_link_unset_password">تنظیم نشده است</string>
@@ -731,7 +710,6 @@
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>
     <string name="unset_favorite">حذف از موارد دلخواه</string>
-    <string name="unshare">لغو اشتراک</string>
     <string name="unshare_link_file_error">هنگام لغو اشتراک‌گذاری فایل یا پوشه خطایی رخ داده است.</string>
     <string name="unshare_link_file_no_exist">امکان لغو اشتراک‌گذاری نیست. لطفا موجود بودن فایل را بررسی کنید.</string>
     <string name="unshare_link_forbidden_permissions">حذف اشتراک‌گذاری این فایل</string>

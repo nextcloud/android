@@ -13,8 +13,6 @@
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
-    <string name="actionbar_contacts">Pasidaryti atsarginę adresatų kopiją</string>
-    <string name="actionbar_contacts_restore">Atkurti adresatus</string>
     <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_move">Perkelti</string>
@@ -33,9 +31,6 @@
     <string name="add_another_public_share_link">Pridėti kitą nuorodą</string>
     <string name="add_new_public_share">Pridėkite naują viešą bendrinimo nuorodą</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
-    <string name="allow_creating">Leisti sukūrimą</string>
-    <string name="allow_deleting">Leisti ištrynimą</string>
-    <string name="allow_editing">Leisti redaguoti</string>
     <string name="allow_resharing">Leisti bendrinti iš naujo</string>
     <string name="appbar_search_in">Ieškoti %s</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
@@ -81,8 +76,6 @@
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
- </string>
-    <string name="battery_optimization_no_setting">Neįmanoma tiesiogiai paleisti akumuliatoriaus energijos nustatymų. Pakoreguokite nustatymus rankiniu būdu.
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
@@ -150,20 +143,13 @@
     <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_new_file">Naujas failas</string>
-    <string name="contaclist_restore_selected">Atkurti pasirinktus adresatus</string>
-    <string name="contactlist_account_chooser_title">Pasirinkite failą </string>
     <string name="contactlist_item_icon">Naudotojo piktograma kontaktų sąraše </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
-    <string name="contacts_automatic_backup">Automatinė atsarginė kopija</string>
     <string name="contacts_backup_button">Atgal į viršų</string>
-    <string name="contacts_last_backup">Paskutinė atsarginė kopija</string>
-    <string name="contacts_preference_backup_never">Niekada</string>
-    <string name="contacts_preference_choose_date">Pasirinkite datą</string>
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_no_file_found">Failas nerastas</string>
     <string name="contacts_preferences_something_strange_happened">Nepavyko rasti jūsų paskutinės atsarginės kopijos!</string>
-    <string name="contacts_read_permission">Reikalingas leidimas skaityti adresatų sąrašą</string>
     <string name="copied_to_clipboard">Nukopijuota į iškarpinę</string>
     <string name="copy_file_error">Klaida kopijuojant failą ar aplanką</string>
     <string name="copy_file_invalid_into_descendent">Neįmanoma nukopijuoti aplanko į poaplankį</string>
@@ -233,7 +219,6 @@
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
-    <string name="edit_label">Keisti vardą</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
@@ -441,9 +426,6 @@
     <string name="note_icon_hint">Užrašo piktograma</string>
     <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
     <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
-    <string name="notification_channel_download_name">Atsisiųskite pranešimų kanalą</string>
-    <string name="notification_channel_file_observer_description">Stebi failų pakeitimus</string>
-    <string name="notification_channel_file_observer_name">Failų stebėtojas</string>
     <string name="notification_channel_file_sync_description">Rodo failų sinchronizavimo eigą ir rezultatus</string>
     <string name="notification_channel_file_sync_name">Failo sinchronzacija</string>
     <string name="notification_channel_general_description">Rodyti pranešimus apie naujus laikmenų aplankus ir panašiai</string>
@@ -453,7 +435,6 @@
     <string name="notification_channel_push_description">Rodyti serverio siunčiamus tiesioginius pranešimus: minėjimai komentaruose, naujų  bendrinimų priėmimas, administratoriaus  pranešimai ir kt.</string>
     <string name="notification_channel_push_name">Tiesioginiai (angl. Push) pranešimai</string>
     <string name="notification_channel_upload_description">Rodo įkėlimo eigą</string>
-    <string name="notification_channel_upload_name">Įkelkite pranešimų kanalą</string>
     <string name="notification_icon">Pranešimo piktograma</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
@@ -504,7 +485,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Bendras</string>
     <string name="prefs_category_more">Daugiau</string>
-    <string name="prefs_daily_contacts_sync_summary">Kasdieninė Jūsų kontaktų atsarginė kopija</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
     <string name="prefs_enable_media_scan_notifications">Rodyti medijos nuskaitymo pranešimus</string>
@@ -608,13 +588,11 @@
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
-    <string name="share_privilege_unshare">Nustoti bendrinti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, „Federated Cloud ID“ arba el. Pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
-    <string name="share_via_link_menu_password_label">Apsaugota slaptažodžiu (%1$s)</string>
     <string name="share_via_link_section_title">Bendrinimo nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
     <string name="share_via_link_unset_password">Nenustatyta</string>
@@ -722,7 +700,6 @@
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>
     <string name="unset_favorite">Šalinti iš mėgstamų</string>
-    <string name="unshare">Nustoti bendrinti</string>
     <string name="unshare_link_file_error">Bandant nustoti bendrinti šį failą ar aplanką įvyko klaida.</string>
     <string name="unshare_link_file_no_exist">Nepavyko nustoti bendrinti. Prašome, patikrinkite ar failas egzistuoja.</string>
     <string name="unshare_link_forbidden_permissions">nustoti bendrinti šį failą</string>

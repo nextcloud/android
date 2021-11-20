@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
     <string name="actionbar_calendar_contacts_restore">恢復聯絡人與日曆</string>
-    <string name="actionbar_contacts">備份聯絡人</string>
-    <string name="actionbar_contacts_restore">還原聯絡人</string>
     <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">增加一個新的公開連結</string>
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
-    <string name="allow_creating">允許建立</string>
-    <string name="allow_deleting">允許刪除</string>
-    <string name="allow_editing">允許編輯</string>
     <string name="allow_resharing">允許轉貼分享</string>
     <string name="appbar_search_in">%s內搜尋</string>
     <string name="associated_account_not_found">找不到相關的帳號！</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
-    <string name="battery_optimization_no_setting">無法直接啟動電池設定頁面。請在系統設定中手動調整。</string>
     <string name="battery_optimization_title">電池最佳化</string>
     <string name="brute_force_delay">由於太多次錯誤的嘗試而延遲</string>
     <string name="calendar">日曆</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">檔案 %1$s 衝突</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
     <string name="conflict_new_file">新增檔案</string>
-    <string name="contaclist_restore_selected">還原所選的聯絡人</string>
-    <string name="contactlist_account_chooser_title">選擇要匯入的帳號</string>
     <string name="contactlist_item_icon">聯絡人列表的使用者圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
     <string name="contacts">聯絡人</string>
-    <string name="contacts_automatic_backup">自動備份</string>
     <string name="contacts_backup_button">立刻備份</string>
-    <string name="contacts_last_backup">最新備份</string>
-    <string name="contacts_preference_backup_never">永不</string>
-    <string name="contacts_preference_choose_date">選擇日期</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
-    <string name="contacts_read_permission">需要讀取聯絡人清單的權限</string>
     <string name="copied_to_clipboard">複製至剪貼簿中</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
     <string name="drawer_quota_unlimited">%1$s已使用</string>
     <string name="drawer_synced_folders">自動上傳</string>
-    <string name="edit_label">更改名稱</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密……</string>
@@ -475,10 +461,7 @@
     <string name="note_icon_hint">記事本圖示</string>
     <string name="notification_action_failed">執行的動作失敗</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
-    <string name="notification_channel_download_name">下載通知頻道</string>
     <string name="notification_channel_download_name_short">下載</string>
-    <string name="notification_channel_file_observer_description">檢查變動的檔案</string>
-    <string name="notification_channel_file_observer_name">檔案觀察器</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
     <string name="notification_channel_file_sync_name">檔案同步</string>
     <string name="notification_channel_general_description">顯示新的或相似的媒體資料夾通知</string>
@@ -488,7 +471,6 @@
     <string name="notification_channel_push_description">顯示由伺服器傳送的推播通知：在留言中被提及、收到新的遠端分享、由管理員張貼的公告等等。</string>
     <string name="notification_channel_push_name">推播通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
-    <string name="notification_channel_upload_name">上傳通知頻道</string>
     <string name="notification_channel_upload_name_short">上傳</string>
     <string name="notification_icon">提示圖示</string>
     <string name="notifications_no_results_headline">沒有通知</string>
@@ -541,7 +523,6 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">每日備份您的日曆與聯絡人</string>
-    <string name="prefs_daily_contacts_sync_summary">每日備份您的通訊錄</string>
     <string name="prefs_e2e_mnemonic">端到端加密助記碼</string>
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置憑證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
@@ -658,7 +639,6 @@
     <string name="share_permission_file_drop">檔案投遞</string>
     <string name="share_permission_view_only">僅檢視</string>
     <string name="share_permissions">分享權限</string>
-    <string name="share_privilege_unshare">撤回分享</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s（交談）</string>
     <string name="share_search">名稱、聯盟雲端 ID 或電子郵件地址……</string>
@@ -666,7 +646,6 @@
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_settings">設定</string>
     <string name="share_via_link_hide_download">隱藏下載</string>
-    <string name="share_via_link_menu_password_label">密碼保護 (%1$s)</string>
     <string name="share_via_link_section_title">分享連結</string>
     <string name="share_via_link_send_link_label">傳送連結</string>
     <string name="share_via_link_unset_password">解除設定</string>
@@ -777,7 +756,6 @@
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="unset_favorite">從最愛中移除</string>
-    <string name="unshare">撤回分享</string>
     <string name="unshare_link_file_error">嘗試取消分享檔案或資料夾時發生錯誤</string>
     <string name="unshare_link_file_no_exist">無法取消分享。請確認檔案是否存在。</string>
     <string name="unshare_link_forbidden_permissions">取消分享此檔案</string>

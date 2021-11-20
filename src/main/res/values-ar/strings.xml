@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">استعادة جهات الاتصال &amp; التقويم</string>
-    <string name="actionbar_contacts">النسخ الإحتياطي لجهات الإتصال</string>
-    <string name="actionbar_contacts_restore">استرجاع جهات الإتصال</string>
     <string name="actionbar_copy">أنسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move">أنقل</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_to_cloud">أضفه إلى %1$s</string>
     <string name="advanced_settings">الاعدادات المتقدمة</string>
-    <string name="allow_creating">السماح بالإنشاء</string>
-    <string name="allow_deleting">السماح بالحذف</string>
-    <string name="allow_editing">السماح بالتعديلات</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="appbar_search_in">بحث في %s</string>
     <string name="associated_account_not_found">الحساب المرتبط غير موجود!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">إغلاق</string>
     <string name="battery_optimization_disable">تعطيل</string>
     <string name="battery_optimization_message">قد يكون حفظ البطارية مفعلاً في جهازك. لذلك قد لا يعمل الرفع التلقائي إلا إذا سمحت لهذا التطبيق من أن يستبعد من هذه الميزة.</string>
-    <string name="battery_optimization_no_setting">لا يمكن فتح إعدادات البطارية مباشرة من هنا. نرجو أن تقوم بتعديل الإعدادات يدوياً.</string>
     <string name="battery_optimization_title">تحسين البطارية</string>
     <string name="brute_force_delay">تأخر بسبب المحاولات الخاطئة المستمرة</string>
     <string name="calendar">التقويم</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">ملف متضارب %1$s </string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_new_file">الملف الجديد</string>
-    <string name="contaclist_restore_selected">إسترجع جهات الإتصال المختارة</string>
-    <string name="contactlist_account_chooser_title">إختر الحساب الذي تود استرجاعه</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم إستيراد أي شيء.</string>
     <string name="contacts">جهات الاتصال</string>
-    <string name="contacts_automatic_backup">نسخ احتياطي تلقائي</string>
     <string name="contacts_backup_button">نسخة احتياطية الأن</string>
-    <string name="contacts_last_backup">أخر نسخة احتياطية</string>
-    <string name="contacts_preference_backup_never">بتاتاً</string>
-    <string name="contacts_preference_choose_date">أختر التاريخ</string>
     <string name="contacts_preferences_backup_scheduled">النسخ الإحتياطي دُرِجَ في الجدول وسيتم البدء قريباً</string>
     <string name="contacts_preferences_import_scheduled">الإستيراد دُرِجَ في الجدول وسيتم البدء قريباً</string>
     <string name="contacts_preferences_no_file_found">لم يتم ايجاد أي ملف</string>
     <string name="contacts_preferences_something_strange_happened">لم يتم العثور على نسختك الإحتياطية الأخيرة!</string>
-    <string name="contacts_read_permission">بحاجة لأُذن قرائة جهات الإتصال</string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="copy_file_error">حدث خطأٌ خلال محاولة نسخ هذا الملف أو المجلد</string>
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
     <string name="drawer_quota_unlimited">%1$s مُسّتخدم</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
-    <string name="edit_label">غير الإسم</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">فك التعمية جارٍ…</string>
@@ -476,10 +462,7 @@
     <string name="note_icon_hint">أيقونة الملاحظة</string>
     <string name="notification_action_failed">فشل في تنفيذ الإجراء.</string>
     <string name="notification_channel_download_description">يظهر تقدم التنزيل</string>
-    <string name="notification_channel_download_name">قناة التنبيه للتحميلات</string>
     <string name="notification_channel_download_name_short">التنزيلات</string>
-    <string name="notification_channel_file_observer_description">مراقبة الملفات التي طرأت عليها تغييرات</string>
-    <string name="notification_channel_file_observer_name">مراقب الملفات</string>
     <string name="notification_channel_file_sync_description">يعرض تقدم مزامنة الملف والنتائج</string>
     <string name="notification_channel_file_sync_name">مزامنة الملفات</string>
     <string name="notification_channel_general_description">عرض التنبيهات لمجلدات الوسائط الجديدة وما شابه ذلك</string>
@@ -489,7 +472,6 @@
     <string name="notification_channel_push_description">عرض إشعارات الدفع المرسلة من الخادم: الإشارات في التعليقات ، واستلام المشاركات البعيدة الجديدة ، والإعلانات التي ينشرها المشرف وما إلى ذلك.</string>
     <string name="notification_channel_push_name">دفع الإخطارات</string>
     <string name="notification_channel_upload_description">يظهر تقدم الرفع</string>
-    <string name="notification_channel_upload_name">قناة التنبيه للرفع</string>
     <string name="notification_channel_upload_name_short">المرفوعات</string>
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
@@ -542,7 +524,6 @@
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_daily_backup_summary">نسخ احتياطي يومي للتقويم &amp;جهات الاتصال</string>
-    <string name="prefs_daily_contacts_sync_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
     <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين بيانات اعتماد الجهاز.</string>
     <string name="prefs_enable_media_scan_notifications">إظهار إشعارات فحص الوسائط</string>
@@ -660,7 +641,6 @@
     <string name="share_permission_file_drop">اسقاط الملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
     <string name="share_permissions">مشاركة الصلاحيات</string>
-    <string name="share_privilege_unshare">إلغاء المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم , معرف السحابة , او البريد الالكتروني ...</string>
@@ -668,7 +648,6 @@
     <string name="share_send_note">ملاحظة للمستلم</string>
     <string name="share_settings">الاعدادات</string>
     <string name="share_via_link_hide_download">إخفاء التنزيل</string>
-    <string name="share_via_link_menu_password_label">إحمي بكلمة المرور (%1$s)</string>
     <string name="share_via_link_section_title">شارك الرابط</string>
     <string name="share_via_link_send_link_label">ارسل الرابط</string>
     <string name="share_via_link_unset_password">غير محدد</string>
@@ -781,7 +760,6 @@
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
     <string name="unset_favorite">إزالتها مِن المفضلة</string>
-    <string name="unshare">إلغاء المشاركة</string>
     <string name="unshare_link_file_error">حدث خطأ أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد.</string>
     <string name="unshare_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>

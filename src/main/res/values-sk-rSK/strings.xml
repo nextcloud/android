@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnoviť kontakty &amp; kalendár</string>
-    <string name="actionbar_contacts">Zálohovanie kontaktov</string>
-    <string name="actionbar_contacts_restore">Obnoviť kontakty</string>
     <string name="actionbar_copy">Kopírovať</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move">Presunúť</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Pridajte nový odkaz na verejné zdieľanie</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
     <string name="advanced_settings">Rozšírené nastavenia</string>
-    <string name="allow_creating">Umožniť vytváranie</string>
-    <string name="allow_deleting">Umožniť mazanie</string>
-    <string name="allow_editing">Povoliť úpravy</string>
     <string name="allow_resharing">Povoliť sprístupňovanie ďalej</string>
     <string name="appbar_search_in">Hľadať v %s</string>
     <string name="associated_account_not_found">Priradený účet sa nenašiel</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_disable">Zakázať</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
-    <string name="battery_optimization_no_setting">Nieje možné otvoriť nastavenia batérie priamo. Prosím upravte ich ručne v nastaveniach. </string>
     <string name="battery_optimization_title">Optimalizácia batérie</string>
     <string name="brute_force_delay">Spracovanie oneskorené z dôvodu veľkého množstva chybných požiadavok</string>
     <string name="calendar">Kalendár</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_new_file">Nový súbor</string>
-    <string name="contaclist_restore_selected">Obnoviť vybrané kontakty</string>
-    <string name="contactlist_account_chooser_title">Zvoliť účet na importovanie</string>
     <string name="contactlist_item_icon">Používateľská ikona pre zoznam kontaktov</string>
     <string name="contactlist_no_permission">Žiadne povolenia neboli udelené, nič nebolo importnuté.</string>
     <string name="contacts">Kontakty</string>
-    <string name="contacts_automatic_backup">Automatické zálohovanie</string>
     <string name="contacts_backup_button">Zálohuj teraz</string>
-    <string name="contacts_last_backup">Posledná záloha</string>
-    <string name="contacts_preference_backup_never">nikdy</string>
-    <string name="contacts_preference_choose_date">Vyberte dátum</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
     <string name="contacts_preferences_import_scheduled">Importovanie je naplánované a čoskoro sa začne</string>
     <string name="contacts_preferences_no_file_found">Nenašiel sa žiadny súbor</string>
     <string name="contacts_preferences_something_strange_happened">Nenašla sa posledná záloha!</string>
-    <string name="contacts_read_permission">Je potrebné povolenie čítať kontakty</string>
     <string name="copied_to_clipboard">Skopírované do schránky</string>
     <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
     <string name="copy_file_invalid_into_descendent">Nie je možné skopírovať priečinok do samého seba</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
-    <string name="edit_label">Zmeniť názov</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
@@ -475,10 +461,7 @@
     <string name="note_icon_hint">Ikona poznámky</string>
     <string name="notification_action_failed">Nepodarilo sa vykonať akciu.</string>
     <string name="notification_channel_download_description">Zobrazuje postup sťahovania</string>
-    <string name="notification_channel_download_name">Kanál oznámení o stiahnutí</string>
     <string name="notification_channel_download_name_short">Stiahnuté</string>
-    <string name="notification_channel_file_observer_description">Sleduje zmeny v súboroch</string>
-    <string name="notification_channel_file_observer_name">Pozorovanie súborov</string>
     <string name="notification_channel_file_sync_description">Zobrazuje progres a výsledok synchronizácie súborov</string>
     <string name="notification_channel_file_sync_name">Synchronizácia súborov</string>
     <string name="notification_channel_general_description">Zobraziť notifikácie pre nové mediálne priečinky a podobne</string>
@@ -488,7 +471,6 @@
     <string name="notification_channel_push_description">Zobraz push notifikácie posielané servrom:  spomenutie mena v komentároch, nové zdieľanie zo vzdialeného servra, oznámenia od administrátora, atď.</string>
     <string name="notification_channel_push_name">Push notifikácie</string>
     <string name="notification_channel_upload_description">Zobrazuje postup nahrávania</string>
-    <string name="notification_channel_upload_name">Kanál oznámení o nahratí</string>
     <string name="notification_channel_upload_name_short">Nahrané</string>
     <string name="notification_icon">Ikona notifikácie</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
@@ -541,7 +523,6 @@
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_daily_backup_summary">Denná záloha vašeho kalendára &amp; kontaktov</string>
-    <string name="prefs_daily_contacts_sync_summary">Denná záloha vašich kontaktov</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazovať notifikácie vyhľadávania médií</string>
@@ -658,7 +639,6 @@
     <string name="share_permission_file_drop">Vložiť súbor</string>
     <string name="share_permission_view_only">Iba pre čítanie</string>
     <string name="share_permissions">Zdieľať oprávnenia</string>
-    <string name="share_privilege_unshare">Zneprístupniť</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
     <string name="share_search">Meno, ID v rámci združeného cloudu, alebo e-mailová adresa…</string>
@@ -666,7 +646,6 @@
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_settings">Nastavenia</string>
     <string name="share_via_link_hide_download">Skryť sťahovanie</string>
-    <string name="share_via_link_menu_password_label">Chrániť heslom (%1$s)</string>
     <string name="share_via_link_section_title">Sprístupniť odkaz</string>
     <string name="share_via_link_send_link_label">Odoslať odkaz</string>
     <string name="share_via_link_unset_password">Zrušiť</string>
@@ -777,7 +756,6 @@
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="unset_favorite">Odstrániť z obľúbených</string>
-    <string name="unshare">Zneprístupniť</string>
     <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe.</string>
     <string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
