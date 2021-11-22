@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ Nextcloud Android client application
+
+ @author Tobias Kaminsky
+ Copyright (C) 2017 Tobias Kaminsky
+ Copyright (C) 2017 Nextcloud GmbH.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingStart="@dimen/alternate_half_padding"
+    android:paddingEnd="@dimen/alternate_half_padding"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/send_button_icon"
+        android:layout_width="@dimen/share_icon_size"
+        android:layout_height="@dimen/share_icon_size"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/sendbutton_description"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/send_button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:textColor="@color/text_color"
+        tools:text="@string/app_name" />
+</LinearLayout>

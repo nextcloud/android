@@ -1,0 +1,5 @@
+e3280b0bb Merge pull request #4775 from nextcloud/dependabot/gradle/com.h3xstream.findsecbugs-findsecbugs-plugin-1.10.1
+575cd014d Bump findsecbugs-plugin from 1.10.0 to 1.10.1
+946e5c2c1 Merge pull request #4768 from nextcloud/colorNames
+78ed97ca0 [tx-robot] updated from transifex
+f77b5bd4b daily dev 20191031

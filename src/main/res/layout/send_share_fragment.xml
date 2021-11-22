@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Nextcloud Android client application
+
+ @author Tobias Kaminsky
+ Copyright (C) 2017 Tobias Kaminsky
+ Copyright (C) 2017 Nextcloud GmbH.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/send_share_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginLeft="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginRight="@dimen/send_share_fragment_layout_margin"
+            android:layout_marginStart="@dimen/send_share_fragment_layout_margin"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:padding="@dimen/send_share_fragment_layout_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/share_people_icon"
+                android:layout_width="@dimen/share_icon_size"
+                android:layout_height="@dimen/share_icon_size"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/share"
+                android:src="@drawable/shared_via_users"
+                android:paddingTop="@dimen/share_people_icon_layout_padding"
+                android:paddingEnd="@dimen/share_people_icon_layout_padding"
+                android:paddingBottom="@dimen/share_people_icon_layout_padding"
+                android:paddingStart="@dimen/standard_half_padding"
+                android:background="@drawable/round_bgnd"/>
+
+            <TextView
+                android:id="@+id/share_people_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawable="@drawable/ic_share"
+                android:text="@string/share"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:textColor="@color/text_color"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/share_link_icon"
+                android:layout_width="@dimen/share_icon_size"
+                android:layout_height="@dimen/share_icon_size"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/link"
+                android:src="@drawable/shared_via_link"
+                android:padding="12dp"
+                android:background="@drawable/round_bgnd"/>
+
+            <TextView
+                android:id="@+id/share_link_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawable="@drawable/ic_share"
+                android:text="@string/link"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:textColor="@color/text_color"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/send_share_buttons"
+        android:alpha="0.3"
+        android:background="@color/background_color_inverse"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/send_button_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        tools:listitem="@layout/send_button" />
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

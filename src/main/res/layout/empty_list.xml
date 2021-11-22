@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/empty_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/standard_margin"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/standard_double_margin">
+
+    <ImageView
+        android:id="@+id/empty_list_icon"
+        android:layout_width="@dimen/empty_list_icon_layout_width"
+        android:layout_height="@dimen/empty_list_icon_layout_height"
+        android:contentDescription="@string/file_list_folder"
+        android:src="@drawable/ic_list_empty_folder"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/empty_list_view_headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:text="@string/file_list_loading"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/empty_list_view_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:text="@string/file_list_empty"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/empty_list_view_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:theme="@style/Button.Primary"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/button_corner_radius" />
+</LinearLayout>

@@ -1,0 +1,10 @@
+e92daa2fc Merge pull request #4853 from nextcloud/migrate-simple-cases-of-get-current-account-to-get-user
+99d9a6923 Merge pull request #4885 from nextcloud/disable_android_backup_qa
+10960bf3a [tx-robot] updated from transifex
+9f24b254f [tx-robot] updated from transifex
+b7876c425 disable GoogleAppIndexingWarning lint check
+11687c65c Drone: update FindBugs results to reflect reduced error/warning count [skip ci]
+80fb800ef Merge commit 'a7eb7148fa0ceb42981366eb2ddcf0ff921e6a55'
+b91136c36 Disable android backup on the QA app
+a7eb7148f Migrate simple cases of getCurrentAccount() to getUser()
+6249a06a8 daily dev 20191123

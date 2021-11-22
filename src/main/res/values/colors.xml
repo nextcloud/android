@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2012 Bartek Przybylski
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="white_helper_text">#B3FFFFFF</color>
+    <color name="text_color">#333333</color>
+    <color name="drawer_text_color">@color/secondary_text_color</color>
+    <color name="text_color_inverse">#ffffff</color>
+    <color name="disabled_text">#ff888888</color>
+    <color name="list_divider_background">#eeeeee</color>
+    <color name="fg_contrast">#656565</color>
+    <color name="fg_inverse">#FFFFFF</color>
+    <color name="filelist_icon_background">#DDDDDD</color>
+    <color name="dark_background_text_color">#EEEEEE</color>
+    <color name="transparent">#00000000</color>
+    <color name="secondary_text_color">#666666</color>
+    <color name="highlight_textColor_Warning">#e53935</color>
+
+    <!-- Colors -->
+    <color name="standard_grey">#757575</color>
+    <color name="actionbar_shadow">#222222</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_600">#666666</color>
+
+    <!-- standard material color definitions -->
+
+    <!-- level colors for info notifications/visualisations -->
+    <color name="infolevel_warning">#e9322d</color>
+
+    <!-- Colors -->
+    <color name="dark">#000000</color>
+    <color name="login_btn_tint">#ffffff</color>
+    <color name="login_btn_stroke">#ffffff</color>
+    <color name="bg_default">#FFFFFF</color>
+    <color name="bg_elevation_one">#FFFFFF</color>
+    <color name="background_color_inverse">#000000</color>
+    <color name="primary_button_background_color">@color/color_accent</color>
+    <color name="primary_button_text_color">#ffffff</color>
+    <color name="secondary_button_background_color">#D6D7D7</color>
+    <color name="secondary_button_text_color">#000000</color>
+    <color name="nc_grey">#ededed</color>
+    <color name="icon_on_nc_grey">#000000</color>
+
+    <color name="process_dialog_background">#ffffff</color>
+    <color name="indicator_dot_selected">#ffffff</color>
+    <color name="drawer_shadow">#000000</color>
+
+    <color name="background_color_png">#FFFFFF</color>
+
+    <!-- special transparent action bar colors for image preview -->
+    <color name="color_transparent">#201D2D44</color>
+    <color name="color_dark_transparent">#40162233</color>
+
+    <!-- Multiselect backgrounds -->
+    <color name="action_mode_background">@color/fontAppbar</color>
+    <color name="selected_item_background">#ECECEC</color>
+
+    <color name="drawer_menu_icon">#757575</color>
+    <color name="bg_fallback_highlight">#616161</color>
+    <color name="switch_thumb_color_unchecked">#FFFFFF</color>
+    <color name="switch_track_color_unchecked">#4D000000</color>
+    <color name="drawer_active_item_background">#80000000</color>
+
+    <!-- Excluded from future app dark theme -->
+    <color name="themed_fg">#FFFFFF</color>
+    <color name="themed_fg_inverse">#000000</color>
+
+    <!-- App bar -->
+    <color name="appbar">@android:color/white</color>
+    <color name="fontAppbar">#666666</color>
+    <color name="fontSecondaryAppbar">#A5A5A5</color>
+</resources>

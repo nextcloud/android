@@ -1,0 +1,8 @@
+645f194c8 Merge pull request #4950 from nextcloud/changelog-master-stable-3.9.2
+d006ac257 Merge pull request #4923 from nextcloud/theming_sharing_box
+1f861dfb5 Add changelog for 3.9.2
+eb74b5230 Merge pull request #4947 from nextcloud/fixTime
+1584de976 use SystemClock.elapsedRealtime() everywhere
+664727b2a Merge pull request #4945 from nextcloud/dependabot/gradle/com.pinterest-ktlint-0.36.0
+ead35eb3a [tx-robot] updated from transifex
+17914038c daily dev 20191205

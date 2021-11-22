@@ -1,0 +1,6 @@
+7cf3ba93c Merge pull request #4925 from nextcloud/NotNull
+cd86ff16c Merge pull request #4924 from nextcloud/theming_auto_upload
+2f9c5e976 replace org.jetbrains.annotations with androidx.annotations
+83903ea1d fix wrong sync status in auto upload on white theming
+2dbf724b3 [tx-robot] updated from transifex
+2d68e2e1c daily dev 20191203

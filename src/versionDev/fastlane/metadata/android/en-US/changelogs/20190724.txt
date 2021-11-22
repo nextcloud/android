@@ -1,0 +1,12 @@
+537049379 Merge pull request #4254 from nextcloud/clearInputBeforeQR
+011169dea reset host when using login via QR/link
+a65d1dd21 Merge pull request #4253 from nextcloud/fixMaster
+e9b06843e remove leftover
+6a925b7f2 wip
+fc01e9738 wip
+ac3a6d542 reformat imports kotlin: do not use wildcard imports
+4c5eca98e remove leftovers from bottom bar removing
+040b46081 show "shared" again (#4249)
+10644635c Bump ktlint from 0.34.0 to 0.34.1 (#4252)
+eb68c3633 wip
+a1477a1ea daily dev 20190723

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+  Copyright (C) 2017 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/header"
+        style="@style/Base.DialogWindowTitle.AppCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/sort_by"/>
+
+    <ScrollView
+        android:id="@+id/scrollableSortings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortByNameAscending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_alphabetical_asc"
+                    android:contentDescription="@string/sort_by_name_ascending"/>
+
+                <TextView
+                    android:id="@+id/sortByNameAZText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_name_a_z"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortByNameDescending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_alphabetical_desc"
+                    android:contentDescription="@string/sort_by_name_descending"/>
+
+                <TextView
+                    android:id="@+id/sortByNameZAText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_name_z_a"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin">
+
+                <ImageButton
+                    android:id="@+id/sortByModificationDateDescending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_modification_desc"
+                    android:contentDescription="@string/sort_by_modification_date_descending"/>
+
+                <TextView
+                    android:id="@+id/sortByModificationDateNewestFirstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_date_newest_first"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortByModificationDateAscending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_modification_asc"
+                    android:contentDescription="@string/sort_by_modification_date_ascending"/>
+
+                <TextView
+                    android:id="@+id/sortByModificationDateOldestFirstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_date_oldest_first"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/standard_half_margin">
+
+                <ImageButton
+                    android:id="@+id/sortBySizeDescending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_size_desc"
+                    android:contentDescription="@string/sort_by_size_descending"/>
+
+                <TextView
+                    android:id="@+id/sortBySizeBiggestFirstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_size_biggest_first"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortBySizeAscending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/bg_default"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_size_asc"
+                    android:contentDescription="@string/sort_by_size_ascending"/>
+
+                <TextView
+                    android:id="@+id/sortBySizeSmallestFirstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingEnd="@dimen/standard_double_padding"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/menu_item_sort_by_size_smallest_first"
+                    android:textColor="@color/standard_grey"
+                    android:textSize="@dimen/two_line_primary_text_size"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            style="@style/Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/common_cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>

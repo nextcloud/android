@@ -1,0 +1,19 @@
+The self-hosted productivity platform that keeps you in control.
+
+Features:
+* Easy, modern interface, suited to the theme of your server
+* Upload files to your Nextcloud server
+* Share them with others
+* Keep your favorite files and folders synced
+* Search across all folders on your server
+* Auto Upload for photos and videos taken by your device
+* Keep up to date with notifications
+* Multi-account support
+* Secure access to your data with fingerprint or PIN
+* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar & Contacts synchronization
+
+Please report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android
+
+New to Nextcloud? Nextcloud is a private file sync & share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.
+
+Check out Nextcloud at https://nextcloud.com

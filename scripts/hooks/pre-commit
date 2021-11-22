@@ -1,0 +1,14 @@
+#!/bin/bash
+# Pre-commit hook: don't allow commits if detekt or ktlint fail. Skip with "git commit --no-verify".
+echo "Running pre-commit checks."
+
+if ! ./gradlew --daemon ktlint &>/dev/null; then
+    echo >&2 "Lint failed! See report at file://$(pwd)/build/ktlint.txt"
+    echo >&2 "Hint: fix most lint errors with ./gradlew ktlintFormat"
+    exit 1
+fi
+
+if ! ./gradlew --daemon detekt &>/dev/null; then
+    echo >&2 "Detekt failed! See report at file://$(pwd)/build/reports/detekt/detekt.html"
+    exit 1
+fi

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+## $1 noCI/stable/master: wether to run deleteOldComments.sh or uploadReport.sh
+## $2 true/false: record or verify screenshots
+## $3 classMethod: piped from androidScreenshotTest
+## $4 github event number
+
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+
+if [[ $2 = "true" ]]; then
+    record="-Precord"
+else
+    record=""
+fi
+
+classMethod=$3
+
+resultCode=0
+grep -v "#" scripts/screenshotCombinations | while read line 
+do
+    darkMode=$(echo "$line" | cut -d" " -f1)
+    color=$(echo "$line" | cut -d" " -f2)
+
+    echo -n "Run $color on $darkMode mode"
+
+    if [[ $1 = "noCI" ]]; then
+        ./gradlew --console plain gplayDebugExecuteScreenshotTests \
+        $record \
+        -Pscreenshot=true \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+        -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
+        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" \
+        $classMethod </dev/null > /dev/null
+        if [[ $? -ne 0 ]]; then
+            echo " failed!"
+        else 
+            echo
+        fi
+    else
+        ./gradlew --console plain gplayDebugExecuteScreenshotTests \
+        $record \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+        -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
+        -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
+        && scripts/deleteOldComments.sh "$1-$darkMode-$color" "Screenshot" "$4" "$GIT_TOKEN" \
+        || resultCode=1 && scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$4" \
+        "$1-$darkMode-$color" "Screenshot" "$4" "$GIT_TOKEN"
+    fi
+done
+
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
+
+exit $resultCode
