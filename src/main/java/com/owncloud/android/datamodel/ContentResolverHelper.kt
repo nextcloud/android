@@ -35,10 +35,10 @@ object ContentResolverHelper {
     @JvmStatic
     @JvmOverloads
     @Suppress("LongParameterList")
-        /**
-         * Queries the content resolver with the given params using the correct API level-dependant syntax.
-         * This is needed in order to use LIMIT or OFFSET from android 11.
-         */
+    /**
+     * Queries the content resolver with the given params using the correct API level-dependant syntax.
+     * This is needed in order to use LIMIT or OFFSET from android 11.
+     */
     fun queryResolver(
         contentResolver: ContentResolver,
         uri: Uri,
@@ -92,7 +92,7 @@ object ContentResolverHelper {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun
-        getQueryArgsBundle(selection: String?, sortColumn: String?, sortDirection: String?, limit: Int?): Bundle {
+    getQueryArgsBundle(selection: String?, sortColumn: String?, sortDirection: String?, limit: Int?): Bundle {
         return Bundle().apply {
             if (selection != null) {
                 putString(ContentResolver.QUERY_ARG_SQL_SELECTION, selection)

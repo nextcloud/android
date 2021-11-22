@@ -2,23 +2,24 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 
+import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.owncloud.android.AbstractIT;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static androidx.test.runner.lifecycle.Stage.RESUMED;
 
 public class FileDisplayActivityTest extends AbstractIT {
 
-    @Rule public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(WRITE_EXTERNAL_STORAGE);
+    @Rule
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     public void testSetupToolbar() {

@@ -329,7 +329,8 @@
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission">Berechtigungen erforderlich</string>
-    <string name="file_management_permission_text">Nextcloud benötigt Berechtigungen für die Dateiverwaltung, um richtig zu funktionieren. Um fortfahren zu können, aktivieren Sie diese bitte auf dem folgenden Bildschirm.</string>
+    <string name="file_management_permission_text">%s benötigt Berechtigungen für die Dateiverwaltung, um richtig zu
+        funktionieren. Um fortfahren zu können, aktivieren Sie diese bitte auf dem folgenden Bildschirm.</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
@@ -466,7 +467,7 @@
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
-    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
+    <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="note_confirm">Senden</string>

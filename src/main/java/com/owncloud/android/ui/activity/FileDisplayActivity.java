@@ -25,7 +25,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -2203,6 +2202,7 @@ public class FileDisplayActivity extends FileActivity
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
+            showSortListGroup(false);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
             binding.rightFragmentContainer.setVisibility(View.GONE);

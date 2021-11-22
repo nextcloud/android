@@ -415,6 +415,7 @@
 
     <string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
+    <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="folder_picker_choose_button_text">Choose</string>
 
@@ -495,8 +496,6 @@
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
-    <string name="actionbar_contacts">Back up contacts</string>
-    <string name="actionbar_contacts_restore">Restore contacts</string>
 
     <string name="manage_space_title">Manage space</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
@@ -930,11 +929,11 @@
     <string name="conflict_new_file">New file</string>
     <string name="contaclist_restore_selected">Restore selected contacts</string>
     <string name="contactlist_account_chooser_title">Choose account to import</string>
+    <string name="conflict_already_existing_file">Already existing file</string>
     <string name="contacts_automatic_backup">Automatic backup</string>
     <string name="contacts_last_backup">Last backup</string>
     <string name="contacts_preference_backup_never">never</string>
     <string name="contacts_preference_choose_date">Choose date</string>
-    <string name="conflict_already_existing_file">Already existing file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
@@ -1138,5 +1137,5 @@
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
     <string name="file_management_permission">Permissions needed</string>
-    <string name="file_management_permission_text">Nextcloud needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
+    <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
 </resources>
