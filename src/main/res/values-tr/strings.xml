@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
     <string name="actionbar_calendar_contacts_restore">Kişileri ve takvimi geri yükle</string>
-    <string name="actionbar_contacts">Kişileri yedekle</string>
-    <string name="actionbar_contacts_restore">Kişileri geri yükle</string>
     <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Yeni herkese açık paylaşım bağlantısı ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="advanced_settings">Gelişmiş ayarlar</string>
-    <string name="allow_creating">Eklenebilsin</string>
-    <string name="allow_deleting">Silinebilsin</string>
-    <string name="allow_editing">Düzenlenebilsin</string>
     <string name="allow_resharing">Yeniden paylaşılabilsin</string>
     <string name="appbar_search_in">%s içinde arama</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Devre dışı bırak</string>
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnız bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
-    <string name="battery_optimization_no_setting">Pil ayarları açılamadı. Lütfen ayarlar bölümünden el ile ayarlayın.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
     <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="calendar">Takvim</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_new_file">Yeni dosya</string>
-    <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
-    <string name="contactlist_account_chooser_title">İçe aktarılacak hesabı seçin</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
     <string name="contacts">Kişiler</string>
-    <string name="contacts_automatic_backup">Otomatik yedekleme</string>
     <string name="contacts_backup_button">Yedekle</string>
-    <string name="contacts_last_backup">Son yedek</string>
-    <string name="contacts_preference_backup_never">asla</string>
-    <string name="contacts_preference_choose_date">Tarih seçin</string>
     <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
     <string name="contacts_preferences_import_scheduled">İçe aktarma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
-    <string name="contacts_read_permission">Kişi listesini okuma izni gerekiyor</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
-    <string name="edit_label">Adı değiştir</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
@@ -329,6 +315,7 @@
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
     <string name="file_list_seconds_ago">saniyeler önce</string>
     <string name="file_management_permission">İzinler gerekli</string>
+    <string name="file_management_permission_text">%1$s uygulamasının doğru çalışabilmesi için dosya yönetimi izinleri verilmelidir. Lütfen ilerlemek için sonraki ekrandan bu izinleri verin.</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
     <string name="file_migration_dialog_title">Veri depolama klasörü güncelleniyor</string>
@@ -474,10 +461,7 @@
     <string name="note_icon_hint">Not simgesi</string>
     <string name="notification_action_failed">İşlem yapılamadı.</string>
     <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
-    <string name="notification_channel_download_name">İndirme bildirimi kanalı</string>
     <string name="notification_channel_download_name_short">İndirmeler</string>
-    <string name="notification_channel_file_observer_description">Dosyalardaki değişiklikleri izler</string>
-    <string name="notification_channel_file_observer_name">Dosya izleyici</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
     <string name="notification_channel_file_sync_name">Dosya eşitleme</string>
     <string name="notification_channel_general_description">Yeni ortam klasörleri ve benzerleri için bildirimler görüntülensin</string>
@@ -487,7 +471,6 @@
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
-    <string name="notification_channel_upload_name">Yükleme bildirimi kanalı</string>
     <string name="notification_channel_upload_name_short">Yüklemeler</string>
     <string name="notification_icon">Bildirim simgesi</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
@@ -540,7 +523,6 @@
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
-    <string name="prefs_daily_contacts_sync_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
     <string name="prefs_enable_media_scan_notifications">Ortam tarama bildirimleri görüntülensin</string>
@@ -657,7 +639,6 @@
     <string name="share_permission_file_drop">Dosya bırakma</string>
     <string name="share_permission_view_only">Yalnız görüntüleme</string>
     <string name="share_permissions">İzinleri paylaş</string>
-    <string name="share_privilege_unshare">Paylaşımı Kaldır</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
     <string name="share_search">Ad, Birleşik Bulut Kodu ya da e-posta adresi …</string>
@@ -665,7 +646,6 @@
     <string name="share_send_note">Alıcıya not</string>
     <string name="share_settings">Ayarlar</string>
     <string name="share_via_link_hide_download">İndirme gizlensin</string>
-    <string name="share_via_link_menu_password_label">Parola koruması (%1$s)</string>
     <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
     <string name="share_via_link_send_link_label">Bağlantı gönder</string>
     <string name="share_via_link_unset_password">Kaldır</string>
@@ -776,7 +756,6 @@
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="unset_favorite">Sık kullanılanlardan kaldır</string>
-    <string name="unshare">Paylaşımı kaldır</string>
     <string name="unshare_link_file_error">Bu dosya ya da klasör paylaşımı kaldırılmaya çalışılırken bir sorun çıktı.</string>
     <string name="unshare_link_file_no_exist">Paylaşımı kaldırılamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="unshare_link_forbidden_permissions">bu dosyanın paylaşımını kaldırın</string>

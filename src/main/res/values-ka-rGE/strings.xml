@@ -10,8 +10,6 @@
     <string name="action_send_share">გაგზავნა/გაზიარება</string>
     <string name="action_switch_grid_view">ბადისებური ხედი</string>
     <string name="action_switch_list_view">ჩამონათვლისებური ხედი</string>
-    <string name="actionbar_contacts">კონტაქტების ბექაფი</string>
-    <string name="actionbar_contacts_restore">კონტაქტების აღდგენა</string>
     <string name="actionbar_copy">კოპირება</string>
     <string name="actionbar_mkdir">ახალი დირექტორია</string>
     <string name="actionbar_move">გადატანა</string>
@@ -26,7 +24,6 @@
     <string name="activity_chooser_send_file_title">გაგზავნა</string>
     <string name="activity_chooser_title">გააგზავნეთ ბმული…</string>
     <string name="activity_icon">აქტივობა</string>
-    <string name="allow_editing">შეცვლის ნების დართვა</string>
     <string name="allow_resharing">ხელახალი გაზიარების დაშვება</string>
     <string name="auth_account_does_not_exist">ანგარიში ამ მოწყობილობაზე ჯერ არაა დამატებული</string>
     <string name="auth_account_not_new">მოწყობილობაზე ანგარიში ამ მომხმარებლით და სერვერით უკვე არსებობს</string>
@@ -105,20 +102,13 @@
     <string name="confirmation_remove_folder_alert">ნამდვილად გსურთ %1$s-ის და შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_folders_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერებისა და მათი შემცველობის გაუქმება?</string>
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-    <string name="contaclist_restore_selected">არჩეული კონტაქტების აღდგენა</string>
-    <string name="contactlist_account_chooser_title">იმპორტისთვის აირჩიეთ ანგარიში</string>
     <string name="contactlist_item_icon">მომხმარებლის პიქტოგრამა კონტაქტების სიისთვის</string>
     <string name="contactlist_no_permission">უფლებები არაა მოცემული, არაფერი არ იქნა იმპორტირებული.</string>
-    <string name="contacts_automatic_backup">ავტომატური ბექაფი</string>
     <string name="contacts_backup_button">ახალი ბექაფი</string>
-    <string name="contacts_last_backup">ბოლო ბექაფი</string>
-    <string name="contacts_preference_backup_never">არასდროს</string>
-    <string name="contacts_preference_choose_date">აირჩიეთ თარიღი</string>
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_no_file_found">ფაილი ვერ იქნა ნაპოვნი</string>
     <string name="contacts_preferences_something_strange_happened">თქვენი ბოლო ბექაფი ვერ იქნა ნაპოვნი!</string>
-    <string name="contacts_read_permission">კონტაქტის სიის წაკითხვისთვის საჭიროა უფლება</string>
     <string name="copied_to_clipboard">კოპირებულია კლიპბორდში</string>
     <string name="copy_file_error">ამ ფაილისა თუ დირექტორიის კოპირებისას წარმოიშვა შეცდომა</string>
     <string name="copy_file_invalid_into_descendent">დირექტორიის კოპირება მასში არსებულ დირექტორიაში შეუძლებელია</string>
@@ -274,15 +264,11 @@
     <string name="new_media_folder_photos">ფოტო</string>
     <string name="note_confirm">გაგზავნა</string>
     <string name="notification_channel_download_description">აჩვენებს გადმოწერის პროგრესს</string>
-    <string name="notification_channel_download_name">შეტყობინებების არხის ჩამოტვირთვა</string>
-    <string name="notification_channel_file_observer_description">მონიტორინგი ფაილების ცვლილებაზე</string>
-    <string name="notification_channel_file_observer_name">ფაილ ობზერვერი</string>
     <string name="notification_channel_file_sync_description">აჩვენებს ფაილების სინქ. პროგრესს და შედეგებს</string>
     <string name="notification_channel_file_sync_name">ფაილების სინქ.</string>
     <string name="notification_channel_media_description">მუსიკის დამკვრელის პროგრესი</string>
     <string name="notification_channel_media_name">მედია დამკვრელი</string>
     <string name="notification_channel_upload_description">აჩვენებს ატვირთვის პროგრესს</string>
-    <string name="notification_channel_upload_name">შეტყობინებების არხის ატვირთვა</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
     <string name="oneHour">1 საათი</string>
@@ -314,7 +300,6 @@
     <string name="prefs_category_dev">დევ.</string>
     <string name="prefs_category_general">ზოგადი</string>
     <string name="prefs_category_more">მეტი</string>
-    <string name="prefs_daily_contacts_sync_summary">კონტაქტების ყოველდღიური ბექაფი</string>
     <string name="prefs_gpl_v2">GNU ზოგადი ღია ლიცენზია, ვერსია 2</string>
     <string name="prefs_help">დახმარება</string>
     <string name="prefs_imprint">ბეჭედი</string>
@@ -365,7 +350,6 @@
     <string name="share_link_password_title">შეიყვანეთ პაროლი</string>
     <string name="share_no_expiration_date_label">მიუთითეთ ვადის გასვლის დრო</string>
     <string name="share_no_password_title">პაროლის დაყენება</string>
-    <string name="share_privilege_unshare">გაზიარების შეწყვეტა</string>
     <string name="share_remote_clarification">%1$s (დისტანციური)</string>
     <string name="share_via_link_section_title">ბმულის გაზიარება</string>
     <string name="shared_icon_shared">გაზიარებული</string>
@@ -433,7 +417,6 @@
     <string name="trashbin_activity_title">გაუქმებული ფაილები</string>
     <string name="trashbin_empty_headline">წაშლილი ფაილები ვერ მოიძებნა</string>
     <string name="unset_encrypted">შიფრაციის გაუქმება</string>
-    <string name="unshare">გაზიარების შეწყვეტა</string>
     <string name="unshare_link_forbidden_permissions">შეწყვიტოთ ამ ფაილის გაზიარება</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
     <string name="update_link_forbidden_permissions">განაახლოთ ეს გაზიარება</string>

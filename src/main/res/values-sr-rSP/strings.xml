@@ -14,8 +14,6 @@
     <string name="action_send_share">Slanje/Deljenje</string>
     <string name="action_switch_grid_view">Prikaz mreže</string>
     <string name="action_switch_list_view">Prikaz liste</string>
-    <string name="actionbar_contacts">Napravite rezervnu kopiju kontakata</string>
-    <string name="actionbar_contacts_restore">Povratite kontakte</string>
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova fascikla</string>
     <string name="actionbar_move">Premesti</string>
@@ -31,7 +29,6 @@
     <string name="activity_chooser_title">Pošalji vezu…</string>
     <string name="activity_icon">Aktivnost</string>
     <string name="add_to_cloud">Dodaj u %1$s</string>
-    <string name="allow_editing">Dozvoli uređivanje</string>
     <string name="associated_account_not_found">Pridruženi nalog nije nađen!</string>
     <string name="auth_access_failed">Neuspeo pristup: %1$s</string>
     <string name="auth_account_does_not_exist">Nalog još nije dodat na ovaj uređaj</string>
@@ -73,7 +70,6 @@
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Isključi</string>
     <string name="battery_optimization_message">Vaš uređaj možda ima uključenu optimizaciju baterije. Automatsko otpremanje radi samo ako isključite ovu aplikaciju iz optimizacije baterije.</string>
-    <string name="battery_optimization_no_setting">Ne mogu da pokrenem postavke baterije. Isključite je ručno u postavkama.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="certificate_load_problem">Pojavio se problem prilikom učitavanja sertifikata.</string>
     <string name="changelog_dev_version">Dnevnik izmena razvojne verzije</string>
@@ -127,20 +123,13 @@
     <string name="confirmation_remove_folder_alert">Da li stvarno želite da obrišete %1$s i sav dodatni sadržaj odatle?</string>
     <string name="confirmation_remove_folders_alert">Da li stvarno želite da obrišete označene stavke i sav njihov sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="contaclist_restore_selected">Povrati označene kontakte</string>
-    <string name="contactlist_account_chooser_title">Odaberite naloge za uvoz</string>
     <string name="contactlist_item_icon">Ikona korisnika za listu kontakata</string>
     <string name="contactlist_no_permission">Nijedna dozvola nije data, ništa nije uvezeno.</string>
-    <string name="contacts_automatic_backup">Automatsko pravljenje rezervne kopije</string>
     <string name="contacts_backup_button">Napravite rezervnu kopiju sada</string>
-    <string name="contacts_last_backup">Poslednja rezervna kopija</string>
-    <string name="contacts_preference_backup_never">nikada</string>
-    <string name="contacts_preference_choose_date">Odaberite datum</string>
     <string name="contacts_preferences_backup_scheduled">Pravljenje rezervne kopije zakazano i počeće uskoro</string>
     <string name="contacts_preferences_import_scheduled">Uvoženje je zakazano i počeće uskoro</string>
     <string name="contacts_preferences_no_file_found">Nijedan fajl nije nađen</string>
     <string name="contacts_preferences_something_strange_happened">Ne mogu da nađem poslednju rezervu!</string>
-    <string name="contacts_read_permission">Potrebne dozvole za čitanje liste kontakata</string>
     <string name="copied_to_clipboard">Kopirano u ostavu</string>
     <string name="copy_file_error">Greška prilikom kopiranja ovog fajla ili fascikle</string>
     <string name="copy_file_invalid_into_descendent">Ne može da se iskopira fascikla u neku od svojih podfascikli.</string>
@@ -363,9 +352,6 @@
     <string name="note_could_not_sent">Ne mogu da pošaljem belešku</string>
     <string name="notification_action_failed">Greška prilikom izvršavanja akcije.</string>
     <string name="notification_channel_download_description">Prikaži napredak preuzimanja</string>
-    <string name="notification_channel_download_name">Kanal obaveštenja o skidanjima</string>
-    <string name="notification_channel_file_observer_description">Proverava da li su fajlovi izmenjeni</string>
-    <string name="notification_channel_file_observer_name">Nadgledač fajlova</string>
     <string name="notification_channel_file_sync_description">Prikaži napredak sinhronizacije fajla i rezultate</string>
     <string name="notification_channel_file_sync_name">Sinhronizacija fajla</string>
     <string name="notification_channel_general_description">Prikaži obaveštenja o novim multimedijalnim fasciklama i slično</string>
@@ -375,7 +361,6 @@
     <string name="notification_channel_push_description">Prikazuj brza obaveštenja koja pošalje server: kada ste pomenuti u komentarima, kada dobijete novo udaljeno deljenje, kada administrator postavi neko obaveštenje itd.</string>
     <string name="notification_channel_push_name">Brza obaveštenja</string>
     <string name="notification_channel_upload_description">Prikaži napredak otpremanja</string>
-    <string name="notification_channel_upload_name">Kanal obaveštenja o otpremanjima</string>
     <string name="notification_icon">Ikonica obaveštenja</string>
     <string name="notifications_no_results_headline">Nema obaveštenja</string>
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
@@ -416,7 +401,6 @@
     <string name="prefs_category_dev">Razvojno</string>
     <string name="prefs_category_general">Opšte</string>
     <string name="prefs_category_more">Ostalo</string>
-    <string name="prefs_daily_contacts_sync_summary">Dnevno arhiviranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonik</string>
     <string name="prefs_e2e_no_device_credentials">Za prikazivanje mnemonika, omogućite akreditive na uređaju.</string>
     <string name="prefs_enable_media_scan_notifications">Prikaži obaveštenja o skeniranju multimedije</string>
@@ -506,12 +490,10 @@
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi lozinku</string>
     <string name="share_password_title">Zaštićeno lozinkom</string>
-    <string name="share_privilege_unshare">Ukini deljenje</string>
     <string name="share_remote_clarification">%1$s(udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_send_note">Beleška primaocu</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
-    <string name="share_via_link_menu_password_label">Zaštićeno lozinkom (%1$s)</string>
     <string name="share_via_link_section_title">Veza deljenja</string>
     <string name="share_via_link_send_link_label">Pošalji vezu</string>
     <string name="share_via_link_unset_password">Ukloni</string>
@@ -610,7 +592,6 @@
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Isključi šifrovanje</string>
     <string name="unset_favorite">Ukloni iz omiljenih</string>
-    <string name="unshare">Ukini deljenje</string>
     <string name="unshare_link_forbidden_permissions">da ukinete deljenje ovog fajla</string>
     <string name="unsharing_failed">Uklanjanje deljenja nije uspelo</string>
     <string name="untrusted_domain">Pristup kroz domen koji nije od poverenja. Pogledajte dokumentaciju za još informacija.</string>

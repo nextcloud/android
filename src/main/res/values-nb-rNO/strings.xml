@@ -14,8 +14,6 @@
     <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
-    <string name="actionbar_contacts">Sikkerhetskopier kontakter</string>
-    <string name="actionbar_contacts_restore">Gjenopprett kontakter</string>
     <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flytt</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Legg til en lenke til</string>
     <string name="add_new_public_share">Legg til ny offentlig delt lenke</string>
     <string name="add_to_cloud">Legg til %1$s</string>
-    <string name="allow_creating">Tillat oppretting</string>
-    <string name="allow_deleting">Tillat sletting</string>
-    <string name="allow_editing">Tillat redigering</string>
     <string name="allow_resharing">TIllat videre deling</string>
     <string name="appbar_search_in">Søk i %s</string>
     <string name="associated_account_not_found">Tilknyttet bruker ikke funnet!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer appen fra optimalisering.</string>
-    <string name="battery_optimization_no_setting">Ikke mulig å åpne batteriinnstillinger direkte. Vennligst gjør endringene manuelt.</string>
     <string name="battery_optimization_title">Batterioptimalisering</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
     <string name="changelog_dev_version">Endringslogg utviklingsversjon</string>
@@ -148,20 +142,13 @@
     <string name="conflict_file_headline">Konflikt med%1$s</string>
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
     <string name="conflict_new_file">Ny fil</string>
-    <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
-    <string name="contactlist_account_chooser_title">Velg konto å importere</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilgang gitt, ingenting importert.</string>
-    <string name="contacts_automatic_backup">Automatisk sikkerhetskopiering</string>
     <string name="contacts_backup_button">Sikerhetskopier nå</string>
-    <string name="contacts_last_backup">Siste sikkerhetskopi</string>
-    <string name="contacts_preference_backup_never">aldri</string>
-    <string name="contacts_preference_choose_date">Velg dato</string>
     <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
     <string name="contacts_preferences_something_strange_happened">Fant ikke siste sikkerhetskopi.</string>
-    <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
@@ -231,7 +218,6 @@
     <string name="drawer_quota">%1$s av %2$s brukt</string>
     <string name="drawer_quota_unlimited">%1$s brukt</string>
     <string name="drawer_synced_folders">Auto-opplasting</string>
-    <string name="edit_label">Bytt navn</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
@@ -442,9 +428,6 @@
     <string name="note_icon_hint">Notatikon</string>
     <string name="notification_action_failed">Feilet å utføre aksjon.</string>
     <string name="notification_channel_download_description">Viser nedlastingsfremgang</string>
-    <string name="notification_channel_download_name">Kanal for varsel om nedlasting</string>
-    <string name="notification_channel_file_observer_description">Sjekker filer for endringer</string>
-    <string name="notification_channel_file_observer_name">Filobservatør</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_general_description">Vis varsel for nye media mapper og lignende</string>
@@ -454,7 +437,6 @@
     <string name="notification_channel_push_description">Vis push-merknader sendt av serveren: Nevnelser i kommentarer, mottak av ny fjerndeling, kunngjøringer postet av en administrator, osv.</string>
     <string name="notification_channel_push_name">Push-merknader</string>
     <string name="notification_channel_upload_description">Viser opplastingsfremgang</string>
-    <string name="notification_channel_upload_name">Kanal for varsel om opplasting</string>
     <string name="notification_icon">Ikon for notifisering</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
@@ -505,7 +487,6 @@
     <string name="prefs_category_dev">Utvikling</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_daily_contacts_sync_summary">Daglig sikkerhetskopiering av kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
     <string name="prefs_enable_media_scan_notifications">Vis mediaskannvarsler</string>
@@ -608,13 +589,11 @@
     <string name="share_no_expiration_date_label">Sett utløpsdato</string>
     <string name="share_no_password_title">Velg passord</string>
     <string name="share_password_title">Passordbeskyttet</string>
-    <string name="share_privilege_unshare">Opphev deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
     <string name="share_search">Navn, Sammenknyttet sky-ID eller e-postadresse</string>
     <string name="share_send_note">Melding til mottaker</string>
     <string name="share_via_link_hide_download">Gjem nedlasting</string>
-    <string name="share_via_link_menu_password_label">Passordbeskyttet (%1$s)</string>
     <string name="share_via_link_section_title">Del lenke</string>
     <string name="share_via_link_send_link_label">Send lenke</string>
     <string name="share_via_link_unset_password">Ikke satt</string>
@@ -723,7 +702,6 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare">Opphev deling</string>
     <string name="unshare_link_file_error">Det oppstod en feil under oppheving av deling av denne filen eller mappen.</string>
     <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
