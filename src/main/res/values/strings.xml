@@ -415,7 +415,6 @@
 
     <string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
-    <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="folder_picker_choose_button_text">Choose</string>
 
@@ -496,6 +495,8 @@
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
+    <string name="actionbar_contacts">Back up contacts</string>
+    <string name="actionbar_contacts_restore">Restore contacts</string>
 
     <string name="manage_space_title">Manage space</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
