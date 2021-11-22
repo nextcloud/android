@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -19,7 +20,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -309,7 +309,7 @@ public class FileDataStorageManager {
                 // remote request
                 ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
                 // TODO Deprecated
-                RemoteOperationResult result = operation.execute(getAccount(), context);
+                RemoteOperationResult result = operation.execute(getUser().toPlatformAccount(), context);
                 if (result.isSuccess()) {
                     OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -2404,8 +2404,7 @@ public class FileDataStorageManager {
         return this.contentProviderClient;
     }
 
-    @Deprecated
-    public Account getAccount() {
-        return this.user.toPlatformAccount();
+    public User getUser() {
+        return user;
     }
 }

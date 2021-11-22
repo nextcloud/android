@@ -565,7 +565,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                               toolbarActivity.getPreviewImageContainer(),
                                                                               containerActivity.getStorageManager(),
                                                                               connectivityService,
-                                                                              containerActivity.getStorageManager().getAccount(),
+                                                                              containerActivity.getStorageManager().getUser(),
                                                                               getResources().getColor(R.color.background_color_inverse)
                         );
 
