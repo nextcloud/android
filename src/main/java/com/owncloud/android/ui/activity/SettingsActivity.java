@@ -81,8 +81,8 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.CacheManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -355,7 +355,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Log.d("hereF", "Clicking it works?");
-                            deleteCache();
+                            CacheManager cache = new CacheManager();
+                            cache.deleteCache(SettingsActivity.this);
                             Log.d("hereS", "Do we go past deleteCache");
                         }
                     }).setNegativeButton("Cancel", null);
@@ -363,39 +364,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 return true;
             });
         }
-
-
     }
 
-    public void deleteCache(){
-        File cache = getCacheDir();
-        File appDir = new File(cache.getParent());
-        if (appDir.exists()) {
-            String[] children = appDir.list();
-            for (String s : children) {
-                if (!s.equals("lib")) {
-                    deleteDir(new File(appDir, s));
-                }
-            }
-        }
-    }
 
-    private boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-            return dir.delete();
-        } else if(dir!= null && dir.isFile()) {
-            return dir.delete();
-        } else {
-            return false;
-        }
-    }
 
     private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {
         boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
