@@ -595,6 +595,9 @@
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
     <string name="backup_title">Contacts &amp; calendar backup</string>
 
+    <string name="clear_cache">Clear Cache</string>
+
+
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="privacy">Privacy</string>

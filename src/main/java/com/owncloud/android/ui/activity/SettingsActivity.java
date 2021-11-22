@@ -26,6 +26,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -41,6 +42,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -81,6 +83,7 @@ import com.owncloud.android.utils.theme.ThemeTextUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -327,6 +330,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
+        setupClearCachePreference(preferenceCategoryMore);
+
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
@@ -336,6 +341,60 @@ public class SettingsActivity extends ThemedPreferenceActivity
         setupImprintPreference(preferenceCategoryMore);
 
         loadExternalSettingLinks(preferenceCategoryMore);
+    }
+
+    private void setupClearCachePreference(PreferenceCategory preferenceCategoryMore){
+
+
+        Preference clearCache = findPreference("clearCache");
+        if (clearCache != null){
+            clearCache.setOnPreferenceClickListener(preference -> {
+                AlertDialog.Builder builder= new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage("Clear cache?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("hereF", "Clicking it works?");
+                            deleteCache();
+                            Log.d("hereS", "Do we go past deleteCache");
+                        }
+                    }).setNegativeButton("Cancel", null);
+                builder.show();
+                return true;
+            });
+        }
+
+
+    }
+
+    public void deleteCache(){
+        File cache = getCacheDir();
+        File appDir = new File(cache.getParent());
+        if (appDir.exists()) {
+            String[] children = appDir.list();
+            for (String s : children) {
+                if (!s.equals("lib")) {
+                    deleteDir(new File(appDir, s));
+                }
+            }
+        }
+    }
+
+    private boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
     }
 
     private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {
