@@ -28,8 +28,10 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -103,6 +105,7 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.constraintlayout.motion.utils.ViewState;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -879,15 +882,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void showShareIcon(ListGridImageViewHolder gridViewHolder, OCFile file) {
         ImageView sharedIconView = gridViewHolder.getShared();
+        //Initialising Textview for Message and setting its visibility
+        TextView sharedMessageView = gridViewHolder.getSharedMessage();
+        sharedMessageView.setVisibility(DisplayUtils.isShowDividerForList()?View.VISIBLE:View.GONE);
 
         if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
             sharedIconView.setVisibility(View.VISIBLE);
+
 
             // if (file.isSharedWithSharee() || file.isSharedWithMe()) {
             if (file.isSharedWithMe()) {
                 //if (showShareAvatar) {
                 //sharedIconView.setVisibility(View.GONE);
                 sharedIconView.setImageResource(R.drawable.ic_shared_with_me);
+                //Added Code For Message Text
+                sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_receivedMessage));
+                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
+                                                                        R.color.shared_with_me_color,null));
+
                 // } else {
                 //sharedIconView.setVisibility(View.VISIBLE);
 
@@ -895,19 +907,29 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else if (file.isSharedWithSharee()) {
                 sharedIconView.setImageResource(R.drawable.ic_shared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
+                //Added Code For Message Text
+                sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
+                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
+                                                                        R.color.primary,null));
+
+
             } else if (file.isSharedViaLink()) {
                 sharedIconView.setImageResource(R.drawable.ic_shared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared_via_link));
+                //Added Code For Message Text
+                sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
+                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
+                                                                        R.color.primary,null));
             } else {
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_share));
+                sharedMessageView.setVisibility(View.GONE);
             }
             sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {
             sharedIconView.setVisibility(View.GONE);
         }
     }
-
     /**
      * Change the adapted directory for a new one
      *
@@ -1353,6 +1375,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public TextView getSharedMessage() {
+            return  binding.sharedMessage;
+        }
+
+        @Override
         public ImageView getCheckbox() {
             return binding.customCheckbox;
         }
@@ -1413,6 +1440,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public TextView getSharedMessage() { return binding.sharedMessage;}
+
+        @Override
         public ImageView getCheckbox() {
             return binding.customCheckbox;
         }
@@ -1468,6 +1498,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public TextView getSharedMessage() { return  binding.sharedMessage;}
+
+        @Override
         public ImageView getCheckbox() {
             return binding.customCheckbox;
         }
@@ -1516,6 +1549,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageView getLocalFileIndicator();
 
         ImageView getShared();
+
+        TextView getSharedMessage();
 
         ImageView getCheckbox();
 

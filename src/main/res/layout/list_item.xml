@@ -157,12 +157,25 @@
             android:visibility="gone"
             app:tint="@color/list_icon_color" />
 
+        <TextView
+            android:id="@+id/sharedMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/unreadComments"
+            android:focusable="true"
+            android:textSize="@dimen/txt_size_15sp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/list_item_share_right_margin"
+            android:paddingEnd="@dimen/list_item_share_right_margin"
+            android:textColor="@color/shared_with_me_color"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/sharedIcon"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/unreadComments"
+            android:layout_toEndOf="@id/sharedMessage"
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"

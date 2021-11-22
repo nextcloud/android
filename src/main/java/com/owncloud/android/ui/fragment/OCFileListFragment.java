@@ -2013,6 +2013,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mAdapter.notifyDataSetChanged();
         //this should only run when current view is not media gallery
         if (getAdapter() != null && !getAdapter().isMediaGallery()) {
             int maxColumnSize = (int) AppPreferencesImpl.DEFAULT_GRID_COLUMN;

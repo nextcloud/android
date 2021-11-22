@@ -88,6 +88,17 @@
                 android:src="@drawable/ic_comment_grid"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/sharedMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/grid_image_shared_icon_layout_top_margin"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:contentDescription="@string/shared_icon_shared_via_link"
+                android:src="@drawable/shared_via_link"
+                android:visibility="gone"/>
+
             <ImageView
                 android:id="@+id/localFileIndicator"
                 android:layout_width="@dimen/grid_item_icons_size"

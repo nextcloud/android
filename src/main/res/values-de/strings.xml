@@ -516,6 +516,8 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">platzhalter.txt</string>
+    <string name="placeholder_receivedMessage">Empfangen</string>
+    <string name="placeholder_sharedMessage">Geteilt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
