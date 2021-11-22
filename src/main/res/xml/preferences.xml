@@ -75,6 +75,12 @@
 			android:title="@string/prefs_e2e_mnemonic"
 			android:key="mnemonic"
 			android:summary="Displays your E2E 12 words passphrase" />
+        <Preference
+            android:title="@string/clear_cache"
+            android:key="clearCache"
+            android:summary="Clear cache of the app"
+            />
+
 		<Preference android:title="@string/prefs_help" android:key="help" />
 		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
 		<Preference android:title="@string/logs_title" android:key="logger" />
