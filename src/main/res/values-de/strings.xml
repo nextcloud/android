@@ -328,6 +328,7 @@
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
+    <string name="file_management_permission">Berechtigungen erforderlich</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
@@ -405,6 +406,7 @@
     <string name="link_share_editing">Bearbeitung</string>
     <string name="link_share_file_drop">Dateien ablegen (nur Hochladen)</string>
     <string name="link_share_read_only">Schreibgeschützt</string>
+    <string name="link_share_view_only">Nur anzeigen</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="load_more_results">Weitere Ergebnisse laden</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
@@ -463,7 +465,7 @@
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
     <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
-    <string name="no_email_app_available">Keine App verfügbar um E-Mail Adressen zu verwenden</string>
+    <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>

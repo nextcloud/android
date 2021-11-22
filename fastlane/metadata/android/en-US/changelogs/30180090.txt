@@ -1,8 +1,9 @@
-## 3.18.0 RC1 (October 25, 2021)
+## 3.18.0 (November 18, 2021)
 
-Calendar backup/restore
-Unified search
-Sharing permissions improvements
+- Calendar backup/restore
+- Unified search
+- Sharing permissions improvements
+- Minor bug fixes
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 

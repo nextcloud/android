@@ -764,7 +764,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted

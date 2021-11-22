@@ -58,7 +58,7 @@ internal class OnboardingServiceImpl constructor(
         }
 
     override fun shouldShowWhatsNew(callingContext: Context): Boolean {
-        return callingContext !is PassCodeActivity && whatsNew.size > 0
+        return callingContext !is PassCodeActivity && whatsNew.isNotEmpty()
     }
 
     override fun launchActivityIfNeeded(activity: Activity) {

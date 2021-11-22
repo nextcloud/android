@@ -91,6 +91,7 @@ class PlayerService : Service() {
 
     private lateinit var player: Player
     private lateinit var notificationBuilder: NotificationCompat.Builder
+    private var isRunning = false
 
     override fun onCreate() {
         super.onCreate()
@@ -137,8 +138,8 @@ class PlayerService : Service() {
     }
 
     private fun onActionPlay(intent: Intent) {
-        val user: User = intent.getParcelableExtra(EXTRA_USER) as User
-        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE) as OCFile
+        val user: User = intent.getParcelableExtra(EXTRA_USER)!!
+        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE)!!
         val startPos = intent.getLongExtra(EXTRA_START_POSITION_MS, 0)
         val autoPlay = intent.getBooleanExtra(EXTRA_AUTO_PLAY, true)
         val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
@@ -169,6 +170,7 @@ class PlayerService : Service() {
         }
 
         startForeground(R.string.media_notif_ticker, notificationBuilder.build())
+        isRunning = true
     }
 
     private fun stopServiceAndRemoveNotification(file: OCFile?) {
@@ -178,7 +180,10 @@ class PlayerService : Service() {
             player.stop(file)
         }
 
-        stopSelf()
-        stopForeground(true)
+        if (isRunning) {
+            stopForeground(true)
+            stopSelf()
+            isRunning = false
+        }
     }
 }

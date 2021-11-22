@@ -59,8 +59,8 @@ class EtmActivity : ToolbarActivity(), Injectable {
         )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             android.R.id.home -> {
                 if (!vm.onBackPressed()) {
                     finish()

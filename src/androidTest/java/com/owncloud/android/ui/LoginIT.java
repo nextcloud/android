@@ -21,11 +21,11 @@
 
 package com.owncloud.android.ui;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.RetryTestRule;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -37,13 +37,13 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.web.webdriver.DriverAtoms;
 import androidx.test.espresso.web.webdriver.Locator;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -59,7 +59,7 @@ import static org.junit.Assert.assertEquals;
 @LargeTest
 public class LoginIT extends AbstractIT {
     @Rule
-    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
     @Rule
     public RetryTestRule retryTestRule = new RetryTestRule();
 

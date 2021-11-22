@@ -17,15 +17,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.appinfo;
+package com.nextcloud.client.appinfo
 
-import dagger.Module;
-import dagger.Provides;
+import dagger.Module
+import dagger.Provides
 
 @Module
-public class AppInfoModule {
+class AppInfoModule {
     @Provides
-    AppInfo appInfo() {
-        return new AppInfoImpl();
+    fun appInfo(): AppInfo {
+        return AppInfoImpl()
     }
 }

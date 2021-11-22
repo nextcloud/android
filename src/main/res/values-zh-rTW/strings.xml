@@ -328,6 +328,7 @@
     <string name="file_list_loading">正在載入……</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的應用程式。</string>
     <string name="file_list_seconds_ago">幾秒前</string>
+    <string name="file_management_permission">需要權限</string>
     <string name="file_migration_checking_destination">正在檢查目的地……</string>
     <string name="file_migration_cleaning">正在清理……</string>
     <string name="file_migration_dialog_title">正在更新資料儲存資料夾</string>
@@ -405,6 +406,7 @@
     <string name="link_share_editing">編輯</string>
     <string name="link_share_file_drop">拖曳檔案（僅上傳）</string>
     <string name="link_share_read_only">唯讀</string>
+    <string name="link_share_view_only">僅檢視</string>
     <string name="list_layout">列表佈局</string>
     <string name="load_more_results">載入更多結果</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案。</string>

@@ -24,13 +24,8 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,17 +37,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.downloader.Direction;
 import com.nextcloud.client.files.downloader.DownloadRequest;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.Transfer;
@@ -64,12 +54,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.ContactlistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -93,15 +80,10 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
-import ezvcard.property.Photo;
 import kotlin.Unit;
-
-import static com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment.getDisplayName;
 
 /**
  * This fragment shows all contacts from a file and allows to import them.

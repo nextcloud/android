@@ -652,7 +652,7 @@
     <string name="shared_avatar_desc">Sličica uporabnika</string>
     <string name="shared_icon_share">souporaba</string>
     <string name="shared_icon_shared">v souporabi</string>
-    <string name="shared_icon_shared_via_link">v souporabi prek povezave</string>
+    <string name="shared_icon_shared_via_link">v souporabi s povezavo</string>
     <string name="shared_with_you_by">Souporabo omogoča %1$s</string>
     <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>

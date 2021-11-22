@@ -328,6 +328,7 @@
     <string name="file_list_loading">Načítání…</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
     <string name="file_list_seconds_ago">před několika sekundami</string>
+    <string name="file_management_permission">Vyžadována oprávnění</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
     <string name="file_migration_dialog_title">Aktualizuje se složka úložiště</string>
@@ -405,6 +406,7 @@
     <string name="link_share_editing">Upravování</string>
     <string name="link_share_file_drop">Přetažení souboru (pouze nahrání)</string>
     <string name="link_share_read_only">Pouze pro čtení</string>
+    <string name="link_share_view_only">Pouze prohlížet</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>
     <string name="local_file_list_empty">V této složce nejsou žádné soubory.</string>

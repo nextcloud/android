@@ -21,7 +21,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -439,8 +438,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkSelfPermission(getAppContext(),
-                                                   Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
                 splitOutAutoUploadEntries(clock);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
