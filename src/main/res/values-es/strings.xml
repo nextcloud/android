@@ -75,6 +75,7 @@
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
+    <string name="backup_settings">Configuración de copia de seguridad</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
@@ -178,6 +179,7 @@
     <string name="create_rich_workspace">Añadir información de la carpeta</string>
     <string name="creates_rich_workspace">crea la información de la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
+    <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="delete_account">Eliminar cuenta</string>
@@ -246,6 +248,7 @@
     <string name="enter_filename">Por favor, introduce un nombre de archivo</string>
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden realizar operaciones</string>
+    <string name="error_choosing_date">Error escogiendo fecha</string>
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueó</string>
     <string name="error_report_issue_action">Informe</string>
@@ -305,6 +308,7 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="file_list_seconds_ago">hace segundos</string>
+    <string name="file_management_permission">Permisos necesarios</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
@@ -375,12 +379,16 @@
     <string name="invalid_url">URL no válida</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">La etiqueta no puede quedar vacía</string>
+    <string name="last_backup">Última copia de seguridad: %1$s</string>
     <string name="link">Enlace</string>
+    <string name="link_name">Nombre del enlace</string>
     <string name="link_share_allow_upload_and_editing">Permitir la subida y la edición</string>
     <string name="link_share_editing">Editando</string>
     <string name="link_share_file_drop">Entrega de archivos (solo subida)</string>
     <string name="link_share_read_only">Solo lectura</string>
+    <string name="link_share_view_only">Solo lectura</string>
     <string name="list_layout">Formato de lista</string>
+    <string name="load_more_results">Cargar más resultados</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="local_file_not_found_message">El archivo no se encuentra en el sistema de archivos local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -435,6 +443,8 @@
     <string name="new_notification">Nueve notificación</string>
     <string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
+    <string name="no_calendar_exists">No existe el calendario</string>
+    <string name="no_email_app_available">No hay ninguna app disponible para manejar direciones de correo electrónico</string>
     <string name="no_mutliple_accounts_allowed">Sólo se permite una cuenta</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="note_confirm">Enviar</string>
@@ -452,6 +462,7 @@
     <string name="notification_channel_push_description">Muestra notificaciones push enviadas por el servidor: menciones en comentarios, recepción de nuevos archivos  compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="notification_channel_push_name">Notificaciones de tipo push</string>
     <string name="notification_channel_upload_description">Muestra el progreso de la subida</string>
+    <string name="notification_channel_upload_name_short">Subidas</string>
     <string name="notification_icon">Icono de notificaciones</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
@@ -559,6 +570,7 @@
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
     <string name="restore">Restaurar archivo</string>
+    <string name="restore_backup">Restaurar copia de seguridad</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
     <string name="restore_selected">Restaurar la selección</string>
     <string name="retrieving_file">Recuperando archivo…</string>
@@ -576,6 +588,7 @@
     <string name="screenshot_05_autoUpload_subline">para sus fotos &amp; vídeos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
+    <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
@@ -607,6 +620,8 @@
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_open_in">Abrir con...</string>
     <string name="share_password_title">Protegido con contraseña</string>
+    <string name="share_permission_can_edit">Puede editar</string>
+    <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico ...</string>
