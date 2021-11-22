@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
-    <string name="actionbar_contacts">Zrób kopię kontaktów</string>
-    <string name="actionbar_contacts_restore">Przywróć kontakty</string>
     <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move">Przenieś</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
-    <string name="allow_creating">Zezwalaj na tworzenie</string>
-    <string name="allow_deleting">Zezwalaj na usuwanie</string>
-    <string name="allow_editing">Zezwalaj na edytowanie</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
     <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. Automatyczne wysyłanie działa poprawnie tylko wtedy, gdy wykluczysz z niej tę aplikację.</string>
-    <string name="battery_optimization_no_setting">Nie można bezpośrednio uruchomić ustawień baterii. Dostosuj ręcznie w ustawieniach.</string>
     <string name="battery_optimization_title">Optymalizacja baterii</string>
     <string name="brute_force_delay">Opóźnienie z powodu zbyt wielu błędnych prób</string>
     <string name="calendar">Kalendarz</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_new_file">Nowy plik</string>
-    <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
-    <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
     <string name="contacts">Kontakty</string>
-    <string name="contacts_automatic_backup">Automatyczna kopia zapasowa</string>
     <string name="contacts_backup_button">Utwórz kopię zapasową</string>
-    <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
-    <string name="contacts_preference_backup_never">nigdy</string>
-    <string name="contacts_preference_choose_date">Wybierz datę</string>
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
-    <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">Wykorzystane: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">Wykorzystane: %1$s</string>
     <string name="drawer_synced_folders">Automatyczne wysyłanie</string>
-    <string name="edit_label">Zmień nazwę</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
@@ -329,7 +315,7 @@
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
     <string name="file_management_permission">Potrzebne uprawnienia</string>
-    <string name="file_management_permission_text">Nextcloud do prawidłowego działania wymaga uprawnień do zarządzania plikami. Włącz je na następnym ekranie, aby kontynuować.</string>
+    <string name="file_management_permission_text">%1$s do prawidłowego działania wymaga uprawnień do zarządzania plikami. Włącz je na następnym ekranie, aby kontynuować.</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
     <string name="file_migration_dialog_title">Aktualizacja katalogu przechowywania danych</string>
@@ -475,10 +461,7 @@
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
-    <string name="notification_channel_download_name">Kanał powiadomień pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
-    <string name="notification_channel_file_observer_description">Monitoruje zmiany w plikach</string>
-    <string name="notification_channel_file_observer_name">Monitor plików</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
     <string name="notification_channel_file_sync_name">Synchronizacja pliku</string>
     <string name="notification_channel_general_description">Pokaż powiadomienia o nowych katalogach multimedialnych i podobnych</string>
@@ -488,7 +471,6 @@
     <string name="notification_channel_push_description">Pokaż powiadomienia Push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia publikowane przez administratora itd.</string>
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
-    <string name="notification_channel_upload_name">Kanał powiadomień wysyłania</string>
     <string name="notification_channel_upload_name_short">Wysłane</string>
     <string name="notification_icon">Ikona powiadomień</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
@@ -541,7 +523,6 @@
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kontaktów i kalendarza</string>
-    <string name="prefs_daily_contacts_sync_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
     <string name="prefs_e2e_mnemonic">Mnemonik E2E</string>
     <string name="prefs_e2e_no_device_credentials">Aby pokazać mnemonik włącz poświadczenia urządzenia.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaż powiadomienia o skanowaniu multimediów</string>
@@ -658,7 +639,6 @@
     <string name="share_permission_file_drop">Upuść plik</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
     <string name="share_permissions">Uprawnienia udostępniania</string>
-    <string name="share_privilege_unshare">Zatrzymaj udostępnianie</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID Chmury Federacyjnej lub adres e-mail…</string>
@@ -666,7 +646,6 @@
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_settings">Ustawienia</string>
     <string name="share_via_link_hide_download">Ukryj pobieranie</string>
-    <string name="share_via_link_menu_password_label">Zabezpiecz hasłem (%1$s)</string>
     <string name="share_via_link_section_title">Udostępnij link</string>
     <string name="share_via_link_send_link_label">Wyślij link</string>
     <string name="share_via_link_unset_password">Nieustalone</string>
@@ -777,7 +756,6 @@
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="unset_favorite">Usuń z ulubionych</string>
-    <string name="unshare">Zatrzymaj udostępnianie</string>
     <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępnienia tego pliku lub katalogu.</string>
     <string name="unshare_link_file_no_exist">Nie można anulować udostępnienia. Sprawdź, czy plik istnieje.</string>
     <string name="unshare_link_forbidden_permissions">do anulowania udostępnienia tego pliku</string>
@@ -873,7 +851,7 @@
     <string name="version_dev_download">Pobierz</string>
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>

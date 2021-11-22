@@ -13,8 +13,6 @@
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
-    <string name="actionbar_contacts">Taka öryggisafrit af tengiliðum </string>
-    <string name="actionbar_contacts_restore">Endurheimta tengiliði</string>
     <string name="actionbar_copy">Afrita</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_move">Færa</string>
@@ -33,7 +31,6 @@
     <string name="add_another_public_share_link">Bæta við öðrum tengli</string>
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
-    <string name="allow_editing">Leyfa breytingar</string>
     <string name="allow_resharing">Leyfa endurdeilingu</string>
     <string name="appbar_search_in">Leita í %s</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
@@ -78,7 +75,6 @@
     <string name="battery_optimization_close">Loka</string>
     <string name="battery_optimization_disable">Gera óvirkt</string>
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
-    <string name="battery_optimization_no_setting">Tekst ekki að ræsa rafhlöðustillingar beint. Lagaðu þetta handvirkt í stillingunum.</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
@@ -139,20 +135,13 @@
     <string name="conflict_dialog_error">Villa við að búa til árekstraglugga!</string>
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="conflict_new_file">Ný skrá</string>
-    <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
-    <string name="contactlist_account_chooser_title">Veldu aðgang til að flytja inn</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
     <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn.</string>
-    <string name="contacts_automatic_backup">Sjálfvirk öryggisafritun</string>
     <string name="contacts_backup_button">Taka öryggisafrit núna</string>
-    <string name="contacts_last_backup">Síðasta öryggisafrit</string>
-    <string name="contacts_preference_backup_never">aldrei</string>
-    <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
     <string name="contacts_preferences_something_strange_happened">Gat ekki fundið síðasta öryggisafritið þitt!</string>
-    <string name="contacts_read_permission">Nauðsynlegt er að hafa heimild til að lesa tengiliðalista</string>
     <string name="copied_to_clipboard">Afritað á klippispjald</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
@@ -215,7 +204,6 @@
     <string name="drawer_quota">%1$s af %2$s notað</string>
     <string name="drawer_quota_unlimited">%s notað</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
-    <string name="edit_label">Breyta nafni</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_decrypting">Afkóðun</string>
@@ -411,9 +399,6 @@
     <string name="note_icon_hint">Táknmynd fyrir athugasemd</string>
     <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
-    <string name="notification_channel_download_name">Sækja tilkynningarás</string>
-    <string name="notification_channel_file_observer_description">Fylgist með breytingum á skrám</string>
-    <string name="notification_channel_file_observer_name">Skráavöktun</string>
     <string name="notification_channel_file_sync_description">Sýnir framvindu og niðurstöður samstillingar skráa</string>
     <string name="notification_channel_file_sync_name">Skráasamstilling</string>
     <string name="notification_channel_general_description">Birta tilkynningar fyrir nýjar gagnamöppur og þvíumlíkt</string>
@@ -423,7 +408,6 @@
     <string name="notification_channel_push_description">Birta tilkynningar sem ýtt er út frá þjóninum: Ummæli (mentions) í athugasemdum, móttaka nýrra sameigna, tilkynningar sendar inn af stjórnendum, o.fl.</string>
     <string name="notification_channel_push_name">Ýti-tilkynningar</string>
     <string name="notification_channel_upload_description">Sýnir framvindu innsendingar</string>
-    <string name="notification_channel_upload_name">Senda inn tilkynningarás</string>
     <string name="notification_icon">Tilkynningatákn</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
@@ -469,7 +453,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_daily_contacts_sync_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="prefs_enable_media_scan_notifications">Birta tilkynningar vegna skönnunar eftir margmiðlunarefni</string>
@@ -564,12 +547,10 @@
     <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_no_password_title">Skrá lykilorð</string>
     <string name="share_password_title">Verja með lykilorði</string>
-    <string name="share_privilege_unshare">Hætta deilingu</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_send_note">Minnispunktur til viðtakanda</string>
     <string name="share_via_link_hide_download">Fela niðurhal</string>
-    <string name="share_via_link_menu_password_label">Verja með lykilorði (%1$s)</string>
     <string name="share_via_link_section_title">Deila tengli</string>
     <string name="share_via_link_send_link_label">Senda tengil...</string>
     <string name="share_via_link_unset_password">Endurstilla</string>
@@ -677,7 +658,6 @@
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="unset_favorite">Fjarlægja úr eftirlætislista</string>
-    <string name="unshare">Hætta deilingu</string>
     <string name="unshare_link_file_error">Villa kom upp við að reyna að hætta deilingu á þessari skrá eða möppu.</string>
     <string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til.</string>
     <string name="unshare_link_forbidden_permissions">til að hætta deilingu á þessari skrá</string>

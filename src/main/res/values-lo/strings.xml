@@ -13,8 +13,6 @@
     <string name="action_send_share">ສົ່ງ/ແບ່ງປັນ</string>
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
-    <string name="actionbar_contacts">ສໍາຮອງຂໍ້ມູນການຕິດຕໍ່</string>
-    <string name="actionbar_contacts_restore">ກູ້ຄືນການຕິດຕໍ່</string>
     <string name="actionbar_copy">ສຳເນົາ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
     <string name="actionbar_move">ຍ້າຍ</string>
@@ -33,9 +31,6 @@
     <string name="add_another_public_share_link">ເພີ່ມລິງອຶ່ນອີ</string>
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
-    <string name="allow_creating">ອະນຸຍາດໃຫ້ສ້າງ</string>
-    <string name="allow_deleting">ອະນຸຍາດໃຫ້ລຶບ</string>
-    <string name="allow_editing">ອະນຸຍາດໃຫ້ ແກ້ ໄຂໄດ້</string>
     <string name="allow_resharing">ອະນຸຍາດໃຫ້ ການແບ່ງປັນຄືນ</string>
     <string name="appbar_search_in">ຄົ້ນຫາໃນ%s</string>
     <string name="associated_account_not_found">ບໍ່ພົບບັນຊີທີ່ກ່ຽວຂ້ອງ!</string>
@@ -81,7 +76,6 @@
     <string name="battery_optimization_close">ປີດ</string>
     <string name="battery_optimization_disable">ປີດ</string>
     <string name="battery_optimization_message">ອຸປະກອນຂອງທ່ານອາດຈະເປີດໃຊ້ງານປະສິດທິພາບ. ການອັບໂຫຼດອັດຕະໂນມັດ ເພື່ອເຮັດວຽກໄດ້ຢ່າງຖືກຕ້ອງ.</string>
-    <string name="battery_optimization_no_setting">ບໍ່ສາມາດເລີ່ມຕົ້ນ ການຕັ້ງຄ່າແບັດເຕີຣີໂດຍກົງ. ກະລຸນາປັບດ້ວຍມືໃນການຕັ້ງຄ່າ.</string>
     <string name="battery_optimization_title">ການເພີ່ມປະສີດທິພາບແບັດເຕີລີ</string>
     <string name="brute_force_delay">ລ່າຊ້າ ຍ້ອນຄວາມພະຍາຍາມທີ່ຜິດຫລາຍເກີນ ໄປ</string>
     <string name="certificate_load_problem">ມີບັນຫາໃນການໂຫຼດການຢັ້ງຢືນ</string>
@@ -149,20 +143,13 @@
     <string name="conflict_file_headline">ຟາຍຜິດພາດ%1$s</string>
     <string name="conflict_message_description">ຖ້າທ່ານເລືອກເອົາທັງສອງເວີຊັ້ນ, ບ່ອນເກັບຟາຍຈະມີຈໍານວນສະສົມ</string>
     <string name="conflict_new_file">ຟາຍໃໝ່</string>
-    <string name="contaclist_restore_selected">ກູ້ຄຶນການຕິດຕໍ່</string>
-    <string name="contactlist_account_chooser_title">ເລືອກບັນຊີເພື່ອນຳເຂົ້າ</string>
     <string name="contactlist_item_icon">ລາຍການໄອຄອນຜູ້ຕິດຕໍ່</string>
     <string name="contactlist_no_permission">ບໍ່ໄດ້ຮັບອະນຸຍາດ, ບໍ່ມີຫຍັງນໍາເຂົ້າ.</string>
-    <string name="contacts_automatic_backup">ການສຳຮອງຂໍ້ມູນອັດຕະໂນມັດ</string>
     <string name="contacts_backup_button">ສໍາຮອງຂໍ້ມຸນດຽວນີ້</string>
-    <string name="contacts_last_backup">ການສຳຮອງຂໍ້ມູນລ່າສຸດ</string>
-    <string name="contacts_preference_backup_never">ບໍ່ເຄີຍ</string>
-    <string name="contacts_preference_choose_date">ເລືອກວັນທີ</string>
     <string name="contacts_preferences_backup_scheduled">ການສໍາຮອງທີ່ກໍານົດໄວ້ ແລະ ຈະເລີ່ມຕົ້ນໃນໄວໆນີ້</string>
     <string name="contacts_preferences_import_scheduled">ການນໍາເຂົ້າທີ່ໄດ້ກໍານົດໄວ້ ແລະ ຈະເລີ່ມໃນໄວໆນີ້</string>
     <string name="contacts_preferences_no_file_found">ບໍ່ພົບຟາຍ</string>
     <string name="contacts_preferences_something_strange_happened">ບໍ່ສາມາດຊອກຫາ ການສໍາຮອງລ່າສຸດຂອງທ່ານໄດ້!</string>
-    <string name="contacts_read_permission">ອະນຸຍາດໃຫ້ອ່ານລາຍການຕິດຕໍ່ທີ່ຈໍາເປັນ</string>
     <string name="copied_to_clipboard">ສໍາເນົາຄລິບ</string>
     <string name="copy_file_error">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ພະຍາຍາມສໍາເນົາຟາຍຫຼືໂຟນເດີນີ້</string>
     <string name="copy_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະສໍາເນົາໂຟນເດີ ເປັນຫນຶ່ງໃນໂຟນເດີ ພື້ນຖານ</string>
@@ -232,7 +219,6 @@
     <string name="drawer_quota">ນຳໃຊ້ %1$sຂອງ%2$s</string>
     <string name="drawer_quota_unlimited">ນຳໃຊ້%1$s</string>
     <string name="drawer_synced_folders">ອັບໂຫຼດອັດຕະໂນມັດ</string>
-    <string name="edit_label">ປ່ຽນຊື່</string>
     <string name="encrypted">ຕັ້ງເປັນການເຂົ້າລະຫັດ</string>
     <string name="end_to_end_encryption_confirm_button">ຕັ້ງການເຂົ້າລະຫັດ</string>
     <string name="end_to_end_encryption_decrypting">ຖອດລະຫັດລັບ</string>
@@ -434,9 +420,6 @@
     <string name="note_icon_hint">ໄອຄອນ</string>
     <string name="notification_action_failed">ບໍ່ສາມາດດໍາເນີນການໄດ້.</string>
     <string name="notification_channel_download_description">ສະແດງຄວາມຄືບຫນ້າຂອງດາວໂຫລດ</string>
-    <string name="notification_channel_download_name">ຊ່ອງການແຈ້ງເຕືຶອນການດາວໂຫຼດ</string>
-    <string name="notification_channel_file_observer_description">ກວດສອບຟາຍເພື່ອປ່ຽນແປງ</string>
-    <string name="notification_channel_file_observer_name">ຕົວສັງເກດຟາຍ</string>
     <string name="notification_channel_file_sync_description">ສະແດງຄວາມຄືບໜ້າ ແລະ ຜົນຮັບຂອງການ sync ຟາຍ</string>
     <string name="notification_channel_file_sync_name">sync ຟາຍ</string>
     <string name="notification_channel_general_description">ສະແດງການແຈ້ງເຕືອນສໍາລັບໂຟນເດີສື່ມວນຊົນໃຫມ່ ແລະ ຄ້າຍຄືກັນ</string>
@@ -446,7 +429,6 @@
     <string name="notification_channel_push_description">ສະແດງການແຈ້ງເຕືອນໂດຍເຊີເວີ: ຄໍາເຫັນ, ການນແບ່ງປັນໄລຍະໄກສອກ, ການປະກາດໂດຍ admin ແລະ ອື່ນໆ.</string>
     <string name="notification_channel_push_name">ການແຈ້ງເຕືອນ</string>
     <string name="notification_channel_upload_description">ສະແດງຄວາມຄືບຫນ້າໃນການອັບໂຫຼດ</string>
-    <string name="notification_channel_upload_name">ອັບໂຫຼດຊ່ອງການແຈ້ງເຕືອນ</string>
     <string name="notification_icon">icon ການແຈ້ງເຕືອນ</string>
     <string name="notifications_no_results_headline">ບໍ່ມີການແຈ້ງເຕືອນ</string>
     <string name="notifications_no_results_message">ກະລຸນາກວດກາຄືນໃນເວລາຕໍ່ມາ.</string>
@@ -497,7 +479,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">ທົ່ວໄປ</string>
     <string name="prefs_category_more">ເພີ່ມເຕີມ</string>
-    <string name="prefs_daily_contacts_sync_summary">ສໍາຮອງປະຈໍາວັນຂອງການຕິດຕໍ່</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">ເພື່ອສະແດງ mnemonic ກະລຸນາເປິດຂໍ້ມູນປະຈຳຕົວຂອງອຸປະກອນ.</string>
     <string name="prefs_enable_media_scan_notifications">ສະແດງການແຈ້ງເຕືຶອນສື່ ມວນ ຊົນ</string>
@@ -600,13 +581,11 @@
     <string name="share_no_expiration_date_label">ກໍານົດວັນໝົດອາຍຸ</string>
     <string name="share_no_password_title">ກຳນົດລະຫັດຜ່ານ</string>
     <string name="share_password_title">ລະຫັດປ້ອງກັນ</string>
-    <string name="share_privilege_unshare">ຍົກເລີກການແບ່ງປັນ</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>
     <string name="share_room_clarification"> %1$s(ສົນທະນາ)</string>
     <string name="share_search">ຊື່, IDCloud  ຫຼື ທີ່ຢູ່ອີເມວ ...</string>
     <string name="share_send_note">ລະບຸຜູ້ຮັບ</string>
     <string name="share_via_link_hide_download">ເຊື່ອງການດາວໂຫຼດ</string>
-    <string name="share_via_link_menu_password_label">ປ້ອງກັນລະຫັດຜ່ານ(%1$s)</string>
     <string name="share_via_link_section_title">ແບ່ງປັນລິງ</string>
     <string name="share_via_link_send_link_label">ສົ່ງລິງ</string>
     <string name="share_via_link_unset_password">ຍົກເລີກການຕັ້ງຄ່າ</string>
@@ -714,7 +693,6 @@
     <string name="unread_comments">ຄວາມຄິດເຫັນທີ່ບໍ່ອ່ານ</string>
     <string name="unset_encrypted">ຍົກເລີິກການຕັ້ງຄ່າເຂົ້າລະຫັດຜ່ານ</string>
     <string name="unset_favorite">ຍ້າຍອອກຈາກລາຍການທີ່ມັກ</string>
-    <string name="unshare">ຍົກເລີກການແບ່ງປັນ</string>
     <string name="unshare_link_file_error">ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ພະຍາຍາມຍົກເລີກຟາຍແບ້ງປັນ ຫຼື ໂຟນເດີນີ້.</string>
     <string name="unshare_link_file_no_exist">ບໍ່ສາມາດແບ່ງປັນໄດ້. ກະລຸນາກວດເບິ່ງວ່າມີຟາຍຢູ່ ຫຼື ບໍ່.</string>
     <string name="unshare_link_forbidden_permissions">ເພື່ອຍົກເລີກການແບ່ງປັນຟາຍນີ້</string>

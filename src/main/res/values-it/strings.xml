@@ -14,8 +14,6 @@
     <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
-    <string name="actionbar_contacts">Esegui backup dei contatti</string>
-    <string name="actionbar_contacts_restore">Ripristina contatti</string>
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move">Sposta</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Aggiungi un altro collegamento</string>
     <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
     <string name="add_to_cloud">Aggiungi a %1$s</string>
-    <string name="allow_creating">Consenti la creazione</string>
-    <string name="allow_deleting">Consenti l\'eliminazione</string>
-    <string name="allow_editing">Consenti la modifica</string>
     <string name="allow_resharing">Consenti la ri-condivisione</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
-    <string name="battery_optimization_no_setting">Impossibile avviare direttamente le impostazioni della batteria. Modificale manualmente nelle impostazioni</string>
     <string name="battery_optimization_title">Ottimizzazione batteria</string>
     <string name="brute_force_delay">Ritardato a causa di troppi tentativi errati</string>
     <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_new_file">Nuovo file</string>
-    <string name="contaclist_restore_selected">Ripristina contatti selezionati</string>
-    <string name="contactlist_account_chooser_title">Scegli account da importare</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato.</string>
-    <string name="contacts_automatic_backup">Backup automatico</string>
     <string name="contacts_backup_button">Esegui backup ora</string>
-    <string name="contacts_last_backup">Ultimo backup</string>
-    <string name="contacts_preference_backup_never">mai</string>
-    <string name="contacts_preference_choose_date">Scegli data</string>
     <string name="contacts_preferences_backup_scheduled">Backup pianificato e partirà a breve</string>
     <string name="contacts_preferences_import_scheduled">Importazione pianificata e partirà a breve</string>
     <string name="contacts_preferences_no_file_found">Nessun file trovato</string>
     <string name="contacts_preferences_something_strange_happened">Non troviamo il tuo ultimo backup!</string>
-    <string name="contacts_read_permission">Permesso di lettura dell\'elenco dei contatti richiesto </string>
     <string name="copied_to_clipboard">Copiato negli appunti</string>
     <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
     <string name="copy_file_invalid_into_descendent">Impossibile copiare una cartella in una delle sue cartelle sottostanti</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
-    <string name="edit_label">Cambia il nome</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -448,9 +434,6 @@
     <string name="note_icon_hint">Icona della nota</string>
     <string name="notification_action_failed">Esecuzione dell\'azione non riuscita.</string>
     <string name="notification_channel_download_description">Mostra l\'avanzamento degli scaricamenti</string>
-    <string name="notification_channel_download_name">Canale delle notifiche di scaricamento</string>
-    <string name="notification_channel_file_observer_description">Controlla le modifiche per i file</string>
-    <string name="notification_channel_file_observer_name">Osservatore dei file</string>
     <string name="notification_channel_file_sync_description">Mostra l\'avanzamento e i risultati della sincronizzazione file</string>
     <string name="notification_channel_file_sync_name">Sincronizzazione file</string>
     <string name="notification_channel_general_description">Mostra notifiche per le nuove cartelle multimediali e simili</string>
@@ -460,7 +443,6 @@
     <string name="notification_channel_push_description">Mostra le notifiche push inviate dal server: menzioni nei commenti, ricezione di nuove condivisioni remote, annunci pubblicati da un amministratore ecc.</string>
     <string name="notification_channel_push_name">Notifiche push</string>
     <string name="notification_channel_upload_description">Mostra l\'avanzamento dei caricamenti</string>
-    <string name="notification_channel_upload_name">Canale delle notifiche di caricamento</string>
     <string name="notification_icon">Icona di notifica</string>
     <string name="notifications_no_results_headline">Nessuna notifica</string>
     <string name="notifications_no_results_message">Controlla nuovamente più tardi.</string>
@@ -511,7 +493,6 @@
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
-    <string name="prefs_daily_contacts_sync_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notifiche di scansione dei supporti</string>
@@ -615,13 +596,11 @@
     <string name="share_no_expiration_date_label">Imposta data di scadenza</string>
     <string name="share_no_password_title">Imposta password</string>
     <string name="share_password_title">Protetta da password</string>
-    <string name="share_privilege_unshare">Rimuovi condivisione</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
     <string name="share_room_clarification">%1$s (conversazione)</string>
     <string name="share_search">Nome, ID di cloud federata o indirizzo email…</string>
     <string name="share_send_note">Nota per destinatario</string>
     <string name="share_via_link_hide_download">Nascondi scaricamento</string>
-    <string name="share_via_link_menu_password_label">Proteggi con password (%1$s)</string>
     <string name="share_via_link_section_title">Condividi collegamento</string>
     <string name="share_via_link_send_link_label">Invia collegamento</string>
     <string name="share_via_link_unset_password">Rimuovi</string>
@@ -731,7 +710,6 @@
     <string name="unread_comments">Sono presenti commenti non letti</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="unset_favorite">Rimuovi dai preferiti</string>
-    <string name="unshare">Rimuovi condivisione</string>
     <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimozione della condivisione del file o della cartella.</string>
     <string name="unshare_link_file_no_exist">Impossibile rimuovere la condivisione. Assicurati che il file esista.</string>
     <string name="unshare_link_forbidden_permissions">per rimuovere la condivisione di questo file</string>

@@ -14,8 +14,6 @@
     <string name="action_send_share">Kirim/Bagi</string>
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
-    <string name="actionbar_contacts">Cadangkan kontak.</string>
-    <string name="actionbar_contacts_restore">Pulihkan kontak.</string>
     <string name="actionbar_copy">Salin</string>
     <string name="actionbar_mkdir">Folder baru</string>
     <string name="actionbar_move">Pindah</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Tambah tautan lain</string>
     <string name="add_new_public_share">Tambahkan tautan berbagi baru</string>
     <string name="add_to_cloud">Tambahkan ke %1$s</string>
-    <string name="allow_creating">Izinkan pembuatan</string>
-    <string name="allow_deleting">Izinkan penghapusan</string>
-    <string name="allow_editing">Izinkan penyuntingan</string>
     <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="appbar_search_in">Cari dalam %s</string>
     <string name="associated_account_not_found">Akun terkait tidak ditemukan!</string>
@@ -83,7 +78,6 @@
     <string name="battery_optimization_disable">Nonaktifkan</string>
     <string name="battery_optimization_message">Optimisasi baterai perangkat anda mungkin sedang aktif.
 Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini dari itu.</string>
-    <string name="battery_optimization_no_setting">Tidak dapat untuk membuka pengaturan baterai secara langsung. Mohon atur pengaturan secara manual.</string>
     <string name="battery_optimization_title">Optimisasi baterai</string>
     <string name="brute_force_delay">Ditahan karena terlalu banyak percobaan gagal</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
@@ -138,19 +132,12 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folder_alert">Apakah anda yakin ingin menghapus %1$s beserta isinya?</string>
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
-    <string name="contaclist_restore_selected">Memulihkan kontak pilihan.</string>
-    <string name="contactlist_account_chooser_title">Pilih akun untuk di impor</string>
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
-    <string name="contacts_automatic_backup">Cadangkan otomatis</string>
     <string name="contacts_backup_button">Cadangkan sekarang.</string>
-    <string name="contacts_last_backup">Pencadangan terakhir.</string>
-    <string name="contacts_preference_backup_never">tidak pernah.</string>
-    <string name="contacts_preference_choose_date">Pilih tanggal.</string>
     <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
-    <string name="contacts_read_permission">Dibutuhkan Ijin untuk melihat daftar kontak</string>
     <string name="copied_to_clipboard">Disalin ke papan klip</string>
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
@@ -360,7 +347,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_category_dev">Pengembang</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
-    <string name="prefs_daily_contacts_sync_summary">Cadangkan kontak harian</string>
     <string name="prefs_help">Bantuan</string>
     <string name="prefs_imprint">Jejak</string>
     <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi…</string>
@@ -415,11 +401,9 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_no_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_no_password_title">Atur kata sandi</string>
     <string name="share_password_title">Sandi dilindungi</string>
-    <string name="share_privilege_unshare">Batalkan berbagi</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_send_note">Catatan untuk penerima</string>
     <string name="share_via_link_hide_download">Sembunyikan unduhan</string>
-    <string name="share_via_link_menu_password_label">Lindungi dengan sandi (%1$s)</string>
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_send_link_label">Kirim taukan</string>
     <string name="share_with_title">Bagikan dengan…</string>
@@ -485,7 +469,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="trashbin_activity_title">Berkas terhapus</string>
     <string name="trashbin_empty_headline">Tidak ada berkas yang dihapus.</string>
     <string name="unset_favorite">Hapus dari favorit</string>
-    <string name="unshare">Batalkan berbagi</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>
     <string name="update_link_forbidden_permissions">untuk memperbarui pembagian ini</string>
     <string name="upload_chooser_title">Unggah dari…</string>

@@ -65,7 +65,7 @@ class SessionMixin constructor(
         }
 
         currentAccount?.let {
-            val storageManager = FileDataStorageManager(currentAccount, contentResolver)
+            val storageManager = FileDataStorageManager(getUser().get(), contentResolver)
             this.storageManager = storageManager
             this.capabilities = storageManager.getCapability(it.name)
         }

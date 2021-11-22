@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
     <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
-    <string name="actionbar_contacts">Névjegyek biztonsági mentése</string>
-    <string name="actionbar_contacts_restore">Névjegyek visszaállítása</string>
     <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="advanced_settings">Speciális beállítások</string>
-    <string name="allow_creating">Létrehozás engedélyezése</string>
-    <string name="allow_deleting">Törlés engedélyezése</string>
-    <string name="allow_editing">Szerkesztés engedélyezése</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Bezárás</string>
     <string name="battery_optimization_disable">Letiltás</string>
     <string name="battery_optimization_message">Az eszközön lehet, hogy be van kapcsolva az akkumulátor optimalizálás. Az automatikus feltöltés csak akkor működik megfelelően, ha tiltólistára teszi ezt az alkalmazást.</string>
-    <string name="battery_optimization_no_setting">Az akkumulátorbeállításokat nem lehet közvetlenül elindítani. Állítsa be kézzel a beállításokban.</string>
     <string name="battery_optimization_title">Akkumulátor optimalizálás</string>
     <string name="brute_force_delay">Túl sok hibás próbálkozás miatt halasztva</string>
     <string name="calendar">Naptár</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_new_file">Új fájl</string>
-    <string name="contaclist_restore_selected">Kiválasztott névjegyek visszaállítása</string>
-    <string name="contactlist_account_chooser_title">Válasszon importálandó fiókot</string>
     <string name="contactlist_item_icon">Felhasználó ikon a névjegylistához</string>
     <string name="contactlist_no_permission">Nincs jogosultság megadva, semmi sem lett importálva.</string>
     <string name="contacts">Névjegyek</string>
-    <string name="contacts_automatic_backup">Automatikus biztonsági mentés</string>
     <string name="contacts_backup_button">Biztonsági mentés most</string>
-    <string name="contacts_last_backup">Utolsó biztonsági mentés</string>
-    <string name="contacts_preference_backup_never">soha</string>
-    <string name="contacts_preference_choose_date">Válasszon dátumot</string>
     <string name="contacts_preferences_backup_scheduled">Biztonsági mentés beütemezve, és hamarosan indul</string>
     <string name="contacts_preferences_import_scheduled">Importálás beütemezve, és hamarosan indul</string>
     <string name="contacts_preferences_no_file_found">Nincs fájl</string>
     <string name="contacts_preferences_something_strange_happened">A legutóbbi biztonsági mentés nem található!</string>
-    <string name="contacts_read_permission">Jogosultság szükséges a névjegylista olvasásához</string>
     <string name="copied_to_clipboard">Vágólapra másolva</string>
     <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
     <string name="copy_file_invalid_into_descendent">Nem másolható egy mappa a saját almappájába</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
-    <string name="edit_label">Név módosítása</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
@@ -328,6 +314,7 @@
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
+    <string name="file_management_permission">Engedély szükséges</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
     <string name="file_migration_dialog_title">Adattároló mappa frissítése</string>
@@ -405,6 +392,7 @@
     <string name="link_share_editing">Szerkesztés</string>
     <string name="link_share_file_drop">Fájl ledobás (csak feltöltés)</string>
     <string name="link_share_read_only">Csak olvasható</string>
+    <string name="link_share_view_only">Csak megtekintés</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="load_more_results">További találatok betöltése</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
@@ -472,10 +460,7 @@
     <string name="note_icon_hint">Megjegyzés ikon</string>
     <string name="notification_action_failed">A művelet végrehajtása sikertelen.</string>
     <string name="notification_channel_download_description">Megjeleníti a letöltési folyamatokat</string>
-    <string name="notification_channel_download_name">Letöltési értesítési csatorna</string>
     <string name="notification_channel_download_name_short">Letöltések</string>
-    <string name="notification_channel_file_observer_description">Figyeli a fájlok változásait</string>
-    <string name="notification_channel_file_observer_name">Fájlfigyelő</string>
     <string name="notification_channel_file_sync_description">Megjeleníti a fájlszinkronizálás folyamatát és az eredményeket</string>
     <string name="notification_channel_file_sync_name">Fájl szinkronizálás</string>
     <string name="notification_channel_general_description">Értesítések megjelenítése az új médiamappák és hasonlók esetén</string>
@@ -485,7 +470,6 @@
     <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="notification_channel_push_name">Leküldéses értesítések</string>
     <string name="notification_channel_upload_description">Megjeleníti a feltöltési folyamatokat</string>
-    <string name="notification_channel_upload_name">Feltöltési értesítési csatorna</string>
     <string name="notification_channel_upload_name_short">Feltöltések</string>
     <string name="notification_icon">Értesítési ikon</string>
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
@@ -538,7 +522,6 @@
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
-    <string name="prefs_daily_contacts_sync_summary">Névjegyek napi biztonsági mentése</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus kód</string>
     <string name="prefs_e2e_no_device_credentials">A mnenomikus kód megjelenítéséhez engedélyezze az eszköz hitelesítését.</string>
     <string name="prefs_enable_media_scan_notifications">Média keresési értesítések megjelenítése</string>
@@ -655,7 +638,6 @@
     <string name="share_permission_file_drop">Fájl ejtése</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
     <string name="share_permissions">Megosztási jogosultságok</string>
-    <string name="share_privilege_unshare">Megosztás visszavonása</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
     <string name="share_search">Név, egyesített felhőazonosító vagy e-mail-cím…</string>
@@ -663,7 +645,6 @@
     <string name="share_send_note">Jegyzet a címzettnek</string>
     <string name="share_settings">Beállítások</string>
     <string name="share_via_link_hide_download">Letöltés elrejtése</string>
-    <string name="share_via_link_menu_password_label">Jelszavas védelem (%1$s)</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
     <string name="share_via_link_send_link_label">Hivatkozás küldése</string>
     <string name="share_via_link_unset_password">Kikapcsolás</string>
@@ -792,7 +773,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="unset_favorite">Eltávolítás a kedvencekből</string>
-    <string name="unshare">Megosztás visszavonása</string>
     <string name="unshare_link_file_error">Hiba történt a mappa megosztásának visszavonásakor.</string>
     <string name="unshare_link_file_no_exist">A megosztás visszavonása sikertelen. Ellenőrizze, hogy a fájl létezik-e.</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztásának visszavonása</string>

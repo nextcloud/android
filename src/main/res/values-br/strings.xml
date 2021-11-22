@@ -13,8 +13,6 @@
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
-    <string name="actionbar_contacts">Enrollañ an darempred</string>
-    <string name="actionbar_contacts_restore">Adkrouiñ an darempred</string>
     <string name="actionbar_copy">Eilañ</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
     <string name="actionbar_move">Diplasañ</string>
@@ -33,7 +31,6 @@
     <string name="add_another_public_share_link">Implij ul liamm all</string>
     <string name="add_new_public_share">Ouzhpennañ ul liamm rannan publik nevez</string>
     <string name="add_to_cloud">Ouzhpennañ da %1$s</string>
-    <string name="allow_editing">Cheñchamentoù aotreet</string>
     <string name="allow_resharing">Aotrea an adrannañ</string>
     <string name="appbar_search_in">Klask e %s</string>
     <string name="associated_account_not_found">N\'eo ket bet kavet ur c\'hont kenstaget</string>
@@ -79,7 +76,6 @@
     <string name="battery_optimization_close">Serriñ</string>
     <string name="battery_optimization_disable">Disaotreañ</string>
     <string name="battery_optimization_message">Posuple eo e vefe aotreet ar gwelaer ped-tredan war o ardivink. AutoUpload a labour mat nemet ma vez lammet ar meziant man euz an ardivink.</string>
-    <string name="battery_optimization_no_setting">Diposupl eo lakaat en dro stumm ar pod-tredan diouztu. Adlakit ar stumm gant an dorn mar-plij.</string>
     <string name="battery_optimization_title">Gwelaer pod-tredan</string>
     <string name="certificate_load_problem">Ur gudenn a zo bet n ur karga ar sertifikad</string>
     <string name="changelog_dev_version">Stumm diorenañ ar gazetenn-cheñchoù</string>
@@ -140,20 +136,13 @@
     <string name="conflict_dialog_error">Ur fazi en deus krouet divizoù diemglev !</string>
     <string name="conflict_message_description">Ma choazit an daou stumm, ar restr diabarzh en do un niver ouzhpennet war e anv.</string>
     <string name="conflict_new_file">Restr nevez</string>
-    <string name="contaclist_restore_selected">Adkrouiñ an darempredoù choazet</string>
-    <string name="contactlist_account_chooser_title">Chaozit ur c\'hont da emporzhiañ</string>
     <string name="contactlist_item_icon">Skeudenn  implijer evit ar roll darempredoù</string>
     <string name="contactlist_no_permission">Oaetre ebet roet, netra a zo bet emporzhiet.</string>
-    <string name="contacts_automatic_backup">Enrolladen otomatek</string>
     <string name="contacts_backup_button">Enrollañ bremañ</string>
-    <string name="contacts_last_backup">Enrolladen divezhañ</string>
-    <string name="contacts_preference_backup_never">james</string>
-    <string name="contacts_preference_choose_date">Chazit un deizat</string>
     <string name="contacts_preferences_backup_scheduled">Enriolladen raktresset a grogo a benn neubeut amzer</string>
     <string name="contacts_preferences_import_scheduled">Emporzhiañ raktresset a grogo a benn neubeut amzer</string>
     <string name="contacts_preferences_no_file_found">Restr  kavet ebet</string>
     <string name="contacts_preferences_something_strange_happened">N\'eo ket posuple kavout an enrolladenn divezhañ !</string>
-    <string name="contacts_read_permission">Ezhomp a zo eus un aotre evit lenn roll an darempredoù</string>
     <string name="copied_to_clipboard">Eilet er golver</string>
     <string name="copy_file_error">Ur fazi a zo bet pa oa klasket eilan ar restr pe an teuliad</string>
     <string name="copy_file_invalid_into_descendent">N\'eo ket posuple eilan un teuliad en unan eus e teuliadoù diabarzh</string>
@@ -217,7 +206,6 @@
     <string name="drawer_quota">%1$s eus %2$s implijet</string>
     <string name="drawer_quota_unlimited">%1$s implijet</string>
     <string name="drawer_synced_folders">Pellkasadenn otomatek</string>
-    <string name="edit_label">Cheñch env</string>
     <string name="encrypted">Lakaat evel sifret</string>
     <string name="end_to_end_encryption_confirm_button">Stumma ar sifradur</string>
     <string name="end_to_end_encryption_decrypting">Disifrañ</string>
@@ -413,9 +401,6 @@
     <string name="note_icon_hint">Skeuden notenn</string>
     <string name="notification_action_failed">C\'hxitet ober an oberenn</string>
     <string name="notification_channel_download_description">Diskouez araokadur ar pellgargañ</string>
-    <string name="notification_channel_download_name">Chadenn kemenadenn ar pellgargañ</string>
-    <string name="notification_channel_file_observer_description">O klask cheñchamantoù er restroù</string>
-    <string name="notification_channel_file_observer_name">Diskouezer restr</string>
     <string name="notification_channel_file_sync_description">Diskouez arakadenn ha disorc\'hoù kempredenn ar restr</string>
     <string name="notification_channel_file_sync_name">Restr kemprenet</string>
     <string name="notification_channel_general_description">Diskouez kemenadenoù evit an teuliadoù media nevez hag heñvel</string>
@@ -425,7 +410,6 @@
     <string name="notification_channel_push_description">Diskwez ar gemenadenoù push kaset gant ar servijour : Meneget en displegoù, degemeret ur rannaden pell nevez, kemenadennoù kaset digant ar merour, hag-all-hag-all.</string>
     <string name="notification_channel_push_name">Kemenadennoù push</string>
     <string name="notification_channel_upload_description">Diskouez araokadur ar pallkas</string>
-    <string name="notification_channel_upload_name">Pellkas chadenn ar gemenadenn</string>
     <string name="notification_icon">Skeudenn kemenadenn</string>
     <string name="notifications_no_results_headline">Kemenaden ebet</string>
     <string name="notifications_no_results_message">Gwiriit adare goude mar-plij</string>
@@ -470,7 +454,6 @@
     <string name="prefs_category_dev">Diorenn</string>
     <string name="prefs_category_general">Hollek</string>
     <string name="prefs_category_more">Muioc\'h</string>
-    <string name="prefs_daily_contacts_sync_summary">Enrolladur deizek eus o darempredoù</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Evit diskwell mnemonic, aotreit titouroù identitelez o ardivink mar-plij.</string>
     <string name="prefs_enable_media_scan_notifications">Diskouezit scan kemenadennoù ar media</string>
@@ -565,12 +548,10 @@
     <string name="share_no_expiration_date_label">Lakaat un deizat termen</string>
     <string name="share_no_password_title">Termeniñ ur ger-tremen</string>
     <string name="share_password_title">Gwarezet gant ur ger-tremen</string>
-    <string name="share_privilege_unshare">Nag eskemm ken</string>
     <string name="share_remote_clarification">%1$s (pell)</string>
     <string name="share_room_clarification">%1$s (diviz)</string>
     <string name="share_send_note">Kemenañ d\'an degemerer</string>
     <string name="share_via_link_hide_download">Skoachañ ar bellgargañ</string>
-    <string name="share_via_link_menu_password_label">Ger-tremen gwarezet (%1$s)</string>
     <string name="share_via_link_section_title">Rannan liamm</string>
     <string name="share_via_link_send_link_label">Kal liamm</string>
     <string name="share_via_link_unset_password">N\'eo ket bet lakaet</string>
@@ -676,7 +657,6 @@
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
     <string name="unset_encrypted">Lemel ar sifrañ</string>
     <string name="unset_favorite">Lemel eus ar pennroll</string>
-    <string name="unshare">Na eskemm ken</string>
     <string name="unshare_link_file_error">Ur fazi a zo bet pa oamp o klask dirannan ar restr pe an teuliad.</string>
     <string name="unshare_link_file_no_exist">Dibosupl eo dirannañ. Selleit ma\'z eus ouzh ar restr.</string>
     <string name="unshare_link_forbidden_permissions">evit diranna ar restr</string>
