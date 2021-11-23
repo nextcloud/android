@@ -1,0 +1,4 @@
+Migate OCUpload to User
+Remove platform Account from FileDataStorageManager implementation
+Update translations
+Update Nextcloud Android library
