@@ -291,8 +291,9 @@ public class TrashbinActivity extends DrawerActivity implements
 
     @VisibleForTesting
     public void showInitialLoading() {
-        binding.loadingContent.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
         binding.list.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.VISIBLE);
     }
 
     @VisibleForTesting
