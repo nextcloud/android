@@ -467,6 +467,7 @@
         <package android:name="it.niedermann.nextcloud.deck" />
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
+        <package android:name="at.bitfire.davdroid"/>
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
