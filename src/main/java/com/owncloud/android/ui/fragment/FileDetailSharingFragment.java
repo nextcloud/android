@@ -29,6 +29,7 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -57,6 +58,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
@@ -79,6 +81,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
@@ -232,6 +235,18 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 disableSearchView(viewGroup.getChildAt(i));
             }
         }
+    }
+
+    public void initiateSharingProcess(String shareeName, ShareType shareType) {
+       binding.shareContainer.setVisibility(View.GONE);
+       binding.sharingFrameContainer1.setVisibility(View.VISIBLE);
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container1,
+                                                                                 FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                                               shareeName,
+                                                                                                                               shareType, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                 FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
+            .commit();
     }
 
     private void setShareWithYou() {
@@ -457,7 +472,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void showHideView(boolean isEmptyList){
         binding.sharesList.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
-        binding.tvYourShares.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
+        binding.tvYourShares.setVisibility(isEmptyList ?View.GONE : View.VISIBLE);
         binding.tvEmptyShares.setVisibility(isEmptyList ? View.VISIBLE : View.GONE);
     }
 

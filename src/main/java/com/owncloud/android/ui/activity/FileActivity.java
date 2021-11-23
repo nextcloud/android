@@ -896,6 +896,13 @@ public abstract class FileActivity extends DrawerActivity
         if (fragment!=null){
             ((FileDetailFragment)fragment).initiateSharingProcess(shareeName, shareType);
         }
+        else
+        {
+            fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
+            if(fragment!=null) {
+                ((FileDetailSharingFragment) fragment).initiateSharingProcess(shareeName, shareType);
+            }
+        }
     }
 
     /**
