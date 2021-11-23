@@ -483,7 +483,7 @@ public class FileDownloader extends Service
 
                 } finally {
                     Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.removePayload(
-                        currentUser.get().getAccountName(), mCurrentDownload.getRemotePath());
+                        mCurrentDownload.getUser().getAccountName(), mCurrentDownload.getRemotePath());
 
                     if (downloadResult == null) {
                         downloadResult = new RemoteOperationResult(new RuntimeException("Error downloading…"));
