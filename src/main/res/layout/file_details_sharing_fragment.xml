@@ -23,17 +23,12 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/shareContainer1"
+        android:id="@+id/shareContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/standard_margin"
         android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/shareContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -193,13 +188,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="80dp"/>
-        </LinearLayout>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:id="@+id/sharing_frame_container1"
-            android:layout_height="800dp"
-            android:visibility="gone"/>
 
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>

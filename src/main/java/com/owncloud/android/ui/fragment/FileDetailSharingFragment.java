@@ -237,13 +237,34 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
+    /**
+     * will be called from FileActivity when user is sharing from PreviewImageFragment
+     * @param shareeName
+     * @param shareType
+     */
     public void initiateSharingProcess(String shareeName, ShareType shareType) {
-       binding.shareContainer.setVisibility(View.GONE);
-       binding.sharingFrameContainer1.setVisibility(View.VISIBLE);
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container1,
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                                  FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                                                shareeName,
                                                                                                                                shareType, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                 FileDetailsSharingProcessFragment.TAG)
+            .addToBackStack(null)
+            .commit();
+    }
+
+    /**
+     * open the new sharing screen process to modify the created share
+     * this will be called from PreviewImageFragment
+     * @param share
+     * @param screenTypePermission
+     * @param isReshareShown
+     * @param isExpiryDateShown
+     */
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
+                                  boolean isExpiryDateShown) {
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
+                                                                                 FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
+                                                                                                                               isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(getFile())),
                                                                                  FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();

@@ -892,14 +892,13 @@ public abstract class FileActivity extends DrawerActivity
      * @param shareType
      */
     private void doShareWith(String shareeName, ShareType shareType) {
-        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment!=null){
-            ((FileDetailFragment)fragment).initiateSharingProcess(shareeName, shareType);
-        }
-        else
-        {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment != null) {
+            ((FileDetailFragment) fragment).initiateSharingProcess(shareeName, shareType);
+        } else {
+            //if user sharing from Preview Image Fragment
             fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
-            if(fragment!=null) {
+            if (fragment != null) {
                 ((FileDetailSharingFragment) fragment).initiateSharingProcess(shareeName, shareType);
             }
         }
@@ -915,9 +914,15 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
                                   boolean isExpiryDateShown) {
-        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment!=null){
-            ((FileDetailFragment)fragment).editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment != null) {
+            ((FileDetailFragment) fragment).editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+        } else {
+            //if user editing from Preview Image Fragment
+            fragment = getSupportFragmentManager().findFragmentByTag(ShareActivity.TAG_SHARE_FRAGMENT);
+            if (fragment != null) {
+                ((FileDetailSharingFragment) fragment).editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+            }
         }
     }
 
