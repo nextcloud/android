@@ -7,7 +7,7 @@
     <string name="account_creation_failed">Ha fallado la creación de la cuenta</string>
     <string name="account_icon">Icono de la cuenta</string>
     <string name="account_not_found">¡Cuenta no encontrada!</string>
-    <string name="action_clear_failed_uploads">Quitar cargas fallidas</string>
+    <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>

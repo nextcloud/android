@@ -140,12 +140,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 case FAILED:
                     new Thread(() -> FileUploader.retryFailedUploads(
                         parentActivity,
-                        null,
                         uploadsStorageManager,
                         connectivityService,
                         accountManager,
-                        powerManagementService,
-                        null
+                        powerManagementService
                     )).start();
                     break;
 
@@ -358,7 +356,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(item.getAccount(accountManager));
+                    final Optional<User> user = accountManager.getUser(item.getAccountName());
+                    final Account account = user.orElseThrow(RuntimeException::new).toPlatformAccount();
+                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(account);
                     return;
                 } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
                     User user = optionalUser.get();
@@ -369,8 +369,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
                 // not a credentials error
                 File file = new File(item.getLocalPath());
-                if (file.exists()) {
-                    FileUploader.retryUpload(parentActivity, item.getAccount(accountManager), item);
+                Optional<User> user = accountManager.getUser(item.getAccountName());
+                if (file.exists() && user.isPresent()) {
+                    FileUploader.retryUpload(parentActivity, user.get(), item);
                     loadUploadItemsFromDb();
                 } else {
                     DisplayUtils.showSnackMessage(
@@ -574,13 +575,16 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         file.setStoragePath(upload.getLocalPath());
 
         Context context = MainApp.getAppContext();
-        Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                              upload.getAccount(accountManager),
-                                                              upload.getUploadId(),
-                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                              context);
+        Optional<User> user = accountManager.getUser(upload.getAccountName());
+        if (user.isPresent()) {
+            Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                  user.get().toPlatformAccount(),
+                                                                  upload.getUploadId(),
+                                                                  Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                  context);
 
-        context.startActivity(intent);
+            context.startActivity(intent);
+        }
     }
 
     /**

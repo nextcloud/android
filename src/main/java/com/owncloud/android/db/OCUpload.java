@@ -27,6 +27,7 @@ import android.accounts.Account;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -135,7 +136,7 @@ public class OCUpload implements Parcelable {
      *
      * @param localPath         Absolute path in the local file system to the file to be uploaded.
      * @param remotePath        Absolute path in the remote account to set to the uploaded file.
-     * @param accountName       Name of an ownCloud account to update the file to.
+     * @param accountName       Name of an file owner account.
      */
     public OCUpload(String localPath, String remotePath, String accountName) {
         if (localPath == null || !localPath.startsWith(File.separator)) {
@@ -157,10 +158,10 @@ public class OCUpload implements Parcelable {
      * Convenience constructor to re-upload already existing {@link OCFile}s.
      *
      * @param  ocFile           {@link OCFile} instance to update in the remote server.
-     * @param  account          ownCloud {@link Account} where ocFile is contained.
+     * @param  user             file owner
      */
-    public OCUpload(OCFile ocFile, Account account) {
-        this(ocFile.getStoragePath(), ocFile.getRemotePath(), account.name);
+    public OCUpload(OCFile ocFile, User user) {
+        this(ocFile.getStoragePath(), ocFile.getRemotePath(), user.getAccountName());
     }
 
     /**
@@ -228,13 +229,6 @@ public class OCUpload implements Parcelable {
      */
     public String getMimeType() {
         return MimeTypeUtil.getBestMimeTypeByFilename(localPath);
-    }
-
-    /**
-     * Returns owncloud account as {@link Account} object.
-     */
-    public Account getAccount(UserAccountManager accountManager) {
-        return accountManager.getAccountByName(getAccountName());
     }
 
     /**
