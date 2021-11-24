@@ -1,0 +1,3 @@
+Remove Account from ArbitraryDataProvider
+AndroidManifest: allow querying for davdroid app.
+Update translations
