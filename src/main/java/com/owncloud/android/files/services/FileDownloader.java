@@ -105,7 +105,7 @@ public class FileDownloader extends Service
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private OwnCloudClient mDownloadClient;
-    private Optional<User> currentUser;
+    private Optional<User> currentUser = Optional.empty();
     private FileDataStorageManager mStorageManager;
 
     private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<>();
