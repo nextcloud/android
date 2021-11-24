@@ -382,6 +382,7 @@ Attention la suppression est irréversible.</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
+    <string name="last_backup">Dernière sauvegarde: %1$s</string>
     <string name="link">Lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
     <string name="link_share_file_drop">Dépôt de fichier (envoi uniquement)</string>
@@ -618,6 +619,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
     <string name="share_send_note">Note au destinataire</string>
+    <string name="share_settings">Paramètres</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
     <string name="share_via_link_section_title">Lien de partage</string>
     <string name="share_via_link_send_link_label">Envoyer le lien</string>

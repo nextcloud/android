@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -138,11 +137,6 @@ public class ArbitraryDataProvider {
         return getBooleanValue(user.getAccountName(), key);
     }
 
-    @Deprecated
-    public boolean getBooleanValue(Account account, String key) {
-        return getBooleanValue(account.name, key);
-    }
-
     /**
      * returns integer if found else -1
      *
@@ -158,17 +152,6 @@ public class ArbitraryDataProvider {
         } else {
             return Integer.valueOf(value);
         }
-    }
-
-    /**
-     * Returns stored value as string or empty string
-     *
-     * @return string if value found or empty string
-     */
-    @NonNull
-    @Deprecated
-    public String getValue(Account account, String key) {
-        return account != null ? getValue(account.name, key) : "";
     }
 
     /**
