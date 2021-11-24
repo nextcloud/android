@@ -73,7 +73,7 @@
     </style>
 
     <style name="TextInputLayoutInputWarning" parent="Widget.App.TextInputLayout">
-        <item name="colorError">@color/text_color</item>
+        <item name="colorError">@color/primary</item>
     </style>
 
     <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
