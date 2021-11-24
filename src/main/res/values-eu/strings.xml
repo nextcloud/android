@@ -283,7 +283,7 @@
     <string name="etm_transfer_enqueue_test_upload">Ilaran jarri proba-igoera</string>
     <string name="etm_transfer_remote_path">Urruneko bide-izena</string>
     <string name="etm_transfer_type">Transferitu</string>
-    <string name="etm_transfer_type_download">Jaitsi</string>
+    <string name="etm_transfer_type_download">Deskargatu</string>
     <string name="etm_transfer_type_upload">Kargatu</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
