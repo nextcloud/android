@@ -93,5 +93,54 @@ public class AuthenticatorUrlUtilsTest {
             //      output is empty
             Assert.assertEquals("", normalized);
         }
+
+
+        @Test
+        public void ipAddress() {
+            // GIVEN
+            //      input URL is an IP address
+            String url = "127.0.0.1";
+
+            // WHEN
+            //      scheme is normalized
+            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+
+            // THEN
+            //      output is equal
+            Assert.assertEquals(url, normalized);
+        }
+
+
+        @Test
+        public void withPort() {
+            // GIVEN
+            //      input URL has a port
+            String url = "host.net:8080/index.php/apps/ABC/def/?";
+
+            // WHEN
+            //      scheme is normalized
+            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+
+            // THEN
+            //      output is equal
+            Assert.assertEquals(url, normalized);
+        }
+
+
+        @Test
+        public void ipAddressWithPort() {
+            // GIVEN
+            //      input URL is an IP address
+            //      input URL has a port
+            String url = "127.0.0.1:8080/index.php/apps/ABC/def/?";
+
+            // WHEN
+            //      scheme is normalized
+            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+
+            // THEN
+            //      output is equal
+            Assert.assertEquals(url, normalized);
+        }
     }
 }
