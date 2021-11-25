@@ -87,7 +87,7 @@ class ContactsImportWork(
                 for (i in 0 until cursor.count) {
                     val vCard = getContactFromCursor(cursor)
                     if (vCard != null) {
-                        ownContactMap[vCard] = cursor.getLong(cursor.getColumnIndex("NAME_RAW_CONTACT_ID"))
+                        ownContactMap[vCard] = cursor.getLong(cursor.getColumnIndexOrThrow("NAME_RAW_CONTACT_ID"))
                     }
                     cursor.moveToNext()
                 }
@@ -114,7 +114,7 @@ class ContactsImportWork(
     }
 
     private fun getContactFromCursor(cursor: Cursor): VCard? {
-        val lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
+        val lookupKey = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.LOOKUP_KEY))
         val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey)
         var vCard: VCard? = null
         try {

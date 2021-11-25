@@ -176,9 +176,9 @@ public class FileContentProvider extends ContentProvider {
                 long childId;
                 boolean isDir;
                 while (!children.isAfterLast()) {
-                    childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
+                    childId = children.getLong(children.getColumnIndexOrThrow(ProviderTableMeta._ID));
                     isDir = MimeType.DIRECTORY.equals(children.getString(
-                        children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
+                        children.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)
                     ));
                     if (isDir) {
                         count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
@@ -208,7 +208,7 @@ public class FileContentProvider extends ContentProvider {
         String remoteId = "";
         try {
             if (c != null && c.moveToFirst()) {
-                remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
+                remoteId = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID));
             }
             Log_OC.d(TAG, "Removing FILE " + remoteId);
 
@@ -290,7 +290,7 @@ public class FileContentProvider extends ContentProvider {
                     // file is already inserted; race condition, let's avoid a duplicated entry
                     Uri insertedFileUri = ContentUris.withAppendedId(
                         ProviderTableMeta.CONTENT_URI_FILE,
-                        doubleCheck.getLong(doubleCheck.getColumnIndex(ProviderTableMeta._ID))
+                        doubleCheck.getLong(doubleCheck.getColumnIndexOrThrow(ProviderTableMeta._ID))
                     );
                     doubleCheck.close();
 
@@ -683,7 +683,7 @@ public class FileContentProvider extends ContentProvider {
 
     private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + table + " LIMIT 0", null);
-        boolean exists = cursor.getColumnIndex(column) != -1;
+        boolean exists = cursor.getColumnIndexOrThrow(column) != -1;
         cursor.close();
 
         return exists;
@@ -990,9 +990,9 @@ public class FileContentProvider extends ContentProvider {
                 do {
                     // Update database
                     String oldPath = c.getString(
-                        c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                        c.getColumnIndexOrThrow(ProviderTableMeta.FILE_STORAGE_PATH));
                     OCFile file = new OCFile(
-                        c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+                        c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.FILE_PATH)));
                     String newPath = FileStorageUtils.getDefaultSavePathFor(newAccountName, file);
 
                     ContentValues cv = new ContentValues();

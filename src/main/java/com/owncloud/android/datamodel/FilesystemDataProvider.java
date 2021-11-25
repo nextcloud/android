@@ -92,7 +92,7 @@ public class FilesystemDataProvider {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    String value = cursor.getString(cursor.getColumnIndex(
+                    String value = cursor.getString(cursor.getColumnIndexOrThrow(
                             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
                     if (value == null) {
                         Log_OC.e(TAG, "Cannot get local path");
@@ -185,26 +185,26 @@ public class FilesystemDataProvider {
         FileSystemDataSet dataSet = null;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta._ID));
-                String localPath = cursor.getString(cursor.getColumnIndex(
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+                String localPath = cursor.getString(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
-                long modifiedAt = cursor.getLong(cursor.getColumnIndex(
+                long modifiedAt = cursor.getLong(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED));
                 boolean isFolder = false;
-                if (cursor.getInt(cursor.getColumnIndex(
+                if (cursor.getInt(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0) {
                     isFolder = true;
                 }
-                long foundAt = cursor.getLong(cursor.getColumnIndex(ProviderMeta.
+                long foundAt = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderMeta.
                         ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY));
 
                 boolean isSentForUpload = false;
-                if (cursor.getInt(cursor.getColumnIndex(
+                if (cursor.getInt(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)) != 0) {
                     isSentForUpload = true;
                 }
 
-                String crc32 = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
+                String crc32 = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
 
                 if (id == -1) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");

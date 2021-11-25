@@ -850,9 +850,9 @@ public class FileDataStorageManager {
             String[] fileId = new String[1];
             do {
                 ContentValues cv = new ContentValues();
-                fileId[0] = String.valueOf(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
+                fileId[0] = String.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta._ID)));
                 String oldFileStoragePath =
-                        cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                        cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_STORAGE_PATH));
 
                 if (oldFileStoragePath.startsWith(sourcePath)) {
 
@@ -975,7 +975,7 @@ public class FileDataStorageManager {
 
     @Nullable
     private OCFile createFileInstanceFromVirtual(Cursor cursor) {
-        long fileId = cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.VIRTUAL_OCFILE_ID));
+        long fileId = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.VIRTUAL_OCFILE_ID));
 
         return getFileById(fileId);
     }
@@ -983,12 +983,12 @@ public class FileDataStorageManager {
     private OCFile createFileInstance(Cursor cursor) {
         OCFile ocFile = null;
         if (cursor != null) {
-            ocFile = new OCFile(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+            ocFile = new OCFile(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PATH)));
             ocFile.setDecryptedRemotePath(getString(cursor, ProviderTableMeta.FILE_PATH_DECRYPTED));
-            ocFile.setFileId(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID)));
-            ocFile.setParentId(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
-            ocFile.setMimeType(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            ocFile.setStoragePath(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
+            ocFile.setFileId(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta._ID)));
+            ocFile.setParentId(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PARENT)));
+            ocFile.setMimeType(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)));
+            ocFile.setStoragePath(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_STORAGE_PATH)));
             if (ocFile.getStoragePath() == null) {
                 // try to find existing file and bind it with current account;
                 // with the current update of SynchronizeFolderOperation, this won't be
@@ -999,37 +999,37 @@ public class FileDataStorageManager {
                     ocFile.setLastSyncDateForData(file.lastModified());
                 }
             }
-            ocFile.setFileLength(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
-            ocFile.setCreationTimestamp(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_CREATION)));
-            ocFile.setModificationTimestamp(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+            ocFile.setFileLength(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_LENGTH)));
+            ocFile.setCreationTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CREATION)));
+            ocFile.setModificationTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MODIFIED)));
             ocFile.setModificationTimestampAtLastSyncForData(cursor.getLong(
-                cursor.getColumnIndex(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
-            ocFile.setLastSyncDateForProperties(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
-            ocFile.setLastSyncDateForData(cursor.getLong(cursor.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
-            ocFile.setEtag(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
-            ocFile.setEtagOnServer(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_ETAG_ON_SERVER)));
-            ocFile.setSharedViaLink(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
-            ocFile.setSharedWithSharee(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
-            ocFile.setPermissions(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
-            ocFile.setRemoteId(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
-            ocFile.setUpdateThumbnailNeeded(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
-            ocFile.setDownloading(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
-            ocFile.setEtagInConflict(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
-            ocFile.setFavorite(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1);
-            ocFile.setEncrypted(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
+                cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
+            ocFile.setLastSyncDateForProperties(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
+            ocFile.setLastSyncDateForData(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
+            ocFile.setEtag(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG)));
+            ocFile.setEtagOnServer(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG_ON_SERVER)));
+            ocFile.setSharedViaLink(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
+            ocFile.setSharedWithSharee(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
+            ocFile.setPermissions(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PERMISSIONS)));
+            ocFile.setRemoteId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID)));
+            ocFile.setUpdateThumbnailNeeded(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
+            ocFile.setDownloading(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
+            ocFile.setEtagInConflict(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
+            ocFile.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_FAVORITE)) == 1);
+            ocFile.setEncrypted(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
 //            if (ocFile.isEncrypted()) {
-//                ocFile.setFileName(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_NAME)));
+//                ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
 //            }
             ocFile.setMountType(WebdavEntry.MountType.values()[cursor.getInt(
-                cursor.getColumnIndex(ProviderTableMeta.FILE_MOUNT_TYPE))]);
-            ocFile.setPreviewAvailable(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
-            ocFile.setUnreadCommentsCount(cursor.getInt(cursor.getColumnIndex(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT)));
-            ocFile.setOwnerId(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_OWNER_ID)));
-            ocFile.setOwnerDisplayName(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME)));
-            ocFile.setNote(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_NOTE)));
-            ocFile.setRichWorkspace(cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_RICH_WORKSPACE)));
+                cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MOUNT_TYPE))]);
+            ocFile.setPreviewAvailable(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
+            ocFile.setUnreadCommentsCount(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT)));
+            ocFile.setOwnerId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_OWNER_ID)));
+            ocFile.setOwnerDisplayName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME)));
+            ocFile.setNote(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NOTE)));
+            ocFile.setRichWorkspace(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_RICH_WORKSPACE)));
 
-            String sharees = cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_SHAREES));
+            String sharees = cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHAREES));
 
             if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
                 ocFile.setSharees(new ArrayList<>());
@@ -2381,19 +2381,19 @@ public class FileDataStorageManager {
     }
 
     private String getString(Cursor cursor, String columnName) {
-        return cursor.getString(cursor.getColumnIndex(columnName));
+        return cursor.getString(cursor.getColumnIndexOrThrow(columnName));
     }
 
     private int getInt(Cursor cursor, String columnName) {
-        return cursor.getInt(cursor.getColumnIndex(columnName));
+        return cursor.getInt(cursor.getColumnIndexOrThrow(columnName));
     }
 
     private long getLong(Cursor cursor, String columnName) {
-        return cursor.getLong(cursor.getColumnIndex(columnName));
+        return cursor.getLong(cursor.getColumnIndexOrThrow(columnName));
     }
 
     private CapabilityBooleanType getBoolean(Cursor cursor, String columnName) {
-        return CapabilityBooleanType.fromValue(cursor.getInt(cursor.getColumnIndex(columnName)));
+        return CapabilityBooleanType.fromValue(cursor.getInt(cursor.getColumnIndexOrThrow(columnName)));
     }
 
     public ContentResolver getContentResolver() {
