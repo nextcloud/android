@@ -9,7 +9,7 @@ import org.gradle.internal.jvm.Jvm
 // its root folder, another one for the app module in subfolder of root.
 
 buildscript {
-    ext.kotlin_version = '1.5.31'
+    ext.kotlin_version = '1.6.0'
     ext.jacoco_version = '0.8.7'
     repositories {
         google()
@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
         classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.9'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:4.8.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -61,7 +61,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.40.1"
+	daggerVersion = "2.40.2"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="56d4b333993b9e665675a511302dbe2a48ec7222"
