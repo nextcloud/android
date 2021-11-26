@@ -350,7 +350,7 @@
     <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">檔案名稱包含了至少一個無效的字元</string>
     <string name="filename_hint">檔案名稱</string>
-    <string name="first_run_1_text">確保您的資料安全且在您的掌控之下</string>
+    <string name="first_run_1_text">保障您的資料安全，且由您掌控</string>
     <string name="first_run_2_text">安全地協作及交換檔案</string>
     <string name="first_run_3_text">易於使用的網頁電子郵件、行事曆與通訊錄</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議與研討會</string>
@@ -427,8 +427,8 @@
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_rewind_description">倒帶按鈕</string>
     <string name="media_state_playing">%1$s（播放中）</string>
-    <string name="menu_item_sort_by_date_newest_first">最新的放最前面</string>
-    <string name="menu_item_sort_by_date_oldest_first">最舊的放最前面</string>
+    <string name="menu_item_sort_by_date_newest_first">新的在前</string>
+    <string name="menu_item_sort_by_date_oldest_first">舊的在前</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">最大的放最前面</string>
@@ -659,8 +659,8 @@
     <string name="signup_with_provider">使用第三方登入</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳號 %2$s？</string>
     <string name="sort_by">排列方式</string>
-    <string name="sort_by_modification_date_ascending">最新的放最前面</string>
-    <string name="sort_by_modification_date_descending">最舊的放最前面</string>
+    <string name="sort_by_modification_date_ascending">新的在前</string>
+    <string name="sort_by_modification_date_descending">舊的在前</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_name_descending">Z - A</string>
     <string name="sort_by_size_ascending">最小的放最前面</string>
