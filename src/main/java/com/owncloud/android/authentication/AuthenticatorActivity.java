@@ -756,7 +756,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri;
-        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText()!= null &&
+        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText() != null &&
             !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
             uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
         } else {
@@ -771,7 +771,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupBinding.hostUrlInput.setText(uri);
             }
 
-            uri = AuthenticatorUrlUtils.normalizeScheme(uri);
+            try {
+                uri = AuthenticatorUrlUtils.normalizeScheme(uri);
+            } catch (IllegalArgumentException ex) {
+                // Let Owncloud library check the error of the malformed URI
+                Log_OC.e(TAG, "Invalid URL", ex);
+            }
 
             // Handle internationalized domain names
             try {
@@ -954,11 +959,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             case OK:
                 if (accountSetupBinding.hostUrlInput.getText() != null &&
                     accountSetupBinding.hostUrlInput
-                    .getText()
-                    .toString()
-                    .trim()
-                    .toLowerCase(Locale.ROOT)
-                    .startsWith(HTTP_PROTOCOL)) {
+                        .getText()
+                        .toString()
+                        .trim()
+                        .toLowerCase(Locale.ROOT)
+                        .startsWith(HTTP_PROTOCOL)) {
                     mServerStatusText = getResources().getString(R.string.auth_connection_established);
                     mServerStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1017,7 +1022,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     mServerStatusText = getResources().getString(
                         R.string.auth_unknown_error_exception_title,
                         result.getException().getMessage()
-                    );
+                                                                );
                 } else {
                     mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
                 }
@@ -1058,11 +1063,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (showWebViewLoginUrl) {
                     if (accountSetupBinding.hostUrlInput.getText() != null &&
                         accountSetupBinding.hostUrlInput
-                        .getText()
-                        .toString()
-                        .trim()
-                        .toLowerCase(Locale.ROOT)
-                        .startsWith(HTTP_PROTOCOL)) {
+                            .getText()
+                            .toString()
+                            .trim()
+                            .toLowerCase(Locale.ROOT)
+                            .startsWith(HTTP_PROTOCOL)) {
                         mAuthStatusText = getResources().getString(R.string.auth_connection_established);
                         mAuthStatusIcon = R.drawable.ic_ok;
                     } else {
@@ -1447,7 +1452,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(
                 new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-            )) {
+                                )) {
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
 
                 Uri data = getIntent().getData();
@@ -1476,7 +1481,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(
                 new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-            )) {
+                                )) {
                 Log_OC.e(TAG, "Operations service crashed");
                 mOperationsServiceBinder = null;
             }
