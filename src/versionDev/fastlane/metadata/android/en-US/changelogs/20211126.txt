@@ -1,0 +1,11 @@
+Fix another NPE in FileDownloader
+Fix NPE regression in FileDownloader
+Changed error color of TextInputLayoutInputWarning
+Changed input warning to use TextInputLayout setError
+Updated input warning message functionality
+Updated input warning message functionality
+Added Javadoc comments
+Added hidden file warning message to the rename file dialog. Resolves #7722
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
