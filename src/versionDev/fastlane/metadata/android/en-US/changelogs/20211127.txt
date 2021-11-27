@@ -1,0 +1,2 @@
+favorite/unfavorite in details view
+Update translations
