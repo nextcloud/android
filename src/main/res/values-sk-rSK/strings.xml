@@ -374,6 +374,7 @@
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
     <string name="fullscreen">Na celú obrazovku</string>
+    <string name="hidden_file_name_warning">Názov bude mať za následok skrytý súbor</string>
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
     <string name="hint_password">Heslo</string>
