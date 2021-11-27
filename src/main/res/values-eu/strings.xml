@@ -373,6 +373,7 @@
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
     <string name="fullscreen">Pantaila osoa</string>
+    <string name="hidden_file_name_warning">Izen honekin ezkutuko fitxategi bat sortuko da</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
     <string name="hint_password">Pasahitza</string>

@@ -375,6 +375,7 @@
     <string name="forward">Напред</string>
     <string name="fourHours">4 часа</string>
     <string name="fullscreen">Цял екран</string>
+    <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
     <string name="hint_note">Бележка</string>
     <string name="hint_password">Парола</string>

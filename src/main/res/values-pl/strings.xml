@@ -374,6 +374,7 @@
     <string name="forward">Prześlij dalej</string>
     <string name="fourHours">4 godziny</string>
     <string name="fullscreen">Pełny ekran</string>
+    <string name="hidden_file_name_warning">Nazwa spowoduje ukrycie pliku</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
     <string name="hint_password">Hasło</string>
