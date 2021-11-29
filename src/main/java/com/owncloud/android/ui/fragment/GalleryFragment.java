@@ -139,7 +139,7 @@ public class GalleryFragment extends OCFileListFragment {
                 mContainerActivity.getStorageManager(),
                 mFile,
                 true);
-
+            photoSearchNoNew = false;
             refresh = false;
         } else {
             mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
