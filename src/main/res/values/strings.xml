@@ -1073,7 +1073,8 @@
     <string name="share_open_in">Open in…</string>
     <string name="share_advanced_permissions">Advanced permissions</string>
     <string name="share_send_new_email">Send new email</string>
-    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCloud users, you have more opportunities for collaboration.</string>
+    <string name="sharing_description">You can create links or send shares by mail. If you invite MagentaCLOUD users,
+        you have more opportunities for collaboration.</string>
     <string name="your_message">Your Message</string>
     <string name="personal_share_email">Personal share by mail</string>
     <string name="create_link">Add link</string>

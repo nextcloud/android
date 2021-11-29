@@ -999,7 +999,8 @@
     <string name="conflict_dialog_message">%1$s ist im Zielordner bereits vorhanden. Möchten Sie die bestehende Datei behalten oder überschreiben?</string>
     <string name="conflict_dialog_message_multiple">Die Dateien sind im Zielordner bereits vorhanden. Möchten Sie die bestehenden Dateien behalten oder überschreiben?</string>
     <string name="prefs_category_info">Info</string>
-    <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie MagentaCloud Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
+    <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie
+        MagentaCLOUD Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
     <string name="your_message">Ihre Nachricht</string>
     <string name="personal_share_email">persönliche Freigabe per Emai</string>
     <string name="create_link">Link erstellen</string>
@@ -1030,7 +1031,7 @@
     <string name="login_privacy_settings_header">Datenschutz-Einstellungen</string>
     <string name="common_accept">Akzeptieren</string>
     <string name="save_settings">Einstellungen speichern</string>
-    <string name="login_privacy_policy">Datenschutzhinweise</string>
+    <string name="login_privacy_policy">Datenschutzhinweisen</string>
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
     <string name="drawer_item_recent_files">Neuste Dateien</string>
