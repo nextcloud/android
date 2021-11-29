@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.ui.ScanDocumentFragment;
+import com.nmc.android.utils.KeyboardUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1146,6 +1147,8 @@ public class FileDisplayActivity extends FileActivity
         } else {
             // pop back
             hideSearchView(getCurrentDir());
+            //hide the keyboard on back press if showing
+            KeyboardUtils.hideKeyboardFrom(this, binding.getRoot());
             showSortListGroup(true);
             super.onBackPressed();
         }
