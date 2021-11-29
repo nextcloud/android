@@ -273,6 +273,9 @@
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
+    <string name="etm_transfer">Prenos datoteke</string>
+    <string name="etm_transfer_enqueue_test_download">Uvrsti preizkusni prejem</string>
+    <string name="etm_transfer_enqueue_test_upload">Uvrsti preizkusno pošiljanje</string>
     <string name="etm_transfer_remote_path">Oddaljena pot</string>
     <string name="etm_transfer_type">Prenos</string>
     <string name="etm_transfer_type_download">Prejmi</string>
@@ -306,6 +309,7 @@
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
+    <string name="file_management_permission">Zahtevana so posebna dovoljenja</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
     <string name="file_migration_dialog_title">Poteka osodabljanje podatkovne mape</string>
