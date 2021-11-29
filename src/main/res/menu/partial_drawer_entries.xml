@@ -132,8 +132,22 @@
     <!--
       dummy group/element as a workaround to see
       the whole menu in case of quota being displayed
+      since the height of bottom bar is big
+      we are using 4 dummy items
     -->
     <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
         <item
             android:enabled="false"
             android:orderInCategory="200"
