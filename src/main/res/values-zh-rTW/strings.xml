@@ -374,6 +374,7 @@
     <string name="forward">向前</string>
     <string name="fourHours">4小時</string>
     <string name="fullscreen">全螢幕</string>
+    <string name="hidden_file_name_warning">此名稱會將檔案變為隱藏</string>
     <string name="hint_name">名稱</string>
     <string name="hint_note">筆記</string>
     <string name="hint_password">密碼</string>
