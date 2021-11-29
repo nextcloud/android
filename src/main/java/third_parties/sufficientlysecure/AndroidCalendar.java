@@ -112,7 +112,7 @@ public class AndroidCalendar {
     }
 
     private static int getColumnIndex(Cursor cur, String dbName) {
-        return dbName == null ? -1 : cur.getColumnIndex(dbName);
+        return dbName == null ? -1 : cur.getColumnIndexOrThrow(dbName);
     }
 
     private static long getLong(Cursor cur, String dbName) {
