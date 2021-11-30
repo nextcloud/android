@@ -1,0 +1,6 @@
+Fix lint issues with cursor indexes on compileSdk 31
+Bump compileSDK to 31
+Fix dialog template chooser when new file has no extension #9282
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
