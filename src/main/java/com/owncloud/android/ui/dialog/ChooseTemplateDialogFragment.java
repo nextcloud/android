@@ -249,7 +249,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
             binding.filename.setText(String.format("%s.%s", template.title, template.extension));
         }
-        binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
+        name = binding.filename.getText().toString();
+        int dotPos = name.lastIndexOf('.');
+        binding.filename.setSelection((dotPos != -1) ? dotPos : name.length());
     }
 
     @Override

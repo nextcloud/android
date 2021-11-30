@@ -250,6 +250,7 @@
     <string name="enter_filename">Vpisati je treba ime datoteke</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
+    <string name="error_choosing_date">Napaka izbora datuma</string>
     <string name="error_comment_file">Napaka dodajanja opombe k datoteki</string>
     <string name="error_crash_title">Program %1$s se je sesul.</string>
     <string name="error_report_issue_action">Poročilo</string>
@@ -273,6 +274,9 @@
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
+    <string name="etm_transfer">Prenos datoteke</string>
+    <string name="etm_transfer_enqueue_test_download">Uvrsti preizkusni prejem</string>
+    <string name="etm_transfer_enqueue_test_upload">Uvrsti preizkusno pošiljanje</string>
     <string name="etm_transfer_remote_path">Oddaljena pot</string>
     <string name="etm_transfer_type">Prenos</string>
     <string name="etm_transfer_type_download">Prejmi</string>
@@ -306,6 +310,7 @@
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
+    <string name="file_management_permission">Zahtevana so posebna dovoljenja</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
     <string name="file_migration_dialog_title">Poteka osodabljanje podatkovne mape</string>
@@ -440,6 +445,8 @@
     <string name="new_version_was_created">Ustvarjena je nova različica</string>
     <string name="no_actions">Ni dejanj za tega uporabnika</string>
     <string name="no_browser_available">Ni nameščenega programa, ki upravlja s povezavami</string>
+    <string name="no_calendar_exists">Ni nobenega koledarja</string>
+    <string name="no_email_app_available">Ni nameščenega programa, ki upravlja elektronskimi naslovi.</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="note_confirm">Pošlji</string>
@@ -591,11 +598,13 @@
     <string name="send_note">Pošlji sporočilo prejemniku</string>
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
+    <string name="set_note">Nastavi sporočilo</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="set_status">Nastavi stanje</string>
     <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="share">Souporaba</string>
     <string name="share_dialog_title">Souporaba</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
@@ -604,6 +613,7 @@
     <string name="share_internal_link_to_folder_text">Notranja povezava mesta souporabe deluje le za uporabnike z dostopom do mape.</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Povezava za souporabo</string>
+    <string name="share_link_empty_note_message">Vpišite sporočilo.</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
     <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
     <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
@@ -617,6 +627,7 @@
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
     <string name="share_permission_view_only">Le ogled</string>
+    <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
     <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov…</string>
@@ -688,6 +699,7 @@
     <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
+    <string name="suggest">Predlagaj</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="sync_fail_content">Ni mogoče uskladiti %1$s</string>
@@ -833,6 +845,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
+    <string name="write_email">Pošlji elektronsko sporočilo</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>
     <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba nastaviti podatkovno mapo.</string>
     <plurals name="sync_fail_in_favourites_content">
