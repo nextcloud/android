@@ -237,7 +237,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
         }
 
         super.onResume();
@@ -384,10 +384,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle();
-
-        if (searchEvent != null) {
-            onMessageEvent(searchEvent);
-        }
 
         FragmentActivity fragmentActivity;
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
@@ -747,19 +743,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
         }
         ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
-        }
-
-        if (isSearchEventSet(searchEvent)) {
-            onMessageEvent(searchEvent);
-        }
     }
 
     /**
@@ -1490,6 +1473,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
+        handleSearchEvent(event);
+    }
+
+    private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
@@ -1663,7 +1650,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onRefresh() {
         if (isSearchEventSet(searchEvent) && searchFragment) {
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);
         } else {
