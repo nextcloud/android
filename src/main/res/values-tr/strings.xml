@@ -374,6 +374,7 @@
     <string name="forward">İlet</string>
     <string name="fourHours">4 saat</string>
     <string name="fullscreen">Tam ekran</string>
+    <string name="hidden_file_name_warning">Bu ad gizli bir dosya oluşturacak</string>
     <string name="hint_name">Ad</string>
     <string name="hint_note">Not</string>
     <string name="hint_password">Parola</string>
