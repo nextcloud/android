@@ -703,7 +703,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean isDataAnalysisEnabled() {
         //default value will be true
-        return preferences.getBoolean(PREF__DATA_ANALYSIS, true);
+        return preferences.getBoolean(PREF__DATA_ANALYSIS, false);
     }
 
     @Override
