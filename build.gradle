@@ -61,7 +61,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.40.2"
+	daggerVersion = "2.40.3"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="1c800786c19c154f98bcac7ab2de2f058757f70d"
@@ -293,7 +293,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.42.1"
+    ktlint "com.pinterest:ktlint:0.43.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
