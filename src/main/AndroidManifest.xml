@@ -147,6 +147,7 @@
 
         <activity
             android:name=".ui.activity.UploadFilesActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ExternalSiteWebView"
