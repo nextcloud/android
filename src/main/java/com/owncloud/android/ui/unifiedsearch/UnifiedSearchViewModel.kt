@@ -143,12 +143,24 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
+    // TODO test this
     override fun openResult(result: SearchResultEntry) {
         if (result.isFile) {
             openFile(result.remotePath())
         } else {
-            val uri = Uri.parse(result.resourceUrl)
-            this.browserUri.value = uri
+            this.browserUri.value = getResultUri(result)
+        }
+    }
+
+    private fun getResultUri(result: SearchResultEntry): Uri {
+        val uri = Uri.parse(result.resourceUrl)
+        return when (uri.host) {
+            null -> {
+                val serverUrl = currentAccountProvider.user.server.uri.toString()
+                val fullUrl = serverUrl + result.resourceUrl
+                Uri.parse(fullUrl)
+            }
+            else -> uri
         }
     }
 
