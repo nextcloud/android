@@ -374,6 +374,7 @@
     <string name="forward">Doorsturen</string>
     <string name="fourHours">4 uur</string>
     <string name="fullscreen">Volledig scherm</string>
+    <string name="hidden_file_name_warning">Naam resulteert in een verborgen bestand</string>
     <string name="hint_name">Naam</string>
     <string name="hint_note">Notitie</string>
     <string name="hint_password">Wachtwoord</string>
