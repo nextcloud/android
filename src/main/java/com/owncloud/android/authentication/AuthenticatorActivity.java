@@ -774,7 +774,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             try {
                 uri = AuthenticatorUrlUtils.normalizeScheme(uri);
             } catch (IllegalArgumentException ex) {
-                // Let Owncloud library check the error of the malformed URI
+                // Let the Nextcloud library check the error of the malformed URI
                 Log_OC.e(TAG, "Invalid URL", ex);
             }
 
@@ -782,7 +782,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             try {
                 uri = DisplayUtils.convertIdn(uri, true);
             } catch (IllegalArgumentException ex) {
-                // Let Owncloud library check the error of the malformed URI
+                // Let the Nextcloud library check the error of the malformed URI
                 Log_OC.e(TAG, "Error converting internationalized domain name " + uri, ex);
             }
 
