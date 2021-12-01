@@ -491,13 +491,10 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * method to validate step 2 (note screen) information
      */
     private fun validateShareProcessSecond() {
-        if (TextUtils.isEmpty(binding.noteText.text.toString().trim())) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_note_message)
-            return
-        }
+        val noteText = binding.noteText.text.toString().trim()
         // if modifying existing share then directly update the note and send email
-        if (share != null) {
-            fileOperationsHelper?.updateNoteToShare(share, binding.noteText.text.toString().trim())
+        if (share != null && share?.note != noteText) {
+            fileOperationsHelper?.updateNoteToShare(share, noteText)
         } else {
             // else create new share
             fileOperationsHelper?.shareFileWithSharee(
@@ -509,7 +506,8 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                     .shareProcessHideDownloadCheckbox.isChecked,
                 binding.shareProcessEnterPassword.text.toString().trim(),
                 chosenExpDateInMills,
-                binding.noteText.text.toString().trim(), binding.shareProcessChangeNameEt.text.toString().trim()
+                noteText,
+                binding.shareProcessChangeNameEt.text.toString().trim()
             )
         }
         removeCurrentFragment()

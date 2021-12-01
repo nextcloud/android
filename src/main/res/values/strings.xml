@@ -972,7 +972,6 @@
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
-    <string name="share_link_empty_note_message">Please enter note.</string>
     <string name="share_copy_link">Share &amp; Copy Link</string>
     <string name="set_note">Set Note</string>
     <string name="share_open_in">Open in…</string>
