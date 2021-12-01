@@ -546,6 +546,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onFileClick(File file) {
         uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
+        
+        boolean selectAll = mFileListFragment.getCheckedFilesCount() == mFileListFragment.getFilesCount();
+        setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), selectAll);
     }
 
     /**
