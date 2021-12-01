@@ -94,7 +94,8 @@ class ShareeListAdapterTest {
             randomOrder,
             null,
             user.accountName,
-            user
+            user,
+            false
         )
         sut.sortShares()
 

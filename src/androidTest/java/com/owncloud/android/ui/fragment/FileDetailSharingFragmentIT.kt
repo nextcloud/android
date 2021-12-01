@@ -23,20 +23,12 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.accessibility.AccessibilityChecks
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isChecked
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -61,12 +53,10 @@ import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anyOf
-import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Assert.assertFalse
