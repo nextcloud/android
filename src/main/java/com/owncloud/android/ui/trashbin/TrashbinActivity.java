@@ -299,6 +299,8 @@ public class TrashbinActivity extends DrawerActivity implements
     @Override
     public void showError(int message) {
         if (active) {
+            trashbinListAdapter.removeAllFiles();
+            
             binding.loadingContent.setVisibility(View.GONE);
             binding.list.setVisibility(View.VISIBLE);
             binding.swipeContainingList.setRefreshing(false);
