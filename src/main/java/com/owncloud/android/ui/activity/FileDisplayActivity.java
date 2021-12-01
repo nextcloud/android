@@ -1776,6 +1776,8 @@ public class FileDisplayActivity extends FileActivity
             OCFile parentFile = getStorageManager().getFileById(removedFile.getParentId());
             if (parentFile != null && parentFile.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
+            } else if (getLeftFragment() instanceof GalleryFragment) {
+                ((GalleryFragment) getLeftFragment()).onRefresh();
             }
             supportInvalidateOptionsMenu();
         } else {
@@ -2042,22 +2044,22 @@ public class FileDisplayActivity extends FileActivity
                             long currentSyncTime = System.currentTimeMillis();
                             mSyncInProgress = true;
 
-                                // perform folder synchronization
-                                RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
-                                        currentSyncTime,
-                                        false,
-                                        ignoreETag,
-                                        getStorageManager(),
-                                        getUser().orElseThrow(RuntimeException::new),
-                                        getApplicationContext()
-                                );
-                                synchFolderOp.execute(
-                                        getAccount(),
-                                        MainApp.getAppContext(),
-                                        FileDisplayActivity.this,
-                                        null,
-                                        null
-                                );
+                            // perform folder synchronization
+                            RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                                                                       currentSyncTime,
+                                                                                       false,
+                                                                                       ignoreETag,
+                                                                                       getStorageManager(),
+                                                                                       getUser().orElseThrow(RuntimeException::new),
+                                                                                       getApplicationContext()
+                            );
+                            synchFolderOp.execute(
+                                getAccount(),
+                                MainApp.getAppContext(),
+                                FileDisplayActivity.this,
+                                null,
+                                null
+                                                 );
 
                             OCFileListFragment fragment = getListOfFilesFragment();
 
