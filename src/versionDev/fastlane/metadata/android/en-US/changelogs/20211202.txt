@@ -1,0 +1,5 @@
+Merge pull request #9354 from nextcloud/fix/ip-port-login
+Refresh gallery screen when deleting a file
+DrawerActivity: resize server logo if it's too big
+Update translations
+Update 3rd-party dependencies
