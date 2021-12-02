@@ -205,8 +205,8 @@
         <activity
             android:name="com.nmc.android.ui.onboarding.OnBoardingActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ownCloud.Splash" >
-        </activity>
+            android:theme="@style/Theme.ownCloud.Splash"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
         <activity
             android:name="com.nmc.android.ui.SplashActivity"

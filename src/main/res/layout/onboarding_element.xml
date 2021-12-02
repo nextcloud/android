@@ -9,18 +9,15 @@
         android:id="@+id/iv_onboarding"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/standard_margin"
         android:contentDescription="@string/what_s_new_image"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/tv_onboarding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/intro_screen_second" />
 
     <TextView
         android:id="@+id/tv_onboarding"
@@ -36,6 +33,7 @@
         android:textColor="@color/text_color_inverse"
         android:textSize="@dimen/txt_size_16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

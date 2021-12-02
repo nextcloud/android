@@ -1,7 +1,10 @@
 package com.nmc.android.ui.onboarding
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.nextcloud.client.preferences.AppPreferences
@@ -9,22 +12,42 @@ import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.databinding.ActivityOnboardingBinding
 import com.owncloud.android.ui.activity.BaseActivity
-import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 class OnBoardingActivity : BaseActivity() {
 
     companion object {
-        private val IMAGES =
-            arrayOf(R.drawable.first_run_files, R.drawable.first_run_groupware, R.drawable.first_run_talk)
+        private val DEFAULT_IMAGES =
+            arrayOf(R.drawable.intro_screen_first, R.drawable.intro_screen_second, R.drawable
+                .intro_screen_third)
+        private val TAB_PORT_IMAGES =
+            arrayOf(R.drawable.intro_screen_first_port_tab, R.drawable.intro_screen_second_port_tab, R.drawable
+                .intro_screen_third_port_tab)
+        private val TAB_LAND_IMAGES =
+            arrayOf(R.drawable.intro_screen_first_land_tab, R.drawable.intro_screen_second_land_tab, R.drawable
+                .intro_screen_third_land_tab)
         private val CONTENT = arrayOf(R.string.first_run_2_text, R.string.first_run_3_text, R.string.first_run_4_text)
         private fun getOnBoardingItems(): List<OnBoardingItem> {
             val onBoardingItems = mutableListOf<OnBoardingItem>()
-            for (i in IMAGES.indices) {
-                val onBoardingItem = OnBoardingItem(IMAGES[i], CONTENT[i])
+            val onBoardingImages = getOnBoardingImages()
+            for (i in onBoardingImages.indices) {
+                val onBoardingItem = OnBoardingItem(onBoardingImages[i], CONTENT[i])
                 onBoardingItems.add(onBoardingItem)
             }
             return onBoardingItems
+        }
+
+        private fun getOnBoardingImages() : Array<Int>{
+            return if (DisplayUtils.isTablet()){
+                if(DisplayUtils.isLandscapeOrientation()){
+                    TAB_LAND_IMAGES
+                }else {
+                    TAB_PORT_IMAGES
+                }
+            }else{
+                DEFAULT_IMAGES
+            }
         }
 
         fun launchOnBoardingActivity(context: Context) {
@@ -34,18 +57,24 @@ class OnBoardingActivity : BaseActivity() {
     }
 
     private lateinit var binding: ActivityOnboardingBinding
+    private var selectedPosition = 0
 
     @Inject
     lateinit var appPreferences: AppPreferences
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //if device is not tablet then we have to lock it to Portrait mode
+        //as we don't have images for that
+        if(!DisplayUtils.isTablet()){
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = OnBoardingPagerAdapter(supportFragmentManager, getOnBoardingItems())
-        binding.progressIndicator.setNumberOfSteps(IMAGES.size)
-        binding.viewPagerOnboarding.adapter = adapter
+        updateOnBoardingPager(selectedPosition)
 
         binding.btnOnboardingLogin.setOnClickListener {
             appPreferences.onBoardingComplete = true
@@ -55,6 +84,7 @@ class OnBoardingActivity : BaseActivity() {
 
         binding.viewPagerOnboarding.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageSelected(position: Int) {
+                selectedPosition = position
                 binding.progressIndicator.animateToStep(position + 1)
             }
 
@@ -66,5 +96,18 @@ class OnBoardingActivity : BaseActivity() {
 
             }
         })
+    }
+
+    private fun updateOnBoardingPager(selectedPosition : Int) {
+        val onBoardingItemList = getOnBoardingItems()
+        val adapter = OnBoardingPagerAdapter(supportFragmentManager, onBoardingItemList)
+        binding.progressIndicator.setNumberOfSteps(onBoardingItemList.size)
+        binding.viewPagerOnboarding.adapter = adapter
+        binding.viewPagerOnboarding.currentItem = selectedPosition
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        updateOnBoardingPager(selectedPosition)
     }
 }

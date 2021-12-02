@@ -51,11 +51,9 @@ class SplashActivity : BaseActivity() {
                     startActivity(Intent(this, AuthenticatorActivity::class.java))
                 }
                 //if user is logged in but did not accepted the privacy policy then take him there
-                else
-                //check if user is logged in but has not selected privacy policy
                 //show him the privacy policy screen again
                 //check if app has been updated, if yes then also we have to show the privacy policy screen
-                if (user.isPresent && (appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity.NO_ACTION
+                else if (user.isPresent && (appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity.NO_ACTION
                         || appPreferences.lastSeenVersionCode < BuildConfig.VERSION_CODE )) {
                     LoginPrivacySettingsActivity.openPrivacySettingsActivity(this)
                 } else {

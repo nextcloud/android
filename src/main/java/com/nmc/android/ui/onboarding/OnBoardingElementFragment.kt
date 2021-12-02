@@ -1,14 +1,15 @@
 package com.nmc.android.ui.onboarding
 
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.owncloud.android.R
+import com.bumptech.glide.Glide
 import com.owncloud.android.databinding.OnboardingElementBinding
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.DisplayUtils
 
 class OnBoardingElementFragment : Fragment() {
 
@@ -40,8 +41,16 @@ class OnBoardingElementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fontColor = ResourcesCompat.getColor(requireContext().resources, R.color.login_text_color, null)
-        binding.ivOnboarding.setImageDrawable(ThemeDrawableUtils.tintDrawable(onBoardingItem?.image ?: 0, fontColor))
-        binding.tvOnboarding.setText(onBoardingItem?.content ?: 0)
+        //val fontColor = ResourcesCompat.getColor(requireContext().resources, R.color.login_text_color, null)
+        //binding.ivOnboarding.setImageDrawable(ThemeDrawableUtils.tintDrawable(onBoardingItem?.image ?: 0, fontColor))
+        //binding.tvOnboarding.setText(onBoardingItem?.content ?: 0)
+        val metrics = requireContext().resources.displayMetrics
+        val screenWidthInDp = DisplayUtils.convertPixelsToDp(metrics.widthPixels.toFloat(), requireContext())
+        val screenHeightInDp = DisplayUtils.convertPixelsToDp(metrics.heightPixels.toFloat(), requireContext())
+        Glide.with(requireContext())
+            .load(onBoardingItem?.image)
+            .skipMemoryCache(true)
+            //.override(screenWidthInDp.toInt(), screenHeightInDp.toInt())
+            .into(binding.ivOnboarding)
     }
 }
