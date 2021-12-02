@@ -1541,6 +1541,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
+                        searchEvent = event;
+                        
                         if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
@@ -1549,7 +1551,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                              storageManager,
                                              mFile,
                                              true);
-                            searchEvent = event;
                         }
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
