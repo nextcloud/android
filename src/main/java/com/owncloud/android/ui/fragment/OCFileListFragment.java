@@ -101,6 +101,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.Throttler;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -180,6 +181,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject Throttler throttler;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -198,6 +200,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
+
 
     @Inject DeviceInfo deviceInfo;
 
@@ -520,20 +523,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.item_file);
-        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-                                               Collections.singleton(file),
-                                               mContainerActivity, getActivity(),
-                                               true,
-                                               accountManager.getUser());
-        mf.filter(popup.getMenu(), true);
-        popup.setOnMenuItemClickListener(item -> {
-            Set<OCFile> checkedFiles = new HashSet<>();
-            checkedFiles.add(file);
-            return onFileActionChosen(item, checkedFiles);
+        throttler.run("overflowClick", () -> {
+            PopupMenu popup = new PopupMenu(getActivity(), view);
+            popup.inflate(R.menu.item_file);
+            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
+                                                   Collections.singleton(file),
+                                                   mContainerActivity, getActivity(),
+                                                   true,
+                                                   accountManager.getUser());
+            mf.filter(popup.getMenu(), true);
+            popup.setOnMenuItemClickListener(item -> {
+                Set<OCFile> checkedFiles = new HashSet<>();
+                checkedFiles.add(file);
+                return onFileActionChosen(item, checkedFiles);
+            });
+            popup.show();
         });
-        popup.show();
     }
 
     @Override
