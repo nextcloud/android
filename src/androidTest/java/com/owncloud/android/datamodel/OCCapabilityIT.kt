@@ -31,7 +31,7 @@ import org.junit.Test
 class OCCapabilityIT : AbstractIT() {
     @Test
     fun saveCapability() {
-        val fileDataStorageManager = FileDataStorageManager(account, targetContext.contentResolver)
+        val fileDataStorageManager = FileDataStorageManager(user, targetContext.contentResolver)
 
         val capability = OCCapability()
         capability.etag = "123"
@@ -40,7 +40,7 @@ class OCCapabilityIT : AbstractIT() {
 
         fileDataStorageManager.saveCapabilities(capability)
 
-        val newCapability = fileDataStorageManager.getCapability(account.name)
+        val newCapability = fileDataStorageManager.getCapability(user.accountName)
 
         assertEquals(capability.etag, newCapability.etag)
         assertEquals(capability.userStatus, newCapability.userStatus)

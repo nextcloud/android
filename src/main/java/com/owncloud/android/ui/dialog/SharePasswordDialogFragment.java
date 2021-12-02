@@ -65,6 +65,31 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private boolean createShare;
     private boolean askForPassword;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+        if (alertDialog != null) {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                String password = binding.sharePassword.getText().toString();
+
+                if (!askForPassword && TextUtils.isEmpty(password)) {
+                    DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
+                    return;
+                }
+
+                if (share == null) {
+                    setPassword(createShare, file, password);
+                } else {
+                    setPassword(share, password);
+                }
+
+                alertDialog.dismiss();
+            });
+        }
+    }
+
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
@@ -132,19 +157,22 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         binding.sharePassword.setText("");
         binding.sharePassword.requestFocus();
 
+        int negativeButtonCaption;
         int title;
         if (askForPassword) {
             title = R.string.share_link_optional_password_title;
+            negativeButtonCaption = R.string.common_skip;
         } else {
             title = R.string.share_link_password_title;
+            negativeButtonCaption = R.string.common_cancel;
         }
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setView(view)
-                .setPositiveButton(R.string.common_ok, this)
-                .setNegativeButton(R.string.common_cancel, this)
+            .setPositiveButton(R.string.common_ok, null)
+            .setNegativeButton(negativeButtonCaption, this)
                 .setNeutralButton(R.string.common_delete, this)
             .setTitle(title);
         Dialog d = builder.create();
@@ -159,20 +187,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_POSITIVE) {
-            String password = binding.sharePassword.getText().toString();
-
-            if (!askForPassword && TextUtils.isEmpty(password)) {
-                DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
-                return;
-            }
-
-            if (share == null) {
-                setPassword(createShare, file, password);
-            } else {
-                setPassword(share, password);
-            }
-        } else if (which == AlertDialog.BUTTON_NEUTRAL) {
+        if (which == AlertDialog.BUTTON_NEUTRAL) {
             if (share == null) {
                 setPassword(createShare, file, null);
             } else {

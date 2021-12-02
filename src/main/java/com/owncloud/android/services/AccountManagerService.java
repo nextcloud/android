@@ -44,7 +44,7 @@ public class AccountManagerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         if(mBinder == null) {
-            mBinder = new InputStreamBinder(this, accountManager);
+            mBinder = new InputStreamBinder(getApplicationContext(), accountManager);
         }
         return mBinder;
     }

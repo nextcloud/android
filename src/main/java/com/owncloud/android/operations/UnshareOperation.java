@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -35,19 +36,20 @@ import com.owncloud.android.operations.common.SyncOperation;
 import java.util.List;
 
 /**
- * Unshare file/folder
- * Save the data in Database
+ * Unshare file/folder Save the data in Database
  */
 public class UnshareOperation extends SyncOperation {
 
     private static final String TAG = UnshareOperation.class.getSimpleName();
     private static final int SINGLY_SHARED = 1;
 
-    private String mRemotePath;
-    private long shareId;
+    private final String remotePath;
+    private final long shareId;
 
-    public UnshareOperation(String remotePath, long shareId) {
-        mRemotePath = remotePath;
+    public UnshareOperation(String remotePath, long shareId, FileDataStorageManager storageManager) {
+        super(storageManager);
+
+        this.remotePath = remotePath;
         this.shareId = shareId;
     }
 
@@ -59,7 +61,7 @@ public class UnshareOperation extends SyncOperation {
         OCShare share = getStorageManager().getShareById(shareId);
 
         if (share != null) {
-            OCFile file = getStorageManager().getFileByEncryptedRemotePath(mRemotePath);
+            OCFile file = getStorageManager().getFileByEncryptedRemotePath(remotePath);
             RemoveShareRemoteOperation operation = new RemoveShareRemoteOperation(share.getRemoteId());
             result = operation.execute(client);
 
@@ -72,7 +74,7 @@ public class UnshareOperation extends SyncOperation {
                     || ShareType.FEDERATED.equals(share.getShareType())) {
                     // Check if it is the last share
                     List<OCShare> sharesWith = getStorageManager().
-                        getSharesWithForAFile(mRemotePath,
+                        getSharesWithForAFile(remotePath,
                                               getStorageManager().getAccount().name);
                     if (sharesWith.size() == SINGLY_SHARED) {
                         file.setSharedWithSharee(false);

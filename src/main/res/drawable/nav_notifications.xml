@@ -1,25 +1,12 @@
-<!--
-  Nextcloud Android client application
-
-  Copyright (C) 2020 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Icon provided by Android Material Library in Apache License 2.0
--->
-<vector android:height="24dp" android:tint="#757575"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M12,22c1.1,0 2,-0.9 2,-2h-4c0,1.1 0.89,2 2,2zM18,16v-5c0,-3.07 -1.64,-5.64 -4.5,-6.32L13.5,4c0,-0.83 -0.67,-1.5 -1.5,-1.5s-1.5,0.67 -1.5,1.5v0.68C7.63,5.36 6,7.92 6,11v5l-2,2v1h16v-1l-2,-2z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M22,16.95C19.65,14.6 19.3,12.3 19.2,11.15L19,9.4C18.75,6.25 16.45,3.8 13.5,3.15C13.5,3.1 13.5,3.05 13.5,3C13.5,2.15 12.85,1.5 12,1.5C11.15,1.5 10.5,2.15 10.5,3C10.5,3.05 10.5,3.1 10.5,3.15C7.55,3.8 5.25,6.25 5,9.4L4.85,11.15C4.7,12.25 4.35,14.55 2,16.95L2,20.5L9.05,20.5C9.3,21.9 10.5,23 12,23C13.5,23 14.7,21.9 14.95,20.5L22,20.5L22,16.95ZM20.5,19L3.5,19L3.5,17.55C5.1,15.85 6.1,13.65 6.3,11.3L6.45,9.55C6.75,6.65 9.1,4.5 12,4.5C14.9,4.5 17.25,6.65 17.5,9.55L17.65,11.3C17.85,13.65 18.85,15.85 20.45,17.55L20.45,19L20.5,19Z"
+      android:strokeWidth="1"
+      android:fillColor="#262626"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
 </vector>

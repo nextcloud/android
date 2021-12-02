@@ -22,9 +22,8 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.Manifest
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.rule.GrantPermissionRule
+import com.nextcloud.client.GrantStoragePermissionRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
@@ -41,7 +40,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @get:Rule
-    val permissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    val permissionRule = GrantStoragePermissionRule.grant()
 
     @Test
     @ScreenshotTest
@@ -104,7 +103,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val emailShare = OCFile("/sharedToEmail.jpg").apply {
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
-            sharees = listOf(ShareeUser("admin@nextcloud.server.com", "admin@nextcloud.server.com", ShareType.EMAIL))
+            sharees = listOf(ShareeUser("admin@nextcloud.localhost", "admin@nextcloud.localhost", ShareType.EMAIL))
         }
         sut.storageManager.saveFile(emailShare)
 

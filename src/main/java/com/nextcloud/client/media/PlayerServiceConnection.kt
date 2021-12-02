@@ -50,7 +50,7 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
         }
     }
 
-    fun start(user: User, file: OCFile, playImmediately: Boolean, position: Int) {
+    fun start(user: User, file: OCFile, playImmediately: Boolean, position: Long) {
         val i = Intent(context, PlayerService::class.java)
         i.putExtra(PlayerService.EXTRA_USER, user)
         i.putExtra(PlayerService.EXTRA_FILE, file)

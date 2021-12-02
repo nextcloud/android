@@ -20,6 +20,7 @@
 -->
 <resources>
 
+    <color name="list_item_lastmod_and_filesize_text">@color/grey_30</color>
     <color name="text_color">#E3E3E3</color>
     <color name="text_color_inverse">#000000</color>
     <color name="disabled_text">#ff6F6F6F</color>
@@ -45,6 +46,7 @@
     <color name="share_disabled_txt_color">@color/grey_60</color>
     <color name="share_txt_color">@color/grey_0</color>
     <color name="share_et_divider">#FFFFFF</color>
+    <color name="list_icon_color">@color/grey_30</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>
@@ -72,7 +74,7 @@
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>
-    <color name="selected_item_background">@color/grey_80</color>
+    <color name="selected_item_background">@color/grey_70</color>
 
     <color name="filelist_icon_background">#222222</color>
     <color name="standard_grey">#DADADA</color>
@@ -84,4 +86,6 @@
     <!-- App bar -->
     <color name="appbar">#121212</color>
     <color name="fontAppbar">@android:color/white</color>
+    <color name="notification_icon_color">@color/grey_30</color>
+    <color name="toolbar_divider_color">@color/grey_70</color>
 </resources>

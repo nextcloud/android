@@ -111,7 +111,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
                                                                                    false,
                                                                                    true,
                                                                                    baseActivity.getStorageManager(),
-                                                                                   baseActivity.getAccount(),
+                                                                                   baseActivity.getUser().orElseThrow(RuntimeException::new),
                                                                                    context);
                         synchFolderOp.execute(ownCloudClient);
                     }

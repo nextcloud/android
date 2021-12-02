@@ -287,7 +287,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
                     if (chooseTemplateDialogFragmentWeakReference.get() != null) {
                         FileDataStorageManager storageManager = new FileDataStorageManager(
-                            user.toPlatformAccount(),
+                            user,
                             chooseTemplateDialogFragmentWeakReference.get().requireContext().getContentResolver());
                         storageManager.saveFile(temp);
                         file = storageManager.getFileByPath(path);

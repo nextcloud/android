@@ -28,7 +28,6 @@ import android.os.Message;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.IndexedForest;
@@ -58,7 +57,6 @@ class SyncFolderHandler extends Handler {
     private IndexedForest<SynchronizeFolderOperation> mPendingOperations = new IndexedForest<>();
 
     private Account mCurrentAccount;
-    private FileDataStorageManager mStorageManager;
     private SynchronizeFolderOperation mCurrentSyncOperation;
 
 
@@ -107,18 +105,14 @@ class SyncFolderHandler extends Handler {
 
                 if (mCurrentAccount == null || !mCurrentAccount.equals(account)) {
                     mCurrentAccount = account;
-                    mStorageManager = new FileDataStorageManager(
-                            account,
-                            mService.getContentResolver()
-                    );
-                }   // else, reuse storage manager from previous operation
+                }
 
                 // always get client from client manager, to get fresh credentials in case of update
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
                 OwnCloudClient mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, mService);
 
-                result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
+                result = mCurrentSyncOperation.execute(mOwnCloudClient);
                 sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 

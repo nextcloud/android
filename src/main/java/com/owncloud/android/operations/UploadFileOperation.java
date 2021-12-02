@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransfer;
@@ -113,7 +114,7 @@ public class UploadFileOperation extends SyncOperation {
     private String mRemotePath;
     private String mFolderUnlockToken;
     private boolean mRemoteFolderToBeCreated;
-    private FileUploader.NameCollisionPolicy mNameCollisionPolicy;
+    private NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
     private int mCreatedBy;
     private boolean mOnWifiOnly;
@@ -177,13 +178,25 @@ public class UploadFileOperation extends SyncOperation {
                                User user,
                                OCFile file,
                                OCUpload upload,
-                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
+                               NameCollisionPolicy nameCollisionPolicy,
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
-                               boolean whileChargingOnly) {
-        this(uploadsStorageManager, connectivityService, powerManagementService, user, file, upload,
-             nameCollisionPolicy, localBehaviour, context, onWifiOnly, whileChargingOnly, true);
+                               boolean whileChargingOnly,
+                               FileDataStorageManager storageManager) {
+        this(uploadsStorageManager,
+             connectivityService,
+             powerManagementService,
+             user,
+             file,
+             upload,
+             nameCollisionPolicy,
+             localBehaviour,
+             context,
+             onWifiOnly,
+             whileChargingOnly,
+             true,
+             storageManager);
     }
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
@@ -192,12 +205,15 @@ public class UploadFileOperation extends SyncOperation {
                                User user,
                                OCFile file,
                                OCUpload upload,
-                               FileUploader.NameCollisionPolicy nameCollisionPolicy,
+                               NameCollisionPolicy nameCollisionPolicy,
                                int localBehaviour,
                                Context context,
                                boolean onWifiOnly,
                                boolean whileChargingOnly,
-                               boolean disableRetries) {
+                               boolean disableRetries,
+                               FileDataStorageManager storageManager) {
+        super(storageManager);
+
         if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         }
@@ -1025,8 +1041,8 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         RemoteOperationResult result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
-            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext());
-            result = syncOp.execute(client, getStorageManager());
+            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
+            result = syncOp.execute(client);
         }
         if (result.isSuccess()) {
             OCFile parentDir = getStorageManager().getFileByPath(pathToGrant);
@@ -1348,7 +1364,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), user.toPlatformAccount());
+                new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), user);
         task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
     }
 

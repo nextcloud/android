@@ -6,10 +6,12 @@
  * @author Juan Carlos González Cabrero
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc
  *
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -201,7 +203,7 @@ public class FileOperationsHelper {
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
             User user = fileActivity.getUser().orElseThrow(RuntimeException::new);
-            FileDataStorageManager storageManager = new FileDataStorageManager(fileActivity.getAccount(),
+            FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                                fileActivity.getContentResolver());
 
             // check if file is in conflict (this is known due to latest folder refresh)
@@ -246,8 +248,13 @@ public class FileOperationsHelper {
         fileActivity.runOnUiThread(() -> fileActivity.showLoadingDialog(fileActivity.getResources()
                                                                             .getString(R.string.sync_in_progress)));
 
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, null, user, true, fileActivity);
-        RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file,
+                                                                    null,
+                                                                    user,
+                                                                    true,
+                                                                    fileActivity,
+                                                                    storageManager);
+        RemoteOperationResult result = sfo.execute(fileActivity);
 
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!),
@@ -309,13 +316,17 @@ public class FileOperationsHelper {
                 public void run() {
                     User user = currentAccount.getUser();
                     FileDataStorageManager storageManager =
-                        new FileDataStorageManager(user.toPlatformAccount(), fileActivity.getContentResolver());
+                        new FileDataStorageManager(user, fileActivity.getContentResolver());
                     // a fresh object is needed; many things could have occurred to the file
                     // since it was registered to observe again, assuming that local files
                     // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-                    SynchronizeFileOperation sfo =
-                        new SynchronizeFileOperation(file, null, user, true, fileActivity);
-                    RemoteOperationResult result = sfo.execute(storageManager, fileActivity);
+                    SynchronizeFileOperation sfo = new SynchronizeFileOperation(file,
+                                                                                null,
+                                                                                user,
+                                                                                true,
+                                                                                fileActivity,
+                                                                                storageManager);
+                    RemoteOperationResult result = sfo.execute(fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                         // ISSUE 5: if the user is not running the app (this is a service!),
@@ -555,7 +566,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
             service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
-            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note==null) ? "" : note);
+            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note == null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
 
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);

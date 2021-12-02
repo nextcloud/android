@@ -3,15 +3,14 @@ package com.nmc.android.jobs
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nmc.android.utils.FileUtils
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.ui.preview.PreviewImageActivity
@@ -41,7 +40,11 @@ class UploadImagesWorker constructor(
 
     override fun doWork(): Result {
 
-        val bitmapHashMap: HashMap<Int, PreviewImageFragment.LoadImage> = PreviewImageActivity.bitmapHashMap
+
+        val bitmapHashMap: HashMap<Int, PreviewImageFragment.LoadImage> = HashMap(PreviewImageActivity.bitmapHashMap)
+
+        //clear the static bitmap once the images are stored in work manager instance
+        PreviewImageActivity.bitmapHashMap.clear()
 
         val randomId = SecureRandom()
         val pushNotificationId = randomId.nextInt()
@@ -55,7 +58,7 @@ class UploadImagesWorker constructor(
             val fileNameWithoutExt: String = fileName.replace(extension, "")
 
             //if extension is jpg then save the image as jpg
-            if (extension == ".jpg") {
+            if (extension == ".jpg"  || extension == ".jpeg") {
                 val jpgFile = FileUtils.saveJpgImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
@@ -75,8 +78,6 @@ class UploadImagesWorker constructor(
                 onImageSaveSuccess(value, pngFile)
             }
 
-            //remove the cache for the existing image
-            ThumbnailsCacheManager.removeBitmapFromCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + value.ocFile.remoteId)
         }
 
         notificationManager.cancel(pushNotificationId)
@@ -122,7 +123,7 @@ class UploadImagesWorker constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            FileUploader.NameCollisionPolicy.OVERWRITE //overwrite the images
+            NameCollisionPolicy.OVERWRITE //overwrite the images
         )
     }
 }

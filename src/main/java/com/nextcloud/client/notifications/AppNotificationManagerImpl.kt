@@ -49,7 +49,7 @@ class AppNotificationManagerImpl @Inject constructor(
             .build()
     }
 
-    override fun postDownloadProgress(fileOwner: User, file: OCFile, progress: Int, allowPreview: Boolean) {
+    override fun postDownloadTransferProgress(fileOwner: User, file: OCFile, progress: Int, allowPreview: Boolean) {
         val builder = builder(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
         val content = resources.getString(
             R.string.downloader_download_in_progress_content,
@@ -57,7 +57,7 @@ class AppNotificationManagerImpl @Inject constructor(
             file.fileName
         )
         builder
-            .setSmallIcon(R.drawable.notification_icon)
+            .setSmallIcon(R.drawable.ic_cloud_download)
             .setTicker(resources.getString(R.string.downloader_download_in_progress_ticker))
             .setContentTitle(resources.getString(R.string.downloader_download_in_progress_ticker))
             .setOngoing(true)
@@ -79,10 +79,28 @@ class AppNotificationManagerImpl @Inject constructor(
             )
             builder.setContentIntent(pendingOpenFileIntent)
         }
-        platformNotificationsManager.notify(AppNotificationManager.DOWNLOAD_NOTIFICATION_ID, builder.build())
+        platformNotificationsManager.notify(AppNotificationManager.TRANSFER_NOTIFICATION_ID, builder.build())
     }
 
-    override fun cancelDownloadProgress() {
-        platformNotificationsManager.cancel(AppNotificationManager.DOWNLOAD_NOTIFICATION_ID)
+    override fun postUploadTransferProgress(fileOwner: User, file: OCFile, progress: Int) {
+        val builder = builder(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+        val content = resources.getString(
+            R.string.uploader_upload_in_progress_content,
+            progress,
+            file.fileName
+        )
+        builder
+            .setSmallIcon(R.drawable.ic_cloud_upload)
+            .setTicker(resources.getString(R.string.uploader_upload_in_progress_ticker))
+            .setContentTitle(resources.getString(R.string.uploader_upload_in_progress_ticker))
+            .setOngoing(true)
+            .setProgress(PROGRESS_PERCENTAGE_MAX, progress, progress <= PROGRESS_PERCENTAGE_MIN)
+            .setContentText(content)
+
+        platformNotificationsManager.notify(AppNotificationManager.TRANSFER_NOTIFICATION_ID, builder.build())
+    }
+
+    override fun cancelTransferNotification() {
+        platformNotificationsManager.cancel(AppNotificationManager.TRANSFER_NOTIFICATION_ID)
     }
 }

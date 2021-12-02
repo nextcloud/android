@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
@@ -27,9 +27,10 @@ import com.nextcloud.client.account.UserAccountManager
  * This component parses and matches deep links.
  * Result is returned to the UI for further processing.
  *
- * TODO: This is intermediate refactring step; this component should be moved into
+ * TODO: This is intermediate refactoring step; this component should be moved into
  *       [com.nextcloud.client.mixins.ActivityMixin] and handle UI callbacks as well
  */
+@Suppress("ForbiddenComment")
 class DeepLinkHandler(
     private val userAccountManager: UserAccountManager
 ) {

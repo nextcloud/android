@@ -448,7 +448,7 @@ public final class ThumbnailsCacheManager {
 
     public static class ThumbnailGenerationTask extends AsyncTask<ThumbnailGenerationTaskObject, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
-        private static Account mAccount;
+        private User user;
         private List<ThumbnailGenerationTask> mAsyncTasks;
         private Object mFile;
         private String mImageKey;
@@ -457,13 +457,13 @@ public final class ThumbnailsCacheManager {
         private Listener mListener;
         private boolean gridViewEnabled = false;
 
-        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account)
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, User user)
                 throws IllegalArgumentException {
-            this(imageView, storageManager, account, null);
+            this(imageView, storageManager, user, null);
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, List<ThumbnailGenerationTask> asyncTasks)
+                                       User user, List<ThumbnailGenerationTask> asyncTasks)
                 throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
@@ -471,15 +471,15 @@ public final class ThumbnailsCacheManager {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
             mStorageManager = storageManager;
-            mAccount = account;
+            this.user = user;
             mAsyncTasks = asyncTasks;
         }
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account, List<ThumbnailGenerationTask> asyncTasks,
+                                       User user, List<ThumbnailGenerationTask> asyncTasks,
                                        boolean gridViewEnabled)
             throws IllegalArgumentException {
-            this(imageView, storageManager, account, asyncTasks);
+            this(imageView, storageManager, user, asyncTasks);
             this.gridViewEnabled = gridViewEnabled;
         }
 
@@ -487,12 +487,12 @@ public final class ThumbnailsCacheManager {
             return getMethod;
         }
 
-        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, User user){
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
             mStorageManager = storageManager;
-            mAccount = account;
+            this.user = user;
             mImageViewReference = null;
         }
 
@@ -506,11 +506,8 @@ public final class ThumbnailsCacheManager {
         protected Bitmap doInBackground(ThumbnailGenerationTaskObject... params) {
             Bitmap thumbnail = null;
             try {
-                if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(
-                            mAccount,
-                            MainApp.getAppContext()
-                    );
+                if (user != null) {
+                    OwnCloudAccount ocAccount = user.toOwnCloudAccount();
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }
@@ -880,6 +877,7 @@ public final class ThumbnailsCacheManager {
         private final float mAvatarRadius;
         private User user;
         private String mUserId;
+        private String displayName;
         private String mServerName;
         private Context mContext;
 
@@ -890,6 +888,7 @@ public final class ThumbnailsCacheManager {
                                     Resources resources,
                                     float avatarRadius,
                                     String userId,
+                                    String displayName,
                                     String serverName,
                                     Context context) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
@@ -898,6 +897,7 @@ public final class ThumbnailsCacheManager {
             mResources = resources;
             mAvatarRadius = avatarRadius;
             mUserId = userId;
+            this.displayName = displayName;
             mServerName = serverName;
             mContext = context;
         }
@@ -1034,7 +1034,7 @@ public final class ThumbnailsCacheManager {
 
             if (avatar == null) {
                 try {
-                    return TextDrawable.createAvatar(user, mAvatarRadius);
+                    return TextDrawable.createAvatarByUserId(displayName, mAvatarRadius);
                 } catch (Exception e1) {
                     return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user, null);
                 }

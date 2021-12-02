@@ -41,7 +41,7 @@ public interface AppPreferences {
     interface Listener {
         default void onDarkThemeModeChanged(DarkMode mode) {
             /* default empty implementation */
-        };
+        }
     }
 
     /**
@@ -305,7 +305,7 @@ public interface AppPreferences {
     /**
      * Gets the last seen version code right before updating.
      *
-     * @return grid columns     grid columns
+     * @return last app version code
      */
     int getLastSeenVersionCode();
 
@@ -361,6 +361,14 @@ public interface AppPreferences {
     void resetPinWrongAttempts();
 
     int pinBruteForceDelay();
+
+    String getUidPid();
+
+    void setUidPid(String uidPid);
+
+    long getCalendarLastBackup();
+
+    void setCalendarLastBackup(long timestamp);
 
     /**
      * Saves the data analysis from privacy settings

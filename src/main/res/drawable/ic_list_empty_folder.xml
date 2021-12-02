@@ -18,8 +18,32 @@
 
   Icon provided by Android Material Library in Apache License 2.0
 -->
-<vector android:height="72dp" android:tint="#17597D"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M10,4H4c-1.1,0 -1.99,0.9 -1.99,2L2,18c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2V8c0,-1.1 -0.9,-2 -2,-2h-8l-2,-2z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <path
+        android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+        android:fillColor="#53baf2"/>
+    <path
+        android:pathData="M22,9H6a2,2 0,0 0,-2 2v5H29Z"
+        android:strokeAlpha="0.25"
+        android:fillColor="#317cb3"
+        android:fillAlpha="0.25"/>
+    <path
+        android:pathData="M58,16H4V53a2,2 0,0 0,2 2H58a2,2 0,0 0,2 -2V18A2,2 0,0 0,58 16Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startY="54.840004"
+                android:startX="31.999996"
+                android:endY="15.930003"
+                android:endX="31.999996"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF53BAF2"/>
+                <item android:offset="1" android:color="#FF7ECBF5"/>
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>

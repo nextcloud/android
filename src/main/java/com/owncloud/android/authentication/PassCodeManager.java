@@ -22,7 +22,6 @@ package com.owncloud.android.authentication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.view.Window;
@@ -30,6 +29,7 @@ import android.view.WindowManager;
 
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
@@ -68,12 +68,21 @@ public final class PassCodeManager {
 
     private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
+        //not required for now
         if (window != null) {
-            if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
+            //the user cannot take screenshot when app moves to recent view
+            // if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
+            //by default the window will be in secure mode
+            //we are setting the secure mode for release build and version, dev debug build also
+            //for other debug builds we are not setting so that we can take screenshot for testing
+            //but for production it should be enabled
+            /*if(BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")
+                || BuildConfig.FLAVOR.equalsIgnoreCase("qa") || !BuildConfig.DEBUG) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            } else {
+            }*/
+           /* } else {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            }
+            }*/
         }
     }
 
@@ -95,7 +104,7 @@ public final class PassCodeManager {
         }
 
         if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && deviceCredentialsShouldBeRequested(timestamp, activity)) {
+            deviceCredentialsShouldBeRequested(timestamp, activity)) {
             askedForPin = true;
 
             preferences.setLockTimestamp(0);
@@ -142,8 +151,7 @@ public final class PassCodeManager {
 
     private boolean deviceCredentialsAreEnabled(Activity activity) {
         return SettingsActivity.LOCK_DEVICE_CREDENTIALS.equals(preferences.getLockPreference())
-                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        (preferences.isFingerprintUnlockEnabled()
-                                && DeviceCredentialUtils.areCredentialsAvailable(activity));
+            || (preferences.isFingerprintUnlockEnabled()
+            && DeviceCredentialUtils.areCredentialsAvailable(activity));
     }
 }

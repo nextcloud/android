@@ -30,6 +30,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -91,7 +92,7 @@ public abstract class AbstractIT {
     protected Activity currentActivity;
 
     protected FileDataStorageManager fileDataStorageManager =
-        new FileDataStorageManager(account, targetContext.getContentResolver());
+        new FileDataStorageManager(user, targetContext.getContentResolver());
 
     @BeforeClass
     public static void beforeAll() {
@@ -106,13 +107,13 @@ public abstract class AbstractIT {
                 }
             }
 
-            Account temp = new Account("test@https://server.com", MainApp.getAccountType(targetContext));
+            Account temp = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
             platformAccountManager.addAccountExplicitly(temp, "password", null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://server.com");
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost");
             platformAccountManager.setUserData(temp, KEY_USER_ID, "test");
 
             final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-            account = userAccountManager.getAccountByName("test@https://server.com");
+            account = userAccountManager.getAccountByName("test@https://nextcloud.localhost");
 
             if (account == null) {
                 throw new ActivityNotFoundException();
@@ -157,6 +158,10 @@ public abstract class AbstractIT {
 
                 case "black":
                     colorHex = "#000000";
+                    break;
+
+                case "lightgreen":
+                    colorHex = "#aaff00";
                     break;
 
                 default:
@@ -315,8 +320,8 @@ public abstract class AbstractIT {
     }
 
     public OCFile createFolder(String remotePath) {
-        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext)
-                                .execute(client, getStorageManager())
+        TestCase.assertTrue(new CreateFolderOperation(remotePath, user, targetContext, getStorageManager())
+                                .execute(client)
                                 .isSuccess());
 
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
@@ -364,11 +369,12 @@ public abstract class AbstractIT {
             user,
             null,
             ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
+            NameCollisionPolicy.DEFAULT,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
-            false
+            false,
+            getStorageManager()
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
@@ -376,7 +382,7 @@ public abstract class AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
     }
 

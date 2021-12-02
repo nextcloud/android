@@ -24,7 +24,7 @@ import android.net.Uri;
 
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
-import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 
 import java.io.InputStream;
@@ -34,16 +34,16 @@ import java.io.InputStream;
  */
 public class CustomGlideUriLoader implements StreamModelLoader<Uri> {
 
-    private final CurrentAccountProvider currentAccount;
+    private final User user;
     private final ClientFactory clientFactory;
 
-    public CustomGlideUriLoader(CurrentAccountProvider currentAccount, ClientFactory clientFactory) {
-        this.currentAccount = currentAccount;
+    public CustomGlideUriLoader(User user, ClientFactory clientFactory) {
+        this.user = user;
         this.clientFactory = clientFactory;
     }
 
     @Override
     public DataFetcher<InputStream> getResourceFetcher(Uri url, int width, int height) {
-        return new HttpStreamFetcher(currentAccount, clientFactory, url.toString());
+        return new HttpStreamFetcher(user, clientFactory, url.toString());
     }
 }

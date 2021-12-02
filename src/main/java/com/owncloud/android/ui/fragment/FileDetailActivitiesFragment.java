@@ -222,7 +222,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     private void setupView() {
-        FileDataStorageManager storageManager = new FileDataStorageManager(user.toPlatformAccount(),
+        FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                            contentResolver);
         operationsHelper = ((ComponentsGetter) requireActivity()).getFileOperationsHelper();
 

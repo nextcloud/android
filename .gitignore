@@ -49,3 +49,4 @@ fastlane/Fastfile
 **/fastlane/test_output
 /fastlane/vendor/
 /.bundle/
+/fastlane/.bundle/

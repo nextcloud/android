@@ -29,7 +29,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -129,7 +128,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             }
 
             // delete file remote
-            delete = new DeleteMethod(client.getWebdavUri() + WebdavUtils.encodePath(remotePath));
+            delete = new DeleteMethod(client.getFilesDavUri(remotePath));
             delete.setQueryString(new NameValuePair[]{new NameValuePair(E2E_TOKEN, token)});
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
 

@@ -31,9 +31,6 @@ import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
 import com.owncloud.android.R;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Calendar;
@@ -145,13 +142,14 @@ public class ExpirationDatePickerDialogFragment
         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         long chosenDateInMillis = chosenDate.getTimeInMillis();
 
-        if (onExpiryDateListener!=null){
+        if (onExpiryDateListener != null) {
             onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
         }
     }
 
-    public interface OnExpiryDateListener{
+    public interface OnExpiryDateListener {
         void onDateSet(int year, int monthOfYear, int dayOfMonth, long chosenDateInMillis);
+
         void onDateUnSet();
     }
 }

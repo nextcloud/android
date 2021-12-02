@@ -27,12 +27,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ListFooterBinding;
+import com.owncloud.android.databinding.TrashbinItemBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -47,8 +47,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -105,11 +103,13 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TRASHBIN_ITEM) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.trashbin_item, parent, false);
-            return new TrashbinFileViewHolder(v);
+            return new TrashbinFileViewHolder(
+                TrashbinItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+            );
         } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_footer, parent, false);
-            return new TrashbinFooterViewHolder(v);
+            return new TrashbinFooterViewHolder(
+                ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+            );
         }
     }
 
@@ -120,17 +120,17 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             TrashbinFile file = files.get(position);
 
             // layout
-            trashbinFileViewHolder.itemLayout.setOnClickListener(v -> trashbinActivityInterface.onItemClicked(file));
+            trashbinFileViewHolder.binding.ListItemLayout.setOnClickListener(v -> trashbinActivityInterface.onItemClicked(file));
 
             // thumbnail
-            trashbinFileViewHolder.thumbnail.setTag(file.getRemoteId());
-            setThumbnail(file, trashbinFileViewHolder.thumbnail);
+            trashbinFileViewHolder.binding.thumbnail.setTag(file.getRemoteId());
+            setThumbnail(file, trashbinFileViewHolder.binding.thumbnail);
 
             // fileName
-            trashbinFileViewHolder.fileName.setText(file.getFileName());
+            trashbinFileViewHolder.binding.Filename.setText(file.getFileName());
 
             // fileSize
-            trashbinFileViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+            trashbinFileViewHolder.binding.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
             // originalLocation
             String location;
@@ -140,26 +140,26 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 location = ROOT_PATH;
             }
-            trashbinFileViewHolder.originalLocation.setText(location);
+            trashbinFileViewHolder.binding.originalLocation.setText(location);
 
             // deletion time
-            trashbinFileViewHolder.deletionTimestamp.setText(DisplayUtils.getRelativeTimestamp(context,
+            trashbinFileViewHolder.binding.deletionTimestamp.setText(DisplayUtils.getRelativeTimestamp(context,
                     file.getDeletionTimestamp() * 1000));
 
             // checkbox
-            trashbinFileViewHolder.checkbox.setVisibility(View.GONE);
+            trashbinFileViewHolder.binding.customCheckbox.setVisibility(View.GONE);
 
             // overflow menu
-            trashbinFileViewHolder.overflowMenu.setOnClickListener(v ->
+            trashbinFileViewHolder.binding.overflowMenu.setOnClickListener(v ->
                     trashbinActivityInterface.onOverflowIconClicked(file, v));
 
             // restore button
-            trashbinFileViewHolder.restoreButton.setOnClickListener(v ->
+            trashbinFileViewHolder.binding.restore.setOnClickListener(v ->
                     trashbinActivityInterface.onRestoreIconClicked(file, v));
 
         } else {
             TrashbinFooterViewHolder trashbinFooterViewHolder = (TrashbinFooterViewHolder) holder;
-            trashbinFooterViewHolder.title.setText(getFooterText());
+            trashbinFooterViewHolder.binding.footerText.setText(getFooterText());
         }
     }
 
@@ -236,8 +236,10 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView, storageManager,
-                                                                                       user.toPlatformAccount(), asyncTasks);
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                       storageManager,
+                                                                                       user,
+                                                                                       asyncTasks);
 
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
@@ -297,39 +299,21 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public class TrashbinFileViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.thumbnail)
-        public ImageView thumbnail;
-        @BindView(R.id.Filename)
-        public TextView fileName;
-        @BindView(R.id.fileSize)
-        public TextView fileSize;
-        @BindView(R.id.deletionTimestamp)
-        public TextView deletionTimestamp;
-        @BindView(R.id.originalLocation)
-        public TextView originalLocation;
-        @BindView(R.id.restore)
-        public ImageView restoreButton;
-        @BindView(R.id.customCheckbox)
-        public ImageView checkbox;
-        @BindView(R.id.overflowMenu)
-        public ImageView overflowMenu;
-        @BindView(R.id.ListItemLayout)
-        public LinearLayout itemLayout;
+        protected TrashbinItemBinding binding;
 
-        private TrashbinFileViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        private TrashbinFileViewHolder(TrashbinItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
             // todo action mode
         }
     }
 
     public class TrashbinFooterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.footerText)
-        public TextView title;
+        protected ListFooterBinding binding;
 
-        private TrashbinFooterViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        private TrashbinFooterViewHolder(ListFooterBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

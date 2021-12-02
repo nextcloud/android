@@ -230,7 +230,11 @@ class SyncedFolderUtilsTest : AbstractIT() {
         @BeforeClass
         @JvmStatic
         fun setUp() {
-            val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.separatorChar + THUMBNAILS_FOLDER)
+            val tempPath =
+                File(
+                    FileStorageUtils.getTemporalPath(account.name) + File.separatorChar +
+                        THUMBNAILS_FOLDER
+                )
             if (!tempPath.exists()) {
                 tempPath.mkdirs()
             }

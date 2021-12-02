@@ -22,7 +22,6 @@
 
 package com.nextcloud.client;
 
-import android.Manifest;
 import android.app.Activity;
 
 import com.owncloud.android.AbstractOnServerIT;
@@ -42,12 +41,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -62,8 +61,7 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
                                                                                            false);
 
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     // @ScreenshotTest // todo run without real server
@@ -135,8 +133,8 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
         // given test folder
-        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
-                       .execute(client, getStorageManager())
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext, getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         // navigate into it
@@ -162,8 +160,8 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
     public void switchToGridView() {
         activityRule.launchActivity(null);
 
-        assertTrue(new CreateFolderOperation("/test/", user, targetContext)
-                       .execute(client, getStorageManager())
+        assertTrue(new CreateFolderOperation("/test/", user, targetContext, getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         Espresso.onView(withId(R.id.switch_grid_view_button)).perform(click());

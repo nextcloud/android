@@ -38,7 +38,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
     public void deleteFolder() {
         String parent = "/test/";
         String path = parent + "folder1/";
-        assertTrue(new CreateFolderOperation(path, user, targetContext).execute(client, getStorageManager())
+        assertTrue(new CreateFolderOperation(path, user, targetContext, getStorageManager()).execute(client)
                        .isSuccess());
 
         OCFile folder = getStorageManager().getFileByPath(path);
@@ -49,8 +49,9 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
                                            false,
                                            account,
                                            false,
-                                           targetContext)
-                       .execute(client, getStorageManager())
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         OCFile parentFolder = getStorageManager().getFileByPath(parent);
@@ -60,8 +61,9 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
                                            false,
                                            account,
                                            false,
-                                           targetContext)
-                       .execute(client, getStorageManager())
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
                        .isSuccess());
     }
 
@@ -81,8 +83,9 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
                                            false,
                                            account,
                                            false,
-                                           targetContext)
-                       .execute(client, getStorageManager())
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
                        .isSuccess());
 
         OCFile parentFolder = getStorageManager().getFileByPath(parent);
@@ -92,8 +95,9 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
                                            false,
                                            account,
                                            false,
-                                           targetContext)
-                       .execute(client, getStorageManager())
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
                        .isSuccess());
     }
 }

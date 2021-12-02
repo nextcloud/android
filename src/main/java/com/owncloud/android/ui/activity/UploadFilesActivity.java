@@ -86,6 +86,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private static final String KEY_ALL_SELECTED = UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
     public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_FOLDER_PICKER_MODE";
+    public static final String LOCAL_BASE_PATH = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_BASE_PATH";
     public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
     public static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
 
@@ -112,6 +113,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private Menu mOptionsMenu;
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
+    private MaterialButton uploadButton;
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
@@ -181,9 +183,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         MaterialButton cancelButton = findViewById(R.id.upload_files_btn_cancel);
         cancelButton.setOnClickListener(this);
 
-        MaterialButton uploadButton = findViewById(R.id.upload_files_btn_upload);
+        uploadButton = findViewById(R.id.upload_files_btn_upload);
         ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
+        uploadButton.setEnabled(false);
 
         int localBehaviour = preferences.getUploaderBehaviour();
 
@@ -297,28 +300,23 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                    onBackPressed();
-                }
-                break;
+        int itemId = item.getItemId();
+
+        if (itemId == android.R.id.home) {
+            if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
+                onBackPressed();
             }
-            case R.id.action_select_all: {
-                item.setChecked(!item.isChecked());
-                mSelectAll = item.isChecked();
-                setSelectAllMenuItem(item, mSelectAll);
-                mFileListFragment.selectAllFiles(item.isChecked());
-                break;
-            }
-            case R.id.action_choose_storage_path: {
-                showLocalStoragePathPickerDialog();
-                break;
-            }
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        } else if (itemId == R.id.action_select_all) {
+            item.setChecked(!item.isChecked());
+            mSelectAll = item.isChecked();
+            setSelectAllMenuItem(item, mSelectAll);
+            mFileListFragment.selectAllFiles(item.isChecked());
+        } else if (itemId == R.id.action_choose_storage_path) {
+            showLocalStoragePathPickerDialog();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 
@@ -465,6 +463,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_DELETE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
 
                 // set result code
                 switch (mBehaviourSpinner.getSelectedItemPosition()) {
@@ -557,7 +556,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      */
     @Override
     public void onFileClick(File file) {
-        // nothing to do
+        uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
     }
 
     /**

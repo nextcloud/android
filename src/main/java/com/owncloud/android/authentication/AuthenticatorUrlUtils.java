@@ -23,6 +23,7 @@ package com.owncloud.android.authentication;
 
 import android.text.TextUtils;
 
+import java.net.URI;
 import java.util.Locale;
 
 /**
@@ -96,5 +97,15 @@ public final class AuthenticatorUrlUtils {
         }
 
         return strippedUrl;
+    }
+
+    public static String normalizeScheme(String url) {
+        URI uri = URI.create(url);
+        if (uri.getScheme() != null) {
+            String lcScheme = uri.getScheme().toLowerCase(Locale.ROOT);
+            return String.format("%s:%s", lcScheme, uri.getRawSchemeSpecificPart());
+        } else {
+            return url;
+        }
     }
 }

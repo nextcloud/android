@@ -22,6 +22,7 @@ package com.nextcloud.client.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.Build;
 
 import com.nextcloud.client.account.UserAccountManager;
 
@@ -40,7 +41,8 @@ public class NetworkModule {
         return new ConnectivityServiceImpl(connectivityManager,
                                            accountManager,
                                            clientFactory,
-                                           new ConnectivityServiceImpl.GetRequestBuilder()
+                                           new ConnectivityServiceImpl.GetRequestBuilder(),
+                                           Build.VERSION.SDK_INT
         );
     }
 

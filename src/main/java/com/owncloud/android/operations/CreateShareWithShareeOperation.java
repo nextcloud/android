@@ -3,7 +3,9 @@
  *
  *   @author masensio
  *   @author David A. Velasco
+ *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2021 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,6 +25,7 @@ package com.owncloud.android.operations;
 
 import android.text.TextUtils;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -69,7 +72,13 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param permissions Share permissions key as detailed in https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html
      *                    .
      */
-    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
+    public CreateShareWithShareeOperation(String path,
+                                          String shareeName,
+                                          ShareType shareType,
+                                          int permissions,
+                                          FileDataStorageManager storageManager) {
+        super(storageManager);
+
         if (!supportedShareTypes.contains(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
@@ -89,9 +98,17 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param permissions Share permissions key as detailed in https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html
      *                    .
      */
-    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions,
-                                          String noteMessage, String sharePassword, long expirationDateInMillis,
-                                          boolean hideFileDownload) {
+    public CreateShareWithShareeOperation(String path,
+                                          String shareeName,
+                                          ShareType shareType,
+                                          int permissions,
+                                          String noteMessage,
+                                          String sharePassword,
+                                          long expirationDateInMillis,
+                                          boolean hideFileDownload,
+                                          FileDataStorageManager storageManager) {
+        super(storageManager);
+
         if (!supportedShareTypes.contains(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
@@ -124,10 +141,20 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             OCShare share = (OCShare) result.getData().get(0);
 
             //once creating share link update other information
-            UpdateShareInfoOperation updateShareInfoOperation = new UpdateShareInfoOperation(share);
-            updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
+            UpdateShareInfoOperation updateShareInfoOperation = new UpdateShareInfoOperation(share, getStorageManager());
+            if (expirationDateInMillis > 0) {
+                updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
+            }
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
-            updateShareInfoOperation.setNote(noteMessage);
+            if (!TextUtils.isEmpty(noteMessage)) {
+                updateShareInfoOperation.setNote(noteMessage);
+            }
+
+            //update the permission using update info api
+            //because for external share the selected permission is not getting updated instead default Read Only
+            // permission is getting updated
+            updateShareInfoOperation.setPermissions(permissions);
+
             updateShareInfoOperation.setLabel(label);
 
             //execute and save the result in database

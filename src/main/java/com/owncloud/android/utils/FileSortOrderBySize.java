@@ -47,16 +47,13 @@ public class FileSortOrderBySize extends FileSortOrder {
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(), o2.getFileLength());
             } else if (o1.isFolder()) {
                 return -1;
-
             } else if (o2.isFolder()) {
                 return 1;
             } else {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
             }
         });
 
@@ -74,16 +71,14 @@ public class FileSortOrderBySize extends FileSortOrder {
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(), o2.getFileLength());
             } else if (o1.isFolder()) {
                 return -1;
 
             } else if (o2.isFolder()) {
                 return 1;
             } else {
-                Long obj1 = o1.getFileLength();
-                return multiplier * obj1.compareTo(o2.getFileLength());
+                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
             }
         });
 
@@ -101,19 +96,17 @@ public class FileSortOrderBySize extends FileSortOrder {
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isDirectory() && o2.isDirectory()) {
-                Long obj1 = FileStorageUtils.getFolderSize(o1);
-                return multiplier * obj1.compareTo(FileStorageUtils.getFolderSize(o2));
+                return multiplier * Long.compare(FileStorageUtils.getFolderSize(o1),
+                                                 FileStorageUtils.getFolderSize(o2));
             } else if (o1.isDirectory()) {
                 return -1;
             } else if (o2.isDirectory()) {
                 return 1;
             } else {
-                Long obj1 = o1.length();
-                return multiplier * obj1.compareTo(o2.length());
+                return multiplier * Long.compare(o1.length(),o2.length());
             }
         });
 
         return files;
     }
-
 }

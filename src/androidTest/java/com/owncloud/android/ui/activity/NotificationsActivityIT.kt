@@ -40,6 +40,10 @@ class NotificationsActivityIT : AbstractIT() {
     fun loading() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 
+        waitForIdleSync()
+
+        sut.runOnUiThread { sut.setLoadingMessageEmpty() }
+
         screenshot(sut)
     }
 
@@ -87,9 +91,10 @@ class NotificationsActivityIT : AbstractIT() {
             )
         )
 
-        val actions = ArrayList<Action>()
-        actions.add(Action("Send usage", "link", "url", true))
-        actions.add(Action("Not now", "link", "url", false))
+        val actions = ArrayList<Action>().apply {
+            add(Action("Send usage", "link", "url", true))
+            add(Action("Not now", "link", "url", false))
+        }
 
         notifications.add(
             Notification(
@@ -109,6 +114,34 @@ class NotificationsActivityIT : AbstractIT() {
                 "link",
                 "icon",
                 actions
+            )
+        )
+
+        val moreAction = ArrayList<Action>().apply {
+            add(Action("Send usage", "link", "url", true))
+            add(Action("Not now", "link", "url", false))
+            add(Action("third action", "link", "url", false))
+            add(Action("Delay", "link", "url", false))
+        }
+
+        notifications.add(
+            Notification(
+                2,
+                "files",
+                "user",
+                date.time,
+                "objectType",
+                "objectId",
+                "Help improve Nextcloud",
+                "SubjectRich",
+                HashMap<String, RichObject>(),
+                "Do you want to help us to improve Nextcloud by providing some anonymize data about your setup and " +
+                    "usage?",
+                "MessageRich",
+                HashMap<String, RichObject>(),
+                "link",
+                "icon",
+                moreAction
             )
         )
 

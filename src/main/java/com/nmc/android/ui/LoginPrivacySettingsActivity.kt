@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.nextcloud.client.preferences.AppPreferences
 import com.nmc.android.utils.makeLinks
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityLoginPrivacySettingsBinding
 import com.owncloud.android.ui.activity.ExternalSiteWebView
@@ -88,6 +89,10 @@ class LoginPrivacySettingsActivity : ToolbarActivity() {
     }
 
     private fun openFileDisplayActivity() {
+        //update the version code when user has accepted or rejected privacy policy
+        //this will be used to help to check app up-gradation
+        preferences.lastSeenVersionCode = BuildConfig.VERSION_CODE
+
         val i = Intent(this, FileDisplayActivity::class.java)
         i.action = FileDisplayActivity.RESTART
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

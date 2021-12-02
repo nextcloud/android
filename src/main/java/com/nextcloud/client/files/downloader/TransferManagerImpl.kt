@@ -24,6 +24,7 @@ import com.nextcloud.client.core.IsCancelled
 import com.nextcloud.client.core.OnProgressCallback
 import com.nextcloud.client.core.TaskFunction
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.operations.UploadFileOperation
 import java.util.UUID
 
 /**
@@ -33,13 +34,14 @@ import java.util.UUID
  * in the background.
  *
  * @param runner Background task runner. It is important to provide runner that is not shared with UI code.
- * @param taskFactory Download task factory
+ * @param downloadTaskFactory Download task factory
  * @param threads maximum number of concurrent transfer processes
  */
 @Suppress("LongParameterList") // transfer operations requires those resources
 class TransferManagerImpl(
     private val runner: AsyncRunner,
-    private val taskFactory: DownloadTask.Factory,
+    private val downloadTaskFactory: DownloadTask.Factory,
+    private val uploadTaskFactory: UploadTask.Factory,
     threads: Int = 1
 ) : TransferManager {
 
@@ -47,6 +49,7 @@ class TransferManagerImpl(
         const val PROGRESS_PERCENTAGE_MAX = 100
         const val PROGRESS_PERCENTAGE_MIN = 0
         const val TEST_DOWNLOAD_PROGRESS_UPDATE_PERIOD_MS = 200L
+        const val TEST_UPLOAD_PROGRESS_UPDATE_PERIOD_MS = 200L
     }
 
     private val registry = Registry(
@@ -92,27 +95,51 @@ class TransferManagerImpl(
     override fun getTransfer(file: OCFile): Transfer? = registry.getTransfer(file)
 
     private fun onStartTransfer(uuid: UUID, request: Request) {
-        val transferTask = when (request.type) {
-            Direction.DOWNLOAD -> createDownloadTask(request)
-            Direction.UPLOAD -> createDownloadTask(request) // plug a hole for now - uploads are not supported
+        if (request is DownloadRequest) {
+            runner.postTask(
+                task = createDownloadTask(request),
+                onProgress = { progress: Int -> registry.progress(uuid, progress) },
+                onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
+                onError = { registry.complete(uuid, false); registry.startNext() }
+            )
+        } else if (request is UploadRequest) {
+            runner.postTask(
+                task = createUploadTask(request),
+                onProgress = { progress: Int -> registry.progress(uuid, progress) },
+                onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
+                onError = { registry.complete(uuid, false); registry.startNext() }
+            )
         }
-        runner.postTask(
-            task = transferTask,
-            onProgress = { progress: Int -> registry.progress(uuid, progress) },
-            onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
-            onError = { registry.complete(uuid, false); registry.startNext() }
-        )
     }
 
-    private fun createDownloadTask(request: Request): TaskFunction<DownloadTask.Result, Int> {
+    private fun createDownloadTask(request: DownloadRequest): TaskFunction<DownloadTask.Result, Int> {
         return if (request.test) {
             { progress: OnProgressCallback<Int>, isCancelled: IsCancelled ->
                 testDownloadTask(request.file, progress, isCancelled)
             }
         } else {
-            val downloadTask = taskFactory.create()
+            val downloadTask = downloadTaskFactory.create()
             val wrapper: TaskFunction<DownloadTask.Result, Int> = { progress: ((Int) -> Unit), isCancelled ->
                 downloadTask.download(request, progress, isCancelled)
+            }
+            wrapper
+        }
+    }
+
+    private fun createUploadTask(request: UploadRequest): TaskFunction<UploadTask.Result, Int> {
+        return if (request.test) {
+            { progress: OnProgressCallback<Int>, isCancelled: IsCancelled ->
+                val file = UploadFileOperation.obtainNewOCFileToUpload(
+                    request.upload.remotePath,
+                    request.upload.localPath,
+                    request.upload.mimeType
+                )
+                testUploadTask(file, progress, isCancelled)
+            }
+        } else {
+            val uploadTask = uploadTaskFactory.create()
+            val wrapper: TaskFunction<UploadTask.Result, Int> = { progress: ((Int) -> Unit), isCancelled ->
+                uploadTask.upload(request.user, request.upload)
             }
             wrapper
         }
@@ -143,5 +170,24 @@ class TransferManagerImpl(
             Thread.sleep(TEST_DOWNLOAD_PROGRESS_UPDATE_PERIOD_MS)
         }
         return DownloadTask.Result(file, true)
+    }
+
+    /**
+     *  Test upload task is used only to simulate upload process without
+     *  any network traffic. It is used for development.
+     */
+    private fun testUploadTask(
+        file: OCFile,
+        onProgress: OnProgressCallback<Int>,
+        isCancelled: IsCancelled
+    ): UploadTask.Result {
+        for (i in PROGRESS_PERCENTAGE_MIN..PROGRESS_PERCENTAGE_MAX) {
+            onProgress(i)
+            if (isCancelled()) {
+                return UploadTask.Result(file, false)
+            }
+            Thread.sleep(TEST_UPLOAD_PROGRESS_UPDATE_PERIOD_MS)
+        }
+        return UploadTask.Result(file, true)
     }
 }

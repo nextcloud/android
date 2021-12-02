@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class FileUtils {
@@ -140,6 +141,26 @@ public class FileUtils {
         }
         return null;
 
+    }
+
+
+    /**
+     * delete all the files inside the pictures directory
+     * this directory is getting used to store the scanned images temporarily till they uploaded to cloud
+     * the scanned files after downloading will get deleted by UploadWorker but in case some files still there
+     * then we have to delete it when user do logout from the app
+     * @param context
+     */
+    public static void deleteFilesFromPicturesDirectory(Context context) {
+        File getFileDirectory = getOutputMediaFile(context);
+        if (getFileDirectory.isDirectory()) {
+            File[] fileList = getFileDirectory.listFiles();
+            if (fileList != null && fileList.length > 0) {
+                for (File file : fileList) {
+                    file.delete();
+                }
+            }
+        }
     }
 
 }

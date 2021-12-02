@@ -3,8 +3,11 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
+ *
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
+ * Copyright (C) 2021 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,12 +27,9 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -70,7 +70,11 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
                 binding.name.setText(text);
             } else {
-                binding.name.setText(R.string.share_link);
+                if (publicShare.isFolder()){
+                    binding.name.setText(R.string.share_link_folder);
+                }else {
+                    binding.name.setText(R.string.share_link_file);
+                }
             }
 
         }

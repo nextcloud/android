@@ -89,6 +89,8 @@ class BackgroundJobFactory @Inject constructor(
             MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
             NotificationWork::class -> createNotificationWork(context, workerParameters)
             AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
+            CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
+            CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
             ScanDocUploadWorker::class -> createScanDocUploadWork(context, workerParameters)
             UploadImagesWorker::class -> createUploadImagesWork(context, workerParameters)
             else -> null // caller falls back to default factory
@@ -128,6 +130,25 @@ class BackgroundJobFactory @Inject constructor(
 
     private fun createContactsImportWork(context: Context, params: WorkerParameters): ContactsImportWork {
         return ContactsImportWork(
+            context,
+            params,
+            logger,
+            contentResolver
+        )
+    }
+
+    private fun createCalendarBackupWork(context: Context, params: WorkerParameters): CalendarBackupWork {
+        return CalendarBackupWork(
+            context,
+            params,
+            contentResolver,
+            accountManager,
+            preferences
+        )
+    }
+
+    private fun createCalendarImportWork(context: Context, params: WorkerParameters): CalendarImportWork {
+        return CalendarImportWork(
             context,
             params,
             logger,

@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -35,7 +34,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -59,7 +57,6 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -132,7 +129,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
-    @Inject DeviceInfo deviceInfo;
     private PreviewImageFragmentBinding binding;
 
     private OnImageLoadListener onImageLoadListener;
@@ -141,8 +137,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private int currentIndex;
     private boolean isRotationInProgress;
     private boolean isImageLoadingFailed;//flag to check if image loading is failed or not
-    private ExecutorService rotationExecutorService = Executors.newSingleThreadExecutor();
-    private Handler rotationHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private final ExecutorService rotationExecutorService = Executors.newSingleThreadExecutor();
+    private final Handler rotationHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -177,7 +173,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
      * device is turned a aside).
      * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
      */
     public PreviewImageFragment() {
         ignoreFirstSavedState = false;
@@ -425,7 +421,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 
@@ -450,10 +445,21 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
 
+        //this condition will only run when image is rotated
+        //get the rotated bitmap from hashmap
+        if (requireActivity() instanceof PreviewImageActivity) {
+            Bitmap rotatedBitmap = ((PreviewImageActivity) requireActivity()).getCurrentBitmap(currentIndex);
+            //check if it should not be null
+            if (rotatedBitmap != null) {
+                FileMenuFilter.showMenuItem(menu.findItem(R.id.action_send_share_file));
+            }
+        }
+
+
         //enable rotate image if image is png or jpg
         //we are not rotating svg, gif or any other format of images
         //image loading should not be failed to show rotate images
-        if (MimeTypeUtil.isJpgOrPngFile(getFile().getFileName()) && !isImageLoadingFailed) {
+        if (MimeTypeUtil.isJpgOrPngFile(getFile().getFileName()) && !isImageLoadingFailed && binding.emptyListProgress.getVisibility() == View.GONE) {
             menu.findItem(R.id.action_rotate_image).setVisible(true);
         }
     }
@@ -467,48 +473,39 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         if (isRotationInProgress) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.action_send_share_file:
-                if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                    Snackbar.make(requireView(),
-                                  R.string.resharing_is_not_allowed,
-                                  Snackbar.LENGTH_LONG
-                                 )
-                        .show();
-                } else {
-                    containerActivity.getFileOperationsHelper().sendShareFile(getFile());
-                }
-                return true;
-
-            case R.id.action_open_file_with:
-                openFile();
-                return true;
-
-            case R.id.action_remove_file:
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-                return true;
-
-            case R.id.action_see_details:
-                seeDetails();
-                return true;
-
-            case R.id.action_download_file:
-            case R.id.action_sync_file:
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-
-            case R.id.action_set_as_wallpaper:
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
-                return true;
-
-            case R.id.action_rotate_image:
-                rotate();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_send_share_file) {
+            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+                Snackbar.make(requireView(),
+                              R.string.resharing_is_not_allowed,
+                              Snackbar.LENGTH_LONG
+                             )
+                    .show();
+            } else {
+                containerActivity.getFileOperationsHelper().sendShareFile(getFile());
+            }
+            return true;
+        } else if (itemId == R.id.action_open_file_with) {
+            openFile();
+            return true;
+        } else if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_see_details) {
+            seeDetails();
+            return true;
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_set_as_wallpaper) {
+            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
+            return true;
+        } else if (itemId == R.id.action_rotate_image) {
+            rotate();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -530,6 +527,24 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             //make copy of rotated bitmap to avoid issue during recycle
             bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
+
+            //rotate the cached thumbnail for this image
+
+            //1. Get the thumbnail
+            Bitmap thumbnailBitmap = getThumbnailBitmap(getFile());
+            if (thumbnailBitmap != null) {
+                //2. Rotate the thumbnail
+                Bitmap rotatedThumbBitmap = Bitmap.createBitmap(thumbnailBitmap, 0, 0, thumbnailBitmap.getWidth(), thumbnailBitmap.getHeight(),
+                                                                matrix, true);
+
+                //3. Add the rotated thumbnail back to cache
+                ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId(), rotatedThumbBitmap);
+            }
+
+            //if image resized is enabled then add the current rotated bitmap image to cache
+            if (showResizedImage) {
+                ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId(), rotatedBitmap);
+            }
 
             rotationHandler.post(() -> {
                 //set the rotated bitmap to image view
@@ -570,7 +585,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         super.onDestroy();
     }
 
-
     /**
      * Opens the previewed image with an external application.
      */
@@ -578,7 +592,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         containerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
-
 
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
         private static final int PARAMS_LENGTH = 1;
@@ -597,7 +610,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
          * Error message to show when a load fails.
          */
         private int mErrorMessageId;
-
 
         /**
          * Constructor.
@@ -789,22 +801,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         layers[1] = bitmapDrawable;
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Activity activity = getActivity();
-            if (activity != null) {
-                int bitmapWidth;
-                int bitmapHeight;
+        Activity activity = getActivity();
+        if (activity != null) {
+            int bitmapWidth;
+            int bitmapHeight;
 
-                if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                    bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
-                } else {
-                    bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
-                    bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
-                }
-                layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-                layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
+            if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
+            } else {
+                bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
+                bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
             }
+            layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
+            layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
         }
 
         return layerDrawable;
@@ -897,10 +907,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void toggleImageBackground() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
-            && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
-            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null
-            && getActivity() instanceof PreviewImageActivity) {
+        if (getFile() != null && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
+            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null &&
+            getActivity() instanceof PreviewImageActivity) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
 
             if (binding.image.getDrawable() instanceof LayerDrawable) {

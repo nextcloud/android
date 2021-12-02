@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -35,10 +36,12 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class UpdateNoteForShareOperation extends SyncOperation {
 
-    private long shareId;
-    private String note;
+    private final long shareId;
+    private final String note;
 
-    public UpdateNoteForShareOperation(long shareId, String note) {
+    public UpdateNoteForShareOperation(long shareId, String note, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.shareId = shareId;
         this.note = note;
     }

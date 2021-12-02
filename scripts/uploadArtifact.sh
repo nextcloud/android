@@ -20,7 +20,7 @@ fi
 echo "Uploaded artifact to $DAV_URL/$BUILD.apk"
 
 # delete all old comments, starting with "APK file:"
-oldComments=$(curl 2>/dev/null --header "authorization: Bearer $GITHUB_TOKEN" -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test("APK file:.*") | tostring)'  | grep "true|true" | tr -d "\"" | cut -f1 -d"|")
+oldComments=$(curl 2>/dev/null --header "authorization: Bearer $GITHUB_TOKEN" -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("github-actions") | tostring) + "|" + (.body | test("APK file:.*") | tostring)'  | grep "true|true" | tr -d "\"" | cut -f1 -d"|")
 
 echo $oldComments | while read comment ; do
     curl 2>/dev/null --header "authorization: Bearer $GITHUB_TOKEN" -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment

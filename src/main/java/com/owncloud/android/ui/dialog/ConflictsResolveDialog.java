@@ -199,7 +199,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         OCFileListAdapter.setThumbnail(existingFile,
                                        binding.existingThumbnail,
                                        user,
-                                       new FileDataStorageManager(user.toPlatformAccount(),
+                                       new FileDataStorageManager(user,
                                                                   requireContext().getContentResolver()),
                                        asyncTasks,
                                        false,

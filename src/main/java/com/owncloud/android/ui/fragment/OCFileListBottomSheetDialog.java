@@ -47,6 +47,8 @@ import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
 
+import androidx.core.content.ContextCompat;
+
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
  */
@@ -94,7 +96,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             capability.getRichDocumentsTemplatesAvailable().isTrue() &&
             !file.isEncrypted()) {
             binding.templates.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         String json = new ArbitraryDataProvider(getContext().getContentResolver())
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
@@ -117,11 +119,15 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                                       fileActivity.getString(R.string.create_new),
                                       creator.getName()));
 
-                    creatorViewBinding.creatorThumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
-                                                                            creator.getExtension(),
-                                                                            user,
-                                                                            getContext()));
-
+                    if (creator.getMimetype().equalsIgnoreCase(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)){
+                        creatorViewBinding.creatorThumbnail.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                                                                                                       R.drawable.ic_new_txt_doc));
+                    }else {
+                        creatorViewBinding.creatorThumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
+                                                                                                          creator.getExtension(),
+                                                                                                          user,
+                                                                                                          getContext()));
+                    }
                     creatorView.setOnClickListener(v -> {
                         actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());
                         dismiss();
@@ -131,7 +137,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                 }
             }
         }
-*/
+
         if (!deviceInfo.hasCamera(getContext())) {
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
             binding.menuScanDocument.setVisibility(View.GONE);

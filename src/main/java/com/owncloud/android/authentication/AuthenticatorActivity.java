@@ -243,6 +243,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
     private int primaryColor = R.color.primary;
+    private boolean strictMode = false;
 
     @VisibleForTesting
     public AccountSetupBinding getAccountSetupBinding() {
@@ -309,7 +310,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// load user interface
         if (webViewLoginMethod) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            //setting orientation is not required
+            //setRequestedOrientation(DisplayUtils.isTablet() ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
+                                         //ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
             initWebViewLogin(webloginUrl, false);
@@ -386,6 +389,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             url = getResources().getString(R.string.webview_login_url);
         }
 
+        if (url.startsWith(HTTPS_PROTOCOL)) {
+            strictMode = true;
+        }
+
         accountSetupWebviewBinding.loginWebview.loadUrl(url, headers);
 
         setClient();
@@ -427,12 +434,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     parseAndLoginFromWebView(url);
                     return true;
                 }
+                if (strictMode && url.startsWith(HTTP_PROTOCOL)) {
+                    Snackbar.make(view, R.string.strict_mode, Snackbar.LENGTH_LONG).show();
+                    return true;
+                }
                 return false;
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
+                //scroll to top when url loads
+                //because directly loading Telekom login page it scrolls down automatically
+                view.scrollTo(0,0);
 
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
@@ -765,6 +780,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 uri = AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles(uri);
                 accountSetupBinding.hostUrlInput.setText(uri);
             }
+
+            uri = AuthenticatorUrlUtils.normalizeScheme(uri);
 
             // Handle internationalized domain names
             try {
@@ -1262,6 +1279,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return false;
 
         } else {
+            UserInfo userInfo = authResult.getResultData();
+            if (userInfo == null) {
+                Log_OC.e(this, "Could not read user data!");
+                return false;
+            }
+
             mAccount = newAccount;
             mAccountMgr.addAccountExplicitly(mAccount, webViewPassword, null);
 
@@ -1285,13 +1308,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
-
-            UserInfo userInfo = authResult.getResultData();
-            if (userInfo == null) {
-                Log_OC.e(this, "Could not read user data!");
-                return false;
-            }
-
             mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
             mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
             mAccountMgr.setUserData(mAccount,

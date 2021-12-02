@@ -119,6 +119,14 @@ There are three build variants
 * gplay: with Google Stuff (Push notification), used for Google Play Store
 * versionDev: based on master and library master, available as direct download and FDroid
 
+### Git hooks
+We provide git hooks to make development process easier for both the developer and the reviewers.
+To install them, just run:
+
+```bash
+./gradlew installGitHooks
+```
+
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.
 * For your first contribution start a pull request on master.
@@ -319,7 +327,7 @@ We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextc
 
 If you need to change a translation, do not change it, but give it new key. This way the translation stays backward compatible as we automatically backport translated strings to last versions.
 
-When submitting PRs with changed translations, please only submit changes to values/strings.xml and not changes to translated files. These will be overwritten by next merge of transifex-but and increase PR review.  
+When submitting PRs with changed translations, please only submit changes to values/strings.xml and not changes to translated files. These will be overwritten by next merge of transifex-bot and increase PR review.  
 
 ## Engineering practices
 

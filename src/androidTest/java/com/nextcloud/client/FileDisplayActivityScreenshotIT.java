@@ -22,22 +22,23 @@
 
 package com.nextcloud.client;
 
-import android.Manifest;
-
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertNotNull;
 
 public class FileDisplayActivityScreenshotIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
@@ -45,8 +46,7 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
                                                                                            false);
 
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     @ScreenshotTest
@@ -58,7 +58,43 @@ public class FileDisplayActivityScreenshotIT extends AbstractIT {
         sut.getListOfFilesFragment().setLoading(false);
         waitForIdleSync();
 
+        shortSleep();
+
         screenshot(sut);
+    }
+
+    //@Test
+    //@ScreenshotTest
+    public void showMediaThenAllFiles() {
+        FileDisplayActivity fileDisplayActivity = activityRule.launchActivity(null);
+        OCFileListFragment sut = fileDisplayActivity.getListOfFilesFragment();
+        assertNotNull(sut);
+
+        sut.setFabEnabled(false);
+        sut.setEmptyListLoadingMessage();
+        sut.setLoading(false);
+
+        // open drawer
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // click "all files"
+        onView(withId(R.id.nav_view))
+            .perform(NavigationViewActions.navigateTo(R.id.nav_gallery));
+
+        // wait
+        shortSleep();
+
+        // click "all files"
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.nav_view)).perform(NavigationViewActions.navigateTo(R.id.nav_all_files));
+
+        // then compare screenshot
+        shortSleep();
+        sut.setFabEnabled(false);
+        sut.setEmptyListLoadingMessage();
+        sut.setLoading(false);
+        shortSleep();
+        screenshot(fileDisplayActivity);
     }
 
     @Test

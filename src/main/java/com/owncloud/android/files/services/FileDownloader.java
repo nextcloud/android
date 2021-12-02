@@ -182,7 +182,6 @@ public class FileDownloader extends Service
         // remove AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
-
         super.onDestroy();
     }
 
@@ -423,18 +422,16 @@ public class FileDownloader extends Service
                 }
             }
             mService.mStartedDownload=false;
-            (new Handler()).postDelayed(new Runnable(){
-                public void run() {
-                    if(!mService.mStartedDownload){
-                        mService.mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
-                    }
-                }}, 2000);
 
-
-            Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
-            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
-            mService.stopForeground(true);
-            mService.stopSelf(msg.arg1);
+            (new Handler()).postDelayed(() -> {
+                if(!mService.mStartedDownload){
+                    mService.mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
+                }
+                Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
+                mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+                mService.stopForeground(true);
+                mService.stopSelf(msg.arg1);
+            }, 2000);
         }
     }
 

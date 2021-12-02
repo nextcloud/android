@@ -87,18 +87,27 @@ public class FileDataStorageManager {
     private ContentProviderClient contentProviderClient;
     private Account account;
 
+    @Deprecated
     public FileDataStorageManager(Account account, ContentResolver contentResolver) {
         this.contentProviderClient = null;
         this.contentResolver = contentResolver;
         this.account = account;
     }
 
+    public FileDataStorageManager(User user, ContentResolver contentResolver) {
+        this(user.toPlatformAccount(), contentResolver);
+    }
+
+    @Deprecated
     public FileDataStorageManager(Account account, ContentProviderClient contentProviderClient) {
         this.contentProviderClient = contentProviderClient;
         this.contentResolver = null;
         this.account = account;
     }
 
+    public FileDataStorageManager(User user, ContentProviderClient contentProviderClient) {
+        this(user.toPlatformAccount(), contentProviderClient);
+    }
 
     /**
      * Use getFileByEncryptedRemotePath() or getFileByDecryptedRemotePath()
@@ -146,7 +155,8 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
-    public OCFile getFileByLocalPath(String path) {
+    public @Nullable
+    OCFile getFileByLocalPath(String path) {
         Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile ocFile = null;
 
@@ -1373,7 +1383,7 @@ public class FileDataStorageManager {
     }
 
     // TODO shares null?
-    public void saveShares(Collection<OCShare> shares) {
+    public void saveShares(List<OCShare> shares) {
         cleanShares();
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
 
@@ -2041,6 +2051,8 @@ public class FileDataStorageManager {
                           capability.getServerBackground());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN,
                           capability.getServerSlogan());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_LOGO,
+                          capability.getServerLogo());
         contentValues.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION,
                           capability.getEndToEndEncryption().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT,
@@ -2185,6 +2197,7 @@ public class FileDataStorageManager {
             capability.setServerElementColor(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR));
             capability.setServerBackground(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL));
             capability.setServerSlogan(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN));
+            capability.setServerLogo(getString(cursor, ProviderTableMeta.CAPABILITIES_SERVER_LOGO));
             capability.setEndToEndEncryption(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION));
             capability.setServerBackgroundDefault(
                 getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT));
@@ -2399,9 +2412,5 @@ public class FileDataStorageManager {
 
     public Account getAccount() {
         return this.account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

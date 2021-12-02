@@ -7,13 +7,14 @@ import android.content.ContentResolver;
 import android.content.Context;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 
@@ -47,17 +48,18 @@ import static org.junit.Assert.assertTrue;
 public class UploadStorageManagerTest extends AbstractIT {
     private UploadsStorageManager uploadsStorageManager;
     private CurrentAccountProvider currentAccountProvider = () -> null;
-    private Account account2;
+    private UserAccountManager userAccountManager;
+    private User user2;
 
     @Before
     public void setUp() {
         Context instrumentationCtx = ApplicationProvider.getApplicationContext();
         ContentResolver contentResolver = instrumentationCtx.getContentResolver();
         uploadsStorageManager = new UploadsStorageManager(currentAccountProvider, contentResolver);
+        userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
 
         Account temp = new Account("test2@test.com", MainApp.getAccountType(targetContext));
-        UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
-        if (!accountManager.exists(temp)) {
+        if (!userAccountManager.exists(temp)) {
             AccountManager platformAccountManager = AccountManager.get(targetContext);
             platformAccountManager.addAccountExplicitly(temp, "testPassword", null);
             platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
@@ -68,27 +70,23 @@ public class UploadStorageManagerTest extends AbstractIT {
         }
 
         final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-        account2 = userAccountManager.getAccountByName("test2@test.com");
-
-        if (account2 == null) {
-            throw new ActivityNotFoundException();
-        }
+        user2 = userAccountManager.getUser("test2@test.com").orElseThrow(ActivityNotFoundException::new);
     }
 
     @Test
     public void testDeleteAllUploads() {
         // Clean
-        for (Account account : getAllAccounts()) {
-            uploadsStorageManager.removeAccountUploads(account);
+        for (User user : userAccountManager.getAllUsers()) {
+            uploadsStorageManager.removeUserUploads(user);
         }
         int accountRowsA = 3;
         int accountRowsB = 4;
         insertUploads(account, accountRowsA);
-        insertUploads(account2, accountRowsB);
+        insertUploads(user2.toPlatformAccount(), accountRowsB);
 
         assertEquals("Expected 4 removed uploads files",
                      4,
-                     uploadsStorageManager.removeAccountUploads(account2));
+                     uploadsStorageManager.removeUserUploads(user2));
     }
 
     @Test
@@ -191,7 +189,7 @@ public class UploadStorageManagerTest extends AbstractIT {
         upload.setFileSize(new Random().nextInt(20000) * 10000);
         upload.setUploadStatus(UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS);
         upload.setLocalAction(2);
-        upload.setNameCollisionPolicy(FileUploader.NameCollisionPolicy.ASK_USER);
+        upload.setNameCollisionPolicy(NameCollisionPolicy.ASK_USER);
         upload.setCreateRemoteFolder(false);
         upload.setUploadEndTimestamp(System.currentTimeMillis());
         upload.setLastResult(UploadResult.DELAYED_FOR_WIFI);
@@ -212,8 +210,6 @@ public class UploadStorageManagerTest extends AbstractIT {
     @After
     public void tearDown() {
         deleteAllUploads();
-
-        AccountManager platformAccountManager = AccountManager.get(targetContext);
-        platformAccountManager.removeAccountExplicitly(account2);
+        userAccountManager.removeUser(user2);
     }
 }

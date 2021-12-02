@@ -436,7 +436,8 @@ public class StorageMigration {
         }
 
         private void updateIndex(Context context) throws MigrationException {
-            FileDataStorageManager manager = new FileDataStorageManager(null, context.getContentResolver());
+            final Account nullAccount = null;
+            FileDataStorageManager manager = new FileDataStorageManager(nullAccount, context.getContentResolver());
 
             try {
                 manager.migrateStoredFiles(mStorageSource, mStorageTarget);

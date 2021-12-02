@@ -97,7 +97,7 @@ class RegistryTest {
             //      new transfer requests added
             val addedTransfersCount = 10
             for (i in 0 until addedTransfersCount) {
-                val request = Request(user, file)
+                val request = DownloadRequest(user, file)
                 registry.add(request)
             }
 
@@ -116,7 +116,7 @@ class RegistryTest {
         @Before
         fun setUp() {
             for (i in 0 until ENQUEUED_REQUESTS_COUNT) {
-                registry.add(Request(user, file))
+                registry.add(DownloadRequest(user, file))
             }
             assertEquals(ENQUEUED_REQUESTS_COUNT, registry.pending.size)
         }
@@ -180,7 +180,7 @@ class RegistryTest {
 
         @Before
         fun setUp() {
-            val request = Request(user, file)
+            val request = DownloadRequest(user, file)
             uuid = registry.add(request)
             registry.startNext()
             assertEquals(uuid, request.uuid)
@@ -246,7 +246,7 @@ class RegistryTest {
 
         @Before
         fun setUp() {
-            uuid = registry.add(Request(user, file))
+            uuid = registry.add(DownloadRequest(user, file))
             registry.startNext()
             registry.progress(uuid, PROGRESS_FULL)
             resetMocks()
@@ -320,14 +320,14 @@ class RegistryTest {
 
         @Before
         fun setUp() {
-            completedTransferId = registry.add(Request(user, completedTransferFile))
+            completedTransferId = registry.add(DownloadRequest(user, completedTransferFile))
             registry.startNext()
             registry.complete(completedTransferId, true)
 
-            runningTransferId = registry.add(Request(user, runningTransferFile))
+            runningTransferId = registry.add(DownloadRequest(user, runningTransferFile))
             registry.startNext()
 
-            pendingTransferId = registry.add(Request(user, pendingTransferFile))
+            pendingTransferId = registry.add(DownloadRequest(user, pendingTransferFile))
             resetMocks()
 
             assertEquals(1, registry.pending.size)
@@ -475,7 +475,8 @@ class RegistryTest {
         fun request_pending() {
             // WHEN
             //      request is enqueued
-            registry.add(Request(user, OCFile("/path/alpha/1")))
+            val request = DownloadRequest(user, OCFile("/path/alpha/1"))
+            registry.add(request)
             assertEquals(1, registry.pending.size)
             assertEquals(0, registry.running.size)
             assertEquals(0, registry.completed.size)
@@ -489,7 +490,8 @@ class RegistryTest {
         fun request_running() {
             // WHEN
             //      request is running
-            registry.add(Request(user, OCFile("/path/alpha/1")))
+            val request = DownloadRequest(user, OCFile("/path/alpha/1"))
+            registry.add(request)
             registry.startNext()
             assertEquals(0, registry.pending.size)
             assertEquals(1, registry.running.size)
@@ -504,7 +506,8 @@ class RegistryTest {
         fun request_completed() {
             // WHEN
             //      request is running
-            val id = registry.add(Request(user, OCFile("/path/alpha/1")))
+            val request = DownloadRequest(user, OCFile("/path/alpha/1"))
+            val id = registry.add(request)
             registry.startNext()
             registry.complete(id, true)
             assertEquals(0, registry.pending.size)

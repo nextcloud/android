@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,10 @@
 package com.nextcloud.client.network
 
 import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.NetworkInfo
+import android.os.Build
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -28,8 +31,10 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
@@ -65,7 +70,7 @@ class ConnectivityServiceTest {
                 return networkInfo
             }
 
-            const val SERVER_BASE_URL = "https://test.server.com"
+            const val SERVER_BASE_URL = "https://test.nextcloud.localhost"
         }
 
         @Mock
@@ -90,6 +95,12 @@ class ConnectivityServiceTest {
         lateinit var requestBuilder: ConnectivityServiceImpl.GetRequestBuilder
 
         @Mock
+        lateinit var network: Network
+
+        @Mock
+        lateinit var networkCapabilities: NetworkCapabilities
+
+        @Mock
         lateinit var logger: Logger
 
         val baseServerUri = URI.create(SERVER_BASE_URL)
@@ -108,11 +119,16 @@ class ConnectivityServiceTest {
                 platformConnectivityManager,
                 accountManager,
                 clientFactory,
-                requestBuilder
+                requestBuilder,
+                Build.VERSION_CODES.Q
             )
 
+            whenever(networkCapabilities.hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)))
+                .thenReturn(true)
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(network)
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(networkInfo)
             whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
+            whenever(platformConnectivityManager.getNetworkCapabilities(any())).thenReturn(networkCapabilities)
             whenever(requestBuilder.invoke(any())).thenReturn(getRequest)
             whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(user.server).thenReturn(newServer)
@@ -235,12 +251,55 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_20)
-            assertTrue(
-                "Precondition failed",
-                connectivityService.connectivity.let {
-                    it.isConnected && it.isWifi
-                }
-            )
+            connectivityService.connectivity.let {
+                assertTrue(it.isConnected)
+                assertTrue(it.isWifi)
+                assertFalse(it.isMetered)
+            }
+        }
+
+        @Test
+        fun `request not sent when not connected`() {
+            // GIVEN
+            //      network is not connected
+            whenever(networkInfo.isConnectedOrConnecting).thenReturn(false)
+            whenever(networkInfo.isConnected).thenReturn(false)
+
+            // WHEN
+            //      connectivity is checked
+            val result = connectivityService.isInternetWalled
+
+            // THEN
+            //      connection is walled
+            //      request is not sent
+            assertTrue("Server should not be accessible", result)
+            verify(requestBuilder, never()).invoke(any())
+            verify(client, never()).execute(any())
+        }
+
+        @Test
+        fun `request not sent when wifi is metered`() {
+            // GIVEN
+            //      network is connected to wifi
+            //      wifi is metered
+            whenever(networkCapabilities.hasCapability(any())).thenReturn(false) // this test is mocked for API M
+            whenever(platformConnectivityManager.isActiveNetworkMetered).thenReturn(true)
+            connectivityService.connectivity.let {
+                assertTrue("should be connected", it.isConnected)
+                assertTrue("should be connected to wifi", it.isWifi)
+                assertTrue("check mocking, this check is complicated and depends on SDK version", it.isMetered)
+            }
+
+            // WHEN
+            //      connectivity is checked
+            val result = connectivityService.isInternetWalled
+
+            // THEN
+            //      assume internet is not walled
+            //      request is not sent
+            assertFalse("Server should not be accessible", result)
+            verify(requestBuilder, never()).invoke(any())
+            verify(getRequest, never()).execute(any<PlainClient>())
         }
 
         @Test
@@ -260,7 +319,7 @@ class ConnectivityServiceTest {
             //      request is not sent
             assertTrue("Server should not be accessible", result)
             verify(requestBuilder, never()).invoke(any())
-            verify(client, never()).execute(any())
+            verify(getRequest, never()).execute(any<PlainClient>())
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
@@ -274,18 +333,21 @@ class ConnectivityServiceTest {
         fun `status 204 means internet is not walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
             assertFalse(connectivityService.isInternetWalled)
+            verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `status 204 and no content length means internet is not walled`() {
             mockResponse(contentLength = -1, status = HttpStatus.SC_NO_CONTENT)
             assertFalse(connectivityService.isInternetWalled)
+            verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `other status than 204 means internet is walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_GONE)
             assertTrue(connectivityService.isInternetWalled)
+            verify(getRequest, times(1)).execute(client)
         }
 
         @Test
@@ -295,6 +357,7 @@ class ConnectivityServiceTest {
             val urlCaptor = ArgumentCaptor.forClass(String::class.java)
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/index.php/204"))
+            verify(getRequest, times(1)).execute(client)
         }
     }
 }

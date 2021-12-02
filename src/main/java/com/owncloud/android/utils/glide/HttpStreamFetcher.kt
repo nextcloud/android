@@ -24,7 +24,7 @@ package com.owncloud.android.utils.glide
 
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.data.DataFetcher
-import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -39,13 +39,12 @@ import java.io.InputStream
  */
 @Suppress("TooGenericExceptionCaught")
 class HttpStreamFetcher internal constructor(
-    private val currentAccount: CurrentAccountProvider,
+    private val user: User,
     private val clientFactory: ClientFactory,
     private val url: String
 ) : DataFetcher<InputStream?> {
     @Throws(Exception::class)
     override fun loadData(priority: Priority): InputStream? {
-        val user = currentAccount.user
         val client = clientFactory.create(user)
         if (client != null) {
             var get: GetMethod? = null

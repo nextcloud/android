@@ -45,6 +45,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ConnectivityService;
@@ -55,6 +56,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -112,6 +114,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
+    @Inject Clock clock;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -197,6 +202,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             throw new IllegalArgumentException("Arguments may not be null");
         }
 
+        syncedFolderProvider =new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
+
         setFile(arguments.getParcelable(ARG_FILE));
         user = arguments.getParcelable(ARG_USER);
         activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
@@ -278,9 +285,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (previewLoaded) {
                 toolbarActivity.setPreviewImageVisibility(true);
             }
-            toolbarActivity.showToolbarBackImage(isCustomBackIcon);
+            showHideCustomBackButton();
         }
 
+    }
+
+    //show custom back button for image previews
+    private void showHideCustomBackButton() {
+        if (toolbarActivity != null) {
+            toolbarActivity.showToolbarBackImage(isCustomBackIcon);
+        }
     }
 
     @Override
@@ -334,7 +348,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 containerActivity,
                 getActivity(),
                 false,
-                deviceInfo,
                 currentUser
             );
 
@@ -348,79 +361,59 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private boolean optionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send_file: {
-                containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
-                return true;
-            }
-            case R.id.action_open_file_with: {
-                containerActivity.getFileOperationsHelper().openFile(getFile());
-                return true;
-            }
-            case R.id.action_remove_file: {
-                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-                return true;
-            }
-            case R.id.action_rename_file: {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
-                dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
-                return true;
-            }
-            case R.id.action_cancel_sync: {
-                ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-                return true;
-            }
-            case R.id.action_download_file:
-            case R.id.action_sync_file: {
-                containerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
-            case R.id.action_set_as_wallpaper: {
-                containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-                return true;
-            }
-            case R.id.action_encrypted: {
-                // TODO implement or remove
-                return true;
-            }
-            case R.id.action_unset_encrypted: {
-                // TODO implement or remove
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_send_file) {
+            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
+            return true;
+        } else if (itemId == R.id.action_open_file_with) {
+            containerActivity.getFileOperationsHelper().openFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_remove_file) {
+            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+            return true;
+        } else if (itemId == R.id.action_rename_file) {
+            RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
+            dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
+            return true;
+        } else if (itemId == R.id.action_cancel_sync) {
+            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
+            return true;
+        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_set_as_wallpaper) {
+            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
+            return true;
+        } else if (itemId == R.id.action_encrypted) {// TODO implement or remove
+            return true;
+        } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancelBtn: {
-                ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-                break;
-            }
-            case R.id.favorite: {
-                if (getFile().isFavorite()) {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
-                } else {
-                    containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
-                }
-                setFavoriteIconStatus(!getFile().isFavorite());
-                break;
-            }
-            case R.id.overflow_menu: {
-                onOverflowIconClicked(v);
-                break;
-            }
-            case R.id.last_modification_timestamp: {
-                boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
-                preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
-                setFileModificationTimestamp(getFile(), showDetailedTimestamp);
-            }
-            default:
-                Log_OC.e(TAG, "Incorrect view clicked!");
-                break;
+        int id = v.getId();
+
+        if (id == R.id.cancelBtn) {
+            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
+        } else if (id == R.id.favorite) {
+            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
+            setFavoriteIconStatus(!getFile().isFavorite());
+        } else if (id == R.id.overflow_menu) {
+            onOverflowIconClicked(v);
+        } else if (id == R.id.last_modification_timestamp) {
+            boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
+            preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
+            setFileModificationTimestamp(getFile(), showDetailedTimestamp);
+
+            Log_OC.e(TAG, "Incorrect view clicked!");
+        } else {
+            Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
 
@@ -541,6 +534,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 toolbarActivity.setPreviewImageDrawable(MimeTypeUtil
                                                             .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                                file.isSharedViaLink(), file.isEncrypted(),
+                                                                               syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
                                                                                file.getMountType(), requireContext()));
                 int leftRightPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.standard_padding);
                 updatePreviewImageUI(leftRightPadding);
@@ -611,7 +605,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                 toolbarActivity.setPreviewImageDrawable(asyncDrawable);
                                 toolbarActivity.showToolbarBackImage(true);
                                 previewLoaded = true;
-                                isCustomBackIcon = false;
+                                isCustomBackIcon = true;
                                 task.execute(getFile());
                             }
                         }
@@ -630,6 +624,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             previewLoaded = false;
             isCustomBackIcon = false;
         }
+        showHideCustomBackButton();
     }
 
     /**

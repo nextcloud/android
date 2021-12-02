@@ -57,7 +57,7 @@
             android:id="@+id/share_process_permission_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:orientation="vertical"
             android:paddingLeft="@dimen/standard_padding"
             android:paddingRight="@dimen/standard_padding"
@@ -169,8 +169,8 @@
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:text="@string/allow_resharing"
-            android:visibility="gone"
             android:textColor="@color/share_txt_color"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider_sharing_hide_download"
@@ -182,14 +182,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
-            android:visibility="gone"
-            tools:visibility="visible"
             android:text="@string/allow_resharing_info"
             android:textColor="@color/share_info_txt_color"
             android:textSize="@dimen/txt_size_15sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox" />
+            app:layout_constraintTop_toBottomOf="@+id/share_process_allow_resharing_checkbox"
+            tools:visibility="visible" />
 
         <View
             android:id="@+id/divider_sharing_allow_resharing"
@@ -348,7 +348,7 @@
                 divider_sharing_permissions, divider_sharing_allow_resharing,
                 divider_sharing_change_name, divider_sharing_enter_password,
                 divider_sharing_exp_date,divider_sharing_hide_download,
-                share_file_drop_info, share_process_allow_resharing_info" />
+                share_file_drop_info, share_process_allow_resharing_info," />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_message_title"
@@ -377,8 +377,8 @@
             android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
             android:padding="@dimen/standard_padding"
             android:scrollbars="vertical"
-            android:textColorHint="@color/grey_60"
             android:textColor="@color/share_txt_color"
+            android:textColorHint="@color/grey_60"
             android:textSize="@dimen/txt_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -392,11 +392,11 @@
             android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:background="@drawable/sharing_email_warning_bg"
-            android:text="@string/sharing_email_warning"
-            android:visibility="gone"
             android:padding="@dimen/standard_padding"
+            android:text="@string/sharing_email_warning"
             android:textColor="@color/share_warning_txt_color"
             android:textSize="@dimen/txt_size_14sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/note_text" />
@@ -413,11 +413,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="share_process_change_name_et, tv_set_password_email_warning" />
+            app:constraint_referenced_ids="divider_sharing_change_name, note_text" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share_process_btn_cancel"
-            style="@style/ShareOutlinedButton"
+            style="@style/OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_margin"

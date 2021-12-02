@@ -28,6 +28,9 @@ import android.os.Bundle;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.utils.AdjustSdkUtils;
+import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 
@@ -42,6 +45,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     private static final String KEY_USER = "USER";
 
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject AppPreferences appPreferences;
     private User user;
 
     public static AccountRemovalConfirmationDialog newInstance(User user) {
@@ -59,17 +63,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
         super.onCreate(savedInstanceState);
         user = getArguments().getParcelable(KEY_USER);
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-    }
-
+    
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -78,8 +72,13 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
             .setMessage(getResources().getString(R.string.delete_account_warning, user.getAccountName()))
             .setIcon(R.drawable.ic_warning)
             .setPositiveButton(R.string.common_ok,
-                               (dialogInterface, i) -> backgroundJobManager.startAccountRemovalJob(user.getAccountName(),
-                                                                                                   false))
+                               (dialogInterface, i) -> {
+                                   // track adjust and tealium events on logout confirmed
+                                   AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_SETTINGS_LOGOUT, appPreferences);
+                                   TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_SETTINGS_LOGOUT, appPreferences);
+
+                                   backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
+                               })
             .setNeutralButton(R.string.common_cancel, null)
             .create();
     }

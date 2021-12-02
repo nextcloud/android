@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
@@ -63,11 +62,11 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.SyncedFolderUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
@@ -216,7 +215,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         boolean lightVersion = getResources().getBoolean(R.bool.syncedFolder_light);
         adapter = new SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion);
         syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_synced_folders);
         ThemeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this);
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
@@ -447,7 +446,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 false,
                 getAccount().name,
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
+                NameCollisionPolicy.ASK_USER.serialize(),
                 false,
                 clock.getCurrentTime(),
                 mediaFolder.filePaths,
@@ -526,21 +525,21 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         } else if (itemId == R.id.action_create_custom_folder) {
             Log.d(TAG, "Show custom folder dialog");
             SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
-                UNPERSISTED_ID,
-                null,
-                null,
-                true,
-                false,
-                true,
-                false,
-                getAccount().name,
-                FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                FileUploader.NameCollisionPolicy.ASK_USER.serialize(),
-                false,
-                clock.getCurrentTime(),
-                null,
-                MediaFolderType.CUSTOM,
-                false);
+                    UNPERSISTED_ID,
+                    null,
+                    null,
+                    true,
+                    false,
+                    true,
+                    false,
+                    getAccount().name,
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                    NameCollisionPolicy.ASK_USER.serialize(),
+                    false,
+                    clock.getCurrentTime(),
+                    null,
+                    MediaFolderType.CUSTOM,
+                    false);
             onSyncFolderSettingsClick(0, emptyCustomFolder);
 
             result = super.onOptionsItemSelected(item);
@@ -782,7 +781,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
@@ -811,22 +810,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
                 .setMessage(getString(R.string.battery_optimization_message))
                 .setPositiveButton(getString(R.string.battery_optimization_disable), (dialog, which) -> {
                     // show instant upload
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        @SuppressLint("BatteryLife")
-                        Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                                                   Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+                    @SuppressLint("BatteryLife")
+                    Intent intent = new Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                               Uri.parse("package:" + BuildConfig.APPLICATION_ID));
 
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        }
-                    } else {
-                        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-                        if (getPackageManager().resolveActivity(powerUsageIntent, 0) != null) {
-                            startActivity(powerUsageIntent);
-                        } else {
-                            dialog.dismiss();
-                            DisplayUtils.showSnackMessage(this, getString(R.string.battery_optimization_no_setting));
-                        }
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
                     }
                 })
                 .setNeutralButton(getString(R.string.battery_optimization_close), (dialog, which) -> dialog.dismiss())
@@ -846,16 +835,12 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
      * @return true if battery optimization is enabled
      */
     private boolean checkIfBatteryOptimizationEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-            if (powerManager == null) {
-                return true;
-            }
-
-            return !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID);
-        } else {
+        if (powerManager == null) {
             return true;
         }
+
+        return !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID);
     }
 }

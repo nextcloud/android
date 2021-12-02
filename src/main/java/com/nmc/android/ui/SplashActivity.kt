@@ -6,6 +6,7 @@ import android.os.Handler
 import androidx.appcompat.widget.AppCompatTextView
 import com.nextcloud.client.preferences.AppPreferences
 import com.nmc.android.ui.onboarding.OnBoardingActivity
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.BaseActivity
@@ -50,9 +51,12 @@ class SplashActivity : BaseActivity() {
                     startActivity(Intent(this, AuthenticatorActivity::class.java))
                 }
                 //if user is logged in but did not accepted the privacy policy then take him there
-                else if (user.isPresent && appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity
-                        .NO_ACTION
-                ) {
+                else
+                //check if user is logged in but has not selected privacy policy
+                //show him the privacy policy screen again
+                //check if app has been updated, if yes then also we have to show the privacy policy screen
+                if (user.isPresent && (appPreferences.privacyPolicyAction == LoginPrivacySettingsActivity.NO_ACTION
+                        || appPreferences.lastSeenVersionCode < BuildConfig.VERSION_CODE )) {
                     LoginPrivacySettingsActivity.openPrivacySettingsActivity(this)
                 } else {
                     startActivity(Intent(this, FileDisplayActivity::class.java))

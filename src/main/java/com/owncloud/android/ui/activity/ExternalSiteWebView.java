@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -60,19 +61,19 @@ public class ExternalSiteWebView extends FileActivity {
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
     protected boolean showToolbar = true;
-    protected int webViewLayout = R.layout.externalsite_webview;
+    private ExternalsiteWebviewBinding binding;
     private int menuItemId;
-    protected WebView webview;
     private boolean showSidebar;
     String url;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
+        bindView();
+        showToolbar = showToolbarByDefault();
 
         Bundle extras = getIntent().getExtras();
-        String title = extras.getString(EXTRA_TITLE);
-        url = extras.getString(EXTRA_URL);
+        url = getIntent().getExtras().getString(EXTRA_URL);
         if (extras.containsKey(EXTRA_SHOW_TOOLBAR)) {
             showToolbar = extras.getBoolean(EXTRA_SHOW_TOOLBAR);
         }
@@ -88,19 +89,22 @@ public class ExternalSiteWebView extends FileActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(webViewLayout);
+        setContentView(getRootView());
 
-        webview = findViewById(R.id.webView);
-        final WebSettings webSettings = webview.getSettings();
+        postOnCreate();
+    }
 
-        webview.setFocusable(true);
-        webview.setFocusableInTouchMode(true);
-        webview.setClickable(true);
+    protected void postOnCreate() {
+        final WebSettings webSettings = getWebView().getSettings();
+
+        getWebView().setFocusable(true);
+        getWebView().setFocusableInTouchMode(true);
+        getWebView().setClickable(true);
 
         // allow debugging (when building the debug version); see details in
         // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews
         if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 ||
-                getResources().getBoolean(R.bool.is_beta)) {
+            getResources().getBoolean(R.bool.is_beta)) {
             Log_OC.d(this, "Enable debug for webView");
             WebView.setWebContentsDebuggingEnabled(true);
         }
@@ -121,6 +125,7 @@ public class ExternalSiteWebView extends FileActivity {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
+        String title = getIntent().getExtras().getString(EXTRA_TITLE);
         if (!TextUtils.isEmpty(title)) {
             setupActionBar(title);
         }
@@ -129,25 +134,37 @@ public class ExternalSiteWebView extends FileActivity {
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 
         if (progressBar != null) {
-            webview.setWebChromeClient(new WebChromeClient() {
+            getWebView().setWebChromeClient(new WebChromeClient() {
                 public void onProgressChanged(WebView view, int progress) {
                     progressBar.setProgress(progress * 1000);
                 }
             });
         }
 
-        webview.setWebViewClient(new WebViewClient() {
+        getWebView().setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 InputStream resources = getResources().openRawResource(R.raw.custom_error);
                 String customError = DisplayUtils.getData(resources);
 
                 if (!customError.isEmpty()) {
-                    webview.loadData(customError, "text/html; charset=UTF-8", null);
+                    getWebView().loadData(customError, "text/html; charset=UTF-8", null);
                 }
             }
         });
 
-        webview.loadUrl(url);
+        getWebView().loadUrl(url);
+    }
+
+    protected void bindView() {
+        binding = ExternalsiteWebviewBinding.inflate(getLayoutInflater());
+    }
+
+    protected boolean showToolbarByDefault() {
+        return true;
+    }
+
+    protected View getRootView() {
+        return binding.getRoot();
     }
 
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
@@ -199,24 +216,22 @@ public class ExternalSiteWebView extends FileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (showSidebar) {
-                    if (isDrawerOpen()) {
-                        closeDrawer();
-                    } else {
-                        openDrawer();
-                    }
-                } else {
-                    finish();
-                }
-            retval = true;
-            break;
 
-            default:
-                retval = super.onOptionsItemSelected(item);
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            if (showSidebar) {
+                if (isDrawerOpen()) {
+                    closeDrawer();
+                } else {
+                    openDrawer();
+                }
+            } else {
+                finish();
+            }
+            retval = true;
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 
@@ -224,10 +239,9 @@ public class ExternalSiteWebView extends FileActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setDrawerMenuItemChecked(menuItemId);
-
     }
 
-    public WebView getWebview() {
-        return this.webview;
+    protected WebView getWebView() {
+        return binding.webView;
     }
 }

@@ -44,15 +44,15 @@ class DownloaderServiceTest {
 
     @Test(expected = TimeoutException::class)
     fun cannot_bind_to_service_without_user() {
-        val intent = DownloaderService.createBindIntent(getApplicationContext(), user)
-        intent.removeExtra(DownloaderService.EXTRA_USER)
+        val intent = FileTransferService.createBindIntent(getApplicationContext(), user)
+        intent.removeExtra(FileTransferService.EXTRA_USER)
         service.bindService(intent)
     }
 
     @Test
     fun bind_with_user() {
-        val intent = DownloaderService.createBindIntent(getApplicationContext(), user)
+        val intent = FileTransferService.createBindIntent(getApplicationContext(), user)
         val binder = service.bindService(intent)
-        assertTrue(binder is DownloaderService.Binder)
+        assertTrue(binder is FileTransferService.Binder)
     }
 }

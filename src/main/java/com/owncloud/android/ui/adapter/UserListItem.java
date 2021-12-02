@@ -63,10 +63,6 @@ public class UserListItem {
         type = TYPE_ACTION_ADD;
     }
 
-    public Account getAccount() {
-        return user.toPlatformAccount();
-    }
-
     public User getUser() {
         return user;
     }

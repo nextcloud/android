@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOp
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
+import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.notifications.NotificationsContract;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -98,6 +99,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         // setup toolbar
         setupToolbar();
+        showHideDefaultToolbarDivider(true);
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
 
@@ -190,12 +192,16 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
      * sets up the UI elements and loads all notification items.
      */
     private void setupContent() {
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_notification);
         setLoadingMessageEmpty();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         binding.list.setLayoutManager(layoutManager);
+
+        SimpleListItemDividerDecoration simpleListItemDividerDecoration =
+            new SimpleListItemDividerDecoration(this, R.drawable.item_divider, false);
+        binding.list.addItemDecoration(simpleListItemDividerDecoration);
 
         fetchAndSetData();
     }
@@ -314,7 +320,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         binding.emptyList.emptyListViewHeadline.setText(headline);
         binding.emptyList.emptyListViewText.setText(message);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_notification);
 
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);

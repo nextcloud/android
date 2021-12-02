@@ -34,8 +34,4 @@ class DeviceInfo {
     fun hasCamera(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
-
-    fun editorSupported(): Boolean {
-        return apiLevel < Build.VERSION_CODES.LOLLIPOP
-    }
 }

@@ -18,8 +18,15 @@
 
   Icon provided by Android Material Library in Apache License 2.0
 -->
-<vector android:height="24dp" android:tint="#757575"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M11.99,2C6.47,2 2,6.48 2,12s4.47,10 9.99,10C17.52,22 22,17.52 22,12S17.52,2 11.99,2zM12,20c-4.42,0 -8,-3.58 -8,-8s3.58,-8 8,-8 8,3.58 8,8 -3.58,8 -8,8zM12.5,7H11v6l5.25,3.15 0.75,-1.23 -4.5,-2.67z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M12,1C18.1,1 23,5.9 23,12C23,18.1 18.1,23 12,23C5.9,23 1,18.1 1,12C1,5.9 5.95,1 12,1ZM12,2.5C6.75,2.5 2.5,6.75 2.5,12C2.5,17.25 6.75,21.5 12,21.5C17.25,21.5 21.5,17.25 21.5,12C21.5,6.75 17.25,2.5 12,2.5ZM12,4C12.4,4 12.75,4.3 12.75,4.75L12.75,4.75L12.75,11.55L17.15,13.95C17.55,14.15 17.65,14.65 17.45,15C17.3,15.25 17.05,15.4 16.8,15.4C16.7,15.4 16.55,15.35 16.45,15.3L16.45,15.3L11.25,12.45L11.25,4.75C11.25,4.35 11.6,4 12,4Z"
+        android:strokeWidth="1"
+        android:fillColor="#262626"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
 </vector>

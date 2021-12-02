@@ -69,7 +69,6 @@ public class SimpleListItemDividerDecoration extends DividerItemDecoration {
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
         canvas.save();
         final int right;
-        //noinspection AndroidLintNewApi - NewApi lint fails to handle overrides.
         if (parent.getClipToPadding()) {
             right = parent.getWidth() - parent.getPaddingRight();
             canvas.clipRect(leftPadding, parent.getPaddingTop(), right,

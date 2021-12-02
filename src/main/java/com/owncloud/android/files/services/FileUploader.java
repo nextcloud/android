@@ -490,7 +490,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            disableRetries
+            disableRetries,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
         newUpload.setCreatedBy(createdBy);
         if (isCreateRemoteFolder) {
@@ -539,7 +540,8 @@ public class FileUploader extends Service
             this,
             onWifiOnly,
             whileChargingOnly,
-            true
+            true,
+            new FileDataStorageManager(user.toPlatformAccount(), getContentResolver())
         );
 
         newUpload.addDataTransferProgressListener(this);
@@ -639,7 +641,7 @@ public class FileUploader extends Service
 //                    uploadResult = uploadEncryptedFileOperation.execute(mUploadClient, mStorageManager);
 //                } else {
                 /// perform the regular upload
-                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+                uploadResult = mCurrentUpload.execute(mUploadClient);
 //                }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error uploading", e);
@@ -667,16 +669,32 @@ public class FileUploader extends Service
             }
 
             // generate new Thumbnail
-            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
+            Optional<User> user = getCurrentUser();
+            if (user.isPresent()) {
+                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, user.get());
 
-            File file = new File(mCurrentUpload.getOriginalStoragePath());
-            String remoteId = mCurrentUpload.getFile().getRemoteId();
+                File file = new File(mCurrentUpload.getOriginalStoragePath());
+                String remoteId = mCurrentUpload.getFile().getRemoteId();
 
-            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId));
+            }
         }
     }
 
+    /**
+     * Convert current account to user. This is a temporary workaround until
+     * service is migrated to new user model.
+     * 
+     * @return Optional {@link User}
+     */
+    private Optional<User> getCurrentUser() {
+        if (mCurrentAccount == null) {
+            return Optional.empty();
+        } else {
+            return accountManager.getUser(mCurrentAccount.name);
+        }
+    }
 
     /**
      * Creates a status notification to show the upload progress
@@ -1090,17 +1108,19 @@ public class FileUploader extends Service
             accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
             resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
             if (accountMatch && resultMatch) {
+                // 1. extract failed upload owner account in efficient name (expensive query)
                 if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
                     currentAccount = failedUpload.getAccount(accountManager);
                 }
 
                 if (!new File(failedUpload.getLocalPath()).exists()) {
+                    // 2A. for deleted files, mark as permanently failed
                     if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
                         failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
                         uploadsStorageManager.updateUpload(failedUpload);
                     }
                 } else {
-
+                    // 2B. for existing local files, try restarting it if possible
                     if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
                         retryUpload(context, currentAccount, failedUpload);
                     }
@@ -1129,27 +1149,6 @@ public class FileUploader extends Service
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
-
-    /**
-     * Ordinal of enumerated constants is important for old data compatibility.
-     */
-    public enum NameCollisionPolicy {
-        RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database)
-        OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database)
-        CANCEL,
-        ASK_USER;
-
-        public static final NameCollisionPolicy DEFAULT = RENAME;
-
-        public static NameCollisionPolicy deserialize(int ordinal) {
-            NameCollisionPolicy[] values = NameCollisionPolicy.values();
-            return ordinal >= 0 && ordinal < values.length ? values[ordinal] : DEFAULT;
-        }
-
-        public int serialize() {
-            return this.ordinal();
-        }
-    }
 
     /**
      * Binder to let client components to perform operations on the queue of uploads.

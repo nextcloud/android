@@ -57,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:backgroundTint="@color/secondary_text_color"
+            android:textColorHighlight="@color/et_highlight_color"
             android:gravity="top"
             android:importantForAutofill="no"
             android:inputType="text"

@@ -25,6 +25,7 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -41,11 +42,11 @@ import com.owncloud.android.utils.MimeTypeUtil;
  */
 public class RemoveFileOperation extends SyncOperation {
 
-    private OCFile fileToRemove;
-    private boolean onlyLocalCopy;
-    private Account account;
-    private boolean inBackground;
-    private Context context;
+    private final OCFile fileToRemove;
+    private final boolean onlyLocalCopy;
+    private final Account account;
+    private final boolean inBackground;
+    private final Context context;
 
 
     /**
@@ -58,7 +59,10 @@ public class RemoveFileOperation extends SyncOperation {
                                boolean onlyLocalCopy,
                                Account account,
                                boolean inBackground,
-                               Context context) {
+                               Context context,
+                               FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.fileToRemove = fileToRemove;
         this.onlyLocalCopy = onlyLocalCopy;
         this.account = account;

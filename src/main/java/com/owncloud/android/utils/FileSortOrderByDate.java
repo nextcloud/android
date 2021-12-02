@@ -60,8 +60,7 @@ public class FileSortOrderByDate extends FileSortOrder {
         final int multiplier = isAscending ? 1 : -1;
 
         Collections.sort(files, (o1, o2) -> {
-            Long obj1 = o1.getDeletionTimestamp();
-            return multiplier * obj1.compareTo(o2.getDeletionTimestamp());
+            return multiplier * Long.compare(o1.getDeletionTimestamp(),o2.getDeletionTimestamp());
         });
 
         return super.sortTrashbinFiles(files);

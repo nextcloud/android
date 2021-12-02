@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -40,7 +41,9 @@ public class CreateShareViaLinkOperation extends SyncOperation {
     private String path;
     private String password;
 
-    public CreateShareViaLinkOperation(String path, String password) {
+    public CreateShareViaLinkOperation(String path, String password, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.path = path;
         this.password = password;
     }

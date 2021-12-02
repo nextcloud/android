@@ -32,6 +32,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -79,7 +80,7 @@ public class OCUpload implements Parcelable {
     /**
      * What to do in case of name collision.
      */
-    private FileUploader.NameCollisionPolicy nameCollisionPolicy;
+    private NameCollisionPolicy nameCollisionPolicy;
 
     /**
      * Create destination folder?
@@ -172,7 +173,7 @@ public class OCUpload implements Parcelable {
         fileSize = -1;
         uploadId = -1;
         localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
-        nameCollisionPolicy = FileUploader.NameCollisionPolicy.DEFAULT;
+        nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         lastResult = UploadResult.UNKNOWN;
@@ -281,7 +282,7 @@ public class OCUpload implements Parcelable {
         remotePath = source.readString();
         accountName = source.readString();
         localAction = source.readInt();
-        nameCollisionPolicy = FileUploader.NameCollisionPolicy.deserialize(source.readInt());
+        nameCollisionPolicy = NameCollisionPolicy.deserialize(source.readInt());
         createRemoteFolder = source.readInt() == 1;
         try {
             uploadStatus = UploadStatus.valueOf(source.readString());
@@ -368,7 +369,7 @@ public class OCUpload implements Parcelable {
         return this.localAction;
     }
 
-    public FileUploader.NameCollisionPolicy getNameCollisionPolicy() {
+    public NameCollisionPolicy getNameCollisionPolicy() {
         return this.nameCollisionPolicy;
     }
 
@@ -424,7 +425,7 @@ public class OCUpload implements Parcelable {
         this.localAction = localAction;
     }
 
-    public void setNameCollisionPolicy(FileUploader.NameCollisionPolicy nameCollisionPolicy) {
+    public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {
         this.nameCollisionPolicy = nameCollisionPolicy;
     }
 

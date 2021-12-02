@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.text.TextUtils;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -38,7 +39,7 @@ import com.owncloud.android.operations.common.SyncOperation;
  */
 public class UpdateSharePermissionsOperation extends SyncOperation {
 
-    private long shareId;
+    private final long shareId;
     private int permissions;
     private long expirationDateInMillis;
     private String password;
@@ -49,7 +50,9 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
      *
      * @param shareId Private {@link OCShare} to update. Mandatory argument
      */
-    public UpdateSharePermissionsOperation(long shareId) {
+    public UpdateSharePermissionsOperation(long shareId, FileDataStorageManager storageManager) {
+        super(storageManager);
+
         this.shareId = shareId;
         permissions = -1;
         expirationDateInMillis = 0L;
@@ -91,11 +94,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(path);   // TODO - check if may be moved to UpdateRemoteShareOperation
-        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setFolder(true);
-        } else {
-            share.setFolder(false);
-        }
+        share.setFolder(path.endsWith(FileUtils.PATH_SEPARATOR));
 
         share.setPasswordProtected(!TextUtils.isEmpty(password));
         getStorageManager().saveShare(share);

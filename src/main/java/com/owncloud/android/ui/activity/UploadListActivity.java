@@ -146,7 +146,7 @@ public class UploadListActivity extends FileActivity {
     private void setupContent() {
         binding.list.setEmptyView(binding.emptyList.getRoot());
         binding.emptyList.getRoot().setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.uploads);
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_uploads);
         binding.emptyList.emptyListIcon.getDrawable().mutate();
         binding.emptyList.emptyListIcon.setAlpha(0.5f);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
@@ -271,21 +271,19 @@ public class UploadListActivity extends FileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
-                break;
-            case R.id.action_clear_failed_uploads:
-                uploadsStorageManager.clearFailedButNotDelayedUploads();
-                uploadListAdapter.loadUploadItemsFromDb();
-                break;
+        int itemId = item.getItemId();
 
-            default:
-                retval = super.onOptionsItemSelected(item);
+        if (itemId == android.R.id.home) {
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                openDrawer();
+            }
+        } else if (itemId == R.id.action_clear_failed_uploads) {
+            uploadsStorageManager.clearFailedButNotDelayedUploads();
+            uploadListAdapter.loadUploadItemsFromDb();
+        } else {
+            retval = super.onOptionsItemSelected(item);
         }
 
         return retval;

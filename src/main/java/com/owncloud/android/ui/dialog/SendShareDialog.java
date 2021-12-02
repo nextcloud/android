@@ -165,7 +165,6 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
 
         RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
-        sendButtonsView.setHasFixedSize(true);
         sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
@@ -175,7 +174,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private void shareByLink() {
         if (file.isSharedViaLink()) {
             ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
-        } else if (sharingPublicPasswordEnforced) {
+        } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();
         } else {

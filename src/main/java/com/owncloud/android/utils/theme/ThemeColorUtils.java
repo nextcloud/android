@@ -316,4 +316,24 @@ public final class ThemeColorUtils {
     public static String primaryColorToHexString(Context context) {
         return String.format("#%06X", 0xFFFFFF & primaryColor(context, true));
     }
+
+    public static int unchangedPrimaryColor(Account account, Context context) {
+        try {
+            return Color.parseColor(getCapability(account, context).getServerColor());
+        } catch (Exception e) {
+            return context.getResources().getColor(R.color.primary);
+        }
+    }
+
+    public static int unchangedFontColor(Context context) {
+        try {
+            return Color.parseColor(getCapability(context).getServerTextColor());
+        } catch (Exception e) {
+            if (darkTheme(context)) {
+                return Color.WHITE;
+            } else {
+                return Color.BLACK;
+            }
+        }
+    }
 }

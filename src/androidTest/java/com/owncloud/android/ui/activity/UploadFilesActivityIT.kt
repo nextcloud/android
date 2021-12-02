@@ -32,8 +32,16 @@ class UploadFilesActivityIT : AbstractIT() {
 
     @Test
     // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
-    fun open() {
+    fun noneSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
+
+        screenshot(sut)
+    }
+
+    fun fileSelected() {
+        val sut: UploadFilesActivity = activityRule.launchActivity(null)
+
+        // TODO select one
 
         screenshot(sut)
     }

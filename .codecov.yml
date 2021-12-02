@@ -2,6 +2,7 @@ codecov:
   branch: master
   ci:
     - drone.nextcloud.com
+  require_ci_to_pass: false
 
 coverage:
   precision: 2
@@ -18,4 +19,4 @@ comment:
 
 ignore:
   - "src/main/res/values*/*"
-  
+

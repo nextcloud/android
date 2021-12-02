@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -208,11 +209,12 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             user,
             null,
             ocUpload,
-            FileUploader.NameCollisionPolicy.DEFAULT,
+            NameCollisionPolicy.DEFAULT,
             localBehaviour,
             targetContext,
             false,
-            false
+            false,
+            getStorageManager()
         );
         newUpload.addRenameUploadListener(() -> {
             // dummy
@@ -220,7 +222,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
         newUpload.setRemoteFolderToBeCreated();
 
-        RemoteOperationResult result = newUpload.execute(client, getStorageManager());
+        RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
         OCFile parentFolder = getStorageManager()
@@ -243,7 +245,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                               false,
                                               false,
                                               getStorageManager(),
-                                              account,
+                                              user,
                                               targetContext
         ).execute(client).isSuccess());
     }

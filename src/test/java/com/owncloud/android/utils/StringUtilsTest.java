@@ -91,4 +91,44 @@ public class StringUtilsTest {
         assertEquals("returned parsed text value was incorrect",
                      expectedReturn, StringUtils.searchAndColor(text, searchText, dummyColorInt));
     }
+
+    @Test
+    public void prefixBothEmpty() {
+        String text = "";
+        String prefix = "";
+        String expectedReturn = "";
+
+        assertEquals("returned text without prefix was incorrect",
+                     expectedReturn, StringUtils.removePrefix(text, prefix));
+    }
+
+    @Test
+    public void noPrefix() {
+        String text = "/this/is/some/path";
+        String prefix = "/that/is/another/path";
+        String expectedReturn = "/this/is/some/path";
+
+        assertEquals("returned text without prefix was incorrect",
+                     expectedReturn, StringUtils.removePrefix(text, prefix));
+    }
+
+    @Test
+    public void simplePrefix() {
+        String text = "/path/and/subpath";
+        String prefix = "/path";
+        String expectedReturn = "/and/subpath";
+
+        assertEquals("returned text without prefix was incorrect",
+                     expectedReturn, StringUtils.removePrefix(text, prefix));
+    }
+
+    @Test
+    public void prefixEqual() {
+        String text = "/path/and/subpath";
+        String prefix = "/path/and/subpath";
+        String expectedReturn = "";
+
+        assertEquals("returned text without prefix was incorrect",
+                     expectedReturn, StringUtils.removePrefix(text, prefix));
+    }
 }

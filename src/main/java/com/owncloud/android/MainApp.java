@@ -21,7 +21,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -60,6 +59,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.ui.SplashActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
@@ -135,7 +135,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_18;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_19;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
 
     private static final String TAG = MainApp.class.getSimpleName();
@@ -341,7 +341,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                passCodeManager.onActivityStarted(activity);
+                //we are checking activity is not splash activity because there is timer in splash which can bypass
+                //the passcode screen. So to avoid this we are doing this check.
+                if (!(activity instanceof SplashActivity)) {
+                    passCodeManager.onActivityStarted(activity);
+                }
             }
 
             @Override
@@ -352,7 +356,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityStopped(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                passCodeManager.onActivityStopped(activity);
+                //since we are not showing passcode on splash activity so we don't need to call the stopped method as
+                //well
+                if (!(activity instanceof SplashActivity)) {
+                    passCodeManager.onActivityStopped(activity);
+                }
             }
 
             @Override
@@ -463,8 +471,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkSelfPermission(getAppContext(),
-                                                   Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
                 splitOutAutoUploadEntries(clock);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
@@ -509,11 +516,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             if (notificationManager != null) {
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
-                              R.string.notification_channel_download_name,
+                              R.string.notification_channel_download_name_short,
                               R.string.notification_channel_download_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
-                              R.string.notification_channel_upload_name,
+                              R.string.notification_channel_upload_name_short,
                               R.string.notification_channel_upload_description, context);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
@@ -524,9 +531,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                               R.string.notification_channel_file_sync_name,
                               R.string.notification_channel_file_sync_description, context);
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER,
-                              R.string.notification_channel_file_observer_name, R.string
-                                  .notification_channel_file_observer_description, context);
+                notificationManager.deleteNotificationChannel(NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
                               R.string.notification_channel_push_name, R.string
@@ -557,8 +562,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                       String channelId, int channelName,
                                       int channelDescription, Context context, int importance) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
-            && getAppContext() != null
-            && notificationManager.getNotificationChannel(channelId) == null) {
+            && getAppContext() != null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
