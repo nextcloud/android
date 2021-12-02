@@ -61,6 +61,7 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
+import com.owncloud.android.utils.Throttler;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -230,5 +231,10 @@ class AppModule {
     @Provides
     LocalBroadcastManager localBroadcastManager(Context context) {
         return LocalBroadcastManager.getInstance(context);
+    }
+
+    @Provides
+    Throttler throttler(Clock clock) {
+        return new Throttler(clock);
     }
 }
