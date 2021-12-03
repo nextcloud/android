@@ -27,6 +27,7 @@ import com.owncloud.android.utils.DisplayUtils
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
 import io.scanbot.sdk.camera.CameraOpenCallback
+import io.scanbot.sdk.camera.CaptureInfo
 import io.scanbot.sdk.camera.FrameHandlerResult
 import io.scanbot.sdk.camera.PictureCallback
 import io.scanbot.sdk.camera.ScanbotCameraView
@@ -137,7 +138,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         // polygonView.setFillColor(POLYGON_FILL_COLOR)
         //polygonView.setFillColorOK(POLYGON_FILL_COLOR_OK)
 
-        contourDetectorFrameHandler = ContourDetectorFrameHandler.attach(cameraView, scanbotSDK.contourDetector())
+        contourDetectorFrameHandler = ContourDetectorFrameHandler.attach(cameraView, scanbotSDK.createContourDetector())
 
         // Please note: https://github.com/doo/Scanbot-SDK-Examples/wiki/Detecting-and-drawing-contours#contour-detection-parameters
         contourDetectorFrameHandler.setAcceptedAngleScore(60.0)
@@ -151,8 +152,8 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         // Please note: https://github.com/doo/Scanbot-SDK-Examples/wiki/Autosnapping#sensitivity
         autoSnappingController.setSensitivity(0.85f)
         cameraView.addPictureCallback(object : PictureCallback() {
-            override fun onPictureTaken(image: ByteArray, imageOrientation: Int) {
-                processPictureTaken(image, imageOrientation)
+            override fun onPictureTaken(image: ByteArray, captureInfo: CaptureInfo) {
+                processPictureTaken(image, captureInfo.imageOrientation)
             }
         })
         userGuidanceHint = view.findViewById(R.id.userGuidanceHint)
@@ -223,9 +224,9 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
     }
 
     private fun initOCR() {
-        opticalCharacterRecognizer = scanbotSDK.ocrRecognizer()
-        pageFileStorage = scanbotSDK.pageFileStorage()
-        pageProcessor = scanbotSDK.pageProcessor()
+        opticalCharacterRecognizer = scanbotSDK.createOcrRecognizer()
+        pageFileStorage = scanbotSDK.createPageFileStorage()
+        pageProcessor = scanbotSDK.createPageProcessor()
     }
 
     override fun onResume() {
@@ -335,7 +336,7 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                 false
             )
         }
-        val detector = scanbotSDK.contourDetector()
+        val detector = scanbotSDK.createContourDetector()
         // Run document detection on original image:
         detector.detect(originalBitmap)
         val operations: MutableList<Operation> = ArrayList()

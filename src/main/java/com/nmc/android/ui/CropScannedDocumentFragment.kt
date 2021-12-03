@@ -132,7 +132,7 @@ class CropScannedDocumentFragment : Fragment() {
             originalBitmap = onDocScanListener.scannedDocs[scannedDocIndex]
             previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap)
 
-            val detector = scanbotSDK.contourDetector()
+            val detector = scanbotSDK.createContourDetector()
             val detectionResult = detector.detect(originalBitmap)
             val linesPair = Pair(detector.horizontalLines, detector.verticalLines)
             val polygon = detector.polygonF
