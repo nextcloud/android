@@ -330,6 +330,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         initServerPreFragment(savedInstanceState);
+
+        //reset the privacy policy action during login
+        preferences.setPrivacyPolicyAction(LoginPrivacySettingsActivity.NO_ACTION);
     }
 
     private void deleteCookies() {
