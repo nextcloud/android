@@ -31,7 +31,6 @@ class OnBoardingPagerAdapter(val context: Context, val items: List<OnBoardingIte
         //binding.tvOnboarding.setText(onBoardingItem?.content ?: 0)
         Glide.with(context)
             .load(items[position].image)
-            .skipMemoryCache(true)
             //.override(screenWidthInDp.toInt(), screenHeightInDp.toInt())
             .into(binding.ivOnboarding)
         container.addView(binding.root, 0)
