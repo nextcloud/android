@@ -70,9 +70,7 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         scannedImagesFilterIndex.clear();
         initScanbotSDK();
         setupToolbar();
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        setActionBarBackIcon();
     }
 
     public String getRemotePath() {

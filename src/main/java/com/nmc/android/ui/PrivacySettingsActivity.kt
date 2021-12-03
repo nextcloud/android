@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPrivacySettingsBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.utils.theme.ThemeCheckableUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import javax.inject.Inject
 
 class PrivacySettingsActivity : ToolbarActivity() {
@@ -41,7 +44,7 @@ class PrivacySettingsActivity : ToolbarActivity() {
         binding = ActivityPrivacySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupToolbar()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setActionBarBackIcon()
         updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.privacy_settings))
         setUpViews()
         showHideSettingsButton()
@@ -52,7 +55,7 @@ class PrivacySettingsActivity : ToolbarActivity() {
         binding.privacySaveSettingsBtn.visibility = if (isShowSettingsButton) View.VISIBLE else View.GONE
     }
 
-    fun setUpViews() {
+    private fun setUpViews() {
         ThemeCheckableUtils.tintSwitch(binding.switchDataCollection, 0)
         ThemeCheckableUtils.tintSwitch(binding.switchDataAnalysis, 0)
         binding.switchDataAnalysis.isChecked = preferences.isDataAnalysisEnabled

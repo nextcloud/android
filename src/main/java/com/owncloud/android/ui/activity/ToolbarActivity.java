@@ -51,6 +51,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -331,5 +332,25 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mAppBar != null) {
             mAppBar.setExpanded(true, true);
         }
+    }
+
+    /**
+     * method will set the back icon to action bar
+     * and also set the color
+     * Note: This method has to be called when you are directly
+     * extending activity with ToolbarActivity
+     */
+    public void setActionBarBackIcon(){
+       ActionBar actionBar = getSupportActionBar();
+       if (actionBar!=null) {
+           actionBar.setDisplayHomeAsUpEnabled(true);
+           Drawable backArrow = ResourcesCompat.getDrawable(
+               getResources(),
+               R.drawable.ic_back_arrow,
+               null);
+
+           actionBar.setHomeAsUpIndicator(
+               ThemeDrawableUtils.tintDrawable(backArrow, ThemeColorUtils.appBarPrimaryFontColor(this)));
+       }
     }
 }
