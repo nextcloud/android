@@ -39,16 +39,25 @@ class LoginPrivacySettingsActivity : ToolbarActivity() {
         binding = ActivityLoginPrivacySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupToolbar()
+        resetPreferenceForPrivacy()
         //don't show back button
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.privacy_settings))
         setUpPrivacyText()
         binding.privacyAcceptBtn.setOnClickListener {
+            //enable data analysis option and close the activity
+            preferences.setDataAnalysis(true)
+
             //on accept finish the activity
             //update the accept privacy action to preferences
             preferences.privacyPolicyAction = ACCEPT_ACTION
             openFileDisplayActivity()
         }
+    }
+
+    private fun resetPreferenceForPrivacy() {
+        preferences.setDataAnalysis(false)
+        preferences.privacyPolicyAction = NO_ACTION
     }
 
     private fun setUpPrivacyText() {
