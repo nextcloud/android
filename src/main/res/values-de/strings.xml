@@ -1005,8 +1005,8 @@
     <string name="personal_share_email">persönliche Freigabe per Emai</string>
     <string name="create_link">Link erstellen</string>
     <string name="your_shares">Ihre Freigaben</string>
-    <string name="link_label">Link Label</string>
-    <string name="hint_link_label">Your custom link label</string>
+    <string name="link_label">Linkbezeichnung</string>
+    <string name="hint_link_label">Ihre Linkbezeichnung</string>
     <string name="file_drop_info">Bei der Sammelbox ist nur das Hochladen erlaubt. Nur Sie sehen Dateien und Ordner die hochgeladen worden sind.</string>
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
