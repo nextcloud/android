@@ -818,11 +818,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         new ScanbotSDKInitializer()
             .withLogging(BuildConfig.DEBUG)
             .license(this, ScanBotSdkUtils.getScanBotLicenseKey())
-            .licenceErrorHandler((status, sdkFeature) -> {
+            .licenceErrorHandler((status, sdkFeature, statusMessage) -> {
                 // Handle license errors here:
-                Log_OC.d(TAG, "License status: " + status.name());
+                Log_OC.d(TAG, "+++> License status: " + status.name() + ". Status message: " + statusMessage);
                 if (sdkFeature != SdkFeature.NoSdkFeature) {
-                    Log_OC.d(TAG, "Missing SDK feature in license: " + sdkFeature.name());
+                    Log_OC.d(TAG, "+++> Feature not available: "+sdkFeature.name());
                 }
             })
             //enable sdkFilesDir if custom file directory has to be set
