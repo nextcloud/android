@@ -1040,4 +1040,5 @@
     <string name="sharing_email_warning">Der Passwortschutz ist aktiviert. Sie müssen dem Empfänger das Passwort
         selbst mitteilen.\n\nWenn Sie die Freigabe über die MagentaCLOUD verschicken und das Passwort in den
         Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
+    <string name="prefs_category_account_info">Kontoinformationen</string>
 </resources>

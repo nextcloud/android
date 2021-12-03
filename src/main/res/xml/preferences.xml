@@ -20,6 +20,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="preference_screen">
     <com.owncloud.android.ui.PreferenceCustomCategory
+        android:key="account_info"
+        android:title="@string/prefs_category_account_info">
+        <Preference
+            android:layout="@layout/custom_preference_layout"
+            android:key="user_name"
+            android:title="@string/prefs_category_account_info" />
+        <!--   <ListPreference
+               android:title="@string/prefs_theme_title"
+               android:key="darkMode"
+               android:summary="%s" />-->
+    </com.owncloud.android.ui.PreferenceCustomCategory>
+    <com.owncloud.android.ui.PreferenceCustomCategory
         android:key="general"
         android:title="@string/prefs_category_general">
         <ListPreference

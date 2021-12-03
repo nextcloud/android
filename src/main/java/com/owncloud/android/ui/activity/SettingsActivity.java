@@ -170,6 +170,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // retrieve user's base uri
         setupBaseUri();
 
+        // Account Information
+        setupAccountInfoCategory(accentColor);
+
         // General
         setupGeneralCategory(accentColor);
 
@@ -708,6 +711,16 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
+    private void setupAccountInfoCategory(int accentColor) {
+        PreferenceCategory preferenceCategoryAccountInfo = (PreferenceCategory) findPreference("account_info");
+        preferenceCategoryAccountInfo.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_account_info),
+                                                                          accentColor));
+
+        Preference autoUpload = findPreference("user_name");
+        autoUpload.setTitle(ThemeTextUtils.getColoredTitle(accountManager.getUser().toOwnCloudAccount().getDisplayName(),
+                                                           accentColor));
+    }
+
     private void setupGeneralCategory(int accentColor) {
         PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
         preferenceCategoryGeneral.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_general),
@@ -1030,7 +1043,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         editor.putString(AppPreferencesImpl.STORAGE_PATH, storagePath);
         editor.apply();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
-        prefStoragePath.setSummary(storageDescription);
+        //prefStoragePath.setSummary(storageDescription);
         prefStoragePath.setValue(newStoragePath);
     }
 
@@ -1043,7 +1056,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         storagePath = appPrefs.getString(AppPreferencesImpl.STORAGE_PATH,
                                          getApplicationContext().getFilesDir().getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
-        prefStoragePath.setSummary(storageDescription);
+        //prefStoragePath.setSummary(storageDescription);
     }
 
     @Override
