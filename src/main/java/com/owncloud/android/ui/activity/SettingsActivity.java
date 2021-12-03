@@ -348,7 +348,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         setupBackupPreference(accentColor);
 
-        setupE2EMnemonicPreference(preferenceCategoryMore);
+        //setupE2EMnemonicPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
 
@@ -895,7 +895,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 enableLock(pendingLock);
             }
         } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY) {
-            handleMnemonicRequest(data);
+            //handleMnemonicRequest(data);
         }
     }
 

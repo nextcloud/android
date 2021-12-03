@@ -93,11 +93,11 @@
             android:layout="@layout/custom_preference_layout"
             android:summary="@string/prefs_daily_backup_summary"
             android:title="@string/backup_title" />
-        <Preference
+        <!--<Preference
             android:key="mnemonic"
             android:layout="@layout/custom_preference_layout"
             android:summary="Displays your E2E 12 words passphrase"
-            android:title="@string/prefs_e2e_mnemonic" />
+            android:title="@string/prefs_e2e_mnemonic" />-->
         <!--
                 <Preference android:title="@string/prefs_recommend" android:key="recommend" />
         -->
