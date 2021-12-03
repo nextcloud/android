@@ -762,6 +762,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             mf.filter(menu, false);
 
+            //need to hide the share menu because we have renamed another menu for sharing
+            menu.findItem(R.id.action_send_share_file).setVisible(false);
+
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
@@ -1182,6 +1185,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 mContainerActivity.showDetails(singleFile);
                 mContainerActivity.showSortListGroup(false);
+
+                //track event on click of Share button
+                trackSharingClickEvent();
                 return true;
             } else if (itemId == R.id.action_set_as_wallpaper) {
                 mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
