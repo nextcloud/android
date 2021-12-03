@@ -177,8 +177,14 @@ android {
         flavorDimensions "default"
 
         buildTypes {
+            /* -- url for webview login, with the protocol prefix and with full url (normally /index.php/login/flow)
+  If set, will replace all other login methods available -- */
+            release {
+                resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
+            }
             debug {
-                testCoverageEnabled (project.hasProperty('coverage'))
+                resValue "string", "webview_login_url", "${DEV_SERVER_URL}"
+                testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
 
