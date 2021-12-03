@@ -158,11 +158,14 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
                 } else {
                     String pushValue = arbitraryDataProvider.getValue(accountName, PushUtils.KEY_PUSH);
 
-                    if (pushValue == null || pushValue.isEmpty()) {
+                    //Note -> Need to disable this error message for now as we will configure our
+                    //own push notification server later not now
+                    //once we will configure our server we will uncomment the below code.
+                   /* if (pushValue == null || pushValue.isEmpty()) {
                         snackbar = Snackbar.make(binding.emptyList.emptyListView,
                                                  R.string.push_notifications_temp_error,
                                                  Snackbar.LENGTH_INDEFINITE);
-                    }
+                    }*/
                 }
             }
 
