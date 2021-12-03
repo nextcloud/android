@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.viewpager.widget.ViewPager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -80,6 +81,7 @@ class OnBoardingActivity : BaseActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        updateLoginButtonMargin()
         updateOnBoardingPager(selectedPosition)
 
         binding.btnOnboardingLogin.setOnClickListener {
@@ -93,7 +95,7 @@ class OnBoardingActivity : BaseActivity() {
 
                 //-1 to position because this position doesn't start from 0
                 selectedPosition = position - 1
-                
+
                 //pass directly the position here because this position will doesn't start from 0
                 binding.progressIndicator.animateToStep(position)
             }
@@ -116,6 +118,31 @@ class OnBoardingActivity : BaseActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        updateLoginButtonMargin()
         updateOnBoardingPager(selectedPosition)
+    }
+
+    private fun updateLoginButtonMargin() {
+        if (DisplayUtils.isLandscapeOrientation()) {
+            if (binding.btnOnboardingLogin.layoutParams is MarginLayoutParams) {
+                (binding.btnOnboardingLogin.layoutParams as MarginLayoutParams).setMargins(
+                    0, 0, 0, resources.getDimensionPixelOffset(
+                        R
+                            .dimen.login_btn_bottom_margin_land
+                    )
+                )
+                binding.btnOnboardingLogin.requestLayout()
+            }
+        } else {
+            if (binding.btnOnboardingLogin.layoutParams is MarginLayoutParams) {
+                (binding.btnOnboardingLogin.layoutParams as MarginLayoutParams).setMargins(
+                    0, 0, 0, resources.getDimensionPixelOffset(
+                        R
+                            .dimen.login_btn_bottom_margin
+                    )
+                )
+                binding.btnOnboardingLogin.requestLayout()
+            }
+        }
     }
 }

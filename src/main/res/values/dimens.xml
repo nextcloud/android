@@ -24,6 +24,7 @@
     <dimen name="login_btn_width">150dp</dimen>
     <dimen name="login_btn_height">55dp</dimen>
     <dimen name="login_btn_bottom_margin">48dp</dimen>
+    <dimen name="login_btn_bottom_margin_land">48dp</dimen>
     <dimen name="shared_with_me_icon_size">26dp</dimen>
     <dimen name="txt_size_20sp">20sp</dimen>
     <dimen name="notification_row_item_height">145dp</dimen>
