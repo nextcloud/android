@@ -1,0 +1,8 @@
+Refresh on favorite/shared view does search again, not showing root folder content
+show mnemonic only if requested
+upload files activity: update select all button when selected files changed
+Remember selected files in upload files activity upon screen rotation
+Upon select all in upload files activity, enable upload button
+Remove unfavorited file from favorited search
+Show trashbin error in a better way
+Update Nextcloud Android library
