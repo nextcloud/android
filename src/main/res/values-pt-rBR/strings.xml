@@ -314,6 +314,8 @@
     <string name="file_list_loading">Carregando…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
+    <string name="file_management_permission">Permissões necessárias</string>
+    <string name="file_management_permission_text">%1$s precisa de permissões de gerenciamento de arquivos para funcionar corretamente. Ative-o na tela a seguir para continuar.</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
     <string name="file_migration_dialog_title">Atualizando a pasta de armazenamento se dados</string>
@@ -391,6 +393,7 @@
     <string name="link_share_editing">Editando </string>
     <string name="link_share_file_drop">Soltar arquivo (apenas envio)</string>
     <string name="link_share_read_only">Somente leitura</string>
+    <string name="link_share_view_only">Apenas visualizar </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados </string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
