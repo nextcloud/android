@@ -391,6 +391,7 @@
     <string name="link_share_file_drop">Fil drop (kun upload)</string>
     <string name="link_share_read_only">Skrivebeskyttet</string>
     <string name="list_layout">Liste layout</string>
+    <string name="load_more_results">Indlæs flere resultater</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="local_file_not_found_message">Fil ikke fundet i lokalt filsystem</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
