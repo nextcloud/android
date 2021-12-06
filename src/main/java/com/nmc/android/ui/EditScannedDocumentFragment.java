@@ -196,11 +196,23 @@ public class EditScannedDocumentFragment extends Fragment implements View.OnClic
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                onFragmentChangeListener.onReplaceFragment(SaveScannedDocumentFragment.newInstance(),
-                                                           ScanActivity.FRAGMENT_SAVE_SCAN_TAG, false);
+                Fragment fragment = pagerFragmentAdapter.getFragment(currentSelectedItemIndex);
+                if (fragment instanceof ScanPagerFragment) {
+                    //if applying filter is not in process then only show save fragment
+                    if(!((ScanPagerFragment) fragment).isFilterApplyInProgress()){
+                        saveScannedDocs();
+                    }
+                }else {
+                    saveScannedDocs();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveScannedDocs() {
+        onFragmentChangeListener.onReplaceFragment(SaveScannedDocumentFragment.newInstance(),
+                                                   ScanActivity.FRAGMENT_SAVE_SCAN_TAG, false);
     }
 
     @Override

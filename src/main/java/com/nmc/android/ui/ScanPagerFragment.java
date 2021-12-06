@@ -64,6 +64,9 @@ public class ScanPagerFragment extends Fragment {
     private AlertDialog applyFilterDialog;
     private int selectedFilter = 0;
 
+    //flag to check if applying filter is in progress or not
+    private boolean isFilterApplyInProgress = false;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -186,6 +189,7 @@ public class ScanPagerFragment extends Fragment {
 
     private void applyFilter(ImageFilterType... imageFilterType) {
         binding.editScanImageProgressBar.setVisibility(View.VISIBLE);
+        isFilterApplyInProgress = true;
         executorService.execute(() -> {
             if (imageFilterType[0] != ImageFilterType.NONE) {
                 List<FilterOperation> filterOperationList = new ArrayList<>();
@@ -198,9 +202,15 @@ public class ScanPagerFragment extends Fragment {
             }
             onDocScanListener.replaceScannedDoc(index, previewBitmap, true);
             handler.post(() -> {
+                isFilterApplyInProgress = false;
                 binding.editScanImageProgressBar.setVisibility(View.GONE);
                 loadImage();
             });
         });
+    }
+
+    //scan should not be saved till filter is applied
+    public boolean isFilterApplyInProgress() {
+        return isFilterApplyInProgress;
     }
 }
