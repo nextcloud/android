@@ -26,7 +26,8 @@
     android:layout_margin="@dimen/standard_margin"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/standard_double_margin">
+    android:paddingBottom="@dimen/standard_double_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ImageView
         android:id="@+id/empty_list_icon"
