@@ -114,10 +114,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
                     View creatorView = creatorViewBinding.getRoot();
 
-                    creatorViewBinding.creatorName.setText(
-                        String.format(fileActivity.getString(R.string.editor_placeholder),
-                                      fileActivity.getString(R.string.create_new),
-                                      creator.getName()));
+                    creatorViewBinding.creatorName.setText(fileActivity.getString(R.string.create_new));
 
                     if (creator.getMimetype().equalsIgnoreCase(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)){
                         creatorViewBinding.creatorThumbnail.setImageDrawable(ContextCompat.getDrawable(getContext(),
