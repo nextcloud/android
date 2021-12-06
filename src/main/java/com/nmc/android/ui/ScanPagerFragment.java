@@ -106,7 +106,9 @@ public class ScanPagerFragment extends Fragment {
         executorService.execute(() -> {
             originalBitmap = onDocScanListener.getScannedDocs().get(index);
             previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
-            selectedFilter = ScanActivity.scannedImagesFilterIndex.get(index);
+            if (index >= 0 && index < ScanActivity.scannedImagesFilterIndex.size()) {
+                selectedFilter = ScanActivity.scannedImagesFilterIndex.get(index);
+            }
             handler.post(new Runnable() {
                 @Override
                 public void run() {
