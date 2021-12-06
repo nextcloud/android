@@ -194,8 +194,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         mBehaviourSpinner = findViewById(R.id.upload_files_spinner_behaviour);
 
         List<String> behaviours = new ArrayList<>();
-        behaviours.add(getString(R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,
-                                 ThemeUtils.getDefaultDisplayNameForRootFolder(this)));
+        //behaviours.add(getString(R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,ThemeUtils.getDefaultDisplayNameForRootFolder(this)));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source));
 
@@ -467,15 +466,15 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
                 // set result code
                 switch (mBehaviourSpinner.getSelectedItemPosition()) {
-                    case 0: // move to nextcloud folder
+                    /*case 0: // move to nextcloud folder
                         setResult(RESULT_OK_AND_MOVE, data);
                         break;
-
-                    case 1: // only upload
+*/
+                    case 0: // only upload
                         setResult(RESULT_OK_AND_DO_NOTHING, data);
                         break;
 
-                    case 2: // upload and delete from source
+                    case 1: // upload and delete from source
                         setResult(RESULT_OK_AND_DELETE, data);
                         break;
 
@@ -543,7 +542,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             int localBehaviour = preferences.getUploaderBehaviour();
             mBehaviourSpinner.setSelection(localBehaviour);
         } else {
-            mBehaviourSpinner.setSelection(1);
+            mBehaviourSpinner.setSelection(0);
             textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
                                  .append(' ')
                                  .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
