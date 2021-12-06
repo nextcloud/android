@@ -258,4 +258,9 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
     override fun setQuery(query: String) {
         this.query.value = query
     }
+
+    @VisibleForTesting
+    fun setConnectivityService(connectivityService: ConnectivityService) {
+        this.connectivityService = connectivityService
+    }
 }

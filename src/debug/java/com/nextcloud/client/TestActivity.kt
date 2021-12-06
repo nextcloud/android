@@ -53,7 +53,7 @@ class TestActivity :
     private lateinit var fileOperation: FileOperationsHelper
     private lateinit var binding: TestLayoutBinding
 
-    private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+    val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
         override fun isInternetWalled(): Boolean {
             return false
         }
