@@ -402,7 +402,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         OCCapability capability = storageManager.getCapability(user.getAccountName());
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
-        DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
+        //trashbin icon is depending on capability due to this it doesn't appear in some of the devices
+        //so removing the check as we need this option always
+        //DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
