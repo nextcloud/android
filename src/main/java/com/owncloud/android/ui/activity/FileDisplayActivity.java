@@ -50,7 +50,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -1220,6 +1219,7 @@ public class FileDisplayActivity extends FileActivity
                 setupHomeSearchToolbarWithSortAndListButtons();
             } else {
                 setupToolbar();
+                setDrawerMenuItemChecked(R.id.nav_all_files);
             }
             setDrawerMenuItemChecked(menuItemId);
         }
