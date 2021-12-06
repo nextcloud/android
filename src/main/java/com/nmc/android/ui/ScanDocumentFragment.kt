@@ -27,7 +27,6 @@ import com.owncloud.android.R
 import com.owncloud.android.utils.DisplayUtils
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
-import io.scanbot.sdk.camera.CameraOpenCallback
 import io.scanbot.sdk.camera.CaptureInfo
 import io.scanbot.sdk.camera.FrameHandlerResult
 import io.scanbot.sdk.camera.PictureCallback
@@ -120,19 +119,17 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
         // See https://github.com/doo/scanbot-sdk-example-android/wiki/Using-ScanbotCameraView#preview-mode
         //cameraView.setPreviewMode(io.scanbot.sdk.camera.CameraPreviewMode.FIT_IN);
-        cameraView.setCameraOpenCallback(object : CameraOpenCallback {
-            override fun onCameraOpened() {
-                cameraView.postDelayed({
-                    cameraView.setAutoFocusSound(false)
+        cameraView.setCameraOpenCallback {
+            cameraView.postDelayed({
+                cameraView.setAutoFocusSound(false)
 
-                    // Shutter sound is ON by default. You can disable it:
-                    // cameraView.setShutterSound(false);
+                // Shutter sound is ON by default. You can disable it:
+                // cameraView.setShutterSound(false);
 
-                    cameraView.continuousFocus()
-                    cameraView.useFlash(flashEnabled)
-                }, 700)
-            }
-        })
+                cameraView.continuousFocus()
+                cameraView.useFlash(flashEnabled)
+            }, 700)
+        }
         flashToggleButton = view.findViewById(R.id.scan_doc_btn_flash)
         progressBar = view.findViewById(R.id.scan_doc_progress_bar)
         polygonView = view.findViewById<View>(R.id.polygonView) as PolygonView
@@ -233,6 +230,9 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
     override fun onResume() {
         super.onResume()
         cameraView.onResume()
+        if (this::progressBar.isInitialized) {
+            progressBar.visibility = View.GONE
+        }
     }
 
     override fun onPause() {
