@@ -319,7 +319,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     @Override
     public void onSortingOrderChosen(FileSortOrder selection) {
-        preferences.setSortOrder(FileSortOrder.Type.uploadFilesView, selection);
+        preferences.setSortOrder(FileSortOrder.Type.localFileListView, selection);
         mFileListFragment.sortFiles(selection);
     }
 
