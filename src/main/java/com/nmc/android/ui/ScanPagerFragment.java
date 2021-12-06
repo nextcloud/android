@@ -117,7 +117,7 @@ public class ScanPagerFragment extends Fragment {
     }
 
     private void loadImage() {
-        if (binding!=null) {
+        if (binding != null) {
             if (previewBitmap != null) {
                 binding.editScannedImageView.setImageBitmap(previewBitmap);
             } else {
