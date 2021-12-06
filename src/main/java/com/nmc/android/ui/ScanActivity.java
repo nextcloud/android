@@ -171,7 +171,8 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
             originalScannedImages.remove(index);
         }
         if (filteredImages.size() > 0 && file != null) {
-            return filteredImages.remove(file);
+             filteredImages.remove(index);
+             return true;
         }
         return false;
     }
