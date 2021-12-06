@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
@@ -415,7 +416,12 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // this is a good place to explain the user
                         // why you need the permission and ask if he wants
                         // to accept it (the rationale)
-                        DisplayUtils.showSnackMessage(requireActivity(), R.string.camera_permission_denied)
+                        Toast.makeText(
+                            requireActivity(),
+                            requireActivity().resources.getString(R.string.camera_permission_denied),
+                            Toast
+                                .LENGTH_SHORT
+                        ).show()
                         requireActivity().finish()
                         // askPermission()
                     }
