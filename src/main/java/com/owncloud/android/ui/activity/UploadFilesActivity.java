@@ -29,6 +29,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,7 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
@@ -64,6 +66,7 @@ import com.owncloud.android.utils.theme.ThemeUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -187,6 +190,19 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
         uploadButton.setEnabled(false);
+
+        //reduce the button text size so that the text doesn't go to next line
+        //this should only happen for GERMAN language
+        //and device should not be tablet and should be in portrait mode
+        if (!DisplayUtils.isTablet() && !DisplayUtils.isLandscapeOrientation()) {
+            if (Locale.getDefault().getLanguage().equals(Locale.GERMAN.getLanguage())
+                || Locale.getDefault().getLanguage().equals(Locale.GERMANY.getLanguage())) {
+                uploadButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                                         getResources().getDimensionPixelSize(R.dimen.txt_size_13sp));
+                cancelButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                                         getResources().getDimensionPixelSize(R.dimen.txt_size_13sp));
+            }
+        }
 
         int localBehaviour = preferences.getUploaderBehaviour();
 

@@ -29,4 +29,5 @@
     <dimen name="txt_size_20sp">20sp</dimen>
     <dimen name="notification_row_item_height">145dp</dimen>
     <dimen name="button_stroke_width">1dp</dimen>
+    <dimen name="txt_size_13sp">13sp</dimen>
 </resources>
