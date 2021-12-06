@@ -52,7 +52,7 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
 
     private String remotePath;
 
-    public static void openScanActivity(Context context,String remotePath, int requestCode) {
+    public static void openScanActivity(Context context, String remotePath, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
         intent.putExtra(EXTRA_REMOTE_PATH, remotePath);
         ((AppCompatActivity) context).startActivityForResult(intent, requestCode);
@@ -64,7 +64,7 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         // Inflate and set the layout view
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        remotePath= getIntent().getStringExtra(EXTRA_REMOTE_PATH);
+        remotePath = getIntent().getStringExtra(EXTRA_REMOTE_PATH);
         originalScannedImages.clear();
         filteredImages.clear();
         scannedImagesFilterIndex.clear();
@@ -192,6 +192,15 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
     public void replaceFilterIndex(int index, int filterIndex) {
         if (scannedImagesFilterIndex.size() > 0 && scannedImagesFilterIndex.size() > index) {
             scannedImagesFilterIndex.set(index, filterIndex);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragmentList) {
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
