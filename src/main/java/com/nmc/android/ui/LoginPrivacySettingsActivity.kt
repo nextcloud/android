@@ -45,8 +45,6 @@ class LoginPrivacySettingsActivity : ToolbarActivity() {
         updateActionBarTitleAndHomeButtonByString(resources.getString(R.string.privacy_settings))
         setUpPrivacyText()
         binding.privacyAcceptBtn.setOnClickListener {
-            //enable data analysis option and close the activity
-            preferences.setDataAnalysis(true)
 
             //on accept finish the activity
             //update the accept privacy action to preferences
