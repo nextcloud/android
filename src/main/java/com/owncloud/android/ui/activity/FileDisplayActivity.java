@@ -1366,7 +1366,9 @@ public class FileDisplayActivity extends FileActivity
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
                         }
-                        setBackgroundText();
+                        if (setBackgroundText()){
+                            setDrawerMenuItemChecked(R.id.nav_all_files);
+                        };
                     }
                 }
 
@@ -1397,7 +1399,8 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Show a text message on screen view for notifying user if content is loading or folder is empty
      */
-    private void setBackgroundText() {
+    private boolean setBackgroundText() {
+        boolean folderIsEmpty = false;
         final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (mSyncInProgress ||
@@ -1412,10 +1415,12 @@ public class FileDisplayActivity extends FileActivity
                 } else {
                     ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
                 }
+                folderIsEmpty = true;
             }
         } else {
             Log_OC.e(TAG, "OCFileListFragment is null");
         }
+        return folderIsEmpty;
     }
 
     /**
