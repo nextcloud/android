@@ -71,7 +71,7 @@
     <bool name="help_enabled">true</bool>
     <string name="url_help">https://cloud.telekom-dienste.de/hilfe</string>
     <bool name="privacy_enabled">true</bool>
-    <string name="privacy_policy_url">https://static.magentacloud.de/privacy/datenschutzhinweise_app.pdf</string>
+    <string name="privacy_policy_url">https://static.magentacloud.de/privacy/datenschutzhinweise_app.htm</string>
     <bool name="imprint_enabled">false</bool>
     <bool name="recommend_enabled">false</bool>
     <bool name="logger_enabled">false</bool>
