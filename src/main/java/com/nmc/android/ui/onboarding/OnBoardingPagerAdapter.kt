@@ -34,7 +34,10 @@ class OnBoardingPagerAdapter(val context: Context, val items: List<OnBoardingIte
 
         //due to cropping of image in landscape mode we are using fix xy for landscape and
         //center crop for other
-        if (DisplayUtils.isLandscapeOrientation()) {
+        //if device height is smaller than breakpoint height then also scale type fit xy is used
+        if (DisplayUtils.isLandscapeOrientation()
+            || !DisplayUtils.checkDeviceHeightInDp(OnBoardingActivity.DEVICE_HEIGHT_BREAK_POINT)
+        ) {
             binding.ivOnboarding.scaleType = ImageView.ScaleType.FIT_XY
         } else {
             binding.ivOnboarding.scaleType = ImageView.ScaleType.CENTER_CROP
