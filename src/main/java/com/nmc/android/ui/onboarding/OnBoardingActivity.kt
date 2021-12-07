@@ -19,10 +19,20 @@ import javax.inject.Inject
 class OnBoardingActivity : BaseActivity() {
 
     companion object {
+        //this will be used to use small or large intro screen for smartphones
+        //if the device height is greater than or equal to this then show default images
+        //else show small images
+        internal const val DEVICE_HEIGHT_BREAK_POINT = 750 //in DP
+
         private val DEFAULT_IMAGES =
             arrayOf(
                 R.drawable.intro_screen_first, R.drawable.intro_screen_second, R.drawable
                     .intro_screen_third
+            )
+        private val DEFAULT_SMALL_IMAGES =
+            arrayOf(
+                R.drawable.intro_screen_first_small, R.drawable.intro_screen_second_small, R.drawable
+                    .intro_screen_third_small
             )
         private val TAB_PORT_IMAGES =
             arrayOf(
@@ -53,7 +63,11 @@ class OnBoardingActivity : BaseActivity() {
                     TAB_PORT_IMAGES
                 }
             } else {
-                DEFAULT_IMAGES
+                if (DisplayUtils.checkDeviceHeightInDp(DEVICE_HEIGHT_BREAK_POINT)) {
+                    DEFAULT_IMAGES
+                } else {
+                    DEFAULT_SMALL_IMAGES
+                }
             }
         }
 
@@ -132,6 +146,29 @@ class OnBoardingActivity : BaseActivity() {
                     )
                 )
                 binding.btnOnboardingLogin.requestLayout()
+            }
+        }
+        //if device is not tablet and device height is small
+        //then reduce the button and indicator margin
+        else if (!DisplayUtils.isTablet() && !DisplayUtils.checkDeviceHeightInDp(DEVICE_HEIGHT_BREAK_POINT)) {
+            if (binding.btnOnboardingLogin.layoutParams is MarginLayoutParams) {
+                (binding.btnOnboardingLogin.layoutParams as MarginLayoutParams).setMargins(
+                    0, 0, 0, resources.getDimensionPixelOffset(
+                        R
+                            .dimen.login_btn_bottom_margin_small_screen
+                    )
+                )
+                binding.btnOnboardingLogin.requestLayout()
+            }
+
+            if (binding.progressIndicator.layoutParams is MarginLayoutParams) {
+                (binding.progressIndicator.layoutParams as MarginLayoutParams).setMargins(
+                    0, 0, 0, resources.getDimensionPixelOffset(
+                        R
+                            .dimen.alternate_margin
+                    )
+                )
+                binding.progressIndicator.requestLayout()
             }
         } else {
             if (binding.btnOnboardingLogin.layoutParams is MarginLayoutParams) {

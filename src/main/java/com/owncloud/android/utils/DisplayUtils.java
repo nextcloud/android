@@ -750,11 +750,11 @@ public final class DisplayUtils {
     /**
      * This method converts device specific pixels to density independent pixels.
      *
-     * @param px A value in px (pixels) unit. Which we need to convert into db
+     * @param px      A value in px (pixels) unit. Which we need to convert into db
      * @param context Context to get resources and device specific display metrics
      * @return A float value to represent dp equivalent to px value
      */
-    public static float convertPixelsToDp(float px, Context context){
+    public static float convertPixelsToDp(float px, Context context) {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
@@ -833,5 +833,16 @@ public final class DisplayUtils {
 
     public static boolean isLandscapeOrientation() {
         return MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * to check if device height is same or greater than the height passed
+     * @param heightInDp
+     * @return true/false if device height is same or equal to passed height
+     */
+    public static boolean checkDeviceHeightInDp(int heightInDp) {
+        DisplayMetrics displayMetrics = MainApp.getAppContext().getResources().getDisplayMetrics();
+        float deviceHeightInDp = DisplayUtils.convertPixelsToDp(displayMetrics.heightPixels, MainApp.getAppContext());
+        return deviceHeightInDp >= heightInDp;
     }
 }
