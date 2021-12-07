@@ -245,6 +245,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
         cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, ocFile.isPreviewAvailable() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_FAVORITE, ocFile.isFavorite());
 
         boolean sameRemotePath = fileExists(ocFile.getRemotePath());
         if (sameRemotePath ||
