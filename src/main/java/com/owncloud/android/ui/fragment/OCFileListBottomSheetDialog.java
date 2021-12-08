@@ -142,9 +142,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         //check if scanbot sdk licence is valid or not
         //hide the view if license is not valid
-        // TODO: 08-04-2021 Enable the code once the license key added
-        if(!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)){
-           // binding.menuScanDocument.setVisibility(View.GONE);
+        if(!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity) || !ScanBotSdkUtils.isScanBotAvailable()){
+           binding.menuScanDocument.setVisibility(View.GONE);
         }
 
         // create rich workspace
