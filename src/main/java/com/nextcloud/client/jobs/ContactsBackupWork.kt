@@ -210,7 +210,7 @@ class ContactsBackupWork(
 
     @Suppress("NestedBlockDepth")
     private fun getContactFromCursor(cursor: Cursor): String {
-        val lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
+        val lookupKey = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.LOOKUP_KEY))
         val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey)
         var vCard = ""
         var inputStream: InputStream? = null

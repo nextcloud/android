@@ -77,7 +77,7 @@ object UriUtils {
                 ).use { cursor ->
                     if (cursor != null) {
                         cursor.moveToFirst()
-                        displayName = cursor.getString(cursor.getColumnIndex(displayNameColumn))
+                        displayName = cursor.getString(cursor.getColumnIndexOrThrow(displayNameColumn))
                     }
                 }
             } catch (e: Exception) {

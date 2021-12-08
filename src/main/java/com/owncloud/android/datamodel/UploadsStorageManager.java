@@ -152,7 +152,7 @@ public class UploadsStorageManager extends Observable {
             // read upload object and update
             OCUpload upload = createOCUploadFromCursor(c);
 
-            String path = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+            String path = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH));
             Log_OC.v(
                     TAG,
                     "Updating " + path + " with status:" + status + " and result:"
@@ -362,7 +362,7 @@ public class UploadsStorageManager extends Observable {
                     do {
                         rowsRead++;
                         rowsTotal++;
-                        lastRowID = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
+                        lastRowID = c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta._ID));
                         OCUpload upload = createOCUploadFromCursor(c);
                         if (upload == null) {
                             Log_OC.e(TAG, "OCUpload could not be created from cursor");
@@ -398,29 +398,29 @@ public class UploadsStorageManager extends Observable {
     private OCUpload createOCUploadFromCursor(Cursor c) {
         OCUpload upload = null;
         if (c != null) {
-            String localPath = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_PATH));
-            String remotePath = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_REMOTE_PATH));
-            String accountName = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
+            String localPath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+            String remotePath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_REMOTE_PATH));
+            String accountName = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
             upload = new OCUpload(localPath, remotePath, accountName);
 
-            upload.setFileSize(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_SIZE)));
-            upload.setUploadId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
+            upload.setFileSize(c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_FILE_SIZE)));
+            upload.setUploadId(c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta._ID)));
             upload.setUploadStatus(
-                    UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)))
+                    UploadStatus.fromValue(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_STATUS)))
             );
-            upload.setLocalAction(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)));
+            upload.setLocalAction(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)));
             upload.setNameCollisionPolicy(NameCollisionPolicy.deserialize(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))));
+                    c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY))));
             upload.setCreateRemoteFolder(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
-            upload.setUploadEndTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)));
+                    c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
+            upload.setUploadEndTimestamp(c.getLong(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)));
             upload.setLastResult(UploadResult.fromValue(
-                    c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
-            upload.setCreatedBy(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_CREATED_BY)));
-            upload.setUseWifiOnly(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
-            upload.setWhileChargingOnly(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY))
+                    c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LAST_RESULT))));
+            upload.setCreatedBy(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_CREATED_BY)));
+            upload.setUseWifiOnly(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
+            upload.setWhileChargingOnly(c.getInt(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY))
                     == 1);
-            upload.setFolderUnlockToken(c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)));
+            upload.setFolderUnlockToken(c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)));
         }
         return upload;
     }

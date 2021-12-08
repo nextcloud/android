@@ -195,6 +195,7 @@ Attention la suppression est irréversible.</string>
     <string name="dev_version_no_information_available">Aucune information disponible.</string>
     <string name="dev_version_no_new_version_available">Aucune nouvelle version disponible.</string>
     <string name="dialog_close">Fermer</string>
+    <string name="did_not_check_for_dupes">N\'a pas vérifié les doublons.</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
     <string name="direct_login_failed">Échec de la connexion par lien direct</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
@@ -249,6 +250,7 @@ Attention la suppression est irréversible.</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
     <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
+    <string name="enter_destination_filename">Entrez le nom du fichier de destination</string>
     <string name="enter_filename">Veuillez saisir un nom de fichier</string>
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erreur critique : Impossible de réaliser les opérations</string>
@@ -312,6 +314,8 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
+    <string name="file_management_permission">Autorisations requises</string>
+    <string name="file_management_permission_text">%1$s a besoin des autorisations de gestion de fichiers pour fonctionner correctement. Veuillez l\'activer dans l\'écran suivant pour continuer.</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du répertoire de données</string>
@@ -370,6 +374,7 @@ Attention la suppression est irréversible.</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
     <string name="fullscreen">Plein écran</string>
+    <string name="hidden_file_name_warning">Le nom résultera en un fichier caché</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Mot de passe</string>
@@ -382,11 +387,16 @@ Attention la suppression est irréversible.</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
+    <string name="last_backup">Dernière sauvegarde: %1$s</string>
     <string name="link">Lien</string>
+    <string name="link_name">Nom du lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
+    <string name="link_share_editing">Édition</string>
     <string name="link_share_file_drop">Dépôt de fichier (envoi uniquement)</string>
     <string name="link_share_read_only">Lecture seule</string>
+    <string name="link_share_view_only">Afficher seulement</string>
     <string name="list_layout">Affichage en liste</string>
+    <string name="load_more_results">Charger plus de résultats</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -440,7 +450,9 @@ Attention la suppression est irréversible.</string>
     <string name="new_media_folder_videos">vidéo</string>
     <string name="new_notification">Nouvelle notification</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
+    <string name="no_actions">Aucune action pour cet utilisateur</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
+    <string name="no_calendar_exists">Il n’existe aucun agenda</string>
     <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse email</string>
     <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
@@ -450,6 +462,7 @@ Attention la suppression est irréversible.</string>
     <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
+    <string name="notification_channel_download_name_short">Téléchargements</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
     <string name="notification_channel_file_sync_name">Synchronisation de fichier</string>
     <string name="notification_channel_general_description">Afficher les notifications pour les nouveaux dossiers de média et des dossiers similaires</string>
@@ -459,6 +472,7 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_upload_description">Afficher l\'avancement de l\'envoi</string>
+    <string name="notification_channel_upload_name_short">Téléversements</string>
     <string name="notification_icon">Icône de notification</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
@@ -509,6 +523,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_category_dev">Dév</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
+    <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de  votre agenda &amp; des contacts</string>
     <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="prefs_enable_media_scan_notifications">Afficher les notifications d\'analyse multimédia</string>
@@ -566,7 +581,9 @@ Attention la suppression est irréversible.</string>
     <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
+    <string name="restore_backup">Restaurer la sauvegarde</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
+    <string name="restore_selected">Restaurer la sélection</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="scanQR_description">Connexion par code QR</string>
@@ -582,18 +599,23 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda &amp; Contacts</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
+    <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_one_template">Veuillez sélectionner un modèle</string>
     <string name="select_template">Sélectionnez un modèle</string>
     <string name="send">Envoyer</string>
     <string name="send_note">Envoyer la note au destinataire</string>
+    <string name="send_share">Envoyer Partager</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="set_as">Utiliser comme</string>
+    <string name="set_note">Définir la note</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
     <string name="set_status_message">Message d\'état</string>
     <string name="share">Partager</string>
+    <string name="share_copy_link">Partager &amp; le lien de copie</string>
     <string name="share_dialog_title">Partage</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
@@ -602,6 +624,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_internal_link_to_folder_text">le partage de lien interne fonctionne uniquement pour les utilisateurs qui ont accès à ce dossier</string>
     <string name="share_known_remote_on_clarification">le %1$s</string>
     <string name="share_link">Lien de partage</string>
+    <string name="share_link_empty_note_message">Veuillez saisir une note.</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
     <string name="share_link_file_error">Une erreur s\'est produite lors de la tentative de partage de ce fichier ou dossier.</string>
     <string name="share_link_file_no_exist">Impossible de partager. Veuillez vérifier si le fichier existe.</string>
@@ -613,11 +636,16 @@ Attention la suppression est irréversible.</string>
     <string name="share_no_password_title">Définir le mot de passe</string>
     <string name="share_open_in">Ouvrir dans...</string>
     <string name="share_password_title">Protégé par mot de passe</string>
+    <string name="share_permission_can_edit">Peut modifier</string>
+    <string name="share_permission_file_drop">Dépôt de fichier</string>
+    <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Partager les autorisations</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
+    <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
+    <string name="share_settings">Paramètres</string>
     <string name="share_via_link_hide_download">Masquer le téléchargement</string>
     <string name="share_via_link_section_title">Lien de partage</string>
     <string name="share_via_link_send_link_label">Envoyer le lien</string>
@@ -683,6 +711,7 @@ Attention la suppression est irréversible.</string>
     <string name="strict_mode">Mode strict : aucune connexion HTTP n’est autorisée !</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
+    <string name="suggest">Suggérer</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="sync_fail_content">Impossible de synchroniser %1$s</string>
@@ -828,6 +857,7 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre status ?</string>
+    <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
@@ -837,6 +867,22 @@ Attention la suppression est irréversible.</string>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Impossible de copier %1$d fichier du dossier %2$s dans</item>
         <item quantity="other">Impossible de copier %1$d fichiers du dossier %2$s dans</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one"> %1$d événement écrit à %2$s</item>
+        <item quantity="other">%1$d événements écrit à %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">%1$d nouveau UID créé</item>
+        <item quantity="other">%1$d nouveaux UID créés</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">%d entrée traitée.</item>
+        <item quantity="other">%d entrées traitées.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">%d entrée en double trouvée.</item>
+        <item quantity="other">%d entrées en double trouvées.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>
