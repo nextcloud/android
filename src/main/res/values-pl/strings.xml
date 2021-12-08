@@ -86,7 +86,7 @@
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
-    <string name="changelog_dev_version">Lista zmian wersji dev</string>
+    <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
