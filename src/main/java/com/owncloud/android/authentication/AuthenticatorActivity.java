@@ -1279,6 +1279,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             mAccount = newAccount;
             mAccountMgr.addAccountExplicitly(mAccount, webViewPassword, null);
+            mAccountMgr.notifyAccountAuthenticated(mAccount);
 
             // add the new account as default in preferences, if there is none already
             User defaultAccount = accountManager.getUser();
