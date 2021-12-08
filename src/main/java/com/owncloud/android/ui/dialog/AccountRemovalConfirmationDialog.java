@@ -69,7 +69,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.delete_account)
-            .setMessage(getResources().getString(R.string.delete_account_warning, user.getAccountName()))
+            .setMessage(getResources().getString(R.string.delete_account_warning, user.toOwnCloudAccount().getDisplayName()))
             .setIcon(R.drawable.ic_warning)
             .setPositiveButton(R.string.common_ok,
                                (dialogInterface, i) -> {
