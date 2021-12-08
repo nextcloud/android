@@ -1397,7 +1397,8 @@ public class FileDisplayActivity extends FileActivity
     }
 
     /**
-     * Show a text message on screen view for notifying user if content is loading or folder is empty
+     * Show a text message on screen view for notifying user if content is loading or folder is empty.
+     * Return true if folder is empty.
      */
     private boolean setBackgroundText() {
         boolean folderIsEmpty = false;

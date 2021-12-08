@@ -49,6 +49,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
+
+/**
+ * Implements a test for drawer menu behavior
+ * when navigating to an empty folder
+ */
 public class DrawerStatusIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
@@ -56,12 +61,15 @@ public class DrawerStatusIT extends AbstractIT {
 
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
-    private static Account account1;
-    private static User user1;
-    private static Account account2;
-    private static String account2Name;
-    private static String account2DisplayName;
+    private static Account userAccount;
+    private static User userName;
 
+
+    /**
+     * Sets up the test scenario
+     * by logging into an account
+     * using the test user data and test server
+     */
     @BeforeClass
     public static void beforeClass() {
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
@@ -77,38 +85,28 @@ public class DrawerStatusIT extends AbstractIT {
         String loginName = "user1";
         String password = "user1";
 
-        Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        platformAccountManager.addAccountExplicitly(temp, password, null);
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+        Account tempAccount = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
+        platformAccountManager.addAccountExplicitly(tempAccount, password, null);
+        platformAccountManager.setUserData(tempAccount, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
                                            Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
+        platformAccountManager.setUserData(tempAccount, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
+        platformAccountManager.setUserData(tempAccount, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
+        platformAccountManager.setUserData(tempAccount, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
 
-        account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        user1 = userAccountManager.getUser(account1.name).orElseThrow(IllegalAccessError::new);
-
-        loginName = "user2";
-        password = "user2";
-
-        temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        platformAccountManager.addAccountExplicitly(temp, password, null);
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-
-        account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        account2Name = loginName + "@" + baseUrl;
-        account2DisplayName = "User Two@" + baseUrl;
+        userAccount = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
+        userName = userAccountManager.getUser(userAccount.name).orElseThrow(IllegalAccessError::new);
     }
 
+    /**
+     * Creates drawer click behavior.
+     * Navigating to empty folder and
+     * verifies that All Files is highlighted in the menu.
+     */
     @Test
     public void selectMenuItem() {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
-        sut.setUser(user1);
+        sut.setUser(userName);
 
 
         // Click on the menu button
@@ -121,9 +119,5 @@ public class DrawerStatusIT extends AbstractIT {
 
         // Assert that the menu id has been updated
         onView(allOf(withId(R.id.nav_all_files), isChecked()));
-
-
-
-
     }
 }
