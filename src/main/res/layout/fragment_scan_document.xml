@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_half_padding"
         android:text="@string/automatic"
         android:textColor="@color/primary"
@@ -25,17 +25,17 @@
         style="@style/Button.Borderless.Normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon="@drawable/ic_flash"
-        app:iconSize="20dp"
-        app:iconTint="@color/primary"
-        app:iconPadding="@dimen/standard_quarter_padding"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_quarter_padding"
         android:text="@string/flash"
         android:textColor="@color/primary"
         android:textSize="@dimen/txt_size_14sp"
+        app:icon="@drawable/ic_flash"
+        app:iconPadding="@dimen/standard_quarter_padding"
+        app:iconSize="20dp"
+        app:iconTint="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,9 +53,9 @@
             android:id="@+id/polygonView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:polygonStrokeColor="@color/neptune"
-            app:polygonFillColorOK="@color/neptune_50"
             app:polygonFillColor="@color/neptune_50"
+            app:polygonFillColorOK="@color/neptune_50"
+            app:polygonStrokeColor="@color/neptune"
             app:polygonStrokeColorOK="@color/neptune"
             app:polygonStrokeWidth="1dp" />
 
@@ -76,9 +76,11 @@
 
     <TextView
         android:id="@+id/userGuidanceHint"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
         android:animateLayoutChanges="true"
         android:background="@drawable/grey_transparent_curve_bg"
         android:gravity="center"
@@ -103,23 +105,23 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="@dimen/standard_margin"
         android:elevation="6dp"
-        app:shutterButtonManualImage="@drawable/ic_camera"
-        app:shutterButtonManualOuterColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:shutterButtonAutoOuterColor="@color/primary" />
+        app:shutterButtonAutoOuterColor="@color/primary"
+        app:shutterButtonManualImage="@drawable/ic_camera"
+        app:shutterButtonManualOuterColor="@color/primary" />
 
     <ProgressBar
+        android:id="@+id/scan_doc_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/primary"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:indeterminateTint="@color/primary"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/scan_doc_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
