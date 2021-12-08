@@ -140,10 +140,15 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             binding.menuScanDocument.setVisibility(View.GONE);
         }
 
-        //check if scanbot sdk licence is valid or not
-        //hide the view if license is not valid
-        if(!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity) || !ScanBotSdkUtils.isScanBotAvailable()){
-           binding.menuScanDocument.setVisibility(View.GONE);
+        //if scanbot is not available for some devices hide the scan button
+        if (!ScanBotSdkUtils.isScanBotAvailable()) {
+            binding.menuScanDocument.setVisibility(View.GONE);
+        } else {
+            //check if scanbot sdk licence is valid or not
+            //hide the view if license is not valid
+            if (!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)) {
+                binding.menuScanDocument.setVisibility(View.GONE);
+            }
         }
 
         // create rich workspace
