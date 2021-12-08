@@ -108,7 +108,7 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 7
 def versionMinor = 0
-def versionPatch = 3
+def versionPatch = 4
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
@@ -202,15 +202,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 41200129
-                versionName "41200129"
+                versionCode 42200129
+                versionName "42200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 24
-                versionName "1.24"
+                versionCode 25
+                versionName "1.25"
             }
         }
 
