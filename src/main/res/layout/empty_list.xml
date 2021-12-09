@@ -19,14 +19,15 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/empty_list_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_margin="@dimen/standard_margin"
-    android:gravity="center_vertical|center_horizontal"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/standard_double_margin">
+    android:paddingTop="@dimen/standard_double_margin">
 
     <ImageView
         android:id="@+id/empty_list_icon"
@@ -34,7 +35,8 @@
         android:layout_height="@dimen/empty_list_icon_layout_height"
         android:contentDescription="@string/file_list_folder"
         android:src="@drawable/ic_list_empty_folder"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/empty_list_view_headline"
@@ -59,7 +61,8 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingBottom="@dimen/standard_half_padding"
         android:text="@string/file_list_empty"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/empty_list_view_action"
@@ -68,5 +71,6 @@
         android:layout_marginTop="@dimen/standard_half_margin"
         android:theme="@style/Button.Primary"
         android:visibility="gone"
-        app:cornerRadius="@dimen/button_corner_radius" />
+        app:cornerRadius="@dimen/button_corner_radius"
+        tools:visibility="visible" />
 </LinearLayout>
