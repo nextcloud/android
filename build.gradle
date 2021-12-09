@@ -108,7 +108,7 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 7
 def versionMinor = 0
-def versionPatch = 6
+def versionPatch = 7
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
@@ -182,7 +182,7 @@ android {
                 resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
             }
             debug {
-                resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
+                resValue "string", "webview_login_url", "${DEV_SERVER_URL}"
                 testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
@@ -209,8 +209,8 @@ android {
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 28
-                versionName "1.28"
+                versionCode 29
+                versionName "1.29"
             }
         }
 
