@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -96,6 +99,21 @@ public class ShareActivity extends FileActivity {
 
         // Size
         binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+
+        Activity activity = this;
+        new Thread(() -> {
+            RemoteOperationResult result = new ReadFileRemoteOperation(getFile().getRemotePath())
+                .execute(optionalUser.get().toPlatformAccount(),
+                         activity);
+
+            if (result.isSuccess()) {
+                RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
+                long length = remoteFile.getLength();
+
+                getFile().setFileLength(length);
+                runOnUiThread(() -> binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(length)));
+            }
+        }).start();
 
         if (savedInstanceState == null) {
             // Add Share fragment on first creation
