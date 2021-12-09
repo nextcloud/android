@@ -225,15 +225,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCFile file : mFilesAll) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setFavorite(favorite);
-                
+
+                mStorageManager.saveFile(file);
+
                 if (removeFromList) {
                     mFiles.remove(file);
                 }
-                
+
                 break;
             }
         }
-        
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         mFiles = sortOrder.sortCloudFiles(mFiles);
