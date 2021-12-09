@@ -30,22 +30,17 @@ import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nmc.android.utils.ScanBotSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
-import com.nmc.android.utils.ScanBotSdkUtils;
 
 import androidx.core.content.ContextCompat;
 
@@ -140,15 +135,10 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             binding.menuScanDocument.setVisibility(View.GONE);
         }
 
-        //if scanbot is not available for some devices hide the scan button
-        if (!ScanBotSdkUtils.isScanBotAvailable()) {
+        //check if scanbot sdk licence is valid or not
+        //hide the view if license is not valid
+        if (!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)) {
             binding.menuScanDocument.setVisibility(View.GONE);
-        } else {
-            //check if scanbot sdk licence is valid or not
-            //hide the view if license is not valid
-            if (!ScanBotSdkUtils.isScanBotLicenseValid(fileActivity)) {
-                binding.menuScanDocument.setVisibility(View.GONE);
-            }
         }
 
         // create rich workspace
