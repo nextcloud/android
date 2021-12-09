@@ -816,9 +816,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
      * method to initialise the ScanBot SDK
      */
     private void initialiseScanBotSDK() {
-       if(!ScanBotSdkUtils.isScanBotAvailable()){
-           return;
-       }
         new ScanbotSDKInitializer()
             .withLogging(BuildConfig.DEBUG)
             .license(this, ScanBotSdkUtils.getScanBotLicenseKey())

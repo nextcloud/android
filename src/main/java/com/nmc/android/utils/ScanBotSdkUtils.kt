@@ -2,7 +2,6 @@ package com.nmc.android.utils
 
 import android.app.Activity
 import android.graphics.Bitmap
-import android.os.Build
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.lib.common.utils.Log_OC
 import io.scanbot.sdk.ScanbotSDK
@@ -78,15 +77,4 @@ object ScanBotSdkUtils {
         return Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, false)
     }
 
-    @JvmStatic
-    fun isScanBotAvailable() : Boolean{
-        //disable the scanbot for android 6 and 7 version
-        //because its crashing in these devices due to NDK .so files
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M
-            || Build.VERSION.SDK_INT == Build.VERSION_CODES.N
-            || Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
-            return false
-        }
-        return true
-    }
 }
