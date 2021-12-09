@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -36,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -50,10 +52,13 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -296,17 +301,40 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 onBackPressed();
             }
         } else if (itemId == R.id.action_select_all) {
-            item.setChecked(!item.isChecked());
-            mSelectAll = item.isChecked();
+            mSelectAll = !item.isChecked();
+            item.setChecked(mSelectAll);
+            mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-            mFileListFragment.selectAllFiles(item.isChecked());
         } else if (itemId == R.id.action_choose_storage_path) {
-            showLocalStoragePathPickerDialog();
+            checkLocalStoragePathPickerPermission();
         } else {
             retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
+    }
+
+    private void checkLocalStoragePathPickerPermission() {
+        if (!PermissionUtil.checkExternalStoragePermission(this)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
+                                                                    PermissionUtil.getExternalStoragePermission())) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                                                  R.string.permission_storage_access,
+                                                  Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestExternalStoragePermission(this);
+            }
+
+            return;
+        }
+
+        showLocalStoragePathPickerDialog();
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -318,8 +346,25 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        if (requestCode == PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted
+                showLocalStoragePathPickerDialog();
+            } else {
+                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     public void onSortingOrderChosen(FileSortOrder selection) {
-        preferences.setSortOrder(FileSortOrder.Type.uploadFilesView, selection);
+        preferences.setSortOrder(FileSortOrder.Type.localFileListView, selection);
         mFileListFragment.sortFiles(selection);
     }
 
@@ -347,7 +392,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             File parentFolder = mCurrentDir.getParentFile();
             if (!parentFolder.canRead()) {
-                showLocalStoragePathPickerDialog();
+                checkLocalStoragePathPickerPermission();
                 return;
             }
 
@@ -410,6 +455,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         return !mDirectories.isEmpty();
     }
 
+    private void updateUploadButtonActive() {
+        final boolean anySelected = mFileListFragment.getCheckedFilesCount() > 0;
+        uploadButton.setEnabled(anySelected);
+    }
+
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
         selectAll.setChecked(checked);
         if (checked) {
@@ -418,8 +468,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             selectAll.setIcon(
                 ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
         }
-
-        uploadButton.setEnabled(checked);
+        updateUploadButtonActive();
     }
 
     @Override
@@ -548,7 +597,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onFileClick(File file) {
         uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
-        
+
         boolean selectAll = mFileListFragment.getCheckedFilesCount() == mFileListFragment.getFilesCount();
         setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), selectAll);
     }
