@@ -103,7 +103,7 @@ public class RenameFileOperation extends SyncOperation {
                     //saveLocalDirectory();
 
                 } else {
-                    saveLocalFile();
+                    saveLocalFile(newRemotePath);
                 }
             }
 
@@ -116,8 +116,12 @@ public class RenameFileOperation extends SyncOperation {
         return result;
     }
 
-    private void saveLocalFile() {
+    private void saveLocalFile(String newRemotePath) {
         file.setFileName(newName);
+
+        if (!file.isEncrypted()) {
+            file.setDecryptedRemotePath(newRemotePath);
+        }
 
         // try to rename the local copy of the file
         if (file.isDown()) {
