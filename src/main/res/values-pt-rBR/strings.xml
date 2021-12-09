@@ -374,6 +374,7 @@
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
     <string name="fullscreen">Tela cheia</string>
+    <string name="hidden_file_name_warning">O nome resultará em um arquivo oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
     <string name="hint_password">Senha</string>

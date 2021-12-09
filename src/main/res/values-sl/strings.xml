@@ -635,7 +635,7 @@
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_settings">Nastavitve</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
-    <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
+    <string name="share_via_link_section_title">Omogoči souporabo s povezavo</string>
     <string name="share_via_link_send_link_label">Pošlji povezavo</string>
     <string name="share_via_link_unset_password">Odstrani izbor</string>
     <string name="share_with_title">Omogoči souporabo …</string>
@@ -749,7 +749,7 @@
     <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
-    <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
+    <string name="untrusted_domain">Zaznan je dostop z domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>

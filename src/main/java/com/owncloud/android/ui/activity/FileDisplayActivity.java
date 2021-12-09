@@ -48,7 +48,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -1124,6 +1123,8 @@ public class FileDisplayActivity extends FileActivity
             createMinFragments(null);
         } else {
             // pop back
+            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams())
+                .setBehavior(new AppBarLayout.ScrollingViewBehavior());
             hideSearchView(getCurrentDir());
             showSortListGroup(true);
             super.onBackPressed();
@@ -2187,6 +2188,7 @@ public class FileDisplayActivity extends FileActivity
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
             binding.rightFragmentContainer.setVisibility(View.GONE);
+            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
             super.updateActionBarTitleAndHomeButton(file);
         } else {
             Intent previewIntent = new Intent();
