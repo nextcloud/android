@@ -143,7 +143,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    // TODO test this
     override fun openResult(result: SearchResultEntry) {
         if (result.isFile) {
             openFile(result.remotePath())
