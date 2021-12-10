@@ -79,6 +79,22 @@ class CropScannedDocumentFragment : Fragment() {
         binding.cropBtnResetBorders.setOnClickListener { 
             onClickListener(it)
         }
+
+    }
+
+    private fun onCropDragListener(){
+        polygonPoints?.let {points ->
+            var previous = points
+            binding.cropPolygonView.setEditPolygonDragStateListener { dragging ->
+                if (dragging) {
+                    previous = ArrayList(binding.cropPolygonView.polygon.map { PointF(it.x, it.y) })
+                } else {
+                    if (!isBigEnough(binding.cropPolygonView.polygon)) {
+                        binding.cropPolygonView.polygon = previous
+                    }
+                }
+            }
+        }
     }
 
    private fun onClickListener(view: View) {
@@ -103,6 +119,7 @@ class CropScannedDocumentFragment : Fragment() {
     private fun resetCrop() {
         polygonPoints = getResetPolygons()
         binding.cropPolygonView.polygon = getResetPolygons()
+        onCropDragListener()
     }
 
     private fun getResetPolygons(): List<PointF> {
@@ -159,6 +176,8 @@ class CropScannedDocumentFragment : Fragment() {
 
             if (initImageResult.polygon.isNullOrEmpty()){
                 resetCrop()
+            }else{
+                onCropDragListener()
             }
         }
     }
@@ -208,6 +227,18 @@ class CropScannedDocumentFragment : Fragment() {
 
     fun getScannedDocIndex(): Int {
         return scannedDocIndex
+    }
+
+    private fun isBigEnough(polygon: List<PointF>): Boolean {
+        polygon.forEach {
+            if (it.x in 0.3..0.7) {
+                return false
+            }
+            if (it.y in 0.3..0.7) {
+                return false
+            }
+        }
+        return true
     }
 
     companion object {
