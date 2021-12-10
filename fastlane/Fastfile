@@ -94,6 +94,9 @@ lane :makeReleases do
 
     SignedRelease(flavor:"Gplay")
     sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
+    
+    SignedRelease(flavor:"Huawei")
+        sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create GPlay release"
@@ -106,6 +109,12 @@ desc "Create Generic release"
 lane :createGenericRelease do |options|
     SignedRelease(flavor:"Generic")
     sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
+end
+
+desc "Create Huawei release"
+lane :createHuaweiRelease do |options|
+    SignedRelease(flavor:"Huawei")
+    sh("mv ../build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create Dev release"
@@ -131,7 +140,7 @@ private_lane :uploadToHuawei_Final do |options|
         client_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID"],
         client_secret: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET"],
         app_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_APP_ID"],
-        apk_path: "release/nextcloud-" + options["versionCode"] + ".apk",
+        apk_path: "release/huawei-release-" + options["versionCode"] + ".apk",
         submit_for_review: true,
     )
 end
