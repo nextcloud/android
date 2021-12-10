@@ -301,10 +301,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 onBackPressed();
             }
         } else if (itemId == R.id.action_select_all) {
-            item.setChecked(!item.isChecked());
-            mSelectAll = item.isChecked();
+            mSelectAll = !item.isChecked();
+            item.setChecked(mSelectAll);
+            mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-            mFileListFragment.selectAllFiles(item.isChecked());
         } else if (itemId == R.id.action_choose_storage_path) {
             checkLocalStoragePathPickerPermission();
         } else {
@@ -455,6 +455,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         return !mDirectories.isEmpty();
     }
 
+    private void updateUploadButtonActive() {
+        final boolean anySelected = mFileListFragment.getCheckedFilesCount() > 0;
+        uploadButton.setEnabled(anySelected);
+    }
+
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
         selectAll.setChecked(checked);
         if (checked) {
@@ -463,8 +468,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             selectAll.setIcon(
                 ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
         }
-
-        uploadButton.setEnabled(checked);
+        updateUploadButtonActive();
     }
 
     @Override
