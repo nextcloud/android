@@ -45,8 +45,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -301,7 +303,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-            exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+            exoPlayer = new SimpleExoPlayer.Builder(requireContext()).build();
             binding.exoplayerView.setPlayer(exoPlayer);
 
             LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
