@@ -119,6 +119,13 @@ public class TrashbinActivity extends DrawerActivity implements
         setupContent();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setDrawerMenuItemChecked(R.id.nav_trashbin);
+    }
+
     private void setupContent() {
         EmptyRecyclerView recyclerView = binding.list;
         recyclerView.setEmptyView(binding.emptyList.emptyListView);
