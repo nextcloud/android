@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -36,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -50,10 +52,13 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -301,12 +306,35 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             setSelectAllMenuItem(item, mSelectAll);
             mFileListFragment.selectAllFiles(item.isChecked());
         } else if (itemId == R.id.action_choose_storage_path) {
-            showLocalStoragePathPickerDialog();
+            checkLocalStoragePathPickerPermission();
         } else {
             retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
+    }
+
+    private void checkLocalStoragePathPickerPermission() {
+        if (!PermissionUtil.checkExternalStoragePermission(this)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
+                                                                    PermissionUtil.getExternalStoragePermission())) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                                                  R.string.permission_storage_access,
+                                                  Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
+                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestExternalStoragePermission(this);
+            }
+
+            return;
+        }
+
+        showLocalStoragePathPickerDialog();
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -315,6 +343,23 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         ft.addToBackStack(null);
         dialog = LocalStoragePathPickerDialogFragment.newInstance();
         dialog.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        if (requestCode == PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted
+                showLocalStoragePathPickerDialog();
+            } else {
+                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override
@@ -347,7 +392,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             File parentFolder = mCurrentDir.getParentFile();
             if (!parentFolder.canRead()) {
-                showLocalStoragePathPickerDialog();
+                checkLocalStoragePathPickerPermission();
                 return;
             }
 
