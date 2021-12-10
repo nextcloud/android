@@ -1168,7 +1168,11 @@ public class FileDisplayActivity extends FileActivity
             localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         }
 
+
         if (!(leftFragment instanceof OCFileListFragment)) {
+            if (leftFragment instanceof FileFragment) {
+                super.updateActionBarTitleAndHomeButton(((FileFragment) leftFragment).getFile());
+            }
             return;
         }
 
