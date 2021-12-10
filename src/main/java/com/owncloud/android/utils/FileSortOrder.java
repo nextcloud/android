@@ -51,7 +51,7 @@ public class FileSortOrder {
     public static final Map<String, FileSortOrder> sortOrders;
 
     public enum Type {
-        trashBinView, localFileListView, uploadFilesView
+        trashBinView, localFileListView
     }
     static {
         HashMap<String, FileSortOrder> temp = new HashMap<>();

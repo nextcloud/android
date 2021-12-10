@@ -133,8 +133,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.uploadFilesView);
-        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(), sortOrder));
+        mSortButton.setOnClickListener(v -> {
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
+        });
+
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
 
         setGridSwitchButton();
