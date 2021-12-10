@@ -1,0 +1,29 @@
+Remove TODO
+Don't make note mandatory for sharing
+DatePickerDialog: fix theme
+Fix upload button not active unless select all is clicked
+"set picture as" needs temporary read permission
+when re-logging in too fast, we stored an empty auth token
+Better positioning of preview media fragment
+Better fullscreen toggle
+On video player hide next button, as it is always disabled
+Upon move update folder size
+Empty list is not centered and in landscape cut off. Therefore as a quick win, moved all up, so that user does not think it should be centered. This also then works in landscape.
+After favorite/unfavorite store this also in db, not only change it in UI
+Rename remote path upon renaming
+Fix vanishing files after gallery search
+Explicitly set background for fragments
+Extract string to get translated
+update file size upon opening share dialog
+Play button as overlay on videos is now more sharpe on large displays
+Update footer upon restore/delete of a deleted file
+highlight correct menu drawer icon
+- correctly highlight selected sort order - combine uploadFilesView and localFilesListView enum, as both are the same
+Expand send share dialog when in landscape mode
+If no search results from any provider, show it
+Show correct empty screen if gallery search returns empty
+Ask for permission in UploadFilesActivity
+FileDetailFragment: prevent NullPointerException if fileDetailSharingFragment is called too soon
+UnifiedSearch: Fix opening non-file results with relative URLs
+Update translations
+Update Nextcloud Android library
