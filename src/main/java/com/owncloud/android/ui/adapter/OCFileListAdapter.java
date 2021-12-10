@@ -225,15 +225,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCFile file : mFilesAll) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setFavorite(favorite);
-                
+
+                mStorageManager.saveFile(file);
+
                 if (removeFromList) {
                     mFiles.remove(file);
                 }
-                
+
                 break;
             }
         }
-        
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         mFiles = sortOrder.sortCloudFiles(mFiles);
@@ -994,12 +995,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
 
             try {
-                if (ExtendedListFragment.SearchType.GALLERY_SEARCH == searchType) {
-                    mStorageManager.saveFile(ocFile);
-                } else {
+                ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
 
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
-
+                if (ExtendedListFragment.SearchType.GALLERY_SEARCH != searchType) {
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();

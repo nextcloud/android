@@ -374,6 +374,7 @@
     <string name="forward">Vidarebefordra</string>
     <string name="fourHours">4 timmar</string>
     <string name="fullscreen">Fullskärm</string>
+    <string name="hidden_file_name_warning">Namngivning kommer att resultera i en dold fil</string>
     <string name="hint_name">Namn</string>
     <string name="hint_note">Anteckning</string>
     <string name="hint_password">Lösenord</string>
