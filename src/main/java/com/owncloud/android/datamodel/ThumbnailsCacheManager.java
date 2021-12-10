@@ -23,6 +23,7 @@
 
 package com.owncloud.android.datamodel;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
