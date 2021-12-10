@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -29,6 +30,7 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,20 +42,21 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
+import com.owncloud.android.ui.fragment.util.PairMediatorLiveData
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import javax.inject.Inject
-import android.content.Intent
-import androidx.core.view.updatePadding
-import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
@@ -97,6 +100,36 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         vm.isLoading.observe(this) { loading ->
             binding.swipeContainingList.isRefreshing = loading
         }
+
+        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(this) { pair ->
+            if (pair.second == false) {
+                var count = 0
+
+                pair.first?.forEach {
+                    count += it.entries.size
+                }
+
+                if (count == 0 && pair.first?.isNotEmpty() == true && context != null) {
+                    binding.emptyList.root.visibility = View.VISIBLE
+                    binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+                    binding.emptyList.emptyListViewHeadline.visibility = View.VISIBLE
+                    binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+                    binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+
+                    binding.emptyList.emptyListViewHeadline.text =
+                        requireContext().getString(R.string.file_list_empty_headline_server_search)
+                    binding.emptyList.emptyListViewText.text =
+                        requireContext().getString(R.string.file_list_empty_unified_search_no_results)
+                    binding.emptyList.emptyListIcon.setImageDrawable(
+                        ThemeDrawableUtils.tintDrawable(
+                            R.drawable.ic_search_grey,
+                            ThemeColorUtils.primaryColor(context, true)
+                        )
+                    )
+                }
+            }
+        }
+
         vm.error.observe(this) { error ->
             if (!error.isNullOrEmpty()) {
                 DisplayUtils.showSnackMessage(binding.root, error)
