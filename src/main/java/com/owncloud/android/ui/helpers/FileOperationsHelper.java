@@ -843,6 +843,7 @@ public class FileOperationsHelper {
                 }
 
                 intent.setDataAndType(uri, file.getMimeType());
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 fileActivity.startActivityForResult(Intent.createChooser(intent,
                                                                          fileActivity.getString(R.string.set_as)),
                                                     200);
