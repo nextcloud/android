@@ -1078,14 +1078,21 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap addVideoOverlay(Bitmap thumbnail) {
+        int playButtonWidth = (int) (thumbnail.getWidth() * 0.3);
+        int playButtonHeight = (int) (thumbnail.getHeight() * 0.3);
+
         Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
                                                                   R.drawable.view_play,
                                                                   null);
-        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
+
+        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable,
+                                                         playButtonWidth,
+                                                         playButtonHeight);
 
         Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
-                                                             (int) (thumbnail.getWidth() * 0.3),
-                                                             (int) (thumbnail.getHeight() * 0.3), true);
+                                                             playButtonWidth,
+                                                             playButtonHeight,
+                                                             true);
 
         Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
                                                   thumbnail.getHeight(),
