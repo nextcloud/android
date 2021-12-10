@@ -90,6 +90,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         exoPlayer = new SimpleExoPlayer.Builder(this).build();
         playerView.setPlayer(exoPlayer);
 
+        findViewById(R.id.exo_exit_fs).setOnClickListener(v -> finish());
+
         if (mSavedPlaybackPosition >= 0) {
             exoPlayer.seekTo(mSavedPlaybackPosition);
         }
