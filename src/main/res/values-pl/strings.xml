@@ -228,7 +228,7 @@
     <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
-    <string name="drawer_item_videos">Wideo</string>
+    <string name="drawer_item_videos">Filmy</string>
     <string name="drawer_logout">Wyloguj</string>
     <string name="drawer_open">Otwórz pasek boczny</string>
     <string name="drawer_quota">Wykorzystane: %1$s z %2$s</string>
@@ -257,6 +257,7 @@
     <string name="error_choosing_date">Błąd podczas wybierania daty</string>
     <string name="error_comment_file">Błąd przy komentowaniu pliku</string>
     <string name="error_crash_title">%1$s zatrzymany</string>
+    <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta Github)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
     <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj pojawią się pliki i katalogi oznaczone jako ulubione.</string>
+    <string name="file_list_empty_gallery">Nie znaleziono obrazów ani filmów</string>
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
+    <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
     <string name="file_list_folder">katalog</string>
     <string name="file_list_loading">Ładowanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
@@ -517,7 +520,7 @@
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera skojarzony z tym kontem nie został rozpoznany przez DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów &amp; kalendarza została skonfigurowana pomyślnie</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
     <string name="prefs_category_dev">Deweloperskie</string>
@@ -596,7 +599,7 @@
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
     <string name="screenshot_05_autoUpload_heading">Automatyczne wysyłanie</string>
-    <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć &amp; wideo</string>
+    <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć i filmów</string>
     <string name="screenshot_06_davdroid_heading">Kontakty kalendarza &amp;</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
@@ -624,7 +627,6 @@
     <string name="share_internal_link_to_folder_text">Wewnętrzny link udostępnienia działa tylko dla użytkowników z dostępem do tego katalogu</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Udostępnij link</string>
-    <string name="share_link_empty_note_message">Proszę wpisać notatkę.</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
     <string name="share_link_file_error">Wystąpił błąd podczas próby udostępnienia tego pliku lub katalogu.</string>
     <string name="share_link_file_no_exist">Nie można udostępnić. Sprawdź, czy plik istnieje.</string>
@@ -701,7 +703,7 @@
     <string name="storage_movies">Filmy</string>
     <string name="storage_music">Muzyka</string>
     <string name="storage_pictures">Obrazy</string>
-    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza &amp; Synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików &amp; i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
+    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, które zapewnia kontrolę (wersja deweloperska)</string>

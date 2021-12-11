@@ -18,9 +18,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
- * 
+ *
  * Inspired by https://medium.com/codex/how-to-use-mediatorlivedata-with-multiple-livedata-types-a40e1a59e8cf
- * 
+ *
  */
 
 package com.owncloud.android.ui.fragment.util

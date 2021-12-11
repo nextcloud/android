@@ -75,11 +75,14 @@
     <string name="autoupload_hide_folder">フォルダーを隠す</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
+    <string name="backup_settings">バックアップ設定</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
     <string name="brute_force_delay">大量の誤った試みによる遅延</string>
+    <string name="calendar">カレンダー</string>
+    <string name="calendars">カレンダー</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="changelog_dev_version">開発バージョンの変更履歴</string>
     <string name="checkbox">チェックボックス</string>
@@ -98,11 +101,13 @@
     <string name="common_cancel">キャンセル</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_choose_account">アカウント選択</string>
+    <string name="common_confirm">承認</string>
     <string name="common_delete">削除</string>
     <string name="common_error">エラー</string>
     <string name="common_error_out_memory">十分なメモリがありません</string>
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_loading">読み込み中…</string>
+    <string name="common_next">次へ</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">保留中</string>
@@ -147,6 +152,7 @@
     <string name="conflict_new_file">新しいファイル</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
+    <string name="contacts">連絡先</string>
     <string name="contacts_backup_button">今すぐバックアップ</string>
     <string name="contacts_preferences_backup_scheduled">バックアップをスケジュールしました。まもなく開始します</string>
     <string name="contacts_preferences_import_scheduled">インポートをスケジュールしました。まもなく開始します</string>
@@ -178,6 +184,7 @@
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
     <string name="delete_entries">エントリーを削除</string>
+    <string name="delete_link">リンクを削除</string>
     <string name="deselect_all">選択を全解除</string>
     <string name="dev_version_new_version_available">新しいバージョンが利用可能</string>
     <string name="dev_version_no_information_available">情報がありません。</string>
