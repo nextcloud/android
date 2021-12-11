@@ -257,6 +257,7 @@
     <string name="error_choosing_date">選擇日期時出錯</string>
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
+    <string name="error_creating_file_from_template">從模板創建檔案時出錯</string>
     <string name="error_report_issue_action">舉報</string>
     <string name="error_report_issue_text">想舉報問題？（需要Github賬號）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">上傳一些項目或與你的設備同步！</string>
     <string name="file_list_empty_favorite_headline">目前沒有我的最愛</string>
     <string name="file_list_empty_favorites_filter_list">將您最愛的檔案與資料夾標記後將會顯示在這</string>
+    <string name="file_list_empty_gallery">沒有找到圖像或視像</string>
     <string name="file_list_empty_headline">目前沒有檔案</string>
     <string name="file_list_empty_headline_search">在這資料夾中沒有結果</string>
     <string name="file_list_empty_headline_server_search">沒有符合搜尋的項目</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">說不定它在其他的資料夾?</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
+    <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_loading">載入中…</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
@@ -624,7 +627,6 @@
     <string name="share_internal_link_to_folder_text">內部分享連結僅對有權存取此資料夾的用戶有效</string>
     <string name="share_known_remote_on_clarification">在 %1$s</string>
     <string name="share_link">分享連結</string>
-    <string name="share_link_empty_note_message">請輸入筆記。</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
     <string name="share_link_file_error">分享檔案或資料夾時發生錯誤</string>
     <string name="share_link_file_no_exist">無法分享檔案。請確認檔案是否存在。</string>

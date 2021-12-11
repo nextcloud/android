@@ -257,6 +257,7 @@
     <string name="error_choosing_date">Tarih seçilirken sorun çıktı</string>
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="error_crash_title">%1$s çöktü</string>
+    <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
     <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
     <string name="file_list_empty_favorite_headline">Henüz sık kullanılan bir öge yok</string>
     <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir.</string>
+    <string name="file_list_empty_gallery">Herhangi bir görsel ya da görüntü bulunamadı</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
+    <string name="file_list_empty_unified_search_no_results">Sorgunuzdan bir sonuç alınamadı</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_loading">Yükleniyor …</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
@@ -624,7 +627,6 @@
     <string name="share_internal_link_to_folder_text">İç bağlantı paylaşımı yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="share_known_remote_on_clarification">%1$s zamanında</string>
     <string name="share_link">Bağlantıyı paylaş</string>
-    <string name="share_link_empty_note_message">Lütfen bir not yazın.</string>
     <string name="share_link_empty_password">Bir parola yazmalısınız</string>
     <string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı.</string>
     <string name="share_link_file_no_exist">Paylaşılamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
