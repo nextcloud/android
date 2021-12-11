@@ -1,0 +1,4 @@
+FileDisplayActivity: Preserve title bar after resume
+Unified search: clear focus from search view on open
+Update translations
+Update Nextcloud Android library
