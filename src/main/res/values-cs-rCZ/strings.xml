@@ -257,6 +257,7 @@
     <string name="error_choosing_date">Chyba při volbě data</string>
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
+    <string name="error_creating_file_from_template">Chyba při vytváření souboru ze šablony</string>
     <string name="error_report_issue_action">Hlášení</string>
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje Github účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
     <string name="file_list_empty_favorite_headline">Zatím žádné oblíbené položky</string>
     <string name="file_list_empty_favorites_filter_list">Zde budou zobrazeny soubory a složky, které označíte jako oblíbené.</string>
+    <string name="file_list_empty_gallery">Nenalezeny žádné obrázky či videa</string>
     <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
     <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi sdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nebylo nic sdíleno</string>
+    <string name="file_list_empty_unified_search_no_results">Na váš dotaz nic nenelezeno</string>
     <string name="file_list_folder">složka</string>
     <string name="file_list_loading">Načítání…</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
@@ -624,7 +627,6 @@
     <string name="share_internal_link_to_folder_text">Sdílení interním odkazem funguje pouze pro uživatele, kteří mají k této složce přístup</string>
     <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Odkaz na sdílení</string>
-    <string name="share_link_empty_note_message">Zadejte poznámku.</string>
     <string name="share_link_empty_password">Je třeba zadat heslo</string>
     <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky došlo k chybě.</string>
     <string name="share_link_file_no_exist">Nedaří se sdílet – zkontrolujte zda soubor existuje.</string>
