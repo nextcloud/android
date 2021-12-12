@@ -264,7 +264,6 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
-    @SuppressWarnings("PMD.NullAssignment")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -275,12 +274,9 @@ public class FileUploader extends Service
         if (mNotificationManager != null) {
             mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
         }
-        mNotificationManager = null;
-
         // remove AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
-
         super.onDestroy();
     }
 
@@ -855,7 +851,6 @@ public class FileUploader extends Service
             if (!uploadResult.isSuccess()) {
                 mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
             }
-
         }
     }
 
