@@ -312,7 +312,7 @@
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi sdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nebylo nic sdíleno</string>
-    <string name="file_list_empty_unified_search_no_results">Na váš dotaz nic nenelezeno</string>
+    <string name="file_list_empty_unified_search_no_results">Na váš dotaz nic nenalezeno</string>
     <string name="file_list_folder">složka</string>
     <string name="file_list_loading">Načítání…</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
