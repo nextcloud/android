@@ -257,6 +257,7 @@
     <string name="error_choosing_date">選擇日期錯誤</string>
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
+    <string name="error_creating_file_from_template">從範本建立檔案時發生錯誤</string>
     <string name="error_report_issue_action">回報</string>
     <string name="error_report_issue_text">想回報問題？（需要 Github 帳號）</string>
     <string name="error_retrieving_file">擷取檔案時發生錯誤</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
     <string name="file_list_empty_favorite_headline">目前沒有我的最愛</string>
     <string name="file_list_empty_favorites_filter_list">將您最愛的檔案與資料夾標記後將會顯示在這</string>
+    <string name="file_list_empty_gallery">找不到圖片或影片</string>
     <string name="file_list_empty_headline">目前沒有檔案</string>
     <string name="file_list_empty_headline_search">在這資料夾中沒有結果</string>
     <string name="file_list_empty_headline_server_search">沒有符合搜尋的項目</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">也許其在其他資料夾中？</string>
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
+    <string name="file_list_empty_unified_search_no_results">找不到與您的搜尋相符的結果</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_loading">正在載入……</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的應用程式。</string>
