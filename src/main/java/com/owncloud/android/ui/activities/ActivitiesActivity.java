@@ -51,7 +51,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
 /**
@@ -210,7 +210,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
             showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
         }
         showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         startActivity(showDetailsIntent);
 
     }

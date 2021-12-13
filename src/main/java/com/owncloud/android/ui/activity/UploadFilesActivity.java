@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -76,7 +77,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_ACCOUNT;
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
  * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
@@ -121,12 +122,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      * onActivityResult() method will be called with the given requestCode.
      *
      * @param activity    the activity which should call the upload activity for a result
-     * @param account     the account for which the upload activity is called
+     * @param user        the user for which the upload activity is called
      * @param requestCode If >= 0, this code will be returned in onActivityResult()
      */
-    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
+    public static void startUploadActivityForResult(Activity activity, User user, int requestCode) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_ACCOUNT, account);
+        action.putExtra(EXTRA_USER, user);
         action.putExtra(REQUEST_CODE_KEY, requestCode);
         activity.startActivityForResult(action, requestCode);
     }
