@@ -257,6 +257,7 @@
     <string name="error_choosing_date">Hiba a dátumválasztáskor</string>
     <string name="error_comment_file">Hiba a fájlhoz hozzászóláskor</string>
     <string name="error_crash_title">A(z) %1$s összeomlott</string>
+    <string name="error_creating_file_from_template">Hiba a fájl sablonból történő létrehozása során</string>
     <string name="error_report_issue_action">Jelentés</string>
     <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
@@ -300,6 +301,7 @@
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
     <string name="file_list_empty_favorite_headline">Még nincsenek kedvencek</string>
     <string name="file_list_empty_favorites_filter_list">Azon fájlok és mappák, amiket kedvencnek jelöl, itt fognak megjelenni.</string>
+    <string name="file_list_empty_gallery">Nem található kép vagy videó</string>
     <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
     <string name="file_list_empty_headline_search">Nincs találat ebben a mappában</string>
     <string name="file_list_empty_headline_server_search">Nincs találat</string>
@@ -310,6 +312,7 @@
     <string name="file_list_empty_search">Lehet, hogy másik mappában található?</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg.</string>
     <string name="file_list_empty_shared_headline">Még semmi sincs megosztva</string>
+    <string name="file_list_empty_unified_search_no_results">Nincs találat a kereséséhez</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
