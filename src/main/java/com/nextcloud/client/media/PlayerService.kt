@@ -152,7 +152,6 @@ class PlayerService : Service() {
 
     private fun onActionStopFile(args: Bundle?) {
         val file: OCFile = args?.getParcelable(EXTRA_FILE) ?: throw IllegalArgumentException("Missing file argument")
-
         stopServiceAndRemoveNotification(file)
     }
 
