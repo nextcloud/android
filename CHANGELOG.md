@@ -1,3 +1,14 @@
+## 3.18.1 RC1 (December 10, 2021)
+
+- Fix connection bug for usernames with spaces
+- Fix some crashes in search and share views
+- Fix login for server URLs in IP:port format
+- Lots of minor bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/63
+
 ## 3.18.0 RC6 (November 16, 2021)
 
 - Calendar backup/restore
