@@ -1,0 +1,6 @@
+"last modified" column may not exist, thus it shall never fail to upload
+Do not set notification manager to null in uploader service
+When stopping PlayerService, do not use foreground service api
+Migrate FileActivity.EXTRA_ACCOUNT to EXTRA_USER
+Update translations
+Update Nextcloud Android library
