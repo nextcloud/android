@@ -22,7 +22,6 @@
 
 package com.owncloud.android.providers;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
@@ -46,7 +45,6 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -89,8 +87,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import dagger.android.AndroidInjection;
 
 import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
@@ -104,6 +105,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
 
+    @Inject
     UserAccountManager accountManager;
 
     @VisibleForTesting
@@ -302,7 +304,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
-        accountManager = UserAccountManagerImpl.fromContext(getContext());
+        AndroidInjection.inject(this);
 
         // initiate storage manager collection, because we need to serve document(tree)s
         // with persist permissions

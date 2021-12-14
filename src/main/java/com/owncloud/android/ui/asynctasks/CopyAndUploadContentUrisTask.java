@@ -155,7 +155,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                                                                  null)) {
                     if (cursor != null && cursor.moveToFirst()) {
                         // this check prevents a crash when last modification time is not available on certain phones
-                        int columnIndex = cursor.getColumnIndexOrThrow(DocumentsContract.Document.COLUMN_LAST_MODIFIED);
+                        int columnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED);
                         if (columnIndex >= 0) {
                             lastModified = cursor.getLong(columnIndex);
                         }

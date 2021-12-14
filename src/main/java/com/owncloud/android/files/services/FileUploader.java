@@ -264,7 +264,6 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
-    @SuppressWarnings("PMD.NullAssignment")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -275,12 +274,9 @@ public class FileUploader extends Service
         if (mNotificationManager != null) {
             mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
         }
-        mNotificationManager = null;
-
         // remove AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
-
         super.onDestroy();
     }
 
@@ -721,7 +717,7 @@ public class FileUploader extends Service
 
         /// includes a pending intent in the notification showing the details
         Intent intent = UploadListActivity.createIntent(upload.getFile(),
-                                                        upload.getAccount(),
+                                                        upload.getUser(),
                                                         Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                         this);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
@@ -833,13 +829,13 @@ public class FileUploader extends Service
                 Intent intent;
                 if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
                     intent = ConflictsResolveActivity.createIntent(upload.getFile(),
-                                                                   upload.getAccount(),
+                                                                   upload.getUser(),
                                                                    upload.getOCUploadId(),
                                                                    Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                                    this);
                 } else {
                     intent = UploadListActivity.createIntent(upload.getFile(),
-                                                             upload.getAccount(),
+                                                             upload.getUser(),
                                                              Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                              this);
                 }
@@ -855,7 +851,6 @@ public class FileUploader extends Service
             if (!uploadResult.isSuccess()) {
                 mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
             }
-
         }
     }
 
