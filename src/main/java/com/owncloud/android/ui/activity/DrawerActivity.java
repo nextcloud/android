@@ -784,6 +784,16 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param menuItemId the menu item to be highlighted
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
+        //if item is logout then do not show it as selected
+        if (menuItemId == R.id.nav_logout) {
+            //if previous checked item is not NONE then make it selected again
+            //to show it as selected bg color
+            if (mCheckedMenuItem != Menu.NONE) {
+                setDrawerMenuItemChecked(mCheckedMenuItem);
+            }
+            return;
+        }
+
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
