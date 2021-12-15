@@ -96,7 +96,7 @@ lane :makeReleases do
     sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
     
     SignedRelease(flavor:"Huawei")
-        sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
+    sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create GPlay release"
