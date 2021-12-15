@@ -26,19 +26,20 @@ import io.scanbot.sdk.core.contourdetector.DetectionResult
 import io.scanbot.sdk.core.contourdetector.Line2D
 import io.scanbot.sdk.process.CropOperation
 import java.util.concurrent.Executors
+import kotlin.math.absoluteValue
 
 class CropScannedDocumentFragment : Fragment() {
-    private lateinit var binding : FragmentCropScanBinding
+    private lateinit var binding: FragmentCropScanBinding
     private lateinit var onFragmentChangeListener: OnFragmentChangeListener
     private lateinit var onDocScanListener: OnDocScanListener
-    
+
     private var scannedDocIndex: Int = -1
     private lateinit var scanbotSDK: ScanbotSDK
 
     private lateinit var originalBitmap: Bitmap
 
     private var rotationDegrees = 0
-    private var polygonPoints : List<PointF>? = null
+    private var polygonPoints: List<PointF>? = null
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,12 +77,27 @@ class CropScannedDocumentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         scanbotSDK = (requireActivity() as ScanActivity).scanbotSDK
         detectDocument()
-        binding.cropBtnResetBorders.setOnClickListener { 
+        binding.cropBtnResetBorders.setOnClickListener {
             onClickListener(it)
         }
     }
 
-   private fun onClickListener(view: View) {
+    private fun onCropDragListener() {
+        polygonPoints?.let { points ->
+            var previous = points
+            binding.cropPolygonView.setEditPolygonDragStateListener { dragging ->
+                if (dragging) {
+                    previous = ArrayList(binding.cropPolygonView.polygon.map { PointF(it.x, it.y) })
+                } else {
+                    if (!isBigEnough(binding.cropPolygonView.polygon)) {
+                        binding.cropPolygonView.polygon = previous
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onClickListener(view: View) {
         when (view.id) {
             R.id.crop_btn_reset_borders -> {
                 if (binding.cropBtnResetBorders.tag.equals(resources.getString(R.string.crop_btn_reset_crop_text))) {
@@ -103,6 +119,7 @@ class CropScannedDocumentFragment : Fragment() {
     private fun resetCrop() {
         polygonPoints = getResetPolygons()
         binding.cropPolygonView.polygon = getResetPolygons()
+        onCropDragListener()
     }
 
     private fun getResetPolygons(): List<PointF> {
@@ -115,7 +132,7 @@ class CropScannedDocumentFragment : Fragment() {
         polygonList.add(pointF1)
         polygonList.add(pointF2)
         polygonList.add(pointF3)
-        return  polygonList
+        return polygonList
     }
 
     private fun detectDocument() {
@@ -157,8 +174,10 @@ class CropScannedDocumentFragment : Fragment() {
             binding.cropPolygonView.polygon = initImageResult.polygon
             binding.cropPolygonView.setLines(initImageResult.linesPair.first, initImageResult.linesPair.second)
 
-            if (initImageResult.polygon.isNullOrEmpty()){
+            if (initImageResult.polygon.isNullOrEmpty()) {
                 resetCrop()
+            } else {
+                onCropDragListener()
             }
         }
     }
@@ -210,8 +229,79 @@ class CropScannedDocumentFragment : Fragment() {
         return scannedDocIndex
     }
 
+    private fun isBigEnough(polygon: List<PointF>): Boolean {
+        if (polygon.isEmpty()) {
+            return true
+        }
+
+        /*
+           We receive the array of 4 Polygons when user start dragging the borders to crop the document
+            1. polygon[0].x to polygon[3].x  --> When user drag from left to right or right to left
+            2. polygon[0].y to polygon[3].y  --> When user drag from top to bottom or bottom to top
+
+            Now to find the minimum difference we need to compare X and Y polygons. Here we have 2 cases:
+            1. For Y polygon:
+               1.1. When user dragging from Top to Bottom --> In this case Y will have same value in 0 & 1 index
+                    i.e. polygon[0].y & polygon[1].y
+
+               1.2. When user dragging from Bottom to Top --> In this case Y will have same value in 2 & 3 index
+                    i.e. polygon[2].y & polygon[3].y
+
+             2. For X polygon:
+               2.1. When user dragging from Left to Right --> In this case X will have same value in 0 & 3 index
+                    i.e. polygon[0].x & polygon[3].x
+
+               2.2. When user dragging from Right to Left --> In this case X will have same value in 1 & 2 index
+                    i.e. polygon[1].x & polygon[2].x
+
+
+            Now to avoid user cropping the whole document we need to have minimum cropping point. To do that
+            we need to check the difference between the polygon for X and Y like:
+            1. For Y: check the difference between polygon[0].y - polygon[2].y and so on
+            2. For X: check the difference between polygon[0].x - polygon[1].x and so on
+
+         */
+
+        if ((polygon[0].y - polygon[2].y).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[0].y - polygon[3].y).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[1].y - polygon[2].y).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[1].y - polygon[3].y).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[0].x - polygon[1].x).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[0].x - polygon[2].x).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[3].x - polygon[1].x).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        if ((polygon[3].x - polygon[2].x).absoluteValue < MINIMUM_CROP_REQUIRED) {
+            return false
+        }
+
+        return true
+    }
+
     companion object {
         private const val ARG_SCANNED_DOC_INDEX = "scanned_doc_index"
+
+        //variable used to avoid cropping the whole document
+        private const val MINIMUM_CROP_REQUIRED = 0.1
 
         @JvmStatic
         fun newInstance(index: Int): CropScannedDocumentFragment {
