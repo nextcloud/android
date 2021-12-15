@@ -37,8 +37,8 @@ class ViewModelFactory @Inject constructor(
     private val viewModelProviders: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        var vmProvider: Provider<ViewModel>? = viewModelProviders.get(modelClass)
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        var vmProvider: Provider<ViewModel>? = viewModelProviders[modelClass]
 
         if (vmProvider == null) {
             for (entry in viewModelProviders.entries) {
@@ -53,12 +53,7 @@ class ViewModelFactory @Inject constructor(
             throw IllegalArgumentException("${modelClass.simpleName} view model class is not supported")
         }
 
-        @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "UNCHECKED_CAST")
-        try {
-            val vm = vmProvider.get() as T
-            return vm
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
+        @Suppress("UNCHECKED_CAST")
+        return vmProvider.get() as T
     }
 }
