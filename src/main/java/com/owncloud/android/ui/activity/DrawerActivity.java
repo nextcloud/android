@@ -526,34 +526,28 @@ public abstract class DrawerActivity extends ToolbarActivity
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
-        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setAction(Intent.ACTION_SEARCH);
-        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
-        startActivity(intent);
+        launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof GalleryFragment) {
-                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setAction(Intent.ACTION_SEARCH);
-                intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-                startActivity(intent);
+            if (((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) {
+                launchActivityForSearch(searchEvent, menuItemId);
             } else {
                 EventBus.getDefault().post(searchEvent);
             }
         } else {
-            Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setAction(Intent.ACTION_SEARCH);
-            intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-            intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-            startActivity(intent);
+            launchActivityForSearch(searchEvent, menuItemId);
         }
+    }
+
+    private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(Intent.ACTION_SEARCH);
+        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
+        startActivity(intent);
     }
 
     /**
