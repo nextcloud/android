@@ -25,7 +25,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.11.2'
+        classpath 'com.karumi:shot:5.12.1'
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
@@ -61,7 +61,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.40.3"
+	daggerVersion = "2.40.4"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
