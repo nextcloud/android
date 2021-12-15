@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:text="@string/conflict_replace"
         android:textAllCaps="false"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:textSize="@dimen/txt_size_15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/keep_both_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
@@ -25,7 +26,7 @@
         android:textAllCaps="false"
         android:textSize="@dimen/txt_size_15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/replace_btn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/more_details_btn"
