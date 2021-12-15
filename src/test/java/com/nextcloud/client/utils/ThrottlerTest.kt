@@ -1,4 +1,4 @@
-package com.owncloud.android.utils
+package com.nextcloud.client.utils
 
 import com.nextcloud.client.core.Clock
 import io.mockk.*

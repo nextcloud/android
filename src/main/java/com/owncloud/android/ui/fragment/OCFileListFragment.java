@@ -101,7 +101,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.Throttler;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
