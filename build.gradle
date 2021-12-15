@@ -298,7 +298,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.43.1"
+    ktlint "com.pinterest:ktlint:0.43.2"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
