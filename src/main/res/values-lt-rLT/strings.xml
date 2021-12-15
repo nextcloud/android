@@ -13,6 +13,7 @@
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
+    <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
     <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_move">Perkelti</string>
@@ -31,6 +32,7 @@
     <string name="add_another_public_share_link">Pridėti kitą nuorodą</string>
     <string name="add_new_public_share">Pridėkite naują viešą bendrinimo nuorodą</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
+    <string name="advanced_settings">Išplėstiniai nustatymai</string>
     <string name="allow_resharing">Leisti bendrinti iš naujo</string>
     <string name="appbar_search_in">Ieškoti %s</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
@@ -65,7 +67,6 @@
     <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">saugomi originaliame aplanke, nes jis yra tik skaitomas</string>
     <string name="auto_upload_on_wifi">Įkelti tik esant Wi-Fi prisijungimui.</string>
-    <string name="auto_upload_path">automatinis paleidimas</string>
     <string name="autoupload_configure">Konfigūruoti</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>
     <string name="autoupload_custom_folder">Pritaikyti aplanką</string>
@@ -78,6 +79,8 @@
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
+    <string name="calendar">Kalendorius</string>
+    <string name="calendars">Kalendoriai</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
     <string name="changelog_dev_version">Dev versijos pakeitimų žurnalas</string>
     <string name="checkbox">Žymimasis langelis</string>
@@ -96,11 +99,13 @@
     <string name="common_cancel">Atsisakyti</string>
     <string name="common_cancel_sync">Atsisakyti sinchronizavimo</string>
     <string name="common_choose_account">Pasirinkite paskyrą</string>
+    <string name="common_confirm">Patvirtinti</string>
     <string name="common_delete">Ištrinti</string>
     <string name="common_error">Klaida</string>
     <string name="common_error_out_memory">Nepakanka atminties</string>
     <string name="common_error_unknown">Nežinoma klaida</string>
     <string name="common_loading">Įkeliama…</string>
+    <string name="common_next">Kitas</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">Gerai</string>
     <string name="common_pending">Laukiantis</string>
@@ -145,6 +150,7 @@
     <string name="conflict_new_file">Naujas failas</string>
     <string name="contactlist_item_icon">Naudotojo piktograma kontaktų sąraše </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
+    <string name="contacts">Adresatai</string>
     <string name="contacts_backup_button">Atgal į viršų</string>
     <string name="contacts_preferences_backup_scheduled">Atsarginės kopijos darymas suplanuotas ir prasidės netrukus</string>
     <string name="contacts_preferences_import_scheduled">Importas suplanuotas ir prasidės netrukus</string>
@@ -369,6 +375,7 @@
     <string name="link_share_file_drop">Failų įmetimas (tik įkėlimas)</string>
     <string name="link_share_read_only">Tik skaitymui</string>
     <string name="list_layout">Išdėstymas sąraše</string>
+    <string name="load_more_results">Įkelti daugiau rezultatų</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
     <string name="local_file_not_found_message">Failas nerastas vietinėje failų sistemoje</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -382,9 +389,11 @@
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="logs_status_not_filtered">Žurnalo įrašai: %1$d kB, nėra filtro</string>
     <string name="logs_title">Žurnalai</string>
+    <string name="maintenance_mode">Serveris yra techninės priežiūros veiksenoje</string>
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>
+    <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
     <string name="media_err_malformed">Media failas yra nepalaikomos koduotės.</string>
@@ -419,6 +428,7 @@
     <string name="new_notification">Naujas pranešimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
     <string name="no_browser_available">Nėra programėlės, skirtos apdoroti nuorodas</string>
+    <string name="no_calendar_exists">Nėra jokių kalendorių</string>
     <string name="no_mutliple_accounts_allowed">Leidžiama tik viena paskyra</string>
     <string name="no_pdf_app_available">Nėra programėlės, skirtos apdoroti PDF</string>
     <string name="note_confirm">Siųsti</string>
@@ -569,7 +579,9 @@
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
+    <string name="share_copy_link">Bendrinti ir kopijuoti nuorodą</string>
     <string name="share_dialog_title">Bendrinimas</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Baigia galioti %1$s</string>
     <string name="share_file">Dalintis %1$s</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
@@ -592,6 +604,7 @@
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, „Federated Cloud ID“ arba el. Pašto adresas…</string>
     <string name="share_send_note">Pastaba gavėjui</string>
+    <string name="share_settings">Nustatymai</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
     <string name="share_via_link_section_title">Bendrinimo nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
@@ -797,6 +810,7 @@
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
+    <string name="whats_your_status">Kokia jūsų būsena?</string>
     <string name="wrong_storage_path">Duomenų saugyklos aplanko nėra!</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
@@ -809,6 +823,12 @@
         <item quantity="few">Nepavyko nukopijuoti %1$d failų iš aplanko %2$s į</item>
         <item quantity="many">Nepavyko nukopijuoti %1$d failų iš aplanko %2$s į</item>
         <item quantity="other">Nepavyko nukopijuoti %1$d failo iš aplanko %2$s į</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Apdorotas %d įrašas.</item>
+        <item quantity="few">Apdoroti %d įrašai.</item>
+        <item quantity="many">Apdorota %d įrašų.</item>
+        <item quantity="other">Apdorotas %d įrašas.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d aplankas</item>
