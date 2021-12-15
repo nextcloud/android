@@ -158,7 +158,8 @@ android {
 
         //using short version number for more readability based on Heiko comment
         //ex: 700
-        versionCode versionMajor * 100 + versionMinor * 10 + versionPatch //* 10 + versionBuild
+        versionCode Integer.parseInt("${versionMajor}${versionMinor}${versionPatch}")
+        //versionMajor * 1000 + versionMinor * 100 + versionPatch * 10 + versionBuild
 
         //version name including all versions without RC and Alpha appended
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -182,7 +183,7 @@ android {
                 resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
             }
             debug {
-                resValue "string", "webview_login_url", "${DEV_SERVER_URL}"
+                resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
                 testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
@@ -202,15 +203,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 44200129
-                versionName "44200129"
+                versionCode 45200129
+                versionName "45200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 30
-                versionName "1.30"
+                versionCode 31
+                versionName "1.31"
             }
         }
 
