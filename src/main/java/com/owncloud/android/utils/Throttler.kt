@@ -20,10 +20,8 @@
  */
 package com.owncloud.android.utils
 
-import android.util.ArrayMap
 import com.nextcloud.client.core.Clock
 
-// TODO write tests
 /**
  * Simple throttler that just discards new calls until interval has passed.
  *
@@ -36,7 +34,7 @@ class Throttler(private val clock: Clock) {
      */
     @Suppress("MagicNumber")
     var intervalMillis = 150L
-    private val timestamps: MutableMap<String, Long> = ArrayMap()
+    private val timestamps: MutableMap<String, Long> = mutableMapOf()
 
     @Synchronized
     fun run(key: String, runnable: Runnable) {
@@ -44,7 +42,7 @@ class Throttler(private val clock: Clock) {
         val lastCallTimestamp = timestamps[key] ?: 0
         if (time - lastCallTimestamp > intervalMillis) {
             runnable.run()
+            timestamps[key] = time
         }
-        timestamps[key] = time
     }
 }
