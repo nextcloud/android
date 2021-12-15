@@ -173,7 +173,7 @@ private_lane :createChangelogPullRequest_Final do |options|
 end
 
 private_lane :checkIfAPKexists do |options|
-    sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 2 ]; then echo 'APKs do not exist ../release/; aborting!' ; exit 1 ;
+    sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 3 ]; then echo 'APKs do not exist ../release/; aborting!' ; exit 1 ;
      fi")
 end
 
