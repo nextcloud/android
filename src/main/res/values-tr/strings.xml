@@ -636,7 +636,6 @@
     <string name="share_link_with_label">Bağlantı paylaş (%1$s)</string>
     <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
-    <string name="share_open_in">Şurada aç…</string>
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_drop">Dosya bırakma</string>

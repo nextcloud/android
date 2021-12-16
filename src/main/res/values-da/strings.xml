@@ -625,7 +625,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
-    <string name="share_open_in">Åbn i...</string>
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_drop">Fil drop</string>

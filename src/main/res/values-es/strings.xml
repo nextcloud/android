@@ -631,7 +631,6 @@
     <string name="share_link_with_label">Link para compartir (%1$s)</string>
     <string name="share_no_expiration_date_label">Fijar fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
-    <string name="share_open_in">Abrir con...</string>
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_drop">Entrega de archivos</string>

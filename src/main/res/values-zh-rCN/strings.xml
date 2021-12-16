@@ -636,7 +636,6 @@
     <string name="share_link_with_label">共享链接 (%1$s)</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
-    <string name="share_open_in">打开方式</string>
     <string name="share_password_title">密码已受保护</string>
     <string name="share_permission_can_edit">可以编辑</string>
     <string name="share_permission_file_drop">文件拖放</string>

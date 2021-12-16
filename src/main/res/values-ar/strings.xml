@@ -634,7 +634,6 @@
     <string name="share_link_with_label">مشاركة الرابط (%1$s)</string>
     <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
-    <string name="share_open_in">يبدا في ..</string>
     <string name="share_password_title">محمي بكلمة مرور</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
     <string name="share_permission_file_drop">اسقاط الملف</string>
