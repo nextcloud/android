@@ -1,0 +1,20 @@
+Manifest: update code to disable WorkManagerInitializer
+ViewModelFactory: fix compile errors for viewmodel-ktx changes
+Fix mockito imports
+Delete unused string
+FileMenuFilter: Allow "Send" for single files if in file detail fragment
+FileDetailSharingFragment: remove misleading "Open in..." option
+Fix ktlint
+Move Throttler to proper package
+Write tests for Throttler
+OCFileListFragment: don't delete search event if resuming a search fragment
+Add huawei build flavor
+UploadFilesActivity: don't attempt to check selectAll if selectAll is not visible in menu
+fix tests
+OcFileListFragment: throttle overflow menu clicks
+Unified search: show error when there's no connection
+OCFileListFragment: Solve triplicated search events
+DrawerActivity: extract duplicated search launch logic to a method
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
