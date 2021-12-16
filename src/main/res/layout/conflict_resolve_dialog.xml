@@ -64,7 +64,7 @@
                 android:id="@+id/new_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/conflict_new_file" />
+                android:text="@string/conflict_local_file" />
 
             <ImageView
                 android:id="@+id/new_thumbnail"
@@ -98,7 +98,7 @@
                 android:id="@+id/existing_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/conflict_already_existing_file" />
+                android:text="@string/conflict_server_file" />
 
             <ImageView
                 android:id="@+id/existing_thumbnail"
