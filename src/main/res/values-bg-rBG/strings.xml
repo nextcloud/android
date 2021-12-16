@@ -634,7 +634,6 @@
     <string name="share_link_with_label">Споделяне на линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
-    <string name="share_open_in">Отваряне в ...</string>
     <string name="share_password_title">Защитена с парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
     <string name="share_permission_file_drop">Изпускане/Преместване/ на файл</string>

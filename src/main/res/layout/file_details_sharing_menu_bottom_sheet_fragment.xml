@@ -25,41 +25,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/bg_default"
-    android:paddingTop="@dimen/standard_padding">
-
-    <LinearLayout
-        android:id="@+id/menu_share_open_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:id="@+id/menu_icon_open_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_content_copy"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:text="@string/share_open_in"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
+    android:background="@color/bg_default">
 
     <LinearLayout
         android:id="@+id/menu_share_advanced_permissions"

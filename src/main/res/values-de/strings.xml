@@ -636,7 +636,6 @@
     <string name="share_link_with_label">Teile Link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
-    <string name="share_open_in">Öffnen mit…</string>
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_drop">Dateiablage</string>

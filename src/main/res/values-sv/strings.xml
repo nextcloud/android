@@ -634,7 +634,6 @@
     <string name="share_link_with_label">Dela länk (%1$s)</string>
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>
-    <string name="share_open_in">Öppna i...</string>
     <string name="share_password_title">Lösenordsskyddad</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_drop">Släpp fil</string>

@@ -622,7 +622,6 @@
     <string name="share_link_with_label">Povezava souporabe (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
-    <string name="share_open_in">Odpri v ...</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
     <string name="share_permission_view_only">Le ogled</string>
