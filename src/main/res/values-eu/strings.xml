@@ -632,7 +632,6 @@
     <string name="share_link_with_label">Partekatze-esteka (%1$s)</string>
     <string name="share_no_expiration_date_label">Ezarri iraungitze-data</string>
     <string name="share_no_password_title">Ezarri pasahitza</string>
-    <string name="share_open_in">Ireki honekin…</string>
     <string name="share_password_title">Pasahitzez babestua</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_drop">Fitxategi jaregitzea</string>

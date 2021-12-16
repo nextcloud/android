@@ -631,7 +631,6 @@
     <string name="share_link_with_label">공유 링크 (%1$s)</string>
     <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_no_password_title">비밀번호 설정</string>
-    <string name="share_open_in">다음으로 열기…</string>
     <string name="share_password_title">비밀번호로 보호</string>
     <string name="share_permission_can_edit">편집할 수 있음</string>
     <string name="share_permission_file_drop">파일 떨구기</string>

@@ -636,7 +636,6 @@
     <string name="share_link_with_label">Odkaz na sdílení (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavit datum skončení platnosti</string>
     <string name="share_no_password_title">Nastavit heslo</string>
-    <string name="share_open_in">Otevřít v…</string>
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_drop">Upuštění souboru</string>

@@ -630,7 +630,6 @@
     <string name="share_link_with_label">Dijeli poveznicu (%1$s)</string>
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi zaporku</string>
-    <string name="share_open_in">Otvori u…</string>
     <string name="share_password_title">Zaštićeno zaporkom</string>
     <string name="share_permission_can_edit">Uređivanje moguće</string>
     <string name="share_permission_file_drop">Povlačenje datoteke</string>
