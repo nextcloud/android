@@ -1113,7 +1113,7 @@
     <string name="login_privacy_reject">reject</string>
     <string name="login_privacy_settings">Settings</string>
     <string name="drawer_item_recent_files">Recent files</string>
-    <string name="dialog_ok">Okay</string>
+    <string name="dialog_ok">Ok</string>
     <string name="dialog_save_scan_message">Saving will take some time, especially if you have selected several pages and file formats.</string>
     <string name="sharing_email_warning">Password protection has been enabled. You have to provide the password to
         the recipient.\n\nIf you send a share via MagentaCLOUD and paste the password in this message, it will be

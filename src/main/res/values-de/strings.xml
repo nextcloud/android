@@ -1035,7 +1035,7 @@
     <string name="login_privacy_reject">ablehnen</string>
     <string name="login_privacy_settings">Einstellungen</string>
     <string name="drawer_item_recent_files">Neuste Dateien</string>
-    <string name="dialog_ok">Okay</string>
+    <string name="dialog_ok">Ok</string>
     <string name="dialog_save_scan_message">Das Speichern kann einige Minuten in Anspruch nehmen, insbesondere wenn Sie mehrere Seiten und Dateiformate ausgewählt haben.</string>
     <string name="sharing_email_warning">Der Passwortschutz ist aktiviert. Sie müssen dem Empfänger das Passwort
         selbst mitteilen.\n\nWenn Sie die Freigabe über die MagentaCLOUD verschicken und das Passwort in den
