@@ -1,0 +1,4 @@
+naming in conflicts by location instead of date
+Bump Android Gradle PLugin to 7.0.4
+Update Nextcloud Android library
+Update 3rd-party dependencies
