@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Bereits existierende Datei</string>
     <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
+    <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_new_file">Neue Datei</string>
+    <string name="conflict_server_file">Server-Datei</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
     <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
     <string name="contacts">Kontakte</string>
