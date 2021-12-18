@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
+    <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_new_file">Nový súbor</string>
+    <string name="conflict_server_file">Súbor na serveri</string>
     <string name="contactlist_item_icon">Používateľská ikona pre zoznam kontaktov</string>
     <string name="contactlist_no_permission">Žiadne povolenia neboli udelené, nič nebolo importnuté.</string>
     <string name="contacts">Kontakty</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Chyba pri vyberaní dátumu</string>
     <string name="error_comment_file">Chyba pri pridaní komentáru k súboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
+    <string name="error_creating_file_from_template">Chyba pri vytváraní súboru zo šablóny</string>
     <string name="error_report_issue_action">Hlásenie</string>
     <string name="error_report_issue_text">Nahlásiť chybu? (vyžaduje účet na Githube)</string>
     <string name="error_retrieving_file">Chyba pri získavaní súboru</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorite_headline">Zatiaľ nemáte nič obľúbené</string>
     <string name="file_list_empty_favorites_filter_list">Tu sa zobrazia súbory a priečinky označené ako obľúbené.</string>
+    <string name="file_list_empty_gallery">Neboli nájdené žiadne obrázky alebo videá</string>
     <string name="file_list_empty_headline">Nie sú tu žiadne súbory</string>
     <string name="file_list_empty_headline_search">Žiadne výsledky v tomto priečinku</string>
     <string name="file_list_empty_headline_server_search">Žiadne výsledky</string>
@@ -310,6 +314,7 @@
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
     <string name="file_list_empty_shared">Tu sa zobrazia súbory a priečinky, ktoré ste sprístupnili.</string>
     <string name="file_list_empty_shared_headline">Zatiaľ ste nič nesprístupnili</string>
+    <string name="file_list_empty_unified_search_no_results">Neboli nájdené žiadne výsledky</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_loading">Načítavam…</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>

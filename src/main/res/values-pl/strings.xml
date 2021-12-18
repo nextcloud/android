@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
+    <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_new_file">Nowy plik</string>
+    <string name="conflict_server_file">Plik z serwera</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
     <string name="contacts">Kontakty</string>
