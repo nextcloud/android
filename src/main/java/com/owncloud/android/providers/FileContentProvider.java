@@ -511,18 +511,6 @@ public class FileContentProvider extends ContentProvider {
 
         // verify only for those requests that are not internal
         final int uriMatch = mUriMatcher.match(uri);
-        switch (uriMatch) {
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
-            case DIRECTORY:
-                VerificationUtils.verifyColumnNames(projectionArray);
-                // TODO verify selection and sortorder
-//                verifyColumnsSQL(selection);
-//                verifyColumnsSQL(sortOrder);
-
-            default:
-                // do nothing
-        }
 
         SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
 
@@ -1091,18 +1079,6 @@ public class FileContentProvider extends ContentProvider {
                 verifyColumnName(name);
             }
         }
-
-        @VisibleForTesting
-        public static void verifyColumnNames(@Nullable String[] columns) {
-            if (columns == null) {
-                return;
-            }
-
-            for (String name : columns) {
-                verifyColumnName(name);
-            }
-        }
-
 
         /**
          * matches against ProviderMeta, to verify that only allowed columns are used
