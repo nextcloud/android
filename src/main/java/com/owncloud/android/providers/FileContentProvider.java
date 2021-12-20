@@ -1053,21 +1053,6 @@ public class FileContentProvider extends ContentProvider {
     }
 
 
-    public String buildParameterizedSelection(String selection) {
-        StringBuilder stringBuilder = new StringBuilder();
-        // add = ?
-        boolean moreThanOne = false;
-        for (String string : selection.split(",")) {
-            if (moreThanOne) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(string.trim());
-            stringBuilder.append(" =?");
-            moreThanOne = true;
-        }
-        return stringBuilder.toString();
-    }
-
     static class VerificationUtils {
         @VisibleForTesting
         public static void verifyColumns(@Nullable ContentValues contentValues) {
