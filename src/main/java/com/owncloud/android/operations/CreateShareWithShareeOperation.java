@@ -131,7 +131,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             shareeName,
             false,
             sharePassword,
-            permissions
+            permissions,
+            noteMessage
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
@@ -146,9 +147,6 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
             }
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
-            if (!TextUtils.isEmpty(noteMessage)) {
-                updateShareInfoOperation.setNote(noteMessage);
-            }
 
             //update the permission using update info api
             //because for external share the selected permission is not getting updated instead default Read Only

@@ -75,7 +75,8 @@ ext {
 	daggerVersion = "2.39.1"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "2.8.0"
+    //NC library path version with Note parameter
+    androidLibraryVersion = "f0e59d20025ef27cb68b6d34d3e856c6da82dca9"
     mockitoVersion = "3.12.4"
     mockkVersion = "1.12.0"
     powermockVersion = "2.0.9"
