@@ -201,10 +201,10 @@ public class FileContentProvider extends ContentProvider {
         }
 
         if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
-            // TODO this *must* fail with new protection (as where is to be checked) 
+            final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
             count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                               ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
-                                   + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+                               ProviderTableMeta._ID + "=?"
+                                   + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), argsWithUri);
         }
 
         return count;
@@ -223,10 +223,10 @@ public class FileContentProvider extends ContentProvider {
             if (remoteId == null) {
                 return 0;
             } else {
-                // TODO ask Lukas for a version of exploit and how to sanitize it
+                final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
                 count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                                  ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
-                                      + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), whereArgs);
+                                  ProviderTableMeta._ID + "=?"
+                                      + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), argsWithUri);
             }
         } catch (Exception e) {
             Log_OC.d(TAG, "DB-Error removing file!", e);
@@ -276,7 +276,7 @@ public class FileContentProvider extends ContentProvider {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
             case DIRECTORY:
-                verifyColumns(values);
+                VerificationUtils.verifyColumns(values);
                 break;
         }
 
@@ -510,11 +510,12 @@ public class FileContentProvider extends ContentProvider {
                          String sortOrder) {
 
         // verify only for those requests that are not internal
-        switch (mUriMatcher.match(uri)) {
+        final int uriMatch = mUriMatcher.match(uri);
+        switch (uriMatch) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
             case DIRECTORY:
-                verifyColumnNames(projectionArray);
+                VerificationUtils.verifyColumnNames(projectionArray);
                 // TODO verify selection and sortorder
 //                verifyColumnsSQL(selection);
 //                verifyColumnsSQL(sortOrder);
@@ -525,76 +526,53 @@ public class FileContentProvider extends ContentProvider {
 
         SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
 
-        sqlQuery.setTables(ProviderTableMeta.FILE_TABLE_NAME);
 
-        switch (mUriMatcher.match(uri)) {
+        switch (uriMatch) {
             case ROOT_DIRECTORY:
-                break;
             case DIRECTORY:
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "=" + uri.getPathSegments().get(1));
-                }
-                break;
             case SINGLE_FILE:
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
+                sqlQuery.setTables(ProviderTableMeta.FILE_TABLE_NAME);
                 break;
             case SHARES:
                 sqlQuery.setTables(ProviderTableMeta.OCSHARES_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case CAPABILITIES:
                 sqlQuery.setTables(ProviderTableMeta.CAPABILITIES_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case UPLOADS:
                 sqlQuery.setTables(ProviderTableMeta.UPLOADS_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case SYNCED_FOLDERS:
                 sqlQuery.setTables(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case EXTERNAL_LINKS:
                 sqlQuery.setTables(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case ARBITRARY_DATA:
                 sqlQuery.setTables(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case VIRTUAL:
                 sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             case FILESYSTEM:
                 sqlQuery.setTables(ProviderTableMeta.FILESYSTEM_TABLE_NAME);
-                if (uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
-                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
-                }
                 break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
 
+
+        // add ID to arguments if Uri has more than one segment
+        if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT ) {
+            String idColumn = uriMatch == DIRECTORY ? ProviderTableMeta.FILE_PARENT : ProviderTableMeta._ID;
+            sqlQuery.appendWhere(idColumn + "=?");
+            selectionArgs = VerificationUtils.prependUriFirstSegmentToSelectionArgs(selectionArgs, uri);
+        }
+
+
         String order;
         if (TextUtils.isEmpty(sortOrder)) {
-            switch (mUriMatcher.match(uri)) {
+            switch (uriMatch) {
                 case SHARES:
                     order = ProviderTableMeta.OCSHARES_DEFAULT_SORT_ORDER;
                     break;
@@ -631,8 +609,8 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("PRAGMA case_sensitive_like = true");
 
         // only file list is accessible via content provider, so only this has to be protected with projectionMap
-        if ((mUriMatcher.match(uri) == ROOT_DIRECTORY || mUriMatcher.match(uri) == SINGLE_FILE ||
-            mUriMatcher.match(uri) == DIRECTORY) && projectionArray != null) {
+        if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
+            uriMatch == DIRECTORY) && projectionArray != null) {
             HashMap<String, String> projectionMap = new HashMap<>();
 
             for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
@@ -665,7 +643,7 @@ public class FileContentProvider extends ContentProvider {
             case SINGLE_FILE:
             case DIRECTORY:
 //                verifyColumnsSQL(selection);
-                verifyColumns(values);
+                VerificationUtils.verifyColumns(values);
 
             default:
                 // do nothing
@@ -1086,51 +1064,6 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
-    @VisibleForTesting
-    public void verifyColumns(@Nullable ContentValues contentValues) {
-        if (contentValues == null) {
-            return;
-        }
-
-        for (String name : contentValues.keySet()) {
-            verifyColumnName(name);
-        }
-    }
-
-    @VisibleForTesting
-    public void verifyColumnNames(@Nullable String[] columns) {
-        if (columns == null) {
-            return;
-        }
-
-        for (String name : columns) {
-            verifyColumnName(name);
-        }
-    }
-
-
-    /**
-     * matches against ProviderMeta, to verify that only allowed columns are used
-     */
-    @VisibleForTesting
-    public void verifyColumnsSQL(@Nullable String sql) {
-        if (sql == null) {
-            return;
-        }
-
-        for (String parameter : Uri.parse(sql).getQueryParameterNames()) {
-            String sanitized = parameter.replaceAll("AND", "").replaceAll("OR", "").replaceAll("\\s+", "");
-
-            verifyColumnName(sanitized);
-        }// check plain name
-    }
-
-    @VisibleForTesting
-    public void verifyColumnName(@NonNull String columnName) {
-        if (!ProviderTableMeta.FILE_ALL_COLUMNS.contains(columnName)) {
-            throw new IllegalArgumentException(String.format("Column name \"%s\" is not allowed", columnName));
-        }
-    }
 
     public String buildParameterizedSelection(String selection) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -1145,6 +1078,67 @@ public class FileContentProvider extends ContentProvider {
             moreThanOne = true;
         }
         return stringBuilder.toString();
+    }
+
+    static class VerificationUtils {
+        @VisibleForTesting
+        public static void verifyColumns(@Nullable ContentValues contentValues) {
+            if (contentValues == null) {
+                return;
+            }
+
+            for (String name : contentValues.keySet()) {
+                verifyColumnName(name);
+            }
+        }
+
+        @VisibleForTesting
+        public static void verifyColumnNames(@Nullable String[] columns) {
+            if (columns == null) {
+                return;
+            }
+
+            for (String name : columns) {
+                verifyColumnName(name);
+            }
+        }
+
+
+        /**
+         * matches against ProviderMeta, to verify that only allowed columns are used
+         */
+        @VisibleForTesting
+        public static void verifyColumnsSQL(@Nullable String sql) {
+            if (sql == null) {
+                return;
+            }
+
+            for (String parameter : Uri.parse(sql).getQueryParameterNames()) {
+                String sanitized = parameter.replaceAll("AND", "").replaceAll("OR", "").replaceAll("\\s+", "");
+
+                verifyColumnName(sanitized);
+            }// check plain name
+        }
+
+        @VisibleForTesting
+        public static void verifyColumnName(@NonNull String columnName) {
+            if (!ProviderTableMeta.FILE_ALL_COLUMNS.contains(columnName)) {
+                throw new IllegalArgumentException(String.format("Column name \"%s\" is not allowed", columnName));
+            }
+        }
+
+
+        public static String[] prependUriFirstSegmentToSelectionArgs(@Nullable final String[] originalArgs, final Uri uri) {
+            String[] args;
+            if (originalArgs == null) {
+                args = new String[1];
+            } else {
+                args = new String[originalArgs.length + 1];
+                System.arraycopy(originalArgs, 0, args, 1, originalArgs.length);
+            }
+            args[0] = uri.getPathSegments().get(1);
+            return args;
+        }
     }
 
     class DataBaseHelper extends SQLiteOpenHelper {
