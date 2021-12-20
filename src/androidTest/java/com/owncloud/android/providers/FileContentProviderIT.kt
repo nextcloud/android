@@ -37,40 +37,36 @@ class FileContentProviderIT {
 
     @Test(expected = IllegalArgumentException::class)
     fun verifyColumnName_Exception() {
-        val sut = FileContentProvider()
-        sut.verifyColumnName(INVALID_COLUMN)
+        FileContentProvider.VerificationUtils.verifyColumnName(INVALID_COLUMN)
     }
 
     @Test
     fun verifyColumnName_OK() {
-        val sut = FileContentProvider()
-        sut.verifyColumnName(ProviderMeta.ProviderTableMeta.FILE_NAME)
+        FileContentProvider.VerificationUtils.verifyColumnName(ProviderMeta.ProviderTableMeta.FILE_NAME)
     }
 
     @Test
     fun verifyColumn_ContentValues_OK() {
-        val sut = FileContentProvider()
         // with valid columns
         val contentValues = ContentValues()
         contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_LENGTH, FILE_LENGTH)
         contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)
-        sut.verifyColumns(contentValues)
+        FileContentProvider.VerificationUtils.verifyColumns(contentValues)
 
         // empty
-        sut.verifyColumns(ContentValues())
+        FileContentProvider.VerificationUtils.verifyColumns(ContentValues())
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun verifyColumn_ContentValues_Exception() {
-        val sut = FileContentProvider()
         // with valid columns
         val contentValues = ContentValues()
         contentValues.put(INVALID_COLUMN, FILE_LENGTH)
         contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)
-        sut.verifyColumns(contentValues)
+        FileContentProvider.VerificationUtils.verifyColumns(contentValues)
 
         // empty
-        sut.verifyColumns(ContentValues())
+        FileContentProvider.VerificationUtils.verifyColumns(ContentValues())
     }
 
     // @Test
