@@ -28,7 +28,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import org.junit.Test
 
 @Suppress("FunctionNaming")
-class FileContentProviderIT {
+class FileContentProviderVerificationIT {
 
     companion object {
         private const val INVALID_COLUMN = "Invalid column"
@@ -58,15 +58,36 @@ class FileContentProviderIT {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun verifyColumn_ContentValues_Exception() {
-        // with valid columns
+    fun verifyColumn_ContentValues_invalidColumn() {
+        // with invalid columns
         val contentValues = ContentValues()
         contentValues.put(INVALID_COLUMN, FILE_LENGTH)
         contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)
         FileContentProvider.VerificationUtils.verifyColumns(contentValues)
+    }
+
+    @Test
+    fun verifySortOrder_OK() {
+        // null
+        FileContentProvider.VerificationUtils.verifySortOrder(null)
 
         // empty
-        FileContentProvider.VerificationUtils.verifyColumns(ContentValues())
+        FileContentProvider.VerificationUtils.verifySortOrder("")
+
+        // valid sort
+        FileContentProvider.VerificationUtils.verifySortOrder(ProviderMeta.ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun verifySortOrder_InvalidColumn() {
+        // with invalid column
+        FileContentProvider.VerificationUtils.verifySortOrder("$INVALID_COLUMN desc")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun verifySortOrder_InvalidGrammar() {
+        // with invalid grammar
+        FileContentProvider.VerificationUtils.verifySortOrder("${ProviderMeta.ProviderTableMeta._ID} ;--foo")
     }
 
     // @Test
