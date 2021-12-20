@@ -7,14 +7,10 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.util.Pair
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.nmc.android.interfaces.OnDocScanListener
 import com.nmc.android.interfaces.OnFragmentChangeListener
@@ -79,6 +75,26 @@ class CropScannedDocumentFragment : Fragment() {
         detectDocument()
         binding.cropBtnResetBorders.setOnClickListener {
             onClickListener(it)
+        }
+        addExtraMarginForSwipeGesture()
+    }
+
+    /**
+     * method to add extra margins for gestured devices
+     * where user has to swipe left or right to go back from current screen
+     * this swipe gestures create issue with existing crop gestures
+     * to avoid that we have added extra margins on left and right for devices
+     * greater than API level 9+ (Pie)
+     */
+    private fun addExtraMarginForSwipeGesture() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            if (binding.cropPolygonView.layoutParams is ViewGroup.MarginLayoutParams) {
+                (binding.cropPolygonView.layoutParams as ViewGroup.MarginLayoutParams).setMargins(
+                    resources.getDimensionPixelOffset(R.dimen.standard_margin), 0,
+                    resources.getDimensionPixelOffset(R.dimen.standard_margin), 0
+                )
+                binding.cropPolygonView.requestLayout()
+            }
         }
     }
 
@@ -205,7 +221,7 @@ class CropScannedDocumentFragment : Fragment() {
              )*/
             onFragmentChangeListener.onReplaceFragment(
                 EditScannedDocumentFragment.newInstance(scannedDocIndex), ScanActivity
-                    .FRAGMENT_EDIT_SCAN_TAG, false
+                .FRAGMENT_EDIT_SCAN_TAG, false
             )
             // resultImageView.setImageBitmap(resizeForPreview(documentImage!!))
         }
