@@ -33,10 +33,12 @@ import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
@@ -590,6 +592,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
             }
         } else {
+            if (uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE || uriMatch == DIRECTORY) {
+                VerificationUtils.verifySortOrder(sortOrder);
+            }
             order = sortOrder;
         }
 
@@ -1056,7 +1061,7 @@ public class FileContentProvider extends ContentProvider {
     static class VerificationUtils {
         @VisibleForTesting
         public static void verifyColumns(@Nullable ContentValues contentValues) {
-            if (contentValues == null) {
+            if (contentValues == null || contentValues.keySet().size() == 0) {
                 return;
             }
 
@@ -1099,6 +1104,24 @@ public class FileContentProvider extends ContentProvider {
             }
             args[0] = uri.getPathSegments().get(1);
             return args;
+        }
+
+        public static void verifySortOrder(@Nullable String sortOrder) {
+            if (TextUtils.isEmpty(sortOrder)) {
+                return;
+            }
+            for (String segment : sortOrder.split(" +")) {
+                switch (segment.toLowerCase(Locale.ROOT)) {
+                    case "asc":
+                    case "desc":
+                    case "collate":
+                    case "nocase":
+                        break;
+                    default:
+                        verifyColumnName(segment);
+                }
+            }
+
         }
     }
 
