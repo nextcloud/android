@@ -33,12 +33,10 @@ import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQuery;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
@@ -69,6 +67,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import dagger.android.AndroidInjection;
+import third_parties.aosp.SQLiteTokenizer;
 
 
 /**
@@ -126,12 +125,16 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private int delete(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
-        // TODO check every where: must be in allowed key set and then we concenate " =? " to each key value to have
-        //  a proper sanitized where clause
-//        verifyColumnsSQL(where);
-
         if (isCallerNotAllowed(uri)) {
             return -1;
+        }
+
+        // verify where for public paths
+        switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+                VerificationUtils.verifyWhere(where);
         }
 
         int count;
@@ -178,7 +181,6 @@ public class FileContentProvider extends ContentProvider {
 
     private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
-
         Cursor children = query(uri, null, null, null, null);
         if (children != null) {
             if (children.moveToFirst()) {
@@ -203,10 +205,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
-            final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
-            count += db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                               ProviderTableMeta._ID + "=?"
-                                   + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), argsWithUri);
+            count += deleteWithuri(db, uri, where, whereArgs);
         }
 
         return count;
@@ -225,10 +224,7 @@ public class FileContentProvider extends ContentProvider {
             if (remoteId == null) {
                 return 0;
             } else {
-                final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
-                count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                                  ProviderTableMeta._ID + "=?"
-                                      + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), argsWithUri);
+                count = deleteWithuri(db, uri, where, whereArgs);
             }
         } catch (Exception e) {
             Log_OC.d(TAG, "DB-Error removing file!", e);
@@ -239,6 +235,13 @@ public class FileContentProvider extends ContentProvider {
         }
 
         return count;
+    }
+
+    private int deleteWithuri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+        final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
+        return db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                         ProviderTableMeta._ID + "=?"
+                             + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""), argsWithUri);
     }
 
     @Override
@@ -521,6 +524,7 @@ public class FileContentProvider extends ContentProvider {
             case ROOT_DIRECTORY:
             case DIRECTORY:
             case SINGLE_FILE:
+                VerificationUtils.verifyWhere(selection); // prevent injection in public paths
                 sqlQuery.setTables(ProviderTableMeta.FILE_TABLE_NAME);
                 break;
             case SHARES:
@@ -630,17 +634,6 @@ public class FileContentProvider extends ContentProvider {
         if (isCallerNotAllowed(uri)) {
             return -1;
         }
-        // verify only for those requests that are not internal
-        switch (mUriMatcher.match(uri)) {
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
-            case DIRECTORY:
-//                verifyColumnsSQL(selection);
-                VerificationUtils.verifyColumns(values);
-
-            default:
-                // do nothing
-        }
 
         int count;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -656,9 +649,14 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String... selectionArgs) {
-        // TODO check every key of contentValues and match via our allowed list -> ProviderMeta:85
-        // TODO check all other insert and update methods
-        // for selection: same like delete > only pass string array of keys and we build a sql where clause here
+        // verify contentValues and selection for public paths to prevent injection
+        switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY:
+            case SINGLE_FILE:
+            case DIRECTORY:
+                VerificationUtils.verifyColumns(values);
+                VerificationUtils.verifyWhere(selection);
+        }
 
         switch (mUriMatcher.match(uri)) {
             case DIRECTORY:
@@ -1059,6 +1057,11 @@ public class FileContentProvider extends ContentProvider {
 
 
     static class VerificationUtils {
+
+        private static boolean isValidColumnName(@NonNull String columnName) {
+            return ProviderTableMeta.FILE_ALL_COLUMNS.contains(columnName);
+        }
+
         @VisibleForTesting
         public static void verifyColumns(@Nullable ContentValues contentValues) {
             if (contentValues == null || contentValues.keySet().size() == 0) {
@@ -1070,29 +1073,12 @@ public class FileContentProvider extends ContentProvider {
             }
         }
 
-        /**
-         * matches against ProviderMeta, to verify that only allowed columns are used
-         */
-        @VisibleForTesting
-        public static void verifyColumnsSQL(@Nullable String sql) {
-            if (sql == null) {
-                return;
-            }
-
-            for (String parameter : Uri.parse(sql).getQueryParameterNames()) {
-                String sanitized = parameter.replaceAll("AND", "").replaceAll("OR", "").replaceAll("\\s+", "");
-
-                verifyColumnName(sanitized);
-            }// check plain name
-        }
-
         @VisibleForTesting
         public static void verifyColumnName(@NonNull String columnName) {
-            if (!ProviderTableMeta.FILE_ALL_COLUMNS.contains(columnName)) {
+            if (!isValidColumnName(columnName)) {
                 throw new IllegalArgumentException(String.format("Column name \"%s\" is not allowed", columnName));
             }
         }
-
 
         public static String[] prependUriFirstSegmentToSelectionArgs(@Nullable final String[] originalArgs, final Uri uri) {
             String[] args;
@@ -1121,7 +1107,42 @@ public class FileContentProvider extends ContentProvider {
                         verifyColumnName(segment);
                 }
             }
+        }
 
+        public static void verifyWhere(@Nullable String where) {
+            if (where == null) {
+                return;
+            }
+            SQLiteTokenizer.tokenize(where, SQLiteTokenizer.OPTION_NONE, VerificationUtils::verifyToken);
+        }
+
+        private static void verifyToken(String token) {
+            // allow empty, valid column names, functions (min,max,count) and types
+            if (TextUtils.isEmpty(token) || isValidColumnName(token)
+                || SQLiteTokenizer.isFunction(token) || SQLiteTokenizer.isType(token)) {
+                return;
+            }
+
+            // Disallow dangerous keywords, allow others
+            if (SQLiteTokenizer.isKeyword(token)) {
+                switch (token.toUpperCase(Locale.US)) {
+                    case "SELECT":
+                    case "FROM":
+                    case "WHERE":
+                    case "GROUP":
+                    case "HAVING":
+                    case "WINDOW":
+                    case "VALUES":
+                    case "ORDER":
+                    case "LIMIT":
+                        throw new IllegalArgumentException("Invalid token " + token);
+                    default:
+                        return;
+                }
+            }
+
+            // if none of the above: invalid token
+            throw new IllegalArgumentException("Invalid token " + token);
         }
     }
 
