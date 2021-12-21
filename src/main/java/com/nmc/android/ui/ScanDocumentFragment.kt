@@ -264,42 +264,46 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
 
         // Make sure to reset the default polygon fill color (see the ignoreBadAspectRatio case).
         //polygonView.setFillColor(POLYGON_FILL_COLOR)
-        when (result) {
-            DetectionResult.OK -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_dont_move)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            DetectionResult.OK_BUT_TOO_SMALL -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_move_closer)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            DetectionResult.OK_BUT_BAD_ANGLES -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_perspective)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            DetectionResult.ERROR_NOTHING_DETECTED -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_no_doc)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            DetectionResult.ERROR_TOO_NOISY -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_bg_noisy)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            DetectionResult.OK_BUT_BAD_ASPECT_RATIO -> {
-                if (ignoreBadAspectRatio) {
+        //fragment should be added and visible because this method is being called from handler
+        //it can be called when fragment is not attached or visible
+        if(isAdded && isVisible) {
+            when (result) {
+                DetectionResult.OK -> {
                     userGuidanceHint.text = resources.getString(R.string.result_scan_doc_dont_move)
-                    // change polygon color to "OK"
-                    // polygonView.setFillColor(POLYGON_FILL_COLOR_OK)
-                } else {
-                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_aspect_ratio)
+                    userGuidanceHint.visibility = View.VISIBLE
                 }
-                userGuidanceHint.visibility = View.VISIBLE
+                DetectionResult.OK_BUT_TOO_SMALL -> {
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_move_closer)
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                DetectionResult.OK_BUT_BAD_ANGLES -> {
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_perspective)
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                DetectionResult.ERROR_NOTHING_DETECTED -> {
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_no_doc)
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                DetectionResult.ERROR_TOO_NOISY -> {
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_bg_noisy)
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                DetectionResult.OK_BUT_BAD_ASPECT_RATIO -> {
+                    if (ignoreBadAspectRatio) {
+                        userGuidanceHint.text = resources.getString(R.string.result_scan_doc_dont_move)
+                        // change polygon color to "OK"
+                        // polygonView.setFillColor(POLYGON_FILL_COLOR_OK)
+                    } else {
+                        userGuidanceHint.text = resources.getString(R.string.result_scan_doc_aspect_ratio)
+                    }
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                DetectionResult.ERROR_TOO_DARK -> {
+                    userGuidanceHint.text = resources.getString(R.string.result_scan_doc_poor_light)
+                    userGuidanceHint.visibility = View.VISIBLE
+                }
+                else -> userGuidanceHint.visibility = View.GONE
             }
-            DetectionResult.ERROR_TOO_DARK -> {
-                userGuidanceHint.text = resources.getString(R.string.result_scan_doc_poor_light)
-                userGuidanceHint.visibility = View.VISIBLE
-            }
-            else -> userGuidanceHint.visibility = View.GONE
         }
         lastUserGuidanceHintTs = System.currentTimeMillis()
     }
