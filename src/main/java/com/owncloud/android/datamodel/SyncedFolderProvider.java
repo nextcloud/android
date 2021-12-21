@@ -114,7 +114,7 @@ public class SyncedFolderProvider extends Observable {
         Cursor cursor = mContentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
             null,
-            null, // TODO check if this is correct, via test?
+            null,
             null,
             null
                                               );
