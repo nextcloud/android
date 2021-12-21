@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Dosya zaten var</string>
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
+    <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_new_file">Yeni dosya</string>
+    <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
     <string name="contacts">Kişiler</string>
@@ -774,7 +776,7 @@
     <string name="upload_file_dialog_filename">Dosya adı</string>
     <string name="upload_file_dialog_filetype">Dosya türü</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>
-    <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosya(%s)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosyası(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Kod parçası metin dosyası(.txt)</string>
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_files">Dosyaları yükle</string>

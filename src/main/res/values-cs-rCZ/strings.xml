@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Už existující soubor</string>
     <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
     <string name="conflict_file_headline">Kolidující soubor %1$s</string>
+    <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_new_file">Nový soubor</string>
+    <string name="conflict_server_file">Soubor na serveru</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
     <string name="contacts">Kontakty</string>
