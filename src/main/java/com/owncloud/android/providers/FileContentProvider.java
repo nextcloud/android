@@ -1093,30 +1093,39 @@ public class FileContentProvider extends ContentProvider {
         }
 
         public static void verifySortOrder(@Nullable String sortOrder) {
-            if (TextUtils.isEmpty(sortOrder)) {
+            if (sortOrder == null) {
                 return;
             }
-            for (String segment : sortOrder.split(" +")) {
-                switch (segment.toLowerCase(Locale.ROOT)) {
-                    case "asc":
-                    case "desc":
-                    case "collate":
-                    case "nocase":
-                        break;
-                    default:
-                        verifyColumnName(segment);
+            SQLiteTokenizer.tokenize(sortOrder, SQLiteTokenizer.OPTION_NONE, VerificationUtils::verifySortToken);
+        }
+
+        private static void verifySortToken(String token){
+            // accept empty tokens and valid column names
+            if (TextUtils.isEmpty(token) || isValidColumnName(token)) {
+                return;
+            }
+            // accept only a small subset of keywords
+            if(SQLiteTokenizer.isKeyword(token)){
+                switch (token.toUpperCase(Locale.ROOT)) {
+                    case "ASC":
+                    case "DESC":
+                    case "COLLATE":
+                    case "NOCASE":
+                        return;
                 }
             }
+            // if none of the above, invalid token
+            throw new IllegalArgumentException("Invalid token " + token);
         }
 
         public static void verifyWhere(@Nullable String where) {
             if (where == null) {
                 return;
             }
-            SQLiteTokenizer.tokenize(where, SQLiteTokenizer.OPTION_NONE, VerificationUtils::verifyToken);
+            SQLiteTokenizer.tokenize(where, SQLiteTokenizer.OPTION_NONE, VerificationUtils::verifyWhereToken);
         }
 
-        private static void verifyToken(String token) {
+        private static void verifyWhereToken(String token) {
             // allow empty, valid column names, functions (min,max,count) and types
             if (TextUtils.isEmpty(token) || isValidColumnName(token)
                 || SQLiteTokenizer.isFunction(token) || SQLiteTokenizer.isType(token)) {
@@ -1125,7 +1134,7 @@ public class FileContentProvider extends ContentProvider {
 
             // Disallow dangerous keywords, allow others
             if (SQLiteTokenizer.isKeyword(token)) {
-                switch (token.toUpperCase(Locale.US)) {
+                switch (token.toUpperCase(Locale.ROOT)) {
                     case "SELECT":
                     case "FROM":
                     case "WHERE":
