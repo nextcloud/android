@@ -58,7 +58,7 @@ object ContentResolverHelper {
             "Invalid sort direction"
         }
         return when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 val queryArgs = getQueryArgsBundle(selection, sortColumn, sortDirection, limit)
                 contentResolver.query(uri, projection, queryArgs, cancellationSignal)
             }
@@ -90,7 +90,7 @@ object ContentResolverHelper {
         return sortOrderBuilder.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun
     getQueryArgsBundle(selection: String?, sortColumn: String?, sortDirection: String?, limit: Int?): Bundle {
         return Bundle().apply {
