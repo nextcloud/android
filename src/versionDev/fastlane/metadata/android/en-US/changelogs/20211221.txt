@@ -1,0 +1,2 @@
+Adjust instruction how to link library in app
+Update translations
