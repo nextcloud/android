@@ -90,29 +90,26 @@ class FileContentProviderVerificationIT {
         FileContentProvider.VerificationUtils.verifySortOrder("${ProviderMeta.ProviderTableMeta._ID} ;--foo")
     }
 
-    // @Test
-    // fun verifyColumn_Uri() {
-    //     val sut = FileContentProvider()
-    //     sut.verifyColumnSql("path = ? AND file_owner=?")
-    // }
-    //
-    // @Test
-    // fun verifyColumn_StringArray() {
-    //     val sut = FileContentProvider()
-    //     val nullArray: Array<String>? = null
-    //     val emptyArray = arrayOf<String>()
-    //     val array = arrayOf(
-    //         ProviderMeta.ProviderTableMeta.FILE_PATH,
-    //         ProviderMeta.ProviderTableMeta.FILE_CONTENT_LENGTH
-    //     )
-    //     sut.verifyColumns(nullArray)
-    //     sut.verifyColumns(emptyArray)
-    //     sut.verifyColumns(array)
-    // }
-    // @Test
-    // fun parameterizedSelection() {
-    //     val sut = FileContentProvider()
-    //     TestCase.assertEquals("test =?", sut.buildParameterizedSelection("test"))
-    //     TestCase.assertEquals("column1 =?, column2 =?", sut.buildParameterizedSelection("column1, column2"))
-    // }
+    @Test
+    fun verifyWhere_OK() {
+        FileContentProvider.VerificationUtils.verifyWhere(null)
+        FileContentProvider.VerificationUtils.verifyWhere(
+            "${ProviderMeta.ProviderTableMeta._ID}=? AND ${ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER}=?"
+        )
+        FileContentProvider.VerificationUtils.verifyWhere(
+            "${ProviderMeta.ProviderTableMeta._ID} = 1" +
+                " AND (1 = 1)" +
+                " AND ${ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER} LIKE ?"
+        )
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun verifyWhere_InvalidColumnName() {
+        FileContentProvider.VerificationUtils.verifyWhere("$INVALID_COLUMN= ?")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun verifyWhere_InvalidGrammar() {
+        FileContentProvider.VerificationUtils.verifyWhere("1=1 -- SELECT * FROM")
+    }
 }
