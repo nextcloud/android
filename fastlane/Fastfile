@@ -167,19 +167,19 @@ private_lane :build_for_screengrab do
 end
 
 private_lane :checkReleaseRequirements_common do
-    sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' ; exit 1 ;")
+    sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' && exit 1; fi")
 end
 
 private_lane :checkReleaseRequirements_RC do
     checkReleaseRequirements_common()
-    sh("if ! command -v fdroidMergeRequestRC &>/dev/null; then echo 'fdroidMergeRequestRC command not found'; exit 1;")
-    sh("if ! command -v createChangelogPullRequestRC &>/dev/null; then echo 'createChangelogPullRequestRC command not found'; exit 1;")
+    sh("if ! command -v fdroidMergeRequestRC &>/dev/null; then echo 'fdroidMergeRequestRC command not found'; exit 1; fi")
+    sh("if ! command -v createChangelogPullRequestRC &>/dev/null; then echo 'createChangelogPullRequestRC command not found'; exit 1; fi")
 end
 
 private_lane :checkReleaseRequirements_Final do
     checkReleaseRequirements_common()
-    sh("if ! command -v fdroidMergeRequestFinal &>/dev/null; then echo 'fdroidMergeRequestFinal command not found'; exit 1;")
-    sh("if ! command -v createChangelogPullRequestFinal &>/dev/null; then echo 'createChangelogPullRequestFinal command not found'; exit 1;")
+    sh("if ! command -v fdroidMergeRequestFinal &>/dev/null; then echo 'fdroidMergeRequestFinal command not found'; exit 1; fi")
+    sh("if ! command -v createChangelogPullRequestFinal &>/dev/null; then echo 'createChangelogPullRequestFinal command not found'; exit 1; fi")
 end
 
 private_lane :createChangelogPullRequest_RC do |options|
