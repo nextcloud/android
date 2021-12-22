@@ -555,9 +555,6 @@ public class FileDataStorageManager {
                     Uri file_uri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, ocFile.getFileId());
                     String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
 
-                    // TODO switch to string array with fixed keys in it
-                    // file_owner = ? and path =?
-                    // String[] { "file_owner",  "path"}
                     String[] whereArgs = new String[]{user.getAccountName(), ocFile.getRemotePath()};
                     int deleted = 0;
                     if (getContentProviderClient() != null) {
