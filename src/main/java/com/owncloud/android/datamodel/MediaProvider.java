@@ -123,8 +123,8 @@ public final class MediaProvider {
 
                 if (cursorImages != null) {
                     String filePath;
-
-                    while (cursorImages.moveToNext()) {
+                    int imageCount = 0;
+                    while (cursorImages.moveToNext() && imageCount < itemLimit) {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                             MediaStore.MediaColumns.DATA));
 
@@ -133,6 +133,8 @@ public final class MediaProvider {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
+                        // ensure we don't go over the limit due to faulty android implementations
+                        imageCount++;
                     }
                     cursorImages.close();
 
@@ -241,7 +243,8 @@ public final class MediaProvider {
 
                 if (cursorVideos != null) {
                     String filePath;
-                    while (cursorVideos.moveToNext()) {
+                    int videoCount = 0;
+                    while (cursorVideos.moveToNext() && videoCount < itemLimit) {
                         filePath = cursorVideos.getString(cursorVideos.getColumnIndexOrThrow(
                             MediaStore.MediaColumns.DATA));
 
@@ -249,6 +252,8 @@ public final class MediaProvider {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
+                        // ensure we don't go over the limit due to faulty android implementations
+                        videoCount++;
                     }
                     cursorVideos.close();
 
