@@ -101,6 +101,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -180,6 +181,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject Throttler throttler;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -198,6 +200,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
+
 
     @Inject DeviceInfo deviceInfo;
 
@@ -237,7 +240,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
         }
 
         super.onResume();
@@ -360,10 +363,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             registerFabListener();
         }
 
-        if (getArguments() == null) {
-            searchEvent = null;
-        } else {
-            searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+        if (!searchFragment) { // do not touch search event if previously searched
+            if (getArguments() == null) {
+                searchEvent = null;
+            } else {
+                searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+            }
         }
         prepareCurrentSearch(searchEvent);
 
@@ -384,10 +389,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle();
-
-        if (searchEvent != null) {
-            onMessageEvent(searchEvent);
-        }
 
         FragmentActivity fragmentActivity;
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
@@ -520,20 +521,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.item_file);
-        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-                                               Collections.singleton(file),
-                                               mContainerActivity, getActivity(),
-                                               true,
-                                               accountManager.getUser());
-        mf.filter(popup.getMenu(), true);
-        popup.setOnMenuItemClickListener(item -> {
-            Set<OCFile> checkedFiles = new HashSet<>();
-            checkedFiles.add(file);
-            return onFileActionChosen(item, checkedFiles);
+        throttler.run("overflowClick", () -> {
+            PopupMenu popup = new PopupMenu(getActivity(), view);
+            popup.inflate(R.menu.item_file);
+            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
+                                                   Collections.singleton(file),
+                                                   mContainerActivity, getActivity(),
+                                                   true,
+                                                   accountManager.getUser());
+            mf.filter(popup.getMenu(), true);
+            popup.setOnMenuItemClickListener(item -> {
+                Set<OCFile> checkedFiles = new HashSet<>();
+                checkedFiles.add(file);
+                return onFileActionChosen(item, checkedFiles);
+            });
+            popup.show();
         });
-        popup.show();
     }
 
     @Override
@@ -747,19 +750,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
         }
         ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
-        }
-
-        if (isSearchEventSet(searchEvent)) {
-            onMessageEvent(searchEvent);
-        }
     }
 
     /**
@@ -1491,6 +1481,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
+        handleSearchEvent(event);
+    }
+
+    private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
@@ -1543,7 +1537,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
                         searchEvent = event;
-                        
+
                         if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
@@ -1665,7 +1659,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onRefresh() {
         if (isSearchEventSet(searchEvent) && searchFragment) {
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);
         } else {

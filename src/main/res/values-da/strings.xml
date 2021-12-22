@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Eksisterende photo</string>
     <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
     <string name="conflict_file_headline">Fil i konflikt %1$s</string>
+    <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_new_file">Ny fil</string>
+    <string name="conflict_server_file">Server fil</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilladelse givet, intet importeret.</string>
     <string name="contacts">Kontakter</string>
@@ -250,11 +252,14 @@
     <string name="end_to_end_encryption_title">Indstil kryptering</string>
     <string name="end_to_end_encryption_unsuccessful">Kunne ikke gemme nøgler, prøv venligts igen.</string>
     <string name="end_to_end_encryption_wrong_password">Fejl ved dekryptering. Forkert kodeord?</string>
+    <string name="enter_destination_filename">Vælg destinations filnavn</string>
     <string name="enter_filename">Indtast venligst et filnavn.</string>
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
     <string name="error_cant_bind_to_operations_service">Kritisk fejl: Ude af stand til at udføre handlingerne</string>
+    <string name="error_choosing_date">Fejl ved valg af dato</string>
     <string name="error_comment_file">kommentering af fil fejlet</string>
     <string name="error_crash_title">%1$s krakket</string>
+    <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter problem til opfølger? (Kræver en Github konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
@@ -298,6 +303,7 @@
     <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
     <string name="file_list_empty_favorite_headline">Send/Del</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil blive vist her.</string>
+    <string name="file_list_empty_gallery">Fandt ingen billeder eller videoer</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -308,11 +314,13 @@
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
+    <string name="file_list_empty_unified_search_no_results">Ingen resultater fundet for din forespørgsel</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_management_permission">Tilladelser er nødvendige</string>
+    <string name="file_management_permission_text">%1$s har brug for filhåndteringstilladelser for at fungere korrekt. Aktiver det på følgende skærmbillede for at fortsætte.</string>
     <string name="file_migration_checking_destination">Tjekker destination...</string>
     <string name="file_migration_cleaning">Renser ud...</string>
     <string name="file_migration_dialog_title">Opdaterer data lagringsmappe</string>
@@ -371,6 +379,7 @@
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
     <string name="fullscreen">Fuldskærm</string>
+    <string name="hidden_file_name_warning">Navn vil resultere i en skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Adgangskode</string>
@@ -390,6 +399,7 @@
     <string name="link_share_editing">Redigering</string>
     <string name="link_share_file_drop">Fil drop (kun upload)</string>
     <string name="link_share_read_only">Skrivebeskyttet</string>
+    <string name="link_share_view_only">Kun visning</string>
     <string name="list_layout">Liste layout</string>
     <string name="load_more_results">Indlæs flere resultater</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
@@ -445,11 +455,13 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Ny Notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
+    <string name="no_actions">Ingen handlinger for denne bruger</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
+    <string name="no_share_permission_selected">Vælg mindst én tilladelse til at dele.</string>
     <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kunne ikke sende note</string>
     <string name="note_icon_hint">Note ikon</string>
@@ -465,6 +477,7 @@
     <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Kommentarer, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
+    <string name="notification_channel_upload_name_short">Uploadede filer</string>
     <string name="notification_icon">Notifikationsikon</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
@@ -515,6 +528,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
+    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp;kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>
@@ -606,6 +620,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="share">Del</string>
+    <string name="share_copy_link">Del &amp;Kopier Link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
@@ -625,10 +640,10 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
-    <string name="share_open_in">Åbn i...</string>
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_drop">Fil drop</string>
+    <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
@@ -857,6 +872,22 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">%1$d fil fra %2$s mappe kunne ikke kopieres ind</item>
         <item quantity="other">%1$d filer fra %2$s mappe kunne ikke kopieres ind</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Skrev %1$d begivenhed til %2$s</item>
+        <item quantity="other">Skrev %1$d begivenheder til %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Oprettet %1$d frisk UID</item>
+        <item quantity="other">Oprettede %1$d nye UID\'er</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Behandlet %d post.</item>
+        <item quantity="other">Behandlede %d poster.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Fundet %d dubletpost.</item>
+        <item quantity="other">Fundet %d duplikerede poster.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappe</item>

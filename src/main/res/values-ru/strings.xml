@@ -632,7 +632,6 @@
     <string name="share_link_with_label">Поделиться ссылкой (%1$s)</string>
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>
-    <string name="share_open_in">Открыть в...</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Можно редактировать</string>
     <string name="share_permission_file_drop">Принимать файлы</string>

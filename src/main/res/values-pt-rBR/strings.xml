@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Arquivo já existe</string>
     <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
+    <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_new_file">Novo arquivo</string>
+    <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
     <string name="contactlist_no_permission">Nenhuma permissão fornecida, nada foi importado.</string>
     <string name="contacts">Contatos</string>
@@ -636,7 +638,6 @@
     <string name="share_link_with_label">Compartilhar link (%1$s)</string>
     <string name="share_no_expiration_date_label">Definir data de expiração</string>
     <string name="share_no_password_title">Definir senha</string>
-    <string name="share_open_in">Abrir em…</string>
     <string name="share_password_title">Protegido por senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Baixar Arquivo </string>

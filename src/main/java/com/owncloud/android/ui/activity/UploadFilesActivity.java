@@ -462,14 +462,16 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
-        selectAll.setChecked(checked);
-        if (checked) {
-            selectAll.setIcon(R.drawable.ic_select_none);
-        } else {
-            selectAll.setIcon(
-                ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
+        if (selectAll != null) {
+            selectAll.setChecked(checked);
+            if (checked) {
+                selectAll.setIcon(R.drawable.ic_select_none);
+            } else {
+                selectAll.setIcon(
+                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
+            }
+            updateUploadButtonActive();
         }
-        updateUploadButtonActive();
     }
 
     @Override

@@ -39,7 +39,7 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
  */
 public class CommunityActivity extends DrawerActivity {
 
-    private CommunityLayoutBinding binding;
+    protected CommunityLayoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class CommunityActivity extends DrawerActivity {
         setupContent();
     }
 
-    private void setupContent() {
+    protected void setupContent() {
         binding.communityReleaseCandidateText.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView contributeIrcView = binding.communityContributeIrcText;

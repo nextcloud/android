@@ -633,7 +633,6 @@
     <string name="share_link_with_label">Link delen (%1$s)</string>
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
-    <string name="share_open_in">Openen in…</string>
     <string name="share_password_title">Wachtwoord beveiligd</string>
     <string name="share_permission_can_edit">Kan bewerken</string>
     <string name="share_permission_file_drop">Bestandsopslag</string>

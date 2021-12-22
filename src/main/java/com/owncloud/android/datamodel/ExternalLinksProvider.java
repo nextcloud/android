@@ -76,7 +76,9 @@ public class ExternalLinksProvider {
      * @return numbers of rows deleted
      */
     public int deleteAllExternalLinks() {
-        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS, " 1 = 1 ", null);
+        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
+                                       null,
+                                       null);
     }
 
     /**

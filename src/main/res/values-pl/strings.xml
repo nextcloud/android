@@ -108,7 +108,7 @@
     <string name="common_error">Błąd</string>
     <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
     <string name="common_error_unknown">Nieznany błąd</string>
-    <string name="common_loading">Ładowanie…</string>
+    <string name="common_loading">Wczytywanie…</string>
     <string name="common_next">Następne</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
+    <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_new_file">Nowy plik</string>
+    <string name="conflict_server_file">Plik z serwera</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
     <string name="contacts">Kontakty</string>
@@ -314,7 +316,7 @@
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
     <string name="file_list_folder">katalog</string>
-    <string name="file_list_loading">Ładowanie…</string>
+    <string name="file_list_loading">Wczytywanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
     <string name="file_management_permission">Potrzebne uprawnienia</string>
@@ -399,7 +401,7 @@
     <string name="link_share_read_only">Tylko do odczytu</string>
     <string name="link_share_view_only">Tylko podgląd</string>
     <string name="list_layout">Wygląd listy</string>
-    <string name="load_more_results">Załaduj więcej wyników</string>
+    <string name="load_more_results">Wczytaj więcej wyników</string>
     <string name="local_file_list_empty">Nie ma plików w tym katalogu.</string>
     <string name="local_file_not_found_message">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -413,7 +415,7 @@
     <string name="logs_menu_search">Przeszukaj dziennik</string>
     <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
     <string name="logs_status_filtered">Dziennik: %1$d kB, zapytanie dopasowane %2$d/%3$d w %4$d ms</string>
-    <string name="logs_status_loading">Ładowanie…</string>
+    <string name="logs_status_loading">Wczytywanie…</string>
     <string name="logs_status_not_filtered">Dziennik: %1$d kB, bez filtra</string>
     <string name="logs_title">Dziennik</string>
     <string name="maintenance_mode">Serwer jest w trybie konserwacji</string>
@@ -636,7 +638,6 @@
     <string name="share_link_with_label">Udostępnij link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
-    <string name="share_open_in">Otwórz w…</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może edytować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
@@ -747,14 +748,14 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
-    <string name="timeout_richDocuments">Ładowanie potrwa długo…</string>
+    <string name="timeout_richDocuments">Wczytywanie potrwa bardzo długo…</string>
     <string name="today">Dzisiaj</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
-    <string name="trashbin_loading_failed">Ładowanie kosza nie powiodło się!</string>
+    <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>

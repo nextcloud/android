@@ -625,7 +625,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_link_with_label">Jaa linkki (%1$s)</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
-    <string name="share_open_in">Avaa sovelluksella…</string>
     <string name="share_password_title">Salasanasuojattu</string>
     <string name="share_permission_can_edit">Voi muokata</string>
     <string name="share_permission_view_only">Vain katselu</string>
