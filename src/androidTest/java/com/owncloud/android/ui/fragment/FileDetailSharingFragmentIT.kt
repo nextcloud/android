@@ -30,10 +30,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isChecked
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,21 +40,12 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-import com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION
-import com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.*
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.utils.ScreenshotTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.anyOf
-import org.hamcrest.CoreMatchers.not
+import org.hamcrest.CoreMatchers.*
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -118,7 +106,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 1
             shareType = ShareType.USER
             sharedWithDisplayName = "Admin"
-            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+            permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -127,7 +115,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = 2
             shareType = ShareType.GROUP
             sharedWithDisplayName = "Group"
-            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+            permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
         }
@@ -278,7 +266,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         goBack()
 
         // upload and editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        publicShare.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
@@ -306,7 +294,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         // hide download
         publicShare.isHideFileDownload = true
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        publicShare.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
         goBack()
@@ -405,7 +393,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         goBack()
 
         // editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+        publicShare.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE // from server
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
@@ -523,7 +511,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         goBack()
 
         // editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+        userShare.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE // from server
         openAdvancedPermissions(sut, userShare)
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
@@ -648,7 +636,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         goBack()
 
         // allow upload & editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
+        userShare.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER // from server
         openAdvancedPermissions(sut, userShare)
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
@@ -757,7 +745,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     fun testUploadAndEditingSharePermissions() {
 
         val share = OCShare().apply {
-            permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+            permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
         }
         assertTrue(SharingMenuHelper.isUploadAndEditingAllowed(share))
 
@@ -800,10 +788,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         share.permissions = SHARE_PERMISSION_FLAG
         assertFalse(SharingMenuHelper.isReadOnly(share))
 
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        share.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
         assertFalse(SharingMenuHelper.isReadOnly(share))
 
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+        share.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE
         assertFalse(SharingMenuHelper.isReadOnly(share))
     }
 
@@ -830,10 +818,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         share.permissions = SHARE_PERMISSION_FLAG
         assertFalse(SharingMenuHelper.isFileDrop(share))
 
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        share.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
         assertFalse(SharingMenuHelper.isFileDrop(share))
 
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+        share.permissions = SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE
         assertFalse(SharingMenuHelper.isFileDrop(share))
     }
 

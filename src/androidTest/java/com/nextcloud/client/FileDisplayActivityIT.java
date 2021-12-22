@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
@@ -79,7 +80,7 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
                                                   "admin",
                                                   false,
                                                   "",
-                                                  OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER)
+                                                  SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER)
                        .execute(client).isSuccess());
 
         // share folder via public link

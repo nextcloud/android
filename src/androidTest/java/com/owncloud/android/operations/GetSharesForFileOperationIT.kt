@@ -26,6 +26,7 @@ import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import junit.framework.TestCase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -46,7 +47,7 @@ class GetSharesForFileOperationIT : AbstractOnServerIT() {
                 "admin",
                 false,
                 "",
-                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+                SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
             )
                 .execute(client).isSuccess
         )
