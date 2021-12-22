@@ -112,12 +112,12 @@ public class SyncedFolderProvider extends Observable {
      */
     public List<SyncedFolder> getSyncedFolders() {
         Cursor cursor = mContentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                null,
-                "1=1",
-                null,
-                null
-        );
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            null,
+            null,
+            null
+                                              );
 
         if (cursor != null) {
             List<SyncedFolder> list = new ArrayList<>(cursor.getCount());
