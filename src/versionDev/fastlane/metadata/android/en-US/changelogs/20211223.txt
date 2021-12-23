@@ -1,0 +1,16 @@
+Fastfile: fix requirement check syntax
+FileDataStorageManager: remove obsolete TODO
+Fix for too many thumbnails in autoupload settings
+Remove obsolete TODO
+FileContentProvider: Use SQLiteTokenizer for sortOrder verification too
+FileContentProvider: prevent injection through selection parameters (where)
+FileContentProvider: prevent injection in sortOrder argument for query()
+FileContentProvider: remove unused method
+FileContentProvider: don't verify projectionArray in query()
+FileContentProvider: prevent injection through Uri arguments
+FileContentProvider: prevent injection via ContentValues arguments
+fastlane: Check some basic requirements before starting release phase 2
+Fastfile: Fix indentation on sh command
+Update fastlane and plugins
+Fastfile: Fix checkIfAPKexists, as there's 3 APKs now
+Update translations
