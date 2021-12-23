@@ -47,6 +47,7 @@ end
 
 desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :RC_releasePhase2 do |options|
+    checkReleaseRequirements_RC()
     info = androidVersion
     promptVersion(info)
     checkChangelog(info)
@@ -67,6 +68,7 @@ end
 
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :Final_releasePhase2 do |options|
+    checkReleaseRequirements_Final()
     info = androidVersion
     promptVersion(info)
     checkChangelog(info)
@@ -96,7 +98,7 @@ lane :makeReleases do
     sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
     
     SignedRelease(flavor:"Huawei")
-        sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
+    sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create GPlay release"
@@ -164,6 +166,22 @@ private_lane :build_for_screengrab do
     TEST_APK_LOCATION = lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS].select{ |i| i[/androidTest/] }[0]
 end
 
+private_lane :checkReleaseRequirements_common do
+    sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' && exit 1; fi")
+end
+
+private_lane :checkReleaseRequirements_RC do
+    checkReleaseRequirements_common()
+    sh("if ! command -v fdroidMergeRequestRC &>/dev/null; then echo 'fdroidMergeRequestRC command not found'; exit 1; fi")
+    sh("if ! command -v createChangelogPullRequestRC &>/dev/null; then echo 'createChangelogPullRequestRC command not found'; exit 1; fi")
+end
+
+private_lane :checkReleaseRequirements_Final do
+    checkReleaseRequirements_common()
+    sh("if ! command -v fdroidMergeRequestFinal &>/dev/null; then echo 'fdroidMergeRequestFinal command not found'; exit 1; fi")
+    sh("if ! command -v createChangelogPullRequestFinal &>/dev/null; then echo 'createChangelogPullRequestFinal command not found'; exit 1; fi")
+end
+
 private_lane :createChangelogPullRequest_RC do |options|
     sh("createChangelogPullRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
 end
@@ -173,7 +191,7 @@ private_lane :createChangelogPullRequest_Final do |options|
 end
 
 private_lane :checkIfAPKexists do |options|
-    sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 2 ]; then echo 'APKs do not exist ../release/; aborting!' ; exit 1 ;
+    sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 3 ]; then echo 'APKs do not exist ../release/; aborting!' ; exit 1 ;
      fi")
 end
 

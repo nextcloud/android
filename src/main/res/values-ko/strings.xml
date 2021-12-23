@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">파일이 이미 존재합니다</string>
     <string name="conflict_dialog_error">다이얼로그의 충돌로 인한 오류</string>
     <string name="conflict_file_headline">충돌하는 파일 %1$s</string>
+    <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_new_file">새 파일</string>
+    <string name="conflict_server_file">서버 파일</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
     <string name="contactlist_no_permission">권한이 없어서 가져올 수 없습니다.</string>
     <string name="contacts">연락처</string>
@@ -300,6 +302,7 @@
     <string name="file_list_empty">콘텐츠를 업로드하거나 기기와 동기화 하십시오.</string>
     <string name="file_list_empty_favorite_headline">즐겨찾는 항목 없음</string>
     <string name="file_list_empty_favorites_filter_list">즐겨찾기한 파일과 폴더가 여기 나타날 것입니다.</string>
+    <string name="file_list_empty_gallery">이미지나 동영상이 없음</string>
     <string name="file_list_empty_headline">파일이 없습니다</string>
     <string name="file_list_empty_headline_search">이 폴더에 검색 결과 없음</string>
     <string name="file_list_empty_headline_server_search">검색 결과 없음</string>
@@ -310,6 +313,7 @@
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
     <string name="file_list_empty_shared">당신이 공유한 파일과 폴더가 여기 나타날 것입니다.</string>
     <string name="file_list_empty_shared_headline">공유된 항목 없음</string>
+    <string name="file_list_empty_unified_search_no_results">query에 대한 결과가 없음</string>
     <string name="file_list_folder">폴더</string>
     <string name="file_list_loading">불러오는 중…</string>
     <string name="file_list_no_app_for_file_type">이 파일을 위한 앱이 존재하지 않습니다.</string>
