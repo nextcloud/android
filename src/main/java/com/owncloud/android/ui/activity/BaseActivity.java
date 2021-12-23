@@ -36,13 +36,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private boolean paused;
     protected boolean enableAccountHandling = true;
 
-    private MixinRegistry mixinRegistry = new MixinRegistry();
+    final private MixinRegistry mixinRegistry = new MixinRegistry();
     private SessionMixin sessionMixin;
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
 
-    private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
+    final private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
         public void onDarkThemeModeChanged(DarkMode mode) {
             onThemeSettingsModeChanged();

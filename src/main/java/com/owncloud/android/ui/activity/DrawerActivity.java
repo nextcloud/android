@@ -323,7 +323,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .decoder(new SvgOrImageDecoder());
 
                 // background image
-                SimpleTarget target = new SimpleTarget<Bitmap>() {
+                SimpleTarget<Bitmap> target = new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
 
@@ -378,6 +378,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * setup drawer header, basically the logo color
      */
+
     private void setupDrawerHeader(FrameLayout drawerHeader) {
         drawerHeader.setBackgroundColor(ThemeColorUtils.primaryColor(getAccount(), true, this));
     }
@@ -642,11 +643,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null) {
-            if (chosenFile != null && isRoot(chosenFile)) {
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            } else {
-                mDrawerToggle.setDrawerIndicatorEnabled(false);
-            }
+            mDrawerToggle.setDrawerIndicatorEnabled(chosenFile != null && isRoot(chosenFile));
         }
     }
 
@@ -874,7 +871,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                        MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
                     .setCheckable(true).getItemId();
 
-                MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
+                MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                         setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
