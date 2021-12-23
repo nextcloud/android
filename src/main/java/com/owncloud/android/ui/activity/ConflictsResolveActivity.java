@@ -17,7 +17,7 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -194,7 +194,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                     RemoteOperationResult result = operation.execute(getAccount(), this);
 
                     if (result.isSuccess()) {
-                        existingFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                        existingFile = FileStorageUtils.fillOCFile((RemoteFile) result.getResultData());
                         existingFile.setLastSyncDateForProperties(System.currentTimeMillis());
 
                         startDialog();
