@@ -81,8 +81,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 int thumbColorUncheckedDisabled =
                     getContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
 
-                if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
-                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                if (ThemeColorUtils.isDarkModeActive(getContext())) {
                     thumbColorCheckedDisabled =
                         MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
                     thumbColorUncheckedDisabled =
@@ -113,8 +112,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
                 int trackColorUncheckedDisabled =
                      getContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
 
-                if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
-                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                if (ThemeColorUtils.isDarkModeActive(getContext())) {
                     trackColorUncheckedEnabled = getContext().getResources().getColor(R.color.switch_track_unchecked_enabled);
                     trackColorCheckedDisabled =
                         MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);

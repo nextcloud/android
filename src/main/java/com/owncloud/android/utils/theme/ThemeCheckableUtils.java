@@ -48,8 +48,7 @@ public final class ThemeCheckableUtils {
                 int uncheckDisabled =
                     MainApp.getAppContext().getResources().getColor(R.color.checkbox_unchecked_disabled);
 
-                if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
-                    AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                if (ThemeColorUtils.isDarkModeActive(MainApp.getAppContext())) {
                     checkDisabled =
                         MainApp.getAppContext().getResources().getColor(R.color.checkbox_checked_disabled_dark);
                     uncheckDisabled =
@@ -93,8 +92,7 @@ public final class ThemeCheckableUtils {
         int thumbColorUncheckedDisabled =
             MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_unchecked_disabled);
 
-        if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
-            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (ThemeColorUtils.isDarkModeActive(MainApp.getAppContext())) {
             thumbColorCheckedDisabled =
                 MainApp.getAppContext().getResources().getColor(R.color.switch_thumb_checked_disabled_dark);
             thumbColorUncheckedDisabled =
@@ -126,8 +124,7 @@ public final class ThemeCheckableUtils {
         int trackColorUncheckedDisabled =
             MainApp.getAppContext().getResources().getColor(R.color.switch_track_unchecked_disabled);
 
-        if (ThemeColorUtils.darkTheme(MainApp.getAppContext()) &&
-            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (ThemeColorUtils.isDarkModeActive(MainApp.getAppContext())) {
             trackColorCheckedDisabled =
                 MainApp.getAppContext().getResources().getColor(R.color.switch_track_checked_disabled_dark);
             trackColorUncheckedDisabled =
