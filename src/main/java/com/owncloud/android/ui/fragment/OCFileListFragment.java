@@ -1489,7 +1489,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         getRecyclerView().setLayoutManager(layoutManager);
-        calculateAndUpdateSpanCount(grid);
+        updateSpanCount(getResources().getConfiguration());
         getRecyclerView().scrollToPosition(position);
         getAdapter().setGridView(grid);
         getRecyclerView().setAdapter(getAdapter());
@@ -2020,6 +2020,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mAdapter.notifyDataSetChanged();
+        updateSpanCount(newConfig);
+    }
+
+    /**
+     * method will update the span count on basis of device orientation
+     * for the file listing
+     * @param newConfig current configuration
+     */
+    private void updateSpanCount(Configuration newConfig){
         //this should only run when current view is not media gallery
         if (getAdapter() != null && !getAdapter().isMediaGallery()) {
             int maxColumnSize = (int) AppPreferencesImpl.DEFAULT_GRID_COLUMN;
@@ -2040,7 +2049,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
 
             if (isGridEnabled()) {
-                calculateAndUpdateSpanCount(true);
+                //for tablet calculate size on the basis of screen width
+                if (DisplayUtils.isTablet()) {
+                    calculateAndUpdateSpanCount(true);
+                } else {
+                    //and for phones directly show the hardcoded column size
+                    if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
+                        ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
+                    }
+                }
             }
         }
     }
