@@ -43,7 +43,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 /**
  * Fragment class to show share permission options, set expiration date, change label, set password, send note
@@ -278,7 +278,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
-                if (share?.isFolder == true){
+                if (share?.isFolder == true) {
                     hideFileDropView()
                 }
             } else if (file?.isFolder == true) {
@@ -368,17 +368,17 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             binding.noteText.setText(share?.note)
 
             //show the warning label if password protection is enabled
-           /* binding.tvSetPasswordEmailWarning.visibility =
-                if (share?.isPasswordProtected == true) View.VISIBLE
-                else View.GONE*/
+            /* binding.tvSetPasswordEmailWarning.visibility =
+                 if (share?.isPasswordProtected == true) View.VISIBLE
+                 else View.GONE*/
         } else {
             binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.send_share)
             binding.noteText.setText("")
 
             //show the warning label if password protection is enabled
-           /* binding.tvSetPasswordEmailWarning.visibility =
-                if (binding.shareProcessSetPasswordSwitch.isChecked) View.VISIBLE
-                else View.GONE*/
+            /* binding.tvSetPasswordEmailWarning.visibility =
+                 if (binding.shareProcessSetPasswordSwitch.isChecked) View.VISIBLE
+                 else View.GONE*/
         }
 
         shareProcessStep = SCREEN_TYPE_NOTE
@@ -506,9 +506,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             }
             binding.shareProcessPermissionUploadEditing.isChecked -> {
                 permission = if (file?.isFolder == true || share?.isFolder == true) {
-                    OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+                    SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER
                 } else {
-                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+                    SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE
                 }
             }
             binding.shareProcessPermissionFileDrop.isChecked -> {
@@ -556,7 +556,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         if (share != null) {
             fileOperationsHelper?.updateShareInformation(
                 share, permission, binding
-                    .shareProcessHideDownloadCheckbox.isChecked,
+                .shareProcessHideDownloadCheckbox.isChecked,
                 binding.shareProcessEnterPassword.text.toString().trim(),
                 chosenExpDateInMills, binding.shareProcessChangeNameEt.text.toString().trim()
             )

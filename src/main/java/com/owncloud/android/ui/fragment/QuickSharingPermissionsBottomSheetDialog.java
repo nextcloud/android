@@ -42,8 +42,6 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
-import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 
 /**
@@ -101,6 +99,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * handle permission changed on click of selected permission
+     *
      * @param quickPermissionModelList
      * @param position
      */
@@ -108,10 +107,10 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
         if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.share_permission_can_edit))) {
             if (ocShare.isFolder()) {
                 actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FOLDER);
+                                                 SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FOLDER);
             } else {
                 actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FILE);
+                                                 SharingMenuHelper.CAN_EDIT_PERMISSIONS_FOR_FILE);
             }
         } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
                                                                                                                                          .share_permission_read_only))) {
@@ -128,6 +127,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * prepare the list of permissions needs to be displayed on recyclerview
+     *
      * @return
      */
     private List<QuickPermissionModel> getQuickPermissionList() {
@@ -135,10 +135,10 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
         String[] permissionArray;
         if (ocShare.isFolder()) {
-            if (ocShare.getShareType() == ShareType.EMAIL || ocShare.getShareType() == ShareType.PUBLIC_LINK){
+            if (ocShare.getShareType() == ShareType.EMAIL || ocShare.getShareType() == ShareType.PUBLIC_LINK) {
                 permissionArray =
                     fileActivity.getResources().getStringArray(R.array.folder_share_permission_dialog_values);
-            }else {
+            } else {
                 permissionArray =
                     fileActivity.getResources().getStringArray(R.array.folder_internal_share_permission_dialog_values);
             }

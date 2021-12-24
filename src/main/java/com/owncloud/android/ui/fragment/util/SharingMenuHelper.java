@@ -26,28 +26,35 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.MenuItem;
 
-import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.utils.MimeTypeUtil;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
-import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 /**
  * Helper calls for visibility logic of the sharing menu.
  */
 public final class SharingMenuHelper {
+
+    //updated Edit permissions for folder and files
+    //because the MAXIMUM_PERMISSIONS_FOR_FILE and MAXIMUM_PERMISSIONS_FOR_FOLDER permission in OCShare
+    //are not valid anymore due to functionality changes
+    public static final int CAN_EDIT_PERMISSIONS_FOR_FILE =
+        READ_PERMISSION_FLAG + UPDATE_PERMISSION_FLAG;
+
+    public static final int CAN_EDIT_PERMISSIONS_FOR_FOLDER =
+        READ_PERMISSION_FLAG + UPDATE_PERMISSION_FLAG + CREATE_PERMISSION_FLAG + DELETE_PERMISSION_FLAG;
+
 
     private SharingMenuHelper() {
         // utility class -> private constructor
@@ -100,15 +107,15 @@ public final class SharingMenuHelper {
             expirationDate.setTitle(R.string.share_no_expiration_date_label);
         }
     }
-    
+
     public static boolean isUploadAndEditingAllowed(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
         }
 
-        return (share.getPermissions() & (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
-            MAXIMUM_PERMISSIONS_FOR_FILE)) == (share.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER :
-            MAXIMUM_PERMISSIONS_FOR_FILE);
+        return (share.getPermissions() & (share.isFolder() ? CAN_EDIT_PERMISSIONS_FOR_FOLDER:
+            CAN_EDIT_PERMISSIONS_FOR_FILE)) == (share.isFolder() ? CAN_EDIT_PERMISSIONS_FOR_FOLDER :
+            CAN_EDIT_PERMISSIONS_FOR_FILE);
     }
 
     public static boolean isReadOnly(OCShare share) {
@@ -148,7 +155,7 @@ public final class SharingMenuHelper {
      */
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-                return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_can_edit);
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
             return getPermissionIndexFromArray(context, permissionArray, R.string.share_permission_read_only);
         } else if (SharingMenuHelper.isFileDrop(share)) {
