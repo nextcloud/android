@@ -1,0 +1,2 @@
+Bump Gradle for Log4j
+Update translations
