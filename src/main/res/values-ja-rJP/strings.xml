@@ -14,6 +14,7 @@
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
+    <string name="actionbar_calendar_contacts_restore">連絡先と&amp;カレンダーを復元する</string>
     <string name="actionbar_copy">コピー</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
@@ -29,7 +30,7 @@
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
-    <string name="add_another_public_share_link">別のリンクを追加</string>
+    <string name="add_another_public_share_link">別のリンクを作成</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="advanced_settings">高度な設定</string>
@@ -76,6 +77,7 @@
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="backup_settings">バックアップ設定</string>
+    <string name="backup_title">連絡先と&amp;カレンダーのバックアップ</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
@@ -92,7 +94,7 @@
     <string name="choose_which_file">保存するファイルを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
-    <string name="clear_status_message_after">メッセージ有効期限</string>
+    <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -148,8 +150,10 @@
     <string name="conflict_already_existing_file">既存のファイル</string>
     <string name="conflict_dialog_error">コンフリクトダイアログの作成に失敗しました</string>
     <string name="conflict_file_headline">%1$sはすでに存在します</string>
+    <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_new_file">新しいファイル</string>
+    <string name="conflict_server_file">サーバーファイル</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
     <string name="contacts">連絡先</string>
@@ -179,6 +183,8 @@
     <string name="create_rich_workspace">フォルダー情報を追加</string>
     <string name="creates_rich_workspace">フォルダー情報を作成</string>
     <string name="credentials_disabled">資格情報が無効です</string>
+    <string name="daily_backup">毎日のバックアップ</string>
+    <string name="data_to_back_up">バックアップするデータ</string>
     <string name="date_unknown">不明</string>
     <string name="default_credentials_wrong">不正な資格情報</string>
     <string name="delete_account">アカウント削除</string>
@@ -186,10 +192,12 @@
     <string name="delete_entries">エントリーを削除</string>
     <string name="delete_link">リンクを削除</string>
     <string name="deselect_all">選択を全解除</string>
+    <string name="destination_filename">移動先のフォルダ名</string>
     <string name="dev_version_new_version_available">新しいバージョンが利用可能</string>
     <string name="dev_version_no_information_available">情報がありません。</string>
     <string name="dev_version_no_new_version_available">新しいバージョンはありません。</string>
     <string name="dialog_close">閉じる</string>
+    <string name="did_not_check_for_dupes">重複をチェックしませんでした</string>
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
     <string name="direct_login_failed">ダイレクトリンクからのログインに失敗しました!</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
@@ -244,11 +252,14 @@
     <string name="end_to_end_encryption_title">暗号化を設定する</string>
     <string name="end_to_end_encryption_unsuccessful">キーを保存できませんでした。もう一度お試しください。</string>
     <string name="end_to_end_encryption_wrong_password">復号化中にエラーが発生しました。パスワードが間違っていませんか?</string>
+    <string name="enter_destination_filename">移動先のフォルダ名を入力</string>
     <string name="enter_filename">ファイル名を入力してください</string>
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
+    <string name="error_choosing_date">日付の選択中にエラーが発生しました</string>
     <string name="error_comment_file">コメントファイルのエラー</string>
     <string name="error_crash_title">%1$s はクラッシュしました</string>
+    <string name="error_creating_file_from_template">テンプレートからファイルを作成中にエラーが発生しました</string>
     <string name="error_report_issue_action">報告</string>
     <string name="error_report_issue_text">問題を報告しますか？ (GitHub のアカウントが必要です)</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
@@ -292,6 +303,7 @@
     <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
     <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
     <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます。</string>
+    <string name="file_list_empty_gallery">画像や動画が見つかりませんでした</string>
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="file_list_empty_headline_search">このフォルダーに該当はありません</string>
     <string name="file_list_empty_headline_server_search">該当なし</string>
@@ -302,10 +314,13 @@
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
+    <string name="file_list_empty_unified_search_no_results">検索結果が見つかりませんでした</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="file_list_seconds_ago">数秒前</string>
+    <string name="file_management_permission">必要な権限</string>
+    <string name="file_management_permission_text">%1$sは、正常に動作させるためにファイル管理権限が必要です。続行するには、以下の画面で有効にしてください。</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
     <string name="file_migration_dialog_title">データ保存フォルダーを更新</string>
@@ -364,6 +379,7 @@
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
     <string name="fullscreen">全画面</string>
+    <string name="hidden_file_name_warning">名前を付けると隠しファイルになります</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
@@ -376,11 +392,16 @@
     <string name="invalid_url">無効なURL</string>
     <string name="invisible">隠す</string>
     <string name="label_empty">ラベルは空にできません</string>
+    <string name="last_backup">前回のバックアップ: %1$s</string>
     <string name="link">リンク</string>
+    <string name="link_name">リンク名</string>
     <string name="link_share_allow_upload_and_editing">アップロードと編集を許可</string>
+    <string name="link_share_editing">編集中</string>
     <string name="link_share_file_drop">ファイルドロップ(アップロードのみ)</string>
     <string name="link_share_read_only">読み込み専用</string>
+    <string name="link_share_view_only">閲覧のみ</string>
     <string name="list_layout">リスト表示</string>
+    <string name="load_more_results">結果をさらに読み込む</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -388,6 +409,7 @@
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
+    <string name="login_url_helper_text">%1$sをWeb画面でブラウザーで開くときのURL</string>
     <string name="logs_menu_delete">ログを消去</string>
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
@@ -433,14 +455,19 @@
     <string name="new_media_folder_videos">ビデオ</string>
     <string name="new_notification">新しい通知</string>
     <string name="new_version_was_created">新しいバージョンが作成されました</string>
+    <string name="no_actions">このユーザーに対するアクションはありません</string>
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
+    <string name="no_calendar_exists">カレンダーがありません</string>
+    <string name="no_email_app_available">メールアドレスの利用可能なアプリはありません</string>
     <string name="no_mutliple_accounts_allowed">利用できるアカウントは１つだけです</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
+    <string name="no_share_permission_selected">共有する権限を1つ以上選択してください。</string>
     <string name="note_confirm">送信</string>
     <string name="note_could_not_sent">メモを送信できませんでした</string>
     <string name="note_icon_hint">アイコンを記録</string>
     <string name="notification_action_failed">アクションの実行に失敗しました。</string>
     <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
+    <string name="notification_channel_download_name_short">ダウンロード</string>
     <string name="notification_channel_file_sync_description">ファイルの同期の進行状況と結果を表示します</string>
     <string name="notification_channel_file_sync_name">ファイル同期</string>
     <string name="notification_channel_general_description">新しいメディアフォルダなどの通知を表示する</string>
@@ -450,6 +477,7 @@
     <string name="notification_channel_push_description">サーバーからのプッシュ通知を表示： 新規コメント受信、新規リモート共有、管理者からの告知など</string>
     <string name="notification_channel_push_name">プッシュ通知</string>
     <string name="notification_channel_upload_description">アップロードの進行状況を表示</string>
+    <string name="notification_channel_upload_name_short">アップロード</string>
     <string name="notification_icon">通知アイコン</string>
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
@@ -500,6 +528,7 @@
     <string name="prefs_category_dev">開発者</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
+    <string name="prefs_daily_backup_summary">&amp;カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
     <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
     <string name="prefs_enable_media_scan_notifications">メディアのスキャン結果通知を表示する</string>
@@ -557,7 +586,9 @@
     <string name="resharing_is_not_allowed">再共有は許可されていません</string>
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
     <string name="restore">ファイルを復元</string>
+    <string name="restore_backup">バックアップを復元</string>
     <string name="restore_button_description">選択したファイルを復元する</string>
+    <string name="restore_selected">選択した項目を復元する</string>
     <string name="retrieving_file">ファイルを取得中...</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
@@ -573,18 +604,23 @@
     <string name="screenshot_05_autoUpload_subline">あなたの写真&amp;ビデオ</string>
     <string name="screenshot_06_davdroid_heading">カレンダー &amp; 連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
+    <string name="search_error">検索結果の取得中にエラーが発生しました</string>
     <string name="select_all">すべて選択</string>
     <string name="select_one_template">テンプレートを選択してください</string>
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
     <string name="send_note">受信者にメモを送信する</string>
+    <string name="send_share">共有</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="set_as">として設定され</string>
+    <string name="set_note">ノート</string>
     <string name="set_picture_as">画像を使用する</string>
     <string name="set_status">ステータスを設定</string>
     <string name="set_status_message">メッセージを設定</string>
     <string name="share">共有</string>
+    <string name="share_copy_link">&amp;のリンクをコピー</string>
     <string name="share_dialog_title">共有</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_file">%1$s を共有</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
@@ -603,10 +639,16 @@
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
     <string name="share_password_title">パスワード保護</string>
+    <string name="share_permission_can_edit">編集可能</string>
+    <string name="share_permission_file_drop">ファイルを転送</string>
+    <string name="share_permission_view_only">閲覧のみ</string>
+    <string name="share_permissions">共有権限</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス ...</string>
+    <string name="share_send_new_email">メールを送信</string>
     <string name="share_send_note">受取人への注意</string>
+    <string name="share_settings">設定</string>
     <string name="share_via_link_hide_download">ダウンロードを隠す</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_send_link_label">リンクを送信</string>
@@ -672,6 +714,7 @@
     <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたに共有されました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+    <string name="suggest">提案</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
     <string name="sync_fail_content">%1$s を同期できませんでした</string>
@@ -817,6 +860,7 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">あなたのステータスは？</string>
+    <string name="write_email">メールを送信</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
     <plurals name="sync_fail_in_favourites_content">
@@ -824,6 +868,18 @@
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">%2$s から %1$d 個のファイルのコピーに失敗</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="other">%1$d個のイベントを%2$sに書き込みました</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="other">新しいUIDを%1$d個作成しました</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="other">%d件の応募を処理しました。</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="other">重複する応募が%d件見つかりました。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d フォルダ</item>
