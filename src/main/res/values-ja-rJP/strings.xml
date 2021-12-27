@@ -23,7 +23,7 @@
     <string name="actionbar_see_details">詳細</string>
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_settings">設定</string>
-    <string name="actionbar_sort">ソート</string>
+    <string name="actionbar_sort">並び替え</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
     <string name="activities_no_results_message">追加、変更、共有のようなイベントはまだありません</string>
@@ -479,7 +479,7 @@
     <string name="notification_channel_upload_description">アップロードの進行状況を表示</string>
     <string name="notification_channel_upload_name_short">アップロード</string>
     <string name="notification_icon">通知アイコン</string>
-    <string name="notifications_no_results_headline">通知なし</string>
+    <string name="notifications_no_results_headline">通知はありません</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
     <string name="offline_mode">インターネットに接続されていません</string>
     <string name="oneHour">1時間</string>
@@ -549,7 +549,7 @@
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
-    <string name="prefs_recommend">友達に推奨</string>
+    <string name="prefs_recommend">友達におすすめ</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">データ保存フォルダー</string>
