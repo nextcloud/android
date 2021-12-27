@@ -179,7 +179,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         // find/saves UI elements
         mEnabledSwitch = view.findViewById(R.id.sync_enabled);
-        ThemeCheckableUtils.tintSwitch(mEnabledSwitch, accentColor);
+        ThemeCheckableUtils.tintSwitch(mEnabledSwitch, accentColor, getContext());
 
         mLocalFolderPath = view.findViewById(R.id.synced_folders_settings_local_folder_path);
 

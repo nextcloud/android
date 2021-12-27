@@ -433,4 +433,9 @@
         <item name="android:contentDescription">@string/exo_controls_fullscreen_exit_description</item>
         <item name="android:padding">@dimen/exo_icon_padding</item>
     </style>
+
+    <style name="Color1SwitchStyle">
+        <item name="colorAccent">#D33909</item>
+<!--        <item name="primary">#D33909</item>-->
+    </style>
 </resources>
