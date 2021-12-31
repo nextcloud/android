@@ -25,14 +25,18 @@ import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
 
@@ -41,18 +45,22 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
     private WeakReference<GalleryFragment> photoFragmentWeakReference;
     private SearchRemoteOperation searchRemoteOperation;
     private FileDataStorageManager storageManager;
+    private String remotePath;
     private int limit;
+    private List<Object> mediaObject;
 
     public GallerySearchTask(int columnsCount,
                              GalleryFragment photoFragment,
                              User user,
                              SearchRemoteOperation searchRemoteOperation,
-                             FileDataStorageManager storageManager) {
+                             FileDataStorageManager storageManager,
+                             String remotePath) {
         this.columnCount = columnsCount;
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.searchRemoteOperation = searchRemoteOperation;
         this.storageManager = storageManager;
+        this.remotePath = remotePath;
     }
 
     @Override
@@ -110,13 +118,27 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                         // stop loading spinner
                         photoFragment.setSearchDidNotFindNewPhotos(true);
                     }
-
-                    adapter.setData(result.getData(),
-                                    ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                                    storageManager,
-                                    null,
-                                    false);
+                    if(mediaObject == null) {
+                        mediaObject = new ArrayList<>();
+                    }
+                    else
+                    {
+                        mediaObject.clear();
+                    }
+                    for(Object c : result.getData()){
+                        if(c instanceof RemoteFile) {
+                            if(((RemoteFile) c).getRemotePath().contains(remotePath)){
+                                mediaObject.add(c);
+                            }
+                        }
+                    }
+                    adapter.setData(mediaObject,
+                                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                                        storageManager,
+                                        null,
+                                        true);
                     adapter.notifyDataSetChanged();
+
                     Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
                 }
             }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
+    <item
+        android:id="@+id/action_three_dot_icon"
+        android:contentDescription="@string/action_empty_notifications"
+        android:orderInCategory="1"
+        android:title=""
+        app:showAsAction="always"
+        android:icon="@drawable/ic_dots_vertical"/>
+
+</menu>
