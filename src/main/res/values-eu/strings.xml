@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Dagoeneko existitzen den fitxategia</string>
     <string name="conflict_dialog_error">Errorea gatazkaren elkarrizketa-koadroa sortzean!</string>
     <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
+    <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_new_file">Fitxategi berria</string>
+    <string name="conflict_server_file">Zerbitzariko fitxategia</string>
     <string name="contactlist_item_icon">Erabiltzailearen ikonoa kontaktuen zerrendarako</string>
     <string name="contactlist_no_permission">Ez da baimenik eman, ez da ezer inportatu.</string>
     <string name="contacts">Kontaktuak</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Errorea data aukeratzean</string>
     <string name="error_comment_file">Errorea fitxategia iruzkintzean</string>
     <string name="error_crash_title">%1$s(e)k huts egin du</string>
+    <string name="error_creating_file_from_template">Errorea fitxategia plantilatik sortzerakoan</string>
     <string name="error_report_issue_action">Jakinarazi</string>
     <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (Github kontu bat beharrezkoa da)</string>
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Kargatu edukiren bat edo sinkronizatu zure gailuekin.</string>
     <string name="file_list_empty_favorite_headline">Oraindik ez dago ezer gogoko bezala markatuta</string>
     <string name="file_list_empty_favorites_filter_list">Gogoko bezala markatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_gallery">Ez da irudi edo bideorik aurkitu</string>
     <string name="file_list_empty_headline">Ez dago fitxategirik hemen</string>
     <string name="file_list_empty_headline_search">Ez dago emailtzarik karpeta honetan</string>
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
@@ -310,11 +314,13 @@
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
+    <string name="file_list_empty_unified_search_no_results">Ez da emaitzarik aurkitu zure bilaketarentzat</string>
     <string name="file_list_folder">karpeta</string>
     <string name="file_list_loading">Kargatzen…</string>
     <string name="file_list_no_app_for_file_type">Ez dago aplikaziorik konfiguratuta fitxategi-mota honetarako.</string>
     <string name="file_list_seconds_ago">duela segundo batzuk</string>
     <string name="file_management_permission">Baimenak behar dira</string>
+    <string name="file_management_permission_text">%1$sk fitxategien kudeatze baimenak bera ditu ondo funtzionatzeko. Mesedez, gaitu ezazu hurrengo pantailan jarraitzeko.</string>
     <string name="file_migration_checking_destination">Helburua egiaztatzen...</string>
     <string name="file_migration_cleaning">Garbitzen…</string>
     <string name="file_migration_dialog_title">Datu-biltegiratze karpeta eguneratzen</string>
