@@ -138,11 +138,11 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
         ThemeCheckableUtils.tintSwitch(
-            binding.contacts, getContext().getResources().getColor(R.color.color_accent), getContext());
+            binding.contacts, getContext().getResources().getColor(R.color.color_accent));
         ThemeCheckableUtils.tintSwitch(
-            binding.calendar, ThemeColorUtils.primaryAccentColor(getContext()), getContext());
+            binding.calendar, ThemeColorUtils.primaryAccentColor(getContext()));
         ThemeCheckableUtils.tintSwitch(
-            binding.dailyBackup, ThemeColorUtils.primaryAccentColor(getContext()), getContext());
+            binding.dailyBackup, ThemeColorUtils.primaryAccentColor(getContext()));
         binding.dailyBackup.setChecked(
             arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 

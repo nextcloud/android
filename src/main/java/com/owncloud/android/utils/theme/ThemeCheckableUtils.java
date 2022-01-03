@@ -56,33 +56,24 @@ public final class ThemeCheckableUtils {
         }
     }
 
-    public static void tintSwitch(SwitchCompat switchView, int color, Context context) {
-       // int trackColor = Color.argb(77, Color.red(color), Color.green(color), Color.blue(color));
-        int trackColor = context.getResources().getColor(R.color.grey_200);
+    public static void tintSwitch(SwitchCompat switchView, int color) {
+        int trackColor = switchView.getContext().getResources().getColor(R.color.grey_200);
         ColorStateList thumbColorStateList = null;
         ColorStateList trackColorStateList = null;
-
-        if(thumbColorStateList == null && trackColorStateList == null) {
-            int thumbColor = ThemeColorUtils.primaryAccentColor(switchView.getContext());
-            if (ThemeColorUtils.darkTheme(switchView.getContext()) &&
-                AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                thumbColor = Color.WHITE;
-                trackColor = Color.DKGRAY;
-            }
-           // int trackColorUnchecked = context.getResources().getColor(R.color.switch_track_color_unchecked);
-            thumbColorStateList = new ColorStateList(
-                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
-                new int[]{thumbColor, switchView.getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
-            trackColorStateList = new ColorStateList(
-                new int[][]{new int[]{android.R.attr.state_checked},
-                    new int[]{}},
-                new int[]{trackColor, trackColor});
+        int thumbColor = ThemeColorUtils.primaryAccentColor(switchView.getContext());
+        if (ThemeColorUtils.darkTheme(switchView.getContext()) &&
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            thumbColor = Color.WHITE;
+            trackColor = Color.DKGRAY;
         }
-
-        // setting the thumb color
+        thumbColorStateList = new ColorStateList(
+            new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+            new int[]{thumbColor, switchView.getContext().getResources().getColor(R.color.switch_thumb_color_unchecked)});
+        trackColorStateList = new ColorStateList(
+            new int[][]{new int[]{android.R.attr.state_checked},
+                new int[]{}},
+            new int[]{trackColor, trackColor});
         DrawableCompat.setTintList(switchView.getThumbDrawable(), thumbColorStateList);
-
-        // setting the track color
         DrawableCompat.setTintList(switchView.getTrackDrawable(), trackColorStateList);
     }
 }
