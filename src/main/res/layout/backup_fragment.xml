@@ -44,7 +44,6 @@
             android:minHeight="48dp"
             android:text="@string/contacts"
             android:textColor="@color/text_color"
-            app:theme="@style/Color1SwitchStyle"
             android:textSize="@dimen/two_line_primary_text_size" />
 
         <androidx.appcompat.widget.SwitchCompat
