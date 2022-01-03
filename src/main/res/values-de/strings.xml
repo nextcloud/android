@@ -1042,4 +1042,12 @@
         Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
     <string name="prefs_category_account_info">Kontoinformationen</string>
     <string name="common_login">Anmelden</string>
+    <string name="hide_images">Bilder ausblenden</string>
+    <string name="show_images">Bilder anzeigen</string>
+    <string name="hide_video">Videos ausblenden</string>
+    <string name="show_video">Videos anzeigen</string>
+    <string name="select_media_folder">Den Ordner \"Medien\" auswählen</string>
+    <string name="sort_by_modified_date">Nach Änderungsdatum sortieren</string>
+    <string name="sort_by_created_date">Nach Erstellungsdatum sortieren</string>
+    <string name="sort_by_upload_date">Nach Hochladedatum sortieren</string>
 </resources>

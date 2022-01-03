@@ -1,22 +1,16 @@
 package com.nmc.android.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-
-import androidx.annotation.NonNull;
 
 public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 

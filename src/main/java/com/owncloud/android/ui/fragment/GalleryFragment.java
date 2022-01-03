@@ -89,7 +89,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setupToolbar();
+        // setupToolbar();
         setHasOptionsMenu(true);
 
 
@@ -103,15 +103,15 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-      //  initViews();
-        String remotePath = setDefaultRemotePath();
-        updateSaveLocationText(remotePath);
+        //  initViews();
+        remotePath = setDefaultRemotePath();
     }
+
     private String setDefaultRemotePath() {
         if (remoteFilePath == null) {
             setRemoteFilePath(remotePath);
         }
-        return appPreferences.getUploadScansLastPath();
+        return remotePath;
     }
 
     private void setRemoteFilePath(String remotePath) {
@@ -156,16 +156,17 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FileActivity activity = (FileActivity) getActivity();
-        GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
-                                                                                                       this,
-                                                                                                       deviceInfo,
-                                                                                                       accountManager.getUser(),
-                                                                                                       getCurrentFile(), preferences);
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_three_dot_icon:
-                      galleryFragmentBottomSheetDialog.show();
+                FileActivity activity = (FileActivity) getActivity();
+                GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
+                                                                                                                         this,
+                                                                                                                         deviceInfo,
+                                                                                                                         accountManager.getUser(),
+                                                                                                                         getCurrentFile(), preferences);
+
+                galleryFragmentBottomSheetDialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -197,8 +198,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onRefresh() {
         super.onRefresh();
 
-       refresh = true;
-       photoSearchNoNew = false;
+        refresh = true;
+        photoSearchNoNew = false;
         handleSearchEvent();
     }
 
@@ -223,7 +224,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             mAdapter.notifyDataSetChanged();
             refresh = false;
         } else {
-           // mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
+            // mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
 
             return;
@@ -269,19 +270,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
                 if (chosenFolder != null) {
                     remoteFilePath = chosenFolder;
-                    updateSaveLocationText(chosenFolder.getRemotePath());
+                    searchAndDisplayAfterChangingFolder();
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-        searchAndDisplayAfterChangingFolder();
-    }
-    private void updateSaveLocationText(String path) {
-        remotePath = path;
-        if (path.equalsIgnoreCase("/")) {
-            path = getResources().getString(R.string.scan_save_location_root);
-        }
-       // binding.scanSaveLocationInput.setText(path);
     }
 
     private void searchAndDisplayAfterChangingFolder() {
@@ -293,15 +286,15 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             true);
         mAdapter.notifyDataSetChanged();
         //photoSearchNoNew = false;
-       // handleSearchEvent();
+        // handleSearchEvent();
 
         photoSearchTask = new GallerySearchTask(getColumnsCount(),
-                                                    this,
-                                                    accountManager.getUser(),
-                                                    searchRemoteOperation,
-                                                    mContainerActivity.getStorageManager(),
-                                                    remoteFilePath.getRemotePath())
-                .execute();
+                                                this,
+                                                accountManager.getUser(),
+                                                searchRemoteOperation,
+                                                mContainerActivity.getStorageManager(),
+                                                remoteFilePath.getRemotePath())
+            .execute();
 
     }
 
@@ -341,8 +334,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void selectMediaFolder() {
-        Toast.makeText(getActivity(), "Select Media Clicked", Toast.LENGTH_SHORT).show();
-
         Intent action = new Intent(requireActivity(), FolderPickerActivity.class);
         action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
         startActivityForResult(action, SELECT_LOCATION_REQUEST_CODE);
@@ -362,7 +353,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void sortByUploadDate() {
-
         Toast.makeText(getActivity(), "Sort By Upload Date Clicked", Toast.LENGTH_SHORT).show();
 
     }

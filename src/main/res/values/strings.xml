@@ -1144,4 +1144,12 @@
     <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
     <string name="prefs_category_account_info">Account Information</string>
     <string name="common_login">Login</string>
+    <string name="hide_images">Hide images</string>
+    <string name="show_images">Show images</string>
+    <string name="hide_video">Hide video</string>
+    <string name="show_video">Show video</string>
+    <string name="select_media_folder">Select the \"Media\" folder</string>
+    <string name="sort_by_modified_date">Sort By modified date</string>
+    <string name="sort_by_created_date">Sort by created date</string>
+    <string name="sort_by_upload_date">Sort by upload date</string>
 </resources>

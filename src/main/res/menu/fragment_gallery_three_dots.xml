@@ -6,9 +6,9 @@
     tools:ignore="AppCompatResource">
     <item
         android:id="@+id/action_three_dot_icon"
-        android:contentDescription="@string/action_empty_notifications"
+        android:contentDescription="@string/more"
         android:orderInCategory="1"
-        android:title=""
+        android:title="@string/more"
         app:showAsAction="always"
         android:icon="@drawable/ic_dots_vertical"/>
 

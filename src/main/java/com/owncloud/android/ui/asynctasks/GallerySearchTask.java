@@ -118,25 +118,23 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                         // stop loading spinner
                         photoFragment.setSearchDidNotFindNewPhotos(true);
                     }
-                    if(mediaObject == null) {
+                    if (mediaObject == null) {
                         mediaObject = new ArrayList<>();
-                    }
-                    else
-                    {
+                    } else {
                         mediaObject.clear();
                     }
-                    for(Object c : result.getData()){
-                        if(c instanceof RemoteFile) {
-                            if(((RemoteFile) c).getRemotePath().contains(remotePath)){
+                    for (Object c : result.getData()) {
+                        if (c instanceof RemoteFile) {
+                            if (((RemoteFile) c).getRemotePath().contains(remotePath)) {
                                 mediaObject.add(c);
                             }
                         }
                     }
                     adapter.setData(mediaObject,
-                                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                                        storageManager,
-                                        null,
-                                        true);
+                                    ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                                    storageManager,
+                                    null,
+                                    true);
                     adapter.notifyDataSetChanged();
 
                     Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());

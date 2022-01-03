@@ -1,151 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/standard_half_padding">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:id="@+id/hideImages"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_action_create_dir"
-            android:layout_margin="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hide Images"
-            android:textSize="@dimen/txt_size_16sp"
-
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/hideVideo"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:src="@drawable/ic_camera"
-            android:layout_margin="8dp"/>
+            app:tint="@color/bottom_sheet_icon_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hide Video"
-            android:textSize="@dimen/txt_size_16sp"
-
             android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/hide_images"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/hideVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_video_camera"
+            app:tint="@color/bottom_sheet_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/hide_video"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/selectMediaFolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_upload_file"
-            android:layout_margin="8dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/nav_photos"
+            app:tint="@color/bottom_sheet_icon_color" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select the Media Folder"
-            android:textSize="@dimen/txt_size_16sp"
-
             android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/select_media_folder"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:id="@+id/sortByModifiedDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_file_collection"
-            android:layout_margin="8dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_sort"
+            app:tint="@color/bottom_sheet_icon_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sort By Modified Date"
-            android:textSize="@dimen/txt_size_16sp"
-
             android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/sort_by_modified_date"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:id="@+id/sortByCreatedDate"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
-
-         <ImageView
-             android:layout_width="24dp"
-             android:layout_height="24dp"
-             android:src="@drawable/ic_calendar"
-             android:layout_margin="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort By Created Date"
-            android:textSize="@dimen/txt_size_16sp"
-
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
-    </LinearLayout>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/sortByUploadDate"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
 
-         <ImageView
-             android:layout_width="24dp"
-             android:layout_height="24dp"
-             android:src="@drawable/ic_cloud_download"
-             android:layout_margin="8dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_sort"
+            app:tint="@color/bottom_sheet_icon_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sort By Upload Date"
-            android:textSize="@dimen/txt_size_16sp"
-
             android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/sort_by_created_date"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sortByUploadDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_sort"
+            app:tint="@color/bottom_sheet_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/sort_by_upload_date"
+            android:textColor="@color/bottom_sheet_txt_color"
+            android:textSize="@dimen/bottom_sheet_text_size" />
     </LinearLayout>
 </LinearLayout>
