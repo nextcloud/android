@@ -152,8 +152,10 @@ internal class Player(
 
         override fun onPausePlayback() {
             trace("onPausePlayback()")
-            mediaPlayer?.pause()
-            listener?.onPause()
+            if (mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+                listener?.onPause()
+            }
         }
 
         override fun onRequestFocus() {
