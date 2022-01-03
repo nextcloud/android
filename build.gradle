@@ -66,7 +66,7 @@ ext {
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "4.1.0"
-    mockkVersion = "1.12.1"
+    mockkVersion = "1.12.2"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.12.6"
     espressoVersion = "3.4.0"
