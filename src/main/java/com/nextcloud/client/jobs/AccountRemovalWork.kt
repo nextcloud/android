@@ -32,6 +32,7 @@ import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.java.util.Optional
@@ -70,7 +71,8 @@ class AccountRemovalWork(
     private val userAccountManager: UserAccountManager,
     private val backgroundJobManager: BackgroundJobManager,
     private val clock: Clock,
-    private val eventBus: EventBus
+    private val eventBus: EventBus,
+    private val preferences: AppPreferences
 ) : Worker(context, params) {
 
     companion object {
@@ -109,7 +111,7 @@ class AccountRemovalWork(
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, ManageAccountsActivity.PENDING_FOR_REMOVAL)
 
         // remove synced folders set for account
-        remoceSyncedFolders(context, user.toPlatformAccount(), clock)
+        removeSyncedFolders(context, user.toPlatformAccount(), clock)
 
         // delete all uploads for account
         uploadsStorageManager.removeUserUploads(user)
@@ -118,6 +120,11 @@ class AccountRemovalWork(
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PRIVATE_KEY)
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PUBLIC_KEY)
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.MNEMONIC)
+
+        // unset default account, if needed
+        if (preferences.currentAccountName.equals(user.accountName)) {
+            preferences.currentAccountName = ""
+        }
 
         // remove all files
         removeFiles(user, storageManager)
@@ -173,7 +180,7 @@ class AccountRemovalWork(
         }
     }
 
-    private fun remoceSyncedFolders(context: Context, account: Account, clock: Clock) {
+    private fun removeSyncedFolders(context: Context, account: Account, clock: Clock) {
         val syncedFolderProvider = SyncedFolderProvider(
             context.contentResolver,
             AppPreferencesImpl.fromContext(context),
@@ -189,7 +196,7 @@ class AccountRemovalWork(
         syncedFolderProvider.deleteSyncFoldersForAccount(account)
         val filesystemDataProvider = FilesystemDataProvider(context.contentResolver)
         for (syncedFolderId in syncedFolderIds) {
-            filesystemDataProvider.deleteAllEntriesForSyncedFolder(java.lang.Long.toString(syncedFolderId))
+            filesystemDataProvider.deleteAllEntriesForSyncedFolder(syncedFolderId.toString())
         }
     }
 
