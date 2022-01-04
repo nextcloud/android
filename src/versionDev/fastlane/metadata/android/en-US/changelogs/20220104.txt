@@ -1,0 +1,3 @@
+Player: don't try to pause a non-running media player
+Update translations
+Update 3rd-party dependencies
