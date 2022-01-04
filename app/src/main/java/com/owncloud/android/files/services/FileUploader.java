@@ -1,27 +1,24 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author masensio
- *  @author LukeOwnCloud
- *  @author David A. Velasco
- *  @author Chris Narkiewicz
- *
- *  Copyright (C) 2012 Bartek Przybylski
- *  Copyright (C) 2012-2016 ownCloud Inc.
- *  Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author masensio
+ * @author LukeOwnCloud
+ * @author David A. Velasco
+ * @author Chris Narkiewicz
+ * <p>
+ * Copyright (C) 2012 Bartek Przybylski Copyright (C) 2012-2016 ownCloud Inc. Copyright (C) 2020 Chris Narkiewicz
+ * <hello@ezaquarii.com>
+ * <p>
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+ * License version 2, as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -78,6 +75,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
@@ -238,7 +236,7 @@ public class FileUploader extends Service
         mBinder = new FileUploaderBinder();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
-            getApplicationContext().getResources().getString(R.string.app_name))
+                getApplicationContext().getResources().getString(R.string.app_name))
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
@@ -366,7 +364,7 @@ public class FileUploader extends Service
         List<String> requestedUploads,
         boolean onWifiOnly,
         boolean whileChargingOnly
-    ) {
+                                            ) {
         String[] localPaths = null;
         String[] remotePaths = null;
         String[] mimeTypes = null;
@@ -405,7 +403,7 @@ public class FileUploader extends Service
                     remotePaths[i],
                     localPaths[i],
                     mimeTypes != null ? mimeTypes[i] : null
-                );
+                                                                      );
                 if (files[i] == null) {
                     Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
                         + " and localPaths[i]:" + localPaths[i]);
@@ -467,8 +465,8 @@ public class FileUploader extends Service
         OCFile file,
         boolean disableRetries
                                ) {
-        if (file.getStoragePath().startsWith("/data/data/")) {
-            Log_OC.d(TAG, "Upload from sensitive path is not allowed");
+        if (isSensitiveStoragePath(file, user.getAccountName(), getApplicationContext())) {
+            Log_OC.e(TAG, "Upload from sensitive path is not allowed");
             return;
         }
 
@@ -510,7 +508,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             file.getRemotePath(),
             newUpload
-        );
+                                                                    );
 
         if (putResult != null) {
             requestedUploads.add(putResult.first);
@@ -557,7 +555,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             upload.getRemotePath(),
             newUpload
-        );
+                                                                    );
         if (putResult != null) {
             String uploadKey = putResult.first;
             requestedUploads.add(uploadKey);
@@ -642,7 +640,7 @@ public class FileUploader extends Service
                     removeResult = mPendingUploads.removePayload(
                         mCurrentAccount.name,
                         mCurrentUpload.getOldFile().getRemotePath()
-                    );
+                                                                );
                     // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
 
                 } else {
@@ -740,7 +738,7 @@ public class FileUploader extends Service
         long totalTransferredSoFar,
         long totalToTransfer,
         String filePath
-    ) {
+                                  ) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, false);
@@ -804,11 +802,11 @@ public class FileUploader extends Service
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACCOUNT, upload.getUser().toPlatformAccount()
-                );
+                                                 );
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                );
+                                                 );
 
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -818,7 +816,7 @@ public class FileUploader extends Service
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
                     PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
-                ));
+                                                                               ));
             } else {
                 Intent intent;
                 if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -890,7 +888,7 @@ public class FileUploader extends Service
         UploadFileOperation upload,
         RemoteOperationResult uploadResult,
         String unlinkedFromRemotePath
-    ) {
+                                            ) {
         Intent end = new Intent(getUploadFinishMessage());
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
         // path, after
@@ -935,7 +933,7 @@ public class FileUploader extends Service
         boolean requiresWifi,
         boolean requiresCharging,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                    ) {
         uploadNewFile(
             context,
             user,
@@ -948,7 +946,7 @@ public class FileUploader extends Service
             requiresWifi,
             requiresCharging,
             nameCollisionPolicy
-        );
+                     );
     }
 
     /**
@@ -966,7 +964,7 @@ public class FileUploader extends Service
         boolean requiresWifi,
         boolean requiresCharging,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                    ) {
         Intent intent = new Intent(context, FileUploader.class);
 
         intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
@@ -997,7 +995,7 @@ public class FileUploader extends Service
         OCFile existingFile,
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                       ) {
         uploadUpdateFile(context, user, new OCFile[]{existingFile}, behaviour, nameCollisionPolicy, true);
     }
 
@@ -1068,9 +1066,9 @@ public class FileUploader extends Service
         @NonNull final ConnectivityService connectivityService,
         @NonNull final UserAccountManager accountManager,
         @NonNull final PowerManagementService powerManagementService
-    ) {
+                                         ) {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads == null || failedUploads.length == 0) {
+        if (failedUploads == null || failedUploads.length == 0) {
             return; //nothing to do
         }
 
@@ -1122,10 +1120,28 @@ public class FileUploader extends Service
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
+    @SuppressLint("SdCardPath")
+    public static boolean isSensitiveStoragePath(OCFile file, String accountName, Context context) {
+        if (file.getStoragePath().startsWith("/data/data/")) {
+            return true;
+        }
+        if (file.getStoragePath().contains(context.getPackageName())) {
+            if (file.getStoragePath().startsWith(FileStorageUtils.getSavePath(accountName))) {
+                return false;
+            }
+
+            final boolean isWithinInternalTemporalPath =
+                file.getStoragePath().startsWith(FileStorageUtils.getInternalTemporalPath(accountName, context));
+
+            return !isWithinInternalTemporalPath;
+        }
+        return false;
+    }
+
 
     /**
      * Binder to let client components to perform operations on the queue of uploads.
-     *
+     * <p>
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
@@ -1244,7 +1260,7 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                   ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
@@ -1262,7 +1278,7 @@ public class FileUploader extends Service
         public void addDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                   ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
@@ -1282,7 +1298,7 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                      ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
@@ -1302,7 +1318,7 @@ public class FileUploader extends Service
         public void removeDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                      ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
@@ -1319,7 +1335,7 @@ public class FileUploader extends Service
             long totalTransferredSoFar,
             long totalToTransfer,
             String fileName
-        ) {
+                                      ) {
             String key = buildRemoteName(mCurrentUpload.getUser().getAccountName(), mCurrentUpload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
 
@@ -1344,7 +1360,7 @@ public class FileUploader extends Service
                         mCurrentUpload.getUser().getAccountName(),
                         mCurrentUpload.getFile().getRemotePath(),
                         cancelReason
-                    );
+                          );
                 }
             }
         }

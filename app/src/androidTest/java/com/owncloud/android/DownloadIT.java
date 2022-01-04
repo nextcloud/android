@@ -73,13 +73,15 @@ public class DownloadIT extends AbstractOnServerIT {
 
     @Test
     public void verifyDownload() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                             + "/nonEmpty.txt",
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
         uploadOCUpload(ocUpload);
 
-        OCUpload ocUpload2 = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
+        OCUpload ocUpload2 = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                              + "/nonEmpty.txt",
                                           FOLDER + "nonEmpty2.txt",
                                           account.name);
 

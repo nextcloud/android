@@ -85,8 +85,9 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     private static ArbitraryDataProvider arbitraryDataProvider;
 
     private OCFile currentFolder;
-    private int actionCount = 20;
+    private final int actionCount = 20;
     private String rootEncFolder = "/e/";
+    private final String nonEmptyFileName = "nonEmpty.txt";
 
     @Rule
     public RetryTestRule retryTestRule = new RetryTestRule();
@@ -405,15 +406,17 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithCopy() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                             + nonEmptyFileName,
+                                         currentFolder.getRemotePath() + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                         + nonEmptyFileName);
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+                                                                                      nonEmptyFileName);
 
         assertTrue(originalFile.exists());
         assertTrue(new File(uploadedFile.getStoragePath()).exists());
@@ -423,15 +426,17 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithMove() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                             + nonEmptyFileName,
+                                         currentFolder.getRemotePath() + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                         + nonEmptyFileName);
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+                                                                                      nonEmptyFileName);
 
         assertFalse(originalFile.exists());
         assertTrue(new File(uploadedFile.getStoragePath()).exists());
@@ -441,15 +446,17 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithForget() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                             + nonEmptyFileName,
+                                         currentFolder.getRemotePath() + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                         + nonEmptyFileName);
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+                                                                                      nonEmptyFileName);
 
         assertTrue(originalFile.exists());
         assertFalse(new File(uploadedFile.getStoragePath()).exists());
@@ -459,15 +466,17 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public void testUploadWithDelete() throws Exception {
         init();
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                             + nonEmptyFileName,
+                                         currentFolder.getRemotePath() + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
+        File originalFile = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
+                                         + nonEmptyFileName);
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+                                                                                      nonEmptyFileName);
 
         assertFalse(originalFile.exists());
         assertFalse(new File(uploadedFile.getStoragePath()).exists());

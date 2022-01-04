@@ -7,6 +7,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,7 +119,11 @@ public class FileIT extends AbstractOnServerIT {
 
         // Rename
         assertTrue(
-            new RenameFileOperation(folderPath, "test123", fileDataStorageManager)
+            new RenameFileOperation(folderPath,
+                                    "test123",
+                                    fileDataStorageManager,
+                                    FileStorageUtils.getInternalTemporalPath("", targetContext)
+            )
                 .execute(targetContext)
                 .isSuccess()
                   );

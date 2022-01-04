@@ -225,7 +225,8 @@ public class RichDocumentsEditorWebView extends EditorWebView {
             return;
         }
 
-        File targetFile = new File(FileStorageUtils.getTemporalPath(account.getName()) + "/print.pdf");
+        File targetFile = new File(FileStorageUtils.getInternalTemporalPath(account.getName(),
+                                                                            getBaseContext()) + "/print.pdf");
 
         new PrintAsyncTask(targetFile, url.toString(), new WeakReference<>(this)).execute();
     }

@@ -31,7 +31,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RenameFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -46,8 +45,9 @@ public class RenameFileOperation extends SyncOperation {
     private static final String TAG = RenameFileOperation.class.getSimpleName();
 
     private OCFile file;
-    private String remotePath;
-    private String newName;
+    private final String remotePath;
+    private final String newName;
+    private final String internalTemporalPath;
 
     /**
      * Constructor
@@ -55,11 +55,15 @@ public class RenameFileOperation extends SyncOperation {
      * @param remotePath RemotePath of the OCFile instance describing the remote file or folder to rename
      * @param newName    New name to set as the name of file.
      */
-    public RenameFileOperation(String remotePath, String newName, FileDataStorageManager storageManager) {
+    public RenameFileOperation(String remotePath,
+                               String newName,
+                               FileDataStorageManager storageManager,
+                               String internalTemporalPath) {
         super(storageManager);
 
         this.remotePath = remotePath;
         this.newName = newName;
+        this.internalTemporalPath = internalTemporalPath;
     }
 
     /**
@@ -172,8 +176,7 @@ public class RenameFileOperation extends SyncOperation {
             return false;
         }
         // create a test file
-        String tmpFolderName = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolderName + newName);
+        File testFile = new File(internalTemporalPath + newName);
         File tmpFolder = testFile.getParentFile();
         if (!tmpFolder.exists() && !tmpFolder.mkdirs()) {
             Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());

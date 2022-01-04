@@ -2317,10 +2317,12 @@ public class FileDataStorageManager {
         }
     }
 
-    public void removeLocalFiles(User user, FileDataStorageManager storageManager) {
+    public void removeLocalFiles(User user, FileDataStorageManager storageManager, Context context) {
         File tempDir = new File(FileStorageUtils.getTemporalPath(user.getAccountName()));
+        File internalTempDir = new File(FileStorageUtils.getInternalTemporalPath(user.getAccountName(), context));
         File saveDir = new File(FileStorageUtils.getSavePath(user.getAccountName()));
         FileStorageUtils.deleteRecursively(tempDir, storageManager);
+        FileStorageUtils.deleteRecursively(internalTempDir, storageManager);
         FileStorageUtils.deleteRecursively(saveDir, storageManager);
     }
 

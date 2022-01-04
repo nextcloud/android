@@ -50,6 +50,8 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 
+import static com.owncloud.android.utils.FileStorageUtils.getInternalTemporalPath;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -60,12 +62,14 @@ import static junit.framework.TestCase.assertTrue;
 
 public class UploadIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
+    private final String emptyFileName = "empty.txt";
+    private final String nonEmptyFileName = "nonEmpty.txt";
 
-    private UploadsStorageManager uploadsStorageManager =
+    private final UploadsStorageManager uploadsStorageManager =
         new UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext),
                                   targetContext.getContentResolver());
 
-    private ConnectivityService connectivityServiceMock = new ConnectivityService() {
+    private final ConnectivityService connectivityServiceMock = new ConnectivityService() {
         @Override
         public boolean isInternetWalled() {
             return false;
@@ -77,7 +81,7 @@ public class UploadIT extends AbstractOnServerIT {
         }
     };
 
-    private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
+    private final PowerManagementService powerManagementServiceMock = new PowerManagementService() {
         @Override
         public boolean isPowerSavingEnabled() {
             return false;
@@ -126,8 +130,8 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testEmptyUpload() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
-                                         FOLDER + "empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
+                                         FOLDER + emptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload);
@@ -135,8 +139,8 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testNonEmptyUpload() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         FOLDER + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName,
+                                         FOLDER + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload);
@@ -144,14 +148,14 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadWithCopy() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         FOLDER + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName,
+                                         FOLDER + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
+        File originalFile = new File(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName);
+        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + nonEmptyFileName);
 
         assertTrue(originalFile.exists());
         assertTrue(new File(uploadedFile.getStoragePath()).exists());
@@ -160,14 +164,14 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadWithMove() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         FOLDER + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName,
+                                         FOLDER + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
+        File originalFile = new File(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName);
+        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + nonEmptyFileName);
 
         assertFalse(originalFile.exists());
         assertTrue(new File(uploadedFile.getStoragePath()).exists());
@@ -176,14 +180,14 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadWithForget() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         FOLDER + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName,
+                                         FOLDER + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
+        File originalFile = new File(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName);
+        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + nonEmptyFileName);
 
         assertTrue(originalFile.exists());
         assertFalse(new File(uploadedFile.getStoragePath()).exists());
@@ -192,14 +196,15 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadWithDelete() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         FOLDER + "nonEmpty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName,
+                                         FOLDER + nonEmptyFileName,
                                          account.name);
 
         uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
+        File originalFile = new File(getInternalTemporalPath(account.name, targetContext) + nonEmptyFileName);
+        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + nonEmptyFileName);
+        assertNotNull(uploadedFile);
 
         assertFalse(originalFile.exists());
         assertFalse(new File(uploadedFile.getStoragePath()).exists());
@@ -208,7 +213,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testChunkedUpload() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/chunkedFile.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + "/chunkedFile.txt",
                                          FOLDER + "chunkedFile.txt", account.name);
 
         uploadOCUpload(ocUpload);
@@ -216,7 +221,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadInNonExistingFolder() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "2/3/4/1.txt", account.name);
 
         uploadOCUpload(ocUpload);
@@ -224,7 +229,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnChargingOnlyButNotCharging() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "notCharging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
@@ -272,7 +277,7 @@ public class UploadIT extends AbstractOnServerIT {
             }
         };
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "charging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
@@ -312,7 +317,7 @@ public class UploadIT extends AbstractOnServerIT {
                 return new Connectivity(true, false, false, true);
             }
         };
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "noWifi.txt", account.name);
         ocUpload.setUseWifiOnly(true);
 
@@ -342,7 +347,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnWifiOnlyAndWifi() {
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "wifi.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
 
@@ -391,7 +396,7 @@ public class UploadIT extends AbstractOnServerIT {
                 return new Connectivity(true, true, true, true);
             }
         };
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+        OCUpload ocUpload = new OCUpload(getInternalTemporalPath(account.name, targetContext) + emptyFileName,
                                          FOLDER + "noWifi.txt",
                                          account.name);
         ocUpload.setUseWifiOnly(true);

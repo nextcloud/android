@@ -41,7 +41,7 @@ class UploadFilesActivityIT : AbstractIT() {
     var permissionRule = GrantStoragePermissionRule.grant()
 
     private val directories = listOf("A", "B", "C", "D")
-        .map { File("${FileStorageUtils.getTemporalPath(account.name)}${File.separator}$it") }
+        .map { File("${FileStorageUtils.getInternalTemporalPath(account.name, targetContext)}${File.separator}$it") }
 
     @Before
     fun setUp() {

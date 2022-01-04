@@ -162,7 +162,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     }
                 }
 
-                fullTempPath = FileStorageUtils.getTemporalPath(user.getAccountName()) + currentRemotePath;
+                fullTempPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(),
+                                                                        mAppContext) + currentRemotePath;
                 inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
                 File tempDir = cacheFile.getParentFile();

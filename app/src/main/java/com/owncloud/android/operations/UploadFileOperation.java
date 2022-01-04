@@ -995,7 +995,7 @@ public class UploadFileOperation extends SyncOperation {
             case FileUploader.LOCAL_BEHAVIOUR_COPY:
                 if (temporalFile != null) {
                     try {
-                        move(temporalFile, expectedFile);
+                        move(temporalFile, expectedFile, mFile);
                     } catch (IOException e) {
                         Log_OC.e(TAG, e.getMessage());
                     }
@@ -1018,7 +1018,7 @@ public class UploadFileOperation extends SyncOperation {
                 File newFile = new File(expectedPath);
 
                 try {
-                    move(originalFile, newFile);
+                    move(originalFile, newFile, mFile);
                 } catch (IOException e) {
                     Log.e(TAG, "Error moving file", e);
                 }
@@ -1267,15 +1267,15 @@ public class UploadFileOperation extends SyncOperation {
 
 
     /**
-     * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult},
-     * TODO     use Exceptions instead
-     * TODO refactor both this and 'copy' in a single method
+     * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult}, TODO     use
+     * Exceptions instead TODO refactor both this and 'copy' in a single method
      *
      * @param sourceFile Source file to move.
      * @param targetFile Target location to move the file.
+     * @param ocFile     representation of source file
      * @throws IOException exception if file cannot be read/wrote
      */
-    private void move(File sourceFile, File targetFile) throws IOException {
+    public static void move(File sourceFile, File targetFile, OCFile ocFile) throws IOException {
 
         if (!targetFile.equals(sourceFile)) {
             File expectedFolder = targetFile.getParentFile();
@@ -1291,7 +1291,7 @@ public class UploadFileOperation extends SyncOperation {
                         inChannel.transferTo(0, inChannel.size(), outChannel);
                         sourceFile.delete();
                     } catch (Exception e) {
-                        mFile.setStoragePath(""); // forget the local file
+                        ocFile.setStoragePath(""); // forget the local file
                         // by now, treat this as a success; the file was uploaded
                         // the best option could be show a warning message
                     } finally {
@@ -1305,7 +1305,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
             } else {
-                mFile.setStoragePath("");
+                ocFile.setStoragePath("");
             }
         }
     }

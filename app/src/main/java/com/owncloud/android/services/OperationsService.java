@@ -72,6 +72,7 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -658,7 +659,11 @@ public class OperationsService extends Service {
                     case ACTION_RENAME:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, newName, fileDataStorageManager);
+                        operation = new RenameFileOperation(remotePath,
+                                                            newName,
+                                                            fileDataStorageManager,
+                                                            FileStorageUtils.getInternalTemporalPath("",
+                                                                                                     getApplicationContext()));
                         break;
 
                     case ACTION_REMOVE:

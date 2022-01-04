@@ -123,7 +123,7 @@ class AccountRemovalWork(
         }
 
         // remove all files
-        storageManager.removeLocalFiles(user, storageManager)
+        storageManager.removeLocalFiles(user, storageManager, context)
 
         // delete all database entries
         storageManager.deleteAllFiles()

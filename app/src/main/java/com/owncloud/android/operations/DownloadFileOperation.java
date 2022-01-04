@@ -42,6 +42,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -111,12 +112,12 @@ public class DownloadFileOperation extends RemoteOperation {
         return FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), file);
     }
 
-    public String getTmpPath() {
-        return FileStorageUtils.getTemporalPath(user.getAccountName()) + file.getRemotePath();
+    private String getTmpPath() {
+        return getTmpFolder() + file.getRemotePath();
     }
 
-    public String getTmpFolder() {
-        return FileStorageUtils.getTemporalPath(user.getAccountName());
+    private String getTmpFolder() {
+        return FileStorageUtils.getInternalTemporalPath(user.getAccountName(), context);
     }
 
     public String getRemotePath() {
@@ -161,7 +162,6 @@ public class DownloadFileOperation extends RemoteOperation {
 
         RemoteOperationResult result;
         File newFile = null;
-        boolean moved;
 
         /// download will be performed to a temporal file, then moved to the final location
         File tmpFile = new File(getTmpPath());
@@ -224,10 +224,12 @@ public class DownloadFileOperation extends RemoteOperation {
             }
 
             if (downloadType == DownloadType.DOWNLOAD) {
-                moved = tmpFile.renameTo(newFile);
-                newFile.setLastModified(file.getModificationTimestamp());
-                if (!moved) {
+                try {
+                    UploadFileOperation.move(tmpFile, newFile, file);
+                    newFile.setLastModified(file.getModificationTimestamp());
+                } catch (IOException e) {
                     result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                    Log_OC.e(TAG, "Error moving file", e);
                 }
             } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),

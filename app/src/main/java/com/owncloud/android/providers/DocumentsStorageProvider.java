@@ -362,7 +362,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(),
                                                                displayName,
-                                                               document.getStorageManager())
+                                                               document.getStorageManager(),
+                                                               FileStorageUtils.getInternalTemporalPath("",
+                                                                                                        getContext()))
             .execute(document.getClient());
 
         if (!result.isSuccess()) {
@@ -527,7 +529,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         User user = targetFolder.getUser();
 
         // create dummy file
-        File tempDir = new File(FileStorageUtils.getTemporalPath(user.getAccountName()));
+        File tempDir = new File(FileStorageUtils.getInternalTemporalPath(user.getAccountName(), getNonNullContext()));
 
         if (!tempDir.exists() && !tempDir.mkdirs()) {
             throw new FileNotFoundException("Temp folder could not be created: " + tempDir.getAbsolutePath());

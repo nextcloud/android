@@ -30,7 +30,10 @@ import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -227,8 +230,19 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
-        OCFile parentFolder = getStorageManager()
-            .getFileByEncryptedRemotePath(new File(ocUpload.getRemotePath()).getParent() + "/");
+        String parentFolderPath = (new File(ocUpload.getRemotePath()).getParent() + "/").replaceAll("//", "/");
+
+        OCFile parentFolder = getStorageManager().getFileByEncryptedRemotePath(parentFolderPath);
+
+        // Sync parent folder
+        TestCase.assertTrue(new SynchronizeFolderOperation(targetContext,
+                                                           parentFolderPath,
+                                                           user,
+                                                           System.currentTimeMillis(),
+                                                           fileDataStorageManager)
+                                .execute(targetContext)
+                                .isSuccess());
+
         String uploadedFileName = new File(ocUpload.getRemotePath()).getName();
         OCFile uploadedFile = getStorageManager().
             getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
