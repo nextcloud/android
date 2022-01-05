@@ -1515,8 +1515,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 searchOnlyFolders = true;
             }
 
-            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
-                                                        searchOnlyFolders);
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(currentUser.getAccountName());
+
+            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(),
+                                                        event.getSearchType(),
+                                                        searchOnlyFolders,
+                                                        ocCapability);
         } else {
             remoteOperation = new GetSharesRemoteOperation();
         }
