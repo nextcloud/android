@@ -225,15 +225,23 @@ internal class BackgroundJobManagerImpl(
 
     override fun schedulePeriodicContactsBackup(user: User) {
         val data = Data.Builder()
-            .putString(ContactsBackupWork.ACCOUNT, user.accountName)
-            .putBoolean(ContactsBackupWork.FORCE, true)
+            .putString(ContactsBackupWork.KEY_ACCOUNT, user.accountName)
+            .putBoolean(ContactsBackupWork.KEY_FORCE, true)
             .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
         val request = periodicRequestBuilder(
             jobClass = ContactsBackupWork::class,
             jobName = JOB_PERIODIC_CONTACTS_BACKUP,
             intervalMins = PERIODIC_BACKUP_INTERVAL_MINUTES,
             user = user
-        ).setInputData(data).build()
+        )
+            .setInputData(data)
+            .setConstraints(constraints)
+            .build()
 
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_CONTACTS_BACKUP, ExistingPeriodicWorkPolicy.KEEP, request)
     }
@@ -292,8 +300,8 @@ internal class BackgroundJobManagerImpl(
 
     override fun startImmediateContactsBackup(user: User): LiveData<JobInfo?> {
         val data = Data.Builder()
-            .putString(ContactsBackupWork.ACCOUNT, user.accountName)
-            .putBoolean(ContactsBackupWork.FORCE, true)
+            .putString(ContactsBackupWork.KEY_ACCOUNT, user.accountName)
+            .putBoolean(ContactsBackupWork.KEY_FORCE, true)
             .build()
 
         val request = oneTimeRequestBuilder(ContactsBackupWork::class, JOB_IMMEDIATE_CONTACTS_BACKUP, user)
