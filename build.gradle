@@ -64,8 +64,8 @@ ext {
 	daggerVersion = "2.40.5"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion ="beb7e0e42b9fe34f7d47bc8419b489948221c4ae"
-    mockitoVersion = "4.1.0"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "4.2.0"
     mockkVersion = "1.12.2"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.12.6"
@@ -324,7 +324,7 @@ dependencies {
     }
 
     if (!ciBuild) {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8'
     }
 
     // dependencies for local unit tests
