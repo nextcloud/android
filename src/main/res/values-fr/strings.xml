@@ -14,6 +14,7 @@
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurer les contacts &amp; l\'agenda</string>
     <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
@@ -76,6 +77,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
+    <string name="backup_title">Sauvegarder les contacts &amp; l\'agenda</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
@@ -148,8 +150,10 @@
     <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
+    <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_new_file">Nouveau fichier</string>
+    <string name="conflict_server_file">Fichier serveur</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts">Contacts</string>
@@ -257,6 +261,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_choosing_date">Erreur lors du choix de la date</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
+    <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler l\'anomalie ? (requiert un compte Github)</string>
     <string name="error_retrieving_file">Erreur de téléchargement</string>
@@ -300,6 +305,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
     <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris seront affichés ici.</string>
+    <string name="file_list_empty_gallery">Aucune vidéo ou image n\'a été trouvée</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
@@ -310,6 +316,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
+    <string name="file_list_empty_unified_search_no_results">Aucun résultat trouvé pour votre requête</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
