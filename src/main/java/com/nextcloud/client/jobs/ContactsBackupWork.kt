@@ -70,9 +70,9 @@ class ContactsBackupWork(
 
     companion object {
         val TAG = ContactsBackupWork::class.java.simpleName
-        const val ACCOUNT = "account"
-        const val FORCE = "force"
-        const val JOB_INTERVAL_MS: Long = 24 * 60 * 60 * 1000
+        const val KEY_ACCOUNT = "account"
+        const val KEY_FORCE = "force"
+        const val JOB_INTERVAL_MS: Long = 24L * 60L * 60L * 1000L
         const val BUFFER_SIZE = 1024
     }
 
@@ -81,7 +81,7 @@ class ContactsBackupWork(
 
     @Suppress("ReturnCount") // pre-existing issue
     override fun doWork(): Result {
-        val accountName = inputData.getString(ACCOUNT) ?: ""
+        val accountName = inputData.getString(KEY_ACCOUNT) ?: ""
         if (TextUtils.isEmpty(accountName)) { // no account provided
             return Result.failure()
         }
@@ -94,7 +94,7 @@ class ContactsBackupWork(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP
         )
-        val force = inputData.getBoolean(FORCE, false)
+        val force = inputData.getBoolean(KEY_FORCE, false)
         if (force || lastExecution + JOB_INTERVAL_MS < Calendar.getInstance().timeInMillis) {
             Log_OC.d(TAG, "start contacts backup job")
             val backupFolder: String = resources.getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR

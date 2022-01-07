@@ -33,7 +33,7 @@ internal class MigrationsManagerImpl(
     private val migrations: Collection<Migrations.Step>
 ) : MigrationsManager {
 
-    override val status: LiveData<Status> = MutableLiveData<Status>(Status.UNKNOWN)
+    override val status: LiveData<Status> = MutableLiveData(Status.UNKNOWN)
 
     override val info: List<MigrationInfo> get() {
         val applied = migrationsDb.getAppliedMigrations()
@@ -77,7 +77,7 @@ internal class MigrationsManagerImpl(
         migrations.forEach {
             @Suppress("TooGenericExceptionCaught") // migration code is free to throw anything
             try {
-                it.run()
+                it.run.invoke(it)
                 migrationsDb.addAppliedMigration(it.id)
             } catch (t: Throwable) {
                 if (it.mandatory) {
