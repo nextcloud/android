@@ -221,7 +221,7 @@
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_favorites">Favoritos</string>
-    <string name="drawer_item_gallery">Mutimedia</string>
+    <string name="drawer_item_gallery">Multimedia</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
@@ -236,9 +236,9 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="encrypted">Establecer como encriptado</string>
+    <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
-    <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
+    <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="end_to_end_encryption_enter_password">Por favor, introduce la contraseña para descifrar la clave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
@@ -251,7 +251,7 @@
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
-    <string name="end_to_end_encryption_wrong_password">Error al desencriptar. ¿Contraseña incorrecta?</string>
+    <string name="end_to_end_encryption_wrong_password">Error al descifrar. ¿Contraseña incorrecta?</string>
     <string name="enter_destination_filename">Introduce el nombre del archivo de destino</string>
     <string name="enter_filename">Por favor, introduce un nombre de archivo</string>
     <string name="error__upload__local_file_not_copied">%1$s no se ha podido copiar a la carpeta local %2$s</string>
@@ -758,7 +758,7 @@
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
-    <string name="unset_encrypted">Desconfigurar cifrado</string>
+    <string name="unset_encrypted">Desactivar cifrado</string>
     <string name="unset_favorite">Quitar de favoritos</string>
     <string name="unshare_link_file_error">Ha ocurrido un error al dejar de compartir este archivo o carpeta.</string>
     <string name="unshare_link_file_no_exist">Imposible dejar de compartir. Por favor, comprueba que el archivo exista.</string>
