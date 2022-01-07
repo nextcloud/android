@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
+    <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_new_file">Nuevo archivo</string>
+    <string name="conflict_server_file">Archivo del servidor</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
     <string name="contacts">Contactos</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Error escogiendo fecha</string>
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueó</string>
+    <string name="error_creating_file_from_template">Error al crear el archivo desde la plantilla</string>
     <string name="error_report_issue_action">Informe</string>
     <string name="error_report_issue_text">¿Informar del problema al tracker de fallos? (requiere una cuenta de Github)</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
     <string name="file_list_empty_favorite_headline">Aún no hay nada marcado como favorito</string>
     <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marques como favoritos aparecerán aquí.</string>
+    <string name="file_list_empty_gallery">No se encontraron imágenes o vídeos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
@@ -310,6 +314,7 @@
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
+    <string name="file_list_empty_unified_search_no_results">No se han encontrado resultados para su consulta</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
@@ -374,6 +379,7 @@
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
     <string name="fullscreen">Pantalla completa</string>
+    <string name="hidden_file_name_warning">Ese nombre producirá un archivo oculto</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contraseña</string>
@@ -604,6 +610,7 @@
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
     <string name="send_note">Enviar nota al destinatario</string>
+    <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="set_as">Establecer como</string>
     <string name="set_note">Establecer nota</string>
@@ -639,7 +646,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico ...</string>
-    <string name="share_send_new_email">Enviar nuevo correo electrónico</string>
+    <string name="share_send_new_email">Enviar nuevo email</string>
     <string name="share_send_note">Nota para el destinatario</string>
     <string name="share_settings">Configuración</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
@@ -853,7 +860,7 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
-    <string name="write_email">Enviar correo</string>
+    <string name="write_email">Enviar email</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
