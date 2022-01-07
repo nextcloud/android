@@ -1007,7 +1007,7 @@
     <string name="scan_snackbar_incorrect_name" context="Snackbar text for incorrect name">Correct your filename before proceeding</string>
     <string name="scan_snackbar_invalid_characters" context="Snackbar text for invalid characters">The following characters are not allowed: \" * / : &lt; > \? \ |</string>
     <string name="scan_dialog_progress" context="Dialog message showing file progress">Preparing %1$s. Please wait…</string>
-    <string name="strict_mode">Strict mode: no http connection allowed!</string>
+
     <string name="fullscreen">Fullscreen</string>
     <string name="destination_filename">Destination filename</string>
     <string name="suggest">Suggest</string>

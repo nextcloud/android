@@ -382,9 +382,6 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
-
-    // tool to find memory leaks
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 }
 
 configurations.all {
