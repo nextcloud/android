@@ -44,6 +44,8 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
+import nz.mega.documentscanner.openCV.ImageScanner;
+
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
  */
@@ -134,6 +136,10 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
 
         if (!deviceInfo.hasCamera(getContext())) {
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
+        }
+
+        if (!ImageScanner.INSTANCE.isCpuCompatible()) {
+            binding.menuScanDocUpload.setVisibility(View.GONE);
         }
 
         // create rich workspace
