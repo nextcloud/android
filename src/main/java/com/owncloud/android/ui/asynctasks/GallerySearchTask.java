@@ -54,13 +54,14 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                              User user,
                              SearchRemoteOperation searchRemoteOperation,
                              FileDataStorageManager storageManager,
-                             String remotePath) {
+                             String remotePath, List<Object> mediaObject) {
         this.columnCount = columnsCount;
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.searchRemoteOperation = searchRemoteOperation;
         this.storageManager = storageManager;
         this.remotePath = remotePath;
+        this.mediaObject = mediaObject;
     }
 
     @Override
@@ -113,16 +114,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     photoFragment.setSearchDidNotFindNewPhotos(true);
                 } else {
                     OCFileListAdapter adapter = photoFragment.getAdapter();
-
+                    mediaObject.clear();
                     if (result.getData().size() < limit) {
                         // stop loading spinner
                         photoFragment.setSearchDidNotFindNewPhotos(true);
                     }
-                    if (mediaObject == null) {
-                        mediaObject = new ArrayList<>();
-                    } else {
-                        mediaObject.clear();
-                    }
+
                     for (Object c : result.getData()) {
                         if (c instanceof RemoteFile) {
                             if (((RemoteFile) c).getRemotePath().contains(remotePath)) {
@@ -130,6 +127,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                             }
                         }
                     }
+
                     adapter.setData(mediaObject,
                                     ExtendedListFragment.SearchType.GALLERY_SEARCH,
                                     storageManager,
@@ -142,6 +140,10 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             }
 
             photoFragment.setLoading(false);
+            if(mediaObject.size()==0)
+            {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+            }
 
             if (!result.isSuccess() && !isCancelled()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
@@ -150,4 +152,5 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             photoFragment.setPhotoSearchQueryRunning(false);
         }
     }
+
 }

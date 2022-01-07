@@ -1,12 +1,15 @@
 package com.nmc.android.ui;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -21,6 +24,8 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
     private final User user;
     private final OCFile file;
     private final AppPreferences preferences;
+    private boolean isHideImageClicked;
+    private boolean isHideVideoClicked;
 
     public GalleryFragmentBottomSheetDialog(FileActivity fileActivity,
                                        GalleryFragmentBottomSheetActions actions,
@@ -55,13 +60,71 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
         binding.hideImages.setOnClickListener(v -> {
 
-          actions.hideImages();
+            if(!isHideImageClicked && isHideVideoClicked)
+            {
+                isHideImageClicked =true;
+                isHideVideoClicked = false;
+                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_camera));
+                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
+                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_video_camera));
+                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
+                binding.tickMarkHideImages.setVisibility(View.VISIBLE);
+                binding.tickMarkHideVideo.setVisibility(View.GONE);
+
+            }
+            else if(!isHideImageClicked && !isHideVideoClicked)
+            {
+                isHideImageClicked = true;
+                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_camera));
+                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
+                binding.tickMarkHideImages.setVisibility(View.VISIBLE);
+            }
+            else if(isHideImageClicked && !isHideVideoClicked)
+            {
+                isHideImageClicked = false;
+                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_camera));
+                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
+                binding.tickMarkHideImages.setVisibility(View.GONE);
+
+            }
+
+            actions.hideImages(isHideImageClicked);
             dismiss();
         });
 
         binding.hideVideo.setOnClickListener(v -> {
+            //actions.hideVideos(isHideVideoClicked);
 
-           actions.hideVideos();
+
+            if(!isHideVideoClicked && !isHideImageClicked)
+            {
+                isHideVideoClicked = true;
+                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_video_camera));
+                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
+                binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
+            }
+            else if(!isHideVideoClicked && isHideImageClicked)
+            {
+                isHideVideoClicked = true;
+                isHideImageClicked = false;
+
+                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_video_camera));
+                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
+                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_camera));
+                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
+                binding.tickMarkHideImages.setVisibility(View.GONE);
+                binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
+
+            }
+            else if(isHideVideoClicked && !isHideImageClicked)
+            {
+                isHideVideoClicked = false;
+                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_video_camera));
+                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
+                binding.tickMarkHideVideo.setVisibility(View.GONE);
+            }
+
+           actions.hideVideos(isHideVideoClicked);
             dismiss();
         });
 
