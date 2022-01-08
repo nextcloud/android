@@ -1,0 +1,6 @@
+Run contacts backup job only when network is connected
+FileOperationsHelper: remove duplicated flags in openFile
+AuthenticatorAsyncTask: check if user info result is success before proceeding
+Centralize creation of ACTION_SEND intents and explicitly grant READ_URI permission to them
+Update translations
+Update 3rd-party dependencies
