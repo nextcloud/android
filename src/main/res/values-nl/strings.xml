@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Al bestaand bestand</string>
     <string name="conflict_dialog_error">Fout bij het maken van conflictdialoog!</string>
     <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
+    <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_new_file">Nieuw bestand</string>
+    <string name="conflict_server_file">Serverbestand</string>
     <string name="contactlist_item_icon">Contactpersonen pictogram</string>
     <string name="contactlist_no_permission">Geen rechten gegeven, niets geïmporteerd.</string>
     <string name="contacts">Contacten</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Fout bij het kiezen van de datum</string>
     <string name="error_comment_file">Fout bij plaatsen commentaar</string>
     <string name="error_crash_title">%1$s gecrasht</string>
+    <string name="error_creating_file_from_template">Fout bij creëren bestand vanaf sjabloon</string>
     <string name="error_report_issue_action">Rapporteer</string>
     <string name="error_report_issue_text">Probleem melden op de tracker? (vereist een Github-account)</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorite_headline">Nog niets als favoriet gemarkeerd</string>
     <string name="file_list_empty_favorites_filter_list">Als favoriet gemarkeerde bestanden en mappen worden hier getoond.</string>
+    <string name="file_list_empty_gallery">Geen afbeeldingen of video\'s gevonden</string>
     <string name="file_list_empty_headline">Hier geen bestanden</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
@@ -310,6 +314,7 @@
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>
     <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
+    <string name="file_list_empty_unified_search_no_results">Geen zoekresultaten voor je opvraag</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>

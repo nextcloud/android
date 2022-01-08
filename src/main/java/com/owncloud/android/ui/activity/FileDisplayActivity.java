@@ -58,6 +58,7 @@ import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -2098,11 +2099,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void sendDownloadedFile(String packageName, String activityName) {
         if (mWaitingToSend != null) {
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.setType(mWaitingToSend.getMimeType());
-            sendIntent.putExtra(Intent.EXTRA_STREAM, mWaitingToSend.getExposedFileUri(this));
-            sendIntent.putExtra(Intent.ACTION_SEND, true);
 
+            Intent sendIntent = IntentUtil.createSendIntent(this, mWaitingToSend);
             sendIntent.setComponent(new ComponentName(packageName, activityName));
 
             // Show dialog
