@@ -528,7 +528,7 @@
     <string name="prefs_category_dev">開発者</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_daily_backup_summary">&amp;カレンダーと連絡先を毎日バックアップ</string>
+    <string name="prefs_daily_backup_summary">カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
     <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
     <string name="prefs_enable_media_scan_notifications">メディアのスキャン結果通知を表示する</string>
@@ -549,7 +549,7 @@
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
-    <string name="prefs_recommend">友達におすすめ</string>
+    <string name="prefs_recommend">友達に薦める</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">データ保存フォルダー</string>
