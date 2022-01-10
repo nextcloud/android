@@ -56,7 +56,7 @@ public final class ThemeCheckableUtils {
         }
     }
 
-    public static void tintSwitch(SwitchCompat switchView, int color) {
+    public static void tintSwitch(SwitchCompat switchView) {
         int trackColor = switchView.getContext().getResources().getColor(R.color.grey_200);
         ColorStateList thumbColorStateList = null;
         ColorStateList trackColorStateList = null;
