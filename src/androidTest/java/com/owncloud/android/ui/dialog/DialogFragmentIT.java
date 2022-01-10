@@ -250,7 +250,6 @@ public class DialogFragmentIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
-        FileDisplayActivity activity = activityRule.launchActivity(null);
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccounts()) {
             accountManager.removeAccountExplicitly(account);
