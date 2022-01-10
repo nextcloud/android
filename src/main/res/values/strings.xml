@@ -54,7 +54,7 @@
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
-    <string name="prefs_recommend">Recommend to friend</string>
+    <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_dark">Dark</string>
