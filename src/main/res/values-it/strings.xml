@@ -14,6 +14,7 @@
     <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
+    <string name="actionbar_calendar_contacts_restore">Ripristina contatti e calendario</string>
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move">Sposta</string>
@@ -76,6 +77,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Assente</string>
     <string name="backup_settings">Impostazioni di backup</string>
+    <string name="backup_title">Backup contatti e calendario</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
@@ -526,6 +528,7 @@
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
+    <string name="prefs_daily_backup_summary">Backup quotidiano del tuo calendario e dei contatti</string>
     <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notifiche di scansione dei supporti</string>
@@ -546,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_using_passcode">Codice di sicurezza</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
-    <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>

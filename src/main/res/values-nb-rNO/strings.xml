@@ -507,7 +507,6 @@
     <string name="prefs_lock_using_device_credentials">Enhetens legitimasjon</string>
     <string name="prefs_lock_using_passcode">Passord</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
-    <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_storage_path">Datalagringsmappe</string>

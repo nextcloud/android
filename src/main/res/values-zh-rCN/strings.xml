@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">安全码</string>
     <string name="prefs_manage_accounts">管理账号</string>
-    <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_storage_path">数据存储文件夹</string>

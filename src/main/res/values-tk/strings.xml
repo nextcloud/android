@@ -499,7 +499,6 @@
     <string name="prefs_lock_using_device_credentials">Enjam şahsyýetnamasy</string>
     <string name="prefs_lock_using_passcode">Programma kody</string>
     <string name="prefs_manage_accounts">Hasabyňyzy dolandyrmak</string>
-    <string name="prefs_recommend">Dostuňyza maslahat beriň</string>
     <string name="prefs_show_hidden_files">Gizlin faýllary görkez</string>
     <string name="prefs_sourcecode">Çeşme koduny alyň</string>
     <string name="prefs_storage_path">Maglumat saklaýyş bukjasy</string>

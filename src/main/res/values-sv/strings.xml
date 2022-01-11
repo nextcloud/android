@@ -545,7 +545,6 @@
     <string name="prefs_lock_using_device_credentials">Enhetens inloggningsuppgifter</string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
-    <string name="prefs_recommend">Rekommendera till vän</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_storage_path">Datalagringsmapp</string>

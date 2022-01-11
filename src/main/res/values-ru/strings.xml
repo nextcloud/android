@@ -543,7 +543,6 @@
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_using_passcode">Блокировка кодом</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
-    <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_sourcecode">Получить исходный код</string>
     <string name="prefs_storage_path">Папка хранения данных</string>

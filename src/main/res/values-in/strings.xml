@@ -399,7 +399,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
-    <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>

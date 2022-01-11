@@ -473,7 +473,6 @@
     <string name="prefs_lock_using_device_credentials">Auðkenni tækis</string>
     <string name="prefs_lock_using_passcode">Lykilkóða</string>
     <string name="prefs_manage_accounts">Sýsla með notendaaðganga</string>
-    <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
     <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>

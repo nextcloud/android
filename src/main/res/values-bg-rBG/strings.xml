@@ -545,7 +545,6 @@
     <string name="prefs_lock_using_device_credentials">Удостоверяване от устройството</string>
     <string name="prefs_lock_using_passcode">Код за достъп</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
-    <string name="prefs_recommend">Препоръчай на приятел</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_storage_path">Папка за съхранение на данни</string>

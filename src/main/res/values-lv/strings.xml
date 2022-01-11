@@ -348,7 +348,6 @@
     <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
     <string name="prefs_lock_using_passcode">Kods</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
-    <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>

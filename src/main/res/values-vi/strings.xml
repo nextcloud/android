@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
     <string name="prefs_lock_using_passcode">Mật mã</string>
     <string name="prefs_manage_accounts">Quản lý tài khoản</string>
-    <string name="prefs_recommend">Giới thiệu cho bạn bè</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_sourcecode">Lấy mã nguồn</string>
     <string name="prefs_storage_path">Thư mục lưu trữ dữ liệu</string>

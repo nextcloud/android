@@ -513,7 +513,6 @@
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
-    <string name="prefs_recommend">Προτείνετε σε φίλο</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_storage_path">Φάκελος αποθήκευσης δεδομένων</string>

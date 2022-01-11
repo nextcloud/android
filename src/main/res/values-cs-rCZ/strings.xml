@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Přihlašovací údaje zařízení</string>
     <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
-    <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
     <string name="prefs_storage_path">Složka úložiště</string>

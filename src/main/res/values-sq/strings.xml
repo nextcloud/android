@@ -454,7 +454,6 @@
     <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
     <string name="prefs_lock_using_passcode">Kodkalimi</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
-    <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>

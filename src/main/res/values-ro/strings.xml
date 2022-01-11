@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Autentificarea dispozitivului</string>
     <string name="prefs_lock_using_passcode">Parolă</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
-    <string name="prefs_recommend">Recomandați unui prieten</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
     <string name="prefs_sourcecode">Obține codul sursă</string>
     <string name="prefs_storage_path">Dosarul de stocare a datelor</string>

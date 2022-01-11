@@ -474,7 +474,6 @@
     <string name="prefs_lock_using_device_credentials">Titouroù identitelez an ardivink</string>
     <string name="prefs_lock_using_passcode">Kod-tremen</string>
     <string name="prefs_manage_accounts">Merañ ar c\'hontoù</string>
-    <string name="prefs_recommend">Kinnig d\'o mignonned</string>
     <string name="prefs_show_hidden_files">Diskouez ar restroù koachet</string>
     <string name="prefs_sourcecode">Kavout ar c\'hod orin</string>
     <string name="prefs_synced_folders_local_path_title">Teuliadoù diabarzh</string>
