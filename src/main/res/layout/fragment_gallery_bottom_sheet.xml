@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -32,20 +33,22 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginEnd="30dp"
-            android:text="@string/hide_images"
             android:layout_toRightOf="@id/hideImagesImageview"
+            android:text="@string/hide_images"
             android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
         <ImageView
             android:id="@+id/tickMarkHideImages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:contentDescription="@null"
             android:src="@drawable/ic_tick"
             android:visibility="gone"
-            app:tint="@color/bottom_sheet_icon_color" />
+            app:tint="@color/primary"
+            tools:visibility="visible" />
 
 
     </RelativeLayout>
@@ -75,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:text="@string/hide_video"
             android:layout_toRightOf="@id/hideVideoImageView"
+            android:text="@string/hide_video"
             android:textColor="@color/bottom_sheet_txt_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
@@ -88,7 +91,8 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_tick"
             android:visibility="gone"
-            app:tint="@color/bottom_sheet_icon_color" />
+            app:tint="@color/primary"
+            tools:visibility="visible" />
 
     </RelativeLayout>
 
