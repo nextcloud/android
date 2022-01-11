@@ -1,0 +1,7 @@
+l10n: fixed grammar
+FileOperationsHelper: fix aliasing when toggling favorite files
+Manually bump lib
+ChooseTemplateDialog: Fix crash on prefillFilenameIfEmpty
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
