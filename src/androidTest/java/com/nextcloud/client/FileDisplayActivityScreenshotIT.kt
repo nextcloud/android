@@ -54,8 +54,10 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun open() {
         val sut = activityRule.launchActivity(null)
         sut.listOfFilesFragment!!.setFabEnabled(false)
-        sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
-        sut.listOfFilesFragment!!.isLoading = false
+        sut.runOnUiThread {
+            sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
+            sut.listOfFilesFragment!!.isLoading = false
+        }
 
         shortSleep()
         waitForIdleSync()
