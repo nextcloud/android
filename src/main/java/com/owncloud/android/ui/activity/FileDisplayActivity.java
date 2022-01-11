@@ -26,6 +26,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.AuthenticatorException;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -1276,6 +1277,7 @@ public class FileDisplayActivity extends FileActivity
         /**
          * {@link BroadcastReceiver} to enable syncing feedback in UI
          */
+        @SuppressLint("VisibleForTests")
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
