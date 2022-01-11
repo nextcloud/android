@@ -177,7 +177,8 @@ public class DialogFragmentIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
-        UserAccountManager userAccountManager = activityRule.getActivity().getUserAccountManager();
+        FileDisplayActivity activity = activityRule.launchActivity(null);
+        UserAccountManager userAccountManager = activity.getUserAccountManager();
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
             accountManager.removeAccountExplicitly(account);
@@ -210,7 +211,7 @@ public class DialogFragmentIT extends AbstractIT {
                                                                        new OwnCloudAccount(newAccount, targetContext),
                                                                        new Server(URI.create(SERVER_URL),
                                                                                   OwnCloudVersion.nextcloud_20)));
-        FileDisplayActivity activity = showDialog(sut);
+        activity = showDialog(sut);
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
                                                               "Busy fixing 🐛…",
@@ -248,6 +249,7 @@ public class DialogFragmentIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
+        FileDisplayActivity activity = activityRule.launchActivity(null);
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccounts()) {
             accountManager.removeAccountExplicitly(account);
@@ -259,7 +261,7 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
         accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
 
-        UserAccountManager userAccountManager = activityRule.getActivity().getUserAccountManager();
+        UserAccountManager userAccountManager = activity.getUserAccountManager();
         User newUser = userAccountManager.getUser(newAccount.name).get();
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
                                                                                    targetContext.getContentResolver());
@@ -429,7 +431,12 @@ public class DialogFragmentIT extends AbstractIT {
 
     private FileDisplayActivity showDialog(DialogFragment dialog) {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        FileDisplayActivity sut = activityRule.launchActivity(intent);
+
+        FileDisplayActivity sut = activityRule.getActivity();
+
+        if (sut == null) {
+            sut = activityRule.launchActivity(intent);
+        }
 
         dialog.show(sut.getSupportFragmentManager(), "");
 

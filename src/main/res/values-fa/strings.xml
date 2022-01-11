@@ -513,7 +513,6 @@
     <string name="prefs_lock_using_device_credentials">اعتبارنامه‌های دستگاه</string>
     <string name="prefs_lock_using_passcode">کد عبور</string>
     <string name="prefs_manage_accounts">مدیریت حساب ها </string>
-    <string name="prefs_recommend">پیشنهاد به دوستان </string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
     <string name="prefs_sourcecode">دریافت کد منبع</string>
     <string name="prefs_storage_path">مسیر ذخیره‌سازی</string>

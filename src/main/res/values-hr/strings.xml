@@ -541,7 +541,6 @@
     <string name="prefs_lock_using_device_credentials">Vjerodajnice uređaja</string>
     <string name="prefs_lock_using_passcode">Zaporka</string>
     <string name="prefs_manage_accounts">Upravljaj računima</string>
-    <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
     <string name="prefs_storage_path">Mapa za pohranu podataka</string>

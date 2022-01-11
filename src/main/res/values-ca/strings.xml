@@ -513,7 +513,6 @@
     <string name="prefs_lock_using_device_credentials">Credencials del dispositiu</string>
     <string name="prefs_lock_using_passcode">Codi d\'accés</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
-    <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
     <string name="prefs_storage_path">Carpeta de dades</string>

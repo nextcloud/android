@@ -539,7 +539,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
-    <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>

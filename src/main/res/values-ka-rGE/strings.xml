@@ -308,7 +308,6 @@
     <string name="prefs_license">ლიცენზია</string>
     <string name="prefs_lock_none">არც ერთი</string>
     <string name="prefs_manage_accounts">ანგარიშების მართვა</string>
-    <string name="prefs_recommend">ურჩიეთ მეგობარს</string>
     <string name="prefs_show_hidden_files">დამალული ფაილების ჩვენება</string>
     <string name="prefs_sourcecode">მიიღეთ კოდი</string>
     <string name="prefs_synced_folders_local_path_title">ლოკალური დირექტორია</string>

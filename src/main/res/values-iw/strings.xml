@@ -464,7 +464,6 @@
     <string name="prefs_lock_using_device_credentials">פרטי זיהוי להתקן</string>
     <string name="prefs_lock_using_passcode">צופן נעילה</string>
     <string name="prefs_manage_accounts">ניהול חשבונות</string>
-    <string name="prefs_recommend">המליצו לחברים</string>
     <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_sourcecode">קבלת קוד המקור</string>
     <string name="prefs_synced_folders_local_path_title">תיקייה מקומית</string>

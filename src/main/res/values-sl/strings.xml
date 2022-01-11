@@ -535,7 +535,6 @@
     <string name="prefs_lock_using_device_credentials">Poverila naprave</string>
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
-    <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>

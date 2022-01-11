@@ -510,7 +510,6 @@
     <string name="prefs_lock_using_device_credentials">Device credentials</string>
     <string name="prefs_lock_using_passcode">Passcode</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_storage_path">Data storage folder</string>

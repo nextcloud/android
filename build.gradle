@@ -251,7 +251,7 @@ dependencies {
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-    implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1' // remove after entire switch to lib v2
+    implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.5' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
@@ -264,7 +264,7 @@ dependencies {
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.4.0"
-    implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
+    implementation 'com.github.albfernandez:juniversalchardet:2.3.2' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.greenrobot:eventbus:3.3.1'
@@ -317,7 +317,7 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
-    implementation ('org.mnode.ical4j:ical4j:1.0.6') {
+    implementation ('org.mnode.ical4j:ical4j:1.0.8') {
         ['org.apache.commons','commons-logging'].each {
             exclude group: "$it"
         }
