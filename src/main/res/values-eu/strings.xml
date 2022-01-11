@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Gailuaren egiaztagiriak</string>
     <string name="prefs_lock_using_passcode">Pasahitza</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
-    <string name="prefs_recommend">Gomendatu lagun bati</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>

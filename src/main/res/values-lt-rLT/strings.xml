@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Išvalyti nepavykusius įkėlimus</string>
     <string name="action_edit">Taisyti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
+    <string name="action_empty_trashbin">Išvalyti šiukšliadėžę</string>
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
@@ -67,6 +68,7 @@
     <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">saugomi originaliame aplanke, nes jis yra tik skaitomas</string>
     <string name="auto_upload_on_wifi">Įkelti tik esant Wi-Fi prisijungimui.</string>
+    <string name="auto_upload_path">/AutoĮkėlimas</string>
     <string name="autoupload_configure">Konfigūruoti</string>
     <string name="autoupload_create_new_custom_folder">Naujas aplanko nustatymas</string>
     <string name="autoupload_custom_folder">Pritaikyti aplanką</string>
@@ -74,11 +76,13 @@
     <string name="autoupload_hide_folder">Slėpti aplanką</string>
     <string name="avatar">Avataras</string>
     <string name="away">Atsitraukęs</string>
+    <string name="backup_settings">Atsarginių kopijų nustatymai</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
+    <string name="brute_force_delay">Uždelsta dėl per didelio neteisingų bandymų skaičiaus</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
@@ -146,8 +150,10 @@
     <string name="conflict_already_existing_file">Jau esamas failas</string>
     <string name="conflict_dialog_error">Klaida kuriant konflikto dialogą!</string>
     <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
+    <string name="conflict_local_file">Failas iš įrenginio</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_new_file">Naujas failas</string>
+    <string name="conflict_server_file">Failas iš serverio</string>
     <string name="contactlist_item_icon">Naudotojo piktograma kontaktų sąraše </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
     <string name="contacts">Adresatai</string>
@@ -177,16 +183,19 @@
     <string name="create_rich_workspace"> Pridėti aplanko informaciją</string>
     <string name="creates_rich_workspace">sukuria aplanko informaciją</string>
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
+    <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="date_unknown">Nežinoma</string>
     <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
     <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>
     <string name="delete_entries">Ištrinti įrašus</string>
+    <string name="delete_link">Pašalinti Nuorodą</string>
     <string name="deselect_all">Panaikinti pasirinkimą</string>
     <string name="dev_version_new_version_available">Yra prieinama nauja versija</string>
     <string name="dev_version_no_information_available">Informacija neprieinama</string>
     <string name="dev_version_no_new_version_available">Nauja versija neprieinama.</string>
     <string name="dialog_close">Uždaryti</string>
+    <string name="did_not_check_for_dupes">Neieškoti dublikatų.</string>
     <string name="digest_algorithm_not_available">Tavo telefonas nepalaiko digest algoritmo.</string>
     <string name="direct_login_failed">Prisijungimas per tiesioginę nuorodą nepavyko!</string>
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
@@ -267,8 +276,11 @@
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>
+    <string name="etm_transfer">Failų persiuntimas</string>
     <string name="etm_transfer_remote_path">Nuotolinis kelias</string>
+    <string name="etm_transfer_type">Persiųsti</string>
     <string name="etm_transfer_type_download">Atsisiųsti</string>
+    <string name="etm_transfer_type_upload">Įkelti</string>
     <string name="fab_label">Pridėti arba įkelti</string>
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>
@@ -299,6 +311,7 @@
     <string name="file_list_loading">Įkeliama…</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
     <string name="file_list_seconds_ago">prieš keletą sekundžių</string>
+    <string name="file_management_permission">Neturite teisių</string>
     <string name="file_migration_checking_destination">Tikrinama paskirties vieta…</string>
     <string name="file_migration_cleaning">Išvaloma…</string>
     <string name="file_migration_dialog_title">Atnaujinamas duomenų saugyklos aplankas</string>
@@ -371,9 +384,12 @@
     <string name="invisible">Nematoma</string>
     <string name="label_empty">Kortelė negali būti tuščia</string>
     <string name="link">Nuoroda</string>
+    <string name="link_name">Nuorodos Pavadinimas</string>
     <string name="link_share_allow_upload_and_editing">Leisti įkelti ir redaguoti</string>
+    <string name="link_share_editing">Redagavimas</string>
     <string name="link_share_file_drop">Failų įmetimas (tik įkėlimas)</string>
     <string name="link_share_read_only">Tik skaitymui</string>
+    <string name="link_share_view_only">Tik peržiūrėti</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="load_more_results">Įkelti daugiau rezultatų</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
@@ -385,6 +401,7 @@
     <string name="logs_menu_delete">Ištrinti žurnalus</string>
     <string name="logs_menu_refresh">Įkelti iš naujo</string>
     <string name="logs_menu_search">Ieškoti žurnalo įrašų</string>
+    <string name="logs_menu_send">Siųsti veiklos informaciją el. paštu</string>
     <string name="logs_status_filtered">Žurnalo įrašai: %1$d kB, užklausą atitiko %2$d/%3$d per %4$d ms</string>
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="logs_status_not_filtered">Žurnalo įrašai: %1$d kB, nėra filtro</string>
@@ -431,11 +448,13 @@
     <string name="no_calendar_exists">Nėra jokių kalendorių</string>
     <string name="no_mutliple_accounts_allowed">Leidžiama tik viena paskyra</string>
     <string name="no_pdf_app_available">Nėra programėlės, skirtos apdoroti PDF</string>
+    <string name="no_share_permission_selected">Pasirinkite bent vieną teisių grupę bendrinimui.</string>
     <string name="note_confirm">Siųsti</string>
     <string name="note_could_not_sent">nepavyko išsiųsti užrašų</string>
     <string name="note_icon_hint">Užrašo piktograma</string>
     <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
     <string name="notification_channel_download_description">Rodo atsiuntimo eigą</string>
+    <string name="notification_channel_download_name_short">Atsiuntimai</string>
     <string name="notification_channel_file_sync_description">Rodo failų sinchronizavimo eigą ir rezultatus</string>
     <string name="notification_channel_file_sync_name">Failo sinchronzacija</string>
     <string name="notification_channel_general_description">Rodyti pranešimus apie naujus laikmenų aplankus ir panašiai</string>
@@ -445,6 +464,7 @@
     <string name="notification_channel_push_description">Rodyti serverio siunčiamus tiesioginius pranešimus: minėjimai komentaruose, naujų  bendrinimų priėmimas, administratoriaus  pranešimai ir kt.</string>
     <string name="notification_channel_push_name">Tiesioginiai (angl. Push) pranešimai</string>
     <string name="notification_channel_upload_description">Rodo įkėlimo eigą</string>
+    <string name="notification_channel_upload_name_short">Įkėlimai</string>
     <string name="notification_icon">Pranešimo piktograma</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
@@ -515,7 +535,6 @@
     <string name="prefs_lock_using_device_credentials">Įrenginio prisijungimo duomenys</string>
     <string name="prefs_lock_using_passcode">Užraktas</string>
     <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
-    <string name="prefs_recommend">Rekomenduok draugui</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_sourcecode">Gauti išeities kodą</string>
     <string name="prefs_storage_path">Duomenų aplankas</string>
@@ -552,7 +571,9 @@
     <string name="resharing_is_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="resized_image_not_possible_download">Nėra prieinamas pakeisto dydžio paveikslas. Atsisiųsti pilno dydžio paveikslą?</string>
     <string name="restore">Atkurti failą</string>
+    <string name="restore_backup">Atkurti atsarginę kopiją</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
+    <string name="restore_selected">Atkurti pažymėtus</string>
     <string name="retrieving_file">Gaunamas failas…</string>
     <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
@@ -575,6 +596,7 @@
     <string name="send_note">Siųsti pastabą gavėjui</string>
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
+    <string name="set_note">Įrašyti pastabą</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>
@@ -600,9 +622,12 @@
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
+    <string name="share_permission_can_edit">Galima redaguoti</string>
+    <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_search">Vardas, „Federated Cloud ID“ arba el. Pašto adresas…</string>
+    <string name="share_send_new_email">Siųsti naują elektroninį laišką</string>
     <string name="share_send_note">Pastaba gavėjui</string>
     <string name="share_settings">Nustatymai</string>
     <string name="share_via_link_hide_download">Slėpti atsisiuntimą</string>
@@ -669,6 +694,7 @@
     <string name="stream_not_possible_message">Prašome, parsisiųskite media arba naudokite išorinę programą.</string>
     <string name="subject_shared_with_you">„%1$s“ yra bendrinama su jumis</string>
     <string name="subject_user_shared_with_you">%1$s pradėjo bendrinti su jumis „%2$s“</string>
+    <string name="suggest">Siūlyti</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
     <string name="sync_current_folder_was_removed">Aplanko %1$s nebėra</string>
     <string name="sync_fail_content">Nepavyko sinchronizuoti %1$s</string>
@@ -709,6 +735,7 @@
     <string name="trashbin_empty_message">Čia galėsite atkurti ištrintus failus.</string>
     <string name="trashbin_file_not_deleted">Nepavyko ištrinti failo %1$s!</string>
     <string name="trashbin_file_not_restored">Nepavyko atkurti failo %1$s!</string>
+    <string name="trashbin_loading_failed">Nepavyko įkelti šiukšliadėžės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>
@@ -751,6 +778,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s neleidžiama perskaityti gauto failo</string>
     <string name="uploader_error_message_source_file_not_copied">Nepavyko nukopijuoti failo į laikiną aplanką. Pabandykite dar kartą</string>
     <string name="uploader_error_message_source_file_not_found">Nepavyko įkelti failo. Patikrinkite failą, kurį norite įkelti.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Failas negali būti įkeltas</string>
     <string name="uploader_error_title_no_file_to_upload">Nėra failo, kurį norite įkelti</string>
     <string name="uploader_info_dirname">Aplanko pavadinimas</string>
     <string name="uploader_top_message">Pasirinkite aplanką, kurį norite įkelti</string>
@@ -793,6 +821,7 @@
     <string name="uploads_view_upload_status_virus_detected">Aptiktas virusas. Įkėlimas negali būti užbaigtas!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Laukiama išeiti iš energijos taupymo režimo</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Laukiama mokėjimo </string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Laukiama neriboto Wi-Fi</string>
     <string name="user_icon">Naudotojas</string>
     <string name="user_info_address">Adresas</string>
     <string name="user_info_email">El. paštas</string>
@@ -811,6 +840,7 @@
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
     <string name="whats_your_status">Kokia jūsų būsena?</string>
+    <string name="write_email">Siųsti elektroninį laišką</string>
     <string name="wrong_storage_path">Duomenų saugyklos aplanko nėra!</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>

@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Geräte-Anmeldedaten</string>
     <string name="prefs_lock_using_passcode">PIN</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
-    <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_storage_path">Speicherordner</string>

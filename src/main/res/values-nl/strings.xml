@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
-    <string name="prefs_recommend">Aanbevelen bij vriend</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_storage_path">Gegevensopslagmap</string>

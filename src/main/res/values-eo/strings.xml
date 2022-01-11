@@ -406,7 +406,6 @@
     <string name="prefs_lock_using_device_credentials">Aparataj akreditiloj</string>
     <string name="prefs_lock_using_passcode">Pasvorto</string>
     <string name="prefs_manage_accounts">Administri kontojn</string>
-    <string name="prefs_recommend">Rekomendi al amiko</string>
     <string name="prefs_show_hidden_files">Montri kaŝitajn dosierojn</string>
     <string name="prefs_sourcecode">Havi fontkodon</string>
     <string name="prefs_synced_folders_local_path_title">Loka dosierujo</string>

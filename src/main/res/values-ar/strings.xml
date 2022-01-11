@@ -544,7 +544,6 @@
     <string name="prefs_lock_using_device_credentials">بيانات اعتماد الجهاز</string>
     <string name="prefs_lock_using_passcode">الرمز السري</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
-    <string name="prefs_recommend">توصية صديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_storage_path">مجلد تخزين البيانات</string>

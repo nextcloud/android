@@ -499,7 +499,6 @@
     <string name="prefs_lock_using_device_credentials">ການຢັ້ງຢືນອຸປະກອນ</string>
     <string name="prefs_lock_using_passcode">ລະຫັດຜ່ານ</string>
     <string name="prefs_manage_accounts">ຈັດການບັນຊີ</string>
-    <string name="prefs_recommend">ເເນະນຳໃຫ້ໝູ່</string>
     <string name="prefs_show_hidden_files">ສະແດງຟາຍທີ່ເຊື່ອງໄວ້</string>
     <string name="prefs_sourcecode">ຮັບລະຫັດແຫຼ່ງຂໍ້ມູນ</string>
     <string name="prefs_storage_path">ໂຟນເດີການເກັບຂໍ້ມູນ</string>

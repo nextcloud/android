@@ -481,7 +481,6 @@
     <string name="prefs_lock_using_device_credentials">Акредитиви од уредот</string>
     <string name="prefs_lock_using_passcode">Лозинка</string>
     <string name="prefs_manage_accounts">Управување со сметки</string>
-    <string name="prefs_recommend">Препорачај на пријател</string>
     <string name="prefs_show_hidden_files">Прикажи сокриени датотеки</string>
     <string name="prefs_sourcecode">Превземи го изворниот код</string>
     <string name="prefs_storage_path">Папка за складиште на податоци</string>

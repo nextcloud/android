@@ -476,7 +476,6 @@
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_using_passcode">Код</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
-    <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>

@@ -512,7 +512,6 @@
     <string name="prefs_lock_using_device_credentials">Teisteas an uidheim</string>
     <string name="prefs_lock_using_passcode">Còd-faire</string>
     <string name="prefs_manage_accounts">Stiùirich cunntasan</string>
-    <string name="prefs_recommend">Mol do charaid</string>
     <string name="prefs_show_hidden_files">Seall faidhlichean falaichte</string>
     <string name="prefs_sourcecode">Faigh am bun-tùs</string>
     <string name="prefs_storage_path">Pasgan stòradh dàta</string>

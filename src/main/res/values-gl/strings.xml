@@ -500,7 +500,6 @@
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_using_passcode">Código de seguridade</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
-    <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_storage_path">Cartafol de almacenamento de datos</string>

@@ -549,7 +549,6 @@
     <string name="prefs_lock_using_device_credentials">Poświadczenia urządzenia</string>
     <string name="prefs_lock_using_passcode">Kod PIN</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
-    <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_storage_path">Katalog przechowywania danych</string>

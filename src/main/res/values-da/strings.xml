@@ -551,7 +551,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
-    <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
     <string name="prefs_storage_path">Lagringsmappe for data</string>
