@@ -102,6 +102,9 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__UPLOAD_SCANS_LAST_PATH = "upload_scans_last_path";
 
     private static final String PREF__ON_BOARDING_COMPLETE = "on_boarding_complete";
+    private static final String PREF__IS_HIDE_IMAGE_CLICKED = "is_hideImage_clicked";
+    private static final String PREF__IS_HIDE_VIDEO_CLICKED = "is_hideVideo_clicked";
+
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -736,5 +739,25 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean getOnBoardingComplete() {
         return preferences.getBoolean(PREF__ON_BOARDING_COMPLETE, false);
+    }
+
+    @Override
+    public void setHideImageClicked(boolean isHideImageClicked) {
+        preferences.edit().putBoolean(PREF__IS_HIDE_IMAGE_CLICKED, isHideImageClicked).apply();
+    }
+
+    @Override
+    public boolean getHideImageClicked() {
+        return preferences.getBoolean(PREF__IS_HIDE_IMAGE_CLICKED,false);
+    }
+
+    @Override
+    public void setHideVideoClicked(boolean isHideVideoClicked) {
+        preferences.edit().putBoolean(PREF__IS_HIDE_VIDEO_CLICKED, isHideVideoClicked).apply();
+    }
+
+    @Override
+    public boolean getHideVideoClicked() {
+        return preferences.getBoolean(PREF__IS_HIDE_VIDEO_CLICKED,false);
     }
 }

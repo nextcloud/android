@@ -53,6 +53,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -82,8 +83,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private  GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
     private List <Object> imageList;
     private List <Object> videoList;
-    private boolean isVideoHideClicked;
-    private boolean isImageHideClicked;
+
 
     @Inject AppPreferences appPreferences;
 
@@ -115,7 +115,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                                                     this,
                                                                                     deviceInfo,
                                                                                     accountManager.getUser(),
-                                                                                    getCurrentFile(), preferences);
+                                                                                    getCurrentFile(), appPreferences);
         }
          imageList = new ArrayList<>();
          videoList = new ArrayList<>();
@@ -273,8 +273,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                     accountManager.getUser(),
                                                     searchRemoteOperation,
                                                     mContainerActivity.getStorageManager(),
-                                                    remoteFilePath.getRemotePath(),mediaObject,isImageHideClicked,
-                                                    isVideoHideClicked)
+                                                    remoteFilePath.getRemotePath(),mediaObject,
+                                                    appPreferences.getHideImageClicked(),
+                                                    appPreferences.getHideVideoClicked())
                 .execute();
         }
     }
@@ -325,7 +326,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 searchRemoteOperation,
                                                 mContainerActivity.getStorageManager(),
                                                 remoteFilePath.getRemotePath(),mediaObject,
-                                                isImageHideClicked, isVideoHideClicked)
+                                                appPreferences.getHideImageClicked(),
+                                                appPreferences.getHideVideoClicked())
             .execute();
 
     }
@@ -355,7 +357,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void hideVideos(boolean isHideVideosClicked) {
 
         photoSearchQueryRunning = true;
-        isVideoHideClicked = isHideVideosClicked;
         mAdapter.setData(
             new ArrayList<>(),
             SearchType.GALLERY_SEARCH,
@@ -401,7 +402,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
 
-        isImageHideClicked = isHideImagesClicked;
         mAdapter.setData(
             new ArrayList<>(),
             SearchType.GALLERY_SEARCH,
@@ -450,6 +450,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void sortByModifiedDate() {
+
+       /* final int multiplier = -1;
+        Collections.sort(mediaObject instanceof RemoteFile , (o1, o2) -> {
+            return multiplier * Long.compare(o1 ,o2.getModificationTimestamp());
+        }); */
         Toast.makeText(getActivity(), "Sort By Modified Date Clicked", Toast.LENGTH_SHORT).show();
 
     }
