@@ -35,6 +35,7 @@ import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 
 import java.lang.ref.WeakReference;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +49,18 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
     private String remotePath;
     private int limit;
     private List<Object> mediaObject;
+    private boolean isImageHideClicked;
+    private boolean isVideoHideClicked;
+    private List <Object> imageList;
+    private List <Object> videoList;
 
     public GallerySearchTask(int columnsCount,
                              GalleryFragment photoFragment,
                              User user,
                              SearchRemoteOperation searchRemoteOperation,
                              FileDataStorageManager storageManager,
-                             String remotePath, List<Object> mediaObject) {
+                             String remotePath, List<Object> mediaObject,
+                             boolean isImageHideClicked , boolean isVideoHideClicked) {
         this.columnCount = columnsCount;
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
@@ -62,6 +68,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
         this.storageManager = storageManager;
         this.remotePath = remotePath;
         this.mediaObject = mediaObject;
+        this.isImageHideClicked = isImageHideClicked;
+        this.isVideoHideClicked = isVideoHideClicked;
     }
 
     @Override
@@ -73,6 +81,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
         }
         GalleryFragment photoFragment = photoFragmentWeakReference.get();
         photoFragment.setPhotoSearchQueryRunning(true);
+        imageList = new ArrayList<>();
+        videoList = new ArrayList<>();
     }
 
     @Override
@@ -128,12 +138,18 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                         }
                     }
 
-                    adapter.setData(mediaObject,
-                                    ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                                    storageManager,
-                                    null,
-                                    true);
-                    adapter.notifyDataSetChanged();
+                    if(isVideoHideClicked || isImageHideClicked)
+                    {
+                       setAdapterWithHideShowImage(mediaObject,adapter);
+                    }
+                    else {
+                        adapter.setData(mediaObject,
+                                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                                        storageManager,
+                                        null,
+                                        true);
+                        adapter.notifyDataSetChanged();
+                    }
 
                     Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
                 }
@@ -151,6 +167,48 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
 
             photoFragment.setPhotoSearchQueryRunning(false);
         }
+    }
+
+    //Set Image/Video List According to Selection of Hide/Show Image/Video
+    private void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter) {
+
+        if(isVideoHideClicked) {
+            imageList.clear();
+            for(Object s : mediaObject) {
+                if (s instanceof RemoteFile) {
+                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
+                    if(mimeType.startsWith("image") && !imageList.contains(s))
+                    {
+                        imageList.add(s);
+                    }
+                }
+            }
+            adapter.setData(imageList,
+                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                            storageManager,
+                            null,
+                            true);
+            adapter.notifyDataSetChanged();
+        }
+        if(isImageHideClicked) {
+            videoList.clear();
+            for(Object s : mediaObject) {
+                if (s instanceof RemoteFile) {
+                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
+                    if(mimeType.startsWith("video") && !videoList.contains(s))
+                    {
+                        videoList.add(s);
+                    }
+                }
+            }
+            adapter.setData(videoList,
+                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                            storageManager,
+                            null,
+                            true);
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
 }

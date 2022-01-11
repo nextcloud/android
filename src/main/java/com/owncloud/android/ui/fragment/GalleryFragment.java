@@ -82,6 +82,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private  GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
     private List <Object> imageList;
     private List <Object> videoList;
+    private boolean isVideoHideClicked;
+    private boolean isImageHideClicked;
 
     @Inject AppPreferences appPreferences;
 
@@ -224,15 +226,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         mAdapter.notifyDataSetChanged();
 
         refresh = true;
-      //  photoSearchNoNew = false;
-       // handleSearchEvent();
-        mAdapter.setData(mediaObject,
-                         SearchType.GALLERY_SEARCH,
-                         mContainerActivity.getStorageManager(),
-                         null,
-                         true);
+        photoSearchNoNew = false;
+        handleSearchEvent();
 
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -277,7 +273,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                     accountManager.getUser(),
                                                     searchRemoteOperation,
                                                     mContainerActivity.getStorageManager(),
-                                                    remoteFilePath.getRemotePath(),mediaObject)
+                                                    remoteFilePath.getRemotePath(),mediaObject,isImageHideClicked,
+                                                    isVideoHideClicked)
                 .execute();
         }
     }
@@ -327,7 +324,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 accountManager.getUser(),
                                                 searchRemoteOperation,
                                                 mContainerActivity.getStorageManager(),
-                                                remoteFilePath.getRemotePath(),mediaObject)
+                                                remoteFilePath.getRemotePath(),mediaObject,
+                                                isImageHideClicked, isVideoHideClicked)
             .execute();
 
     }
@@ -351,13 +349,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
     }
 
+
     //Actions implementation of Bottom Sheet Dialog
-
-
     @Override
     public void hideVideos(boolean isHideVideosClicked) {
 
         photoSearchQueryRunning = true;
+        isVideoHideClicked = isHideVideosClicked;
         mAdapter.setData(
             new ArrayList<>(),
             SearchType.GALLERY_SEARCH,
@@ -403,6 +401,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
 
+        isImageHideClicked = isHideImagesClicked;
         mAdapter.setData(
             new ArrayList<>(),
             SearchType.GALLERY_SEARCH,
