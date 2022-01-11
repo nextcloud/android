@@ -137,7 +137,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         screenshot(activity)
     }
 
-    @Test
+    // @Test
     // @ScreenshotTest
     fun showDetailsActivitiesNone() {
         val activity = testActivityRule.launchActivity(null)
