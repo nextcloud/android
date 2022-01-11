@@ -50,6 +50,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.UserListAdapter;
@@ -71,12 +72,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.owncloud.android.ui.activity.UserInfoActivity.KEY_USER_DATA;
 import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_DISPLAY_NAME;
 import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_USER_INFO_REQUEST_CODE;
 
@@ -468,13 +471,23 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
     }
 
+    @VisibleForTesting
+    public void showUser(User user, UserInfo userInfo) {
+        final Intent intent = new Intent(this, UserInfoActivity.class);
+        OwnCloudAccount oca = user.toOwnCloudAccount();
+        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
+        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+        intent.putExtra(KEY_USER_DATA, Parcels.wrap(userInfo));
+        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    }
+
     @Override
     public void onOptionItemClicked(User user, View view) {
         if (view.getId() == R.id.account_menu) {
             PopupMenu popup = new PopupMenu(this, view);
             popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
 
-            if(accountManager.getUser().equals(user)) {
+            if (accountManager.getUser().equals(user)) {
                 popup.getMenu().findItem(R.id.action_open_account).setVisible(false);
             }
             popup.setOnMenuItemClickListener(item -> {
