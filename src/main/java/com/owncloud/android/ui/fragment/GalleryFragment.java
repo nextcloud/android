@@ -80,9 +80,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private OCFile remoteFilePath;
     private String remotePath = "/";
     private List<Object> mediaObject;
-    private  GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
-    private List <Object> imageList;
-    private List <Object> videoList;
+    private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
+    private List<Object> imageList;
+    private List<Object> videoList;
 
 
     @Inject AppPreferences appPreferences;
@@ -107,18 +107,15 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
                                                           searchEvent.getSearchType(),
                                                           false);
-        if(galleryFragmentBottomSheetDialog == null)
-        {
+        if (galleryFragmentBottomSheetDialog == null) {
             FileActivity activity = (FileActivity) getActivity();
 
             galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
                                                                                     this,
-                                                                                    deviceInfo,
-                                                                                    accountManager.getUser(),
-                                                                                    getCurrentFile(), appPreferences);
+                                                                                    appPreferences);
         }
-         imageList = new ArrayList<>();
-         videoList = new ArrayList<>();
+        imageList = new ArrayList<>();
+        videoList = new ArrayList<>();
     }
 
     @Override
@@ -243,6 +240,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         if (refresh || preferences.getPhotoSearchTimestamp() == 0 ||
             System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
+            // TODO: 12-01-2022 Updating adapter can also be extracted out into one method
             mAdapter.setData(
                 new ArrayList<>(),
                 SearchType.GALLERY_SEARCH,
@@ -268,12 +266,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private void searchAndDisplay() {
 
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
+            // TODO: 12-01-2022 GallerySearchTask is being used at 2 places same can be extracted out into one method
             photoSearchTask = new GallerySearchTask(getColumnsCount(),
                                                     this,
                                                     accountManager.getUser(),
                                                     searchRemoteOperation,
                                                     mContainerActivity.getStorageManager(),
-                                                    remoteFilePath.getRemotePath(),mediaObject,
+                                                    remoteFilePath.getRemotePath(), mediaObject,
                                                     appPreferences.getHideImageClicked(),
                                                     appPreferences.getHideVideoClicked())
                 .execute();
@@ -325,7 +324,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 accountManager.getUser(),
                                                 searchRemoteOperation,
                                                 mContainerActivity.getStorageManager(),
-                                                remoteFilePath.getRemotePath(),mediaObject,
+                                                remoteFilePath.getRemotePath(), mediaObject,
                                                 appPreferences.getHideImageClicked(),
                                                 appPreferences.getHideVideoClicked())
             .execute();
@@ -356,7 +355,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideVideos(boolean isHideVideosClicked) {
 
-        if(!mediaObject.isEmpty()) {
+        if (!mediaObject.isEmpty()) {
             photoSearchQueryRunning = true;
             mAdapter.setData(
                 new ArrayList<>(),
@@ -376,7 +375,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                         }
                     }
                 }
-                if(!imageList.isEmpty()) {
+                if (!imageList.isEmpty()) {
                     mAdapter.setData(imageList,
                                      SearchType.GALLERY_SEARCH,
                                      mContainerActivity.getStorageManager(),
@@ -384,13 +383,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                      true);
 
                     mAdapter.notifyDataSetChanged();
-                }
-                else
-                {
+                } else {
                     setEmptyListMessage(SearchType.GALLERY_SEARCH);
                 }
-            }
-            else {
+            } else {
                 mAdapter.setData(mediaObject,
                                  SearchType.GALLERY_SEARCH,
                                  mContainerActivity.getStorageManager(),
@@ -399,15 +395,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
                 mAdapter.notifyDataSetChanged();
             }
-        }
-        else {
+        } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }
 
     @Override
     public void hideImages(boolean isHideImagesClicked) {
-        if(!mediaObject.isEmpty()) {
+        if (!mediaObject.isEmpty()) {
             mAdapter.setData(
                 new ArrayList<>(),
                 SearchType.GALLERY_SEARCH,
@@ -426,7 +421,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                         }
                     }
                 }
-                if(!videoList.isEmpty()) {
+                if (!videoList.isEmpty()) {
                     mAdapter.setData(videoList,
                                      SearchType.GALLERY_SEARCH,
                                      mContainerActivity.getStorageManager(),
@@ -434,13 +429,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                      true);
 
                     mAdapter.notifyDataSetChanged();
-                }
-                else
-                {
+                } else {
                     setEmptyListMessage(SearchType.GALLERY_SEARCH);
                 }
-            }
-            else {
+            } else {
                 mAdapter.setData(mediaObject,
                                  SearchType.GALLERY_SEARCH,
                                  mContainerActivity.getStorageManager(),
@@ -449,8 +441,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
                 mAdapter.notifyDataSetChanged();
             }
-        }
-        else {
+        } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }
@@ -491,7 +482,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void sortByCreatedDate() {
-       Toast.makeText(getActivity(), "Sort By Created Date Clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Sort By Created Date Clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override

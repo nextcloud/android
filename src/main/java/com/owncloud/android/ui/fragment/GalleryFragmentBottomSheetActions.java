@@ -32,7 +32,4 @@ public interface GalleryFragmentBottomSheetActions {
      */
     void sortByUploadDate();
 
-
-
-
 }

@@ -51,8 +51,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
     private List<Object> mediaObject;
     private boolean isImageHideClicked;
     private boolean isVideoHideClicked;
-    private List <Object> imageList;
-    private List <Object> videoList;
+    private List<Object> imageList;
+    private List<Object> videoList;
 
     public GallerySearchTask(int columnsCount,
                              GalleryFragment photoFragment,
@@ -60,7 +60,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                              SearchRemoteOperation searchRemoteOperation,
                              FileDataStorageManager storageManager,
                              String remotePath, List<Object> mediaObject,
-                             boolean isImageHideClicked , boolean isVideoHideClicked) {
+                             boolean isImageHideClicked, boolean isVideoHideClicked) {
         this.columnCount = columnsCount;
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
@@ -138,11 +138,10 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                         }
                     }
 
-                    if(isVideoHideClicked || isImageHideClicked)
-                    {
-                       setAdapterWithHideShowImage(mediaObject,adapter);
-                    }
-                    else {
+                    if (isVideoHideClicked || isImageHideClicked) {
+                        setAdapterWithHideShowImage(mediaObject, adapter);
+                    } else {
+                        // TODO: 12-01-2022 Adapter setting can be extracted out in one method as it is being used at 3 places
                         adapter.setData(mediaObject,
                                         ExtendedListFragment.SearchType.GALLERY_SEARCH,
                                         storageManager,
@@ -156,8 +155,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             }
 
             photoFragment.setLoading(false);
-            if(mediaObject.isEmpty())
-            {
+            if (mediaObject.isEmpty()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
 
@@ -169,16 +167,19 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
         }
     }
 
+    // TODO: 12-01-2022 This method can be public static can be used commonly for GalleryFragment as well because
+    //  same logic is being used for hideVideos and hideImages method
     //Set Image/Video List According to Selection of Hide/Show Image/Video
     private void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter) {
 
-        if(isVideoHideClicked) {
+        if (isVideoHideClicked) {
             imageList.clear();
-            for(Object s : mediaObject) {
+            for (Object s : mediaObject) {
                 if (s instanceof RemoteFile) {
+                    // TODO: 12-01-2022 We have mime type in RemoteFile use that directly. If it is coming null then this is fine
                     String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    if(mimeType.startsWith("image") && !imageList.contains(s))
-                    {
+                    // TODO: 12-01-2022 Use MimeTypeUtils.isImage method for checking mime type
+                    if (mimeType.startsWith("image") && !imageList.contains(s)) {
                         imageList.add(s);
                     }
                 }
@@ -190,13 +191,14 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                             true);
             adapter.notifyDataSetChanged();
         }
-        if(isImageHideClicked) {
+        if (isImageHideClicked) {
             videoList.clear();
-            for(Object s : mediaObject) {
+            for (Object s : mediaObject) {
                 if (s instanceof RemoteFile) {
+                    // TODO: 12-01-2022 We have mime type in RemoteFile use that directly. If it is coming null then this is fine
                     String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    if(mimeType.startsWith("video") && !videoList.contains(s))
-                    {
+                    // TODO: 12-01-2022 Use MimeTypeUtils.isImage method for checking mime type
+                    if (mimeType.startsWith("video") && !videoList.contains(s)) {
                         videoList.add(s);
                     }
                 }
