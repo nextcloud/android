@@ -356,95 +356,101 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideVideos(boolean isHideVideosClicked) {
 
-        photoSearchQueryRunning = true;
-        mAdapter.setData(
-            new ArrayList<>(),
-            SearchType.GALLERY_SEARCH,
-            mContainerActivity.getStorageManager(),
-            mFile,
-            true);
-        mAdapter.notifyDataSetChanged();
+        if(!mediaObject.isEmpty()) {
+            photoSearchQueryRunning = true;
+            mAdapter.setData(
+                new ArrayList<>(),
+                SearchType.GALLERY_SEARCH,
+                mContainerActivity.getStorageManager(),
+                mFile,
+                true);
+            mAdapter.notifyDataSetChanged();
 
-
-
-        if(isHideVideosClicked) {
-            imageList.clear();
-            for(Object s : mediaObject) {
-                if (s instanceof RemoteFile) {
-                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    if(mimeType.startsWith("image") && !imageList.contains(s))
-                    {
-                        imageList.add(s);
+            if (isHideVideosClicked) {
+                imageList.clear();
+                for (Object s : mediaObject) {
+                    if (s instanceof RemoteFile) {
+                        String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
+                        if (mimeType.startsWith("image") && !imageList.contains(s)) {
+                            imageList.add(s);
+                        }
                     }
                 }
+                if(!imageList.isEmpty()) {
+                    mAdapter.setData(imageList,
+                                     SearchType.GALLERY_SEARCH,
+                                     mContainerActivity.getStorageManager(),
+                                     null,
+                                     true);
+
+                    mAdapter.notifyDataSetChanged();
+                }
+                else
+                {
+                    setEmptyListMessage(SearchType.GALLERY_SEARCH);
+                }
             }
-            mAdapter.setData(imageList,
-                             SearchType.GALLERY_SEARCH,
-                             mContainerActivity.getStorageManager(),
-                             null,
-                             true);
+            else {
+                mAdapter.setData(mediaObject,
+                                 SearchType.GALLERY_SEARCH,
+                                 mContainerActivity.getStorageManager(),
+                                 null,
+                                 true);
 
-            mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+            }
         }
-        else
-        {
-            mAdapter.setData(mediaObject,
-                             SearchType.GALLERY_SEARCH,
-                             mContainerActivity.getStorageManager(),
-                             null,
-                             true);
-
-            mAdapter.notifyDataSetChanged();
-        }
-        if(mediaObject.isEmpty() || imageList.isEmpty())
-        {
+        else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }
 
     @Override
     public void hideImages(boolean isHideImagesClicked) {
+        if(!mediaObject.isEmpty()) {
+            mAdapter.setData(
+                new ArrayList<>(),
+                SearchType.GALLERY_SEARCH,
+                mContainerActivity.getStorageManager(),
+                mFile,
+                true);
+            mAdapter.notifyDataSetChanged();
 
-        mAdapter.setData(
-            new ArrayList<>(),
-            SearchType.GALLERY_SEARCH,
-            mContainerActivity.getStorageManager(),
-            mFile,
-            true);
-        mAdapter.notifyDataSetChanged();
-
-        if(isHideImagesClicked) {
-            videoList.clear();
-            for(Object s : mediaObject) {
-                if (s instanceof RemoteFile) {
-                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    if(mimeType.startsWith("video") && !videoList.contains(s))
-                    {
-                        videoList.add(s);
+            if (isHideImagesClicked) {
+                videoList.clear();
+                for (Object s : mediaObject) {
+                    if (s instanceof RemoteFile) {
+                        String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
+                        if (mimeType.startsWith("video") && !videoList.contains(s)) {
+                            videoList.add(s);
+                        }
                     }
                 }
+                if(!videoList.isEmpty()) {
+                    mAdapter.setData(videoList,
+                                     SearchType.GALLERY_SEARCH,
+                                     mContainerActivity.getStorageManager(),
+                                     null,
+                                     true);
+
+                    mAdapter.notifyDataSetChanged();
+                }
+                else
+                {
+                    setEmptyListMessage(SearchType.GALLERY_SEARCH);
+                }
             }
-            mAdapter.setData(videoList,
-                             SearchType.GALLERY_SEARCH,
-                             mContainerActivity.getStorageManager(),
-                             null,
-                             true);
+            else {
+                mAdapter.setData(mediaObject,
+                                 SearchType.GALLERY_SEARCH,
+                                 mContainerActivity.getStorageManager(),
+                                 null,
+                                 true);
 
-            mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+            }
         }
-        else
-        {
-            mAdapter.setData(mediaObject,
-                             SearchType.GALLERY_SEARCH,
-                             mContainerActivity.getStorageManager(),
-                             null,
-                             true);
-
-            mAdapter.notifyDataSetChanged();
-        }
-
-        if(mediaObject.isEmpty() || videoList.isEmpty())
-        {
+        else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }

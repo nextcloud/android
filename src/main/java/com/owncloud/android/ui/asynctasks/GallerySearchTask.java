@@ -156,7 +156,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             }
 
             photoFragment.setLoading(false);
-            if(mediaObject.size()==0)
+            if(mediaObject.isEmpty())
             {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
