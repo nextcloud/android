@@ -25,7 +25,6 @@ package com.nextcloud.client.etm
 import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
@@ -41,20 +40,6 @@ class EtmActivityTest : AbstractIT() {
         val sut: Activity = activityRule.launchActivity(null)
 
         waitForIdleSync()
-
-        screenshot(sut)
-    }
-
-    @Test
-    @ScreenshotTest
-    fun preferences() {
-        val sut: EtmActivity = activityRule.launchActivity(null)
-
-        UiThreadStatement.runOnUiThread {
-            val preferences = AppPreferencesImpl.fromContext(targetContext)
-            preferences.pushToken = "Push token"
-            sut.vm.onPageSelected(0)
-        }
 
         screenshot(sut)
     }

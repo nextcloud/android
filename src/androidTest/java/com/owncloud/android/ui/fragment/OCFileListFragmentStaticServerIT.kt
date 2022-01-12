@@ -77,8 +77,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         screenshot(sut)
     }
 
-    @Test
-    @ScreenshotTest
     /**
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */

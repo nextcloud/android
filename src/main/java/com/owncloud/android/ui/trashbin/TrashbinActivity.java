@@ -260,6 +260,9 @@ public class TrashbinActivity extends DrawerActivity implements
             trashbinListAdapter.setTrashbinFiles(trashbinFiles, true);
             binding.swipeContainingList.setRefreshing(false);
             binding.loadingContent.setVisibility(View.GONE);
+            binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_delete);
+            binding.emptyList.emptyListViewHeadline.setText(getString(R.string.trashbin_empty_headline));
+            binding.emptyList.emptyListViewText.setText(getString(R.string.trashbin_empty_message));
             binding.list.setVisibility(View.VISIBLE);
         }
     }
@@ -288,8 +291,9 @@ public class TrashbinActivity extends DrawerActivity implements
 
     @VisibleForTesting
     public void showInitialLoading() {
-        binding.loadingContent.setVisibility(View.VISIBLE);
+        binding.emptyList.emptyListView.setVisibility(View.GONE);
         binding.list.setVisibility(View.GONE);
+        binding.loadingContent.setVisibility(View.VISIBLE);
     }
 
     @VisibleForTesting

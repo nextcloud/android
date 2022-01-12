@@ -272,7 +272,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
                 .load(previewObject.getSource())
                 .placeholder(placeholder)
-                .error(android.R.color.holo_red_light)
+                .error(placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(imageView);

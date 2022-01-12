@@ -34,7 +34,6 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import java.util.Objects;
 
@@ -47,9 +46,6 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<SyncedFoldersActivity> activityRule = new IntentsTestRule<>(SyncedFoldersActivity.class,
                                                                                              true,
                                                                                              false);
-
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     @ScreenshotTest

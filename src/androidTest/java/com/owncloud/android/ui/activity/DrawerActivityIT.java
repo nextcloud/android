@@ -27,7 +27,6 @@ import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -39,7 +38,6 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -55,8 +53,6 @@ public class DrawerActivityIT extends AbstractIT {
                                                                                            true,
                                                                                            false);
 
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
     private static Account account1;
     private static User user1;
     private static Account account2;
