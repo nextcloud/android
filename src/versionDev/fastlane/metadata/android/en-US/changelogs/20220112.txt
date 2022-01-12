@@ -1,0 +1,6 @@
+removed redundant changes
+removed redundant changes
+made all the suggested changes - removed xml unnecessary lines
+made all the suggested changes
+fixed the visibility of slider of dark theme issue# 9170
+Update translations
