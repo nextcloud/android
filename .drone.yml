@@ -263,8 +263,6 @@ steps:
         - master
         - stable-*
 trigger:
-  branch:
-    - master
   event:
     - cron
   cron:
