@@ -1050,4 +1050,5 @@
     <string name="sort_by_modified_date">Nach Änderungsdatum sortieren</string>
     <string name="sort_by_created_date">Nach Erstellungsdatum sortieren</string>
     <string name="sort_by_upload_date">Nach Hochladedatum sortieren</string>
+    <string name="gallery_list_empty">Noch keine Fotos oder Videos hochgeladen</string>
 </resources>

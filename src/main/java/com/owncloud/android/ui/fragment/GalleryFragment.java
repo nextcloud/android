@@ -396,7 +396,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             mAdapter.notifyDataSetChanged();
         }
-
+        if(mediaObject.isEmpty() || imageList.isEmpty())
+        {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        }
     }
 
     @Override
@@ -439,6 +442,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             mAdapter.notifyDataSetChanged();
         }
+
+        if(mediaObject.isEmpty() || videoList.isEmpty())
+        {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        }
     }
 
     @Override
@@ -450,19 +458,34 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void sortByModifiedDate() {
+       /* mAdapter.setData(
+            new ArrayList<>(),
+            SearchType.GALLERY_SEARCH,
+            mContainerActivity.getStorageManager(),
+            mFile,
+            true);
+        mAdapter.notifyDataSetChanged();
 
-       /* final int multiplier = -1;
-        Collections.sort(mediaObject instanceof RemoteFile , (o1, o2) -> {
-            return multiplier * Long.compare(o1 ,o2.getModificationTimestamp());
-        }); */
-        Toast.makeText(getActivity(), "Sort By Modified Date Clicked", Toast.LENGTH_SHORT).show();
+        final int multiplier = 1;
+        Collections.sort((List<RemoteFile>)(List)mediaObject, (o1, o2) -> {
+            return multiplier * Long.compare(o1.getModifiedTimestamp(),o2.getModifiedTimestamp());
+        });
+       Toast.makeText(getActivity(), "Sort By Modified Date Clicked", Toast.LENGTH_SHORT).show();
 
+        System.out.println(mediaObject);
+
+        mAdapter.setData(mediaObject,
+                         SearchType.GALLERY_SEARCH,
+                         mContainerActivity.getStorageManager(),
+                         null,
+                         true);
+
+        mAdapter.notifyDataSetChanged(); */
     }
 
     @Override
     public void sortByCreatedDate() {
-        Toast.makeText(getActivity(), "Sort By Created Date Clicked", Toast.LENGTH_SHORT).show();
-
+       Toast.makeText(getActivity(), "Sort By Created Date Clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override

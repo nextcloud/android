@@ -1152,4 +1152,5 @@
     <string name="sort_by_modified_date">Sort By modified date</string>
     <string name="sort_by_created_date">Sort by created date</string>
     <string name="sort_by_upload_date">Sort by upload date</string>
+    <string name="gallery_list_empty">No photos or videos uploaded yet</string>
 </resources>
