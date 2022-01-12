@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">裝置身分驗證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
     <string name="prefs_manage_accounts">管理賬號</string>
+    <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
     <string name="prefs_storage_path">資料儲存資料夾</string>
