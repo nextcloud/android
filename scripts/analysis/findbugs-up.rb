@@ -39,7 +39,7 @@ require 'open3'
 begin
     gem "xml-simple"
     rescue LoadError
-    system("gem install xml-simple")
+    system("gem install --user-install xml-simple")
     Gem.clear_paths
 end
 
