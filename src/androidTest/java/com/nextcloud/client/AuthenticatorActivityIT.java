@@ -20,6 +20,9 @@
 
 package com.nextcloud.client;
 
+import android.Manifest;
+import android.widget.TextView;
+
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -49,7 +52,7 @@ public class AuthenticatorActivityIT extends AbstractIT {
     @ScreenshotTest
     public void login() {
         AuthenticatorActivity sut = activityRule.launchActivity(null);
-        onView(withId(R.id.host_url_input)).perform(typeText(URL));
+        ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);
         sut.runOnUiThread(() -> sut.getAccountSetupBinding().hostUrlInput.clearFocus());
         screenshot(sut);
     }

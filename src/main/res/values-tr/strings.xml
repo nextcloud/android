@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Aygıt kimlik doğrulama bilgileri</string>
     <string name="prefs_lock_using_passcode">Parola</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
+    <string name="prefs_recommend">Arkadaşına öner</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
     <string name="prefs_storage_path">Veri depolama klasörü</string>

@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Файл уже существует</string>
     <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
+    <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_new_file">Новый файл</string>
+    <string name="conflict_server_file">Файл с сервера</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
     <string name="contacts">Контакты</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Ошибка при выборе даты</string>
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="error_crash_title">сбой %1$s</string>
+    <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
     <string name="error_report_issue_action">Сообщить</string>
     <string name="error_report_issue_text">Сообщить о проблеме? (Требуется учётная запись Github)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorite_headline">В избранное ничего не добавлено </string>
     <string name="file_list_empty_favorites_filter_list">Здесь будут показаны файлы и папки, добавленные в избранное.</string>
+    <string name="file_list_empty_gallery">Изображения или видео не найдены</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty_headline_search">В этом каталоге результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
@@ -310,6 +314,7 @@
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
+    <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
@@ -374,6 +379,7 @@
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
     <string name="fullscreen">Полный экран</string>
+    <string name="hidden_file_name_warning">Имя приведет к скрытому файлу</string>
     <string name="hint_name">Имя</string>
     <string name="hint_note">Примечание</string>
     <string name="hint_password">Пароль</string>
@@ -543,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Системная защитная блокировка</string>
     <string name="prefs_lock_using_passcode">Блокировка кодом</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
+    <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_sourcecode">Получить исходный код</string>
     <string name="prefs_storage_path">Папка хранения данных</string>

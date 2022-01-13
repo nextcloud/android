@@ -2,8 +2,8 @@
   <resources>
     <string name="about_android">%1$s Android-додаток</string>
     <string name="about_title">Про</string>
-    <string name="about_version">версія %1$s</string>
-    <string name="about_version_with_build">версія%1$s, збірка #%2$s</string>
+    <string name="about_version">версія %1$s </string>
+    <string name="about_version_with_build">версія %1$s, збірка #%2$s</string>
     <string name="account_creation_failed">Створення облікового запису пройшло неуспішно</string>
     <string name="account_icon">Зображення облікового запису</string>
     <string name="account_not_found">Обліковий запис не знайдено!</string>
