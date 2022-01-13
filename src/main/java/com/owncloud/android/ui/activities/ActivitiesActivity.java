@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
@@ -51,8 +52,8 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
  * This Activity presents activities feed.
@@ -65,6 +66,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     private int lastGiven;
     private boolean isLoadingActivities;
     private ActivitiesContract.ActionListener actionListener;
+    private Snackbar snackbar;
 
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
@@ -198,7 +200,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showActivitiesLoadError(String error) {
-        DisplayUtils.showSnackMessage(this, error);
+        snackbar = DisplayUtils.showSnackMessage(this, error);
     }
 
     @Override
@@ -217,12 +219,12 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showActivityDetailUIIsNull() {
-        DisplayUtils.showSnackMessage(this, R.string.file_not_found);
+        snackbar = DisplayUtils.showSnackMessage(this, R.string.file_not_found);
     }
 
     @Override
     public void showActivityDetailError(String error) {
-        DisplayUtils.showSnackMessage(this, error);
+        snackbar = DisplayUtils.showSnackMessage(this, error);
     }
 
     @Override
@@ -254,5 +256,13 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         super.onStop();
 
         actionListener.onStop();
+    }
+
+    @VisibleForTesting
+    public void dismissSnackbar() {
+        if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
+            snackbar = null;
+        }
     }
 }

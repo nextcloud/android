@@ -21,7 +21,6 @@
  */
 package com.nextcloud.client
 
-import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
@@ -51,9 +50,9 @@ class ActivitiesActivityIT : AbstractIT() {
         shortSleep()
         Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
         sut.runOnUiThread {
-            sut.binding.emptyList.emptyListView.visibility = View.VISIBLE
-            sut.binding.list.visibility = View.INVISIBLE
+            sut.dismissSnackbar()
         }
+        shortSleep()
         waitForIdleSync()
         screenshot(sut)
     }
@@ -62,6 +61,11 @@ class ActivitiesActivityIT : AbstractIT() {
     @ScreenshotTest
     fun loading() {
         val sut: ActivitiesActivity = activityRule.launchActivity(null)
+        sut.runOnUiThread {
+            sut.dismissSnackbar()
+        }
+
+        shortSleep()
 
         Screenshot.snapActivity(sut).record()
     }
@@ -74,6 +78,7 @@ class ActivitiesActivityIT : AbstractIT() {
         sut.runOnUiThread {
             sut.showActivities(mutableListOf(), nextcloudClient, -1)
             sut.setProgressIndicatorState(false)
+            sut.dismissSnackbar()
         }
 
         shortSleep()
@@ -164,6 +169,7 @@ class ActivitiesActivityIT : AbstractIT() {
         sut.runOnUiThread {
             sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
             sut.setProgressIndicatorState(false)
+            sut.dismissSnackbar()
         }
 
         shortSleep()
@@ -179,6 +185,7 @@ class ActivitiesActivityIT : AbstractIT() {
         sut.runOnUiThread {
             sut.showEmptyContent("Error", "Error! Please try again later!")
             sut.setProgressIndicatorState(false)
+            sut.dismissSnackbar()
         }
 
         shortSleep()
