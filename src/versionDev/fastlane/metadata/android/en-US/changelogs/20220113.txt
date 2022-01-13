@@ -1,0 +1,2 @@
+Merge pull request #9043 from nextcloud/updateScreenshotsTests
+Update translations
