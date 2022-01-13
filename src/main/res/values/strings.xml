@@ -1006,4 +1006,5 @@
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
+    <string name="no_send_app">No app available for sending the selected files</string>
 </resources>
