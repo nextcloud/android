@@ -80,7 +80,8 @@ class SendFilesDialogTest : AbstractIT() {
     fun showDialog() {
         val sut = showDialog(FILES_SAME_TYPE)
         val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
-        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter?.itemCount)
+        Assert.assertNotNull("Adapter is null", recyclerview.adapter)
+        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
     }
 
     @Test
@@ -94,7 +95,8 @@ class SendFilesDialogTest : AbstractIT() {
     fun showDialogDifferentTypes() {
         val sut = showDialog(FILES_MIXED_TYPE)
         val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
-        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter?.itemCount)
+        Assert.assertNotNull("Adapter is null", recyclerview.adapter)
+        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
     }
 
     @Test
