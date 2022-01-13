@@ -21,7 +21,9 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -58,8 +60,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -168,8 +173,16 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
+
+        if (menuItem != null) {
+            tintMenuIcon(this.getContext(), menuItem, R.color.list_icon_color);
+        }
+
     }
 
     @Override
@@ -214,16 +227,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onRefresh() {
         super.onRefresh();
-        mAdapter.setData(
-            new ArrayList<>(),
-            SearchType.GALLERY_SEARCH,
-            mContainerActivity.getStorageManager(),
-            mFile,
-            true);
-        mAdapter.notifyDataSetChanged();
+        //setAdapterEmpty();
 
         refresh = true;
         photoSearchNoNew = false;
+        photoSearchQueryRunning = false;
         handleSearchEvent();
 
     }
@@ -240,14 +248,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         if (refresh || preferences.getPhotoSearchTimestamp() == 0 ||
             System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
-            // TODO: 12-01-2022 Updating adapter can also be extracted out into one method
-            mAdapter.setData(
-                new ArrayList<>(),
-                SearchType.GALLERY_SEARCH,
-                mContainerActivity.getStorageManager(),
-                mFile,
-                true);
-            mAdapter.notifyDataSetChanged();
+            setAdapterEmpty();
             refresh = false;
         } else {
             // mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
@@ -266,16 +267,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private void searchAndDisplay() {
 
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
-            // TODO: 12-01-2022 GallerySearchTask is being used at 2 places same can be extracted out into one method
-            photoSearchTask = new GallerySearchTask(getColumnsCount(),
-                                                    this,
-                                                    accountManager.getUser(),
-                                                    searchRemoteOperation,
-                                                    mContainerActivity.getStorageManager(),
-                                                    remoteFilePath.getRemotePath(), mediaObject,
-                                                    appPreferences.getHideImageClicked(),
-                                                    appPreferences.getHideVideoClicked())
-                .execute();
+           runGallerySearchTask();
         }
     }
 
@@ -308,17 +300,15 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void searchAndDisplayAfterChangingFolder() {
-        mAdapter.setData(
-            new ArrayList<>(),
-            SearchType.GALLERY_SEARCH,
-            mContainerActivity.getStorageManager(),
-            mFile,
-            true);
-        mAdapter.notifyDataSetChanged();
+        setAdapterEmpty();
         mediaObject.clear();
         //photoSearchNoNew = false;
         // handleSearchEvent();
+        runGallerySearchTask();
+    }
 
+    private void runGallerySearchTask()
+    {
         photoSearchTask = new GallerySearchTask(getColumnsCount(),
                                                 this,
                                                 accountManager.getUser(),
@@ -328,7 +318,17 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 appPreferences.getHideImageClicked(),
                                                 appPreferences.getHideVideoClicked())
             .execute();
+    }
 
+    private void setAdapterEmpty()
+    {
+        mAdapter.setData(
+            new ArrayList<>(),
+            SearchType.GALLERY_SEARCH,
+            mContainerActivity.getStorageManager(),
+            mFile,
+            true);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
@@ -357,45 +357,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         if (!mediaObject.isEmpty()) {
             photoSearchQueryRunning = true;
-            mAdapter.setData(
-                new ArrayList<>(),
-                SearchType.GALLERY_SEARCH,
-                mContainerActivity.getStorageManager(),
-                mFile,
-                true);
+            setAdapterEmpty();
             mAdapter.notifyDataSetChanged();
 
-            if (isHideVideosClicked) {
-                imageList.clear();
-                for (Object s : mediaObject) {
-                    if (s instanceof RemoteFile) {
-                        String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                        if (mimeType.startsWith("image") && !imageList.contains(s)) {
-                            imageList.add(s);
-                        }
-                    }
-                }
-                if (!imageList.isEmpty()) {
-                    mAdapter.setData(imageList,
-                                     SearchType.GALLERY_SEARCH,
-                                     mContainerActivity.getStorageManager(),
-                                     null,
-                                     true);
+            GallerySearchTask.setAdapterWithHideShowImage(mediaObject,mAdapter,preferences.getHideVideoClicked(),
+                                                          preferences.getHideImageClicked(),imageList,videoList,
+                                                          mContainerActivity.getStorageManager());
 
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    setEmptyListMessage(SearchType.GALLERY_SEARCH);
-                }
-            } else {
-                mAdapter.setData(mediaObject,
-                                 SearchType.GALLERY_SEARCH,
-                                 mContainerActivity.getStorageManager(),
-                                 null,
-                                 true);
-
-                mAdapter.notifyDataSetChanged();
-            }
-        } else {
+        }  else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }
@@ -403,44 +372,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
-            mAdapter.setData(
-                new ArrayList<>(),
-                SearchType.GALLERY_SEARCH,
-                mContainerActivity.getStorageManager(),
-                mFile,
-                true);
+            setAdapterEmpty();
             mAdapter.notifyDataSetChanged();
 
-            if (isHideImagesClicked) {
-                videoList.clear();
-                for (Object s : mediaObject) {
-                    if (s instanceof RemoteFile) {
-                        String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                        if (mimeType.startsWith("video") && !videoList.contains(s)) {
-                            videoList.add(s);
-                        }
-                    }
-                }
-                if (!videoList.isEmpty()) {
-                    mAdapter.setData(videoList,
-                                     SearchType.GALLERY_SEARCH,
-                                     mContainerActivity.getStorageManager(),
-                                     null,
-                                     true);
+            GallerySearchTask.setAdapterWithHideShowImage(mediaObject,mAdapter,preferences.getHideVideoClicked(),
+                                                          preferences.getHideImageClicked(),imageList,videoList,
+                                                          mContainerActivity.getStorageManager());
 
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    setEmptyListMessage(SearchType.GALLERY_SEARCH);
-                }
-            } else {
-                mAdapter.setData(mediaObject,
-                                 SearchType.GALLERY_SEARCH,
-                                 mContainerActivity.getStorageManager(),
-                                 null,
-                                 true);
-
-                mAdapter.notifyDataSetChanged();
-            }
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
@@ -489,5 +427,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void sortByUploadDate() {
         Toast.makeText(getActivity(), "Sort By Upload Date Clicked", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
+        Drawable normalDrawable = item.getIcon();
+        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
+        DrawableCompat.setTint(wrapDrawable, context.getResources().getColor(color));
+
+        item.setIcon(wrapDrawable);
     }
 }

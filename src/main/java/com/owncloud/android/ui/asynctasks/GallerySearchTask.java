@@ -33,6 +33,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 import java.net.URLConnection;
@@ -138,17 +139,9 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                         }
                     }
 
-                    if (isVideoHideClicked || isImageHideClicked) {
-                        setAdapterWithHideShowImage(mediaObject, adapter);
-                    } else {
-                        // TODO: 12-01-2022 Adapter setting can be extracted out in one method as it is being used at 3 places
-                        adapter.setData(mediaObject,
-                                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                                        storageManager,
-                                        null,
-                                        true);
-                        adapter.notifyDataSetChanged();
-                    }
+
+                   setAdapterWithHideShowImage(mediaObject, adapter,isVideoHideClicked,isImageHideClicked,imageList,
+                                               videoList,storageManager);
 
                     Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
                 }
@@ -167,19 +160,19 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
         }
     }
 
-    // TODO: 12-01-2022 This method can be public static can be used commonly for GalleryFragment as well because
-    //  same logic is being used for hideVideos and hideImages method
+
     //Set Image/Video List According to Selection of Hide/Show Image/Video
-    private void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter) {
+    public static void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter,
+                                                  boolean isVideoHideClicked, boolean isImageHideClicked,
+                                                   List<Object> imageList, List<Object> videoList ,
+                                                   FileDataStorageManager storageManager ) {
 
         if (isVideoHideClicked) {
             imageList.clear();
             for (Object s : mediaObject) {
                 if (s instanceof RemoteFile) {
-                    // TODO: 12-01-2022 We have mime type in RemoteFile use that directly. If it is coming null then this is fine
-                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    // TODO: 12-01-2022 Use MimeTypeUtils.isImage method for checking mime type
-                    if (mimeType.startsWith("image") && !imageList.contains(s)) {
+
+                    if (MimeTypeUtil.isImage(((RemoteFile) s).getMimeType()) && !imageList.contains(s)) {
                         imageList.add(s);
                     }
                 }
@@ -191,19 +184,25 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                             true);
             adapter.notifyDataSetChanged();
         }
-        if (isImageHideClicked) {
+        else if (isImageHideClicked) {
             videoList.clear();
             for (Object s : mediaObject) {
                 if (s instanceof RemoteFile) {
-                    // TODO: 12-01-2022 We have mime type in RemoteFile use that directly. If it is coming null then this is fine
-                    String mimeType = URLConnection.guessContentTypeFromName(((RemoteFile) s).getRemotePath());
-                    // TODO: 12-01-2022 Use MimeTypeUtils.isImage method for checking mime type
-                    if (mimeType.startsWith("video") && !videoList.contains(s)) {
+                    if (MimeTypeUtil.isVideo(((RemoteFile) s).getMimeType()) && !videoList.contains(s)) {
                         videoList.add(s);
                     }
                 }
             }
             adapter.setData(videoList,
+                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                            storageManager,
+                            null,
+                            true);
+            adapter.notifyDataSetChanged();
+        }
+        else
+        {
+            adapter.setData(mediaObject,
                             ExtendedListFragment.SearchType.GALLERY_SEARCH,
                             storageManager,
                             null,
