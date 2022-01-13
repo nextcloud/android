@@ -432,7 +432,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
-        DrawableCompat.setTint(wrapDrawable, context.getResources().getColor(color));
+        DrawableCompat.setTint(wrapDrawable,ContextCompat.getColor(context,color));
 
         item.setIcon(wrapDrawable);
     }
