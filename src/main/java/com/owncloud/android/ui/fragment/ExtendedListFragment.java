@@ -601,7 +601,6 @@ public class ExtendedListFragment extends Fragment implements
     }
 
 
-
     /**
      * /** Set message for empty list view.
      */
@@ -649,13 +648,13 @@ public class ExtendedListFragment extends Fragment implements
                                                                 ThemeColorUtils.primaryColor(getContext(),true)));
                         }
                     } else {*/
-                        mEmptyListIcon.setImageResource(icon);
+                    mEmptyListIcon.setImageResource(icon);
                     //}
 
                     if (getActivity() instanceof UploadFilesActivity) {
                         mEmptyListIcon.setVisibility(View.GONE);
                         mEmptyListMessage.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         mEmptyListIcon.setVisibility(View.VISIBLE);
                         mEmptyListMessage.setVisibility(View.VISIBLE);
                     }
@@ -698,9 +697,10 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
                                            R.string.file_list_empty_shared,
                                            R.drawable.ic_list_empty_shared);
-                }else if(searchType == SearchType.GALLERY_SEARCH){
-                    setMessageForEmptyList(R.string.file_list_empty_headline,R.string.gallery_list_empty,
-                                           R.drawable.ic_image_grey600);
+                } else if (searchType == SearchType.GALLERY_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline,
+                                           R.string.gallery_list_empty,
+                                           R.drawable.ic_list_empty_media);
                 }
 
             }

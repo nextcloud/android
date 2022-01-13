@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.asynctasks;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
@@ -177,12 +178,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     }
                 }
             }
-            adapter.setData(imageList,
-                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                            storageManager,
-                            null,
-                            true);
-            adapter.notifyDataSetChanged();
+            updateAndNotifyAdapter(imageList, adapter, storageManager);
         }
         else if (isImageHideClicked) {
             videoList.clear();
@@ -193,23 +189,23 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     }
                 }
             }
-            adapter.setData(videoList,
-                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                            storageManager,
-                            null,
-                            true);
-            adapter.notifyDataSetChanged();
+            updateAndNotifyAdapter(videoList, adapter, storageManager);
         }
         else
         {
-            adapter.setData(mediaObject,
-                            ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                            storageManager,
-                            null,
-                            true);
-            adapter.notifyDataSetChanged();
+            updateAndNotifyAdapter(mediaObject, adapter, storageManager);
         }
 
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private static void updateAndNotifyAdapter(List<Object> mediaObject, OCFileListAdapter adapter, FileDataStorageManager storageManager) {
+        adapter.setData(mediaObject,
+                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
+                        storageManager,
+                        null,
+                        true);
+        adapter.notifyDataSetChanged();
     }
 
 }

@@ -21,9 +21,8 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,39 +31,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.ui.GalleryFragmentBottomSheetDialog;
-import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -180,7 +170,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
 
         if (menuItem != null) {
-            tintMenuIcon(this.getContext(), menuItem, R.color.list_icon_color);
+            ThemeMenuUtils.tintMenuIcon(requireContext(), menuItem,
+                                        ThemeColorUtils.appBarPrimaryFontColor(requireContext()));
         }
 
     }
@@ -267,7 +258,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private void searchAndDisplay() {
 
         if (!photoSearchQueryRunning && !photoSearchNoNew) {
-           runGallerySearchTask();
+            runGallerySearchTask();
         }
     }
 
@@ -307,8 +298,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         runGallerySearchTask();
     }
 
-    private void runGallerySearchTask()
-    {
+    private void runGallerySearchTask() {
         photoSearchTask = new GallerySearchTask(getColumnsCount(),
                                                 this,
                                                 accountManager.getUser(),
@@ -320,8 +310,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             .execute();
     }
 
-    private void setAdapterEmpty()
-    {
+    @SuppressLint("NotifyDataSetChanged")
+    private void setAdapterEmpty() {
         mAdapter.setData(
             new ArrayList<>(),
             SearchType.GALLERY_SEARCH,
@@ -358,13 +348,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         if (!mediaObject.isEmpty()) {
             photoSearchQueryRunning = true;
             setAdapterEmpty();
-            mAdapter.notifyDataSetChanged();
 
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject,mAdapter,preferences.getHideVideoClicked(),
-                                                          preferences.getHideImageClicked(),imageList,videoList,
+            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
+                                                          preferences.getHideImageClicked(), imageList, videoList,
                                                           mContainerActivity.getStorageManager());
 
-        }  else {
+        } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
     }
@@ -373,10 +362,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
             setAdapterEmpty();
-            mAdapter.notifyDataSetChanged();
 
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject,mAdapter,preferences.getHideVideoClicked(),
-                                                          preferences.getHideImageClicked(),imageList,videoList,
+            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
+                                                          preferences.getHideImageClicked(), imageList, videoList,
                                                           mContainerActivity.getStorageManager());
 
         } else {
@@ -420,20 +408,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void sortByCreatedDate() {
-        Toast.makeText(getActivity(), "Sort By Created Date Clicked", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void sortByUploadDate() {
-        Toast.makeText(getActivity(), "Sort By Upload Date Clicked", Toast.LENGTH_SHORT).show();
 
     }
 
-    public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
-        Drawable normalDrawable = item.getIcon();
-        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
-        DrawableCompat.setTint(wrapDrawable,ContextCompat.getColor(context,color));
-
-        item.setIcon(wrapDrawable);
-    }
 }
