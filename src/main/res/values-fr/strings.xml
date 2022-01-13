@@ -551,6 +551,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_lock_using_device_credentials">Informations d\'identification du terminal</string>
     <string name="prefs_lock_using_passcode">Code de sécurité</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
+    <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_storage_path">Répertoire de données</string>
