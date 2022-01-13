@@ -181,7 +181,9 @@ public class FileContentProvider extends ContentProvider {
 
     private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
-        Cursor children = query(uri, null, null, null, null);
+        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_CONTENT_TYPE};
+
+        Cursor children = query(uri, projection, null, null, null);
         if (children != null) {
             if (children.moveToFirst()) {
                 long childId;
@@ -213,7 +215,9 @@ public class FileContentProvider extends ContentProvider {
 
     private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
-        Cursor c = query(db, uri, null, where, whereArgs, null);
+        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_REMOTE_ID};
+
+        Cursor c = query(db, uri, projection, where, whereArgs, null);
         String remoteId = "";
         try {
             if (c != null && c.moveToFirst()) {
@@ -988,8 +992,10 @@ public class FileContentProvider extends ContentProvider {
         String whereClause = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
             ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
 
+        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH, ProviderTableMeta.FILE_PATH};
+
         Cursor c = db.query(ProviderTableMeta.FILE_TABLE_NAME,
-                            null,
+                            projection,
                             whereClause,
                             new String[]{newAccountName},
                             null, null, null);
