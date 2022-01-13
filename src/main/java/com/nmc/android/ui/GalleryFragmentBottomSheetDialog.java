@@ -11,6 +11,9 @@ import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetActions;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
     private FragmentGalleryBottomSheetBinding binding;
@@ -44,20 +47,20 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
     private void setupLayout() {
 
         if (!preferences.getHideImageClicked()) {
-            binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_camera));
+            binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_camera));
             binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
             binding.tickMarkHideImages.setVisibility(View.GONE);
         } else if (preferences.getHideImageClicked()) {
-            binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_camera));
+            binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_camera));
             binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
             binding.tickMarkHideImages.setVisibility(View.VISIBLE);
         }
         if (!preferences.getHideVideoClicked()) {
-            binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_video_camera));
+            binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_video_camera));
             binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
             binding.tickMarkHideVideo.setVisibility(View.GONE);
         } else if (preferences.getHideVideoClicked()) {
-            binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_video_camera));
+            binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_video_camera));
             binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
             binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
         }
@@ -70,21 +73,21 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
             if (!preferences.getHideImageClicked() && preferences.getHideVideoClicked()) {
                 isHideImageClicked = true;
                 isHideVideoClicked = false;
-                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_camera));
+                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_camera));
                 binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
-                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_video_camera));
+                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_video_camera));
                 binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
                 binding.tickMarkHideImages.setVisibility(View.VISIBLE);
                 binding.tickMarkHideVideo.setVisibility(View.GONE);
 
             } else if (!preferences.getHideImageClicked() && !preferences.getHideVideoClicked()) {
                 isHideImageClicked = true;
-                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_camera));
+                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_camera));
                 binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
                 binding.tickMarkHideImages.setVisibility(View.VISIBLE);
             } else if (preferences.getHideImageClicked() && !preferences.getHideVideoClicked()) {
                 isHideImageClicked = false;
-                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_camera));
+                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_camera));
                 binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
                 binding.tickMarkHideImages.setVisibility(View.GONE);
 
@@ -102,23 +105,23 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
             if (!preferences.getHideVideoClicked() && !preferences.getHideImageClicked()) {
                 isHideVideoClicked = true;
-                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_video_camera));
+                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_video_camera));
                 binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
                 binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
             } else if (!preferences.getHideVideoClicked() && preferences.getHideImageClicked()) {
                 isHideVideoClicked = true;
                 isHideImageClicked = false;
 
-                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_no_video_camera));
+                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_video_camera));
                 binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
-                binding.hideImagesImageview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_camera));
+                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_camera));
                 binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
                 binding.tickMarkHideImages.setVisibility(View.GONE);
                 binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
 
             } else if (preferences.getHideVideoClicked() && !preferences.getHideImageClicked()) {
                 isHideVideoClicked = false;
-                binding.hideVideoImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_video_camera));
+                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_video_camera));
                 binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
                 binding.tickMarkHideVideo.setVisibility(View.GONE);
             }
