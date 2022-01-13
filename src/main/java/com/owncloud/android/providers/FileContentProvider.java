@@ -60,6 +60,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -99,6 +100,22 @@ public class FileContentProvider extends ContentProvider {
     private static final int SINGLE_PATH_SEGMENT = 1;
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
     public static final int MINIMUM_PATH_SEGMENTS_SIZE = 1;
+
+    private static final String[] PROJECTION_CONTENT_TYPE = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_CONTENT_TYPE};
+    private static final String[] PROJECTION_REMOTE_ID = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_REMOTE_ID};
+    private static final String[] PROJECTION_FILE_AND_STORAGE_PATH = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH, ProviderTableMeta.FILE_PATH};
+    private static final String[] PROJECTION_FILE_PATH_AND_OWNER = new String[]{
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
+        ProviderTableMeta.FILE_ACCOUNT_OWNER
+    };
+
+    private static final Map<String,String> FILE_PROJECTION_MAP = new HashMap<>();
+    static {
+        for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
+            FILE_PROJECTION_MAP.put(projection, projection);
+        }
+    }
+
 
     @Inject protected Clock clock;
     private DataBaseHelper mDbHelper;
@@ -181,9 +198,8 @@ public class FileContentProvider extends ContentProvider {
 
     private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
-        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_CONTENT_TYPE};
 
-        Cursor children = query(uri, projection, null, null, null);
+        Cursor children = query(uri, PROJECTION_CONTENT_TYPE, null, null, null);
         if (children != null) {
             if (children.moveToFirst()) {
                 long childId;
@@ -215,9 +231,8 @@ public class FileContentProvider extends ContentProvider {
 
     private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
-        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_REMOTE_ID};
 
-        Cursor c = query(db, uri, projection, where, whereArgs, null);
+        Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null);
         String remoteId = "";
         try {
             if (c != null && c.moveToFirst()) {
@@ -293,17 +308,13 @@ public class FileContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
             case SINGLE_FILE:
-                String[] projection = new String[]{
-                    ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
-                    ProviderTableMeta.FILE_ACCOUNT_OWNER
-                };
                 String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
 
                 String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
                 String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
                 String[] whereArgs = {remotePath, accountName};
 
-                Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
+                Cursor doubleCheck = query(db, uri, PROJECTION_FILE_PATH_AND_OWNER, where, whereArgs, null);
                 // ugly patch; serious refactoring is needed to reduce work in
                 // FileDataStorageManager and bring it to FileContentProvider
                 if (!doubleCheck.moveToFirst()) {
@@ -612,13 +623,7 @@ public class FileContentProvider extends ContentProvider {
         // only file list is accessible via content provider, so only this has to be protected with projectionMap
         if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
             uriMatch == DIRECTORY) && projectionArray != null) {
-            HashMap<String, String> projectionMap = new HashMap<>();
-
-            for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
-                projectionMap.put(projection, projection);
-            }
-
-            sqlQuery.setProjectionMap(projectionMap);
+            sqlQuery.setProjectionMap(FILE_PROJECTION_MAP);
         }
 
         // if both are null, let them pass to query
@@ -992,10 +997,8 @@ public class FileContentProvider extends ContentProvider {
         String whereClause = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
             ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
 
-        final String[] projection = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH, ProviderTableMeta.FILE_PATH};
-
         Cursor c = db.query(ProviderTableMeta.FILE_TABLE_NAME,
-                            projection,
+                            PROJECTION_FILE_AND_STORAGE_PATH,
                             whereClause,
                             new String[]{newAccountName},
                             null, null, null);
