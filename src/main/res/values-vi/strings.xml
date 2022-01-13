@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Chứng nhận thiết bị</string>
     <string name="prefs_lock_using_passcode">Mật mã</string>
     <string name="prefs_manage_accounts">Quản lý tài khoản</string>
+    <string name="prefs_recommend">Giới thiệu cho bạn bè</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_sourcecode">Lấy mã nguồn</string>
     <string name="prefs_storage_path">Thư mục lưu trữ dữ liệu</string>
@@ -615,7 +616,9 @@
     <string name="set_status">Đặt trạng thái</string>
     <string name="set_status_message">Đặt thông báo trạng thái</string>
     <string name="share">Chia sẻ</string>
+    <string name="share_copy_link">Chia sẻ &amp; sao chép liên kết</string>
     <string name="share_dialog_title">Chia sẻ</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Hết hạn %1$s</string>
     <string name="share_file">Chia sẽ %1$s</string>
     <string name="share_group_clarification">%1$s (nhóm)</string>
@@ -634,10 +637,14 @@
     <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
     <string name="share_no_password_title">Đặt mật khẩu</string>
     <string name="share_password_title">Mật khẩu được bảo vệ</string>
+    <string name="share_permission_can_edit">Có thể chỉnh sửa</string>
+    <string name="share_permission_view_only">Chỉ xem</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
     <string name="share_search">Tên, ID đám mây liên kết hoặc địa chỉ email…</string>
+    <string name="share_send_new_email">Gửi email mới</string>
     <string name="share_send_note">Ghi chú cho người nhận</string>
+    <string name="share_settings">Cài đặt</string>
     <string name="share_via_link_hide_download">Ẩn tải xuống</string>
     <string name="share_via_link_section_title">Chia sẻ liên kết</string>
     <string name="share_via_link_send_link_label">Gửi liên kết</string>
