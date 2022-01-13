@@ -66,6 +66,7 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         shortSleep()
+        waitForIdleSync()
 
         Screenshot.snapActivity(sut).record()
     }
@@ -82,6 +83,7 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
@@ -173,6 +175,7 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
@@ -189,6 +192,7 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
