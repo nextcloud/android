@@ -22,10 +22,15 @@
  */
 package com.owncloud.android.utils.theme;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * Utility class with methods for client side checkable theming.
@@ -42,5 +47,19 @@ public final class ThemeMenuUtils {
         newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
                              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(newItemTitle);
+    }
+
+    /**
+     * tinting menu item color
+     *
+     * @param context
+     * @param item    the menu item object
+     * @param color   the color wanted as a color resource
+     */
+    public static void tintMenuIcon(@NonNull Context context, @NonNull MenuItem item, int color) {
+        Drawable normalDrawable = item.getIcon();
+        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
+        DrawableCompat.setTint(wrapDrawable, color);
+        item.setIcon(wrapDrawable);
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources>
+<resources>
     <string name="about_android">%1$s Android App</string>
     <string name="about_title">Über</string>
     <string name="about_version">Version %1$s</string>
@@ -314,7 +314,7 @@
     <string name="file_list_empty">Laden Sie Inhalte hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier.</string>
-    <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
+    <string name="file_list_empty_headline">Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
@@ -1042,4 +1042,13 @@
         Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
     <string name="prefs_category_account_info">Kontoinformationen</string>
     <string name="common_login">Anmelden</string>
+    <string name="hide_images">Bilder ausblenden</string>
+    <string name="show_images">Bilder anzeigen</string>
+    <string name="hide_video">Videos ausblenden</string>
+    <string name="show_video">Videos anzeigen</string>
+    <string name="select_media_folder">Den Ordner \"Medien\" auswählen</string>
+    <string name="sort_by_modified_date">Nach Änderungsdatum sortieren</string>
+    <string name="sort_by_created_date">Nach Erstellungsdatum sortieren</string>
+    <string name="sort_by_upload_date">Nach Hochladedatum sortieren</string>
+    <string name="gallery_list_empty">Noch keine hochgeladene Fotos oder Videos vorhanden</string>
 </resources>
