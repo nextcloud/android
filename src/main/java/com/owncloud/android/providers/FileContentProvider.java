@@ -58,6 +58,7 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -114,12 +115,14 @@ public class FileContentProvider extends ContentProvider {
         ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER
     };
 
-    private static final Map<String, String> FILE_PROJECTION_MAP = new HashMap<>();
+    private static final Map<String, String> FILE_PROJECTION_MAP;
 
     static {
+        HashMap<String,String> tempMap = new HashMap<>();
         for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
-            FILE_PROJECTION_MAP.put(projection, projection);
+            tempMap.put(projection, projection);
         }
+        FILE_PROJECTION_MAP = Collections.unmodifiableMap(tempMap);
     }
 
 
