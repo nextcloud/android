@@ -30,6 +30,7 @@ object IntentUtil {
     @JvmStatic
     public fun createSendIntent(context: Context, file: OCFile): Intent =
         createBaseSendFileIntent().apply {
+            action = Intent.ACTION_SEND
             type = file.mimeType
             putExtra(Intent.EXTRA_STREAM, file.getExposedFileUri(context))
         }
@@ -37,20 +38,21 @@ object IntentUtil {
     @JvmStatic
     public fun createSendIntent(context: Context, files: Array<OCFile>): Intent =
         createBaseSendFileIntent().apply {
+            action = Intent.ACTION_SEND_MULTIPLE
             type = getUniqueMimetype(files)
-            putExtra(Intent.EXTRA_STREAM, getExposedFileUris(context, files))
+            putParcelableArrayListExtra(Intent.EXTRA_STREAM, getExposedFileUris(context, files))
         }
 
     private fun createBaseSendFileIntent(): Intent =
-        Intent(Intent.ACTION_SEND).apply {
+        Intent().apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
 
     private fun getUniqueMimetype(files: Array<OCFile>): String? = when {
-        files.distinctBy { it.mimeType }.size > 1 -> null
+        files.distinctBy { it.mimeType }.size > 1 -> "*/*"
         else -> files[0].mimeType
     }
 
-    private fun getExposedFileUris(context: Context, files: Array<OCFile>): Array<Uri> =
-        files.map { it.getExposedFileUri(context) }.toTypedArray()
+    private fun getExposedFileUris(context: Context, files: Array<OCFile>): ArrayList<Uri> =
+        ArrayList(files.map { it.getExposedFileUri(context) })
 }
