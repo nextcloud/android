@@ -101,15 +101,21 @@ public class FileContentProvider extends ContentProvider {
     public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
     public static final int MINIMUM_PATH_SEGMENTS_SIZE = 1;
 
-    private static final String[] PROJECTION_CONTENT_TYPE = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_CONTENT_TYPE};
-    private static final String[] PROJECTION_REMOTE_ID = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_REMOTE_ID};
-    private static final String[] PROJECTION_FILE_AND_STORAGE_PATH = new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH, ProviderTableMeta.FILE_PATH};
+    private static final String[] PROJECTION_CONTENT_TYPE = new String[]{
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_CONTENT_TYPE
+    };
+    private static final String[] PROJECTION_REMOTE_ID = new String[]{
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_REMOTE_ID
+    };
+    private static final String[] PROJECTION_FILE_AND_STORAGE_PATH = new String[]{
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH, ProviderTableMeta.FILE_PATH
+    };
     private static final String[] PROJECTION_FILE_PATH_AND_OWNER = new String[]{
-        ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH,
-        ProviderTableMeta.FILE_ACCOUNT_OWNER
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER
     };
 
-    private static final Map<String,String> FILE_PROJECTION_MAP = new HashMap<>();
+    private static final Map<String, String> FILE_PROJECTION_MAP = new HashMap<>();
+
     static {
         for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
             FILE_PROJECTION_MAP.put(projection, projection);
