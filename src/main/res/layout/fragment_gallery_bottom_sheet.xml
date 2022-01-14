@@ -133,7 +133,8 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding">
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -161,7 +162,8 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding">
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -189,7 +191,8 @@
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding">
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
