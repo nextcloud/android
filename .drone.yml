@@ -171,7 +171,7 @@ name: allScreenshots
 
 steps:
   - name: runAllScreenshots
-    image: nextcloudci/android8:android-61
+    image: ghcr.io/nextcloud/continuous-integration-android8:2
     privileged: true
     environment:
       GIT_USERNAME:
@@ -215,4 +215,4 @@ trigger:
   event:
     - cron
   cron:
-    - daily
+    - allscreenshots
