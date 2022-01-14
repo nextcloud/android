@@ -184,7 +184,7 @@ android {
                 resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
             }
             debug {
-                resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
+                resValue "string", "webview_login_url", "${DEV_SERVER_URL}"
                 testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
@@ -204,15 +204,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 46200129
-                versionName "46200129"
+                versionCode 48200129
+                versionName "48200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 34
-                versionName "1.34"
+                versionCode 36
+                versionName "1.36"
             }
         }
 
