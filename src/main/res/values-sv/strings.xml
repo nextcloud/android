@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
+    <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_new_file">Ny fil</string>
+    <string name="conflict_server_file">Serverfil</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
     <string name="contacts">Kontakter</string>
@@ -257,6 +259,7 @@
     <string name="error_choosing_date">Ett fel uppstod när datum valdes</string>
     <string name="error_comment_file">Fel vid kommentering av fil</string>
     <string name="error_crash_title">%1$s kraschade</string>
+    <string name="error_creating_file_from_template">Fel vid skapande av fil från mallen</string>
     <string name="error_report_issue_action">Rapportera</string>
     <string name="error_report_issue_text">Rapportera problemet? (kräver ett Github-konto)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
@@ -300,6 +303,7 @@
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
     <string name="file_list_empty_favorite_headline">Inga favoriter ännu</string>
     <string name="file_list_empty_favorites_filter_list">Filer och mappar markerade som favoriter kommer att visas här.</string>
+    <string name="file_list_empty_gallery">Inga bilder eller videor hittades</string>
     <string name="file_list_empty_headline">Inga filer här</string>
     <string name="file_list_empty_headline_search">Tomt i denna mapp</string>
     <string name="file_list_empty_headline_server_search">Inga resultat</string>
@@ -310,6 +314,7 @@
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
+    <string name="file_list_empty_unified_search_no_results">Inga sökresultat funna på din sökning</string>
     <string name="file_list_folder">mapp</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
@@ -456,6 +461,7 @@
     <string name="no_email_app_available">Ingen tillgänglig applikation kan hantera e-postadresser</string>
     <string name="no_mutliple_accounts_allowed">Endast ett konto tillåtet</string>
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
+    <string name="no_send_app">Ingen app tillgänglig för att skicka de valda filerna</string>
     <string name="no_share_permission_selected">Välj minst en behörighet att dela.</string>
     <string name="note_confirm">Skicka</string>
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
@@ -545,6 +551,7 @@
     <string name="prefs_lock_using_device_credentials">Enhetens inloggningsuppgifter</string>
     <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
+    <string name="prefs_recommend">Rekommendera till en vän</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_storage_path">Datalagringsmapp</string>
