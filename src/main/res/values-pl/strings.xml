@@ -461,6 +461,7 @@
     <string name="no_email_app_available">Brak dostępnej aplikacji do obsługi adresu e-mail</string>
     <string name="no_mutliple_accounts_allowed">Dozwolone jest tylko jedno konto</string>
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
+    <string name="no_send_app">Brak dostępnej aplikacji do wysyłania wybranych plików</string>
     <string name="no_share_permission_selected">Wybierz co najmniej jedno uprawnienie do udostępniania.</string>
     <string name="note_confirm">Wyślij</string>
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
