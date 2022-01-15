@@ -461,6 +461,7 @@
     <string name="no_email_app_available">Není k dispozici aplikace pro práci s e-maily</string>
     <string name="no_mutliple_accounts_allowed">Povolen je pouze jeden účet</string>
     <string name="no_pdf_app_available">Není k dispozice aplikace pro práci s PDF</string>
+    <string name="no_send_app">Není k dispozici žádná aplikace pro odesílání vybraných souborů</string>
     <string name="no_share_permission_selected">Vyberte alespoň jedno oprávnění pro sdílení.</string>
     <string name="note_confirm">Poslat</string>
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>

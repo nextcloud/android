@@ -461,6 +461,7 @@
     <string name="no_email_app_available">Aplikácia pre prácu s e-mail adresami nenájdená</string>
     <string name="no_mutliple_accounts_allowed">Povolený je iba jeden účet</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
+    <string name="no_send_app">Nie je k dispozícii žiadna aplikácia na odosielanie vybratých súborov</string>
     <string name="no_share_permission_selected">Vyberte aspoň jedno povolenie na zdieľanie.</string>
     <string name="note_confirm">Odoslať</string>
     <string name="note_could_not_sent">Nebolo možné odoslať poznámku</string>
