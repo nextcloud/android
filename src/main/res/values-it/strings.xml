@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_using_passcode">Codice di sicurezza</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
+    <string name="prefs_recommend">Consiglia ad un amico</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>
