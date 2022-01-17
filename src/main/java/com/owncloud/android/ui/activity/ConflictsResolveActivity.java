@@ -149,6 +149,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                         intent.putExtra(FileDownloader.EXTRA_FILE, file);
                         intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
                         startService(intent);
+                    } else {
+                        uploadsStorageManager.removeUpload(upload);
                     }
                     break;
             }
