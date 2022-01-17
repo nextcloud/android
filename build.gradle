@@ -64,7 +64,7 @@ ext {
 	daggerVersion = "2.40.5"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion = "b1e4bdc5faee33ab2307e8989815e0e39a6de5b5"
+    androidLibraryVersion = "082905cb3410d4e1221bf6f3ed5f37a341ea029c"
     mockitoVersion = "4.2.0"
     mockkVersion = "1.12.2"
     powermockVersion = "2.0.9"
