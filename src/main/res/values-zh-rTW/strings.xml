@@ -461,6 +461,7 @@
     <string name="no_email_app_available">沒有應用程式可開啟此郵件地址</string>
     <string name="no_mutliple_accounts_allowed">僅允許一個帳號</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
+    <string name="no_send_app">沒有可用於傳送選定檔案的應用程式</string>
     <string name="no_share_permission_selected">請選取至少一個要分享的權限。</string>
     <string name="note_confirm">傳送</string>
     <string name="note_could_not_sent">傳送筆記失敗</string>
