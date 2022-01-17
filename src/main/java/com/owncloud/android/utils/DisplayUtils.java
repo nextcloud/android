@@ -646,9 +646,10 @@ public final class DisplayUtils {
      *
      * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
      * @param messageResource The resource id of the string resource to use. Can be formatted text.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
-        showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
+    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource) {
+        return showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
     }
 
     /**
@@ -656,9 +657,12 @@ public final class DisplayUtils {
      *
      * @param activity The {@link Activity} to which's content view the {@link Snackbar} is bound.
      * @param message  Message to show.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(Activity activity, String message) {
-        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+    public static Snackbar showSnackMessage(Activity activity, String message) {
+        final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        snackbar.show();
+        return snackbar;
     }
 
     /**
@@ -666,9 +670,12 @@ public final class DisplayUtils {
      *
      * @param view            The view the {@link Snackbar} is bound to.
      * @param messageResource The resource id of the string resource to use. Can be formatted text.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(View view, @StringRes int messageResource) {
-        Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG).show();
+    public static Snackbar showSnackMessage(View view, @StringRes int messageResource) {
+        final Snackbar snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
+        snackbar.show();
+        return snackbar;
     }
 
     /**
@@ -676,9 +683,12 @@ public final class DisplayUtils {
      *
      * @param view    The view the {@link Snackbar} is bound to.
      * @param message The message.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(View view, String message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+    public static Snackbar showSnackMessage(View view, String message) {
+        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
+        return snackbar;
     }
 
     /**
@@ -686,6 +696,7 @@ public final class DisplayUtils {
      *
      * @param view            The view the {@link Snackbar} is bound to.
      * @param messageResource The resource id of the string resource to use. Can be formatted text.
+     * @return The created {@link Snackbar}
      */
     public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
         return Snackbar.make(view, messageResource, length);
@@ -697,9 +708,10 @@ public final class DisplayUtils {
      * @param activity        The {@link Activity} to which's content view the {@link Snackbar} is bound.
      * @param messageResource The resource id of the string resource to use. Can be formatted text.
      * @param formatArgs      The format arguments that will be used for substitution.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
-        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
+    public static Snackbar showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
+        return showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
     }
 
     /**
@@ -709,13 +721,16 @@ public final class DisplayUtils {
      * @param view            The content view the {@link Snackbar} is bound to.
      * @param messageResource The resource id of the string resource to use. Can be formatted text.
      * @param formatArgs      The format arguments that will be used for substitution.
+     * @return The created {@link Snackbar}
      */
-    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        Snackbar.make(
+    public static Snackbar showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
+        final Snackbar snackbar = Snackbar.make(
             view,
             String.format(context.getString(messageResource, formatArgs)),
-            Snackbar.LENGTH_LONG)
+            Snackbar.LENGTH_LONG);
+        snackbar
             .show();
+        return snackbar;
     }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
