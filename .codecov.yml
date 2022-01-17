@@ -16,6 +16,9 @@ comment:
   layout: "header, diff, changes, uncovered, tree"
   behavior: default
 
+github_checks:
+    annotations: false
+
 ignore:
   - "src/main/res/values*/*"
 
