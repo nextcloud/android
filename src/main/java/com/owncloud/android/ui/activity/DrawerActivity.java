@@ -430,7 +430,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         int itemId = menuItem.getItemId();
 
         if (itemId == R.id.nav_all_files) {
-            throw new RuntimeException();
+            throw new RuntimeException(new RuntimeException((new RuntimeException(new RuntimeException()))));
 
 //            if (this instanceof FileDisplayActivity &&
 //                !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&

@@ -30,8 +30,6 @@ import android.content.Intent
 import android.os.Build
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
-import java.io.PrintWriter
-import java.io.StringWriter
 
 class ExceptionHandler(
     private val context: Context,
@@ -40,15 +38,14 @@ class ExceptionHandler(
 
     companion object {
         private const val LINE_SEPARATOR = "\n"
+        private const val EXCEPTION_FORMAT_MAX_RECURSIVITY = 10
     }
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
 
         @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
         try {
-            val stackTrace = StringWriter()
-            exception.printStackTrace(PrintWriter(stackTrace))
-            val errorReport = generateErrorReport(stackTrace.toString())
+            val errorReport = generateErrorReport(formatException(thread, exception))
             val intent = Intent(context, ShowErrorActivity::class.java)
             intent.putExtra(ShowErrorActivity.EXTRA_ERROR_TEXT, errorReport)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -61,6 +58,30 @@ class ExceptionHandler(
             // exception handling. Pass this ultimate fatal exception to OS
             defaultExceptionHandler.uncaughtException(thread, fatalException)
         }
+    }
+
+    private fun formatException(thread: Thread, exception: Throwable): String {
+        fun formatExceptionRecursive(thread: Thread, exception: Throwable, count: Int = 0): String {
+            if (count > EXCEPTION_FORMAT_MAX_RECURSIVITY) {
+                return "    Max number of recursive exception causes exceeded!"
+            }
+            // print exception
+            val stringBuilder = StringBuilder()
+            val stackTrace = exception.stackTrace
+            stringBuilder.appendLine("    Exception in thread \"${thread.name}\" $exception")
+            // print available stacktrace
+            for (element in stackTrace) {
+                stringBuilder.appendLine("        at $element")
+            }
+            // print cause recursively
+            exception.cause?.let {
+                stringBuilder.append("    Caused by: ")
+                stringBuilder.append(formatExceptionRecursive(thread, it, count + 1))
+            }
+            return stringBuilder.toString()
+        }
+
+        return formatExceptionRecursive(thread, exception, 0)
     }
 
     private fun generateErrorReport(stackTrace: String): String {
