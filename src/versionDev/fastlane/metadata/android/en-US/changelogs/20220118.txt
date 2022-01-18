@@ -1,0 +1,7 @@
+ConflictsResolveActivity: remove upload is KEEP_SERVER and shouldDeleteLocal
+removed a check in KEEP_SERVER switch clause. 1) The check prevents solving file conflicts (keep server) correctly. 2) The check involves FileUploader.LOCAL_BEHAVIOUR_DELETE, intended use is for media file uploads.
+:Conflict files are removed from the upload storage manager after downloaded successfully.
+Fix NPE in BackupFragment when fragment exits while refresh is happening
+Screenshot tests: Improve Activities activity tests
+Update translations
+Update 3rd-party dependencies
