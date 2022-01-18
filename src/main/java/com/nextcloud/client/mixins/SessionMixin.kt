@@ -91,6 +91,7 @@ class SessionMixin constructor(
         val newAccount = accountManager.currentAccount
         if (newAccount == null) {
             // no account available: force account creation
+            currentAccount = null
             startAccountCreation()
         } else {
             currentAccount = newAccount
