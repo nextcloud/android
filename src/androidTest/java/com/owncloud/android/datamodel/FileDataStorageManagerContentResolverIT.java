@@ -22,11 +22,54 @@
 
 package com.owncloud.android.datamodel;
 
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class FileDataStorageManagerContentResolverIT extends FileDataStorageManagerIT {
     @Override
     public void before() {
         sut = new FileDataStorageManager(user, targetContext.getContentResolver());
 
         super.before();
+    }
+
+    @Test
+    /*
+    only on FileDataStorageManager
+     */
+    public void testMoveManyFiles() {
+        // create folder
+        OCFile folderA = new OCFile("/folderA/", "00001"); // remote Id must never be null
+        folderA.setFolder()
+            .setParentId(sut.getFileByDecryptedRemotePath("/").getFileId());
+
+        sut.saveFile(folderA);
+        assertTrue(sut.fileExists("/folderA/"));
+        assertEquals(0, sut.getFolderContent(folderA, false).size());
+
+        long folderAId = sut.getFileByDecryptedRemotePath("/folderA/").getFileId();
+
+        ArrayList<OCFile> newFiles = new ArrayList<>();
+        for (int i = 0; i < 5000; i++) {
+            OCFile file = new OCFile("/folderA/file" + i, String.valueOf(i));
+            file.setParentId(folderAId);
+            sut.saveFile(file);
+
+            OCFile storedFile = sut.getFileByDecryptedRemotePath("/folderA/file" + i);
+            assertNotNull(storedFile);
+
+            newFiles.add(storedFile);
+        }
+
+        sut.saveFolder(folderA,
+                       newFiles,
+                       new ArrayList<>());
+
+        assertEquals(5000, sut.getFolderContent(folderA, false).size());
     }
 }
