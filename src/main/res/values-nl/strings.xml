@@ -509,7 +509,7 @@
     <string name="player_toggle">omschakelen</string>
     <string name="power_save_check_dialog_message">Uitschakelen stroombesparingscontrole kan resulteren in uploaden van bestanden met lage accustand!</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
-    <string name="pref_behaviour_entries_keep_file">bewaard worden in originele map</string>
+    <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst worden naar app-map</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Wat als het bestand al bestaat?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Vraag me elke keer</string>
@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
+    <string name="prefs_recommend">Aanbevelen bij een vriend</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_storage_path">Gegevensopslagmap</string>
