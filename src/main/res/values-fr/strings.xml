@@ -463,6 +463,7 @@ Attention la suppression est irréversible.</string>
     <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse email</string>
     <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
+    <string name="no_send_app">Aucune application disponible pour envoyer les fichiers sélectionnés</string>
     <string name="no_share_permission_selected">Veuillez sélectionner au moins une permission à partager.</string>
     <string name="note_confirm">Envoyer</string>
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
