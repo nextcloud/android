@@ -18,4 +18,4 @@ jobs:
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-                    scripts/analysis/analysis-wrapper.sh ${{ secrets.GIT_USERNAME }} ${{ secrets.GIT_TOKEN }} $GITHUB_REF ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ github.event.pull_request.number }}
+                    scripts/analysis/analysis-wrapper.sh ${{ secrets.GIT_USERNAME }} ${{ secrets.GIT_TOKEN }} ${{ github.head_ref }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ github.event.pull_request.number }}
