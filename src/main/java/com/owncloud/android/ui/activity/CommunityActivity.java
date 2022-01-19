@@ -62,13 +62,6 @@ public class CommunityActivity extends DrawerActivity {
     protected void setupContent() {
         binding.communityReleaseCandidateText.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView contributeIrcView = binding.communityContributeIrcText;
-        contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeIrcView.setText(Html.fromHtml(getString(R.string.community_contribute_irc_text) + " " +
-                                                    getString(R.string.community_contribute_irc_text_link,
-                                                              ThemeColorUtils.primaryColorToHexString(this),
-                                                              getString(R.string.irc_weblink))));
-
         TextView contributeForumView = binding.communityContributeForumText;
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +

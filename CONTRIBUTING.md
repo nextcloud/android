@@ -1,9 +1,5 @@
 # [Nextcloud](https://nextcloud.com) Android app
 
-[![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
-[![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
-
-
 # Index
 1. [Guidelines](#guidelines)
     1. [Issue reporting](#issue-reporting)
