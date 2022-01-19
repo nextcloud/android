@@ -1397,9 +1397,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FAVORITE_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
                 case RECENTLY_MODIFIED_SEARCH:
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
                     break;
@@ -1717,7 +1714,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
+                event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
