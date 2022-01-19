@@ -1379,9 +1379,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case GALLERY_SEARCH:
                     setTitle(R.string.drawer_item_gallery);
                     break;
-                case RECENTLY_ADDED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_added);
-                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recently_modified);
                     break;
