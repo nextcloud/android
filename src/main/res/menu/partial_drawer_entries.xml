@@ -58,7 +58,7 @@
             android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
             android:title="@string/drawer_item_recently_modified"
-            android:visible="false"/>
+            android:visible="true"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"
