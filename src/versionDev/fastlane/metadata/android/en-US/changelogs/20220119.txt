@@ -1,0 +1,6 @@
+remove not used videos drawer entry (#9708)
+SessionMixin: set currentAccount to null when no accounts are available
+FileContentProvider: make projection map unmodifiable
+FileContentProvider: fix formatting
+FileContentProvider: make projection arrays and map static
+FileContentProvider: use projections for queries
