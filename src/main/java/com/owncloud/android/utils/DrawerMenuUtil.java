@@ -43,7 +43,7 @@ public final class DrawerMenuUtil {
                                              User user,
                                              Resources resources) {
         if (user.isAnonymous()) {
-            filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites, R.id.nav_videos);
+            filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites);
         }
 
         if (!resources.getBoolean(R.bool.recently_added_enabled)) {
@@ -52,10 +52,6 @@ public final class DrawerMenuUtil {
 
         if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
             menu.removeItem(R.id.nav_recently_modified);
-        }
-
-        if (!resources.getBoolean(R.bool.videos_enabled)) {
-            menu.removeItem(R.id.nav_videos);
         }
     }
 
