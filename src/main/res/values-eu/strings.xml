@@ -549,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Gailuaren egiaztagiriak</string>
     <string name="prefs_lock_using_passcode">Pasahitza</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
+    <string name="prefs_recommend">Gomendatu lagun bati</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>
@@ -823,7 +824,7 @@
     <string name="uploads_view_group_failed_uploads">Huts egin du/berrabiarazteko zain</string>
     <string name="uploads_view_group_finished_uploads">Igoa</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
-    <string name="uploads_view_title">Igoerak</string>
+    <string name="uploads_view_title">Kargak</string>
     <string name="uploads_view_upload_status_cancelled">Ezeztatuak</string>
     <string name="uploads_view_upload_status_conflict">Gatazka</string>
     <string name="uploads_view_upload_status_failed_connection_error">Konexio errorea</string>
