@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -57,6 +58,7 @@ import static org.junit.Assert.assertTrue;
 abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
     protected FileDataStorageManager sut;
+    private OCCapability capability;
 
     @Before
     public void before() {
@@ -65,6 +67,10 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         sut.deleteVirtuals(VirtualFolderType.GALLERY);
 
         assertEquals(0, sut.getAllFiles().size());
+
+        capability = (OCCapability) new GetCapabilitiesRemoteOperation(null)
+            .execute(client)
+            .getSingleData();
     }
 
     @After
@@ -168,7 +174,8 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         // search
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation("image/%",
                                                                                 PHOTO_SEARCH,
-                                                                                false);
+                                                                                false,
+                                                                                capability);
 
         RemoteOperationResult<List<RemoteFile>> searchResult = searchRemoteOperation.execute(client);
         TestCase.assertTrue(searchResult.isSuccess());
@@ -253,7 +260,8 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         // search
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation("",
                                                                                 GALLERY_SEARCH,
-                                                                                false);
+                                                                                false,
+                                                                                capability);
 
         RemoteOperationResult<List<RemoteFile>> searchResult = searchRemoteOperation.execute(client);
         TestCase.assertTrue(searchResult.isSuccess());

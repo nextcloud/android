@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -67,9 +68,13 @@ public class GalleryFragment extends OCFileListFragment {
 
         searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
 
+        OCCapability ocCapability = mContainerActivity.getStorageManager()
+            .getCapability(accountManager.getUser().getAccountName());
+
         searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
                                                           searchEvent.getSearchType(),
-                                                          false);
+                                                          false,
+                                                          ocCapability);
     }
 
     @Override
