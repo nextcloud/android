@@ -183,8 +183,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         switch (item.getItemId()) {
 
             case R.id.action_three_dot_icon:
-                galleryFragmentBottomSheetDialog.show();
-                return true;
+                if(photoSearchNoNew) {
+                    galleryFragmentBottomSheetDialog.show();
+                    return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -223,10 +225,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         refresh = true;
         photoSearchNoNew = false;
         photoSearchQueryRunning = false;
+        //setAdapterEmpty();
+        mediaObject.clear();
+       // runGallerySearchTask();
         handleSearchEvent();
 
     }
-
+    
     @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         super.onMessageEvent(changeMenuEvent);
@@ -351,7 +356,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+                                                          mContainerActivity.getStorageManager(),this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -365,7 +370,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+                                                          mContainerActivity.getStorageManager(),this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
