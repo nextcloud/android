@@ -147,7 +147,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
 
 
                    setAdapterWithHideShowImage(mediaObject, adapter,isVideoHideClicked,isImageHideClicked,imageList,
-                                               videoList,storageManager);
+                                               videoList,storageManager,photoFragment);
 
                     Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
                 }
@@ -171,7 +171,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
     public static void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter,
                                                   boolean isVideoHideClicked, boolean isImageHideClicked,
                                                    List<Object> imageList, List<Object> videoList ,
-                                                   FileDataStorageManager storageManager ) {
+                                                   FileDataStorageManager storageManager,
+                                                   GalleryFragment photoFragment ) {
 
         if (isVideoHideClicked) {
             imageList.clear();
@@ -183,7 +184,15 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     }
                 }
             }
-            updateAndNotifyAdapter(imageList, adapter, storageManager);
+            if(!imageList.isEmpty())
+            {
+                updateAndNotifyAdapter(imageList, adapter, storageManager);
+            }
+            else
+            {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            }
+
         }
         else if (isImageHideClicked) {
             videoList.clear();
@@ -194,7 +203,14 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     }
                 }
             }
-            updateAndNotifyAdapter(videoList, adapter, storageManager);
+            if(!videoList.isEmpty())
+            {
+                updateAndNotifyAdapter(videoList, adapter, storageManager);
+            }
+            else
+            {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            }
         }
         else
         {

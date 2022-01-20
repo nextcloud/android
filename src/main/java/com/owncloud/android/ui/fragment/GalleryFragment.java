@@ -231,7 +231,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         handleSearchEvent();
 
     }
-
+    
     @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         super.onMessageEvent(changeMenuEvent);
@@ -356,7 +356,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+                                                          mContainerActivity.getStorageManager(),this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -370,7 +370,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+                                                          mContainerActivity.getStorageManager(),this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
