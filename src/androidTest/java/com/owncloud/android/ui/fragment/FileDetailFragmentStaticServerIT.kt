@@ -22,7 +22,12 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.view.View
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -34,7 +39,8 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
-import java.util.GregorianCalendar
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
@@ -187,4 +193,27 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         shortSleep()
         screenshot(sut)
     }
+
+    @Test
+    fun verifyFileDetailFragmentViews() {
+        val sut = testActivityRule.launchActivity(null)
+        sut.addView(
+            FloatingActionButton(sut).apply { // needed for some reason
+                visibility = View.GONE
+                id = R.id.fab_main
+            }
+        )
+        val fragment = FileDetailFragment.newInstance(file, user)
+        sut.addFragment(fragment)
+
+        waitForIdleSync()
+        shortSleep()
+
+        Espresso.onView(ViewMatchers.withId(R.id.filename)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.favorite)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.size)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.file_separator)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.last_modification_timestamp)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+    }
+
 }
