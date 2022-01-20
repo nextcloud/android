@@ -126,7 +126,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                     photoFragment.setSearchDidNotFindNewPhotos(true);
                 } else {
                     OCFileListAdapter adapter = photoFragment.getAdapter();
-                    mediaObject.clear();
+                   // mediaObject.clear();
                     if (result.getData().size() < limit) {
                         // stop loading spinner
                         photoFragment.setSearchDidNotFindNewPhotos(true);
@@ -134,10 +134,15 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
 
                     for (Object c : result.getData()) {
                         if (c instanceof RemoteFile) {
-                            if (((RemoteFile) c).getRemotePath().contains(remotePath)) {
-                                mediaObject.add(c);
-                            }
+                            if (((RemoteFile) c).getRemotePath().contains(remotePath))
+                             {
+                                 mediaObject.add(c);
+                             }
                         }
+                    }
+                    if(mediaObject.size()<limit)
+                    {
+                        photoFragment.setSearchDidNotFindNewPhotos(true);
                     }
 
 
