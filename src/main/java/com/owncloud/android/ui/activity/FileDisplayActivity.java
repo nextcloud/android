@@ -524,7 +524,7 @@ public class FileDisplayActivity extends FileActivity
                 if (searchEvent != null) {
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
-
+                        showSortListGroup(true);
                         GalleryFragment photoFragment = new GalleryFragment();
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
@@ -532,7 +532,7 @@ public class FileDisplayActivity extends FileActivity
                         setLeftFragment(photoFragment);
                     } else {
                         Log_OC.d(this, "Switch to oc file search fragment");
-
+                        showSortListGroup(true);
                         OCFileListFragment photoFragment = new OCFileListFragment();
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
@@ -542,7 +542,7 @@ public class FileDisplayActivity extends FileActivity
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
-
+                showSortListGroup(true);
                 setLeftFragment(new OCFileListFragment());
             }
     }
@@ -578,12 +578,6 @@ public class FileDisplayActivity extends FileActivity
         transaction.addToBackStack(null);
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
         transaction.commit();
-
-        if (fragment instanceof UnifiedSearchFragment) {
-            showSortListGroup(false);
-        } else {
-            showSortListGroup(true);
-        }
     }
 
 
@@ -1121,8 +1115,14 @@ public class FileDisplayActivity extends FileActivity
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
-        } else if (leftFragment instanceof PreviewTextStringFragment) {
-            createMinFragments(null);
+        } else if (leftFragment instanceof PreviewTextStringFragment && isSearchOpen && searchView != null) {
+            searchView.setQuery("", true);
+            searchView.onActionViewCollapsed();
+            searchView.clearFocus();
+
+            hideSearchView(getCurrentDir());
+
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else {
             // pop back
             ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams())
@@ -2515,6 +2515,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void performUnifiedSearch(String query) {
+        showSortListGroup(false);
         UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query);
         setLeftFragment(unifiedSearchFragment);
     }
