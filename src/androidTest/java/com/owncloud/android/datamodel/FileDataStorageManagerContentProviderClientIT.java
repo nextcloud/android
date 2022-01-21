@@ -33,5 +33,7 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
                                              .getContentResolver()
                                              .acquireContentProviderClient(ProviderMeta.ProviderTableMeta.CONTENT_URI)
         );
+
+        super.before();
     }
 }
