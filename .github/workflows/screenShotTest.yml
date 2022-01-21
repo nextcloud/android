@@ -34,7 +34,7 @@ jobs:
 
             -   uses: actions/setup-java@v2
                 with:
-                    distribution: "adopt"
+                    distribution: "temurin"
                     java-version: 11
 
             -   name: create AVD and generate snapshot for caching

@@ -17,7 +17,7 @@ jobs:
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 uses: actions/setup-java@v2
                 with:
-                    distribution: "adopt"
+                    distribution: "temurin"
                     java-version: 11
             -   name: Build QA
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
