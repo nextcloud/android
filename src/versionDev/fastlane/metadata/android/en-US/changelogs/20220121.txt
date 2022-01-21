@@ -1,0 +1,5 @@
+Restore library version
+Use capability in SearchRemoteOperation
+Clear DNS cache on network changes
+Update translations
+Update Nextcloud Android library
