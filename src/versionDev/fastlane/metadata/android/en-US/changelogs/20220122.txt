@@ -1,0 +1,1 @@
+Bump version to 3.20.0 on master
