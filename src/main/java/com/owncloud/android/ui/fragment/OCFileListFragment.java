@@ -1490,8 +1490,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         handleSearchEvent(event);
     }
 
-    @VisibleForTesting
-    public void handleSearchEvent(SearchEvent event) {
+    private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
