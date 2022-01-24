@@ -54,14 +54,6 @@ public class GalleryFragment extends OCFileListFragment {
     private SearchEvent searchEvent;
     private boolean refresh;
 
-    public GalleryFragment() {
-        this.refresh = false;
-    }
-
-    public GalleryFragment(boolean refresh) {
-        this.refresh = refresh;
-    }
-
     private void createOperation() {
         if(searchEvent == null) {
             searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
@@ -75,6 +67,12 @@ public class GalleryFragment extends OCFileListFragment {
                                                               false,
                                                               ocCapability);
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        refresh = true;
     }
 
     @Override
@@ -125,6 +123,12 @@ public class GalleryFragment extends OCFileListFragment {
 
         refresh = true;
         handleSearchEvent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLoading(photoSearchQueryRunning);
     }
 
     @Override
