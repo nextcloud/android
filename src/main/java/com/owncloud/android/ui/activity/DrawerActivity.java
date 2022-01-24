@@ -130,6 +130,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -476,7 +477,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
                                menuItem.getItemId());
         } else if (itemId == R.id.nav_recently_modified) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
+            handleSearchEvents(createRecentlyModifiedSearchEvent(),
                                menuItem.getItemId());
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
@@ -487,6 +488,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+    }
+
+    @VisibleForTesting
+    public static SearchEvent createRecentlyModifiedSearchEvent() {
+        return new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
     }
 
     private void startActivity(Class<? extends Activity> activity) {
