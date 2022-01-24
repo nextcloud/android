@@ -191,6 +191,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
     @Test
     @ScreenshotTest
+    @SuppressWarnings("MagicNumber", "FunctionNaming")
     fun testRecentlyModified_NoResults() {
         val activity = activityRule.launchActivity(null)
 
@@ -210,6 +211,7 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
     @Test
     @ScreenshotTest
+    @SuppressWarnings("MagicNumber", "FunctionNaming")
     fun testRecentlyModified_Results() {
         val imageFile = getFile("imageFile.png")
         assertTrue(
