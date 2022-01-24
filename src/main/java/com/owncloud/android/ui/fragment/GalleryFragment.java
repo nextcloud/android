@@ -62,19 +62,19 @@ public class GalleryFragment extends OCFileListFragment {
         this.refresh = refresh;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void createOperation() {
+        if(searchEvent == null) {
+            searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
+        }
+        if(searchRemoteOperation == null) {
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(accountManager.getUser().getAccountName());
 
-        searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
-
-        OCCapability ocCapability = mContainerActivity.getStorageManager()
-            .getCapability(accountManager.getUser().getAccountName());
-
-        searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
-                                                          searchEvent.getSearchType(),
-                                                          false,
-                                                          ocCapability);
+            searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
+                                                              searchEvent.getSearchType(),
+                                                              false,
+                                                              ocCapability);
+        }
     }
 
     @Override
@@ -91,6 +91,7 @@ public class GalleryFragment extends OCFileListFragment {
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        createOperation();
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
