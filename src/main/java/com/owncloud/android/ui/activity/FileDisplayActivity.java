@@ -525,7 +525,7 @@ public class FileDisplayActivity extends FileActivity
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
-                        GalleryFragment photoFragment = new GalleryFragment(true);
+                        GalleryFragment photoFragment = new GalleryFragment();
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
@@ -2071,7 +2071,7 @@ public class FileDisplayActivity extends FileActivity
 
                             OCFileListFragment fragment = getListOfFilesFragment();
 
-                            if (fragment != null) {
+                            if (fragment != null && !(fragment instanceof GalleryFragment)) {
                                 fragment.setLoading(true);
                             }
 
@@ -2341,7 +2341,7 @@ public class FileDisplayActivity extends FileActivity
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             Log_OC.d(this, "Switch to photo search fragment");
 
-            setLeftFragment(new GalleryFragment(true));
+            setLeftFragment(new GalleryFragment());
         }
     }
 
