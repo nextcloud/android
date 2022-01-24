@@ -150,8 +150,10 @@
     <string name="conflict_already_existing_file">Már létező fájl</string>
     <string name="conflict_dialog_error">Hiba az ütközési párbeszédablak létrehozásakor!</string>
     <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
+    <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_new_file">Új fájl</string>
+    <string name="conflict_server_file">Kiszolgálón lévő fájl</string>
     <string name="contactlist_item_icon">Felhasználó ikon a névjegylistához</string>
     <string name="contactlist_no_permission">Nincs jogosultság megadva, semmi sem lett importálva.</string>
     <string name="contacts">Névjegyek</string>
@@ -459,6 +461,7 @@
     <string name="no_email_app_available">Nem érhető el alkalmazás a levélcímek kezeléséhez</string>
     <string name="no_mutliple_accounts_allowed">Csak egy fiók engedélyezett</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
+    <string name="no_send_app">Nem érhető el alkalmazás a kiválasztott fájlok küldéséhez</string>
     <string name="no_share_permission_selected">Válasszon legalább egy jogosultságot a megosztáshoz.</string>
     <string name="note_confirm">Küldés</string>
     <string name="note_could_not_sent">A jegyzet nem küldhető el</string>
@@ -547,6 +550,7 @@
     <string name="prefs_lock_using_device_credentials">Eszközhitelesítő-adatok</string>
     <string name="prefs_lock_using_passcode">Számkód</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
+    <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
     <string name="prefs_storage_path">Adattároló mappa</string>
