@@ -32,7 +32,11 @@ import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
+import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.Assert
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -183,5 +187,43 @@ class OCFileListFragmentIT : AbstractOnServerIT() {
 
         ocFile.fileLength = 100
         assertTrue(sut.checkIfEnoughSpace(200L, ocFile))
+    }
+
+    @Test
+    @ScreenshotTest
+    @SuppressWarnings("MagicNumber", "FunctionNaming")
+    fun testRecentlyModified_NoResults() {
+        val activity = activityRule.launchActivity(null)
+
+        val ocFileListFragment = activity.listOfFilesFragment
+        Assert.assertNotNull(ocFileListFragment)
+
+        shortSleep()
+
+        val searchEvent = DrawerActivity.createRecentlyModifiedSearchEvent()
+
+        ocFileListFragment?.handleSearchEvent(searchEvent)
+
+        shortSleep()
+
+        screenshot(activity)
+    }
+
+    @Test
+    @ScreenshotTest
+    @SuppressWarnings("MagicNumber", "FunctionNaming")
+    fun testRecentlyModified_Results() {
+        val imageFile = getFile("imageFile.png")
+        assertTrue(
+            UploadFileRemoteOperation(
+                imageFile.absolutePath,
+                "/imageFile.png",
+                "image/png",
+                (System.currentTimeMillis() / 1000).toString()
+            )
+                .execute(client).isSuccess
+        )
+
+        testRecentlyModified_NoResults()
     }
 }
