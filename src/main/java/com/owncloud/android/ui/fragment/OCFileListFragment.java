@@ -54,6 +54,7 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -101,7 +102,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -240,6 +240,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+        }
+
+        if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
         }
 
@@ -1376,9 +1379,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case GALLERY_SEARCH:
                     setTitle(R.string.drawer_item_gallery);
                     break;
-                case RECENTLY_ADDED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_added);
-                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recently_modified);
                     break;
@@ -1397,9 +1397,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FAVORITE_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
                 case RECENTLY_MODIFIED_SEARCH:
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
                     break;
@@ -1476,6 +1473,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Error processing event", e);
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
         }
     }
 
@@ -1717,7 +1723,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
+                event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
