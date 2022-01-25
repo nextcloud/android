@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -46,6 +47,7 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
     private static final String LIB_FOLDER = "lib";
 
     @Inject AppPreferences preferences;
+    @Inject UserAccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
     private class ClearDataAsyncTask extends AsyncTask<Void, Void, Boolean>{
 
         private final AppPreferences preferences = ManageSpaceActivity.this.preferences;
+        private final UserAccountManager userAccountManager = ManageSpaceActivity.this.accountManager;
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -119,6 +122,7 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
             }
 
             preferences.setLockPreference(lockPref);
+            userAccountManager.removeAllAccounts();
 
             return result;
         }
