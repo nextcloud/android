@@ -177,7 +177,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding.shareCreateNewLink.setOnClickListener(v -> createPublicShareLink());
 
         //remove focus from search view on click of root view
-        binding.shareContainer.setOnClickListener(v-> binding.searchView.clearFocus());
+        binding.shareContainer.setOnClickListener(v -> binding.searchView.clearFocus());
 
         setupView();
 
@@ -207,7 +207,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setShareWithYou();
     }
 
-    private void setUpSearchView(){
+    private void setUpSearchView() {
         FileDetailSharingFragmentHelper.setupSearchView(
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
@@ -215,7 +215,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         ThemeToolbarUtils.themeSearchView(binding.searchView, requireContext());
 
         //if (file.canReshare()) {
-            binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+        binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
        /* } else {
             binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
             binding.searchView.setInputType(InputType.TYPE_NULL);
@@ -298,10 +298,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 binding.sharedWithYouNoteContainer.setVisibility(View.GONE);
             }
 
-            if (file.canReshare()){
+            if (file.canReshare()) {
                 binding.tvSharingDetailsMessage.setText(getResources().getString(R.string.reshare_allowed) + " " + getResources().getString(R.string.sharing_description));
                 setUpSearchView();
-            }else{
+            } else {
                 binding.searchView.setVisibility(View.GONE);
                 binding.labelPersonalShare.setVisibility(View.GONE);
                 binding.shareCreateNewLink.setVisibility(View.GONE);
@@ -377,6 +377,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * show quick sharing permission dialog
+     *
      * @param share
      */
     @Override
@@ -398,6 +399,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         } else {
             setupView();
         }
+    }
+
+    /**
+     * will be called when download limit from api is fetched
+     * @param result
+     */
+    public void onLinkShareDownloadLimitFetched(RemoteOperationResult result) {
+        //onEditShareListener.onLinkShareDownloadLimitFetched();
     }
 
     /**
@@ -484,14 +493,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         adapter.addShares(publicShares);
 
-        if ((shares != null && !shares.isEmpty()) || (publicShares != null && !publicShares.isEmpty())){
+        if ((shares != null && !shares.isEmpty()) || (publicShares != null && !publicShares.isEmpty())) {
             showHideView(false);
-        }else{
+        } else {
             showHideView(true);
         }
     }
 
-    private void showHideView(boolean isEmptyList){
+    private void showHideView(boolean isEmptyList) {
         binding.sharesList.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
         binding.tvYourShares.setVisibility(isEmptyList ?View.GONE : View.VISIBLE);
         binding.tvEmptyShares.setVisibility(isEmptyList ? View.VISIBLE : View.GONE);
@@ -590,6 +599,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public interface OnEditShareListener {
         void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
                                boolean isExpiryDateShown);
+
+        void onLinkShareDownloadLimitFetched(int downloadLimit);
 
         void onShareProcessClosed();
     }
