@@ -22,14 +22,10 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareToRemoteOperationResultParser;
-import com.owncloud.android.lib.resources.shares.ShareXMLParser;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.methods.Utf8PostMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +34,8 @@ import java.util.List;
  * class to update the download limit for the link share
  * <p>
  * API : //PUT to /ocs/v2.php/apps/files_downloadlimit/{share_token}/limit
- *
- * Body:
- * {"token" : "Bpd4oEAgPqn3AbG",
- * "limit" : 5}
+ * <p>
+ * Body: {"token" : "Bpd4oEAgPqn3AbG", "limit" : 5}
  */
 public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
 
@@ -72,32 +66,26 @@ public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
             // Post Method
             put = new PutMethod(client.getBaseUri() + ShareDownloadLimitUtils.INSTANCE.getDownloadLimitApiPath(shareToken));
 
-            put.setRequestHeader(CONTENT_TYPE, FORM_URLENCODED);
-
+            put.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
             List<Pair<String, String>> parametersToUpdate = new ArrayList<>();
-                //parametersToUpdate.add(new Pair<>(PARAM_TOKEN, shareToken));
+            parametersToUpdate.add(new Pair<>(PARAM_TOKEN, shareToken));
             parametersToUpdate.add(new Pair<>(PARAM_LIMIT, String.valueOf(downloadLimit)));
 
             for (Pair<String, String> parameter : parametersToUpdate) {
                 put.setRequestEntity(new StringRequestEntity(parameter.first + "=" + parameter.second,
-                                                              ENTITY_CONTENT_TYPE,
-                                                              ENTITY_CHARSET));
+                                                             ENTITY_CONTENT_TYPE,
+                                                             ENTITY_CHARSET));
             }
-
-            put.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
 
             status = client.executeMethod(put);
 
             if (isSuccess(status)) {
                 String response = put.getResponseBodyAsString();
 
-                Log_OC.d(TAG,"Download Limit response: "+response);
+                Log_OC.d(TAG, "Download Limit response: " + response);
 
-                ShareToRemoteOperationResultParser parser = new ShareToRemoteOperationResultParser(
-                    new ShareXMLParser()
-                );
-                parser.setServerBaseUri(client.getBaseUri());
-                result = parser.parse(response);
+                DownloadLimitXMLParser parser = new DownloadLimitXMLParser();
+                result = parser.parse(true, response);
 
                 if (result.isSuccess()) {
                     return result;

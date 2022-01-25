@@ -264,8 +264,17 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             }
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
 
-            binding.shareProcessDownloadLimitSwitch.visibility = View.VISIBLE
-            binding.dividerSharingDownloadLimit.visibility = View.VISIBLE
+            //download limit will only be available for Files
+            if (share?.isFolder == false || file?.isFolder == false) {
+                binding.shareProcessDownloadLimitSwitch.visibility = View.VISIBLE
+                binding.dividerSharingDownloadLimit.visibility = View.VISIBLE
+
+                //fetch the download limit for link share
+                fetchDownloadLimitForShareLink()
+            } else {
+                binding.shareProcessDownloadLimitSwitch.visibility = View.GONE
+                binding.dividerSharingDownloadLimit.visibility = View.GONE
+            }
 
             //the input for download limit will be hidden initially
             //and can be visible back or no depending on the api result
@@ -274,8 +283,6 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
             updateFileEditingRadioButton()
 
-            //fetch the download limit for link share
-            fetchDownloadLimitForShareLink()
         }
         // internal share
         else {
@@ -288,7 +295,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
-                if (share?.isFolder == true){
+                if (share?.isFolder == true) {
                     hideFileDropView()
                 }
             } else if (file?.isFolder == true) {
@@ -590,10 +597,11 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         if (binding.shareProcessDownloadLimitSwitch.isChecked) {
             if (TextUtils.isEmpty(downloadLimit)) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
-            } else if (downloadLimit.toInt() <= 0){
+                return
+            } else if (downloadLimit.toInt() <= 0) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_zero)
+                return
             }
-            return
         }
 
         //if modifying existing share information then execute the process

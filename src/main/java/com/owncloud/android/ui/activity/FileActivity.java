@@ -75,6 +75,7 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
+import com.owncloud.android.operations.share_download_limit.DownloadLimitResponse;
 import com.owncloud.android.operations.share_download_limit.GetShareDownloadLimitOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.OperationsService;
@@ -854,9 +855,11 @@ public abstract class FileActivity extends DrawerActivity
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
 
         if (result.isSuccess() && sharingFragment != null) {
-           // sharingFragment.onLinkShareDownloadLimitFetched(result);
-            // TODO: 11-11-2021 Change the hardcoded limit
-            onLinkShareDownloadLimitFetched(0);
+            if (result.isSuccess() && result.getResultData()!=null) {
+                if (result.getResultData() instanceof DownloadLimitResponse) {
+                    onLinkShareDownloadLimitFetched(((DownloadLimitResponse) result.getResultData()).getLimit());
+                }
+            }
         }
     }
 
