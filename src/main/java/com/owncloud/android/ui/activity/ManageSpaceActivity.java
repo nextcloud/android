@@ -137,7 +137,8 @@ public class ManageSpaceActivity extends AppCompatActivity implements Injectable
                         Snackbar.LENGTH_LONG
                 ).show();
             } else {
-                finish();
+                finishAndRemoveTask();
+                System.exit(0);
             }
         }
 
