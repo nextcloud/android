@@ -1,0 +1,7 @@
+Fix default visibility of recently modified
+Remove recently added search
+OCFileListFragment: restore search event on view restored
+OCFileListFragment: add recently modified to the list of valid search events
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
