@@ -23,6 +23,9 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +52,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,9 +83,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
-        swapDirectory(directory);
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
+
+        swapDirectory(directory);
     }
 
     @Override
@@ -313,33 +318,44 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
     public void swapDirectory(final File directory) {
-        if (mLocalFolderPicker) {
-            if (directory == null) {
-                mFiles.clear();
+        localFileListFragmentInterface.setLoading(true);
+        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<File> fileList;
+            if (mLocalFolderPicker) {
+                if (directory == null) {
+                    fileList = null;
+                } else {
+                    fileList = getFolders(directory);
+                }
             } else {
-                mFiles = getFolders(directory);
+                if (directory == null) {
+                    fileList = null;
+                } else {
+                    fileList = getFiles(directory);
+                }
             }
-        } else {
-            if (directory == null) {
-                mFiles.clear();
-            } else {
-                mFiles = getFiles(directory);
+
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            fileList = sortOrder.sortLocalFiles(fileList);
+
+            // Fetch preferences for showing hidden files
+            boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+            if (!showHiddenFiles) {
+                fileList = filterHiddenFiles(fileList);
             }
-        }
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-        mFiles = sortOrder.sortLocalFiles(mFiles);
+            final List<File> newFiles = fileList;
 
-        // Fetch preferences for showing hidden files
-        boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
-        if (!showHiddenFiles) {
-            mFiles = filterHiddenFiles(mFiles);
-        }
+            uiHandler.post(() -> {
+                mFiles = newFiles;
+                mFilesAll = new ArrayList<>();
+                mFilesAll.addAll(mFiles);
 
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
+                localFileListFragmentInterface.setLoading(false);
+            });
+        });
 
-        notifyDataSetChanged();
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {

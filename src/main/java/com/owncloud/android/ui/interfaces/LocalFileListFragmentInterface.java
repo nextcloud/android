@@ -32,4 +32,5 @@ public interface LocalFileListFragmentInterface {
     int getColumnsCount();
     void onItemClicked(File file);
     void onItemCheckboxClicked(File file);
+    void setLoading(boolean loading);
 }
