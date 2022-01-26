@@ -1,5 +1,6 @@
 package third_parties.ezvcard_android;
 
+import android.annotation.SuppressLint;
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
@@ -474,6 +475,7 @@ public class ContactOperations {
     }
 
     private void convertBirthdays(List<NonEmptyContentValues> contentValues, VCard vcard) {
+        @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for (Birthday birthday : vcard.getBirthdays()) {
             Date date = birthday.getDate();
