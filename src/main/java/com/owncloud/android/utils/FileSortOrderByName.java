@@ -51,13 +51,13 @@ public class FileSortOrderByName extends FileSortOrder {
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
-                return multiplier * new AlphanumComparator().compare(o1, o2);
+                return multiplier * AlphanumComparator.compare(o1, o2);
             } else if (o1.isFolder()) {
                 return -1;
             } else if (o2.isFolder()) {
                 return 1;
             }
-            return multiplier * new AlphanumComparator().compare(o1, o2);
+            return multiplier * AlphanumComparator.compare(o1, o2);
         });
 
         return super.sortCloudFiles(files);
@@ -75,13 +75,13 @@ public class FileSortOrderByName extends FileSortOrder {
 
         Collections.sort(files, (o1, o2) -> {
             if (o1.isFolder() && o2.isFolder()) {
-                return multiplier * new AlphanumComparator().compare(o1, o2);
+                return multiplier * AlphanumComparator.compare(o1, o2);
             } else if (o1.isFolder()) {
                 return -1;
             } else if (o2.isFolder()) {
                 return 1;
             }
-            return multiplier * new AlphanumComparator().compare(o1, o2);
+            return multiplier * AlphanumComparator.compare(o1, o2);
         });
 
         return super.sortTrashbinFiles(files);
@@ -105,9 +105,9 @@ public class FileSortOrderByName extends FileSortOrder {
             } else if (o2.isDirectory()) {
                 return 1;
             }
-            return multiplier * new AlphanumComparator().compare(o1.getPath()
+            return multiplier * AlphanumComparator.compare(o1.getPath()
                             .toLowerCase(Locale.getDefault()),
-                    o2.getPath().toLowerCase(Locale.getDefault()));
+                                                           o2.getPath().toLowerCase(Locale.getDefault()));
         });
 
         return files;

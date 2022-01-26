@@ -419,13 +419,13 @@ public class TestSorting {
         if (sortedList.get(0) instanceof OCFile) {
             Collections.sort(unsortedList, (Comparator<OCFile>) (o1, o2) -> {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return new AlphanumComparator().compare(o1, o2);
+                    return AlphanumComparator.compare(o1, o2);
                 } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
                     return 1;
                 }
-                return new AlphanumComparator().compare(o1, o2);
+                return AlphanumComparator.compare(o1, o2);
             });
         } else {
             Collections.sort(unsortedList, new AlphanumComparator<>());
