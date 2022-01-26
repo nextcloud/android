@@ -54,17 +54,11 @@
             android:orderInCategory="0"
             android:title="@string/drawer_item_on_device"/>
         <item
-            android:id="@+id/nav_recently_added"
-            android:icon="@drawable/nav_recently"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_recently_added"
-            android:visible="false"/>
-        <item
             android:id="@+id/nav_recently_modified"
             android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
             android:title="@string/drawer_item_recently_modified"
-            android:visible="false"/>
+            android:visible="true"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"
