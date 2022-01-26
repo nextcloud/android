@@ -229,7 +229,7 @@ android {
     lint {
         abortOnError false
         checkGeneratedSources true
-        disable 'MissingTranslation', 'GradleDependency', 'VectorPath', 'IconMissingDensityFolder', 'IconDensities', 'GoogleAppIndexingWarning', 'MissingDefaultResource', 'InvalidPeriodicWorkRequestInterval'
+        disable 'MissingTranslation', 'GradleDependency', 'VectorPath', 'IconMissingDensityFolder', 'IconDensities', 'GoogleAppIndexingWarning', 'MissingDefaultResource', 'InvalidPeriodicWorkRequestInterval', 'StringFormatInvalid', 'MissingQuantity'
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
         htmlReport true
     }
