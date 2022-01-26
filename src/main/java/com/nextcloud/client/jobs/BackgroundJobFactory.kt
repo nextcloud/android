@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
@@ -65,6 +66,7 @@ class BackgroundJobFactory @Inject constructor(
     private val deckApi: DeckApi
 ) : WorkerFactory() {
 
+    @SuppressLint("NewApi")
     @Suppress("ComplexMethod") // it's just a trivial dispatch
     override fun createWorker(
         context: Context,
@@ -78,18 +80,22 @@ class BackgroundJobFactory @Inject constructor(
             null
         }
 
-        return when (workerClass) {
-            ContentObserverWork::class -> createContentObserverJob(context, workerParameters, clock)
-            ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
-            ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-            FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
-            OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
-            MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
-            NotificationWork::class -> createNotificationWork(context, workerParameters)
-            AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
-            CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
-            CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
-            else -> null // caller falls back to default factory
+        // ContentObserverWork requires N
+        return if (deviceInfo.apiLevel >= Build.VERSION_CODES.N && workerClass == ContentObserverWork::class) {
+            createContentObserverJob(context, workerParameters, clock)
+        } else {
+            when (workerClass) {
+                ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
+                ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
+                FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
+                OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
+                MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
+                NotificationWork::class -> createNotificationWork(context, workerParameters)
+                AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
+                CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
+                CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
+                else -> null // caller falls back to default factory
+            }
         }
     }
 
