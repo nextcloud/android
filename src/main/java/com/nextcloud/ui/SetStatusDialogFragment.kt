@@ -126,7 +126,7 @@ class SetStatusDialogFragment :
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogSetStatusBinding.inflate(LayoutInflater.from(context))
+        binding = DialogSetStatusBinding.inflate(layoutInflater)
 
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)

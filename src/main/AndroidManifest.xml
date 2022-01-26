@@ -88,7 +88,6 @@
             android:name=".ui.activity.FileDisplayActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
-            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Launcher">
             <intent-filter>
@@ -193,7 +192,6 @@
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -425,12 +423,10 @@
             android:label="@string/copy_link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:exported="false"
-            android:label="@string/app_name" />
+            android:exported="false" />
         <activity
             android:name=".ui.activity.FilePickerActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:windowSoftInputMode="adjustResize" />
