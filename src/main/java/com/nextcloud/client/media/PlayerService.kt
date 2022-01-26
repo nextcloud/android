@@ -102,12 +102,12 @@ class PlayerService : Service() {
 
         val stop = Intent(this, PlayerService::class.java)
         stop.action = ACTION_STOP
-        val pendingStop = PendingIntent.getService(this, 0, stop, 0)
+        val pendingStop = PendingIntent.getService(this, 0, stop, PendingIntent.FLAG_IMMUTABLE)
         notificationBuilder.addAction(0, getString(R.string.player_stop).toUpperCase(Locale.getDefault()), pendingStop)
 
         val toggle = Intent(this, PlayerService::class.java)
         toggle.action = ACTION_TOGGLE
-        val pendingToggle = PendingIntent.getService(this, 0, toggle, 0)
+        val pendingToggle = PendingIntent.getService(this, 0, toggle, PendingIntent.FLAG_IMMUTABLE)
         notificationBuilder.addAction(
             0,
             getString(R.string.player_toggle).toUpperCase(Locale.getDefault()),
