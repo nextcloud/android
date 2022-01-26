@@ -10,12 +10,6 @@ jobs:
     analysis:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2
-            -   name: Set up JDK 11
-                uses: actions/setup-java@v2
-                with:
-                    distribution: "adopt"
-                    java-version: 11
             -   name: Setup variables
                 id: get-vars
                 run: |
@@ -33,6 +27,14 @@ jobs:
                     echo "BRANCH: ${{ steps.get-vars.outputs.branch }}"
                     echo "PR: ${{ steps.get-vars.outputs.pr }}"
                     echo "RUN NUMBER: $GITHUB_RUN_NUMBER"
+            -   uses: actions/checkout@v2
+                with:
+                    ref: ${{ steps.get-vars.outputs.branch }}
+            -   name: Set up JDK 11
+                uses: actions/setup-java@v2
+                with:
+                    distribution: "temurin"
+                    java-version: 11
             -   name: Run analysis wrapper
                 run: |
                     mkdir -p $HOME/.gradle
