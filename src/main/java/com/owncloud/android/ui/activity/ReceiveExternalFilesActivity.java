@@ -359,7 +359,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
             }
 
-            LayoutInflater layout = LayoutInflater.from(requireContext());
+            LayoutInflater layout = getLayoutInflater();
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             ArrayAdapter<String> adapter
