@@ -406,7 +406,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 .setContentTitle(i18n(R.string.sync_fail_ticker_unauthorized))
                 .setContentIntent(PendingIntent.getActivity(
                     getContext(), (int)System.currentTimeMillis(), updateAccountCredentials,
-                        PendingIntent.FLAG_ONE_SHOT
+                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
                 ))
                 .setContentText(i18n(R.string.sync_fail_content_unauthorized, getAccount().name));
         } else {

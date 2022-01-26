@@ -723,7 +723,7 @@ public class FileUploader extends Service
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
                                                                         (int) System.currentTimeMillis(),
                                                                         intent,
-                                                                        0)
+                                                                        PendingIntent.FLAG_IMMUTABLE)
                                              );
 
         if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
@@ -823,7 +823,7 @@ public class FileUploader extends Service
                     this,
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
-                    PendingIntent.FLAG_ONE_SHOT
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
                 ));
             } else {
                 Intent intent;
@@ -843,7 +843,7 @@ public class FileUploader extends Service
                 mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
                                                                                 (int) System.currentTimeMillis(),
                                                                                 intent,
-                                                                                0)
+                                                                                PendingIntent.FLAG_IMMUTABLE)
                                                      );
             }
 
