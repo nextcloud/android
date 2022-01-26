@@ -102,20 +102,6 @@ for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()
 }
 
 android {
-    lintOptions {
-        checkGeneratedSources = true
-        abortOnError false
-        htmlReport true
-        htmlOutput file("$project.buildDir/reports/lint/lint.html")
-        disable 'MissingTranslation',
-            'GradleDependency',
-            'VectorPath',
-            'IconMissingDensityFolder',
-            'IconDensities',
-            'GoogleAppIndexingWarning',
-            'MissingDefaultResource',
-            'InvalidPeriodicWorkRequestInterval' // crashes due to a bug in lint itself
-    }
 
     compileSdkVersion 31
 
@@ -193,10 +179,10 @@ android {
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
-
     packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
+        resources {
+            excludes += ['META-INF/LICENSE.txt', 'META-INF/LICENSE']
+        }
     }
 
     tasks.register("checkstyle", Checkstyle) {
@@ -238,6 +224,14 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    lint {
+        abortOnError false
+        checkGeneratedSources true
+        disable 'MissingTranslation', 'GradleDependency', 'VectorPath', 'IconMissingDensityFolder', 'IconDensities', 'GoogleAppIndexingWarning', 'MissingDefaultResource', 'InvalidPeriodicWorkRequestInterval'
+        htmlOutput file("$project.buildDir/reports/lint/lint.html")
+        htmlReport true
     }
 }
 
