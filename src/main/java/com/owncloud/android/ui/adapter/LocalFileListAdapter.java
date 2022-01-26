@@ -352,6 +352,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 mFilesAll = new ArrayList<>();
                 mFilesAll.addAll(mFiles);
 
+                notifyDataSetChanged();
                 localFileListFragmentInterface.setLoading(false);
             });
         });
@@ -359,9 +360,19 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
-        preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
-        mFiles = sortOrder.sortLocalFiles(mFiles);
-        notifyDataSetChanged();
+        localFileListFragmentInterface.setLoading(true);
+        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        Executors.newSingleThreadExecutor().execute(() -> {
+            preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
+            mFiles = sortOrder.sortLocalFiles(mFiles);
+
+            uiHandler.post(() -> {
+                notifyDataSetChanged();
+                localFileListFragmentInterface.setLoading(false);
+            });
+        });
+
+
     }
 
     private List<File> getFolders(final File directory) {
