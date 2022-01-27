@@ -1,0 +1,9 @@
+## 3.19.0 RC2 (January 27, 2022)
+
+- Support external storage in Media page
+- Connection fallback to IPv4 when IPv6 fails
+- Many other fixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/62
