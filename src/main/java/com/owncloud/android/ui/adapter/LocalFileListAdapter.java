@@ -23,7 +23,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -322,29 +321,26 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         final Handler uiHandler = new Handler(Looper.getMainLooper());
         Executors.newSingleThreadExecutor().execute(() -> {
             List<File> fileList;
-            if (mLocalFolderPicker) {
-                if (directory == null) {
-                    fileList = null;
-                } else {
-                    fileList = getFolders(directory);
-                }
+            if (directory == null) {
+                fileList = new ArrayList<>();
             } else {
-                if (directory == null) {
-                    fileList = null;
+                if (mLocalFolderPicker) {
+                    fileList = getFolders(directory);
                 } else {
                     fileList = getFiles(directory);
                 }
             }
 
-            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-            fileList = sortOrder.sortLocalFiles(fileList);
+            if (!fileList.isEmpty()) {
+                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+                fileList = sortOrder.sortLocalFiles(fileList);
 
-            // Fetch preferences for showing hidden files
-            boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
-            if (!showHiddenFiles) {
-                fileList = filterHiddenFiles(fileList);
+                // Fetch preferences for showing hidden files
+                boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+                if (!showHiddenFiles) {
+                    fileList = filterHiddenFiles(fileList);
+                }
             }
-
             final List<File> newFiles = fileList;
 
             uiHandler.post(() -> {
