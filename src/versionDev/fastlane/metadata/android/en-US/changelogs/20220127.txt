@@ -1,0 +1,9 @@
+gplay/AndroidManifest: set exported value for service
+ezvcard/ContactOperations: suppress locale lint in third_party class
+build.gradle: Disable some translation errors in lint
+manifest: Remove unneeded labels
+BackgroundJobFactory: fix lint due to unchecked build version for ContentObserverJob
+lint: Fix getLayoutInflater calls
+build.gradle: Run migrations for AGP 7.1.0
+Update Nextcloud Android library
+Update 3rd-party dependencies
