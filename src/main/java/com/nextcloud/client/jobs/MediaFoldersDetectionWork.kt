@@ -184,6 +184,7 @@ class MediaFoldersDetectionWork constructor(
         return Result.success()
     }
 
+    @Suppress("LongMethod")
     private fun sendNotification(contentTitle: String, subtitle: String, user: User, path: String, type: Int) {
         val notificationId = randomIdGenerator.nextInt()
         val context = context
@@ -193,7 +194,12 @@ class MediaFoldersDetectionWork constructor(
         intent.putExtra(NotificationWork.KEY_NOTIFICATION_ACCOUNT, user.accountName)
         intent.putExtra(KEY_MEDIA_FOLDER_PATH, path)
         intent.putExtra(KEY_MEDIA_FOLDER_TYPE, type)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
         val notificationBuilder = NotificationCompat.Builder(
             context,
             NotificationUtils.NOTIFICATION_CHANNEL_GENERAL
@@ -214,7 +220,7 @@ class MediaFoldersDetectionWork constructor(
             context,
             notificationId,
             disableDetection,
-            PendingIntent.FLAG_CANCEL_CURRENT
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         notificationBuilder.addAction(
             NotificationCompat.Action(
@@ -227,7 +233,7 @@ class MediaFoldersDetectionWork constructor(
             context,
             notificationId,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         notificationBuilder.addAction(
             NotificationCompat.Action(
