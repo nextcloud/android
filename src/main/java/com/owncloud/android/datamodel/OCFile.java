@@ -478,13 +478,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public int compareTo(@NonNull OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return new AlphanumComparator().compare(this, another);
+            return AlphanumComparator.compare(this, another);
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
             return 1;
         }
-        return new AlphanumComparator().compare(this, another);
+        return AlphanumComparator.compare(this, another);
     }
 
     @Override
