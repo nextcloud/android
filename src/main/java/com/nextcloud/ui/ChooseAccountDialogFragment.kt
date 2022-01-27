@@ -82,7 +82,7 @@ class ChooseAccountDialogFragment :
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogChooseAccountBinding.inflate(LayoutInflater.from(requireContext()))
+        _binding = DialogChooseAccountBinding.inflate(layoutInflater)
         dialogView = binding.root
 
         return MaterialAlertDialogBuilder(requireContext())
