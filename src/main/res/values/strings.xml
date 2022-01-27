@@ -880,7 +880,7 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>
     <string name="logs_menu_search">Search logs</string>
 
-    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
+    <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_report_issue_action">Report</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
