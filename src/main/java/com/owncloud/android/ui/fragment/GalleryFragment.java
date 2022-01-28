@@ -152,7 +152,7 @@ public class GalleryFragment extends OCFileListFragment {
             photoSearchNoNew = false;
             refresh = false;
         } else {
-            mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
+            mAdapter.showVirtuals(VirtualFolderType.GALLERY, false, mContainerActivity.getStorageManager());
             preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
 
             return;
