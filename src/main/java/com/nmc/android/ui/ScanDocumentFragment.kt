@@ -24,7 +24,6 @@ import com.google.android.material.button.MaterialButton
 import com.nmc.android.interfaces.OnDocScanListener
 import com.nmc.android.interfaces.OnFragmentChangeListener
 import com.owncloud.android.R
-import com.owncloud.android.utils.DisplayUtils
 import io.scanbot.sdk.ScanbotSDK
 import io.scanbot.sdk.SdkLicenseError
 import io.scanbot.sdk.camera.CameraOpenCallback
@@ -408,7 +407,8 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // or open another dialog explaining
                         // again the permission and directing to
                         // the app setting
-                        DisplayUtils.showSnackMessage(requireActivity(), R.string.camera_permission_rationale)
+                        onPermissionDenied(requireActivity().resources.getString(R.string.camera_permission_rationale))
+                        break
                     } else if (Manifest.permission.CAMERA == permission || Manifest.permission.READ_EXTERNAL_STORAGE == permission
                         || Manifest.permission.WRITE_EXTERNAL_STORAGE == permission
                     ) {
@@ -416,13 +416,8 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
                         // this is a good place to explain the user
                         // why you need the permission and ask if he wants
                         // to accept it (the rationale)
-                        Toast.makeText(
-                            requireActivity(),
-                            requireActivity().resources.getString(R.string.camera_permission_denied),
-                            Toast
-                                .LENGTH_SHORT
-                        ).show()
-                        requireActivity().finish()
+                        onPermissionDenied(requireActivity().resources.getString(R.string.camera_permission_denied))
+                        break
                         // askPermission()
                     }
                     // else if ( /* possibly check more permissions...*/) {
@@ -432,6 +427,11 @@ class ScanDocumentFragment : Fragment(), ContourDetectorFrameHandler.ResultHandl
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+    }
+
+    private fun onPermissionDenied(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
+        requireActivity().finish()
     }
 
     companion object {
