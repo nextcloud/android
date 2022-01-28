@@ -640,10 +640,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * change scale type and padding for folders and files without thumbnails
      */
     private void updatePreviewImageUI(int leftRightPadding) {
-        toolbarActivity.getPreviewImageView().setScaleType(ImageView.ScaleType.FIT_START);
-        int topPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.activity_row_layout_height);
-        int bottomPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.standard_padding);
-        toolbarActivity.getPreviewImageView().setPadding(leftRightPadding, topPadding, leftRightPadding, bottomPadding);
+        if (toolbarActivity != null && toolbarActivity.getPreviewImageView() != null) {
+                toolbarActivity.getPreviewImageView().setScaleType(ImageView.ScaleType.FIT_START);
+                int topPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.activity_row_layout_height);
+                int bottomPadding = requireContext().getResources().getDimensionPixelSize(R.dimen.standard_padding);
+                toolbarActivity.getPreviewImageView().setPadding(leftRightPadding, topPadding, leftRightPadding, bottomPadding);
+        }
     }
 
     /**

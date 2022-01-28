@@ -300,6 +300,9 @@ public abstract class ToolbarActivity extends BaseActivity {
      * @param show
      */
     public void showToolbarBackImage(boolean show) {
+        if (mToolbarBackIcon == null) {
+            return;
+        }
         ActionBar actionBar = getSupportActionBar();
         if (show) {
             mToolbarBackIcon.setVisibility(View.VISIBLE);
