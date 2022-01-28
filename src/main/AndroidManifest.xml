@@ -217,6 +217,7 @@
         <activity
             android:name="com.nmc.android.ui.ScanActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
