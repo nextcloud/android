@@ -47,6 +47,7 @@
     <color name="share_txt_color">@color/grey_0</color>
     <color name="share_et_divider">#FFFFFF</color>
     <color name="list_icon_color">@color/grey_30</color>
+    <color name="warning_icon_color">#CCCCCC</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>

@@ -663,7 +663,7 @@
     <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
-    <string name="share_search">Kontaktname oder Email</string>
+    <string name="share_search">Kontaktname oder E-Mail</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>
     <string name="share_via_link_hide_download">Download verbergen</string>
@@ -1002,7 +1002,7 @@
     <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie
         MagentaCLOUD Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
     <string name="your_message">Ihre Nachricht</string>
-    <string name="personal_share_email">persönliche Freigabe per Emai</string>
+    <string name="personal_share_email">persönliche Freigabe per E-Mail</string>
     <string name="create_link">Link erstellen</string>
     <string name="your_shares">Ihre Freigaben</string>
     <string name="link_label">Linkbezeichnung</string>
