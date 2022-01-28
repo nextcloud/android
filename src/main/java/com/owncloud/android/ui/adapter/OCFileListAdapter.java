@@ -624,6 +624,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                                   file.getRemoteId()));
                         } catch (IllegalArgumentException e) {
+                            // TODO set a default thumbnail
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                         }
                     }
@@ -1039,6 +1040,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
+
+        if (mStorageManager == null) {
+            mStorageManager = storageManager;
+        }
 
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
