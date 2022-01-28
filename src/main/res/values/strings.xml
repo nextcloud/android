@@ -1153,4 +1153,8 @@
     <string name="sort_by_created_date">Sort by created date</string>
     <string name="sort_by_upload_date">Sort by upload date</string>
     <string name="gallery_list_empty">No photos or videos uploaded yet</string>
+    <string name="link_download_limit">Download Limit</string>
+    <string name="download_limit_empty">Download limit cannot be empty.</string>
+    <string name="hint_download_limit">Enter download limit</string>
+    <string name="download_limit_zero">Download limit should be greater than 0.</string>
 </resources>
