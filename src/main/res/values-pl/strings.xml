@@ -139,7 +139,7 @@
     <string name="community_release_candidate_text">Release Candidate (RC) jest zwiastunem nadchodzącej nowej wersji, od której oczekuje się, że będzie stabilna. Można to zapewnić poprzez testowanie indywidualnej konfiguracji. Aby przetestować, zarejestruj się w sklepie Play lub zajrzyj do sekcji \"Wersja\" na F-Droid.</string>
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
-    <string name="community_testing_report_text">Zgłoś problem na GitHub</string>
+    <string name="community_testing_report_text">Zgłoś problem na GitHubie</string>
     <string name="community_testing_version_text">Chcesz pomóc nam w testowaniu następnej wersji?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>
@@ -261,7 +261,7 @@
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
     <string name="error_report_issue_action">Raport</string>
-    <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta Github)</string>
+    <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
