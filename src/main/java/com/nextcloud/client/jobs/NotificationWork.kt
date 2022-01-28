@@ -159,7 +159,7 @@ class NotificationWork constructor(
                 context,
                 notification.getNotificationId(),
                 intent,
-                PendingIntent.FLAG_ONE_SHOT
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
             )
         }
 
@@ -186,7 +186,7 @@ class NotificationWork constructor(
                 context,
                 pushNotificationId,
                 disableDetection,
-                PendingIntent.FLAG_CANCEL_CURRENT
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             notificationBuilder.addAction(
                 NotificationCompat.Action(
@@ -207,7 +207,7 @@ class NotificationWork constructor(
                     context,
                     randomId.nextInt(),
                     actionIntent,
-                    PendingIntent.FLAG_CANCEL_CURRENT
+                    PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
                 var icon: Int
                 icon = if (action.primary) {
