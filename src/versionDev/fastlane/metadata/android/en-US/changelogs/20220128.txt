@@ -1,0 +1,15 @@
+LocalFileListAdapter: fix case where directory==null
+FileSortOrder*: convert to Kotlin
+LocalFileListAdapter: Also change sort order asynchronously
+AlphaNumComparator: optimize usage and resolve signature problems
+LocalFileList: load local files asynchronously
+PassCodeActivity: enable cancel button when re-created in confirmation step
+Make more PendingIntents immutable
+Make PendingIntents immutable
+ManageSpaceActivity: convert to Kotlin while we're here
+ManageSpaceActivity: kill the app after finishing cleanup
+ManageSpaceActivity: remove user accounts when clearing data
+GalleryFragment: force refresh on create, prevent unneeded refresh animations
+GalleryFragment: prevent NPE when recreating fragment
+Update translations
+Update 3rd-party dependencies
