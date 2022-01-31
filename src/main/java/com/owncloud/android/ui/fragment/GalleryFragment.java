@@ -67,6 +67,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
     private boolean photoSearchQueryRunning = false;
     private boolean photoSearchNoNew = false;
+    private boolean isPreviewShown = false;
     private SearchRemoteOperation searchRemoteOperation;
     private AsyncTask photoSearchTask;
     private SearchEvent searchEvent;
@@ -140,6 +141,20 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             photoSearchTask.cancel(true);
         }
         photoSearchNoNew = false;
+        isPreviewShown = true;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isPreviewShown && !appPreferences.getHideImageClicked()) {
+            refresh = true;
+            photoSearchNoNew = false;
+            photoSearchQueryRunning = false;
+            //setAdapterEmpty();
+            mediaObject.clear();
+            // runGallerySearchTask();
+            handleSearchEvent();
+        }
     }
 
     /**
