@@ -916,7 +916,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
                        + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
                        + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
-        );
+                       + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " STRNING )"        // remote id
+                  );
     }
 
     private void createFileSystemTable(SQLiteDatabase db) {
@@ -2456,6 +2457,27 @@ public class FileContentProvider extends ContentProvider {
 
                     // force refresh
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 63 && newVersion >= 63) {
+                Log_OC.i(SQL, "Entering in the #63 add remote_id to virtuals");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.VIRTUAL_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " TEXT ");
+
+                    // delete all virtual
+                    db.execSQL("DELETE FROM `virtual`");
 
                     upgraded = true;
                     db.setTransactionSuccessful();

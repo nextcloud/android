@@ -2274,6 +2274,110 @@ public class FileDataStorageManager {
         }
     }
 
+    public boolean virtualExists(VirtualFolderType type, OCFile file) {
+        Cursor cursor;
+
+        if (getContentProviderClient() != null) {
+            try {
+                cursor = getContentProviderClient().query(
+                    ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                    null,
+                    ProviderTableMeta.VIRTUAL_TYPE + AND + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " =?",
+                    new String[]{String.valueOf(type), file.getRemoteId()},
+                    null
+                                                         );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage(), e);
+                return false;
+            }
+        } else {
+            cursor = getContentResolver().query(
+                ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                null,
+                ProviderTableMeta.VIRTUAL_TYPE + AND + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " =?",
+                new String[]{String.valueOf(type), file.getRemoteId()},
+                null
+                                               );
+        }
+
+        if (cursor == null) {
+            Log_OC.e(TAG, "Couldn't determine file existence, assuming non existence");
+
+            return false;
+        } else {
+            boolean exists = cursor.moveToFirst();
+            cursor.close();
+
+            return exists;
+        }
+    }
+
+    public List<OCFile> getAllGalleryItems() {
+        return getGalleryItems(0, Long.MAX_VALUE);
+    }
+
+    public List<OCFile> getGalleryItems(long startDate, long endDate) {
+        List<OCFile> files = new ArrayList<>();
+
+        Uri requestURI = ProviderTableMeta.CONTENT_URI;
+        Cursor cursor;
+
+        if (getContentProviderClient() != null) {
+            try {
+                cursor = getContentProviderClient().query(
+                    requestURI,
+                    null,
+                    ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
+                        ProviderTableMeta.FILE_MODIFIED + ">=? AND " +
+                        ProviderTableMeta.FILE_MODIFIED + "<? AND (" +
+                        ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? OR " +
+                        ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? )",
+                    new String[]{
+                        user.getAccountName(),
+                        String.valueOf(startDate),
+                        String.valueOf(endDate),
+                        "image/%",
+                        "video/%"
+                    },
+                    null
+                                                         );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage(), e);
+                return files;
+            }
+        } else {
+            cursor = getContentResolver().query(
+                requestURI,
+                null,
+                ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
+                    ProviderTableMeta.FILE_MODIFIED + ">=? AND " +
+                    ProviderTableMeta.FILE_MODIFIED + "<? AND (" +
+                    ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? OR " +
+                    ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? )",
+                new String[]{
+                    user.getAccountName(),
+                    String.valueOf(startDate),
+                    String.valueOf(endDate),
+                    "image/%",
+                    "video/%"
+                },
+                null
+                                               );
+        }
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    OCFile child = createFileInstance(cursor);
+                    files.add(child);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        return files;
+    }
+
     public List<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
         List<OCFile> ocFiles = new ArrayList<>();
         Uri req_uri = ProviderTableMeta.CONTENT_URI_VIRTUAL;
