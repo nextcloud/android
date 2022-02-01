@@ -39,7 +39,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
@@ -93,7 +92,6 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -887,9 +885,9 @@ public abstract class FileActivity extends DrawerActivity
      * @param shareType
      */
     private void doShareWith(String shareeName, ShareType shareType) {
-        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment!=null){
-            ((FileDetailFragment)fragment).initiateSharingProcess(shareeName, shareType);
+        FileDetailFragment fragment = getFileDetailFragment();
+        if (fragment != null) {
+            fragment.initiateSharingProcess(shareeName, shareType);
         }
     }
 
@@ -903,9 +901,9 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
                                   boolean isExpiryDateShown) {
-        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment!=null){
-            ((FileDetailFragment)fragment).editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+        FileDetailFragment fragment = getFileDetailFragment();
+        if (fragment != null) {
+            fragment.editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
         }
     }
 
@@ -914,9 +912,23 @@ public abstract class FileActivity extends DrawerActivity
      */
     @Override
     public void onShareProcessClosed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        FileDetailFragment fragment = getFileDetailFragment();
         if (fragment != null) {
-            ((FileDetailFragment) fragment).showHideFragmentView(false);
+            fragment.showHideFragmentView(false);
+        }
+    }
+
+    private FileDetailFragment getFileDetailFragment() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment instanceof FileDetailFragment) {
+            return (FileDetailFragment) fragment;
+        } else {
+            fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
+            if (fragment instanceof FileDetailFragment) {
+                return (FileDetailFragment) fragment;
+            } else {
+                return null;
+            }
         }
     }
 }
