@@ -243,7 +243,6 @@
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_crash_title">%1$sκαταστράφηκε</string>
     <string name="error_report_issue_action">Αναφορά</string>
-    <string name="error_report_issue_text">Αναφορά προβλήματος? (απαιτείται λογαριασμός στο Github)</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>

@@ -241,7 +241,6 @@
     <string name="error_comment_file">Erro ao comentar ficheiro</string>
     <string name="error_crash_title">%1$s terminou em erro</string>
     <string name="error_report_issue_action">Relatório</string>
-    <string name="error_report_issue_text">Reportar o erro? (requer uma conta Github)</string>
     <string name="error_retrieving_file">Erro ao obter o ficheiro</string>
     <string name="error_retrieving_templates">Erro ao obter modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>

@@ -242,7 +242,6 @@
     <string name="error_comment_file">S\'ha produït un error comentant un fitxer</string>
     <string name="error_crash_title">S\'ha interromput %1$s</string>
     <string name="error_report_issue_action">Informar</string>
-    <string name="error_report_issue_text">Informar d\'aquest problema? (requereix un compte a Github)</string>
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>

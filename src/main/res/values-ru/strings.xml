@@ -261,7 +261,6 @@
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
     <string name="error_report_issue_action">Сообщить</string>
-    <string name="error_report_issue_text">Сообщить о проблеме? (Требуется учётная запись Github)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>

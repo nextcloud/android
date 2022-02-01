@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s a căzut</string>
     <string name="error_creating_file_from_template">Eroare la crearea fișierului după model</string>
     <string name="error_report_issue_action">Raport</string>
-    <string name="error_report_issue_text">Raportează eroare? (necesită un cont Github)</string>
     <string name="error_retrieving_file">Eroare la obținerea fișierului</string>
     <string name="error_retrieving_templates">Eroare la obținerea șabloanelor</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>

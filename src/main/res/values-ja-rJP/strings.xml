@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s はクラッシュしました</string>
     <string name="error_creating_file_from_template">テンプレートからファイルを作成中にエラーが発生しました</string>
     <string name="error_report_issue_action">報告</string>
-    <string name="error_report_issue_text">問題を報告しますか？ (GitHub のアカウントが必要です)</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>

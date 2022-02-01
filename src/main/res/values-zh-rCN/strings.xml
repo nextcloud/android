@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s 崩溃了</string>
     <string name="error_creating_file_from_template">从模板创建文件时出错</string>
     <string name="error_report_issue_action">报告</string>
-    <string name="error_report_issue_text">向跟踪器报告问题吗？（需要一个 Github 账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>

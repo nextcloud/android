@@ -241,7 +241,6 @@
     <string name="error_comment_file">ຜິດພາດໃນການສະແດງຄວາມຄິດເຫັນ</string>
     <string name="error_crash_title">%1$sຢຸດ</string>
     <string name="error_report_issue_action">ລາຍງານ</string>
-    <string name="error_report_issue_text">ລາຍງານບັນຫາໄປຍັງຕົງຕິດຕາມ ຫຼື ບໍ? (ຕ້ອງການບັນຊີ Github)</string>
     <string name="error_retrieving_file">ຜີດພາດໃນການ ດຶງ ຫຼື ເອີ້ນຟາຍມາໃຊ້</string>
     <string name="error_retrieving_templates">ຜິດພາດໃນການດຶງ ແບບຕົວຢ່າງມາໃຊ້</string>
     <string name="error_starting_direct_camera_upload">ຂໍ້ຜິດພາດການເລິິມເປີດກ້ອງ</string>

@@ -242,7 +242,6 @@
     <string name="error_comment_file">Errore in su commentu de s\'archìviu</string>
     <string name="error_crash_title">%1$ss\'est blocadu</string>
     <string name="error_report_issue_action">Sinnala</string>
-    <string name="error_report_issue_text">Signalare su problema a su rilevadore? (serbit unu contu Github)</string>
     <string name="error_retrieving_file">Errore in su recùperu de su documentu</string>
     <string name="error_retrieving_templates">Errore in su recùperu de is modellos</string>
     <string name="error_starting_direct_camera_upload">Errore de aviu de sa telecàmera</string>

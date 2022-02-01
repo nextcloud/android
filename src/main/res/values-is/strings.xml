@@ -226,7 +226,6 @@
     <string name="error_comment_file">Villa við að gera athugasemd við skrá</string>
     <string name="error_crash_title">%1$s hrundi</string>
     <string name="error_report_issue_action">Skýrsla</string>
-    <string name="error_report_issue_text">Tilkynna vandamál á villuskráningu? (krefst Github-aðgangs)</string>
     <string name="error_retrieving_file">Villa við að ná í skrá</string>
     <string name="error_retrieving_templates">Villa við að ná í sniðmát</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
