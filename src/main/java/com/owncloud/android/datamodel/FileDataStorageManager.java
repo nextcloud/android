@@ -2274,44 +2274,6 @@ public class FileDataStorageManager {
         }
     }
 
-    public boolean virtualExists(VirtualFolderType type, OCFile file) {
-        Cursor cursor;
-
-        if (getContentProviderClient() != null) {
-            try {
-                cursor = getContentProviderClient().query(
-                    ProviderTableMeta.CONTENT_URI_VIRTUAL,
-                    null,
-                    ProviderTableMeta.VIRTUAL_TYPE + AND + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " =?",
-                    new String[]{String.valueOf(type), file.getRemoteId()},
-                    null
-                                                         );
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                return false;
-            }
-        } else {
-            cursor = getContentResolver().query(
-                ProviderTableMeta.CONTENT_URI_VIRTUAL,
-                null,
-                ProviderTableMeta.VIRTUAL_TYPE + AND + ProviderTableMeta.VIRTUAL_OCFILE_REMOTE_ID + " =?",
-                new String[]{String.valueOf(type), file.getRemoteId()},
-                null
-                                               );
-        }
-
-        if (cursor == null) {
-            Log_OC.e(TAG, "Couldn't determine file existence, assuming non existence");
-
-            return false;
-        } else {
-            boolean exists = cursor.moveToFirst();
-            cursor.close();
-
-            return exists;
-        }
-    }
-
     public List<OCFile> getAllGalleryItems() {
         return getGalleryItems(0, Long.MAX_VALUE);
     }

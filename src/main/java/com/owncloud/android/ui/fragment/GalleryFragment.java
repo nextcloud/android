@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
@@ -43,7 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GalleryFragment extends OCFileListFragment {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private boolean photoSearchQueryRunning = false;
-    private AsyncTask<Void, Void, RemoteOperationResult> photoSearchTask;
+    private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
     private long startDate;
     private long endDate;
     private long daySpan = 30;
@@ -128,7 +127,6 @@ public class GalleryFragment extends OCFileListFragment {
 
     private void searchAndDisplay() {
         // first: always search from now to -30 days
-
         if (!photoSearchQueryRunning) {
             photoSearchQueryRunning = true;
 

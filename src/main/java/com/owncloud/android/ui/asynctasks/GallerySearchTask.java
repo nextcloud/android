@@ -32,7 +32,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -44,7 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResult> {
+public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
     private final User user;
     private final WeakReference<GalleryFragment> photoFragmentWeakReference;
@@ -67,32 +66,15 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
         this.limit = limit;
     }
 
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//
-//        if (photoFragmentWeakReference.get() == null) {
-//            return;
-//        }
-//        GalleryFragment photoFragment = photoFragmentWeakReference.get();
-//        // photoFragment.searchCompleted(true, lastTimeStamp);
-//    }
-
     @Override
-    protected RemoteOperationResult doInBackground(Void... voids) {
-//        try {
-//            Thread.sleep(5 * 1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
+    protected GallerySearchTask.Result doInBackground(Void... voids) {
         if (photoFragmentWeakReference.get() == null) {
-            return new RemoteOperationResult(new Exception("Photo fragment is null"));
+            return new Result(false, false, -1);
         }
         GalleryFragment photoFragment = photoFragmentWeakReference.get();
 
         if (isCancelled()) {
-            return new RemoteOperationResult(new Exception("Cancelled"));
+            return new Result(false, false, -1);
         } else {
             OCCapability ocCapability = storageManager.getCapability(user.getAccountName());
 
@@ -111,39 +93,40 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                          "Start gallery search with " + new Date(startDate * 1000L) +
                              " - " + new Date(endDate * 1000L) +
                              " with limit: " + limit);
-                return searchRemoteOperation.execute(user.toPlatformAccount(), photoFragment.getContext());
+
+                RemoteOperationResult result = searchRemoteOperation.execute(user.toPlatformAccount(),
+                                                                             photoFragment.getContext());
+
+                if (result.isSuccess() && result.getData() != null && !isCancelled()) {
+                    if (result.getData() == null || result.getData().size() == 0) {
+                        photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+                    }
+                }
+
+                boolean emptySearch = parseMedia(startDate, endDate, result.getData());
+                long lastTimeStamp = findLastTimestamp(result.getData());
+
+                photoFragment.getAdapter().showAllGalleryItems(storageManager);
+
+                return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {
-                return new RemoteOperationResult(new IllegalStateException("No context available"));
+                return new Result(false, false, -1);
             }
         }
     }
 
     @Override
-    protected void onPostExecute(RemoteOperationResult result) {
+    protected void onPostExecute(GallerySearchTask.Result result) {
         if (photoFragmentWeakReference.get() != null) {
             GalleryFragment photoFragment = photoFragmentWeakReference.get();
 
             photoFragment.setLoading(false);
 
-            OCFileListAdapter adapter = photoFragment.getAdapter();
-
-            if (result.isSuccess() && result.getData() != null && !isCancelled()) {
-                if (result.getData() == null || result.getData().size() == 0) {
-                    photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-                }
-            }
-
-            if (!result.isSuccess() && !isCancelled()) {
+            if (!result.success || result.emptySearch) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            } else {
+                photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
             }
-
-            // TODO move this to backgroundThread
-            boolean emptySearch = parseMedia(startDate, endDate, result.getData());
-            long lastTimeStamp = findLastTimestamp(result.getData());
-
-            adapter.showAllGalleryItems(storageManager);
-
-            photoFragment.searchCompleted(emptySearch, lastTimeStamp);
         }
     }
 
@@ -209,5 +192,17 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
                                          List<OCFile> filesToUpdate,
                                          Collection<OCFile> filesToRemove) {
         return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
+    }
+
+    public static class Result {
+        public boolean success;
+        public boolean emptySearch;
+        public long lastTimestamp;
+
+        public Result(boolean success, boolean emptySearch, long lastTimestamp) {
+            this.success = success;
+            this.emptySearch = emptySearch;
+            this.lastTimestamp = lastTimestamp;
+        }
     }
 }

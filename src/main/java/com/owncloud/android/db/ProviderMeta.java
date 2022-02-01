@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 63;
+    public static final int DB_VERSION = 62;
 
     private ProviderMeta() {
         // No instance
@@ -286,7 +286,6 @@ public class ProviderMeta {
         // Columns of virtual
         public static final String VIRTUAL_TYPE = "type";
         public static final String VIRTUAL_OCFILE_ID = "ocfile_id";
-        public static final String VIRTUAL_OCFILE_REMOTE_ID = "ocfile_remote_id";
 
         // Columns of filesystem data table
         public static final String FILESYSTEM_FILE_LOCAL_PATH = "local_path";

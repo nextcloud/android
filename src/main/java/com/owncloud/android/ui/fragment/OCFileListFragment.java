@@ -1503,9 +1503,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                          SearchType.NO_SEARCH,
                          mContainerActivity.getStorageManager(),
                          mFile,
-                         true,
-                         -1,
-                         -1);
+                         true);
 
         setFabVisible(false);
 
@@ -1563,9 +1561,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                              currentSearchType,
                                              storageManager,
                                              mFile,
-                                             true,
-                                             -1,
-                                             -1);
+                                             true);
                         }
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
