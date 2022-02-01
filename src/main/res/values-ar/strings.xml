@@ -258,7 +258,6 @@
     <string name="error_comment_file">خطأ في التعليق على الملف</string>
     <string name="error_crash_title">%1$s فشل</string>
     <string name="error_report_issue_action">أبلغ عنه</string>
-    <string name="error_report_issue_text">بلغ عن المشكلة؟ (تحتاج حساب على Github)</string>
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>

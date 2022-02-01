@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s gecrasht</string>
     <string name="error_creating_file_from_template">Fout bij creëren bestand vanaf sjabloon</string>
     <string name="error_report_issue_action">Rapporteer</string>
-    <string name="error_report_issue_text">Probleem melden op de tracker? (vereist een Github-account)</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>

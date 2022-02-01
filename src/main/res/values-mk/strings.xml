@@ -236,7 +236,6 @@
     <string name="error_comment_file">Грешка при коментирање на датотека</string>
     <string name="error_crash_title">%1$s срушено</string>
     <string name="error_report_issue_action">Пријави</string>
-    <string name="error_report_issue_text">Пријави проблем? (потребна е Github сметка)</string>
     <string name="error_retrieving_file">Грешка при превземањето на датотеката</string>
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>

@@ -255,7 +255,6 @@
     <string name="error_comment_file">Помилка з додаванням коментаря до файлу</string>
     <string name="error_crash_title">Відмова в обслуговуванні %1$s</string>
     <string name="error_report_issue_action">Звіт</string>
-    <string name="error_report_issue_text">Повідомити про ваду? (потрібний обліковий запис у Github)</string>
     <string name="error_retrieving_file">Помилка під час отримання файлу</string>
     <string name="error_retrieving_templates">Помилка під час отримання шаблонів</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>

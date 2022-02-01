@@ -241,7 +241,6 @@
     <string name="error_comment_file">Produciuse un erro ao comentar o ficheiro</string>
     <string name="error_crash_title">%1$s quebrou</string>
     <string name="error_report_issue_action">Informe</string>
-    <string name="error_report_issue_text">Quere informar dun problema ao seguidor de fallos? (require unha conta de Github)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>

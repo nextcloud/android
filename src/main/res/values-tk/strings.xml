@@ -241,7 +241,6 @@
     <string name="error_comment_file">Faýla düşündiriş bermekdäki ýalňyşlyk</string>
     <string name="error_crash_title">%1$sheläkçilige uçrady</string>
     <string name="error_report_issue_action">Hasabat ugradyň</string>
-    <string name="error_report_issue_text">Gözegçilere mesele barada hasabat beriň? (Github hasaby talap edýär)</string>
     <string name="error_retrieving_file">Faýl ýüklemegiň ýalňyşlygy </string>
     <string name="error_retrieving_templates">Şablonlary almakda säwlik</string>
     <string name="error_starting_direct_camera_upload">Kamerany işledip başlamakda ýalňyşlyk</string>

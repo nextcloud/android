@@ -258,7 +258,6 @@
     <string name="error_comment_file">Virhe tiedostoa kommentoidessa</string>
     <string name="error_crash_title">%1$s kaatunut</string>
     <string name="error_report_issue_action">Raportti</string>
-    <string name="error_report_issue_text">Ilmoita ongelmasta seurantajärjestelmään? (vaatii GitHub-tilin)</string>
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>

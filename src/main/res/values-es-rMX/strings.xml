@@ -242,7 +242,6 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueron</string>
     <string name="error_report_issue_action">Reportar</string>
-    <string name="error_report_issue_text">¿Reportar problema al desarrollador? (Se requiere una cuenta de GitHub)</string>
     <string name="error_retrieving_file">Error al obtener el archivo</string>
     <string name="error_retrieving_templates">Error al obtener las plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>

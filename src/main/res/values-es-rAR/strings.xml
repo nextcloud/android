@@ -236,7 +236,6 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s Fallo </string>
     <string name="error_report_issue_action">Reporte</string>
-    <string name="error_report_issue_text">¿Informar problema al rastreador? (requiere una cuenta de Github)</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>

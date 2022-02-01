@@ -240,7 +240,6 @@
     <string name="error_comment_file">Feil ved kommentering av fil</string>
     <string name="error_crash_title">%1$s kræsjet</string>
     <string name="error_report_issue_action">Rapporter</string>
-    <string name="error_report_issue_text">Rapporter feilen til sporer (krever en GitHub konto)</string>
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
