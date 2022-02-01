@@ -229,7 +229,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
     <string name="error_choosing_date">Terjadi kesalahan dalam memilih tanggal</string>
     <string name="error_report_issue_action">Laporan</string>
-    <string name="error_report_issue_text">Laporkan isu ke pelacak? (memerlukan akun Github)</string>
     <string name="error_retrieving_file">Galat saat menerima file</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
     <string name="error_starting_direct_camera_upload">Galat saat mengaktifkan kamera</string>

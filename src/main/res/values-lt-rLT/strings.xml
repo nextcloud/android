@@ -256,7 +256,6 @@
     <string name="error_comment_file">Klaida komentuojant failą</string>
     <string name="error_crash_title">%1$s užstrigo</string>
     <string name="error_report_issue_action">Ataskaita</string>
-    <string name="error_report_issue_text"> Pranešti apie problemą stebėtojams? (reikalinga „Github“ paskyra)</string>
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>

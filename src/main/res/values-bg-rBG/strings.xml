@@ -259,7 +259,6 @@
     <string name="error_comment_file">Грешка при коментиране на файл</string>
     <string name="error_crash_title">%1$s крах</string>
     <string name="error_report_issue_action">Докладване за грешка</string>
-    <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
     <string name="error_retrieving_file">Грешка при извличане на файл</string>
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>

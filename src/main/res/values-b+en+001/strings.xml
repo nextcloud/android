@@ -242,7 +242,6 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="error_report_issue_action">Report</string>
-    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>

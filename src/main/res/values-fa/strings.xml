@@ -242,7 +242,6 @@
     <string name="error_comment_file">خطا در ثبت نظر در مورد فایل</string>
     <string name="error_crash_title">%1$s سقوط کرد</string>
     <string name="error_report_issue_action">گزارش</string>
-    <string name="error_report_issue_text">گزارش مسئله به ردیاب؟ (به حساب Github نیاز دارد)</string>
     <string name="error_retrieving_file">خطا در بازیابی پرونده</string>
     <string name="error_retrieving_templates">خطا در بازیابی الگوهای</string>
     <string name="error_starting_direct_camera_upload">خطا در فعال‌سازی دوربین</string>

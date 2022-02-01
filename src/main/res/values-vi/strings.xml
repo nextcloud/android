@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s bị hỏng</string>
     <string name="error_creating_file_from_template">Lỗi khi tạo tệp từ mẫu</string>
     <string name="error_report_issue_action">Báo cáo</string>
-    <string name="error_report_issue_text">Báo cáo sự cố cho trình theo dõi? (yêu cầu tài khoản Github)</string>
     <string name="error_retrieving_file">Lỗi khi truy xuất tệp</string>
     <string name="error_retrieving_templates">Lỗi khi truy xuất mẫu</string>
     <string name="error_starting_direct_camera_upload">Lỗi khởi động máy ảnh</string>

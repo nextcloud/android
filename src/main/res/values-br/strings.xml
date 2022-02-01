@@ -228,7 +228,6 @@
     <string name="error_comment_file">Ur fazi a zo bet en ur displegañ ar restr</string>
     <string name="error_crash_title">%1$s friket</string>
     <string name="error_report_issue_action">Kemmenn</string>
-    <string name="error_report_issue_text">Kemenn ur gudenn d\'an enkaner? (ret eo kaout ur c\'hont GitHub)</string>
     <string name="error_retrieving_file">Ur fazi a zo bet en ur adtapout ar restr</string>
     <string name="error_retrieving_templates">Ur fazi a zo bet en er adtapout ar skouer</string>
     <string name="error_starting_direct_camera_upload">Ur fazi a zo bet en ul lakaat war dro ar c\'hamera</string>

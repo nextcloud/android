@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s krakket</string>
     <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
     <string name="error_report_issue_action">Rapporter</string>
-    <string name="error_report_issue_text">Rapporter problem til opfølger? (Kræver en Github konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>

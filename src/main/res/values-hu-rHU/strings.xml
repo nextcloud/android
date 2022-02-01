@@ -261,7 +261,6 @@
     <string name="error_crash_title">A(z) %1$s összeomlott</string>
     <string name="error_creating_file_from_template">Hiba a fájl sablonból történő létrehozása során</string>
     <string name="error_report_issue_action">Jelentés</string>
-    <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>

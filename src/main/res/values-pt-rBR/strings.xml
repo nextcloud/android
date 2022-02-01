@@ -261,7 +261,6 @@
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
     <string name="error_report_issue_action">Reportar</string>
-    <string name="error_report_issue_text">Reportar erro no rastreador? (requer uma conta Github)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>

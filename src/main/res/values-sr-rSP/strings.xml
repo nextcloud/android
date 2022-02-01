@@ -209,7 +209,6 @@
     <string name="error_comment_file">Greška prilikom komentarisanja fajla</string>
     <string name="error_crash_title">%1$s se srušio</string>
     <string name="error_report_issue_action">Prijavi</string>
-    <string name="error_report_issue_text">Prijavi grešku na pratioca grešaka? (zahteva Github nalog)</string>
     <string name="error_retrieving_file">Greška pri dobavljanju fajla</string>
     <string name="error_retrieving_templates">Greška pri učitavanju šablona</string>
     <string name="error_starting_direct_camera_upload">Greška pri startovanju kamere</string>

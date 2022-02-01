@@ -222,7 +222,6 @@
     <string name="error_comment_file">Gabim gjatë komentimit të skedarit</string>
     <string name="error_crash_title">%1$s ra</string>
     <string name="error_report_issue_action">Raporto</string>
-    <string name="error_report_issue_text">Raportoni çështje tek gjurmuesi? (kërkon një llogari Github)</string>
     <string name="error_retrieving_file">Gabim në marrjen e skedarit</string>
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>

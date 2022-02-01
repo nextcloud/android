@@ -242,7 +242,6 @@
     <string name="error_comment_file">Mearachd a’ cur beachd ri faidhle</string>
     <string name="error_crash_title">Thuislich %1$s</string>
     <string name="error_report_issue_action">Dèan aithris air</string>
-    <string name="error_report_issue_text">An dèan thu aithris air an duilgheadas san tracaiche? (bidh feum air cunntas GitHub)</string>
     <string name="error_retrieving_file">Mearachd a’ faighinn an fhaidhle</string>
     <string name="error_retrieving_templates">Mearachd a’ faighinn nan teamplaidean</string>
     <string name="error_starting_direct_camera_upload">Mearachd le tòiseachadh a’ chamara</string>

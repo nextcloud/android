@@ -260,7 +260,6 @@
     <string name="error_comment_file">파일 주석 처리 중 오류 발생</string>
     <string name="error_crash_title">%1$s충돌</string>
     <string name="error_report_issue_action">보고</string>
-    <string name="error_report_issue_text">트래커에 문제를 보고하시겠습니까? (Github 계정 필요)</string>
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
