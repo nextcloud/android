@@ -1,0 +1,3 @@
+OCFileListFragment: set title when attached to activity
+i18n: Change to a capital letter
+Update translations
