@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
     <string name="error_report_issue_action">Raport</string>
+    <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
