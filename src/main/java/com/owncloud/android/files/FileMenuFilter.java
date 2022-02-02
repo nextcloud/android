@@ -193,7 +193,7 @@ public class FileMenuFilter {
         filterCancelSync(toShow, toHide, synchronizing);
         filterSync(toShow, toHide, synchronizing);
         filterShareFile(toShow, toHide, capability);
-        filterSendFiles(toShow, toHide);
+        filterSendFiles(toShow, toHide, inSingleFileFragment);
         filterDetails(toShow, toHide);
         filterFavorite(toShow, toHide, synchronizing);
         filterUnfavorite(toShow, toHide, synchronizing);
@@ -213,12 +213,18 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterSendFiles(List<Integer> toShow, List<Integer> toHide) {
-        if (containsEncryptedFile() || isSingleSelection() || overflowMenu || !anyFileDown() ||
-            SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
-            toHide.add(R.id.action_send_file);
-        } else {
+    private void filterSendFiles(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
+        boolean show = true;
+        if (containsEncryptedFile() || overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
+            show = false;
+        }
+        if (!inSingleFileFragment && (isSingleSelection() || !anyFileDown())) {
+            show = false;
+        }
+        if (show) {
             toShow.add(R.id.action_send_file);
+        } else {
+            toHide.add(R.id.action_send_file);
         }
     }
 
