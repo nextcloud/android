@@ -49,18 +49,18 @@ import java.util.Comparator;
  * by Tobias Kaminsky
  */
 public class AlphanumComparator<T> implements Comparator<T>, Serializable {
-    private boolean isDigit(char ch) {
+    private static boolean isDigit(char ch) {
         return ch >= 48 && ch <= 57;
     }
 
-    private boolean isSpecialChar(char ch) {
+    private static  boolean isSpecialChar(char ch) {
         return ch <= 47 || ch >= 58 && ch <= 64 || ch >= 91 && ch <= 96 || ch >= 123 && ch <= 126;
     }
 
     /**
      * Length of string is passed in for improved efficiency (only need to calculate it once)
      **/
-    private String getChunk(String string, int stringLength, int marker) {
+    private static String getChunk(String string, int stringLength, int marker) {
         StringBuilder chunk = new StringBuilder();
         char c = string.charAt(marker);
         chunk.append(c);
@@ -87,14 +87,14 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
         return chunk.toString();
     }
 
-    public int compare(ServerFileInterface o1, ServerFileInterface o2) {
+    public static int compare(ServerFileInterface o1, ServerFileInterface o2) {
         String s1 = o1.getFileName();
         String s2 = o2.getFileName();
 
         return compare(s1, s2);
     }
 
-    public int compare(File f1, File f2) {
+    public static int compare(File f1, File f2) {
         String s1 = f1.getPath();
         String s2 = f2.getPath();
 
@@ -105,7 +105,7 @@ public class AlphanumComparator<T> implements Comparator<T>, Serializable {
         return compare(t1.toString(), t2.toString());
     }
 
-    public int compare(String s1, String s2) {
+    public static int compare(String s1, String s2) {
         int thisMarker = 0;
         int thatMarker = 0;
         int s1Length = s1.length();
