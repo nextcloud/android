@@ -444,6 +444,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             selectAll.setIcon(
                 ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
         }
+        uploadButton.setEnabled(checked);
     }
 
     @Override
