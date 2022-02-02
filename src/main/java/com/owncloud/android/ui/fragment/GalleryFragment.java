@@ -146,7 +146,7 @@ public class GalleryFragment extends OCFileListFragment {
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
 
-        if (emptySearch) {
+        if (emptySearch && getAdapter().getItemCount() > 0) {
             Log_OC.d(this, "End gallery search");
             return;
         }
@@ -163,7 +163,10 @@ public class GalleryFragment extends OCFileListFragment {
             return;
         }
 
-        endDate = lastTimeStamp;
+        if (lastTimeStamp > -1) {
+            endDate = lastTimeStamp;
+        }
+
         startDate = endDate - (daySpan * 24 * 60 * 60);
 
         photoSearchTask = new GallerySearchTask(this,
@@ -199,6 +202,7 @@ public class GalleryFragment extends OCFileListFragment {
                     endDate = lastFile.getModificationTimestamp() / 1000;
                     startDate = endDate - (daySpan * 24 * 60 * 60);
 
+                    photoSearchQueryRunning = true;
                     photoSearchTask = new GallerySearchTask(this,
                                                             accountManager.getUser(),
                                                             mContainerActivity.getStorageManager(),

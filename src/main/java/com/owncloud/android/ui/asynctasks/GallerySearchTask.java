@@ -122,10 +122,10 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
             photoFragment.setLoading(false);
 
-            if (!result.success || result.emptySearch) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-            } else {
+            if (result.success) {
                 photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
+            } else {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
         }
     }
