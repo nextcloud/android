@@ -3,6 +3,7 @@
  *
  * @author Sven R. Kunze
  * Copyright (C) 2017 Sven R. Kunze
+ * Copyright (C) 2022 Álvaro Brey Vilas
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -17,91 +18,92 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.owncloud.android.utils;
-
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
+import java.io.File
+import java.util.Collections
 
 /**
  * Sort order
  */
+open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
 
-public class FileSortOrder {
-    public static final String sort_a_to_z_id = "sort_a_to_z";
-    public static final String sort_z_to_a_id = "sort_z_to_a";
-    public static final String sort_old_to_new_id = "sort_old_to_new";
-    public static final String sort_new_to_old_id = "sort_new_to_old";
-    public static final String sort_small_to_big_id = "sort_small_to_big";
-    public static final String sort_big_to_small_id = "sort_big_to_small";
+    val sortMultiplier: Int
+        get() = if (isAscending) 1 else -1
 
-    public static final FileSortOrder sort_a_to_z = new FileSortOrderByName(sort_a_to_z_id, true);
-    public static final FileSortOrder sort_z_to_a = new FileSortOrderByName(sort_z_to_a_id, false);
-    public static final FileSortOrder sort_old_to_new = new FileSortOrderByDate(sort_old_to_new_id, true);
-    public static final FileSortOrder sort_new_to_old = new FileSortOrderByDate(sort_new_to_old_id, false);
-    public static final FileSortOrder sort_small_to_big = new FileSortOrderBySize(sort_small_to_big_id, true);
-    public static final FileSortOrder sort_big_to_small = new FileSortOrderBySize(sort_big_to_small_id, false);
-
-    public static final Map<String, FileSortOrder> sortOrders;
-
-    public enum Type {
-        trashBinView, localFileListView, uploadFilesView
-    }
-    static {
-        HashMap<String, FileSortOrder> temp = new HashMap<>();
-        temp.put(sort_a_to_z.name, sort_a_to_z);
-        temp.put(sort_z_to_a.name, sort_z_to_a);
-        temp.put(sort_old_to_new.name, sort_old_to_new);
-        temp.put(sort_new_to_old.name, sort_new_to_old);
-        temp.put(sort_small_to_big.name, sort_small_to_big);
-        temp.put(sort_big_to_small.name, sort_big_to_small);
-
-        sortOrders = Collections.unmodifiableMap(temp);
+    @Suppress("EnumNaming") // already saved in user preferences -.-'
+    enum class Type {
+        trashBinView, localFileListView
     }
 
-    public String name;
-    public boolean isAscending;
+    companion object {
+        const val sort_a_to_z_id = "sort_a_to_z"
+        const val sort_z_to_a_id = "sort_z_to_a"
+        const val sort_old_to_new_id = "sort_old_to_new"
+        const val sort_new_to_old_id = "sort_new_to_old"
+        const val sort_small_to_big_id = "sort_small_to_big"
+        const val sort_big_to_small_id = "sort_big_to_small"
 
-    public FileSortOrder(String name, boolean ascending) {
-        this.name = name;
-        isAscending = ascending;
-    }
+        @JvmField
+        val sort_a_to_z: FileSortOrder = FileSortOrderByName(sort_a_to_z_id, true)
 
-    public List<OCFile> sortCloudFiles(List<OCFile> files) {
-        return sortCloudFilesByFavourite(files);
-    }
+        @JvmField
+        val sort_z_to_a: FileSortOrder = FileSortOrderByName(sort_z_to_a_id, false)
 
-    public List<File> sortLocalFiles(List<File> files) {
-        return files;
-    }
+        @JvmField
+        val sort_old_to_new: FileSortOrder = FileSortOrderByDate(sort_old_to_new_id, true)
 
-    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
-        return files;
-    }
+        @JvmField
+        val sort_new_to_old: FileSortOrder = FileSortOrderByDate(sort_new_to_old_id, false)
 
-    /**
-     * Sorts list by Favourites.
-     *
-     * @param files files to sort
-     */
-    public static List<OCFile> sortCloudFilesByFavourite(List<OCFile> files) {
-        Collections.sort(files, (o1, o2) -> {
-            if (o1.isFavorite() && o2.isFavorite()) {
-                return 0;
-            } else if (o1.isFavorite()) {
-                return -1;
-            } else if (o2.isFavorite()) {
-                return 1;
+        @JvmField
+        val sort_small_to_big: FileSortOrder = FileSortOrderBySize(sort_small_to_big_id, true)
+
+        @JvmField
+        val sort_big_to_small: FileSortOrder = FileSortOrderBySize(sort_big_to_small_id, false)
+
+        @JvmField
+        val sortOrders: Map<String, FileSortOrder> = Collections.unmodifiableMap(
+            mapOf(
+                sort_a_to_z.name to sort_a_to_z,
+                sort_z_to_a.name to sort_z_to_a,
+                sort_old_to_new.name to sort_old_to_new,
+                sort_new_to_old.name to sort_new_to_old,
+                sort_small_to_big.name to sort_small_to_big,
+                sort_big_to_small.name to sort_big_to_small
+            )
+        )
+
+        /**
+         * Sorts list by Favourites.
+         *
+         * @param files files to sort
+         */
+        @JvmStatic
+        fun sortCloudFilesByFavourite(files: MutableList<OCFile>): List<OCFile> {
+            files.sortWith { o1: OCFile, o2: OCFile ->
+                when {
+                    o1.isFavorite && o2.isFavorite -> 0
+                    o1.isFavorite -> -1
+                    o2.isFavorite -> 1
+                    else -> 0
+                }
             }
-            return 0;
-        });
+            return files
+        }
+    }
 
-        return files;
+    open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
+        return sortCloudFilesByFavourite(files)
+    }
+
+    open fun sortLocalFiles(files: MutableList<File>): List<File> {
+        return files
+    }
+
+    open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
+        return files
     }
 }

@@ -3,6 +3,7 @@
  *
  * @author Sven R. Kunze
  * Copyright (C) 2017 Sven R. Kunze
+ * Copyright (C) 2022 Álvaro Brey Vilas
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -17,96 +18,51 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.owncloud.android.utils;
-
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
+import java.io.File
 
 /**
  * Sorts files by sizes
  */
-public class FileSortOrderBySize extends FileSortOrder {
+class FileSortOrderBySize internal constructor(name: String?, ascending: Boolean) : FileSortOrder(name!!, ascending) {
 
-    FileSortOrderBySize(String name, boolean ascending) {
-        super(name, ascending);
+    override fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
+        val sortedBySize = sortServerFiles(files)
+        return super.sortCloudFiles(sortedBySize)
     }
 
-    /**
-     * Sorts list by Size.
-     *
-     * @param files list of files to sort
-     */
-    public List<OCFile> sortCloudFiles(List<OCFile> files) {
-        final int multiplier = isAscending ? 1 : -1;
-
-        Collections.sort(files, (o1, o2) -> {
-            if (o1.isFolder() && o2.isFolder()) {
-                return multiplier * Long.compare(o1.getFileLength(), o2.getFileLength());
-            } else if (o1.isFolder()) {
-                return -1;
-            } else if (o2.isFolder()) {
-                return 1;
-            } else {
-                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
-            }
-        });
-
-        return super.sortCloudFiles(files);
+    override fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
+        val sortedBySize = sortServerFiles(files)
+        return super.sortTrashbinFiles(sortedBySize)
     }
 
-    /**
-     * Sorts list by Size.
-     *
-     * @param files list of files to sort
-     */
-    @Override
-    public List<TrashbinFile> sortTrashbinFiles(List<TrashbinFile> files) {
-        final int multiplier = isAscending ? 1 : -1;
-
-        Collections.sort(files, (o1, o2) -> {
-            if (o1.isFolder() && o2.isFolder()) {
-                return multiplier * Long.compare(o1.getFileLength(), o2.getFileLength());
-            } else if (o1.isFolder()) {
-                return -1;
-
-            } else if (o2.isFolder()) {
-                return 1;
-            } else {
-                return multiplier * Long.compare(o1.getFileLength(),o2.getFileLength());
+    private fun <T : ServerFileInterface> sortServerFiles(files: MutableList<T>): MutableList<T> {
+        files.sortWith { o1: ServerFileInterface, o2: ServerFileInterface ->
+            when {
+                o1.isFolder && o2.isFolder -> sortMultiplier * o1.fileLength.compareTo(o2.fileLength)
+                o1.isFolder -> -1
+                o2.isFolder -> 1
+                else -> sortMultiplier * o1.fileLength.compareTo(o2.fileLength)
             }
-        });
-
-        return super.sortTrashbinFiles(files);
+        }
+        return files
     }
 
-    /**
-     * Sorts list by Size.
-     *
-     * @param files list of files to sort
-     */
-    @Override
-    public List<File> sortLocalFiles(List<File> files) {
-        final int multiplier = isAscending ? 1 : -1;
+    override fun sortLocalFiles(files: MutableList<File>): List<File> {
 
-        Collections.sort(files, (o1, o2) -> {
-            if (o1.isDirectory() && o2.isDirectory()) {
-                return multiplier * Long.compare(FileStorageUtils.getFolderSize(o1),
-                                                 FileStorageUtils.getFolderSize(o2));
-            } else if (o1.isDirectory()) {
-                return -1;
-            } else if (o2.isDirectory()) {
-                return 1;
-            } else {
-                return multiplier * Long.compare(o1.length(),o2.length());
+        files.sortWith { o1: File, o2: File ->
+            when {
+                o1.isDirectory && o2.isDirectory -> sortMultiplier * FileStorageUtils.getFolderSize(o1)
+                    .compareTo(FileStorageUtils.getFolderSize(o2))
+                o1.isDirectory -> -1
+                o2.isDirectory -> 1
+                else -> sortMultiplier * o1.length().compareTo(o2.length())
             }
-        });
-
-        return files;
+        }
+        return files
     }
 }
