@@ -848,7 +848,7 @@
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numer telefonu</string>
     <string name="user_info_twitter">Twitter</string>
-    <string name="user_info_website">Strona WWW</string>
+    <string name="user_info_website">Strona internetowa</string>
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
