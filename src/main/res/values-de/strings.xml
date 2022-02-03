@@ -1007,6 +1007,7 @@
     <string name="your_shares">Ihre Freigaben</string>
     <string name="link_label">Linkbezeichnung</string>
     <string name="hint_link_label">Ihre Linkbezeichnung</string>
+    <string name="error_creating_file_from_template">Fehler beim Erstellen der Datei aus der Vorlage</string>
     <string name="file_drop_info">Bei der Sammelbox ist nur das Hochladen erlaubt. Nur Sie sehen Dateien und Ordner die hochgeladen worden sind.</string>
     <string name="password_protection">Password Protection</string>
     <string name="expiration_date">Expiration Date</string>
