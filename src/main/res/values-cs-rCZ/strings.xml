@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_creating_file_from_template">Chyba při vytváření souboru ze šablony</string>
     <string name="error_report_issue_action">Hlášení</string>
+    <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>

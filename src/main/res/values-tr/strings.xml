@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s çöktü</string>
     <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
+    <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>

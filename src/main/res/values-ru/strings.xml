@@ -261,6 +261,7 @@
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
     <string name="error_report_issue_action">Сообщить</string>
+    <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
@@ -460,6 +461,7 @@
     <string name="no_email_app_available">Нет приложения для электронной почты</string>
     <string name="no_mutliple_accounts_allowed">Разрешено использование только одной учётной записи</string>
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
+    <string name="no_send_app">Нет доступного приложения для отправки выбранных файлов</string>
     <string name="no_share_permission_selected">Пожалуйста, выберите хотя бы одно разрешение.</string>
     <string name="note_confirm">Отправить</string>
     <string name="note_could_not_sent">Не удалось отправить примечание</string>

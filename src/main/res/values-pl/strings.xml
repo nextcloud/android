@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
     <string name="error_report_issue_action">Raport</string>
+    <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania kamery</string>
@@ -847,7 +848,7 @@
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numer telefonu</string>
     <string name="user_info_twitter">Twitter</string>
-    <string name="user_info_website">Strona WWW</string>
+    <string name="user_info_website">Strona internetowa</string>
     <string name="user_information_retrieval_error">Błąd pobierania informacji użytkownika</string>
     <string name="userinfo_no_info_headline">Brak informacji osobistych</string>
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
