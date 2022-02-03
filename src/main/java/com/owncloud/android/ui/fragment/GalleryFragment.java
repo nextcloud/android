@@ -39,6 +39,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
@@ -82,12 +83,21 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Inject AppPreferences appPreferences;
 
-    public GalleryFragment() {
-        this.refresh = false;
-    }
 
-    public GalleryFragment(boolean refresh) {
-        this.refresh = refresh;
+
+    private void createOperation() {
+        if (searchEvent == null) {
+            searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
+        }
+        if (searchRemoteOperation == null) {
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(accountManager.getUser().getAccountName());
+
+            searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
+                                                              searchEvent.getSearchType(),
+                                                              false
+                                                              );
+        }
     }
 
     @Override
@@ -96,12 +106,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         // setupToolbar();
         setHasOptionsMenu(true);
 
+            refresh = true;
 
-        searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
-
-        searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
-                                                          searchEvent.getSearchType(),
-                                                          false);
         if (galleryFragmentBottomSheetDialog == null) {
             FileActivity activity = (FileActivity) getActivity();
 
@@ -147,8 +153,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        createOperation();
         View v = super.onCreateView(inflater, container, savedInstanceState);
-
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -232,7 +238,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         handleSearchEvent();
 
     }
-    
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLoading(photoSearchQueryRunning);
+    }
+
     @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         super.onMessageEvent(changeMenuEvent);
