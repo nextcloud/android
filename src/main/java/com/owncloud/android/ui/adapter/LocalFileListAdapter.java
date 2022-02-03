@@ -89,6 +89,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return mFiles.size() + 1;
     }
 
+    public int getFilesCount() {
+        return mFiles.size();
+    }
+
     public boolean isCheckedFile(File file) {
         return checkedFiles.contains(file);
     }
