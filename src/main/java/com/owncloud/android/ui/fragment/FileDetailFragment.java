@@ -175,6 +175,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return reference to the {@link FileDetailSharingFragment}
      */
     public FileDetailSharingFragment getFileDetailSharingFragment() {
+        if (binding == null) {
+            return null;
+        }
         return (FileDetailSharingFragment)requireActivity().getSupportFragmentManager().findFragmentByTag(FTAG_SHARING);
     }
 
