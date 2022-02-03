@@ -580,4 +580,10 @@
         <item name="android:textCursorDrawable">@drawable/cursor_drawable</item>
     </style>
 
+    <style name="ExoMediaButton.ExitFullscreen" parent="ExoStyledControls.Button.Center">
+        <item name="android:src">@drawable/exo_styled_controls_fullscreen_exit</item>
+        <item name="android:contentDescription">@string/exo_controls_fullscreen_exit_description</item>
+        <item name="android:padding">@dimen/exo_icon_padding</item>
+    </style>
+
 </resources>
