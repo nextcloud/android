@@ -1636,7 +1636,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
+                boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite;
+                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite, removeFromList);
             }
 
         } catch (ClientFactory.CreationException e) {
