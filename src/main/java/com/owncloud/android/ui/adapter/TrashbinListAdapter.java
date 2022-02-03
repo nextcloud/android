@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -163,12 +164,13 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void removeFile(TrashbinFile file) {
         int index = files.indexOf(file);
 
         if (index != -1) {
             files.remove(index);
-            notifyItemRemoved(index);
+            notifyDataSetChanged();
         }
     }
 
