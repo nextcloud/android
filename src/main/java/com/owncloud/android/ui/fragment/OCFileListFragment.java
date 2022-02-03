@@ -278,7 +278,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onAttach");
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
-
+            setTitle();
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
                                                    FileFragment.ContainerActivity.class.getSimpleName(), e);
