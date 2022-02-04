@@ -359,7 +359,7 @@ dependencies {
     androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
     androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
-    androidTestImplementation "com.facebook.testing.screenshot:core:0.13.0"
+    androidTestImplementation "com.facebook.testing.screenshot:core:0.15.0"
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
