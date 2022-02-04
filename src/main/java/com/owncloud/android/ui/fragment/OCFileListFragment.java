@@ -391,10 +391,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             registerFabListener();
         }
 
-        if (getArguments() == null) {
-            searchEvent = null;
-        } else {
-            searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+        if (!searchFragment) { // do not touch search event if previously searched
+            if (getArguments() == null) {
+                searchEvent = null;
+            } else {
+                searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+            }
         }
         prepareCurrentSearch(searchEvent);
 
@@ -415,10 +417,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle();
-
-        if (searchEvent != null) {
-            onMessageEvent(searchEvent);
-        }
+        
 
         FragmentActivity fragmentActivity;
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
