@@ -2,6 +2,7 @@ package com.nextcloud.client.utils;
 
 import com.owncloud.android.datamodel.OCFile;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class TestSorting {
         sortedArray.add(new OCFile("/uh.txt"));
         sortedArray.add(new OCFile("/Üh 2.txt"));
 
-        assertTrue(sortAndTest(sortedArray));
+        sortAndTest(sortedArray);
     }
 
     /**
@@ -77,10 +78,7 @@ public class TestSorting {
         sortedArray.add(new OCFile("/uh.txt"));
         sortedArray.add(new OCFile("/Üh 2.txt"));
 
-        List unsortedList = shuffle(sortedArray);
-        Collections.sort(unsortedList);
-
-        assertTrue(test(sortedArray, unsortedList));
+        sortAndTest(sortedArray);
     }
 
     @Test
@@ -120,7 +118,7 @@ public class TestSorting {
         array.add(new OCFile("/Joplin/a551ce1ae06e6f05669a0cadc4eb2f7b.md"));
         array.add(new OCFile("/Joplin/a590cd1671b648c7a3bae0d6fbb7da81.md"));
 
-        assertTrue(sortAndTest(array));
+        sortAndTest(array);
     }
 
     @Test
@@ -335,7 +333,7 @@ public class TestSorting {
         array.add(new OCFile("/1231232.40.8933"));
         array.add(new OCFile("/1231232.040.8933"));
 
-        assertTrue(sortAndTest(array));
+        sortAndTest(array);
     }
 
     @Test
@@ -363,82 +361,43 @@ public class TestSorting {
         sortedArray.add(new OCFile("/.selected_editor"));
         sortedArray.add(new OCFile("/.wget-hsts"));
 
-        assertTrue(sortAndTest(sortedArray));
+        sortAndTest(sortedArray);
     }
 
-    private List<Comparable> shuffle(List<? extends Comparable> files) {
-        List<Comparable> shuffled = new ArrayList<>();
-        shuffled.addAll(files);
+    private List<OCFile> shuffle(List<OCFile> files) {
+        final List<OCFile> shuffled = new ArrayList<>(files);
 
         Collections.shuffle(shuffled);
 
         return shuffled;
     }
 
-    private boolean sortAndTest(List<? extends Comparable> sortedList) {
-        return test(sortedList, sort(sortedList));
+    private void sortAndTest(List<OCFile> sortedList) {
+        test(sortedList, sort(sortedList));
     }
 
-    private List<Comparable> sort(List<? extends Comparable> sortedList) {
-        List unsortedList = shuffle(sortedList);
+    private List<OCFile> sort(List<OCFile> sortedList) {
+        final List<OCFile> toSort = shuffle(sortedList);
 
-        if (sortedList.get(0) instanceof OCFile) {
-            Collections.sort(unsortedList, (Comparator<OCFile>) (o1, o2) -> {
-                if (o1.isFolder() && o2.isFolder()) {
-                    return AlphanumComparator.compare(o1, o2);
-                } else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                }
+        Collections.sort(toSort, (Comparator<OCFile>) (o1, o2) -> {
+            if (o1.isFolder() && o2.isFolder()) {
                 return AlphanumComparator.compare(o1, o2);
-            });
-        } else {
-            Collections.sort(unsortedList, new AlphanumComparator<>());
-        }
+            } else if (o1.isFolder()) {
+                return -1;
+            } else if (o2.isFolder()) {
+                return 1;
+            }
+            return AlphanumComparator.compare(o1, o2);
+        });
 
-        return unsortedList;
+        return toSort;
     }
 
-    private boolean test(List<? extends Comparable> target, List<? extends Comparable> actual) {
+    private void test(final List<OCFile> target, final List<OCFile> actual) {
 
-        for (int i = 0; i < target.size(); i++) {
-            int compare;
+        final String[] targetNames = target.stream().map(OCFile::getFileName).toArray(String[]::new);
+        final String[] actualNames = target.stream().map(OCFile::getFileName).toArray(String[]::new);
 
-            if (target.get(i) instanceof OCFile) {
-                String sortedName = ((OCFile) target.get(i)).getFileName();
-                String unsortedName = ((OCFile) actual.get(i)).getFileName();
-                compare = sortedName.compareTo(unsortedName);
-            } else {
-                compare = target.get(i).compareTo(actual.get(i));
-            }
-
-            if (compare != 0) {
-
-                System.out.println("target:");
-
-                for (Object o : target) {
-                    if (o instanceof OCFile) {
-                        System.out.println(((OCFile) o).getFileName());
-                    } else {
-                        System.out.println(o.toString());
-                    }
-                }
-
-                System.out.println("actual:");
-                for (Object o : actual) {
-                    if (o instanceof OCFile) {
-                        System.out.println(((OCFile) o).getFileName());
-                    } else {
-                        System.out.println(o.toString());
-                    }
-                }
-
-
-                return false;
-            }
-        }
-
-        return true;
+        Assert.assertArrayEquals(targetNames, actualNames);
     }
 }
