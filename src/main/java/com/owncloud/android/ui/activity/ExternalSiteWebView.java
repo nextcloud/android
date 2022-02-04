@@ -225,7 +225,7 @@ public class ExternalSiteWebView extends FileActivity {
                     openDrawer();
                 }
             } else {
-                finish();
+               onBackPressed();
             }
             retval = true;
         } else {
@@ -243,5 +243,14 @@ public class ExternalSiteWebView extends FileActivity {
 
     protected WebView getWebView() {
         return binding.webView;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getWebView().canGoBack()) {
+            getWebView().goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
