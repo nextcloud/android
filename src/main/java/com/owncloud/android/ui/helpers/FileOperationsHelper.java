@@ -898,19 +898,18 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
-        List<OCFile> alreadyRightStateList = new ArrayList<>();
+        List<OCFile> toToggle = new ArrayList<>();
         for (OCFile file : files) {
-            if (file.isFavorite() == shouldBeFavorite) {
-                alreadyRightStateList.add(file);
+            if (file.isFavorite() != shouldBeFavorite) {
+                toToggle.add(file);
             }
         }
 
-        files.removeAll(alreadyRightStateList);
-
-        for (OCFile file : files) {
+        for (OCFile file : toToggle) {
             toggleFavoriteFile(file, shouldBeFavorite);
         }
     }
+
 
     public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
         if (file.isFavorite() != shouldBeFavorite) {
