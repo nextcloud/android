@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="error_creating_file_from_template">Fel vid skapande av fil från mallen</string>
     <string name="error_report_issue_action">Rapportera</string>
+    <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
