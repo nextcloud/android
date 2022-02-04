@@ -51,6 +51,7 @@ class NaturalSortTest {
     companion object {
         @Parameterized.Parameters(name = "{0}")
         @JvmStatic
+        @Suppress("LongMethod")
         fun data(): Iterable<Array<Any>> = listOf(
             arrayOf(
                 "Different casing",
@@ -90,6 +91,37 @@ class NaturalSortTest {
                 arrayOf(
                     "ah.txt", "äh.txt", "Äh.txt", "oh.txt", "öh.txt", "Öh.txt", "uh.txt", "üh.txt", "Üh.txt",
                     "Üh 2.txt",
+                )
+            ),
+            arrayOf(
+                "Leading zeroes",
+                arrayOf(
+                    "2012-09-15 22.50.37.jpg", "2012-Card.jpg", "1584164_460s_v1.jpg", "08082008.jpg",
+                    "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
+                    "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
+                    "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"
+                ),
+                arrayOf(
+                    "2012-09-15 22.50.37.jpg", "2012-Card.jpg", "1584164_460s_v1.jpg", "08082008.jpg",
+                    "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
+                    "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
+                    "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"
+                )
+            ),
+            arrayOf(
+                "Trailing digits",
+                arrayOf("A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"),
+                arrayOf("A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2")
+            ),
+            arrayOf(
+                "Special chars",
+                arrayOf(
+                    "[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
+                    "z.[Test], z. Test"
+                ),
+                arrayOf(
+                    "[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
+                    "z.[Test], z. Test"
                 )
             )
         )

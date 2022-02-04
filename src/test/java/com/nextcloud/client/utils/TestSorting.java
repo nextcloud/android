@@ -1,11 +1,10 @@
-package com.owncloud.android.util;
+package com.nextcloud.client.utils;
 
 import com.owncloud.android.datamodel.OCFile;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,39 +42,6 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class TestSorting {
-
-    @Test
-    public void testSpecialChars() {
-        String[] sortedArray = {"[Test] Folder", "01 - January", "11 - November", "Ôle",
-                "Test 1", "Test 01", "Test 04", "Üüü",
-                "z.[Test], z. Test"};
-
-        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
-    }
-
-    @Test
-    public void testDifferentCasing() {
-        String[] sortedArray = {"aaa", "AAA", "bbb", "BBB"};
-
-        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
-    }
-
-    @Test
-    public void testLeadingZeros() {
-        String[] sortedArray = {"2012-09-15 22.50.37.jpg", "2012-Card.jpg", "1584164_460s_v1.jpg", "08082008.jpg",
-                "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
-                "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
-                "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"};
-
-        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
-    }
-
-    @Test
-    public void testTrailingDigits() {
-        String[] sortedArray = {"A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"};
-
-        assertTrue(sortAndTest(Arrays.asList(sortedArray)));
-    }
 
     @Test
     public void testOCFilesWithFolderFirst() {
