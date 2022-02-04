@@ -46,10 +46,6 @@ public final class DrawerMenuUtil {
             filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites, R.id.nav_videos);
         }
 
-        if (!resources.getBoolean(R.bool.recently_added_enabled)) {
-            menu.removeItem(R.id.nav_recently_added);
-        }
-
         if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
             menu.removeItem(R.id.nav_recently_modified);
         }

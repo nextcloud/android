@@ -262,7 +262,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-            onMessageEvent(searchEvent);
+        }
+
+        if (isSearchEventSet(searchEvent)) {
+            handleSearchEvent(searchEvent);
         }
 
         super.onResume();
@@ -831,10 +834,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (savedInstanceState != null) {
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
-        }
-
-        if (isSearchEventSet(searchEvent)) {
-            onMessageEvent(searchEvent);
         }
     }
 
@@ -1535,9 +1534,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case GALLERY_SEARCH:
                     setTitle(R.string.drawer_item_gallery);
                     break;
-                case RECENTLY_ADDED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_added);
-                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recent_files);
                     break;
@@ -1556,9 +1552,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FAVORITE_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
                 case RECENTLY_MODIFIED_SEARCH:
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
                     break;
@@ -1646,6 +1639,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
+        handleSearchEvent(event);
+    }
+    private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
@@ -1675,6 +1671,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
                 searchOnlyFolders = true;
             }
+
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(currentUser.getAccountName());
 
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
                                                         searchOnlyFolders);
@@ -1819,7 +1818,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onRefresh() {
         if (isSearchEventSet(searchEvent) && searchFragment) {
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);
         } else {
