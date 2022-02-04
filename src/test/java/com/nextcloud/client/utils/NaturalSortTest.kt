@@ -34,7 +34,7 @@ import org.junit.runners.Parameterized
 import third_parties.daveKoeller.AlphanumComparator
 
 /**
- * Adapted from https://github.com/nextcloud/server/blob/caff1023ea72bb2ea94130e18a2a6e2ccf819e5f/tests/lib/NaturalSortTest.php
+ * Adapted on 2022/02/04 from https://github.com/nextcloud/server/blob/caff1023ea72bb2ea94130e18a2a6e2ccf819e5f/tests/lib/NaturalSortTest.php
  */
 @RunWith(Parameterized::class)
 class NaturalSortTest {
@@ -43,9 +43,6 @@ class NaturalSortTest {
     lateinit var title: String
 
     @Parameterized.Parameter(1)
-    lateinit var input: Array<String>
-
-    @Parameterized.Parameter(2)
     lateinit var expected: Array<String>
 
     companion object {
@@ -55,16 +52,10 @@ class NaturalSortTest {
         fun data(): Iterable<Array<Any>> = listOf(
             arrayOf(
                 "Different casing",
-                arrayOf("aaa", "bbb", "BBB", "AAA"),
                 arrayOf("aaa", "AAA", "bbb", "BBB")
             ),
             arrayOf(
                 "Numbers",
-                arrayOf(
-                    "124.txt", "abc1", "123.txt", "abc", "abc2", "def (2).txt", "ghi 10.txt", "abc12", "def.txt",
-                    "def (1).txt", "ghi 2.txt", "def (10).txt", "abc10", "def (12).txt", "z", "ghi.txt", "za",
-                    "ghi 1.txt", "ghi 12.txt", "zz", "15.txt", "15b.txt"
-                ),
                 arrayOf(
                     "15.txt", "15b.txt", "123.txt", "124.txt", "abc", "abc1", "abc2", "abc10", "abc12", "def.txt",
                     "def (1).txt", "def (2).txt", "def (10).txt", "def (12).txt", "ghi.txt", "ghi 1.txt", "ghi 2.txt",
@@ -74,20 +65,12 @@ class NaturalSortTest {
             arrayOf(
                 "Chinese characters",
                 arrayOf(
-                    "十.txt", "一.txt", "二.txt", "十 2.txt", "三.txt", "四.txt", "abc.txt", "五.txt", "七.txt", "八.txt",
-                    "九.txt", "六.txt", "十一.txt", "波.txt", "破.txt", "莫.txt", "啊.txt", "123.txt"
-                ),
-                arrayOf(
                     "123.txt", "abc.txt", "一.txt", "七.txt", "三.txt", "九.txt", "二.txt", "五.txt", "八.txt", "六.txt",
                     "十.txt", "十 2.txt", "十一.txt", "啊.txt", "四.txt", "波.txt", "破.txt", "莫.txt"
                 )
             ),
             arrayOf(
                 "With umlauts",
-                arrayOf(
-                    "öh.txt", "Äh.txt", "oh.txt", "Üh 2.txt", "Üh.txt", "ah.txt", "Öh.txt", "uh.txt", "üh.txt",
-                    "äh.txt",
-                ),
                 arrayOf(
                     "ah.txt", "äh.txt", "Äh.txt", "oh.txt", "öh.txt", "Öh.txt", "uh.txt", "üh.txt", "Üh.txt",
                     "Üh 2.txt",
@@ -100,25 +83,14 @@ class NaturalSortTest {
                     "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
                     "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
                     "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"
-                ),
-                arrayOf(
-                    "2012-09-15 22.50.37.jpg", "2012-Card.jpg", "1584164_460s_v1.jpg", "08082008.jpg",
-                    "02122011150.jpg", "03122011151.jpg", "9999999999999999999999999999991.jpg",
-                    "9999999999999999999999999999992.jpg", "T 0 abc", "T 00 abc", "T 000 abc", "T 1 abc", "T 01 abc",
-                    "T 001 abc", "T 2 abc", "T 02 abc", "T 3 abc", "T 03 abc"
                 )
             ),
             arrayOf(
                 "Trailing digits",
-                arrayOf("A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2"),
                 arrayOf("A", "T", "T 01", "T 2", "T 003", "Zeros", "Zeros 2")
             ),
             arrayOf(
                 "Special chars",
-                arrayOf(
-                    "[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
-                    "z.[Test], z. Test"
-                ),
                 arrayOf(
                     "[Test] Folder", "01 - January", "11 - November", "Ôle", "Test 1", "Test 01", "Test 04", "Üüü",
                     "z.[Test], z. Test"
@@ -130,7 +102,8 @@ class NaturalSortTest {
     @Test
     fun test() {
         val sut = AlphanumComparator<String>()
-        val sorted = input.sortedWith(sut).toTypedArray()
+        val shuffled = expected.clone().apply { shuffle() }
+        val sorted = shuffled.sortedWith(sut).toTypedArray()
         Assert.assertArrayEquals("Wrong sort", expected, sorted)
     }
 }
