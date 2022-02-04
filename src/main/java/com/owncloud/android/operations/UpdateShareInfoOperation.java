@@ -142,7 +142,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
      */
     private void executeShareDownloadLimitOperation(OwnCloudClient client,OCShare ocShare) {
         //if share type is of Link Share then only we have to update the download limit if configured by user
-        if (ocShare.getShareType() == ShareType.PUBLIC_LINK){
+        if (ocShare.getShareType() == ShareType.PUBLIC_LINK && !ocShare.isFolder()){
 
             //if download limit it greater than 0 then update the limit
             //else delete the download limit

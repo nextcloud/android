@@ -20,14 +20,13 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareToRemoteOperationResultParser;
-import com.owncloud.android.lib.resources.shares.ShareXMLParser;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 
 /**
  * class to delete the download limit for the link share
+ * this has to be executed when user has toggled off the download limit
  * <p>
  * API : //DELETE to /ocs/v2.php/apps/files_downloadlimit/{share_token}/limit
  */
@@ -61,11 +60,8 @@ public class DeleteShareDownloadLimitRemoteOperation extends RemoteOperation {
 
                 Log_OC.d(TAG, "Delete Download Limit response: " + response);
 
-                ShareToRemoteOperationResultParser parser = new ShareToRemoteOperationResultParser(
-                    new ShareXMLParser()
-                );
-                parser.setServerBaseUri(client.getBaseUri());
-                result = parser.parse(response);
+                DownloadLimitXMLParser parser = new DownloadLimitXMLParser();
+                result = parser.parse(true, response);
 
                 if (result.isSuccess()) {
                     return result;

@@ -139,6 +139,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         if (photoSearchTask != null) {
             photoSearchTask.cancel(true);
         }
+        photoSearchNoNew = false;
     }
 
     /**
@@ -331,7 +332,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
 
             // scroll down
-            if (dy > 0 && !photoSearchQueryRunning) {
+            if (dy >= 0  && !photoSearchQueryRunning) {
                 int visibleItemCount = gridLayoutManager.getChildCount();
                 int totalItemCount = gridLayoutManager.getItemCount();
                 int firstVisibleItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
@@ -339,6 +340,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + MAX_ITEMS_PER_ROW)
                     && (totalItemCount - visibleItemCount) > 0) {
                     // Almost reached the end, continue to load new photos
+                    searchAndDisplay();
+                }
+                else if(preferences.getHideImageClicked())
+                {
                     searchAndDisplay();
                 }
             }

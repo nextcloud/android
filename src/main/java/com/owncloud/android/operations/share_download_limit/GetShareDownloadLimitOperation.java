@@ -16,10 +16,14 @@
 
 package com.owncloud.android.operations.share_download_limit;
 
+import com.google.gson.reflect.TypeToken;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.ocs.ServerResponse;
+import com.owncloud.android.lib.resources.OCSRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareToRemoteOperationResultParser;
 import com.owncloud.android.lib.resources.shares.ShareXMLParser;
 
@@ -62,15 +66,11 @@ public class GetShareDownloadLimitOperation extends RemoteOperation {
 
                 Log_OC.d(TAG, "Get Download Limit response: " + response);
 
-                // Parse xml response and obtain the list of shares
-                ShareToRemoteOperationResultParser parser = new ShareToRemoteOperationResultParser(
-                    new ShareXMLParser()
-                );
-                parser.setServerBaseUri(client.getBaseUri());
-                result = parser.parse(response);
+                DownloadLimitXMLParser parser = new DownloadLimitXMLParser();
+                result = parser.parse(true, response);
 
                 if (result.isSuccess()) {
-                    Log_OC.d(TAG, "Got " + result.getData().size() + " shares");
+                    Log_OC.d(TAG, "Got " + result.getResultData() + " Response");
                 }
 
             } else {
