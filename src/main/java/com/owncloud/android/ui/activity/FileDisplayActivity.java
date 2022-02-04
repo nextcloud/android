@@ -1155,6 +1155,8 @@ public class FileDisplayActivity extends FileActivity
             createMinFragments(null);
         } else {
             // pop back
+            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams())
+                .setBehavior(new AppBarLayout.ScrollingViewBehavior());
             hideSearchView(getCurrentDir());
             //hide the keyboard on back press if showing
             KeyboardUtils.hideKeyboardFrom(this, binding.getRoot());
@@ -2220,6 +2222,7 @@ public class FileDisplayActivity extends FileActivity
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
             binding.rightFragmentContainer.setVisibility(View.GONE);
+            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
             super.updateActionBarTitleAndHomeButton(file);
 
             //hide the sort dialog button after the fragment is shown

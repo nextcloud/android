@@ -178,6 +178,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         emptyListView = binding.emptyView.emptyListView;
 
+        getActivity().findViewById(R.id.sort_list_button_group).setVisibility(View.GONE);
         setLoadingView();
         return view;
     }
