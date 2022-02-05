@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s si è chiuso inaspettatamente</string>
     <string name="error_creating_file_from_template">Errore nel creare il file da template</string>
     <string name="error_report_issue_action">Segnala</string>
+    <string name="error_report_issue_text">Segnalare problemi al sistema di tracciamento? (richiede un account GitHub)</string>
     <string name="error_retrieving_file">Errore durante il recupero del file</string>
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
