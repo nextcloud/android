@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_creating_file_from_template">Chyba pri vytváraní súboru zo šablóny</string>
     <string name="error_report_issue_action">Hlásenie</string>
+    <string name="error_report_issue_text">Nahlásiť chybu? (vyžaduje účet na Githube)</string>
     <string name="error_retrieving_file">Chyba pri získavaní súboru</string>
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
