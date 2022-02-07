@@ -85,6 +85,7 @@ import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewPdfFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
@@ -211,4 +212,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract PlayerService playerService();
     @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
     @ContributesAndroidInjector abstract FileSyncService fileSyncService();
+
+    @ContributesAndroidInjector
+    abstract PreviewPdfFragment previewPDFFragment();
 }
