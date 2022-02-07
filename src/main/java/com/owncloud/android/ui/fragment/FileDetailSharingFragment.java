@@ -552,7 +552,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void openIn(OCShare share) {
-        fileOperationsHelper.sendShareFile(file);
+        fileOperationsHelper.sendShareFile(file, true);
     }
 
     @Override
