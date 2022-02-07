@@ -1157,4 +1157,5 @@
     <string name="download_limit_empty">Download limit cannot be empty.</string>
     <string name="hint_download_limit">Enter download limit</string>
     <string name="download_limit_zero">Download limit should be greater than 0.</string>
+    <string name="no_send_app">No app available for sending the selected files.</string>
 </resources>
