@@ -22,6 +22,7 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_on_device">Offline files</string>
+    <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_videos">Videos</string>

@@ -154,6 +154,7 @@ public class ExtendedListFragment extends Fragment implements
         FAVORITE_SEARCH,
         GALLERY_SEARCH,
         RECENTLY_MODIFIED_SEARCH,
+        RECENTLY_ADDED_SEARCH,
         // not a real filter, but nevertheless
         SHARED_FILTER
     }

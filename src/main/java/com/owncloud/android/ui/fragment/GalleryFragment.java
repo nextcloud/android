@@ -161,6 +161,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             // runGallerySearchTask();
             handleSearchEvent();
         }
+        setLoading(photoSearchQueryRunning);
     }
 
     /**
@@ -254,11 +255,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        setLoading(photoSearchQueryRunning);
-    }
 
     @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
