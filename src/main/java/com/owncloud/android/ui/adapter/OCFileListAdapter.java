@@ -1111,12 +1111,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
 
             try {
+                ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
+
                 if (ExtendedListFragment.SearchType.GALLERY_SEARCH == searchType) {
-                    mStorageManager.saveFile(ocFile);
-                } else {
-
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
-
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();
