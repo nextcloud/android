@@ -1005,6 +1005,7 @@
     <string name="result_scan_doc_no_doc">No document</string>
     <string name="result_scan_doc_bg_noisy">Background too noisy</string>
     <string name="result_scan_doc_aspect_ratio">Wrong aspect ratio.\nRotate your device.</string>
+    <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="result_scan_doc_poor_light">Poor light</string>
     <string name="scanned_doc_count">%d of %d</string>
     <string name="title_edit_scan">Edit Scan</string>
