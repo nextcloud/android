@@ -594,7 +594,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                            R.drawable.file_image,
                                                                            null);
                                 }
-                                thumbnail = BitmapUtils.drawableToBitmap(drawable);
+                                int px = ThumbnailsCacheManager.getThumbnailDimension();
+                                thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
