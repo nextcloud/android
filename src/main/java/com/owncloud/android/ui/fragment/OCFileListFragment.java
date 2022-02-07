@@ -262,6 +262,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+        }
+
+        if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
         }
 
@@ -1541,9 +1544,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FAVORITE_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
                 case RECENTLY_MODIFIED_SEARCH:
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
                     break;
@@ -1664,6 +1664,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
                 searchOnlyFolders = true;
             }
+
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(currentUser.getAccountName());
 
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
                                                         searchOnlyFolders);

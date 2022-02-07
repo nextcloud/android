@@ -57,7 +57,6 @@
     <bool name="multiaccount_support">false</bool>
 
     <!-- Drawer options -->
-    <bool name="recently_added_enabled">false</bool>
     <bool name="recently_modified_enabled">true</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">false</bool>

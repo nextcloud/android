@@ -22,7 +22,6 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_on_device">Offline files</string>
-    <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_videos">Videos</string>
@@ -103,7 +102,6 @@
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
-    <string name="file_list_empty_recently_added">Found no recently added files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
