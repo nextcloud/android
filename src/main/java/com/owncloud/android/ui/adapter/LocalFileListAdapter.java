@@ -163,8 +163,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 // checkbox
                 if (isCheckedFile(file)) {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                            .getColor(R.color.selected_item_background));
-                    gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked);
+                                                                     .getColor(R.color.selected_item_background));
+                    gridViewHolder.checkbox.setImageDrawable(
+                        ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                        ThemeColorUtils.primaryColor(mContext)));
                 } else {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                     gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -177,9 +179,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemClicked(finalFile));
+                    .onItemClicked(finalFile));
                 gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemCheckboxClicked(finalFile));
+                    .onItemCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {
@@ -194,7 +196,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                         itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.length()));
                     }
                     itemViewHolder.lastModification.setText(DisplayUtils.getRelativeTimestamp(mContext,
-                            file.lastModified()));
+                                                                                              file.lastModified()));
                 }
 
                 if (gridViewHolder instanceof LocalFileListGridItemViewHolder) {
@@ -229,8 +231,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (MimeTypeUtil.isImage(file)) {
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
-                );
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
+                                                                                );
                 if (thumbnail != null) {
                     thumbnailView.setImageBitmap(thumbnail);
                 } else {
@@ -238,18 +240,18 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     // generate new Thumbnail
                     if (allowedToCreateNewThumbnail) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView);
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView);
                         if (MimeTypeUtil.isVideo(file)) {
                             thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                         } else {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
                         final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    context.getResources(),
-                                    thumbnail,
-                                    task
-                                );
+                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                context.getResources(),
+                                thumbnail,
+                                task
+                            );
                         thumbnailView.setImageDrawable(asyncDrawable);
                         task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
                         Log_OC.v(TAG, "Executing task to generate a new thumbnail");

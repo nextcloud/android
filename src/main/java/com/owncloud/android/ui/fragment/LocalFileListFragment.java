@@ -106,10 +106,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         if (!mContainerActivity.isFolderPickerMode()) {
             setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         } else {
             setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
@@ -134,8 +134,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
+        mSortButton.setOnClickListener(v -> {
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
+        });
+
         FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(), sortOrder));
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
 
         setGridSwitchButton();

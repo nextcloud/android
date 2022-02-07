@@ -352,9 +352,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (exposedFileUri == null) {
             try {
                 exposedFileUri = FileProvider.getUriForFile(
-                        context,
-                        context.getString(R.string.file_provider_authority),
-                        new File(localPath));
+                    context,
+                    context.getString(R.string.file_provider_authority),
+                    new File(localPath));
             } catch (IllegalArgumentException ex) {
                 // Could not share file using FileProvider URI scheme.
                 // Fall back to legacy URI parsing.
@@ -510,7 +510,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
-                "parentId=%s, etag=%s, favourite=%s]";
+            "parentId=%s, etag=%s, favourite=%s]";
         return String.format(asString,
                              fileId,
                              getFileName(),
