@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s失敗</string>
     <string name="error_creating_file_from_template">從範本建立檔案時發生錯誤</string>
     <string name="error_report_issue_action">回報</string>
+    <string name="error_report_issue_text">要回報議題至追蹤程式？（需要 GitHub 帳號）</string>
     <string name="error_retrieving_file">擷取檔案時發生錯誤</string>
     <string name="error_retrieving_templates">擷取範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
