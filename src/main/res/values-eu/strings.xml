@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s(e)k huts egin du</string>
     <string name="error_creating_file_from_template">Errorea fitxategia plantilatik sortzerakoan</string>
     <string name="error_report_issue_action">Jakinarazi</string>
+    <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (GitHub kontu bat beharrezkoa da)</string>
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
