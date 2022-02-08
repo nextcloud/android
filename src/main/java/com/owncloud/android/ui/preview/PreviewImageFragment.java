@@ -438,8 +438,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             menu.findItem(R.id.action_copy),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite),
-            menu.findItem(R.id.action_see_details)
-                                    );
+            menu.findItem(R.id.action_see_details),
+            menu.findItem(R.id.action_send_file)                                    );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
