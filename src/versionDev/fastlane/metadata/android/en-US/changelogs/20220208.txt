@@ -1,0 +1,9 @@
+NaturalSortTest: shuffle instead of duplicating parameters
+Rename TestSorting to OCFileSortTest, conver to Kotlin, parameterize
+TestSorting: refactor and simplify since it's now only for OCFiles
+Move string sort tests from TestSorting to NaturalSortTest
+Move TestSorting to unit tests
+Test AlphanumComparator
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
