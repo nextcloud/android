@@ -30,11 +30,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     tools:context=".ui.preview.PreviewPdfFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pdf_recycler"
+        android:background="@color/grey_600"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
