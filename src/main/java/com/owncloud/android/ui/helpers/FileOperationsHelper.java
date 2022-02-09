@@ -282,12 +282,20 @@ public class FileOperationsHelper {
         fileActivity.dismissLoadingDialog();
     }
 
+    public boolean canOpenFile(OCFile file) {
+        final Intent openFileWithIntent = createOpenFileIntent(file);
+
+        List<ResolveInfo> launchables = fileActivity.getPackageManager().
+            queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
+        return !launchables.isEmpty();
+    }
+
     public void openFile(OCFile file) {
         if (file != null) {
             final Intent openFileWithIntent = createOpenFileIntent(file);
 
             List<ResolveInfo> launchables = fileActivity.getPackageManager().
-                    queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
+                queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
             if (launchables.isEmpty()) {
                 Optional<User> optionalUser = fileActivity.getUser();

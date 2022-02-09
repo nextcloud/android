@@ -2262,15 +2262,20 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void startPdfPreview(OCFile file) {
-        final Fragment pdfFragment = PreviewPdfFragment.newInstance(file);
+        if (getFileOperationsHelper().canOpenFile(file)) {
+            // prefer third party PDF apps
+            getFileOperationsHelper().openFile(file);
+        } else {
+            final Fragment pdfFragment = PreviewPdfFragment.newInstance(file);
 
-        setLeftFragment(pdfFragment);
-        updateFragmentsVisibility(false);
+            setLeftFragment(pdfFragment);
+            updateFragmentsVisibility(false);
 
-        updateActionBarTitleAndHomeButton(file);
-        showSortListGroup(false);
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-        setMainFabVisible(false);
+            updateActionBarTitleAndHomeButton(file);
+            showSortListGroup(false);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            setMainFabVisible(false);
+        }
     }
 
 
