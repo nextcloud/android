@@ -2219,6 +2219,13 @@ public class FileDataStorageManager {
             }
         }
     }
+    
+    public List<OCFile> getAllFavorites() {
+        String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_FAVORITE + " =?";
+        String[] selectionArgs = new String[]{user.getAccountName(), "1"};
+
+        return getFiles(selection, selectionArgs);
+    }
 
     public void removeLocalFiles(User user, FileDataStorageManager storageManager) {
         File tempDir = new File(FileStorageUtils.getTemporalPath(user.getAccountName()));
@@ -2231,7 +2238,11 @@ public class FileDataStorageManager {
         // TODO - Apparently this method is used only by tests
         List<FileEntity> fileEntities = fileDao.getAllFiles(user.getAccountName());
         List<OCFile> folderContent = new ArrayList<>(fileEntities.size());
-
+        
+        return getFiles(selection, selectionArgs);
+    }
+    
+    private List<OCFile> getFiles(String selection, String[] selectionArgs) {
         for (FileEntity fileEntity: fileEntities) {
             folderContent.add(createFileInstance(fileEntity));
         }
