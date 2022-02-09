@@ -952,7 +952,7 @@ public final class ThumbnailsCacheManager {
                         mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
                     }
 
-                    int px = getAvatarDimension();
+                    int px = mResources.getInteger(R.integer.file_avatar_px);
                     String uri = mClient.getBaseUri() + "/index.php/avatar/" + Uri.encode(mUserId) + "/" + px;
                     Log_OC.d("Avatar", "URI: " + uri);
                     get = new GetMethod(uri);
