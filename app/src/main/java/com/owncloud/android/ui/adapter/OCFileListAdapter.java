@@ -69,6 +69,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -87,6 +88,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -690,6 +692,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
 
+        if (searchType == SearchType.FAVORITE_SEARCH) {
+            parseFavorites(objects);
+            return;
+        }
+
         if (clear) {
             mFiles.clear();
             resetLastTimestamp();
@@ -738,6 +745,58 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFilesAll.addAll(mFiles);
 
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+    }
+
+    private void parseFavorites(List<Object> remoteFiles) {
+        // retrieve all between startDate and endDate
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null,
+                                                                                        mStorageManager.getAllFavorites());
+        List<OCFile> filesToAdd = new ArrayList<>();
+        List<OCFile> filesToUpdate = new ArrayList<>();
+
+        OCFile localFile;
+        for (Object file : remoteFiles) {
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
+
+            localFile = localFilesMap.remove(ocFile.getRemotePath());
+
+            if (localFile == null) {
+                // add new file
+                filesToAdd.add(ocFile);
+            } else if (!localFile.getEtag().equals(ocFile.getEtag())) {
+                // update file
+                ocFile.setLastSyncDateForData(System.currentTimeMillis());
+                filesToUpdate.add(ocFile);
+            }
+        }
+
+        // add new files
+        for (OCFile file : filesToAdd) {
+            mStorageManager.saveFile(file);
+        }
+
+        // update existing files
+        for (OCFile file : filesToUpdate) {
+            mStorageManager.saveFile(file);
+        }
+
+        // existing files to remove
+        for (OCFile file : localFilesMap.values()) {
+            mStorageManager.removeFile(file, true, true);
+        }
+
+        Log_OC.d(this, "Favorite search result:" +
+            " new: " + filesToAdd.size() +
+            " updated: " + filesToUpdate.size() +
+            " deleted: " + localFilesMap.values().size());
+
+        mFiles = mStorageManager.getAllFavorites();
+        mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
+        // return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
     }
 
     private void parseShares(List<Object> objects) {
