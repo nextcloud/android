@@ -25,8 +25,9 @@
  *  THE SOFTWARE.
  */
 
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.pdf
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -36,9 +37,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
+import com.owncloud.android.ui.preview.PreviewBitmapActivity
+import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 class PreviewPdfFragment : Fragment(), Injectable {
@@ -67,11 +71,33 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.pdfRenderer.observe(viewLifecycleOwner) { renderer ->
-            binding.pdfRecycler.adapter = PreviewPdfAdapter(renderer, getScreenWidth())
-        }
+
+        setupObservers()
+
         val file: OCFile = requireArguments().getParcelable(ARG_FILE)!!
         viewModel.process(file)
+    }
+
+    private fun setupObservers() {
+        viewModel.pdfRenderer.observe(viewLifecycleOwner) { renderer ->
+            binding.pdfRecycler.adapter = PreviewPdfAdapter(renderer, getScreenWidth()) { page ->
+                viewModel.onClickPage(page)
+            }
+        }
+        viewModel.previewImagePath.observe(viewLifecycleOwner) {
+            it?.let { path ->
+                val intent = Intent(context, PreviewBitmapActivity::class.java).apply {
+                    putExtra(PreviewBitmapActivity.EXTRA_BITMAP_PATH, path)
+                }
+                requireContext().startActivity(intent)
+            }
+        }
+        viewModel.shouldShowZoomTip.observe(viewLifecycleOwner) { shouldShow ->
+            if (shouldShow) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
+                viewModel.onZoomTipShown()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

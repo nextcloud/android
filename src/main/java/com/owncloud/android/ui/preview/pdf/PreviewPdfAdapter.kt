@@ -25,7 +25,7 @@
  *  THE SOFTWARE.
  */
 
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.pdf
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -39,18 +39,26 @@ import com.owncloud.android.databinding.PreviewPdfPageItemBinding
 /**
  * @param renderer an **open** [PdfRenderer]
  */
-class PreviewPdfAdapter(private val renderer: PdfRenderer, private val screenWidth: Int) :
+class PreviewPdfAdapter(
+    private val renderer: PdfRenderer,
+    private val screenWidth: Int,
+    private val onClickListener: (Bitmap) -> Unit
+) :
     RecyclerView.Adapter<PreviewPdfAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: PreviewPdfPageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: PreviewPdfPageItemBinding, val onClickListener: (Bitmap) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(bitmap: Bitmap) {
             binding.page.setImageBitmap(bitmap)
+            binding.root.setOnClickListener {
+                onClickListener(bitmap)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = PreviewPdfPageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, onClickListener)
     }
 
     override fun getItemCount() = renderer.pageCount

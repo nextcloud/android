@@ -27,38 +27,45 @@
 
 package com.owncloud.android.ui.preview
 
-import android.graphics.pdf.PdfRenderer
-import android.os.ParcelFileDescriptor
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.utils.Log_OC
-import java.io.File
-import javax.inject.Inject
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.owncloud.android.databinding.ActivityPreviewBitmapBinding
 
-class PreviewPdfViewModel @Inject constructor() : ViewModel() {
+/**
+ * Zoomable preview of a single bitmap
+ */
+class PreviewBitmapActivity : AppCompatActivity() {
 
-    private var _pdfRenderer = MutableLiveData<PdfRenderer>()
-    val pdfRenderer: LiveData<PdfRenderer>
-        get() = _pdfRenderer
-
-    override fun onCleared() {
-        super.onCleared()
-        closeRenderer()
+    companion object {
+        const val EXTRA_BITMAP_PATH = "EXTRA_BITMAP_PATH"
     }
 
-    private fun closeRenderer() {
-        try {
-            _pdfRenderer.value?.close()
-        } catch (e: IllegalStateException) {
-            Log_OC.e(this, "closeRenderer: trying to close already closed renderer", e)
+    private lateinit var binding: ActivityPreviewBitmapBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityPreviewBitmapBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupImage()
+
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
         }
     }
 
-    fun process(file: OCFile) {
-        closeRenderer()
-        _pdfRenderer.value =
-            PdfRenderer(ParcelFileDescriptor.open(File(file.storagePath), ParcelFileDescriptor.MODE_READ_ONLY))
+    private fun setupImage() {
+        val path = intent.getStringExtra(EXTRA_BITMAP_PATH)
+        require(path != null)
+
+        val bitmap = BitmapFactory.decodeFile(path)
+        binding.image.setImageBitmap(bitmap)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

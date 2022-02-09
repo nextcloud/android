@@ -95,6 +95,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
     private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
+    private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
+
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
@@ -682,6 +684,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setCalendarLastBackup(long timestamp) {
         preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply();
+    }
+
+    @Override
+    public void setPdfZoomTipShown(boolean value) {
+        preferences.edit().putBoolean(PREF__PDF_ZOOM_TIP_SHOWN, value).apply();
+    }
+
+    @Override
+    public boolean isPdfZoomTipShown() {
+        return preferences.getBoolean(PREF__PDF_ZOOM_TIP_SHOWN, false);
     }
 
     @VisibleForTesting

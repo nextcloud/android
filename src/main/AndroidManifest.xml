@@ -466,6 +466,11 @@
             android:name="com.nextcloud.client.etm.EtmActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Toolbar" />
+
+        <activity
+            android:name=".ui.preview.PreviewBitmapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.Overlay" />
     </application>
 
     <queries>
