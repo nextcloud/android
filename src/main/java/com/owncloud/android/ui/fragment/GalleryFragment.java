@@ -96,7 +96,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
             searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
                                                               searchEvent.getSearchType(),
-                                                              false
+                                                              false,ocCapability
                                                               );
         }
     }
