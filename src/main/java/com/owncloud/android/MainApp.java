@@ -21,7 +21,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -325,6 +324,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
+                passCodeManager.onActivityPaused(activity);
             }
 
             @Override
