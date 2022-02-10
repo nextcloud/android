@@ -603,6 +603,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.creationTimestamp;
     }
 
+    /**
+     * @return unix timestamp in milliseconds
+     */
     public long getModificationTimestamp() {
         return this.modificationTimestamp;
     }

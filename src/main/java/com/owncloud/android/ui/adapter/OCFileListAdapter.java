@@ -857,7 +857,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        if (MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyOnDevice() || ocFileListFragmentInterface.isSearchFragment()) {
             return false;
         }
 
@@ -1017,7 +1017,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     break;
             }
 
-            mStorageManager.deleteVirtuals(type);
+            if (type != VirtualFolderType.GALLERY) {
+                mStorageManager.deleteVirtuals(type);
+            }
         }
 
         // early exit
@@ -1025,7 +1027,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
-                parseVirtuals(objects, searchType);
+                if (searchType != ExtendedListFragment.SearchType.GALLERY_SEARCH) {
+                    parseVirtuals(objects, searchType);
+                }
             }
         }
 
@@ -1155,6 +1159,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
         mStorageManager.saveVirtuals(contentValues);
+    }
+
+    public void showAllGalleryItems(FileDataStorageManager storageManager) {
+        if (mStorageManager == null) {
+            mStorageManager = storageManager;
+        }
+        mFiles = mStorageManager.getAllGalleryItems();
+        FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
+        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
     public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {

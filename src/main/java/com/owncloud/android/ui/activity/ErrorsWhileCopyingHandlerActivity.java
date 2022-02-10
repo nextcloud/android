@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -36,6 +35,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -65,16 +65,16 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
 
-    public static final String EXTRA_ACCOUNT =
-            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
+    public static final String EXTRA_USER =
+        ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
     public static final String EXTRA_LOCAL_PATHS =
-            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
+        ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
     public static final String EXTRA_REMOTE_PATHS =
-            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
+        ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
 
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
 
-    protected Account mAccount;
+    protected User user;
     protected FileDataStorageManager mStorageManager;
     protected List<String> mLocalPaths;
     protected List<String> mRemotePaths;
@@ -89,12 +89,12 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-                /// read extra parameters in intent
+        /// read extra parameters in intent
         Intent intent = getIntent();
-        mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
+        user = intent.getParcelableExtra(EXTRA_USER);
         mRemotePaths = intent.getStringArrayListExtra(EXTRA_REMOTE_PATHS);
         mLocalPaths = intent.getStringArrayListExtra(EXTRA_LOCAL_PATHS);
-        mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+        mStorageManager = new FileDataStorageManager(user, getContentResolver());
         mHandler = new Handler();
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -108,7 +108,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         TextView textView = findViewById(R.id.message);
         String appName = getString(R.string.app_name);
         String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation),
-                appName, appName, appName, appName, mAccount.name);
+                                       appName, appName, appName, appName, user.getAccountName());
         textView.setText(message);
         textView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -131,15 +131,15 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         okBtn.setOnClickListener(this);
     }
 
-        /**
-         * Customized adapter, showing the local files as main text in two-lines list item and the
-         * remote files as the secondary text.
-         */
+    /**
+     * Customized adapter, showing the local files as main text in two-lines list item and the
+     * remote files as the secondary text.
+     */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
 
         ErrorsWhileCopyingListAdapter() {
             super(ErrorsWhileCopyingHandlerActivity.this, android.R.layout.two_line_list_item,
-                    android.R.id.text1, mLocalPaths);
+                  android.R.id.text1, mLocalPaths);
         }
 
         @Override
@@ -147,7 +147,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             return false;
         }
 
-            /**
+        /**
          * {@inheritDoc}
          */
         @Override
@@ -155,7 +155,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             View view = convertView;
             if (view == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE);
+                    Context.LAYOUT_INFLATER_SERVICE);
                 view = vi.inflate(android.R.layout.two_line_list_item, null);
             }
             if (view != null)  {
@@ -167,7 +167,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
                     }
                 }
                 if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 &&
-                        position < mRemotePaths.size()) {
+                    position < mRemotePaths.size()) {
                     TextView text2 = view.findViewById(android.R.id.text2);
                     String remotePath = mRemotePaths.get(position);
                     if (text2 != null && remotePath != null) {
@@ -230,7 +230,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
             while (!mLocalPaths.isEmpty()) {
                 String currentPath = mLocalPaths.get(0);
                 File currentFile = new File(currentPath);
-                String expectedPath = FileStorageUtils.getSavePath(mAccount.name) + mRemotePaths.get(0);
+                String expectedPath = FileStorageUtils.getSavePath(user.getAccountName()) + mRemotePaths.get(0);
                 File expectedFile = new File(expectedPath);
 
                 if (expectedFile.equals(currentFile) || currentFile.renameTo(expectedFile)) {

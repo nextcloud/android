@@ -116,10 +116,12 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         this.user = user;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
 
         if (type == VirtualFolderType.GALLERY) {
+            mImageFiles = mStorageManager.getAllGalleryItems();
             mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+        } else {
+            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
         }
 
         mObsoleteFragments = new HashSet<>();
@@ -152,7 +154,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             fragment = PreviewImageErrorFragment.newInstance();
 
         } else if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false, i);
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false,i);
         } else {
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
@@ -161,7 +163,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 if (file.isEncrypted()) {
                     fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
                 } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true, i);
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true,i);
                 }
             }
         }
@@ -228,7 +230,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         mCachedFragments.remove(position);
-       super.destroyItem(container, position, object);
+        super.destroyItem(container, position, object);
     }
 
 
