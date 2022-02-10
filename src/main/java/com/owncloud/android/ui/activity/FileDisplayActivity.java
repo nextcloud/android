@@ -2541,7 +2541,7 @@ public class FileDisplayActivity extends FileActivity
         setLeftFragment(unifiedSearchFragment);
     }
 
-    public void setMainFabVisible(final Boolean visible) {
+    public void setMainFabVisible(final boolean visible) {
         final int visibility = visible ? View.VISIBLE : View.GONE;
         binding.fabMain.setVisibility(visibility);
     }
