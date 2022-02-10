@@ -41,10 +41,7 @@ import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 
-class PreviewPdfViewModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var appPreferences: AppPreferences
+class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences) : ViewModel() {
 
     private var _pdfRenderer = MutableLiveData<PdfRenderer>()
     val pdfRenderer: LiveData<PdfRenderer>

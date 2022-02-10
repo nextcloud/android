@@ -33,6 +33,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
@@ -112,5 +113,10 @@ class PreviewPdfFragment : Fragment(), Injectable {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         FileMenuFilter.hideAll(menu)
+    }
+
+    @VisibleForTesting
+    fun setViewModel(vm: PreviewPdfViewModel) {
+        viewModel = vm
     }
 }
