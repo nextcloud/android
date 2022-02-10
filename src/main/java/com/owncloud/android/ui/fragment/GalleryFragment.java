@@ -84,6 +84,7 @@ public class GalleryFragment extends OCFileListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mAdapter.setShowMetadata(false);
 
         currentSearchType = SearchType.GALLERY_SEARCH;
 

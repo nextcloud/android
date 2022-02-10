@@ -137,6 +137,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
+    private boolean showMetadata = true;
 
     public OCFileListAdapter(
         Activity activity,
@@ -469,35 +470,37 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             gridViewHolder.getLocalFileIndicator().setVisibility(View.INVISIBLE);   // default first
 
-            OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
-            FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
-            FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
-            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
-                //synchronizing
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+            if (showMetadata) {
+                OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
+                FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
+                FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
+                if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
+                    //synchronizing
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
-                // downloading
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
+                    // downloading
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
-                //uploading
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
+                    //uploading
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (file.getEtagInConflict() != null) {
-                // conflict
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing_error);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (file.getEtagInConflict() != null) {
+                    // conflict
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing_error);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (file.isDown()) {
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (file.isDown()) {
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                }
+
+                gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
             }
-
-            gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
 
             if (multiSelect) {
                 gridViewHolder.getCheckbox().setVisibility(View.VISIBLE);
@@ -1200,6 +1203,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setGridView(boolean bool) {
         gridView = bool;
+    }
+
+    public void setShowMetadata(boolean bool) {
+        showMetadata = bool;
     }
 
     @VisibleForTesting
