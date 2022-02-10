@@ -30,6 +30,7 @@ import android.view.WindowManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
@@ -58,7 +59,7 @@ public final class PassCodeManager {
     private static final int PASS_CODE_TIMEOUT = 5000;
 
     private AppPreferences preferences;
-    private int visibleActivitiesCounter;
+    private int visibleActivitiesCounter = 0;
 
 
     public PassCodeManager(AppPreferences preferences) {
@@ -113,6 +114,13 @@ public final class PassCodeManager {
         return askedForPin;
     }
 
+    public void onActivityPaused(Activity activity) {
+        if (visibleActivitiesCounter > 0) {
+            visibleActivitiesCounter--;
+            Log_OC.d("Timestamp", "counter: " + visibleActivitiesCounter);
+        }
+    }
+
     public void onActivityStopped(Activity activity) {
         if (visibleActivitiesCounter > 0) {
             visibleActivitiesCounter--;
@@ -120,7 +128,7 @@ public final class PassCodeManager {
 
         PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && powerMgr != null
-                && !powerMgr.isScreenOn()) {
+            && !powerMgr.isScreenOn()) {
             activity.moveTaskToBack(true);
         }
     }
