@@ -43,6 +43,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
@@ -54,6 +55,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     private lateinit var binding: PreviewPdfFragmentBinding
     private lateinit var viewModel: PreviewPdfViewModel
+    private lateinit var file: OCFile
 
     private var snack: Snackbar? = null
 
@@ -78,7 +80,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
         setupObservers()
 
-        val file: OCFile = requireArguments().getParcelable(ARG_FILE)!!
+        file = requireArguments().getParcelable(ARG_FILE)!!
         viewModel.process(file)
     }
 
@@ -116,6 +118,13 @@ class PreviewPdfFragment : Fragment(), Injectable {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         FileMenuFilter.hideAll(menu)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val toolbarActivity: FileDisplayActivity = requireActivity() as FileDisplayActivity
+        toolbarActivity.showSortListGroup(false)
+        toolbarActivity.updateActionBarTitleAndHomeButton(file)
     }
 
     @VisibleForTesting
