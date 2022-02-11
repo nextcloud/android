@@ -66,6 +66,7 @@ ext {
     prismVersion = "2.0.0"
     androidLibraryVersion = "master-SNAPSHOT"
     mockitoVersion = "4.3.1"
+    mockitoKotlinVersion = "4.0.0"
     mockkVersion = "1.12.2"
     powermockVersion = "2.0.9"
     byteBuddyVersion = "1.12.8"
@@ -319,7 +320,7 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
     testImplementation 'org.json:json:20211205'
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "io.mockk:mockk-android:$mockkVersion"
@@ -340,7 +341,7 @@ dependencies {
 
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
-    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
         exclude group: "net.bytebuddy", module: "byte-buddy-android"
