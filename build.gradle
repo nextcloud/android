@@ -68,7 +68,7 @@ ext {
     mockitoVersion = "4.3.1"
     mockkVersion = "1.12.2"
     powermockVersion = "2.0.9"
-    byteBuddyVersion = "1.12.7"
+    byteBuddyVersion = "1.12.8"
     espressoVersion = "3.4.0"
     workRuntime = "2.7.1"
     fidoVersion = "4.1.0"
