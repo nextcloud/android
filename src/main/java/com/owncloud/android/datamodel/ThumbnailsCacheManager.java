@@ -163,7 +163,7 @@ public final class ThumbnailsCacheManager {
      * Converts size of file icon from dp to pixel
      * @return int
      */
-    private static int getThumbnailDimension(){
+    public static int getThumbnailDimension() {
         // Converts dp to pixel
         Resources r = MainApp.getAppContext().getResources();
         return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
