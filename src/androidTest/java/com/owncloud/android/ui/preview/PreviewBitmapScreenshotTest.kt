@@ -27,48 +27,38 @@
 
 package com.owncloud.android.ui.preview
 
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.owncloud.android.databinding.ActivityPreviewBitmapBinding
-import com.owncloud.android.utils.theme.ThemeToolbarUtils
+import android.content.Intent
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.Rule
+import org.junit.Test
 
-/**
- * Zoomable preview of a single bitmap
- */
-class PreviewBitmapActivity : AppCompatActivity() {
+class PreviewBitmapScreenshotTest : AbstractIT() {
 
     companion object {
-        const val EXTRA_BITMAP_PATH = "EXTRA_BITMAP_PATH"
+        private const val PNG_FILE_ASSET = "imageFile.png"
     }
 
-    private lateinit var binding: ActivityPreviewBitmapBinding
+    @get:Rule
+    val testActivityRule = IntentsTestRule(PreviewBitmapActivity::class.java, true, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPreviewBitmapBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    @Test
+    @ScreenshotTest
+    fun showBitmap() {
 
-        setupImage()
+        val pngFile = getFile(PNG_FILE_ASSET)
 
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setDisplayShowHomeEnabled(true)
-            ThemeToolbarUtils.tintBackButton(it, this, Color.WHITE)
-        }
-    }
+        val activity = testActivityRule.launchActivity(
+            Intent().putExtra(
+                PreviewBitmapActivity.EXTRA_BITMAP_PATH,
+                pngFile.absolutePath
+            )
+        )
 
-    private fun setupImage() {
-        val path = intent.getStringExtra(EXTRA_BITMAP_PATH)
-        require(path != null)
+        shortSleep()
+        waitForIdleSync()
 
-        val bitmap = BitmapFactory.decodeFile(path)
-        binding.image.setImageBitmap(bitmap)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+        screenshot(activity)
     }
 }
