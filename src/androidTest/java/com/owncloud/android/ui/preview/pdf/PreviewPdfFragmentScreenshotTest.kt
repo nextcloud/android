@@ -30,9 +30,6 @@ package com.owncloud.android.ui.preview.pdf
 import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.client.TestActivity
-import com.nextcloud.client.preferences.AppPreferences
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
@@ -53,11 +50,6 @@ class PreviewPdfFragmentScreenshotTest : AbstractIT() {
     fun showPdf() {
         val activity = testActivityRule.launchActivity(null)
 
-        val preferences: AppPreferences = mock()
-        whenever(preferences.isPdfZoomTipShown()).thenReturn(true)
-
-        val vm = PreviewPdfViewModel(preferences)
-
         val pdfFile = getFile(PDF_FILE_ASSET)
         val ocFile = OCFile("/test.pdf").apply {
             storagePath = pdfFile.absolutePath
@@ -71,8 +63,7 @@ class PreviewPdfFragmentScreenshotTest : AbstractIT() {
         }
 
         activity.runOnUiThread {
-            sut.setViewModel(vm)
-            vm.process(ocFile)
+            sut.dismissSnack()
         }
 
         shortSleep()

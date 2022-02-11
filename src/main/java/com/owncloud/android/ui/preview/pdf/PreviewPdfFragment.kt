@@ -36,6 +36,7 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
@@ -53,6 +54,8 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     private lateinit var binding: PreviewPdfFragmentBinding
     private lateinit var viewModel: PreviewPdfViewModel
+
+    private var snack: Snackbar? = null
 
     companion object {
         private const val ARG_FILE = "FILE"
@@ -95,7 +98,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
         }
         viewModel.shouldShowZoomTip.observe(viewLifecycleOwner) { shouldShow ->
             if (shouldShow) {
-                DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
+                snack = DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
                 viewModel.onZoomTipShown()
             }
         }
@@ -116,7 +119,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
     }
 
     @VisibleForTesting
-    fun setViewModel(vm: PreviewPdfViewModel) {
-        viewModel = vm
+    fun dismissSnack() {
+        snack?.dismiss()
     }
 }
