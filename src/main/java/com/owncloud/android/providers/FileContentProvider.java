@@ -722,7 +722,7 @@ public class FileContentProvider extends ContentProvider {
 
     private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + table + " LIMIT 0", null);
-        boolean exists = cursor.getColumnIndexOrThrow(column) != -1;
+        boolean exists = cursor.getColumnIndex(column) != -1;
         cursor.close();
 
         return exists;
