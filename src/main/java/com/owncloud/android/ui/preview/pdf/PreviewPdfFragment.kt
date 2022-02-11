@@ -122,9 +122,11 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     override fun onResume() {
         super.onResume()
-        val toolbarActivity: FileDisplayActivity = requireActivity() as FileDisplayActivity
-        toolbarActivity.showSortListGroup(false)
-        toolbarActivity.updateActionBarTitleAndHomeButton(file)
+        val parent = activity
+        if (parent is FileDisplayActivity) {
+            parent.showSortListGroup(false)
+            parent.updateActionBarTitleAndHomeButton(file)
+        }
     }
 
     @VisibleForTesting
