@@ -1519,24 +1519,37 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switch (currentSearchType) {
                 case FAVORITE_SEARCH:
                     setTitle(R.string.drawer_item_favorites);
+                    updateDrawerMenuItem(R.id.nav_favorites);
                     break;
                 case GALLERY_SEARCH:
                     setTitle(R.string.drawer_item_gallery);
+                    updateDrawerMenuItem(R.id.nav_gallery);
                     break;
                 case RECENTLY_ADDED_SEARCH:
                     setTitle(R.string.drawer_item_recently_added);
                     break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recent_files);
+                    updateDrawerMenuItem(R.id.nav_recently_modified);
                     break;
                 case SHARED_FILTER:
                     setTitle(R.string.drawer_item_shared);
+                    updateDrawerMenuItem(R.id.nav_shared);
                     break;
                 default:
                     setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
                     break;
             }
         }
+
+    }
+
+    private void updateDrawerMenuItem(int menuId){
+        requireActivity().runOnUiThread(() -> {
+            if (requireActivity() instanceof FileDisplayActivity){
+                ((FileDisplayActivity)requireActivity()).setDrawerMenuItemChecked(menuId);
+            }
+        });
 
     }
 

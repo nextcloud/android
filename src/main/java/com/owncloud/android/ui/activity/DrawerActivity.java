@@ -777,7 +777,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param menuItemId the menu item to be highlighted
      */
-    protected void setDrawerMenuItemChecked(int menuItemId) {
+    public void setDrawerMenuItemChecked(int menuItemId) {
         //if item is logout then do not show it as selected
         if (menuItemId == R.id.nav_logout) {
             //if previous checked item is not NONE then make it selected again
