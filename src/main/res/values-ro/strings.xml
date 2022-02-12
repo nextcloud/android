@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s a căzut</string>
     <string name="error_creating_file_from_template">Eroare la crearea fișierului după model</string>
     <string name="error_report_issue_action">Raport</string>
+    <string name="error_report_issue_text">Raportați problema ? (necesită un cont de GitHub)</string>
     <string name="error_retrieving_file">Eroare la obținerea fișierului</string>
     <string name="error_retrieving_templates">Eroare la obținerea șabloanelor</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
@@ -460,6 +461,7 @@
     <string name="no_email_app_available">Nu există aplicație disponibilă care să gestioneze adresa de email</string>
     <string name="no_mutliple_accounts_allowed">Numai un singur cont este permis</string>
     <string name="no_pdf_app_available">Nu este aplicație disponibilă care să deschidă PDF</string>
+    <string name="no_send_app">Nu au fost găsite aplicații pentru a trimite fișierele selectate</string>
     <string name="no_share_permission_selected">Alege cel puțin o permisiune pentru a partaja.</string>
     <string name="note_confirm">Trimitere</string>
     <string name="note_could_not_sent">Nu s-a putut trimite nota</string>
@@ -548,6 +550,7 @@
     <string name="prefs_lock_using_device_credentials">Autentificarea dispozitivului</string>
     <string name="prefs_lock_using_passcode">Parolă</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
+    <string name="prefs_recommend">Recomandă unui prieten</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
     <string name="prefs_sourcecode">Obține codul sursă</string>
     <string name="prefs_storage_path">Dosarul de stocare a datelor</string>
