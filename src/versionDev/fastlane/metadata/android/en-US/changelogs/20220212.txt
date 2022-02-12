@@ -1,0 +1,4 @@
+For display with >= 600dp use higher file icon resolution use this resolution also default thumbnails
+remove gplay.gradle, use gplayImplementation instead
+Update translations
+Update 3rd-party dependencies
