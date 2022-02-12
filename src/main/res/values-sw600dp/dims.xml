@@ -20,4 +20,5 @@
 -->
 <resources>
   <integer name="media_grid_width">6</integer>
+    <dimen name="file_icon_size_grid">512dp</dimen>
 </resources>

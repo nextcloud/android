@@ -57,7 +57,7 @@ steps:
 
 services:
   - name: server
-    image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
+    image: ghcr.io/nextcloud/continuous-integration-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
     commands:
@@ -135,7 +135,7 @@ steps:
 
 services:
   - name: server
-    image: nextcloudci/server:server-17 # also change in updateScreenshots.sh
+    image: ghcr.io/nextcloud/continuous-integration-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
     commands:
