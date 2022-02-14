@@ -30,7 +30,6 @@ import android.view.WindowManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.RequestCredentialsActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
@@ -66,6 +65,10 @@ public final class PassCodeManager {
         this.preferences = preferences;
     }
 
+    private boolean isExemptActivity(final Activity activity) {
+        return exemptOfPasscodeActivities.contains(activity.getClass());
+    }
+
     private void setSecureFlag(Activity activity) {
         Window window = activity.getWindow();
         if (window != null) {
@@ -83,7 +86,7 @@ public final class PassCodeManager {
 
         setSecureFlag(activity);
 
-        if (!exemptOfPasscodeActivities.contains(activity.getClass()) && passCodeShouldBeRequested(timestamp)) {
+        if (!isExemptActivity(activity) && passCodeShouldBeRequested(timestamp)) {
             askedForPin = true;
 
             preferences.setLockTimestamp(0);
@@ -94,7 +97,7 @@ public final class PassCodeManager {
             activity.startActivityForResult(i, PASSCODE_ACTIVITY);
         }
 
-        if (!exemptOfPasscodeActivities.contains(activity.getClass()) &&
+        if (!isExemptActivity(activity) &&
             deviceCredentialsShouldBeRequested(timestamp, activity)) {
             askedForPin = true;
 
@@ -109,20 +112,16 @@ public final class PassCodeManager {
             }
         }
 
-        visibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
+        if (!isExemptActivity(activity)) {
+            visibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
+        }
 
         return askedForPin;
     }
 
-    public void onActivityPaused(Activity activity) {
-        if (visibleActivitiesCounter > 0) {
-            visibleActivitiesCounter--;
-            Log_OC.d("Timestamp", "counter: " + visibleActivitiesCounter);
-        }
-    }
 
     public void onActivityStopped(Activity activity) {
-        if (visibleActivitiesCounter > 0) {
+        if (visibleActivitiesCounter > 0 && !isExemptActivity(activity)) {
             visibleActivitiesCounter--;
         }
 

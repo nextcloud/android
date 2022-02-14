@@ -324,7 +324,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
-                passCodeManager.onActivityPaused(activity);
             }
 
             @Override
