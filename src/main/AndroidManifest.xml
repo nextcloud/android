@@ -150,15 +150,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.ExternalSiteWebView"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
             android:name=".ui.activity.RichDocumentsEditorWebView"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
             android:name=".ui.activity.TextEditorWebView"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ContactsPreferenceActivity"
