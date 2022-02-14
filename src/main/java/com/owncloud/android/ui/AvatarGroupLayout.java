@@ -144,7 +144,10 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
         setLayoutParams(rememberParam);
     }
 
-    private void showFederatedShareAvatar(Context context, String user, float avatarRadius, Resources resources,
+    private void showFederatedShareAvatar(Context context,
+                                          String user,
+                                          float avatarRadius,
+                                          Resources resources,
                                           ImageView avatar) {
         // maybe federated share
         String[] split = user.split("@");
@@ -152,7 +155,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
         String server = split[1];
 
         String url = "https://" + server + "/index.php/avatar/" + userId + "/" +
-            DisplayUtils.convertDpToPixel(avatarRadius, context);
+            resources.getInteger(R.integer.file_avatar_px);
 
         Drawable placeholder;
         try {
