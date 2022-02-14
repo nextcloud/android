@@ -190,7 +190,7 @@
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
     <string name="delete_entries">Elimina voci</string>
-    <string name="delete_link">Elimina link</string>
+    <string name="delete_link">Elimina collegamento</string>
     <string name="deselect_all">Deseleziona tutto</string>
     <string name="destination_filename">Filename di destinazione</string>
     <string name="dev_version_new_version_available">Nuova versione disponibile</string>
@@ -314,7 +314,7 @@
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
-    <string name="file_list_empty_unified_search_no_results">Nessun risultato trovato per la tua query</string>
+    <string name="file_list_empty_unified_search_no_results">Nessun risultato trovato per la tua interrogazione</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
@@ -468,7 +468,7 @@
     <string name="note_icon_hint">Icona della nota</string>
     <string name="notification_action_failed">Esecuzione dell\'azione non riuscita.</string>
     <string name="notification_channel_download_description">Mostra l\'avanzamento degli scaricamenti</string>
-    <string name="notification_channel_download_name_short">Download</string>
+    <string name="notification_channel_download_name_short">Scaricamenti</string>
     <string name="notification_channel_file_sync_description">Mostra l\'avanzamento e i risultati della sincronizzazione file</string>
     <string name="notification_channel_file_sync_name">Sincronizzazione file</string>
     <string name="notification_channel_general_description">Mostra notifiche per le nuove cartelle multimediali e simili</string>
@@ -550,7 +550,7 @@
     <string name="prefs_lock_using_device_credentials">Credenziali di dispositivo</string>
     <string name="prefs_lock_using_passcode">Codice di sicurezza</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
-    <string name="prefs_recommend">Consiglia ad un amico</string>
+    <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>
@@ -619,7 +619,7 @@
     <string name="set_status">Imposta stato</string>
     <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="share">Condividi</string>
-    <string name="share_copy_link">Condividi &amp; Copia il link</string>
+    <string name="share_copy_link">Condividi &amp; Copia il collegamento</string>
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
