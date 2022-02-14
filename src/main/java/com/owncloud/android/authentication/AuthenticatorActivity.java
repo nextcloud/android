@@ -239,6 +239,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject AppPreferences preferences;
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
+    @Inject PassCodeManager passCodeManager;
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
     private int primaryColor = R.color.primary;
