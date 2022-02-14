@@ -25,46 +25,36 @@
  *  THE SOFTWARE.
  */
 
-package com.owncloud.android.ui.preview.pdf
+package com.owncloud.android.ui.preview
 
-import androidx.lifecycle.Lifecycle
+import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
-class PreviewPdfFragmentScreenshotTest : AbstractIT() {
+class PreviewBitmapScreenshotIT : AbstractIT() {
 
     companion object {
-        private const val PDF_FILE_ASSET = "test.pdf"
+        private const val PNG_FILE_ASSET = "imageFile.png"
     }
 
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val testActivityRule = IntentsTestRule(PreviewBitmapActivity::class.java, true, false)
 
     @Test
     @ScreenshotTest
-    fun showPdf() {
-        val activity = testActivityRule.launchActivity(null)
+    fun showBitmap() {
 
-        val pdfFile = getFile(PDF_FILE_ASSET)
-        val ocFile = OCFile("/test.pdf").apply {
-            storagePath = pdfFile.absolutePath
-        }
+        val pngFile = getFile(PNG_FILE_ASSET)
 
-        val sut = PreviewPdfFragment.newInstance(ocFile)
-        activity.addFragment(sut)
-
-        while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            shortSleep()
-        }
-
-        activity.runOnUiThread {
-            sut.dismissSnack()
-        }
+        val activity = testActivityRule.launchActivity(
+            Intent().putExtra(
+                PreviewBitmapActivity.EXTRA_BITMAP_PATH,
+                pngFile.absolutePath
+            )
+        )
 
         shortSleep()
         waitForIdleSync()
