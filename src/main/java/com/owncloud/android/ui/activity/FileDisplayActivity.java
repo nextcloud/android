@@ -696,14 +696,13 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    @Deprecated
-    protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath,
-                                         boolean success) {
-        FileFragment secondFragment = getSecondFragment();
-        boolean waitedPreview = mWaitingToPreview != null
-            && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
-        if (secondFragment instanceof FileDetailFragment) {
-            FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
+    protected void refreshDetailsFragmentIfVisible(String downloadEvent, String downloadedRemotePath,
+                                                   boolean success) {
+        Fragment leftFragment = getLeftFragment();
+        if (leftFragment instanceof FileDetailFragment) {
+            boolean waitedPreview = mWaitingToPreview != null
+                && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
+            FileDetailFragment detailsFragment = (FileDetailFragment) leftFragment;
             OCFile fileInFragment = detailsFragment.getFile();
             if (fileInFragment != null &&
                 !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
@@ -1460,7 +1459,7 @@ public class FileDisplayActivity extends FileActivity
 
             boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) ||
                 renamedInUpload;
-            FileFragment details = getSecondFragment();
+            Fragment details = getLeftFragment();
 
             if (sameAccount && sameFile && details instanceof FileDetailFragment) {
                 if (uploadWasFine) {
@@ -1480,7 +1479,7 @@ public class FileDisplayActivity extends FileActivity
                 if (uploadWasFine || getFile().fileExists()) {
                     ((FileDetailFragment) details).updateFileDetails(false, true);
                 } else {
-                    cleanSecondFragment();
+                    onBackPressed();
                 }
 
                 // Force the preview if the file is an image or text file
@@ -1527,7 +1526,7 @@ public class FileDisplayActivity extends FileActivity
                 if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                     updateListOfFilesFragment(false);
                 }
-                refreshSecondFragment(
+                refreshDetailsFragmentIfVisible(
                     intent.getAction(),
                     downloadedRemotePath,
                     intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
@@ -1684,9 +1683,9 @@ public class FileDisplayActivity extends FileActivity
                 (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
-            FileFragment secondFragment = getSecondFragment();
-            if (secondFragment instanceof FileDetailFragment) {
-                FileDetailFragment detailFragment = (FileDetailFragment) secondFragment;
+            Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof FileDetailFragment) {
+                FileDetailFragment detailFragment = (FileDetailFragment) leftFragment;
                 detailFragment.listenForTransferProgress();
                 detailFragment.updateFileDetails(false, false);
             }
@@ -1733,9 +1732,9 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void refreshShowDetails() {
-        FileFragment details = getSecondFragment();
-        if (details != null) {
-            OCFile file = details.getFile();
+        Fragment details = getLeftFragment();
+        if (details instanceof FileFragment) {
+            OCFile file = ((FileFragment) details).getFile();
             if (file != null) {
                 file = getStorageManager().getFileByPath(file.getRemotePath());
                 if (details instanceof PreviewMediaFragment) {
@@ -1769,14 +1768,14 @@ public class FileDisplayActivity extends FileActivity
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
             tryStopPlaying(removedFile);
-            FileFragment second = getSecondFragment();
+            Fragment leftFragment = getLeftFragment();
 
             // check if file is still available, if so do nothing
             boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
 
-            if (second != null && !fileAvailable && removedFile.equals(second.getFile())) {
-                if (second instanceof PreviewMediaFragment) {
-                    ((PreviewMediaFragment) second).stopPreview(true);
+            if (leftFragment instanceof FileFragment && !fileAvailable && removedFile.equals(((FileFragment) leftFragment).getFile())) {
+                if (leftFragment instanceof PreviewMediaFragment) {
+                    ((PreviewMediaFragment) leftFragment).stopPreview(true);
                 }
                 setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 cleanSecondFragment();
@@ -1813,9 +1812,9 @@ public class FileDisplayActivity extends FileActivity
             OCFile parent = getStorageManager().getFileById(file.getParentId());
             startSyncFolderOperation(parent, true, true);
 
-            FileFragment secondFragment = getSecondFragment();
-            if (secondFragment instanceof FileDetailFragment) {
-                FileDetailFragment fileDetailFragment = (FileDetailFragment) secondFragment;
+            Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof FileDetailFragment) {
+                FileDetailFragment fileDetailFragment = (FileDetailFragment) leftFragment;
                 fileDetailFragment.getFileDetailActivitiesFragment().reload();
             }
 
@@ -1887,25 +1886,26 @@ public class FileDisplayActivity extends FileActivity
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess() && optionalUser.isPresent()) {
             final User currentUser = optionalUser.get();
-            FileFragment details = getSecondFragment();
-            if (details != null) {
-                if (details instanceof FileDetailFragment &&
-                    renamedFile.equals(details.getFile())) {
-                    ((FileDetailFragment) details).updateFileDetails(renamedFile, currentUser);
+            Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof FileFragment) {
+                final FileFragment fileFragment = (FileFragment) leftFragment;
+                if (fileFragment instanceof FileDetailFragment &&
+                    renamedFile.equals(fileFragment.getFile())) {
+                    ((FileDetailFragment) fileFragment).updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);
 
-                } else if (details instanceof PreviewMediaFragment &&
-                    renamedFile.equals(details.getFile())) {
-                    ((PreviewMediaFragment) details).updateFile(renamedFile);
+                } else if (fileFragment instanceof PreviewMediaFragment &&
+                    renamedFile.equals(fileFragment.getFile())) {
+                    ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                        long position = ((PreviewMediaFragment) details).getPosition();
+                        long position = ((PreviewMediaFragment) fileFragment).getPosition();
                         startMediaPreview(renamedFile, position, true, true, true);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
-                } else if (details instanceof PreviewTextFragment &&
-                    renamedFile.equals(details.getFile())) {
-                    ((PreviewTextFileFragment) details).updateFile(renamedFile);
+                } else if (fileFragment instanceof PreviewTextFragment &&
+                    renamedFile.equals(fileFragment.getFile())) {
+                    ((PreviewTextFileFragment) fileFragment).updateFile(renamedFile);
                     if (PreviewTextFileFragment.canBePreviewed(renamedFile)) {
                         startTextPreview(renamedFile, true);
                     } else {
@@ -1976,17 +1976,17 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         updateListOfFilesFragment(false);
-        FileFragment details = getSecondFragment();
+        Fragment leftFragment = getLeftFragment();
         Optional<User> optionalUser = getUser();
-        if (details instanceof FileDetailFragment && file.equals(details.getFile()) && optionalUser.isPresent()) {
+        if (leftFragment instanceof FileDetailFragment && file.equals(((FileDetailFragment)leftFragment).getFile()) && optionalUser.isPresent()) {
             final User currentUser = optionalUser.get();
             if (downloading || uploading) {
-                ((FileDetailFragment) details).updateFileDetails(file, currentUser);
+                ((FileDetailFragment) leftFragment).updateFileDetails(file, currentUser);
             } else {
                 if (!file.fileExists()) {
                     cleanSecondFragment();
                 } else {
-                    ((FileDetailFragment) details).updateFileDetails(false, true);
+                    ((FileDetailFragment) leftFragment).updateFileDetails(false, true);
                 }
             }
         }
@@ -2266,10 +2266,9 @@ public class FileDisplayActivity extends FileActivity
     public void startDownloadForPreview(OCFile file) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser);
-        setSecondFragment(detailFragment);
+        setLeftFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
-        updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
