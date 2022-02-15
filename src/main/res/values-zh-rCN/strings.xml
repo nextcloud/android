@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s 崩溃了</string>
     <string name="error_creating_file_from_template">从模板创建文件时出错</string>
     <string name="error_report_issue_action">报告</string>
+    <string name="error_report_issue_text">是否向跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
@@ -460,6 +461,7 @@
     <string name="no_email_app_available">没有可处理邮件地址的应用</string>
     <string name="no_mutliple_accounts_allowed">只允许一个账号</string>
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
+    <string name="no_send_app">没有可用于发送所选文件的应用</string>
     <string name="no_share_permission_selected">请选择至少一个要分享的权限</string>
     <string name="note_confirm">发送</string>
     <string name="note_could_not_sent">无法发送笔记</string>
@@ -548,6 +550,7 @@
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">安全码</string>
     <string name="prefs_manage_accounts">管理账号</string>
+    <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_storage_path">数据存储文件夹</string>
