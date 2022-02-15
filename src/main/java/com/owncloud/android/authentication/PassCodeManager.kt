@@ -23,8 +23,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.PowerManager
-import android.os.SystemClock
 import android.view.WindowManager
+import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.ui.activity.PassCodeActivity
@@ -34,7 +34,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils
 import kotlin.math.abs
 
 @Suppress("TooManyFunctions")
-class PassCodeManager(private val preferences: AppPreferences) {
+class PassCodeManager(private val preferences: AppPreferences, private val clock: Clock) {
     companion object {
         private val exemptOfPasscodeActivities = setOf(
             PassCodeActivity::class.java,
@@ -118,14 +118,14 @@ class PassCodeManager(private val preferences: AppPreferences) {
     }
 
     fun updateLockTimestamp() {
-        preferences.lockTimestamp = SystemClock.elapsedRealtime()
+        preferences.lockTimestamp = clock.millisSinceBoot
     }
 
     /**
      * `true` if the time elapsed since last unlock is longer than [PASS_CODE_TIMEOUT] and no activities are visible
      */
     private fun shouldBeLocked(timestamp: Long) =
-        abs(SystemClock.elapsedRealtime() - timestamp) > PASS_CODE_TIMEOUT &&
+        abs(clock.millisSinceBoot - timestamp) > PASS_CODE_TIMEOUT &&
             visibleActivitiesCounter <= 0
 
     private fun passCodeShouldBeRequested(timestamp: Long): Boolean {

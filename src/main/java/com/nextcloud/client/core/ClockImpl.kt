@@ -19,19 +19,19 @@
  */
 package com.nextcloud.client.core
 
+import android.os.SystemClock
 import java.util.Date
 import java.util.TimeZone
 
 class ClockImpl : Clock {
     override val currentTime: Long
-        get() {
-            return System.currentTimeMillis()
-        }
+        get() = System.currentTimeMillis()
 
     override val currentDate: Date
-        get() {
-            return Date(currentTime)
-        }
+        get() = Date(currentTime)
+
+    override val millisSinceBoot: Long
+        get() = SystemClock.elapsedRealtime()
 
     override val tz: TimeZone
         get() = TimeZone.getDefault()
