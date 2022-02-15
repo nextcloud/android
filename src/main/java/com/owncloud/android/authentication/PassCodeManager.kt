@@ -74,7 +74,7 @@ class PassCodeManager(private val preferences: AppPreferences) {
         }
 
         if (!askedForPin && preferences.lockTimestamp != 0L) {
-            preferences.lockTimestamp = SystemClock.elapsedRealtime()
+            updateLockTimestamp()
         }
 
         if (!isExemptActivity(activity)) {
@@ -115,6 +115,10 @@ class PassCodeManager(private val preferences: AppPreferences) {
         if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && !powerMgr?.isScreenOn) {
             activity.moveTaskToBack(true)
         }
+    }
+
+    fun updateLockTimestamp() {
+        preferences.lockTimestamp = SystemClock.elapsedRealtime()
     }
 
     /**
