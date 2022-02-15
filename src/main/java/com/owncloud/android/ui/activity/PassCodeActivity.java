@@ -41,6 +41,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.databinding.PasscodelockBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
@@ -74,6 +75,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
     @Inject AppPreferences preferences;
+    @Inject PassCodeManager passCodeManager;
     private PasscodelockBinding binding;
     private final EditText[] passCodeEditTexts = new EditText[4];
     private String [] passCodeDigits = {"","","",""};
@@ -242,7 +244,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 preferences.resetPinWrongAttempts();
 
                 /// pass code accepted in request, user is allowed to access the app
-                AppPreferencesImpl.fromContext(this).setLockTimestamp(SystemClock.elapsedRealtime());
+                passCodeManager.updateLockTimestamp();
                 hideSoftKeyboard();
                 finish();
 
@@ -254,7 +256,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
-                preferences.setLockTimestamp(SystemClock.elapsedRealtime());
+                passCodeManager.updateLockTimestamp();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
@@ -391,6 +393,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                               passCodeDigits[0] + passCodeDigits[1] + passCodeDigits[2] + passCodeDigits[3]);
 
         setResult(RESULT_OK, resultIntent);
+
+        passCodeManager.updateLockTimestamp();
 
         finish();
     }

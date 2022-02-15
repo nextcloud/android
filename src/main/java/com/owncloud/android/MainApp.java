@@ -21,7 +21,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -170,7 +169,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     MigrationsManager migrationsManager;
 
-    private PassCodeManager passCodeManager;
+    @Inject
+    PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -262,7 +262,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         DisplayUtils.useCompatVectorIfNeeded();
 
         fixStoragePath();
-        passCodeManager = new PassCodeManager(preferences);
 
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
