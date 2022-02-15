@@ -26,6 +26,7 @@ import com.owncloud.android.datamodel.OCFile
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+@Suppress("MagicNumber")
 class OCFileListAdapterIT : AbstractIT() {
     @Test
     fun testParseMedia() {
