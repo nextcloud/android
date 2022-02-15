@@ -370,7 +370,7 @@ public interface AppPreferences {
 
     void setCalendarLastBackup(long timestamp);
 
-    void setPdfZoomTipShown(boolean value);
+    void setPdfZoomTipShownCount(int count);
 
-    boolean isPdfZoomTipShown();
+    int getPdfZoomTipShownCount();
 }

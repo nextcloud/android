@@ -687,13 +687,13 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setPdfZoomTipShown(boolean value) {
-        preferences.edit().putBoolean(PREF__PDF_ZOOM_TIP_SHOWN, value).apply();
+    public void setPdfZoomTipShownCount(int count) {
+        preferences.edit().putInt(PREF__PDF_ZOOM_TIP_SHOWN, count).apply();
     }
 
     @Override
-    public boolean isPdfZoomTipShown() {
-        return preferences.getBoolean(PREF__PDF_ZOOM_TIP_SHOWN, false);
+    public int getPdfZoomTipShownCount() {
+        return preferences.getInt(PREF__PDF_ZOOM_TIP_SHOWN, 0);
     }
 
     @VisibleForTesting
