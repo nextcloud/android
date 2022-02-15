@@ -61,8 +61,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long fileLength;
     private long creationTimestamp; // UNIX timestamp of the time the file was created
     private long modificationTimestamp; // UNIX timestamp of the file modification time
-    /** UNIX timestamp of the modification time, corresponding to the value returned by the server
-     * in the last synchronization of THE CONTENTS of this file.
+    private long uploadTimestamp;
+    /**
+     * UNIX timestamp of the modification time, corresponding to the value returned by the server in the last
+     * synchronization of THE CONTENTS of this file.
      */
     private long modificationTimestampAtLastSyncForData;
     private String remotePath;
@@ -605,6 +607,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public long getModificationTimestamp() {
         return this.modificationTimestamp;
+    }
+
+    public long getUploadTimestamp() {
+        return this.uploadTimestamp;
     }
 
     public long getModificationTimestampAtLastSyncForData() {
