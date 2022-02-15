@@ -23,8 +23,6 @@ import android.net.Uri
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -37,6 +35,8 @@ import org.junit.runners.Parameterized
 import org.junit.runners.Suite
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import java.net.URI
 
 @RunWith(Suite::class)

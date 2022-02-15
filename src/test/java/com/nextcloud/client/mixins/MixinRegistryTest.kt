@@ -21,10 +21,10 @@
 package com.nextcloud.client.mixins
 
 import android.os.Bundle
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.same
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.same
 
 class MixinRegistryTest {
 

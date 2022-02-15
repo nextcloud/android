@@ -23,12 +23,12 @@ package com.nextcloud.client.mixins
 import android.app.Activity
 import android.content.ContentResolver
 import com.nextcloud.client.account.UserAccountManager
-import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.same
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.verify
 
 class SessionMixinTest {
 
