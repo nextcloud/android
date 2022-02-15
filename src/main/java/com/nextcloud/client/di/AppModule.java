@@ -242,7 +242,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    PassCodeManager passCodeManager(AppPreferences preferences) {
-        return new PassCodeManager(preferences);
+    PassCodeManager passCodeManager(AppPreferences preferences, Clock clock) {
+        return new PassCodeManager(preferences, clock);
     }
 }
