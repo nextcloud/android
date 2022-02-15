@@ -1,0 +1,7 @@
+dbe12e6d2 Merge pull request #4789 from nextcloud/name_pattern_menus
+77b6b178a Merge pull request #4841 from nextcloud/disableOldLoginMethod
+b561f6883 allow to switch off old login method
+b59d96ace [tx-robot] updated from transifex
+9ae550731 [tx-robot] updated from transifex
+bfdaba8bd [tx-robot] updated from transifex
+c82c08059 daily dev 20191116

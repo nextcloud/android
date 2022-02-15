@@ -1,0 +1,6 @@
+0f41fbbbf Merge pull request #5022 from nextcloud/enh/iconify_readme
+a1c7d5c58 iconify README.md
+88f9e8714 Merge pull request #5019 from nextcloud/enh/material-1.1.0-beta02
+901dc20ee [tx-robot] updated from transifex
+12e158365 daily dev 20191217
+library commit: 00df7adad479c6cf397f4e589f802f5556df50da

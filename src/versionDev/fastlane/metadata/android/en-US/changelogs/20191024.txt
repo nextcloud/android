@@ -1,0 +1,5 @@
+3dcbfa123 Merge pull request #4712 from nextcloud/fetchRemoteFile
+3e34679dc Bump daggerVersion from 2.24 to 2.25 (#4721)
+e9cf6be69 [tx-robot] updated from transifex
+59c3690c8 [tx-robot] updated from transifex
+5fe1835b1 daily dev 20191022

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Android"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        The ruleset file checks code using rules defined below, new rules can always be added.The
+        pmd.html file contains the report which includes perceived coding issues
+    </description>
+    <exclude-pattern>.*/R.java</exclude-pattern>
+    <exclude-pattern>.*/gen/.*</exclude-pattern>
+    <exclude-pattern>.*/third_parties/.*</exclude-pattern>
+
+    <rule ref="rulesets/java/logging-java.xml" />
+    <rule ref="rulesets/java/braces.xml" />
+    <rule ref="rulesets/java/strings.xml" />
+    <rule ref="rulesets/java/basic.xml" />
+    <rule ref="rulesets/java/naming.xml">
+        <exclude name="AbstractNaming" />
+        <exclude name="LongVariable" />
+        <exclude name="ShortMethodName" />
+        <exclude name="ShortVariable" />
+        <exclude name="VariableNamingConventions" />
+    </rule>
+    <rule ref="rulesets/java/naming.xml/MethodNamingConventions">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test$')]" />
+        </properties>
+    </rule>
+</ruleset>

@@ -1,0 +1,4 @@
+dependencies {
+    // upon each update first test: new registration, receive push
+    implementation "com.google.firebase:firebase-messaging:20.1.3"
+}

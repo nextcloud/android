@@ -1,0 +1,52 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+build/
+*.iml
+gen/
+target/
+
+# Local configuration files (sdk path, etc)
+local.properties
+tests/local.properties
+
+# Mac .DS_Store files
+.DS_Store
+
+# Proguard README
+proguard-project.txt
+tests/proguard-project.txt
+
+# Android Studio and Gradle specific entries
+.gradle
+.idea/*
+!.idea/codeStyles/
+build
+/gradle.properties
+.attach_pid*
+fastlane/Fastfile
+*.hprof
+
+# fastlane specific
+**/fastlane/report.xml
+
+# deliver temporary files
+**/fastlane/Preview.html
+
+# snapshot generated screenshots
+**/fastlane/screenshots
+
+# scan temporary files
+**/fastlane/test_output
+/fastlane/vendor/
+/.bundle/
+/fastlane/.bundle/

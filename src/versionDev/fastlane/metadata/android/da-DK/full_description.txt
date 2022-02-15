@@ -1,0 +1,4 @@
+Produktivitets platformen der giver dig fuld kontrol.
+Dette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!
+
+Både den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.

@@ -1,0 +1,5 @@
+af0dc69a8 Merge pull request #4113 from nextcloud/detailNullable
+4e12a88e1 Merge pull request #4106 from nextcloud/richDocumentsGrabFocus
+df6f4cf9d grab focus on resume
+7d51dfd52 second fragment might be null
+09cca69c9 daily dev 20190604

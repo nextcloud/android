@@ -1,0 +1,9 @@
+49a9b5186 Merge pull request #4145 from nextcloud/saveAs
+b56b615a9 Allow "save as" and "print" to be downloaded from Collabora
+b53018a86 Merge pull request #4137 from nextcloud/renameRemote
+d19ebb9fa [tx-robot] updated from transifex
+df5346b34 switch back to master-lib
+88effce10 use new convention "xyRemoteOperation"
+f104e4cf9 hide outdated version warning if extended support is enabled (#4136)
+b649ec38c hide outdated version warning if extended support is enabled
+59239ec3f daily dev 20190613

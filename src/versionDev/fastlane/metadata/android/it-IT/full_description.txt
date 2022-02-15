@@ -1,0 +1,4 @@
+La piattaforma di produttività auto-gestita che ti lascia al comando.
+Questa è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!
+
+Sia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.

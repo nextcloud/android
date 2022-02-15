@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Nextcloud Android client application
+
+    @author Daniel Bailey
+    Copyright (C) 2019 Daniel Bailey
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <color name="text_color">#E3E3E3</color>
+    <color name="text_color_inverse">#000000</color>
+    <color name="disabled_text">#ff6F6F6F</color>
+    <color name="secondary_text_color">#A5A5A5</color>
+    <color name="list_divider_background">#222222</color>
+
+    <!-- Colors -->
+    <color name="dark">#ffffff</color>
+    <color name="bg_default">#121212</color>
+    <color name="fg_contrast">#717171</color>
+    <color name="primary_button_text_color">#000000</color>
+    <color name="bg_elevation_one">#2D2D2D</color>
+    <color name="grey_200">#818181</color>
+    <color name="nc_grey">#222222</color>
+    <color name="icon_on_nc_grey">#ffffff</color>
+
+    <!-- Multiselect backgrounds -->
+    <color name="action_mode_background">@color/appbar</color>
+    <color name="selected_item_background">#373535</color>
+
+    <color name="filelist_icon_background">#222222</color>
+    <color name="standard_grey">#DADADA</color>
+
+    <color name="drawer_menu_icon">#ffffff</color>
+    <color name="bg_fallback_highlight">#737373</color>
+    <color name="switch_thumb_color_unchecked">#2a2a2a</color>
+    <color name="switch_track_color_unchecked">#B3FFFFFF</color>
+    <color name="drawer_active_item_background">@color/white</color>
+
+    <!-- App bar -->
+    <color name="appbar">#1E1E1E</color>
+    <color name="fontAppbar">@android:color/white</color>
+</resources>

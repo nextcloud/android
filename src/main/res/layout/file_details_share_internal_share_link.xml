@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ Nextcloud Android client application
+  ~
+  ~ @author Tobias Kaminsky
+  ~ Copyright (C) 2020 Tobias Kaminsky
+  ~ Copyright (C) 2020 Nextcloud GmbH
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout android:id="@+id/copy_internal_container"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/standard_half_padding"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingStart="@dimen/zero"
+    android:paddingTop="@dimen/standard_half_padding"
+    android:layout_weight="1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:background="@drawable/round_bgnd"
+        android:contentDescription="@string/share"
+        android:id="@+id/copy_internal_link_icon"
+        android:layout_gravity="top"
+        android:layout_height="@dimen/share_icon_size"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_width="@dimen/share_icon_size"
+        android:padding="@dimen/standard_half_padding"
+        android:src="@drawable/ic_external" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/shareInternalLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share_internal_link"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size" />
+
+        <TextView
+            android:id="@+id/shareInternalLinkText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/two_line_primary_text_size"
+            tools:text="@string/share_internal_link_to_folder_text" />
+    </LinearLayout>
+
+</LinearLayout>

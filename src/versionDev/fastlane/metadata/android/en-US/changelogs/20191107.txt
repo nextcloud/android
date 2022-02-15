@@ -1,0 +1,4 @@
+890789f0a Merge pull request #4797 from nextcloud/ezaquarii/replace-shared-preferences-with-app-preferences-in-base-activity
+180bdee72 Merge pull request #4801 from Infomaniak/feature/resolve-set-as-wallpaper-issue
+039adc0a1 [tx-robot] updated from transifex
+b59938d96 daily dev 20191106
