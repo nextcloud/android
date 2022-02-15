@@ -470,7 +470,7 @@
         <activity
             android:name=".ui.preview.PreviewBitmapActivity"
             android:exported="false"
-            android:theme="@style/Theme.ownCloud.Overlay" />
+            android:theme="@style/Theme.ownCloud.OverlayGrey" />
     </application>
 
     <queries>

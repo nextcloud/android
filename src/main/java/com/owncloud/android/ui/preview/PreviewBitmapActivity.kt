@@ -22,11 +22,9 @@
 package com.owncloud.android.ui.preview
 
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.owncloud.android.databinding.ActivityPreviewBitmapBinding
-import com.owncloud.android.utils.theme.ThemeToolbarUtils
 
 /**
  * Zoomable preview of a single bitmap
@@ -49,7 +47,6 @@ class PreviewBitmapActivity : AppCompatActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
-            ThemeToolbarUtils.tintBackButton(it, this, Color.WHITE)
         }
     }
 
