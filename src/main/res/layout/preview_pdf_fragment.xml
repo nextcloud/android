@@ -28,8 +28,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pdf_recycler"
-        android:background="@color/grey_200"
+        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="@color/grey_200"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
