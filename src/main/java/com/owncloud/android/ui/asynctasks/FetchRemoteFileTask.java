@@ -56,11 +56,10 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-
-
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
-                                                                                false);
+                                                                                false,
+                                                                                fileDisplayActivity.getCapabilities());
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user.toPlatformAccount(),
                                                                                     fileDisplayActivity);
 

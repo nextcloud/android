@@ -141,8 +141,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 binding.header.setText(R.string.pass_code_configure_your_pass_code);
 
                 binding.explanation.setVisibility(View.VISIBLE);
-                setCancelButtonEnabled(true);
             }
+            setCancelButtonEnabled(true);
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             // pass code preference has just been disabled in SettingsActivity;

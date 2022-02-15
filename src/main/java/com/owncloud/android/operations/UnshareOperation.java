@@ -75,7 +75,7 @@ public class UnshareOperation extends SyncOperation {
                     // Check if it is the last share
                     List<OCShare> sharesWith = getStorageManager().
                         getSharesWithForAFile(remotePath,
-                                              getStorageManager().getAccount().name);
+                                              getStorageManager().getUser().getAccountName());
                     if (sharesWith.size() == SINGLY_SHARED) {
                         file.setSharedWithSharee(false);
                     }

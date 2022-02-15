@@ -319,7 +319,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                                   binding.emptyListProgress,
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
-                                                                                  containerActivity.getStorageManager().getAccount(),
+                                                                                  containerActivity.getStorageManager().getUser(),
                                                                                   getResources().getColor(R.color.background_color_inverse)
                             );
                         if (resizedImage == null) {

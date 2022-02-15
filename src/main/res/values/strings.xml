@@ -22,10 +22,8 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_on_device">Offline files</string>
-    <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Activities</string>
     <string name="drawer_item_notifications">Notifications</string>
@@ -56,7 +54,7 @@
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
-    <string name="prefs_recommend">Recommend to friend</string>
+    <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_dark">Dark</string>
@@ -103,7 +101,6 @@
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
-    <string name="file_list_empty_recently_added">Found no recently added files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="upload_list_empty_headline">No uploads available</string>
@@ -481,7 +478,6 @@
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
-    <string name="share_privilege_unshare">Unshare</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
@@ -524,8 +520,6 @@
     <string name="community_release_candidate_headline">Release candidate</string>
     <string name="community_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"Version\" section of F-Droid.</string>
     <string name="community_contribute_headline">Actively Contribute</string>
-    <string name="community_contribute_irc_text">Join the chat on IRC:</string>
-    <string name="community_contribute_irc_text_link" translatable="false"> &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">#nextcloud-mobile&lt;/a>&lt;/font></string>
     <string name="community_contribute_forum_text">Help others on the</string>
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
@@ -741,9 +735,6 @@
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="allow_creating">Allow creating</string>
-    <string name="allow_deleting">Allow deleting</string>
-    <string name="allow_editing">Allow editing</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_scan_document">Scan Document</string>
@@ -797,6 +788,7 @@
     <string name="file_rename">Rename</string>
     <string name="fab_label">Add or upload</string>
     <string name="account_creation_failed">Account creation failed</string>
+    <string name="hidden_file_name_warning">Name will result in a hidden file</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
@@ -809,7 +801,6 @@
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
     <string name="share_via_link_hide_download">Hide download</string>
-    <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
@@ -899,7 +890,7 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>
     <string name="logs_menu_search">Search logs</string>
 
-    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
+    <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_report_issue_action">Report</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
@@ -929,14 +920,8 @@
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_new_file">New file</string>
-    <string name="contaclist_restore_selected">Restore selected contacts</string>
-    <string name="contactlist_account_chooser_title">Choose account to import</string>
-    <string name="conflict_already_existing_file">Already existing file</string>
-    <string name="contacts_automatic_backup">Automatic backup</string>
-    <string name="contacts_last_backup">Last backup</string>
-    <string name="contacts_preference_backup_never">never</string>
-    <string name="contacts_preference_choose_date">Choose date</string>
+    <string name="conflict_local_file">Local file</string>
+    <string name="conflict_server_file">Server file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
@@ -951,7 +936,7 @@
     <string name="share_link_folder">Link to folder</string>
     <string name="share_link_file">Link to file</string>
     <string name="allow_resharing">Allow resharing</string>
-    <string name="link_share_read_only">Read only</string>
+    <string name="link_share_view_only">View only</string>
     <string name="link_share_editing">Editing</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
@@ -1144,4 +1129,8 @@
     <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
     <string name="prefs_category_account_info">Account Information</string>
     <string name="common_login">Login</string>
+    <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
+    <string name="file_list_empty_gallery">Found no images or videos</string>
+    <string name="error_creating_file_from_template">Error creating file from template</string>
+    <string name="no_send_app">No app available for sending the selected files</string>
 </resources>

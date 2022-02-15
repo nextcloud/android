@@ -62,13 +62,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, targetContext.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
         storageManager.saveNewFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
@@ -99,13 +99,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 //    @Test
     // @ScreenshotTest // todo run without real server
 //    public void screenshotImages() throws IOException {
-//        FileDataStorageManager storageManager = new FileDataStorageManager(account,
+//        FileDataStorageManager storageManager = new FileDataStorageManager(user,
 //                                                                           targetContext.getContentResolver());
 //
 //        OCFile newFile = new OCFile("/newFile.txt");
 //        newFile.setFileLength(56000);
 //        newFile.setModificationTimestamp(1522019340);
-//        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+//        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 //
 //        File image = getFile("image.jpg");
 //
@@ -119,7 +119,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 //                                              false,
 //                                              true,
 //                                              storageManager,
-//                                              account,
+//                                              user.toPlatformAccount(),
 //                                              targetContext
 //        ).execute(client).isSuccess());
 //
@@ -154,9 +154,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     public void cancel() {
         returnCode = false;
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
                                           "/newFile.txt",
-                                          account.name);
+                                          user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
@@ -165,9 +165,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, targetContext.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
         storageManager.saveNewFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
@@ -204,9 +204,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     public void keepExisting() {
         returnCode = false;
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
                                           "/newFile.txt",
-                                          account.name);
+                                          user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
@@ -215,9 +215,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, targetContext.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
         storageManager.saveNewFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
@@ -257,9 +257,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     public void keepNew() {
         returnCode = false;
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
                                           "/newFile.txt",
-                                          account.name);
+                                          user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
@@ -269,9 +269,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, targetContext.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
         storageManager.saveNewFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
@@ -311,9 +311,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     public void keepBoth() {
         returnCode = false;
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt",
+        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
                                           "/newFile.txt",
-                                          account.name);
+                                          user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
@@ -322,9 +322,9 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(account.name) + "/nonEmpty.txt");
+        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, targetContext.getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
         storageManager.saveNewFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);

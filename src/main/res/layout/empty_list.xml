@@ -25,9 +25,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_margin="@dimen/standard_margin"
-    android:gravity="center_vertical|center_horizontal"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/standard_double_margin">
+    android:paddingTop="@dimen/standard_double_margin">
 
     <ImageView
         android:id="@+id/empty_list_icon"
@@ -71,5 +71,6 @@
         android:layout_marginTop="@dimen/standard_half_margin"
         android:theme="@style/Button.Primary"
         android:visibility="gone"
-        app:cornerRadius="@dimen/button_corner_radius" />
+        app:cornerRadius="@dimen/button_corner_radius"
+        tools:visibility="visible" />
 </LinearLayout>

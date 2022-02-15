@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
-    <string name="actionbar_contacts">Kontakte sichern</string>
-    <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
     <string name="actionbar_copy">Kopieren</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move">Verschieben</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="advanced_settings">Erweiterte Einstellungen</string>
-    <string name="allow_creating">Erstellen erlauben</string>
-    <string name="allow_deleting">Löschen erlauben</string>
-    <string name="allow_editing">Bearbeitung erlauben</string>
     <string name="allow_resharing">Weiterteilen erlauben</string>
     <string name="appbar_search_in">Suche in %s</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
-    <string name="battery_optimization_no_setting">Die Batterieeinstellungen konnten nicht direkt aufgerufen werden. Bitte passen Sie die Einstellungen manuell an.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
     <string name="brute_force_delay">Durch zu viele Fehlversuche verzögert</string>
     <string name="calendar">Kalender</string>
@@ -154,23 +148,18 @@
     <string name="conflict_already_existing_file">Bereits existierende Datei</string>
     <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
+    <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_new_file">Neue Datei</string>
-    <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
-    <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
+    <string name="conflict_server_file">Server-Datei</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
     <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
     <string name="contacts">Kontakte</string>
-    <string name="contacts_automatic_backup">Automatisch sichern</string>
     <string name="contacts_backup_button">Jetzt sichern</string>
-    <string name="contacts_last_backup">Letzte Sicherung</string>
-    <string name="contacts_preference_backup_never">nie</string>
-    <string name="contacts_preference_choose_date">Datum auswählen</string>
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
     <string name="contacts_preferences_something_strange_happened">Wir können Ihr letztes Backup nicht finden!</string>
-    <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
@@ -247,7 +236,6 @@
     <string name="drawer_quota_percentage">Speicher zu %d %% belegt</string>
     <string name="drawer_quota_usage">%1$s von %2$s</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
-    <string name="edit_label">Name ändern</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
@@ -271,8 +259,9 @@
     <string name="error_choosing_date">Fehler beim Auswählen des Datums</string>
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
+    <string name="error_creating_file_from_template">Fehler beim Erzeugen einer Datei aus der Vorlage</string>
     <string name="error_report_issue_action">Melden</string>
-    <string name="error_report_issue_text">Problem melden? (benötigt ein Github-Konto)</string>
+    <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
@@ -314,6 +303,7 @@
     <string name="file_list_empty">Laden Sie Inhalte hoch oder synchronisieren Sie mit Ihren Geräten.</string>
     <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier.</string>
+    <string name="file_list_empty_gallery">Keine Bilder oder Videos gefunden</string>
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
@@ -324,6 +314,7 @@
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
+    <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
@@ -390,6 +381,7 @@
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
     <string name="fullscreen">Vollbild</string>
+    <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Notiz</string>
     <string name="hint_password">Passwort</string>
@@ -418,7 +410,7 @@
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
     <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
     <string name="login">Anmelden</string>
-    <string name="login_url_helper_text">Der Link zu Ihrem %1$s Webseite, wenn Sie dies im Browser öffnen.</string>
+    <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>
@@ -475,10 +467,7 @@
     <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
-    <string name="notification_channel_download_name">Herunterlade-Benachrichtigungskanal</string>
     <string name="notification_channel_download_name_short">Downloads</string>
-    <string name="notification_channel_file_observer_description">Prüft auf Dateiänderungen</string>
-    <string name="notification_channel_file_observer_name">Dateimonitor</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
     <string name="notification_channel_file_sync_name">Dateisynchronisierung</string>
     <string name="notification_channel_general_description">Für neue Medienordner und ähnliches Benachrichtigungen anzeigen</string>
@@ -488,7 +477,6 @@
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf externe Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
-    <string name="notification_channel_upload_name">Hochlade-Benachrichtigungskanal</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_channel_scan_doc_save">Gescannte Documente speichern Benachrichtigungskanal</string>
     <string name="notification_channel_scan_doc_save_description">Speicherprozess zeigen</string>
@@ -545,7 +533,6 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
-    <string name="prefs_daily_contacts_sync_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
     <string name="prefs_enable_media_scan_notifications">Benachrichtigungen der Mediensuche anzeigen</string>
@@ -660,14 +647,12 @@
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
-    <string name="share_privilege_unshare">Freigabe aufheben</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Kontaktname oder Email</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>
     <string name="share_via_link_hide_download">Download verbergen</string>
-    <string name="share_via_link_menu_password_label">Passwortschutz (%1$s)</string>
     <string name="share_via_link_section_title">Link teilen</string>
     <string name="share_via_link_send_link_label">Link teilen</string>
     <string name="share_via_link_unset_password">Entfernen</string>
@@ -779,7 +764,6 @@
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="unset_favorite">Aus den Favoriten entfernen</string>
-    <string name="unshare">Freigabe aufheben</string>
     <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
     <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>

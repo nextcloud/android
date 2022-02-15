@@ -240,7 +240,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
 
         // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
@@ -367,7 +366,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
 
         // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
@@ -483,7 +481,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
 
         // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
@@ -609,7 +606,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
 
         // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_open_in)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))

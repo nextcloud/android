@@ -23,7 +23,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -262,7 +261,7 @@ public final class ThumbnailsCacheManager {
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private FileFragment fileFragment;
         private FileDataStorageManager storageManager;
-        private Account account;
+        private User user;
         private WeakReference<ImageView> imageViewReference;
         private WeakReference<FrameLayout> frameLayoutReference;
         private OCFile file;
@@ -275,15 +274,14 @@ public final class ThumbnailsCacheManager {
                                           FrameLayout emptyListProgress,
                                           FileDataStorageManager storageManager,
                                           ConnectivityService connectivityService,
-                                          Account account,
-                                          int backgroundColor)
-                throws IllegalArgumentException {
+                                          User user,
+                                          int backgroundColor) throws IllegalArgumentException {
             this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
             frameLayoutReference = new WeakReference<>(emptyListProgress);
             this.storageManager = storageManager;
             this.connectivityService = connectivityService;
-            this.account = account;
+            this.user = user;
             this.backgroundColor = backgroundColor;
         }
 
@@ -294,11 +292,8 @@ public final class ThumbnailsCacheManager {
             file = (OCFile) params[0];
 
             try {
-                if (account != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
-                                                                                              MainApp.getAppContext());
-                }
+                mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
+                                                                                          MainApp.getAppContext());
 
                 thumbnail = doResizedImageInBackground();
 
@@ -1086,14 +1081,21 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap addVideoOverlay(Bitmap thumbnail) {
+        int playButtonWidth = (int) (thumbnail.getWidth() * 0.3);
+        int playButtonHeight = (int) (thumbnail.getHeight() * 0.3);
+
         Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
                                                                   R.drawable.view_play,
                                                                   null);
-        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable);
+
+        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable,
+                                                         playButtonWidth,
+                                                         playButtonHeight);
 
         Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
-                                                             (int) (thumbnail.getWidth() * 0.3),
-                                                             (int) (thumbnail.getHeight() * 0.3), true);
+                                                             playButtonWidth,
+                                                             playButtonHeight,
+                                                             true);
 
         Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
                                                   thumbnail.getHeight(),
@@ -1214,7 +1216,7 @@ public final class ThumbnailsCacheManager {
         }
     }
 
-    public static void generateThumbnailFromOCFile(OCFile file, Account account, Context context) {
+    public static void generateThumbnailFromOCFile(OCFile file, User user, Context context) {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
@@ -1227,7 +1229,7 @@ public final class ThumbnailsCacheManager {
 
             OwnCloudClient client = mClient;
             if (client == null) {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                OwnCloudAccount ocAccount = user.toOwnCloudAccount();
                 client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
             }
 

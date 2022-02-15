@@ -21,6 +21,7 @@
  */
 package com.owncloud.android;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -259,6 +260,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
+        enableStrictMode();
+
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
@@ -455,6 +458,22 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 preferences.removeKeysMigrationPreference();
                 preferences.setStoragePathFixEnabled(true);
             }
+        }
+    }
+
+    private void enableStrictMode() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                                           .detectDiskReads()
+                                           .detectDiskWrites()
+                                           .detectAll()
+                                           .penaltyLog()
+                                           .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                                       .detectLeakedSqlLiteObjects()
+                                       .detectLeakedClosableObjects()
+                                       .penaltyLog()
+                                       .build());
         }
     }
 

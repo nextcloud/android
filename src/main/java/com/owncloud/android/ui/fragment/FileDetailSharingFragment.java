@@ -462,7 +462,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         // to show share with users/groups info
         List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
-                                                                            user.toPlatformAccount().name);
+                                                                            user.getAccountName());
 
         adapter.addShares(shares);
 
@@ -539,11 +539,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     public OCFile getFile() {
         return file;
-    }
-
-    @Override
-    public void openIn(OCShare share) {
-        fileOperationsHelper.sendShareFile(file);
     }
 
     @Override

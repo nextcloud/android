@@ -29,7 +29,9 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -96,8 +98,40 @@ public class RenameFileDialogFragment
         int selectionStart = 0;
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        binding.userInput.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
+        binding.userInput.setSelection(0, selectionEnd);
         binding.userInput.requestFocus();
+
+        // Add TextChangedListener to handle showing/hiding the input warning message
+        binding.userInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            /**
+             * When user enters a hidden file name, the 'hidden file' message is shown.
+             * Otherwise, the message is ensured to be hidden.
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newFileName = "";
+                if (binding.userInput.getText() != null) {
+                    newFileName = binding.userInput.getText().toString().trim();
+                }
+
+                if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
+                    binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
+                }
+                else if(binding.userInputContainer.getError() != null) {
+                    binding.userInputContainer.setError(null);
+                    // Called to remove extra padding
+                    binding.userInputContainer.setErrorEnabled(false);
+                }
+            }
+        });
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

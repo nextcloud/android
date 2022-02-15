@@ -55,75 +55,82 @@ class Migrations @Inject constructor(
      * @throws Exception migration logic is permitted to throw any kind of exceptions; all exceptions will be wrapped
      * into [MigrationException]
      */
-    abstract class Step(val id: Int, val description: String, val mandatory: Boolean = true) : Runnable
+    class Step(val id: Int, val description: String, val mandatory: Boolean = true, val run: (s: Step) -> Unit) {
+        override fun toString(): String {
+            return "Migration $id: $description"
+        }
+    }
+
+    /**
+     * NOP migration used to replace applied migrations that should be applied again.
+     */
+    private fun nop(s: Step) {
+        logger.i(TAG, "$s: skipped deprecated migration")
+    }
 
     /**
      * Migrate legacy accounts by adding user IDs. This migration can be re-tried until all accounts are
      * successfully migrated.
      */
-    private val migrateUserId = object : Step(0, "Migrate user id", false) {
-        override fun run() {
-            val allAccountsHaveUserId = userAccountManager.migrateUserId()
-            logger.i(TAG, "$description: success = $allAccountsHaveUserId")
-            if (!allAccountsHaveUserId) {
-                throw IllegalStateException("Failed to set user id for all accounts")
-            }
+    private fun migrateUserId(s: Step) {
+        val allAccountsHaveUserId = userAccountManager.migrateUserId()
+        logger.i(TAG, "${s.description}: success = $allAccountsHaveUserId")
+        if (!allAccountsHaveUserId) {
+            throw IllegalStateException("Failed to set user id for all accounts")
         }
     }
 
     /**
      * Content observer job must be restarted to use new scheduler abstraction.
      */
-    private val migrateContentObserverJob = object : Step(1, "Migrate content observer job", false) {
-        override fun run() {
-            val legacyWork = workManager.getWorkInfosByTag("content_sync").get()
-            legacyWork.forEach {
-                logger.i(TAG, "$description: cancelling legacy work ${it.id}")
-                workManager.cancelWorkById(it.id)
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                jobManager.scheduleContentObserverJob()
-                logger.i(TAG, "$description: enabled")
-            } else {
-                logger.i(TAG, "$description: disabled")
-            }
+    private fun migrateContentObserverJob(s: Step) {
+        val legacyWork = workManager.getWorkInfosByTag("content_sync").get()
+        legacyWork.forEach {
+            logger.i(TAG, "${s.description}: cancelling legacy work ${it.id}")
+            workManager.cancelWorkById(it.id)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            jobManager.scheduleContentObserverJob()
+            logger.i(TAG, "$s: enabled")
+        } else {
+            logger.i(TAG, "$s: disabled")
         }
     }
 
     /**
-     * Contacts backup job has been migrated to new job runner framework. Re-start contacts upload
-     * for all users that have it enabled.
-     *
-     * Old job is removed from source code, so we need to restart it for each user using
-     * new jobs API.
+     * Periodic contacts backup job has been changed and should be restarted.
      */
-    private val migrateContactsBackupJob = object : Step(2, "Restart contacts backup job") {
-        override fun run() {
-            val users = userAccountManager.allUsers
-            if (users.isEmpty()) {
-                logger.i(TAG, "$description: no users to migrate")
-            } else {
-                users.forEach {
-                    val backupEnabled = arbitraryDataProvider.getBooleanValue(
-                        it.accountName,
-                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
-                    )
-                    if (backupEnabled) {
-                        jobManager.schedulePeriodicContactsBackup(it)
-                    }
-                    logger.i(TAG, "$description: user = ${it.accountName}, backup enabled = $backupEnabled")
+    private fun restartContactsBackupJobs(s: Step) {
+        val users = userAccountManager.allUsers
+        if (users.isEmpty()) {
+            logger.i(TAG, "$s: no users to migrate")
+        } else {
+            users.forEach {
+                val backupEnabled = arbitraryDataProvider.getBooleanValue(
+                    it.accountName,
+                    ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
+                )
+                if (backupEnabled) {
+                    jobManager.schedulePeriodicContactsBackup(it)
                 }
+                logger.i(TAG, "$s: user = ${it.accountName}, backup enabled = $backupEnabled")
             }
         }
     }
 
     /**
-     * List of migration steps. Those steps will be loaded and run by [MigrationsManager]
+     * List of migration steps. Those steps will be loaded and run by [MigrationsManager].
+     *
+     * If a migration should be run again (applicable to periodic job restarts), insert
+     * the migration with new ID. To prevent accidental re-use of older IDs, replace old
+     * migration with this::nop.
      */
+    @Suppress("MagicNumber")
     val steps: List<Step> = listOf(
-        migrateUserId,
-        migrateContentObserverJob,
-        migrateContactsBackupJob
+        Step(0, "Migrate user id", false, this::migrateUserId),
+        Step(1, "Migrate content observer job", false, this::migrateContentObserverJob),
+        Step(2, "Restart contacts backup job", true, this::nop),
+        Step(3, "Restart contacts backup job", true, this::restartContactsBackupJobs)
     ).sortedBy { it.id }.apply {
         val uniqueIds = associateBy { it.id }.size
         if (uniqueIds != size) {

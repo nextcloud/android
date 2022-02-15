@@ -48,6 +48,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.TealiumSdkUtils;
@@ -61,8 +62,11 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -70,11 +74,16 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
@@ -117,6 +126,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject Clock clock;
 
     private SyncedFolderProvider syncedFolderProvider;
+    @Inject ClientFactory clientFactory;
+    @Inject FileDataStorageManager storageManager;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -273,6 +284,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         //track screen view when fragment is visible
         TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_SHARING, preferences);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -311,6 +323,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             toolbarActivity.showToolbarBackImage(false);
         }
 
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -587,7 +600,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                                           toolbarActivity.getPreviewImageContainer(),
                                                                                           containerActivity.getStorageManager(),
                                                                                           connectivityService,
-                                                                                          containerActivity.getStorageManager().getAccount(),
+                                                                                          containerActivity.getStorageManager().getUser(),
                                                                                           getResources().getColor(R.color.background_color_inverse)
                                     );
 
@@ -754,6 +767,28 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FavoriteEvent event) {
+        try {
+            User user = accountManager.getUser();
+            OwnCloudClient client = clientFactory.create(user);
+
+            ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
+                event.shouldFavorite, event.remotePath);
+            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
+
+            if (remoteOperationResult.isSuccess()) {
+                getFile().setFavorite(event.shouldFavorite);
+                OCFile file = storageManager.getFileByEncryptedRemotePath(event.remotePath);
+                file.setFavorite(event.shouldFavorite);
+                storageManager.saveFile(file);
+            }
+
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Error processing event", e);
+        }
     }
 
     /**

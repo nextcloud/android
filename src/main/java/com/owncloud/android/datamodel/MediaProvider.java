@@ -96,10 +96,10 @@ public final class MediaProvider {
             // since sdk 29 we have to manually distinct on bucket id
             while (cursorFolders.moveToNext()) {
                 uniqueFolders.put(cursorFolders.getString(
-                    cursorFolders.getColumnIndex(MediaStore.Images.Media.BUCKET_ID)),
+                    cursorFolders.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_ID)),
                                   cursorFolders.getString(
-                                      cursorFolders.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
-                                 );
+                                      cursorFolders.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
+                );
             }
             cursorFolders.close();
 
@@ -123,8 +123,8 @@ public final class MediaProvider {
 
                 if (cursorImages != null) {
                     String filePath;
-
-                    while (cursorImages.moveToNext()) {
+                    int imageCount = 0;
+                    while (cursorImages.moveToNext() && imageCount < itemLimit) {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                             MediaStore.MediaColumns.DATA));
 
@@ -133,6 +133,8 @@ public final class MediaProvider {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
+                        // ensure we don't go over the limit due to faulty android implementations
+                        imageCount++;
                     }
                     cursorImages.close();
 
@@ -214,10 +216,10 @@ public final class MediaProvider {
             // since sdk 29 we have to manually distinct on bucket id
             while (cursorFolders.moveToNext()) {
                 uniqueFolders.put(cursorFolders.getString(
-                    cursorFolders.getColumnIndex(MediaStore.Video.Media.BUCKET_ID)),
+                    cursorFolders.getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_ID)),
                                   cursorFolders.getString(
-                                      cursorFolders.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
-                                 );
+                                      cursorFolders.getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
+                );
             }
             cursorFolders.close();
 
@@ -241,7 +243,8 @@ public final class MediaProvider {
 
                 if (cursorVideos != null) {
                     String filePath;
-                    while (cursorVideos.moveToNext()) {
+                    int videoCount = 0;
+                    while (cursorVideos.moveToNext() && videoCount < itemLimit) {
                         filePath = cursorVideos.getString(cursorVideos.getColumnIndexOrThrow(
                             MediaStore.MediaColumns.DATA));
 
@@ -249,6 +252,8 @@ public final class MediaProvider {
                             mediaFolder.filePaths.add(filePath);
                             mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
                         }
+                        // ensure we don't go over the limit due to faulty android implementations
+                        videoCount++;
                     }
                     cursorVideos.close();
 

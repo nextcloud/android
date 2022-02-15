@@ -61,6 +61,7 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
+import com.nextcloud.client.utils.Throttler;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -139,7 +140,7 @@ class AppModule {
     @Provides
     FileDataStorageManager fileDataStorageManager(CurrentAccountProvider currentAccountProvider,
                                                   Context context) {
-        return new FileDataStorageManager(currentAccountProvider.getCurrentAccount(), context.getContentResolver());
+        return new FileDataStorageManager(currentAccountProvider.getUser(), context.getContentResolver());
     }
 
     @Provides
@@ -230,5 +231,10 @@ class AppModule {
     @Provides
     LocalBroadcastManager localBroadcastManager(Context context) {
         return LocalBroadcastManager.getInstance(context);
+    }
+
+    @Provides
+    Throttler throttler(Clock clock) {
+        return new Throttler(clock);
     }
 }

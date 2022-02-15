@@ -164,7 +164,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         if (defaultAccount == null && ocAccounts.length > 0) {
             // take first which is not pending for removal account as fallback
             for (Account account: ocAccounts) {
-                boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account,
+                boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account.name,
                                                                                   PENDING_FOR_REMOVAL);
 
                 if (!pendingForRemoval) {

@@ -19,8 +19,10 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <com.google.android.exoplayer2.ui.StyledPlayerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/videoPlayer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/black" />
+    android:background="@color/black"
+    app:controller_layout_id="@layout/exo_player_control_view" />

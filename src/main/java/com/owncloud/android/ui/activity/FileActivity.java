@@ -39,8 +39,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
@@ -91,6 +93,7 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -119,7 +122,6 @@ public abstract class FileActivity extends DrawerActivity
         LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
-    public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_USER = "com.owncloud.android.ui.activity.USER";
     public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     public static final String APP_OPENED_COUNT = "APP_OPENED_COUNT";
@@ -196,7 +198,6 @@ public abstract class FileActivity extends DrawerActivity
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService);
-        Account account = null;
 
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
@@ -206,13 +207,15 @@ public abstract class FileActivity extends DrawerActivity
                     );
             ThemeToolbarUtils.setColoredTitle(getSupportActionBar(), savedInstanceState.getString(KEY_ACTION_BAR_TITLE), this);
         } else {
-            account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
+            User user = getIntent().getParcelableExtra(FileActivity.EXTRA_USER);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
                     false);
+            if (user != null) {
+                setUser(user);
+            }
         }
 
-        setAccount(account, savedInstanceState != null);
 
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
@@ -233,7 +236,6 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     protected void onStart() {
         super.onStart();
-
         fetchExternalLinks(false);
     }
 
@@ -256,7 +258,6 @@ public abstract class FileActivity extends DrawerActivity
         super.onPause();
     }
 
-
     @Override
     protected void onDestroy() {
         if (mOperationsServiceConnection != null) {
@@ -275,9 +276,6 @@ public abstract class FileActivity extends DrawerActivity
         super.onDestroy();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -332,7 +330,6 @@ public abstract class FileActivity extends DrawerActivity
     public OnRemoteOperationListener getRemoteOperationListener() {
         return this;
     }
-
 
     public Handler getHandler() {
         return mHandler;
@@ -507,7 +504,11 @@ public abstract class FileActivity extends DrawerActivity
         OCFile syncedFile = operation.getLocalFile();
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                Intent intent = ConflictsResolveActivity.createIntent(syncedFile, getAccount(), -1, null, this);
+                Intent intent = ConflictsResolveActivity.createIntent(syncedFile,
+                                                                      getUser().orElseThrow(RuntimeException::new),
+                                                                      -1,
+                                                                      null,
+                                                                      this);
                 startActivity(intent);
             }
 
@@ -547,7 +548,6 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-
     /**
      * Dismiss loading dialog
      */
@@ -560,7 +560,6 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-
     private void doOnResumeAndBound() {
         mOperationsServiceBinder.addOperationListener(this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
@@ -572,7 +571,6 @@ public abstract class FileActivity extends DrawerActivity
             }
         }
     }
-
 
     /**
      * Implements callback methods for service binding. Passed as a parameter to {
