@@ -148,6 +148,10 @@ public class GalleryFragment extends OCFileListFragment {
         photoSearchQueryRunning = false;
         mAdapter.notifyDataSetChanged();
 
+        if (mAdapter.isEmpty()) {
+            setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+        }
+
         if (emptySearch && getAdapter().getItemCount() > 0) {
             Log_OC.d(this, "End gallery search");
             return;
