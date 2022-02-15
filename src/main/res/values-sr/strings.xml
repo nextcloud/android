@@ -13,8 +13,6 @@
     <string name="action_send_share">Слање/Дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
-    <string name="actionbar_contacts">Резервна копија контаката</string>
-    <string name="actionbar_contacts_restore">Повратите контакте</string>
     <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
@@ -33,9 +31,6 @@
     <string name="add_another_public_share_link">Додај још једну везу</string>
     <string name="add_new_public_share">Додај везу новог јавног дељења</string>
     <string name="add_to_cloud">Додај у %1$s</string>
-    <string name="allow_creating">Дозволи креирање</string>
-    <string name="allow_deleting">Дозволи брисање</string>
-    <string name="allow_editing">Дозволи уређивање</string>
     <string name="allow_resharing">Дозволи дељење даље</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
@@ -80,7 +75,6 @@
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Искључи</string>
     <string name="battery_optimization_message">Аутоматско отпремање ради само ако изузмете ову апликацију из оптимизације батерије.</string>
-    <string name="battery_optimization_no_setting">Не могу да покренем поставке батерије. Подесите ручно у поставкама.</string>
     <string name="battery_optimization_title">Оптимизација батерије</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
     <string name="changelog_dev_version">Дневник измена развојне верзије</string>
@@ -141,20 +135,13 @@
     <string name="conflict_dialog_error">Грешка при прављењу дијалога сукоба!</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_new_file">Нови фајл</string>
-    <string name="contaclist_restore_selected">Поврати означене контакте</string>
-    <string name="contactlist_account_chooser_title">Одаберите налог за увоз</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
     <string name="contactlist_no_permission">Није дата дозвола. Ништа није увезено.</string>
-    <string name="contacts_automatic_backup">Аутоматско прављење резервне копије</string>
     <string name="contacts_backup_button">Направите резерву сада</string>
-    <string name="contacts_last_backup">Последња резерва</string>
-    <string name="contacts_preference_backup_never">никада</string>
-    <string name="contacts_preference_choose_date">Одаберите датум</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резерве је заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увоз је заказан и почеће ускоро</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
-    <string name="contacts_read_permission">Потребна је дозвола за читање контаката</string>
     <string name="copied_to_clipboard">Копирано у клипборд</string>
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="copy_file_invalid_into_descendent">Фасцикла се не може копирати у неку од својих потфасцикли.</string>
@@ -218,7 +205,6 @@
     <string name="drawer_quota">%1$s од %2$s заузето</string>
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
-    <string name="edit_label">Промени име</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
@@ -241,7 +227,6 @@
     <string name="error_comment_file">Грешка при коментарисању фајла</string>
     <string name="error_crash_title">%1$s се срушио</string>
     <string name="error_report_issue_action">Пријави</string>
-    <string name="error_report_issue_text">Пријавити грешку пратиоцу? (захтева Гитхаб налог)</string>
     <string name="error_retrieving_file">Грешка при добављању фајла</string>
     <string name="error_retrieving_templates">Грешка при добављању шаблона</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
@@ -415,9 +400,6 @@
     <string name="note_icon_hint">Иконица белешке</string>
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
-    <string name="notification_channel_download_name">Канал обавештења о преузимању</string>
-    <string name="notification_channel_file_observer_description">Надгледа измене фајлова</string>
-    <string name="notification_channel_file_observer_name">Надзор фајлова</string>
     <string name="notification_channel_file_sync_description">Приказ напретка синхронизације фајла и резултата</string>
     <string name="notification_channel_file_sync_name">Синхронизација фајла</string>
     <string name="notification_channel_general_description">Прикажи обавештења о новим медијским фасциклама и слично</string>
@@ -427,7 +409,6 @@
     <string name="notification_channel_push_description">Приказуј обавештења која пошаље сервер: помињање у коментарима, пријем новог удаљеног дељења, објаве администратора итд.</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
-    <string name="notification_channel_upload_name">Канал обавештења о отпремањима</string>
     <string name="notification_icon">Иконица обавештења</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
@@ -474,7 +455,6 @@
     <string name="prefs_category_dev">Развојно</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
-    <string name="prefs_daily_contacts_sync_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
     <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
     <string name="prefs_enable_media_scan_notifications">Прикажи обавештења о скенирању медија</string>
@@ -495,7 +475,6 @@
     <string name="prefs_lock_using_device_credentials">Акредитиве уређаја</string>
     <string name="prefs_lock_using_passcode">Код</string>
     <string name="prefs_manage_accounts">Управљање налозима</string>
-    <string name="prefs_recommend">Препоручите пријатељу</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
@@ -570,12 +549,10 @@
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_no_password_title">Постави лозинку</string>
     <string name="share_password_title">Заштићено лозинком</string>
-    <string name="share_privilege_unshare">Укини дељење</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_note">Напомена примаоцу</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
-    <string name="share_via_link_menu_password_label">Заштићено лозинком (%1$s)</string>
     <string name="share_via_link_section_title">Веза дељења</string>
     <string name="share_via_link_send_link_label">Пошаљи везу</string>
     <string name="share_via_link_unset_password">Уклони</string>
@@ -683,7 +660,6 @@
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>
     <string name="unset_favorite">Уклони из омиљених</string>
-    <string name="unshare">Укини дељење</string>
     <string name="unshare_link_file_error">Десила се грешка при покушају укидања дељења фајла или фасцикле.</string>
     <string name="unshare_link_file_no_exist">Не могу да укинем дељење. Проверите да ли фајл постоји.</string>
     <string name="unshare_link_forbidden_permissions">да укинете дељење овог фајла</string>

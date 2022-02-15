@@ -54,6 +54,7 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -180,6 +181,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject Throttler throttler;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -198,6 +200,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
+
 
     @Inject DeviceInfo deviceInfo;
 
@@ -237,7 +240,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-            onMessageEvent(searchEvent);
+        }
+
+        if (isSearchEventSet(searchEvent)) {
+            handleSearchEvent(searchEvent);
         }
 
         super.onResume();
@@ -253,6 +259,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onAttach");
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
+            setTitle();
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(context.toString() + " must implement " +
@@ -360,10 +367,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             registerFabListener();
         }
 
-        if (getArguments() == null) {
-            searchEvent = null;
-        } else {
-            searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+        if (!searchFragment) { // do not touch search event if previously searched
+            if (getArguments() == null) {
+                searchEvent = null;
+            } else {
+                searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+            }
         }
         prepareCurrentSearch(searchEvent);
 
@@ -384,10 +393,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setTitle();
-
-        if (searchEvent != null) {
-            onMessageEvent(searchEvent);
-        }
 
         FragmentActivity fragmentActivity;
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
@@ -477,7 +482,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void uploadFiles() {
         UploadFilesActivity.startUploadActivityForResult(
                 getActivity(),
-                ((FileActivity) getActivity()).getAccount(),
+                ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
                 FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
         );
     }
@@ -520,20 +525,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.item_file);
-        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-                                               Collections.singleton(file),
-                                               mContainerActivity, getActivity(),
-                                               true,
-                                               accountManager.getUser());
-        mf.filter(popup.getMenu(), true);
-        popup.setOnMenuItemClickListener(item -> {
-            Set<OCFile> checkedFiles = new HashSet<>();
-            checkedFiles.add(file);
-            return onFileActionChosen(item, checkedFiles);
+        throttler.run("overflowClick", () -> {
+            PopupMenu popup = new PopupMenu(getActivity(), view);
+            popup.inflate(R.menu.item_file);
+            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
+                                                   Collections.singleton(file),
+                                                   mContainerActivity, getActivity(),
+                                                   true,
+                                                   accountManager.getUser());
+            mf.filter(popup.getMenu(), true);
+            popup.setOnMenuItemClickListener(item -> {
+                Set<OCFile> checkedFiles = new HashSet<>();
+                checkedFiles.add(file);
+                return onFileActionChosen(item, checkedFiles);
+            });
+            popup.show();
         });
-        popup.show();
     }
 
     @Override
@@ -747,19 +754,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
         }
         ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
-        }
-
-        if (isSearchEventSet(searchEvent)) {
-            onMessageEvent(searchEvent);
-        }
     }
 
     /**
@@ -1386,9 +1380,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case GALLERY_SEARCH:
                     setTitle(R.string.drawer_item_gallery);
                     break;
-                case RECENTLY_ADDED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_added);
-                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recently_modified);
                     break;
@@ -1407,9 +1398,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FAVORITE_SEARCH:
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
                 case RECENTLY_MODIFIED_SEARCH:
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
                     break;
@@ -1480,7 +1468,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
+                boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite;
+                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite, removeFromList);
             }
 
         } catch (ClientFactory.CreationException e) {
@@ -1488,8 +1477,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
+        handleSearchEvent(event);
+    }
+
+    private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
@@ -1520,8 +1522,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 searchOnlyFolders = true;
             }
 
-            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
-                                                        searchOnlyFolders);
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(currentUser.getAccountName());
+
+            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(),
+                                                        event.getSearchType(),
+                                                        searchOnlyFolders,
+                                                        ocCapability);
         } else {
             remoteOperation = new GetSharesRemoteOperation();
         }
@@ -1541,6 +1548,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
+                        searchEvent = event;
+
                         if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
@@ -1549,7 +1558,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                              storageManager,
                                              mFile,
                                              true);
-                            searchEvent = event;
                         }
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
@@ -1663,7 +1671,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onRefresh() {
         if (isSearchEventSet(searchEvent) && searchFragment) {
-            onMessageEvent(searchEvent);
+            handleSearchEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);
         } else {
@@ -1716,7 +1724,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
+                event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {

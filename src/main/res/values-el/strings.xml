@@ -14,8 +14,6 @@
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
-    <string name="actionbar_contacts">Εφεδρικό αντίγραφο επαφών</string>
-    <string name="actionbar_contacts_restore">Ανάκτηση επαφών</string>
     <string name="actionbar_copy">Αντιγραφή</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
     <string name="actionbar_move">Μετακίνηση</string>
@@ -34,9 +32,7 @@
     <string name="add_another_public_share_link">Προσθήκη άλλου συνδέσμου</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
-    <string name="allow_creating">Επιτρέπεται η δημιουργία</string>
-    <string name="allow_deleting">Επιτρέπετε η διαγραφή</string>
-    <string name="allow_editing">Επιτρέπεται η επεξεργασία</string>
+    <string name="advanced_settings">Ρυθμίσεις για προχωρημένους</string>
     <string name="allow_resharing">Επιτρέπεται ο επαναδιαμοιρασμός</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
     <string name="associated_account_not_found">Δεν βρέθηκε ο συνδεδεμένος λογαριασμός!</string>
@@ -82,7 +78,6 @@
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
-    <string name="battery_optimization_no_setting">Αδυναμία απευθείας έναρξης των ρυθμίσεων της μπαταρίας. Παρακαλούμε προσαρμόστε χειροκίνητα τις ρυθμίσεις.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
     <string name="brute_force_delay">Καθυστέρηση λόγω πάρα πολλών λανθασμένων προσπαθειών</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
@@ -150,20 +145,13 @@
     <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_new_file">Νέο αρχείο</string>
-    <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
-    <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
     <string name="contactlist_item_icon">Εικονίδιο χρήστη για τη λίστα επαφών</string>
     <string name="contactlist_no_permission">Δεν δόθηκαν δικαιώματα, τίποτα δεν εισήχθη.</string>
-    <string name="contacts_automatic_backup">Αυτόματο εφεδρικό αντίγραφο</string>
     <string name="contacts_backup_button">Εφεδρικό αντίγραφο τώρα</string>
-    <string name="contacts_last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
-    <string name="contacts_preference_backup_never">ποτέ</string>
-    <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
     <string name="contacts_preferences_something_strange_happened">Αδυναμία εύρεσης του τελευταίου αντιγράφου ασφαλείας!</string>
-    <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
     <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
     <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
     <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε απογονικό</string>
@@ -233,7 +221,6 @@
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
-    <string name="edit_label">Αλλαγή ονόματος</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
@@ -256,7 +243,6 @@
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_crash_title">%1$sκαταστράφηκε</string>
     <string name="error_report_issue_action">Αναφορά</string>
-    <string name="error_report_issue_text">Αναφορά προβλήματος? (απαιτείται λογαριασμός στο Github)</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
@@ -448,9 +434,6 @@
     <string name="note_icon_hint">Εικονίδιο σημείωσης</string>
     <string name="notification_action_failed">Αποτυχία εκτέλεσης ενέργειας</string>
     <string name="notification_channel_download_description">Εμφάνιση προόδου λήψης</string>
-    <string name="notification_channel_download_name">Κατέβασμα καναλιού ειδοποιήσεων</string>
-    <string name="notification_channel_file_observer_description">Παρακολουθεί αρχεία για αλλαγές</string>
-    <string name="notification_channel_file_observer_name">Παρατηρητής αρχείων</string>
     <string name="notification_channel_file_sync_description">Δείχνει την πρόοδο και το αποτέλεσμα συγχρονισμού του αρχείου</string>
     <string name="notification_channel_file_sync_name">Συγχρονισμός αρχείου</string>
     <string name="notification_channel_general_description">Εμφάνιση ειδοποιήσεων για νέους φακέλους πολυμέσων και άλλα παρόμοια</string>
@@ -460,7 +443,6 @@
     <string name="notification_channel_push_description">Εμφάνιση ειδοποιήσεων που αποστέλλονται από τον διακομιστή: Αναφορά σε σχόλια, λήψη νέων απομακρυσμένων αρχείων, ανακοινώσεις που δημοσιεύονται απο τον διαχειριστή κτλ.</string>
     <string name="notification_channel_push_name">Ειδοποιήσεις push</string>
     <string name="notification_channel_upload_description">Εμφάνισης προόδου μεταφόρτωσης</string>
-    <string name="notification_channel_upload_name">Ανέβασμα καναλιού ειδοποιήσεων</string>
     <string name="notification_icon">Εικονίδιο ειδοποιήσεων</string>
     <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
     <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
@@ -511,7 +493,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
-    <string name="prefs_daily_contacts_sync_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
     <string name="prefs_e2e_no_device_credentials">Για την εμφάνιση της μνήμης παρακαλούμε ενεργοποιήστε τα διαπιστευτήρια συσκευής.</string>
     <string name="prefs_enable_media_scan_notifications">  Εμφάνιση ειδοποιήσεων σάρωσης πολυμέσων</string>
@@ -532,7 +513,6 @@
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
-    <string name="prefs_recommend">Προτείνετε σε φίλο</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_storage_path">Φάκελος αποθήκευσης δεδομένων</string>
@@ -615,13 +595,11 @@
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
     <string name="share_password_title">Προστασία με συνθηματικό</string>
-    <string name="share_privilege_unshare">Αναίρεση διαμοιρασμού</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
     <string name="share_search">Όνομα, Ομοσπονδιακό Cloud ID   ή διεύθυνση ηλεκτρονικού ταχυδρομείου...</string>
     <string name="share_send_note">Σημείωση στον παραλήπτη</string>
     <string name="share_via_link_hide_download">Απόκρυψη λήψης</string>
-    <string name="share_via_link_menu_password_label">Προστασία με συνθηματικό (%1$s)</string>
     <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
     <string name="share_via_link_send_link_label">Αποστολή συνδέσμου</string>
     <string name="share_via_link_unset_password">Απενεργοποίηση</string>
@@ -731,7 +709,6 @@
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>
     <string name="unset_favorite">Αφαίρεση από τα αγαπημένα</string>
-    <string name="unshare">Αναίρεση διαμοιρασμού</string>
     <string name="unshare_link_file_error">Παρουσιάστηκε σφάλμα κατά την αφαίρεση διαμοιρασμού του αρχείου ή φακέλου.</string>
     <string name="unshare_link_file_no_exist">Αδυναμία αφαίρεσης κοινής χρήσης.  Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="unshare_link_forbidden_permissions">για να αναιρέσετε το διαμοιρασμό αυτού του αρχείου</string>

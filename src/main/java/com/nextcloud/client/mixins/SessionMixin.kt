@@ -65,7 +65,7 @@ class SessionMixin constructor(
         }
 
         currentAccount?.let {
-            val storageManager = FileDataStorageManager(currentAccount, contentResolver)
+            val storageManager = FileDataStorageManager(getUser().get(), contentResolver)
             this.storageManager = storageManager
             this.capabilities = storageManager.getCapability(it.name)
         }
@@ -91,6 +91,7 @@ class SessionMixin constructor(
         val newAccount = accountManager.currentAccount
         if (newAccount == null) {
             // no account available: force account creation
+            currentAccount = null
             startAccountCreation()
         } else {
             currentAccount = newAccount

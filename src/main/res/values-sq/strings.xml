@@ -13,8 +13,6 @@
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
-    <string name="actionbar_contacts">Krijo backup të kontakteve</string>
-    <string name="actionbar_contacts_restore">Rikthe kontaktet</string>
     <string name="actionbar_copy">Kopjoni</string>
     <string name="actionbar_mkdir">Dosje e re</string>
     <string name="actionbar_move">Zhvendose</string>
@@ -31,7 +29,6 @@
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
-    <string name="allow_editing">Lejo redaktimin</string>
     <string name="allow_resharing">Lejo rindarje</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
@@ -74,7 +71,6 @@
     <string name="battery_optimization_close">Mbylleni</string>
     <string name="battery_optimization_disable">Çaktivizoje</string>
     <string name="battery_optimization_message">Pajisja juaj mund të aktivizohet nga optimizimi i baterisë. AutoUpload funksionon  si duhet vetëm nëse e përjashton këtë aplikacion nga ai.</string>
-    <string name="battery_optimization_no_setting">Nuk mund të fillojnë drejtpërdrejt cilësimet e baterisë. Ju lutemi përshtateni manualisht tek cilësimet.</string>
     <string name="battery_optimization_title">Optimizimi i baterive</string>
     <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
     <string name="changelog_dev_version">Versioni dev i ndryshimeve</string>
@@ -134,20 +130,13 @@
     <string name="conflict_dialog_error">Gabim në krijimin e dialogut për konflikte!</string>
     <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
     <string name="conflict_new_file">Skedë e re</string>
-    <string name="contaclist_restore_selected">Rikthe kontaktet e zgjedhura</string>
-    <string name="contactlist_account_chooser_title">Zgjidh llogarinë që do të importohet</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
     <string name="contactlist_no_permission">Asnjë leje e dhënë, nuk u importua asgjë.</string>
-    <string name="contacts_automatic_backup">Back up automatik</string>
     <string name="contacts_backup_button">Bëje tani back up</string>
-    <string name="contacts_last_backup">Backup i fundit</string>
-    <string name="contacts_preference_backup_never">kurrë</string>
-    <string name="contacts_preference_choose_date">Zgjidh datën</string>
     <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
     <string name="contacts_preferences_no_file_found">Asnjë skedarë i gjetur</string>
     <string name="contacts_preferences_something_strange_happened">Ne nuk mund të gjejmë backup-in tuaj të fundit!</string>
-    <string name="contacts_read_permission">Kërkohet e drejta për të lexuar listën e kontakteve</string>
     <string name="copied_to_clipboard">U kopjua në clipboard</string>
     <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="copy_file_invalid_into_descendent">S’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>
@@ -233,7 +222,6 @@
     <string name="error_comment_file">Gabim gjatë komentimit të skedarit</string>
     <string name="error_crash_title">%1$s ra</string>
     <string name="error_report_issue_action">Raporto</string>
-    <string name="error_report_issue_text">Raportoni çështje tek gjurmuesi? (kërkon një llogari Github)</string>
     <string name="error_retrieving_file">Gabim në marrjen e skedarit</string>
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
@@ -396,9 +384,6 @@
     <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
     <string name="notification_action_failed">Dështoi ekzekutimi i veprimeve.</string>
     <string name="notification_channel_download_description">Tregon progresin e shkarkimit</string>
-    <string name="notification_channel_download_name">Shkarko kanalin e njoftimeve</string>
-    <string name="notification_channel_file_observer_description">Monitoron skedarët për ndryshime</string>
-    <string name="notification_channel_file_observer_name">Vëzhguesi i skedarëve</string>
     <string name="notification_channel_file_sync_description">Tregon progresin e sinkronizimit të skedarëve dhe rezultatin</string>
     <string name="notification_channel_file_sync_name">Sinkronizimi i skedarëve</string>
     <string name="notification_channel_general_description">Shfaq njoftimet për dosjet e mediave të reja dhe të ngjashme</string>
@@ -408,7 +393,6 @@
     <string name="notification_channel_push_description">Trego njoftimet e shtyra të dërguara nga serveri: Përmendjet në komentet, marrja e aksioneve të reja të largëta, shpalljet e postuara nga një administrator etj.</string>
     <string name="notification_channel_push_name">Shty njoftimet</string>
     <string name="notification_channel_upload_description">Tregon progresin e ngarkimit</string>
-    <string name="notification_channel_upload_name">Ngarko kanalin e njoftimeve</string>
     <string name="notification_icon">Ikona e njoftimit</string>
     <string name="notifications_no_results_headline">Asnjë njofim</string>
     <string name="notifications_no_results_message">Ju lutemi kontrolloni përsëri më vonë.</string>
@@ -449,7 +433,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
-    <string name="prefs_daily_contacts_sync_summary">Backup i përditshëm i kontakteve</string>
     <string name="prefs_e2e_mnemonic">E2E i kujtesës</string>
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
     <string name="prefs_enable_media_scan_notifications">Shfaqni njoftimet e skanimit të medias</string>
@@ -470,7 +453,6 @@
     <string name="prefs_lock_using_device_credentials">Kredencialet e pajisjes</string>
     <string name="prefs_lock_using_passcode">Kodkalimi</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
-    <string name="prefs_recommend">Rekomandojani një miku </string>
     <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_sourcecode">Merr kodin burimor</string>
     <string name="prefs_synced_folders_local_path_title">Dosje lokale</string>
@@ -541,12 +523,10 @@
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
     <string name="share_password_title">Mbrojtur me fjalëkalim</string>
-    <string name="share_privilege_unshare">Hiqe ndarjen</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_send_note">Shënim për marrësin</string>
     <string name="share_via_link_hide_download">Fshih shkarkimin</string>
-    <string name="share_via_link_menu_password_label">Mbroje me fjalëkalim (%1$s)</string>
     <string name="share_via_link_section_title">Lidhje ndarjeje</string>
     <string name="share_via_link_send_link_label">Dërgo lidhjen</string>
     <string name="share_via_link_unset_password">E pavendosur</string>
@@ -652,7 +632,6 @@
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="unset_favorite">Hiqe nga të parapëlqyerat</string>
-    <string name="unshare">Hiqe ndarjen</string>
     <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>

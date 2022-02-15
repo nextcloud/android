@@ -114,7 +114,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
                                                  MAXIMUM_PERMISSIONS_FOR_FILE);
             }
         } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                         .link_share_read_only))) {
+                                                                                                                                                                                                                                                                                                                     .link_share_view_only))) {
             actions.onQuickPermissionChanged(ocShare,
                                              READ_PERMISSION_FLAG);
 

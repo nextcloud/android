@@ -260,7 +260,7 @@ public class FileOperationsHelper {
             // ISSUE 5: if the user is not running the app (this is a service!),
             // this can be very intrusive; a notification should be preferred
             Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                  user.toPlatformAccount(),
+                                                                  user,
                                                                   -1,
                                                                   Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                   fileActivity);
@@ -332,7 +332,7 @@ public class FileOperationsHelper {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
                         Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                              user.toPlatformAccount(),
+                                                                              user,
                                                                               -1,
                                                                               Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                               fileActivity);
@@ -405,7 +405,6 @@ public class FileOperationsHelper {
             String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
             if (guessedMimeType != null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 openFileWithIntent.setDataAndType(
                         fileUri,
                         guessedMimeType
@@ -566,7 +565,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
             service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
-            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, note);
+            service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note == null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
 
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
@@ -628,7 +627,7 @@ public class FileOperationsHelper {
     public void showShareFile(OCFile file) {
         Intent intent = new Intent(fileActivity, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, fileActivity.getUser().orElseThrow(RuntimeException::new));
         fileActivity.startActivity(intent);
     }
 
@@ -843,6 +842,7 @@ public class FileOperationsHelper {
                 }
 
                 intent.setDataAndType(uri, file.getMimeType());
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 fileActivity.startActivityForResult(Intent.createChooser(intent,
                                                                          fileActivity.getString(R.string.set_as)),
                                                     200);
@@ -882,16 +882,14 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
-        List<OCFile> alreadyRightStateList = new ArrayList<>();
+        List<OCFile> toToggle = new ArrayList<>();
         for (OCFile file : files) {
-            if (file.isFavorite() == shouldBeFavorite) {
-                alreadyRightStateList.add(file);
+            if (file.isFavorite() != shouldBeFavorite) {
+                toToggle.add(file);
             }
         }
 
-        files.removeAll(alreadyRightStateList);
-
-        for (OCFile file : files) {
+        for (OCFile file : toToggle) {
             toggleFavoriteFile(file, shouldBeFavorite);
         }
     }

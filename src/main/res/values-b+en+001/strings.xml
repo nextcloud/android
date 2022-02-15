@@ -14,8 +14,6 @@
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
-    <string name="actionbar_contacts">Back up contacts</string>
-    <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="actionbar_copy">Copy</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="allow_creating">Allow creating</string>
-    <string name="allow_deleting">Allow deleting</string>
-    <string name="allow_editing">Allow editing</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="associated_account_not_found">Associated account not found!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
-    <string name="battery_optimization_no_setting">Unable to start battery settings directly. Please adjust manually in settings.</string>
     <string name="battery_optimization_title">Battery optimization</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_new_file">New file</string>
-    <string name="contaclist_restore_selected">Restore selected contacts</string>
-    <string name="contactlist_account_chooser_title">Choose account to import</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
-    <string name="contacts_automatic_backup">Automatic backup</string>
     <string name="contacts_backup_button">Back up now</string>
-    <string name="contacts_last_backup">Last backup</string>
-    <string name="contacts_preference_backup_never">never</string>
-    <string name="contacts_preference_choose_date">Choose date</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
-    <string name="contacts_read_permission">Permission to read contact list needed</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
     <string name="drawer_synced_folders">Auto upload</string>
-    <string name="edit_label">Change name</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -256,7 +242,6 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="error_report_issue_action">Report</string>
-    <string name="error_report_issue_text">Report issue to tracker? (requires a Github account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
@@ -445,9 +430,6 @@
     <string name="note_icon_hint">Note icon</string>
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="notification_channel_download_description">Shows download progress</string>
-    <string name="notification_channel_download_name">Download notification channel</string>
-    <string name="notification_channel_file_observer_description">Monitors files for changes</string>
-    <string name="notification_channel_file_observer_name">File observer</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_general_description">Show notifications for new media folders and similar</string>
@@ -457,7 +439,6 @@
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_upload_description">Shows upload progress</string>
-    <string name="notification_channel_upload_name">Upload notification channel</string>
     <string name="notification_icon">Notification icon</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
@@ -508,7 +489,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
-    <string name="prefs_daily_contacts_sync_summary">Daily backup of your contacts</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
@@ -529,7 +509,6 @@
     <string name="prefs_lock_using_device_credentials">Device credentials</string>
     <string name="prefs_lock_using_passcode">Passcode</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
-    <string name="prefs_recommend">Recommend to friend</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_storage_path">Data storage folder</string>
@@ -612,13 +591,11 @@
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_password_title">Password-protected</string>
-    <string name="share_privilege_unshare">Unshare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Name, Federated Cloud ID or email address …</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_via_link_hide_download">Hide download</string>
-    <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_via_link_unset_password">Unset</string>
@@ -728,7 +705,6 @@
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="unset_favorite">Remove from favourites</string>
-    <string name="unshare">Unshare</string>
     <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
     <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>

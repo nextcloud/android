@@ -13,8 +13,6 @@
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
-    <string name="actionbar_contacts">Aragatnaşyklaryň ätiýaçlyk nusgasy</string>
-    <string name="actionbar_contacts_restore">Kontaktary dikeltmek</string>
     <string name="actionbar_copy">Göçüriň</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
     <string name="actionbar_move">Göçüriň</string>
@@ -33,9 +31,6 @@
     <string name="add_another_public_share_link">Başga bir baglanyşyk goşuň</string>
     <string name="add_new_public_share">Täze köpçülikleýin paýlaşma baglanyşygyny goşuň</string>
     <string name="add_to_cloud">Goşuň%1$s</string>
-    <string name="allow_creating">Döretmäge rugsat beriň</string>
-    <string name="allow_deleting">Pozmaga rugsat beriň</string>
-    <string name="allow_editing">Redaktirlemäge rugsat beriň</string>
     <string name="allow_resharing">Täzeden paýlaşmaga rugsat beriň</string>
     <string name="appbar_search_in">Gözlemek%siçinde</string>
     <string name="associated_account_not_found">Baglanyşyk hasaby tapylmady!</string>
@@ -81,7 +76,6 @@
     <string name="battery_optimization_close">Ýapyň</string>
     <string name="battery_optimization_disable">Öçüriň</string>
     <string name="battery_optimization_message">Enjamyňyzda batareýa optimizasiýasy açyk bolup biler. “AutoUpload” diňe bu programmany ondan aýyrsaňyz dogry işleýär.</string>
-    <string name="battery_optimization_no_setting">Batareýa sazlamalaryny göni acyp bolmaýar. Android sazlamalarda el bilen sazlaň.</string>
     <string name="battery_optimization_title">Batareýany optimizasiýa</string>
     <string name="brute_force_delay">Gaty ýalňyş synanyşyklar sebäpli gijä galdy</string>
     <string name="certificate_load_problem">Şahadatnamany ýüklemekde näsazlyk bar.</string>
@@ -149,20 +143,13 @@
     <string name="conflict_file_headline">Jedelli faýl%1$s</string>
     <string name="conflict_message_description">Eger siz iki wersiýasyny hem saýlasaňyz, ýerli faýlyň adyna san goşular.</string>
     <string name="conflict_new_file">Täze faýl</string>
-    <string name="contaclist_restore_selected">Saýlanan aragatnaşyklary dikelt</string>
-    <string name="contactlist_account_chooser_title">Import etmek üçin hasap saýlaň</string>
     <string name="contactlist_item_icon">Aragatnaşyk sanawy üçin ulanyjy nyşany</string>
     <string name="contactlist_no_permission">Rugsat berilmedi, import edilmedi.</string>
-    <string name="contacts_automatic_backup">Awtomatiki ätiýaçlygy nusgalamak</string>
     <string name="contacts_backup_button">Edil şu wagt ätiýaç nusgasyny et</string>
-    <string name="contacts_last_backup">Soňky ätiýaçlyk</string>
-    <string name="contacts_preference_backup_never">hiç haçan</string>
-    <string name="contacts_preference_choose_date">Sene saýlaň</string>
     <string name="contacts_preferences_backup_scheduled">Ätiýaçlyk meýilleşdirilýär we gysga wagtda başlar</string>
     <string name="contacts_preferences_import_scheduled">Import meýilnama edilen we gysga wagtda başlar</string>
     <string name="contacts_preferences_no_file_found">Hiç hili faýl tapylmady</string>
     <string name="contacts_preferences_something_strange_happened">Soňky ätiýaçlyk nusgasyny tapyp bilmedim!</string>
-    <string name="contacts_read_permission">Aragatnaşyk sanawyny okamaga rugsat gerek</string>
     <string name="copied_to_clipboard">Panele göçürildi</string>
     <string name="copy_file_error">Bu faýly ýa-da bukjany göçürjek bolanyňyzda ýalňyşlyk ýüze çykdy</string>
     <string name="copy_file_invalid_into_descendent">Bir bukjany onuň öz esasy bukjalarynyň birine göçürmek mümkin däl</string>
@@ -232,7 +219,6 @@
     <string name="drawer_quota">%1$s-yň %2$sulanylan</string>
     <string name="drawer_quota_unlimited">%1$sulanyldy</string>
     <string name="drawer_synced_folders">Awto ýüklemek</string>
-    <string name="edit_label">Adyny üýtgediň</string>
     <string name="encrypted">Şifrlenen görnüşde düzüň</string>
     <string name="end_to_end_encryption_confirm_button">Şifrlemäni gurnamak</string>
     <string name="end_to_end_encryption_decrypting">Şifri açmak...</string>
@@ -255,7 +241,6 @@
     <string name="error_comment_file">Faýla düşündiriş bermekdäki ýalňyşlyk</string>
     <string name="error_crash_title">%1$sheläkçilige uçrady</string>
     <string name="error_report_issue_action">Hasabat ugradyň</string>
-    <string name="error_report_issue_text">Gözegçilere mesele barada hasabat beriň? (Github hasaby talap edýär)</string>
     <string name="error_retrieving_file">Faýl ýüklemegiň ýalňyşlygy </string>
     <string name="error_retrieving_templates">Şablonlary almakda säwlik</string>
     <string name="error_starting_direct_camera_upload">Kamerany işledip başlamakda ýalňyşlyk</string>
@@ -434,9 +419,6 @@
     <string name="note_icon_hint">Bellik nyşany</string>
     <string name="notification_action_failed">Hereket ýerine ýetirilmedi.</string>
     <string name="notification_channel_download_description">Göçürip almagyň gidişini görkezýär</string>
-    <string name="notification_channel_download_name">Duýduryş kanalyny göçürip alyň</string>
-    <string name="notification_channel_file_observer_description">Üýtgeşmeler üçin faýllara gözegçilik edýär.</string>
-    <string name="notification_channel_file_observer_name">Faýl synçysy</string>
     <string name="notification_channel_file_sync_description">Faýl sinhronlamasynyň ösüşini we netijelerini görkezýär</string>
     <string name="notification_channel_file_sync_name">Faýl sinhronlamak</string>
     <string name="notification_channel_general_description">Täze media bukjalary we şuňa meňzeşler üçin bildirişleri görkeziň</string>
@@ -446,7 +428,6 @@
     <string name="notification_channel_push_description">Serwer tarapyndan iberilen itergi habarnamalaryny görkeziň: Teswirlerde bellikler, täze uzakdaky paýnamalary kabul etmek, administrator tarapyndan iberilen bildirişler we ş.m.</string>
     <string name="notification_channel_push_name">Duýduryşlary basyň</string>
     <string name="notification_channel_upload_description">Ýüklemegiň gidişini görkezýär</string>
-    <string name="notification_channel_upload_name">Duýduryş kanalyny ýükläň</string>
     <string name="notification_icon">Duýduryş nyşany</string>
     <string name="notifications_no_results_headline">Duýduryş ýok</string>
     <string name="notifications_no_results_message">Soňrak barlap görüň.</string>
@@ -497,7 +478,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Esasy</string>
     <string name="prefs_category_more">Has köp</string>
-    <string name="prefs_daily_contacts_sync_summary">Kontaktlaryňyzyň gündelik ätiýaçlyk nusgasy</string>
     <string name="prefs_e2e_mnemonic">e2e ýatlatma</string>
     <string name="prefs_e2e_no_device_credentials">Mnemonik görkezmek üçin enjam şahsyýet maglumatlaryny açmagyňyzy haýyş edýäris.</string>
     <string name="prefs_enable_media_scan_notifications">Mediýa skaner habarnamalaryny görkeziň</string>
@@ -518,7 +498,6 @@
     <string name="prefs_lock_using_device_credentials">Enjam şahsyýetnamasy</string>
     <string name="prefs_lock_using_passcode">Programma kody</string>
     <string name="prefs_manage_accounts">Hasabyňyzy dolandyrmak</string>
-    <string name="prefs_recommend">Dostuňyza maslahat beriň</string>
     <string name="prefs_show_hidden_files">Gizlin faýllary görkez</string>
     <string name="prefs_sourcecode">Çeşme koduny alyň</string>
     <string name="prefs_storage_path">Maglumat saklaýyş bukjasy</string>
@@ -600,13 +579,11 @@
     <string name="share_no_expiration_date_label">Möhlet möhletini belläň</string>
     <string name="share_no_password_title">Paroly düzüň</string>
     <string name="share_password_title">Parol bilen goralan</string>
-    <string name="share_privilege_unshare">Paýlaşma</string>
     <string name="share_remote_clarification">(uzakdan)%1$s</string>
     <string name="share_room_clarification">(söhbetdeşlik)%1$s</string>
     <string name="share_search">Ady, Federatiw Bulut ID ýa-da e-poçta salgysy…</string>
     <string name="share_send_note">Alyja bellik</string>
     <string name="share_via_link_hide_download">Ýüklemegi gizle </string>
-    <string name="share_via_link_menu_password_label">Paroly goramak (%1$s)</string>
     <string name="share_via_link_section_title">Baglanyşyk paýlaş</string>
     <string name="share_via_link_send_link_label">Baglanyşyk iber</string>
     <string name="share_via_link_unset_password">Gurnalmady</string>
@@ -716,7 +693,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>
     <string name="unset_favorite">Halanýanlardan aýyryň</string>
-    <string name="unshare">Paýlaşma</string>
     <string name="unshare_link_file_error">Bu faýly ýa-da bukjany paýlaşmaga synanyşanda ýalňyşlyk ýüze çykdy.</string>
     <string name="unshare_link_file_no_exist">Paýlaşyp bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="unshare_link_forbidden_permissions">bu faýly paýlaşmak üçin</string>

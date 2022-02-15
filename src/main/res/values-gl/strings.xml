@@ -13,8 +13,6 @@
     <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grella</string>
     <string name="action_switch_list_view">Ver como lista</string>
-    <string name="actionbar_contacts">Copia de seguridade dos contactos</string>
-    <string name="actionbar_contacts_restore">Restaurar os contactos</string>
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
@@ -33,9 +31,6 @@
     <string name="add_another_public_share_link">Engadir outra ligazón</string>
     <string name="add_new_public_share">Engadir unha nova ligazón pública</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
-    <string name="allow_creating">Permitir a creación</string>
-    <string name="allow_deleting">Permitir a eliminación</string>
-    <string name="allow_editing">Permitir a edición</string>
     <string name="allow_resharing">Permitir compartir</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>
@@ -81,7 +76,6 @@
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
-    <string name="battery_optimization_no_setting">Non é posíbel  iniciar os axustes da batería directamente. Faga os axustes manualmente</string>
     <string name="battery_optimization_title">Optimización da batería</string>
     <string name="brute_force_delay">Atrasado por mor de demasiados intentos errados</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
@@ -149,20 +143,13 @@
     <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_new_file">Novo ficheiro</string>
-    <string name="contaclist_restore_selected">Restaurar os contactos seleccionados</string>
-    <string name="contactlist_account_chooser_title">Escolla unha conta para importala</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
-    <string name="contacts_automatic_backup">Copia automática de seguridade</string>
     <string name="contacts_backup_button">Facer agora a copia de seguridade</string>
-    <string name="contacts_last_backup">Última copia de seguridade</string>
-    <string name="contacts_preference_backup_never">nunca</string>
-    <string name="contacts_preference_choose_date">Escolla a data</string>
     <string name="contacts_preferences_backup_scheduled">A copia de seguridade está programada e comezará en breve</string>
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguridade!</string>
-    <string name="contacts_read_permission">Necesitase permiso para ler a lista de contactos</string>
     <string name="copied_to_clipboard">Copiado no portapapeis.</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
@@ -232,7 +219,6 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
-    <string name="edit_label">Cambiar o nome</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -255,7 +241,6 @@
     <string name="error_comment_file">Produciuse un erro ao comentar o ficheiro</string>
     <string name="error_crash_title">%1$s quebrou</string>
     <string name="error_report_issue_action">Informe</string>
-    <string name="error_report_issue_text">Quere informar dun problema ao seguidor de fallos? (require unha conta de Github)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
@@ -434,9 +419,6 @@
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
-    <string name="notification_channel_download_name">Canle de notificación de descargas</string>
-    <string name="notification_channel_file_observer_description">Supervisa e amosa os cambios nos ficheiros</string>
-    <string name="notification_channel_file_observer_name">Observador de ficheiros</string>
     <string name="notification_channel_file_sync_description">Amosa o progreso e os resultados da sincronización de ficheiros</string>
     <string name="notification_channel_file_sync_name">Sincronización de ficheiros</string>
     <string name="notification_channel_general_description">Amosar notificacións para novos cartafoles de medios e semellantes</string>
@@ -446,7 +428,6 @@
     <string name="notification_channel_push_description">Amosa as notificacións enviadas polo servidor: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
     <string name="notification_channel_push_name">Notificacións do servidor</string>
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
-    <string name="notification_channel_upload_name">Canle de notificación de envíos</string>
     <string name="notification_icon">Icona de notificación</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
@@ -497,7 +478,6 @@
     <string name="prefs_category_dev">Desenvolvemento</string>
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
-    <string name="prefs_daily_contacts_sync_summary">Copia de seguridade diaria dos seus contactos</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para amosar o mnemotécnico, active as credenciais do dispositivo
 </string>
@@ -519,7 +499,6 @@
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
     <string name="prefs_lock_using_passcode">Código de seguridade</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
-    <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_storage_path">Cartafol de almacenamento de datos</string>
@@ -601,13 +580,11 @@
     <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
     <string name="share_password_title">Protexido con contrasinal</string>
-    <string name="share_privilege_unshare">Deixar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_via_link_hide_download">Agochar a descarga</string>
-    <string name="share_via_link_menu_password_label">Protexido con contrasinal (%1$s)</string>
     <string name="share_via_link_section_title">Compartir ligazón</string>
     <string name="share_via_link_send_link_label">Enviar ligazón</string>
     <string name="share_via_link_unset_password">Sen estabelecer</string>
@@ -715,7 +692,6 @@
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>
-    <string name="unshare">Deixar de compartir</string>
     <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol.</string>
     <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
     <string name="unshare_link_forbidden_permissions">para deixar de compartir este ficheiro</string>

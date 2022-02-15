@@ -26,10 +26,14 @@ import android.app.Activity;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.lib.common.Quota;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -55,7 +59,19 @@ public class ManageAccountsActivityIT extends AbstractIT {
         ManageAccountsActivity sut = activityRule.launchActivity(null);
 
         User user = sut.accountManager.getUser();
-        sut.onAccountClicked(user);
+
+        UserInfo userInfo = new UserInfo("test",
+                                         true,
+                                         "Test User",
+                                         "test@nextcloud.com",
+                                         "+49 123 456",
+                                         "Address 123, Berlin",
+                                         "https://www.nextcloud.com",
+                                         "https://twitter.com/Nextclouders",
+                                         new Quota(),
+                                         new ArrayList<>());
+
+        sut.showUser(user, userInfo);
 
         shortSleep();
         shortSleep();

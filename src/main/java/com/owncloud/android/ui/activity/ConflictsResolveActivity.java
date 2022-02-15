@@ -73,7 +73,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     protected OnConflictDecisionMadeListener listener;
 
     public static Intent createIntent(OCFile file,
-                                      Account account,
+                                      User user,
                                       long conflictUploadId,
                                       Integer flag,
                                       Context context) {
@@ -82,7 +82,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             intent.setFlags(intent.getFlags() | flag);
         }
         intent.putExtra(EXTRA_FILE, file);
-        intent.putExtra(EXTRA_ACCOUNT, account);
+        intent.putExtra(EXTRA_USER, user);
         intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
 
         return intent;
@@ -149,6 +149,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                         intent.putExtra(FileDownloader.EXTRA_FILE, file);
                         intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
                         startService(intent);
+                    } else {
+                        uploadsStorageManager.removeUpload(upload);
                     }
                     break;
             }

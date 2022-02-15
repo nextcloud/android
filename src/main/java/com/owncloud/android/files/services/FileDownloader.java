@@ -41,6 +41,7 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -104,7 +105,7 @@ public class FileDownloader extends Service
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private OwnCloudClient mDownloadClient;
-    private Account mCurrentAccount;
+    private Optional<User> currentUser = Optional.empty();
     private FileDataStorageManager mStorageManager;
 
     private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<>();
@@ -210,7 +211,7 @@ public class FileDownloader extends Service
             conflictUploadId = intent.getLongExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, -1);
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
-                DownloadFileOperation newDownload = new DownloadFileOperation(user.toPlatformAccount(),
+                DownloadFileOperation newDownload = new DownloadFileOperation(user,
                                                                               file,
                                                                               behaviour,
                                                                               activityName,
@@ -303,9 +304,9 @@ public class FileDownloader extends Service
             if (download != null) {
                 download.cancel();
             } else {
-                if (mCurrentDownload != null && mCurrentAccount != null &&
+                if (mCurrentDownload != null && currentUser.isPresent() &&
                     mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
-                        account.name.equals(mCurrentAccount.name)) {
+                        account.name.equals(currentUser.get().getAccountName())) {
                     mCurrentDownload.cancel();
                 }
             }
@@ -456,18 +457,16 @@ public class FileDownloader extends Service
                 RemoteOperationResult downloadResult = null;
                 try {
                     /// prepare client object to send the request to the ownCloud server
-                    if (mCurrentAccount == null ||
-                            !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
-                        mCurrentAccount = mCurrentDownload.getAccount();
-                        mStorageManager = new FileDataStorageManager(
-                                mCurrentAccount,
-                                getContentResolver()
-                        );
+                    Account currentDownloadAccount = mCurrentDownload.getAccount();
+                    Optional<User> currentDownloadUser = accountManager.getUser(currentDownloadAccount.name);
+                    if (!currentUser.equals(currentDownloadUser)) {
+                        currentUser = currentDownloadUser;
+                        mStorageManager = new FileDataStorageManager(currentUser.get(), getContentResolver());
                     }   // else, reuse storage manager from previous operation
 
                     // always get client from client manager, to get fresh credentials in case
                     // of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                    OwnCloudAccount ocAccount = currentDownloadUser.get().toOwnCloudAccount();
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
@@ -484,7 +483,7 @@ public class FileDownloader extends Service
 
                 } finally {
                     Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.removePayload(
-                        mCurrentAccount.name, mCurrentDownload.getRemotePath());
+                        mCurrentDownload.getUser().getAccountName(), mCurrentDownload.getRemotePath());
 
                     if (downloadResult == null) {
                         downloadResult = new RemoteOperationResult(new RuntimeException("Error downloading…"));
@@ -576,11 +575,11 @@ public class FileDownloader extends Service
             showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         }
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_USER, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                showDetailsIntent, 0));
+                                                                        showDetailsIntent, PendingIntent.FLAG_IMMUTABLE));
 
 
         if (mNotificationManager == null) {
@@ -633,6 +632,9 @@ public class FileDownloader extends Service
 
         if (!downloadResult.isCancelled()) {
             if (downloadResult.isSuccess()) {
+                if (conflictUploadId > 0) {
+                    uploadsStorageManager.removeUpload(conflictUploadId);
+                }
                 // Dont show notification except an error has occured.
                 return;
             }
@@ -657,7 +659,7 @@ public class FileDownloader extends Service
                 // TODO put something smart in showDetailsIntent
                 Intent showDetailsIntent = new Intent();
                 mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                        showDetailsIntent, 0));
+                                                                                showDetailsIntent, PendingIntent.FLAG_IMMUTABLE));
             }
 
             mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult,
@@ -668,10 +670,6 @@ public class FileDownloader extends Service
 
                 // Remove success notification
                 if (downloadResult.isSuccess()) {
-                    if (conflictUploadId > 0) {
-                        uploadsStorageManager.removeUpload(conflictUploadId);
-                    }
-
                     // Sleep 2 seconds, so show the notification before remove it
                     NotificationUtils.cancelWithDelay(mNotificationManager,
                                                       R.string.downloader_download_succeeded_ticker, 2000);
@@ -691,8 +689,12 @@ public class FileDownloader extends Service
         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT));
+        mNotificationBuilder.setContentIntent(
+            PendingIntent.getActivity(this,
+                                      (int) System.currentTimeMillis(),
+                                      updateAccountCredentials,
+                                      PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE)
+                                             );
     }
 
 

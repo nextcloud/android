@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
     <string name="actionbar_calendar_contacts_restore">Palauta yhteystiedot &amp; kalenteri</string>
-    <string name="actionbar_contacts">Varmuuskopioi yhteystietosi</string>
-    <string name="actionbar_contacts_restore">Palauta yhteystiedot</string>
     <string name="actionbar_copy">Kopioi</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
     <string name="actionbar_move">Siirrä</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
     <string name="advanced_settings">Lisäasetukset</string>
-    <string name="allow_creating">Salli luominen</string>
-    <string name="allow_deleting">Salli poistaminen</string>
-    <string name="allow_editing">Salli muokkaus</string>
     <string name="allow_resharing">Salli uudelleenjakaminen</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
     <string name="associated_account_not_found">Liitettyä tiliä ei löydy!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Sulje</string>
     <string name="battery_optimization_disable">Poista käytöstä</string>
     <string name="battery_optimization_message">Laitteellasi on ehkä päällä akun optimisointi tälle sovellukselle. AutoUpload ei välttämättä toimi oikein ellet poista sovellusta optimisointilistalta.</string>
-    <string name="battery_optimization_no_setting">Ei voitu käynnistää suoraan asetuksia. Säädä käsin asetuksista.</string>
     <string name="battery_optimization_title">Akun optimointi</string>
     <string name="brute_force_delay">Viivästetty liian monen epäonnistuneen yrityksen takia</string>
     <string name="calendar">Kalenteri</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_new_file">Uusi tiedosto</string>
-    <string name="contaclist_restore_selected">Palauta valitut yhteystiedot</string>
-    <string name="contactlist_account_chooser_title">Valitse tuotava tili</string>
     <string name="contactlist_item_icon">Käyttäjäkuvake yhteystietoihin</string>
     <string name="contactlist_no_permission">Oikeutta ei myönnetty, mitään ei tuotu.</string>
     <string name="contacts">Yhteystiedot</string>
-    <string name="contacts_automatic_backup">Automaattinen varmuuskopio</string>
     <string name="contacts_backup_button">Varmuuskopioi nyt</string>
-    <string name="contacts_last_backup">Edellinen varmuuskopio</string>
-    <string name="contacts_preference_backup_never">ei koskaan</string>
-    <string name="contacts_preference_choose_date">Valitse päiväys</string>
     <string name="contacts_preferences_backup_scheduled">Varmuuskopiointi on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_import_scheduled">Tuonti on ajastettu ja se alkaa pian</string>
     <string name="contacts_preferences_no_file_found">Tiedostoa ei löytynyt</string>
     <string name="contacts_preferences_something_strange_happened">Viimeisintä varmuuskopiota ei löytynyt!</string>
-    <string name="contacts_read_permission">Tarvitaan oikeus lukea yhteystiedot.</string>
     <string name="copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
     <string name="copy_file_invalid_into_descendent">Ei ole mahdollista kopioida kansiota yhteen sen alikansiosta.</string>
@@ -247,7 +234,6 @@
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
     <string name="drawer_quota_unlimited">%1$s käytetty</string>
     <string name="drawer_synced_folders">Automaattinen lähetys</string>
-    <string name="edit_label">Vaihda nimi</string>
     <string name="encrypted">Salaa</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_decrypting">Puretaan salausta…</string>
@@ -272,7 +258,6 @@
     <string name="error_comment_file">Virhe tiedostoa kommentoidessa</string>
     <string name="error_crash_title">%1$s kaatunut</string>
     <string name="error_report_issue_action">Raportti</string>
-    <string name="error_report_issue_text">Ilmoita ongelmasta seurantajärjestelmään? (vaatii GitHub-tilin)</string>
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
@@ -471,10 +456,7 @@
     <string name="note_icon_hint">Note-kuvake</string>
     <string name="notification_action_failed">Toimenpiteen suorittaminen epäonnistui</string>
     <string name="notification_channel_download_description">Näyttää latauksen edistymisen</string>
-    <string name="notification_channel_download_name">Latausten ilmoituskanava</string>
     <string name="notification_channel_download_name_short">Lataukset</string>
-    <string name="notification_channel_file_observer_description">Valvoo tiedostoja muutoksien varalta</string>
-    <string name="notification_channel_file_observer_name">Tiedostojen tarkkailija</string>
     <string name="notification_channel_file_sync_description">Näyttää tiedostojen synkronoinnin edistymisen ja tulokset</string>
     <string name="notification_channel_file_sync_name">Tiedostojen synkronointi</string>
     <string name="notification_channel_general_description">Näytä ilmoitukset uusia mediakansiota ja vastaavia varten</string>
@@ -484,7 +466,6 @@
     <string name="notification_channel_push_description">Näytä palvelimen lähettämät push-ilmoitukset. Esimerkiksi kun sinut mainitaan kommenteissa, sinulle jaetaan etänä tai kun ylläpito julkaisee tiedotteen.</string>
     <string name="notification_channel_push_name">Push-ilmoitukset</string>
     <string name="notification_channel_upload_description">Näyttää lähetyksen edistymisen</string>
-    <string name="notification_channel_upload_name">Lähetysten ilmoituskanava</string>
     <string name="notification_channel_upload_name_short">Lähetykset</string>
     <string name="notification_icon">Ilmoituksen kuvake</string>
     <string name="notifications_no_results_headline">Ei ilmoituksia</string>
@@ -536,7 +517,6 @@
     <string name="prefs_category_dev">Kehittäjä</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
-    <string name="prefs_daily_contacts_sync_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_e2e_mnemonic">E2E-avainkoodi</string>
     <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää avainkoodin, ota käyttöön laitteen valtuudet.</string>
     <string name="prefs_enable_media_scan_notifications">Näytä mediakartoituksen ilmoitukset</string>
@@ -558,7 +538,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
-    <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
@@ -644,12 +623,10 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_link_with_label">Jaa linkki (%1$s)</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
-    <string name="share_open_in">Avaa sovelluksella…</string>
     <string name="share_password_title">Salasanasuojattu</string>
     <string name="share_permission_can_edit">Voi muokata</string>
     <string name="share_permission_view_only">Vain katselu</string>
     <string name="share_permissions">Jaon oikeudet</string>
-    <string name="share_privilege_unshare">Lopeta jakaminen</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>
     <string name="share_search">Nimi, Federoitu Cloud ID tai sähköposti...</string>
@@ -657,7 +634,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_send_note">Huomio vastaanottajalle</string>
     <string name="share_settings">Asetukset</string>
     <string name="share_via_link_hide_download">Piilota lataus</string>
-    <string name="share_via_link_menu_password_label">Salasanasuojattu (%1$s)</string>
     <string name="share_via_link_section_title">Jaa linkki</string>
     <string name="share_via_link_send_link_label">Lähetä linkki</string>
     <string name="share_via_link_unset_password">Poista</string>
@@ -768,7 +744,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="unread_comments">Lukemattomia kommentteja on olemassa</string>
     <string name="unset_encrypted">Poista salaus</string>
     <string name="unset_favorite">Poista suosikeista</string>
-    <string name="unshare">Poista jako</string>
     <string name="unshare_link_file_error">Tiedoston tai kansion jakamista lopetettaessa tapahtui virhe.</string>
     <string name="unshare_link_file_no_exist">Jakamista ei voida lopettaa. Tarkasta onko tiedosto olemassa.</string>
     <string name="unshare_link_forbidden_permissions">poistaa tiedoston jakamista</string>

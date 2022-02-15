@@ -153,7 +153,6 @@ public class ExtendedListFragment extends Fragment implements
         FAVORITE_SEARCH,
         GALLERY_SEARCH,
         RECENTLY_MODIFIED_SEARCH,
-        RECENTLY_ADDED_SEARCH,
         // not a real filter, but nevertheless
         SHARED_FILTER
     }
@@ -673,10 +672,6 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                                            R.string.file_list_empty_recently_modified,
                                            R.drawable.ic_list_empty_recent);
-                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_added,
-                                           R.drawable.ic_list_empty_recent);
                 } else if (searchType == SearchType.REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
                                            R.string.file_list_empty_search,
@@ -685,6 +680,10 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_shared_headline,
                                            R.string.file_list_empty_shared,
                                            R.drawable.ic_list_empty_shared);
+                } else if (searchType == SearchType.GALLERY_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                           R.string.file_list_empty_gallery,
+                                           R.drawable.file_image);
                 }
             }
         });

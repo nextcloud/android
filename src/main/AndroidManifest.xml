@@ -147,6 +147,7 @@
 
         <activity
             android:name=".ui.activity.UploadFilesActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ExternalSiteWebView"
@@ -301,11 +302,19 @@
 
         <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
         <!-- to "best before" dates in his fridge. -->
+        <!-- disable default provider -->
         <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities=".workmanager-init"
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
-            tools:node="remove" />
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
+
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
@@ -467,6 +476,7 @@
         <package android:name="it.niedermann.nextcloud.deck" />
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
+        <package android:name="at.bitfire.davdroid"/>
 
         <intent>
             <action android:name="android.intent.action.VIEW" />

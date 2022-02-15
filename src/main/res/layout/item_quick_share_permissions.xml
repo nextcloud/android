@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/standard_margin"
-        android:text="@string/link_share_read_only"
+        android:text="@string/link_share_view_only"
         android:textColor="@color/text_color"
         android:textSize="@dimen/bottom_sheet_text_size"
         app:layout_constraintBottom_toBottomOf="parent"

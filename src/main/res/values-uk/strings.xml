@@ -2,8 +2,8 @@
   <resources>
     <string name="about_android">%1$s Android-додаток</string>
     <string name="about_title">Про</string>
-    <string name="about_version">версія %1$s</string>
-    <string name="about_version_with_build">версія%1$s, збірка #%2$s</string>
+    <string name="about_version">версія %1$s </string>
+    <string name="about_version_with_build">версія %1$s, збірка #%2$s</string>
     <string name="account_creation_failed">Створення облікового запису пройшло неуспішно</string>
     <string name="account_icon">Зображення облікового запису</string>
     <string name="account_not_found">Обліковий запис не знайдено!</string>
@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Упорядкування у формі сітки</string>
     <string name="action_switch_list_view">Упорядкування у формі списку</string>
     <string name="actionbar_calendar_contacts_restore">Відновлення контактів</string>
-    <string name="actionbar_contacts">Зробити резервну копію контактів</string>
-    <string name="actionbar_contacts_restore">Відновити контакти з резервної копії</string>
     <string name="actionbar_copy">Копіювати</string>
     <string name="actionbar_mkdir">Нова тека</string>
     <string name="actionbar_move">Перемістити</string>
@@ -37,9 +35,6 @@
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_to_cloud">Додати до %1$s</string>
     <string name="advanced_settings">Додаткові налаштування</string>
-    <string name="allow_creating">Може створювати</string>
-    <string name="allow_deleting">Може вилучати</string>
-    <string name="allow_editing">Може редагувати</string>
     <string name="allow_resharing">Можете ділитися</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Закрити</string>
     <string name="battery_optimization_disable">Вимкнути</string>
     <string name="battery_optimization_message">Можливо, що на вашому пристрої увімкнено оптимізацію живлення від батареї. Автоматичне завантаження буде правильно працювати лише, якщо ви виключите цей застосунок зі списку оптимізації.</string>
-    <string name="battery_optimization_no_setting">Неможливо відкрити налаштування батареї. Будь ласка, виконайте конфігурування самостійно у налаштуваннях.</string>
     <string name="battery_optimization_title">Оптимізація живлення</string>
     <string name="brute_force_delay">Затримка через занадто багато неправильних спроб</string>
     <string name="calendar">Календар</string>
@@ -158,21 +152,14 @@
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_new_file">Новий файл</string>
-    <string name="contaclist_restore_selected">Відновити вибрані контакти</string>
-    <string name="contactlist_account_chooser_title">Виберіть обліковий запис для імпорту</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
-    <string name="contacts_automatic_backup">Автоматичне резервне копіювання</string>
     <string name="contacts_backup_button">Створити зараз резервну копію</string>
-    <string name="contacts_last_backup">Остання резервна копія</string>
-    <string name="contacts_preference_backup_never">ніколи</string>
-    <string name="contacts_preference_choose_date">Виберіть дату</string>
     <string name="contacts_preferences_backup_scheduled">Резервне копіювання додано до розкладу й невдовзі розпочнеться</string>
     <string name="contacts_preferences_import_scheduled">Імпортування додано до розкладу й невдовзі розпочнеться</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
-    <string name="contacts_read_permission">Потрібні дозволи на читання списку контактів</string>
     <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби скопіювати даний файл чи папку</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати теку до однієї з її підтек</string>
@@ -246,7 +233,6 @@
     <string name="drawer_quota">%1$s з %2$s використано</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автозавантаження</string>
-    <string name="edit_label">Змінити ім\'я</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
@@ -269,7 +255,6 @@
     <string name="error_comment_file">Помилка з додаванням коментаря до файлу</string>
     <string name="error_crash_title">Відмова в обслуговуванні %1$s</string>
     <string name="error_report_issue_action">Звіт</string>
-    <string name="error_report_issue_text">Повідомити про ваду? (потрібний обліковий запис у Github)</string>
     <string name="error_retrieving_file">Помилка під час отримання файлу</string>
     <string name="error_retrieving_templates">Помилка під час отримання шаблонів</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
@@ -462,10 +447,7 @@
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
-    <string name="notification_channel_download_name">Канал сповіщень про завантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
-    <string name="notification_channel_file_observer_description">Спостерігає за зміною файлів</string>
-    <string name="notification_channel_file_observer_name">Перегляд файлів</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
     <string name="notification_channel_file_sync_name">Синхронізація файлів</string>
     <string name="notification_channel_general_description">Показує сповіщення для нових тек із мультимедійним контентом</string>
@@ -475,7 +457,6 @@
     <string name="notification_channel_push_description">Показувати push-сповіщення, надіслані сервером: згадки у коментарях, пропозиції про спільні ресурси, оголошення, надіслані адміністратором тощо.</string>
     <string name="notification_channel_push_name">Сповіщення push</string>
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>
-    <string name="notification_channel_upload_name">Канал сповіщень про завантаження</string>
     <string name="notification_channel_upload_name_short">Завантаження</string>
     <string name="notification_icon">Значок сповіщень</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
@@ -527,7 +508,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
-    <string name="prefs_daily_contacts_sync_summary">Щоденне резервне копіювання ваших контактів</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
     <string name="prefs_e2e_no_device_credentials">Щоб показати мнемоніку, будь ласка, активуйте дані авторизації пристрою</string>
     <string name="prefs_enable_media_scan_notifications">Показувати сповіщення про результати сканування мультимедійного вмісту</string>
@@ -548,7 +528,6 @@
     <string name="prefs_lock_using_device_credentials">Облікові дані пристрою</string>
     <string name="prefs_lock_using_passcode">Код доступу</string>
     <string name="prefs_manage_accounts">Управління обліковими записами</string>
-    <string name="prefs_recommend">Порадити друзям</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
     <string name="prefs_storage_path">Папка для зберігання даних</string>
@@ -633,13 +612,11 @@
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_password_title">Захищено паролем</string>
-    <string name="share_privilege_unshare">Закрити доступ</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, Федеральний хмарний ідентифікатор або електронна адреса ...</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_via_link_hide_download">Сховати завантаження</string>
-    <string name="share_via_link_menu_password_label">Захищено паролем (%1$s)</string>
     <string name="share_via_link_section_title">Поділитись посиланням</string>
     <string name="share_via_link_send_link_label">Надіслати посилання</string>
     <string name="share_via_link_unset_password">Зняти</string>
@@ -749,7 +726,6 @@
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
     <string name="unset_favorite">Вилучити з улюблених</string>
-    <string name="unshare">Закрити спільний доступ</string>
     <string name="unshare_link_file_error">Помилка під час закриття спільного доступу до файлу чи теки.</string>
     <string name="unshare_link_file_no_exist">Неможливо закрити спільний доступ. Будь ласка, перевірте, чи файл існує.</string>
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>

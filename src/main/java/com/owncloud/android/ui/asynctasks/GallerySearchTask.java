@@ -103,6 +103,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, RemoteOperationResu
             if (result.isSuccess() && result.getData() != null && !isCancelled()) {
                 if (result.getData() == null || result.getData().size() == 0) {
                     photoFragment.setSearchDidNotFindNewPhotos(true);
+                    photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
                 } else {
                     OCFileListAdapter adapter = photoFragment.getAdapter();
 

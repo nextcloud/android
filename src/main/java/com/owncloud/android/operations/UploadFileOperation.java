@@ -267,6 +267,10 @@ public class UploadFileOperation extends SyncOperation {
         return user.toPlatformAccount();
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public String getFileName() {
         return (mFile != null) ? mFile.getFileName() : null;
     }

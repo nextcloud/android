@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
     <string name="actionbar_calendar_contacts_restore">Obnovi stike koledarja &amp;</string>
-    <string name="actionbar_contacts">Shrani stike</string>
-    <string name="actionbar_contacts_restore">Obnovi stike</string>
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premakni</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
     <string name="advanced_settings">Napredne nastavitve</string>
-    <string name="allow_creating">Dovoli ustvarjanje</string>
-    <string name="allow_deleting">Dovoli brisanje</string>
-    <string name="allow_editing">Dovoli urejanje</string>
     <string name="allow_resharing">Dovoli nadaljnje omogočanje souporabe</string>
     <string name="appbar_search_in">Poišči v %s</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
@@ -85,7 +80,6 @@
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
-    <string name="battery_optimization_no_setting">Ni mogoče neposredno odpreti nastavitev baterije. Prilagoditi jih bo treba ročno.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
     <string name="calendar">Koledar</string>
@@ -156,21 +150,14 @@
     <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_new_file">Nova datoteka</string>
-    <string name="contaclist_restore_selected">Obnovi izbrane stike</string>
-    <string name="contactlist_account_chooser_title">Izberi račun za uvoz</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
-    <string name="contacts_automatic_backup">Samodejno shranjevanje</string>
     <string name="contacts_backup_button">Shrani zdaj</string>
-    <string name="contacts_last_backup">Zadnje shranjevanje</string>
-    <string name="contacts_preference_backup_never">nikoli</string>
-    <string name="contacts_preference_choose_date">Izberi datum</string>
     <string name="contacts_preferences_backup_scheduled">Ustvarjanje varnostne kopije je načrtovano in se bo kmalu začelo.</string>
     <string name="contacts_preferences_import_scheduled">Uvoz je načrtovan in se bo kmalu začel.</string>
     <string name="contacts_preferences_no_file_found">Ne najdem datoteke</string>
     <string name="contacts_preferences_something_strange_happened">Zadnje varnostne kopije ni mogoče najti!</string>
-    <string name="contacts_read_permission">Zahtevano je dovoljenje za branje seznama stikov</string>
     <string name="copied_to_clipboard">Kopirano v odložišče</string>
     <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
     <string name="copy_file_invalid_into_descendent">Ni mogoče kopirati mape v podrejeno mapo</string>
@@ -244,7 +231,6 @@
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
-    <string name="edit_label">Spremeni ime</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -264,10 +250,10 @@
     <string name="enter_filename">Vpisati je treba ime datoteke</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
+    <string name="error_choosing_date">Napaka izbora datuma</string>
     <string name="error_comment_file">Napaka dodajanja opombe k datoteki</string>
     <string name="error_crash_title">Program %1$s se je sesul.</string>
     <string name="error_report_issue_action">Poročilo</string>
-    <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
@@ -287,6 +273,9 @@
     <string name="etm_migrations">Preselitev (posodobitev programa)</string>
     <string name="etm_preferences">Nastavitve</string>
     <string name="etm_title">Inženirski preizkusni način</string>
+    <string name="etm_transfer">Prenos datoteke</string>
+    <string name="etm_transfer_enqueue_test_download">Uvrsti preizkusni prejem</string>
+    <string name="etm_transfer_enqueue_test_upload">Uvrsti preizkusno pošiljanje</string>
     <string name="etm_transfer_remote_path">Oddaljena pot</string>
     <string name="etm_transfer_type">Prenos</string>
     <string name="etm_transfer_type_download">Prejmi</string>
@@ -320,6 +309,7 @@
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
+    <string name="file_management_permission">Zahtevana so posebna dovoljenja</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
     <string name="file_migration_dialog_title">Poteka osodabljanje podatkovne mape</string>
@@ -454,6 +444,8 @@
     <string name="new_version_was_created">Ustvarjena je nova različica</string>
     <string name="no_actions">Ni dejanj za tega uporabnika</string>
     <string name="no_browser_available">Ni nameščenega programa, ki upravlja s povezavami</string>
+    <string name="no_calendar_exists">Ni nobenega koledarja</string>
+    <string name="no_email_app_available">Ni nameščenega programa, ki upravlja elektronskimi naslovi.</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="note_confirm">Pošlji</string>
@@ -461,10 +453,7 @@
     <string name="note_icon_hint">Ikona opombe</string>
     <string name="notification_action_failed">Izvedba dejanja je spodletela</string>
     <string name="notification_channel_download_description">Pokaži napredek prejemanja</string>
-    <string name="notification_channel_download_name">Kanal obvestil prejemanja</string>
     <string name="notification_channel_download_name_short">Prejemi</string>
-    <string name="notification_channel_file_observer_description">Preverjaj datoteke za spremembe</string>
-    <string name="notification_channel_file_observer_name">Opazovalnik datotek</string>
     <string name="notification_channel_file_sync_description">Pokaži napredek usklajevanja datotek in končana opravila</string>
     <string name="notification_channel_file_sync_name">Usklajevanje datotek</string>
     <string name="notification_channel_general_description">Pokaži obvestila za zaznane nove mape predstavnih vsebin in podobno</string>
@@ -474,7 +463,6 @@
     <string name="notification_channel_push_description">Pokaži potisna obvestila, ki jih pošilja strežnik. Omembe in opombe, obvestila o novih povezavah, objave skrbnika in podobno.</string>
     <string name="notification_channel_push_name">Potisna obvestila</string>
     <string name="notification_channel_upload_description">Pokaži napredek pošiljanja</string>
-    <string name="notification_channel_upload_name">Kanal obvestil pošiljanja</string>
     <string name="notification_channel_upload_name_short">Poslano</string>
     <string name="notification_icon">Obvestilna ikona</string>
     <string name="notifications_no_results_headline">Ni obvestil</string>
@@ -526,7 +514,6 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_daily_contacts_sync_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>
     <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaži obvestila iskanja predstavnih vsebin</string>
@@ -547,7 +534,6 @@
     <string name="prefs_lock_using_device_credentials">Poverila naprave</string>
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
-    <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -610,11 +596,13 @@
     <string name="send_note">Pošlji sporočilo prejemniku</string>
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
+    <string name="set_note">Nastavi sporočilo</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="set_status">Nastavi stanje</string>
     <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="share">Souporaba</string>
     <string name="share_dialog_title">Souporaba</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
@@ -632,11 +620,10 @@
     <string name="share_link_with_label">Povezava souporabe (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastavi datum preteka</string>
     <string name="share_no_password_title">Nastavi geslo</string>
-    <string name="share_open_in">Odpri v ...</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
     <string name="share_permission_view_only">Le ogled</string>
-    <string name="share_privilege_unshare">Prekini souporabo</string>
+    <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
     <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov…</string>
@@ -644,8 +631,7 @@
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_settings">Nastavitve</string>
     <string name="share_via_link_hide_download">Skrij prejem</string>
-    <string name="share_via_link_menu_password_label">Zaščiti z geslom (%1$s)</string>
-    <string name="share_via_link_section_title">Omogoči souporabo prek povezave</string>
+    <string name="share_via_link_section_title">Omogoči souporabo s povezavo</string>
     <string name="share_via_link_send_link_label">Pošlji povezavo</string>
     <string name="share_via_link_unset_password">Odstrani izbor</string>
     <string name="share_with_title">Omogoči souporabo …</string>
@@ -709,6 +695,7 @@
     <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
+    <string name="suggest">Predlagaj</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="sync_fail_content">Ni mogoče uskladiti %1$s</string>
@@ -754,12 +741,11 @@
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unset_favorite">Odstrani iz priljubljenih</string>
-    <string name="unshare">Prekini souporabo</string>
     <string name="unshare_link_file_error">Prišlo je do napake med prekinjanjem souporabe te datoteke ali mape.</string>
     <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
     <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
     <string name="unsharing_failed">Odstranjevanje souporabe je spodletelo</string>
-    <string name="untrusted_domain">Zaznan je dostop prek domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
+    <string name="untrusted_domain">Zaznan je dostop z domene, ki ni zaupanja vredna. Več podrobnosti je zapisanih v dokumentaciji.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
@@ -855,6 +841,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
+    <string name="write_email">Pošlji elektronsko sporočilo</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>
     <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba nastaviti podatkovno mapo.</string>
     <plurals name="sync_fail_in_favourites_content">

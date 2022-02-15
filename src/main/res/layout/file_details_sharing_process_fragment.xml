@@ -64,7 +64,7 @@
                     android:id="@+id/share_process_permission_read_only"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/link_share_read_only" />
+                    android:text="@string/link_share_view_only" />
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/share_process_permission_upload_editing"

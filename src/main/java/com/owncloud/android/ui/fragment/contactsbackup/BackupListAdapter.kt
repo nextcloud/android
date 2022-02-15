@@ -383,8 +383,8 @@ class BackupListAdapter(
             )
             if (cursor != null && cursor.count > 0) {
                 while (cursor.moveToNext()) {
-                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_NAME))
-                    val type = cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_TYPE))
+                    val name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_NAME))
+                    val type = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.ACCOUNT_TYPE))
                     val account = ContactsAccount(name, name, type)
                     if (!contactsAccounts.contains(account)) {
                         contactsAccounts.add(account)

@@ -209,10 +209,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
-    public void setFavoriteAttributeForItemID(String fileId, boolean favorite) {
+    public void setFavoriteAttributeForItemID(String fileId, boolean favorite, boolean removeFromList) {
         for (OCFile file : mFiles) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setFavorite(favorite);
+
+                if (removeFromList) {
+                    mFiles.remove(file);
+                }
+                
                 break;
             }
         }
@@ -220,6 +225,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCFile file : mFilesAll) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setFavorite(favorite);
+
+                mStorageManager.saveFile(file);
+
+                if (removeFromList) {
+                    mFiles.remove(file);
+                }
+
                 break;
             }
         }
@@ -983,12 +995,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
 
             try {
-                if (ExtendedListFragment.SearchType.GALLERY_SEARCH == searchType) {
-                    mStorageManager.saveFile(ocFile);
-                } else {
+                ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
 
-                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
-
+                if (ExtendedListFragment.SearchType.GALLERY_SEARCH != searchType) {
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();

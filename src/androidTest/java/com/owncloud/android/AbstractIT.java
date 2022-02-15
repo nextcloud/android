@@ -24,6 +24,7 @@ import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -79,6 +80,7 @@ public abstract class AbstractIT {
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     protected static OwnCloudClient client;
+    protected static NextcloudClient nextcloudClient;
     protected static Account account;
     protected static User user;
     protected static Context targetContext;
@@ -119,6 +121,7 @@ public abstract class AbstractIT {
             user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(account, targetContext);
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -134,7 +137,7 @@ public abstract class AbstractIT {
         // color
         String colorParameter = arguments.getString("COLOR");
         if (!TextUtils.isEmpty(colorParameter)) {
-            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user,
                                                                                        targetContext.getContentResolver());
 
             String colorHex = null;

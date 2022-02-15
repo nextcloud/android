@@ -14,8 +14,6 @@
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
-    <string name="actionbar_contacts">Respaldar contactos</string>
-    <string name="actionbar_contacts_restore">Restaurar contactos</string>
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
@@ -34,9 +32,6 @@
     <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace publico</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
-    <string name="allow_creating">Permitir creación</string>
-    <string name="allow_deleting">Permitir eliminación</string>
-    <string name="allow_editing">Permitir edición</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">¡No se encontró la cuenta asociada!</string>
@@ -82,7 +77,6 @@
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Deshabilitar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener la optimización de batería habilitada. La Carga Automática solo funciona adecuadamente si excluyes esta alicación de la optimización.</string>
-    <string name="battery_optimization_no_setting">No fue posible abrir los ajustes de batería directamente. Por favor ajústalos manualmente en Configuración.</string>
     <string name="battery_optimization_title">Optimización de la batería</string>
     <string name="brute_force_delay">Suspendido debido a múltiples intentos fallidos de inicio de sesión.</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
@@ -150,20 +144,13 @@
     <string name="conflict_file_headline">Archivo conflictivo %1$s</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número al final del nombre.</string>
     <string name="conflict_new_file">Archivo nuevo</string>
-    <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
-    <string name="contactlist_account_chooser_title">Selecciona la cuenta a importar</string>
     <string name="contactlist_item_icon">Ícono de usuario para la lista de contactos</string>
     <string name="contactlist_no_permission">No se han otorgado privilegios, nada fue importado.</string>
-    <string name="contacts_automatic_backup">Respaldo automático</string>
     <string name="contacts_backup_button">Respaldar ahora</string>
-    <string name="contacts_last_backup">Último respaldo</string>
-    <string name="contacts_preference_backup_never">nunca</string>
-    <string name="contacts_preference_choose_date">Selecciona una fecha</string>
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
     <string name="contacts_preferences_no_file_found">No se encontraron archivos</string>
     <string name="contacts_preferences_something_strange_happened">¡No fue posible encontrar tu último respaldo! </string>
-    <string name="contacts_read_permission">Se requiere el permiso para leer la lista de contactos</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
@@ -233,7 +220,6 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usado</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="edit_label">Cambiar nombre</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
@@ -256,7 +242,6 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueron</string>
     <string name="error_report_issue_action">Reportar</string>
-    <string name="error_report_issue_text">¿Reportar problema al desarrollador? (Se requiere una cuenta de GitHub)</string>
     <string name="error_retrieving_file">Error al obtener el archivo</string>
     <string name="error_retrieving_templates">Error al obtener las plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
@@ -404,9 +389,6 @@
     <string name="new_media_folder_videos">video</string>
     <string name="note_confirm">Enviar</string>
     <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
-    <string name="notification_channel_download_name">Canal de notificaciones de descarga</string>
-    <string name="notification_channel_file_observer_description">Monitorear cambios en los archivos</string>
-    <string name="notification_channel_file_observer_name">Observador de archivos</string>
     <string name="notification_channel_file_sync_description">Muestra el progreso de la sincronización de archivos y los resultados</string>
     <string name="notification_channel_file_sync_name">Sincronizar archivo</string>
     <string name="notification_channel_general_name">Notificaciones generales</string>
@@ -415,7 +397,6 @@
     <string name="notification_channel_push_description">Mostrar las notificaciones push enviadas por el servidor: Menciones en comentarios, recepción de nuevos elementos compartidos remotos, anuncios publicados por el administrador, etc.</string>
     <string name="notification_channel_push_name">Notificaciones push</string>
     <string name="notification_channel_upload_description">Muestra el progreso de la carga</string>
-    <string name="notification_channel_upload_name">Canal de notificaciones de carga</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
     <string name="offline_mode">No hay conexión a internet</string>
@@ -450,7 +431,6 @@
     <string name="prefs_category_dev">Desarrollo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
-    <string name="prefs_daily_contacts_sync_summary">Respaldo diario de tus contactos</string>
     <string name="prefs_gpl_v2">GNU Licencia Pública General, versión 2</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_imprint">Exención de responsabilidad </string>
@@ -461,7 +441,6 @@
     <string name="prefs_license">Licencia</string>
     <string name="prefs_lock_none">Ninguno</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
-    <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
@@ -508,10 +487,8 @@
     <string name="share_no_expiration_date_label">Establece la fecha de expiración</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_password_title">Protegido con contraseña</string>
-    <string name="share_privilege_unshare">Dejar de compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_via_link_hide_download">Ocultar descarga</string>
-    <string name="share_via_link_menu_password_label">Proteger con contraseña (%1$s)</string>
     <string name="share_via_link_section_title">Compartir liga</string>
     <string name="share_via_link_unset_password">Desestablecer</string>
     <string name="share_with_title">Compartir con…</string>
@@ -587,7 +564,6 @@
     <string name="trashbin_not_emptied">¡Los archivos no pudieron ser eliminados permanentemente!</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="unset_favorite">Eliminar de favoritos</string>
-    <string name="unshare">Dejar de compartir</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="unsharing_failed">Se presentó una falla al dejar de compartir</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>

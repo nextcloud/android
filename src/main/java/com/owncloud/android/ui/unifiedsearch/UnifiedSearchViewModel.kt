@@ -29,6 +29,7 @@ import androidx.lifecycle.MutableLiveData
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -64,10 +65,11 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    lateinit var currentAccountProvider: CurrentAccountProvider
-    lateinit var runner: AsyncRunner
-    lateinit var clientFactory: ClientFactory
-    lateinit var resources: Resources
+    private lateinit var currentAccountProvider: CurrentAccountProvider
+    private lateinit var runner: AsyncRunner
+    private lateinit var clientFactory: ClientFactory
+    private lateinit var resources: Resources
+    private lateinit var connectivityService: ConnectivityService
 
     private val context: Context
         get() = getApplication<Application>().applicationContext
@@ -90,11 +92,13 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         runner: AsyncRunner,
         clientFactory: ClientFactory,
         resources: Resources,
+        connectivityService: ConnectivityService
     ) : this(application) {
         this.currentAccountProvider = currentAccountProvider
         this.runner = runner
         this.clientFactory = clientFactory
         this.resources = resources
+        this.connectivityService = connectivityService
 
         repository = UnifiedSearchRemoteRepository(
             clientFactory,
@@ -115,31 +119,47 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
      * Clears data and queries all available providers
      */
     override fun initialQuery() {
-        results = mutableMapOf()
-        searchResults.value = mutableListOf()
-        val queryTerm = query.value.orEmpty()
+        doWithConnectivityCheck {
+            results = mutableMapOf()
+            searchResults.value = mutableListOf()
+            val queryTerm = query.value.orEmpty()
 
-        if (isLoading.value != true && queryTerm.isNotBlank()) {
-            isLoading.value = true
-            repository.queryAll(queryTerm, this::onSearchResult, this::onError, this::onSearchFinished)
+            if (isLoading.value != true && queryTerm.isNotBlank()) {
+                isLoading.value = true
+                repository.queryAll(queryTerm, this::onSearchResult, this::onError, this::onSearchFinished)
+            }
         }
     }
 
     override fun loadMore(provider: ProviderID) {
-        val queryTerm = query.value.orEmpty()
+        doWithConnectivityCheck {
+            val queryTerm = query.value.orEmpty()
 
-        if (isLoading.value != true && queryTerm.isNotBlank()) {
-            results[provider]?.nextCursor()?.let { cursor ->
-                isLoading.value = true
-                repository.queryProvider(
-                    queryTerm,
-                    provider,
-                    cursor,
-                    this::onSearchResult,
-                    this::onError,
-                    this::onSearchFinished
-                )
+            if (isLoading.value != true && queryTerm.isNotBlank()) {
+                results[provider]?.nextCursor()?.let { cursor ->
+                    isLoading.value = true
+                    repository.queryProvider(
+                        queryTerm,
+                        provider,
+                        cursor,
+                        this::onSearchResult,
+                        this::onError,
+                        this::onSearchFinished
+                    )
+                }
             }
+        }
+    }
+
+    private fun doWithConnectivityCheck(block: () -> Unit) {
+        when (connectivityService.connectivity.isConnected) {
+            false -> {
+                error.value = resources.getString(R.string.offline_mode)
+                if (isLoading.value == true) {
+                    isLoading.value = false
+                }
+            }
+            else -> block()
         }
     }
 
@@ -147,8 +167,19 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         if (result.isFile) {
             openFile(result.remotePath())
         } else {
-            val uri = Uri.parse(result.resourceUrl)
-            this.browserUri.value = uri
+            this.browserUri.value = getResultUri(result)
+        }
+    }
+
+    private fun getResultUri(result: SearchResultEntry): Uri {
+        val uri = Uri.parse(result.resourceUrl)
+        return when (uri.host) {
+            null -> {
+                val serverUrl = currentAccountProvider.user.server.uri.toString()
+                val fullUrl = serverUrl + result.resourceUrl
+                Uri.parse(fullUrl)
+            }
+            else -> uri
         }
     }
 
@@ -160,7 +191,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
                 context,
                 fileUrl,
                 clientFactory.create(currentAccountProvider.user),
-                FileDataStorageManager(user.toPlatformAccount(), context.contentResolver),
+                FileDataStorageManager(user, context.contentResolver),
                 user
             )
             runner.postQuickTask(task, onResult = this::onFileRequestResult)
@@ -213,7 +244,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
             }
     }
 
-    fun onSearchFinished(success: Boolean) {
+    private fun onSearchFinished(success: Boolean) {
         Log_OC.d(TAG, "onSearchFinished: success: $success")
         isLoading.value = false
         if (!success) {
@@ -237,5 +268,10 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
 
     override fun setQuery(query: String) {
         this.query.value = query
+    }
+
+    @VisibleForTesting
+    fun setConnectivityService(connectivityService: ConnectivityService) {
+        this.connectivityService = connectivityService
     }
 }

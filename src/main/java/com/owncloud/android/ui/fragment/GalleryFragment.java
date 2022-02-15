@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -53,23 +54,25 @@ public class GalleryFragment extends OCFileListFragment {
     private SearchEvent searchEvent;
     private boolean refresh;
 
-    public GalleryFragment() {
-        this.refresh = false;
-    }
+    private void createOperation() {
+        if(searchEvent == null) {
+            searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
+        }
+        if(searchRemoteOperation == null) {
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(accountManager.getUser().getAccountName());
 
-    public GalleryFragment(boolean refresh) {
-        this.refresh = refresh;
+            searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
+                                                              searchEvent.getSearchType(),
+                                                              false,
+                                                              ocCapability);
+        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
-
-        searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
-                                                          searchEvent.getSearchType(),
-                                                          false);
+        refresh = true;
     }
 
     @Override
@@ -86,6 +89,7 @@ public class GalleryFragment extends OCFileListFragment {
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        createOperation();
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -122,6 +126,12 @@ public class GalleryFragment extends OCFileListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setLoading(photoSearchQueryRunning);
+    }
+
+    @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         super.onMessageEvent(changeMenuEvent);
     }
@@ -139,7 +149,7 @@ public class GalleryFragment extends OCFileListFragment {
                 mContainerActivity.getStorageManager(),
                 mFile,
                 true);
-
+            photoSearchNoNew = false;
             refresh = false;
         } else {
             mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());

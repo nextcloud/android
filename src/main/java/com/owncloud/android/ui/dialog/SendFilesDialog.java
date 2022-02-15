@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.nextcloud.client.utils.IntentUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.adapter.SendButtonAdapter;
@@ -80,9 +82,15 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.send_files_fragment, container, false);
 
         // populate send apps
-        Intent sendIntent = createSendIntent();
+        Intent sendIntent = IntentUtil.createSendIntent(requireContext(), files);
+        List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
+        if (matches.isEmpty()) {
+            Toast.makeText(getContext(), R.string.no_send_app, Toast.LENGTH_SHORT).show();
+            dismiss();
+            return null;
+        }
 
-        List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
+        List<SendButtonData> sendButtonDataList = setupSendButtonData(matches);
 
         SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
 
@@ -107,11 +115,11 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
     }
 
     @NonNull
-    private List<SendButtonData> setupSendButtonData(Intent sendIntent) {
+    private List<SendButtonData> setupSendButtonData(List<ResolveInfo> matches) {
         Drawable icon;
         SendButtonData sendButtonData;
         CharSequence label;
-        List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
+
         List<SendButtonData> sendButtonDataList = new ArrayList<>(matches.size());
         for (ResolveInfo match : matches) {
             icon = match.loadIcon(requireActivity().getPackageManager());
@@ -123,37 +131,5 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
             sendButtonDataList.add(sendButtonData);
         }
         return sendButtonDataList;
-    }
-
-    @NonNull
-    private Intent createSendIntent() {
-        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-        sendIntent.setType(getUniqueMimetype());
-        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, getExposedFileUris());
-        sendIntent.putExtra(Intent.ACTION_SEND, true);
-        return sendIntent;
-    }
-
-    @Nullable
-    private String getUniqueMimetype() {
-        String mimetype = files[0].getMimeType();
-
-        for (OCFile file : files) {
-            if (!mimetype.equals(file.getMimeType())) {
-                return null;
-            }
-        }
-
-        return mimetype;
-    }
-
-    private ArrayList<Uri> getExposedFileUris() {
-        ArrayList<Uri> uris = new ArrayList<>();
-
-        for (OCFile file : files) {
-            uris.add(file.getExposedFileUri(requireContext()));
-        }
-
-        return uris;
     }
 }

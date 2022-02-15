@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
     <string name="actionbar_calendar_contacts_restore">恢复联系人 &amp; 日历</string>
-    <string name="actionbar_contacts">备份联系人</string>
-    <string name="actionbar_contacts_restore">恢复联系人</string>
     <string name="actionbar_copy">复制</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move">移动</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_to_cloud">添加到%1$s</string>
     <string name="advanced_settings">高级设置</string>
-    <string name="allow_creating">允许创建</string>
-    <string name="allow_deleting">允许删除</string>
-    <string name="allow_editing">允许编辑</string>
     <string name="allow_resharing">允许二次共享</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
-    <string name="battery_optimization_no_setting">无法直接开启电池设置，请在设置中手动调整。</string>
     <string name="battery_optimization_title">电池优化</string>
     <string name="brute_force_delay">因过多的错误尝试而延误</string>
     <string name="calendar">日历</string>
@@ -156,23 +150,18 @@
     <string name="conflict_already_existing_file">已经存在的文件</string>
     <string name="conflict_dialog_error">创建冲突会话时出错！</string>
     <string name="conflict_file_headline">冲突文件 %1$s</string>
+    <string name="conflict_local_file">本地文件</string>
     <string name="conflict_message_description">如果您选择两个版本，则本地文件的名称后面将附加一个数字。</string>
     <string name="conflict_new_file">新文件</string>
-    <string name="contaclist_restore_selected">恢复选中的联系人</string>
-    <string name="contactlist_account_chooser_title">选择要导入的账号</string>
+    <string name="conflict_server_file">服务器文件</string>
     <string name="contactlist_item_icon">联系人列表的用户图标</string>
     <string name="contactlist_no_permission">未授予权限，没有文件被导入</string>
     <string name="contacts">联系人</string>
-    <string name="contacts_automatic_backup">自动备份</string>
     <string name="contacts_backup_button">现在备份</string>
-    <string name="contacts_last_backup">上次备份</string>
-    <string name="contacts_preference_backup_never">永远不</string>
-    <string name="contacts_preference_choose_date">选择时间</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
-    <string name="contacts_read_permission">需要更改阅读列表的权限</string>
     <string name="copied_to_clipboard">复制到剪贴板</string>
     <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
     <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
@@ -247,7 +236,6 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
-    <string name="edit_label">更改名称</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
@@ -271,8 +259,8 @@
     <string name="error_choosing_date">选择日期出错</string>
     <string name="error_comment_file">评论文件发生错误</string>
     <string name="error_crash_title">%1$s 崩溃了</string>
+    <string name="error_creating_file_from_template">从模板创建文件时出错</string>
     <string name="error_report_issue_action">报告</string>
-    <string name="error_report_issue_text">向跟踪器报告问题吗？（需要一个 Github 账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
@@ -314,6 +302,7 @@
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
     <string name="file_list_empty_favorites_filter_list">您收藏的文件和文件夹将在这里显示。</string>
+    <string name="file_list_empty_gallery">未找到图片或视频</string>
     <string name="file_list_empty_headline">这里没有文件</string>
     <string name="file_list_empty_headline_search">这个文件夹没有结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
@@ -324,11 +313,13 @@
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">您共享的文件和文件夹将在这里显示。</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
+    <string name="file_list_empty_unified_search_no_results">未找到查询的结果</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission">需要权限</string>
+    <string name="file_management_permission_text">%1$s 需要文件管理权限才能正常工作。请在下面的屏幕中启用它以继续。</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
     <string name="file_migration_cleaning">清除中…</string>
     <string name="file_migration_dialog_title">正在更新数据存储文件夹</string>
@@ -387,6 +378,7 @@
     <string name="forward">向前</string>
     <string name="fourHours">4 小时</string>
     <string name="fullscreen">全屏</string>
+    <string name="hidden_file_name_warning">名称会导致隐藏的文件</string>
     <string name="hint_name">名称</string>
     <string name="hint_note">备注</string>
     <string name="hint_password">密码</string>
@@ -474,10 +466,7 @@
     <string name="note_icon_hint">笔记图标</string>
     <string name="notification_action_failed">执行动作失败。</string>
     <string name="notification_channel_download_description">显示下载进度</string>
-    <string name="notification_channel_download_name">下载提醒频道</string>
     <string name="notification_channel_download_name_short">下载</string>
-    <string name="notification_channel_file_observer_description">监视文件修改</string>
-    <string name="notification_channel_file_observer_name">文件监视器</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
     <string name="notification_channel_file_sync_name">文件同步</string>
     <string name="notification_channel_general_description">有新消息时显示通知</string>
@@ -487,7 +476,6 @@
     <string name="notification_channel_push_description">显示服务端推送的通知，包括：在评论中被提及、收到新的远程共享、管理员发布的公告等</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
-    <string name="notification_channel_upload_name">上传提醒频道</string>
     <string name="notification_channel_upload_name_short">上传</string>
     <string name="notification_icon">通知图标</string>
     <string name="notifications_no_results_headline">没有提示</string>
@@ -540,7 +528,6 @@
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">每天备份日历 &amp; 联系人</string>
-    <string name="prefs_daily_contacts_sync_summary">每日备份您的联系人</string>
     <string name="prefs_e2e_mnemonic">端到端加密</string>
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="prefs_enable_media_scan_notifications">显示媒体扫描通知</string>
@@ -561,7 +548,6 @@
     <string name="prefs_lock_using_device_credentials">设备凭证</string>
     <string name="prefs_lock_using_passcode">安全码</string>
     <string name="prefs_manage_accounts">管理账号</string>
-    <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_storage_path">数据存储文件夹</string>
@@ -641,7 +627,6 @@
     <string name="share_internal_link_to_folder_text">内部共享链接仅对有权访问此文件夹的用户有效</string>
     <string name="share_known_remote_on_clarification">在 %1$s</string>
     <string name="share_link">共享链接</string>
-    <string name="share_link_empty_note_message">请输入附注</string>
     <string name="share_link_empty_password">您必须输入密码</string>
     <string name="share_link_file_error">尝试共享此文件或文件夹时发生错误。</string>
     <string name="share_link_file_no_exist">无法共享。请检查文件是否存在。</string>
@@ -651,13 +636,11 @@
     <string name="share_link_with_label">共享链接 (%1$s)</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
-    <string name="share_open_in">打开方式</string>
     <string name="share_password_title">密码已受保护</string>
     <string name="share_permission_can_edit">可以编辑</string>
     <string name="share_permission_file_drop">文件拖放</string>
     <string name="share_permission_view_only">仅查看</string>
     <string name="share_permissions">分享权限</string>
-    <string name="share_privilege_unshare">取消共享</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">名称、联合云 ID 或电子邮件地址 ...</string>
@@ -665,7 +648,6 @@
     <string name="share_send_note">收件人备注</string>
     <string name="share_settings">设置</string>
     <string name="share_via_link_hide_download">隐藏下载</string>
-    <string name="share_via_link_menu_password_label">密码保护 (%1$s)</string>
     <string name="share_via_link_section_title">共享链接</string>
     <string name="share_via_link_send_link_label">发送链接</string>
     <string name="share_via_link_unset_password">未设置</string>
@@ -779,7 +761,6 @@
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="unset_favorite">从收藏列表移除</string>
-    <string name="unshare">取消共享</string>
     <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误。</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在。</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>

@@ -15,8 +15,6 @@
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter &amp; kalender</string>
-    <string name="actionbar_contacts">Backup kontaktpersoner</string>
-    <string name="actionbar_contacts_restore">Genskab kontaktpersoner</string>
     <string name="actionbar_copy">Kopiér</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flyt</string>
@@ -36,9 +34,6 @@
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
     <string name="advanced_settings">Avancerede indstillinger</string>
-    <string name="allow_creating">Tillad oprettelse</string>
-    <string name="allow_deleting">Tillad sletning</string>
-    <string name="allow_editing">Tillad redigering</string>
     <string name="allow_resharing">Tillad videredeling</string>
     <string name="appbar_search_in">Søg i %s</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
@@ -86,7 +81,6 @@
     <string name="battery_optimization_close">Luk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhed har batterioptimisering aktiveret. Autoupload aktiveret. Autoupload virker kun korrekt hvis du ekskluderer denne app fra det.</string>
-    <string name="battery_optimization_no_setting">Kan ikke starte batteriindstillinger. Tilpas venligst indstillingerne manuelt.</string>
     <string name="battery_optimization_title">Batterioptimisering</string>
     <string name="brute_force_delay">Udsat på grund af for mange forkerte forsøg</string>
     <string name="calendar">Kalender</string>
@@ -156,23 +150,18 @@
     <string name="conflict_already_existing_file">Eksisterende photo</string>
     <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
     <string name="conflict_file_headline">Fil i konflikt %1$s</string>
+    <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_new_file">Ny fil</string>
-    <string name="contaclist_restore_selected">Genskab valgte kontakter</string>
-    <string name="contactlist_account_chooser_title">Vælg konto at importere</string>
+    <string name="conflict_server_file">Server fil</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilladelse givet, intet importeret.</string>
     <string name="contacts">Kontakter</string>
-    <string name="contacts_automatic_backup">Automatisk backup</string>
     <string name="contacts_backup_button">Backup nu</string>
-    <string name="contacts_last_backup">Sidste backup</string>
-    <string name="contacts_preference_backup_never">aldrig</string>
-    <string name="contacts_preference_choose_date">Vælg dato</string>
     <string name="contacts_preferences_backup_scheduled">Backup planlagt og starter snart</string>
     <string name="contacts_preferences_import_scheduled">Import planlagt og starter snart</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
     <string name="contacts_preferences_something_strange_happened">Kunne ikke finde din sidste backup!</string>
-    <string name="contacts_read_permission">Brug for tilladelse til at læse kontakter</string>
     <string name="copied_to_clipboard">Kopieret til udklipsholder</string>
     <string name="copy_file_error">Der opstod en fejl under forsøg på at kopiere denne fil eller mappe</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til én af dens egne undermapper</string>
@@ -247,7 +236,6 @@
     <string name="drawer_quota">%1$s af %2$s brugt</string>
     <string name="drawer_quota_unlimited">%1$s brugt</string>
     <string name="drawer_synced_folders">Auto upload</string>
-    <string name="edit_label">Skift navn</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
@@ -264,13 +252,15 @@
     <string name="end_to_end_encryption_title">Indstil kryptering</string>
     <string name="end_to_end_encryption_unsuccessful">Kunne ikke gemme nøgler, prøv venligts igen.</string>
     <string name="end_to_end_encryption_wrong_password">Fejl ved dekryptering. Forkert kodeord?</string>
+    <string name="enter_destination_filename">Vælg destinations filnavn</string>
     <string name="enter_filename">Indtast venligst et filnavn.</string>
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
     <string name="error_cant_bind_to_operations_service">Kritisk fejl: Ude af stand til at udføre handlingerne</string>
+    <string name="error_choosing_date">Fejl ved valg af dato</string>
     <string name="error_comment_file">kommentering af fil fejlet</string>
     <string name="error_crash_title">%1$s krakket</string>
+    <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
     <string name="error_report_issue_action">Rapporter</string>
-    <string name="error_report_issue_text">Rapporter problem til opfølger? (Kræver en Github konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
@@ -312,6 +302,7 @@
     <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
     <string name="file_list_empty_favorite_headline">Send/Del</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil blive vist her.</string>
+    <string name="file_list_empty_gallery">Fandt ingen billeder eller videoer</string>
     <string name="file_list_empty_headline">Her er ingen filer</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
@@ -322,11 +313,13 @@
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
+    <string name="file_list_empty_unified_search_no_results">Ingen resultater fundet for din forespørgsel</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_management_permission">Tilladelser er nødvendige</string>
+    <string name="file_management_permission_text">%1$s har brug for filhåndteringstilladelser for at fungere korrekt. Aktiver det på følgende skærmbillede for at fortsætte.</string>
     <string name="file_migration_checking_destination">Tjekker destination...</string>
     <string name="file_migration_cleaning">Renser ud...</string>
     <string name="file_migration_dialog_title">Opdaterer data lagringsmappe</string>
@@ -385,6 +378,7 @@
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
     <string name="fullscreen">Fuldskærm</string>
+    <string name="hidden_file_name_warning">Navn vil resultere i en skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Note</string>
     <string name="hint_password">Adgangskode</string>
@@ -404,7 +398,9 @@
     <string name="link_share_editing">Redigering</string>
     <string name="link_share_file_drop">Fil drop (kun upload)</string>
     <string name="link_share_read_only">Skrivebeskyttet</string>
+    <string name="link_share_view_only">Kun visning</string>
     <string name="list_layout">Liste layout</string>
+    <string name="load_more_results">Indlæs flere resultater</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="local_file_not_found_message">Fil ikke fundet i lokalt filsystem</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -458,20 +454,19 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Ny Notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
+    <string name="no_actions">Ingen handlinger for denne bruger</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
+    <string name="no_share_permission_selected">Vælg mindst én tilladelse til at dele.</string>
     <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kunne ikke sende note</string>
     <string name="note_icon_hint">Note ikon</string>
     <string name="notification_action_failed">Handling fejlede</string>
     <string name="notification_channel_download_description">Viser overførsels fremskridt </string>
-    <string name="notification_channel_download_name">Hente notifikations kanal</string>
     <string name="notification_channel_download_name_short">Downloads</string>
-    <string name="notification_channel_file_observer_description">Overvåger filændringer</string>
-    <string name="notification_channel_file_observer_name">Fil observatør</string>
     <string name="notification_channel_file_sync_description">Viser fil synkronisation fremskridt og resultater</string>
     <string name="notification_channel_file_sync_name">Filsynkronisering</string>
     <string name="notification_channel_general_description">Vis notifikationer for nye medie mapper eller lignende</string>
@@ -481,7 +476,7 @@
     <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Kommentarer, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
-    <string name="notification_channel_upload_name">Sende notifikations kanal</string>
+    <string name="notification_channel_upload_name_short">Uploadede filer</string>
     <string name="notification_icon">Notifikationsikon</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
@@ -513,7 +508,7 @@
     <string name="player_toggle">skift</string>
     <string name="power_save_check_dialog_message">Deaktiver strømsparecheck kan føre til forsendelse af filer mens der ikke resterer meget strøm på batteriet</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
-    <string name="pref_behaviour_entries_keep_file">forblevet i oprindelig mappe</string>
+    <string name="pref_behaviour_entries_keep_file">forblive i oprindelig mappe</string>
     <string name="pref_behaviour_entries_move">Overført til app mappe</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Spørg mig altid</string>
@@ -532,7 +527,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
-    <string name="prefs_daily_contacts_sync_summary">Daglig backup af dine kontakter</string>
+    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp;kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>
@@ -555,7 +550,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
-    <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
     <string name="prefs_storage_path">Lagringsmappe for data</string>
@@ -624,6 +618,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="share">Del</string>
+    <string name="share_copy_link">Del &amp;Kopier Link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
@@ -643,12 +638,11 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
-    <string name="share_open_in">Åbn i...</string>
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_drop">Fil drop</string>
+    <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Del Tilladelser</string>
-    <string name="share_privilege_unshare">Fjern deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, Fødereret Cloud ID eller email adresse ...</string>
@@ -656,7 +650,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>
     <string name="share_via_link_hide_download">Skjul download</string>
-    <string name="share_via_link_menu_password_label">Beskyt med adgangskode (%1$s)</string>
     <string name="share_via_link_section_title">Del link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_via_link_unset_password">Fjern indstilling</string>
@@ -767,7 +760,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="unread_comments">Der er ulæste kommentarer</string>
     <string name="unset_encrypted">Slå kryptering fra</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare">Ophæv deling</string>
     <string name="unshare_link_file_error">Der opstod en fejl under forsøget på at stoppe med at dele denne fil eller mappe.</string>
     <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Undersøg venligst om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">til at stoppe deling af denne fil</string>
@@ -878,6 +870,22 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">%1$d fil fra %2$s mappe kunne ikke kopieres ind</item>
         <item quantity="other">%1$d filer fra %2$s mappe kunne ikke kopieres ind</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Skrev %1$d begivenhed til %2$s</item>
+        <item quantity="other">Skrev %1$d begivenheder til %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Oprettet %1$d frisk UID</item>
+        <item quantity="other">Oprettede %1$d nye UID\'er</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Behandlet %d post.</item>
+        <item quantity="other">Behandlede %d poster.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Fundet %d dubletpost.</item>
+        <item quantity="other">Fundet %d duplikerede poster.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappe</item>

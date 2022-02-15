@@ -13,8 +13,6 @@
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
-    <string name="actionbar_contacts">Dublēt kontaktus</string>
-    <string name="actionbar_contacts_restore">Atjaunot kontaktus</string>
     <string name="actionbar_copy">Kopēt</string>
     <string name="actionbar_mkdir">Jauna mape</string>
     <string name="actionbar_move">Pārvietot</string>
@@ -31,7 +29,6 @@
     <string name="activity_icon">Darbības</string>
     <string name="add_another_public_share_link">Pievienot citu saiti</string>
     <string name="add_to_cloud">Pievienot %1$s</string>
-    <string name="allow_editing">Atļaut rediģēšanu</string>
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
@@ -123,18 +120,11 @@
     <string name="conflict_already_existing_file">Jau esošs fails</string>
     <string name="conflict_dialog_error">Kļūda veidojot konfliktu dialogu!</string>
     <string name="conflict_new_file">Jauns fails</string>
-    <string name="contaclist_restore_selected">Atjaunot izvēlētos kontaktus</string>
-    <string name="contactlist_account_chooser_title">Izvēlieties kontu importēšanai</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
-    <string name="contacts_automatic_backup">Automātiskā dublēšana</string>
     <string name="contacts_backup_button">Dublēt tagad</string>
-    <string name="contacts_last_backup">Pēdējais dublējums</string>
-    <string name="contacts_preference_backup_never">nekad</string>
-    <string name="contacts_preference_choose_date">Izvēlies datumu</string>
     <string name="contacts_preferences_no_file_found">Datne nav atrasta</string>
     <string name="contacts_preferences_something_strange_happened">Nevarēja atrast pēdējo dublējumu!</string>
-    <string name="contacts_read_permission">Vajadzīga atļauja lasīt kontaktu sarakstu</string>
     <string name="copied_to_clipboard">Nokopēts starpliktuvē</string>
     <string name="copy_file_error">Radās kļūda, mēģinot kopēt šo datni vai mapi</string>
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
@@ -343,7 +333,6 @@
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
-    <string name="prefs_daily_contacts_sync_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
     <string name="prefs_help">Palīdzība</string>
@@ -359,7 +348,6 @@
     <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
     <string name="prefs_lock_using_passcode">Kods</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
-    <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
@@ -400,10 +388,8 @@
     <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
     <string name="share_no_password_title">Uzstādīt paroli</string>
     <string name="share_password_title">Aizsargāts ar paroli</string>
-    <string name="share_privilege_unshare">Pārtraukt dalīšanos</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
     <string name="share_via_link_hide_download">Slēpt lejupielādi</string>
-    <string name="share_via_link_menu_password_label">Aizsargāt ar paroli (%1$s)</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
     <string name="share_via_link_send_link_label">Sūtīt saiti</string>
     <string name="share_via_link_unset_password">Neuzstādīts</string>
@@ -469,7 +455,6 @@
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no favorītiem</string>
-    <string name="unshare">Pārtraukt dalīšanos</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
