@@ -254,6 +254,13 @@
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
+    <style name="Theme.ownCloud.OverlayGrey" parent="Theme.ownCloud.OverlayBase">
+        <item name="android:navigationBarColor">@color/grey_400</item>
+        <item name="android:background">@color/grey_400</item>
+        <item name="android:windowBackground">@color/grey_400</item>
+        <item name="android:colorBackground">@color/grey_400</item>
+    </style>
+
     <!-- ACTION BAR STYLES -->
     <style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="android:background">@color/color_transparent</item>

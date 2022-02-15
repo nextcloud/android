@@ -107,6 +107,7 @@ import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
@@ -731,6 +732,9 @@ public class FileDisplayActivity extends FileActivity
                         } else if (PreviewTextFileFragment.canBePreviewed(mWaitingToPreview)) {
                             startTextPreview(mWaitingToPreview, true);
                             detailsFragmentChanged = true;
+                        } else if (MimeTypeUtil.isPDF(mWaitingToPreview)) {
+                            startPdfPreview(mWaitingToPreview);
+                            detailsFragmentChanged = true;
                         } else {
                             getFileOperationsHelper().openFile(mWaitingToPreview);
                         }
@@ -846,7 +850,7 @@ public class FileDisplayActivity extends FileActivity
                 onBackPressed();
             } else if (getLeftFragment() instanceof FileDetailFragment ||
                 getLeftFragment() instanceof PreviewMediaFragment ||
-                getLeftFragment() instanceof UnifiedSearchFragment) {
+                getLeftFragment() instanceof UnifiedSearchFragment || getLeftFragment() instanceof PreviewPdfFragment) {
                 onBackPressed();
             } else {
                 openDrawer();
@@ -2257,6 +2261,24 @@ public class FileDisplayActivity extends FileActivity
         ContactsPreferenceActivity.startActivityWithContactsFile(this, user, file);
     }
 
+    public void startPdfPreview(OCFile file) {
+        if (getFileOperationsHelper().canOpenFile(file)) {
+            // prefer third party PDF apps
+            getFileOperationsHelper().openFile(file);
+        } else {
+            final Fragment pdfFragment = PreviewPdfFragment.newInstance(file);
+
+            setLeftFragment(pdfFragment);
+            updateFragmentsVisibility(false);
+
+            updateActionBarTitleAndHomeButton(file);
+            showSortListGroup(false);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            setMainFabVisible(false);
+        }
+    }
+
+
     /**
      * Requests the download of the received {@link OCFile} , updates the UI to monitor the download progress and
      * prepares the activity to preview or open the file when the download finishes.
@@ -2518,7 +2540,7 @@ public class FileDisplayActivity extends FileActivity
         setLeftFragment(unifiedSearchFragment);
     }
 
-    public void setMainFabVisible(final Boolean visible) {
+    public void setMainFabVisible(final boolean visible) {
         final int visibility = visible ? View.VISIBLE : View.GONE;
         binding.fabMain.setVisibility(visibility);
     }
