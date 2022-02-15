@@ -64,7 +64,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         newFile.setModificationTimestamp(1522019340);
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
-        OCFile existingFile = new OCFile("/newFile.txt");
+        OCFile existingFile = new OCFile("/newFile.txt", "4546546");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
@@ -157,7 +157,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           "/newFile.txt",
                                           user.getAccountName());
 
-        OCFile existingFile = new OCFile("/newFile.txt");
+        OCFile existingFile = new OCFile("/newFile.txt", "123221");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
@@ -198,7 +198,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           "/newFile.txt",
                                           user.getAccountName());
 
-        OCFile existingFile = new OCFile("/newFile.txt");
+        OCFile existingFile = new OCFile("/newFile.txt", "121312");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
@@ -243,7 +243,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           "/newFile.txt",
                                           user.getAccountName());
 
-        OCFile existingFile = new OCFile("/newFile.txt");
+        OCFile existingFile = new OCFile("/newFile.txt", "12354455");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
         existingFile.setRemoteId("123abc");
@@ -289,7 +289,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           "/newFile.txt",
                                           user.getAccountName());
 
-        OCFile existingFile = new OCFile("/newFile.txt");
+        OCFile existingFile = new OCFile("/newFile.txt", "564564");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 

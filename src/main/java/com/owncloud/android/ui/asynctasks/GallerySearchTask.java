@@ -176,7 +176,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         Log_OC.d(this, "Gallery search result:" +
             " new: " + filesToAdd.size() +
             " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.values().size());
+            " deleted: " + localFilesMap.size());
 
         return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
     }
