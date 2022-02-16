@@ -312,10 +312,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         switch (item.getItemId()) {
 
             case R.id.action_three_dot_icon:
-                //  if(photoSearchQueryRunning) {
-                galleryFragmentBottomSheetDialog.show();
-                return true;
-            // }
+                if(!photoSearchQueryRunning) {
+                    galleryFragmentBottomSheetDialog.show();
+                    return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
