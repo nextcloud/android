@@ -478,6 +478,7 @@
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
     <string name="share_password_title">Password-protected</string>
+    <string name="share_privilege_unshare">Unshare</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
@@ -735,6 +736,9 @@
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="allow_creating">Allow creating</string>
+    <string name="allow_deleting">Allow deleting</string>
+    <string name="allow_editing">Allow editing</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_scan_document">Scan Document</string>
@@ -801,6 +805,7 @@
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
     <string name="share_via_link_hide_download">Hide download</string>
+    <string name="share_via_link_menu_password_label">Password protect (%1$s)</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
@@ -922,6 +927,13 @@
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_server_file">Server file</string>
+    <string name="contaclist_restore_selected">Restore selected contacts</string>
+    <string name="contactlist_account_chooser_title">Choose account to import</string>
+    <string name="conflict_already_existing_file">Already existing file</string>
+    <string name="contacts_automatic_backup">Automatic backup</string>
+    <string name="contacts_last_backup">Last backup</string>
+    <string name="contacts_preference_backup_never">never</string>
+    <string name="contacts_preference_choose_date">Choose date</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="invalid_url">Invalid URL</string>
@@ -936,7 +948,7 @@
     <string name="share_link_folder">Link to folder</string>
     <string name="share_link_file">Link to file</string>
     <string name="allow_resharing">Allow resharing</string>
-    <string name="link_share_view_only">View only</string>
+    <string name="link_share_read_only">Read only</string>
     <string name="link_share_editing">Editing</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>

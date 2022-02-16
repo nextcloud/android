@@ -435,9 +435,6 @@
         <item name="android:textColor">@color/text_color</item>
     </style>
 
-    <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
-    </style>
-
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>

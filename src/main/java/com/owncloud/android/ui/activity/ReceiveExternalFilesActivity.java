@@ -95,7 +95,6 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 

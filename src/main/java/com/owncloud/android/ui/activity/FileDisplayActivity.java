@@ -63,7 +63,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
-import com.nmc.android.ui.ScanDocumentFragment;
 import com.nmc.android.utils.KeyboardUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;

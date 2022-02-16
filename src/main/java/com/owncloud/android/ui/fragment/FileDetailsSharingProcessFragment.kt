@@ -590,7 +590,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                     .shareProcessHideDownloadCheckbox.isChecked,
                 binding.shareProcessEnterPassword.text.toString().trim(),
                 chosenExpDateInMills,
-                noteText,
+                binding.noteText.text.toString().trim(),
                 binding.shareProcessChangeNameEt.text.toString().trim()
             )
         }
