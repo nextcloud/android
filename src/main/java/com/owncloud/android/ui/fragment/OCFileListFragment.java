@@ -1501,7 +1501,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         prepareCurrentSearch(event);
         searchFragment = true;
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile, true);
+        mAdapter.setData(new ArrayList<>(),
+                         SearchType.NO_SEARCH,
+                         mContainerActivity.getStorageManager(),
+                         mFile,
+                         true);
 
         setFabVisible(false);
 

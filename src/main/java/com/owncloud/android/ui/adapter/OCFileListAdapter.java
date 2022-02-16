@@ -137,6 +137,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
+    private boolean showMetadata = true;
 
     public OCFileListAdapter(
         Activity activity,
@@ -298,6 +299,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             return mFiles.size() + 1; // for footer
         }
+    }
+
+    public boolean isEmpty() {
+        return mFiles.size() == 0;
     }
 
     @NonNull
@@ -469,35 +474,37 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             gridViewHolder.getLocalFileIndicator().setVisibility(View.INVISIBLE);   // default first
 
-            OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
-            FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
-            FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
-            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
-                //synchronizing
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+            if (showMetadata) {
+                OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
+                FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
+                FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
+                if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
+                    //synchronizing
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
-                // downloading
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
+                    // downloading
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
-                //uploading
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
+                    //uploading
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (file.getEtagInConflict() != null) {
-                // conflict
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing_error);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (file.getEtagInConflict() != null) {
+                    // conflict
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing_error);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
 
-            } else if (file.isDown()) {
-                gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                } else if (file.isDown()) {
+                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
+                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
+                }
+
+                gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
             }
-
-            gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
 
             if (multiSelect) {
                 gridViewHolder.getCheckbox().setVisibility(View.VISIBLE);
@@ -753,7 +760,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        if (MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyOnDevice() || ocFileListFragmentInterface.isSearchFragment()) {
             return false;
         }
 
@@ -857,8 +864,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-
-
     public void setData(List<Object> objects,
                         ExtendedListFragment.SearchType searchType,
                         FileDataStorageManager storageManager,
@@ -891,7 +896,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     break;
             }
 
-            mStorageManager.deleteVirtuals(type);
+            if (type != VirtualFolderType.GALLERY) {
+                mStorageManager.deleteVirtuals(type);
+            }
         }
 
         // early exit
@@ -899,7 +906,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
-                parseVirtuals(objects, searchType);
+                if (searchType != ExtendedListFragment.SearchType.GALLERY_SEARCH) {
+                    parseVirtuals(objects, searchType);
+                }
             }
         }
 
@@ -1029,6 +1038,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
         mStorageManager.saveVirtuals(contentValues);
+    }
+
+    public void showAllGalleryItems(FileDataStorageManager storageManager) {
+        if (mStorageManager == null) {
+            mStorageManager = storageManager;
+        }
+        mFiles = mStorageManager.getAllGalleryItems();
+        FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
+        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
     public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {
@@ -1185,6 +1207,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setGridView(boolean bool) {
         gridView = bool;
+    }
+
+    public void setShowMetadata(boolean bool) {
+        showMetadata = bool;
     }
 
     @VisibleForTesting

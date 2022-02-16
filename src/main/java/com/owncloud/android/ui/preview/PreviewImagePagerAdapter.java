@@ -116,10 +116,12 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         this.user = user;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
 
         if (type == VirtualFolderType.GALLERY) {
+            mImageFiles = mStorageManager.getAllGalleryItems();
             mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+        } else {
+            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
         }
 
         mObsoleteFragments = new HashSet<>();
