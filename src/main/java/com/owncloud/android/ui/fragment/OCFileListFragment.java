@@ -986,6 +986,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         }
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                         ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
+                    } else if (file.isDown() && MimeTypeUtil.isPDF(file)) {
+                        ((FileDisplayActivity) mContainerActivity).startPdfPreview(file);
                     } else if (PreviewTextFileFragment.canBePreviewed(file)) {
                         setFabVisible(false);
                         resetHeaderScrollingState();

@@ -51,6 +51,9 @@ import com.nextcloud.client.migrations.MigrationsManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.Throttler;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -61,7 +64,6 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
-import com.nextcloud.client.utils.Throttler;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -236,5 +238,11 @@ class AppModule {
     @Provides
     Throttler throttler(Clock clock) {
         return new Throttler(clock);
+    }
+
+    @Provides
+    @Singleton
+    PassCodeManager passCodeManager(AppPreferences preferences, Clock clock) {
+        return new PassCodeManager(preferences, clock);
     }
 }

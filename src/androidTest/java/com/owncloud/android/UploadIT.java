@@ -43,6 +43,10 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 
@@ -414,6 +418,58 @@ public class UploadIT extends AbstractOnServerIT {
         RemoteOperationResult result = newUpload.execute(client);
         assertFalse(result.toString(), result.isSuccess());
         assertEquals(RemoteOperationResult.ResultCode.DELAYED_FOR_WIFI, result.getCode());
+    }
+
+    @Test
+    public void testCreationAndUploadTimestamp() throws IOException {
+        File file = getDummyFile("/empty.txt");
+        String remotePath = "/testFile.txt";
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        assertTrue(
+            new UploadFileOperation(
+                uploadsStorageManager,
+                connectivityServiceMock,
+                powerManagementServiceMock,
+                user,
+                null,
+                ocUpload,
+                NameCollisionPolicy.DEFAULT,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                targetContext,
+                false,
+                false,
+                getStorageManager()
+            )
+                .setRemoteFolderToBeCreated()
+                .execute(client)
+                .isSuccess()
+                  );
+
+        long creationTimestamp = Files.readAttributes(file.toPath(), BasicFileAttributes.class)
+            .creationTime()
+            .to(TimeUnit.SECONDS);
+
+        long uploadTimestamp = System.currentTimeMillis() / 1000;
+
+        // RefreshFolderOperation
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                              System.currentTimeMillis() / 1000,
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              user,
+                                              targetContext).execute(client).isSuccess());
+
+        List<OCFile> files = getStorageManager().getFolderContent(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                                                  false);
+
+        OCFile ocFile = files.get(0);
+
+        assertEquals(remotePath, ocFile.getRemotePath());
+        assertEquals(creationTimestamp, ocFile.getCreationTimestamp());
+        assertTrue(uploadTimestamp - 10 < ocFile.getUploadTimestamp() ||
+                       uploadTimestamp + 10 > ocFile.getUploadTimestamp());
     }
 
     private void verifyStoragePath(OCFile file) {
