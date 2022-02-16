@@ -146,6 +146,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
+    private boolean showMetadata = true;
     private SyncedFolderProvider syncedFolderProvider;
 
     private boolean isMediaGallery = false;//flag to check user is on media gallery
@@ -321,6 +322,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    public boolean isEmpty() {
+        return mFiles.size() == 0;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -418,7 +423,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     gridViewHolder.getSelectedItemBackground().setVisibility(View.VISIBLE);
                 } else {
                     gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources()
-                                                                     .getColor(R.color.selected_item_background));
+                                                                          .getColor(R.color.selected_item_background));
                 }
             } else if (isCheckedFile(file)) {
                 if (gridView) {
@@ -444,7 +449,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!hideItemOptions) {
                 gridViewHolder.getItemLayout().setLongClickable(true);
                 gridViewHolder.getItemLayout().setOnLongClickListener(v ->
-                                                                     ocFileListFragmentInterface.onLongItemClicked(file));
+                                                                          ocFileListFragmentInterface.onLongItemClicked(file));
             }
 
             // unread comments
@@ -503,7 +508,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 }
                 itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                          file.getModificationTimestamp()));
+                                                                                               file.getModificationTimestamp()));
 
                 if (multiSelect || gridView || hideItemOptions) {
                     itemViewHolder.getOverflowMenu().setVisibility(View.GONE);
@@ -517,7 +522,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             gridViewHolder.getLocalFileIndicator().setVisibility(View.INVISIBLE);   // default first
 
             //if gallery is not selected then only show icons else don't show
-            if (!isMediaGallery) {
+            if (!isMediaGallery && showMetadata) {
                 OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
                 FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
                 FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
@@ -752,7 +757,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         if (holder instanceof ListGridImageViewHolder) {
             LoaderImageView thumbnailShimmer = ((ListGridImageViewHolder) holder).getShimmerThumbnail();
-            if (thumbnailShimmer.getVisibility() == View.VISIBLE){
+            if (thumbnailShimmer.getVisibility() == View.VISIBLE) {
                 thumbnailShimmer.setImageResource(R.drawable.background);
                 thumbnailShimmer.resetLoader();
             }
@@ -896,7 +901,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageView sharedIconView = gridViewHolder.getShared();
         //Initialising Textview for Message and setting its visibility
         TextView sharedMessageView = gridViewHolder.getSharedMessage();
-        sharedMessageView.setVisibility(DisplayUtils.isShowDividerForList()?View.VISIBLE:View.GONE);
+        sharedMessageView.setVisibility(DisplayUtils.isShowDividerForList() ? View.VISIBLE : View.GONE);
 
         if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
             sharedIconView.setVisibility(View.VISIBLE);
@@ -910,7 +915,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_receivedMessage));
                 sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.shared_with_me_color,null));
+                                                                        R.color.shared_with_me_color, null));
 
                 // } else {
                 //sharedIconView.setVisibility(View.VISIBLE);
@@ -922,7 +927,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
                 sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.primary,null));
+                                                                        R.color.primary, null));
 
 
             } else if (file.isSharedViaLink()) {
@@ -931,7 +936,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
                 sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.primary,null));
+                                                                        R.color.primary, null));
             } else {
                 sharedIconView.setImageResource(R.drawable.ic_unshared);
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_share));
@@ -942,6 +947,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             sharedIconView.setVisibility(View.GONE);
         }
     }
+
     /**
      * Change the adapted directory for a new one
      *
@@ -1165,7 +1171,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void showAllGalleryItems(FileDataStorageManager storageManager, String remotePath,
                                     List<OCFile> mediaObject,
                                     boolean isVideoHideClicked, boolean isImageHideClicked,
-                                    List<OCFile> imageList, List<OCFile> videoList,GalleryFragment photoFragment ) {
+                                    List<OCFile> imageList, List<OCFile> videoList, GalleryFragment photoFragment) {
         if (mStorageManager == null) {
             mStorageManager = storageManager;
         }
@@ -1178,19 +1184,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
-        setAdapterWithHideShowImage(mediaObject,isVideoHideClicked,isImageHideClicked,imageList,videoList,
-                                   photoFragment);
-
+        setAdapterWithHideShowImage(mediaObject, isVideoHideClicked, isImageHideClicked, imageList, videoList,
+                                    photoFragment);
 
 
     }
 
     //Set Image/Video List According to Selection of Hide/Show Image/Video
     public void setAdapterWithHideShowImage(List<OCFile> mediaObject,
-                                                   boolean isVideoHideClicked, boolean isImageHideClicked,
-                                                   List<OCFile> imageList, List<OCFile> videoList,
-                                                   GalleryFragment photoFragment
-                                                    ) {
+                                            boolean isVideoHideClicked, boolean isImageHideClicked,
+                                            List<OCFile> imageList, List<OCFile> videoList,
+                                            GalleryFragment photoFragment
+                                           ) {
 
         if (isVideoHideClicked) {
             imageList.clear();
@@ -1203,12 +1208,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
             mFiles = imageList;
-            if(imageList.isEmpty())
-            {
+            if (imageList.isEmpty()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
-        }
-        else if (isImageHideClicked) {
+        } else if (isImageHideClicked) {
             videoList.clear();
             for (Object s : mediaObject) {
                 if (s instanceof OCFile) {
@@ -1218,18 +1221,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
             mFiles = videoList;
-            if(videoList.isEmpty())
-            {
+            if (videoList.isEmpty()) {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
-        }
-        else
-        {
+        } else {
             mFiles = mediaObject;
         }
+
         FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
+
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
@@ -1389,6 +1392,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         gridView = bool;
     }
 
+    public void setShowMetadata(boolean bool) {
+        showMetadata = bool;
+    }
+
     @VisibleForTesting
     public void setShowShareAvatar(boolean bool) {
         showShareAvatar = bool;
@@ -1399,7 +1406,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         currentDirectory = folder;
     }
 
-    static class OCFileListItemViewHolder extends RecyclerView.ViewHolder implements ListItemViewHolder{
+    static class OCFileListItemViewHolder extends RecyclerView.ViewHolder implements ListItemViewHolder {
         protected ListItemBinding binding;
 
         private OCFileListItemViewHolder(ListItemBinding binding) {
@@ -1460,7 +1467,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public TextView getSharedMessage() {
-            return  binding.sharedMessage;
+            return binding.sharedMessage;
         }
 
         @Override
@@ -1524,7 +1531,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
-        public TextView getSharedMessage() { return binding.sharedMessage;}
+        public TextView getSharedMessage() {
+            return binding.sharedMessage;
+        }
 
         @Override
         public ImageView getCheckbox() {
@@ -1582,7 +1591,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
-        public TextView getSharedMessage() { return  binding.sharedMessage;}
+        public TextView getSharedMessage() {
+            return binding.sharedMessage;
+        }
 
         @Override
         public ImageView getCheckbox() {

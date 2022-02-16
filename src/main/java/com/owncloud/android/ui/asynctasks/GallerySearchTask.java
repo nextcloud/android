@@ -40,13 +40,11 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -57,19 +55,19 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final long startDate;
     private final long endDate;
 
-    private String remotePath;
-    private List<OCFile> mediaObject;
-    private boolean isImageHideClicked;
-    private boolean isVideoHideClicked;
-    private List<OCFile> imageList;
-    private List<OCFile> videoList;
+    private final String remotePath;
+    private final List<OCFile> mediaObject;
+    private final boolean isImageHideClicked;
+    private final boolean isVideoHideClicked;
+    private final List<OCFile> imageList;
+    private final List<OCFile> videoList;
 
     public GallerySearchTask(GalleryFragment photoFragment,
                              User user,
                              FileDataStorageManager storageManager,
                              long startDate,
                              long endDate,
-                             int limit,String remotePath, List<OCFile> mediaObject,
+                             int limit, String remotePath, List<OCFile> mediaObject,
                              boolean isImageHideClicked, boolean isVideoHideClicked) {
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
@@ -77,13 +75,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         this.startDate = startDate;
         this.endDate = endDate;
         this.limit = limit;
-
         this.remotePath = remotePath;
         this.mediaObject = mediaObject;
         this.isImageHideClicked = isImageHideClicked;
         this.isVideoHideClicked = isVideoHideClicked;
-        videoList = new ArrayList<>();
-        imageList = new ArrayList<>();
+        this.videoList = new ArrayList<>();
+        this.imageList = new ArrayList<>();
     }
 
     @Override
@@ -117,18 +114,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                 RemoteOperationResult result = searchRemoteOperation.execute(user.toPlatformAccount(),
                                                                              photoFragment.getContext());
 
-                if (result.isSuccess() && result.getData() != null && !isCancelled()) {
-                    if (result.getData() == null || result.getData().size() == 0) {
-                        photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-                    }
-                }
-
-                boolean emptySearch = parseMedia(startDate, endDate, Objects.requireNonNull(result.getData()));
+                boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                 long lastTimeStamp = findLastTimestamp(result.getData());
 
-                photoFragment.getAdapter().showAllGalleryItems(storageManager,remotePath,
-                                                               mediaObject,isVideoHideClicked,isImageHideClicked,
-                                                               imageList,videoList,photoFragment);
+                photoFragment.getAdapter().showAllGalleryItems(storageManager, remotePath,
+                                                               mediaObject, isVideoHideClicked, isImageHideClicked,
+                                                               imageList, videoList, photoFragment);
 
                 return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {
@@ -139,52 +130,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
     @Override
     protected void onPostExecute(GallerySearchTask.Result result) {
-        /*if (photoFragmentWeakReference.get() != null) {
-            GalleryFragment photoFragment = photoFragmentWeakReference.get();
-
-            if (result.isSuccess() && result.getData() != null && !isCancelled()) {
-                if (result.getData() == null || result.getData().size() == 0) {
-                    photoFragment.setSearchDidNotFindNewPhotos(true);
-                } else {
-                    OCFileListAdapter adapter = photoFragment.getAdapter();
-                   // mediaObject.clear();
-                    if (result.getData().size() < limit) {
-                        // stop loading spinner
-                        photoFragment.setSearchDidNotFindNewPhotos(true);
-                    }
-
-                    for (Object c : result.getData()) {
-                        if (c instanceof RemoteFile) {
-                            if (((RemoteFile) c).getRemotePath().contains(remotePath))
-                             {
-                                 mediaObject.add(c);
-                             }
-                        }
-                    }
-                    if(mediaObject.size()<limit)
-                    {
-                        photoFragment.setSearchDidNotFindNewPhotos(true);
-                    }
-
-
-                   setAdapterWithHideShowImage(mediaObject, adapter,isVideoHideClicked,isImageHideClicked,imageList,
-                                               videoList,storageManager,photoFragment);
-
-                    Log_OC.d(this, "Search: count: " + result.getData().size() + " total: " + adapter.getFiles().size());
-                }
-            }
-
-            photoFragment.setLoading(false);
-            if (mediaObject.isEmpty()) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-            }
-
-            if (!result.isSuccess() && !isCancelled()) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-            }
-
-            photoFragment.setPhotoSearchQueryRunning(false);
-        } */
         if (photoFragmentWeakReference.get() != null) {
             GalleryFragment photoFragment = photoFragmentWeakReference.get();
 
@@ -200,10 +145,10 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
     //Set Image/Video List According to Selection of Hide/Show Image/Video
     public static void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter,
-                                                  boolean isVideoHideClicked, boolean isImageHideClicked,
-                                                   List<Object> imageList, List<Object> videoList ,
+                                                   boolean isVideoHideClicked, boolean isImageHideClicked,
+                                                   List<Object> imageList, List<Object> videoList,
                                                    FileDataStorageManager storageManager,
-                                                   GalleryFragment photoFragment ) {
+                                                   GalleryFragment photoFragment) {
 
         if (isVideoHideClicked) {
             imageList.clear();
@@ -215,17 +160,13 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                     }
                 }
             }
-            if(!imageList.isEmpty())
-            {
+            if (!imageList.isEmpty()) {
                 updateAndNotifyAdapter(imageList, adapter, storageManager);
-            }
-            else
-            {
+            } else {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
 
-        }
-        else if (isImageHideClicked) {
+        } else if (isImageHideClicked) {
             videoList.clear();
             for (Object s : mediaObject) {
                 if (s instanceof RemoteFile) {
@@ -234,17 +175,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                     }
                 }
             }
-            if(!videoList.isEmpty())
-            {
+            if (!videoList.isEmpty()) {
                 updateAndNotifyAdapter(videoList, adapter, storageManager);
-            }
-            else
-            {
+            } else {
                 photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
             }
-        }
-        else
-        {
+        } else {
             updateAndNotifyAdapter(mediaObject, adapter, storageManager);
         }
 
