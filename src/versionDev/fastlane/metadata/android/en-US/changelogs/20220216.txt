@@ -1,0 +1,17 @@
+Fallback pdf viewer (#9806)
+PassCodeManager: use abstracted Clock implementation rather than system clock directly
+PassCodeActivity: update lock timestamp when lock has just been set
+Make use of upload and creation timestamp
+PassCodeManager: convert to Kotlin, clean up, use injection
+PassCodeManager: don't count passcode/credentials activity towards activity counter
+Pin: use activity paused also, as stopped is sometimes too slow
+Chore: replace `com.nhaarman.mockitokotlin2` with `org.mockito.kotlin`
+resuming TextEditor after splitting screens works now again
+FileDisplayActivity: ditch secondFragment for FileDetailsFragment, use leftFragment instead
+FileActivity: fix crash on share operations when FileDetailFragment is second fragment
+ConflictsResolveActivity: Add log messages when dialog can't be created
+FileContentProvider: fix crash on certain upgrades
+Use 512px for avatar
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
