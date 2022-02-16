@@ -46,6 +46,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -57,18 +58,18 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final long endDate;
 
     private String remotePath;
-    private List<Object> mediaObject;
+    private List<OCFile> mediaObject;
     private boolean isImageHideClicked;
     private boolean isVideoHideClicked;
-    private List<Object> imageList;
-    private List<Object> videoList;
+    private List<OCFile> imageList;
+    private List<OCFile> videoList;
 
     public GallerySearchTask(GalleryFragment photoFragment,
                              User user,
                              FileDataStorageManager storageManager,
                              long startDate,
                              long endDate,
-                             int limit,String remotePath, List<Object> mediaObject,
+                             int limit,String remotePath, List<OCFile> mediaObject,
                              boolean isImageHideClicked, boolean isVideoHideClicked) {
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
@@ -81,6 +82,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         this.mediaObject = mediaObject;
         this.isImageHideClicked = isImageHideClicked;
         this.isVideoHideClicked = isVideoHideClicked;
+        videoList = new ArrayList<>();
+        imageList = new ArrayList<>();
     }
 
     @Override
@@ -120,10 +123,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                     }
                 }
 
-                boolean emptySearch = parseMedia(startDate, endDate, result.getData());
+                boolean emptySearch = parseMedia(startDate, endDate, Objects.requireNonNull(result.getData()));
                 long lastTimeStamp = findLastTimestamp(result.getData());
 
-                photoFragment.getAdapter().showAllGalleryItems(storageManager);
+                photoFragment.getAdapter().showAllGalleryItems(storageManager,remotePath,
+                                                               mediaObject,isVideoHideClicked,isImageHideClicked,
+                                                               imageList,videoList,photoFragment);
 
                 return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {

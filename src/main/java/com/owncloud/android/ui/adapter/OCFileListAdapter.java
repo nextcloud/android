@@ -83,6 +83,7 @@ import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.BitmapUtils;
@@ -1161,16 +1162,74 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveVirtuals(contentValues);
     }
 
-    public void showAllGalleryItems(FileDataStorageManager storageManager) {
+    public void showAllGalleryItems(FileDataStorageManager storageManager, String remotePath,
+                                    List<OCFile> mediaObject,
+                                    boolean isVideoHideClicked, boolean isImageHideClicked,
+                                    List<OCFile> imageList, List<OCFile> videoList,GalleryFragment photoFragment ) {
         if (mStorageManager == null) {
             mStorageManager = storageManager;
         }
-        mFiles = mStorageManager.getAllGalleryItems();
-        FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+        List<OCFile> allGalleryItems = mStorageManager.getAllGalleryItems();
+        mediaObject.clear();
+        for (Object c : allGalleryItems) {
+            if (c instanceof OCFile) {
+                if (((OCFile) c).getRemotePath().contains(remotePath)) {
+                    mediaObject.add((OCFile) c);
+                }
+            }
+        }
+        setAdapterWithHideShowImage(mediaObject,isVideoHideClicked,isImageHideClicked,imageList,videoList,
+                                   photoFragment);
 
+
+
+    }
+
+    //Set Image/Video List According to Selection of Hide/Show Image/Video
+    public void setAdapterWithHideShowImage(List<OCFile> mediaObject,
+                                                   boolean isVideoHideClicked, boolean isImageHideClicked,
+                                                   List<OCFile> imageList, List<OCFile> videoList,
+                                                   GalleryFragment photoFragment
+                                                    ) {
+
+        if (isVideoHideClicked) {
+            imageList.clear();
+            for (Object s : mediaObject) {
+                if (s instanceof OCFile) {
+
+                    if (MimeTypeUtil.isImage(((OCFile) s).getMimeType()) && !imageList.contains(s)) {
+                        imageList.add((OCFile) s);
+                    }
+                }
+            }
+            mFiles = imageList;
+            if(imageList.isEmpty())
+            {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            }
+        }
+        else if (isImageHideClicked) {
+            videoList.clear();
+            for (Object s : mediaObject) {
+                if (s instanceof OCFile) {
+                    if (MimeTypeUtil.isVideo(((OCFile) s).getMimeType()) && !videoList.contains(s)) {
+                        videoList.add((OCFile) s);
+                    }
+                }
+            }
+            mFiles = videoList;
+            if(videoList.isEmpty())
+            {
+                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            }
+        }
+        else
+        {
+            mFiles = mediaObject;
+        }
+        FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
-
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 

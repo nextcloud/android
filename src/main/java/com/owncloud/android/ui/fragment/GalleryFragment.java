@@ -42,6 +42,7 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
@@ -78,10 +79,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private boolean isPreviewShown = false;
     private OCFile remoteFilePath;
     private String remotePath = "/";
-    private List<Object> mediaObject;
+    private List<OCFile> mediaObject;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
-    private List<Object> imageList;
-    private List<Object> videoList;
+    private List<OCFile> imageList;
+    private List<OCFile> videoList;
 
 
     @Inject AppPreferences appPreferences;
@@ -174,7 +175,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onResume() {
         super.onResume();
 
-        if(isPreviewShown && !appPreferences.getHideImageClicked()) {
+       /* if(isPreviewShown && !appPreferences.getHideImageClicked()) {
            // refresh = true;
            // photoSearchNoNew = false;
            // photoSearchQueryRunning = false;
@@ -182,7 +183,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             mediaObject.clear();
             // runGallerySearchTask();
             handleSearchEvent();
-        }
+        } */
 
         setLoading(photoSearchQueryRunning);
     }
@@ -197,7 +198,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager());
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(),remoteFilePath.getRemotePath(),
+                                     mediaObject,preferences.getHideVideoClicked(),preferences.getHideImageClicked(),
+                                     imageList,videoList,this);
 
         setFabVisible(false);
 
@@ -311,10 +314,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         switch (item.getItemId()) {
 
             case R.id.action_three_dot_icon:
-                if(photoSearchQueryRunning) {
+              //  if(photoSearchQueryRunning) {
                     galleryFragmentBottomSheetDialog.show();
                     return true;
-                }
+               // }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -420,12 +423,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void hideVideos(boolean isHideVideosClicked) {
 
         if (!mediaObject.isEmpty()) {
-            photoSearchQueryRunning = true;
-            setAdapterEmpty();
+           // photoSearchQueryRunning = true;
+            //setAdapterEmpty();
 
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
+           mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                          preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager(),this);
+                                                          this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -435,11 +439,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
-            setAdapterEmpty();
+          //  setAdapterEmpty();
 
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
+        mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                          preferences.getHideVideoClicked(),
                                                           preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager(),this);
+                                                          this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
