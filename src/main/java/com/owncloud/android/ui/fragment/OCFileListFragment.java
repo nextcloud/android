@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
@@ -475,6 +476,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 .uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
         } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
+        }
+    }
+
+    @Override
+    public void scanDocUpload() {
+        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+
+        if (fileDisplayActivity != null) {
+            fileDisplayActivity.getFileOperationsHelper()
+                .scanFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
+        } else {
+            Toast.makeText(getContext(), 
+                           getString(R.string.error_starting_direct_camera_upload), 
+                           Toast.LENGTH_SHORT)
+                .show();
         }
     }
 

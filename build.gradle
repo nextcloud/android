@@ -274,6 +274,8 @@ dependencies {
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
+    implementation 'com.github.zynkware:Document-Scanning-Android-SDK:1.0.1'
+
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
