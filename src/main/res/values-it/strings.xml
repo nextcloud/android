@@ -497,6 +497,7 @@
     <string name="pass_code_removed">Codice segreto eliminato</string>
     <string name="pass_code_stored">Codice segreto memorizzato</string>
     <string name="pass_code_wrong">Codice segreto non corretto</string>
+    <string name="pdf_zoom_tip">Tocca una pagina per ingrandire</string>
     <string name="permission_allow">Consenti</string>
     <string name="permission_deny">Nega</string>
     <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
@@ -641,6 +642,7 @@
     <string name="share_no_password_title">Imposta password</string>
     <string name="share_password_title">Protetta da password</string>
     <string name="share_permission_can_edit">Può modificare</string>
+    <string name="share_permission_file_drop">Elimina file</string>
     <string name="share_permission_view_only">Sola lettura</string>
     <string name="share_permissions">Condividi permessi</string>
     <string name="share_remote_clarification">%1$s (remota)</string>

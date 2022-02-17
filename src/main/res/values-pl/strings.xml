@@ -497,6 +497,7 @@
     <string name="pass_code_removed">Kod PIN został usunięty</string>
     <string name="pass_code_stored">Kod PIN został zapisany</string>
     <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
+    <string name="pdf_zoom_tip">Dotknij strony, aby powiększyć</string>
     <string name="permission_allow">Akceptuj</string>
     <string name="permission_deny">Odrzuć</string>
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
