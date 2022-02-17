@@ -916,7 +916,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
                        + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
                        + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
-        );
+                  );
     }
 
     private void createFileSystemTable(SQLiteDatabase db) {
