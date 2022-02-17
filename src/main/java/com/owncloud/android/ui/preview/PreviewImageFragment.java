@@ -99,10 +99,12 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
 
 /**
  * This fragment shows a preview of a downloaded image.
- * <p>
- * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
- * <p>
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
+ *
+ * Trying to get an instance with a NULL {@link OCFile} will produce an
+ * {@link IllegalStateException}.
+ *
+ * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
+ * instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
@@ -142,15 +144,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Public factory method to create a new fragment that previews an image.
-     * <p>
-     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
-     * {@link #setArguments(Bundle)} to set the needed arguments.
-     * <p>
+     *
+     * Android strongly recommends keep the empty constructor of fragments as the only public
+     * constructor, and
+     * use {@link #setArguments(Bundle)} to set the needed arguments.
+     *
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
-     *                              TODO better solution
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of
+     *                              {@link FragmentStatePagerAdapter}
+     *                              ; TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
                                                    boolean ignoreFirstSavedState,
@@ -169,11 +173,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Creates an empty fragment for image previews.
-     * <p>
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
-     * device is turned a aside).
-     * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
+     *
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
+     * (for instance, when the device is turned a aside).
+     *
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful
+     * construction
      */
     public PreviewImageFragment() {
         ignoreFirstSavedState = false;
@@ -319,7 +324,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                                   binding.emptyListProgress,
                                                                                   containerActivity.getStorageManager(),
                                                                                   connectivityService,
-                                                                                  containerActivity.getStorageManager().getAccount(),
+                                                                                  containerActivity.getStorageManager().getUser(),
                                                                                   getResources().getColor(R.color.background_color_inverse)
                             );
                         if (resizedImage == null) {
@@ -598,9 +603,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * <p>
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load
-         * finishes.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
          */
         private final WeakReference<PhotoView> imageViewRef;
         private final WeakReference<LinearLayout> infoViewRef;
@@ -878,7 +883,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
+     * to be previewed.
      *
      * @param file File to test if can be previewed.
      * @return 'True' if the file can be handled by the fragment.

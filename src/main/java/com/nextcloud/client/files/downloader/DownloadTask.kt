@@ -63,7 +63,7 @@ class DownloadTask(
     }
 
     fun download(request: DownloadRequest, progress: (Int) -> Unit, isCancelled: IsCancelled): Result {
-        val op = DownloadFileOperation(request.user.toPlatformAccount(), request.file, context)
+        val op = DownloadFileOperation(request.user, request.file, context)
         val client = clientProvider.invoke()
         val result = op.execute(client)
         if (result.isSuccess) {

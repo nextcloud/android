@@ -23,7 +23,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -162,10 +161,9 @@ public final class ThumbnailsCacheManager {
 
     /**
      * Converts size of file icon from dp to pixel
-     *
      * @return int
      */
-    private static int getThumbnailDimension() {
+    private static int getThumbnailDimension(){
         // Converts dp to pixel
         Resources r = MainApp.getAppContext().getResources();
         return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
@@ -186,7 +184,6 @@ public final class ThumbnailsCacheManager {
 
     /**
      * Add thumbnail to cache
-     *
      * @param imageKey: thumb key
      * @param bitmap:   image for extracting thumbnail
      * @param path:     image path
@@ -194,12 +191,12 @@ public final class ThumbnailsCacheManager {
      * @param pxH:      thumbnail height in pixel
      * @return Bitmap
      */
-    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH) {
+    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH){
 
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
         // Rotate image, obeying exif tag
-        thumbnail = BitmapUtils.rotateImage(thumbnail, path);
+        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
 
         // Add thumbnail to cache
         addBitmapToCache(imageKey, thumbnail);
@@ -264,7 +261,7 @@ public final class ThumbnailsCacheManager {
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private FileFragment fileFragment;
         private FileDataStorageManager storageManager;
-        private Account account;
+        private User user;
         private WeakReference<ImageView> imageViewReference;
         private WeakReference<FrameLayout> frameLayoutReference;
         private OCFile file;
@@ -277,15 +274,14 @@ public final class ThumbnailsCacheManager {
                                           FrameLayout emptyListProgress,
                                           FileDataStorageManager storageManager,
                                           ConnectivityService connectivityService,
-                                          Account account,
-                                          int backgroundColor)
-            throws IllegalArgumentException {
+                                          User user,
+                                          int backgroundColor) throws IllegalArgumentException {
             this.fileFragment = fileFragment;
             imageViewReference = new WeakReference<>(imageView);
             frameLayoutReference = new WeakReference<>(emptyListProgress);
             this.storageManager = storageManager;
             this.connectivityService = connectivityService;
-            this.account = account;
+            this.user = user;
             this.backgroundColor = backgroundColor;
         }
 
@@ -296,11 +292,8 @@ public final class ThumbnailsCacheManager {
             file = (OCFile) params[0];
 
             try {
-                if (account != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount,
-                                                                                              MainApp.getAppContext());
-                }
+                mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
+                                                                                          MainApp.getAppContext());
 
                 thumbnail = doResizedImageInBackground();
 
@@ -489,7 +482,7 @@ public final class ThumbnailsCacheManager {
             return getMethod;
         }
 
-        public ThumbnailGenerationTask(FileDataStorageManager storageManager, User user) {
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, User user){
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
@@ -536,7 +529,7 @@ public final class ThumbnailsCacheManager {
                     //} else {  do nothing
                 }
 
-            } catch (OutOfMemoryError oome) {
+            } catch(OutOfMemoryError oome) {
                 Log_OC.e(TAG, "Out of memory");
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
@@ -554,7 +547,7 @@ public final class ThumbnailsCacheManager {
                 if (this == bitmapWorkerTask) {
                     String tagId = "";
                     if (mFile instanceof OCFile) {
-                        tagId = String.valueOf(((OCFile) mFile).getFileId());
+                        tagId = String.valueOf(((OCFile)mFile).getFileId());
                     } else if (mFile instanceof File) {
                         tagId = String.valueOf(mFile.hashCode());
                     } else if (mFile instanceof TrashbinFile) {
@@ -583,7 +576,7 @@ public final class ThumbnailsCacheManager {
             }
         }
 
-        public void setListener(Listener listener) {
+        public void setListener(Listener listener){
             mListener = listener;
         }
 
@@ -703,7 +696,7 @@ public final class ThumbnailsCacheManager {
         }
 
         private Bitmap doFileInBackground() {
-            File file = (File) mFile;
+            File file = (File)mFile;
 
             final String imageKey;
             if (mImageKey != null) {
@@ -733,9 +726,8 @@ public final class ThumbnailsCacheManager {
             return thumbnail;
         }
 
-        public interface Listener {
+        public interface Listener{
             void onSuccess();
-
             void onError();
         }
 
@@ -746,7 +738,6 @@ public final class ThumbnailsCacheManager {
         private static final int IMAGE_KEY_PARAMS_LENGTH = 2;
 
         private enum Type {IMAGE, VIDEO}
-
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
@@ -1120,15 +1111,15 @@ public final class ThumbnailsCacheManager {
         int x3 = 0;
         int y3 = 0;
 
-        double ym = (((Math.pow(x3, 2) - Math.pow(x1, 2) + Math.pow(y3, 2) - Math.pow(y1, 2)) *
-            (x2 - x1)) - (Math.pow(x2, 2) - Math.pow(x1, 2) + Math.pow(y2, 2) -
-            Math.pow(y1, 2)) * (x3 - x1)) / (2 * (((y3 - y1) * (x2 - x1)) -
-            ((y2 - y1) * (x3 - x1))));
-        double xm = ((Math.pow(x2, 2) - Math.pow(x1, 2)) + (Math.pow(y2, 2) - Math.pow(y1, 2)) -
-            (2 * ym * (y2 - y1))) / (2 * (x2 - x1));
+        double ym = ( ((Math.pow(x3,2) - Math.pow(x1,2) + Math.pow(y3,2) - Math.pow(y1,2)) *
+            (x2 - x1)) - (Math.pow(x2,2) - Math.pow(x1,2) + Math.pow(y2,2) -
+            Math.pow(y1,2)) * (x3 - x1) )  /  (2 * ( ((y3 - y1) * (x2 - x1)) -
+            ((y2 - y1) * (x3 - x1)) ));
+        double xm = ( (Math.pow(x2,2) - Math.pow(x1,2)) + (Math.pow(y2,2) - Math.pow(y1,2)) -
+            (2*ym*(y2 - y1)) ) / (2*(x2 - x1));
 
         // offset to top left
-        double ox = -xm;
+        double ox = - xm;
 
 
         c.drawBitmap(thumbnail, 0, 0, null);
@@ -1225,7 +1216,7 @@ public final class ThumbnailsCacheManager {
         }
     }
 
-    public static void generateThumbnailFromOCFile(OCFile file, Account account, Context context) {
+    public static void generateThumbnailFromOCFile(OCFile file, User user, Context context) {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
@@ -1238,7 +1229,7 @@ public final class ThumbnailsCacheManager {
 
             OwnCloudClient client = mClient;
             if (client == null) {
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                OwnCloudAccount ocAccount = user.toOwnCloudAccount();
                 client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context);
             }
 

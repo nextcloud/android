@@ -1683,7 +1683,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 .getCapability(currentUser.getAccountName());
 
             remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
-                                                        searchOnlyFolders);
+                                                        searchOnlyFolders,ocCapability);
         } else {
             remoteOperation = new GetSharesRemoteOperation();
         }

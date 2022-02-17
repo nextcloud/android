@@ -41,6 +41,7 @@ import com.owncloud.android.files.BootupBroadcastReceiver;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
+import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
@@ -214,6 +215,7 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileContentProvider fileContentProvider();
     @ContributesAndroidInjector abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
     @ContributesAndroidInjector abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
+    @ContributesAndroidInjector abstract DocumentsStorageProvider documentsStorageProvider();
 
     @ContributesAndroidInjector abstract AccountManagerService accountManagerService();
     @ContributesAndroidInjector abstract OperationsService operationsService();

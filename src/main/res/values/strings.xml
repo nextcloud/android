@@ -1119,7 +1119,6 @@
         the recipient.\n\nIf you send a share via MagentaCLOUD and paste the password in this message, it will be
         transmitted unencrypted in plaintext.</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
-    <string name="fullscreen">Fullscreen</string>
     <string name="destination_filename">Destination filename</string>
     <string name="suggest">Suggest</string>
     <string name="enter_destination_filename">Enter destination filename</string>

@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -57,10 +58,12 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
 
+        OCCapability ocCapability = storageManager
+            .getCapability(user.getAccountName());
 
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
-                                                                                false);
+                                                                                false,ocCapability);
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user.toPlatformAccount(),
                                                                                     fileDisplayActivity);
 
