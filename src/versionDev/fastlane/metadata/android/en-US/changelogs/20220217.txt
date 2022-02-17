@@ -1,0 +1,13 @@
+Fix test, satisfy spotbugs
+Show empty message if no results
+Remove not needed check
+Satisfy CI
+Use master library again
+Update adapter after finish search (success/failure)
+Do not show meta info (favorite, download status) in media view
+correctly return result
+fix reloading bug
+refactor/ clean up
+sql typo fix not showing images
+Enhance media tab
+Update translations
