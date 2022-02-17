@@ -497,6 +497,7 @@
     <string name="pass_code_removed">Parola kodu silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
     <string name="pass_code_wrong">Parola yanlış</string>
+    <string name="pdf_zoom_tip">Yakınlaştırmak için sayfanın üzerine dokunun</string>
     <string name="permission_allow">İzin ver</string>
     <string name="permission_deny">Reddet</string>
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
