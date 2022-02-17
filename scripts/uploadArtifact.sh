@@ -30,6 +30,6 @@ apt-get -y install qrencode
 
 qrencode -o $PR.png "$PUBLIC_URL/$BUILD.apk"
 
-curl -u $USER:$PASS -X PUT $DAV_URL/$BUILD.apk --upload-file build/outputs/apk/qa/debug/qa-debug-*.apk
+curl -u $USER:$PASS -X PUT $DAV_URL/$BUILD.apk --upload-file build/outputs/apk/qa/debug/qa-universal-debug-*.apk
 curl -u $USER:$PASS -X PUT $DAV_URL/$BUILD.png --upload-file $PR.png
 curl --header "authorization: Bearer $GITHUB_TOKEN" -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments -d "{ \"body\" : \"APK file: $PUBLIC_URL/$BUILD.apk <br/><br/> ![qrcode]($PUBLIC_URL/$BUILD.png) <br/><br/>To test this change/fix you can simply download above APK file and install and test it in parallel to your existing Nextcloud app. \" }"

@@ -96,6 +96,19 @@ android {
 
     compileSdkVersion 31
 
+    splits {
+
+        // Configures multiple APKs based on ABI.
+        abi {
+
+            // Enables building multiple APKs per ABI.
+            enable true
+
+            // Specifies that we do not want to also generate a universal APK that includes all ABIs.
+            universalApk true
+        }
+    }
+
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
