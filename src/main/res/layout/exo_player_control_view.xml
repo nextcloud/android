@@ -31,38 +31,22 @@
 
         <ImageButton
             android:id="@id/exo_prev"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             style="@style/ExoMediaButton.Previous" />
 
         <ImageButton
-            android:id="@id/exo_rew"
-            style="@style/ExoMediaButton.Rewind" />
-
-        <ImageButton
-            android:id="@id/exo_shuffle"
-            style="@style/ExoMediaButton" />
-
-        <ImageButton
-            android:id="@id/exo_repeat_toggle"
-            style="@style/ExoMediaButton" />
-
-        <ImageButton
             android:id="@id/exo_play"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             style="@style/ExoMediaButton.Play" />
 
         <ImageButton
             android:id="@id/exo_pause"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             style="@style/ExoMediaButton.Pause" />
 
         <ImageButton
-            android:id="@id/exo_ffwd"
-            style="@style/ExoMediaButton.FastForward" />
-
-        <ImageButton
-            android:id="@id/exo_vr"
-            style="@style/ExoMediaButton.VR" />
-
-        <ImageButton
             android:id="@+id/exo_exit_fs"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             style="@style/ExoMediaButton.ExitFullscreen" />
 
     </LinearLayout>
