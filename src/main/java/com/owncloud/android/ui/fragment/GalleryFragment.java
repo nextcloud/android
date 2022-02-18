@@ -175,17 +175,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onResume() {
         super.onResume();
-
-       /* if(isPreviewShown && !appPreferences.getHideImageClicked()) {
-           // refresh = true;
-           // photoSearchNoNew = false;
-           // photoSearchQueryRunning = false;
-            //setAdapterEmpty();
-            mediaObject.clear();
-            // runGallerySearchTask();
-            handleSearchEvent();
-        } */
-
         setLoading(photoSearchQueryRunning);
     }
 
@@ -280,17 +269,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         remoteFilePath.setFolder();
     }
 
-   /* @Override
-    public void onPause() {
-        super.onPause();
-
-        if (photoSearchTask != null) {
-            photoSearchTask.cancel(true);
-        }
-        photoSearchNoNew = false;
-        isPreviewShown = true;
-    } */
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -339,8 +317,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private void searchAndDisplayAfterChangingFolder() {
         setAdapterEmpty();
         mediaObject.clear();
-        //photoSearchNoNew = false;
-        // handleSearchEvent();
         runGallerySearchTask();
     }
 
@@ -406,9 +382,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void hideVideos(boolean isHideVideosClicked) {
 
         if (!mediaObject.isEmpty()) {
-            // photoSearchQueryRunning = true;
-            //setAdapterEmpty();
-
             mAdapter.setAdapterWithHideShowImage(mediaObject,
                                                  preferences.getHideVideoClicked(),
                                                  preferences.getHideImageClicked(), imageList, videoList,
@@ -422,8 +395,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
-            //  setAdapterEmpty();
-
             mAdapter.setAdapterWithHideShowImage(mediaObject,
                                                  preferences.getHideVideoClicked(),
                                                  preferences.getHideImageClicked(), imageList, videoList,
