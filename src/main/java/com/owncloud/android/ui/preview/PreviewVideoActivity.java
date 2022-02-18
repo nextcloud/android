@@ -207,5 +207,13 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         } else {
             finish();
         }
-   }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (exoPlayer.isPlaying()) {
+            exoPlayer.pause();
+        }
+    }
 }
