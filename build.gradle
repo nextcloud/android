@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.5'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -61,7 +61,7 @@ configurations {
 
 ext {
     androidxTestVersion = "1.4.0"
-	daggerVersion = "2.40.5"
+	daggerVersion = "2.41"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
     androidLibraryVersion ="df9772c9b4ba789de389080353fe13a93f0502b5"
@@ -273,6 +273,8 @@ dependencies {
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
+
+    implementation 'com.github.zynkware:Document-Scanning-Android-SDK:1.0.1'
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'

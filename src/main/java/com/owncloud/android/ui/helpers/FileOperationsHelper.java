@@ -37,6 +37,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -68,6 +69,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -84,6 +86,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
+import com.zynksoftware.documentscanner.ui.DocumentScanner;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -92,7 +95,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,9 +126,9 @@ public class FileOperationsHelper {
     private static final String FILE_EXTENSION_WEBLOC = "webloc";
     public static final int SINGLE_LINK_SIZE = 1;
 
-    private FileActivity fileActivity;
-    private CurrentAccountProvider currentAccount;
-    private ConnectivityService connectivityService;
+    private final FileActivity fileActivity;
+    private final CurrentAccountProvider currentAccount;
+    private final ConnectivityService connectivityService;
 
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -145,7 +148,7 @@ public class FileOperationsHelper {
         InputStreamReader fr = null;
         BufferedReader br = null;
         try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), Charset.forName("UTF-8"));
+            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
             br = new BufferedReader(fr);
 
             String line;
@@ -1069,6 +1072,19 @@ public class FileOperationsHelper {
             }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
+        }
+    }
+
+    public void scanFromCamera(Activity activity, int requestCode) {
+        DocumentScanner.Configuration configuration = new DocumentScanner.Configuration();
+        configuration.setImageType(Bitmap.CompressFormat.PNG);
+        DocumentScanner.INSTANCE.init(activity, configuration);
+
+        Intent scanIntent = new Intent(activity, AppScanActivity.class);
+        if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
+            activity.startActivityForResult(scanIntent, requestCode);
+        } else {
+            PermissionUtil.requestCameraPermission(activity);
         }
     }
 

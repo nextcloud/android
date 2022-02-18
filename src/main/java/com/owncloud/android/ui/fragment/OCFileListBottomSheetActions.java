@@ -63,6 +63,11 @@ public interface OCFileListBottomSheetActions {
     void directCameraUpload();
 
     /**
+     * offers scanning document upload to the current folder.
+     */
+    void scanDocUpload();
+
+    /**
      * open template selection for creator @link Creator
      */
     void showTemplate(Creator creator, String headline);
