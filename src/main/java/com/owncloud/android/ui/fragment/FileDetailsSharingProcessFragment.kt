@@ -28,6 +28,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.fragment.app.Fragment
 import com.nmc.android.utils.KeyboardUtils
 import com.owncloud.android.R
@@ -55,7 +58,7 @@ import java.util.*
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
 @Suppress("TooManyFunctions")
-class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener {
+class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener, OnCheckedChangeListener {
 
     companion object {
         const val TAG = "FileDetailsSharingProcessFragment"
@@ -159,6 +162,20 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         requireNotNull(fileActivity) { "FileActivity may not be null" }
     }
 
+    //Updating Hide Download enable/disable on selection of FileDrop
+    override fun onCheckedChanged(group: RadioGroup?, checkId: Int)
+    {
+        if(binding.shareProcessPermissionFileDrop.id == checkId)
+        {
+            binding.shareProcessHideDownloadCheckbox.isChecked = false;
+           binding.shareProcessHideDownloadCheckbox.isEnabled = false;
+        }
+        else
+        {
+            binding.shareProcessHideDownloadCheckbox.isEnabled = true;
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileDetailsSharingProcessFragmentBinding.inflate(inflater, container, false)
         fileOperationsHelper = fileActivity?.fileOperationsHelper
@@ -173,6 +190,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
+        binding.shareProcessPermissionRadioGroup.setOnCheckedChangeListener(this)
         ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
     }
@@ -437,6 +455,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
             showDownloadLimitInput(isChecked)
         }
+
     }
 
     private fun showExpirationDateDialog() {
@@ -692,3 +711,4 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessDownloadLimitEt.setText(if (downloadLimit > 0) downloadLimit.toString() else "")
     }
 }
+
