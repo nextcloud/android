@@ -30,10 +30,10 @@ import android.os.Bundle;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.nextcloud.client.media.ErrorFormat;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ActivityPreviewVideoBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -66,13 +66,15 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private ExoPlayer exoPlayer;             // view to play the file; both performs and show the playback
     private Uri mStreamUri;
+    private ActivityPreviewVideoBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log_OC.v(TAG, "onCreate");
 
-        setContentView(R.layout.video_layout);
+        binding = ActivityPreviewVideoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Bundle extras = getIntent().getExtras();
 
@@ -87,10 +89,12 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         }
 
         StyledPlayerView playerView = findViewById(R.id.videoPlayer);
-        exoPlayer = new SimpleExoPlayer.Builder(this).build();
+        exoPlayer = new ExoPlayer.Builder(this).build();
         playerView.setPlayer(exoPlayer);
 
-        findViewById(R.id.exo_exit_fs).setOnClickListener(v -> onBackPressed());
+        binding.getRoot().findViewById(R.id.exo_exit_fs).setOnClickListener(v -> onBackPressed());
+        binding.getRoot().findViewById(R.id.exo_pause).setOnClickListener(v -> exoPlayer.pause());
+        binding.getRoot().findViewById(R.id.exo_play).setOnClickListener(v -> exoPlayer.play());
 
         if (mSavedPlaybackPosition >= 0) {
             exoPlayer.seekTo(mSavedPlaybackPosition);
