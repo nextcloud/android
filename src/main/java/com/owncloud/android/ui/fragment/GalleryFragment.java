@@ -350,12 +350,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 int visibleItemCount = gridLayoutManager.getChildCount();
                 int totalItemCount = gridLayoutManager.getItemCount();
                 int lastVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
-                int orientation = getResources().getConfiguration().orientation;
-                OCFile lastFile;
+
                 if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW)
                     && (totalItemCount - visibleItemCount) > 0 && lastVisibleItem > 0) {
                     // Almost reached the end, continue to load new photos
-                    lastFile = mAdapter.getItem(lastVisibleItem - 1);
+                    OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
 
                     daySpan = 30;
                     endDate = lastFile.getModificationTimestamp() / 1000;
