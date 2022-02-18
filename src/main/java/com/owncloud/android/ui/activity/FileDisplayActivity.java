@@ -111,7 +111,6 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
-import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -2197,9 +2196,7 @@ public class FileDisplayActivity extends FileActivity
             showSortListGroup(false);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            binding.rightFragmentContainer.setVisibility(View.GONE);
-            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
-            super.updateActionBarTitleAndHomeButton(file);
+            configureToolbarForMediaPreview(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2210,6 +2207,13 @@ public class FileDisplayActivity extends FileActivity
                                                                                  connectivityService);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
+    }
+
+    public void configureToolbarForMediaPreview(OCFile file) {
+        showSortListGroup(false);
+        binding.rightFragmentContainer.setVisibility(View.GONE);
+        ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
+        super.updateActionBarTitleAndHomeButton(file);
     }
 
     /**
