@@ -1,0 +1,3 @@
+Add scan document feature
+Update Nextcloud Android library
+Update 3rd-party dependencies
