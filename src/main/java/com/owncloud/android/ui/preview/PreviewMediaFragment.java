@@ -305,8 +305,11 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-            exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+            if (exoPlayer == null) {
+                exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+            }
             binding.exoplayerView.setPlayer(exoPlayer);
+
 
             LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
 
@@ -579,10 +582,14 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
-        if (MimeTypeUtil.isAudio(getFile()) && !mediaPlayerServiceConnection.isPlaying()) {
+        final OCFile file = getFile();
+        if (MimeTypeUtil.isAudio(file) && !mediaPlayerServiceConnection.isPlaying()) {
             stopAudio();
+        } else if (MimeTypeUtil.isVideo(file) && exoPlayer.isPlaying()) {
+            savedPlaybackPosition = exoPlayer.getCurrentPosition();
+            exoPlayer.pause();
         }
-        
+
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
         super.onStop();
