@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
@@ -146,10 +147,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             mediaObject.clear();
         }
         mAdapter.setShowMetadata(false);
+        mAdapter.setMediaGallery(true);
         currentSearchType = SearchType.GALLERY_SEARCH;
 
         switchToMediaGridView();
-        mAdapter.setMediaGallery(true);
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
             int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_item_rv_spacing);
             mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
@@ -160,6 +161,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
 
+        //updating the title if user comes back to this fragment from other fragments
+        if (requireActivity() instanceof FileDisplayActivity) {
+            ((FileDisplayActivity)requireActivity()).updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+        }
         handleSearchEvent();
     }
 
