@@ -46,6 +46,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -167,7 +168,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     {
         if(binding.shareProcessPermissionFileDrop.id == checkId)
         {
-            binding.shareProcessHideDownloadCheckbox.isChecked = false;
+            binding.shareProcessHideDownloadCheckbox.isChecked = true;
            binding.shareProcessHideDownloadCheckbox.isEnabled = false;
         }
         else
@@ -190,6 +191,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
+        ThemeCheckableUtils.tintSwitch(binding.shareProcessHideDownloadCheckbox, 0)
         binding.shareProcessPermissionRadioGroup.setOnCheckedChangeListener(this)
         ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
@@ -305,7 +307,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         // internal share
         else {
             hideLinkLabelViews()
-            binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+           // binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+            binding.shareProcessHideDownloadCheckbox.isChecked = true;
+            binding.shareProcessHideDownloadCheckbox.isEnabled = false;
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
             if (share != null) {
@@ -349,7 +353,8 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * update views where share type external or link share
      */
     private fun updateViewForExternalAndLinkShare() {
-        binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+       // binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+        binding.shareProcessHideDownloadCheckbox.isEnabled = true;
         binding.dividerSharingHideDownload.visibility = View.VISIBLE
         binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
         binding.shareProcessAllowResharingInfo.visibility = View.GONE
@@ -359,10 +364,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
         if (share != null) {
             if (SharingMenuHelper.isFileDrop(share)) {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+                //binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+                binding.shareProcessHideDownloadCheckbox.isChecked = true;
+                binding.shareProcessHideDownloadCheckbox.isEnabled = false;
                 binding.dividerSharingHideDownload.visibility = View.GONE
             } else {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+               // binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+                binding.shareProcessHideDownloadCheckbox.isEnabled = true;
                 binding.dividerSharingHideDownload.visibility = View.VISIBLE
                 binding.shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
             }
