@@ -473,15 +473,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         // load the video file in the video player
         // when done, VideoHelper#onPrepared() will be called
         if (getFile().isDown()) {
-            binding.progress.setVisibility(View.GONE);
-
-            exoPlayer.addMediaItem(MediaItem.fromUri(getFile().getStorageUri()));
-            exoPlayer.prepare();
-
-            if (savedPlaybackPosition >= 0) {
-                exoPlayer.seekTo(savedPlaybackPosition);
-            }
-            exoPlayer.play();
+            playVideoUri(getFile().getStorageUri());
         } else {
             try {
                 new LoadStreamUrl(this, user, clientFactory).execute(getFile().getLocalId());
@@ -489,6 +481,18 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 Log_OC.e(TAG, "Loading stream url not possible: " + e);
             }
         }
+    }
+
+    private void playVideoUri(final Uri uri) {
+        binding.progress.setVisibility(View.GONE);
+
+        exoPlayer.addMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.prepare();
+
+        if (savedPlaybackPosition >= 0) {
+            exoPlayer.seekTo(savedPlaybackPosition);
+        }
+        exoPlayer.play();
     }
 
     @Override
@@ -535,12 +539,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             if (previewMediaFragment != null && previewMediaFragment.binding != null && context != null) {
                 if (uri != null) {
                     previewMediaFragment.videoUri = uri;
-
-                    previewMediaFragment.binding.progress.setVisibility(View.GONE);
-
-                    previewMediaFragment.exoPlayer.addMediaItem(MediaItem.fromUri(uri));
-                    previewMediaFragment.exoPlayer.prepare();
-                    previewMediaFragment.exoPlayer.play();
+                    previewMediaFragment.playVideoUri(uri);
                 } else {
                     previewMediaFragment.emptyListView.setVisibility(View.VISIBLE);
                     previewMediaFragment.setVideoErrorMessage(
