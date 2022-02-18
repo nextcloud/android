@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -354,16 +353,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 int orientation = getResources().getConfiguration().orientation;
                 OCFile lastFile;
                 if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW)
-                    && (totalItemCount - visibleItemCount) > 0) {
+                    && (totalItemCount - visibleItemCount) > 0 && lastVisibleItem > 0) {
                     // Almost reached the end, continue to load new photos
-                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        // In landscape
-                        lastFile = mAdapter.getItem(lastVisibleItem + 1);
-                    } else {
-                        // In portrait
-                        lastFile = mAdapter.getItem(lastVisibleItem - 1);
-                    }
-
+                    lastFile = mAdapter.getItem(lastVisibleItem - 1);
 
                     daySpan = 30;
                     endDate = lastFile.getModificationTimestamp() / 1000;
