@@ -2230,9 +2230,7 @@ public class FileDisplayActivity extends FileActivity
             showSortListGroup(false);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            binding.rightFragmentContainer.setVisibility(View.GONE);
-            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
-            super.updateActionBarTitleAndHomeButton(file);
+            configureToolbarForMediaPreview(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2243,6 +2241,13 @@ public class FileDisplayActivity extends FileActivity
                                                                                  connectivityService);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
+    }
+
+    public void configureToolbarForMediaPreview(OCFile file) {
+        showSortListGroup(false);
+        binding.rightFragmentContainer.setVisibility(View.GONE);
+        ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
+        super.updateActionBarTitleAndHomeButton(file);
     }
 
     /**
