@@ -261,6 +261,7 @@
     <string name="error_crash_title">%1$s gecrasht</string>
     <string name="error_creating_file_from_template">Fout bij creëren bestand vanaf sjabloon</string>
     <string name="error_report_issue_action">Rapporteer</string>
+    <string name="error_report_issue_text">Probleem melden? (vereist een GitHub account)</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
     <string name="error_retrieving_templates">Fout bij ophalen sjablonen</string>
     <string name="error_starting_direct_camera_upload">Fout bij starten camera</string>
@@ -460,6 +461,7 @@
     <string name="no_email_app_available">Geen app beschikbaar voor het openen van het mailadres</string>
     <string name="no_mutliple_accounts_allowed">Slechts één account toegestaan</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
+    <string name="no_send_app">Geen app gevonden om de geselecteerde bestanden mee te verzenden</string>
     <string name="no_share_permission_selected">Gelieve ten minste één machtiging te selecteren om te delen</string>
     <string name="note_confirm">Versturen</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
@@ -495,6 +497,7 @@
     <string name="pass_code_removed">Toegangscode verwijderd</string>
     <string name="pass_code_stored">Toegangscode opgeslagen</string>
     <string name="pass_code_wrong">Onjuiste toegangscode</string>
+    <string name="pdf_zoom_tip">Tik op een pagina om in te zoomen</string>
     <string name="permission_allow">Toestaan</string>
     <string name="permission_deny">Weigeren</string>
     <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>

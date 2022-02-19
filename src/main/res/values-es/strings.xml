@@ -460,6 +460,7 @@
     <string name="no_email_app_available">No hay ninguna app disponible para manejar direciones de correo electrónico</string>
     <string name="no_mutliple_accounts_allowed">Sólo se permite una cuenta</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
+    <string name="no_send_app">No hay disponible aplicación para el envío</string>
     <string name="no_share_permission_selected">Por favor, selecciona al menos un permiso para compartir.</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">No se puede enviar la nota</string>
@@ -548,6 +549,7 @@
     <string name="prefs_lock_using_device_credentials">Credenciales del dispositivo</string>
     <string name="prefs_lock_using_passcode">Código de acceso</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
+    <string name="prefs_recommend">Recomendar a amigos</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
