@@ -497,6 +497,7 @@
     <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
     <string name="pass_code_wrong">Nesprávne heslo</string>
+    <string name="pdf_zoom_tip">Klepnutím na stránku priblížite</string>
     <string name="permission_allow">Povoliť</string>
     <string name="permission_deny">Odmietnuť</string>
     <string name="permission_storage_access">Na nahrávanie a sťahovanie súborov sú potrebné dodatočné oprávnenia.</string>
