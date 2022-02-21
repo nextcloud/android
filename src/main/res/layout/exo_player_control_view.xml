@@ -31,33 +31,41 @@
 
         <ImageButton
             android:id="@id/exo_prev"
-            style="@style/ExoMediaButton.Previous"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/exo_controls_previous" />
 
         <ImageButton
             android:id="@id/exo_rew"
-            style="@style/ExoMediaButton.Rewind"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_rewind_description"
+            android:src="@drawable/exo_controls_rewind" />
 
         <ImageButton
             android:id="@id/exo_play"
-            style="@style/ExoMediaButton.Play"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_play_description"
+            android:src="@drawable/exo_controls_play"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@id/exo_pause"
-            style="@style/ExoMediaButton.Pause"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_pause_description"
+            android:src="@drawable/exo_controls_pause" />
 
         <ImageButton
             android:id="@id/exo_ffwd"
-            style="@style/ExoMediaButton.FastForward"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_fastforward_description"
+            android:src="@drawable/exo_controls_fastforward" />
 
         <ImageButton
             android:id="@+id/exo_exit_fs"
-            style="@style/ExoMediaButton.ExitFullscreen"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_fullscreen_exit_description"
+            android:src="@drawable/exo_styled_controls_fullscreen_exit" />
 
     </LinearLayout>
 
