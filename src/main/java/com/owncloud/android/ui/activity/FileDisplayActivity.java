@@ -95,11 +95,11 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -127,7 +127,6 @@ import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -522,14 +521,14 @@ public class FileDisplayActivity extends FileActivity
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
 
-                SearchEvent searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+                SearchEvent searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
                 if (searchEvent != null) {
-                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.searchType)) {
+                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.getSearchType())) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
                         GalleryFragment photoFragment = new GalleryFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
                         photoFragment.setArguments(bundle);
                         setLeftFragment(photoFragment);
                     } else {
@@ -537,7 +536,7 @@ public class FileDisplayActivity extends FileActivity
 
                         OCFileListFragment photoFragment = new OCFileListFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
                         photoFragment.setArguments(bundle);
                         setLeftFragment(photoFragment);
                     }
@@ -1451,7 +1450,7 @@ public class FileDisplayActivity extends FileActivity
                                                               R.drawable.ic_list_empty_folder,
                                                               true);
                 } else {
-                    ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                    ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
                 }
             }
         } else {
@@ -2399,7 +2398,7 @@ public class FileDisplayActivity extends FileActivity
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
             Log_OC.d(this, "Switch to photo search fragment");
 
             setLeftFragment(new GalleryFragment());

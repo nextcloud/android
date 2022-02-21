@@ -416,8 +416,6 @@ public final class PushUtils {
     ) {
         Signature signature;
         PublicKey publicKey;
-        SignatureVerification signatureVerification = new SignatureVerification();
-        signatureVerification.setSignatureValid(false);
 
         Account[] accounts = accountManager.getAccounts();
 
@@ -437,9 +435,7 @@ public final class PushUtils {
                             signature.initVerify(publicKey);
                             signature.update(subjectBytes);
                             if (signature.verify(signatureBytes)) {
-                                signatureVerification.setSignatureValid(true);
-                                signatureVerification.setAccount(account);
-                                return signatureVerification;
+                                return new SignatureVerification(true, account);
                             }
                         }
                     }
@@ -453,7 +449,7 @@ public final class PushUtils {
             Log.d(TAG, "Signature exception while trying to verify");
         }
 
-        return signatureVerification;
+        return new SignatureVerification(false, null);
     }
 
     private static Key readKeyFromString(boolean readPublicKey, String keyString) {

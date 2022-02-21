@@ -17,29 +17,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
-import android.content.Intent;
+import android.os.Parcelable
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
+import kotlinx.parcelize.Parcelize
 
-import org.parceler.Parcel;
+/**
+ * Search event
+ */
 
-@Parcel
-public class SyncEventFinished {
-    public Intent intent;
-
-    public SyncEventFinished(Intent intent) {
-        this.intent = intent;
-    }
-
-    public SyncEventFinished() {
-        // empty constructor
-    }
-
-    public Intent getIntent() {
-        return intent;
-    }
-
-    public void setIntent(Intent intent) {
-        this.intent = intent;
-    }
-}
+@Parcelize
+data class SearchEvent(val searchQuery: String, val searchType: SearchRemoteOperation.SearchType) : Parcelable

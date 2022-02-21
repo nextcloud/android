@@ -105,7 +105,7 @@ class NotificationWork constructor(
                         base64DecodedSignature,
                         base64DecodedSubject
                     )
-                    if (signatureVerification != null && signatureVerification.isSignatureValid) {
+                    if (signatureVerification != null && signatureVerification.signatureValid) {
                         val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
                         cipher.init(Cipher.DECRYPT_MODE, privateKey)
                         val decryptedSubject = cipher.doFinal(base64DecodedSubject)
@@ -119,7 +119,7 @@ class NotificationWork constructor(
                         } else if (decryptedPushMessage.deleteAll) {
                             notificationManager.cancelAll()
                         } else {
-                            val user = accountManager.getUser(signatureVerification.getAccount().name)
+                            val user = accountManager.getUser(signatureVerification.account?.name)
                                 .orElseThrow { RuntimeException() }
                             fetchCompleteNotification(user, decryptedPushMessage)
                         }
