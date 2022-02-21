@@ -31,23 +31,33 @@
 
         <ImageButton
             android:id="@id/exo_prev"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            style="@style/ExoMediaButton.Previous" />
+            style="@style/ExoMediaButton.Previous"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@id/exo_rew"
+            style="@style/ExoMediaButton.Rewind"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
         <ImageButton
             android:id="@id/exo_play"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            style="@style/ExoMediaButton.Play" />
+            style="@style/ExoMediaButton.Play"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
         <ImageButton
             android:id="@id/exo_pause"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            style="@style/ExoMediaButton.Pause" />
+            style="@style/ExoMediaButton.Pause"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@id/exo_ffwd"
+            style="@style/ExoMediaButton.FastForward"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
         <ImageButton
             android:id="@+id/exo_exit_fs"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            style="@style/ExoMediaButton.ExitFullscreen" />
+            style="@style/ExoMediaButton.ExitFullscreen"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
     </LinearLayout>
 
