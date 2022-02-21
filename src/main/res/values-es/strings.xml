@@ -261,9 +261,11 @@
     <string name="error_crash_title">%1$s se bloqueó</string>
     <string name="error_creating_file_from_template">Error al crear el archivo desde la plantilla</string>
     <string name="error_report_issue_action">Informe</string>
+    <string name="error_report_issue_text">¿Informar del problema al tracker? (requiere una cuenta de GitHub)</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
+    <string name="error_starting_scan_doc">Error al usar el escaner de documentos</string>
     <string name="etm_accounts">Cuentas</string>
     <string name="etm_background_job_name">Nombre del trabajo</string>
     <string name="etm_background_job_progress">Progreso</string>
@@ -460,7 +462,7 @@
     <string name="no_email_app_available">No hay ninguna app disponible para manejar direciones de correo electrónico</string>
     <string name="no_mutliple_accounts_allowed">Sólo se permite una cuenta</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
-    <string name="no_send_app">No hay disponible aplicación para el envío</string>
+    <string name="no_send_app">No hay una app disponible para el envío de los archivos seleccionados</string>
     <string name="no_share_permission_selected">Por favor, selecciona al menos un permiso para compartir.</string>
     <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">No se puede enviar la nota</string>
@@ -496,6 +498,7 @@
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pdf_zoom_tip">Toca sobre una página para hacer zoom</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
@@ -790,6 +793,7 @@
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
     <string name="upload_old_android">El cifrado solo es posible con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. En su lugar, ¿le gustaría moverlos?</string>
+    <string name="upload_scan_doc_upload">Escanear un documento desde la cámara</string>
     <string name="upload_sync_conflict">Conflicto al sincronizar. Por favor, resuélvelo manualmente</string>
     <string name="upload_unknown_error">Error desconocido</string>
     <string name="uploader_btn_alternative_text">Selecciona</string>
