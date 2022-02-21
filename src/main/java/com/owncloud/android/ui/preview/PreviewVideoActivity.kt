@@ -30,6 +30,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.nextcloud.client.media.ErrorFormat.toString
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewVideoBinding
@@ -41,18 +42,25 @@ import com.owncloud.android.utils.MimeTypeUtil
 /**
  * Activity implementing a basic video player.
  *
- * Used as an utility to preview video files contained in an ownCloud account.
- *
- * Currently, it always plays in landscape mode, full screen. When the playback ends,
- * the activity is finished.
+ * THIS CLASS NEEDS WORK; the old listeners (OnCompletion, OnPrepared; OnError) don't work with ExoPlayer
  */
-class PreviewVideoActivity : FileActivity(), OnCompletionListener, OnPreparedListener, MediaPlayer.OnErrorListener {
+@Suppress("TooManyFunctions")
+class PreviewVideoActivity :
+    FileActivity(),
+    OnCompletionListener,
+    OnPreparedListener,
+    MediaPlayer.OnErrorListener,
+    Player.Listener {
 
     private var mSavedPlaybackPosition: Long = -1 // in the unit time handled by MediaPlayer.getCurrentPosition()
     private var mAutoplay = false // when 'true', the playback starts immediately with the activity
     private var exoPlayer: ExoPlayer? = null // view to play the file; both performs and show the playback
     private var mStreamUri: Uri? = null
     private lateinit var binding: ActivityPreviewVideoBinding
+
+    private lateinit var pauseButton: View
+
+    private lateinit var playButton: View
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,16 +83,32 @@ class PreviewVideoActivity : FileActivity(), OnCompletionListener, OnPreparedLis
 
         exoPlayer = ExoPlayer.Builder(this).build()
         binding.videoPlayer.player = exoPlayer
+        exoPlayer!!.addListener(this)
 
         binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
-        binding.root.findViewById<View>(R.id.exo_pause).setOnClickListener { exoPlayer!!.pause() }
-        binding.root.findViewById<View>(R.id.exo_play).setOnClickListener { exoPlayer!!.play() }
+
+        pauseButton = binding.root.findViewById(R.id.exo_pause)
+        pauseButton.setOnClickListener { exoPlayer!!.pause() }
+
+        playButton = binding.root.findViewById(R.id.exo_play)
+        playButton.setOnClickListener { exoPlayer!!.play() }
 
         if (mSavedPlaybackPosition >= 0) {
             exoPlayer?.seekTo(mSavedPlaybackPosition)
         }
 
         supportActionBar?.hide()
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        if (isPlaying) {
+            playButton.visibility = View.GONE
+            pauseButton.visibility = View.VISIBLE
+        } else {
+            playButton.visibility = View.VISIBLE
+            pauseButton.visibility = View.GONE
+        }
     }
 
     /**
