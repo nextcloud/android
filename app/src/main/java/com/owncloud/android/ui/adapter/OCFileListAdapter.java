@@ -83,6 +83,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
@@ -838,7 +839,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
-            showShareAvatar = mStorageManager.getCapability(account.getAccountName()).getVersion().isShareesOnDavSupported();
+            showShareAvatar = CapabilityUtils.getCapability(account, activity).getVersion().isShareesOnDavSupported();
             this.user = account;
         }
         if (mStorageManager != null) {

@@ -79,7 +79,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
@@ -112,6 +111,7 @@ import com.owncloud.android.utils.svg.MenuSimpleTarget;
 import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
@@ -300,9 +300,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public void updateHeader() {
         if (getAccount() != null &&
-            getStorageManager().getCapability(getAccount().name).getServerBackground() != null) {
+            getCapabilities().getServerBackground() != null) {
 
-            OCCapability capability = getStorageManager().getCapability(getAccount().name);
+            OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
             int primaryColor = ThemeColorUtils.primaryColor(getAccount(), false, this);
 
@@ -403,9 +403,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-        FileDataStorageManager storageManager = new FileDataStorageManager(user,
-                                                                           getContentResolver());
-        OCCapability capability = storageManager.getCapability(user.getAccountName());
+        OCCapability capability = getCapabilities();
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
@@ -1136,8 +1134,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 User user = accountManager.getUser();
-                String name = user.getAccountName();
-                if (getStorageManager() != null && getStorageManager().getCapability(name).getExternalLinks().isTrue()) {
+                if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
+                    .getExternalLinks().isTrue()) {
 
                     int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
                                                                       FileActivity.APP_OPENED_COUNT);
