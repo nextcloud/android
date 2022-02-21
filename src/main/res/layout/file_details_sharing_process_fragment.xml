@@ -145,7 +145,6 @@
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:text="@string/share_via_link_hide_download"
-            android:textColor="@color/share_txt_color"
             android:textSize="@dimen/txt_size_15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

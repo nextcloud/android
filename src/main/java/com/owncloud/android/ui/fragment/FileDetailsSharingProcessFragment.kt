@@ -307,9 +307,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         // internal share
         else {
             hideLinkLabelViews()
-           // binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-            binding.shareProcessHideDownloadCheckbox.isChecked = true;
-            binding.shareProcessHideDownloadCheckbox.isEnabled = false;
+            binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
             if (share != null) {
@@ -353,7 +351,6 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * update views where share type external or link share
      */
     private fun updateViewForExternalAndLinkShare() {
-       // binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
         binding.shareProcessHideDownloadCheckbox.isEnabled = true;
         binding.dividerSharingHideDownload.visibility = View.VISIBLE
         binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
@@ -364,12 +361,10 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
         if (share != null) {
             if (SharingMenuHelper.isFileDrop(share)) {
-                //binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
                 binding.shareProcessHideDownloadCheckbox.isChecked = true;
                 binding.shareProcessHideDownloadCheckbox.isEnabled = false;
                 binding.dividerSharingHideDownload.visibility = View.GONE
             } else {
-               // binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
                 binding.shareProcessHideDownloadCheckbox.isEnabled = true;
                 binding.dividerSharingHideDownload.visibility = View.VISIBLE
                 binding.shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
