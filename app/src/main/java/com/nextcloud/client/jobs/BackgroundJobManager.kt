@@ -23,6 +23,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.nextcloud.client.account.User
+import com.owncloud.android.datamodel.OCFile
 
 /**
  * This interface allows to control, schedule and monitor all application
@@ -125,6 +126,8 @@ interface BackgroundJobManager {
      * @return Job info with current status; status is null if job does not exist
      */
     fun startImmediateCalendarImport(calendarPaths: Map<String, Int>): LiveData<JobInfo?>
+
+    fun startImmediateFilesDownloadJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
     fun schedulePeriodicFilesSyncJob()
     fun startImmediateFilesSyncJob(skipCustomFolders: Boolean = false, overridePowerSaving: Boolean = false)

@@ -37,6 +37,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.owncloud.android.datamodel.OCFile
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -78,6 +79,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
+        const val JOB_IMMEDIATE_FILES_DOWNLOAD = "immediate_files_download"
 
         const val JOB_TEST = "test_job"
 
@@ -294,6 +296,22 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniqueWork(JOB_IMMEDIATE_CALENDAR_IMPORT, ExistingWorkPolicy.KEEP, request)
+
+        return workManager.getJobInfo(request.id)
+    }
+
+    override fun startImmediateFilesDownloadJob(files: Collection<OCFile>): LiveData<JobInfo?> {
+        val ids = files.map { it.fileId }.toLongArray()
+
+        val data = Data.Builder()
+            .putLongArray(FilesExportWork.FILES_TO_DOWNLOAD, ids)
+            .build()
+
+        val request = oneTimeRequestBuilder(FilesExportWork::class, JOB_IMMEDIATE_FILES_DOWNLOAD)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_DOWNLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
 
         return workManager.getJobInfo(request.id)
     }

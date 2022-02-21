@@ -880,7 +880,7 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                                               getString(R.string.wait_a_moment));
 
         } else {
             Intent intent = new Intent(fileActivity, OperationsService.class);

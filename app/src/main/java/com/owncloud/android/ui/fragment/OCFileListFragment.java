@@ -55,6 +55,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
@@ -133,7 +134,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -174,6 +174,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public static final String DOWNLOAD_BEHAVIOUR = "DOWNLOAD_BEHAVIOUR";
     public static final String DOWNLOAD_SEND = "DOWNLOAD_SEND";
+    
 
     public static final String FOLDER_LAYOUT_LIST = "LIST";
     public static final String FOLDER_LAYOUT_GRID = "GRID";
@@ -187,7 +188,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
     private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
-    private static final String DIALOG_LOCK_DETAILS = "DIALOG_LOCK_DETAILS";
 
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
@@ -202,6 +202,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ThemeUtils themeUtils;
     @Inject ThemeAvatarUtils themeAvatarUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
+    @Inject BackgroundJobManager backgroundJobManager;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -221,7 +222,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
-
 
     @Inject DeviceInfo deviceInfo;
 
@@ -1089,7 +1089,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE &&
                 resultCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE &&
-                data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
+            data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
 
             int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
             OCFile file = mAdapter.getItem(position);
@@ -1184,6 +1184,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             syncAndCheckFiles(checkedFiles);
+            exitSelectionMode();
+            return true;
+        } else if (itemId == R.id.action_export_file) {
+            exportFiles(checkedFiles);
             exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_cancel_sync) {
@@ -1818,13 +1822,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Get the remaining space on device
             long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
 
-            // Determine if space is enough to download the file, -1 available space if there in error while computing
-            boolean isSpaceEnough = true;
-            if (availableSpaceOnDevice >= 0) {
-                isSpaceEnough = checkIfEnoughSpace(availableSpaceOnDevice, file);
-            }
-
-            if (isSpaceEnough) {
+            if (FileStorageUtils.checkIfEnoughSpace(file)) {
                 mContainerActivity.getFileOperationsHelper().syncFile(file);
             } else {
                 showSpaceErrorDialog(file, availableSpaceOnDevice);
@@ -1832,24 +1830,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    @VisibleForTesting
-    public boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
-        if (file.isFolder()) {
-            // on folders we assume that we only need difference
-            return availableSpaceOnDevice > (file.getFileLength() - localFolderSize(file));
-        } else {
-            // on files complete file must first be stored, then target gets overwritten
-            return availableSpaceOnDevice > file.getFileLength();
-        }
-    }
+    private void exportFiles(Collection<OCFile> files) {
+        Context context = getContext();
+        View view = getView();
 
-    private long localFolderSize(OCFile file) {
-        if (file.getStoragePath() == null) {
-            // not yet downloaded anything
-            return 0;
-        } else {
-            return FileStorageUtils.getFolderSize(new File(file.getStoragePath()));
+        if (context != null && view != null) {
+            DisplayUtils.showSnackMessage(view,
+                                          context.getString(
+                                              R.string.export_start,
+                                              context.getResources().getQuantityString(R.plurals.files,
+                                                                                       files.size(),
+                                                                                       files.size())
+                                                           ));
         }
+
+        backgroundJobManager.startImmediateFilesDownloadJob(files);
     }
 
     private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {
