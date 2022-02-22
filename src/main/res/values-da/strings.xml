@@ -261,9 +261,11 @@
     <string name="error_crash_title">%1$s krakket</string>
     <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
     <string name="error_report_issue_action">Rapporter</string>
+    <string name="error_report_issue_text">Rapportere problem til tracker? (kræver en GitHub-konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
+    <string name="error_starting_scan_doc">Fejl ved brug af dokumentscanning</string>
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>
@@ -460,6 +462,7 @@
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
+    <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
     <string name="no_share_permission_selected">Vælg mindst én tilladelse til at dele.</string>
     <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kunne ikke sende note</string>
@@ -495,6 +498,7 @@
     <string name="pass_code_removed">Passcode slettet</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
     <string name="pass_code_wrong">Ukorrekt passcode</string>
+    <string name="pdf_zoom_tip">Tryk på en side for at zoome ind</string>
     <string name="permission_allow">Tillad</string>
     <string name="permission_deny">Afvis</string>
     <string name="permission_storage_access">Yderligere tilladelser nødvendige for at hente og sende filer.</string>
@@ -550,6 +554,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
+    <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
     <string name="prefs_storage_path">Lagringsmappe for data</string>
@@ -790,6 +795,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_lock_failed">Lås på mappe fejlede</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
+    <string name="upload_scan_doc_upload">Scan dokument fra kamera</string>
     <string name="upload_sync_conflict">Synkroniserings konflikt, udred venligst manuelt</string>
     <string name="upload_unknown_error">Ukendt fejl</string>
     <string name="uploader_btn_alternative_text">Vælg</string>

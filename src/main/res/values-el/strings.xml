@@ -243,6 +243,7 @@
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_crash_title">%1$sκαταστράφηκε</string>
     <string name="error_report_issue_action">Αναφορά</string>
+    <string name="error_report_issue_text">Αναφορά προβλήματος στο tracker; (απαιτείται λογαριασμός GitHub)</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
@@ -513,6 +514,7 @@
     <string name="prefs_lock_using_device_credentials">Διαπιστευτήρια συσκευής</string>
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
+    <string name="prefs_recommend">Σύστησε σε ένα φίλο</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_storage_path">Φάκελος αποθήκευσης δεδομένων</string>

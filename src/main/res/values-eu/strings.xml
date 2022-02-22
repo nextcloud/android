@@ -265,6 +265,7 @@
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
+    <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
@@ -461,6 +462,7 @@
     <string name="no_email_app_available">Ez dago aplikaziorik helbide elektronikoak kudeatzeko</string>
     <string name="no_mutliple_accounts_allowed">Kontu bat onartzen da soilik</string>
     <string name="no_pdf_app_available">Ez dago eskuragarri PDFak kudeatzeko aplikaziorik</string>
+    <string name="no_send_app">Hautatutako fitxategiak bidaltzeko app-ik ez dago eskuragarri</string>
     <string name="no_share_permission_selected">Mesedez hautatu partekatzeko baimen bat gutxienez.</string>
     <string name="note_confirm">Bidali</string>
     <string name="note_could_not_sent">Ezin izan da bidali oharra</string>
@@ -496,6 +498,7 @@
     <string name="pass_code_removed">Pasahitza ezabatuta</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
     <string name="pass_code_wrong">Okerreko pasahitza</string>
+    <string name="pdf_zoom_tip">Ukitu orrialdean handitzeko</string>
     <string name="permission_allow">Baimendu</string>
     <string name="permission_deny">Ukatu</string>
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
@@ -790,6 +793,7 @@
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_old_android">Zifratzea &gt;= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
+    <string name="upload_scan_doc_upload">Eskaneatu dokumentua kamararekin</string>
     <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
     <string name="uploader_btn_alternative_text">Aukeratu</string>
