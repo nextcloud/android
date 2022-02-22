@@ -104,6 +104,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -508,16 +509,22 @@ public final class DisplayUtils {
             ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
-
         final String accountName = user.getAccountName();
         String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
-        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-        String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
         // first show old one
-        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                     ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+        AtomicReference<Bitmap> bitmap = new AtomicReference<>();
+
+        new Thread(() -> {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+
+            String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
+            String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
+
+            bitmap.set(ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+        }).start();
+
+        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap.get());
 
         // if no one exists, show colored icon with initial char
         if (avatar == null) {
@@ -863,24 +870,27 @@ public final class DisplayUtils {
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                                                                                );
+                final AtomicReference<Bitmap> thumbnail = new AtomicReference<>();
 
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                new Thread(() -> {
+                    thumbnail.set(ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()));
+                }).start();
+
+                if (thumbnail.get() != null && !file.isUpdateThumbnailNeeded()) {
                     stopShimmer(shimmerThumbnail, thumbnailView);
 
                     if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail.get());
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {
                         if (gridView) {
-                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail.get(), thumbnailView);
                         } else {
-                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                            BitmapUtils.setRoundedBitmap(thumbnail.get(), thumbnailView);
                         }
                     }
-                } else {
+                }  else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
                         for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
@@ -897,7 +907,7 @@ public final class DisplayUtils {
                                                                                    asyncTasks,
                                                                                    gridView,
                                                                                    file.getRemoteId());
-                            if (thumbnail == null) {
+                            if (thumbnail.get() == null) {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
                                                                                  user,
@@ -910,11 +920,11 @@ public final class DisplayUtils {
                                                                            null);
                                 }
                                 int px = ThumbnailsCacheManager.getThumbnailDimension();
-                                thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
+                                thumbnail.set(BitmapUtils.drawableToBitmap(drawable, px, px));
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
-                                                                                  thumbnail, task);
+                                                                                  thumbnail.get(), task);
 
                             if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
                                 if (gridView) {
