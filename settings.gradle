@@ -1,3 +1,4 @@
 rootProject.name = 'Nextcloud'
 
-include ':'
+//include ':'
+include 'nextcloud-android-library'

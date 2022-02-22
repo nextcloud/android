@@ -33,7 +33,6 @@ buildscript {
 
     allprojects {
         repositories {
-            google()
             jcenter()
             maven {
                 url "https://maven.tealiumiq.com/android/releases/"
@@ -185,7 +184,7 @@ android {
                 resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
             }
             debug {
-                resValue "string", "webview_login_url", "${PROD_SERVER_URL}"
+                resValue "string", "webview_login_url", "${DEV_SERVER_URL}"
                 testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
@@ -291,10 +290,10 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-//    implementation project('nextcloud-android-library')
-    implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
+    implementation project('nextcloud-android-library')
+    /*implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
-    }
+    }*/
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -313,7 +312,9 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.4.0"
     implementation 'com.github.albfernandez:juniversalchardet:2.3.2' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
-    implementation 'commons-io:commons-io:2.11.0'
+    //Note: Do not change the commons-io:commons-io version from 2.4 to any other
+    //this is required for ScanBot SDK to work on low end devices ie. 6 & 7 Api levels
+    implementation 'commons-io:commons-io:2.4'
     implementation 'org.greenrobot:eventbus:3.3.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'org.lukhnos:nnio:0.2'
