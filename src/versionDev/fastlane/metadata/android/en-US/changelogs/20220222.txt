@@ -1,0 +1,5 @@
+Fix LeakedCloseableViolations in getScaledBitmap
+Fix toolbar in PreviewMediaFragment after coming back from sharing fragment
+FileDisplayActivity: fix coordinator scrolling when opening share details from media preview
+Update translations
+Update Nextcloud Android library
