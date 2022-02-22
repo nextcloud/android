@@ -120,6 +120,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private static final int ACTION_CONFIRM_PASSCODE = 6;
     private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+    private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -422,7 +423,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
                         Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivityForResult(i, PassCodeManager.PASSCODE_ACTIVITY);
+                        startActivityForResult(i, ACTION_SHOW_MNEMONIC);
 
                         return true;
                     });
@@ -746,8 +747,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 if (storagePath.equals(newPath)) {
                     return true;
                 }
-
                 StorageMigration storageMigration = new StorageMigration(this,user, storagePath, newPath);
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 

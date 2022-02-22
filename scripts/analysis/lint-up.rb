@@ -39,7 +39,7 @@ require 'open3'
 begin
     gem "xml-simple"
     rescue LoadError
-    system("gem install xml-simple")
+    system("gem install --user-install xml-simple")
     Gem.clear_paths
 end
 
@@ -179,8 +179,6 @@ previous_git_email = previous_git_email.strip
 # update git user name and email for this script
 system ("git config --local user.name '"  + git_user + "'")
 system ("git config --local user.email 'android@nextcloud.com'")
-system ("git remote rm origin")
-system ("git remote add origin https://" + git_user + ":" + git_token + "@github.com/nextcloud/android")
 
 # add previous Lint result file to git
 system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
@@ -189,11 +187,7 @@ system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update Lint results to reflect reduced error/warning count [skip ci]"')
 
 # push to origin
-system ('git push origin HEAD:' + git_branch)
-
-# restore previous git user name and email
-system("git config --local user.name '#{previous_git_username}'")
-system("git config --local user.email '#{previous_git_email}'")
+system ('git push')
 
 puts "SUCCESS: count was reduced"
 exit 0 # success

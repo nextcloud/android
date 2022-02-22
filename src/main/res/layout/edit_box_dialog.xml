@@ -27,6 +27,7 @@
         android:id="@+id/user_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/TextInputLayoutInputWarning"
         android:hint="@string/hint_name">
 
         <com.google.android.material.textfield.TextInputEditText

@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.utils.IntentUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -154,7 +156,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         }
 
         // populate send apps
-        Intent sendIntent = createSendIntent();
+        Intent sendIntent = IntentUtil.createSendIntent(requireContext(), file);
 
         List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
 
@@ -169,6 +171,12 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        BottomSheetBehavior.from((View) requireView().getParent()).setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     private void shareByLink() {
@@ -257,15 +265,6 @@ public class SendShareDialog extends BottomSheetDialogFragment {
             sendButtonDataList.add(sendButtonData);
         }
         return sendButtonDataList;
-    }
-
-    @NonNull
-    private Intent createSendIntent() {
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType(file.getMimeType());
-        sendIntent.putExtra(Intent.EXTRA_STREAM, file.getExposedFileUri(getActivity()));
-        sendIntent.putExtra(Intent.ACTION_SEND, true);
-        return sendIntent;
     }
 
     private void shareFile(OCFile file) {

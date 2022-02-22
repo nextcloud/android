@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
@@ -40,8 +41,8 @@ class PassCodeActivityIT : AbstractIT() {
         waitForIdleSync()
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+        Espresso.closeSoftKeyboard()
 
-        shortSleep()
         screenshot(sut)
     }
 
@@ -53,8 +54,8 @@ class PassCodeActivityIT : AbstractIT() {
         waitForIdleSync()
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+        Espresso.closeSoftKeyboard()
 
-        shortSleep()
         screenshot(sut)
     }
 
@@ -66,8 +67,8 @@ class PassCodeActivityIT : AbstractIT() {
         waitForIdleSync()
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+        Espresso.closeSoftKeyboard()
 
-        shortSleep()
         screenshot(sut)
     }
 }

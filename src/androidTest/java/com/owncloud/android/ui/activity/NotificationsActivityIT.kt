@@ -37,18 +37,6 @@ class NotificationsActivityIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun loading() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
-
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.setLoadingMessageEmpty() }
-
-        screenshot(sut)
-    }
-
-    @Test
-    @ScreenshotTest
     fun empty() {
         val sut: NotificationsActivity = activityRule.launchActivity(null)
 

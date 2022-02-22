@@ -302,6 +302,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     public int getCheckedFilesCount() {
         return mAdapter.checkedFilesCount();
     }
+    
+    public int getFilesCount() {
+        return mAdapter.getFilesCount();
+    }
 
     public int getFilesCount() {
         return mAdapter.getFilesCount();

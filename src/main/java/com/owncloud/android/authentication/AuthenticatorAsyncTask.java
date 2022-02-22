@@ -76,20 +76,24 @@ public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperat
             RemoteOperationResult<UserInfo> userInfoResult = new GetUserInfoRemoteOperation().execute(nextcloudClient);
 
             // Operation - try credentials
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
-            client.setUserId(userInfoResult.getResultData().getId());
-            client.setCredentials(credentials);
+            if (userInfoResult.isSuccess()) {
+                OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true);
+                client.setUserId(userInfoResult.getResultData().getId());
+                client.setCredentials(credentials);
 
-            ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(ROOT_PATH, SUCCESS_IF_ABSENT);
-            result = operation.execute(client);
+                ExistenceCheckRemoteOperation operation = new ExistenceCheckRemoteOperation(ROOT_PATH, SUCCESS_IF_ABSENT);
+                result = operation.execute(client);
 
-            if (operation.wasRedirected()) {
-                RedirectionPath redirectionPath = operation.getRedirectionPath();
-                String permanentLocation = redirectionPath.getLastPermanentLocation();
-                result.setLastPermanentLocation(permanentLocation);
+                if (operation.wasRedirected()) {
+                    RedirectionPath redirectionPath = operation.getRedirectionPath();
+                    String permanentLocation = redirectionPath.getLastPermanentLocation();
+                    result.setLastPermanentLocation(permanentLocation);
+                }
+
+                result.setResultData(userInfoResult.getResultData());
+            } else {
+                result = userInfoResult;
             }
-            
-            result.setResultData(userInfoResult.getResultData());
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }

@@ -170,7 +170,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (index != -1) {
             files.remove(index);
-            notifyDataSetChanged();
+            notifyDataSetChanged(); // needs to be used to also update footer
         }
     }
 

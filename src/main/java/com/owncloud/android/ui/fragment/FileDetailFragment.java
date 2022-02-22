@@ -76,6 +76,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
@@ -129,6 +130,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject Clock clock;
 
     private SyncedFolderProvider syncedFolderProvider;
+    @Inject ClientFactory clientFactory;
+    @Inject FileDataStorageManager storageManager;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -287,6 +290,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         EventBus.getDefault().register(this);
         //track screen view when fragment is visible
         TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_SHARING, preferences);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -771,6 +775,28 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FavoriteEvent event) {
+        try {
+            User user = accountManager.getUser();
+            OwnCloudClient client = clientFactory.create(user);
+
+            ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
+                event.shouldFavorite, event.remotePath);
+            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
+
+            if (remoteOperationResult.isSuccess()) {
+                getFile().setFavorite(event.shouldFavorite);
+                OCFile file = storageManager.getFileByEncryptedRemotePath(event.remotePath);
+                file.setFavorite(event.shouldFavorite);
+                storageManager.saveFile(file);
+            }
+
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Error processing event", e);
+        }
     }
 
     /**

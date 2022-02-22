@@ -264,7 +264,6 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
-    @SuppressWarnings("PMD.NullAssignment")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -275,12 +274,9 @@ public class FileUploader extends Service
         if (mNotificationManager != null) {
             mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
         }
-        mNotificationManager = null;
-
         // remove AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
-
         super.onDestroy();
     }
 
@@ -468,7 +464,7 @@ public class FileUploader extends Service
             return;
         }
 
-        OCUpload ocUpload = new OCUpload(file, user.toPlatformAccount());
+        OCUpload ocUpload = new OCUpload(file, user);
         ocUpload.setFileSize(file.getFileLength());
         ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
         ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
@@ -721,13 +717,13 @@ public class FileUploader extends Service
 
         /// includes a pending intent in the notification showing the details
         Intent intent = UploadListActivity.createIntent(upload.getFile(),
-                                                        upload.getAccount(),
+                                                        upload.getUser(),
                                                         Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                         this);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
                                                                         (int) System.currentTimeMillis(),
                                                                         intent,
-                                                                        0)
+                                                                        PendingIntent.FLAG_IMMUTABLE)
                                              );
 
         if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
@@ -827,19 +823,19 @@ public class FileUploader extends Service
                     this,
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
-                    PendingIntent.FLAG_ONE_SHOT
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
                 ));
             } else {
                 Intent intent;
                 if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
                     intent = ConflictsResolveActivity.createIntent(upload.getFile(),
-                                                                   upload.getAccount(),
+                                                                   upload.getUser(),
                                                                    upload.getOCUploadId(),
                                                                    Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                                    this);
                 } else {
                     intent = UploadListActivity.createIntent(upload.getFile(),
-                                                             upload.getAccount(),
+                                                             upload.getUser(),
                                                              Intent.FLAG_ACTIVITY_CLEAR_TOP,
                                                              this);
                 }
@@ -847,7 +843,7 @@ public class FileUploader extends Service
                 mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
                                                                                 (int) System.currentTimeMillis(),
                                                                                 intent,
-                                                                                0)
+                                                                                PendingIntent.FLAG_IMMUTABLE)
                                                      );
             }
 
@@ -855,7 +851,6 @@ public class FileUploader extends Service
             if (!uploadResult.isSuccess()) {
                 mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
             }
-
         }
     }
 
@@ -1055,10 +1050,10 @@ public class FileUploader extends Service
     /**
      * Retry a failed {@link OCUpload} identified by {@link OCUpload#getRemotePath()}
      */
-    public static void retryUpload(@NonNull Context context, @NonNull Account account, @NonNull OCUpload upload) {
+    public static void retryUpload(@NonNull Context context, @NonNull User user, @NonNull OCUpload upload) {
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_RETRY, true);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+        i.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
         i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -1070,32 +1065,18 @@ public class FileUploader extends Service
 
     /**
      * Retry a subset of all the stored failed uploads.
-     *
-     * @param context      Caller {@link Context}
-     * @param account      If not null, only failed uploads to this OC account will be retried; otherwise, uploads of
-     *                     all accounts will be retried.
-     * @param uploadResult If not null, only failed uploads with the result specified will be retried; otherwise, failed
-     *                     uploads due to any result will be retried.
      */
     public static void retryFailedUploads(
         @NonNull final Context context,
-        @Nullable final Account account,
         @NonNull final UploadsStorageManager uploadsStorageManager,
         @NonNull final ConnectivityService connectivityService,
         @NonNull final UserAccountManager accountManager,
-        @NonNull final PowerManagementService powerManagementService,
-        @Nullable final UploadResult uploadResult
+        @NonNull final PowerManagementService powerManagementService
     ) {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads.length == 0)
-        {
-            //nothing to do
-            return;
+        if(failedUploads == null || failedUploads.length == 0) {
+            return; //nothing to do
         }
-
-        Account currentAccount = null;
-        boolean resultMatch;
-        boolean accountMatch;
 
         final Connectivity connectivity = connectivityService.getConnectivity();
         final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
@@ -1104,27 +1085,22 @@ public class FileUploader extends Service
         final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
         final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
 
+        Optional<User> uploadUser = Optional.empty();
         for (OCUpload failedUpload : failedUploads) {
-            accountMatch = account == null || account.name.equals(failedUpload.getAccountName());
-            resultMatch = uploadResult == null || uploadResult == failedUpload.getLastResult();
-            if (accountMatch && resultMatch) {
-                // 1. extract failed upload owner account in efficient name (expensive query)
-                if (currentAccount == null || !currentAccount.name.equals(failedUpload.getAccountName())) {
-                    currentAccount = failedUpload.getAccount(accountManager);
+            // 1. extract failed upload owner account and cache it between loops (expensive query)
+            if (!uploadUser.isPresent() || !uploadUser.get().nameEquals(failedUpload.getAccountName())) {
+                uploadUser = accountManager.getUser(failedUpload.getAccountName());
+            }
+            final boolean isDeleted = !new File(failedUpload.getLocalPath()).exists();
+            if (isDeleted) {
+                // 2A. for deleted files, mark as permanently failed
+                if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
+                    failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
+                    uploadsStorageManager.updateUpload(failedUpload);
                 }
-
-                if (!new File(failedUpload.getLocalPath()).exists()) {
-                    // 2A. for deleted files, mark as permanently failed
-                    if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
-                        failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                        uploadsStorageManager.updateUpload(failedUpload);
-                    }
-                } else {
-                    // 2B. for existing local files, try restarting it if possible
-                    if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
-                        retryUpload(context, currentAccount, failedUpload);
-                    }
-                }
+            } else if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
+                // 2B. for existing local files, try restarting it if possible
+                retryUpload(context, uploadUser.get(), failedUpload);
             }
         }
     }

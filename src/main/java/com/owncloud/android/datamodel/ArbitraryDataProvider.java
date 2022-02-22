@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -138,11 +137,6 @@ public class ArbitraryDataProvider {
         return getBooleanValue(user.getAccountName(), key);
     }
 
-    @Deprecated
-    public boolean getBooleanValue(Account account, String key) {
-        return getBooleanValue(account.name, key);
-    }
-
     /**
      * returns integer if found else -1
      *
@@ -158,17 +152,6 @@ public class ArbitraryDataProvider {
         } else {
             return Integer.valueOf(value);
         }
-    }
-
-    /**
-     * Returns stored value as string or empty string
-     *
-     * @return string if value found or empty string
-     */
-    @NonNull
-    @Deprecated
-    public String getValue(Account account, String key) {
-        return account != null ? getValue(account.name, key) : "";
     }
 
     /**
@@ -193,7 +176,7 @@ public class ArbitraryDataProvider {
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                String value = cursor.getString(cursor.getColumnIndex(
+                String value = cursor.getString(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
                 if (value == null) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
@@ -224,12 +207,12 @@ public class ArbitraryDataProvider {
         ArbitraryDataSet dataSet = null;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta._ID));
-                String dbAccount = cursor.getString(cursor.getColumnIndex(
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+                String dbAccount = cursor.getString(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID));
-                String dbKey = cursor.getString(cursor.getColumnIndex(
+                String dbKey = cursor.getString(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY));
-                String dbValue = cursor.getString(cursor.getColumnIndex(
+                String dbValue = cursor.getString(cursor.getColumnIndexOrThrow(
                         ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
 
                 if (id == -1) {

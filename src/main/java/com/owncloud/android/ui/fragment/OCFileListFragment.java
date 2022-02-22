@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nmc.android.ui.ScanActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -138,7 +139,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -196,6 +196,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject Clock clock;
     private SyncedFolderProvider syncedFolderProvider;
 
+    @Inject Throttler throttler;
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -517,7 +518,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void uploadFiles() {
         UploadFilesActivity.startUploadActivityForResult(
             getActivity(),
-            ((FileActivity) getActivity()).getAccount(),
+            ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
                                                         );
         //track event for uploading files button click
@@ -594,21 +595,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        ContextThemeWrapper ctw = new ContextThemeWrapper(getActivity(), R.style.CustomPopupTheme);
-        PopupMenu popup = new PopupMenu(ctw, view);
-        popup.inflate(R.menu.item_file);
-        FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-                                               Collections.singleton(file),
-                                               mContainerActivity, getActivity(),
-                                               true,
-                                               accountManager.getUser());
-        mf.filter(popup.getMenu(), true);
-        popup.setOnMenuItemClickListener(item -> {
-            Set<OCFile> checkedFiles = new HashSet<>();
-            checkedFiles.add(file);
-            return onFileActionChosen(item, checkedFiles);
+        throttler.run("overflowClick", () -> {
+            PopupMenu popup = new PopupMenu(getActivity(), view);
+            popup.inflate(R.menu.item_file);
+            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
+                                                   Collections.singleton(file),
+                                                   mContainerActivity, getActivity(),
+                                                   true,
+                                                   accountManager.getUser());
+            mf.filter(popup.getMenu(), true);
+            popup.setOnMenuItemClickListener(item -> {
+                Set<OCFile> checkedFiles = new HashSet<>();
+                checkedFiles.add(file);
+                return onFileActionChosen(item, checkedFiles);
+            });
+            popup.show();
         });
-        popup.show();
     }
 
     @Override
@@ -1525,9 +1527,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setTitle(R.string.drawer_item_gallery);
                     updateDrawerMenuItem(R.id.nav_gallery);
                     break;
-                case RECENTLY_ADDED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_added);
-                    break;
                 case RECENTLY_MODIFIED_SEARCH:
                     setTitle(R.string.drawer_item_recent_files);
                     updateDrawerMenuItem(R.id.nav_recently_modified);
@@ -1643,6 +1642,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
         handleSearchEvent(event);
@@ -1682,8 +1690,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             OCCapability ocCapability = mContainerActivity.getStorageManager()
                 .getCapability(currentUser.getAccountName());
 
-            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(), event.getSearchType(),
-                                                        searchOnlyFolders,ocCapability);
+            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(),
+                                                        event.getSearchType(),
+                                                        searchOnlyFolders,
+                                                        ocCapability);
         } else {
             remoteOperation = new GetSharesRemoteOperation();
         }
@@ -1703,6 +1713,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
                         && !isCancelled() && searchFragment) {
+                        searchEvent = event;
+
                         if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
                             setEmptyView(event);
                         } else {
@@ -1711,7 +1723,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                              storageManager,
                                              mFile,
                                              true);
-                            searchEvent = event;
                         }
 
                         final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();

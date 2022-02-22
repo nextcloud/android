@@ -38,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
@@ -107,13 +108,13 @@ public class UploadListActivity extends FileActivity {
 
     private SimpleListItemDividerDecoration simpleListItemDividerDecoration;
 
-    public static Intent createIntent(OCFile file, Account account, Integer flag, Context context) {
+    public static Intent createIntent(OCFile file, User user, Integer flag, Context context) {
         Intent intent = new Intent(context, UploadListActivity.class);
         if (flag != null) {
             intent.setFlags(intent.getFlags() | flag);
         }
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, account);
+        intent.putExtra(ConflictsResolveActivity.EXTRA_USER, user);
 
         return intent;
     }
@@ -212,12 +213,10 @@ public class UploadListActivity extends FileActivity {
         // retry failed uploads
         new Thread(() -> FileUploader.retryFailedUploads(
             this,
-            null,
             uploadsStorageManager,
             connectivityService,
             userAccountManager,
-            powerManagementService,
-            null
+            powerManagementService
         )).start();
 
         // update UI

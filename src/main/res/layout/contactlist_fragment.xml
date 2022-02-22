@@ -59,7 +59,7 @@
                 android:text="@string/contaclist_restore_selected" />
 
         </LinearLayout>
-    </LinearLayout>s
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/loading_list_container"

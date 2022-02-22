@@ -26,6 +26,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.AuthenticatorException;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -59,9 +60,9 @@ import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
-import com.nmc.android.ui.ScanDocumentFragment;
 import com.nmc.android.utils.KeyboardUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.MainApp;
@@ -245,7 +246,7 @@ public class FileDisplayActivity extends FileActivity
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         return intent;
     }
 
@@ -1201,6 +1202,7 @@ public class FileDisplayActivity extends FileActivity
             localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         }
 
+
         if (!(leftFragment instanceof OCFileListFragment)) {
             if (leftFragment instanceof FileFragment) {
                 super.updateActionBarTitleAndHomeButton(((FileFragment) leftFragment).getFile());
@@ -1308,6 +1310,7 @@ public class FileDisplayActivity extends FileActivity
         /**
          * {@link BroadcastReceiver} to enable syncing feedback in UI
          */
+        @SuppressLint("VisibleForTests")
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
@@ -1814,6 +1817,8 @@ public class FileDisplayActivity extends FileActivity
             OCFile parentFile = getStorageManager().getFileById(removedFile.getParentId());
             if (parentFile != null && parentFile.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
+            } else if (getLeftFragment() instanceof GalleryFragment) {
+                ((GalleryFragment) getLeftFragment()).onRefresh();
             }
             supportInvalidateOptionsMenu();
         } else {
@@ -2081,26 +2086,26 @@ public class FileDisplayActivity extends FileActivity
                             long currentSyncTime = System.currentTimeMillis();
                             mSyncInProgress = true;
 
-                                // perform folder synchronization
-                                RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
-                                        currentSyncTime,
-                                        false,
-                                        ignoreETag,
-                                        getStorageManager(),
-                                        getUser().orElseThrow(RuntimeException::new),
-                                        getApplicationContext()
-                                );
-                                synchFolderOp.execute(
-                                        getAccount(),
-                                        MainApp.getAppContext(),
-                                        FileDisplayActivity.this,
-                                        null,
-                                        null
-                                );
+                            // perform folder synchronization
+                            RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                                                                       currentSyncTime,
+                                                                                       false,
+                                                                                       ignoreETag,
+                                                                                       getStorageManager(),
+                                                                                       getUser().orElseThrow(RuntimeException::new),
+                                                                                       getApplicationContext()
+                            );
+                            synchFolderOp.execute(
+                                getAccount(),
+                                MainApp.getAppContext(),
+                                FileDisplayActivity.this,
+                                null,
+                                null
+                                                 );
 
                             OCFileListFragment fragment = getListOfFilesFragment();
 
-                            if (fragment != null) {
+                            if (fragment != null && !(fragment instanceof GalleryFragment)) {
                                 fragment.setLoading(true);
                             }
 
@@ -2130,11 +2135,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void sendDownloadedFile(String packageName, String activityName) {
         if (mWaitingToSend != null) {
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.setType(mWaitingToSend.getMimeType());
-            sendIntent.putExtra(Intent.EXTRA_STREAM, mWaitingToSend.getExposedFileUri(this));
-            sendIntent.putExtra(Intent.ACTION_SEND, true);
 
+            Intent sendIntent = IntentUtil.createSendIntent(this, mWaitingToSend);
             sendIntent.setComponent(new ComponentName(packageName, activityName));
 
             // Show dialog
@@ -2171,7 +2173,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
@@ -2190,7 +2192,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
         if (showPreview) {

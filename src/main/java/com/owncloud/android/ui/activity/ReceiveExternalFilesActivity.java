@@ -95,7 +95,6 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -271,7 +270,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
+        outState.putParcelable(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }

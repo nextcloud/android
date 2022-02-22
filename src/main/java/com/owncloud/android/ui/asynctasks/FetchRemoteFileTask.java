@@ -57,13 +57,10 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-
-        OCCapability ocCapability = storageManager
-            .getCapability(user.getAccountName());
-
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,
                                                                                 FILE_ID_SEARCH,
-                                                                                false,ocCapability);
+                                                                                false,
+                                                                                fileDisplayActivity.getCapabilities());
         RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user.toPlatformAccount(),
                                                                                     fileDisplayActivity);
 

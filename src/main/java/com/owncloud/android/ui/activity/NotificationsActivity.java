@@ -134,6 +134,9 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     }
 
     private void setupPushWarning() {
+        if (!getResources().getBoolean(R.bool.show_push_warning)) {
+            return;
+        }
         if (snackbar != null) {
             if (!snackbar.isShown()) {
                 snackbar.show();

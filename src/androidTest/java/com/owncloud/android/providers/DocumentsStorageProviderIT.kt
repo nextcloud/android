@@ -38,7 +38,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     private val authority = context.getString(R.string.document_provider_authority)
 
     private val rootFileId = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).fileId
-    private val documentId = "${account.hashCode()}${DOCUMENTID_SEPARATOR}$rootFileId"
+    private val documentId = "${user.hashCode()}${DOCUMENTID_SEPARATOR}$rootFileId"
     private val uri = DocumentsContract.buildTreeDocumentUri(authority, documentId)
     private val rootDir get() = DocumentFile.fromTreeUri(context, uri)!!
 
@@ -176,7 +176,8 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertExistsOnServer(client, ocFile1.remotePath, false)
     }
 
-    @Test
+    @Suppress("MagicNumber")
+    @Test(timeout = 5 * 60 * 1000)
     fun testServerChangedFileContent() {
         // create random file
         val file1 = rootDir.createFile("text/plain", RandomString.make())!!

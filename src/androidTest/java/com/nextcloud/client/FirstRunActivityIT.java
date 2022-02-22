@@ -30,7 +30,6 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -39,9 +38,6 @@ public class FirstRunActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<FirstRunActivity> activityRule = new IntentsTestRule<>(FirstRunActivity.class,
                                                                                         true,
                                                                                         false);
-
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     @ScreenshotTest

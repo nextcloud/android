@@ -76,7 +76,9 @@ public class ExternalLinksProvider {
      * @return numbers of rows deleted
      */
     public int deleteAllExternalLinks() {
-        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS, " 1 = 1 ", null);
+        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
+                                       null,
+                                       null);
     }
 
     /**
@@ -142,13 +144,13 @@ public class ExternalLinksProvider {
     private ExternalLink createExternalLinkFromCursor(Cursor cursor) {
         ExternalLink externalLink = null;
         if (cursor != null) {
-            int id = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta._ID));
-            String iconUrl = cursor.getString(cursor.getColumnIndex(
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+            String iconUrl = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL));
-            String language = cursor.getString(cursor.getColumnIndex(
+            String language = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE));
             ExternalLinkType type;
-            switch (cursor.getString(cursor.getColumnIndex(
+            switch (cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE))) {
                 case "link":
                     type = ExternalLinkType.LINK;
@@ -163,10 +165,10 @@ public class ExternalLinksProvider {
                     type = ExternalLinkType.UNKNOWN;
                     break;
             }
-            String name = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
-            String url = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
+            String url = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
             boolean redirect = cursor.getInt(
-                    cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) == 1;
+                    cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) == 1;
 
             externalLink = new ExternalLink(id, iconUrl, language, type, name, url, redirect);
         }

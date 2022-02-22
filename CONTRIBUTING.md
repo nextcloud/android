@@ -1,9 +1,5 @@
 # [Nextcloud](https://nextcloud.com) Android app
 
-[![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
-[![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
-
-
 # Index
 1. [Guidelines](#guidelines)
     1. [Issue reporting](#issue-reporting)
@@ -16,6 +12,7 @@
         1. [Branching model](#branching-model)
         1. [Android Studio formatter setup](#android-studio-formatter-setup)
         1. [Build variants](#build-variants)
+        1. [Git hooks](#git-hooks)
     1. [Contribution process](#contribution-process)
         1. [Fork and download android repository](#fork-and-download-android-repository)
         1. [Create pull request](#create-pull-request)
@@ -137,11 +134,10 @@ To install them, just run:
 
 
 ### Create pull request:
-* Commit your changes locally: ```git commit -a```
+* Commit your changes locally. Remember to sign off your commits (`git commit -sm 'Your commit message'`).
 * Push your changes to your GitHub repo: ```git push```
 * Browse to <https://github.com/YOURGITHUBNAME/android/pulls> and issue pull request
 * Enter description and send pull request.
-
 
 ### Create another pull request:
 To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/master.

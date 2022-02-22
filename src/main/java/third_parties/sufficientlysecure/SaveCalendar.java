@@ -466,7 +466,7 @@ public class SaveCalendar implements Injectable {
     }
 
     private int getColumnIndex(Cursor cur, String dbName) {
-        return dbName == null ? -1 : cur.getColumnIndex(dbName);
+        return dbName == null ? -1 : cur.getColumnIndexOrThrow(dbName);
     }
 
     private String getString(Cursor cur, String dbName) {

@@ -47,7 +47,6 @@ import android.widget.LinearLayout;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -612,7 +611,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private void startFullScreenVideo() {
         Intent intent = new Intent(getActivity(), PreviewVideoActivity.class);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         intent.putExtra(FileActivity.EXTRA_FILE, getFile());
         intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, exoPlayer.isPlaying());
         intent.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, videoUri);

@@ -45,12 +45,6 @@
             android:icon="@drawable/nav_photos"
             android:title="@string/drawer_item_gallery" />
         <item
-            android:id="@+id/nav_videos"
-            android:icon="@drawable/nav_videos"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_videos"
-            android:visible="false"/>
-        <item
             android:id="@+id/nav_shared"
             android:orderInCategory="0"
             android:icon="@drawable/nav_shared"

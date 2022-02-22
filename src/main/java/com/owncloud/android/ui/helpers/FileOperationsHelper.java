@@ -260,7 +260,7 @@ public class FileOperationsHelper {
             // ISSUE 5: if the user is not running the app (this is a service!),
             // this can be very intrusive; a notification should be preferred
             Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                  user.toPlatformAccount(),
+                                                                  user,
                                                                   -1,
                                                                   Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                   fileActivity);
@@ -332,7 +332,7 @@ public class FileOperationsHelper {
                         // ISSUE 5: if the user is not running the app (this is a service!),
                         // this can be very intrusive; a notification should be preferred
                         Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                              user.toPlatformAccount(),
+                                                                              user,
                                                                               -1,
                                                                               Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                               fileActivity);
@@ -405,7 +405,6 @@ public class FileOperationsHelper {
             String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
             if (guessedMimeType != null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 openFileWithIntent.setDataAndType(
                     fileUri,
                     guessedMimeType
@@ -628,7 +627,7 @@ public class FileOperationsHelper {
     public void showShareFile(OCFile file) {
         Intent intent = new Intent(fileActivity, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, fileActivity.getUser().orElseThrow(RuntimeException::new));
         fileActivity.startActivity(intent);
     }
 

@@ -22,6 +22,8 @@ package com.nextcloud.client.migrations
 import androidx.test.annotation.UiThreadTest
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.ManualAsyncRunner
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
@@ -42,9 +44,15 @@ class MigrationsManagerTest {
         const val NEW_APP_VERSION = 42
     }
 
-    lateinit var migrationStep1: Runnable
-    lateinit var migrationStep2: Runnable
-    lateinit var migrationStep3: Runnable
+    lateinit var migrationStep1Body: (Migrations.Step) -> Unit
+    lateinit var migrationStep1: Migrations.Step
+
+    lateinit var migrationStep2Body: (Migrations.Step) -> Unit
+    lateinit var migrationStep2: Migrations.Step
+
+    lateinit var migrationStep3Body: (Migrations.Step) -> Unit
+    lateinit var migrationStep3: Migrations.Step
+
     lateinit var migrations: List<Migrations.Step>
 
     @Mock
@@ -60,26 +68,17 @@ class MigrationsManagerTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        migrationStep1 = mock()
-        migrationStep2 = mock()
-        migrationStep3 = mock()
-        migrations = listOf(
-            object : Migrations.Step(0, "first migration", true) {
-                override fun run() {
-                    migrationStep1.run()
-                }
-            },
-            object : Migrations.Step(1, "second optional migration", false) {
-                override fun run() {
-                    migrationStep2.run()
-                }
-            },
-            object : Migrations.Step(2, "third migration", true) {
-                override fun run() {
-                    migrationStep3.run()
-                }
-            }
-        )
+        migrationStep1Body = mock()
+        migrationStep1 = Migrations.Step(0, "first migration", true, migrationStep1Body)
+
+        migrationStep2Body = mock()
+        migrationStep2 = Migrations.Step(1, "second optional migration", false, migrationStep2Body)
+
+        migrationStep3Body = mock()
+        migrationStep3 = Migrations.Step(2, "third migration", true, migrationStep3Body)
+
+        migrations = listOf(migrationStep1, migrationStep2, migrationStep3)
+
         asyncRunner = ManualAsyncRunner()
         migrationsDbStore = MockSharedPreferences()
         migrationsDb = MigrationsDb(migrationsDbStore)
@@ -91,14 +90,6 @@ class MigrationsManagerTest {
             asyncRunner = asyncRunner,
             migrations = migrations
         )
-    }
-
-    private fun assertMigrationsRun(vararg migrationSteps: Runnable) {
-        inOrder(migrationSteps).apply {
-            migrationSteps.forEach {
-                verify(it.run())
-            }
-        }
     }
 
     @Test
@@ -146,15 +137,45 @@ class MigrationsManagerTest {
 
         // THEN
         //      total migrations count is returned
-        //      migration functions are called
+        //      migration functions are called with step as argument
+        //      migrations are invoked in order
         //      applied migrations are recorded
         //      new app version code is recorded
         assertEquals(migrations.size, count)
-        inOrder(migrationStep1, migrationStep2, migrationStep3).apply {
-            verify(migrationStep1).run()
-            verify(migrationStep2).run()
-            verify(migrationStep3).run()
+        inOrder(migrationStep1.run, migrationStep2.run, migrationStep3.run).apply {
+            verify(migrationStep1.run).invoke(migrationStep1)
+            verify(migrationStep2.run).invoke(migrationStep2)
+            verify(migrationStep3.run).invoke(migrationStep3)
         }
+        val allAppliedIds = migrations.map { it.id }
+        assertEquals(allAppliedIds, migrationsDb.getAppliedMigrations())
+        assertEquals(NEW_APP_VERSION, migrationsDb.lastMigratedVersion)
+    }
+
+    @Test
+    @UiThreadTest
+    fun previously_run_migrations_are_not_run_again() {
+        // GIVEN
+        //      some migrations were run before
+        whenever(appInfo.versionCode).thenReturn(NEW_APP_VERSION)
+        migrationsDb.lastMigratedVersion = OLD_APP_VERSION
+        migrationsDb.addAppliedMigration(migrationStep1.id, migrationStep2.id)
+
+        // WHEN
+        //      migrations are applied
+        val count = migrationsManager.startMigration()
+        assertTrue(asyncRunner.runOne())
+
+        // THEN
+        //      applied migrations count is returned
+        //      previously applied migrations are not run
+        //      required migrations are applied
+        //      applied migrations are recorded
+        //      new app version code is recorded
+        assertEquals(1, count)
+        verify(migrationStep1.run, never()).invoke(anyOrNull())
+        verify(migrationStep2.run, never()).invoke(anyOrNull())
+        verify(migrationStep3.run).invoke(migrationStep3)
         val allAppliedIds = migrations.map { it.id }
         assertEquals(allAppliedIds, migrationsDb.getAppliedMigrations())
         assertEquals(NEW_APP_VERSION, migrationsDb.lastMigratedVersion)
@@ -174,7 +195,7 @@ class MigrationsManagerTest {
         //      one migration throws
         val lastMigration = migrations.findLast { it.mandatory } ?: throw IllegalStateException("Test fixture error")
         val errorMessage = "error message"
-        whenever(lastMigration.run()).thenThrow(RuntimeException(errorMessage))
+        whenever(lastMigration.run.invoke(any())).thenThrow(RuntimeException(errorMessage))
         migrationsManager.startMigration()
         assertTrue(asyncRunner.runOne())
 
@@ -205,7 +226,7 @@ class MigrationsManagerTest {
         //      status is set to applied
         assertEquals(0, migrationCount)
         listOf(migrationStep1, migrationStep2, migrationStep3).forEach {
-            verify(it, never()).run()
+            verify(it.run, never()).invoke(any())
         }
         assertEquals(MigrationsManager.Status.APPLIED, migrationsManager.status.value)
     }
@@ -245,7 +266,7 @@ class MigrationsManagerTest {
         //      one migration is optional and fails
         assertEquals("Fixture should provide 1 optional, failing migration", 1, migrations.count { !it.mandatory })
         val optionalFailingMigration = migrations.first { !it.mandatory }
-        whenever(optionalFailingMigration.run()).thenThrow(RuntimeException())
+        whenever(optionalFailingMigration.run.invoke(any())).thenThrow(RuntimeException())
 
         // WHEN
         //      migration is started
