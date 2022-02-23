@@ -360,7 +360,7 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation('com.android.support.test.espresso:espresso-intents:3.0.2')
+    androidTestImplementation('androidx.test.espresso:espresso-intents:3.4.0')
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
