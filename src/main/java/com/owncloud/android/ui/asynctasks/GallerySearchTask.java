@@ -32,8 +32,8 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.lang.ref.WeakReference;
@@ -118,7 +118,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
 
             if (!result.success) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
             }
         }
     }

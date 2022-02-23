@@ -964,17 +964,17 @@ public class SettingsActivity extends ThemedPreferenceActivity
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
 
                 // only add if it does not exist, in case activity is re-used
-                if (findPreference(link.id.toString()) == null) {
+                if (findPreference(String.valueOf(link.getId())) == null) {
                     Preference p = new Preference(this);
-                    p.setTitle(link.name);
-                    p.setKey(link.id.toString());
+                    p.setTitle(link.getName());
+                    p.setKey(String.valueOf(link.getId()));
 
                     p.setOnPreferenceClickListener(preference -> {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.id);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.getId());
                         startActivity(externalWebViewIntent);
 
                         return true;

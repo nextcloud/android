@@ -358,21 +358,21 @@ public class DialogFragmentIT extends AbstractIT {
 
         // add direct editing info
         DirectEditing directEditing = new DirectEditing();
-        directEditing.creators.put("1", new Creator("1",
+        directEditing.getCreators().put("1", new Creator("1",
                                                     "text",
                                                     "text file",
                                                     ".md",
                                                     "application/octet-stream",
                                                     false));
 
-        directEditing.creators.put("2", new Creator("2",
+        directEditing.getCreators().put("2", new Creator("2",
                                                     "md",
                                                     "markdown file",
                                                     ".md",
                                                     "application/octet-stream",
                                                     false));
 
-        directEditing.editors.put("text",
+        directEditing.getEditors().put("text",
                                   new Editor("1",
                                              "Text",
                                              new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),

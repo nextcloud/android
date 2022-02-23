@@ -112,7 +112,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -137,6 +136,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import static com.owncloud.android.ui.fragment.SearchType.*;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
@@ -223,8 +223,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
-            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
+            currentSearchType = savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE);
+            searchEvent = savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
@@ -240,7 +240,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Intent intent = getActivity().getIntent();
 
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
-            searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+            searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
         }
 
         if (isSearchEventSet(searchEvent)) {
@@ -284,13 +284,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         if (savedInstanceState != null
-                && Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE)) != null &&
-                Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT)) != null) {
+                && savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE) != null &&
+                savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT) != null) {
             searchFragment = true;
-            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
+            currentSearchType = savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE);
+            searchEvent = savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT);
         } else {
-            currentSearchType = SearchType.NO_SEARCH;
+            currentSearchType = NO_SEARCH;
         }
 
         Bundle args = getArguments();
@@ -372,7 +372,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getArguments() == null) {
                 searchEvent = null;
             } else {
-                searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+                searchEvent = getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT);
             }
         }
         prepareCurrentSearch(searchEvent);
@@ -408,19 +408,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             switch (event.getSearchType()) {
                 case FILE_SEARCH:
-                    currentSearchType = SearchType.FILE_SEARCH;
+                    currentSearchType = FILE_SEARCH;
                     break;
 
                 case FAVORITE_SEARCH:
-                    currentSearchType = SearchType.FAVORITE_SEARCH;
+                    currentSearchType = FAVORITE_SEARCH;
                     break;
 
                 case RECENTLY_MODIFIED_SEARCH:
-                    currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+                    currentSearchType = RECENTLY_MODIFIED_SEARCH;
                     break;
 
                 case SHARED_FILTER:
-                    currentSearchType = SearchType.SHARED_FILTER;
+                    currentSearchType = SHARED_FILTER;
                     break;
 
                 default:
@@ -487,8 +487,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             fileDisplayActivity.getFileOperationsHelper()
                 .scanFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
         } else {
-            Toast.makeText(getContext(), 
-                           getString(R.string.error_starting_direct_camera_upload), 
+            Toast.makeText(getContext(),
+                           getString(R.string.error_starting_direct_camera_upload),
                            Toast.LENGTH_SHORT)
                 .show();
         }
@@ -781,9 +781,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
-            outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
+            outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType);
             if (isSearchEventSet(searchEvent)) {
-                outState.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+                outState.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
             }
         }
         mMultiChoiceModeListener.storeStateIn(outState);
@@ -1456,7 +1456,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         searchFragment = false;
-        searchEvent = new SearchEvent();
+        searchEvent = null;
 
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
@@ -1500,7 +1500,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null) {
-            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
+            searchEvent = savedInstanceState.getParcelable(SEARCH_EVENT);
         }
     }
 
@@ -1510,7 +1510,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void handleSearchEvent(SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
             return;
         }
 
@@ -1741,13 +1741,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private boolean isSearchEventSet(SearchEvent event) {
-        return event != null &&
-            event.getSearchType() != null &&
-            (!TextUtils.isEmpty(event.getSearchQuery()) ||
-                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
-                event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
-                event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
+        if (event == null) {
+            return false;
+        }
+        SearchRemoteOperation.SearchType searchType = event.getSearchType();
+        return !TextUtils.isEmpty(event.getSearchQuery()) ||
+            searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
+            searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
+            searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
+            searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH;
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {

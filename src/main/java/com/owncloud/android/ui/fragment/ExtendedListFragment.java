@@ -75,7 +75,6 @@ import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
@@ -144,18 +143,6 @@ public class ExtendedListFragment extends Fragment implements
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
     private ListFragmentBinding binding;
-
-    @Parcel
-    public enum SearchType {
-        NO_SEARCH,
-        REGULAR_FILTER,
-        FILE_SEARCH,
-        FAVORITE_SEARCH,
-        GALLERY_SEARCH,
-        RECENTLY_MODIFIED_SEARCH,
-        // not a real filter, but nevertheless
-        SHARED_FILTER
-    }
 
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -270,7 +257,7 @@ public class ExtendedListFragment extends Fragment implements
                                                    R.drawable.ic_list_empty_folder,
                                                    true);
                         } else {
-                            setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                            setEmptyListMessage(SearchType.NO_SEARCH);
                         }
                     }
 

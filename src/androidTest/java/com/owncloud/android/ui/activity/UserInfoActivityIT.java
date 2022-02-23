@@ -28,7 +28,6 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.parceler.Parcels;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -54,7 +53,7 @@ public class UserInfoActivityIT extends AbstractIT {
                                          null,
                                          null
         );
-        intent.putExtra(UserInfoActivity.KEY_USER_DATA, Parcels.wrap(userInfo));
+        intent.putExtra(UserInfoActivity.KEY_USER_DATA, userInfo);
         UserInfoActivity sut = activityRule.launchActivity(intent);
 
         shortSleep();

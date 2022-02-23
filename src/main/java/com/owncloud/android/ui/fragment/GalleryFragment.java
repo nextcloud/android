@@ -149,7 +149,7 @@ public class GalleryFragment extends OCFileListFragment {
         mAdapter.notifyDataSetChanged();
 
         if (mAdapter.isEmpty()) {
-            setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
 
         if (emptySearch && getAdapter().getItemCount() > 0) {
