@@ -54,8 +54,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.net.http.SslCertificate;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,11 +66,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -100,7 +96,6 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
-import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -115,6 +110,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
@@ -125,13 +121,8 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -179,7 +170,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
 
-    private static final String UNTRUSTED_CERT_DIALOG_TAG = "UNTRUSTED_CERT_DIALOG";
+    public static final String UNTRUSTED_CERT_DIALOG_TAG = "UNTRUSTED_CERT_DIALOG";
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
     private static final String KEY_AUTH_IS_FIRST_ATTEMPT_TAG = "KEY_AUTH_IS_FIRST_ATTEMPT";
 
@@ -408,7 +399,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void setClient() {
-        accountSetupWebviewBinding.loginWebview.setWebViewClient(new WebViewClient() {
+        accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
                 webViewFidoU2fBridge.delegateShouldInterceptRequest(view, request);
@@ -445,21 +436,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 ThemeToolbarUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
                 getWindow().setNavigationBarColor(primaryColor);
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                X509Certificate cert = getX509CertificateFromError(error);
-
-                try {
-                    if (cert != null && NetworkUtils.isCertInKnownServersStore(cert, getApplicationContext())) {
-                        handler.proceed();
-                    } else {
-                        showUntrustedCertDialog(cert, error, handler);
-                    }
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Cert could not be verified");
-                }
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -1390,23 +1366,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return false;   // always return false to grant that the software keyboard is hidden anyway
     }
 
-    /**
-     * Show untrusted cert dialog
-     */
-    public void showUntrustedCertDialog(X509Certificate x509Certificate, SslError error, SslErrorHandler handler) {
-        // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog;
-        if (x509Certificate == null) {
-            dialog = SslUntrustedCertDialog.newInstanceForEmptySslError(error, handler);
-        } else {
-            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(x509Certificate, error, handler);
-        }
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        dialog.show(ft, UNTRUSTED_CERT_DIALOG_TAG);
-    }
-
 
     /**
      * Show untrusted cert dialog
@@ -1513,30 +1472,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 parseAndLoginFromWebView(result);
             }
         }
-    }
-
-    /**
-     * Obtain the X509Certificate from SslError
-     *
-     * @param error SslError
-     * @return X509Certificate from error
-     */
-    public static X509Certificate getX509CertificateFromError(SslError error) {
-        Bundle bundle = SslCertificate.saveState(error.getCertificate());
-        X509Certificate x509Certificate;
-        byte[] bytes = bundle.getByteArray("x509-certificate");
-        if (bytes == null) {
-            x509Certificate = null;
-        } else {
-            try {
-                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-                Certificate cert = certFactory.generateCertificate(new ByteArrayInputStream(bytes));
-                x509Certificate = (X509Certificate) cert;
-            } catch (CertificateException e) {
-                x509Certificate = null;
-            }
-        }
-        return x509Certificate;
     }
 
     /**
