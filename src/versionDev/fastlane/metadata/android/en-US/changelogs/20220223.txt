@@ -1,0 +1,8 @@
+PreviewVideoActivity: improve button UX
+Restore fast forward/rewind buttons in fullscreen video
+PreviewVideoActivity: convert to Kotlin
+PreviewMediaFragment: fix restoring seek position when returning from fullscreen stream
+PreviewVideoActivity: fix control buttons
+PreviewVideoActivity: pause player when activity stops
+PreviewVideoActivity: ensure player is stopped when closing fullscreen
+PreviewMediaFragment: stop video when stopping activity, and don't recreate existing player
