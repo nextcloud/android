@@ -22,11 +22,9 @@
  */
 package com.owncloud.android.utils.theme;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -39,7 +37,7 @@ import androidx.core.widget.CompoundButtonCompat;
  * Utility class with methods for client side checkable theming.
  */
 public final class ThemeCheckableUtils {
-    public static void tintCheckbox(int color, AppCompatCheckBox... checkBoxes) {
+    public void tintCheckbox(int color, AppCompatCheckBox... checkBoxes) {
         if (checkBoxes != null) {
             for (AppCompatCheckBox checkBox : checkBoxes) {
                 CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(
@@ -56,12 +54,12 @@ public final class ThemeCheckableUtils {
         }
     }
 
-    public static void tintSwitch(SwitchCompat switchView) {
+    public void tintSwitch(SwitchCompat switchView, ThemeColorUtils themeColorUtils) {
         int trackColor = switchView.getContext().getResources().getColor(R.color.grey_200);
-        ColorStateList thumbColorStateList = null;
-        ColorStateList trackColorStateList = null;
-        int thumbColor = ThemeColorUtils.primaryAccentColor(switchView.getContext());
-        if (ThemeColorUtils.darkTheme(switchView.getContext()) &&
+        ColorStateList thumbColorStateList;
+        ColorStateList trackColorStateList;
+        int thumbColor = themeColorUtils.primaryAccentColor(switchView.getContext());
+        if (themeColorUtils.darkTheme(switchView.getContext()) &&
             AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             thumbColor = Color.WHITE;
             trackColor = Color.DKGRAY;

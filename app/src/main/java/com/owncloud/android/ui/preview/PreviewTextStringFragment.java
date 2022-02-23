@@ -50,6 +50,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
 
     @Inject UserAccountManager accountManager;
+    @Inject ThemeFabUtils themeFabUtils;
 
     /**
      * Creates an empty fragment for previews.
@@ -99,7 +100,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         fabMain.setVisibility(View.VISIBLE);
         fabMain.setEnabled(true);
         fabMain.setOnClickListener(v -> edit());
-        ThemeFabUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
+        themeFabUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
 
         return view;
     }
@@ -126,7 +127,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
 
     void loadAndShowTextPreview() {
         originalText = getFile().getRichWorkspace();
-        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false);
+        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, themeColorUtils);
 
         binding.textPreview.setVisibility(View.VISIBLE);
         binding.emptyListProgress.setVisibility(View.GONE);

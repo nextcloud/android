@@ -94,6 +94,8 @@ public class BackupListFragment extends FileFragment implements Injectable {
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
     private TransferManagerConnection fileDownloader;
     private LoadContactsTask loadContactsTask = null;
     private ContactsAccount selectedAccount;
@@ -140,7 +142,9 @@ public class BackupListFragment extends FileFragment implements Injectable {
         if (contactsPreferenceActivity != null) {
             ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
             if (actionBar != null) {
-                ThemeToolbarUtils.setColoredTitle(actionBar, R.string.actionbar_calendar_contacts_restore, getContext());
+                themeToolbarUtils.setColoredTitle(actionBar,
+                                                  R.string.actionbar_calendar_contacts_restore,
+                                                  getContext());
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
             contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
@@ -152,7 +156,8 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 new HashSet<>(),
                                                 new HashMap<>(),
                                                 this,
-                                                requireContext());
+                                                requireContext(),
+                                                themeColorUtils);
         } else {
             HashMap<String, Integer> checkedCalendarItems = new HashMap<>();
             String[] checkedCalendarItemsArray = savedInstanceState.getStringArray(CHECKED_CALENDAR_ITEMS_ARRAY_KEY);
@@ -181,7 +186,8 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 checkedContactsItems,
                                                 checkedCalendarItems,
                                                 this,
-                                                requireContext());
+                                                requireContext(),
+                                                themeColorUtils);
         }
 
         binding.list.setAdapter(listAdapter);
@@ -246,7 +252,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             closeFragment();
         });
 
-        binding.restoreSelected.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        binding.restoreSelected.setTextColor(themeColorUtils.primaryAccentColor(getContext()));
 
         return view;
     }

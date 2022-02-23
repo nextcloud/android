@@ -106,35 +106,49 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     /** Counter of conflicts found between local and remote files */
     private int mConflictsFound;
 
-    /** Counter of failed operations in synchronization of kept-in-sync files */
+    /**
+     * Counter of failed operations in synchronization of kept-in-sync files
+     */
     private int mFailsInFavouritesFound;
 
-    /** Map of remote and local paths to files that where locally stored in a location out
-     * of the ownCloud folder and couldn't be copied automatically into it */
+    /**
+     * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
+     * couldn't be copied automatically into it
+     */
     private Map<String, String> mForgottenLocalFiles;
 
-    /** {@link SyncResult} instance to return to the system when the synchronization finish */
+    /**
+     * {@link SyncResult} instance to return to the system when the synchronization finish
+     */
     private SyncResult mSyncResult;
+
+    private final ThemeColorUtils themeColorUtils;
 
     /**
      * Creates a {@link FileSyncAdapter}
-     *
+     * <p>
      * {@inheritDoc}
      */
-    public FileSyncAdapter(Context context, boolean autoInitialize, UserAccountManager userAccountManager) {
+    public FileSyncAdapter(Context context,
+                           boolean autoInitialize,
+                           UserAccountManager userAccountManager,
+                           ThemeColorUtils themeColorUtils) {
         super(context, autoInitialize, userAccountManager);
+        this.themeColorUtils = themeColorUtils;
     }
 
     /**
      * Creates a {@link FileSyncAdapter}
-     *
+     * <p>
      * {@inheritDoc}
      */
     public FileSyncAdapter(Context context,
                            boolean autoInitialize,
                            boolean allowParallelSyncs,
-                           UserAccountManager userAccountManager) {
+                           UserAccountManager userAccountManager,
+                           ThemeColorUtils themeColorUtils) {
         super(context, autoInitialize, allowParallelSyncs, userAccountManager);
+        this.themeColorUtils = themeColorUtils;
     }
 
 
@@ -510,7 +524,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private NotificationCompat.Builder createNotificationBuilder() {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext());
         notificationBuilder.setSmallIcon(R.drawable.notification_icon).setAutoCancel(true);
-        notificationBuilder.setColor(ThemeColorUtils.primaryColor(getContext(), true));
+        notificationBuilder.setColor(themeColorUtils.primaryColor(getContext(), true));
         return notificationBuilder;
     }
 

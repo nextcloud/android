@@ -75,7 +75,8 @@ class NotificationWork constructor(
     params: WorkerParameters,
     private val notificationManager: NotificationManager,
     private val accountManager: UserAccountManager,
-    private val deckApi: DeckApi
+    private val deckApi: DeckApi,
+    private val themeColorUtils: ThemeColorUtils
 ) : Worker(context, params) {
 
     companion object {
@@ -167,7 +168,7 @@ class NotificationWork constructor(
         val notificationBuilder = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(ThemeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
+            .setColor(themeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
             .setShowWhen(true)
             .setSubText(user.accountName)
             .setContentTitle(notification.getSubject())
@@ -222,7 +223,7 @@ class NotificationWork constructor(
             NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-                .setColor(ThemeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
+                .setColor(themeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
                 .setShowWhen(true)
                 .setSubText(user.accountName)
                 .setContentTitle(context.getString(R.string.new_notification))

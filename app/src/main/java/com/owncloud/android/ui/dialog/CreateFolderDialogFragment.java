@@ -30,6 +30,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -40,29 +41,35 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 /**
- *  Dialog to input the name for a new folder to create.
- *
- *  Triggers the folder creation when name is confirmed.
+ * Dialog to input the name for a new folder to create.
+ * <p>
+ * Triggers the folder creation when name is confirmed.
  */
 public class CreateFolderDialogFragment
-        extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
+
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ThemeTextInputUtils themeTextInputUtils;
 
     private OCFile mParentFolder;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
      *
-     * @param parentFolder            Folder to create
-     * @return                        Dialog ready to show.
+     * @param parentFolder Folder to create
+     * @return Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
@@ -79,14 +86,15 @@ public class CreateFolderDialogFragment
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int primaryColor = ThemeColorUtils.primaryColor(getActivity());
+        int primaryColor = themeColorUtils.primaryColor(getActivity());
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
 
         // Inflate the layout for the dialog
@@ -97,7 +105,7 @@ public class CreateFolderDialogFragment
         // Setup layout
         binding.userInput.setText("");
         binding.userInput.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.userInputContainer, binding.userInput, primaryColor);
+        themeTextInputUtils.colorTextInput(binding.userInputContainer, binding.userInput, primaryColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -26,7 +26,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -38,6 +37,7 @@ import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -48,6 +48,8 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private float avatarRadiusDimension;
     private User user;
     private Context context;
+    private ThemeColorUtils themeColorUtils;
+    private ThemeAvatarUtils themeAvatarUtils;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -55,11 +57,15 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
 
     public ShareViewHolder(FileDetailsShareShareItemBinding binding,
                            User user,
-                           Context context) {
+                           Context context,
+                           ThemeColorUtils themeColorUtils,
+                           ThemeAvatarUtils themeAvatarUtils) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
         this.context = context;
+        this.themeColorUtils = themeColorUtils;
+        this.themeAvatarUtils = themeAvatarUtils;
     }
 
     public void bind(OCShare share,
@@ -74,14 +80,14 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         switch (share.getShareType()) {
             case GROUP:
                 name = context.getString(R.string.share_group_clarification, name);
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                themeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context, themeColorUtils);
                 break;
             case ROOM:
                 name = context.getString(R.string.share_room_clarification, name);
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                themeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context, themeColorUtils);
                 break;
             case CIRCLE:
-                ThemeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context);
+                themeAvatarUtils.createAvatar(share.getShareType(), binding.icon, context, themeColorUtils);
                 break;
             case FEDERATED:
                 name = context.getString(R.string.share_remote_clarification, name);

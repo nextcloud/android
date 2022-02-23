@@ -85,6 +85,11 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     private BackupFragmentBinding binding;
 
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ThemeUtils themeUtils;
+    @Inject ThemeCheckableUtils themeCheckableUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     private Date selectedDate;
     private boolean calendarPickerOpen;
@@ -110,7 +115,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // use grey as fallback for elements where custom theming is not available
-        if (ThemeUtils.themingEnabled(getContext())) {
+        if (themeUtils.themingEnabled(getContext())) {
             getContext().getTheme().applyStyle(R.style.FallbackThemingTheme, true);
         }
 
@@ -129,22 +134,19 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
         if (actionBar != null) {
-            ThemeToolbarUtils.setColoredTitle(actionBar, getString(R.string.backup_title), getContext());
+            themeToolbarUtils.setColoredTitle(actionBar, getString(R.string.backup_title), getContext());
 
             actionBar.setDisplayHomeAsUpEnabled(true);
-            ThemeToolbarUtils.tintBackButton(actionBar, getContext());
+            themeToolbarUtils.tintBackButton(actionBar, getContext());
         }
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        ThemeCheckableUtils.tintSwitch(
-            binding.contacts);
-        ThemeCheckableUtils.tintSwitch(
-            binding.calendar);
-        ThemeCheckableUtils.tintSwitch(
-            binding.dailyBackup);
-        binding.dailyBackup.setChecked(
-            arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
+        themeCheckableUtils.tintSwitch(binding.contacts, themeColorUtils);
+        themeCheckableUtils.tintSwitch(binding.calendar, themeColorUtils);
+        themeCheckableUtils.tintSwitch(binding.dailyBackup, themeColorUtils);
+        binding.dailyBackup.setChecked(arbitraryDataProvider.getBooleanValue(user,
+                                                                             PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         binding.contacts.setChecked(checkContactBackupPermission());
         binding.calendar.setChecked(checkCalendarBackupPermission());
@@ -210,10 +212,10 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             calendarPickerOpen = true;
         }
 
-        ThemeButtonUtils.colorPrimaryButton(binding.backupNow, getContext());
-        ThemeButtonUtils.themeBorderlessButton(binding.contactsDatepicker);
+        themeButtonUtils.colorPrimaryButton(binding.backupNow, getContext(), themeColorUtils);
+        themeButtonUtils.themeBorderlessButton(themeColorUtils, binding.contactsDatepicker);
 
-        int primaryAccentColor = ThemeColorUtils.primaryAccentColor(getContext());
+        int primaryAccentColor = themeColorUtils.primaryAccentColor(getContext());
         binding.dataToBackUpTitle.setTextColor(primaryAccentColor);
         binding.backupSettingsTitle.setTextColor(primaryAccentColor);
 
@@ -507,7 +509,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         if (backupFiles.size() > 0 && backupFiles.get(backupFiles.size() - 1) != null) {
             datePickerDialog = new DatePickerDialog(contactsPreferenceActivity, this, year, month, day);
             datePickerDialog.getDatePicker().setMaxDate(backupFiles.get(backupFiles.size() - 1)
-                    .getModificationTimestamp());
+                                                            .getModificationTimestamp());
             datePickerDialog.getDatePicker().setMinDate(backupFiles.get(0).getModificationTimestamp());
 
             datePickerDialog.setOnDismissListener(dialog -> selectedDate = null);
@@ -515,8 +517,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             datePickerDialog.setTitle("");
             datePickerDialog.show();
 
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(),true));
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
 
             // set background to transparent
             datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(0x00000000);

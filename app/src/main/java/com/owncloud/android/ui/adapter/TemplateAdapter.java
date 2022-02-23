@@ -38,8 +38,9 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.ArrayList;
 
@@ -60,21 +61,27 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
     private Template selectedTemplate;
     private final int colorSelected;
     private final int colorUnselected;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
 
     public TemplateAdapter(
         String mimetype,
         ClickListener clickListener,
         Context context,
         CurrentAccountProvider currentAccountProvider,
-        ClientFactory clientFactory
-    ) {
+        ClientFactory clientFactory,
+        ThemeColorUtils themeColorUtils,
+        ThemeDrawableUtils themeDrawableUtils
+                          ) {
         this.mimetype = mimetype;
         this.clickListener = clickListener;
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.clientFactory = clientFactory;
-        colorSelected = ThemeColorUtils.primaryColor(context, true);
+        colorSelected = themeColorUtils.primaryColor(context, true);
         colorUnselected = context.getResources().getColor(R.color.grey_200);
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     @NonNull
@@ -89,7 +96,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setData(new ArrayList<>(templateList.getTemplates().values()).get(position));
+        holder.setData(new ArrayList<>(templateList.getTemplates().values()).get(position), themeColorUtils, themeDrawableUtils);
     }
 
     public void setTemplateList(TemplateList templateList) {
@@ -128,13 +135,15 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
             }
         }
 
-        public void setData(Template template) {
+        public void setData(Template template, ThemeColorUtils themeColorUtils, ThemeDrawableUtils themeDrawableUtils) {
             this.template = template;
 
             Drawable placeholder = MimeTypeUtil.getFileTypeIcon(mimetype,
                                                                 template.getTitle(),
                                                                 currentAccountProvider.getUser(),
-                                                                context);
+                                                                context,
+                                                                themeColorUtils,
+                                                                themeDrawableUtils);
 
             Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
                 .load(template.getPreview())

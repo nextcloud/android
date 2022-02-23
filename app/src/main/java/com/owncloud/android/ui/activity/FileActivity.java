@@ -93,7 +93,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -172,6 +171,9 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     BackgroundJobManager backgroundJobManager;
 
+    @Inject
+    ThemeSnackbarUtils themeSnackbarUtils;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
@@ -200,9 +202,11 @@ public abstract class FileActivity extends DrawerActivity
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
             mFileOperationsHelper.setOpIdWaitingFor(
-                    savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
-                    );
-            ThemeToolbarUtils.setColoredTitle(getSupportActionBar(), savedInstanceState.getString(KEY_ACTION_BAR_TITLE), this);
+                savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
+                                                   );
+            themeToolbarUtils.setColoredTitle(getSupportActionBar(),
+                                              savedInstanceState.getString(KEY_ACTION_BAR_TITLE),
+                                              this);
         } else {
             User user = getIntent().getParcelableExtra(FileActivity.EXTRA_USER);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -692,12 +696,15 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-    public static void copyAndShareFileLink(FileActivity activity, OCFile file, String link) {
+    public static void copyAndShareFileLink(FileActivity activity,
+                                            OCFile file,
+                                            String link,
+                                            ThemeSnackbarUtils themeSnackbarUtils) {
         ClipboardUtil.copyToClipboard(activity, link, false);
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                           Snackbar.LENGTH_LONG)
             .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-        ThemeSnackbarUtils.colorSnackbar(activity, snackbar);
+        themeSnackbarUtils.colorSnackbar(activity, snackbar);
         snackbar.show();
     }
 
@@ -766,7 +773,7 @@ public abstract class FileActivity extends DrawerActivity
                 snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
-            ThemeSnackbarUtils.colorSnackbar(this, snackbar);
+            themeSnackbarUtils.colorSnackbar(this, snackbar);
             snackbar.show();
         }
     }
@@ -791,7 +798,7 @@ public abstract class FileActivity extends DrawerActivity
                 }
             }
 
-            copyAndShareFileLink(this, file, link);
+            copyAndShareFileLink(this, file, link, themeSnackbarUtils);
 
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result, file);
@@ -821,7 +828,7 @@ public abstract class FileActivity extends DrawerActivity
                                                                                            operation,
                                                                                            getResources()),
                                                   Snackbar.LENGTH_LONG);
-                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
+                themeSnackbarUtils.colorSnackbar(this, snackbar);
                 snackbar.show();
             }
         }

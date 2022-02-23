@@ -22,11 +22,10 @@
  */
 package com.owncloud.android.utils.theme;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-
-import com.owncloud.android.MainApp;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -38,13 +37,18 @@ import androidx.core.graphics.drawable.DrawableCompat;
  * Utility class with methods for client side button theming.
  */
 public final class ThemeDrawableUtils {
-    public static Drawable tintDrawable(@DrawableRes int id, int color) {
-        return tintDrawable(ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(), id, null),
-                            color);
+    private final Context context;
+
+    public ThemeDrawableUtils(Context context) {
+        this.context = context;
+    }
+
+    public Drawable tintDrawable(@DrawableRes int id, int color) {
+        return tintDrawable(ResourcesCompat.getDrawable(context.getResources(), id, null), color);
     }
 
     @Nullable
-    public static Drawable tintDrawable(Drawable drawable, int color) {
+    public Drawable tintDrawable(Drawable drawable, int color) {
         if (drawable != null) {
             Drawable wrap = DrawableCompat.wrap(drawable);
             wrap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
@@ -55,7 +59,7 @@ public final class ThemeDrawableUtils {
         return null;
     }
 
-    public static void setIconColor(Drawable drawable) {
+    public void setIconColor(Drawable drawable) {
         int color;
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -64,6 +68,6 @@ public final class ThemeDrawableUtils {
             color = Color.BLACK;
         }
 
-        ThemeDrawableUtils.tintDrawable(drawable, color);
+        tintDrawable(drawable, color);
     }
 }

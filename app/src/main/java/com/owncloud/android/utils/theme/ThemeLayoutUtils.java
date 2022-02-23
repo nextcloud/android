@@ -34,18 +34,25 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 /**
  * Utility class with methods for client side checkable theming.
  */
-public final class ThemeLayoutUtils {
-    public static void colorSwipeRefreshLayout(Context context, SwipeRefreshLayout swipeRefreshLayout) {
-        int primaryColor = ThemeColorUtils.primaryColor(context);
-        int darkColor = ThemeColorUtils.primaryDarkColor(context);
-        int accentColor = ThemeColorUtils.primaryAccentColor(context);
+public class ThemeLayoutUtils {
+    private final ThemeColorUtils themeColorUtils;
+
+    public ThemeLayoutUtils(ThemeColorUtils themeColorUtils) {
+        this.themeColorUtils = themeColorUtils;
+    }
+
+    public void colorSwipeRefreshLayout(Context context,
+                                        SwipeRefreshLayout swipeRefreshLayout) {
+        int primaryColor = themeColorUtils.primaryColor(context);
+        int darkColor = themeColorUtils.primaryDarkColor(context);
+        int accentColor = themeColorUtils.primaryAccentColor(context);
 
         swipeRefreshLayout.setColorSchemeColors(accentColor, primaryColor, darkColor);
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.bg_elevation_one);
     }
 
-    public static void colorTabLayout(Context context, TabLayout tabLayout) {
-        int primaryColor = ThemeColorUtils.primaryColor(context, true);
+    public void colorTabLayout(Context context, TabLayout tabLayout) {
+        int primaryColor = themeColorUtils.primaryColor(context, true);
         int textColor = context.getResources().getColor(R.color.text_color);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(primaryColor);

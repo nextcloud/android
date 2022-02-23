@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ActionMode;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -32,19 +33,23 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 /**
- *  Dialog requiring confirmation before removing a collection of given OCFiles.
- *
- *  Triggers the removal according to the user response.
+ * Dialog requiring confirmation before removing a collection of given OCFiles.
+ * <p>
+ * Triggers the removal according to the user response.
  */
 public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implements
-        ConfirmationDialogFragmentListener {
+    ConfirmationDialogFragmentListener, Injectable {
 
     private static final int SINGLE_SELECTION = 1;
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
+
+    @Inject ThemeColorUtils themeColorUtils;
 
     private Collection<OCFile> mTargetFiles;
     private ActionMode actionMode;
@@ -54,7 +59,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
      *
      * @param files           Files to remove.
      * @param actionMode      ActionMode to finish on confirmation
-     * @return                Dialog ready to show.
+     * @return Dialog ready to show.
      */
     public static RemoveFilesDialogFragment newInstance(ArrayList<OCFile> files, ActionMode actionMode) {
         RemoveFilesDialogFragment dialogFragment = newInstance(files);
@@ -128,7 +133,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getActivity());
+        int color = themeColorUtils.primaryAccentColor(getActivity());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 

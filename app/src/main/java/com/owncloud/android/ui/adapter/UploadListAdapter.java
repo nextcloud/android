@@ -67,6 +67,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -89,6 +90,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private Clock clock;
     private UploadGroup[] uploadGroups;
     private boolean showUser;
+    private ThemeColorUtils themeColorUtils;
+    private ThemeDrawableUtils themeDrawableUtils;
+    private ThemeBarUtils themeBarUtils;
 
     @Override
     public int getSectionCount() {
@@ -109,7 +113,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListTitle.setText(
             String.format(parentActivity.getString(R.string.uploads_view_group_header),
                           group.getGroupName(), group.getGroupItemCount()));
-        headerViewHolder.binding.uploadListTitle.setTextColor(ThemeColorUtils.primaryAccentColor(parentActivity));
+        headerViewHolder.binding.uploadListTitle.setTextColor(themeColorUtils.primaryAccentColor(parentActivity));
 
         headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
 
@@ -167,7 +171,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final UserAccountManager accountManager,
                              final ConnectivityService connectivityService,
                              final PowerManagementService powerManagementService,
-                             final Clock clock) {
+                             final Clock clock,
+                             final ThemeColorUtils themeColorUtils,
+                             final ThemeDrawableUtils themeDrawableUtils,
+                             final ThemeBarUtils themeBarUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
@@ -176,6 +183,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.connectivityService = connectivityService;
         this.powerManagementService = powerManagementService;
         this.clock = clock;
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
+        this.themeBarUtils = themeBarUtils;
+
         uploadGroups = new UploadGroup[3];
 
         shouldShowHeadersForEmptySections(false);
@@ -269,8 +280,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                ThemeBarUtils.colorHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar,
-                                                         ThemeColorUtils.primaryAccentColor(parentActivity));
+                themeBarUtils.colorHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar,
+                                                         themeColorUtils.primaryAccentColor(parentActivity));
                 itemViewHolder.binding.uploadProgressBar.setProgress(0);
                 itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
 
@@ -483,7 +494,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
                                                                    fileName,
                                                                    user,
-                                                                   parentActivity);
+                                                                   parentActivity,
+                                                                   themeColorUtils,
+                                                                   themeDrawableUtils);
                 itemViewHolder.binding.thumbnail.setImageDrawable(icon);
             }
         }

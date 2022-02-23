@@ -83,6 +83,7 @@ import com.owncloud.android.utils.glide.CustomGlideUriLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -344,9 +345,9 @@ public final class DisplayUtils {
      * @param relative relative value for which the info level color should be looked up
      * @return info level color
      */
-    public static int getRelativeInfoColor(Context context, int relative) {
+    public static int getRelativeInfoColor(Context context, int relative, ThemeColorUtils themeColorUtils) {
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return ThemeColorUtils.primaryColor(context, true);
+            return themeColorUtils.primaryColor(context, true);
         } else {
             return context.getResources().getColor(R.color.infolevel_warning);
         }
@@ -841,23 +842,6 @@ public final class DisplayUtils {
         return df.format(timestamp);
     }
 
-    public static void setThumbnail(OCFile file,
-                                    ImageView thumbnailView,
-                                    User user,
-                                    FileDataStorageManager storageManager,
-                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
-                                    boolean gridView,
-                                    Context context) {
-        setThumbnail(file,
-                     thumbnailView,
-                     user,
-                     storageManager,
-                     asyncTasks,
-                     gridView,
-                     context,
-                     null,
-                     null);
-    }
 
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
@@ -867,13 +851,15 @@ public final class DisplayUtils {
                                     boolean gridView,
                                     Context context,
                                     LoaderImageView shimmerThumbnail,
-                                    AppPreferences preferences) {
+                                    AppPreferences preferences,
+                                    ThemeColorUtils themeColorUtils,
+                                    ThemeDrawableUtils themeDrawableUtils) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(), file.isEncrypted(),
-                                                                  file.getMountType(), context));
+                                                                  file.getMountType(), context, themeColorUtils, themeDrawableUtils));
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -915,7 +901,9 @@ public final class DisplayUtils {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
                                                                                  user,
-                                                                                 context);
+                                                                                 context,
+                                                                                 themeColorUtils,
+                                                                                 themeDrawableUtils);
                                 if (drawable == null) {
                                     drawable = ResourcesCompat.getDrawable(context.getResources(),
                                                                            R.drawable.file_image,
@@ -966,7 +954,9 @@ public final class DisplayUtils {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
                                                                             user,
-                                                                            context));
+                                                                            context,
+                                                                            themeColorUtils,
+                                                                            themeDrawableUtils));
             }
         }
     }

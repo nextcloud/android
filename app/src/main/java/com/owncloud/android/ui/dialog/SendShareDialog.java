@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.utils.IntentUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -28,9 +29,12 @@ import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +63,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SendShareDialog extends BottomSheetDialogFragment {
+public class SendShareDialog extends BottomSheetDialogFragment implements Injectable {
 
     private static final String KEY_OCFILE = "KEY_OCFILE";
     private static final String KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED";
@@ -75,6 +79,8 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private boolean sharingPublicPasswordEnforced;
     private boolean sharingPublicAskForPassword;
     private FileOperationsHelper fileOperationsHelper;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeSnackbarUtils themeSnackbarUtils;
 
     public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
 
@@ -125,11 +131,11 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
         // Share via link button
         TextView shareLinkText = view.findViewById(R.id.share_link_button);
-        shareLinkText.setOnClickListener(v -> shareByLink());
+        shareLinkText.setOnClickListener(v -> shareByLink(themeSnackbarUtils));
 
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         themeShareButtonImage(shareLinkImageView);
-        shareLinkImageView.setOnClickListener(v -> shareByLink());
+        shareLinkImageView.setOnClickListener(v -> shareByLink(themeSnackbarUtils));
 
         if (hideNcSharingOptions) {
             sendShareButtons.setVisibility(View.GONE);
@@ -179,9 +185,9 @@ public class SendShareDialog extends BottomSheetDialogFragment {
         BottomSheetBehavior.from((View) requireView().getParent()).setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    private void shareByLink() {
+    private void shareByLink(ThemeSnackbarUtils themeSnackbarUtils) {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
+            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file, themeSnackbarUtils);
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();
@@ -201,10 +207,10 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(ThemeColorUtils.primaryColor(getContext().getApplicationContext(),
+        shareImageView.getBackground().setColorFilter(themeColorUtils.primaryColor(getContext().getApplicationContext(),
                                                                                    true),
                                                       PorterDuff.Mode.SRC_IN);
-        shareImageView.getDrawable().mutate().setColorFilter(ThemeColorUtils.fontColor(getContext().getApplicationContext()),
+        shareImageView.getDrawable().mutate().setColorFilter(themeColorUtils.fontColor(getContext().getApplicationContext()),
                                                              PorterDuff.Mode.SRC_IN);
     }
 

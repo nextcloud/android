@@ -59,10 +59,10 @@ public final class NotificationUtils {
      * change a lot in different Android versions.
      *
      * @param context       Context that will use the builder to create notifications
-     * @return              An instance of the regular {@link NotificationCompat.Builder}.
+     * @return An instance of the regular {@link NotificationCompat.Builder}.
      */
-    public static NotificationCompat.Builder newNotificationBuilder(Context context) {
-        return new NotificationCompat.Builder(context).setColor(ThemeColorUtils.primaryColor(context));
+    public static NotificationCompat.Builder newNotificationBuilder(Context context, ThemeColorUtils themeColorUtils) {
+        return new NotificationCompat.Builder(context).setColor(themeColorUtils.primaryColor(context));
     }
 
     @SuppressFBWarnings("DMI")

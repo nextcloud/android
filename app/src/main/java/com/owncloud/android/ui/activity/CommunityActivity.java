@@ -31,8 +31,6 @@ import com.google.android.material.button.MaterialButton;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.CommunityLayoutBinding;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.
@@ -66,7 +64,7 @@ public class CommunityActivity extends DrawerActivity {
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
                                                       getString(R.string.community_contribute_forum_text_link,
-                                                                ThemeColorUtils.primaryColorToHexString(this),
+                                                                themeColorUtils.primaryColorToHexString(this),
                                                                 getString(R.string.help_link),
                                                                 getString(R.string.community_contribute_forum_forum))));
 
@@ -74,7 +72,7 @@ public class CommunityActivity extends DrawerActivity {
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
             getString(R.string.community_contribute_translate_link,
-                      ThemeColorUtils.primaryColorToHexString(this),
+                      themeColorUtils.primaryColorToHexString(this),
                       getString(R.string.translation_link),
                       getString(R.string.community_contribute_translate_translate)) + " " +
                 getString(R.string.community_contribute_translate_text)));
@@ -84,11 +82,11 @@ public class CommunityActivity extends DrawerActivity {
         contributeGithubView.setText(Html.fromHtml(
             getString(R.string.community_contribute_github_text,
                       getString(R.string.community_contribute_github_text_link,
-                                ThemeColorUtils.primaryColorToHexString(this),
+                                themeColorUtils.primaryColorToHexString(this),
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = binding.communityTestingReport;
-        ThemeButtonUtils.colorPrimaryButton(reportButton, this);
+        themeButtonUtils.colorPrimaryButton(reportButton, this, themeColorUtils);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_link));
 
         binding.communityBetaFdroid.setOnClickListener(

@@ -37,8 +37,12 @@ import javax.inject.Inject
 class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var appInfo: AppInfo
+
     @Inject
     lateinit var deviceInfo: DeviceInfo
+
+    @Inject
+    lateinit var themeUtils: ThemeUtils
 
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
     override fun postOnCreate() {
@@ -63,7 +67,7 @@ class TextEditorWebView : EditorWebView() {
                 WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
             )
         }
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && ThemeUtils.isDarkModeActive(this)) {
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && themeUtils.isDarkModeActive(this)) {
             WebSettingsCompat.setForceDark(getWebView().settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 

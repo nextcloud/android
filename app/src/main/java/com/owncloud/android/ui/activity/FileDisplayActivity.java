@@ -305,7 +305,8 @@ public class FileDisplayActivity extends FileActivity
                     .create();
 
                 alertDialog.show();
-                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -655,7 +656,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        ThemeToolbarUtils.themeSearchView(searchView, this);
+        themeToolbarUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);

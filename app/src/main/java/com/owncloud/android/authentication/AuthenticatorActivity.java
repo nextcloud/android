@@ -233,6 +233,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
     @Inject PassCodeManager passCodeManager;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ThemeDrawableUtils themeDrawableUtils;
+
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
     private int primaryColor = R.color.primary;
@@ -436,7 +439,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
-                ThemeToolbarUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                themeToolbarUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
                 getWindow().setNavigationBarColor(primaryColor);
             }
 
@@ -526,7 +529,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
-            ThemeDrawableUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
+            themeDrawableUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
                                             getResources().getColor(R.color.login_text_color));
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);

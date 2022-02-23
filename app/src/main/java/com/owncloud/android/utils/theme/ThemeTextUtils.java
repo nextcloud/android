@@ -31,7 +31,7 @@ import android.text.style.ForegroundColorSpan;
  * Utility class with methods for client side checkable theming.
  */
 public final class ThemeTextUtils {
-    public static Spanned getColoredTitle(String title, int color) {
+    public Spanned getColoredTitle(String title, int color) {
         Spannable text = new SpannableString(title);
         text.setSpan(new ForegroundColorSpan(color),
                      0,

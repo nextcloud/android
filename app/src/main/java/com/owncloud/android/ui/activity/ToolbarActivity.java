@@ -38,13 +38,18 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
@@ -56,7 +61,7 @@ import androidx.core.content.ContextCompat;
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
  */
-public abstract class ToolbarActivity extends BaseActivity {
+public abstract class ToolbarActivity extends BaseActivity implements Injectable {
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
@@ -72,16 +77,23 @@ public abstract class ToolbarActivity extends BaseActivity {
     protected AppCompatSpinner mToolbarSpinner;
     private boolean isHomeSearchToolbarShow = false;
 
+    @Inject public ThemeColorUtils themeColorUtils;
+    @Inject public ThemeLayoutUtils themeLayoutUtils;
+    @Inject public ThemeToolbarUtils themeToolbarUtils;
+    @Inject public ThemeUtils themeUtils;
+    @Inject public ThemeDrawableUtils themeDrawableUtils;
+    @Inject public ThemeButtonUtils themeButtonUtils;
+
     /**
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
     private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
-        int fontColor = ThemeColorUtils.appBarPrimaryFontColor(this);
+        int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        ThemeToolbarUtils.colorStatusBar(this);
+        themeToolbarUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
@@ -106,11 +118,11 @@ public abstract class ToolbarActivity extends BaseActivity {
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
         if (mToolbar.getOverflowIcon() != null) {
-            ThemeDrawableUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
+            themeDrawableUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
         }
 
         if (mToolbar.getNavigationIcon() != null) {
-            ThemeDrawableUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
+            themeDrawableUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
         }
     }
 
@@ -129,7 +141,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         String title;
         boolean isRoot = isRoot(chosenFile);
 
-        title = isRoot ? ThemeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
+        title = isRoot ? themeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
         updateActionBarTitleAndHomeButtonByString(title);
 
         if (mAppBar != null) {
@@ -161,13 +173,13 @@ public abstract class ToolbarActivity extends BaseActivity {
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            ThemeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
+            themeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
-            ThemeToolbarUtils.colorStatusBar(this);
+            themeToolbarUtils.colorStatusBar(this);
         }
     }
 
@@ -183,7 +195,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        ThemeToolbarUtils.setColoredTitle(actionBar, titleToSet, this);
+        themeToolbarUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {

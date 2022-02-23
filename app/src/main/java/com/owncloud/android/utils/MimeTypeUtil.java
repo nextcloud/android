@@ -92,8 +92,12 @@ public final class MimeTypeUtil {
      * @param filename Name, with extension.
      * @return Drawable of an image resource.
      */
-    public static Drawable getFileTypeIcon(String mimetype, String filename, Context context) {
-        return getFileTypeIcon(mimetype, filename, null, context);
+    public static Drawable getFileTypeIcon(String mimetype,
+                                           String filename,
+                                           Context context,
+                                           ThemeColorUtils themeColorUtils,
+                                           ThemeDrawableUtils themeDrawableUtils) {
+        return getFileTypeIcon(mimetype, filename, null, context, themeColorUtils, themeDrawableUtils);
     }
 
     /**
@@ -101,17 +105,22 @@ public final class MimeTypeUtil {
      *
      * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
      * @param filename Name, with extension.
-     * @param user user which color should be used
+     * @param user     user which color should be used
      * @return Drawable of an image resource.
      */
     @Nullable
-    public static Drawable getFileTypeIcon(String mimetype, String filename, @Nullable User user, Context context) {
+    public static Drawable getFileTypeIcon(String mimetype,
+                                           String filename,
+                                           @Nullable User user,
+                                           Context context,
+                                           ThemeColorUtils themeColorUtils,
+                                           ThemeDrawableUtils themeDrawableUtils) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                ThemeDrawableUtils.tintDrawable(icon, ThemeColorUtils.primaryColor(user, true, context));
+                themeDrawableUtils.tintDrawable(icon, themeColorUtils.primaryColor(user, true, context));
             }
 
             return icon;
@@ -145,9 +154,21 @@ public final class MimeTypeUtil {
      * @param isSharedViaLink  flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers, boolean isSharedViaLink, boolean isEncrypted,
-                                             WebdavEntry.MountType mountType, Context context) {
-        return getFolderTypeIcon(isSharedViaUsers, isSharedViaLink, isEncrypted, null, mountType, context);
+    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
+                                             boolean isSharedViaLink,
+                                             boolean isEncrypted,
+                                             WebdavEntry.MountType mountType,
+                                             Context context,
+                                             ThemeColorUtils themeColorUtils,
+                                             ThemeDrawableUtils themeDrawableUtils) {
+        return getFolderTypeIcon(isSharedViaUsers,
+                                 isSharedViaLink,
+                                 isEncrypted,
+                                 null,
+                                 mountType,
+                                 context,
+                                 themeColorUtils,
+                                 themeDrawableUtils);
     }
 
     /**
@@ -164,7 +185,9 @@ public final class MimeTypeUtil {
                                              boolean isEncrypted,
                                              @Nullable User user,
                                              WebdavEntry.MountType mountType,
-                                             Context context) {
+                                             Context context,
+                                             ThemeColorUtils themeColorUtils,
+                                             ThemeDrawableUtils themeDrawableUtils) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -181,14 +204,22 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        int color = ThemeColorUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
-                                            true,
-                                            context);
-        return ThemeDrawableUtils.tintDrawable(drawableId, color);
+        int color = themeColorUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
+                                                 true,
+                                                 context);
+        return themeDrawableUtils.tintDrawable(drawableId, color);
     }
 
-    public static Drawable getDefaultFolderIcon(Context context) {
-        return getFolderTypeIcon(false, false, false, WebdavEntry.MountType.INTERNAL, context);
+    public static Drawable getDefaultFolderIcon(Context context,
+                                                ThemeColorUtils themeColorUtils,
+                                                ThemeDrawableUtils themeDrawableUtils) {
+        return getFolderTypeIcon(false,
+                                 false,
+                                 false,
+                                 WebdavEntry.MountType.INTERNAL,
+                                 context,
+                                 themeColorUtils,
+                                 themeDrawableUtils);
     }
 
 

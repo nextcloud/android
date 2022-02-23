@@ -22,7 +22,8 @@ import javax.inject.Inject
 class AppNotificationManagerImpl @Inject constructor(
     private val context: Context,
     private val resources: Resources,
-    private val platformNotificationsManager: NotificationManager
+    private val platformNotificationsManager: NotificationManager,
+    private val themeColorUtils: ThemeColorUtils
 ) : AppNotificationManager {
 
     companion object {
@@ -31,7 +32,7 @@ class AppNotificationManagerImpl @Inject constructor(
     }
 
     private fun builder(channelId: String): NotificationCompat.Builder {
-        val color = ThemeColorUtils.primaryColor(context, true)
+        val color = themeColorUtils.primaryColor(context, true)
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(context, channelId).setColor(color)
         } else {

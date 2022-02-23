@@ -56,10 +56,6 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -133,11 +129,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     mDoNotEnterEncryptedFolder = true;
                     break;
                 default:
-                    caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
+                    caption = themeUtils.getDefaultDisplayNameForRootFolder(this);
                     break;
             }
         } else {
-            caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
+            caption = themeUtils.getDefaultDisplayNameForRootFolder(this);
         }
 
         if (getIntent().getParcelableExtra(EXTRA_CURRENT_FOLDER) != null) {
@@ -385,9 +381,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             actionBar.setDisplayHomeAsUpEnabled(!atRoot);
             actionBar.setHomeButtonEnabled(!atRoot);
 
-            ThemeToolbarUtils.tintBackButton(actionBar, this);
+            themeToolbarUtils.tintBackButton(actionBar, this);
 
-            ThemeToolbarUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
+            themeToolbarUtils.setColoredTitle(getSupportActionBar(), atRoot ? caption : currentDir.getFileName(), this);
         }
     }
 
@@ -399,15 +395,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose);
 
         if (mChooseBtn != null) {
-            ThemeButtonUtils.colorPrimaryButton(mChooseBtn, this);
+            themeButtonUtils.colorPrimaryButton(mChooseBtn, this, themeColorUtils);
             mChooseBtn.setOnClickListener(this);
         }
 
         if (mCancelBtn != null) {
             if (this instanceof FilePickerActivity) {
-                ThemeButtonUtils.colorPrimaryButton(mCancelBtn, this);
+                themeButtonUtils.colorPrimaryButton(mCancelBtn, this, themeColorUtils);
             } else {
-                mCancelBtn.setTextColor(ThemeColorUtils.primaryColor(this, true));
+                mCancelBtn.setTextColor(themeColorUtils.primaryColor(this, true));
             }
             mCancelBtn.setOnClickListener(this);
         }

@@ -59,7 +59,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private static final int SHOW_PROGRESS = 1;
 
     private MediaPlayerControl playerControl;
-    private View root;
+    private final View root;
     private ProgressBar progressBar;
     private TextView endTime;
     private TextView currentTime;
@@ -67,13 +67,21 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private ImageButton pauseButton;
     private ImageButton forwardButton;
     private ImageButton rewindButton;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeBarUtils themeBarUtils;
 
-    public MediaControlView(Context context, AttributeSet attrs) {
+    public MediaControlView(Context context,
+                            AttributeSet attrs,
+                            ThemeColorUtils themeColorUtils,
+                            ThemeBarUtils themeBarUtils) {
         super(context, attrs);
 
+        this.themeColorUtils = themeColorUtils;
+        this.themeBarUtils = themeBarUtils;
+
         FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         );
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         root = inflate.inflate(R.layout.media_control, null);
@@ -125,10 +133,10 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         if (progressBar != null) {
             if (progressBar instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) progressBar;
-                ThemeBarUtils.colorHorizontalSeekBar(seeker, getContext());
+                themeBarUtils.colorHorizontalSeekBar(seeker, getContext(), themeColorUtils);
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                ThemeBarUtils.colorHorizontalProgressBar(progressBar, ThemeColorUtils.primaryAccentColor(getContext()));
+                themeBarUtils.colorHorizontalProgressBar(progressBar, themeColorUtils.primaryAccentColor(getContext()));
             }
             progressBar.setMax(1000);
         }
@@ -161,7 +169,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         }
     }
 
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == SHOW_PROGRESS) {

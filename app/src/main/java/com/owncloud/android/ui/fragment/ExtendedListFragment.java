@@ -116,6 +116,10 @@ public class ExtendedListFragment extends Fragment implements
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeLayoutUtils themeLayoutUtils;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ThemeDrawableUtils themeDrawableUtils;
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
@@ -182,10 +186,10 @@ public class ExtendedListFragment extends Fragment implements
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        ThemeToolbarUtils.themeSearchView(searchView, requireContext());
+        themeToolbarUtils.themeSearchView(searchView, requireContext());
 
         SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
-        theTextArea.setHighlightColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        theTextArea.setHighlightColor(themeColorUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 
@@ -343,7 +347,7 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = binding.swipeContainingList;
-        ThemeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        themeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);
@@ -583,8 +587,8 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                ThemeDrawableUtils.tintDrawable(icon,
-                                                                ThemeColorUtils.primaryColor(getContext(),true)));
+                                themeDrawableUtils.tintDrawable(icon,
+                                                                themeColorUtils.primaryColor(getContext(), true)));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

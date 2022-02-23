@@ -33,16 +33,12 @@ import com.owncloud.android.lib.resources.status.OCCapability;
  * Utility class with methods for client side theming.
  */
 public final class ThemeUtils {
-    private ThemeUtils() {
-        // utility class -> private constructor
-    }
-
-    public static boolean themingEnabled(Context context) {
+    public boolean themingEnabled(Context context) {
         return CapabilityUtils.getCapability(context).getServerColor() != null
             && !CapabilityUtils.getCapability(context).getServerColor().isEmpty();
     }
 
-    public static String getDefaultDisplayNameForRootFolder(Context context) {
+    public String getDefaultDisplayNameForRootFolder(Context context) {
         OCCapability capability = CapabilityUtils.getCapability(context);
 
         if (MainApp.isOnlyOnDevice()) {
@@ -56,7 +52,7 @@ public final class ThemeUtils {
         }
     }
 
-    public static boolean isDarkModeActive(Context context) {
+    public boolean isDarkModeActive(Context context) {
         int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;

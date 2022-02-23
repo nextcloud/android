@@ -67,7 +67,6 @@ import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -157,6 +156,9 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
 
+    @Inject
+    lateinit var themeButtonUtils: ThemeButtonUtils
+
     private lateinit var binding: SyncedFoldersLayoutBinding
     private lateinit var adapter: SyncedFolderAdapter
     private lateinit var syncedFolderProvider: SyncedFolderProvider
@@ -202,7 +204,7 @@ class SyncedFoldersActivity :
         }
 
         setupContent()
-        if (ThemeUtils.themingEnabled(this)) {
+        if (themeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
@@ -236,7 +238,7 @@ class SyncedFoldersActivity :
             .setTitle(R.string.autoupload_disable_power_save_check)
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show()
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
+        themeButtonUtils.themeBorderlessButton(themeColorUtils, alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
     }
 
     /**
@@ -245,10 +247,10 @@ class SyncedFoldersActivity :
     private fun setupContent() {
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        adapter = SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion)
+        adapter = SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion, themeColorUtils, themeDrawableUtils)
         syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
-        ThemeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this)
+        themeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this, themeColorUtils)
         val lm = GridLayoutManager(this, gridWidth)
         adapter.setLayoutManager(lm)
         val spacing = resources.getDimensionPixelSize(R.dimen.media_grid_spacing)
@@ -281,12 +283,22 @@ class SyncedFoldersActivity :
             loadJob?.cancel()
             val mediaFolders = MediaProvider.getImageFolders(
                 contentResolver,
-                perFolderMediaItemLimit, this@SyncedFoldersActivity, false
+                perFolderMediaItemLimit,
+                this@SyncedFoldersActivity,
+                false,
+                themeColorUtils,
+                themeSnackbarUtils,
+                themeButtonUtils
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
-                    contentResolver, perFolderMediaItemLimit,
-                    this@SyncedFoldersActivity, false
+                    contentResolver,
+                    perFolderMediaItemLimit,
+                    this@SyncedFoldersActivity,
+                    false,
+                    themeColorUtils,
+                    themeSnackbarUtils,
+                    themeButtonUtils
                 )
             )
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders
@@ -787,7 +799,8 @@ class SyncedFoldersActivity :
                 .setIcon(R.drawable.ic_battery_alert)
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                 val alertDialog = alertDialogBuilder.show()
-                ThemeButtonUtils.themeBorderlessButton(
+                themeButtonUtils.themeBorderlessButton(
+                    themeColorUtils,
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 )

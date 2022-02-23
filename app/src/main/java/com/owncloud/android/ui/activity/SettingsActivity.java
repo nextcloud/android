@@ -139,11 +139,16 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ThemeUtils themeUtils;
+    @Inject ThemeTextUtils themeTextUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (ThemeUtils.themingEnabled(this)) {
+        if (themeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
 
@@ -157,7 +162,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        int accentColor = ThemeColorUtils.primaryAccentColor(this);
+        int accentColor = themeColorUtils.primaryAccentColor(this);
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
@@ -190,7 +195,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
 
         if (getResources().getBoolean(R.bool.is_beta)) {
-            preferenceCategoryDev.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_dev),
+            preferenceCategoryDev.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_dev),
                                                                           accentColor));
 
             /* Link to dev apks */
@@ -230,7 +235,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAboutCategory(int accentColor, String appVersion) {
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
-        preferenceCategoryAbout.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_about),
+        preferenceCategoryAbout.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_about),
                                                                         accentColor));
 
         /* About App */
@@ -316,7 +321,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupMoreCategory(int accentColor) {
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-        preferenceCategoryMore.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_more),
+        preferenceCategoryMore.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_more),
                                                                        accentColor));
 
         setupAutoUploadPreference(preferenceCategoryMore);
@@ -508,7 +513,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupDetailsCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
-        preferenceCategoryDetails.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_details),
+        preferenceCategoryDetails.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_details),
                                                                           accentColor));
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
@@ -604,7 +609,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategorySyncedFolders =
                 (PreferenceCategory) findPreference("synced_folders_category");
-        preferenceCategorySyncedFolders.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
+        preferenceCategorySyncedFolders.setTitle(themeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                                                 accentColor));
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
@@ -674,7 +679,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupGeneralCategory(int accentColor) {
         PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        preferenceCategoryGeneral.setTitle(ThemeTextUtils.getColoredTitle(getString(R.string.prefs_category_general),
+        preferenceCategoryGeneral.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_general),
                                                                           accentColor));
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
@@ -756,12 +761,12 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            ThemeToolbarUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
-            ThemeToolbarUtils.colorStatusBar(this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(ThemeColorUtils.primaryAppbarColor(this)));
+            themeToolbarUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
+            themeToolbarUtils.colorStatusBar(this);
+            actionBar.setBackgroundDrawable(new ColorDrawable(themeColorUtils.primaryAppbarColor(this)));
 
             actionBar.setDisplayHomeAsUpEnabled(true);
-            ThemeToolbarUtils.tintBackButton(actionBar, this);
+            themeToolbarUtils.tintBackButton(actionBar, this);
         }
     }
 
@@ -879,7 +884,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     .create();
 
                 alertDialog.show();
-                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             }
         }
     }

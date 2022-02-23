@@ -436,7 +436,9 @@ public class DialogFragmentIT extends AbstractIT {
 
         ProfileBottomSheetDialog sut = new ProfileBottomSheetDialog(fda,
                                                                     user,
-                                                                    hoverCard);
+                                                                    hoverCard,
+                                                                    fda.themeColorUtils,
+                                                                    fda.themeDrawableUtils);
 
         fda.runOnUiThread(sut::show);
 

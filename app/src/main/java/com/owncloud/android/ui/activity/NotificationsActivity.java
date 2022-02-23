@@ -49,7 +49,6 @@ import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
 import com.owncloud.android.ui.notifications.NotificationsContract;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import java.util.List;
 
@@ -101,8 +100,8 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
 
-        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
-        ThemeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingEmpty);
+        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingEmpty);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);
@@ -259,7 +258,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     private void initializeAdapter() {
         initializeClient();
         if (adapter == null) {
-            adapter = new NotificationListAdapter(client, this);
+            adapter = new NotificationListAdapter(client, this, themeColorUtils, themeButtonUtils);
             binding.list.setAdapter(adapter);
         }
     }
