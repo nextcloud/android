@@ -1004,7 +1004,6 @@
     <string name="result_scan_doc_no_doc">No document</string>
     <string name="result_scan_doc_bg_noisy">Background too noisy</string>
     <string name="result_scan_doc_aspect_ratio">Wrong aspect ratio.\nRotate your device.</string>
-    <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="result_scan_doc_poor_light">Poor light</string>
     <string name="scanned_doc_count">%d of %d</string>
     <string name="title_edit_scan">Edit Scan</string>
@@ -1154,7 +1153,6 @@
     <string name="download_limit_empty">Download limit cannot be empty.</string>
     <string name="hint_download_limit">Enter download limit</string>
     <string name="download_limit_zero">Download limit should be greater than 0.</string>
-    <string name="no_send_app">No app available for sending the selected files.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>

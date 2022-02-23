@@ -307,10 +307,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         return mAdapter.getFilesCount();
     }
 
-    public int getFilesCount() {
-        return mAdapter.getFilesCount();
-    }
-
     public void sortFiles(FileSortOrder sortOrder) {
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
         mAdapter.setSortOrder(sortOrder);

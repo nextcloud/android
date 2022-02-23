@@ -748,7 +748,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     return true;
                 }
                 StorageMigration storageMigration = new StorageMigration(this,user, storagePath, newPath);
-                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 

@@ -202,7 +202,7 @@ android {
             }
 
             huawei {
-                applicationId 'de.magentacloud.next.dev2.android.client'
+                applicationId 'com.t_systems.android.webdav'
                 dimension "default"
             }
 

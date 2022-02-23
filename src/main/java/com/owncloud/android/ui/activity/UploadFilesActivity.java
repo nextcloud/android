@@ -630,9 +630,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         //this has to be after select all methods because the select all will disable the upload button if select all
         // is not checked
         uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
-
-        boolean selectAll = mFileListFragment.getCheckedFilesCount() == mFileListFragment.getFilesCount();
-        setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), selectAll);
     }
 
     /**
