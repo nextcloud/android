@@ -31,7 +31,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.StringUtils
+import java.net.URLEncoder
 
 class ShowErrorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowErrorBinding
@@ -79,7 +79,7 @@ class ShowErrorActivity : AppCompatActivity() {
             val uriUrl = Uri.parse(
                 String.format(
                     issueLink,
-                    StringUtils.escapeStacktrace(binding.textViewError.text.toString())
+                    URLEncoder.encode(binding.textViewError.text.toString())
                 )
             )
             val intent = Intent(Intent.ACTION_VIEW, uriUrl)
