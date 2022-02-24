@@ -1,3 +1,10 @@
+## 3.19.1 (February 24, 2022)
+
+- Minor bugfixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/65
 ## 3.19.0 RC2 (January 27, 2022)
 
 - Support external storage in Media page
