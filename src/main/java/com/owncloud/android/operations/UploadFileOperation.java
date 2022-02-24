@@ -61,6 +61,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.UriUtils;
@@ -512,8 +513,9 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            Long timeStampLong = originalFile.lastModified() / 1000;
-            String timeStamp = timeStampLong.toString();
+            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
+
+            Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             /***** E2E *****/
 
@@ -586,9 +588,10 @@ public class UploadFileOperation extends SyncOperation {
                                                                         mFile.getParentRemotePath() + encryptedFileName,
                                                                         mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
-                                                                        timeStamp,
+                                                                        lastModifiedTimestamp,
                                                                         onWifiConnection,
                                                                         token,
+                                                                        creationTimestamp,
                                                                         mDisableRetries
                 );
             } else {
@@ -596,7 +599,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mFile.getParentRemotePath() + encryptedFileName,
                                                                  mFile.getMimeType(),
                                                                  mFile.getEtagInConflict(),
-                                                                 timeStamp,
+                                                                 lastModifiedTimestamp,
+                                                                 creationTimestamp,
                                                                  token,
                                                                  mDisableRetries
                 );
@@ -776,8 +780,9 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            Long timeStampLong = originalFile.lastModified() / 1000;
-            String timeStamp = timeStampLong.toString();
+            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
+
+            long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             FileChannel channel = null;
             try {
@@ -826,7 +831,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                         mFile.getRemotePath(),
                                                                         mFile.getMimeType(),
                                                                         mFile.getEtagInConflict(),
-                                                                        timeStamp,
+                                                                        lastModifiedTimestamp,
+                                                                        creationTimestamp,
                                                                         onWifiConnection,
                                                                         mDisableRetries);
             } else {
@@ -834,7 +840,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mFile.getRemotePath(),
                                                                  mFile.getMimeType(),
                                                                  mFile.getEtagInConflict(),
-                                                                 timeStamp,
+                                                                 lastModifiedTimestamp,
+                                                                 creationTimestamp,
                                                                  mDisableRetries);
             }
 
