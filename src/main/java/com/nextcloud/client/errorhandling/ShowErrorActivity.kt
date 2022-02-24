@@ -66,16 +66,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
         val issueLink = getString(R.string.report_issue_link)
-        val template = getString(R.string.report_issue_template)
-        if (issueLink.isNotEmpty() && template.isNotEmpty()) {
-            // val uriUrl = Uri.parse(
-            //     String.format(
-            //         issueLink,
-            //         StringUtils.escapeStacktrace(
-            //             String.format(template, binding.textViewError.text.toString())
-            //         )
-            //     )
-            // )
+        if (issueLink.isNotEmpty()) {
             val uriUrl = Uri.parse(
                 String.format(
                     issueLink,

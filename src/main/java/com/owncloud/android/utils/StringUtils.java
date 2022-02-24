@@ -77,12 +77,4 @@ public final class StringUtils {
         }
         return s;
     }
-
-    public static String escapeStacktrace(String string) {
-        return string
-            .replaceAll("\n", "%0A")
-            .replaceAll(" ", "\\+")
-            .replaceAll("`", "%A")
-            .replaceAll("#", "%23");
-    }
 }
