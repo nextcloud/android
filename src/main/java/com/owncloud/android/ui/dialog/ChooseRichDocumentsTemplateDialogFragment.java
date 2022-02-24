@@ -60,8 +60,6 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
-import org.parceler.Parcels;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -240,7 +238,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private void prefillFilenameIfEmpty(Template template) {
         String name = binding.filename.getText().toString();
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-            binding.filename.setText(String.format("%s.%s", template.name, template.extension));
+            binding.filename.setText(String.format("%s.%s", template.getName(), template.getExtension()));
         }
         binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
     }
@@ -317,7 +315,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, Parcels.wrap(template));
+                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template);
                     fragment.startActivity(collaboraWebViewIntent);
 
                     fragment.dismiss();

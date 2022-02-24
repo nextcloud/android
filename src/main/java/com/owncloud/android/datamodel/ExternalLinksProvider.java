@@ -57,7 +57,7 @@ public class ExternalLinksProvider {
      * @return external link id, -1 if the insert process fails.
      */
     public long storeExternalLink(ExternalLink externalLink) {
-        Log_OC.v(TAG, "Adding " + externalLink.name);
+        Log_OC.v(TAG, "Adding " + externalLink.getName());
 
         ContentValues cv = createContentValuesFromExternalLink(externalLink);
 
@@ -66,7 +66,7 @@ public class ExternalLinksProvider {
         if (result != null) {
             return Long.parseLong(result.getPathSegments().get(1));
         } else {
-            Log_OC.e(TAG, "Failed to insert item " + externalLink.name + " into external link db.");
+            Log_OC.e(TAG, "Failed to insert item " + externalLink.getName() + " into external link db.");
             return -1;
         }
     }
@@ -126,12 +126,12 @@ public class ExternalLinksProvider {
     @NonNull
     private ContentValues createContentValuesFromExternalLink(ExternalLink externalLink) {
         ContentValues cv = new ContentValues();
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL, externalLink.iconUrl);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE, externalLink.language);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE, externalLink.type.toString());
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME, externalLink.name);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL, externalLink.url);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT, externalLink.redirect);
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL, externalLink.getIconUrl());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE, externalLink.getLanguage());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE, externalLink.getType().toString());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME, externalLink.getName());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL, externalLink.getUrl());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT, externalLink.getRedirect());
         return cv;
     }
 

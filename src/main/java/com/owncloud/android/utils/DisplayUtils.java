@@ -78,7 +78,6 @@ import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.parceler.Parcels;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -100,6 +99,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -613,7 +613,7 @@ public final class DisplayUtils {
             EventBus.getDefault().post(event);
         } else {
             Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
-            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(event));
+            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, event);
             recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivity(recentlyAddedIntent);
         }

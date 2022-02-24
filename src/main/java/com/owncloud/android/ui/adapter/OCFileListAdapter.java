@@ -75,7 +75,7 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.BitmapUtils;
@@ -865,7 +865,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setData(List<Object> objects,
-                        ExtendedListFragment.SearchType searchType,
+                        SearchType searchType,
                         FileDataStorageManager storageManager,
                         @Nullable OCFile folder,
                         boolean clear) {
@@ -903,17 +903,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // early exit
         if (objects.size() > 0 && mStorageManager != null) {
-            if (searchType == ExtendedListFragment.SearchType.SHARED_FILTER) {
+            if (searchType == SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
-                if (searchType != ExtendedListFragment.SearchType.GALLERY_SEARCH) {
+                if (searchType != SearchType.GALLERY_SEARCH) {
                     parseVirtuals(objects, searchType);
                 }
             }
         }
 
-        if (searchType != ExtendedListFragment.SearchType.GALLERY_SEARCH &&
-            searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) {
+        if (searchType != SearchType.GALLERY_SEARCH &&
+            searchType != SearchType.RECENTLY_MODIFIED_SEARCH) {
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         } else {
@@ -971,7 +971,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveShares(shares);
     }
 
-    private void parseVirtuals(List<Object> objects, ExtendedListFragment.SearchType searchType) {
+    private void parseVirtuals(List<Object> objects, SearchType searchType) {
         VirtualFolderType type;
         boolean onlyMedia = false;
 
@@ -1007,7 +1007,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             try {
                 ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
 
-                if (ExtendedListFragment.SearchType.GALLERY_SEARCH != searchType) {
+                if (SearchType.GALLERY_SEARCH != searchType) {
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();
