@@ -62,7 +62,7 @@
     <string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
     <string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
     <string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
-    <string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
+    <string name="auth_unknown_error_title">Es ist ein unbekannter Fehler aufgetreten.</string>
     <string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
@@ -769,7 +769,7 @@
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="unsharing_failed">Freigabe aufheben fehlgeschlagen</string>
     <string name="untrusted_domain">Zugriff über nicht vertrauenswürdige Domain. Weitere Informationen finden sich in der Dokumentation.</string>
-    <string name="update_link_file_error">Fehler bei der Aktualisierungd der Freigabe aufgetreten.</string>
+    <string name="update_link_file_error">Es ist ein Fehler bei der Aktualisierungd der Freigabe aufgetreten.</string>
     <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
