@@ -598,7 +598,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             if (TextUtils.isEmpty(downloadLimit)) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
                 return
-            } else if (downloadLimit.toInt() <= 0) {
+            } else if (downloadLimit.toLong() <= 0) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_zero)
                 return
             }
@@ -686,7 +686,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     /**
      * will be called when download limit is fetched
      */
-    fun onLinkShareDownloadLimitFetched(downloadLimit: Int) {
+    fun onLinkShareDownloadLimitFetched(downloadLimit: Long) {
         binding.shareProcessDownloadLimitSwitch.isChecked = downloadLimit > 0
         showDownloadLimitInput(binding.shareProcessDownloadLimitSwitch.isChecked)
         binding.shareProcessDownloadLimitEt.setText(if (downloadLimit > 0) downloadLimit.toString() else "")

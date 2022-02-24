@@ -955,7 +955,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public void onLinkShareDownloadLimitFetched(int downloadLimit) {
+    public void onLinkShareDownloadLimitFetched(long downloadLimit) {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (fragment != null) {
             ((FileDetailFragment) fragment).onLinkShareDownloadLimitFetched(downloadLimit);

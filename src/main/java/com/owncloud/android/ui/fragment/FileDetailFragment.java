@@ -778,7 +778,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * send the data to FileDetailsSharingProcessFragment to update the view
      * @param downloadLimit download limit for the share
      */
-    public void onLinkShareDownloadLimitFetched(int downloadLimit) {
+    public void onLinkShareDownloadLimitFetched(long downloadLimit) {
         Fragment fragment =
             requireActivity().getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
         if (fragment!=null){

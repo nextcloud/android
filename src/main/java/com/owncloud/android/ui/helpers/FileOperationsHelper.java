@@ -770,7 +770,8 @@ public class FileOperationsHelper {
 
         //download limit for link share type
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_DOWNLOAD_LIMIT,
-                                   (downloadLimit == null || downloadLimit.equals("")) ? 0 : Integer.parseInt(downloadLimit));
+                                   (downloadLimit == null || downloadLimit.equals("")) ? 0 :
+                                       Long.parseLong(downloadLimit));
 
         queueShareIntent(updateShareIntent);
     }

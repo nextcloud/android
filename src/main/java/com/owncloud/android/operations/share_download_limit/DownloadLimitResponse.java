@@ -19,7 +19,7 @@ public class DownloadLimitResponse {
     private int limit;
     private int count;
 
-    public int getLimit() {
+    public long getLimit() {
         return limit;
     }
 
