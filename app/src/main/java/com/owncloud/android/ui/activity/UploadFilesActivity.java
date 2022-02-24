@@ -263,18 +263,19 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        requestPermissions();
-    }
-
     private void requestPermissions() {
         PermissionUtil.requestExternalStoragePermission(this, true);
     }
 
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestPermissions();
     }
 
     private void fillDirectoryDropdown() {
@@ -360,18 +361,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
-            if (resultCode == Activity.RESULT_OK) {
-                showLocalStoragePathPickerDialog();
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
-            }
         }
     }
 
@@ -647,20 +636,24 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (mCurrentDir != null) {
-                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
-            }
-            if (mLocalFolderPickerMode) {
-                Intent data = new Intent();
+            if (PermissionUtil.checkExternalStoragePermission(this)) {
                 if (mCurrentDir != null) {
-                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
                 }
-                setResult(RESULT_OK, data);
+                if (mLocalFolderPickerMode) {
+                    Intent data = new Intent();
+                    if (mCurrentDir != null) {
+                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    }
+                    setResult(RESULT_OK, data);
 
-                finish();
+                    finish();
+                } else {
+                    new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
+                        .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                }
             } else {
-                new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
-                    .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                requestPermissions();
             }
         }
     }

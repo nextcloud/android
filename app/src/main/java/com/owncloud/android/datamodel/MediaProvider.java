@@ -21,7 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -38,6 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Media queries to gain access to media lists for the device.
@@ -69,7 +70,7 @@ public final class MediaProvider {
      * @return list with media folders
      */
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
+                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 
@@ -168,15 +169,15 @@ public final class MediaProvider {
         return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
     }
 
-    private static void checkPermissions(@Nullable Activity activity) {
+    private static void checkPermissions(@Nullable AppCompatActivity activity) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-           PermissionUtil.requestExternalStoragePermission(activity);
+            PermissionUtil.requestExternalStoragePermission(activity, true);
         }
     }
 
     public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
+                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 
