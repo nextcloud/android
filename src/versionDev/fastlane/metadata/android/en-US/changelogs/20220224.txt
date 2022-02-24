@@ -1,0 +1,4 @@
+Migrate from Parceler to kotlin-parcelize
+Use androidx for espresso-intents
+Update translations
+Update Nextcloud Android library
