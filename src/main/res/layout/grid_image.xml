@@ -52,10 +52,10 @@
                 android:id="@+id/thumbnail_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/grid_image_icon_margin"
                 android:contentDescription="@null"
+                android:layout_gravity="center"
                 android:visibility="gone"
-                app:corners="6" />
+                app:corners="8" />
 
             <com.owncloud.android.ui.SquareImageView
                 android:id="@+id/thumbnail"

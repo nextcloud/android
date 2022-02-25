@@ -1354,7 +1354,23 @@ public class UploadFileOperation extends SyncOperation {
             // coincidence; nothing else is needed, the storagePath is right
             // in the instance returned by mCurrentUpload.getFile()
         }
-        file.setUpdateThumbnailNeeded(true);
+
+        //if uploaded file is image then set the preview available as true
+        //this will be used to update the rotated image thumbnail for media view
+        //since media view listing depends upon then storage manager
+        //so we have to update this flag in local db
+        if (MimeTypeUtil.isImage(file.getMimeType())) {
+            file.setPreviewAvailable(true);
+            //if the file is media file set thumbnail needed flag as false
+            //as this will avoid showing shimmer in OCFileListAdapter on refresh
+            //as we are creating thumbnail over here as well and also in OCFileListAdapter if not available
+            //this is specially for MediaView
+            file.setUpdateThumbnailNeeded(false);
+        } else {
+            //for other files we can set the thumbnail needed true
+            //this is the previous logic from NextCloud
+            file.setUpdateThumbnailNeeded(true);
+        }
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
 
