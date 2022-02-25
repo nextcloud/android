@@ -397,7 +397,7 @@ Attention la suppression est irréversible.</string>
     <string name="link">Lien</string>
     <string name="link_name">Nom du lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
-    <string name="link_share_editing">Édition</string>
+    <string name="link_share_editing">Modification</string>
     <string name="link_share_file_drop">Dépôt de fichier (envoi uniquement)</string>
     <string name="link_share_read_only">Lecture seule</string>
     <string name="link_share_view_only">Afficher seulement</string>
@@ -620,7 +620,7 @@ Attention la suppression est irréversible.</string>
     <string name="set_status">Définir le statut</string>
     <string name="set_status_message">Message d\'état</string>
     <string name="share">Partager</string>
-    <string name="share_copy_link">Partager &amp; le lien de copie</string>
+    <string name="share_copy_link">Partager &amp; Copier le lien</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
@@ -639,12 +639,12 @@ Attention la suppression est irréversible.</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_link_with_label">Partager le lien (%1$s)</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
-    <string name="share_no_password_title">Définir le mot de passe</string>
+    <string name="share_no_password_title">Définir un mot de passe</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_drop">Dépôt de fichier</string>
     <string name="share_permission_view_only">Afficher seulement</string>
-    <string name="share_permissions">Partager les autorisations</string>
+    <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
