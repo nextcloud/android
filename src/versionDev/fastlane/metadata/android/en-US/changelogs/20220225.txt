@@ -1,0 +1,7 @@
+Cleanup
+Better exception report template
+ExceptionHandler: format entire stack trace recursively
+Add stacktrace directly to github issue
+Fix LoggerImpl to also log throwable
+Update translations
+Update 3rd-party dependencies
