@@ -428,6 +428,8 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="sendbutton_description">Ikon tombol kirim</string>
     <string name="set_as">Gunakan sebagai</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
+    <string name="set_status">Tetapkan status</string>
+    <string name="set_status_message">Tetapkan status pesan</string>
     <string name="share">Bagikan</string>
     <string name="share_dialog_title">Berbagi</string>
     <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
