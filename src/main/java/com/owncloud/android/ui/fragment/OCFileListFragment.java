@@ -136,7 +136,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
-import static com.owncloud.android.ui.fragment.SearchType.*;
+import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.RECENTLY_MODIFIED_SEARCH;
+import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
@@ -1231,7 +1235,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 // If that's not a directory -> List its parent
                 if (!directory.isFolder()) {
-                    Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
+                    Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
                     directory = storageManager.getFileById(directory.getParentId());
                 }
 
