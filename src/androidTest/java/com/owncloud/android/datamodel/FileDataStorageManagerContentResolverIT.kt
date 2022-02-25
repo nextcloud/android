@@ -23,7 +23,6 @@ package com.owncloud.android.datamodel
 
 import org.junit.Assert
 import org.junit.Test
-import java.util.ArrayList
 
 class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
     companion object {
@@ -41,7 +40,7 @@ class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
     @Test
     fun testFolderWithManyFiles() {
         // create folder
-        val folderA = OCFile("/folderA/", "00001") // remote Id must never be null
+        val folderA = OCFile("/folderA/")
         folderA.setFolder().parentId = sut.getFileByDecryptedRemotePath("/")!!.fileId
         sut.saveFile(folderA)
         Assert.assertTrue(sut.fileExists("/folderA/"))
@@ -50,7 +49,7 @@ class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
 
         // create files
         val newFiles = (1..MANY_FILES_AMOUNT).map {
-            val file = OCFile("/folderA/file$it", it.toString())
+            val file = OCFile("/folderA/file$it")
             file.parentId = folderAId
             sut.saveFile(file)
 

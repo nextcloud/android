@@ -232,7 +232,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
-            count += deleteWithuri(db, uri, where, whereArgs);
+            count += deleteWithUri(db, uri, where, whereArgs);
         }
 
         return count;
@@ -241,31 +241,21 @@ public class FileContentProvider extends ContentProvider {
     private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
-        Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null);
-        String remoteId = "";
-        try {
-            if (c != null && c.moveToFirst()) {
-                remoteId = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID));
+        try (Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null)) {
+            if (c.moveToFirst()) {
+                String id = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta._ID));
+                Log_OC.d(TAG, "Removing FILE " + id);
             }
-            Log_OC.d(TAG, "Removing FILE " + remoteId);
 
-            if (remoteId == null) {
-                return 0;
-            } else {
-                count = deleteWithuri(db, uri, where, whereArgs);
-            }
+            count = deleteWithUri(db, uri, where, whereArgs);
         } catch (Exception e) {
             Log_OC.d(TAG, "DB-Error removing file!", e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
 
         return count;
     }
 
-    private int deleteWithuri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int deleteWithUri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
         final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
         return db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                          ProviderTableMeta._ID + "=?"

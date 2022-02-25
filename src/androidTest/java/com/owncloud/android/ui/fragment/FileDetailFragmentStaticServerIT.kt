@@ -40,7 +40,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
-    val file = OCFile("/", "00000001")
+    val file = OCFile("/")
 
     @Test
     @ScreenshotTest
