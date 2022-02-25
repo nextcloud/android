@@ -255,9 +255,9 @@ public class DownloadLimitXMLParser {
             }
             String name = parser.getName();
             if (NODE_LIMIT.equalsIgnoreCase(name)) {
-                downloadLimitResponse.setLimit(Integer.parseInt(readNode(parser, NODE_LIMIT)));
+                downloadLimitResponse.setLimit(Long.parseLong(readNode(parser, NODE_LIMIT)));
             } else if (NODE_COUNT.equalsIgnoreCase(name)) {
-                downloadLimitResponse.setCount(Integer.parseInt(readNode(parser, NODE_COUNT)));
+                downloadLimitResponse.setCount(Long.parseLong(readNode(parser, NODE_COUNT)));
             } else {
                 skip(parser);
             }

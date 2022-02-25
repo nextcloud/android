@@ -16,22 +16,22 @@ package com.owncloud.android.operations.share_download_limit;
  * </ocs>
  */
 public class DownloadLimitResponse {
-    private int limit;
-    private int count;
+    private long limit;
+    private long count;
 
     public long getLimit() {
         return limit;
     }
 
-    public void setLimit(int limit) {
+    public void setLimit(long limit) {
         this.limit = limit;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 }
