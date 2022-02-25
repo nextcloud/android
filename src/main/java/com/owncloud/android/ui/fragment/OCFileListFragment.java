@@ -719,14 +719,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActiveActionMode = null;
-
-            // reset to previous color
-            FragmentActivity fragmentActivity;
-            if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
-                fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
-            }
-
+            
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
                 setFabVisible(true);
