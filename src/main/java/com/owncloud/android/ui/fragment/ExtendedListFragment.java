@@ -278,14 +278,7 @@ public class ExtendedListFragment extends Fragment implements
         if (query.isEmpty()) {
             closeButton.setVisibility(View.INVISIBLE);
         }
-
-        if (getFragmentManager() != null && getFragmentManager().
-            findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
-            performSearch(query, false);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override

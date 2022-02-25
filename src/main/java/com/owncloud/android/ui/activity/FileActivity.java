@@ -922,13 +922,7 @@ public abstract class FileActivity extends DrawerActivity
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (fragment instanceof FileDetailFragment) {
             return (FileDetailFragment) fragment;
-        } else {
-            fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
-            if (fragment instanceof FileDetailFragment) {
-                return (FileDetailFragment) fragment;
-            } else {
-                return null;
-            }
         }
+        return null;
     }
 }
