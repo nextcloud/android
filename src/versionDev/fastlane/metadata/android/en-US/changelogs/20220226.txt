@@ -1,0 +1,7 @@
+Remove not needed toString() call
+remoteId not needed when deleting a file
+Revert "Bump exoplayer from 2.16.1 to 2.17.0"
+Remove third party licenses for libs we don't use (anymore)
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
