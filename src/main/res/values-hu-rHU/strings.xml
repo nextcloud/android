@@ -261,9 +261,11 @@
     <string name="error_crash_title">A(z) %1$s összeomlott</string>
     <string name="error_creating_file_from_template">Hiba a fájl sablonból történő létrehozása során</string>
     <string name="error_report_issue_action">Jelentés</string>
+    <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
+    <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
     <string name="etm_background_job_progress">Folyamat</string>
@@ -496,6 +498,7 @@
     <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     <string name="pass_code_wrong">Hibás számkód</string>
+    <string name="pdf_zoom_tip">A nagyításhoz koppintson a lapra</string>
     <string name="permission_allow">Engedélyezés</string>
     <string name="permission_deny">Megtagadás</string>
     <string name="permission_storage_access">További jogosultságokra van szükség a fájlok fel- és letöltéséhez.</string>
@@ -808,6 +811,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
     <string name="upload_old_android">A titkosítás csak 5.0-s vagy újabb Android esetén lehetséges</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely a fájlok ebbe a mappába másolásához: %1$s. Áthelyezi inkább őket?</string>
+    <string name="upload_scan_doc_upload">Dokumentum beolvasása a kamerával</string>
     <string name="upload_sync_conflict">Szinkronizálási ütközés, javítsa kézzel</string>
     <string name="upload_unknown_error">Ismeretlen hiba</string>
     <string name="uploader_btn_alternative_text">Válasszon</string>

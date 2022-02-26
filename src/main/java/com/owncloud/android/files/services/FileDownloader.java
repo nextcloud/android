@@ -497,8 +497,7 @@ public class FileDownloader extends Service
 
             } else {
                 // Cancel the transfer
-                Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().toString() +
-                        " doesn't exist");
+                Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount() + " doesn't exist");
                 cancelDownloadsForAccount(mCurrentDownload.getAccount());
 
             }

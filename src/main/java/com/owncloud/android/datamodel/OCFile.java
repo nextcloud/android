@@ -124,12 +124,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         remotePath = path;
     }
 
-    @VisibleForTesting
-    public OCFile(String path, String remoteId) {
-        this(path);
-        this.remoteId = remoteId;
-    }
-
     /**
      * Reconstruct from parcel
      *

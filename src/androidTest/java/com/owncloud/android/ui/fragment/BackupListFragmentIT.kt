@@ -42,7 +42,7 @@ class BackupListFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun showLoading() {
         val sut = testActivityRule.launchActivity(null)
-        val file = OCFile("/", "00000001")
+        val file = OCFile("/")
         val transaction = sut.supportFragmentManager.beginTransaction()
 
         transaction.replace(R.id.frame_container, BackupListFragment.newInstance(file, user))
@@ -58,7 +58,7 @@ class BackupListFragmentIT : AbstractIT() {
         val sut = testActivityRule.launchActivity(null)
         val transaction = sut.supportFragmentManager.beginTransaction()
         val file = getFile("vcard.vcf")
-        val ocFile = OCFile("/vcard.vcf", "00000002")
+        val ocFile = OCFile("/vcard.vcf")
         ocFile.storagePath = file.absolutePath
         ocFile.mimeType = "text/vcard"
 
@@ -76,7 +76,7 @@ class BackupListFragmentIT : AbstractIT() {
         val sut = testActivityRule.launchActivity(null)
         val transaction = sut.supportFragmentManager.beginTransaction()
         val file = getFile("calendar.ics")
-        val ocFile = OCFile("/Private calender_2020-09-01_10-45-20.ics.ics", "00000003")
+        val ocFile = OCFile("/Private calender_2020-09-01_10-45-20.ics.ics")
         ocFile.storagePath = file.absolutePath
         ocFile.mimeType = "text/calendar"
 
@@ -94,12 +94,12 @@ class BackupListFragmentIT : AbstractIT() {
         val transaction = sut.supportFragmentManager.beginTransaction()
 
         val calendarFile = getFile("calendar.ics")
-        val calendarOcFile = OCFile("/Private calender_2020-09-01_10-45-20.ics", "00000003")
+        val calendarOcFile = OCFile("/Private calender_2020-09-01_10-45-20.ics")
         calendarOcFile.storagePath = calendarFile.absolutePath
         calendarOcFile.mimeType = "text/calendar"
 
         val contactFile = getFile("vcard.vcf")
-        val contactOcFile = OCFile("/vcard.vcf", "00000002")
+        val contactOcFile = OCFile("/vcard.vcf")
         contactOcFile.storagePath = contactFile.absolutePath
         contactOcFile.mimeType = "text/vcard"
 

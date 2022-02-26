@@ -38,34 +38,34 @@ class OCFileListAdapterIT : AbstractIT() {
         assertEquals(0, storageManager.getGalleryItems(startDate, endDate).size)
 
         // create dummy files
-        OCFile("/test.txt", "01").apply {
+        OCFile("/test.txt").apply {
             mimeType = "text/plain"
         }.let {
             storageManager.saveFile(it)
         }
 
-        OCFile("/image.png", "02").apply {
+        OCFile("/image.png").apply {
             mimeType = "image/png"
             modificationTimestamp = 1000000
         }.let {
             storageManager.saveFile(it)
         }
 
-        OCFile("/image2.png", "03").apply {
+        OCFile("/image2.png").apply {
             mimeType = "image/png"
             modificationTimestamp = 1000050
         }.let {
             storageManager.saveFile(it)
         }
 
-        OCFile("/video.mpg", "04").apply {
+        OCFile("/video.mpg").apply {
             mimeType = "video/mpg"
             modificationTimestamp = 1000045
         }.let {
             storageManager.saveFile(it)
         }
 
-        OCFile("/video2.avi", "05").apply {
+        OCFile("/video2.avi").apply {
             mimeType = "video/avi"
             modificationTimestamp = endDate + 10
         }.let {

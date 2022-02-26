@@ -32,28 +32,6 @@ steps:
       - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
       - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
       - ./gradlew combinedTestReport
-  - name: notify
-    image: drillster/drone-email
-    settings:
-      port: 587
-      from: nextcloud-drone@kaminsky.me
-      recipients_only: true
-      username:
-        from_secret: EMAIL_USERNAME
-      password:
-        from_secret: EMAIL_PASSWORD
-      recipients:
-        from_secret: EMAIL_RECIPIENTS
-      host:
-        from_secret: EMAIL_HOST
-    when:
-      event:
-        - push
-      status:
-        - failure
-      branch:
-        - master
-        - stable-*
 
 services:
   - name: server
@@ -109,29 +87,6 @@ steps:
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
       - sed -i s"#1#5#" ./src/androidTest/java/com/nextcloud/client/RetryTestRule.kt
       - scripts/runCombinedTest.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
-
-  - name: notify
-    image: drillster/drone-email
-    settings:
-      port: 587
-      from: nextcloud-drone@kaminsky.me
-      recipients_only: true
-      username:
-        from_secret: EMAIL_USERNAME
-      password:
-        from_secret: EMAIL_PASSWORD
-      recipients:
-        from_secret: EMAIL_RECIPIENTS
-      host:
-        from_secret: EMAIL_HOST
-    when:
-      event:
-        - push
-      status:
-        - failure
-      branch:
-        - master
-        - stable-*
 
 services:
   - name: server

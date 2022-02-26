@@ -278,7 +278,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         // if that's not a directory -> List its parent
         if (!directory.isDirectory()) {
-            Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
+            Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
             directory = directory.getParentFile();
         }
 
