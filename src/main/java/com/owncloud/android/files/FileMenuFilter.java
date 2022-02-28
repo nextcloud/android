@@ -312,14 +312,14 @@ public class FileMenuFilter {
 
         DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
 
-        for (Editor editor : directEditing.editors.values()) {
-            if (editor.mimetypes.contains(mimeType)) {
+        for (Editor editor : directEditing.getEditors().values()) {
+            if (editor.getMimetypes().contains(mimeType)) {
                 return editor;
             }
         }
 
-        for (Editor editor : directEditing.editors.values()) {
-            if (editor.optionalMimetypes.contains(mimeType)) {
+        for (Editor editor : directEditing.getEditors().values()) {
+            if (editor.getOptionalMimetypes().contains(mimeType)) {
                 return editor;
             }
         }

@@ -245,7 +245,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     private void prefillFilenameIfEmpty(Template template) {
         String name = binding.filename.getText().toString();
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-            binding.filename.setText(String.format("%s.%s", template.title, template.extension));
+            binding.filename.setText(String.format("%s.%s", template.getTitle(), template.getExtension()));
             name = binding.filename.getText().toString();
             int dotPos = name.lastIndexOf('.');
             binding.filename.setSelection((dotPos != -1) ? dotPos : name.length());
@@ -414,14 +414,14 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
             ChooseTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
 
             if (fragment != null && fragment.isAdded()) {
-                if (templateList.templates.isEmpty()) {
+                if (templateList.getTemplates().isEmpty()) {
                     DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
                 } else {
-                    if (templateList.templates.size() == SINGLE_TEMPLATE) {
-                        fragment.onTemplateChosen(templateList.templates.values().iterator().next());
+                    if (templateList.getTemplates().size() == SINGLE_TEMPLATE) {
+                        fragment.onTemplateChosen(templateList.getTemplates().values().iterator().next());
                         fragment.binding.list.setVisibility(View.GONE);
                     } else {
-                        String name = DOT + templateList.templates.values().iterator().next().getExtension();
+                        String name = DOT + templateList.getTemplates().values().iterator().next().getExtension();
                         fragment.binding.filename.setText(name);
                         fragment.binding.helperText.setVisibility(View.VISIBLE);
                     }

@@ -575,14 +575,14 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void externalLinkClicked(MenuItem menuItem) {
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-            if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
-                if (link.redirect) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.url));
+            if (menuItem.getTitle().toString().equalsIgnoreCase(link.getName())) {
+                if (link.getRedirect()) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
                     DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
                     startActivity(externalWebViewIntent);
@@ -733,13 +733,13 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 if (quotas.size() > 0) {
                     final ExternalLink firstQuota = quotas.get(0);
-                    mQuotaTextLink.setText(firstQuota.name);
+                    mQuotaTextLink.setText(firstQuota.getName());
                     mQuotaTextLink.setClickable(true);
-                    mQuotaTextLink.setVisibility(View.GONE);
+                    mQuotaTextLink.setVisibility(View.VISIBLE);
                     mQuotaTextLink.setOnClickListener(v -> {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
                         startActivity(externalWebViewIntent);
@@ -768,7 +768,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     DisplayUtils.downloadIcon(getUserAccountManager(),
                                               clientFactory,
                                               this,
-                                              firstQuota.iconUrl,
+                                              firstQuota.getIconUrl(),
                                               target,
                                               R.drawable.ic_link,
                                               size,
@@ -904,7 +904,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                                                       MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
+                                                       MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
@@ -923,7 +923,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 DisplayUtils.downloadIcon(getUserAccountManager(),
                                           clientFactory,
                                           this,
-                                          link.iconUrl,
+                                          link.getIconUrl(),
                                           target,
                                           R.drawable.ic_link,
                                           size,
