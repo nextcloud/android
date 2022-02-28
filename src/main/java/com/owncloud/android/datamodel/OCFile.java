@@ -41,6 +41,7 @@ import java.io.File;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -547,8 +548,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      *
      * @return file fileId, unique within the instance
      */
+    @Nullable
     public String getLocalId() {
-        return getRemoteId().substring(0, 8).replaceAll("^0*", "");
+        if (getRemoteId() != null) {
+            return getRemoteId().substring(0, 8).replaceAll("^0*", "");
+        } else {
+            return null;
+        }
     }
 
     public boolean isInConflict() {
