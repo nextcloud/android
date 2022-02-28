@@ -782,7 +782,7 @@ public class UploadFileOperation extends SyncOperation {
             // Get the last modification date of the file from the file system
             String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
 
-            long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
+            final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             FileChannel channel = null;
             try {
