@@ -74,8 +74,18 @@ ext {
     espressoVersion = "3.4.0"
     workRuntime = "2.7.1"
     fidoVersion = "4.1.0"
+    checkerVersion = "3.21.2"
 
     ciBuild = System.getenv("CI") == "true"
+}
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.checkerframework" && requested.name != "checker-compat-qual") {
+            useVersion(checkerVersion)
+            because("https://github.com/google/ExoPlayer/issues/10007")
+        }
+    }
 }
 
 repositories {
