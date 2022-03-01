@@ -1,0 +1,2 @@
+OCFile: fix NPE in getLocalId when remoteID is null
+Update translations
