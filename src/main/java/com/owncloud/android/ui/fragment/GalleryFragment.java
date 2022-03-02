@@ -27,10 +27,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -38,6 +40,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -129,6 +132,12 @@ public class GalleryFragment extends OCFileListFragment {
     public void onResume() {
         super.onResume();
         setLoading(photoSearchQueryRunning);
+        final FragmentActivity activity = getActivity();
+        if (activity instanceof FileDisplayActivity) {
+            FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) activity);
+            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+            fileDisplayActivity.setMainFabVisible(false);
+        }
     }
 
     @Override
