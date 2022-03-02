@@ -84,6 +84,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
@@ -985,6 +986,51 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void swapDirectoryFolder(
+        User account,
+        OCFile directory,
+        FileDataStorageManager updatedStorageManager,
+        boolean onlyOnDevice, String limitToMimeType
+                                   ) {
+        this.onlyOnDevice = onlyOnDevice;
+
+        if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
+            mStorageManager = updatedStorageManager;
+            showShareAvatar = mStorageManager.getCapability(account.getAccountName()).getVersion().isShareesOnDavSupported();
+            this.user = account;
+        }
+        if (mStorageManager != null) {
+
+            List<OCFile> mFiles1 = mStorageManager.getFolderContent(directory, onlyOnDevice);
+            mFiles.clear();
+            for(int i = 0; i< mFiles1.size() ; i++)
+            {
+                if(mFiles1.get(i).getMimeType().equals(MimeType.DIRECTORY))
+                {
+                    mFiles.add(mFiles1.get(i));
+                }
+            }
+            // mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
+
+            if (!preferences.isShowHiddenFilesEnabled()) {
+                mFiles = filterHiddenFiles(mFiles);
+            }
+            if (!limitToMimeType.isEmpty()) {
+                mFiles = filterByMimeType(mFiles, limitToMimeType);
+            }
+            FileSortOrder sortOrder = preferences.getSortOrderByFolder(directory);
+            mFiles = sortOrder.sortCloudFiles(mFiles);
+            mFilesAll.clear();
+            mFilesAll.addAll(mFiles);
+
+            currentDirectory = directory;
+        } else {
+            mFiles.clear();
+            mFilesAll.clear();
+        }
+
+        notifyDataSetChanged();
+    }
 
     public void setData(List<Object> objects,
                         ExtendedListFragment.SearchType searchType,
