@@ -426,6 +426,13 @@ public class UploadIT extends AbstractOnServerIT {
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
 
+        long creationTimestamp = Files.readAttributes(file.toPath(), BasicFileAttributes.class)
+            .creationTime()
+            .to(TimeUnit.SECONDS);
+
+        // wait a bit to simulate a later upload, so we can verify if creation date is set correct
+        shortSleep();
+
         assertTrue(
             new UploadFileOperation(
                 uploadsStorageManager,
@@ -445,10 +452,6 @@ public class UploadIT extends AbstractOnServerIT {
                 .execute(client)
                 .isSuccess()
                   );
-
-        long creationTimestamp = Files.readAttributes(file.toPath(), BasicFileAttributes.class)
-            .creationTime()
-            .to(TimeUnit.SECONDS);
 
         long uploadTimestamp = System.currentTimeMillis() / 1000;
 
