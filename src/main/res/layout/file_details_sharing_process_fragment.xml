@@ -365,6 +365,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider_sharing_change_name" />
 
+        <!--  Limiting to max 18 input size to avoid taking more input -->
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/share_process_download_limit_et"
             android:layout_width="match_parent"
@@ -376,6 +377,7 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="number"
+            android:maxLength="18"
             android:maxLines="1"
             android:textColor="@color/share_txt_color"
             android:textColorHint="@color/grey_60"

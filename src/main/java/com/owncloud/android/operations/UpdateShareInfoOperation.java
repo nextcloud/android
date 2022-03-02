@@ -53,7 +53,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private String label;
 
     //download limit for link share
-    private int downloadLimit;
+    private long downloadLimit;
 
     /**
      * Constructor
@@ -155,6 +155,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
                     updateShareDownloadLimitRemoteOperation.execute(client);
                 if(downloadLimitOp.isSuccess()) {
                     Log_OC.d(TAG, "Download limit updated for the share.");
+                    Log_OC.d(TAG, "Download limit "+downloadLimit);
                 }
             }else{
                 //api will delete the download limit for the particular share
@@ -195,7 +196,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
         this.label = label;
     }
 
-    public void setDownloadLimit(int downloadLimit) {
+    public void setDownloadLimit(long downloadLimit) {
         this.downloadLimit = downloadLimit;
     }
 }

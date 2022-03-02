@@ -48,9 +48,9 @@ public class UpdateShareDownloadLimitRemoteOperation extends RemoteOperation {
     private static final String ENTITY_CHARSET = "UTF-8";
 
     private final String shareToken;
-    private final int downloadLimit;
+    private final long downloadLimit;
 
-    public UpdateShareDownloadLimitRemoteOperation(String shareToken, int downloadLimit) {
+    public UpdateShareDownloadLimitRemoteOperation(String shareToken, long downloadLimit) {
         this.shareToken = shareToken;
         this.downloadLimit = downloadLimit;
     }
