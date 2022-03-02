@@ -1,0 +1,5 @@
+Force checkerframework version to fix error due to exoplayer upgrade
+GalleryFragment: restore title and fab on resume
+PreviewImageActivity: don't try to use virtual folder is type is NONE
+OCFileListFragment: don't reset title after clearing action mode (multiselect)
+Update 3rd-party dependencies
