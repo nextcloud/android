@@ -614,9 +614,12 @@ public class FileOperationsHelper {
 
     private void queueShareIntent(Intent shareIntent) {
         // Unshare the file
-        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
+        if(fileActivity.getOperationsServiceBinder() != null) {
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
 
-        fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+        }
     }
 
     /**
