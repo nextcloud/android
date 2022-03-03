@@ -31,13 +31,13 @@ import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -141,7 +141,7 @@ public class ExternalSiteWebView extends FileActivity {
             });
         }
 
-        getWebView().setWebViewClient(new WebViewClient() {
+        getWebView().setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 InputStream resources = getResources().openRawResource(R.raw.custom_error);
                 String customError = DisplayUtils.getData(resources);

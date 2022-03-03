@@ -72,6 +72,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.nextcloud.providers.cursors.FileCursor;
@@ -538,6 +539,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                      mimeType,
                                                                      "",
                                                                      String.valueOf(System.currentTimeMillis() / 1000),
+                                                                     FileUtil.getCreationTimestamp(emptyFile),
                                                                      false)
             .execute(client);
 
