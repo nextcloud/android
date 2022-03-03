@@ -28,6 +28,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.RadioGroup.OnCheckedChangeListener
@@ -133,6 +134,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private var share: OCShare? = null
     private var isReshareShown: Boolean = true // show or hide reshare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
+    private var isHideDownloadCheckedReadOnly : Boolean = false
+    private var isHideDownloadCheckedUploadEdit : Boolean = false
+
+    private var isFileDropSelected: Boolean = false
+    private var isReadOnlySelected: Boolean = false
+    private var isUploadEditingSelected: Boolean = false
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -168,14 +176,28 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     {
         if(binding.shareProcessPermissionFileDrop.id == checkId)
         {
-            binding.shareProcessHideDownloadCheckbox.isChecked = true;
-           binding.shareProcessHideDownloadCheckbox.isEnabled = false;
+            isFileDropSelected = true
+            binding.shareProcessHideDownloadCheckbox.isChecked = true
+           binding.shareProcessHideDownloadCheckbox.isEnabled = false
         }
         else
         {
-            binding.shareProcessHideDownloadCheckbox.isEnabled = true;
+            isFileDropSelected = false
+            binding.shareProcessHideDownloadCheckbox.isEnabled = true
+            if(binding.shareProcessPermissionReadOnly.id == checkId) {
+                isReadOnlySelected = true;
+                isUploadEditingSelected = false;
+                binding.shareProcessHideDownloadCheckbox.isChecked = isHideDownloadCheckedReadOnly
+            }
+            else if(binding.shareProcessPermissionUploadEditing.id == checkId)
+            {
+                isReadOnlySelected = false
+                isUploadEditingSelected = true
+                binding.shareProcessHideDownloadCheckbox.isChecked = isHideDownloadCheckedUploadEdit
+            }
         }
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileDetailsSharingProcessFragmentBinding.inflate(inflater, container, false)
@@ -195,6 +217,18 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessPermissionRadioGroup.setOnCheckedChangeListener(this)
         ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
+
+        binding.shareProcessHideDownloadCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if(!isFileDropSelected) {
+                if(isReadOnlySelected) {
+                    isHideDownloadCheckedReadOnly = isChecked
+                }
+                else if(isUploadEditingSelected)
+                {
+                    isHideDownloadCheckedUploadEdit = isChecked
+                }
+            }
+        }
     }
 
     private fun scrollTopShowToolbar() {
