@@ -78,7 +78,7 @@ public class DeckApiImpl implements DeckApi {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context, notification.getNotificationId(),
                                          putExtrasToIntent(intent, notification, user),
-                                         PendingIntent.FLAG_ONE_SHOT);
+                                         PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     private Intent putExtrasToIntent(@NonNull Intent intent, @NonNull Notification notification, @NonNull User user) {

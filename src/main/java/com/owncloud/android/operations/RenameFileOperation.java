@@ -103,21 +103,25 @@ public class RenameFileOperation extends SyncOperation {
                     //saveLocalDirectory();
 
                 } else {
-                    saveLocalFile();
+                    saveLocalFile(newRemotePath);
                 }
             }
 
         } catch (IOException e) {
             Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath == null) ?
                 newName : newRemotePath) + ": " +
-                    (result!= null ? result.getLogMessage() : ""), e);
+                (result!= null ? result.getLogMessage() : ""), e);
         }
 
         return result;
     }
 
-    private void saveLocalFile() {
+    private void saveLocalFile(String newRemotePath) {
         file.setFileName(newName);
+
+        if (!file.isEncrypted()) {
+            file.setDecryptedRemotePath(newRemotePath);
+        }
 
         // try to rename the local copy of the file
         if (file.isDown()) {

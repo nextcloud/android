@@ -39,7 +39,7 @@ require 'open3'
 begin
     gem "xml-simple"
     rescue LoadError
-    system("gem install xml-simple")
+    system("gem install --user-install xml-simple")
     Gem.clear_paths
 end
 
@@ -47,16 +47,7 @@ require 'xmlsimple'
 
 # run FindBugs
 puts "running FindBugs..."
-system './gradlew assembleGplayDebug 1>/dev/null'
-
-# confirm that assemble ran w/out error
-result = $?.to_i
-if result != 0
-    puts "FAIL: failed to run ./gradlew assembleGplayDebug"
-    exit 1
-end
-
-system './gradlew spotbugsGplayDebugReport 1>/dev/null 2>&1'
+system './gradlew spotbugsGplayDebug 1>/dev/null 2>&1'
 
 # find FindBugs report file
 findbugs_reports = Dir.glob(FINDBUGS_REPORT_FILE)
@@ -119,8 +110,6 @@ previous_git_email = previous_git_email.strip
 # update git user name and email for this script
 system ("git config --local user.name '"  + git_user + "'")
 system ("git config --local user.email 'android@nextcloud.com'")
-system ("git remote rm origin")
-system ("git remote add origin https://" + git_user + ":" + git_token + "@github.com/nextcloud/android")
 
 # add previous FindBugs result file to git
 system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
@@ -129,7 +118,7 @@ system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
 system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]"')
 
 # push to origin
-system ('git push origin HEAD:' + git_branch)
+system ('git push')
 
 # restore previous git user name and email
 system("git config --local user.name '#{previous_git_username}'")

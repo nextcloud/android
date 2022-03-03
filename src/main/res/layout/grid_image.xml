@@ -120,6 +120,7 @@
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:contentDescription="@string/favorite_icon"
             android:src="@drawable/favorite"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/gridItemGuideline"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout" />
 

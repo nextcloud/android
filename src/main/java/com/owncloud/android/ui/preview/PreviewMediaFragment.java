@@ -29,6 +29,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -41,10 +42,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -73,6 +75,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
@@ -94,7 +97,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
     private static final double MIN_DENSITY_RATIO = 24.0;
-    private static final int MENU_FULLSCREEN_ID = 3344;
 
     private static final String FILE = "FILE";
     private static final String USER = "USER";
@@ -113,7 +115,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Inject UserAccountManager accountManager;
     FragmentPreviewMediaBinding binding;
     LinearLayout emptyListView;
-    private SimpleExoPlayer exoPlayer;
+    private ExoPlayer exoPlayer;
 
     /**
      * Creates a fragment to preview a file.
@@ -178,6 +180,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         emptyListView = binding.emptyView.emptyListView;
 
+        getActivity().findViewById(R.id.sort_list_button_group).setVisibility(View.GONE);
         setLoadingView();
         return view;
     }
@@ -297,8 +300,25 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-            exoPlayer = new SimpleExoPlayer.Builder(getContext()).build();
+            exoPlayer = new ExoPlayer.Builder(requireContext()).build();
             binding.exoplayerView.setPlayer(exoPlayer);
+
+            LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
+
+            if (linearLayout.getChildCount() == 5) {
+                AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
+                fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
+                fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
+                fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
+
+                fullScreenButton.setOnClickListener(l -> {
+                    startFullScreenVideo();
+                });
+
+                linearLayout.addView(fullScreenButton);
+                linearLayout.invalidate();
+            }
 
             if (MimeTypeUtil.isAudio(file)) {
                 binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection);
@@ -324,10 +344,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.removeItem(R.id.action_search);
-        OCFile file = getFile();
-        if (file != null && MimeTypeUtil.isImageOrVideo(file)) {
-            menu.add(Menu.NONE, MENU_FULLSCREEN_ID, 99, R.string.fullscreen);
-        }
         inflater.inflate(R.menu.item_file, menu);
     }
 
@@ -406,6 +422,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_send_file);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     @Override
@@ -429,9 +452,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             return true;
         } else if (itemId == R.id.action_stream_media) {
             containerActivity.getFileOperationsHelper().streamMediaFile(getFile());
-        } else if (itemId == MENU_FULLSCREEN_ID) {
-            startFullScreenVideo();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -591,7 +611,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private void startFullScreenVideo() {
         Intent intent = new Intent(getActivity(), PreviewVideoActivity.class);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         intent.putExtra(FileActivity.EXTRA_FILE, getFile());
         intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, exoPlayer.isPlaying());
         intent.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, videoUri);

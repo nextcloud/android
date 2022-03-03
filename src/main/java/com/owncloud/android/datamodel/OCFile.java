@@ -352,9 +352,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (exposedFileUri == null) {
             try {
                 exposedFileUri = FileProvider.getUriForFile(
-                        context,
-                        context.getString(R.string.file_provider_authority),
-                        new File(localPath));
+                    context,
+                    context.getString(R.string.file_provider_authority),
+                    new File(localPath));
             } catch (IllegalArgumentException ex) {
                 // Could not share file using FileProvider URI scheme.
                 // Fall back to legacy URI parsing.
@@ -478,13 +478,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public int compareTo(@NonNull OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return new AlphanumComparator().compare(this, another);
+            return AlphanumComparator.compare(this, another);
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
             return 1;
         }
-        return new AlphanumComparator().compare(this, another);
+        return AlphanumComparator.compare(this, another);
     }
 
     @Override
@@ -510,7 +510,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
-                "parentId=%s, etag=%s, favourite=%s]";
+            "parentId=%s, etag=%s, favourite=%s]";
         return String.format(asString,
                              fileId,
                              getFileName(),
@@ -603,6 +603,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.creationTimestamp;
     }
 
+    /**
+     * @return unix timestamp in milliseconds
+     */
     public long getModificationTimestamp() {
         return this.modificationTimestamp;
     }

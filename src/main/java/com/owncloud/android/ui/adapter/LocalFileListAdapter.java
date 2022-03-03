@@ -23,6 +23,8 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +40,6 @@ import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,14 +80,18 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
-        swapDirectory(directory);
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
+        swapDirectory(directory);
     }
 
     @Override
     public int getItemCount() {
         return mFiles.size() + 1;
+    }
+
+    public int getFilesCount() {
+        return mFiles.size();
     }
 
     public boolean isCheckedFile(File file) {
@@ -170,9 +175,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                 File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemClicked(finalFile));
+                    .onItemClicked(finalFile));
                 gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemCheckboxClicked(finalFile));
+                    .onItemCheckboxClicked(finalFile));
 
 
                 if (holder instanceof LocalFileListItemViewHolder) {
@@ -187,7 +192,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                         itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.length()));
                     }
                     itemViewHolder.lastModification.setText(DisplayUtils.getRelativeTimestamp(mContext,
-                            file.lastModified()));
+                                                                                              file.lastModified()));
                 }
 
                 if (gridViewHolder instanceof LocalFileListGridItemViewHolder) {
@@ -222,8 +227,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (MimeTypeUtil.isImage(file)) {
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
-                );
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
+                                                                                );
                 if (thumbnail != null) {
                     thumbnailView.setImageBitmap(thumbnail);
                 } else {
@@ -231,18 +236,18 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     // generate new Thumbnail
                     if (allowedToCreateNewThumbnail) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView);
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView);
                         if (MimeTypeUtil.isVideo(file)) {
                             thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                         } else {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
                         final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    context.getResources(),
-                                    thumbnail,
-                                    task
-                                );
+                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                context.getResources(),
+                                thumbnail,
+                                task
+                            );
                         thumbnailView.setImageDrawable(asyncDrawable);
                         task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
                         Log_OC.v(TAG, "Executing task to generate a new thumbnail");
@@ -307,39 +312,59 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
     public void swapDirectory(final File directory) {
-        if (mLocalFolderPicker) {
+        localFileListFragmentInterface.setLoading(true);
+        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<File> fileList;
             if (directory == null) {
-                mFiles.clear();
+                fileList = new ArrayList<>();
             } else {
-                mFiles = getFolders(directory);
+                if (mLocalFolderPicker) {
+                    fileList = getFolders(directory);
+                } else {
+                    fileList = getFiles(directory);
+                }
             }
-        } else {
-            if (directory == null) {
-                mFiles.clear();
-            } else {
-                mFiles = getFiles(directory);
+
+            if (!fileList.isEmpty()) {
+                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+                fileList = sortOrder.sortLocalFiles(fileList);
+
+                // Fetch preferences for showing hidden files
+                boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+                if (!showHiddenFiles) {
+                    fileList = filterHiddenFiles(fileList);
+                }
             }
-        }
+            final List<File> newFiles = fileList;
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-        mFiles = sortOrder.sortLocalFiles(mFiles);
+            uiHandler.post(() -> {
+                mFiles = newFiles;
+                mFilesAll = new ArrayList<>();
+                mFilesAll.addAll(mFiles);
 
-        // Fetch preferences for showing hidden files
-        boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
-        if (!showHiddenFiles) {
-            mFiles = filterHiddenFiles(mFiles);
-        }
+                notifyDataSetChanged();
+                localFileListFragmentInterface.setLoading(false);
+            });
+        });
 
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        notifyDataSetChanged();
     }
 
+
     public void setSortOrder(FileSortOrder sortOrder) {
-        preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
-        mFiles = sortOrder.sortLocalFiles(mFiles);
-        notifyDataSetChanged();
+        localFileListFragmentInterface.setLoading(true);
+        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        Executors.newSingleThreadExecutor().execute(() -> {
+            preferences.setSortOrder(FileSortOrder.Type.localFileListView, sortOrder);
+            mFiles = sortOrder.sortLocalFiles(mFiles);
+
+            uiHandler.post(() -> {
+                notifyDataSetChanged();
+                localFileListFragmentInterface.setLoading(false);
+            });
+        });
+
+
     }
 
     private List<File> getFolders(final File directory) {

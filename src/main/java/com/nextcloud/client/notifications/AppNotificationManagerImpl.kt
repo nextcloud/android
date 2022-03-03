@@ -75,7 +75,7 @@ class AppNotificationManagerImpl @Inject constructor(
                 context,
                 System.currentTimeMillis().toInt(),
                 openFileIntent,
-                0
+                PendingIntent.FLAG_IMMUTABLE
             )
             builder.setContentIntent(pendingOpenFileIntent)
         }

@@ -45,12 +45,6 @@
             android:icon="@drawable/nav_photos"
             android:title="@string/drawer_item_gallery" />
         <item
-            android:id="@+id/nav_videos"
-            android:icon="@drawable/nav_videos"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_videos"
-            android:visible="false"/>
-        <item
             android:id="@+id/nav_shared"
             android:orderInCategory="0"
             android:icon="@drawable/nav_shared"
@@ -61,16 +55,11 @@
             android:orderInCategory="0"
             android:title="@string/drawer_item_on_device"/>
         <item
-            android:id="@+id/nav_recently_added"
-            android:icon="@drawable/nav_recently"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_recently_added"
-            android:visible="false"/>
-        <item
             android:id="@+id/nav_recently_modified"
             android:icon="@drawable/nav_recently"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_recent_files" />
+            android:title="@string/drawer_item_recent_files"
+            android:visible="true"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_notifications"

@@ -104,6 +104,7 @@ import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -151,6 +152,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
+    private static final int MAX_LOGO_SIZE_PX = 1000;
 
     /**
      * Reference to the drawer layout.
@@ -328,7 +330,16 @@ public abstract class DrawerActivity extends ToolbarActivity
                 SimpleTarget target = new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        Drawable[] drawables = {new ColorDrawable(primaryColor), new BitmapDrawable(resource)};
+
+                        Bitmap logo = resource;
+                        int width = resource.getWidth();
+                        int height = resource.getHeight();
+                        int max = Math.max(width, height);
+                        if (max > MAX_LOGO_SIZE_PX) {
+                            logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
+                        }
+
+                        Drawable[] drawables = {new ColorDrawable(primaryColor), new BitmapDrawable(logo)};
                         LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
                         String name = capability.getServerName();
@@ -366,8 +377,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             serverName.setTextColor(ThemeColorUtils.unchangedFontColor(this));
         }
 
-    }*/
-
+    }
+    
     /**
      * setup drawer header, basically the logo color
      */
@@ -524,34 +535,28 @@ public abstract class DrawerActivity extends ToolbarActivity
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
-        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setAction(Intent.ACTION_SEARCH);
-        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
-        startActivity(intent);
+        launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getListOfFilesFragment() instanceof GalleryFragment) {
-                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setAction(Intent.ACTION_SEARCH);
-                intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-                startActivity(intent);
+            if (((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) {
+                launchActivityForSearch(searchEvent, menuItemId);
             } else {
                 EventBus.getDefault().post(searchEvent);
             }
         } else {
-            Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setAction(Intent.ACTION_SEARCH);
-            intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
-            intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
-            startActivity(intent);
+            launchActivityForSearch(searchEvent, menuItemId);
         }
+    }
+
+    private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(Intent.ACTION_SEARCH);
+        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
+        startActivity(intent);
     }
 
     /**
@@ -570,14 +575,14 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void externalLinkClicked(MenuItem menuItem) {
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-            if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
-                if (link.redirect) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.url));
+            if (menuItem.getTitle().toString().equalsIgnoreCase(link.getName())) {
+                if (link.getRedirect()) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
                     DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
+                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
                     startActivity(externalWebViewIntent);
@@ -728,13 +733,13 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 if (quotas.size() > 0) {
                     final ExternalLink firstQuota = quotas.get(0);
-                    mQuotaTextLink.setText(firstQuota.name);
+                    mQuotaTextLink.setText(firstQuota.getName());
                     mQuotaTextLink.setClickable(true);
-                    mQuotaTextLink.setVisibility(View.GONE);
+                    mQuotaTextLink.setVisibility(View.VISIBLE);
                     mQuotaTextLink.setOnClickListener(v -> {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
                         startActivity(externalWebViewIntent);
@@ -763,7 +768,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     DisplayUtils.downloadIcon(getUserAccountManager(),
                                               clientFactory,
                                               this,
-                                              firstQuota.iconUrl,
+                                              firstQuota.getIconUrl(),
                                               target,
                                               R.drawable.ic_link,
                                               size,
@@ -783,7 +788,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param menuItemId the menu item to be highlighted
      */
-    protected void setDrawerMenuItemChecked(int menuItemId) {
+    public void setDrawerMenuItemChecked(int menuItemId) {
         //if item is logout then do not show it as selected
         if (menuItemId == R.id.nav_logout) {
             //if previous checked item is not NONE then make it selected again
@@ -899,7 +904,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
                 int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                                                       MENU_ITEM_EXTERNAL_LINK + link.id, MENU_ORDER_EXTERNAL_LINKS, link.name)
+                                                       MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
@@ -918,7 +923,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 DisplayUtils.downloadIcon(getUserAccountManager(),
                                           clientFactory,
                                           this,
-                                          link.iconUrl,
+                                          link.getIconUrl(),
                                           target,
                                           R.drawable.ic_link,
                                           size,
@@ -1006,7 +1011,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         Fragment fileDetailsSharingProcessFragment =
             getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
         if (fileDetailsSharingProcessFragment != null) {
-            ((FileDetailsSharingProcessFragment)fileDetailsSharingProcessFragment).onBackPressed();
+            ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onBackPressed();
         } else {
             super.onBackPressed();
         }

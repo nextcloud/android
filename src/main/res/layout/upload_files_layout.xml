@@ -62,6 +62,7 @@
             android:layout_height="0dp"
             style="@style/SpinnerTheme"
             android:id="@+id/upload_files_spinner_behaviour"
+            android:paddingRight="40dp"
             android:layout_weight="1"/>
     </LinearLayout>
 

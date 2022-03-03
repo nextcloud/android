@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.utils.theme;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 

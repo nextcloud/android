@@ -48,6 +48,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.utils.TealiumSdkUtils;
@@ -61,20 +62,30 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeLayoutUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
@@ -82,8 +93,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -113,6 +124,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject AppPreferences preferences;
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+    @Inject ClientFactory clientFactory;
+    @Inject FileDataStorageManager storageManager;
     @Inject DeviceInfo deviceInfo;
     @Inject Clock clock;
 
@@ -138,12 +151,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     /**
      * Public factory method to create new FileDetailFragment instances.
-     * <p>
+     *
      * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
      *
-     * @param fileToDetail An {@link OCFile} to show in the fragment
-     * @param user         Currently active user
-     * @param activeTab    to be active tab
+     * @param fileToDetail      An {@link OCFile} to show in the fragment
+     * @param user              Currently active user
+     *                          @param activeTab to be active tab
      * @return New fragment with arguments set
      */
     public static FileDetailFragment newInstance(OCFile fileToDetail, User user, int activeTab) {
@@ -158,9 +171,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     /**
      * Creates an empty details fragment.
-     * <p>
-     * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstate a
-     * fragment automatically.
+     *
+     * It's necessary to keep a public constructor without parameters; the system uses it when tries
+     * to reinstate a fragment automatically.
      */
     public FileDetailFragment() {
         super();
@@ -174,6 +187,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return reference to the {@link FileDetailSharingFragment}
      */
     public FileDetailSharingFragment getFileDetailSharingFragment() {
+        if (binding == null) {
+            return null;
+        }
         return (FileDetailSharingFragment)requireActivity().getSupportFragmentManager().findFragmentByTag(FTAG_SHARING);
     }
 
@@ -213,7 +229,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
+        binding = FileDetailsFragmentBinding.inflate(inflater,container,false);
         view = binding.getRoot();
 
         if (getFile() == null || user == null) {
@@ -250,8 +266,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private void onOverflowIconClicked(View view) {
-        ContextThemeWrapper ctw = new ContextThemeWrapper(getActivity(), R.style.CustomPopupTheme);
-        PopupMenu popup = new PopupMenu(ctw, view);
+        PopupMenu popup = new PopupMenu(getActivity(), view);
         popup.inflate(R.menu.fragment_file_detail);
         prepareOptionsMenu(popup.getMenu());
 
@@ -270,7 +285,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onStart() {
         super.onStart();
         listenForTransferProgress();
-
+        EventBus.getDefault().register(this);
         //track screen view when fragment is visible
         TealiumSdkUtils.trackView(TealiumSdkUtils.SCREEN_VIEW_SHARING, preferences);
     }
@@ -311,6 +326,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             toolbarActivity.showToolbarBackImage(false);
         }
 
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -418,8 +434,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     /**
-     * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be
-     * replaced.
+     * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
      *
      * @return True when the fragment was created with the empty layout.
      */
@@ -440,12 +455,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     /**
      * Updates the view with all relevant details about that file.
-     * <p>
+     *
      * TODO Remove parameter when the transferring state of files is kept in database.
      *
-     * @param transferring Flag signaling if the file should be considered as downloading or uploading, although {@link
-     *                     FileDownloaderBinder#isDownloading(User, OCFile)}  and {@link FileUploaderBinder#isUploading(User,
-     *                     OCFile)} return false.
+     * @param transferring Flag signaling if the file should be considered as downloading or uploading,
+     *                     although {@link FileDownloaderBinder#isDownloading(User, OCFile)}  and
+     *                     {@link FileUploaderBinder#isUploading(User, OCFile)} return false.
      * @param refresh      If 'true', try to refresh the whole file from the database
      */
     public void updateFileDetails(boolean transferring, boolean refresh) {
@@ -587,7 +602,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                                           toolbarActivity.getPreviewImageContainer(),
                                                                                           containerActivity.getStorageManager(),
                                                                                           connectivityService,
-                                                                                          containerActivity.getStorageManager().getAccount(),
+                                                                                          containerActivity.getStorageManager().getUser(),
                                                                                           getResources().getColor(R.color.background_color_inverse)
                                     );
 
@@ -660,7 +675,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             //if (getFile().isDownloading()) {
             if (downloaderBinder != null && downloaderBinder.isDownloading(user, getFile())) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-            } else {
+            }
+            else {
                 if (uploaderBinder != null && uploaderBinder.isUploading(user, getFile())) {
                     binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
                 }
@@ -759,6 +775,41 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     /**
+     * will be called when download limit is fetched from remote
+     * send the data to FileDetailsSharingProcessFragment to update the view
+     * @param downloadLimit download limit for the share
+     */
+    public void onLinkShareDownloadLimitFetched(int downloadLimit) {
+        Fragment fragment =
+            requireActivity().getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+        if (fragment!=null){
+            ((FileDetailsSharingProcessFragment)fragment).onLinkShareDownloadLimitFetched(downloadLimit);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FavoriteEvent event) {
+        try {
+            User user = accountManager.getUser();
+            OwnCloudClient client = clientFactory.create(user);
+
+            ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
+                event.shouldFavorite, event.remotePath);
+            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
+
+            if (remoteOperationResult.isSuccess()) {
+                getFile().setFavorite(event.shouldFavorite);
+                OCFile file = storageManager.getFileByEncryptedRemotePath(event.remotePath);
+                file.setFavorite(event.shouldFavorite);
+                storageManager.saveFile(file);
+            }
+
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Error processing event", e);
+        }
+    }
+
+    /**
      * Helper class responsible for updating the progress bar shown for file downloading.
      */
     private class ProgressListener implements OnDatatransferProgressListener {
@@ -772,7 +823,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
                                        long totalToTransfer, String filename) {
-            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
+            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
             if (percent != lastPercent) {
                 ProgressBar pb = progressBarReference.get();
                 if (pb != null) {

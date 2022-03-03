@@ -10,7 +10,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                flavor: [ Generic, Gplay ]
+                flavor: [ Generic, Gplay, Huawei ]
         steps:
             -   uses: actions/checkout@v2
             -   name: set up JDK 11

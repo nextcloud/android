@@ -50,3 +50,6 @@ fastlane/Fastfile
 /fastlane/vendor/
 /.bundle/
 /fastlane/.bundle/
+
+#ignore shortcut created for nextcloud library module
+/nextcloud-android-library/

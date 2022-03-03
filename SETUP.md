@@ -92,14 +92,16 @@ This is handy if one wants to make changes both to files app and library:
 - in files app root: ln -s $pathToLibraryProject nextcloud-android-library
 - uncomment in build.gradle:  
     - `//    implementation project('nextcloud-android-library')`
-- comment in build.gradle: 
-    - `genericImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
-    - `gplayImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
-    - `versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'`
+- comment in build.gradle:
+   ``` 
+      implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
+        exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
+    }
+  ```   
 - comment in settings.gradle: 
     - `include ':'`
-- uncomment in settings.gradle: 
-    - `//include 'nextcloud-android-library'`
+- add in settings.gradle: 
+    - `include 'nextcloud-android-library'`
 - sync project with gradle files
 
 Now every change in library can be directly used in files app.

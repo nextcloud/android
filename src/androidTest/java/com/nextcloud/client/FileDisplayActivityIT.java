@@ -42,7 +42,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
@@ -60,9 +59,6 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);
-
-    @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     @Test
     // @ScreenshotTest // todo run without real server

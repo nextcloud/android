@@ -212,7 +212,8 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             backgroundJobManager.get(),
             clock,
-            eventBus
+            eventBus,
+            preferences
         )
     }
 

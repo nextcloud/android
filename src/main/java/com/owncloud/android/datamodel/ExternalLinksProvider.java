@@ -57,7 +57,7 @@ public class ExternalLinksProvider {
      * @return external link id, -1 if the insert process fails.
      */
     public long storeExternalLink(ExternalLink externalLink) {
-        Log_OC.v(TAG, "Adding " + externalLink.name);
+        Log_OC.v(TAG, "Adding " + externalLink.getName());
 
         ContentValues cv = createContentValuesFromExternalLink(externalLink);
 
@@ -66,7 +66,7 @@ public class ExternalLinksProvider {
         if (result != null) {
             return Long.parseLong(result.getPathSegments().get(1));
         } else {
-            Log_OC.e(TAG, "Failed to insert item " + externalLink.name + " into external link db.");
+            Log_OC.e(TAG, "Failed to insert item " + externalLink.getName() + " into external link db.");
             return -1;
         }
     }
@@ -76,7 +76,9 @@ public class ExternalLinksProvider {
      * @return numbers of rows deleted
      */
     public int deleteAllExternalLinks() {
-        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS, " 1 = 1 ", null);
+        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
+                                       null,
+                                       null);
     }
 
     /**
@@ -124,12 +126,12 @@ public class ExternalLinksProvider {
     @NonNull
     private ContentValues createContentValuesFromExternalLink(ExternalLink externalLink) {
         ContentValues cv = new ContentValues();
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL, externalLink.iconUrl);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE, externalLink.language);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE, externalLink.type.toString());
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME, externalLink.name);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL, externalLink.url);
-        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT, externalLink.redirect);
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL, externalLink.getIconUrl());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE, externalLink.getLanguage());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE, externalLink.getType().toString());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME, externalLink.getName());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL, externalLink.getUrl());
+        cv.put(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT, externalLink.getRedirect());
         return cv;
     }
 
@@ -142,13 +144,13 @@ public class ExternalLinksProvider {
     private ExternalLink createExternalLinkFromCursor(Cursor cursor) {
         ExternalLink externalLink = null;
         if (cursor != null) {
-            int id = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta._ID));
-            String iconUrl = cursor.getString(cursor.getColumnIndex(
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+            String iconUrl = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL));
-            String language = cursor.getString(cursor.getColumnIndex(
+            String language = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE));
             ExternalLinkType type;
-            switch (cursor.getString(cursor.getColumnIndex(
+            switch (cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE))) {
                 case "link":
                     type = ExternalLinkType.LINK;
@@ -163,10 +165,10 @@ public class ExternalLinksProvider {
                     type = ExternalLinkType.UNKNOWN;
                     break;
             }
-            String name = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
-            String url = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
+            String url = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
             boolean redirect = cursor.getInt(
-                    cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) == 1;
+                    cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)) == 1;
 
             externalLink = new ExternalLink(id, iconUrl, language, type, name, url, redirect);
         }

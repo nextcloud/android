@@ -39,8 +39,11 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
@@ -64,44 +67,35 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
-    private static final int SELECT_LOCATION_REQUEST_CODE = 212;
     private boolean photoSearchQueryRunning = false;
-    private boolean photoSearchNoNew = false;
-    private SearchRemoteOperation searchRemoteOperation;
-    private AsyncTask photoSearchTask;
-    private SearchEvent searchEvent;
-    private boolean refresh;
+    private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
+    private long startDate;
+    private long endDate;
+    private long daySpan = 30;
+    private int limit = 300;
+
     private MediaGridItemDecoration mediaGridItemDecoration;
+
+    private static final int SELECT_LOCATION_REQUEST_CODE = 212;
+    private boolean isPreviewShown = false;
     private OCFile remoteFilePath;
     private String remotePath = "/";
-    private List<Object> mediaObject;
+    private List<OCFile> mediaObject;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
-    private List<Object> imageList;
-    private List<Object> videoList;
+    private List<OCFile> imageList;
+    private List<OCFile> videoList;
 
 
     @Inject AppPreferences appPreferences;
 
-    public GalleryFragment() {
-        this.refresh = false;
-    }
-
-    public GalleryFragment(boolean refresh) {
-        this.refresh = refresh;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setupToolbar();
+        searchFragment = true;
+
         setHasOptionsMenu(true);
 
-
-        searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.GALLERY_SEARCH);
-
-        searchRemoteOperation = new SearchRemoteOperation(searchEvent.getSearchQuery(),
-                                                          searchEvent.getSearchType(),
-                                                          false);
         if (galleryFragmentBottomSheetDialog == null) {
             FileActivity activity = (FileActivity) getActivity();
 
@@ -114,31 +108,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //  initViews();
-        remotePath = setDefaultRemotePath();
-    }
-
-    private String setDefaultRemotePath() {
-        if (remoteFilePath == null) {
-            setRemoteFilePath(remotePath);
-        }
-        return remotePath;
-    }
-
-    private void setRemoteFilePath(String remotePath) {
-        remoteFilePath = new OCFile(remotePath);
-        remoteFilePath.setFolder();
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
 
         if (photoSearchTask != null) {
             photoSearchTask.cancel(true);
         }
+        isPreviewShown = true;
     }
 
     /**
@@ -159,6 +135,142 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         Log_OC.i(this, "onCreateView() in GalleryFragment end");
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (mediaObject == null) {
+            mediaObject = new ArrayList<>();
+        } else {
+            mediaObject.clear();
+        }
+        mAdapter.setShowMetadata(false);
+        mAdapter.setMediaGallery(true);
+        currentSearchType = SearchType.GALLERY_SEARCH;
+
+        switchToMediaGridView();
+        if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
+            int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_item_rv_spacing);
+            mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
+            getRecyclerView().addItemDecoration(mediaGridItemDecoration);
+            getRecyclerView().setPadding(spacing, spacing, spacing, spacing);
+        }
+
+        menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
+        requireActivity().invalidateOptionsMenu();
+
+        //updating the title if user comes back to this fragment from other fragments
+        if (requireActivity() instanceof FileDisplayActivity) {
+            ((FileDisplayActivity)requireActivity()).updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+        }
+        handleSearchEvent();
+    }
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+
+        mediaObject.clear();
+        handleSearchEvent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLoading(photoSearchQueryRunning);
+    }
+
+    @Override
+    public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
+        super.onMessageEvent(changeMenuEvent);
+    }
+
+    private void handleSearchEvent() {
+        prepareCurrentSearch(searchEvent);
+        setEmptyListLoadingMessage();
+
+        // always show first stored items
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFilePath.getRemotePath(),
+                                     mediaObject, preferences.getHideVideoClicked(), preferences.getHideImageClicked(),
+                                     imageList, videoList, this);
+
+        setFabVisible(false);
+
+        searchAndDisplay();
+    }
+
+    private void searchAndDisplay() {
+        // first: always search from now to -30 days
+        if (!photoSearchQueryRunning) {
+            photoSearchQueryRunning = true;
+
+            startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
+            endDate = System.currentTimeMillis() / 1000;
+
+
+            runGallerySearchTask();
+        }
+    }
+
+    public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
+        photoSearchQueryRunning = false;
+        mAdapter.notifyDataSetChanged();
+
+        if (mAdapter.isEmpty()) {
+            setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+        }
+
+        if (emptySearch && getAdapter().getItemCount() > 0) {
+            Log_OC.d(this, "End gallery search");
+            return;
+        }
+        if (daySpan == 30) {
+            daySpan = 90;
+        } else if (daySpan == 90) {
+            daySpan = 180;
+        } else if (daySpan == 180) {
+            daySpan = 999;
+        } else if (daySpan == 999 && limit > 0) {
+            limit = -1; // no limit
+        } else {
+            Log_OC.d(this, "End gallery search");
+            return;
+        }
+
+        if (lastTimeStamp > -1) {
+            endDate = lastTimeStamp;
+        }
+
+        startDate = endDate - (daySpan * 24 * 60 * 60);
+
+        runGallerySearchTask();
+    }
+
+    @Override
+    public boolean isLoading() {
+        return photoSearchQueryRunning;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //  initViews();
+        remotePath = setDefaultRemotePath();
+    }
+
+    private String setDefaultRemotePath() {
+        if (remoteFilePath == null) {
+            setRemoteFilePath(remotePath);
+        }
+        return remotePath;
+    }
+
+    private void setRemoteFilePath(String remotePath) {
+        remoteFilePath = new OCFile(remotePath);
+        remoteFilePath.setFolder();
     }
 
     @Override
@@ -183,98 +295,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         switch (item.getItemId()) {
 
             case R.id.action_three_dot_icon:
-                galleryFragmentBottomSheetDialog.show();
-                return true;
+                if(!photoSearchQueryRunning) {
+                    galleryFragmentBottomSheetDialog.show();
+                    return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (mediaObject == null) {
-            mediaObject = new ArrayList<>();
-        } else {
-            mediaObject.clear();
-        }
-        currentSearchType = SearchType.GALLERY_SEARCH;
-
-        switchToMediaGridView();
-        mAdapter.setMediaGallery(true);
-        if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
-            int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_item_rv_spacing);
-            mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
-            getRecyclerView().addItemDecoration(mediaGridItemDecoration);
-            getRecyclerView().setPadding(spacing, spacing, spacing, spacing);
-        }
-
-        menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-        requireActivity().invalidateOptionsMenu();
-
-        handleSearchEvent();
-    }
-
-    @Override
-    public void onRefresh() {
-        super.onRefresh();
-        //setAdapterEmpty();
-
-        refresh = true;
-        photoSearchNoNew = false;
-        photoSearchQueryRunning = false;
-        handleSearchEvent();
-
-    }
-
-    @Override
-    public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
-        super.onMessageEvent(changeMenuEvent);
-    }
-
-    private void handleSearchEvent() {
-        prepareCurrentSearch(searchEvent);
-        searchFragment = true;
-        setEmptyListLoadingMessage();
-
-        if (refresh || preferences.getPhotoSearchTimestamp() == 0 ||
-            System.currentTimeMillis() - preferences.getPhotoSearchTimestamp() >= 30 * 1000) {
-            setAdapterEmpty();
-            refresh = false;
-        } else {
-            // mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
-            preferences.setPhotoSearchTimestamp(System.currentTimeMillis());
-
-            return;
-        }
-        mAdapter.showVirtuals(VirtualFolderType.GALLERY, true, mContainerActivity.getStorageManager());
-
-
-        setFabVisible(false);
-
-        searchAndDisplay();
-    }
-
-    private void searchAndDisplay() {
-
-        if (!photoSearchQueryRunning && !photoSearchNoNew) {
-            runGallerySearchTask();
-        }
-    }
-
-    public void setPhotoSearchQueryRunning(boolean bool) {
-        photoSearchQueryRunning = bool;
-    }
-
-    public void setSearchDidNotFindNewPhotos(boolean noNewPhotos) {
-        photoSearchNoNew = noNewPhotos;
-    }
-
-    @Override
-    public boolean isLoading() {
-        return !photoSearchNoNew;
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -293,21 +321,18 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private void searchAndDisplayAfterChangingFolder() {
         setAdapterEmpty();
         mediaObject.clear();
-        //photoSearchNoNew = false;
-        // handleSearchEvent();
         runGallerySearchTask();
     }
 
     private void runGallerySearchTask() {
-        photoSearchTask = new GallerySearchTask(getColumnsCount(),
-                                                this,
+        photoSearchTask = new GallerySearchTask(this,
                                                 accountManager.getUser(),
-                                                searchRemoteOperation,
                                                 mContainerActivity.getStorageManager(),
-                                                remoteFilePath.getRemotePath(), mediaObject,
+                                                startDate,
+                                                endDate,
+                                                limit, remoteFilePath.getRemotePath(), mediaObject,
                                                 appPreferences.getHideImageClicked(),
-                                                appPreferences.getHideVideoClicked())
-            .execute();
+                                                appPreferences.getHideVideoClicked()).execute();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -329,12 +354,19 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             if (dy > 0 && !photoSearchQueryRunning) {
                 int visibleItemCount = gridLayoutManager.getChildCount();
                 int totalItemCount = gridLayoutManager.getItemCount();
-                int firstVisibleItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
+                int lastVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
 
-                if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + MAX_ITEMS_PER_ROW)
-                    && (totalItemCount - visibleItemCount) > 0) {
+                if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW)
+                    && (totalItemCount - visibleItemCount) > 0 && lastVisibleItem > 0) {
                     // Almost reached the end, continue to load new photos
-                    searchAndDisplay();
+                    OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
+
+                    daySpan = 30;
+                    endDate = lastFile.getModificationTimestamp() / 1000;
+                    startDate = endDate - (daySpan * 24 * 60 * 60);
+
+                    photoSearchQueryRunning = true;
+                    runGallerySearchTask();
                 }
             }
         }
@@ -346,12 +378,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void hideVideos(boolean isHideVideosClicked) {
 
         if (!mediaObject.isEmpty()) {
-            photoSearchQueryRunning = true;
-            setAdapterEmpty();
-
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
-                                                          preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+            mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                 preferences.getHideVideoClicked(),
+                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -361,11 +391,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
-            setAdapterEmpty();
-
-            GallerySearchTask.setAdapterWithHideShowImage(mediaObject, mAdapter, preferences.getHideVideoClicked(),
-                                                          preferences.getHideImageClicked(), imageList, videoList,
-                                                          mContainerActivity.getStorageManager());
+            mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                 preferences.getHideVideoClicked(),
+                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);

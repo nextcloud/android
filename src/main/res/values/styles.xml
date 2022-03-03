@@ -124,17 +124,20 @@
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 
+    <style name="TextInputLayoutInputWarning" parent="Widget.App.TextInputLayout">
+        <item name="colorError">@color/primary</item>
+    </style>
+
     <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/bg_default</item>
+        <item name="colorAccent">@color/bg_fallback_highlight</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textColor">@color/fg_inverse</item>
         <item name="android:datePickerStyle">@style/DatePickerStyle</item>
-        <item name="colorControlHighlight">@color/bg_fallback_highlight</item>
-        <item name="colorControlActivated">@color/bg_fallback_highlight</item>
     </style>
 
-    <style name="DatePickerStyle" parent="">
+    <style name="DatePickerStyle">
         <item name="android:headerBackground">@color/bg_fallback_highlight</item>
         <item name="android:datePickerMode">calendar</item>
     </style>
@@ -232,7 +235,7 @@
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
         <item name="android:textAllCaps">false</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-	</style>
+    </style>
 
     <style name="ProgressDialogTheme" parent="ownCloud.Dialog">
         <item name="colorAccent">@color/color_accent</item>
@@ -324,7 +327,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- separat translucent action bar style -->
+    <!-- separate translucent action bar style -->
     <style name="Theme.ownCloud.OverlayBase" parent="Theme.ownCloud">
         <item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -368,7 +371,8 @@
         <item name="colorPrimaryDark">@color/primary</item>
     </style>
 
-    <style name="Theme.ownCloud.Widget.ActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+    <style name="Theme.ownCloud.Widget.ActionBar"
+        parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <item name="android:background">@color/primary</item>
         <item name="background">@color/primary</item>
         <item name="android:textColor">@color/text_color</item>
@@ -409,14 +413,14 @@
     <style name="PassCodeStyle">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
-  		<item name="android:gravity">center</item>
-  		<item name="android:layout_margin">10dp</item>
-  		<item name="android:inputType">numberDecimal</item>
-  		<item name="android:numeric">decimal</item>
-		<item name="android:digits">1234567890</item>
-		<item name="android:maxLength">1</item>
-		<item name="android:password">true</item>
-		<item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:numeric">decimal</item>
+        <item name="android:digits">1234567890</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:password">true</item>
+        <item name="android:maxLines">1</item>
         <item name="colorPrimary">@color/text_color</item>
     </style>
 
@@ -578,6 +582,12 @@
 
     <style name="AutoCompleteCursorColorStyle" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textCursorDrawable">@drawable/cursor_drawable</item>
+    </style>
+
+    <style name="ExoMediaButton.ExitFullscreen" parent="ExoStyledControls.Button.Center">
+        <item name="android:src">@drawable/exo_styled_controls_fullscreen_exit</item>
+        <item name="android:contentDescription">@string/exo_controls_fullscreen_exit_description</item>
+        <item name="android:padding">@dimen/exo_icon_padding</item>
     </style>
 
 </resources>

@@ -87,7 +87,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setData(templateList.getTemplateList().get(position));
+        holder.setData(templateList.getTemplates().get(position));
     }
 
     public void setTemplateList(TemplateList templateList) {
@@ -105,7 +105,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return templateList.getTemplateList().size();
+        return templateList.getTemplates().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

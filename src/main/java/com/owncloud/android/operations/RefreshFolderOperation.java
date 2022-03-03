@@ -468,6 +468,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update eTag
         mLocalFolder.setEtag(remoteFolder.getEtag());
 
+        // update size
+        mLocalFolder.setFileLength(remoteFolder.getFileLength());
+
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
                                                                       mLocalFolder,
                                                                       getClient(),

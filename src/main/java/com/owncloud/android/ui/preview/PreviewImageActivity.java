@@ -75,7 +75,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
- * Holds a swiping galley where image files contained in an Nextcloud directory are shown
+ *  Holds a swiping galley where image files contained in an Nextcloud directory are shown
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
@@ -113,7 +113,7 @@ public class PreviewImageActivity extends FileActivity implements
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         return intent;
     }
 
@@ -189,7 +189,7 @@ public class PreviewImageActivity extends FileActivity implements
         mViewPager = findViewById(R.id.fragmentPager);
 
         int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
-        position = Math.max(position, 0);
+        position = position >= 0 ? position : 0;
 
         mViewPager.setAdapter(mPreviewImagePagerAdapter);
         mViewPager.addOnPageChangeListener(this);
@@ -200,7 +200,6 @@ public class PreviewImageActivity extends FileActivity implements
             // adapter does not result in a call to #onPageSelected(0)
             mRequestWaitingForBinder = true;
         }
-
     }
 
     @Override
@@ -333,7 +332,7 @@ public class PreviewImageActivity extends FileActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
 
-        switch (item.getItemId()) {
+        switch(item.getItemId()){
             case android.R.id.home:
                 if (isDrawerOpen()) {
                     closeDrawer();
@@ -369,7 +368,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public void onPause() {
-        if (mDownloadFinishReceiver != null) {
+        if (mDownloadFinishReceiver != null){
             localBroadcastManager.unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
@@ -412,9 +411,10 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * This method will be invoked when a new page becomes selected. Animation is not necessarily complete.
+     * This method will be invoked when a new page becomes selected. Animation is not necessarily
+     * complete.
      *
-     * @param position Position index of the new selected page
+     *  @param  position        Position index of the new selected page
      */
     @Override
     public void onPageSelected(int position) {
@@ -442,10 +442,10 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * Called when the scroll state changes. Useful for discovering when the user begins dragging, when the pager is
-     * automatically settling to the current page. when it is fully stopped/idle.
+     * Called when the scroll state changes. Useful for discovering when the user begins dragging,
+     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
      *
-     * @param state The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
+     * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -453,13 +453,15 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * This method will be invoked when the current page is scrolled, either as part of a programmatically initiated
-     * smooth scroll or a user initiated touch scroll.
+     * This method will be invoked when the current page is scrolled, either as part of a
+     * programmatically initiated smooth scroll or a user initiated touch scroll.
      *
-     * @param position             Position index of the first page currently being displayed. Page position+1 will be
-     *                             visible if positionOffset is nonzero.
-     * @param positionOffset       Value from [0, 1) indicating the offset from the page at position.
-     * @param positionOffsetPixels Value in pixels indicating the offset from position.
+     * @param   position                Position index of the first page currently being displayed.
+     *                                  Page position+1 will be visible if positionOffset is
+     *                                  nonzero.
+     * @param   positionOffset          Value from [0, 1) indicating the offset from the page
+     *                                  at position.
+     * @param   positionOffsetPixels    Value in pixels indicating the offset from position.
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -468,9 +470,9 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     * <p>
-     * Updates the UI when a download is started or finished, provided that it is relevant for the folder displayed in
-     * the gallery.
+     *
+     * Updates the UI when a download is started or finished, provided that it is relevant for the
+     * folder displayed in the gallery.
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
@@ -541,11 +543,11 @@ public class PreviewImageActivity extends FileActivity implements
     private void hideSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
-                | View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
-                | View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
+                |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
                                         );
     }
 
@@ -553,8 +555,8 @@ public class PreviewImageActivity extends FileActivity implements
     private void showSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
+                |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
                                         );
     }
 

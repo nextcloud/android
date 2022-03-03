@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,10 +106,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         if (!mContainerActivity.isFolderPickerMode()) {
             setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         } else {
             setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
@@ -133,8 +134,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.uploadFilesView);
-        mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(), sortOrder));
+        mSortButton.setOnClickListener(v -> {
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
+        });
+
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
 
         setGridSwitchButton();
@@ -297,6 +302,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     public int getCheckedFilesCount() {
         return mAdapter.checkedFilesCount();
     }
+    
+    public int getFilesCount() {
+        return mAdapter.getFilesCount();
+    }
 
     public void sortFiles(FileSortOrder sortOrder) {
         mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
@@ -357,6 +366,22 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         /** Same problem here, see switchToGridView() */
         getRecyclerView().setAdapter(mAdapter);
         super.switchToListView();
+    }
+
+    @Override
+    public void setLoading(boolean enabled) {
+        super.setLoading(enabled);
+        if (enabled) {
+            setEmptyListLoadingMessage();
+        } else {
+            // ugly hack because setEmptyListLoadingMessage also uses a handler and there's a race condition otherwise
+            new Handler().post(() -> {
+                mAdapter.notifyDataSetChanged();
+                if(mAdapter.getFilesCount() == 0){
+                    setEmptyListMessage(SearchType.NO_SEARCH);
+                }
+            });
+        }
     }
 
     /**

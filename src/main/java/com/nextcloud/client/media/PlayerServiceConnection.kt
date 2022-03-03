@@ -28,6 +28,7 @@ import android.os.IBinder
 import android.widget.MediaController
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
+import java.lang.IllegalStateException
 
 @Suppress("TooManyFunctions") // implementing large interface
 class PlayerServiceConnection(private val context: Context) : MediaController.MediaPlayerControl {
@@ -64,13 +65,23 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
         val i = Intent(context, PlayerService::class.java)
         i.putExtra(PlayerService.EXTRA_FILE, file)
         i.action = PlayerService.ACTION_STOP_FILE
-        startForegroundService(i)
+        try {
+            context.startService(i)
+        } catch (ex: IllegalStateException) {
+            // https://developer.android.com/about/versions/oreo/android-8.0-changes#back-all
+            // ignore it - the service is not running and does not need to be stopped
+        }
     }
 
     fun stop() {
         val i = Intent(context, PlayerService::class.java)
         i.action = PlayerService.ACTION_STOP
-        startForegroundService(i)
+        try {
+            context.startService(i)
+        } catch (ex: IllegalStateException) {
+            // https://developer.android.com/about/versions/oreo/android-8.0-changes#back-all
+            // ignore it - the service is not running and does not need to be stopped
+        }
     }
 
     private val connection = object : ServiceConnection {
