@@ -898,5 +898,3 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 }
-
-}
