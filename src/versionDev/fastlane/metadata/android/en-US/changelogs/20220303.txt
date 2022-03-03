@@ -1,0 +1,6 @@
+Restore library version
+Allow EditorWebView accessing URLs with custom certificate
+UploadFileOperation: fix creationTimestamp type
+Correct handling of creation timestamp
+Update translations
+Update Nextcloud Android library
