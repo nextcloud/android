@@ -1,4 +1,4 @@
-## 3.19.1 (February 24, 2022)
+## 3.19.1 RC1 (February 24, 2022)
 
 - Minor bugfixes
 
