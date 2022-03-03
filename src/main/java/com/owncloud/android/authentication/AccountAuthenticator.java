@@ -167,7 +167,19 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         if (authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext)))) {
             accessToken = am.getPassword(account);
         } else {
-            accessToken = am.peekAuthToken(account, authTokenType);
+            try {
+                accessToken = am.peekAuthToken(account, MainApp.getAccountType(mContext));
+                //if null, try it with blocking method...
+                if (accessToken == null){
+                    accessToken = am.blockingGetAuthToken(account,AccountTypeUtils.getAuthTokenTypePass(account.type),false);
+                }
+            }
+            catch (Exception e)
+            {
+                Log_OC.e(TAG, "Failed to receive Auth Token for account type: " + account.type + ": " + e.getMessage(),
+                         e);
+                accessToken=null;
+            }
         }
         if (accessToken != null) {
             final Bundle result = new Bundle();
