@@ -263,9 +263,11 @@ Attention la suppression est irréversible.</string>
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
     <string name="error_report_issue_action">Signaler</string>
+    <string name="error_report_issue_text">Signaler le problème au traqueur ? (nécessite un compte GitHub)</string>
     <string name="error_retrieving_file">Erreur de téléchargement</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
+    <string name="error_starting_scan_doc">Erreur lors de la numérisation de documents</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>
@@ -289,7 +291,7 @@ Attention la suppression est irréversible.</string>
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Envoyer</string>
-    <string name="fab_label">Ajouter ou téléverser</string>
+    <string name="fab_label">Ajouter ou envoyer</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
     <string name="failed_to_start_editor">Impossible de lancer l\'éditeur</string>
@@ -408,13 +410,13 @@ Attention la suppression est irréversible.</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
     <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
-    <string name="log_send_no_mail_app">Pas d\'app d\'envoie de logs trouvé. Installer un client email.</string>
+    <string name="log_send_no_mail_app">Pas d\'app d\'envoie de logs trouvé. Installer un client e-mail.</string>
     <string name="login">Se connecter</string>
     <string name="login_url_helper_text">Adresse URL visible dans la barre d\'adresse de votre navigateur Web lorsque vous êtes connecté à %1$s.</string>
     <string name="logs_menu_delete">Supprimer les journaux</string>
     <string name="logs_menu_refresh">Actualiser</string>
     <string name="logs_menu_search">Chercher dans les journaux</string>
-    <string name="logs_menu_send">Envoyer logs par email</string>
+    <string name="logs_menu_send">Envoyer logs par e-mail</string>
     <string name="logs_status_filtered">Journaux: %1$d ko, %2$d / %3$d résultats en %4$d ms</string>
     <string name="logs_status_loading">Chargement…</string>
     <string name="logs_status_not_filtered">Journaux: %1$d ko, pas de filtre</string>
@@ -459,7 +461,7 @@ Attention la suppression est irréversible.</string>
     <string name="no_actions">Aucune action pour cet utilisateur</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
     <string name="no_calendar_exists">Il n’existe aucun agenda</string>
-    <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse email</string>
+    <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse e-mail</string>
     <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="no_send_app">Aucune application disponible pour envoyer les fichiers sélectionnés</string>
@@ -479,7 +481,7 @@ Attention la suppression est irréversible.</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_upload_description">Afficher l\'avancement de l\'envoi</string>
-    <string name="notification_channel_upload_name_short">Téléversements</string>
+    <string name="notification_channel_upload_name_short">Envois</string>
     <string name="notification_icon">Icône de notification</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
@@ -487,7 +489,7 @@ Attention la suppression est irréversible.</string>
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
     <string name="online_status">Statut en ligne</string>
-    <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour!</string>
+    <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour !</string>
     <string name="overflow_menu">Plus de menu</string>
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
@@ -498,6 +500,7 @@ Attention la suppression est irréversible.</string>
     <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
     <string name="pass_code_wrong">Code de sécurité incorrect</string>
+    <string name="pdf_zoom_tip">Appuyez sur une page pour zoomer</string>
     <string name="permission_allow">Accepter</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
@@ -647,7 +650,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Nom, ID du cloud fédéré ou adresse mail…</string>
+    <string name="share_search">Nom, ID du cloud fédéré ou adresse e-mail…</string>
     <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_settings">Paramètres</string>
@@ -792,6 +795,7 @@ Attention la suppression est irréversible.</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
+    <string name="upload_scan_doc_upload">Numériser un document depuis l\'appareil photo</string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
     <string name="uploader_btn_alternative_text">Sélectionner</string>
@@ -806,7 +810,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
     <string name="uploader_upload_failed_credentials_error">L\'envoi a échoué, reconnectez-vous</string>
-    <string name="uploader_upload_failed_sync_conflict_error">Conflit de fichier lors du téléversement</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflit de fichier lors de l\'envoi</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Sélectionnez la version de %1$s à conserver</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_files_behaviour">Option d\'envoi :</string>
@@ -846,7 +850,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion Wifi non limitée</string>
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Numéro de téléphone</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>
@@ -863,7 +867,7 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre status ?</string>
     <string name="write_email">Envoyer un e-mail</string>
-    <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
+    <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
