@@ -97,6 +97,7 @@ import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -776,7 +777,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
-                                                     RemoteOperationResult result) {
+                                                     RemoteOperationResult<List<OCShare>> result) {
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
 
         if (result.isSuccess()) {
@@ -786,8 +787,7 @@ public abstract class FileActivity extends DrawerActivity
             // therefore filtering for public_link
             String link = "";
             OCFile file = null;
-            for (Object object : result.getData()) {
-                OCShare shareLink = (OCShare) object;
+            for (OCShare shareLink : result.getResultData()) {
                 if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
                     link = shareLink.getShareLink();
                     file = getStorageManager().getFileByPath(shareLink.getPath());
