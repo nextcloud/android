@@ -213,7 +213,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
-        ThemeCheckableUtils.tintSwitch(binding.shareProcessHideDownloadCheckbox, 0)
+      //  ThemeCheckableUtils.tintSwitch(binding.shareProcessHideDownloadCheckbox, 0)
         binding.shareProcessPermissionRadioGroup.setOnCheckedChangeListener(this)
         ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
