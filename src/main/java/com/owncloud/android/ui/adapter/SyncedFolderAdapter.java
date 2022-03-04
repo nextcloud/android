@@ -47,6 +47,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 
@@ -68,6 +70,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private static final int VIEW_TYPE_HEADER = 2;
     private static final int VIEW_TYPE_FOOTER = 3;
     private boolean hideItems;
+    private final Executor thumbnailThreadPool;
 
     public SyncedFolderAdapter(Context context, Clock clock, int gridWidth, ClickListener listener, boolean light) {
         this.context = context;
@@ -79,6 +82,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         filteredSyncFolderItems = new ArrayList<>();
         this.light = light;
         this.hideItems = true;
+        this.thumbnailThreadPool = Executors.newCachedThreadPool();
 
         shouldShowHeadersForEmptySections(true);
         shouldShowFooters(true);
@@ -341,7 +345,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                     );
             holder.binding.thumbnail.setImageDrawable(asyncDrawable);
 
-            task.execute(file);
+            task.executeOnExecutor(thumbnailThreadPool, file);
 
             // set proper tag
             holder.binding.thumbnail.setTag(file.hashCode());
