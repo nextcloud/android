@@ -986,7 +986,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void swapDirectoryFolder(
+    public void showOnlyFolder(
         User account,
         OCFile directory,
         FileDataStorageManager updatedStorageManager,
@@ -1001,13 +1001,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         if (mStorageManager != null) {
 
-            List<OCFile> mFiles1 = mStorageManager.getFolderContent(directory, onlyOnDevice);
+            List<OCFile> allFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
             mFiles.clear();
-            for(int i = 0; i< mFiles1.size() ; i++)
+            for(int i = 0; i< allFiles.size() ; i++)
             {
-                if(mFiles1.get(i).getMimeType().equals(MimeType.DIRECTORY))
+                if(allFiles.get(i).getMimeType().equals(MimeType.DIRECTORY))
                 {
-                    mFiles.add(mFiles1.get(i));
+                    mFiles.add(allFiles.get(i));
                 }
             }
             // mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);

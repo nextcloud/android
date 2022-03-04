@@ -1317,7 +1317,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
 
                 if(mShowOnlyFolder) {
-                    mAdapter.swapDirectoryFolder(
+                    mAdapter.showOnlyFolder(
                         accountManager.getUser(),
                         directory,
                         storageManager,
