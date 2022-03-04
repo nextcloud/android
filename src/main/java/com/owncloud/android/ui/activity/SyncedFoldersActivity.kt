@@ -68,6 +68,9 @@ import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
@@ -84,7 +87,6 @@ class SyncedFoldersActivity :
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
-        private const val MAX_DISPLAY_FILES_PER_FOLDER = 7
         // yes, there is a typo in this value
         private const val KEY_SYNCED_FOLDER_INITIATED_PREFIX = "syncedFolderIntitiated_"
         private val PRIORITIZED_FOLDERS = arrayOf("Camera", "Screenshots")
@@ -197,7 +199,6 @@ class SyncedFoldersActivity :
             mDrawerToggle.isDrawerIndicatorEnabled = false
         }
 
-        // TODO: The content loading should be done asynchronously
         setupContent()
         if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme)
@@ -252,7 +253,7 @@ class SyncedFoldersActivity :
         binding.list.addItemDecoration(MediaGridItemDecoration(spacing))
         binding.list.layoutManager = lm
         binding.list.adapter = adapter
-        load(gridWidth * 2, false)
+        load(getItemsDisplayedPerFolder(), false)
     }
 
     private fun showHiddenItems() {
@@ -274,39 +275,43 @@ class SyncedFoldersActivity :
             return
         }
         showLoadingContent()
-        val mediaFolders = MediaProvider.getImageFolders(
-            contentResolver,
-            perFolderMediaItemLimit, this, false
-        )
-        mediaFolders.addAll(
-            MediaProvider.getVideoFolders(
-                contentResolver, perFolderMediaItemLimit,
-                this, false
+        CoroutineScope(Dispatchers.IO).launch {
+            val mediaFolders = MediaProvider.getImageFolders(
+                contentResolver,
+                perFolderMediaItemLimit, this@SyncedFoldersActivity, false
             )
-        )
-        val syncedFolderArrayList = syncedFolderProvider.syncedFolders
-        val currentAccountSyncedFoldersList: MutableList<SyncedFolder> = ArrayList()
-        val user = userAccountManager.user
-        for (syncedFolder in syncedFolderArrayList) {
-            if (syncedFolder.account == user.accountName) {
-                // delete non-existing & disabled synced folders
-                if (!File(syncedFolder.localPath).exists() && !syncedFolder.isEnabled) {
-                    syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
-                } else {
-                    currentAccountSyncedFoldersList.add(syncedFolder)
+            mediaFolders.addAll(
+                MediaProvider.getVideoFolders(
+                    contentResolver, perFolderMediaItemLimit,
+                    this@SyncedFoldersActivity, false
+                )
+            )
+            val syncedFolderArrayList = syncedFolderProvider.syncedFolders
+            val currentAccountSyncedFoldersList: MutableList<SyncedFolder> = ArrayList()
+            val user = userAccountManager.user
+            for (syncedFolder in syncedFolderArrayList) {
+                if (syncedFolder.account == user.accountName) {
+                    // delete non-existing & disabled synced folders
+                    if (!File(syncedFolder.localPath).exists() && !syncedFolder.isEnabled) {
+                        syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
+                    } else {
+                        currentAccountSyncedFoldersList.add(syncedFolder)
+                    }
                 }
             }
-        }
-        val syncFolderItems = sortSyncedFolderItems(
-            mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
-        )
-        adapter.setSyncFolderItems(syncFolderItems)
-        adapter.notifyDataSetChanged()
-        showList()
-        if (!TextUtils.isEmpty(path)) {
-            val section = adapter.getSectionByLocalPathAndType(path, type)
-            if (section >= 0) {
-                onSyncFolderSettingsClick(section, adapter[section])
+            val syncFolderItems = sortSyncedFolderItems(
+                mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
+            )
+            CoroutineScope(Dispatchers.Main).launch {
+                adapter.setSyncFolderItems(syncFolderItems)
+                adapter.notifyDataSetChanged()
+                showList()
+                if (!TextUtils.isEmpty(path)) {
+                    val section = adapter.getSectionByLocalPathAndType(path, type)
+                    if (section >= 0) {
+                        onSyncFolderSettingsClick(section, adapter[section])
+                    }
+                }
             }
         }
     }
@@ -429,9 +434,13 @@ class SyncedFoldersActivity :
         )
     }
 
+    private fun getItemsDisplayedPerFolder(): Int {
+        return resources.getInteger(R.integer.media_grid_width) * 2
+    }
+
     private fun getDisplayFilePathList(files: List<File>?): List<String>? {
         if (!files.isNullOrEmpty()) {
-            return files.take(MAX_DISPLAY_FILES_PER_FOLDER)
+            return files.take(getItemsDisplayedPerFolder())
                 .map { it.absolutePath }
         }
         return null
@@ -737,8 +746,8 @@ class SyncedFoldersActivity :
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    val gridWidth = resources.getInteger(R.integer.media_grid_width)
-                    load(gridWidth * 2, true)
+
+                    load(getItemsDisplayedPerFolder(), true)
                 } else {
                     // permission denied --> do nothing
                     return
