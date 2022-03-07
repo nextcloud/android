@@ -86,9 +86,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
@@ -210,8 +209,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
                 Log_OC.w(TAG, "Conflict found!");
             } else {
-                final boolean[] rval = new boolean[1];
-                Runnable task = () -> {
+                // dirty threading workaround for client apps which call openDocument on the main thread, thus causing
+                // a NetworkOnMainThreadException
+                final AtomicBoolean downloadResult = new AtomicBoolean(false);
+                final Thread downloadThread = new Thread(() -> {
                     DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
                     RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
                     if (!result.isSuccess()) {
@@ -220,21 +221,20 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                             handler.post(() -> Toast.makeText(MainApp.getAppContext(),
                                                               R.string.file_not_synced,
                                                               Toast.LENGTH_SHORT).show());
-                            rval[0] = true;
+                            downloadResult.set(true);
                         } else {
                             Log_OC.e(TAG, result.toString());
                         }
                     } else {
                         saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
-                        rval[0] = true;
+                        downloadResult.set(true);
                     }
-                };
+                });
+                downloadThread.start();
 
                 try {
-                    Future future = new FutureTask(task, null);
-                    AsyncTask.execute(task);
-                    future.wait();
-                    if (!rval[0]) {
+                    downloadThread.join();
+                    if (!downloadResult.get()) {
                         throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
                     }
                 } catch (InterruptedException e) {
