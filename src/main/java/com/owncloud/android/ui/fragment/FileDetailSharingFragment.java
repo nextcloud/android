@@ -458,10 +458,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         searchView.setQuery(query, true);
     }
 
-    public OCFile getFile() {
-        return file;
-    }
-
     @Override
     public void advancedPermissions(OCShare share) {
         modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
