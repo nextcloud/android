@@ -27,7 +27,7 @@ jobs:
                     echo "BRANCH: ${{ steps.get-vars.outputs.branch }}"
                     echo "PR: ${{ steps.get-vars.outputs.pr }}"
                     echo "RUN NUMBER: $GITHUB_RUN_NUMBER"
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v3
                 with:
                     ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 11
