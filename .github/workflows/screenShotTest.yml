@@ -77,7 +77,7 @@ jobs:
                 run:
                     scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: Archive Espresso results
-                uses: actions/upload-artifact@v2
+                uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535
                 if: ${{ always() }}
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}
