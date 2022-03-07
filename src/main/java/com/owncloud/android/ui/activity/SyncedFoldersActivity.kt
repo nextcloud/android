@@ -70,6 +70,7 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Locale
@@ -163,6 +164,7 @@ class SyncedFoldersActivity :
     private var syncedFolderPreferencesDialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null
     private var type = 0
+    private var loadJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,7 +277,8 @@ class SyncedFoldersActivity :
             return
         }
         showLoadingContent()
-        CoroutineScope(Dispatchers.IO).launch {
+        loadJob = CoroutineScope(Dispatchers.IO).launch {
+            loadJob?.cancel()
             val mediaFolders = MediaProvider.getImageFolders(
                 contentResolver,
                 perFolderMediaItemLimit, this@SyncedFoldersActivity, false
@@ -312,8 +315,14 @@ class SyncedFoldersActivity :
                         onSyncFolderSettingsClick(section, adapter[section])
                     }
                 }
+                loadJob = null
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadJob?.cancel()
     }
 
     /**
