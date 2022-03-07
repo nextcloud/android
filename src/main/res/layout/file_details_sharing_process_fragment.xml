@@ -444,6 +444,8 @@
             android:inputType="textCapSentences|textMultiLine|textNoSuggestions"
             android:padding="@dimen/standard_padding"
             android:scrollbars="vertical"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
             android:textColor="@color/share_txt_color"
             android:textColorHint="@color/grey_60"
             android:textSize="@dimen/txt_size_15sp"

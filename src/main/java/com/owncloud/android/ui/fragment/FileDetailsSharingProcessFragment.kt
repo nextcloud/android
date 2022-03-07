@@ -26,6 +26,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
@@ -457,6 +458,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         }
         binding.shareProcessDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
             showDownloadLimitInput(isChecked)
+        }
+        binding.noteText.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
 
     }
