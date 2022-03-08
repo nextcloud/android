@@ -23,6 +23,7 @@
 package com.nextcloud.client
 
 import android.util.Log
+import com.owncloud.android.BuildConfig
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -30,10 +31,13 @@ import org.junit.runners.model.Statement
 /**
  * C&p from https://stackoverflow.com/questions/45635833/how-can-i-use-flakytest-annotation-now on 18.03.2020
  */
-class RetryTestRule(val retryCount: Int = 1) : TestRule {
+class RetryTestRule(val retryCount: Int = defaultRetryValue) : TestRule {
 
     companion object {
         private val TAG = RetryTestRule::class.java.simpleName
+
+        @Suppress("MagicNumber")
+        private val defaultRetryValue: Int = if (BuildConfig.CI) 5 else 1
     }
 
     override fun apply(base: Statement, description: Description): Statement {

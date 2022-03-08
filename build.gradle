@@ -111,6 +111,8 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
 
+        buildConfigField 'boolean', 'CI', ciBuild.toString()
+
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
@@ -235,6 +237,7 @@ android {
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
         htmlReport true
     }
+
 }
 
 dependencies {
