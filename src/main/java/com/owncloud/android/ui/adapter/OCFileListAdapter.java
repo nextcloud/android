@@ -87,6 +87,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -902,38 +903,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             sharedIconView.setVisibility(View.VISIBLE);
 
 
-            // if (file.isSharedWithSharee() || file.isSharedWithMe()) {
             if (file.isSharedWithMe()) {
-                //if (showShareAvatar) {
-                //sharedIconView.setVisibility(View.GONE);
-                sharedIconView.setImageResource(R.drawable.ic_shared_with_me);
+                int sharedWithMeColor = ResourcesCompat.getColor(activity.getResources(),
+                                                                 R.color.shared_with_me_color, null);
+                sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared_with_me, sharedWithMeColor));
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_receivedMessage));
-                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.shared_with_me_color, null));
+                sharedMessageView.setTextColor(sharedWithMeColor);
 
-                // } else {
-                //sharedIconView.setVisibility(View.VISIBLE);
-
-                //}
             } else if (file.isSharedWithSharee()) {
-                sharedIconView.setImageResource(R.drawable.ic_shared);
+                int primaryColor = ThemeColorUtils.primaryColor(activity, true);
+                sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared, primaryColor));
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
-                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.primary, null));
+                sharedMessageView.setTextColor(primaryColor);
 
 
             } else if (file.isSharedViaLink()) {
-                sharedIconView.setImageResource(R.drawable.ic_shared);
+                int primaryColor = ThemeColorUtils.primaryColor(activity, true);
+                sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared, primaryColor));
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared_via_link));
                 //Added Code For Message Text
                 sharedMessageView.setText(activity.getResources().getString(R.string.placeholder_sharedMessage));
-                sharedMessageView.setTextColor(ResourcesCompat.getColor(activity.getResources(),
-                                                                        R.color.primary, null));
+                sharedMessageView.setTextColor(primaryColor);
             } else {
-                sharedIconView.setImageResource(R.drawable.ic_unshared);
+                sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_unshared,
+                                                                                ResourcesCompat.getColor(activity.getResources(),
+                                                                                                         R.color.list_icon_color, null)));
                 sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_share));
                 sharedMessageView.setVisibility(View.GONE);
             }
