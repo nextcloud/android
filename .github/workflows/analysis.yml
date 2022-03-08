@@ -17,22 +17,23 @@ jobs:
                         # push
                         echo "::set-output name=branch::$GITHUB_REF_NAME"
                         echo "::set-output name=pr::$GITHUB_RUN_ID"
-                        echo "::set-output name=ref::$GITHUB_REF_NAME"
+                        echo "::set-output name=repo::${{ github.repository }}"
                     else
                         # pull request
                         echo "::set-output name=branch::$GITHUB_HEAD_REF"
                         echo "::set-output name=pr::${{ github.event.pull_request.number }}"
-                        echo "::set-output name=ref::refs/pull/${{ github.event.number }}/merge"
+                        echo "::set-output name=repo::${{ github.event.pull_request.head.repo.full_name }}"
                     fi
             -   name: Show variables
                 run: |
+                    echo "REPO: ${{ steps.get-vars.outputs.repo }}"
                     echo "BRANCH: ${{ steps.get-vars.outputs.branch }}"
                     echo "PR: ${{ steps.get-vars.outputs.pr }}"
-                    echo "REF: ${{ steps.get-vars.outputs.ref }}"
                     echo "RUN NUMBER: $GITHUB_RUN_NUMBER"
             -   uses: actions/checkout@v3
                 with:
-                    ref: ${{ steps.get-vars.outputs.ref }}
+                    repository: ${{ steps.get-vars.outputs.repo }}
+                    ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 11
                 uses: actions/setup-java@v2
                 with:
