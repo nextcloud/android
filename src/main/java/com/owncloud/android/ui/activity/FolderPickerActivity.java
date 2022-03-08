@@ -95,6 +95,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private boolean mSyncInProgress;
 
     private boolean mSearchOnlyFolders;
+    private boolean mShowOnlyFolder;
     private boolean mDoNotEnterEncryptedFolder;
 
     protected MaterialButton mCancelBtn;
@@ -137,6 +138,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     caption = getResources().getText(R.string.choose_location).toString();
                     mSearchOnlyFolders = true;
                     mDoNotEnterEncryptedFolder = true;
+                    mShowOnlyFolder = true;
                     mChooseBtn.setText(getResources().getString(R.string.common_select));
                     mChooseBtn.setIcon(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_tick,
                                                                    null));
@@ -356,7 +358,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     public void refreshListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory(false, fromSearch);
+            fileListFragment.listDirectoryFolder(false, fromSearch,mShowOnlyFolder);
         }
     }
 
