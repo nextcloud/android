@@ -86,6 +86,7 @@ import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
@@ -207,20 +208,36 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
                 Log_OC.w(TAG, "Conflict found!");
             } else {
-                DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
-                RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
-                if (!result.isSuccess()) {
-                    if (ocFile.isDown()) {
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.post(() -> Toast.makeText(MainApp.getAppContext(),
-                                                          R.string.file_not_synced,
-                                                          Toast.LENGTH_SHORT).show());
+                // dirty threading workaround for client apps which call openDocument on the main thread, thus causing
+                // a NetworkOnMainThreadException
+                final AtomicBoolean downloadResult = new AtomicBoolean(false);
+                final Thread downloadThread = new Thread(() -> {
+                    DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
+                    RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
+                    if (!result.isSuccess()) {
+                        if (ocFile.isDown()) {
+                            Handler handler = new Handler(Looper.getMainLooper());
+                            handler.post(() -> Toast.makeText(MainApp.getAppContext(),
+                                                              R.string.file_not_synced,
+                                                              Toast.LENGTH_SHORT).show());
+                            downloadResult.set(true);
+                        } else {
+                            Log_OC.e(TAG, result.toString());
+                        }
                     } else {
-                        Log_OC.e(TAG, result.toString());
+                        saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
+                        downloadResult.set(true);
+                    }
+                });
+                downloadThread.start();
+
+                try {
+                    downloadThread.join();
+                    if (!downloadResult.get()) {
                         throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
                     }
-                } else {
-                    saveDownloadedFile(document.getStorageManager(), downloadFileOperation, ocFile);
+                } catch (InterruptedException e) {
+                    throw new FileNotFoundException("Error downloading file: " + ocFile.getFileName());
                 }
             }
         }
