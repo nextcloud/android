@@ -54,6 +54,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -523,5 +524,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             footerText = itemView.findViewById(R.id.footerText);
         }
+    }
+
+    @VisibleForTesting
+    public void setFiles(List<File> newFiles) {
+        mFiles = newFiles;
+        mFilesAll = new ArrayList<>();
+        mFilesAll.addAll(mFiles);
+
+        notifyDataSetChanged();
+        localFileListFragmentInterface.setLoading(false);
     }
 }

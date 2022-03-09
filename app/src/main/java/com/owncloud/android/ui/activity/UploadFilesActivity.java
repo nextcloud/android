@@ -70,6 +70,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -116,6 +117,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
     private MaterialButton uploadButton;
+
+
+    @VisibleForTesting
+    public LocalFileListFragment getFileListFragment() {
+        return mFileListFragment;
+    }
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your

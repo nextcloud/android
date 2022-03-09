@@ -41,10 +41,12 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -377,11 +379,16 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             // ugly hack because setEmptyListLoadingMessage also uses a handler and there's a race condition otherwise
             new Handler().post(() -> {
                 mAdapter.notifyDataSetChanged();
-                if(mAdapter.getFilesCount() == 0){
+                if (mAdapter.getFilesCount() == 0) {
                     setEmptyListMessage(SearchType.NO_SEARCH);
                 }
             });
         }
+    }
+
+    @VisibleForTesting
+    public void setFiles(List<File> newFiles) {
+        mAdapter.setFiles(newFiles);
     }
 
     /**
