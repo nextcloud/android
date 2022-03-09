@@ -291,10 +291,6 @@ public abstract class FileActivity extends DrawerActivity
      * @return  Main {@link OCFile} handled by the activity.
      */
     public OCFile getFile() {
-        FileDetailSharingFragment fragment = getShareFileFragment();
-        if (fragment != null) {
-            return fragment.getFile();
-        }
         return mFile;
     }
 
