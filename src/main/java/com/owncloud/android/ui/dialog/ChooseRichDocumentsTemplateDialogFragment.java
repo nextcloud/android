@@ -27,6 +27,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -117,8 +119,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton,
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+       // ThemeButtonUtils.themeBorderlessButton(positiveButton,alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
@@ -152,9 +153,29 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.filenameContainer,
-                                           binding.filename,
-                                           ThemeColorUtils.primaryColor(getContext()));
+        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()));
+
+        binding.filename.setOnKeyListener((v, keyCode, event) -> {
+            checkEnablingCreateButton();
+            return false;
+        });
+
+        binding.filename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkEnablingCreateButton();
+            }
+        });
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);
