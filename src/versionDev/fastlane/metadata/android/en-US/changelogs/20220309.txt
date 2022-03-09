@@ -1,0 +1,5 @@
+DocumentsStorageProvider: clean up download threading
+Fix #9842: Run DocumentProvider.openDocument network operations in async task
+RetryTestRule: don't modify in scripts, use buildConfigField instead
+FileDisplayActivity: finally get rid of secondFragment
+Update Nextcloud Android library

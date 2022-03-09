@@ -65,7 +65,7 @@ ext {
 	daggerVersion = "2.41"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion ="e07c36e7ebe9b474051cb40586d5b596968aead9"
+    androidLibraryVersion ="88fbad5805750f2bc7a3afd5c9680d358fa558b8"
     mockitoVersion = "4.3.1"
     mockitoKotlinVersion = "4.0.0"
     mockkVersion = "1.12.3"
@@ -163,8 +163,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20220308
-                versionName "20220308"
+                versionCode 20220309
+                versionName "20220309"
             }
 
             qa {
