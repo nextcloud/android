@@ -574,7 +574,7 @@ public class FileDownloader extends Service
             showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         }
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
-        showDetailsIntent.putExtra(FileActivity.EXTRA_USER, download.getAccount());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_USER, download.getUser());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
