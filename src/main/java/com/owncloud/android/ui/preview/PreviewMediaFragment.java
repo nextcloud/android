@@ -300,7 +300,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-            exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+            if (exoPlayer == null) {
+                exoPlayer = new ExoPlayer.Builder(requireContext()).build();
+            }
             binding.exoplayerView.setPlayer(exoPlayer);
 
             LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
@@ -479,15 +481,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         // load the video file in the video player
         // when done, VideoHelper#onPrepared() will be called
         if (getFile().isDown()) {
-            binding.progress.setVisibility(View.GONE);
-
-            exoPlayer.addMediaItem(MediaItem.fromUri(getFile().getStorageUri()));
-            exoPlayer.prepare();
-
-            if (savedPlaybackPosition >= 0) {
-                exoPlayer.seekTo(savedPlaybackPosition);
-            }
-            exoPlayer.play();
+            playVideoUri(getFile().getStorageUri());
         } else {
             try {
                 new LoadStreamUrl(this, user, clientFactory).execute(getFile().getLocalId());
@@ -495,6 +489,18 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 Log_OC.e(TAG, "Loading stream url not possible: " + e);
             }
         }
+    }
+
+    private void playVideoUri(final Uri uri) {
+        binding.progress.setVisibility(View.GONE);
+
+        exoPlayer.addMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.prepare();
+
+        if (savedPlaybackPosition >= 0) {
+            exoPlayer.seekTo(savedPlaybackPosition);
+        }
+        exoPlayer.play();
     }
 
     @Override
@@ -541,12 +547,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             if (previewMediaFragment != null && previewMediaFragment.binding != null && context != null) {
                 if (uri != null) {
                     previewMediaFragment.videoUri = uri;
-
-                    previewMediaFragment.binding.progress.setVisibility(View.GONE);
-
-                    previewMediaFragment.exoPlayer.addMediaItem(MediaItem.fromUri(uri));
-                    previewMediaFragment.exoPlayer.prepare();
-                    previewMediaFragment.exoPlayer.play();
+                    previewMediaFragment.playVideoUri(uri);
                 } else {
                     previewMediaFragment.emptyListView.setVisibility(View.VISIBLE);
                     previewMediaFragment.setVideoErrorMessage(
@@ -588,10 +589,14 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
-        if (MimeTypeUtil.isAudio(getFile()) && !mediaPlayerServiceConnection.isPlaying()) {
+        final OCFile file = getFile();
+        if (MimeTypeUtil.isAudio(file) && !mediaPlayerServiceConnection.isPlaying()) {
             stopAudio();
+        } else if (MimeTypeUtil.isVideo(file) && exoPlayer.isPlaying()) {
+            savedPlaybackPosition = exoPlayer.getCurrentPosition();
+            exoPlayer.pause();
         }
-        
+
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
         super.onStop();

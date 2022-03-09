@@ -1,0 +1,227 @@
+/*
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+package com.owncloud.android.ui.preview
+
+import android.content.DialogInterface
+import android.content.Intent
+import android.media.MediaPlayer
+import android.media.MediaPlayer.OnCompletionListener
+import android.media.MediaPlayer.OnPreparedListener
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.nextcloud.client.media.ErrorFormat.toString
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ActivityPreviewVideoBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.utils.MimeTypeUtil
+
+/**
+ * Activity implementing a basic video player.
+ *
+ * THIS CLASS NEEDS WORK; the old listeners (OnCompletion, OnPrepared; OnError) don't work with ExoPlayer
+ */
+@Suppress("TooManyFunctions")
+class PreviewVideoActivity :
+    FileActivity(),
+    OnCompletionListener,
+    OnPreparedListener,
+    MediaPlayer.OnErrorListener,
+    Player.Listener {
+
+    private var mSavedPlaybackPosition: Long = -1 // in the unit time handled by MediaPlayer.getCurrentPosition()
+    private var mAutoplay = false // when 'true', the playback starts immediately with the activity
+    private var exoPlayer: ExoPlayer? = null // view to play the file; both performs and show the playback
+    private var mStreamUri: Uri? = null
+    private lateinit var binding: ActivityPreviewVideoBinding
+
+    private lateinit var pauseButton: View
+
+    private lateinit var playButton: View
+
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log_OC.v(TAG, "onCreate")
+
+        binding = ActivityPreviewVideoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val extras = intent.extras
+
+        if (savedInstanceState == null && extras != null) {
+            mSavedPlaybackPosition = extras.getLong(EXTRA_START_POSITION)
+            mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY)
+            mStreamUri = extras[EXTRA_STREAM_URL] as Uri?
+        } else if (savedInstanceState != null) {
+            mSavedPlaybackPosition = savedInstanceState.getLong(EXTRA_START_POSITION)
+            mAutoplay = savedInstanceState.getBoolean(EXTRA_AUTOPLAY)
+            mStreamUri = savedInstanceState[EXTRA_STREAM_URL] as Uri?
+        }
+
+        exoPlayer = ExoPlayer.Builder(this).build()
+        binding.videoPlayer.player = exoPlayer
+        exoPlayer!!.addListener(this)
+
+        binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
+
+        pauseButton = binding.root.findViewById(R.id.exo_pause)
+        pauseButton.setOnClickListener { exoPlayer!!.pause() }
+
+        playButton = binding.root.findViewById(R.id.exo_play)
+        playButton.setOnClickListener { exoPlayer!!.play() }
+
+        if (mSavedPlaybackPosition >= 0) {
+            exoPlayer?.seekTo(mSavedPlaybackPosition)
+        }
+
+        supportActionBar?.hide()
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        if (isPlaying) {
+            playButton.visibility = View.GONE
+            pauseButton.visibility = View.VISIBLE
+        } else {
+            playButton.visibility = View.VISIBLE
+            pauseButton.visibility = View.GONE
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(EXTRA_START_POSITION, currentPosition())
+        outState.putBoolean(EXTRA_AUTOPLAY, isPlaying())
+        outState.putParcelable(EXTRA_STREAM_URL, mStreamUri)
+    }
+
+    override fun onBackPressed() {
+        Log_OC.v(TAG, "onBackPressed")
+        val i = Intent()
+        i.putExtra(EXTRA_AUTOPLAY, isPlaying())
+        i.putExtra(EXTRA_START_POSITION, currentPosition())
+        setResult(RESULT_OK, i)
+        exoPlayer?.stop()
+        exoPlayer?.release()
+        super.onBackPressed()
+    }
+
+    private fun isPlaying() = exoPlayer?.isPlaying ?: false
+    private fun currentPosition() = exoPlayer?.currentPosition ?: 0
+
+    /**
+     * Called when the file is ready to be played.
+     *
+     * Just starts the playback.
+     *
+     * @param mp    [MediaPlayer] instance performing the playback.
+     */
+    override fun onPrepared(mp: MediaPlayer) {
+        Log_OC.v(TAG, "onPrepare")
+        exoPlayer?.seekTo(mSavedPlaybackPosition)
+        if (mAutoplay) {
+            exoPlayer?.play()
+        }
+    }
+
+    /**
+     * Called when the file is finished playing.
+     *
+     * Rewinds the video
+     *
+     * @param mp    [MediaPlayer] instance performing the playback.
+     */
+    override fun onCompletion(mp: MediaPlayer?) {
+        exoPlayer?.seekTo(0)
+    }
+
+    /**
+     * Called when an error in playback occurs.
+     *
+     * @param mp      [MediaPlayer] instance performing the playback.
+     * @param what    Type of error
+     * @param extra   Extra code specific to the error
+     */
+    override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
+        Log_OC.e(TAG, "Error in video playback, what = $what, extra = $extra")
+        val message = toString(this, what, extra)
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.VideoView_error_button) { _: DialogInterface?, _: Int ->
+                onCompletion(null)
+            }
+            .setCancelable(false)
+            .show()
+        return true
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (account != null) {
+
+            require(file != null) { throw IllegalStateException("Instanced with a NULL OCFile") }
+            var fileToPlay: OCFile? = file
+
+            // / Validate handled file  (first image to preview)
+            require(MimeTypeUtil.isVideo(fileToPlay)) { "Non-video file passed as argument" }
+
+            fileToPlay = storageManager.getFileById(fileToPlay!!.fileId)
+            if (fileToPlay != null) {
+                if (fileToPlay.isDown) {
+                    exoPlayer?.addMediaItem(MediaItem.fromUri(fileToPlay.storageUri))
+                } else {
+                    exoPlayer?.addMediaItem(MediaItem.fromUri(mStreamUri!!))
+                }
+                exoPlayer?.prepare()
+                exoPlayer?.play()
+            } else {
+                finish()
+            }
+        } else {
+            finish()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (exoPlayer?.isPlaying == true) {
+            exoPlayer?.pause()
+        }
+    }
+
+    companion object {
+        /** Key to receive a flag signaling if the video should be started immediately  */
+        const val EXTRA_AUTOPLAY = "AUTOPLAY"
+
+        /** Key to receive the position of the playback where the video should be put at start  */
+        const val EXTRA_START_POSITION = "START_POSITION"
+        const val EXTRA_STREAM_URL = "STREAM_URL"
+        private val TAG = PreviewVideoActivity::class.java.simpleName
+    }
+}
