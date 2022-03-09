@@ -18,6 +18,5 @@
 -->
 <!-- Default boolean values -->
 <resources>
-    <bool name="large_land_layout">false</bool>
     <bool name="show_push_warning">true</bool>
 </resources>

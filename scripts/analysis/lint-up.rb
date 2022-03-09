@@ -187,7 +187,7 @@ system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update Lint results to reflect reduced error/warning count [skip ci]"')
 
 # push to origin
-system ('git push')
+system ('git push origin HEAD:' + git_branch)
 
 puts "SUCCESS: count was reduced"
 exit 0 # success

@@ -118,7 +118,7 @@ system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
 system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]"')
 
 # push to origin
-system ('git push')
+system ('git push origin HEAD:' + git_branch)
 
 # restore previous git user name and email
 system("git config --local user.name '#{previous_git_username}'")
