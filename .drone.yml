@@ -1,124 +1,126 @@
-[
-  {
-    "commands": [
-        "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
-        "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
-        "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
-        "sed -i s\"#server#server#\" gradle.properties",
-        "./gradlew assembleGplay",
-        "./gradlew assembleGplayDebug",
-        "scripts/wait_for_emulator.sh",
-        "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew installGplayDebugAndroidTest",
-        "scripts/wait_for_server.sh 'server'",
-        "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew combinedTestReport"
-    ],
-    "environment": [
-      {
-        "GIT_TOKEN": "from_secret: GIT_TOKEN",
-        "GIT_USERNAME": "from_secret: GIT_USERNAME",
-        "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
-        "LOG_USERNAME": "from_secret: LOG_USERNAME"
-      }
-    ],
-    "kind": "pipeline",
-    "name": "tests-stable-16",
-    "steps": [
-      {
-        "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
-        "name": "gplay",
-        "privileged": "true"
-      }
-    ],
-    "type": "docker"
-  },
-  {
-    "commands": [
-        "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
-        "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
-        "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
-        "sed -i s\"#server#server#\" gradle.properties",
-        "./gradlew assembleGplay",
-        "./gradlew assembleGplayDebug",
-        "scripts/wait_for_emulator.sh",
-        "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew installGplayDebugAndroidTest",
-        "scripts/wait_for_server.sh 'server'",
-        "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew combinedTestReport"
-    ],
-    "environment": [
-      {
-        "GIT_TOKEN": "from_secret: GIT_TOKEN",
-        "GIT_USERNAME": "from_secret: GIT_USERNAME",
-        "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
-        "LOG_USERNAME": "from_secret: LOG_USERNAME"
-      }
-    ],
-    "kind": "pipeline",
-    "name": "tests-stable-23",
-    "steps": [
-      {
-        "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
-        "name": "gplay",
-        "privileged": "true"
-      }
-    ],
-    "type": "docker"
-  },
-  {
-    "commands": [
-        "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
-        "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
-        "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
-        "sed -i s\"#server#server#\" gradle.properties",
-        "./gradlew assembleGplay",
-        "./gradlew assembleGplayDebug",
-        "scripts/wait_for_emulator.sh",
-        "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew installGplayDebugAndroidTest",
-        "scripts/wait_for_server.sh 'server'",
-        "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
-        "./gradlew combinedTestReport"
-    ],
-    "environment": [
-      {
-        "GIT_TOKEN": "from_secret: GIT_TOKEN",
-        "GIT_USERNAME": "from_secret: GIT_USERNAME",
-        "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
-        "LOG_USERNAME": "from_secret: LOG_USERNAME"
-      }
-    ],
-    "kind": "pipeline",
-    "name": "tests-master",
-    "steps": [
-      {
-        "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
-        "name": "gplay",
-        "privileged": "true"
-      }
-    ],
-    "type": "docker"
-  },
-  {
-    "kind": "pipeline",
-    "name": "default",
-    "steps": [
-      {
-        "commands": [
-            "plain"
-        ],
-        "image": "alpine",
-        "name": "build"
-      }
-    ],
-    "type": "docker"
-  }
-]
+---
+{
+  "commands": [
+      "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
+      "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
+      "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+      "sed -i s\"#server#server#\" gradle.properties",
+      "./gradlew assembleGplay",
+      "./gradlew assembleGplayDebug",
+      "scripts/wait_for_emulator.sh",
+      "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew installGplayDebugAndroidTest",
+      "scripts/wait_for_server.sh 'server'",
+      "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew combinedTestReport"
+  ],
+  "environment": [
+    {
+      "GIT_TOKEN": "from_secret: GIT_TOKEN",
+      "GIT_USERNAME": "from_secret: GIT_USERNAME",
+      "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
+      "LOG_USERNAME": "from_secret: LOG_USERNAME"
+    }
+  ],
+  "kind": "pipeline",
+  "name": "tests-stable-16",
+  "steps": [
+    {
+      "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
+      "name": "gplay",
+      "privileged": true
+    }
+  ],
+  "type": "docker"
+}
+---
+{
+  "commands": [
+      "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
+      "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
+      "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+      "sed -i s\"#server#server#\" gradle.properties",
+      "./gradlew assembleGplay",
+      "./gradlew assembleGplayDebug",
+      "scripts/wait_for_emulator.sh",
+      "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew installGplayDebugAndroidTest",
+      "scripts/wait_for_server.sh 'server'",
+      "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew combinedTestReport"
+  ],
+  "environment": [
+    {
+      "GIT_TOKEN": "from_secret: GIT_TOKEN",
+      "GIT_USERNAME": "from_secret: GIT_USERNAME",
+      "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
+      "LOG_USERNAME": "from_secret: LOG_USERNAME"
+    }
+  ],
+  "kind": "pipeline",
+  "name": "tests-stable-23",
+  "steps": [
+    {
+      "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
+      "name": "gplay",
+      "privileged": true
+    }
+  ],
+  "type": "docker"
+}
+---
+{
+  "commands": [
+      "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
+      "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
+      "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+      "sed -i s\"#server#server#\" gradle.properties",
+      "./gradlew assembleGplay",
+      "./gradlew assembleGplayDebug",
+      "scripts/wait_for_emulator.sh",
+      "scripts/deleteOldComments.sh 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew jacocoTestGplayDebugUnitTestReport || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'Unit' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew installGplayDebugAndroidTest",
+      "scripts/wait_for_server.sh 'server'",
+      "scripts/deleteOldComments.sh 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER 'stable' 'IT' $DRONE_PULL_REQUEST $GIT_TOKEN",
+      "./gradlew combinedTestReport"
+  ],
+  "environment": [
+    {
+      "GIT_TOKEN": "from_secret: GIT_TOKEN",
+      "GIT_USERNAME": "from_secret: GIT_USERNAME",
+      "LOG_PASSWORD": "from_secret: LOG_PASSWORD",
+      "LOG_USERNAME": "from_secret: LOG_USERNAME"
+    }
+  ],
+  "kind": "pipeline",
+  "name": "tests-master",
+  "steps": [
+    {
+      "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
+      "name": "gplay",
+      "privileged": true
+    }
+  ],
+  "type": "docker"
+}
+---
+{
+  "kind": "pipeline",
+  "name": "default",
+  "steps": [
+    {
+      "commands": [
+          "plain"
+      ],
+      "image": "alpine",
+      "name": "build"
+    }
+  ],
+  "type": "docker"
+}

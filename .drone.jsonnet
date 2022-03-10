@@ -6,7 +6,7 @@ local testOnServer(serverBranch) = {
         {
             "name": "gplay",
             "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
-            "privileged": "true"
+            "privileged": true
         }
     ],
     "environment": [
