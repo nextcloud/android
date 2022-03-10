@@ -28,11 +28,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -174,21 +171,7 @@ public final class MediaProvider {
     private static void checkPermissions(@Nullable Activity activity) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            // Check if we should show an explanation
-            if (PermissionUtil
-                .shouldShowRequestPermissionRationale(activity, PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                                                  R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(activity));
-
-                ThemeSnackbarUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
-
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(activity);
-            }
+           PermissionUtil.requestExternalStoragePermission(activity);
         }
     }
 

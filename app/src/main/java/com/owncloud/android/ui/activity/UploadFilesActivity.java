@@ -37,7 +37,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -59,7 +58,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -265,6 +263,16 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        requestPermissions();
+    }
+
+    private void requestPermissions() {
+        PermissionUtil.requestExternalStoragePermission(this, true);
+    }
+
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
     }
@@ -324,25 +332,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private void checkLocalStoragePathPickerPermission() {
         if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                                                  R.string.permission_storage_access,
-                                                  Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
-                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(this);
-            }
-
-            return;
+            requestPermissions();
+        } else {
+            showLocalStoragePathPickerDialog();
         }
-
-        showLocalStoragePathPickerDialog();
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -367,6 +360,18 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
+            if (resultCode == Activity.RESULT_OK) {
+                showLocalStoragePathPickerDialog();
+            } else {
+                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
+            }
         }
     }
 

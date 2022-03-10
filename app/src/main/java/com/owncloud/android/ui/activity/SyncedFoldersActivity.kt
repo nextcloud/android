@@ -514,24 +514,28 @@ class SyncedFoldersActivity :
             android.R.id.home -> finish()
             R.id.action_create_custom_folder -> {
                 Log.d(TAG, "Show custom folder dialog")
-                val emptyCustomFolder = SyncedFolderDisplayItem(
-                    SyncedFolder.UNPERSISTED_ID,
-                    null,
-                    null,
-                    true,
-                    false,
-                    true,
-                    false,
-                    account.name,
-                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                    NameCollisionPolicy.ASK_USER.serialize(),
-                    false,
-                    clock.currentTime,
-                    null,
-                    MediaFolderType.CUSTOM,
-                    false
-                )
-                onSyncFolderSettingsClick(0, emptyCustomFolder)
+                if (PermissionUtil.checkExternalStoragePermission(this)) {
+                    val emptyCustomFolder = SyncedFolderDisplayItem(
+                        SyncedFolder.UNPERSISTED_ID,
+                        null,
+                        null,
+                        true,
+                        false,
+                        true,
+                        false,
+                        account.name,
+                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                        NameCollisionPolicy.ASK_USER.serialize(),
+                        false,
+                        clock.currentTime,
+                        null,
+                        MediaFolderType.CUSTOM,
+                        false
+                    )
+                    onSyncFolderSettingsClick(0, emptyCustomFolder)
+                } else {
+                    PermissionUtil.requestExternalStoragePermission(this, true)
+                }
                 result = super.onOptionsItemSelected(item)
             }
             else -> result = super.onOptionsItemSelected(item)
@@ -751,17 +755,14 @@ class SyncedFoldersActivity :
     ) {
         when (requestCode) {
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE -> {
-
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-
                     load(getItemsDisplayedPerFolder(), true)
                 } else {
-                    // permission denied --> do nothing
-                    return
+                    // permission denied --> request again
+                    PermissionUtil.requestExternalStoragePermission(this, true)
                 }
-                return
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
