@@ -110,6 +110,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
+        if(type == VirtualFolderType.NONE){
+            throw new IllegalArgumentException("NONE virtual folder type");
+        }
         if (storageManager == null) {
             throw new IllegalArgumentException("NULL storage manager");
         }
