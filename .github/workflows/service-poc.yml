@@ -1,0 +1,17 @@
+name: "Service POC"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    poc:
+        runs-on: ubuntu-latest
+        services:
+            nginx:
+                image: nginx
+                options: >-
+                    --name nginx
+        steps:
+            -   name: Access service container
+                run: docker exec nginx nginx -V
