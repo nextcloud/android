@@ -27,6 +27,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
@@ -81,7 +82,7 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
             permissionRequired -> R.string.file_management_permission
             else -> R.string.file_management_permission_optional
         }
-        val dialog = AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
+        val dialog = MaterialAlertDialogBuilder(requireActivity(), R.style.Theme_ownCloud_Dialog)
             .setTitle(titleResource)
             .setView(view)
             .setNegativeButton(R.string.common_cancel) { _, _ ->
