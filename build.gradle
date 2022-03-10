@@ -65,8 +65,8 @@ ext {
 	daggerVersion = "2.41"
     markwonVersion =  "4.6.2"
     prismVersion = "2.0.0"
-    androidLibraryVersion ="88fbad5805750f2bc7a3afd5c9680d358fa558b8"
-    mockitoVersion = "4.3.1"
+    androidLibraryVersion = "master-SNAPSHOT"
+    mockitoVersion = "4.4.0"
     mockitoKotlinVersion = "4.0.0"
     mockkVersion = "1.12.3"
     powermockVersion = "2.0.9"
@@ -263,7 +263,7 @@ dependencies {
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.4.1"
-    implementation 'com.github.albfernandez:juniversalchardet:2.3.2' // need this version for Android <7
+    implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.greenrobot:eventbus:3.3.1'

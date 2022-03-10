@@ -32,6 +32,7 @@ jobs:
                     echo "RUN NUMBER: $GITHUB_RUN_NUMBER"
             -   uses: actions/checkout@v3
                 with:
+                    token: ${{ secrets.GIT_TOKEN }}
                     repository: ${{ steps.get-vars.outputs.repo }}
                     ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 11
