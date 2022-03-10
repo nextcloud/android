@@ -31,13 +31,21 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.media.ErrorFormat.toString
+import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewVideoBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Activity implementing a basic video player.
@@ -50,7 +58,14 @@ class PreviewVideoActivity :
     OnCompletionListener,
     OnPreparedListener,
     MediaPlayer.OnErrorListener,
-    Player.Listener {
+    Player.Listener,
+    Injectable {
+
+    @Inject
+    lateinit var clientFactory: ClientFactory
+
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
     private var mSavedPlaybackPosition: Long = -1 // in the unit time handled by MediaPlayer.getCurrentPosition()
     private var mAutoplay = false // when 'true', the playback starts immediately with the activity
@@ -81,7 +96,10 @@ class PreviewVideoActivity :
             mStreamUri = savedInstanceState[EXTRA_STREAM_URL] as Uri?
         }
 
-        exoPlayer = ExoPlayer.Builder(this).build()
+        supportActionBar?.hide()
+    }
+
+    private fun setupPlayerView() {
         binding.videoPlayer.player = exoPlayer
         exoPlayer!!.addListener(this)
 
@@ -96,8 +114,6 @@ class PreviewVideoActivity :
         if (mSavedPlaybackPosition >= 0) {
             exoPlayer?.seekTo(mSavedPlaybackPosition)
         }
-
-        supportActionBar?.hide()
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -181,6 +197,12 @@ class PreviewVideoActivity :
         return true
     }
 
+    private fun play(item: MediaItem) {
+        exoPlayer?.addMediaItem(item)
+        exoPlayer?.prepare()
+        exoPlayer?.play()
+    }
+
     override fun onStart() {
         super.onStart()
         if (account != null) {
@@ -188,18 +210,28 @@ class PreviewVideoActivity :
             require(file != null) { throw IllegalStateException("Instanced with a NULL OCFile") }
             var fileToPlay: OCFile? = file
 
-            // / Validate handled file  (first image to preview)
+            // Validate handled file  (first image to preview)
             require(MimeTypeUtil.isVideo(fileToPlay)) { "Non-video file passed as argument" }
 
             fileToPlay = storageManager.getFileById(fileToPlay!!.fileId)
             if (fileToPlay != null) {
-                if (fileToPlay.isDown) {
-                    exoPlayer?.addMediaItem(MediaItem.fromUri(fileToPlay.storageUri))
-                } else {
-                    exoPlayer?.addMediaItem(MediaItem.fromUri(mStreamUri!!))
+                val mediaItem = when {
+                    fileToPlay.isDown -> MediaItem.fromUri(fileToPlay.storageUri)
+                    else -> MediaItem.fromUri(mStreamUri!!)
                 }
-                exoPlayer?.prepare()
-                exoPlayer?.play()
+                if (exoPlayer != null) {
+                    play(mediaItem)
+                } else {
+                    val context = this
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val client = clientFactory.createNextcloudClient(accountManager.user)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            exoPlayer = createNextcloudExoplayer(context, client)
+                            setupPlayerView()
+                            play(mediaItem)
+                        }
+                    }
+                }
             } else {
                 finish()
             }

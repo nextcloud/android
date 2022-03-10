@@ -34,6 +34,7 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,8 +52,10 @@ import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.media.NextcloudExoPlayer;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -72,6 +75,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -304,27 +308,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-            if (exoPlayer == null) {
-                exoPlayer = new ExoPlayer.Builder(requireContext()).build();
-            }
-            binding.exoplayerView.setPlayer(exoPlayer);
-
-            LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
-
-            if (linearLayout.getChildCount() == 5) {
-                AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
-                fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
-                fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
-                fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
-
-                fullScreenButton.setOnClickListener(l -> {
-                    startFullScreenVideo();
-                });
-
-                linearLayout.addView(fullScreenButton);
-                linearLayout.invalidate();
-            }
 
             if (MimeTypeUtil.isAudio(file)) {
                 binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection);
@@ -337,8 +320,46 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     // always stop player
                     stopAudio();
                 }
-                playVideo();
+
+                if (exoPlayer != null) {
+                    playVideo();
+                } else {
+                    final Handler handler = new Handler();
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        try {
+                            final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
+                            handler.post(() -> {
+                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
+                                playVideo();
+                            });
+                        } catch (ClientFactory.CreationException e) {
+                            handler.post(() -> {
+                                Log_OC.e(TAG, "error setting up ExoPlayer", e);
+                            });
+                        }
+                    });
+                }
             }
+        }
+    }
+
+    private void setupVideoView() {
+        binding.exoplayerView.setPlayer(exoPlayer);
+        LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
+
+        if (linearLayout.getChildCount() == 5) {
+            AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
+            fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
+            fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
+            fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
+
+            fullScreenButton.setOnClickListener(l -> {
+                startFullScreenVideo();
+            });
+
+            linearLayout.addView(fullScreenButton);
+            linearLayout.invalidate();
         }
     }
 
@@ -482,6 +503,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     private void playVideo() {
+        setupVideoView();
         // load the video file in the video player
         // when done, VideoHelper#onPrepared() will be called
         if (getFile().isDown()) {
@@ -703,9 +725,11 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     @Override
     public void onDetach() {
-      
-        exoPlayer.stop();
-        exoPlayer.release();
+
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
 
         super.onDetach();
     }
