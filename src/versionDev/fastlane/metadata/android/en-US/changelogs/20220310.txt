@@ -1,0 +1,10 @@
+FileActivity: don't try to get file from FileDetailSharingFragment
+build.gradle: Restore juniversalchardet to 2.0.3
+FileDownloader: EXTRA_USER should be User, not Account
+SyncedFoldersActivity: cancel loading when activity stops
+SyncedFolderAdapter: load thumbnails in parallel instead of sequentially
+SyncedFoldersActivity: load content asynchronously
+SyncedFoldersActivity: convert to Kotlin (step 2)
+SyncedFoldersActivity: conver to Kotlin (step 1)
+Update Nextcloud Android library
+Update 3rd-party dependencies
