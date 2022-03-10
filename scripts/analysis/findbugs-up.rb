@@ -114,8 +114,8 @@ system ("git config --local user.email 'android@nextcloud.com'")
 # add previous FindBugs result file to git
 system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
 
-# commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
-system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]"')
+# commit changes
+system({"GIT_COMMITTER_NAME" => git_user, "GIT_COMMITTER_EMAIL" => "android@nextcloud.com", "GIT_AUTHOR_EMAIL" => "android@nextcloud.com"}, 'git commit -sm "Analysis: update Spotbugs results to reflect reduced error/warning count"')
 
 # push to origin
 system ('git push origin HEAD:' + git_branch)
