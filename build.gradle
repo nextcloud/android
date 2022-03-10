@@ -85,6 +85,7 @@ ext {
     workRuntime = "2.7.1"
     fidoVersion = "4.1.0"
     scanbotSdkVersion = "1.89.0"
+    exoplayerVersion = "2.17.0"
 
     ciBuild = System.getenv("CI") == "true"
 }
@@ -344,7 +345,8 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.43.2"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
+    implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
