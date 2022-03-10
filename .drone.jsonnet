@@ -81,16 +81,77 @@ local testOnServer(serverBranch) = {
 local allScreenshots() = {
     "kind": "pipeline",
     "type": "docker",
-    "name": "default",
+    "name": "allScreenshots",
     "steps": [
         {
-            "name": "build",
-            "image": "alpine",
+            "name": "runAllScreenshots",
+            "image": "ghcr.io/nextcloud/continuous-integration-android8:2",
+            "privileged": true,
+            "environment": {
+                  "GIT_USERNAME": {
+                        "from_secret": "GIT_USERNAME"
+                    },
+                    "GIT_TOKEN": {
+                        "from_secret": "GIT_TOKEN"
+                    },
+                    "LOG_USERNAME": {
+                        "from_secret": "LOG_USERNAME"
+                    },
+                    "LOG_PASSWORD": {
+                        "from_secret": "LOG_PASSWORD"
+                    }
+            },
             "commands": [
-                "plain",
+                "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
+                "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+                "sed -i s'#showOnlyFailingTestsInReports = ciBuild#showOnlyFailingTestsInReports = false#' build.gradle",
+                "scripts/wait_for_emulator.sh",
+                "scripts/runAllScreenshotCombinations noCI false",
+                "scripts/screenshotSummary.sh"
+            ]
+        }, 
+        {
+            "name": "notify",
+            "image": "drillster/drone-email",
+            "settings": {
+                "port": 587,
+                "from": "nextcloud-drone@kaminsky.me",
+                "recipients_only": true,
+                "username": {
+                    "from_secret": "EMAIL_USERNAME"
+                },
+                "password": {
+                    "from_secret": "EMAIL_PASSWORD"
+                },
+                "recipients": {
+                    "from_secret": "EMAIL_RECIPIENTS"
+                },
+                "host": {
+                    "from_secret": "EMAIL_HOST"
+                }
+            },
+        "when": {
+            "event": [
+                "push"
+            ],
+            "status": [
+                "failure"
+            ],
+            "branch": [
+                "master",
+                "stable-*"
             ]
         }
-    ]
+    }
+    ],
+    "trigger": {
+        "event": [
+            "cron"
+        ],
+        "cron": [
+            "allscreenshots"
+        ]
+    }
 };
 
 ## to create .drone.yml run: drone jsonnet --stream
