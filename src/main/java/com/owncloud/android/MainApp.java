@@ -126,7 +126,6 @@ import io.scanbot.sap.Status;
 import io.scanbot.sdk.ScanbotSDK;
 import io.scanbot.sdk.ScanbotSDKInitializer;
 import io.scanbot.sdk.core.contourdetector.ContourDetector;
-import leakcanary.LeakCanary;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 
@@ -891,10 +890,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     private void setUpLeakCanary() {
         //disable the LeakCanary heap dump and showing Leak app icon for QA and Dev builds
-        if (BuildConfig.FLAVOR.equalsIgnoreCase("qa")
+       /* if (BuildConfig.FLAVOR.equalsIgnoreCase("qa")
             || BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")) {
             LeakCanary.getConfig().newBuilder().dumpHeap(false);
             LeakCanary.INSTANCE.showLeakDisplayActivityLauncherIcon(false);
-        }
+        }*/
     }
 }
