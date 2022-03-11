@@ -54,6 +54,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -159,31 +160,34 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             if (file != null) {
+                File finalFile = file;
+
                 LocalFileListGridImageViewHolder gridViewHolder = (LocalFileListGridImageViewHolder) holder;
 
-                // checkbox
-                if (isCheckedFile(file)) {
-                    gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                            .getColor(R.color.selected_item_background));
-                    gridViewHolder.checkbox.setImageDrawable(
-                        ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                        ThemeColorUtils.primaryColor(mContext)));
-                } else {
+                if (mLocalFolderPicker) {
                     gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
-                    gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
+                    gridViewHolder.checkbox.setVisibility(View.GONE);
+                } else {
+                    gridViewHolder.checkbox.setVisibility(View.VISIBLE);
+                    if (isCheckedFile(file)) {
+                        gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
+                                                                         .getColor(R.color.selected_item_background));
+                        gridViewHolder.checkbox.setImageDrawable(
+                            ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                            ThemeColorUtils.primaryColor(mContext)));
+                    } else {
+                        gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
+                        gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
+                    }
+                    gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
+                        .onItemCheckboxClicked(finalFile));
                 }
 
                 gridViewHolder.thumbnail.setTag(file.hashCode());
                 setThumbnail(file, gridViewHolder.thumbnail, mContext);
 
-                gridViewHolder.checkbox.setVisibility(View.VISIBLE);
-
-                File finalFile = file;
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemClicked(finalFile));
-                gridViewHolder.checkbox.setOnClickListener(v -> localFileListFragmentInterface
-                        .onItemCheckboxClicked(finalFile));
-
+                    .onItemClicked(finalFile));
 
                 if (holder instanceof LocalFileListItemViewHolder) {
                     LocalFileListItemViewHolder itemViewHolder = (LocalFileListItemViewHolder) holder;
@@ -520,5 +524,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             footerText = itemView.findViewById(R.id.footerText);
         }
+    }
+
+    @VisibleForTesting
+    public void setFiles(List<File> newFiles) {
+        mFiles = newFiles;
+        mFilesAll = new ArrayList<>();
+        mFilesAll.addAll(mFiles);
+
+        notifyDataSetChanged();
+        localFileListFragmentInterface.setLoading(false);
     }
 }

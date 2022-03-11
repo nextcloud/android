@@ -70,6 +70,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -116,6 +117,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
     private MaterialButton uploadButton;
+
+
+    @VisibleForTesting
+    public LocalFileListFragment getFileListFragment() {
+        return mFileListFragment;
+    }
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
@@ -189,7 +196,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         uploadButton = findViewById(R.id.upload_files_btn_upload);
         ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
         uploadButton.setOnClickListener(this);
-        uploadButton.setEnabled(false);
+        uploadButton.setEnabled(mLocalFolderPickerMode);
 
         int localBehaviour = preferences.getUploaderBehaviour();
 
@@ -458,7 +465,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private void updateUploadButtonActive() {
         final boolean anySelected = mFileListFragment.getCheckedFilesCount() > 0;
-        uploadButton.setEnabled(anySelected);
+        uploadButton.setEnabled(anySelected || mLocalFolderPickerMode);
     }
 
     private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
@@ -600,7 +607,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      */
     @Override
     public void onFileClick(File file) {
-        uploadButton.setEnabled(mFileListFragment.getCheckedFilesCount() > 0);
+        updateUploadButtonActive();
 
         boolean selectAll = mFileListFragment.getCheckedFilesCount() == mFileListFragment.getFilesCount();
         setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), selectAll);
