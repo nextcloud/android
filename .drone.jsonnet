@@ -24,7 +24,7 @@ local testOnServer(serverBranch, ciImageVersion) = {
             "commands": [
                 "scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0",
                 "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
-                "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+                "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g app/src/main/res/values/setup.xml",
                 "sed -i s\"#server#server#\" gradle.properties",
                 "./gradlew assembleGplay",
                 "./gradlew assembleGplayDebug",
@@ -103,7 +103,7 @@ local allScreenshots() = {
             },
             "commands": [
                 "emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &",
-                "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g src/main/res/values/setup.xml",
+                "sed -i s'#<bool name=\"is_beta\">false</bool>#<bool name=\"is_beta\">true</bool>#'g app/src/main/res/values/setup.xml",
                 "sed -i s'#showOnlyFailingTestsInReports = ciBuild#showOnlyFailingTestsInReports = false#' build.gradle",
                 "scripts/wait_for_emulator.sh",
                 "scripts/runAllScreenshotCombinations noCI false",
