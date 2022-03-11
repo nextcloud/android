@@ -877,10 +877,11 @@ public abstract class FileActivity extends DrawerActivity
 
     /**
      * open the new sharing process fragment to create the share
+     *
      * @param shareeName
      * @param shareType
      */
-    private void doShareWith(String shareeName, ShareType shareType) {
+    protected void doShareWith(String shareeName, ShareType shareType) {
         FileDetailFragment fragment = getFileDetailFragment();
         if (fragment != null) {
             fragment.initiateSharingProcess(shareeName, shareType);
