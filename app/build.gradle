@@ -395,14 +395,14 @@ task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
-    args "--reporter=plain", "--reporter=plain,output=${buildDir}/ktlint.txt,src/**/*.kt"
+    args "--reporter=plain", "--reporter=plain,output=${buildDir}/ktlint.txt,${projectDir}/src/**/*.kt"
 }
 
 task ktlintFormat(type: JavaExec, group: "formatting") {
     description = "Fix Kotlin code style deviations."
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
-    args "-F", "src/**/*.kt"
+    args "-F", "${projectDir}/src/**/*.kt"
 }
 
 task installGitHooks(type: Copy, group: "development") {
@@ -420,7 +420,6 @@ detekt {
         }
     }
     config = files("detekt.yml")
-    input = files("src/")
 }
 
 shot {
