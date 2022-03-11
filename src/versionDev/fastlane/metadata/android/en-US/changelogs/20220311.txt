@@ -1,0 +1,2 @@
+Exoplayer: use NextcloudClient's OkHttp client for connections
+Update Nextcloud Android library
