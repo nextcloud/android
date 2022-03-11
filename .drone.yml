@@ -25,7 +25,7 @@
       "environment": {
         "EVAL": "true"
       },
-      "image": "ghcr.io/nextcloud/continuous-integration-server:latest ",
+      "image": "ghcr.io/nextcloud/continuous-integration-server:latest",
       "name": "server"
     }
   ],
@@ -105,7 +105,7 @@
       "environment": {
         "EVAL": "true"
       },
-      "image": "ghcr.io/nextcloud/continuous-integration-server:latest ",
+      "image": "ghcr.io/nextcloud/continuous-integration-server:latest",
       "name": "server"
     }
   ],
@@ -185,7 +185,7 @@
       "environment": {
         "EVAL": "true"
       },
-      "image": "ghcr.io/nextcloud/continuous-integration-server:latest ",
+      "image": "ghcr.io/nextcloud/continuous-integration-server:latest",
       "name": "server"
     }
   ],
