@@ -20,5 +20,5 @@ github_checks:
     annotations: false
 
 ignore:
-  - "src/main/res/values*/*"
+  - "app/src/main/res/values*/*"
 

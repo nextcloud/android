@@ -88,41 +88,41 @@ lane :makeReleases do
     info = androidVersion
     sh("mkdir -p ../release")
     sh("rm -rf ../release/*")
-    sh("rm -rf ../build")
+    sh("rm -rf ../app/build")
 
     SignedRelease(flavor:"Generic")
-    sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
+    sh("mv ../app/build/outputs/apk/generic/release/*.apk ../release/")
     sh("mv ../release/generic-release-#{info["versionCode"]}.apk ../release/nextcloud-#{info["versionCode"]}.apk")
 
     SignedRelease(flavor:"Gplay")
-    sh("cp ../build/outputs/apk/gplay/release/*.apk ../release/")
+    sh("cp ../app/build/outputs/apk/gplay/release/*.apk ../release/")
     
     SignedRelease(flavor:"Huawei")
-    sh("cp ../build/outputs/apk/huawei/release/*.apk ../release/")
+    sh("cp ../app/build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create GPlay release"
 lane :createGplayRelease do |options|
     SignedRelease(flavor:"Gplay")
-    sh("mv ../build/outputs/apk/gplay/release/*.apk ../release/")
+    sh("mv ../app/build/outputs/apk/gplay/release/*.apk ../release/")
 end
 
 desc "Create Generic release"
 lane :createGenericRelease do |options|
     SignedRelease(flavor:"Generic")
-    sh("mv ../build/outputs/apk/generic/release/*.apk ../release/")
+    sh("mv ../app/build/outputs/apk/generic/release/*.apk ../release/")
 end
 
 desc "Create Huawei release"
 lane :createHuaweiRelease do |options|
     SignedRelease(flavor:"Huawei")
-    sh("mv ../build/outputs/apk/huawei/release/*.apk ../release/")
+    sh("mv ../app/build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create Dev release"
 lane :createDevRelease do |options|
     SignedRelease(flavor:"VersionDev")
-    sh("mv ../build/outputs/apk/versionDev/release/*.apk ../release/")
+    sh("mv ../app/build/outputs/apk/versionDev/release/*.apk ../release/")
 end
 
 desc "Beautify phone for screenshots: set time, remove other icons, no charging"
@@ -197,7 +197,7 @@ end
 
 desc "compute version"
 private_lane :androidVersion do
-    File.open("../build.gradle","r") do |f|
+    File.open("../app/build.gradle","r") do |f|
         text = f.read
 
         # everything between Document and Authors
@@ -271,11 +271,11 @@ private_lane :tag do |options|
 end
 
 private_lane :disableLogger do
-    sh("sed -i s'#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../src/main/res/values/setup.xml")
+    sh("sed -i s'#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 private_lane :enableLogger do
-    sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../src/main/res/values/setup.xml")
+    sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 desc "Upload to play store"
