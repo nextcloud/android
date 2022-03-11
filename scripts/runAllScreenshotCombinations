@@ -5,7 +5,7 @@
 ## $3 classMethod: piped from androidScreenshotTest
 ## $4 github event number
 
-sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
 
 if [[ $2 = "true" ]]; then
     record="-Precord"
@@ -48,6 +48,6 @@ do
     fi
 done
 
-sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g app/src/main/res/values/setup.xml
 
 exit $resultCode
