@@ -81,5 +81,5 @@ jobs:
                 if: ${{ always() }}
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}
-                    path: build/reports
+                    path: app/build/reports
                     retention-days: 4
