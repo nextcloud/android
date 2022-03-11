@@ -25,7 +25,7 @@
       "environment": {
         "EVAL": "true"
       },
-      "image": "ghcr.io/nextcloud/continuous-integration-server:latest",
+      "image": "ghcr.io/nextcloud/continuous-integration-server/php-7.2:1",
       "name": "server"
     }
   ],

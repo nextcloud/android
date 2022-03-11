@@ -1,4 +1,4 @@
-local testOnServer(serverBranch) = {
+local testOnServer(serverBranch, ciImageVersion) = {
     "kind": "pipeline",
     "type": "docker",
     "name": "tests-"+serverBranch,
@@ -42,7 +42,7 @@ local testOnServer(serverBranch) = {
    "services": [
         {
             "name": "server",
-            "image": "ghcr.io/nextcloud/continuous-integration-server:latest", // also change in updateScreenshots.sh
+            "image": ciImageVersion, // also change in updateScreenshots.sh
             "environment": {
                     "EVAL": "true"
                 },
@@ -156,9 +156,9 @@ local allScreenshots() = {
 
 ## to create .drone.yml run: drone jsonnet --stream
 [
-testOnServer("stable16"),
-testOnServer("stable23"),
-testOnServer("master"),
+testOnServer("stable16", "ghcr.io/nextcloud/continuous-integration-server/php-7.2:1"),
+testOnServer("stable23", "ghcr.io/nextcloud/continuous-integration-server:latest"),
+testOnServer("master", "ghcr.io/nextcloud/continuous-integration-server:latest"),
 allScreenshots(),
 ]
 
