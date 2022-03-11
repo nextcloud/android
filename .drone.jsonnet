@@ -42,7 +42,7 @@ local testOnServer(serverBranch) = {
    "services": [
         {
             "name": "server",
-            "image": "ghcr.io/nextcloud/continuous-integration-server:latest # also change in updateScreenshots.sh",
+            "image": "ghcr.io/nextcloud/continuous-integration-server:latest ", // also change in updateScreenshots.sh
             "environment": {
                     "EVAL": "true"
                 },
