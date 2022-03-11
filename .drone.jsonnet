@@ -156,8 +156,8 @@ local allScreenshots() = {
 
 ## to create .drone.yml run: drone jsonnet --stream
 [
-testOnServer("stable-16"),
-testOnServer("stable-23"),
+testOnServer("stable16"),
+testOnServer("stable23"),
 testOnServer("master"),
 allScreenshots(),
 ]
