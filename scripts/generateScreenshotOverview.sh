@@ -42,7 +42,7 @@ echo "</tr>"
 
 #for image in ./build/reports/shot/verification/images/*.png ; do
 for image in $(/bin/ls -1 ./screenshots/gplay/debug/*.png | grep -v _dark_ | grep -v _light_) ; do
-    cp $image build/screenshotSummary/images/
+    cp $image app/build/screenshotSummary/images/
     
     echo "<tr style='height:200px'>"
     echo "<td><a target='_blank' href=\"images/$(basename $image)\"><img width=100px src=\"images/$(basename $image)\"/></a></td>"
@@ -61,12 +61,12 @@ for image in $(/bin/ls -1 ./screenshots/gplay/debug/*.png | grep -v _dark_ | gre
         fi
         
         # if image does not exist
-        if [ ! -e ./build/reports/shot/verification/images/$name ]; then
+        if [ ! -e ./app/build/reports/shot/verification/images/$name ]; then
             echo "<span style='color: red'>✘</span>"
             error=$((error + 1))
-        elif [ -e ./build/reports/shot/verification/images/diff_$name ]; then
+        elif [ -e ./app/build/reports/shot/verification/images/diff_$name ]; then
             # file with "diff_" prefix
-            cp ./build/reports/shot/verification/images/diff_$name build/screenshotSummary/images/
+            cp ./app/build/reports/shot/verification/images/diff_$name build/screenshotSummary/images/
             echo "<a target='_blank' href=\"images/diff_$name\"><img width=100px src=\"images/diff_$name\"/></a>"
             error=$((error + 1))
         else 

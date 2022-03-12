@@ -63,11 +63,11 @@ if [ -z $USER ] || [ -z $PASS ]; then
 fi
 
 if [ $TYPE = "IT" ]; then
-    FOLDER=build/reports/androidTests/connected/flavors/gplay
+    FOLDER=app/build/reports/androidTests/connected/flavors/gplay
 elif [ $TYPE = "Unit" ]; then
-    FOLDER=build/reports/tests/testGplayDebugUnitTest
+    FOLDER=app/build/reports/tests/testGplayDebugUnitTest
 else
-    FOLDER=build/reports/shot/gplay/debug/verification
+    FOLDER=app/build/reports/shot/gplay/debug/verification
 fi
 
 if [ -e $FOLDER ]; then
@@ -80,22 +80,22 @@ else
     -X POST https://api.github.com/repos/nextcloud/android/issues/$PR/comments \
     -d "{ \"body\" : \"$BRANCH_TYPE test failed, but no output was generated. Maybe a preliminary stage failed. \" }"
 
-    if [ -e build/reports/androidTests/connected/flavors/gplay ] ; then
+    if [ -e app/build/reports/androidTests/connected/flavors/gplay ] ; then
         TYPE="IT"
         BRANCH_TYPE=$BRANCH-$TYPE
-        upload "build/reports/androidTests/connected/flavors/gplay"
+        upload "app/build/reports/androidTests/connected/flavors/gplay"
     fi
 
-    if [ -e build/reports/tests/testGplayDebugUnitTest ] ; then
+    if [ -e app/build/reports/tests/testGplayDebugUnitTest ] ; then
         TYPE="Unit"
         BRANCH_TYPE=$BRANCH-$TYPE
-        upload "build/reports/tests/testGplayDebugUnitTest"
+        upload "app/build/reports/tests/testGplayDebugUnitTest"
     fi
 
-    if [ -e build/reports/shot/gplay/debug/verification ] ; then
+    if [ -e app/build/reports/shot/gplay/debug/verification ] ; then
         TYPE="Screenshot"
         BRANCH_TYPE=$BRANCH-$TYPE
-        upload "build/reports/shot/gplay/debug/verification"
+        upload "app/build/reports/shot/gplay/debug/verification"
     fi
 
     exit 1 # always fail

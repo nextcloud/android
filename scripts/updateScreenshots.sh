@@ -70,7 +70,7 @@ adb shell "mount -o remount,rw /system"
 sleep 2
 adb shell "echo $IP server >> /system/etc/hosts"
 
-sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g src/main/res/values/setup.xml
+sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
 
 ## update/create all screenshots
 #./gradlew gplayDebugExecuteScreenshotTests -Precord \
@@ -100,7 +100,7 @@ resultCode=$?
 ((retryCount++))
 done
 
-sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g src/main/res/values/setup.xml
+sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g app/src/main/res/values/setup.xml
 
 if [ "$1" == "debug" ]; then
   exit
