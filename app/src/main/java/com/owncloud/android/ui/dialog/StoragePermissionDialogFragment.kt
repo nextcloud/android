@@ -68,10 +68,12 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
         binding.storagePermissionExplanation.text = getString(explanationResource, getString(R.string.app_name))
 
         // Setup layout
+        ThemeButtonUtils.colorPrimaryButton(binding.btnFullAccess, context)
         binding.btnFullAccess.setOnClickListener {
             listener.onClickFullAccess()
             dismiss()
         }
+        ThemeButtonUtils.themeBorderlessButton(binding.btnReadOnly)
         binding.btnReadOnly.setOnClickListener {
             listener.onClickMediaReadOnly()
             dismiss()
