@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">他の人に協力する</string>
     <string name="community_contribute_github_text">詳細を確認するには、%1$sを参照してください。</string>
     <string name="community_contribute_headline">積極的な貢献</string>
-    <string name="community_contribute_irc_text">IRCのチャットに参加する：</string>
     <string name="community_contribute_translate_text">アプリ</string>
     <string name="community_contribute_translate_translate">翻訳</string>
     <string name="community_dev_direct_download">開発リリースを直接ダウンロードする</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
-    <string name="conflict_already_existing_file">既存のファイル</string>
     <string name="conflict_dialog_error">コンフリクトダイアログの作成に失敗しました</string>
     <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
-    <string name="conflict_new_file">新しいファイル</string>
     <string name="conflict_server_file">サーバーファイル</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
-    <string name="drawer_item_recently_added">最近追加</string>
     <string name="drawer_item_recently_modified">最近更新</string>
     <string name="drawer_item_shared">共有中</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
     <string name="drawer_item_uploads_list">アップロード</string>
-    <string name="drawer_item_videos">ビデオ</string>
     <string name="drawer_logout">ログアウト</string>
     <string name="drawer_open">サイドバーを開く</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
@@ -308,7 +303,6 @@
     <string name="file_list_empty_headline_server_search">該当なし</string>
     <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
-    <string name="file_list_empty_recently_added">最近追加されたファイルが見つかりません</string>
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
     <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
@@ -377,7 +371,6 @@
     <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
-    <string name="fullscreen">全画面</string>
     <string name="hidden_file_name_warning">名前を付けると隠しファイルになります</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
@@ -397,7 +390,6 @@
     <string name="link_share_allow_upload_and_editing">アップロードと編集を許可</string>
     <string name="link_share_editing">編集中</string>
     <string name="link_share_file_drop">ファイルドロップ(アップロードのみ)</string>
-    <string name="link_share_read_only">読み込み専用</string>
     <string name="link_share_view_only">閲覧のみ</string>
     <string name="list_layout">リスト表示</string>
     <string name="load_more_results">結果をさらに読み込む</string>

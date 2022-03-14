@@ -84,7 +84,6 @@
     <string name="community_contribute_forum_forum">ფურუმი</string>
     <string name="community_contribute_forum_text">დაეხმარეთ სხვებს</string>
     <string name="community_contribute_headline">აქტიურად შეიტანეთ წვლილი</string>
-    <string name="community_contribute_irc_text">შემოგვიერთდით IRC ჩატში:</string>
     <string name="community_contribute_translate_text">აპლიკაცია</string>
     <string name="community_contribute_translate_translate">გადათარგმნეთ</string>
     <string name="community_dev_direct_download">დეველოპმენტ რელიზის პირდაპირი ჩამოტვირთვა</string>
@@ -140,12 +139,10 @@
     <string name="drawer_item_home">სახლი</string>
     <string name="drawer_item_notifications">შეტყობინებები</string>
     <string name="drawer_item_on_device">მოწყობილობაზე</string>
-    <string name="drawer_item_recently_added">ახლად დამატებული</string>
     <string name="drawer_item_recently_modified">ახლად შეცვლილი</string>
     <string name="drawer_item_shared">გაზიარებული</string>
     <string name="drawer_item_trashbin">გაუქმებული ფაილები</string>
     <string name="drawer_item_uploads_list">ატვირთვები</string>
-    <string name="drawer_item_videos">ვიდეოები</string>
     <string name="drawer_logout">გასვლა</string>
     <string name="drawer_quota">გამოყენებულია %1$s სულ %2$s-იდან </string>
     <string name="drawer_synced_folders">ავტო-ატვირთვა</string>
@@ -174,7 +171,6 @@
     <string name="file_list_empty_headline_search">ამ დირექტორიაში შედეგები არაა</string>
     <string name="file_list_empty_headline_server_search">შედეგები არაა</string>
     <string name="file_list_empty_moving">აქ არაფერია. შეგიძლიათ დაამატოთ დირექტორია.</string>
-    <string name="file_list_empty_recently_added">ახლად დამატებული ფაილები არაა ნაპოვნი</string>
     <string name="file_list_empty_recently_modified">გასული 7 დღის განმავლობაში შეცვლილი ფაილ(ებ)ი ვერ იქნა ნაპოვნი</string>
     <string name="file_list_empty_search">იქნებ სხვა დირექტორიაშია?</string>
     <string name="file_list_empty_shared_headline">ჯერ არაფერი გაზიარებულა</string>
@@ -228,7 +224,6 @@
     <string name="link">ბმული</string>
     <string name="link_share_allow_upload_and_editing">ატვირთვისა და ცვლილების უფლებების მინიჭება</string>
     <string name="link_share_file_drop">ფაილის ჩაგდება (მხოლოდ ატვირთვა)</string>
-    <string name="link_share_read_only">მხოლოდ-კითხვადი</string>
     <string name="list_layout">ჩამოწერილი მაკეტი</string>
     <string name="local_file_list_empty">ამ დირექტორიაში ფაილები არაა.</string>
     <string name="local_file_not_found_message">ლოკალურ ფაილ-სისტემაში ფაილი ვერ მოიძებნა</string>

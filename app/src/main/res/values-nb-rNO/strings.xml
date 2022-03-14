@@ -118,7 +118,6 @@
     <string name="community_contribute_forum_text">Hjelp andre på</string>
     <string name="community_contribute_github_text">Gå igjennom, endre og skriv kode, se %1$s for detaljer.</string>
     <string name="community_contribute_headline">Bidra aktivt</string>
-    <string name="community_contribute_irc_text">Sludre på IRC:</string>
     <string name="community_contribute_translate_text">Appen</string>
     <string name="community_contribute_translate_translate">Oversett</string>
     <string name="community_dev_direct_download">Last ned utviklingsversjonen direkte</string>
@@ -137,11 +136,9 @@
     <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
-    <string name="conflict_already_existing_file">Allerede eksisterende fil</string>
     <string name="conflict_dialog_error">Feil ved oppretting av konfliktdialog!</string>
     <string name="conflict_file_headline">Konflikt med%1$s</string>
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
-    <string name="conflict_new_file">Ny fil</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilgang gitt, ingenting importert.</string>
     <string name="contacts_backup_button">Sikerhetskopier nå</string>
@@ -207,12 +204,10 @@
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_item_on_device">På enheten</string>
-    <string name="drawer_item_recently_added">Nylig lagt til</string>
     <string name="drawer_item_recently_modified">Nylig endret</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
-    <string name="drawer_item_videos">Videoer</string>
     <string name="drawer_logout">Logg ut</string>
     <string name="drawer_open">Åpne sidepanel</string>
     <string name="drawer_quota">%1$s av %2$s brukt</string>
@@ -284,7 +279,6 @@
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
     <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
-    <string name="file_list_empty_recently_added">Fant ingen nylig tillagte filer</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil dukke opp her.</string>
@@ -350,7 +344,6 @@
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
     <string name="fourHours">4 timer</string>
-    <string name="fullscreen">Fullskjerm</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Melding</string>
     <string name="hint_password">Passord</string>
@@ -366,7 +359,6 @@
     <string name="link">Lenke</string>
     <string name="link_share_allow_upload_and_editing">Tillatt opplasting og redigering</string>
     <string name="link_share_file_drop">Filkasse (kun opplasting)</string>
-    <string name="link_share_read_only">Skrivebeskyttet</string>
     <string name="list_layout">Listevisning</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="local_file_not_found_message">Filen ble ikke funnet i lokalt filsystem</string>

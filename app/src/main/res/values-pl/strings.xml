@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Pomóż innym na</string>
     <string name="community_contribute_github_text">Przejrzyj, zmodyfikuj i napisz kod. Szczegóły znajdziesz w %1$s.</string>
     <string name="community_contribute_headline">Aktywne uczestniczenie</string>
-    <string name="community_contribute_irc_text">Dołącz do kanału na IRC:</string>
     <string name="community_contribute_translate_text">aplikację</string>
     <string name="community_contribute_translate_translate">Tłumacz</string>
     <string name="community_dev_direct_download">Pobierz wersję deweloperską bezpośrednio</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane elementy i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
-    <string name="conflict_already_existing_file">Już istniejący plik</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
-    <string name="conflict_new_file">Nowy plik</string>
     <string name="conflict_server_file">Plik z serwera</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
-    <string name="drawer_item_recently_added">Ostatnio dodane</string>
     <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
     <string name="drawer_item_shared">Udostępnione</string>
     <string name="drawer_item_trashbin">Usunięte pliki</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
-    <string name="drawer_item_videos">Filmy</string>
     <string name="drawer_logout">Wyloguj</string>
     <string name="drawer_open">Otwórz pasek boczny</string>
     <string name="drawer_quota">Wykorzystane: %1$s z %2$s</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
-    <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
     <string name="file_list_empty_search">Może jest w innym katalogu?</string>
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
     <string name="fourHours">4 godziny</string>
-    <string name="fullscreen">Pełny ekran</string>
     <string name="hidden_file_name_warning">Nazwa spowoduje ukrycie pliku</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Zezwalaj na wysyłanie i edytowanie</string>
     <string name="link_share_editing">Edytowanie</string>
     <string name="link_share_file_drop">Upuszczanie pliku (tylko wysyłanie)</string>
-    <string name="link_share_read_only">Tylko do odczytu</string>
     <string name="link_share_view_only">Tylko podgląd</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="load_more_results">Wczytaj więcej wyników</string>

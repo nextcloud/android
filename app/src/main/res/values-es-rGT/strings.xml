@@ -90,7 +90,6 @@
     <string name="community_contribute_forum_forum">foro</string>
     <string name="community_contribute_forum_text">Ayuda a otros en</string>
     <string name="community_contribute_headline">Contribuye activamente</string>
-    <string name="community_contribute_irc_text">Únete a la conversación en IRC:</string>
     <string name="community_contribute_translate_text">la aplicación</string>
     <string name="community_contribute_translate_translate">Traducir</string>
     <string name="community_dev_direct_download">Obten la liberación de desarrollo directamente</string>
@@ -150,12 +149,10 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
-    <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Papelera</string>
     <string name="drawer_item_uploads_list">Cargas</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_synced_folders">Carga automática</string>
@@ -189,7 +186,6 @@
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puedes agregar una carpeta.</string>
-    <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados dentro de los últimos 7 días</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
@@ -252,7 +248,6 @@
     <string name="link">Liga</string>
     <string name="link_share_allow_upload_and_editing">Permitir carga y edición</string>
     <string name="link_share_file_drop">Permitir carga</string>
-    <string name="link_share_read_only">Sólo lectura</string>
     <string name="list_layout">Vista de lista</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>

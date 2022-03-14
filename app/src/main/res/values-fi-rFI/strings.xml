@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Auta muita. Avaa</string>
     <string name="community_contribute_github_text">Tutki, muokkaa ja luo ohjelmia. Katso lisätietoja %1$s</string>
     <string name="community_contribute_headline">Osallistu kehittämiseen</string>
-    <string name="community_contribute_irc_text">Liity keskusteluun IRC:ssä:</string>
     <string name="community_contribute_translate_text">sovellus</string>
     <string name="community_contribute_translate_translate">Käännä</string>
     <string name="community_dev_direct_download">Lataa kehitysjulkaisu suoraan</string>
@@ -147,11 +146,9 @@
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
-    <string name="conflict_already_existing_file">Jo olemassa olevat tiedostot</string>
     <string name="conflict_dialog_error">Virhe konfliktitietojen näyttämisessä!</string>
     <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
-    <string name="conflict_new_file">Uusi tiedosto</string>
     <string name="contactlist_item_icon">Käyttäjäkuvake yhteystietoihin</string>
     <string name="contactlist_no_permission">Oikeutta ei myönnetty, mitään ei tuotu.</string>
     <string name="contacts">Yhteystiedot</string>
@@ -223,12 +220,10 @@
     <string name="drawer_item_home">Koti</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_item_on_device">Laitteessa</string>
-    <string name="drawer_item_recently_added">Äskettäin lisätyt</string>
     <string name="drawer_item_recently_modified">Äskettäin muokatut</string>
     <string name="drawer_item_shared">Jaot</string>
     <string name="drawer_item_trashbin">Poistetut tiedostot</string>
     <string name="drawer_item_uploads_list">Lähetykset</string>
-    <string name="drawer_item_videos">Videot</string>
     <string name="drawer_logout">Kirjaudu ulos</string>
     <string name="drawer_open">Avaa valikko</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
@@ -303,7 +298,6 @@
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
     <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion.</string>
     <string name="file_list_empty_on_device">Ladatut tiedostot ja kansiot näkyvät täällä.</string>
-    <string name="file_list_empty_recently_added">Äskettäin lisättyja tiedostoja ei löytynyt</string>
     <string name="file_list_empty_recently_modified">Viimeisen 7 päivän aikana muokattuja tiedostoja ei löytynyt</string>
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
     <string name="file_list_empty_shared">Jakamasi tiedostot ja kansiot näkyvät tässä.</string>
@@ -370,7 +364,6 @@
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="forward">Välitä</string>
     <string name="fourHours">4 tuntia</string>
-    <string name="fullscreen">Koko näyttö</string>
     <string name="hint_name">Nimi</string>
     <string name="hint_note">Huomio</string>
     <string name="hint_password">Salasana</string>
@@ -388,7 +381,6 @@
     <string name="link_name">Linkin nimi</string>
     <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
     <string name="link_share_file_drop">Tiedostojen pudotus (vain lähetys)</string>
-    <string name="link_share_read_only">Vain luku</string>
     <string name="link_share_view_only">Vain katselu</string>
     <string name="list_layout">Luettelonäkymä</string>
     <string name="load_more_results">Lataa lisää tuloksia</string>

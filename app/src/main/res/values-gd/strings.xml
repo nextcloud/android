@@ -120,7 +120,6 @@
     <string name="community_contribute_forum_text">Cuidich càch air</string>
     <string name="community_contribute_github_text">Dèan lèirmheas, càraich is sgrìobh còd, faic %1$s airson barrachd fiosrachaidh.</string>
     <string name="community_contribute_headline">Cuir ris an obair-leasachaidh</string>
-    <string name="community_contribute_irc_text">Thig a chabadaich air IRC:</string>
     <string name="community_contribute_translate_text">an aplacaid</string>
     <string name="community_contribute_translate_translate">Eadar-theangaich</string>
     <string name="community_dev_direct_download">Luchdaich a-nuas an sgaoileadh leasachaidh gu dìreach</string>
@@ -139,11 +138,9 @@
     <string name="confirmation_remove_folder_alert">A bheil thu cinnteach gu bheil thu airson %1$s ’s a shusbaint a sguabadh às?</string>
     <string name="confirmation_remove_folders_alert">A bheil thu cinnteach gu bheil thu airson na nithean a thagh thu ’s an susbaint a sguabadh às?</string>
     <string name="confirmation_remove_local">Ionadail a-mhàin</string>
-    <string name="conflict_already_existing_file">Faidhle a tha ann mu thràth</string>
     <string name="conflict_dialog_error">Mearachd le cruthachadh còmhradh na còmhstri!</string>
     <string name="conflict_file_headline">Faidhle %1$s ann an còmhstri</string>
     <string name="conflict_message_description">Ma thaghas tu an dà thionndadh, thèid àireamh a chur ri ainm an fhaidhle ionadail.</string>
-    <string name="conflict_new_file">Faidhle ùr</string>
     <string name="contactlist_item_icon">Ìomhaigheag a’ chleachdaiche air liosta an luchd-aithne</string>
     <string name="contactlist_no_permission">Cha deach cead a thoirt ’s cha deach càil ion-phortadh.</string>
     <string name="contacts_backup_button">Dèan lethbhreac-glèidhidh an-dràsta</string>
@@ -209,12 +206,10 @@
     <string name="drawer_item_home">Dachaigh</string>
     <string name="drawer_item_notifications">Brathan</string>
     <string name="drawer_item_on_device">Air an uidheam</string>
-    <string name="drawer_item_recently_added">Air a chur ris o chionn goirid</string>
     <string name="drawer_item_recently_modified">Air atharrachadh o chionn goirid</string>
     <string name="drawer_item_shared">Co-roinnte</string>
     <string name="drawer_item_trashbin">Faidhlichean air an sguabadh às</string>
     <string name="drawer_item_uploads_list">Na chaidh a luchdadh suas</string>
-    <string name="drawer_item_videos">Videothan</string>
     <string name="drawer_logout">Clàraich a-mach</string>
     <string name="drawer_open">Fosgail am bàr-taoibh</string>
     <string name="drawer_quota">Tha %1$s de %2$s ’ga chleachdadh</string>
@@ -288,7 +283,6 @@
     <string name="file_list_empty_headline_server_search">Gun toradh</string>
     <string name="file_list_empty_moving">Chan eil dad an-seo. ’S urrainn dhut pasgan a chur ris.</string>
     <string name="file_list_empty_on_device">Nochdaidh na faidhlichean ’s pasganan a luchdaich thu a-nuas an-seo.</string>
-    <string name="file_list_empty_recently_added">Cha do lorg sinn faidhle a chuireadh ris o chionn goirid</string>
     <string name="file_list_empty_recently_modified">Cha do lorg sinn faidhle a chaidh atharrachadh sna 7 làithean seo chaidh</string>
     <string name="file_list_empty_search">Saoil a bheil e ann am pasgan eile?</string>
     <string name="file_list_empty_shared">Nochdaidh na faidhlichean ’s pasganan cho-roinn thu an-seo.</string>
@@ -354,7 +348,6 @@
     <string name="foreign_files_success">Chaidh a h-uile faidhle a ghluasad</string>
     <string name="forward">Sìn air adhart</string>
     <string name="fourHours">4 uairean a thìde</string>
-    <string name="fullscreen">Làn-sgrìn</string>
     <string name="hint_name">Ainm</string>
     <string name="hint_note">Nòta</string>
     <string name="hint_password">Facal-faire</string>
@@ -370,7 +363,6 @@
     <string name="link">Ceangal</string>
     <string name="link_share_allow_upload_and_editing">Ceadaich luchdadh suas is deasachadh</string>
     <string name="link_share_file_drop">Leigeil às fhaidhlichean (luchdadh suas a-mhàin)</string>
-    <string name="link_share_read_only">Ri leughadh a-mhàin</string>
     <string name="list_layout">Co-dhealbhachd liostaichte</string>
     <string name="local_file_list_empty">Chan eil faidhle sa phasgan seo.</string>
     <string name="local_file_not_found_message">Cha deach faidhle a lorg san t-siostam fhaidhlichean ionadail</string>

@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Lagundu besteak</string>
     <string name="community_contribute_github_text">Berrikusi, zuzendu eta idatzi kodea, ikusi %1$s xehetasunetarako</string>
     <string name="community_contribute_headline">Lagundu aktiboki</string>
-    <string name="community_contribute_irc_text">Sartu IRC txatean:</string>
     <string name="community_contribute_translate_text">aplikazioa</string>
     <string name="community_contribute_translate_translate">Itzuli</string>
     <string name="community_dev_direct_download">Deskargatu garapeneko bertsioa zuzenean</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Ziur zaude %1$s eta bere edukia ezabatu nahi duzula?</string>
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Lokala bakarrik</string>
-    <string name="conflict_already_existing_file">Dagoeneko existitzen den fitxategia</string>
     <string name="conflict_dialog_error">Errorea gatazkaren elkarrizketa-koadroa sortzean!</string>
     <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
-    <string name="conflict_new_file">Fitxategi berria</string>
     <string name="conflict_server_file">Zerbitzariko fitxategia</string>
     <string name="contactlist_item_icon">Erabiltzailearen ikonoa kontaktuen zerrendarako</string>
     <string name="contactlist_no_permission">Ez da baimenik eman, ez da ezer inportatu.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
-    <string name="drawer_item_recently_added">Berriki gehituak</string>
     <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="drawer_item_uploads_list">Kargak</string>
-    <string name="drawer_item_videos">Bideoak</string>
     <string name="drawer_logout">Amaitu saioa</string>
     <string name="drawer_open">Ireki alboko barra</string>
     <string name="drawer_quota">%1$s / %2$s erabilita</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
-    <string name="file_list_empty_recently_added">Berriki gehitutako fitxategirik ez da aurkitu</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
-    <string name="fullscreen">Pantaila osoa</string>
     <string name="hidden_file_name_warning">Izen honekin ezkutuko fitxategi bat sortuko da</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Onartu kargatzea eta edizioa</string>
     <string name="link_share_editing">Editatzen</string>
     <string name="link_share_file_drop">Fitxategia jaregin (kargatzeko soilik)</string>
-    <string name="link_share_read_only">Irakurtzeko soilik</string>
     <string name="link_share_view_only">Ikusi soilik</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
     <string name="load_more_results">Kargatu emaitza gehiago </string>

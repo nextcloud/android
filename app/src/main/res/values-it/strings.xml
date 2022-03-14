@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Aiuta gli altri sul</string>
     <string name="community_contribute_github_text">Esamina, correggi e scrivi codice, vedi %1$s per i dettagli.</string>
     <string name="community_contribute_headline">Contribuisci attivamente</string>
-    <string name="community_contribute_irc_text">Entra in chat su IRC:</string>
     <string name="community_contribute_translate_text">l\'applicazione</string>
     <string name="community_contribute_translate_translate">Traduci</string>
     <string name="community_dev_direct_download">Scarica direttamente la versione di sviluppo</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il relativo contenuto?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
-    <string name="conflict_already_existing_file">File già esistente</string>
     <string name="conflict_dialog_error">Errore di creazione della finestra di conflitto!</string>
     <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_local_file">File locale</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
-    <string name="conflict_new_file">Nuovo file</string>
     <string name="conflict_server_file">File su server</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
-    <string name="drawer_item_recently_added">Aggiunto di recente</string>
     <string name="drawer_item_recently_modified">Modificato di recente</string>
     <string name="drawer_item_shared">Condiviso</string>
     <string name="drawer_item_trashbin">File eliminati</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
-    <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Esci</string>
     <string name="drawer_open">Apri barra laterale</string>
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Nessun risultato</string>
     <string name="file_list_empty_moving">Non c\'è niente qui. Puoi aggiungere una cartella.</string>
     <string name="file_list_empty_on_device">I file e le cartelle scaricati saranno mostrati qui.</string>
-    <string name="file_list_empty_recently_added">Non sono stati trovati file aggiunti di recente</string>
     <string name="file_list_empty_recently_modified">Non è stato trovato alcun file modificato negli ultimi 7 giorni</string>
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Tutti i file sono stati spostati</string>
     <string name="forward">Inoltra</string>
     <string name="fourHours">4 ore</string>
-    <string name="fullscreen">Schermo intero</string>
     <string name="hidden_file_name_warning">Il nome renderà il file nascosto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Consenti caricamento e modifica</string>
     <string name="link_share_editing">Modificando</string>
     <string name="link_share_file_drop">Rilascio file (solo caricamento)</string>
-    <string name="link_share_read_only">Sola lettura</string>
     <string name="link_share_view_only">Sola lettura</string>
     <string name="list_layout">Struttura a elenco</string>
     <string name="load_more_results">Mostra altri risultati</string>

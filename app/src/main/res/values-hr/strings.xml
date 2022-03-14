@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Pomozite drugima na</string>
     <string name="community_contribute_github_text">Pregledajte, izmijenite i pišite kôd, pogledajte %1$s za pojedinosti.</string>
     <string name="community_contribute_headline">Aktivno doprinosite</string>
-    <string name="community_contribute_irc_text">Pridružite se razmjeni poruka na IRC-u:</string>
     <string name="community_contribute_translate_text">aplikacija</string>
     <string name="community_contribute_translate_translate">Prevedi</string>
     <string name="community_dev_direct_download">Izravno preuzmite razvojno izdanje</string>
@@ -147,11 +146,9 @@
     <string name="confirmation_remove_folder_alert">Želite li zaista izbrisati %1$s i pripadajući sadržaj?</string>
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_already_existing_file">Datoteka postoji</string>
     <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
     <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
-    <string name="conflict_new_file">Nova datoteka</string>
     <string name="contactlist_item_icon">Ikona korisnika za popis kontakata</string>
     <string name="contactlist_no_permission">Nema dopuštenja, ništa nije uvezeno.</string>
     <string name="contacts">Kontakti</string>
@@ -223,12 +220,10 @@
     <string name="drawer_item_home">Početna</string>
     <string name="drawer_item_notifications">Obavijesti</string>
     <string name="drawer_item_on_device">Na uređaju</string>
-    <string name="drawer_item_recently_added">Nedavno dodano</string>
     <string name="drawer_item_recently_modified">Nedavno izmijenjeno</string>
     <string name="drawer_item_shared">Dijeljeno</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
     <string name="drawer_item_uploads_list">Otpreme</string>
-    <string name="drawer_item_videos">Videozapisi</string>
     <string name="drawer_logout">Odjava</string>
     <string name="drawer_open">Otvori bočnu traku</string>
     <string name="drawer_quota">Iskorišteno %1$s od %2$s</string>
@@ -304,7 +299,6 @@
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
     <string name="file_list_empty_moving">Ovdje nema ničega. Možete dodati mapu.</string>
     <string name="file_list_empty_on_device">Ovdje će se prikazati preuzete datoteke i mape.</string>
-    <string name="file_list_empty_recently_added">Nisu pronađene nedavno dodane datoteke</string>
     <string name="file_list_empty_recently_modified">Nije pronađena nijedna datoteka izmijenjena u posljednjih 7 dana</string>
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
     <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite.</string>
@@ -370,7 +364,6 @@
     <string name="foreign_files_success">Sve datoteke su premještene</string>
     <string name="forward">Naprijed</string>
     <string name="fourHours">4 sata</string>
-    <string name="fullscreen">Cijeli zaslon</string>
     <string name="hint_name">Naziv</string>
     <string name="hint_note">Bilješka</string>
     <string name="hint_password">Zaporka</string>
@@ -389,7 +382,6 @@
     <string name="link_share_allow_upload_and_editing">Omogući otpremanje i uređivanje</string>
     <string name="link_share_editing">Uređivanje</string>
     <string name="link_share_file_drop">Povlačenje datoteke (samo za otpremanje)</string>
-    <string name="link_share_read_only">Samo za čitanje</string>
     <string name="link_share_view_only">Samo za gledanje</string>
     <string name="list_layout">Navedeni izgled</string>
     <string name="load_more_results">Učitaj više rezultata</string>

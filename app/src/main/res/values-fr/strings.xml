@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Aidez les autres sur</string>
     <string name="community_contribute_github_text">Vérifiez, complétez ou créez du code, consultez %1$s pour plus de détails.</string>
     <string name="community_contribute_headline">Participez activement</string>
-    <string name="community_contribute_irc_text">Rejoignez la discussion sur IRC :</string>
     <string name="community_contribute_translate_text">l\'application</string>
     <string name="community_contribute_translate_translate">Traduire</string>
     <string name="community_dev_direct_download">Télécharger directement la version de développement</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
-    <string name="conflict_already_existing_file">Fichier déjà existant</string>
     <string name="conflict_dialog_error">Une erreur qui crée un dialogue conflictuel !</string>
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
-    <string name="conflict_new_file">Nouveau fichier</string>
     <string name="conflict_server_file">Fichier serveur</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
@@ -227,12 +224,10 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
-    <string name="drawer_item_recently_added">Ajoutés récemment</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
     <string name="drawer_item_shared">Partagé</string>
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Historique des envois</string>
-    <string name="drawer_item_videos">Vidéos</string>
     <string name="drawer_logout">Déconnexion</string>
     <string name="drawer_open">Ouvrir la barre latérale</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
@@ -312,7 +307,6 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
     <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier.</string>
     <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
-    <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment</string>
     <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
     <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
@@ -381,7 +375,6 @@ Attention la suppression est irréversible.</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
-    <string name="fullscreen">Plein écran</string>
     <string name="hidden_file_name_warning">Le nom résultera en un fichier caché</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Note</string>
@@ -401,7 +394,6 @@ Attention la suppression est irréversible.</string>
     <string name="link_share_allow_upload_and_editing">Autoriser l’envoi et la modification</string>
     <string name="link_share_editing">Modification</string>
     <string name="link_share_file_drop">Dépôt de fichier (envoi uniquement)</string>
-    <string name="link_share_read_only">Lecture seule</string>
     <string name="link_share_view_only">Afficher seulement</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="load_more_results">Charger plus de résultats</string>

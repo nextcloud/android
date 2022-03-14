@@ -120,7 +120,6 @@
     <string name="community_contribute_forum_text">کمک به دیگران در</string>
     <string name="community_contribute_github_text">بازبینی، اصلاح و نوشتن کد، برای جزپیات %1$s را مشاهده کنید.</string>
     <string name="community_contribute_headline">فعالانه مشارکت نمایید</string>
-    <string name="community_contribute_irc_text">در IRC به تالار گفتمان بپیوندید:</string>
     <string name="community_contribute_translate_text">برنامه</string>
     <string name="community_contribute_translate_translate">ترجمه</string>
     <string name="community_dev_direct_download">نسخه در حال توسعه را مستقیماً دریافت کنید</string>
@@ -139,11 +138,9 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می‌خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="conflict_already_existing_file">فایل از پیش موجود</string>
     <string name="conflict_dialog_error">هنگام ساختن دیالوگ مغایرت‌ها خطایی رخ داده است!</string>
     <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
-    <string name="conflict_new_file">پروندهٔ تازه</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
     <string name="contactlist_no_permission">هیچ مجوزی داده نشده ، هیچ چیز وارد نشده است.</string>
     <string name="contacts_backup_button">همین حالا نسخه پشتیبان تهیه کن</string>
@@ -209,12 +206,10 @@
     <string name="drawer_item_home">خانه </string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_item_on_device">در دستگاه </string>
-    <string name="drawer_item_recently_added">اخیرا اضافه شده </string>
     <string name="drawer_item_recently_modified">اخیرا تغییر داده شده </string>
     <string name="drawer_item_shared">به اشتراک گزاشته شده </string>
     <string name="drawer_item_trashbin">فایل های حذف شده</string>
     <string name="drawer_item_uploads_list">آپلودها</string>
-    <string name="drawer_item_videos">فیلم ها </string>
     <string name="drawer_logout">خروج</string>
     <string name="drawer_open">باز کردن نوار کناری</string>
     <string name="drawer_quota">%1$s از %2$s استفاده شده </string>
@@ -288,7 +283,6 @@
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
     <string name="file_list_empty_moving">هیچ چیز در اینجا نیست. می توانید یک پوشه اضافه کنید.</string>
     <string name="file_list_empty_on_device">فایل‌ها و پوشه‌های بارگیری شده، در این قسمت نمایش داده خواهند شد.</string>
-    <string name="file_list_empty_recently_added">هیچ فایل اخیرا اضافه نشده است</string>
     <string name="file_list_empty_recently_modified">در ۷ روز گذشته هیچ فایلی تغییر نیافته است.</string>
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
     <string name="file_list_empty_shared">فایل‌ها و پوشه‌های به اشتراک گذاشته شده در این قسمت نمایش داده خواهند شد.</string>
@@ -354,7 +348,6 @@
     <string name="foreign_files_success">همه فایل‌ها انتقال یافتند</string>
     <string name="forward">ارسال کردن</string>
     <string name="fourHours">۴ ساعت</string>
-    <string name="fullscreen">تمام‌صفحه</string>
     <string name="hint_name">نام</string>
     <string name="hint_note">یادداشت</string>
     <string name="hint_password">گذرواژه</string>
@@ -370,7 +363,6 @@
     <string name="link">پیوند</string>
     <string name="link_share_allow_upload_and_editing">مجاز به بارگذاری و ویرایش</string>
     <string name="link_share_file_drop">انداختن فایل (فقط آپلود)</string>
-    <string name="link_share_read_only">فقط خواندنی</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
     <string name="local_file_not_found_message">فایل در فایل‌های سیستمی محلی یافت نشد</string>

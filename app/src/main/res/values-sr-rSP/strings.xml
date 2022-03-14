@@ -104,7 +104,6 @@
     <string name="community_contribute_forum_forum">forumu</string>
     <string name="community_contribute_forum_text">Pomozite drugima na</string>
     <string name="community_contribute_headline">Aktivno se pridružite</string>
-    <string name="community_contribute_irc_text">Pridružite se ćaskanju na IRC-u:</string>
     <string name="community_contribute_translate_text">aplikacije</string>
     <string name="community_contribute_translate_translate">Prevođenje</string>
     <string name="community_dev_direct_download">Preuzmite razvojnu verziju direktnim skidanjem</string>
@@ -176,12 +175,10 @@
     <string name="drawer_item_home">Početak</string>
     <string name="drawer_item_notifications">Obaveštenja</string>
     <string name="drawer_item_on_device">Na uređaju</string>
-    <string name="drawer_item_recently_added">Nedavno dodato</string>
     <string name="drawer_item_recently_modified">Nedavno izmenjeno</string>
     <string name="drawer_item_shared">Deljeno</string>
     <string name="drawer_item_trashbin">Obrisani fajlovi</string>
     <string name="drawer_item_uploads_list">Otpremanja</string>
-    <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Odjava</string>
     <string name="drawer_open">Otvori bočnu traku</string>
     <string name="drawer_quota">%1$s od %2$s zauzeto</string>
@@ -231,7 +228,6 @@
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj fascikli</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
     <string name="file_list_empty_moving">Ovde nema ničeg. Možete dodati fasciklu.</string>
-    <string name="file_list_empty_recently_added">Nema skoro dodatih fajlova</string>
     <string name="file_list_empty_recently_modified">Nije nađen nijedan fajl promenjen u poslednjih 7 dana.</string>
     <string name="file_list_empty_search">Možda su u nekoj drugoj fascikli?</string>
     <string name="file_list_empty_shared_headline">Još se ništa ne deli</string>

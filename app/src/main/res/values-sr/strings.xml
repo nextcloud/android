@@ -112,7 +112,6 @@
     <string name="community_contribute_forum_text">Помозите другима на</string>
     <string name="community_contribute_github_text">Прегледај, дорађуј и мењај кôд. Погледајте %1$s за детаље.</string>
     <string name="community_contribute_headline">Активно допринесите</string>
-    <string name="community_contribute_irc_text">Придружите се ћаскању на ИРЦ-у:</string>
     <string name="community_contribute_translate_text">апликације</string>
     <string name="community_contribute_translate_translate">Превођење</string>
     <string name="community_dev_direct_download">Преузмите развојну верзију директно</string>
@@ -131,10 +130,8 @@
     <string name="confirmation_remove_folder_alert">Заиста желите да обришете %1$s и сав њен садржај?</string>
     <string name="confirmation_remove_folders_alert">Заиста желите да обришете означене ставке и њихов садржај?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_already_existing_file">Већ постојећи фајл</string>
     <string name="conflict_dialog_error">Грешка при прављењу дијалога сукоба!</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
-    <string name="conflict_new_file">Нови фајл</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
     <string name="contactlist_no_permission">Није дата дозвола. Ништа није увезено.</string>
     <string name="contacts_backup_button">Направите резерву сада</string>
@@ -194,12 +191,10 @@
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
-    <string name="drawer_item_recently_added">Недавно додато</string>
     <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
-    <string name="drawer_item_videos">Видео</string>
     <string name="drawer_logout">Одјава</string>
     <string name="drawer_open">Отвори бочну траку</string>
     <string name="drawer_quota">%1$s од %2$s заузето</string>
@@ -266,7 +261,6 @@
     <string name="file_list_empty_headline_server_search">Нема резултата</string>
     <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
-    <string name="file_list_empty_recently_added">Нема недавно додатих фајлова</string>
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>
     <string name="file_list_empty_search">Можда су у некој другој фасцикли?</string>
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>
@@ -343,7 +337,6 @@
     <string name="link">Веза</string>
     <string name="link_share_allow_upload_and_editing">Дозволи отпремање и уређивање</string>
     <string name="link_share_file_drop">Превлачење фајлова (само за отпремање)</string>
-    <string name="link_share_read_only">Само за читање</string>
     <string name="list_layout">Распоред као листа</string>
     <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
     <string name="local_file_not_found_message">Фајл није нађен у локалном фајл-систему</string>

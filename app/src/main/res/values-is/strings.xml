@@ -112,7 +112,6 @@
     <string name="community_contribute_forum_text">Hjálpaðu öðrum á</string>
     <string name="community_contribute_github_text">Yfirfarðu, bættu og skrifaðu kóða, skoðaðu %1$s fyrir nánari upplýsingar.</string>
     <string name="community_contribute_headline">Vertu virkur þáttakandi</string>
-    <string name="community_contribute_irc_text">Taktu þátt í umræðum á IRC:</string>
     <string name="community_contribute_translate_text">forritið</string>
     <string name="community_contribute_translate_translate">Þýða</string>
     <string name="community_dev_direct_download">Náðu í þróunarútgáfu sem beint niðurhal</string>
@@ -131,10 +130,8 @@
     <string name="confirmation_remove_folder_alert">Ertu viss um að þú viljir eyða %1$s og innihaldi þess?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
-    <string name="conflict_already_existing_file">Fyrirliggjandi skrá</string>
     <string name="conflict_dialog_error">Villa við að búa til árekstraglugga!</string>
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
-    <string name="conflict_new_file">Ný skrá</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
     <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn.</string>
     <string name="contacts_backup_button">Taka öryggisafrit núna</string>
@@ -193,12 +190,10 @@
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>
-    <string name="drawer_item_recently_added">Nýlega bætt við</string>
     <string name="drawer_item_recently_modified">Nýleg tillaga</string>
     <string name="drawer_item_shared">Sameiginlegt</string>
     <string name="drawer_item_trashbin">eyddar skrár</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
-    <string name="drawer_item_videos">Myndskeið</string>
     <string name="drawer_logout">Skrá út</string>
     <string name="drawer_open">Opna hliðarspjald</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
@@ -264,7 +259,6 @@
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
     <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu.</string>
     <string name="file_list_empty_on_device">Skrár og möppur sem þú sækir birtast hér.</string>
-    <string name="file_list_empty_recently_added">Fann engar nýlega viðbættar skrár</string>
     <string name="file_list_empty_recently_modified">Fann engar skrár sem breytt hefur verið síðustu 7 daga</string>
     <string name="file_list_empty_search">Er þetta kannski í einhverri annarri möppu?</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér.</string>
@@ -341,7 +335,6 @@
     <string name="link">Tengill</string>
     <string name="link_share_allow_upload_and_editing">Leyfa innsendingu og breytingar</string>
     <string name="link_share_file_drop">Slepping skráa (einungis innsending)</string>
-    <string name="link_share_read_only">Skrifvarið</string>
     <string name="list_layout">Framsetning sem listi</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>

@@ -120,7 +120,6 @@
     <string name="community_contribute_forum_text">Help others on the</string>
     <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details.</string>
     <string name="community_contribute_headline">Actively Contribute</string>
-    <string name="community_contribute_irc_text">Join the chat on IRC:</string>
     <string name="community_contribute_translate_text">the app</string>
     <string name="community_contribute_translate_translate">Translate</string>
     <string name="community_dev_direct_download">Download development release directly</string>
@@ -139,11 +138,9 @@
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and it\'s content?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="conflict_already_existing_file">Already existing file</string>
     <string name="conflict_dialog_error">Error creating conflict dialogue!</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
-    <string name="conflict_new_file">New file</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
     <string name="contacts_backup_button">Back up now</string>
@@ -209,12 +206,10 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_added">Recently added</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Log out</string>
     <string name="drawer_open">Open sidebar</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
@@ -286,7 +281,6 @@
     <string name="file_list_empty_headline_server_search">No results</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
-    <string name="file_list_empty_recently_added">Found no recently added files</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
@@ -367,7 +361,6 @@
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_read_only">Read only</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="local_file_not_found_message">File not found in local file system</string>

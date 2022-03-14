@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Допомогти іншим з</string>
     <string name="community_contribute_github_text">Перегляд, додаванна та написання коду. Докладно див. %1$s.</string>
     <string name="community_contribute_headline">Беруть активну участь</string>
-    <string name="community_contribute_irc_text">Приєднатися до чату IRC:</string>
     <string name="community_contribute_translate_text">застосунок</string>
     <string name="community_contribute_translate_translate">Перекласти</string>
     <string name="community_dev_direct_download">Пряме звантаження збріки для розробників</string>
@@ -147,11 +146,9 @@
     <string name="confirmation_remove_folder_alert">Ви справді бажаєте вилучити %1$s та його вміст?</string>
     <string name="confirmation_remove_folders_alert">Дійсно вилучити вибрані об\'єкти та їхній вміст?</string>
     <string name="confirmation_remove_local">Лише локально</string>
-    <string name="conflict_already_existing_file">Уже наявний файл</string>
     <string name="conflict_dialog_error">Помилка у створенні діалогу щодо конфлікту!</string>
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
-    <string name="conflict_new_file">Новий файл</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
@@ -222,12 +219,10 @@
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Повідомлення</string>
     <string name="drawer_item_on_device">На пристрої</string>
-    <string name="drawer_item_recently_added">Нещодавно додані</string>
     <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
     <string name="drawer_item_trashbin">Вилучені файли</string>
     <string name="drawer_item_uploads_list">Завантаженнь</string>
-    <string name="drawer_item_videos">Відео</string>
     <string name="drawer_logout">Вихід</string>
     <string name="drawer_open">Відкрити бічну панель</string>
     <string name="drawer_quota">%1$s з %2$s використано</string>
@@ -301,7 +296,6 @@
     <string name="file_list_empty_headline_server_search">Жодного співпадіння</string>
     <string name="file_list_empty_moving">Нічого немає. Ви можете додати теку.</string>
     <string name="file_list_empty_on_device">Тут ти можете знайти теки та файли, які було звантажено.</string>
-    <string name="file_list_empty_recently_added">Не знайдено нещодавно доданих файлів</string>
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
     <string name="file_list_empty_search">Можливо, це інший каталог?</string>
     <string name="file_list_empty_shared">Тут можна буде знайти файли та теки, якими ви поділилися.</string>
@@ -367,7 +361,6 @@
     <string name="foreign_files_success">Усі файли переміщено</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
-    <string name="fullscreen">На весь екран</string>
     <string name="hint_name">Ім\'я</string>
     <string name="hint_note">Нотатка</string>
     <string name="hint_password">Пароль</string>
@@ -384,7 +377,6 @@
     <string name="link_share_allow_upload_and_editing">Може завантажувати та редагувати</string>
     <string name="link_share_editing">Редагування</string>
     <string name="link_share_file_drop">Сховище (тільки завантажування)</string>
-    <string name="link_share_read_only">Тільки читання</string>
     <string name="list_layout">Шаблон списку</string>
     <string name="local_file_list_empty">В цій теці немає файлів.</string>
     <string name="local_file_not_found_message">Файл не знайдено у локальній файловій системі</string>

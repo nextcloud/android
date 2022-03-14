@@ -111,7 +111,6 @@
     <string name="community_contribute_forum_text">ניתן לסייע לאחרים</string>
     <string name="community_contribute_github_text">סקור, שנה וכתוב קוד, לפרטים ראה %1$s </string>
     <string name="community_contribute_headline">תרומה פעילה</string>
-    <string name="community_contribute_irc_text">הצטרפות לשיח ב־IRC:</string>
     <string name="community_contribute_translate_text">היישומון</string>
     <string name="community_contribute_translate_translate">תרגום</string>
     <string name="community_dev_direct_download">הורדת מהדורת פיתוח ישירות</string>
@@ -130,10 +129,8 @@
     <string name="confirmation_remove_folder_alert">למחוק את %1$s על תוכנו?</string>
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
-    <string name="conflict_already_existing_file">קובץ קיים</string>
     <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
     <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
-    <string name="conflict_new_file">קובץ חדש</string>
     <string name="contactlist_item_icon">סמן משתמש לרשימת אנשי קשר</string>
     <string name="contactlist_no_permission">לא ניתנה הרשאה, שום דבר לא עבר ייבוא.</string>
     <string name="contacts_backup_button">גיבוי כעת</string>
@@ -192,12 +189,10 @@
     <string name="drawer_item_home">בית</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_item_on_device">בהתקן</string>
-    <string name="drawer_item_recently_added">נוספו לאחרונה</string>
     <string name="drawer_item_recently_modified">השתנו לאחרונה</string>
     <string name="drawer_item_shared">שותף</string>
     <string name="drawer_item_trashbin">קבצים שנמחקו</string>
     <string name="drawer_item_uploads_list">העלאות</string>
-    <string name="drawer_item_videos">סרטונים</string>
     <string name="drawer_logout">יציאה</string>
     <string name="drawer_open">פתיחת סרגל הצד</string>
     <string name="drawer_quota">נעשה שימוש ב־%1$s מתוך %2$s</string>
@@ -261,7 +256,6 @@
     <string name="file_list_empty_headline_search">לא נמצאו תוצאות בתקיה זו</string>
     <string name="file_list_empty_headline_server_search">לא נמצאו תוצאות</string>
     <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה.</string>
-    <string name="file_list_empty_recently_added">לא נמצאו קבצים שנוספו לאחרונה</string>
     <string name="file_list_empty_recently_modified">לא נמצאו קבצים שנערכו בשבוע החולף</string>
     <string name="file_list_empty_search">יכול להיות שזה בתיקייה אחרת?</string>
     <string name="file_list_empty_shared_headline">שום דבר לא שותף עדיין</string>
@@ -337,7 +331,6 @@
     <string name="link">קישור</string>
     <string name="link_share_allow_upload_and_editing">לאפשר העלאה ועריכה</string>
     <string name="link_share_file_drop">השלכת קבצים (העלאה בלבד)</string>
-    <string name="link_share_read_only">קריאה בלבד</string>
     <string name="list_layout">פריסה מוצגת</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="local_file_not_found_message">הקובץ לא נמצא במערכת הקבצים המקומית</string>

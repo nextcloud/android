@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Ajude outras pessoas no</string>
     <string name="community_contribute_github_text">Revise, altere e escreva código, consulte %1$s para detalhes</string>
     <string name="community_contribute_headline">Contribua ativamente</string>
-    <string name="community_contribute_irc_text">Junte-se ao chat no IRC:</string>
     <string name="community_contribute_translate_text">o aplicativo</string>
     <string name="community_contribute_translate_translate">Traduzir</string>
     <string name="community_dev_direct_download">Baixar versão de desenvolvimento diretamente</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
-    <string name="conflict_already_existing_file">Arquivo já existe</string>
     <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
-    <string name="conflict_new_file">Novo arquivo</string>
     <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
     <string name="contactlist_no_permission">Nenhuma permissão fornecida, nada foi importado.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No aparelho</string>
-    <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
     <string name="drawer_item_uploads_list">Envios</string>
-    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_logout">Sair</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
@@ -308,7 +303,6 @@
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_moving">Não há nada aqui. Você pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
-    <string name="file_list_empty_recently_added">Nenhum arquivo recente foi adicionado</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Talvez seja uma pasta diferente?</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
@@ -377,7 +371,6 @@
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
-    <string name="fullscreen">Tela inteira</string>
     <string name="hidden_file_name_warning">O nome resultará em um arquivo oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
@@ -397,7 +390,6 @@
     <string name="link_share_allow_upload_and_editing">Permitir envio e edição</string>
     <string name="link_share_editing">Editando </string>
     <string name="link_share_file_drop">Soltar arquivo (apenas envio)</string>
-    <string name="link_share_read_only">Somente leitura</string>
     <string name="link_share_view_only">Apenas visualizar </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados </string>

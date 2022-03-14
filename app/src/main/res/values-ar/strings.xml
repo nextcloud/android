@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">قم بمساعدة الآخرين على</string>
     <string name="community_contribute_github_text">راجع ودقق ثم اكتب الكود، للتفاصيل أنظر إلى %1$s.</string>
     <string name="community_contribute_headline">ساهم بفعالية</string>
-    <string name="community_contribute_irc_text">إنضم إلى الدردشة على IRC:</string>
     <string name="community_contribute_translate_text">التطبيق</string>
     <string name="community_contribute_translate_translate">ترجم</string>
     <string name="community_dev_direct_download">حمل نسخة المطوريين برابط مباشر</string>
@@ -147,11 +146,9 @@
     <string name="confirmation_remove_folder_alert">هل توَدُّ حقاً حذف %1$s وما يحتويه؟</string>
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محلياً فقط</string>
-    <string name="conflict_already_existing_file">الملف موجود بالفعل</string>
     <string name="conflict_dialog_error">خطأ في إنشاء حوار التعارض!</string>
     <string name="conflict_file_headline">ملف متضارب %1$s </string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
-    <string name="conflict_new_file">ملف جديد</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -223,12 +220,10 @@
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
-    <string name="drawer_item_recently_added">أضيفت مؤخراً</string>
     <string name="drawer_item_recently_modified">تغيرت مؤخراً</string>
     <string name="drawer_item_shared">المشاركات</string>
     <string name="drawer_item_trashbin">الملفات المحذوفة</string>
     <string name="drawer_item_uploads_list">التحميلات</string>
-    <string name="drawer_item_videos">الفيديوهات</string>
     <string name="drawer_logout">الخروج</string>
     <string name="drawer_open">افتح الشريط الجانبي</string>
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
@@ -304,7 +299,6 @@
     <string name="file_list_empty_headline_server_search">لا يوجد أي نتيجة</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
-    <string name="file_list_empty_recently_added">لا يوجد ملفات مضافة مؤخراً</string>
     <string name="file_list_empty_recently_modified">لا يوجد ملفات معدلة خلال 7 أيام ماضية</string>
     <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
     <string name="file_list_empty_shared">الملفات والمجلدات التي تم مشاركتها سوف تظهر هنا.</string>
@@ -370,7 +364,6 @@
     <string name="foreign_files_success">تم نقل كافة الملفات</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
-    <string name="fullscreen">وضع ملء الشاشة</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
     <string name="hint_password">كلمة السر</string>
@@ -389,7 +382,6 @@
     <string name="link_share_allow_upload_and_editing">السماح بالرفع و التعديل</string>
     <string name="link_share_editing">جارِ التعديل</string>
     <string name="link_share_file_drop">إسقاط الملف (رفع فقط)</string>
-    <string name="link_share_read_only">القراءة فقط</string>
     <string name="list_layout">تخطيط مدرج</string>
     <string name="load_more_results">تحميل المزيد من النتائج</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>

@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Hjælp andre på</string>
     <string name="community_contribute_github_text">Anmeld, tilføj og skriv kode - se %1$s for detaljer.</string>
     <string name="community_contribute_headline">Aktivt bidrage</string>
-    <string name="community_contribute_irc_text">Deltag i chatten på IRC:</string>
     <string name="community_contribute_translate_text">Appen</string>
     <string name="community_contribute_translate_translate">Oversæt</string>
     <string name="community_dev_direct_download">Hent udviklingsversion direkte</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Er du sikker på at du vil slette %1$s med indhold?</string>
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
-    <string name="conflict_already_existing_file">Eksisterende photo</string>
     <string name="conflict_dialog_error">Fejl ved skabelse af konfliktdialog</string>
     <string name="conflict_file_headline">Fil i konflikt %1$s</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
-    <string name="conflict_new_file">Ny fil</string>
     <string name="conflict_server_file">Server fil</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilladelse givet, intet importeret.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_item_on_device">På enhed</string>
-    <string name="drawer_item_recently_added">Tilføjet for nylig</string>
     <string name="drawer_item_recently_modified">Ændret for nylig</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
     <string name="drawer_item_uploads_list">Uploadede filer</string>
-    <string name="drawer_item_videos">Videoer</string>
     <string name="drawer_logout">Log ud</string>
     <string name="drawer_open">Åbn sidebar</string>
     <string name="drawer_quota">%1$s af %2$s brugt</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
     <string name="file_list_empty_moving">Der er intet her. Du kan tilføje en mappe.</string>
     <string name="file_list_empty_on_device">Hentede filer og mapper vil blive vist her.</string>
-    <string name="file_list_empty_recently_added">Fandt ikke nogen nylig tilføjet filer</string>
     <string name="file_list_empty_recently_modified">Fandt ikke nogen filer ændre inden for de sidste 7 dage</string>
     <string name="file_list_empty_search">Måske den er i en anden mappe?</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Alle filer blev flyttet</string>
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
-    <string name="fullscreen">Fuldskærm</string>
     <string name="hidden_file_name_warning">Navn vil resultere i en skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Note</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Tillad upload og redigering</string>
     <string name="link_share_editing">Redigering</string>
     <string name="link_share_file_drop">Fil drop (kun upload)</string>
-    <string name="link_share_read_only">Skrivebeskyttet</string>
     <string name="link_share_view_only">Kun visning</string>
     <string name="list_layout">Liste layout</string>
     <string name="load_more_results">Indlæs flere resultater</string>

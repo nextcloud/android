@@ -119,7 +119,6 @@
     <string name="community_contribute_forum_text">Başgalara kömek ediň</string>
     <string name="community_contribute_github_text">Kody gözden geçiriň, üýtgediň we ýazyň, %1$saýratynlyklar üçin  serediň.</string>
     <string name="community_contribute_headline">Işjeň goşant goşuň</string>
-    <string name="community_contribute_irc_text">IRC-de söhbetdeşlige goşulyň:</string>
     <string name="community_contribute_translate_text">programma</string>
     <string name="community_contribute_translate_translate">Terjime et</string>
     <string name="community_dev_direct_download">Ösüş goýberilişini gönüden-göni göçürip alyň</string>
@@ -138,11 +137,9 @@
     <string name="confirmation_remove_folder_alert">Hakykatdan hem %1$sonuň mazmuny hem pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_folders_alert">Saýlanan elementleri we olaryň mazmunyny hakykatdanam pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_local">Diňe ýerli</string>
-    <string name="conflict_already_existing_file">Eýýäm bar bolan faýl</string>
     <string name="conflict_dialog_error">Jedelli gepleşikleri döretmekdäki ýalňyşlyk!</string>
     <string name="conflict_file_headline">Jedelli faýl%1$s</string>
     <string name="conflict_message_description">Eger siz iki wersiýasyny hem saýlasaňyz, ýerli faýlyň adyna san goşular.</string>
-    <string name="conflict_new_file">Täze faýl</string>
     <string name="contactlist_item_icon">Aragatnaşyk sanawy üçin ulanyjy nyşany</string>
     <string name="contactlist_no_permission">Rugsat berilmedi, import edilmedi.</string>
     <string name="contacts_backup_button">Edil şu wagt ätiýaç nusgasyny et</string>
@@ -208,12 +205,10 @@
     <string name="drawer_item_home">Baş sahypa</string>
     <string name="drawer_item_notifications">Duýduryşlar</string>
     <string name="drawer_item_on_device">Enjamda</string>
-    <string name="drawer_item_recently_added">Ýakynda goşulan</string>
     <string name="drawer_item_recently_modified">Ýakynda üýtgedildi</string>
     <string name="drawer_item_shared">Paýlaşyldy</string>
     <string name="drawer_item_trashbin">Pozulan faýllar</string>
     <string name="drawer_item_uploads_list">Ýüklenmeler</string>
-    <string name="drawer_item_videos">Wideo</string>
     <string name="drawer_logout">Hasapdan çykmak</string>
     <string name="drawer_open">Gapdal paneli açyň</string>
     <string name="drawer_quota">%1$s-yň %2$sulanylan</string>
@@ -280,7 +275,6 @@
     <string name="file_list_empty_headline_server_search"> Netije ýok</string>
     <string name="file_list_empty_moving">Bu ýerde hiç zat ýok. Bukja goşup bilersiňiz</string>
     <string name="file_list_empty_on_device">ýüklenen faýllar we bukjalar şu ýerde görkeziler.</string>
-    <string name="file_list_empty_recently_added">Ýakynda goşulan faýl tapylmady</string>
     <string name="file_list_empty_recently_modified">Soňky 7 günüň içinde üýtgedilen faýl tapylmady</string>
     <string name="file_list_empty_search"> Belki başga bir bukjada bar? </string>
     <string name="file_list_empty_shared">Paýlaşýan faýllaryňyz we bukjalaryňyz şu ýerde görkeziler.</string>
@@ -361,7 +355,6 @@
     <string name="link">Baglanyşyk</string>
     <string name="link_share_allow_upload_and_editing">Ýüklemäge we redaktirlemäge rugsat beriň</string>
     <string name="link_share_file_drop">Faýlyň düşmegi (diňe ýüklemek)</string>
-    <string name="link_share_read_only">Diňe okaň</string>
     <string name="list_layout">Sanawyň tertibi</string>
     <string name="local_file_list_empty">Bu bukjada faýl ýok.</string>
     <string name="local_file_not_found_message">Ýerli faýl ulgamynda faýl tapylmady</string>
