@@ -603,6 +603,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (requireActivity() instanceof ToolbarActivity) {
            ((ToolbarActivity) requireActivity()).expandToolbar();
         }
+        //Added fix for hiding floating button when switching mode
+        if(getActivity() instanceof FileDisplayActivity){
+            ((FileDisplayActivity) getActivity()).setMainFabVisible(false);
+        }
     }
 
     @Override
