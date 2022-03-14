@@ -54,6 +54,8 @@ object PermissionUtil {
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
+    const val PERMISSION_CHOICE_DIALOG_TAG = "PERMISSION_CHOICE_DIALOG"
+
     /**
      * Wrapper method for ContextCompat.checkSelfPermission().
      * Determine whether *the app* has been granted a particular permission.
@@ -187,25 +189,27 @@ object PermissionUtil {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
 
         if (!preferences.isStoragePermissionRequested || permissionRequired) {
-            val listener = object : StoragePermissionDialogFragment.Listener {
-                override fun onCancel() {
-                    preferences.isStoragePermissionRequested = true
-                }
+            if (activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null) {
+                val listener = object : StoragePermissionDialogFragment.Listener {
+                    override fun onCancel() {
+                        preferences.isStoragePermissionRequested = true
+                    }
 
-                override fun onClickFullAccess() {
-                    preferences.isStoragePermissionRequested = true
-                    val intent = getManageAllFilesIntent(activity)
-                    activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
-                    preferences.isStoragePermissionRequested = true
-                }
+                    override fun onClickFullAccess() {
+                        preferences.isStoragePermissionRequested = true
+                        val intent = getManageAllFilesIntent(activity)
+                        activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+                        preferences.isStoragePermissionRequested = true
+                    }
 
-                override fun onClickMediaReadOnly() {
-                    preferences.isStoragePermissionRequested = true
-                    requestStoragePermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    override fun onClickMediaReadOnly() {
+                        preferences.isStoragePermissionRequested = true
+                        requestStoragePermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    }
                 }
+                val dialogFragment = StoragePermissionDialogFragment(listener, permissionRequired)
+                dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
             }
-            val dialogFragment = StoragePermissionDialogFragment(listener, permissionRequired)
-            dialogFragment.show(activity.supportFragmentManager, "")
         }
     }
 
