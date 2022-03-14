@@ -1075,7 +1075,7 @@ public class FileDisplayActivity extends FileActivity
         OCFileListFragment ocFileListFragment = (OCFileListFragment) leftFragment;
 
         ocFileListFragment.setLoading(mSyncInProgress);
-        syncAndUpdateFolder(false);
+        syncAndUpdateFolder(false, true);
 
         OCFile startFile = null;
         if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
@@ -2221,11 +2221,15 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void syncAndUpdateFolder(boolean ignoreETag) {
+        syncAndUpdateFolder(ignoreETag, false);
+    }
+
+    private void syncAndUpdateFolder(boolean ignoreETag, boolean ignoreFocus) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                startSyncFolderOperation(folder, ignoreETag);
+                startSyncFolderOperation(folder, ignoreETag, ignoreFocus);
             }
         }
     }
