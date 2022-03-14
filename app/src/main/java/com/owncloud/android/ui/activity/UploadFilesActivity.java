@@ -56,10 +56,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -265,7 +261,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, true);
+        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils, true);
     }
 
     public void showToolbarSpinner() {

@@ -67,6 +67,7 @@ import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -158,6 +159,9 @@ class SyncedFoldersActivity :
 
     @Inject
     lateinit var themeButtonUtils: ThemeButtonUtils
+
+    @Inject
+    lateinit var themeSnackBarUtils: ThemeSnackbarUtils
 
     private lateinit var binding: SyncedFoldersLayoutBinding
     private lateinit var adapter: SyncedFolderAdapter
@@ -546,7 +550,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestExternalStoragePermission(this, true)
+                    PermissionUtil.requestExternalStoragePermission(this, themeSnackBarUtils, true)
                 }
                 result = super.onOptionsItemSelected(item)
             }
@@ -773,7 +777,7 @@ class SyncedFoldersActivity :
                     load(getItemsDisplayedPerFolder(), true)
                 } else {
                     // permission denied --> request again
-                    PermissionUtil.requestExternalStoragePermission(this, true)
+                    PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils, true)
                 }
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)

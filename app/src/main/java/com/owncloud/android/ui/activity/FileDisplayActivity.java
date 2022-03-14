@@ -121,8 +121,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -318,7 +316,7 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        PermissionUtil.requestExternalStoragePermission(this);
+        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);

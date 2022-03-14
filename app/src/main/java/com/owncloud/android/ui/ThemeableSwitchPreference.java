@@ -29,11 +29,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
-import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-
-import javax.inject.Inject;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -42,9 +39,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 /**
  * Themeable switch preference TODO Migrate to androidx
  */
-public class ThemeableSwitchPreference extends SwitchPreference implements Injectable {
-
-    @Inject ThemeColorUtils themeColorUtils;
+public class ThemeableSwitchPreference extends SwitchPreference {
+    private ThemeColorUtils themeColorUtils;
 
     public ThemeableSwitchPreference(Context context) {
         super(context);
@@ -56,6 +52,10 @@ public class ThemeableSwitchPreference extends SwitchPreference implements Injec
 
     public ThemeableSwitchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public void setThemeColorUtils(ThemeColorUtils themeColorUtils) {
+        this.themeColorUtils = themeColorUtils;
     }
 
     @Override

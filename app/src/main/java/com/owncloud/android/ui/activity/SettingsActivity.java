@@ -69,6 +69,7 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -127,7 +128,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private Uri serverBaseUri;
 
     private ListPreference lock;
-    private SwitchPreference showHiddenFiles;
+    private ThemeableSwitchPreference showHiddenFiles;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -148,13 +149,14 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         if (themeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
         setupActionBar();
@@ -536,7 +538,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
                                                  boolean fShowMediaScanNotifications) {
-        SwitchPreference mShowMediaScanNotifications = (SwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
+        ThemeableSwitchPreference mShowMediaScanNotifications =
+            (ThemeableSwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
+        mShowMediaScanNotifications.setThemeColorUtils(themeColorUtils);
 
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
@@ -545,7 +549,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
                                             boolean fShowHiddenFilesEnabled) {
-        showHiddenFiles = (SwitchPreference) findPreference("show_hidden_files");
+        showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
+        showHiddenFiles.setThemeColorUtils(themeColorUtils);
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
                 preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
@@ -608,9 +613,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategorySyncedFolders =
-                (PreferenceCategory) findPreference("synced_folders_category");
+            (PreferenceCategory) findPreference("synced_folders_category");
         preferenceCategorySyncedFolders.setTitle(themeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                                                 accentColor));
+
+        ThemeableSwitchPreference syncedFolderOnWifiSwitch =
+            (ThemeableSwitchPreference) findPreference("synced_folder_on_wifi");
+        syncedFolderOnWifiSwitch.setThemeColorUtils(themeColorUtils);
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);

@@ -50,7 +50,7 @@ public class ThemeColorUtils {
     }
 
     public int primaryAccentColor(Context context) {
-        OCCapability capability = getCapability(context);
+        OCCapability capability = CapabilityUtils.getCapability(context);
 
         try {
             float adjust;
@@ -70,7 +70,7 @@ public class ThemeColorUtils {
     }
 
     public int primaryDarkColor(Account account, Context context) {
-        OCCapability capability = getCapability(account, context);
+        OCCapability capability = CapabilityUtils.getCapability(account, context);
 
         try {
             return calculateDarkColor(Color.parseColor(capability.getServerColor()), context);
@@ -163,7 +163,8 @@ public class ThemeColorUtils {
     }
 
     public boolean themingEnabled(Context context) {
-        return getCapability(context).getServerColor() != null && !getCapability(context).getServerColor().isEmpty();
+        return CapabilityUtils.getCapability(context).getServerColor() != null &&
+            !CapabilityUtils.getCapability(context).getServerColor().isEmpty();
     }
 
     /**

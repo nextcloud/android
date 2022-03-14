@@ -183,7 +183,7 @@ public final class MediaProvider {
                                          ThemeButtonUtils themeButtonUtils) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestExternalStoragePermission(activity, true);
+            PermissionUtil.requestExternalStoragePermission(activity, themeSnackbarUtils, true);
         }
     }
 
