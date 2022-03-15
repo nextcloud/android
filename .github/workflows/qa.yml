@@ -20,7 +20,9 @@ jobs:
                     distribution: "temurin"
                     java-version: 11
             -   name: Install NDK and cmake
-                run: /usr/local/lib/android/sdk/tools/bin/sdkmanager 'ndk;21.4.7075529' 'cmake;3.18.1'
+                run: |
+                    source ndk.env
+                    /usr/local/lib/android/sdk/tools/bin/sdkmanager "ndk;${NDK_VERSION}" "cmake;${CMAKE_VERSION}"
             -   name: Build QA
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 env:
