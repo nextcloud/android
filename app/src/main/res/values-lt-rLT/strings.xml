@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Padėti kitiems</string>
     <string name="community_contribute_github_text">Peržiūrėkite, pakeiskite ar parašykite kodą, daugiau informacijos rasite %1$s</string>
     <string name="community_contribute_headline">Aktyviai prisidėti</string>
-    <string name="community_contribute_irc_text">Prisijungti prie diskusijų IRC</string>
     <string name="community_contribute_translate_text">Programėlė</string>
     <string name="community_contribute_translate_translate">Versti</string>
     <string name="community_dev_direct_download">Parsisiųsti vystomą versiją</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
-    <string name="conflict_already_existing_file">Jau esamas failas</string>
     <string name="conflict_dialog_error">Klaida kuriant konflikto dialogą!</string>
     <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_local_file">Failas iš įrenginio</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
-    <string name="conflict_new_file">Naujas failas</string>
     <string name="conflict_server_file">Failas iš serverio</string>
     <string name="contactlist_item_icon">Naudotojo piktograma kontaktų sąraše </string>
     <string name="contactlist_no_permission">Leidimas nesuteiktas, nieko neimportuota.</string>
@@ -223,12 +220,10 @@
     <string name="drawer_item_home">Namai</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_item_on_device">Įrenginyje</string>
-    <string name="drawer_item_recently_added">Paskiausiai pridėti</string>
     <string name="drawer_item_recently_modified">Paskiausiai modifikuoti</string>
     <string name="drawer_item_shared">Bendrinami</string>
     <string name="drawer_item_trashbin">Ištrinti failai</string>
     <string name="drawer_item_uploads_list">Įkėlimai</string>
-    <string name="drawer_item_videos">Vaizdo įrašai</string>
     <string name="drawer_logout">Atsijungti</string>
     <string name="drawer_open">Atverti šoninę juostą</string>
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
@@ -301,7 +296,6 @@
     <string name="file_list_empty_headline_server_search">Nieko nerasta</string>
     <string name="file_list_empty_moving">Čia tuščia. Įkelkite ką nors!</string>
     <string name="file_list_empty_on_device">Čia bus rodomi parsiųsti failai ir aplankai.</string>
-    <string name="file_list_empty_recently_added">Neseniai pridėtų failų nerasta</string>
     <string name="file_list_empty_recently_modified">Nerasta jokių per paskutines 7 dienas modifikuotų failų.</string>
     <string name="file_list_empty_search">Gal tai yra kitame aplanke?</string>
     <string name="file_list_empty_shared">Čia bus rodomi bendrinami failai ir aplankai.</string>
@@ -369,7 +363,6 @@
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
     <string name="fourHours">4 valandos</string>
-    <string name="fullscreen">Visas ekranas</string>
     <string name="hint_name">Vardas</string>
     <string name="hint_note">Apie</string>
     <string name="hint_password">Slaptažodis</string>
@@ -387,7 +380,6 @@
     <string name="link_share_allow_upload_and_editing">Leisti įkelti ir redaguoti</string>
     <string name="link_share_editing">Redagavimas</string>
     <string name="link_share_file_drop">Failų įmetimas (tik įkėlimas)</string>
-    <string name="link_share_read_only">Tik skaitymui</string>
     <string name="link_share_view_only">Tik peržiūrėti</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="load_more_results">Įkelti daugiau rezultatų</string>

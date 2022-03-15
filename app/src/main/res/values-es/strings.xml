@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Ayuda a otros en el</string>
     <string name="community_contribute_github_text">Revisa, corrige y escriba código, vea %1$s para más detalles.</string>
     <string name="community_contribute_headline">Colabora activamente</string>
-    <string name="community_contribute_irc_text">Únete a la conversación en IRC:</string>
     <string name="community_contribute_translate_text">la app</string>
     <string name="community_contribute_translate_translate">Traduce</string>
     <string name="community_dev_direct_download">Desgargar versión de desarrollo directamente</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
-    <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
-    <string name="conflict_new_file">Nuevo archivo</string>
     <string name="conflict_server_file">Archivo del servidor</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
-    <string name="drawer_item_recently_added">Añadido recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos eliminados</string>
     <string name="drawer_item_uploads_list">Subidas</string>
-    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_logout">Cerrar sersión</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_moving">Nada por aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
-    <string name="file_list_empty_recently_added">No se encontraron archivos recientemente añadidos</string>
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
     <string name="file_list_empty_search">¿Quizás está en una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
-    <string name="fullscreen">Pantalla completa</string>
     <string name="hidden_file_name_warning">Ese nombre producirá un archivo oculto</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Permitir la subida y la edición</string>
     <string name="link_share_editing">Editando</string>
     <string name="link_share_file_drop">Entrega de archivos (solo subida)</string>
-    <string name="link_share_read_only">Solo lectura</string>
     <string name="link_share_view_only">Solo lectura</string>
     <string name="list_layout">Formato de lista</string>
     <string name="load_more_results">Cargar más resultados</string>

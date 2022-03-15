@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Giúp những người khác trên</string>
     <string name="community_contribute_github_text">Kiểm tra lại, sửa đổi và viết mã, xem %1$s để biết thêm chi tiết.</string>
     <string name="community_contribute_headline">Tích cực đóng góp</string>
-    <string name="community_contribute_irc_text">Tham gia trò chuyện trên IRC:</string>
     <string name="community_contribute_translate_text">ứng dụng</string>
     <string name="community_contribute_translate_translate">Translate</string>
     <string name="community_dev_direct_download">Tải xuống trực tiếp bản phát hành đang phát triển</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Bạn có thực sự muốn xóa %1$s và nội dung của nó?</string>
     <string name="confirmation_remove_folders_alert">Bạn có thực sự muốn xóa các mục đã chọn và nội dung của chúng không?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
-    <string name="conflict_already_existing_file">Tập tin đã tồn tại sẵn</string>
     <string name="conflict_dialog_error">Lỗi khi tạo hộp thoại xung đột!</string>
     <string name="conflict_file_headline">Tập tin xung đột %1$s</string>
     <string name="conflict_local_file">Tệp cục bộ</string>
     <string name="conflict_message_description">Nếu bạn chọn cả hai phiên bản, tệp trên máy sẽ có một số được thêm vào tên của nó.</string>
-    <string name="conflict_new_file">Tập tin mới</string>
     <string name="conflict_server_file">Tệp trên máy chủ</string>
     <string name="contactlist_item_icon">Sử dụng biểu tượng cho danh mục liên hệ</string>
     <string name="contactlist_no_permission">Không có sự cho phép, không có gì được thêm.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Trang nhất</string>
     <string name="drawer_item_notifications">Thông báo</string>
     <string name="drawer_item_on_device">Trên thiết bị</string>
-    <string name="drawer_item_recently_added">Mới thêm</string>
     <string name="drawer_item_recently_modified">Mới sửa</string>
     <string name="drawer_item_shared">Chia sẻ</string>
     <string name="drawer_item_trashbin">File đã bị xóa</string>
     <string name="drawer_item_uploads_list">Tải lên</string>
-    <string name="drawer_item_videos">Phim</string>
     <string name="drawer_logout">Đăng xuất</string>
     <string name="drawer_open">Mở thanh bên</string>
     <string name="drawer_quota">%1$s trên %2$s đã sử dụng</string>
@@ -308,7 +303,6 @@
     <string name="file_list_empty_headline_server_search">Không có kết quả</string>
     <string name="file_list_empty_moving">Không có gì ở đây. Bạn có thể thêm một thư mục</string>
     <string name="file_list_empty_on_device">Các tập tin và thư mục đã tải xuống sẽ hiển thị ở đây.</string>
-    <string name="file_list_empty_recently_added">Không tìm thấy tệp nào được thêm vào gần đây</string>
     <string name="file_list_empty_recently_modified">Không tìm thấy tệp nào được sửa đổi trong 7 ngày qua</string>
     <string name="file_list_empty_search">Có lẽ nó trong một thư mục khác?</string>
     <string name="file_list_empty_shared">Các tệp và thư mục bạn chia sẻ sẽ hiển thị ở đây.</string>
@@ -377,7 +371,6 @@
     <string name="foreign_files_success">Tất cả tập tin đã được dịch chuyển</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 tiếng</string>
-    <string name="fullscreen">Toàn màn hình</string>
     <string name="hidden_file_name_warning">Tên sẽ dẫn đến tệp ẩn</string>
     <string name="hint_name">Tên</string>
     <string name="hint_note">Ghi chú</string>
@@ -397,7 +390,6 @@
     <string name="link_share_allow_upload_and_editing">Cho phép tải lên và chỉnh sửa</string>
     <string name="link_share_editing">Chỉnh sửa</string>
     <string name="link_share_file_drop">Kéo thả file (chỉ áp dụng trong trường hợp tải lên)</string>
-    <string name="link_share_read_only">Chỉ xem</string>
     <string name="link_share_view_only">Chỉ xem</string>
     <string name="list_layout">Bố cục được liệt kê</string>
     <string name="load_more_results">Tải thêm kết quả</string>

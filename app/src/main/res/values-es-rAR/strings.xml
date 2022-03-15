@@ -116,7 +116,6 @@
     <string name="community_contribute_forum_text">Ayudar a otros en el</string>
     <string name="community_contribute_github_text">Revisar, modificar y escribir código, vea %1$s para detalles.</string>
     <string name="community_contribute_headline">Contribuya activamente</string>
-    <string name="community_contribute_irc_text">Únase al chat en IRC:</string>
     <string name="community_contribute_translate_text">La app</string>
     <string name="community_contribute_translate_translate">Traducir</string>
     <string name="community_dev_direct_download">Descargar la versión de desarrollo directamente</string>
@@ -135,11 +134,9 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_already_existing_file">Archivo ya existente</string>
     <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Archivo en conflicto %1$s</string>
     <string name="conflict_message_description">Si selecciona ambas versiones, se le agregará un número al nombre del archivo copiado.</string>
-    <string name="conflict_new_file">Nuevo archivo</string>
     <string name="contactlist_item_icon">Icono de usuario para la lista de contactos</string>
     <string name="contactlist_no_permission">No se ha dado permiso, nada importado.</string>
     <string name="contacts_backup_button">Realizar copia de seguridad de los contactos</string>
@@ -203,12 +200,10 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
-    <string name="drawer_item_recently_added">Agregado recientemente</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos borrados</string>
     <string name="drawer_item_uploads_list">Cargas</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
@@ -275,7 +270,6 @@
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
     <string name="file_list_empty_moving">No hay nada aquí. Puede agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas descargados se mostrarán aquí.</string>
-    <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_modified">No se encontraron archivos modificados en los últimos 7 días.</string>
     <string name="file_list_empty_search">¿Tal vez está dentro de una carpeta diferente?</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí. </string>
@@ -356,7 +350,6 @@
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Permitir cargar y editar</string>
     <string name="link_share_file_drop">Soltar archivo (solo para carga)</string>
-    <string name="link_share_read_only">Solo lectura</string>
     <string name="list_layout">Vista enlistada</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_file_not_found_message">Archivo no encontrado en el sistema de archivos local</string>

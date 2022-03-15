@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Hjälp andra på</string>
     <string name="community_contribute_github_text">Granska, ändra och skriv kod, se %1$s för detaljer.</string>
     <string name="community_contribute_headline">Bidra aktivt</string>
-    <string name="community_contribute_irc_text">Gå med vår i IRC-chatt:</string>
     <string name="community_contribute_translate_text">appen</string>
     <string name="community_contribute_translate_translate">Översätt</string>
     <string name="community_dev_direct_download">Hämta utvecklarversion via direkt</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
-    <string name="conflict_already_existing_file">Filen finns redan</string>
     <string name="conflict_dialog_error">Fel vid skapande av konfliktdialog!</string>
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
-    <string name="conflict_new_file">Ny fil</string>
     <string name="conflict_server_file">Serverfil</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
-    <string name="drawer_item_recently_added">Nyligen tillagd</string>
     <string name="drawer_item_recently_modified">Nyligen ändrad</string>
     <string name="drawer_item_shared">Delat</string>
     <string name="drawer_item_trashbin">Borttagna filer</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
-    <string name="drawer_item_videos">Videor</string>
     <string name="drawer_logout">Logga ut</string>
     <string name="drawer_open">Öppna sidofältet</string>
     <string name="drawer_quota">%1$s av %2$s använt</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Inga resultat</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
-    <string name="file_list_empty_recently_added">Hittade inga nyligen tillagda filer</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>
     <string name="file_list_empty_search">Kanske finns den i en annan mapp?</string>
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Alla filer flyttades</string>
     <string name="forward">Vidarebefordra</string>
     <string name="fourHours">4 timmar</string>
-    <string name="fullscreen">Fullskärm</string>
     <string name="hidden_file_name_warning">Namngivning kommer att resultera i en dold fil</string>
     <string name="hint_name">Namn</string>
     <string name="hint_note">Anteckning</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Tillåt uppladdning och redigering</string>
     <string name="link_share_editing">Ändrar</string>
     <string name="link_share_file_drop">Göm fillista (endast uppladdning)</string>
-    <string name="link_share_read_only">Läsbehörighet</string>
     <string name="link_share_view_only">Skrivskyddad</string>
     <string name="list_layout">Listad layout</string>
     <string name="load_more_results">Visa fler resultat</string>

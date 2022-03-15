@@ -102,7 +102,6 @@
     <string name="community_contribute_forum_forum">forumo</string>
     <string name="community_contribute_forum_text">Helpu la aliajn uzantojn per</string>
     <string name="community_contribute_headline">Aktive kontribuu</string>
-    <string name="community_contribute_irc_text">Partoprenu babilante per IRC (interreta relajsa babilo, angle „internet relay chat“):</string>
     <string name="community_contribute_translate_text">la aplikaĵon</string>
     <string name="community_contribute_translate_translate">Traduku</string>
     <string name="community_dev_direct_download">Elŝutu beta-version senpere</string>
@@ -171,12 +170,10 @@
     <string name="drawer_item_home">Hejmo</string>
     <string name="drawer_item_notifications">Sciigoj</string>
     <string name="drawer_item_on_device">Sur aparato</string>
-    <string name="drawer_item_recently_added">Aldonitaj antaŭ nelonge</string>
     <string name="drawer_item_recently_modified">Modifitaj antaŭ nelonge</string>
     <string name="drawer_item_shared">Kunhavataj</string>
     <string name="drawer_item_trashbin">Forigitaj dosieroj</string>
     <string name="drawer_item_uploads_list">Alŝutoj</string>
-    <string name="drawer_item_videos">Videaĵoj</string>
     <string name="drawer_logout">Elsaluti</string>
     <string name="drawer_open">Malfermi flankopanelon</string>
     <string name="drawer_quota">%1$s el %2$s uzataj</string>
@@ -219,7 +216,6 @@
     <string name="file_list_empty_headline_search">Neniu rezulto en tiu dosierujo</string>
     <string name="file_list_empty_headline_server_search">Neniu rezulto</string>
     <string name="file_list_empty_moving">Nenio ĉi tie. Vi povas aldoni dosierujon.</string>
-    <string name="file_list_empty_recently_added">Troviĝis neniu dosiero aldonita antaŭ nelonge</string>
     <string name="file_list_empty_recently_modified">Troviĝis neniu dosiero modifita dum la lastaj 7 tagoj</string>
     <string name="file_list_empty_search">Ĉu eble ĝi estas en alia dosierujo?</string>
     <string name="file_list_empty_shared_headline">Ankoraŭ neniu kunhavo</string>
@@ -292,7 +288,6 @@
     <string name="link">Ligilo</string>
     <string name="link_share_allow_upload_and_editing">Permesi alŝuton kaj redakton</string>
     <string name="link_share_file_drop">Demeti dosieron (nur alŝuto)</string>
-    <string name="link_share_read_only">Nurlega</string>
     <string name="list_layout">Montri liste</string>
     <string name="local_file_list_empty">Estas neniu dosiero en ĉi tiu dosierujo.</string>
     <string name="local_file_not_found_message">Dosiero ne trovita en loka dosiersistemo</string>

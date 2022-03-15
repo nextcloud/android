@@ -28,10 +28,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -39,9 +36,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
 /**
- * Utility class with methods for theming related .
+ * Utility class with methods for theming related.
  */
-public final class ThemeColorUtils {
+public class ThemeColorUtils {
 
     private static final int INDEX_LUMINATION = 2;
     private static final double MAX_LIGHTNESS = 0.92;
@@ -52,7 +49,7 @@ public final class ThemeColorUtils {
     }
 
     public static int primaryAccentColor(Context context) {
-        OCCapability capability = getCapability(context);
+        OCCapability capability = CapabilityUtils.getCapability(context);
 
         try {
             float adjust;
@@ -72,7 +69,7 @@ public final class ThemeColorUtils {
     }
 
     public static int primaryDarkColor(Account account, Context context) {
-        OCCapability capability = getCapability(account, context);
+        OCCapability capability = CapabilityUtils.getCapability(account, context);
 
         try {
             return calculateDarkColor(Color.parseColor(capability.getServerColor()), context);
@@ -129,7 +126,7 @@ public final class ThemeColorUtils {
         }
 
         try {
-            int color = Color.parseColor(getCapability(account, context).getServerColor());
+            int color = Color.parseColor(CapabilityUtils.getCapability(account, context).getServerColor());
             if (replaceEdgeColors) {
                 if (isDarkModeActive(context)) {
                     if (Color.BLACK == color) {
@@ -165,7 +162,8 @@ public final class ThemeColorUtils {
     }
 
     public static boolean themingEnabled(Context context) {
-        return getCapability(context).getServerColor() != null && !getCapability(context).getServerColor().isEmpty();
+        return CapabilityUtils.getCapability(context).getServerColor() != null &&
+            !CapabilityUtils.getCapability(context).getServerColor().isEmpty();
     }
 
     /**
@@ -186,7 +184,7 @@ public final class ThemeColorUtils {
         }
 
         try {
-            return Color.parseColor(getCapability(context).getServerTextColor());
+            return Color.parseColor(CapabilityUtils.getCapability(context).getServerTextColor());
         } catch (Exception e) {
             if (darkTheme(context)) {
                 return Color.WHITE;
@@ -286,28 +284,6 @@ public final class ThemeColorUtils {
         }
     }
 
-    private static OCCapability getCapability(Context context) {
-        return getCapability(null, context);
-    }
-
-    private static OCCapability getCapability(Account acc, Context context) {
-        Optional<User> user = Optional.empty();
-
-        if (acc != null) {
-            user = UserAccountManagerImpl.fromContext(context).getUser(acc.name);
-        } else if (context != null) {
-            // TODO: refactor when dark theme work is completed
-            user = Optional.of(UserAccountManagerImpl.fromContext(context).getUser());
-        }
-
-        if (user.isPresent()) {
-            FileDataStorageManager storageManager = new FileDataStorageManager(user.get(), context.getContentResolver());
-            return storageManager.getCapability(user.get().getAccountName());
-        } else {
-            return new OCCapability();
-        }
-    }
-
     public static boolean isDarkModeActive(Context context) {
         int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
@@ -320,7 +296,7 @@ public final class ThemeColorUtils {
 
     public static int unchangedPrimaryColor(Account account, Context context) {
         try {
-            return Color.parseColor(getCapability(account, context).getServerColor());
+            return Color.parseColor(CapabilityUtils.getCapability(account, context).getServerColor());
         } catch (Exception e) {
             return context.getResources().getColor(R.color.primary);
         }
@@ -328,7 +304,7 @@ public final class ThemeColorUtils {
 
     public static int unchangedFontColor(Context context) {
         try {
-            return Color.parseColor(getCapability(context).getServerTextColor());
+            return Color.parseColor(CapabilityUtils.getCapability(context).getServerTextColor());
         } catch (Exception e) {
             if (darkTheme(context)) {
                 return Color.WHITE;

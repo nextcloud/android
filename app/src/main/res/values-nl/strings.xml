@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Help anderen met het</string>
     <string name="community_contribute_github_text">Bekijk, wijzig en schrijf code, zie %1$s voor details.</string>
     <string name="community_contribute_headline">Actief meedoen</string>
-    <string name="community_contribute_irc_text">Join de chat op IRC:</string>
     <string name="community_contribute_translate_text">de app</string>
     <string name="community_contribute_translate_translate">Vertalen</string>
     <string name="community_dev_direct_download">Haal de development release binnen via directe download</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Wil je %1$s en de inhoud ervan werkelijk verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
-    <string name="conflict_already_existing_file">Al bestaand bestand</string>
     <string name="conflict_dialog_error">Fout bij het maken van conflictdialoog!</string>
     <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
-    <string name="conflict_new_file">Nieuw bestand</string>
     <string name="conflict_server_file">Serverbestand</string>
     <string name="contactlist_item_icon">Contactpersonen pictogram</string>
     <string name="contactlist_no_permission">Geen rechten gegeven, niets geïmporteerd.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Thuis</string>
     <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
-    <string name="drawer_item_recently_added">Recent toegevoegd</string>
     <string name="drawer_item_recently_modified">Recent gewijzigd</string>
     <string name="drawer_item_shared">Gedeeld</string>
     <string name="drawer_item_trashbin">Verwijderde bestanden</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-    <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_logout">Uitloggen</string>
     <string name="drawer_open">Openen zijbalk</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
     <string name="file_list_empty_moving">Het is hier leeg. Je kan een map toevoegen!</string>
     <string name="file_list_empty_on_device">Gedownloade bestanden en folders zie je hier.</string>
-    <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevonden</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
     <string name="forward">Doorsturen</string>
     <string name="fourHours">4 uur</string>
-    <string name="fullscreen">Volledig scherm</string>
     <string name="hidden_file_name_warning">Naam resulteert in een verborgen bestand</string>
     <string name="hint_name">Naam</string>
     <string name="hint_note">Notitie</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Uploaden en bewerken toestaan</string>
     <string name="link_share_editing">Bewerken</string>
     <string name="link_share_file_drop">Bestand droppen (alleen uploaden)</string>
-    <string name="link_share_read_only">Alleen lezen</string>
     <string name="link_share_view_only">Alleen bekijken</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="load_more_results">Laad meer resultaten</string>

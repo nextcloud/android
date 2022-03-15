@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Helfen Sie anderen auf</string>
     <string name="community_contribute_github_text">Überprüfen, Ändern und Schreiben von Code, weitere Enzelheiten finden Sie hier: %1$s.</string>
     <string name="community_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="community_contribute_irc_text">Dem Chat im IRC beitreten: </string>
     <string name="community_contribute_translate_text">die App</string>
     <string name="community_contribute_translate_translate">Übersetzen</string>
     <string name="community_dev_direct_download">Entwicklungs-Version direkt herunterladen</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Wollen Sie %1$s und deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
-    <string name="conflict_already_existing_file">Bereits existierende Datei</string>
     <string name="conflict_dialog_error">Fehler beim Erstellen des Konfliktdialoges</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
-    <string name="conflict_new_file">Neue Datei</string>
     <string name="conflict_server_file">Server-Datei</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
     <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
-    <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Abmelden</string>
     <string name="drawer_open">Hauptmenü öffnen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
-    <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
     <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
-    <string name="fullscreen">Vollbild</string>
     <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Notiz</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Hochladen und Bearbeiten erlauben</string>
     <string name="link_share_editing">Bearbeitung</string>
     <string name="link_share_file_drop">Dateien ablegen (nur Hochladen)</string>
-    <string name="link_share_read_only">Schreibgeschützt</string>
     <string name="link_share_view_only">Nur anzeigen</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="load_more_results">Weitere Ergebnisse laden</string>

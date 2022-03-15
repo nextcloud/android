@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Ajudar a d\'altres en</string>
     <string name="community_contribute_github_text">Reviseu, corregiu i escriviu codi, veieu %1$s per més detalls</string>
     <string name="community_contribute_headline">Contribuir activament</string>
-    <string name="community_contribute_irc_text">Unir-se a la conversa en l\'IRC:</string>
     <string name="community_contribute_translate_text">l\'app</string>
     <string name="community_contribute_translate_translate">Traduir</string>
     <string name="community_dev_direct_download">Descarregar la versió de desenvolupament directament</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Esteu segur que voleu suprimir %1$s i els seus continguts?</string>
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
-    <string name="conflict_already_existing_file">Aquest fitxer ja existeix</string>
     <string name="conflict_dialog_error">Error creant diàleg de conflicte!</string>
     <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom de la versió local.</string>
-    <string name="conflict_new_file">Nou fitxer</string>
     <string name="conflict_server_file">Fitxer del servidor</string>
     <string name="contactlist_item_icon">Icona d\'usuari per a la llista de contactes</string>
     <string name="contactlist_no_permission">No s\'han concedit permisos, no s\'ha importat res</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Inici</string>
     <string name="drawer_item_notifications">Notificacions</string>
     <string name="drawer_item_on_device">Al dispositiu</string>
-    <string name="drawer_item_recently_added">Afegit recentment</string>
     <string name="drawer_item_recently_modified">Modificat recentment</string>
     <string name="drawer_item_shared">Compartit</string>
     <string name="drawer_item_trashbin">Fitxers suprimits</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>
-    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_logout">Desconnexió</string>
     <string name="drawer_open">Obre la barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s en ús</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Sense resultats</string>
     <string name="file_list_empty_moving">Aquí no hi ha res. Podeu afegir una carpeta.</string>
     <string name="file_list_empty_on_device">Aquí apareixeran els fitxers i carpetes descarregats.</string>
-    <string name="file_list_empty_recently_added">No s\'han trobat fitxers afegits recentment</string>
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
     <string name="file_list_empty_search">Potser és a una altra carpeta?</string>
     <string name="file_list_empty_shared">Aquí apareixeran els fitxers i carpetes que compartiu.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
     <string name="fourHours">4 hores</string>
-    <string name="fullscreen">Pantalla completa</string>
     <string name="hidden_file_name_warning">El nom donarà com a resultat un fitxer ocult</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Nota</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Permet la pujada i l\'edició</string>
     <string name="link_share_editing">Edició</string>
     <string name="link_share_file_drop">Arrossegament de fitxers (només pujada)</string>
-    <string name="link_share_read_only">Només de lectura</string>
     <string name="link_share_view_only">Només visualitació</string>
     <string name="list_layout">Disposició llistada</string>
     <string name="load_more_results">Carregar més resultats</string>

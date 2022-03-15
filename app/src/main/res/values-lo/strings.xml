@@ -119,7 +119,6 @@
     <string name="community_contribute_forum_text">ການຊ່ວຍເຫຼືອ</string>
     <string name="community_contribute_github_text">ກວດກາ, ດັດແກ້ ແລະ ຂຽນລະຫັດ, ເບິ່ງ %1$sສຳລັບລາຍລະອຽດ.</string>
     <string name="community_contribute_headline">ປະກອບສ່ວນ</string>
-    <string name="community_contribute_irc_text">ເຂົ້າຮ່ວມການສົນທະນາໃນ IRC:</string>
     <string name="community_contribute_translate_text">ແອັບພລິເຄຊັນ</string>
     <string name="community_contribute_translate_translate">ແປ</string>
     <string name="community_dev_direct_download">ດາວໂຫລດການການພັດທະນາໂດຍກົງ</string>
@@ -138,11 +137,9 @@
     <string name="confirmation_remove_folder_alert">ທ່ານຕ້ອງການ ລຶບ%1$s ແລະ ເນື້ອຫາບໍ?</string>
     <string name="confirmation_remove_folders_alert">ທ່ານຕ້ອງການລຶບລາຍການທີ່ເລືອກ ແລະ ເນື້ອຫາແທ້ບໍ?</string>
     <string name="confirmation_remove_local">ຊ່ອງເກັບຢ່າງດຽວ</string>
-    <string name="conflict_already_existing_file">ມີຟາຍຢູ່ແລ້ວ</string>
     <string name="conflict_dialog_error">ຄວາມຜິດພາດໃນການສ້າງການສົນທະນາຜິດພາດ!</string>
     <string name="conflict_file_headline">ຟາຍຜິດພາດ%1$s</string>
     <string name="conflict_message_description">ຖ້າທ່ານເລືອກເອົາທັງສອງເວີຊັ້ນ, ບ່ອນເກັບຟາຍຈະມີຈໍານວນສະສົມ</string>
-    <string name="conflict_new_file">ຟາຍໃໝ່</string>
     <string name="contactlist_item_icon">ລາຍການໄອຄອນຜູ້ຕິດຕໍ່</string>
     <string name="contactlist_no_permission">ບໍ່ໄດ້ຮັບອະນຸຍາດ, ບໍ່ມີຫຍັງນໍາເຂົ້າ.</string>
     <string name="contacts_backup_button">ສໍາຮອງຂໍ້ມຸນດຽວນີ້</string>
@@ -208,12 +205,10 @@
     <string name="drawer_item_home">ໜ້າຫຼັກ</string>
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>
-    <string name="drawer_item_recently_added">ເພີ່ມລ່າສຸດ</string>
     <string name="drawer_item_recently_modified">ແປງລ່າສຸດ</string>
     <string name="drawer_item_shared">ແບ່ງປັນ</string>
     <string name="drawer_item_trashbin">ລຶບຟາຍ</string>
     <string name="drawer_item_uploads_list">ອັບໂຫຼດ</string>
-    <string name="drawer_item_videos">ວິດີໂອ</string>
     <string name="drawer_logout">ອອກຈາກລະບົບ</string>
     <string name="drawer_open">ເປີດແທບດ້ານຂ້າງ</string>
     <string name="drawer_quota">ນຳໃຊ້ %1$sຂອງ%2$s</string>
@@ -280,7 +275,6 @@
     <string name="file_list_empty_headline_server_search">ບໍ່ມີຜົນ</string>
     <string name="file_list_empty_moving">ບໍ່ມີຫຍັງໃນນີ້. ທ່ານສາມາດເພີ່ມໂຟນເດີໄດ້.</string>
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
-    <string name="file_list_empty_recently_added">ບໍ່ມີຟາຍເພີ່ມເຕີມເມື່ອບໍ່ດົນມານີ້</string>
     <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>
@@ -361,7 +355,6 @@
     <string name="link">ລິງ</string>
     <string name="link_share_allow_upload_and_editing">ອະນຸຍາດໃຫ້ ອັບ ໂຫຼດ ແລະ  ແກ້ ໄຂໄດ້</string>
     <string name="link_share_file_drop">ການຖິ້ືມຟາຍ (ອັງໂຫຼດຢ່າງດຽວ)</string>
-    <string name="link_share_read_only">ອ່ານຢ່າງດຽວ</string>
     <string name="list_layout">ລາຍຊື່</string>
     <string name="local_file_list_empty">ບໍ່ມີຟາຍໃນໂຟນເດີນີ້.</string>
     <string name="local_file_not_found_message">ຟາຍບໍ່ພົບໃນລະບົບຊ່ອງເກັບຂໍ້ມຸນ</string>

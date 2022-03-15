@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Ajută pe altii la </string>
     <string name="community_contribute_github_text">Revizuiește, modifică și scrie cod, vezi %1$s pentru detalii</string>
     <string name="community_contribute_headline">Contribuie în mod activ</string>
-    <string name="community_contribute_irc_text">Alătură-te conversației pe IRC:</string>
     <string name="community_contribute_translate_text">aplicația </string>
     <string name="community_contribute_translate_translate">tradu</string>
     <string name="community_dev_direct_download">Descarcă direct versiunea în dezvoltare</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
-    <string name="conflict_already_existing_file">Fișierul deja există</string>
     <string name="conflict_dialog_error">Eroare la crearea dialogului pentru conflict!</string>
     <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
-    <string name="conflict_new_file">Fișier nou</string>
     <string name="conflict_server_file">Fișier pe server</string>
     <string name="contactlist_item_icon">Iconiță utilizator pentru lista de contacte</string>
     <string name="contactlist_no_permission">Nu sunt acordate permisiuni, nu s-a importat nimic.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_notifications">Notificări</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
-    <string name="drawer_item_recently_added">Adăugate recent</string>
     <string name="drawer_item_recently_modified">Modificate recent</string>
     <string name="drawer_item_shared">Partajate</string>
     <string name="drawer_item_trashbin">Fișiere șterse</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
-    <string name="drawer_item_videos">Fișiere video</string>
     <string name="drawer_logout">Ieșire</string>
     <string name="drawer_open">Deschide bara laterală</string>
     <string name="drawer_quota">%1$s din %2$s folosiți</string>
@@ -309,7 +304,6 @@
     <string name="file_list_empty_headline_server_search">Niciun rezultat</string>
     <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un dosar.</string>
     <string name="file_list_empty_on_device">FIșierele și dosarele descărcate vor apărea aici</string>
-    <string name="file_list_empty_recently_added">Nu au fost găsite fișiere recent adăugate</string>
     <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
     <string name="file_list_empty_search">Poate că este într-un alt dosar?</string>
     <string name="file_list_empty_shared">FIșierele și dosarele partajate vor apărea aici</string>
@@ -378,7 +372,6 @@
     <string name="foreign_files_success">Toate fișierele au fost mutate</string>
     <string name="forward">Înainte</string>
     <string name="fourHours">4 ore</string>
-    <string name="fullscreen">Fullscreen</string>
     <string name="hidden_file_name_warning">Numele va rezulta într-un fișier ascuns</string>
     <string name="hint_name">Nume</string>
     <string name="hint_note">Notă</string>
@@ -398,7 +391,6 @@
     <string name="link_share_allow_upload_and_editing">Permite încărcarea și editarea</string>
     <string name="link_share_editing">Se modifică</string>
     <string name="link_share_file_drop">Trage fișierul (numai încărcare)</string>
-    <string name="link_share_read_only">Doar citire</string>
     <string name="link_share_view_only">Numai se vizualizează</string>
     <string name="list_layout">Aranjare listată</string>
     <string name="load_more_results">Încarcă mai multe rezultate</string>

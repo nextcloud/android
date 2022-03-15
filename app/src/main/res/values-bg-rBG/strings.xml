@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Помогнете на други във форума</string>
     <string name="community_contribute_github_text">Преглед, промяна и написване на код, вижте %1$s за повече подробности</string>
     <string name="community_contribute_headline">Активен принос</string>
-    <string name="community_contribute_irc_text">Присъединете се към IRC чата:</string>
     <string name="community_contribute_translate_text">приложението</string>
     <string name="community_contribute_translate_translate">Преведи</string>
     <string name="community_dev_direct_download">Изтегляне на развойна версия</string>
@@ -147,11 +146,9 @@
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_already_existing_file">Файла вече съществува</string>
     <string name="conflict_dialog_error">Грешка при създаване на диалог за конфликт!</string>
     <string name="conflict_file_headline">Несъвместим файл %1$s</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
-    <string name="conflict_new_file">Нов файл</string>
     <string name="contactlist_item_icon">Потребителска икона за списъка с контакти</string>
     <string name="contactlist_no_permission">Няма предоставен достъп, нищо не е внесено.</string>
     <string name="contacts">Контакти</string>
@@ -224,12 +221,10 @@
     <string name="drawer_item_home">Начало</string>
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
-    <string name="drawer_item_recently_added">Последно добавени</string>
     <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
     <string name="drawer_item_uploads_list">Качени</string>
-    <string name="drawer_item_videos">Видеа</string>
     <string name="drawer_logout">Отписване</string>
     <string name="drawer_open">Отвори страничното меню</string>
     <string name="drawer_quota">%1$s от %2$s използвани</string>
@@ -305,7 +300,6 @@
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
-    <string name="file_list_empty_recently_added">Няма наскоро добавени файлове</string>
     <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared">Споделените файлове и папки ще се показват тук.</string>
@@ -373,7 +367,6 @@
     <string name="foreign_files_success">Всички файлове са преместени.</string>
     <string name="forward">Напред</string>
     <string name="fourHours">4 часа</string>
-    <string name="fullscreen">Цял екран</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
     <string name="hint_note">Бележка</string>
@@ -393,7 +386,6 @@
     <string name="link_share_allow_upload_and_editing">За качване и редактиране</string>
     <string name="link_share_editing">Редактиране</string>
     <string name="link_share_file_drop">Само за качване</string>
-    <string name="link_share_read_only">Само за четене</string>
     <string name="link_share_view_only">Само преглед</string>
     <string name="list_layout">Оформление на списъка с емисии</string>
     <string name="load_more_results">Зареждане на още резултати</string>

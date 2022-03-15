@@ -119,7 +119,6 @@
     <string name="community_contribute_forum_text">Axude a outros no</string>
     <string name="community_contribute_github_text">Revise, corrixa e escriba código, vexa %1$s para obter máis detalles.</string>
     <string name="community_contribute_headline">Colabore activamente</string>
-    <string name="community_contribute_irc_text">Únase á conversa no IRC:</string>
     <string name="community_contribute_translate_text">a aplicación</string>
     <string name="community_contribute_translate_translate">Traducir</string>
     <string name="community_dev_direct_download">Descargue directamente a versión de desenvolvemento</string>
@@ -138,11 +137,9 @@
     <string name="confirmation_remove_folder_alert">Confirma que quere eliminar %1$s e todo o seu contido?</string>
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
-    <string name="conflict_already_existing_file">Ficheiro existente</string>
     <string name="conflict_dialog_error">Produciuse un erro ao crear o diálogo de conflitos!</string>
     <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
-    <string name="conflict_new_file">Novo ficheiro</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
     <string name="contacts_backup_button">Facer agora a copia de seguridade</string>
@@ -208,12 +205,10 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
-    <string name="drawer_item_recently_added">Engadido recentemente</string>
     <string name="drawer_item_recently_modified">Modificado recentemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envíos</string>
-    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_logout">Saír</string>
     <string name="drawer_open">Abrir a barra lateral</string>
     <string name="drawer_quota">Usado %1$s de %2$s</string>
@@ -280,7 +275,6 @@
     <string name="file_list_empty_headline_server_search">Sen resultados</string>
     <string name="file_list_empty_moving">Aquí non hai nada. Pode engadir un cartafol.</string>
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
-    <string name="file_list_empty_recently_added">Non se atoparon ficheiros engadidos recentemente</string>
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
@@ -361,7 +355,6 @@
     <string name="link">Ligazón</string>
     <string name="link_share_allow_upload_and_editing">Permitir o envío e a edición</string>
     <string name="link_share_file_drop">Soltar ficheiro (só envíos) </string>
-    <string name="link_share_read_only">Só lectura</string>
     <string name="list_layout">Ver como lista</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>

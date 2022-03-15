@@ -121,7 +121,6 @@
     <string name="community_contribute_forum_text">Βοήθησε άλλους στο</string>
     <string name="community_contribute_github_text">Επιθεωρήστε, τροποποιήστε και γράψτε κώδικα, δείτε %1$s για λεπτομέρειες.</string>
     <string name="community_contribute_headline">Συνέβαλε ενεργά</string>
-    <string name="community_contribute_irc_text">Μπείτε στη συζήτηση στο IRC:</string>
     <string name="community_contribute_translate_text">η εφαρμογή</string>
     <string name="community_contribute_translate_translate">Μετάφραση</string>
     <string name="community_dev_direct_download">Απευθείας λήψη της υπό ανάπτυξη έκδοσης</string>
@@ -140,11 +139,9 @@
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
-    <string name="conflict_already_existing_file">Το αρχείο υπάρχει ήδη</string>
     <string name="conflict_dialog_error">Σφάλμα δημιουργίας αναφοράς διένεξης!</string>
     <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
-    <string name="conflict_new_file">Νέο αρχείο</string>
     <string name="contactlist_item_icon">Εικονίδιο χρήστη για τη λίστα επαφών</string>
     <string name="contactlist_no_permission">Δεν δόθηκαν δικαιώματα, τίποτα δεν εισήχθη.</string>
     <string name="contacts_backup_button">Εφεδρικό αντίγραφο τώρα</string>
@@ -210,12 +207,10 @@
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
-    <string name="drawer_item_recently_added">Προστέθηκαν πρόσφατα</string>
     <string name="drawer_item_recently_modified">Τροποποιήθηκαν πρόσφατα</string>
     <string name="drawer_item_shared">Κοινόχρηστα</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
-    <string name="drawer_item_videos">Βίντεο</string>
     <string name="drawer_logout">Αποσύνδεση</string>
     <string name="drawer_open">Άνοιγμα πλευρικής στήλης</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
@@ -290,7 +285,6 @@
     <string name="file_list_empty_headline_server_search">Κανένα αποτέλεσμα</string>
     <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
     <string name="file_list_empty_on_device">Τα ληφθέντα αρχεία και φάκελοι θα εμφανίζονται εδώ.</string>
-    <string name="file_list_empty_recently_added">Δεν βρέθηκαν πρόσφατα προστεθημένα αρχεία</string>
     <string name="file_list_empty_recently_modified">Δεν βρέθηκαν τροποποιημένα αρχεία εντός των τελευταίων 7 ημερών</string>
     <string name="file_list_empty_search">Θα δοκιμάστε αναζήτηση και σε άλλο φάκελο;</string>
     <string name="file_list_empty_shared">Τα αρχεία και οι φάκελοι που διαμοιράζεστε θα εμφανίζονται εδώ.</string>
@@ -356,7 +350,6 @@
     <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
     <string name="forward">Προώθηση</string>
     <string name="fourHours">4 ώρες</string>
-    <string name="fullscreen">Πλήρης οθόνη</string>
     <string name="hint_name">Όνομα</string>
     <string name="hint_note">Σημείωση</string>
     <string name="hint_password">Συνθηματικό</string>
@@ -372,7 +365,6 @@
     <string name="link">Σύνδεσμος</string>
     <string name="link_share_allow_upload_and_editing">Επέτρεψε την μεταφόρτωση και επεξεργασία</string>
     <string name="link_share_file_drop">Απόθεση αρχείου (μόνο μεταφόρτωση)</string>
-    <string name="link_share_read_only">Μόνο για ανάγνωση</string>
     <string name="list_layout">Διάταξη λίστας</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="local_file_not_found_message">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>

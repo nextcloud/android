@@ -117,7 +117,6 @@
     <string name="community_contribute_forum_forum">форум</string>
     <string name="community_contribute_forum_text">Help others on the</string>
     <string name="community_contribute_headline">Actively Contribute</string>
-    <string name="community_contribute_irc_text">Join the chat on IRC:</string>
     <string name="community_contribute_translate_text">ја апликацијата</string>
     <string name="community_contribute_translate_translate">Преведи</string>
     <string name="community_dev_direct_download">Download development release directly</string>
@@ -136,11 +135,9 @@
     <string name="confirmation_remove_folder_alert">али си сигурен дека сакаш да ја избришеш %1$s и содржината во истата?</string>
     <string name="confirmation_remove_folders_alert">Дали си сигурен дека сакаш да ја избришеш означената ставкаи содржината во неа?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_already_existing_file">Постоечка датотека</string>
     <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
     <string name="conflict_file_headline">Датотеки со конфликт %1$s</string>
     <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>
-    <string name="conflict_new_file">Нова датотека</string>
     <string name="contactlist_item_icon">Корисничка икона за листа со контакти</string>
     <string name="contactlist_no_permission">Не е дадена дозвола, ништо не е увезено.</string>
     <string name="contacts_backup_button">Направи сега</string>
@@ -203,12 +200,10 @@
     <string name="drawer_item_home">Дома</string>
     <string name="drawer_item_notifications">Известувања</string>
     <string name="drawer_item_on_device">На уредот</string>
-    <string name="drawer_item_recently_added">Скоро додадени</string>
     <string name="drawer_item_recently_modified">Скоро изменети</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Избришани датотеки</string>
     <string name="drawer_item_uploads_list">Прикачувања</string>
-    <string name="drawer_item_videos">Видеа</string>
     <string name="drawer_logout">Одјава</string>
     <string name="drawer_open">Отвори странична лента</string>
     <string name="drawer_quota">искористено %1$s од %2$s </string>
@@ -267,7 +262,6 @@
     <string name="file_list_empty_headline_server_search">Нема резултати</string>
     <string name="file_list_empty_moving">Тука нема ништо. Можете да додадете папка!</string>
     <string name="file_list_empty_on_device">Преземените датотеки и папки  ќе се појават тука.</string>
-    <string name="file_list_empty_recently_added">Нема пронајдено скоро додадени датотеки</string>
     <string name="file_list_empty_recently_modified">Нема пронајдено датотеки изменети во последните 7 дена.</string>
     <string name="file_list_empty_search">Можеби е во друга папка?</string>
     <string name="file_list_empty_shared">Датотеките и папките кои ги споделувате ќе се појават тука.</string>
@@ -346,7 +340,6 @@
     <string name="link">Линк</string>
     <string name="link_share_allow_upload_and_editing">Дозволи прикачување и уредување</string>
     <string name="link_share_file_drop">Испуши датотека (само за прикачување)</string>
-    <string name="link_share_read_only">Само читај</string>
     <string name="list_layout">Listed layout</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
     <string name="local_file_not_found_message">Датотеката не е пронајдена во локалното складиште</string>

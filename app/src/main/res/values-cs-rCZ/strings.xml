@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Pomozte ostatním na</string>
     <string name="community_contribute_github_text">Kontrolujte, vylepšujte a programujte – podrobnosti naleznete na %1$s.</string>
     <string name="community_contribute_headline">Aktivně něčím přispět</string>
-    <string name="community_contribute_irc_text">Připojte se k IRC chatu:</string>
     <string name="community_contribute_translate_text">aplikace</string>
     <string name="community_contribute_translate_translate">Překládat</string>
     <string name="community_dev_direct_download">Stáhnout vývojové vydání přímo</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
-    <string name="conflict_already_existing_file">Už existující soubor</string>
     <string name="conflict_dialog_error">Chyba při vytváření dialogu ke konfliktu!</string>
     <string name="conflict_file_headline">Kolidující soubor %1$s</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
-    <string name="conflict_new_file">Nový soubor</string>
     <string name="conflict_server_file">Soubor na serveru</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
-    <string name="drawer_item_recently_added">Nedávno přidané</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
-    <string name="drawer_item_videos">Videa</string>
     <string name="drawer_logout">Odhlásit se</string>
     <string name="drawer_open">Otevřít postranní panel</string>
     <string name="drawer_quota">%1$s z %2$s použito</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
     <string name="file_list_empty_moving">Nic tu není. Můžete přidat složku.</string>
     <string name="file_list_empty_on_device">Stažené soubory a složky se zobrazí zde.</string>
-    <string name="file_list_empty_recently_added">Nenalezeny žádné nedávno přidané soubory</string>
     <string name="file_list_empty_recently_modified">Nenalezeny žádné soubory změněné za uplynulých 7 dnů</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi sdílené soubory a složky.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Všechny soubory byly přesunuty</string>
     <string name="forward">Vpřed</string>
     <string name="fourHours">4 hodiny</string>
-    <string name="fullscreen">Celá obrazovka</string>
     <string name="hidden_file_name_warning">Z tohoto názvu vznikne skrytý soubor</string>
     <string name="hint_name">Jméno</string>
     <string name="hint_note">Poznámka</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Povolit nahrávání a úpravy</string>
     <string name="link_share_editing">Upravování</string>
     <string name="link_share_file_drop">Přetažení souboru (pouze nahrání)</string>
-    <string name="link_share_read_only">Pouze pro čtení</string>
     <string name="link_share_view_only">Pouze prohlížet</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>

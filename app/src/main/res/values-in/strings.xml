@@ -125,7 +125,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Bantu yang lain di</string>
     <string name="community_contribute_headline">Berkontribusi Aktif</string>
-    <string name="community_contribute_irc_text">Gabung untuk mengobrol di IRC:</string>
     <string name="community_contribute_translate_text">aplikasi</string>
     <string name="community_contribute_translate_translate">Terjemahkan</string>
     <string name="community_dev_direct_download">Unduh rilis pengembangan secara langsung</string>
@@ -141,7 +140,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_local_file">File lokal</string>
-    <string name="conflict_new_file">File baru</string>
     <string name="conflict_server_file">File server</string>
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
     <string name="contacts">Kontak</string>
@@ -201,12 +199,10 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="drawer_item_home">Beranda</string>
     <string name="drawer_item_notifications">Pemberitahuan</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
-    <string name="drawer_item_recently_added">Baru ditambah</string>
     <string name="drawer_item_recently_modified">Baru diubah</string>
     <string name="drawer_item_shared">Dibagikan</string>
     <string name="drawer_item_trashbin">Berkas terhapus</string>
     <string name="drawer_item_uploads_list">Unggah</string>
-    <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Keluar</string>
     <string name="drawer_open">Buka jendela samping</string>
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
@@ -250,7 +246,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="file_list_empty_headline_search">Tidak ada hasil di folder ini</string>
     <string name="file_list_empty_headline_server_search">Tidak ada hasil.</string>
     <string name="file_list_empty_moving">Kosong. Anda dapat menambahkan folder</string>
-    <string name="file_list_empty_recently_added">Tidak ditemukan berkas yang baru ditambah</string>
     <string name="file_list_empty_recently_modified">Tidak ditemukan berkas yang diubah 7 hari terakhir</string>
     <string name="file_list_empty_search">Mungkin ada di folder yang berbeda?</string>
     <string name="file_list_empty_shared_headline">Belum ada yang dibagikan.</string>
@@ -313,7 +308,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="link">Tautan</string>
     <string name="link_share_allow_upload_and_editing">Izinkan pengunggahan dan penyuntingan</string>
     <string name="link_share_file_drop">Berkas jatuh (hanya unggah)</string>
-    <string name="link_share_read_only">Hanya baca</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>

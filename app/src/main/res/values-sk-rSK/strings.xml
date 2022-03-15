@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Pomôžte ostatným s</string>
     <string name="community_contribute_github_text">Zobrazte, upravte a napíšte kód, podrobnosti nájdete na %1$s.</string>
     <string name="community_contribute_headline">Aktívne prispievať</string>
-    <string name="community_contribute_irc_text">Pripojte sa k rozhovoru na IRC:</string>
     <string name="community_contribute_translate_text">aplikácia</string>
     <string name="community_contribute_translate_translate">Preložiť</string>
     <string name="community_dev_direct_download">Získajte vývojovú verziu</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
-    <string name="conflict_already_existing_file">Súbor už existuje </string>
     <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
     <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
-    <string name="conflict_new_file">Nový súbor</string>
     <string name="conflict_server_file">Súbor na serveri</string>
     <string name="contactlist_item_icon">Používateľská ikona pre zoznam kontaktov</string>
     <string name="contactlist_no_permission">Žiadne povolenia neboli udelené, nič nebolo importnuté.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Domov</string>
     <string name="drawer_item_notifications">Upozornenia</string>
     <string name="drawer_item_on_device">V zariadení</string>
-    <string name="drawer_item_recently_added">Nedávno pridané</string>
     <string name="drawer_item_recently_modified">Nedávno zmené</string>
     <string name="drawer_item_shared">Zdieľané</string>
     <string name="drawer_item_trashbin">Zmazané súbory</string>
     <string name="drawer_item_uploads_list">Nahranie</string>
-    <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Odhlásiť</string>
     <string name="drawer_open">Otvoriť bočný panel</string>
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Žiadne výsledky</string>
     <string name="file_list_empty_moving">Nič tu nie je. Môžete pridať priečinok.</string>
     <string name="file_list_empty_on_device">Tu sa zobrazia nahraté súbory a priečinky</string>
-    <string name="file_list_empty_recently_added">Žiadne nedávno pridané súbory</string>
     <string name="file_list_empty_recently_modified">V posledných 7 dňoch sa nenašli žiadne zmeny</string>
     <string name="file_list_empty_search">Možno to je v inom priečinku?</string>
     <string name="file_list_empty_shared">Tu sa zobrazia súbory a priečinky, ktoré ste sprístupnili.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
-    <string name="fullscreen">Na celú obrazovku</string>
     <string name="hidden_file_name_warning">Názov bude mať za následok skrytý súbor</string>
     <string name="hint_name">Meno</string>
     <string name="hint_note">Poznámka</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Povoliť nahrávanie a úpravy</string>
     <string name="link_share_editing">Úprava</string>
     <string name="link_share_file_drop">Odovzdávanie súborov (len nahrávanie)</string>
-    <string name="link_share_read_only">Iba na čítanie</string>
     <string name="link_share_view_only">Iba pre čítanie</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="load_more_results">Načítať viac výsledkov</string>

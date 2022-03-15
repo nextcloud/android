@@ -113,7 +113,6 @@
     <string name="community_contribute_forum_text">Sikour ar re all war</string>
     <string name="community_contribute_github_text">Evit gwiriañ, ouzhpennañ pe skrivañ kode, sellit ouzh %1$s evit ar munudoù.</string>
     <string name="community_contribute_headline">Kenober oberaet</string>
-    <string name="community_contribute_irc_text">Mon war ar chat war IRC :</string>
     <string name="community_contribute_translate_text">ar meziant</string>
     <string name="community_contribute_translate_translate">Treiñ</string>
     <string name="community_dev_direct_download">Pellgargañ dorc\'htu an diorenn dieubet</string>
@@ -132,10 +131,8 @@
     <string name="confirmation_remove_folder_alert">Sur oc\'h lemel %1$s ha pep tra a zo barzh ?</string>
     <string name="confirmation_remove_folders_alert">Sur oc\'h lemel an traoù choazet ha pep tra a zo barzh ?</string>
     <string name="confirmation_remove_local">E-berzh nemetken</string>
-    <string name="conflict_already_existing_file">Bez ez eus eus ar restr dija</string>
     <string name="conflict_dialog_error">Ur fazi en deus krouet divizoù diemglev !</string>
     <string name="conflict_message_description">Ma choazit an daou stumm, ar restr diabarzh en do un niver ouzhpennet war e anv.</string>
-    <string name="conflict_new_file">Restr nevez</string>
     <string name="contactlist_item_icon">Skeudenn  implijer evit ar roll darempredoù</string>
     <string name="contactlist_no_permission">Oaetre ebet roet, netra a zo bet emporzhiet.</string>
     <string name="contacts_backup_button">Enrollañ bremañ</string>
@@ -195,12 +192,10 @@
     <string name="drawer_item_home">Degemer</string>
     <string name="drawer_item_notifications">Kemenadenoù</string>
     <string name="drawer_item_on_device">War ar benveg</string>
-    <string name="drawer_item_recently_added">Ouzpennet n\'eus ket pel zo</string>
     <string name="drawer_item_recently_modified">Cheñchet n\'eus ket pell zo</string>
     <string name="drawer_item_shared">Rannet</string>
     <string name="drawer_item_trashbin">Restroù dilemet</string>
     <string name="drawer_item_uploads_list">Pellkasadennoù</string>
-    <string name="drawer_item_videos">Videoioù</string>
     <string name="drawer_logout">Kuitat</string>
     <string name="drawer_open">Digori ar varenn gostez</string>
     <string name="drawer_quota">%1$s eus %2$s implijet</string>
@@ -266,7 +261,6 @@
     <string name="file_list_empty_headline_server_search">Disoc\'h ebet</string>
     <string name="file_list_empty_moving">Netra amañ. Posuple eo deoc\'h ouzhpennañ un teuliad.</string>
     <string name="file_list_empty_on_device">Restroù ha tuliadoù pellgarget a vo diskwelet amañ</string>
-    <string name="file_list_empty_recently_added">N\'ez eus ket bet kavet restroù nevez ouzhpennet</string>
     <string name="file_list_empty_recently_modified">Restroù cheñchet e pad ar 7 deiz divezhañ ebet kavet</string>
     <string name="file_list_empty_search">Mateze eo en un teuliad all ?</string>
     <string name="file_list_empty_shared">Ar restroù ha teuliadoù rannet a vo diskwellet amañ</string>
@@ -343,7 +337,6 @@
     <string name="link">Liamm</string>
     <string name="link_share_allow_upload_and_editing">Aotreañ ar pellkargañ hag an embann</string>
     <string name="link_share_file_drop">Lakaat ur restr (evit pellkes nemetken)</string>
-    <string name="link_share_read_only">Da lenn nemetken</string>
     <string name="list_layout">Kempennerezhioù listet</string>
     <string name="local_file_list_empty">N\'ez eus restr ebet en teuliad</string>
     <string name="local_file_not_found_message">N\'ez eus restr ebet kavet e restroù diabarzh ar sistem</string>

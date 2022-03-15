@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Diğer kullanıcılara şu konularda yardımcı olun:</string>
     <string name="community_contribute_github_text">Kodun gözden geçirilmesine ve geliştirilmesine katkıda bulunun. Ayrıntılı bilgi almak için %1$s dosyasına bakabilirsiniz.</string>
     <string name="community_contribute_headline">Katkıda bulunun</string>
-    <string name="community_contribute_irc_text">IRC sohbetine katılın:</string>
     <string name="community_contribute_translate_text">uygulamayı</string>
     <string name="community_contribute_translate_translate">Çeviri yapın</string>
     <string name="community_dev_direct_download">Geliştirme sürümünü doğrudan indirin</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_local">Yalnız yerel</string>
-    <string name="conflict_already_existing_file">Dosya zaten var</string>
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
-    <string name="conflict_new_file">Yeni dosya</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
-    <string name="drawer_item_recently_added">Son eklenenler</string>
     <string name="drawer_item_recently_modified">Son değiştirilenler</string>
     <string name="drawer_item_shared">Paylaşılan</string>
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
-    <string name="drawer_item_videos">Görüntüler</string>
     <string name="drawer_logout">Oturumu kapat</string>
     <string name="drawer_open">Yan çubuğu aç</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
@@ -310,7 +305,6 @@
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
-    <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
@@ -379,7 +373,6 @@
     <string name="foreign_files_success">Tüm dosyalar taşındı</string>
     <string name="forward">İlet</string>
     <string name="fourHours">4 saat</string>
-    <string name="fullscreen">Tam ekran</string>
     <string name="hidden_file_name_warning">Bu ad gizli bir dosya oluşturacak</string>
     <string name="hint_name">Ad</string>
     <string name="hint_note">Not</string>
@@ -399,7 +392,6 @@
     <string name="link_share_allow_upload_and_editing">Yüklenebilsin ve düzenlenebilsin</string>
     <string name="link_share_editing">Düzenleniyor</string>
     <string name="link_share_file_drop">Dosya bırakma (yalnız yükleme)</string>
-    <string name="link_share_read_only">Salt okunur</string>
     <string name="link_share_view_only">Yalnız görüntüleme</string>
     <string name="list_layout">Liste düzeni</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>

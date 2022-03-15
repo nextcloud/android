@@ -120,7 +120,6 @@
     <string name="community_contribute_forum_text">Agiuda àtere in</string>
     <string name="community_contribute_github_text">Esàmina, curregi e iscrie còdighe, càstia %1$s pro detàllios.</string>
     <string name="community_contribute_headline">Dona su contributu ativu tuo!</string>
-    <string name="community_contribute_irc_text">Intra in sa tzarrada in IRC:</string>
     <string name="community_contribute_translate_text">s\'aplicatzione</string>
     <string name="community_contribute_translate_translate">Tradue</string>
     <string name="community_dev_direct_download">Iscàrriga deretu sa versione de isvilupu</string>
@@ -139,11 +138,9 @@
     <string name="confirmation_remove_folder_alert">A beru boles cantzellare %1$s e is cuntenutos suos?</string>
     <string name="confirmation_remove_folders_alert">A beru boles cantzellare is elementos seberados e is cuntenutos issoro?</string>
     <string name="confirmation_remove_local">Locale isceti</string>
-    <string name="conflict_already_existing_file">S\'archìviu s\'agatat giai</string>
     <string name="conflict_dialog_error">Errore creende una bentana de cunflitu!</string>
     <string name="conflict_file_headline">Archìviu in cunflitu %1$s</string>
     <string name="conflict_message_description">Si seletzionas ambas is versiones, s\'archìviu locale at a tènnere unu nùmeru in agiunta a su nùmene.</string>
-    <string name="conflict_new_file">Archìviu nou</string>
     <string name="contactlist_item_icon">Icona utente pro lista de cuntatos</string>
     <string name="contactlist_no_permission">Perunu permissu, peruna importatzione.</string>
     <string name="contacts_backup_button">Còpia de seguresa immoe</string>
@@ -209,12 +206,10 @@
     <string name="drawer_item_home">Pàgina printzipale</string>
     <string name="drawer_item_notifications">Notìficas</string>
     <string name="drawer_item_on_device">In su dispositivu</string>
-    <string name="drawer_item_recently_added">Agiuntas pagu ora</string>
     <string name="drawer_item_recently_modified">Modificadas pagu ora</string>
     <string name="drawer_item_shared">Cumpartzidas</string>
     <string name="drawer_item_trashbin">Archìvios cantzellados</string>
     <string name="drawer_item_uploads_list">Carrigamentos</string>
-    <string name="drawer_item_videos">Vìdeos</string>
     <string name="drawer_logout">Essi·nche</string>
     <string name="drawer_open">Aberi sa barra</string>
     <string name="drawer_quota">%1$s de %2$s impreadu</string>
@@ -288,7 +283,6 @@
     <string name="file_list_empty_headline_server_search">Perunu resurtadu</string>
     <string name="file_list_empty_moving">Non b\'at nudda. Podes agiùnghere una cartella.</string>
     <string name="file_list_empty_on_device">Is cartellas e is archìvios iscarrigados ant a aparèssere inoghe.</string>
-    <string name="file_list_empty_recently_added">Perunu archìviu agiuntu pagu ora agatadu</string>
     <string name="file_list_empty_recently_modified">Perunu archìviu modificadu in is ùrtimas 7 dies agatadu</string>
     <string name="file_list_empty_search">Forsis est in un\'àtera cartella?</string>
     <string name="file_list_empty_shared">Is cartellas e is archìvios chi cumpartzis ant a aparèssere inoghe.</string>
@@ -354,7 +348,6 @@
     <string name="foreign_files_success">Totu is documentos tramudados</string>
     <string name="forward">Torra a imbiare</string>
     <string name="fourHours">4 oras</string>
-    <string name="fullscreen">Totu ischermu</string>
     <string name="hint_name">Nùmene</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Crae</string>
@@ -370,7 +363,6 @@
     <string name="link">Ligòngiu</string>
     <string name="link_share_allow_upload_and_editing">Permite carrigamentu e modìficas</string>
     <string name="link_share_file_drop">Trìsina archìviu (isceti pro carrigare)</string>
-    <string name="link_share_read_only">letura sola</string>
     <string name="list_layout">Istrutura in elencu</string>
     <string name="local_file_list_empty">Non ddoe at documentos in custa cartella.</string>
     <string name="local_file_not_found_message">Documentu no agatadu in su sistema de documentos locale</string>

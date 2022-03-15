@@ -126,7 +126,6 @@
     <string name="community_contribute_forum_text">Ajude outros em</string>
     <string name="community_contribute_github_text">Reveja, emende e escreva o código, veja %1$s para detalhes.</string>
     <string name="community_contribute_headline">Contribua activamente</string>
-    <string name="community_contribute_irc_text">Junte-se à conversação em IRC:</string>
     <string name="community_contribute_translate_text">a aplicação</string>
     <string name="community_contribute_translate_translate">Traduzir</string>
     <string name="community_dev_direct_download">Transfira diretamente a versão de desenvolvimento</string>
@@ -145,10 +144,8 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="conflict_already_existing_file">Ficheiro já existente</string>
     <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_message_description">Se escolher ambas as versões, o ficheiro local terá um número acrescentado ao nome.</string>
-    <string name="conflict_new_file">Ficheiro novo</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
     <string name="contactlist_no_permission">Sem permissão concedida, nada para importar.</string>
     <string name="contacts">Contactos</string>
@@ -217,12 +214,10 @@
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
-    <string name="drawer_item_recently_added">Adicionados recentemente</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Partilhados</string>
     <string name="drawer_item_trashbin">Ficheiros eliminados</string>
     <string name="drawer_item_uploads_list">Envios</string>
-    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_logout">Terminar sessão</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">Usado %1$s de %2$s</string>
@@ -296,7 +291,6 @@
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
     <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Ficheiros e pastas que foram descarregados aparecem aqui.</string>
-    <string name="file_list_empty_recently_added">Nenhum ficheiro recente foi adicionado</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
     <string name="file_list_empty_shared">Ficheiros e pastas que partilhou aparecem aqui.</string>
@@ -364,7 +358,6 @@
     <string name="foreign_files_success">Todos os ficheiros foram movidos</string>
     <string name="forward">Avançar</string>
     <string name="fourHours">4 horas</string>
-    <string name="fullscreen">Ecrã completo</string>
     <string name="hidden_file_name_warning">O nome resultará num ficheiro oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
@@ -384,7 +377,6 @@
     <string name="link_share_allow_upload_and_editing">Permtir carregamentos e edições</string>
     <string name="link_share_editing">A editar</string>
     <string name="link_share_file_drop">Pasta de carregamento apenas</string>
-    <string name="link_share_read_only">Apenas leitura</string>
     <string name="link_share_view_only">Apenas visualizar </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Mostrar mais resultados</string>

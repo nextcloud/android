@@ -107,7 +107,6 @@
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text">Ndihmo të tjerët në</string>
     <string name="community_contribute_headline">Kontribim aktiv</string>
-    <string name="community_contribute_irc_text">Bashkohu bisedës në IRC:</string>
     <string name="community_contribute_translate_text">aplikacioni</string>
     <string name="community_contribute_translate_translate">Përkthe</string>
     <string name="community_dev_direct_download">Shkarkoni direkt lirimin e zhvillimit</string>
@@ -126,10 +125,8 @@
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
-    <string name="conflict_already_existing_file">Skedar ekzistues</string>
     <string name="conflict_dialog_error">Gabim në krijimin e dialogut për konflikte!</string>
     <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
-    <string name="conflict_new_file">Skedë e re</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
     <string name="contactlist_no_permission">Asnjë leje e dhënë, nuk u importua asgjë.</string>
     <string name="contacts_backup_button">Bëje tani back up</string>
@@ -189,12 +186,10 @@
     <string name="drawer_item_home">Kryefaqja</string>
     <string name="drawer_item_notifications">Njoftime</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
-    <string name="drawer_item_recently_added">Shtuar së fundmi</string>
     <string name="drawer_item_recently_modified">Modifikuar së fundmi</string>
     <string name="drawer_item_shared">U nda</string>
     <string name="drawer_item_trashbin">Skedar të fshirë</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
-    <string name="drawer_item_videos">Videot</string>
     <string name="drawer_logout">Dilni</string>
     <string name="drawer_open">Hapni sidebar-in</string>
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
@@ -257,7 +252,6 @@
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_headline_server_search">Asnjë rezultat</string>
     <string name="file_list_empty_moving">S’ka gjë këtu. Mund të shtoni një dosje.</string>
-    <string name="file_list_empty_recently_added">Nuk u gjet asnjë skedar i shtuar së fundmi</string>
     <string name="file_list_empty_recently_modified">Nuk u gjetë asnjë skedar i modifikuar 7 ditët e fundit</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="file_list_empty_shared_headline">Asgjë e shpërndarë akoma</string>
@@ -333,7 +327,6 @@
     <string name="link">Link</string>
     <string name="link_share_allow_upload_and_editing">Lejo ngarkim dhe editim</string>
     <string name="link_share_file_drop">Lësho skedar (vetëm ngarkim)</string>
-    <string name="link_share_read_only">Vetëm i lexueshëm</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>

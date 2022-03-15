@@ -128,7 +128,6 @@
     <string name="community_contribute_forum_text">Помочь другим пользователям на</string>
     <string name="community_contribute_github_text">Рецензируйте, изменяйте и пишите код, подробности по ссылке %1$s. </string>
     <string name="community_contribute_headline">Активное участие</string>
-    <string name="community_contribute_irc_text">Присоединиться к обсуждению на канале IRC:</string>
     <string name="community_contribute_translate_text">приложение</string>
     <string name="community_contribute_translate_translate">Помочь с переводом</string>
     <string name="community_dev_direct_download">Скачать предвыпускную версию</string>
@@ -147,12 +146,10 @@
     <string name="confirmation_remove_folder_alert">Действительно удалить «%1$s» и его содержимое?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
-    <string name="conflict_already_existing_file">Файл уже существует</string>
     <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
-    <string name="conflict_new_file">Новый файл</string>
     <string name="conflict_server_file">Файл с сервера</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
@@ -225,12 +222,10 @@
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
-    <string name="drawer_item_recently_added">Недавно добавленные</string>
     <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
     <string name="drawer_item_uploads_list">Состояние передачи</string>
-    <string name="drawer_item_videos">Видео</string>
     <string name="drawer_logout">Выйти</string>
     <string name="drawer_open">Открыть боковую панель</string>
     <string name="drawer_quota">использовано %1$s из %2$s </string>
@@ -309,7 +304,6 @@
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
     <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
-    <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
@@ -378,7 +372,6 @@
     <string name="foreign_files_success">Все файлы перемещены</string>
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
-    <string name="fullscreen">Полный экран</string>
     <string name="hidden_file_name_warning">Имя приведет к скрытому файлу</string>
     <string name="hint_name">Имя</string>
     <string name="hint_note">Примечание</string>
@@ -398,7 +391,6 @@
     <string name="link_share_allow_upload_and_editing">Разрешить загрузку и редактирование</string>
     <string name="link_share_editing">Редактирование</string>
     <string name="link_share_file_drop">Хранилище (только загрузка файлов)</string>
-    <string name="link_share_read_only">Только для чтения</string>
     <string name="link_share_view_only">Для просмотра</string>
     <string name="list_layout">Вид списком</string>
     <string name="load_more_results">Показать больше результатов</string>

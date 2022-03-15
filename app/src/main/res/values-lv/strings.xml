@@ -102,7 +102,6 @@
     <string name="community_contribute_forum_forum">forums</string>
     <string name="community_contribute_forum_text">Palīdzi citiem </string>
     <string name="community_contribute_headline">Aktīvi dod iegūldījumu</string>
-    <string name="community_contribute_irc_text">Pievienojies čatam IRC:</string>
     <string name="community_contribute_translate_text">lietotni</string>
     <string name="community_contribute_translate_translate">Tulkot</string>
     <string name="community_release_candidate_headline">Laišanas kandidāts</string>
@@ -117,9 +116,7 @@
     <string name="confirmation_remove_folder_alert">Vai tiešām vēlaties izdzēst %1$s un tā saturu?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="conflict_already_existing_file">Jau esošs fails</string>
     <string name="conflict_dialog_error">Kļūda veidojot konfliktu dialogu!</string>
-    <string name="conflict_new_file">Jauns fails</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
     <string name="contacts_backup_button">Dublēt tagad</string>
@@ -172,12 +169,10 @@
     <string name="drawer_item_home">Mājas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_item_on_device">Ierīcē</string>
-    <string name="drawer_item_recently_added">Nesen pievienotie</string>
     <string name="drawer_item_recently_modified">Nesen mainītie</string>
     <string name="drawer_item_shared">Koplietots</string>
     <string name="drawer_item_trashbin">Dzēstās datnes</string>
     <string name="drawer_item_uploads_list">Augšupielādes</string>
-    <string name="drawer_item_videos">Video</string>
     <string name="drawer_logout">Izrakstīties</string>
     <string name="drawer_open">Atvērt malu</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
@@ -203,7 +198,6 @@
     <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
     <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
     <string name="file_list_empty_moving">Šeit nekā nav. Jūs varat pievienot mapi.</string>
-    <string name="file_list_empty_recently_added">Neatrada nesen pievienotas datnes</string>
     <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
@@ -265,7 +259,6 @@
     <string name="link">Saite</string>
     <string name="link_share_allow_upload_and_editing">Atļaut augšupielādi un rediģēšanu</string>
     <string name="link_share_file_drop">Datņu mešana (tikai augšupielādei)</string>
-    <string name="link_share_read_only">Tikai lasāms</string>
     <string name="list_layout">Saraksta izkārtojums</string>
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
     <string name="local_file_not_found_message">Datne lokālajā datņu sistēmā netika atrasta</string>
