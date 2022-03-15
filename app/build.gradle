@@ -72,6 +72,8 @@ def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 android {
 
     compileSdkVersion 31
+    // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
+    ndkVersion "21.4.7075529"
 
     defaultConfig {
         minSdkVersion 23
