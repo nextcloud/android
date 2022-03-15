@@ -235,38 +235,6 @@ public class ExtendedListFragment extends Fragment implements
             }
         });
 
-        final View mSearchEditFrame = searchView
-            .findViewById(androidx.appcompat.R.id.search_edit_frame);
-
-        ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            int oldVisibility = -1;
-
-            @Override
-            public void onGlobalLayout() {
-
-                int currentVisibility = mSearchEditFrame.getVisibility();
-
-                if (currentVisibility != oldVisibility) {
-                    if (currentVisibility == View.VISIBLE) {
-                        setEmptyListMessage(SearchType.REGULAR_FILTER);
-                    } else {
-                        if (MainApp.isOnlyOnDevice()) {
-                            setMessageForEmptyList(R.string.file_list_empty_headline,
-                                                   R.string.file_list_empty_on_device,
-                                                   R.drawable.ic_list_empty_folder,
-                                                   true);
-                        } else {
-                            setEmptyListMessage(SearchType.NO_SEARCH);
-                        }
-                    }
-
-                    oldVisibility = currentVisibility;
-                }
-
-            }
-        });
-
         LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
         searchBar.setLayoutTransition(new LayoutTransition());
     }
