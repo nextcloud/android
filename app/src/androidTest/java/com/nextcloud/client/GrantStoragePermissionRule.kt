@@ -21,10 +21,10 @@
 
 package com.nextcloud.client
 
+import android.Manifest
 import android.os.Build
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import com.owncloud.android.utils.PermissionUtil
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -35,8 +35,7 @@ class GrantStoragePermissionRule private constructor() {
         @JvmStatic
         fun grant(): TestRule = when {
             Build.VERSION.SDK_INT < Build.VERSION_CODES.R -> GrantPermissionRule.grant(
-                PermissionUtil
-                    .getExternalStoragePermission()
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
             else -> GrantManageExternalStoragePermissionRule()
         }

@@ -121,7 +121,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -316,22 +315,7 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(binding.rootLayout,
-                                                  R.string.permission_storage_access,
-                                                  Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
-                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(this);
-            }
-        }
+        PermissionUtil.requestExternalStoragePermission(this);
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
@@ -399,7 +383,7 @@ public class FileDisplayActivity extends FileActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -407,24 +391,16 @@ public class FileDisplayActivity extends FileActivity
                     EventBus.getDefault().post(new TokenPushEvent());
                     syncAndUpdateFolder(true);
                     // toggle on is save since this is the only scenario this code gets accessed
-                } else {
-                    // permission denied --> do nothing
-                    return;
                 }
-                return;
-            }
-            case PermissionUtil.PERMISSIONS_CAMERA: {
+                break;
+            case PermissionUtil.PERMISSIONS_CAMERA:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     getFileOperationsHelper()
                         .uploadFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
-                } else {
-                    // permission denied
-                    return;
                 }
-                return;
-            }
+                break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -856,6 +832,8 @@ public class FileDisplayActivity extends FileActivity
                 },
                 DELAY_TO_REQUEST_OPERATIONS_LATER
                                     );
+        } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
+            syncAndUpdateFolder(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -1097,7 +1075,7 @@ public class FileDisplayActivity extends FileActivity
         OCFileListFragment ocFileListFragment = (OCFileListFragment) leftFragment;
 
         ocFileListFragment.setLoading(mSyncInProgress);
-        syncAndUpdateFolder(false);
+        syncAndUpdateFolder(false, true);
 
         OCFile startFile = null;
         if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
@@ -2243,11 +2221,15 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void syncAndUpdateFolder(boolean ignoreETag) {
+        syncAndUpdateFolder(ignoreETag, false);
+    }
+
+    private void syncAndUpdateFolder(boolean ignoreETag, boolean ignoreFocus) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                startSyncFolderOperation(folder, ignoreETag);
+                startSyncFolderOperation(folder, ignoreETag, ignoreFocus);
             }
         }
     }

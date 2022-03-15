@@ -37,7 +37,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -59,7 +58,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -265,8 +263,19 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
+    private void requestPermissions() {
+        PermissionUtil.requestExternalStoragePermission(this, true);
+    }
+
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestPermissions();
     }
 
     private void fillDirectoryDropdown() {
@@ -324,25 +333,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private void checkLocalStoragePathPickerPermission() {
         if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                                                  R.string.permission_storage_access,
-                                                  Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
-                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(this);
-            }
-
-            return;
+            requestPermissions();
+        } else {
+            showLocalStoragePathPickerDialog();
         }
-
-        showLocalStoragePathPickerDialog();
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -642,20 +636,24 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (mCurrentDir != null) {
-                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
-            }
-            if (mLocalFolderPickerMode) {
-                Intent data = new Intent();
+            if (PermissionUtil.checkExternalStoragePermission(this)) {
                 if (mCurrentDir != null) {
-                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
                 }
-                setResult(RESULT_OK, data);
+                if (mLocalFolderPickerMode) {
+                    Intent data = new Intent();
+                    if (mCurrentDir != null) {
+                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    }
+                    setResult(RESULT_OK, data);
 
-                finish();
+                    finish();
+                } else {
+                    new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
+                        .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                }
             } else {
-                new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
-                    .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                requestPermissions();
             }
         }
     }
