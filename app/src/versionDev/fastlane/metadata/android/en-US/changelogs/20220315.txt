@@ -1,0 +1,3 @@
+only have one place for capability update cache entry
+Update translations
+Update Nextcloud Android library
