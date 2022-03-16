@@ -21,18 +21,14 @@
 
 package com.owncloud.android.datamodel;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,6 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Media queries to gain access to media lists for the device.
@@ -72,7 +70,7 @@ public final class MediaProvider {
      * @return list with media folders
      */
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
+                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 
@@ -171,29 +169,15 @@ public final class MediaProvider {
         return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
     }
 
-    private static void checkPermissions(@Nullable Activity activity) {
+    private static void checkPermissions(@Nullable AppCompatActivity activity) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            // Check if we should show an explanation
-            if (PermissionUtil
-                .shouldShowRequestPermissionRationale(activity, PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.ListLayout),
-                                                  R.string.permission_storage_access, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(activity));
-
-                ThemeSnackbarUtils.colorSnackbar(activity.getApplicationContext(), snackbar);
-
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(activity);
-            }
+            PermissionUtil.requestExternalStoragePermission(activity, true);
         }
     }
 
     public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final Activity activity, boolean getWithoutActivity) {
+                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
         // check permissions
         checkPermissions(activity);
 

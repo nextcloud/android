@@ -313,7 +313,6 @@
     <string name="file_list_no_app_for_file_type">Không có ứng dụng nào được thiết lập để xử lý loại tệp này.</string>
     <string name="file_list_seconds_ago">vài giây trước</string>
     <string name="file_management_permission">Cần quyền</string>
-    <string name="file_management_permission_text">%1$s cần quyền quản lý tệp để hoạt động đúng. Vui lòng bật ở màn hình sau để tiếp tục.</string>
     <string name="file_migration_checking_destination">Đang kiểm tra diểm cuối</string>
     <string name="file_migration_cleaning">Đang xóa…</string>
     <string name="file_migration_dialog_title">Đang cập nhật thư mục lưu trữ dữ liệu</string>

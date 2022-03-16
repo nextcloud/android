@@ -315,7 +315,6 @@
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_management_permission">Permessi richiesti</string>
-    <string name="file_management_permission_text">%1$s richiede l\'autorizzazione di gestione file per funzionare correttamente. Attivala nella schermata seguente per continuare.</string>
     <string name="file_migration_checking_destination">Controllo della destinazione…</string>
     <string name="file_migration_cleaning">Pulizia in corso…</string>
     <string name="file_migration_dialog_title">Aggiornamento della cartella di archiviazione dei dati</string>

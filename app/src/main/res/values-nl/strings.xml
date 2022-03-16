@@ -315,7 +315,6 @@
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission">Machtigingen nodig</string>
-    <string name="file_management_permission_text">%1$s heeft bestandsmanagement machtigingen nodig om correct te werken. Schakel deze in het volgende scherm in om door te gaan.</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
     <string name="file_migration_dialog_title">Bijwerken gegevensopslagmap</string>

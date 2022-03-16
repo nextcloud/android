@@ -373,4 +373,8 @@ public interface AppPreferences {
     void setPdfZoomTipShownCount(int count);
 
     int getPdfZoomTipShownCount();
+
+    boolean isStoragePermissionRequested();
+
+    void setStoragePermissionRequested(boolean value);
 }

@@ -315,7 +315,6 @@
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_management_permission">Tilladelser er nødvendige</string>
-    <string name="file_management_permission_text">%1$s har brug for filhåndteringstilladelser for at fungere korrekt. Aktiver det på følgende skærmbillede for at fortsætte.</string>
     <string name="file_migration_checking_destination">Tjekker destination...</string>
     <string name="file_migration_cleaning">Renser ud...</string>
     <string name="file_migration_dialog_title">Opdaterer data lagringsmappe</string>

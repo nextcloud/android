@@ -315,7 +315,6 @@
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_management_permission">Permisos necesarios</string>
-    <string name="file_management_permission_text">%1$s necesita permiso de almacenamiento para funcionar correctamente. Por favor, habilítalo en la siguiente pantalla para continuar.</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
