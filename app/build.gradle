@@ -314,11 +314,12 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
     androidTestUtil "androidx.test:orchestrator:$androidxTestVersion"
 
-    // Espresso core
+    // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
 
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
@@ -339,7 +340,6 @@ dependencies {
     //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation('androidx.test.espresso:espresso-intents:3.4.0')
 
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
