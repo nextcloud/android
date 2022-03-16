@@ -1,0 +1,7 @@
+FileDisplayActivity: always try to reload folder on onResume
+PermissionUtil: ensure permission choice dialog doesn't overlap itself
+StoragePermissionDialogFragment: fix theming of buttons
+Design updates for storage permission dialog
+Choice between All Files and read-only external storage in SDK >=30
+Make external storage permission optional
+Update translations
