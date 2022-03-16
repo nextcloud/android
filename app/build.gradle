@@ -13,6 +13,7 @@ buildscript {
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.2.1"
     }
 }
 
@@ -27,12 +28,11 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 println "Gradle uses Java ${Jvm.current()}"
 
 configurations {
-    ktlint
-
     all {
         exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
 
@@ -194,7 +194,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebugReport', 'pmd', 'lint', 'ktlint', 'detekt'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlintCheck', 'detekt'
 
     buildFeatures {
         dataBinding true
@@ -272,7 +272,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    ktlint "com.pinterest:ktlint:0.44.0"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
     implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
@@ -398,20 +397,6 @@ tasks.register("combinedTestReport", JacocoReport) {
     executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
         'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
     ])
-}
-
-task ktlint(type: JavaExec, group: "verification") {
-    description = "Check Kotlin code style."
-    main = "com.pinterest.ktlint.Main"
-    classpath = configurations.ktlint
-    args "--reporter=plain", "--reporter=plain,output=${buildDir}/ktlint.txt,${projectDir}/src/**/*.kt"
-}
-
-task ktlintFormat(type: JavaExec, group: "formatting") {
-    description = "Fix Kotlin code style deviations."
-    main = "com.pinterest.ktlint.Main"
-    classpath = configurations.ktlint
-    args "-F", "${projectDir}/src/**/*.kt"
 }
 
 task installGitHooks(type: Copy, group: "development") {

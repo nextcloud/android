@@ -10,7 +10,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                task: [ detekt, ktlint ]
+                task: [ detekt, ktlintCheck ]
         steps:
             -   uses: actions/checkout@v3
             -   name: Set up JDK 11
