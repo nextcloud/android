@@ -180,6 +180,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
+    private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
 
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
@@ -462,12 +463,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
             themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
-            mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
-                                                                             this,
-                                                                             deviceInfo,
-                                                                             accountManager.getUser(),
-                                                                             getCurrentFile())
-                .show());
+            mFabMain.setOnClickListener(v -> {
+                final OCFileListBottomSheetDialogFragment dialog =
+                    new OCFileListBottomSheetDialogFragment(activity,
+                                                            this,
+                                                            deviceInfo,
+                                                            accountManager.getUser(),
+                                                            getCurrentFile());
+                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_BOTTOM_SHEET);
+            });
         }
     }
 

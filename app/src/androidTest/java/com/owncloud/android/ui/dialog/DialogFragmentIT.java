@@ -57,7 +57,7 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
@@ -391,17 +391,13 @@ public class DialogFragmentIT extends AbstractIT {
         capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
 
-        OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
-                                                                          action,
-                                                                          info,
-                                                                          user,
-                                                                          ocFile);
+        OCFileListBottomSheetDialogFragment sut = new OCFileListBottomSheetDialogFragment(fda,
+                                                                                  action,
+                                                                                  info,
+                                                                                  user,
+                                                                                  ocFile);
 
-        fda.runOnUiThread(sut::show);
-
-        waitForIdleSync();
-
-        screenshot(sut.getWindow().getDecorView());
+        showDialog(fda, sut);
     }
 
     @Test

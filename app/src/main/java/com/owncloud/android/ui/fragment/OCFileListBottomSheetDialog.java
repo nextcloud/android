@@ -52,9 +52,6 @@ import javax.inject.Inject;
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
  */
 public class OCFileListBottomSheetDialog extends BottomSheetDialog implements Injectable {
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeUtils themeUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
 
     private FileListActionsBottomSheetFragmentBinding binding;
     private final OCFileListBottomSheetActions actions;
@@ -62,18 +59,28 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final DeviceInfo deviceInfo;
     private final User user;
     private final OCFile file;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeUtils themeUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
+
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
                                        DeviceInfo deviceInfo,
                                        User user,
-                                       OCFile file) {
+                                       OCFile file,
+                                       ThemeColorUtils themeColorUtils,
+                                       ThemeUtils themeUtils,
+                                       ThemeDrawableUtils themeDrawableUtils) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
         this.user = user;
         this.file = file;
+        this.themeColorUtils = themeColorUtils;
+        this.themeUtils = themeUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     @Override

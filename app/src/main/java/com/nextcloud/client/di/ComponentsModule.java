@@ -100,6 +100,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
@@ -418,4 +419,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract StoragePermissionDialogFragment storagePermissionDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract OCFileListBottomSheetDialogFragment ocfileListBottomSheetDialogFragment();
 }
