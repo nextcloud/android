@@ -1649,6 +1649,7 @@ public class FileDisplayActivity extends FileActivity
 
         resetHeaderScrollingState();
 
+        setFile(file);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setLeftFragment(detailFragment);
 
