@@ -314,7 +314,6 @@
     <string name="file_list_no_app_for_file_type">Nu este instalată nicio aplicație care să deschidă acest tip de fișiere.</string>
     <string name="file_list_seconds_ago">secunde în urmă</string>
     <string name="file_management_permission">Este necesară acordarea permisiunii</string>
-    <string name="file_management_permission_text">%1$snecesită permisiunea de gestiune a fișierelor pentru a funcționa corect. Acordă această permisiune în ecranul următor înainte de a continua.</string>
     <string name="file_migration_checking_destination">Se verifică destinația…</string>
     <string name="file_migration_cleaning">Curățare…</string>
     <string name="file_migration_dialog_title">Se actualizează dosarul de stocare a datelor</string>

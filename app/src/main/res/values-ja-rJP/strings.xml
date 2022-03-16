@@ -313,7 +313,6 @@
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_management_permission">必要な権限</string>
-    <string name="file_management_permission_text">%1$sは、正常に動作させるためにファイル管理権限が必要です。続行するには、以下の画面で有効にしてください。</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
     <string name="file_migration_dialog_title">データ保存フォルダーを更新</string>

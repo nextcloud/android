@@ -315,7 +315,6 @@
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="file_list_seconds_ago">fa uns segons</string>
     <string name="file_management_permission">Es necessiten permisos</string>
-    <string name="file_management_permission_text">%1$snecessita permisos de gestió de fitxers per funcionar correctament. Habiliteu-lo a la pantalla següent per continuar.</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
     <string name="file_migration_cleaning">S\'està netejant…</string>
     <string name="file_migration_dialog_title">Actualitzant la carpeta de dades</string>

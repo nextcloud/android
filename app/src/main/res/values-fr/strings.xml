@@ -317,7 +317,6 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_management_permission">Autorisations requises</string>
-    <string name="file_management_permission_text">%1$s a besoin des autorisations de gestion de fichiers pour fonctionner correctement. Veuillez l\'activer dans l\'écran suivant pour continuer.</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du répertoire de données</string>
