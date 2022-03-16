@@ -388,14 +388,32 @@
             app:layout_constraintTop_toBottomOf="@+id/share_process_download_limit_switch"
             tools:visibility="visible" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/share_process_remaining_download_count_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:text="@string/download_text"
+            android:textColor="@color/grey_60"
+            android:textSize="@dimen/txt_size_15sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/share_process_download_limit_et"
+            tools:visibility= "visible"/>
+
+
         <View
             android:id="@+id/divider_sharing_download_limit"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:background="@color/list_divider_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/share_process_download_limit_et" />
+            app:layout_constraintTop_toBottomOf="@+id/share_process_remaining_download_count_tv" />
 
 
         <androidx.constraintlayout.widget.Group
@@ -415,7 +433,7 @@
                 divider_sharing_exp_date,divider_sharing_hide_download,
                 share_file_drop_info, share_process_allow_resharing_info,
                 share_process_download_limit_switch, divider_sharing_download_limit,
-                share_process_download_limit_et" />
+                share_process_download_limit_et,share_process_remaining_download_count_tv " />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_message_title"
@@ -483,7 +501,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="share_process_download_limit_et, note_text" />
+            app:constraint_referenced_ids="share_process_remaining_download_count_tv, note_text" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share_process_btn_cancel"

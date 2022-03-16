@@ -596,7 +596,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
                                boolean isExpiryDateShown);
 
-        void onLinkShareDownloadLimitFetched(long downloadLimit);
+        void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount);
 
         void onShareProcessClosed();
     }

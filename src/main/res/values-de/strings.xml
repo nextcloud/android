@@ -1057,6 +1057,7 @@
     <string name="link_download_limit">Download Limit</string>
     <string name="download_limit_empty">Das Feld für das Download limit darf nicht leer sein.</string>
     <string name="hint_download_limit">Downlimit eingeben</string>
+    <string name="download_text">Download: </string>
     <string name="download_limit_zero">Der Wert für das Download sollte größer als 0 sein.</string>
     <string name="no_send_app">Keine App verfügbar um die ausgewählten Dateien zu senden.</string>
 </resources>
