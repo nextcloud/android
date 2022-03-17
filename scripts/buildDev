@@ -11,6 +11,17 @@ sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
 sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 # build signed apk
+source ndk.env
+yes | sdkmanager --licenses
+
+if [ ! -e ~/android-sdk/ndk/${NDK_VERSION} ]; then
+    sdkmanager "ndk;${NDK_VERSION}"
+fi
+
+if [ ! -e ~/android-sdk/cmake/${CMAKE_VERSION} ]; then
+    sdkmanager "cmake;${CMAKE_VERSION}"
+fi
+
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
 
 if [ $? != 0 ] ; then

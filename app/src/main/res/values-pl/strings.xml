@@ -315,6 +315,9 @@
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
     <string name="file_management_permission">Potrzebne uprawnienia</string>
+    <string name="file_management_permission_optional">Uprawnienia do pamięci</string>
+    <string name="file_management_permission_optional_text">%1$s działa najlepiej z uprawnieniami dostępu do pamięci. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
+    <string name="file_management_permission_text">%1$s potrzebuje uprawnień do zarządzania plikami, aby wysyłać pliki. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
     <string name="file_migration_dialog_title">Aktualizacja katalogu przechowywania danych</string>
@@ -697,6 +700,8 @@
     <string name="storage_internal_storage">Pamięć wewnętrzna</string>
     <string name="storage_movies">Filmy</string>
     <string name="storage_music">Muzyka</string>
+    <string name="storage_permission_full_access">Pełny dostęp</string>
+    <string name="storage_permission_media_read_only">Multimedia tylko do odczytu</string>
     <string name="storage_pictures">Obrazy</string>
     <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>

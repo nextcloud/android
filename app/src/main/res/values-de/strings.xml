@@ -315,6 +315,9 @@
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission">Berechtigungen erforderlich</string>
+    <string name="file_management_permission_optional">Speicherberechtigungen</string>
+    <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
+    <string name="file_management_permission_text">%1$s benötigt Dateiverwaltungsberechtigungen, um Dateien hochzuladen. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen. </string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
@@ -697,6 +700,8 @@
     <string name="storage_internal_storage">Interner Speicher</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Musik</string>
+    <string name="storage_permission_full_access">Voller Zugriff</string>
+    <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
     <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\n\nFunktionen:\n* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers\n*
 .\n\nEigenschaften:\n* Einfache, moderne an Ihr Design angepasste Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Halten Sie Ihre favorisierten Dateien und Ordner synchron\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud an unter https://nextcloud.com.</string>
