@@ -1152,7 +1152,7 @@
     <string name="link_download_limit">Download Limit</string>
     <string name="download_limit_empty">Download limit cannot be empty.</string>
     <string name="hint_download_limit">Enter download limit</string>
-    <string name="download_text">Download: </string>
+    <string name="download_text">Downloads:\u0020</string>
     <string name="download_limit_zero">Download limit should be greater than 0.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_gallery">Found no images or videos</string>
