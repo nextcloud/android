@@ -1531,7 +1531,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    private void setTitle() {
+    protected void setTitle() {
         // set title
 
         if (getActivity() instanceof FileDisplayActivity && currentSearchType != null) {
@@ -1588,7 +1588,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setEmptyView(SearchEvent event) {
+    protected void setEmptyView(SearchEvent event) {
         if (event != null) {
             switch (event.getSearchType()) {
                 case FILE_SEARCH:
@@ -1673,85 +1673,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         handleSearchEvent(event);
     }
 
-    private static class SearchAsyncTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final WeakReference<FileFragment.ContainerActivity> activityReference;
-        private final WeakReference<OCFileListFragment> fragmentReference;
-        private final RemoteOperation remoteOperation;
-        private final User currentUser;
-        private final SearchEvent event;
-
-        private SearchAsyncTask(final FileFragment.ContainerActivity containerActivity, final OCFileListFragment fragment, final RemoteOperation remoteOperation, final User currentUser, final SearchEvent event) {
-            this.activityReference = new WeakReference<>(containerActivity);
-            this.fragmentReference = new WeakReference<>(fragment);
-            this.remoteOperation = remoteOperation;
-            this.currentUser = currentUser;
-            this.event = event;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            final OCFileListFragment fragment = fragmentReference.get();
-            if (fragment != null) {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    fragment.setLoading(true);
-                    fragment.setEmptyListLoadingMessage();
-                });
-            }
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            final OCFileListFragment fragment = fragmentReference.get();
-            if (fragment != null) {
-                fragment.setTitle();
-                if (fragment.getContext() != null && !isCancelled()) {
-                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(
-                        currentUser.toPlatformAccount(), fragment.getContext());
-
-                    FileDataStorageManager storageManager = null;
-                    final FileFragment.ContainerActivity containerActivity = activityReference.get();
-                    if (containerActivity != null && containerActivity.getStorageManager() != null) {
-                        storageManager = containerActivity.getStorageManager();
-                    }
-
-                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
-                        && !isCancelled() && fragment.searchFragment) {
-                        fragment.searchEvent = event;
-
-                        if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
-                            fragment.setEmptyView(event);
-                        } else {
-                            fragment.mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
-                                                      fragment.currentSearchType,
-                                                      storageManager,
-                                                      fragment.mFile,
-                                                      true);
-                        }
-                    }
-
-                    return remoteOperationResult.isSuccess();
-                } else {
-                    return Boolean.FALSE;
-                }
-            }
-            return Boolean.FALSE;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean bool) {
-            final OCFileListFragment fragment = fragmentReference.get();
-            if (fragment != null) {
-                fragment.setLoading(false);
-                if (!isCancelled()) {
-                    fragment.mAdapter.notifyDataSetChanged();
-                }
-            }
-
-        }
-    }
-
-
     private void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
@@ -1794,7 +1715,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = new GetSharesRemoteOperation();
         }
 
-        remoteOperationAsyncTask = new SearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
+        remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
 
         remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
