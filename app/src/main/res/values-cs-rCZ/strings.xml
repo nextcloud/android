@@ -315,6 +315,9 @@
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí jaké aplikace otevírat tento typ souboru.</string>
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_management_permission">Vyžadována oprávnění</string>
+    <string name="file_management_permission_optional">Oprávnění k úložišti</string>
+    <string name="file_management_permission_optional_text">%1$s funguje nejlépe s oprávněními pro přístup k úložišti. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
+    <string name="file_management_permission_text">Aby %1$s mohlo nahrávat soubory na server, potřebuje oprávnění pro správu souborů. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
     <string name="file_migration_dialog_title">Aktualizuje se složka úložiště</string>
@@ -697,6 +700,8 @@
     <string name="storage_internal_storage">Vnitřní úložiště</string>
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>
+    <string name="storage_permission_full_access">Plný přístup</string>
+    <string name="storage_permission_media_read_only">Média pouze pro čtení</string>
     <string name="storage_pictures">Obrázky</string>
     <string name="store_full_desc">U vás hostovaná platforma pro produktivitu, která ponechává kontrolu vám
 
