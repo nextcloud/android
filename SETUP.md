@@ -92,7 +92,7 @@ This is handy if one wants to make changes both to files app and library:
 - In the repository root: `ln -s [path to library clone] nextcloud-android-library`
 - Add the following to `settings.gradle`:
   ```groovy
-  include ':nextcloud-android-library'
+  include ':nextcloud-android-library:library'
   ```
 - In `app/build.gradle`, replace the following:  
   ```groovy 
@@ -102,7 +102,7 @@ This is handy if one wants to make changes both to files app and library:
   ```
   with:
   ``` groovy
-  implementation project(':nextcloud-android-library')
+  implementation project(':nextcloud-android-library:library')
   ```
 
 - Sync project with gradle files
