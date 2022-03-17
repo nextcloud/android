@@ -1,0 +1,7 @@
+Use ktlint plugin instead of manual ktlint tasks
+build.gradle: Don't hardcode espresso-intents version, use the same as other espresso libs
+if no shared files are on server, show correct empty message
+FileDisplayActivity: set file when opening FileDetailsFragment
+Centralize NDK and CMAKE versions
+build: Specify NDK version (optional install)
+Update translations
