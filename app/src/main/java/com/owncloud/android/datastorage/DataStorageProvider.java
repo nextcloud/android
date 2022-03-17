@@ -24,10 +24,9 @@ package com.owncloud.android.datastorage;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Bartosz Przybylski
@@ -48,10 +47,9 @@ public class DataStorageProvider {
             return mCachedStoragePoints.toArray(new StoragePoint[0]);
         }
 
-        List<String> paths = new ArrayList<>();
         StoragePoint storagePoint;
         for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-            if (f != null && !paths.contains(f.getAbsolutePath())) {
+            if (f != null) {
                 storagePoint = new StoragePoint();
                 storagePoint.setPath(f.getAbsolutePath());
                 storagePoint.setDescription(f.getAbsolutePath());
@@ -75,9 +73,7 @@ public class DataStorageProvider {
         storagePoint.setPath(MainApp.getAppContext().getFilesDir().getAbsolutePath());
         storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
         storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
-        if (!paths.contains(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
             mCachedStoragePoints.add(storagePoint);
-        }
 
         // Add external storage directory if available.
         if (isExternalStorageWritable()) {
@@ -91,11 +87,21 @@ public class DataStorageProvider {
                 storagePoint.setDescription(externalFilesDirPath);
                 storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
                 storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                if (!paths.contains(externalFilesDirPath)) {
-                    mCachedStoragePoints.add(storagePoint);
-                }
+                mCachedStoragePoints.add(storagePoint);
             }
         }
+
+        // Add Downloads subfolder, if the app has permission for external storage
+        if (PermissionUtil.checkExternalStoragePermission(MainApp.getAppContext(), true)) {
+            File downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            storagePoint = new StoragePoint();
+            storagePoint.setPath(downloadsFolder.getAbsolutePath());
+            storagePoint.setDescription(downloadsFolder.getAbsolutePath());
+            storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
+            storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
+            mCachedStoragePoints.add(storagePoint);
+        }
+
 
         return mCachedStoragePoints.toArray(new StoragePoint[0]);
     }
