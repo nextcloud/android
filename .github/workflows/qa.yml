@@ -20,6 +20,7 @@ jobs:
                     distribution: "temurin"
                     java-version: 11
             -   name: Install NDK and cmake
+                if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 run: |
                     source ndk.env
                     /usr/local/lib/android/sdk/tools/bin/sdkmanager "ndk;${NDK_VERSION}" "cmake;${CMAKE_VERSION}"
