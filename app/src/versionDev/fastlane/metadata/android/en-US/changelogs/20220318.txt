@@ -1,0 +1,7 @@
+OCFileListFragment: extract seach async task and convert it to kotlin
+Update FolderPickerActivity screenshot
+ExtendedListFragment: Remove ViewTreeObserver on search frame
+OCFileListFragment: make search async task static, fix loading animation usage
+ReceiveExternalFilesActivity: don't crash if no user present
+Update translations
+Update Nextcloud Android library
