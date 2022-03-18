@@ -315,6 +315,9 @@
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
     <string name="file_management_permission">Vyžadujú sa o oprávnenia</string>
+    <string name="file_management_permission_optional">Oprávnenia úložiska</string>
+    <string name="file_management_permission_optional_text">%1$s funguje najlepšie s oprávnením pre prístup k úložisku. Môžete si vybrať úplný prístup ku všetkým súborom alebo prístup iba na čítanie k fotografiám a videám.</string>
+    <string name="file_management_permission_text">%1$s potrebuje na nahrávanie súborov oprávnenie na správu súborov. Môžete si vybrať úplný prístup ku všetkým súborom alebo prístup iba na čítanie k fotografiám a videám.</string>
     <string name="file_migration_checking_destination">Kontrolujem umiestnenie…</string>
     <string name="file_migration_cleaning">Čistenie…</string>
     <string name="file_migration_dialog_title">Aktualizujem adresár dátového úložiska</string>
@@ -697,6 +700,8 @@
     <string name="storage_internal_storage">Interné úložisko</string>
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
+    <string name="storage_permission_full_access">Plný prístup</string>
+    <string name="storage_permission_media_read_only">Médiá iba načítanie</string>
     <string name="storage_pictures">Obrázky</string>
     <string name="store_full_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\n\nFunkcie:\n* Jednoducho použiteľné moderné rozhranie, hodiace sa k vzhľadu vášho servera\n* Nahrávanie súborov na Nextcloud server\n* Ich sprístupnenie s inými ľudmi\n* Synchronizácia vašich obľúbených súborov a priečinkov\n* Vyhľadávanie naprieč všetkými zložkami na serveri\n* Automatické nahrávanie fotiek a videí nasnímaných vašim zariadením\n* Doručovanie notifikácií\n* Podpora viac účtov naraz\n* Zabezpečený prístup k vašim dátam pomocou odtlačku prstu alebo kódom PIN\n* Začlenenie DAVx5 (predtým známy ako DAVdroid) pre jednoduchý prístup ku kalendáru &amp; synchronizácii kontaktov\n\nAkékoľvek problémy prosím hláste na https://github.com/nextcloud/android/issues a o aplikácii môžete diskutovať na https://help.nextcloud.com/c/clients/android\n\nNepoznáte ešte Nextcloud? Nextcloud je server pre súkromnú synchronizáciu súborov &amp;, zdieľanie a komunikáciu. Je to slobodný softvér a môžete si ho prevádzkovať buď sami alebo si ho prenajímať od nejakej spoločnosti. Týmto spôsobom získate plnú vládu nad svojimi fotkami, údajom v kalendári a kontaktoch, dokumentom a všetkým ostatným.\n\nViac zistíte na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>

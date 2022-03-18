@@ -77,7 +77,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
@@ -1384,7 +1383,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    private void setTitle() {
+    protected void setTitle() {
         // set title
 
         if (getActivity() instanceof FileDisplayActivity && currentSearchType != null) {
@@ -1428,7 +1427,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setEmptyView(SearchEvent event) {
+    protected void setEmptyView(SearchEvent event) {
         if (event != null) {
             switch (event.getSearchType()) {
                 case FILE_SEARCH:
@@ -1556,56 +1555,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = new GetSharesRemoteOperation();
         }
 
-        remoteOperationAsyncTask = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                setTitle();
-                if (getContext() != null && !isCancelled()) {
-                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(
-                        currentUser.toPlatformAccount(), getContext());
 
-                    FileDataStorageManager storageManager = null;
-                    if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
-                        storageManager = mContainerActivity.getStorageManager();
-                    }
-
-                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
-                        && !isCancelled() && searchFragment) {
-                        searchEvent = event;
-
-                        if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
-                            setEmptyView(event);
-                        } else {
-                            mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
-                                             currentSearchType,
-                                             storageManager,
-                                             mFile,
-                                             true);
-                        }
-
-                        final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
-                        if (fileDisplayActivity != null) {
-                            fileDisplayActivity.runOnUiThread(() -> {
-                                if (fileDisplayActivity != null) {
-                                    setLoading(false);
-                                }
-                            });
-                        }
-                    }
-
-                    return remoteOperationResult.isSuccess();
-                } else {
-                    return Boolean.FALSE;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Boolean bool) {
-                if (!isCancelled()) {
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        };
+        remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
 
         remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

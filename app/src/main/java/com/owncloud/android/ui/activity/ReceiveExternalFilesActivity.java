@@ -264,7 +264,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);
-        outState.putParcelable(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        if (getUser().isPresent()) {
+            outState.putParcelable(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        }
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
