@@ -484,7 +484,7 @@ public class FileDisplayActivity extends FileActivity
 
                 SearchEvent searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
                 if (searchEvent != null) {
-                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.getSearchType())) {
+                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == searchEvent.getSearchType()) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
                         GalleryFragment photoFragment = new GalleryFragment();

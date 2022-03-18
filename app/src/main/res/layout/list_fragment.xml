@@ -33,7 +33,12 @@
         <com.owncloud.android.ui.EmptyRecyclerView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:fastScrollPopupBgColor="@color/color_accent"
+            app:fastScrollPopupTextColor="@color/login_text_color"
+            app:fastScrollThumbColor="@color/color_accent"
+            app:fastScrollAutoHide="true"
+            app:fastScrollAutoHideDelay="1500" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
