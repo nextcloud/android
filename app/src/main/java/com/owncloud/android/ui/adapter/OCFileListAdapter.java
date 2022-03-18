@@ -84,10 +84,13 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -104,7 +107,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
  */
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-    implements DisplayUtils.AvatarGenerationListener {
+    implements DisplayUtils.AvatarGenerationListener, FastScrollRecyclerView.SectionedAdapter {
 
     private static final int showFilenameColumnThreshold = 4;
     private final ComponentsGetter transferServiceGetter;
@@ -137,6 +140,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
     private boolean showMetadata = true;
+
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
 
     public OCFileListAdapter(
         Activity activity,
@@ -770,11 +775,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return output;
     }
 
-    public OCFile getItem(int position) {
+    public @Nullable
+    OCFile getItem(int position) {
         int newPosition = position;
 
         if (shouldShowHeader() && position > 0) {
             newPosition = position - 1;
+        }
+
+        if (newPosition >= mFiles.size()) {
+            return null;
         }
 
         return mFiles.get(newPosition);
@@ -1207,6 +1217,35 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setShowMetadata(boolean bool) {
         showMetadata = bool;
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        // sort
+        Enum<FileSortOrder.SortType> sortOrderType;
+        if (ocFileListFragmentInterface.isGalleryFragment()) {
+            sortOrderType = FileSortOrder.SortType.DATE;
+        } else {
+            sortOrderType = preferences.getSortOrderByFolder(currentDirectory).getType();
+        }
+
+        OCFile file = getItem(position);
+
+        if (file == null) {
+            return "";
+        }
+
+        if (sortOrderType == FileSortOrder.SortType.ALPHABET) {
+            return String.valueOf(file.getFileName().charAt(0));
+        } else if (sortOrderType == FileSortOrder.SortType.DATE) {
+            long milliseconds = file.getModificationTimestamp();
+            Date date = new Date(milliseconds);
+            return dateFormat.format(date);
+        } else {
+            // Size
+            return DisplayUtils.bytesToHumanReadable(file.getFileLength());
+        }
     }
 
     @VisibleForTesting
