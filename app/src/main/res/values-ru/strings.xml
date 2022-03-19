@@ -260,6 +260,7 @@
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
+    <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>
     <string name="etm_accounts">Аккаунты</string>
     <string name="etm_background_job_name">Имя задания</string>
     <string name="etm_background_job_progress">Прогресс</string>
@@ -314,6 +315,10 @@
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_management_permission">Недостаточно прав</string>
+    <string name="file_management_permission_optional">Права на хранилище</string>
+    <string name="file_management_permission_optional_text">%1$s работает лучше всего при наличии доступа к хранилищу. Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
+    <string name="file_management_permission_text">%1$s необходимы права на управления файлами, для их загрузки.
+Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
     <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>
@@ -488,6 +493,7 @@
     <string name="pass_code_removed">Код удалён</string>
     <string name="pass_code_stored">Код сохранён</string>
     <string name="pass_code_wrong">Некорректный код</string>
+    <string name="pdf_zoom_tip">Нажмите на страницу, чтобы увеличить</string>
     <string name="permission_allow">Разрешить</string>
     <string name="permission_deny">Запретить</string>
     <string name="permission_storage_access">Для отправки и скачивания файлов требуются дополнительные права доступа.</string>
@@ -695,6 +701,8 @@
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>
+    <string name="storage_permission_full_access">Полный доступ</string>
+    <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
     <string name="store_full_desc">Приложение Nextcloud для Android, распространяемое под свободной копилефт лицензией, позволяет получать доступ к файлам на своём сервере Nextcloud с мобильных устройств.\n\nВозможности: \n* Легкий современный интерфейс\n* Передача файлов на сервер Nextcloud\n* Возможность делиться своими файлами с другими\n* Синхронизация файлов и папок\n* Поиск по всем папкам на сервере\n* Автоматическая передача на сервер видео и фотографий, сделанных на мобильном устройстве\n* Поддержка нескольких учётных записей\n* Защита доступа к данным отпечатком пальца или ПИН-кодом\n* Интеграция с DAVx5 (ранее называвшемся DAVdroid) для лёгкой настройки синхронизации календарей и контактов\n\nЗамечания и ошибки: https://github.com/nextcloud/android/issues \nПомощь и обсуждение: https://help.nextcloud.com\n\nНе знакомы с Nextcloud? Nextcloud — это свободное серверное ПО для хранения и совместной работы с файлами, событиями календаря, контактами, документами и пр. с открытым исходным кодом. Вы можете самостоятельно развернуть сервер или поручить компании сделать это для вас. Таким образом, только вы управляете своими фотографиями, своими календарями и записными книжками, своими документами и всем остальным.\n\nПознакомьтесь с Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными.\nЭто разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
@@ -782,6 +790,7 @@
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
     <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
+    <string name="upload_scan_doc_upload">Сканировать документ через камеру</string>
     <string name="upload_sync_conflict">Требуется вмешательство для разрешения конфликта синхронизации</string>
     <string name="upload_unknown_error">Неизвестная ошибка</string>
     <string name="uploader_btn_alternative_text">Выберите</string>
