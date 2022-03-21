@@ -278,12 +278,12 @@ private_lane :enableLogger do
     sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
-desc "Upload to play store"
+desc "Upload to play store (beta)"
 private_lane :uploadToPlaystore_RC do |options|
     upload_to_play_store(
         skip_upload_images: true,
         track: 'beta',
-        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+        aab: "release/app-gplay-release.aab"
     )
 end
 
@@ -291,21 +291,28 @@ desc "Upload to play store"
 private_lane :uploadToPlaystore_Final do |options|
     upload_to_play_store(
         skip_upload_images: true,
-        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+        aab: "release/app-gplay-release.aab"
     )
 end
 
 
-desc "Builds app bundle"
+desc "Build app bundle"
 private_lane :buildBundle do |options|
     gradle(
         task: 'bundle',
         flavor: options[:flavor],
-        build_type: 'Release'
-    )
+        build_type: 'Release',
+        print_command: false,
+        properties: {
+              "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_FILE"],
+              "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_PASSWORD"],
+              "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_ALIAS"],
+              "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD"],
+            }
+        )
 end
 
-desc "Generates signed universal APK from app bundle"
+desc "Generate signed universal APK from app bundle"
 private_lane :buildApkFromBundle do |options|
     sh(command:"bundletool build-apks --mode universal --output '#{options[:outputDir]}' --output-format DIRECTORY" +
         " --ks '#{ENV["FASTLANE_NEXTCLOUD_STORE_FILE"]}'"+
@@ -316,7 +323,7 @@ private_lane :buildApkFromBundle do |options|
         log:false)
 end
 
-desc "Builds signed APK"
+desc "Build signed APK"
 private_lane :SignedRelease do |options|
     gradle(
         task: 'assemble',
