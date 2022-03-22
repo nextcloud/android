@@ -1,0 +1,5 @@
+GooglePlayUtils: convert to Kotlin, fix spotbugs
+build.gradle: Add clean task to root project
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
