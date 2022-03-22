@@ -454,7 +454,7 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final User user = currentAccount.getUser();
         new Thread(() -> {
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getRemoteId());
             RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
