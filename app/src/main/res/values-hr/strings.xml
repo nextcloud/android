@@ -148,7 +148,9 @@
     <string name="confirmation_remove_local">Samo lokalno</string>
     <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
     <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
+    <string name="conflict_local_file">Lokalna datoteka</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
+    <string name="conflict_server_file">Datoteka na poslužitelju</string>
     <string name="contactlist_item_icon">Ikona korisnika za popis kontakata</string>
     <string name="contactlist_no_permission">Nema dopuštenja, ništa nije uvezeno.</string>
     <string name="contacts">Kontakti</string>
@@ -252,10 +254,13 @@
     <string name="error_choosing_date">Pogreška pri odabiru datuma</string>
     <string name="error_comment_file">Pogreška pri komentiranju datoteke</string>
     <string name="error_crash_title">Ispad %1$s</string>
+    <string name="error_creating_file_from_template">Pogreška kod stvaranja datoteke iz predloška</string>
     <string name="error_report_issue_action">Prijavi</string>
+    <string name="error_report_issue_text">Prijaviti grešku razvojnom timu? (potreban GitHub korisnički račun)</string>
     <string name="error_retrieving_file">Pogreška pri dohvaćanju datoteke</string>
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
+    <string name="error_starting_scan_doc">Pogreška kod upotrebe skeniranja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>
@@ -294,6 +299,7 @@
     <string name="file_list_empty">Otpremite neki sadržaj ili sinkronizirajte sa svojim uređajima.</string>
     <string name="file_list_empty_favorite_headline">Nema spremljenih favorita</string>
     <string name="file_list_empty_favorites_filter_list">Ovdje će se prikazati datoteke i mape koje označite kao favorite.</string>
+    <string name="file_list_empty_gallery">Nisu pronađene fotografije niti video materijali</string>
     <string name="file_list_empty_headline">Ovdje nema datoteka</string>
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj mapi</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
@@ -303,10 +309,15 @@
     <string name="file_list_empty_search">Možda je u drugoj mapi?</string>
     <string name="file_list_empty_shared">Ovdje će se prikazati datoteke i mape koje dijelite.</string>
     <string name="file_list_empty_shared_headline">Još ništa nije dijeljeno</string>
+    <string name="file_list_empty_unified_search_no_results">Nema rezultata za vaš upit</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_loading">Učitavanje…</string>
     <string name="file_list_no_app_for_file_type">Nije postavljena nijedna aplikacija za obrađivanje ove vrste datoteka.</string>
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
+    <string name="file_management_permission">Potrebna su dopuštenja</string>
+    <string name="file_management_permission_optional">Dopuštenja za pohranu</string>
+    <string name="file_management_permission_optional_text">%1$sradi najbolje s dozvoljenim pristupom prostoru za pohranu. Možete odabrati potpuni pristup svim datotekama ili samo mogućnost \"čitanja\" za fotografije i video materijale.</string>
+    <string name="file_management_permission_text">%1$szahtijeva dodatna dopuštenja za slanje datoteka. Možete odabrati potpuni pristup svim datotekama ili samo mogućnost \"čitanja\" za fotografije i video materijale.</string>
     <string name="file_migration_checking_destination">Provjera odredišta...</string>
     <string name="file_migration_cleaning">Čišćenje…</string>
     <string name="file_migration_dialog_title">Ažuriranje mape za pohranu datoteka</string>
@@ -364,6 +375,7 @@
     <string name="foreign_files_success">Sve datoteke su premještene</string>
     <string name="forward">Naprijed</string>
     <string name="fourHours">4 sata</string>
+    <string name="hidden_file_name_warning">Datoteka s ovakvim nazivom će biti skrivena </string>
     <string name="hint_name">Naziv</string>
     <string name="hint_note">Bilješka</string>
     <string name="hint_password">Zaporka</string>
@@ -444,6 +456,7 @@
     <string name="no_email_app_available">Nema dostupnih aplikacija za upravljanje adresama e-pošte</string>
     <string name="no_mutliple_accounts_allowed">Dopušten je samo jedan račun</string>
     <string name="no_pdf_app_available">Nema dostupnih aplikacija za upravljanje PDF datotekama</string>
+    <string name="no_send_app">Aplikacija za slanje odabranih datoteka ne postoji na uređaju ili nije dostupna</string>
     <string name="no_share_permission_selected">Odaberite barem jedno dopuštenje za dijeljenje.</string>
     <string name="note_confirm">Pošalji</string>
     <string name="note_could_not_sent">Nije moguće poslati bilješku</string>
@@ -479,6 +492,7 @@
     <string name="pass_code_removed">Zaporka je izbrisana</string>
     <string name="pass_code_stored">Zaporka je spremljena</string>
     <string name="pass_code_wrong">Neispravna zaporka</string>
+    <string name="pdf_zoom_tip">Pritisni na stranicu za uvećavanje</string>
     <string name="permission_allow">Dopusti</string>
     <string name="permission_deny">Spriječi</string>
     <string name="permission_storage_access">Potrebna su dodatna dopuštenja za otpremanje i preuzimanje datoteka.</string>

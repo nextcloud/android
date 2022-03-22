@@ -308,7 +308,7 @@ dependencies {
     testImplementation "org.powermock:powermock-core:$powermockVersion"
     testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
-    testImplementation 'org.json:json:20211205'
+    testImplementation 'org.json:json:20220320'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
@@ -352,7 +352,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:20.1.3"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.0.2"
 }
 
 configurations.all {
