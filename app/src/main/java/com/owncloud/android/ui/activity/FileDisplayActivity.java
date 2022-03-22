@@ -542,8 +542,7 @@ public class FileDisplayActivity extends FileActivity
 
     protected void resetTitleBarAndScrolling() {
         updateActionBarTitleAndHomeButton(null);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
-        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        resetScrolling();
     }
 
     public void updateListOfFilesFragment(boolean fromSearch) {
@@ -1019,8 +1018,7 @@ public class FileDisplayActivity extends FileActivity
             createMinFragments(null);
         } else {
             // pop back
-            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams())
-                .setBehavior(new AppBarLayout.ScrollingViewBehavior());
+            resetScrolling();
             hideSearchView(getCurrentDir());
             showSortListGroup(true);
             super.onBackPressed();
@@ -1505,7 +1503,7 @@ public class FileDisplayActivity extends FileActivity
     public void showDetails(OCFile file, int activeTab) {
         User currentUser = getUser().orElseThrow(RuntimeException::new);
 
-        resetHeaderScrollingState();
+        resetScrolling();
 
         setFile(file);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
@@ -1515,14 +1513,30 @@ public class FileDisplayActivity extends FileActivity
         mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
-    private void resetHeaderScrollingState() {
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
-        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+    /**
+     * Prevents content scrolling and toolbar collapse
+     */
+    private void lockScrolling() {
+        final CoordinatorLayout.LayoutParams coordinatorParams = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
+        coordinatorParams.setBehavior(null);
+        binding.rootLayout.setLayoutParams(coordinatorParams);
+        binding.rootLayout.setNestedScrollingEnabled(false);
+        final AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
+        appbarParams.setScrollFlags(0);
+        binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
+    }
 
-        if (appBarLayout != null) {
-            appBarLayout.setExpanded(true);
-        }
+    /**
+     * Resets content scrolling and toolbar collapse
+     */
+    private void resetScrolling() {
+        final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
+        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        binding.rootLayout.setLayoutParams(params);
+        AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
+        appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+        binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
+        binding.appbar.appbar.setExpanded(true);
     }
 
     @Override
@@ -2095,7 +2109,7 @@ public class FileDisplayActivity extends FileActivity
 
     public void configureToolbarForMediaPreview(OCFile file) {
         showSortListGroup(false);
-        ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
+        lockScrolling();
         super.updateActionBarTitleAndHomeButton(file);
     }
 
