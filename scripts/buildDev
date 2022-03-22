@@ -4,8 +4,8 @@ oldLibraryCommit=$(grep "androidLibraryVersion\ =" build.gradle)
 libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
 # use current date for version code/name
-sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
-sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
+sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" app/build.gradle
+sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" app/build.gradle
 
 # change library
 sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
