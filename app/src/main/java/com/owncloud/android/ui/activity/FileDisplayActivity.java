@@ -514,7 +514,7 @@ public class FileDisplayActivity extends FileActivity
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
         transaction.commit();
 
-        if (fragment instanceof UnifiedSearchFragment) {
+        if (fragment instanceof UnifiedSearchFragment || fragment instanceof PreviewMediaFragment) {
             showSortListGroup(false);
         } else {
             showSortListGroup(true);
@@ -1262,9 +1262,19 @@ public class FileDisplayActivity extends FileActivity
                         DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+
+
                         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
+                            if (!mSyncInProgress) {
+                                // update scrolling when load finishes
+                                if (ocFileListFragment.isEmpty()) {
+                                    lockScrolling();
+                                } else {
+                                    resetScrolling();
+                                }
+                            }
                         }
                         setBackgroundText();
                     }
@@ -1522,8 +1532,9 @@ public class FileDisplayActivity extends FileActivity
         binding.rootLayout.setLayoutParams(coordinatorParams);
         binding.rootLayout.setNestedScrollingEnabled(false);
         final AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
-        appbarParams.setScrollFlags(0);
+        appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL);
         binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
+        binding.appbar.appbar.setExpanded(true, false);
     }
 
     /**
@@ -1536,7 +1547,7 @@ public class FileDisplayActivity extends FileActivity
         AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
         appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
-        binding.appbar.appbar.setExpanded(true);
+        binding.appbar.appbar.setExpanded(true, false);
     }
 
     @Override
@@ -2091,10 +2102,9 @@ public class FileDisplayActivity extends FileActivity
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            showSortListGroup(false);
+            configureToolbarForMediaPreview(file);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            configureToolbarForMediaPreview(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
