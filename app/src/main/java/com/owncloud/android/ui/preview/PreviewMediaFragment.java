@@ -490,7 +490,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             playVideoUri(getFile().getStorageUri());
         } else {
             try {
-                new LoadStreamUrl(this, user, clientFactory).execute(getFile().getLocalId());
+                new LoadStreamUrl(this, user, clientFactory).execute(getFile().getRemoteId());
             } catch (Exception e) {
                 Log_OC.e(TAG, "Loading stream url not possible: " + e);
             }
