@@ -235,6 +235,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, ocFile.isSharedWithSharee() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, ocFile.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, ocFile.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_LOCAL_ID, ocFile.getLocalId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, ocFile.isUpdateThumbnailNeeded());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, ocFile.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, ocFile.getEtagInConflict());
@@ -490,6 +491,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_LOCAL_ID, folder.getLocalId());
         cv.put(ProviderTableMeta.FILE_FAVORITE, folder.isFavorite());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, folder.isEncrypted());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, folder.getUnreadCommentsCount());
@@ -524,6 +526,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_LOCAL_ID, file.getLocalId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.isUpdateThumbnailNeeded());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
@@ -1014,6 +1017,7 @@ public class FileDataStorageManager {
             ocFile.setSharedWithSharee(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
             ocFile.setPermissions(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PERMISSIONS)));
             ocFile.setRemoteId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID)));
+            ocFile.setLocalId(getString(cursor, ProviderTableMeta.FILE_LOCAL_ID));
             ocFile.setUpdateThumbnailNeeded(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
             ocFile.setDownloading(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
             ocFile.setEtagInConflict(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));

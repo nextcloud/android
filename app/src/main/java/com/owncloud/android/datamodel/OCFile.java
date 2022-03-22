@@ -80,6 +80,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String etagOnServer;
     private boolean sharedViaLink;
     private String permissions;
+    private String localId;  // The fileid locally on server
     private String remoteId; // The fileid namespaced by the instance fileId, globally unique
     private boolean updateThumbnailNeeded;
     private boolean downloading;
@@ -149,6 +150,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         sharedViaLink = source.readInt() == 1;
         permissions = source.readString();
         remoteId = source.readString();
+        localId = source.readString();
         updateThumbnailNeeded = source.readInt() == 1;
         downloading = source.readInt() == 1;
         etagInConflict = source.readString();
@@ -182,6 +184,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeInt(sharedViaLink ? 1 : 0);
         dest.writeString(permissions);
         dest.writeString(remoteId);
+        dest.writeString(localId);
         dest.writeInt(updateThumbnailNeeded ? 1 : 0);
         dest.writeInt(downloading ? 1 : 0);
         dest.writeString(etagInConflict);
@@ -447,6 +450,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         sharedViaLink = false;
         permissions = null;
         remoteId = null;
+        localId = null;
         updateThumbnailNeeded = false;
         downloading = false;
         etagInConflict = null;
@@ -550,7 +554,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     @Nullable
     public String getLocalId() {
-        if (getRemoteId() != null) {
+        if (localId != null) {
+            return localId;
+        } else if (getRemoteId() != null) {
             return getRemoteId().substring(0, 8).replaceAll("^0*", "");
         } else {
             return null;
@@ -768,6 +774,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.remoteId = remoteId;
     }
 
+    public void setLocalId(String localId) {
+        this.localId = localId;
+    }
+
     public void setUpdateThumbnailNeeded(boolean updateThumbnailNeeded) {
         this.updateThumbnailNeeded = updateThumbnailNeeded;
     }
@@ -818,5 +828,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setRichWorkspace(String richWorkspace) {
         this.richWorkspace = richWorkspace;
+    }
+
+    @VisibleForTesting
+    public String getLocalIdDirect() {
+        return localId;
     }
 }

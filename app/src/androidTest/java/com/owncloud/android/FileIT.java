@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -36,6 +37,12 @@ public class FileIT extends AbstractOnServerIT {
         // folder exists
         OCFile file = getStorageManager().getFileByPath(path);
         assertTrue(file.isFolder());
+        assertEquals(path, file.getRemotePath());
+        assertNotNull(file.getLocalIdDirect());
+        assertEquals(
+            file.getLocalIdDirect(),
+            file.getRemoteId().substring(0, 8).replaceAll("^0*", "")
+                    );
 
         // cleanup
         new RemoveFileOperation(file, false, account, false, targetContext, getStorageManager()).execute(client);
