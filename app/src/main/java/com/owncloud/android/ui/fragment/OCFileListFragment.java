@@ -133,6 +133,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
@@ -1348,25 +1349,28 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void switchLayoutManager(boolean grid) {
         int position = 0;
 
-        if (getRecyclerView().getLayoutManager() != null) {
+        if (getRecyclerView().getLayoutManager() != null && getRecyclerView().getLayoutManager() instanceof LinearLayoutManager) {
             position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
-                    .findFirstCompletelyVisibleItemPosition();
+                .findFirstCompletelyVisibleItemPosition();
         }
 
         RecyclerView.LayoutManager layoutManager;
         if (grid) {
-            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (position == getAdapter().getItemCount() - 1 ||
-                        position == 0 && getAdapter().shouldShowHeader()) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
-                    } else {
-                        return 1;
-                    }
-                }
-            });
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+            staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+            layoutManager = staggeredGridLayoutManager;
+
+//            ((StaggGridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                @Override
+//                public int getSpanSize(int position) {
+//                    if (position == getAdapter().getItemCount() - 1 ||
+//                        position == 0 && getAdapter().shouldShowHeader()) {
+//                        return ((GridLayoutManager) layoutManager).getSpanCount();
+//                    } else {
+//                        return 1;
+//                    }
+//                }
+//            });
 
         } else {
             layoutManager = new LinearLayoutManager(getContext());

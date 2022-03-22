@@ -41,7 +41,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -90,6 +89,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class ExtendedListFragment extends Fragment implements
@@ -482,8 +482,9 @@ public class ExtendedListFragment extends Fragment implements
 
         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
         int firstPosition;
-        if (layoutManager instanceof GridLayoutManager) {
-            firstPosition = ((GridLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+            //firstPosition = ((StaggeredGridLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            firstPosition = 0;
         } else {
             firstPosition = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
         }
