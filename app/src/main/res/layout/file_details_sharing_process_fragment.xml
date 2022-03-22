@@ -30,8 +30,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="400dp"
+        android:layout_height="0dp"
         android:padding="@dimen/standard_padding"
         app:layout_constraintBottom_toTopOf="@+id/share_process_btn_cancel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +39,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="400dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/share_process_edit_share_link"
