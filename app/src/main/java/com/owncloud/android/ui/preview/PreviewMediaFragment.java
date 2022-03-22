@@ -703,9 +703,11 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     @Override
     public void onDetach() {
-      
-        exoPlayer.stop();
-        exoPlayer.release();
+
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
 
         super.onDetach();
     }
