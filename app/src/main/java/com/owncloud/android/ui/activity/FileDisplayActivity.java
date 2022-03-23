@@ -135,6 +135,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -1267,7 +1268,7 @@ public class FileDisplayActivity extends FileActivity
                         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
-                            if (!mSyncInProgress) {
+                            if (!mSyncInProgress && !ocFileListFragment.isLoading()) {
                                 // update scrolling when load finishes
                                 if (ocFileListFragment.isEmpty()) {
                                     lockScrolling();
@@ -1526,7 +1527,8 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Prevents content scrolling and toolbar collapse
      */
-    private void lockScrolling() {
+    @VisibleForTesting
+    public void lockScrolling() {
         final CoordinatorLayout.LayoutParams coordinatorParams = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
         coordinatorParams.setBehavior(null);
         binding.rootLayout.setLayoutParams(coordinatorParams);
@@ -1540,7 +1542,8 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Resets content scrolling and toolbar collapse
      */
-    private void resetScrolling() {
+    @VisibleForTesting
+    public void resetScrolling() {
         final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
         params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         binding.rootLayout.setLayoutParams(params);
