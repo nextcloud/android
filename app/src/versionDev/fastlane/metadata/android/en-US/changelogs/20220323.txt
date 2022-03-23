@@ -1,0 +1,6 @@
+build.gradle: Restore library version
+Update fastlane
+fastlane: Sign the app bundle, and use it for google play upload
+fastlane: Build AAB for gplayRelease in addition to APK
+Update translations
+Update Nextcloud Android library
