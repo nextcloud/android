@@ -162,6 +162,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
     private fun showShareProcessFirst() {
         binding.shareProcessGroupOne.visibility = View.VISIBLE
+        binding.shareProcessEditShareLink.visibility = View.VISIBLE
         binding.shareProcessGroupTwo.visibility = View.GONE
 
         // set up UI for modifying share
@@ -309,6 +310,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      */
     private fun showShareProcessSecond() {
         binding.shareProcessGroupOne.visibility = View.GONE
+        binding.shareProcessEditShareLink.visibility = View.GONE
         binding.shareProcessGroupTwo.visibility = View.VISIBLE
         if (share != null) {
             binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.set_note)
