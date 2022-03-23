@@ -162,6 +162,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
     private fun showShareProcessFirst() {
         binding.shareProcessGroupOne.visibility = View.VISIBLE
+        binding.shareProcessEditShareLink.visibility = View.VISIBLE
         binding.shareProcessGroupTwo.visibility = View.GONE
 
         // set up UI for modifying share
