@@ -144,8 +144,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;

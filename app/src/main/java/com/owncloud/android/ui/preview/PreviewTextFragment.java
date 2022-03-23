@@ -174,7 +174,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                                                             resources.getColor(R.color.primary));
             binding.textPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
         } else {
-            setText(binding.textPreview, originalText, getFile(), activity, themeColorUtils);
+            setText(binding.textPreview, originalText, getFile(), activity, false, false, themeColorUtils);
         }
     }
 
@@ -217,14 +217,6 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
      */
     protected void finish() {
         requireActivity().runOnUiThread(() -> requireActivity().onBackPressed());
-    }
-
-    public void setText(TextView textView,
-                        String text,
-                        OCFile file,
-                        Activity activity,
-                        ThemeColorUtils themeColorUtils) {
-        setText(textView, text, file, activity, false, false, themeColorUtils);
     }
 
     public static void setText(TextView textView,
