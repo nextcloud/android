@@ -185,10 +185,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         emptyListView = binding.emptyView.emptyListView;
 
-        if(getActivity() instanceof FileDisplayActivity){
-            ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
-        }
-
         setLoadingView();
         return view;
     }
@@ -580,6 +576,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onResume() {
         super.onResume();
         autoplay = false;
+        if(getActivity() instanceof FileDisplayActivity){
+            ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
+        }
         Log_OC.v(TAG, "onResume");
     }
 
@@ -703,9 +702,11 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     @Override
     public void onDetach() {
-      
-        exoPlayer.stop();
-        exoPlayer.release();
+
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
 
         super.onDetach();
     }
