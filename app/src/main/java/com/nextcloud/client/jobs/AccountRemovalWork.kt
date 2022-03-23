@@ -58,7 +58,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PushUtils
 import org.greenrobot.eventbus.EventBus
 import java.io.File
-import java.util.ArrayList
 
 /**
  * Removes account and all local files
@@ -149,6 +148,9 @@ class AccountRemovalWork(
         if (optionNextcloudClient.isPresent) {
             deleteAppPasswordRemoteOperation.execute(optionNextcloudClient.get())
         }
+
+        // delete cached OwncloudClient
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(user.toOwnCloudAccount())
 
         if (userRemoved) {
             eventBus.post(AccountRemovedEvent())
