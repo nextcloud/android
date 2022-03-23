@@ -86,41 +86,40 @@ end
 desc "Makes gplay and generic releases in ../releases/"
 lane :makeReleases do
     info = androidVersion
-    sh("mkdir -p ../release")
-    sh("rm -rf ../release/*")
-    sh("rm -rf ../app/build")
+    sh("rm -rf ../release/ && mkdir -p ../release")
+    gradle(task: 'clean')
 
-    SignedRelease(flavor:"Generic")
-    sh("mv ../app/build/outputs/apk/generic/release/*.apk ../release/")
-    sh("mv ../release/generic-release-#{info["versionCode"]}.apk ../release/nextcloud-#{info["versionCode"]}.apk")
+    createGenericRelease(versionCode:info["versionCode"])
 
-    SignedRelease(flavor:"Gplay")
-    sh("cp ../app/build/outputs/apk/gplay/release/*.apk ../release/")
+    createGplayRelease(versionCode:info["versionCode"])
     
-    SignedRelease(flavor:"Huawei")
-    sh("cp ../app/build/outputs/apk/huawei/release/*.apk ../release/")
+    createHuaweiRelease()
 end
 
 desc "Create GPlay release"
 lane :createGplayRelease do |options|
-    SignedRelease(flavor:"Gplay")
-    sh("mv ../app/build/outputs/apk/gplay/release/*.apk ../release/")
+    buildBundle(flavor:"Gplay")
+    sh("mv ../app/build/outputs/bundle/gplayRelease/app-gplay-release.aab ../release/")
+    buildApkFromBundle(outputDir: "../release", bundlePath: "../release/app-gplay-release.aab")
+    sh("rm ../release/toc.pb")
+    sh("mv ../release/universal.apk ../release/gplay-release-#{options[:versionCode]}.apk")
 end
 
 desc "Create Generic release"
 lane :createGenericRelease do |options|
     SignedRelease(flavor:"Generic")
     sh("mv ../app/build/outputs/apk/generic/release/*.apk ../release/")
+    sh("mv ../release/generic-release-#{options[:versionCode]}.apk ../release/nextcloud-#{options[:versionCode]}.apk")
 end
 
 desc "Create Huawei release"
-lane :createHuaweiRelease do |options|
+lane :createHuaweiRelease do
     SignedRelease(flavor:"Huawei")
     sh("mv ../app/build/outputs/apk/huawei/release/*.apk ../release/")
 end
 
 desc "Create Dev release"
-lane :createDevRelease do |options|
+lane :createDevRelease do
     SignedRelease(flavor:"VersionDev")
     sh("mv ../app/build/outputs/apk/versionDev/release/*.apk ../release/")
 end
@@ -168,6 +167,7 @@ end
 
 private_lane :checkReleaseRequirements_common do
     sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' && exit 1; fi")
+    sh("if ! command -v bundletool &>/dev/null; then echo 'bundletool command not found' && exit 1; fi")
 end
 
 private_lane :checkReleaseRequirements_RC do
@@ -278,12 +278,12 @@ private_lane :enableLogger do
     sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
-desc "Upload to play store"
+desc "Upload to play store (beta)"
 private_lane :uploadToPlaystore_RC do |options|
     upload_to_play_store(
         skip_upload_images: true,
         track: 'beta',
-        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+        aab: "release/app-gplay-release.aab"
     )
 end
 
@@ -291,10 +291,39 @@ desc "Upload to play store"
 private_lane :uploadToPlaystore_Final do |options|
     upload_to_play_store(
         skip_upload_images: true,
-        apk: "release/gplay-release-" + options["versionCode"] + ".apk"
+        aab: "release/app-gplay-release.aab"
     )
 end
 
+
+desc "Build app bundle"
+private_lane :buildBundle do |options|
+    gradle(
+        task: 'bundle',
+        flavor: options[:flavor],
+        build_type: 'Release',
+        print_command: false,
+        properties: {
+              "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_FILE"],
+              "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_PASSWORD"],
+              "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_ALIAS"],
+              "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD"],
+            }
+        )
+end
+
+desc "Generate signed universal APK from app bundle"
+private_lane :buildApkFromBundle do |options|
+    sh(command:"bundletool build-apks --mode universal --output '#{options[:outputDir]}' --output-format DIRECTORY" +
+        " --ks '#{ENV["FASTLANE_NEXTCLOUD_STORE_FILE"]}'"+
+        " --ks-pass 'pass:#{ENV["FASTLANE_NEXTCLOUD_STORE_PASSWORD"]}'"+
+        " --ks-key-alias '#{ENV["FASTLANE_NEXTCLOUD_KEY_ALIAS"]}'"+
+        " --key-pass 'pass:#{ENV["FASTLANE_NEXTCLOUD_KEY_PASSWORD"]}'"+
+        " --bundle '#{options[:bundlePath]}'",
+        log:false)
+end
+
+desc "Build signed APK"
 private_lane :SignedRelease do |options|
     gradle(
         task: 'assemble',

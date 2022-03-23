@@ -14,6 +14,7 @@
     <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Vista em grelha</string>
     <string name="action_switch_list_view">Vista em lista</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurar contatos &amp; calendário</string>
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move">Mover</string>
