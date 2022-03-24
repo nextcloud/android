@@ -1,0 +1,10 @@
+Fix FileDisplayActivity screenshot tests
+Fix scrolling behaviour when changing dark mode
+PreviewMediaFragment: fix crash when changing theme with audio fragment
+FileDisplayActivity: properly lock scrollbar for media preview
+build.gradle: Fix spacing for library version
+Correctly show edit share link
+SETUP: update local library linking instructions with composite builds
+FileDetialsSharing...: add minHeight to content instead of scrollview
+Fix sharing from media view
+Update Nextcloud Android library
