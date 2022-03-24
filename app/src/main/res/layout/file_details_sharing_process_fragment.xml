@@ -24,6 +24,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="400dp"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
@@ -38,7 +39,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="400dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/share_process_edit_share_link"
@@ -213,7 +215,7 @@
                 android:textColor="@color/secondary_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/share_process_edit_share_link"/>
+                app:layout_constraintTop_toBottomOf="@+id/share_process_edit_share_link" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/note_container"

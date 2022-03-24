@@ -1843,4 +1843,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
     }
+
+    public boolean isEmpty(){
+        return  mAdapter == null || mAdapter.isEmpty();
+    }
 }
