@@ -154,6 +154,9 @@ class AccountRemovalWork(
             deleteAppPasswordRemoteOperation.execute(optionNextcloudClient.get())
         }
 
+        // delete cached OwncloudClient
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(user.toOwnCloudAccount())
+
         if (userRemoved) {
             eventBus.post(AccountRemovedEvent())
         }
