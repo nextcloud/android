@@ -448,10 +448,13 @@ tasks.withType(SpotBugsTask){task ->
     excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
     classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
     reports {
-        xml.enabled = false
+        xml {
+            required = false
+        }
         html {
-            enabled = true
-            destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            required = true
+            outputLocation = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            stylesheet = 'fancy.xsl'
         }
     }
 }
