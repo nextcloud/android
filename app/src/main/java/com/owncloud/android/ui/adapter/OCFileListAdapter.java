@@ -63,9 +63,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -469,11 +467,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
 
                     itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
+                    itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
+                    itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
                 } else {
-                    itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                    final long fileLength = file.getFileLength();
+                    if (fileLength >= 0) {
+                        itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
+                        itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
+                        itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+                    } else {
+                        itemViewHolder.getFileSize().setVisibility(View.GONE);
+                        itemViewHolder.getFileSizeSeparator().setVisibility(View.GONE);
+                    }
                 }
-                itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                          file.getModificationTimestamp()));
+
+                final long modificationTimestamp = file.getModificationTimestamp();
+                if (modificationTimestamp > 0) {
+                    itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
+                                                                                                   modificationTimestamp));
+                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
+                } else if (file.getFirstShareTimestamp() > 0) {
+                    itemViewHolder.getLastModification().setText(
+                        DisplayUtils.getRelativeTimestamp(activity, file.getFirstShareTimestamp())
+                                                                );
+                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
+                } else {
+                    itemViewHolder.getLastModification().setVisibility(View.GONE);
+                }
+
 
                 if (multiSelect || gridView || hideItemOptions) {
                     itemViewHolder.getOverflowMenu().setVisibility(View.GONE);
@@ -955,41 +976,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // check type before cast as of long running data fetch it is possible that old result is filled
             if (shareObject instanceof OCShare) {
                 OCShare ocShare = (OCShare) shareObject;
-
                 shares.add(ocShare);
-
-                // get ocFile from Server to have an up-to-date copy
-                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(user.toPlatformAccount(),
-                                                                                                      activity);
-
-                if (result.isSuccess()) {
-                    OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
-                    file = mStorageManager.saveFileWithParent(file, activity);
-
-                    ShareType newShareType = ocShare.getShareType();
-                    if (newShareType == ShareType.PUBLIC_LINK) {
-                        file.setSharedViaLink(true);
-                    } else if (newShareType == ShareType.USER ||
-                        newShareType == ShareType.GROUP ||
-                        newShareType == ShareType.EMAIL ||
-                        newShareType == ShareType.FEDERATED ||
-                        newShareType == ShareType.ROOM ||
-                        newShareType == ShareType.CIRCLE) {
-                        file.setSharedWithSharee(true);
-                    }
-
-                    mStorageManager.saveFile(file);
-
-                    if (!mFiles.contains(file)) {
-                        mFiles.add(file);
-                    }
-                } else {
-                    Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
-                }
             }
         }
 
+        List<OCFile> files = OCShareHelper.buildOCFilesFromShares(shares);
+        mFiles.addAll(files);
         mStorageManager.saveShares(shares);
     }
 
@@ -1283,6 +1275,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public View getFileSizeSeparator() {
+            return binding.fileSeparator;
+        }
+
+        @Override
         public TextView getLastModification() {
             return binding.lastMod;
         }
@@ -1490,6 +1487,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     interface ListItemViewHolder extends ListGridItemViewHolder {
         TextView getFileSize();
+
+        View getFileSizeSeparator();
 
         TextView getLastModification();
 
