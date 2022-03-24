@@ -449,7 +449,7 @@ tasks.withType(SpotBugsTask){task ->
     classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
     reports {
         xml {
-            required = false
+            required = true
         }
         html {
             required = true

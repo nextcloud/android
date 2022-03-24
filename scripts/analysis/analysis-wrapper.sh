@@ -27,9 +27,7 @@ echo "Branch: $3"
 if [ $3 = $stableBranch ]; then
     echo "New findbugs result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html"
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.html --upload-file app/build/reports/spotbugs/spotbugs.html
-
-    summary=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" app/build/reports/spotbugs/spotbugs.html | head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s"/Summary/SpotBugs ($stableBranch)/" | tr "\"" "\'" | tr -d "\r\n")
-    curl -u $4:$5 -X PUT -d "$summary" https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/findbugs-summary-$stableBranch.html
+    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.xml --upload-file app/build/reports/spotbugs/gplayDebug.xml
 
     if [ $lintValue -ne 1 ]; then
         echo "New lint result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-lint/$stableBranch.html"
@@ -108,9 +106,9 @@ else
     fi
 
     lintResult="<h1>Lint</h1><table width='500' cellpadding='5' cellspacing='2'><tr class='tablerow0'><td>Type</td><td><a href='https://www.kaminsky.me/nc-dev/"$repository"-lint/"$stableBranch".html'>$stableBranch</a></td><td><a href='https://www.kaminsky.me/nc-dev/"$repository"-lint/"$6".html'>PR</a></td></tr><tr class='tablerow1'><td>Warnings</td><td>"$lintWarningOld"</td><td>"$lintWarningNew"</td></tr><tr class='tablerow0'><td>Errors</td><td>"$lintErrorOld"</td><td>"$lintErrorNew"</td></tr></table>"
-    findbugsResultNew=$(sed -n "/<h1>Summary<\/h1>/,/<h1>Warnings<\/h1>/p" app/build/reports/spotbugs/spotbugs.html |head -n-1 | sed s'/<\/a>//'g | sed s'/<a.*>//'g | sed s"#Summary#<a href=\"https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html\">SpotBugs</a> (new)#" | tr "\"" "\'" | tr -d "\n")
-    findbugsResultOld=$(curl 2>/dev/null https://www.kaminsky.me/nc-dev/$repository-findbugs/findbugs-summary-$stableBranch.html | tr "\"" "\'" | tr -d "\r\n" | sed s"#SpotBugs#<a href=\"https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html\">SpotBugs</a>#" | tr "\"" "\'" | tr -d "\n")
 
+    curl 2>/dev/null "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "$stableBranch.xml"
+    findbugsResult="<h1>SpotBugs</h1>$(scripts/analysis/spotbugsComparison.py "$stableBranch.xml" app/build/reports/spotbugs/gplayDebug.xml --link-new "https://www.kaminsky.me/nc-dev/$repository-findbugs/$6.html" --link-base "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html")"
 
     if ( [ $lintValue -eq 1 ] ) ; then
         lintMessage="<h1>Lint increased!</h1>"
@@ -132,7 +130,8 @@ else
         notNull="org.jetbrains.annotations.NotNull is used. Please use androidx.annotation.NonNull instead.<br><br>"
     fi
 
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "{ \"body\" : \"$codacyResult $lintResult $findbugsResultNew $findbugsResultOld $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation $notNull\" }"
+    payload="{ \"body\" : \"$codacyResult $lintResult $findbugsResult $checkLibraryMessage $lintMessage $findbugsMessage $gplayLimitation $notNull\" }"
+    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "$payload"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1

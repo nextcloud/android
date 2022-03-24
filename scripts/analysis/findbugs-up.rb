@@ -58,7 +58,7 @@ end
 findbugs_report = String.new(findbugs_reports[0])
 
 # find number of warnings
-current_warning_count = `grep -A 3 "<b>Total</b>" app/build/reports/spotbugs/spotbugs.html | tail -n1 | cut -f2 -d">" | cut -f1 -d"<"`.to_i
+current_warning_count = `./scripts/analysis/spotbugsSummary.py --total`.to_i
 puts "found warnings: " + current_warning_count.to_s
 
 # get warning counts from last successful build
