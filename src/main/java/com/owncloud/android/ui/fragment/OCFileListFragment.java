@@ -2001,6 +2001,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    public boolean isEmpty(){
+        return  mAdapter == null || mAdapter.isEmpty();
+    }
+
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

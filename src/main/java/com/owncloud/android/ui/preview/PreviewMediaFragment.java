@@ -186,9 +186,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         emptyListView = binding.emptyView.emptyListView;
 
-        if(getActivity() instanceof FileDisplayActivity){
-            ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
-        }
+
         setLoadingView();
         return view;
     }
@@ -596,6 +594,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onResume() {
         super.onResume();
         autoplay = false;
+
+        if(getActivity() instanceof FileDisplayActivity){
+            ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
+        }
         Log_OC.v(TAG, "onResume");
 
         //when user comes back from Sharing fragment and toolbar is scrolled up

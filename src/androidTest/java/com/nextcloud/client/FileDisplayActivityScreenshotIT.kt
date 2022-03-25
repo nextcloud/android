@@ -53,12 +53,14 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     @ScreenshotTest
     fun open() {
         val sut = activityRule.launchActivity(null)
-        sut.listOfFilesFragment!!.setFabEnabled(false)
+
+        shortSleep()
         sut.runOnUiThread {
+            sut.listOfFilesFragment!!.setFabEnabled(false)
+            sut.resetScrolling()
             sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
             sut.listOfFilesFragment!!.isLoading = false
         }
-
         shortSleep()
         waitForIdleSync()
         screenshot(sut)
@@ -103,13 +105,16 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun drawer() {
         val sut = activityRule.launchActivity(null)
         Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
-        sut.listOfFilesFragment!!.setFabEnabled(false)
-        sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
-        sut.listOfFilesFragment!!.isLoading = false
+
+        shortSleep()
         sut.runOnUiThread {
             sut.hideInfoBox()
+            sut.resetScrolling()
+            sut.listOfFilesFragment!!.setFabEnabled(false)
+            sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
+            sut.listOfFilesFragment!!.isLoading = false
         }
-
+        shortSleep()
         waitForIdleSync()
         screenshot(sut)
     }

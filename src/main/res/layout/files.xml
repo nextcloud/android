@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_standard" />
+        <include android:id="@+id/appbar" layout="@layout/toolbar_standard" />
 
         <!-- The main content view -->
         <LinearLayout
