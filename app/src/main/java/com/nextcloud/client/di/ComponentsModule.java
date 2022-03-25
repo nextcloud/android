@@ -79,6 +79,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
@@ -215,4 +216,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract PreviewPdfFragment previewPDFFragment();
+
+    @ContributesAndroidInjector
+    abstract SharedListFragment sharedFragment();
 }

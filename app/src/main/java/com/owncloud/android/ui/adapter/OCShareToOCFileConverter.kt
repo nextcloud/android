@@ -26,7 +26,7 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 
-object OCShareHelper {
+object OCShareToOCFileConverter {
     private const val MILLIS_PER_SECOND = 1000
 
     /**
@@ -39,7 +39,9 @@ object OCShareHelper {
     @JvmStatic
     fun buildOCFilesFromShares(shares: List<OCShare>): List<OCFile> {
         val groupedByPath: Map<String, List<OCShare>> = shares.groupBy { it.path }
-        return groupedByPath.map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
+        return groupedByPath
+            .map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
+            .sortedByDescending { it.firstShareTimestamp }
     }
 
     private fun buildOcFile(path: String, shares: List<OCShare>): OCFile {
@@ -54,6 +56,7 @@ object OCShareHelper {
             mimeType = firstShare.mimetype
             note = firstShare.note
             fileId = firstShare.fileSource
+            remoteId = firstShare.remoteId.toString()
             // use first share timestamp as timestamp
             firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }
             // don't have file length or mod timestamp
