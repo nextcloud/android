@@ -256,6 +256,7 @@
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
     <string name="error_report_issue_action">Reportar</string>
+    <string name="error_report_issue_text">Reportar problema ao rastreador? (requer uma conta GitHub)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
@@ -313,6 +314,7 @@
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_management_permission">Permissões necessárias</string>
+    <string name="file_management_permission_text">%1$s precisa de permissões de gerenciamento de arquivos para enviar arquivos. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
     <string name="file_migration_dialog_title">Atualizando a pasta de armazenamento se dados</string>
