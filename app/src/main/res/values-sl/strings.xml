@@ -146,7 +146,9 @@
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="conflict_dialog_error">Prišlo je do napake med ustvarjanjem pogovornega okna spora!</string>
     <string name="conflict_file_headline">Različice %1$s v sporu.</string>
+    <string name="conflict_local_file">Krajevna datoteka</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
+    <string name="conflict_server_file">Strežniška datoteka</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
@@ -190,6 +192,7 @@
     <string name="dev_version_no_information_available">Podrobnosti niso na voljo.</string>
     <string name="dev_version_no_new_version_available">Ni objavljene nove različice.</string>
     <string name="dialog_close">Zapri</string>
+    <string name="did_not_check_for_dupes">Ne preverjaj za podvojene.</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
     <string name="direct_login_failed">Prijava prek neposredne povezave je spodletela.</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
@@ -242,6 +245,7 @@
     <string name="end_to_end_encryption_title">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_unsuccessful">Ključev ni mogoče shraniti. Poskusite znova.</string>
     <string name="end_to_end_encryption_wrong_password">Prišlo je do napake med dešifriranjem. Morda je navedeno napačno geslo.</string>
+    <string name="enter_destination_filename">Vpis ciljnega imena datoteke</string>
     <string name="enter_filename">Vpisati je treba ime datoteke</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="error_cant_bind_to_operations_service">Kritična napaka: Opravil ni možno izvesti</string>
@@ -676,6 +680,7 @@
     <string name="storage_internal_storage">Notranja shramba</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
+    <string name="storage_permission_full_access">Poln dostop</string>
     <string name="storage_pictures">Slike</string>
     <string name="store_full_desc">Okolje, ki gostuje, kjer vi želite, in vam omogoča popoln nadzor.\n\n Možnosti:\n* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom\n* Omogoča nalaganje datotek v oblak Nextcloud\n* Omogoča izmenjavo datotek z drugimi\n* Ohrani vaše datoteke in mape vedno usklajene\n * Podpira iskanje po vseh dodeljenih mapah na strežniku\n * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave\n * Usklajuje in posreduje obvestila\n * Podpora je uporaba več računov\n* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN\n * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov\n\nPoročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android\n\nAli šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.\n\nVse o Nextcloud izveste na https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Okolje, ki vam omogoči popoln nadzor nad datotekami.\nUporabljate uradno razvojno različico, ki omogoča zagon nepreizkušene, dnevno spreminjajoče se kode, ta pa lahko povzroči nestabilnost in izgubo podatkov. Program je namenjen uporabnikom, ki so pripravljeni preizkušati novosti, poročati o težavah in iskati napake. Programa ni priporočljivo uporabiti za resno delo!\n\nObe različici, stabilna in razvojna, sta na voljo na F-droid in ju je mogoče uporabljati nameščeni sočasno.</string>

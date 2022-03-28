@@ -148,7 +148,9 @@
     <string name="confirmation_remove_local">Vain paikallisen</string>
     <string name="conflict_dialog_error">Virhe konfliktitietojen näyttämisessä!</string>
     <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
+    <string name="conflict_local_file">Paikallinen tiedosto</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
+    <string name="conflict_server_file">Palvelintiedosto</string>
     <string name="contactlist_item_icon">Käyttäjäkuvake yhteystietoihin</string>
     <string name="contactlist_no_permission">Oikeutta ei myönnetty, mitään ei tuotu.</string>
     <string name="contacts">Yhteystiedot</string>
@@ -307,6 +309,7 @@
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_management_permission">Käyttöoikeus tarvitaan</string>
+    <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
     <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
@@ -380,6 +383,7 @@
     <string name="link">Linkki</string>
     <string name="link_name">Linkin nimi</string>
     <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
+    <string name="link_share_editing">Muokataan</string>
     <string name="link_share_file_drop">Tiedostojen pudotus (vain lähetys)</string>
     <string name="link_share_view_only">Vain katselu</string>
     <string name="list_layout">Luettelonäkymä</string>
@@ -530,6 +534,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_lock_using_device_credentials">Laitteen kirjautumistiedot</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
+    <string name="prefs_recommend">Suosittele kaverille</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
@@ -599,6 +604,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share">Jaa</string>
     <string name="share_copy_link">Jaa &amp; kopioi linkki</string>
     <string name="share_dialog_title">Jakaminen</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vanhenee %1$s</string>
     <string name="share_file">Jaa %1$s</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
@@ -679,6 +685,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_internal_storage">Sisäinen tallennustila</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>
+    <string name="storage_permission_full_access">Täysi pääsy</string>
     <string name="storage_pictures">Kuvat</string>
     <string name="store_full_desc">Avoimen lähdekoodin Nextcloud-sovellus Android-laitteille mahdollistaa kaikkien Nextcloud-palvelimella olevien tiedostojen käyttämisen.\n\nOminaisuudet:\n* Helppokäyttöinen, moderni käyttöliittymä, joka mukautuu palvelimen teemaan\n* Lähetä tiedostosi Nextcloud-palvelimelle\n* Jaa tiedostosi muiden kanssa\n* Pidä haluamasi tiedostot ja kansiot synkronoituna\n* Etsi kaikista palvelimella olevista kansioista\n* Lähetä automaattisesti laitteella otetut kuvat ja videot\n* Pysy ajan tasalla ilmoitusten avulla\n* Tuki useille tileille\n* Turvallinen pääsy tietoihin joko sormenjäljellä tai PIN-koodilla\n* Integraatio DAVdroidin kanssa kalenterin ja yhteystietojen synkronoimiseksi\n\nIlmoita ongelmista osoitteessa https://github.com/nextcloud/android/issues ja keskustele sovelluksesta osoitteessa https://help.nextcloud.com/c/clients/android\n\nMikä Nextcloud on? Nextcloud on yksityinen tiedostojen synkronointi-, jako- ja viestintäpalvelin. Se on täysin avointa lähdekoodia, ja voit ottaa sen täysin omalle vastuullesi tai maksaa kolmannelle osapuolelle palvelimen ylläpidosta. Näin ollen hallitset itse kuviasi, kalenteriasi, yhteystietojasi, asiakirjojasi ja kaikkea muuta.\n\nTutustu Nextcloudiin osoitteessa https://nextcloud.com</string>
     <string name="store_full_dev_desc">Itse ylläpidetty työalusta jota sinä kontrolloit. \nTämä on virallinen kehitysversio, sisältäen pävittäin vaihtuvia uusia ja testaamattomia toimintoja, jotka voivat epävakauttaa ohjelmistoa ja aiheuttaa tietojen häviämistä. Sovellus on tarkoitettu käyttäjille jotka haluavat testata ja raportoida ohjelman virheitä jos niitä tapahtuu. Älä käytä sitä työ ympäristössä!\n\nSekä virallinen kehitysversio että normaali versio ovat saatavilla F-droid:ssa ja ne voidaan asentaa samanaikaisesti. </string>
