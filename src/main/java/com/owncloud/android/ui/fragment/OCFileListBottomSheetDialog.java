@@ -39,6 +39,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -84,14 +85,14 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         //binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud, ThemeUtils
         // .getDefaultDisplayNameForRootFolder(getContext())));
 
-      /*  OCCapability capability = fileActivity.getCapabilities();
+        OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
             capability.getRichDocuments().isTrue() &&
             capability.getRichDocumentsDirectEditing().isTrue() &&
             capability.getRichDocumentsTemplatesAvailable().isTrue() &&
             !file.isEncrypted()) {
             binding.templates.setVisibility(View.VISIBLE);
-        }*/
+        }
 
         String json = new ArbitraryDataProvider(getContext().getContentResolver())
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING);

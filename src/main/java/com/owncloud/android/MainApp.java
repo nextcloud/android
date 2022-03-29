@@ -326,6 +326,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initialiseTealiumSDK();
 
         initMoEngageSDK();
+
+        setUpLeakCanary();
     }
 
     private void registerGlobalPassCodeProtection() {
@@ -886,4 +888,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         MoEngage.initialise(moEngage);
     }
 
+    private void setUpLeakCanary() {
+        //disable the LeakCanary heap dump and showing Leak app icon for QA and Dev builds
+       /* if (BuildConfig.FLAVOR.equalsIgnoreCase("qa")
+            || BuildConfig.FLAVOR.equalsIgnoreCase("versionDev")) {
+            LeakCanary.getConfig().newBuilder().dumpHeap(false);
+            LeakCanary.INSTANCE.showLeakDisplayActivityLauncherIcon(false);
+        }*/
+    }
 }

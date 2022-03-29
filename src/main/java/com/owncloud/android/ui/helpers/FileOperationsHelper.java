@@ -443,7 +443,7 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final User user = currentAccount.getUser();
         new Thread(() -> {
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getRemoteId());
             RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
@@ -614,9 +614,12 @@ public class FileOperationsHelper {
 
     private void queueShareIntent(Intent shareIntent) {
         // Unshare the file
-        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
+        if(fileActivity.getOperationsServiceBinder() != null) {
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
 
-        fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+        }
     }
 
     /**
@@ -769,7 +772,8 @@ public class FileOperationsHelper {
 
         //download limit for link share type
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_DOWNLOAD_LIMIT,
-                                   (downloadLimit == null || downloadLimit.equals("")) ? 0 : Integer.parseInt(downloadLimit));
+                                   (downloadLimit == null || downloadLimit.equals("")) ? 0 :
+                                       Long.parseLong(downloadLimit));
 
         queueShareIntent(updateShareIntent);
     }

@@ -26,8 +26,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.fragment.app.Fragment
 import com.nmc.android.utils.KeyboardUtils
 import com.owncloud.android.R
@@ -43,6 +48,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,7 +61,7 @@ import java.util.*
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
 @Suppress("TooManyFunctions")
-class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener {
+class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener, OnCheckedChangeListener {
 
     companion object {
         const val TAG = "FileDetailsSharingProcessFragment"
@@ -129,6 +135,14 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private var share: OCShare? = null
     private var isReshareShown: Boolean = true // show or hide reshare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
+    private var isHideDownloadCheckedReadOnly: Boolean = false
+    private var isHideDownloadCheckedUploadEdit: Boolean = false
+
+    private var isFileDropSelected: Boolean = false
+    private var isReadOnlySelected: Boolean = false
+    private var isUploadEditingSelected: Boolean = false
+    private var isDownloadCountFetched: Boolean = false
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -159,6 +173,28 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         requireNotNull(fileActivity) { "FileActivity may not be null" }
     }
 
+    //Updating Hide Download enable/disable on selection of FileDrop
+    override fun onCheckedChanged(group: RadioGroup?, checkId: Int) {
+        if (binding.shareProcessPermissionFileDrop.id == checkId) {
+            isFileDropSelected = true
+            binding.shareProcessHideDownloadCheckbox.isChecked = true
+            binding.shareProcessHideDownloadCheckbox.isEnabled = false
+        } else {
+            isFileDropSelected = false
+            binding.shareProcessHideDownloadCheckbox.isEnabled = true
+            if (binding.shareProcessPermissionReadOnly.id == checkId) {
+                isReadOnlySelected = true;
+                isUploadEditingSelected = false;
+                binding.shareProcessHideDownloadCheckbox.isChecked = isHideDownloadCheckedReadOnly
+            } else if (binding.shareProcessPermissionUploadEditing.id == checkId) {
+                isReadOnlySelected = false
+                isUploadEditingSelected = true
+                binding.shareProcessHideDownloadCheckbox.isChecked = isHideDownloadCheckedUploadEdit
+            }
+        }
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileDetailsSharingProcessFragmentBinding.inflate(inflater, container, false)
         fileOperationsHelper = fileActivity?.fileOperationsHelper
@@ -173,8 +209,24 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         } else {
             showShareProcessSecond()
         }
+        //Set default value to 0 for download count
+         if(!isDownloadCountFetched) {
+                binding.shareProcessRemainingDownloadCountTv.text = getString(R.string.download_text) + "0"
+            }
+        //  ThemeCheckableUtils.tintSwitch(binding.shareProcessHideDownloadCheckbox, 0)
+        binding.shareProcessPermissionRadioGroup.setOnCheckedChangeListener(this)
         ThemeButtonUtils.colorPrimaryButton(binding.shareProcessBtnNext, requireContext())
         implementClickEvents()
+
+        binding.shareProcessHideDownloadCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if (!isFileDropSelected) {
+                if (isReadOnlySelected) {
+                    isHideDownloadCheckedReadOnly = isChecked
+                } else if (isUploadEditingSelected) {
+                    isHideDownloadCheckedUploadEdit = isChecked
+                }
+            }
+        }
     }
 
     private fun scrollTopShowToolbar() {
@@ -280,6 +332,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             //and can be visible back or no depending on the api result
             //from the download limit api
             binding.shareProcessDownloadLimitEt.visibility = View.GONE
+            binding.shareProcessRemainingDownloadCountTv.visibility = View.GONE
 
             updateFileEditingRadioButton()
 
@@ -317,6 +370,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
         binding.shareProcessDownloadLimitSwitch.visibility = View.GONE
         binding.shareProcessDownloadLimitEt.visibility = View.GONE
+        binding.shareProcessRemainingDownloadCountTv.visibility = View.GONE
         binding.dividerSharingDownloadLimit.visibility = View.GONE
     }
 
@@ -331,7 +385,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
      * update views where share type external or link share
      */
     private fun updateViewForExternalAndLinkShare() {
-        binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+        binding.shareProcessHideDownloadCheckbox.isEnabled = true;
         binding.dividerSharingHideDownload.visibility = View.VISIBLE
         binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
         binding.shareProcessAllowResharingInfo.visibility = View.GONE
@@ -341,10 +395,11 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
         if (share != null) {
             if (SharingMenuHelper.isFileDrop(share)) {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+                binding.shareProcessHideDownloadCheckbox.isChecked = true;
+                binding.shareProcessHideDownloadCheckbox.isEnabled = false;
                 binding.dividerSharingHideDownload.visibility = View.GONE
             } else {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+                binding.shareProcessHideDownloadCheckbox.isEnabled = true;
                 binding.dividerSharingHideDownload.visibility = View.VISIBLE
                 binding.shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
             }
@@ -437,6 +492,14 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         binding.shareProcessDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
             showDownloadLimitInput(isChecked)
         }
+        binding.noteText.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
+        }
+
     }
 
     private fun showExpirationDateDialog() {
@@ -461,8 +524,12 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
     private fun showDownloadLimitInput(isChecked: Boolean) {
         binding.shareProcessDownloadLimitEt.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessRemainingDownloadCountTv.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
             binding.shareProcessDownloadLimitEt.setText("")
+            if(!isDownloadCountFetched) {
+                binding.shareProcessRemainingDownloadCountTv.text = getString(R.string.download_text) + "0"
+            }
             //hide keyboard when user unchecks
             hideKeyboard()
         }
@@ -598,7 +665,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             if (TextUtils.isEmpty(downloadLimit)) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
                 return
-            } else if (downloadLimit.toInt() <= 0) {
+            } else if (downloadLimit.toLong() <= 0) {
                 DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_zero)
                 return
             }
@@ -686,9 +753,11 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     /**
      * will be called when download limit is fetched
      */
-    fun onLinkShareDownloadLimitFetched(downloadLimit: Int) {
+    fun onLinkShareDownloadLimitFetched(downloadLimit: Long, downloadCount: Long) {
         binding.shareProcessDownloadLimitSwitch.isChecked = downloadLimit > 0
         showDownloadLimitInput(binding.shareProcessDownloadLimitSwitch.isChecked)
         binding.shareProcessDownloadLimitEt.setText(if (downloadLimit > 0) downloadLimit.toString() else "")
+        binding.shareProcessRemainingDownloadCountTv.text = getString(R.string.download_text) + downloadCount.toString()
+        isDownloadCountFetched = true
     }
 }

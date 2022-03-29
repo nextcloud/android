@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
-
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
           http://www.apache.org/licenses/LICENSE-2.0
-
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,39 +28,41 @@
 
         <ImageButton
             android:id="@id/exo_prev"
-            style="@style/ExoMediaButton.Previous" />
+            style="@style/FullScreenExoControlButton"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/exo_controls_previous" />
 
         <ImageButton
             android:id="@id/exo_rew"
-            style="@style/ExoMediaButton.Rewind" />
-
-        <ImageButton
-            android:id="@id/exo_shuffle"
-            style="@style/ExoMediaButton" />
-
-        <ImageButton
-            android:id="@id/exo_repeat_toggle"
-            style="@style/ExoMediaButton" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_rewind_description"
+            android:src="@drawable/exo_controls_rewind" />
 
         <ImageButton
             android:id="@id/exo_play"
-            style="@style/ExoMediaButton.Play" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_play_description"
+            android:src="@drawable/exo_controls_play"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <ImageButton
             android:id="@id/exo_pause"
-            style="@style/ExoMediaButton.Pause" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_pause_description"
+            android:src="@drawable/exo_controls_pause" />
 
         <ImageButton
             android:id="@id/exo_ffwd"
-            style="@style/ExoMediaButton.FastForward" />
-
-        <ImageButton
-            android:id="@id/exo_vr"
-            style="@style/ExoMediaButton.VR" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_fastforward_description"
+            android:src="@drawable/exo_controls_fastforward" />
 
         <ImageButton
             android:id="@+id/exo_exit_fs"
-            style="@style/ExoMediaButton.ExitFullscreen" />
+            style="@style/FullScreenExoControlButton"
+            android:contentDescription="@string/exo_controls_fullscreen_exit_description"
+            android:src="@drawable/exo_styled_controls_fullscreen_exit" />
 
     </LinearLayout>
 

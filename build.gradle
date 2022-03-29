@@ -85,6 +85,7 @@ ext {
     workRuntime = "2.7.1"
     fidoVersion = "4.1.0"
     scanbotSdkVersion = "1.89.0"
+    exoplayerVersion = "2.17.0"
 
     ciBuild = System.getenv("CI") == "true"
 }
@@ -109,7 +110,7 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 7
 def versionMinor = 19
-def versionPatch = 0
+def versionPatch = 3
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 for (TaskExecutionRequest tr : getGradle().getStartParameter().getTaskRequests()) {
@@ -209,15 +210,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 54200129
-                versionName "54200129"
+                versionCode 60200129
+                versionName "60200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 43
-                versionName "1.43"
+                versionCode 52
+                versionName "1.52"
             }
         }
 
@@ -344,7 +345,8 @@ dependencies {
     ktlint "com.pinterest:ktlint:0.43.2"
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
+    implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
     // Shimmer animation
     implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'

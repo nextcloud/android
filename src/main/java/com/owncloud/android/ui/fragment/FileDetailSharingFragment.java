@@ -171,7 +171,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             new ArrayList<>(),
                                                             this,
                                                             userId,
-                                                            user, SharingMenuHelper.isFileWithNoTextFile(getFile())));
+                                                            user, SharingMenuHelper.isFileWithNoTextFile(file)));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         binding.shareCreateNewLink.setOnClickListener(v -> createPublicShareLink());
@@ -244,9 +244,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     public void initiateSharingProcess(String shareeName, ShareType shareType) {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
-                                                                                 FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                 FileDetailsSharingProcessFragment.newInstance(file,
                                                                                                                                shareeName,
-                                                                                                                               shareType, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                                                               shareType, SharingMenuHelper.isFileWithNoTextFile(file)),
                                                                                  FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
@@ -264,7 +264,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                   boolean isExpiryDateShown) {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                                  FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
-                                                                                                                               isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                                                               isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(file)),
                                                                                  FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
@@ -546,10 +546,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         searchView.setQuery(query, true);
     }
 
-    public OCFile getFile() {
-        return file;
-    }
-
     @Override
     public void openIn(OCShare share) {
         fileOperationsHelper.sendShareFile(file, true);
@@ -600,7 +596,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
                                boolean isExpiryDateShown);
 
-        void onLinkShareDownloadLimitFetched(int downloadLimit);
+        void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount);
 
         void onShareProcessClosed();
     }

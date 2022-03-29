@@ -308,6 +308,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_margin"

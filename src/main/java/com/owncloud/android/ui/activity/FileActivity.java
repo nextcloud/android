@@ -303,10 +303,6 @@ public abstract class FileActivity extends DrawerActivity
      * @return Main {@link OCFile} handled by the activity.
      */
     public OCFile getFile() {
-        FileDetailSharingFragment fragment = getShareFileFragment();
-        if (fragment != null) {
-            return fragment.getFile();
-        }
         return mFile;
     }
 
@@ -855,7 +851,8 @@ public abstract class FileActivity extends DrawerActivity
         if (result.isSuccess() && sharingFragment != null) {
             if (result.isSuccess() && result.getResultData()!=null) {
                 if (result.getResultData() instanceof DownloadLimitResponse) {
-                    onLinkShareDownloadLimitFetched(((DownloadLimitResponse) result.getResultData()).getLimit());
+                    onLinkShareDownloadLimitFetched(((DownloadLimitResponse) result.getResultData()).getLimit(),
+                                                    ((DownloadLimitResponse) result.getResultData()).getCount());
                 }
             }
         }
@@ -953,10 +950,10 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public void onLinkShareDownloadLimitFetched(int downloadLimit) {
+    public void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount) {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (fragment != null) {
-            ((FileDetailFragment) fragment).onLinkShareDownloadLimitFetched(downloadLimit);
+            ((FileDetailFragment) fragment).onLinkShareDownloadLimitFetched(downloadLimit,downloadCount);
         }
     }
 

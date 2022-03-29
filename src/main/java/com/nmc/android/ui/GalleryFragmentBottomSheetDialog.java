@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -21,6 +22,7 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
     private final AppPreferences preferences;
     private boolean isHideImageClicked;
     private boolean isHideVideoClicked;
+    private BottomSheetBehavior mBottomBehavior;
 
     public GalleryFragmentBottomSheetDialog(FileActivity fileActivity,
                                             GalleryFragmentBottomSheetActions actions,
@@ -42,6 +44,13 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
         }
         setupLayout();
         setupClickListener();
+        mBottomBehavior = BottomSheetBehavior.from((View) binding.getRoot().getParent());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBottomBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     private void setupLayout() {

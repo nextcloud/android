@@ -125,6 +125,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -222,6 +223,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject DeviceInfo deviceInfo;
 
     private int maxColumnSizeLandscape = 5;
+    private boolean mShowOnlyFolder ;
 
     //this variable will help us to provide number of span count for grid view
     //the width for single item is approx to 360
@@ -792,13 +794,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         public void onDestroyActionMode(ActionMode mode) {
             mActiveActionMode = null;
 
-            // reset to previous color
-            FragmentActivity fragmentActivity;
-            if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
-                fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
-            }
-
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
                 setFabVisible(true);
@@ -1255,6 +1250,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(null, onlyOnDevice, fromSearch);
     }
 
+    public void listDirectoryFolder(boolean onlyOnDevice, boolean fromSearch, boolean showOnlyFolder) {
+        mShowOnlyFolder = showOnlyFolder;
+        listDirectory(null, onlyOnDevice, fromSearch);
+    }
+
     public void refreshDirectory() {
         searchFragment = false;
 
@@ -1310,13 +1310,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     });
                 }
 
-                mAdapter.swapDirectory(
-                    accountManager.getUser(),
-                    directory,
-                    storageManager,
-                    onlyOnDevice,
-                    mLimitToMimeType
-                                      );
+                if(mShowOnlyFolder) {
+                    mAdapter.showOnlyFolder(
+                        accountManager.getUser(),
+                        directory,
+                        storageManager,
+                        onlyOnDevice,
+                        mLimitToMimeType);
+                }
+                else {
+                    mAdapter.swapDirectory(
+                        accountManager.getUser(),
+                        directory,
+                        storageManager,
+                        onlyOnDevice,
+                        mLimitToMimeType);
+                }
 
                 OCFile previousDirectory = mFile;
                 mFile = directory;
@@ -1333,6 +1342,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     getRecyclerView().scrollToPosition(0);
                 }
             }
+        }
+
+        //Notify the adapter only for Gallery
+        //this will be used when user rotated the image and come back
+        //so we have to update the thumbnail of the rotated image
+        //this method will also be called when uploading of the any file (rotated image) is finshed
+        if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.PHOTO_SEARCH && mAdapter != null){
+             mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -1514,7 +1531,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mAdapter;
     }
 
-    private void setTitle() {
+    protected void setTitle() {
         // set title
 
         if (getActivity() instanceof FileDisplayActivity && currentSearchType != null) {
@@ -1571,7 +1588,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void setEmptyView(SearchEvent event) {
+    protected void setEmptyView(SearchEvent event) {
         if (event != null) {
             switch (event.getSearchType()) {
                 case FILE_SEARCH:
@@ -1698,56 +1715,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperation = new GetSharesRemoteOperation();
         }
 
-        remoteOperationAsyncTask = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                setTitle();
-                if (getContext() != null && !isCancelled()) {
-                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(
-                        currentUser.toPlatformAccount(), getContext());
-
-                    FileDataStorageManager storageManager = null;
-                    if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
-                        storageManager = mContainerActivity.getStorageManager();
-                    }
-
-                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getResultData() != null
-                        && !isCancelled() && searchFragment) {
-                        searchEvent = event;
-
-                        if (remoteOperationResult.getResultData() == null || ((List) remoteOperationResult.getResultData()).isEmpty()) {
-                            setEmptyView(event);
-                        } else {
-                            mAdapter.setData(((RemoteOperationResult<List>) remoteOperationResult).getResultData(),
-                                             currentSearchType,
-                                             storageManager,
-                                             mFile,
-                                             true);
-                        }
-
-                        final ToolbarActivity fileDisplayActivity = (ToolbarActivity) getActivity();
-                        if (fileDisplayActivity != null) {
-                            fileDisplayActivity.runOnUiThread(() -> {
-                                if (fileDisplayActivity != null) {
-                                    setLoading(false);
-                                }
-                            });
-                        }
-                    }
-
-                    return remoteOperationResult.isSuccess();
-                } else {
-                    return Boolean.FALSE;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Boolean bool) {
-                if (!isCancelled()) {
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        };
+        remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
 
         remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

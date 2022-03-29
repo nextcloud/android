@@ -643,8 +643,8 @@ public class OperationsService extends Service {
 
                             //download limit for link share type
                             if (operationIntent.hasExtra(EXTRA_SHARE_DOWNLOAD_LIMIT)){
-                                updateShare.setDownloadLimit(operationIntent.getIntExtra(EXTRA_SHARE_DOWNLOAD_LIMIT,
-                                                                                         0));
+                                updateShare.setDownloadLimit(operationIntent.getLongExtra(EXTRA_SHARE_DOWNLOAD_LIMIT,
+                                                                                         0L));
                             }
 
                             operation = updateShare;

@@ -62,6 +62,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -160,8 +161,9 @@ public class PreviewImageActivity extends FileActivity implements
 
     private void initViewPager(User user) {
         // virtual folder
-        if (getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE) != null) {
-            VirtualFolderType type = (VirtualFolderType) getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
+        final Serializable virtualFolderType = getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
+        if (virtualFolderType != null && virtualFolderType != VirtualFolderType.NONE) {
+            VirtualFolderType type = (VirtualFolderType) virtualFolderType;
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
                                                                      type,

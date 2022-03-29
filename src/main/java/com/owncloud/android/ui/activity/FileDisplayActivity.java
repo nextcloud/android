@@ -1646,6 +1646,10 @@ public class FileDisplayActivity extends FileActivity
      */
     public void showDetails(OCFile file, int activeTab) {
         User currentUser = getUser().orElseThrow(RuntimeException::new);
+
+        resetHeaderScrollingState();
+
+        setFile(file);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setLeftFragment(detailFragment);
 
@@ -1654,6 +1658,8 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void resetHeaderScrollingState() {
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) findViewById(R.id.root_layout).getLayoutParams();
+        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
 
         if (appBarLayout != null) {
@@ -2225,13 +2231,7 @@ public class FileDisplayActivity extends FileActivity
             showSortListGroup(false);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
             setLeftFragment(mediaFragment);
-            binding.rightFragmentContainer.setVisibility(View.GONE);
-            ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
-            super.updateActionBarTitleAndHomeButton(file);
-
-            //hide the sort dialog button after the fragment is shown
-            //else the header will be shown there
-            showSortListGroup(false);
+            configureToolbarForMediaPreview(file);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2242,6 +2242,15 @@ public class FileDisplayActivity extends FileActivity
                                                                                  connectivityService);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
+    }
+
+    public void configureToolbarForMediaPreview(OCFile file) {
+        //hide the sort dialog button after the fragment is shown
+        //else the header will be shown there
+        showSortListGroup(false);
+        binding.rightFragmentContainer.setVisibility(View.GONE);
+        ((CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams()).setBehavior(null);
+        super.updateActionBarTitleAndHomeButton(file);
     }
 
     /**

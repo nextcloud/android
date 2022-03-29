@@ -54,6 +54,7 @@
                 android:layout_width="@dimen/shared_with_me_icon_size"
                 android:layout_height="@dimen/shared_with_me_icon_size"
                 android:contentDescription="@string/avatar"
+                app:tint="@color/shared_with_me_color"
                 app:srcCompat="@drawable/ic_shared_with_me" />
 
             <LinearLayout
