@@ -45,6 +45,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
@@ -180,11 +181,18 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public void onBackPressed() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
-        resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
-        setResult(RESULT_OK, resultIntent);
+        if (accountManager.getAllUsers().size() > 0) {
+            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
+            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
+            setResult(RESULT_OK, resultIntent);
 
-        super.onBackPressed();
+            super.onBackPressed();
+        } else {
+            final Intent intent = new Intent(this, AuthenticatorActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**
