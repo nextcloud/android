@@ -24,6 +24,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="400dp"
     android:background="@color/bg_default"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -32,7 +33,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="400dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_sharing_title"

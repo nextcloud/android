@@ -40,8 +40,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
@@ -145,6 +147,17 @@ public class ShareActivity extends FileActivity {
         refreshSharesFromStorageManager();
     }
 
+    @Override
+    protected void doShareWith(String shareeName, ShareType shareType) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
+                                                               FileDetailsSharingProcessFragment.newInstance(getFile(),
+                                                                                                             shareeName,
+                                                                                                             shareType,true),
+                                                               FileDetailsSharingProcessFragment.TAG)
+            .commit();
+    }
+
+
     /**
      * Updates the view associated to the activity after the finish of some operation over files
      * in the current account.
@@ -186,5 +199,10 @@ public class ShareActivity extends FileActivity {
      */
     private FileDetailSharingFragment getShareFileFragment() {
         return (FileDetailSharingFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE_FRAGMENT);
+    }
+
+    @Override
+    public void onShareProcessClosed() {
+        finish();
     }
 }

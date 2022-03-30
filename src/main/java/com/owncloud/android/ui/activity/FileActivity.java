@@ -858,7 +858,6 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-
     /**
      * Shortcut to get access to the {@link FileDetailSharingFragment} instance, if any
      *
@@ -913,7 +912,7 @@ public abstract class FileActivity extends DrawerActivity
      * @param shareeName
      * @param shareType
      */
-    private void doShareWith(String shareeName, ShareType shareType) {
+    protected void doShareWith(String shareeName, ShareType shareType) {
         Fragment fragment = getFileDetailFragment();
         if (fragment != null) {
             ((FileDetailFragment) fragment).initiateSharingProcess(shareeName, shareType);
