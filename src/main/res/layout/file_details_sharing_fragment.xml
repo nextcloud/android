@@ -20,6 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/file_details_nested_scroll_view"
     android:layout_height="match_parent">
 
     <LinearLayout

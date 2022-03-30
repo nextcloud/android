@@ -26,15 +26,19 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -108,6 +112,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject ClientFactory clientFactory;
 
+    private boolean isSearchViewFocused;
+
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
         Bundle args = new Bundle();
@@ -155,6 +161,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         refreshSharesFromDB();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
@@ -178,6 +185,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         //remove focus from search view on click of root view
         binding.shareContainer.setOnClickListener(v -> binding.searchView.clearFocus());
+
+        //enable-disable scrollview scrolling
+        binding.fileDetailsNestedScrollView.setOnTouchListener((view1, motionEvent) -> {
+            //true means disable the scrolling and false means enable the scrolling
+            return DisplayUtils.isLandscapeOrientation() && isSearchViewFocused;
+        });
 
         setupView();
 
@@ -223,6 +236,36 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }*/
         binding.searchView.setVisibility(View.VISIBLE);
         binding.labelPersonalShare.setVisibility(View.VISIBLE);
+
+        binding.searchView.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
+            isSearchViewFocused =  hasFocus;
+            scrollToSearchViewPosition(false);
+        });
+
+    }
+
+    /**
+     *
+     * @param isDeviceRotated true when user rotated the device and false when user is already in landscape mode
+     */
+    private void scrollToSearchViewPosition(boolean isDeviceRotated){
+        if (DisplayUtils.isLandscapeOrientation()) {
+            if (isSearchViewFocused) {
+                binding.fileDetailsNestedScrollView.post(() -> {
+                    //ignore the warning because there can be case that the scrollview can be null
+                    if (binding.fileDetailsNestedScrollView == null) return;
+
+                    if (isDeviceRotated){
+                        //during the rotation we need to use getTop() method for proper alignment of search view
+                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getTop());
+                    }else {
+                        //when user is already in landscape mode and search view gets focus
+                        //we need to user getBottom() method for proper alignment of search view
+                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getBottom() - 100);//-100 just to avoid blank space at top
+                    }
+                });
+            }
+        }
     }
 
     private void disableSearchView(View view) {
@@ -599,5 +642,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount);
 
         void onShareProcessClosed();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //when user is in portrait mode and search view is focused and keyboard is open
+        //so when user rotate the device we have to fix the search view properly in landscape mode
+        scrollToSearchViewPosition(true);
     }
 }
