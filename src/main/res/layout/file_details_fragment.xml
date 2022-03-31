@@ -29,6 +29,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/share_detail_file_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
