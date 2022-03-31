@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="all">
+        <ignore path="build/generated/**/Hilt_*.java" />
+    </issue>
     <issue id="UnusedAttribute">
         <ignore regexp="importantForAutofill"/>
         <ignore regexp="autofillHints"/>
