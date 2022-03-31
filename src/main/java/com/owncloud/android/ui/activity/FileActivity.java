@@ -756,7 +756,7 @@ public abstract class FileActivity extends DrawerActivity
 
         if (result.isSuccess()) {
             if (sharingFragment != null) {
-                sharingFragment.onUpdateShareInformation(result, getFile());
+                sharingFragment.onUpdateShareInformation(result);
             }
         } else {
             DisplayUtils.showSnackMessage(this, R.string.note_could_not_sent);
@@ -770,7 +770,7 @@ public abstract class FileActivity extends DrawerActivity
         if (result.isSuccess()) {
             updateFileFromDB();
             if (sharingFragment != null) {
-                sharingFragment.onUpdateShareInformation(result, getFile());
+                sharingFragment.onUpdateShareInformation(result);
             }
         } else if (sharingFragment != null && sharingFragment.getView() != null) {
             if (TextUtils.isEmpty(result.getMessage())) {

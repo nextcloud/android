@@ -433,10 +433,21 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      *
      * @param result {@link RemoteOperationResult} of an update on the edited {@link OCFile} sharing information.
      * @param file   the edited {@link OCFile}
+     * @see #onUpdateShareInformation(RemoteOperationResult)
      */
     public void onUpdateShareInformation(RemoteOperationResult result, OCFile file) {
         this.file = file;
+        onUpdateShareInformation(result);
+    }
 
+    /**
+     * Updates the UI after the result of an update operation on the edited {@link OCFile}. Keeps the current {@link
+     * OCFile held by this fragment}.
+     *
+     * @param result {@link RemoteOperationResult} of an update on the edited {@link OCFile} sharing information.
+     * @see #onUpdateShareInformation(RemoteOperationResult, OCFile)
+     */
+    public void onUpdateShareInformation(RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshUiFromDB();
         } else {
