@@ -148,7 +148,9 @@
     <string name="confirmation_remove_local">محلياً فقط</string>
     <string name="conflict_dialog_error">خطأ في إنشاء حوار التعارض!</string>
     <string name="conflict_file_headline">ملف متضارب %1$s </string>
+    <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
+    <string name="conflict_server_file">ملف على الخادم</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -252,6 +254,7 @@
     <string name="error_choosing_date">خطأ أثناء اختيار البيانات</string>
     <string name="error_comment_file">خطأ في التعليق على الملف</string>
     <string name="error_crash_title">%1$s فشل</string>
+    <string name="error_creating_file_from_template">خطأ عند محاولة إنشاء الملف مِن النموذج</string>
     <string name="error_report_issue_action">أبلغ عنه</string>
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
@@ -294,6 +297,7 @@
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">لا يوجد عندك مفضلات بعد</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
+    <string name="file_list_empty_gallery">لا توجد أية صور أو فيديوهات</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">لا يوجد أي نتيجة</string>
@@ -303,10 +307,13 @@
     <string name="file_list_empty_search">ربما كنت تنوي البحث داخل مجلد آخر ؟</string>
     <string name="file_list_empty_shared">الملفات والمجلدات التي تم مشاركتها سوف تظهر هنا.</string>
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
+    <string name="file_list_empty_unified_search_no_results">لا توجد نتائج لطلبك</string>
     <string name="file_list_folder">مجلد</string>
     <string name="file_list_loading">جارِ التحميل …</string>
     <string name="file_list_no_app_for_file_type">لم يُعّد التطبيق يدعم نوع الملف هذا.</string>
     <string name="file_list_seconds_ago">منذ ثواني</string>
+    <string name="file_management_permission">التصريح مطلوب</string>
+    <string name="file_management_permission_optional">تصريحات التخزين</string>
     <string name="file_migration_checking_destination">جار التحقق من الوجهة…</string>
     <string name="file_migration_cleaning">تنظيف…</string>
     <string name="file_migration_dialog_title">يجري تحديث ملفات مجلد التخزين</string>
@@ -382,6 +389,7 @@
     <string name="link_share_allow_upload_and_editing">السماح بالرفع و التعديل</string>
     <string name="link_share_editing">جارِ التعديل</string>
     <string name="link_share_file_drop">إسقاط الملف (رفع فقط)</string>
+    <string name="link_share_view_only">لعرضه فقط</string>
     <string name="list_layout">تخطيط مدرج</string>
     <string name="load_more_results">تحميل المزيد من النتائج</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
@@ -482,6 +490,7 @@
     <string name="pass_code_removed">تمت إزالة الرمز السري</string>
     <string name="pass_code_stored">رمز المرور المخزن</string>
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
+    <string name="pdf_zoom_tip">اضغط على الصفحة لتكبيرها</string>
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>
     <string name="permission_storage_access">الأذونات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
@@ -689,6 +698,7 @@
     <string name="storage_internal_storage">التخزين الداخلي</string>
     <string name="storage_movies">الأفلام</string>
     <string name="storage_music">الموسيقى</string>
+    <string name="storage_permission_full_access">النفاذ الكامل</string>
     <string name="storage_pictures">الصور</string>
     <string name="store_full_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\n\nالمميزات:\n* واجهة سهلة وحديثة ومناسبة لموضوع الخادم الخاص بك\n* رفع الملفات إلى خادم Nextcloud الخاص بك\n* شاركها مع الآخرين\n* حافظ على مزامنة ملفاتك ومجلداتك المفضلة\n* البحث في جميع المجلدات في خادمك\n* الرفع التلقائي للصور ومقاطع الفيديو التي يلتقطها جهازك\n* مواكبة مع الإشعارات\n* دعم لحسابات متعددة\n* وصول آمن إلى بياناتك باستخدام بصمة الإصبع أو رمز PIN\n* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لسهولة إعداد التقويم ومزامنة جهات الاتصال\n\nالرجاء الإبلاغ عن جميع المشاكل على https://github.com/nextcloud/android/issues وناقش هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nجديد في Nextcloud؟ Nextcloud هو خادم خاص لمزامنة الملفات ومشاركتها واتصالاتها. إنه برنامج حر ، ويمكنك استضافته بنفسك أو الدفع لشركة للقيام بذلك نيابة عنك. بهذه الطريقة ، يمكنك التحكم في صورك والتقويم وبيانات الاتصال والمستندات وكل شيء آخر.\n\nتحقق من Nextcloud في https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
@@ -778,6 +788,7 @@
     <string name="upload_lock_failed">فشل قفّل المجلد</string>
     <string name="upload_old_android">التشفير ممكن فقط مع &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">يمنع وجود مساحة غير كافية نسخ الملفات المحددة إلى المجلد %1$s. هل ترغب في نقلهم إلى هناك بدلاً من ذلك؟</string>
+    <string name="upload_scan_doc_upload">مسح مستند عبر الكاميرا</string>
     <string name="upload_sync_conflict">تعارض المزامنة ، يرجى حلها يدويًا</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>
     <string name="uploader_btn_alternative_text">إختر</string>

@@ -43,7 +43,7 @@
     <string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>
     <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
     <string name="auth_connection_established">Anslutning etablerad</string>
-    <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, vänligen kontakta en administratör.</string>
+    <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användar-ID, kontakta en administratör.</string>
     <string name="auth_host_url">Serveradress https://…</string>
     <string name="auth_incorrect_address_title">Fel adressformat för server</string>
     <string name="auth_incorrect_path_title">Server kunde inte hittas</string>
