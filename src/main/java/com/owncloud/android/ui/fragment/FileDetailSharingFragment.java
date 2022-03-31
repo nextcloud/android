@@ -27,21 +27,17 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -62,17 +58,19 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.ui.events.ShareSearchViewFocusEvent;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -238,32 +236,59 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding.labelPersonalShare.setVisibility(View.VISIBLE);
 
         binding.searchView.setOnQueryTextFocusChangeListener((view, hasFocus) -> {
-            isSearchViewFocused =  hasFocus;
+            isSearchViewFocused = hasFocus;
             scrollToSearchViewPosition(false);
         });
 
     }
 
     /**
-     *
      * @param isDeviceRotated true when user rotated the device and false when user is already in landscape mode
      */
-    private void scrollToSearchViewPosition(boolean isDeviceRotated){
+    private void scrollToSearchViewPosition(boolean isDeviceRotated) {
         if (DisplayUtils.isLandscapeOrientation()) {
             if (isSearchViewFocused) {
                 binding.fileDetailsNestedScrollView.post(() -> {
                     //ignore the warning because there can be case that the scrollview can be null
-                    if (binding.fileDetailsNestedScrollView == null) return;
+                    if (binding.fileDetailsNestedScrollView == null) {
+                        return;
+                    }
 
-                    if (isDeviceRotated){
+                    //need to hide app bar to have more space in landscape mode while search view is focused
+                    hideAppBar();
+
+                    //send the event to hide the share top view to have more space
+                    //need to use this here else white view will be visible for sometime
+                    EventBus.getDefault().post(new ShareSearchViewFocusEvent(isSearchViewFocused));
+
+                    if (isDeviceRotated) {
                         //during the rotation we need to use getTop() method for proper alignment of search view
-                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getTop());
-                    }else {
+                        //-25 just to avoid blank space at top
+                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getTop() - 20);
+                    } else {
                         //when user is already in landscape mode and search view gets focus
                         //we need to user getBottom() method for proper alignment of search view
-                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getBottom() - 100);//-100 just to avoid blank space at top
+                        //-100 just to avoid blank space at top
+                        binding.fileDetailsNestedScrollView.smoothScrollTo(0, binding.searchView.getBottom() - 100);
                     }
                 });
+            } else {
+                //send the event to show the share top view again
+                EventBus.getDefault().post(new ShareSearchViewFocusEvent(isSearchViewFocused));
+            }
+        } else {
+            //in portrait mode we need to see the layout everytime
+            //send the event to show the share top view
+            EventBus.getDefault().post(new ShareSearchViewFocusEvent(false));
+        }
+    }
+
+    private void hideAppBar() {
+        if (requireActivity() instanceof FileDisplayActivity) {
+            AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
+
+            if (appBarLayout != null) {
+                appBarLayout.setExpanded(false, true);
             }
         }
     }
@@ -282,6 +307,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * will be called from FileActivity when user is sharing from PreviewImageFragment
+     *
      * @param shareeName
      * @param shareType
      */
@@ -296,8 +322,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     /**
-     * open the new sharing screen process to modify the created share
-     * this will be called from PreviewImageFragment
+     * open the new sharing screen process to modify the created share this will be called from PreviewImageFragment
+     *
      * @param share
      * @param screenTypePermission
      * @param isReshareShown
@@ -446,6 +472,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * will be called when download limit from api is fetched
+     *
      * @param result
      */
     public void onLinkShareDownloadLimitFetched(RemoteOperationResult result) {
@@ -545,7 +572,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void showHideView(boolean isEmptyList) {
         binding.sharesList.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
-        binding.tvYourShares.setVisibility(isEmptyList ?View.GONE : View.VISIBLE);
+        binding.tvYourShares.setVisibility(isEmptyList ? View.GONE : View.VISIBLE);
         binding.tvEmptyShares.setVisibility(isEmptyList ? View.VISIBLE : View.GONE);
     }
 
