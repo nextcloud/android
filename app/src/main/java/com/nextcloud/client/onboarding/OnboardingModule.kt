@@ -23,8 +23,11 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.preferences.AppPreferences
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class OnboardingModule {
 

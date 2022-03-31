@@ -26,8 +26,11 @@ import androidx.work.WorkManager
 import com.nextcloud.client.core.Clock
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class JobsModule {
 

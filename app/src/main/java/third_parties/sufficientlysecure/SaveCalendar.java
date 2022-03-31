@@ -42,7 +42,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.PostUploadAction;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.TransferManagerConnection;
@@ -101,7 +100,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @SuppressLint("NewApi")
-public class SaveCalendar implements Injectable {
+public class SaveCalendar {
     private static final String TAG = "ICS_SaveCalendar";
 
     private final PropertyFactoryImpl mPropertyFactory = PropertyFactoryImpl.getInstance();

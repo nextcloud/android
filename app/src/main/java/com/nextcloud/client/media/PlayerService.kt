@@ -34,10 +34,11 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PlayerService : Service() {
 
     companion object {
@@ -84,10 +85,10 @@ class PlayerService : Service() {
     }
 
     @Inject
-    protected lateinit var audioManager: AudioManager
+    lateinit var audioManager: AudioManager
 
     @Inject
-    protected lateinit var clientFactory: ClientFactory
+    lateinit var clientFactory: ClientFactory
 
     private lateinit var player: Player
     private lateinit var notificationBuilder: NotificationCompat.Builder
@@ -95,7 +96,6 @@ class PlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        AndroidInjection.inject(this)
         player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
         notificationBuilder.color = ThemeColorUtils.primaryColor(this)

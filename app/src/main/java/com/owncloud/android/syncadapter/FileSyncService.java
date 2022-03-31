@@ -28,15 +28,16 @@ import com.nextcloud.client.account.UserAccountManager;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Background service for synchronizing remote files with their local state.
- * 
+ * <p>
  * Serves as a connector to an instance of {@link FileSyncAdapter}, as required by standard Android APIs.
  */
+@AndroidEntryPoint
 public class FileSyncService extends Service {
-    
+
     // Storage for an instance of the sync adapter
     private static FileSyncAdapter syncAdapter;
     // Object to use as a thread-safe lock
@@ -49,7 +50,6 @@ public class FileSyncService extends Service {
      */
     @Override
     public void onCreate() {
-        AndroidInjection.inject(this);
         synchronized (syncAdapterLock) {
             if (syncAdapter == null) {
                 syncAdapter = new FileSyncAdapter(getApplicationContext(), true, userAccountManager);
@@ -62,7 +62,7 @@ public class FileSyncService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-       return syncAdapter.getSyncAdapterBinder();
+        return syncAdapter.getSyncAdapterBinder();
     }
-    
+
 }

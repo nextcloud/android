@@ -44,8 +44,6 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.di.ActivityInjector;
-import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.LegacyLoggerAdapter;
@@ -102,9 +100,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasAndroidInjector;
+import dagger.hilt.android.HiltAndroidApp;
 import de.cotech.hw.SecurityKeyManager;
 import de.cotech.hw.SecurityKeyManagerConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -117,7 +113,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * <p>
  * Contains methods to build the "static" strings. These strings were before constants in different classes
  */
-public class MainApp extends MultiDexApplication implements HasAndroidInjector {
+@HiltAndroidApp
+public class MainApp extends MultiDexApplication {
 
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = OwnCloudVersion.nextcloud_19;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
@@ -133,9 +130,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     protected AppPreferences preferences;
-
-    @Inject
-    protected DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Inject
     protected UserAccountManager accountManager;
@@ -223,10 +217,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         super.attachBaseContext(base);
 
         initGlobalContext(this);
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this);
 
         // we don't want to handle crashes occurring inside crash reporter activity/process;
         // let the platform deal with those
@@ -243,16 +233,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
-        enableStrictMode();
-
-        setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
+
+        enableStrictMode();
+        setAppTheme(preferences.getDarkThemeMode());
 
         insertConscrypt();
 
         initSecurityKeyManager();
-
-        registerActivityLifecycleCallbacks(new ActivityInjector());
 
         int startedMigrationsCount = migrationsManager.startMigration();
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
@@ -769,11 +757,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 preferences.setLegacyClean(true);
             }
         }
-    }
-
-    @Override
-    public AndroidInjector<Object> androidInjector() {
-        return dispatchingAndroidInjector;
     }
 
 

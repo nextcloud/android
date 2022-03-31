@@ -36,18 +36,13 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject BackgroundJobManager backgroundJobManager;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        AndroidInjection.inject(this);
-    }
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {

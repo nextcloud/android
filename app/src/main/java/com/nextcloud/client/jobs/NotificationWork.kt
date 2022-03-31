@@ -56,7 +56,7 @@ import com.owncloud.android.ui.activity.NotificationsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.DeleteMethod
@@ -257,22 +257,13 @@ class NotificationWork constructor(
         }
     }
 
+    @AndroidEntryPoint
     class NotificationReceiver : BroadcastReceiver() {
-        private lateinit var accountManager: UserAccountManager
-
-        /**
-         * This is a workaround for a Dagger compiler bug - it cannot inject
-         * into a nested Kotlin class for some reason, but the helper
-         * works.
-         */
         @Inject
-        fun inject(accountManager: UserAccountManager) {
-            this.accountManager = accountManager
-        }
+        lateinit var accountManager: UserAccountManager
 
         @Suppress("ComplexMethod") // legacy code
         override fun onReceive(context: Context, intent: Intent) {
-            AndroidInjection.inject(this, context)
             val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)
             val accountName = intent.getStringExtra(KEY_NOTIFICATION_ACCOUNT)
             if (numericNotificationId != 0) {

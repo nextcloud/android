@@ -38,7 +38,6 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
@@ -75,15 +74,17 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
  * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
+@AndroidEntryPoint
 public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
-    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
+    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener {
 
     private static final String KEY_ALL_SELECTED = UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
     public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_FOLDER_PICKER_MODE";

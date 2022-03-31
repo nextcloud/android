@@ -26,7 +26,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -39,7 +38,6 @@ import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
@@ -75,10 +73,12 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
-    Injectable, FileDetailsSharingMenuBottomSheetActions, QuickSharingPermissionsBottomSheetDialog.QuickPermissionSharingBottomSheetActions {
+    FileDetailsSharingMenuBottomSheetActions, QuickSharingPermissionsBottomSheetDialog.QuickPermissionSharingBottomSheetActions {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
@@ -310,6 +310,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     /**
      * show quick sharing permission dialog
+     *
      * @param share
      */
     @Override

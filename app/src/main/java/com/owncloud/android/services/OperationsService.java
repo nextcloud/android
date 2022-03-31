@@ -83,8 +83,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class OperationsService extends Service {
 
     private static final String TAG = OperationsService.class.getSimpleName();
@@ -154,7 +155,6 @@ public class OperationsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidInjection.inject(this);
         Log_OC.d(TAG, "Creating service");
 
         // First worker thread for most of operations

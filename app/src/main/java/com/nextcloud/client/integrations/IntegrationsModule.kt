@@ -6,7 +6,10 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.integrations.deck.DeckApiImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(SingletonComponent::class)
 @Module
 class IntegrationsModule {
     @Provides

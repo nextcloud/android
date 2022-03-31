@@ -28,8 +28,10 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.logger.LogEntry
 import com.nextcloud.client.logger.LogsRepository
 import com.owncloud.android.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class LogsViewModel @Inject constructor(
     private val context: Context,
     clock: Clock,

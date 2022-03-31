@@ -39,13 +39,14 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 
 
 /**
  * App-registered receiver catching the broadcast intent reporting that the system was
  * just boot up.
  */
+@AndroidEntryPoint
 public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
@@ -66,8 +67,6 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        AndroidInjection.inject(this, context);
-
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             MainApp.initSyncOperations(preferences,
                                        uploadsStorageManager,

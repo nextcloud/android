@@ -51,7 +51,6 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.media.NextcloudExoPlayer;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
@@ -82,6 +81,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -92,8 +92,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements OnTouchListener,
-    Injectable, StyledPlayerControlView.OnFullScreenModeChangedListener {
+@AndroidEntryPoint
+public class PreviewMediaFragment extends FileFragment implements OnTouchListener, StyledPlayerControlView.OnFullScreenModeChangedListener {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -322,7 +322,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
                             final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
-                            handler.post(() ->{
+                            handler.post(() -> {
                                 exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
                                 playVideo();
                             });
@@ -576,7 +576,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onResume() {
         super.onResume();
         autoplay = false;
-        if(getActivity() instanceof FileDisplayActivity){
+        if (getActivity() instanceof FileDisplayActivity) {
             ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
         }
         Log_OC.v(TAG, "onResume");

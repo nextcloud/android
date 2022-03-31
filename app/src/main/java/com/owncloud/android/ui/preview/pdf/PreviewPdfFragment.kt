@@ -31,8 +31,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -40,12 +38,10 @@ import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class PreviewPdfFragment : Fragment(), Injectable {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+@AndroidEntryPoint
+class PreviewPdfFragment : Fragment() {
 
     private lateinit var binding: PreviewPdfFragmentBinding
     private lateinit var viewModel: PreviewPdfViewModel
@@ -102,7 +98,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, vmFactory)[PreviewPdfViewModel::class.java]
+        viewModel = ViewModelProvider(this)[PreviewPdfViewModel::class.java]
         setHasOptionsMenu(true)
     }
 

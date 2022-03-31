@@ -26,7 +26,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
@@ -37,8 +36,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class AccountRemovalConfirmationDialog extends DialogFragment implements Injectable {
+@AndroidEntryPoint
+public class AccountRemovalConfirmationDialog extends DialogFragment {
     private static final String KEY_USER = "USER";
 
     @Inject BackgroundJobManager backgroundJobManager;

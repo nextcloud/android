@@ -93,7 +93,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -107,6 +107,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Every file passed to this service is uploaded. No filtering is performed. However, Intent keys (e.g., KEY_WIFI_ONLY)
  * are obeyed.
  */
+@AndroidEntryPoint
 public class FileUploader extends Service
     implements OnDatatransferProgressListener, OnAccountsUpdateListener, UploadFileOperation.OnRenameListener {
 
@@ -220,7 +221,6 @@ public class FileUploader extends Service
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidInjection.inject(this);
         Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -358,7 +358,7 @@ public class FileUploader extends Service
         List<String> requestedUploads,
         boolean onWifiOnly,
         boolean whileChargingOnly
-    ) {
+                                            ) {
         String[] localPaths = null;
         String[] remotePaths = null;
         String[] mimeTypes = null;
@@ -397,7 +397,7 @@ public class FileUploader extends Service
                     remotePaths[i],
                     localPaths[i],
                     mimeTypes != null ? mimeTypes[i] : null
-                );
+                                                                      );
                 if (files[i] == null) {
                     Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
                         + " and localPaths[i]:" + localPaths[i]);
@@ -502,7 +502,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             file.getRemotePath(),
             newUpload
-        );
+                                                                    );
 
         if (putResult != null) {
             requestedUploads.add(putResult.first);
@@ -549,7 +549,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             upload.getRemotePath(),
             newUpload
-        );
+                                                                    );
         if (putResult != null) {
             String uploadKey = putResult.first;
             requestedUploads.add(uploadKey);
@@ -648,7 +648,7 @@ public class FileUploader extends Service
                     removeResult = mPendingUploads.removePayload(
                         mCurrentAccount.name,
                         mCurrentUpload.getOldFile().getRemotePath()
-                    );
+                                                                );
                     // TODO: grant that name is also updated for mCurrentUpload.getOCUploadId
 
                 } else {
@@ -681,7 +681,7 @@ public class FileUploader extends Service
     /**
      * Convert current account to user. This is a temporary workaround until
      * service is migrated to new user model.
-     * 
+     *
      * @return Optional {@link User}
      */
     private Optional<User> getCurrentUser() {
@@ -709,7 +709,7 @@ public class FileUploader extends Service
             .setProgress(100, 0, false)
             .setContentText(
                 String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-            );
+                           );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -746,7 +746,7 @@ public class FileUploader extends Service
         long totalTransferredSoFar,
         long totalToTransfer,
         String filePath
-    ) {
+                                  ) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, false);
@@ -810,11 +810,11 @@ public class FileUploader extends Service
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
-                );
+                                                 );
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                );
+                                                 );
 
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -824,7 +824,7 @@ public class FileUploader extends Service
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
                     PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
-                ));
+                                                                               ));
             } else {
                 Intent intent;
                 if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
@@ -896,7 +896,7 @@ public class FileUploader extends Service
         UploadFileOperation upload,
         RemoteOperationResult uploadResult,
         String unlinkedFromRemotePath
-    ) {
+                                            ) {
         Intent end = new Intent(getUploadFinishMessage());
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
         // path, after
@@ -942,7 +942,7 @@ public class FileUploader extends Service
         boolean requiresWifi,
         boolean requiresCharging,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                    ) {
         uploadNewFile(
             context,
             account,
@@ -955,7 +955,7 @@ public class FileUploader extends Service
             requiresWifi,
             requiresCharging,
             nameCollisionPolicy
-        );
+                     );
     }
 
     /**
@@ -973,7 +973,7 @@ public class FileUploader extends Service
         boolean requiresWifi,
         boolean requiresCharging,
         NameCollisionPolicy nameCollisionPolicy
-    ) {
+                                    ) {
         Intent intent = new Intent(context, FileUploader.class);
 
         intent.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -1072,9 +1072,9 @@ public class FileUploader extends Service
         @NonNull final ConnectivityService connectivityService,
         @NonNull final UserAccountManager accountManager,
         @NonNull final PowerManagementService powerManagementService
-    ) {
+                                         ) {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads == null || failedUploads.length == 0) {
+        if (failedUploads == null || failedUploads.length == 0) {
             return; //nothing to do
         }
 
@@ -1248,7 +1248,7 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                   ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
@@ -1266,7 +1266,7 @@ public class FileUploader extends Service
         public void addDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                   ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
@@ -1286,7 +1286,7 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                      ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
@@ -1306,7 +1306,7 @@ public class FileUploader extends Service
         public void removeDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                      ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
@@ -1323,7 +1323,7 @@ public class FileUploader extends Service
             long totalTransferredSoFar,
             long totalToTransfer,
             String fileName
-        ) {
+                                      ) {
             String key = buildRemoteName(mCurrentUpload.getAccount().name, mCurrentUpload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
 
@@ -1348,7 +1348,7 @@ public class FileUploader extends Service
                         mCurrentUpload.getAccount().name,
                         mCurrentUpload.getFile().getRemotePath(),
                         cancelReason
-                    );
+                          );
                 }
             }
         }

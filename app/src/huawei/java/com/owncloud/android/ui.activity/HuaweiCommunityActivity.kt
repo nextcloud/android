@@ -20,10 +20,12 @@
 package com.owncloud.android.ui.activity
 
 import android.view.View
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Activity providing information about ways to participate in the app's development.
  */
+@AndroidEntryPoint
 class HuaweiCommunityActivity : CommunityActivity() {
     override fun setupContent() {
         super.setupContent()

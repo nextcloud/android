@@ -38,7 +38,6 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
@@ -53,11 +52,13 @@ import com.owncloud.android.utils.DisplayUtils;
 import javax.inject.Inject;
 
 import androidx.viewpager.widget.ViewPager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Activity displaying general feature after a fresh install.
  */
-public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener, Injectable {
+@AndroidEntryPoint
+public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
     public static final String EXTRA_EXIT = "EXIT";
@@ -115,7 +116,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         hostOwnServerTextView.setTextColor(getResources().getColor(R.color.login_text_color));
         hostOwnServerTextView.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
-        if(!isProviderOrOwnInstallationVisible) {
+        if (!isProviderOrOwnInstallationVisible) {
             hostOwnServerTextView.setOnClickListener(v -> onHostYourOwnServerClick());
         }
 
@@ -144,10 +145,10 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         LinearLayout bottomLayout = findViewById(R.id.bottomLayout);
         if (isProviderOrOwnInstallationVisible) {
             layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
         } else {
             layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
+                                                         DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
         }
 
         bottomLayout.setLayoutParams(layoutParams);
@@ -235,12 +236,11 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
 
-
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
-                new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
+            new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
     }
 }

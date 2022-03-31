@@ -63,12 +63,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import dagger.android.AndroidInjection;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 import third_parties.aosp.SQLiteTokenizer;
 
 
@@ -118,7 +119,7 @@ public class FileContentProvider extends ContentProvider {
     private static final Map<String, String> FILE_PROJECTION_MAP;
 
     static {
-        HashMap<String,String> tempMap = new HashMap<>();
+        HashMap<String, String> tempMap = new HashMap<>();
         for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
             tempMap.put(projection, projection);
         }
@@ -126,10 +127,16 @@ public class FileContentProvider extends ContentProvider {
     }
 
 
-    @Inject protected Clock clock;
+    protected Clock clock;
     private DataBaseHelper mDbHelper;
     private Context mContext;
     private UriMatcher mUriMatcher;
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface FileContentProviderEntryPoint {
+        Clock getClock();
+    }
 
     @Override
     public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
@@ -217,7 +224,7 @@ public class FileContentProvider extends ContentProvider {
                     childId = children.getLong(children.getColumnIndexOrThrow(ProviderTableMeta._ID));
                     isDir = MimeType.DIRECTORY.equals(children.getString(
                         children.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)
-                    ));
+                                                                        ));
                     if (isDir) {
                         count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
                                         null, (String[]) null);
@@ -329,7 +336,7 @@ public class FileContentProvider extends ContentProvider {
                     Uri insertedFileUri = ContentUris.withAppendedId(
                         ProviderTableMeta.CONTENT_URI_FILE,
                         doubleCheck.getLong(doubleCheck.getColumnIndexOrThrow(ProviderTableMeta._ID))
-                    );
+                                                                    );
                     doubleCheck.close();
 
                     return insertedFileUri;
@@ -462,7 +469,7 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        AndroidInjection.inject(this);
+        inject();
         mDbHelper = new DataBaseHelper(getContext());
         mContext = getContext();
 
@@ -490,6 +497,11 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "filesystem", FILESYSTEM);
 
         return true;
+    }
+
+    private void inject() {
+        final FileContentProviderEntryPoint entryPoint = EntryPoints.get(getContext(), FileContentProviderEntryPoint.class);
+        clock = entryPoint.getClock();
     }
 
     @Override
@@ -571,7 +583,7 @@ public class FileContentProvider extends ContentProvider {
 
 
         // add ID to arguments if Uri has more than one segment
-        if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT ) {
+        if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
             String idColumn = uriMatch == DIRECTORY ? ProviderTableMeta.FILE_PARENT : ProviderTableMeta._ID;
             sqlQuery.appendWhere(idColumn + "=?");
             selectionArgs = VerificationUtils.prependUriFirstSegmentToSelectionArgs(selectionArgs, uri);
@@ -754,7 +766,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_NOTE + TEXT
                        + ProviderTableMeta.FILE_SHAREES + TEXT
                        + ProviderTableMeta.FILE_RICH_WORKSPACE + " TEXT);"
-        );
+                  );
     }
 
     private void createOCSharesTable(SQLiteDatabase db) {
@@ -877,7 +889,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " INTEGER, " // name collision policy
                        + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "              // type
                        + ProviderTableMeta.SYNCED_FOLDER_HIDDEN + " INTEGER );"           // hidden
-        );
+                  );
     }
 
     private void createExternalLinksTable(SQLiteDatabase db) {
@@ -889,7 +901,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
                        + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT, "          // url
                        + ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER );" // redirect
-        );
+                  );
     }
 
     private void createArbitraryData(SQLiteDatabase db) {
@@ -898,7 +910,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
                        + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
                        + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT );"   // value
-        );
+                  );
     }
 
     private void createVirtualTable(SQLiteDatabase db) {
@@ -919,14 +931,13 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " STRING, "
                        + ProviderTableMeta.FILESYSTEM_CRC32 + " STRING, "
                        + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
-        );
+                  );
     }
 
     /**
-     * Version 10 of database does not modify its scheme. It coincides with the upgrade of the
-     * ownCloud account names structure to include in it the path to the server instance. Updating
-     * the account names and path to local files in the files table is a must to keep the existing
-     * account working and the database clean.
+     * Version 10 of database does not modify its scheme. It coincides with the upgrade of the ownCloud account names
+     * structure to include in it the path to the server instance. Updating the account names and path to local files in
+     * the files table is a must to keep the existing account working and the database clean.
      *
      * @param db Database where table of files is included.
      */
@@ -982,9 +993,8 @@ public class FileContentProvider extends ContentProvider {
     }
 
     /**
-     * Rename the local ownCloud folder of one account to match the a rename of the account itself.
-     * Updates the table of files in database so that the paths to the local files keep being the
-     * same.
+     * Rename the local ownCloud folder of one account to match the a rename of the account itself. Updates the table of
+     * files in database so that the paths to the local files keep being the same.
      *
      * @param db             Database where table of files is included.
      * @param newAccountName New name for the target OC account.
@@ -1107,13 +1117,13 @@ public class FileContentProvider extends ContentProvider {
             SQLiteTokenizer.tokenize(sortOrder, SQLiteTokenizer.OPTION_NONE, VerificationUtils::verifySortToken);
         }
 
-        private static void verifySortToken(String token){
+        private static void verifySortToken(String token) {
             // accept empty tokens and valid column names
             if (TextUtils.isEmpty(token) || isValidColumnName(token)) {
                 return;
             }
             // accept only a small subset of keywords
-            if(SQLiteTokenizer.isKeyword(token)){
+            if (SQLiteTokenizer.isKeyword(token)) {
                 switch (token.toUpperCase(Locale.ROOT)) {
                     case "ASC":
                     case "DESC":

@@ -40,7 +40,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
@@ -68,6 +67,7 @@ import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeUtils
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -80,14 +80,15 @@ import javax.inject.Inject
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
 @Suppress("TooManyFunctions")
+@AndroidEntryPoint
 class SyncedFoldersActivity :
     FileActivity(),
     SyncedFolderAdapter.ClickListener,
-    OnSyncedFolderPreferenceListener,
-    Injectable {
+    OnSyncedFolderPreferenceListener {
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
+
         // yes, there is a typo in this value
         private const val KEY_SYNCED_FOLDER_INITIATED_PREFIX = "syncedFolderIntitiated_"
         private val PRIORITIZED_FOLDERS = arrayOf("Camera", "Screenshots")

@@ -37,7 +37,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.google.android.material.button.MaterialButton;
-import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -70,11 +69,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener,
     OnEnforceableRefreshListener,
-    Injectable,
     SortingOrderDialogFragment.OnSortingOrderListener {
 
     public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
@@ -209,7 +209,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     R.string.file_list_empty_moving,
                     R.drawable.ic_list_empty_create_folder,
                     true
-                );
+                                                   );
             } else {
                 listFragment.setEmptyListLoadingMessage();
             }
@@ -450,7 +450,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
      */
     private void onCreateFolderOperationFinish(
         CreateFolderOperation operation, RemoteOperationResult result
-    ) {
+                                              ) {
 
         if (result.isSuccess()) {
             refreshListOfFilesFragment(false);
@@ -458,7 +458,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             try {
                 DisplayUtils.showSnackMessage(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                                             );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);

@@ -31,10 +31,12 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 
+@HiltViewModel
 class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences) : ViewModel() {
 
     companion object {

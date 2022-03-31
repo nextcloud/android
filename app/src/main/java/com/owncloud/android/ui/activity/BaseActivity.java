@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -21,11 +20,14 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
-public abstract class BaseActivity extends AppCompatActivity implements Injectable {
+@AndroidEntryPoint
+
+public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -120,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     /**
      * Sets and validates the ownCloud {@link Account} associated to the Activity.
-     *
+     * <p>
      * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
      *
      * @param account      New {@link Account} to set.
@@ -145,19 +147,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     /**
      * Getter for the capabilities of the server where the current OC account lives.
      *
-     * @return Capabilities of the server where the current OC account lives. Null if the account is not
-     * set yet.
+     * @return Capabilities of the server where the current OC account lives. Null if the account is not set yet.
      */
     public OCCapability getCapabilities() {
         return sessionMixin.getCapabilities();
     }
 
     /**
-     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
-     * is located.
+     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
      *
-     * @return OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
-     * is located.
+     * @return OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
      */
     public Account getAccount() {
         return sessionMixin.getCurrentAccount();

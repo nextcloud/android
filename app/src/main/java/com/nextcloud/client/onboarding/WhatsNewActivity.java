@@ -30,7 +30,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
@@ -43,11 +42,13 @@ import javax.inject.Inject;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Activity displaying new features after an update.
  */
-public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, Injectable {
+@AndroidEntryPoint
+public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;

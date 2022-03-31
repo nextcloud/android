@@ -35,7 +35,6 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
@@ -58,17 +57,18 @@ import javax.inject.Inject;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * Presenting trashbin data, received from presenter
  */
+@AndroidEntryPoint
 public class TrashbinActivity extends DrawerActivity implements
     TrashbinActivityInterface,
     SortingOrderDialogFragment.OnSortingOrderListener,
-    TrashbinContract.View,
-    Injectable {
+    TrashbinContract.View {
 
     public static final int EMPTY_LIST_COUNT = 1;
     @Inject AppPreferences preferences;
@@ -311,7 +311,7 @@ public class TrashbinActivity extends DrawerActivity implements
     public void showError(int message) {
         if (active) {
             trashbinListAdapter.removeAllFiles();
-            
+
             binding.loadingContent.setVisibility(View.GONE);
             binding.list.setVisibility(View.VISIBLE);
             binding.swipeContainingList.setRefreshing(false);

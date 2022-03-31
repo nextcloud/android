@@ -70,7 +70,10 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import dagger.android.AndroidInjection;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation.PROPERTY_CLEAR_AT;
@@ -113,7 +116,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     private UriMatcher mUriMatcher;
 
-    @Inject
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface UsersAndGroupsSearchEntryPoint{
+        UserAccountManager getAccountManager();
+    }
+
     protected UserAccountManager accountManager;
 
     private static final Map<String, ShareType> sShareTypes = new HashMap<>();
@@ -136,7 +144,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        AndroidInjection.inject(this);
+        inject();
 
         if (getContext() == null) {
             return false;
@@ -163,7 +171,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
         return true;
     }
-
+    private void inject() {
+        final UsersAndGroupsSearchEntryPoint entryPoint = EntryPoints.get(getContext(), UsersAndGroupsSearchEntryPoint.class);
+        accountManager = entryPoint.getAccountManager();
+    }
     /**
      * returns sharee from server
      *

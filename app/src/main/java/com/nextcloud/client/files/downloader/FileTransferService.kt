@@ -33,10 +33,11 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
+@AndroidEntryPoint
 class FileTransferService : Service() {
 
     companion object {
@@ -96,10 +97,6 @@ class FileTransferService : Service() {
     val isRunning: Boolean get() = downloaders.any { it.value.isRunning }
 
     private val downloaders: MutableMap<String, TransferManagerImpl> = mutableMapOf()
-
-    override fun onCreate() {
-        AndroidInjection.inject(this)
-    }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         if (intent.action != ACTION_TRANSFER) {

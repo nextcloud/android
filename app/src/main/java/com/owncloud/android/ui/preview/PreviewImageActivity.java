@@ -36,7 +36,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -69,18 +68,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
- *  Holds a swiping galley where image files contained in an Nextcloud directory are shown
+ * Holds a swiping galley where image files contained in an Nextcloud directory are shown
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@AndroidEntryPoint
 public class PreviewImageActivity extends FileActivity implements
-        FileFragment.ContainerActivity,
-        ViewPager.OnPageChangeListener,
-        OnRemoteOperationListener,
-        Injectable {
+    FileFragment.ContainerActivity,
+    ViewPager.OnPageChangeListener,
+    OnRemoteOperationListener {
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
@@ -245,24 +245,26 @@ public class PreviewImageActivity extends FileActivity implements
         return new PreviewImageServiceConnection();
     }
 
-    /** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private class PreviewImageServiceConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
 
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileDownloader.class))) {
+                                                   FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
-                            "of download binder");
+                        "of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
 
             } else if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileUploader.class))) {
+                                                          FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             }
@@ -272,11 +274,11 @@ public class PreviewImageActivity extends FileActivity implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileDownloader.class))) {
+                                                   FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileUploader.class))) {
+                                                          FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
@@ -299,18 +301,18 @@ public class PreviewImageActivity extends FileActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
 
-        switch(item.getItemId()){
-        case android.R.id.home:
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                backToDisplayActivity();
-            }
-            returnValue = true;
-            break;
-        default:
-        	returnValue = super.onOptionsItemSelected(item);
-            break;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (isDrawerOpen()) {
+                    closeDrawer();
+                } else {
+                    backToDisplayActivity();
+                }
+                returnValue = true;
+                break;
+            default:
+                returnValue = super.onOptionsItemSelected(item);
+                break;
         }
 
         return returnValue;
@@ -335,7 +337,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public void onPause() {
-        if (mDownloadFinishReceiver != null){
+        if (mDownloadFinishReceiver != null) {
             localBroadcastManager.unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
@@ -378,10 +380,9 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * This method will be invoked when a new page becomes selected. Animation is not necessarily
-     * complete.
+     * This method will be invoked when a new page becomes selected. Animation is not necessarily complete.
      *
-     *  @param  position        Position index of the new selected page
+     * @param position Position index of the new selected page
      */
     @Override
     public void onPageSelected(int position) {
@@ -399,7 +400,7 @@ public class PreviewImageActivity extends FileActivity implements
                 setDrawerIndicatorEnabled(false);
 
                 if (currentFile.isEncrypted() && !currentFile.isDown() &&
-                        !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                    !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
                 }
 
@@ -411,10 +412,10 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * Called when the scroll state changes. Useful for discovering when the user begins dragging,
-     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
+     * Called when the scroll state changes. Useful for discovering when the user begins dragging, when the pager is
+     * automatically settling to the current page. when it is fully stopped/idle.
      *
-     * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
+     * @param state The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -422,15 +423,13 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * This method will be invoked when the current page is scrolled, either as part of a
-     * programmatically initiated smooth scroll or a user initiated touch scroll.
+     * This method will be invoked when the current page is scrolled, either as part of a programmatically initiated
+     * smooth scroll or a user initiated touch scroll.
      *
-     * @param   position                Position index of the first page currently being displayed.
-     *                                  Page position+1 will be visible if positionOffset is
-     *                                  nonzero.
-     * @param   positionOffset          Value from [0, 1) indicating the offset from the page
-     *                                  at position.
-     * @param   positionOffsetPixels    Value in pixels indicating the offset from position.
+     * @param position             Position index of the first page currently being displayed. Page position+1 will be
+     *                             visible if positionOffset is nonzero.
+     * @param positionOffset       Value from [0, 1) indicating the offset from the page at position.
+     * @param positionOffsetPixels Value in pixels indicating the offset from position.
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -439,9 +438,9 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     *
-     * Updates the UI when a download is started or finished, provided that it is relevant for the
-     * folder displayed in the gallery.
+     * <p>
+     * Updates the UI when a download is started or finished, provided that it is relevant for the folder displayed in
+     * the gallery.
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
@@ -449,7 +448,7 @@ public class PreviewImageActivity extends FileActivity implements
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             if (getAccount().name.equals(accountName) &&
-                    downloadedRemotePath != null) {
+                downloadedRemotePath != null) {
 
                 OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
@@ -478,7 +477,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     public void toggleFullScreen() {
         boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
-                & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+            & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
         if (visible) {
             hideSystemUI(mFullScreenAnchorView);
@@ -509,23 +508,23 @@ public class PreviewImageActivity extends FileActivity implements
 
 
     @SuppressLint("InlinedApi")
-	private void hideSystemUI(View anchorView) {
+    private void hideSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
-            |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
-            |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
-        );
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
+                | View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
+                | View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+                                        );
     }
 
     @SuppressLint("InlinedApi")
     private void showSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
-        );
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
+                                        );
     }
 }

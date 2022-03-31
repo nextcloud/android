@@ -54,7 +54,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ConnectivityService;
@@ -144,6 +143,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -151,10 +151,11 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
+@AndroidEntryPoint
 public class FileDisplayActivity extends FileActivity
     implements FileFragment.ContainerActivity,
     OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
-    SendShareDialog.SendShareDialogDownloader, Injectable {
+    SendShareDialog.SendShareDialogDownloader {
 
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";

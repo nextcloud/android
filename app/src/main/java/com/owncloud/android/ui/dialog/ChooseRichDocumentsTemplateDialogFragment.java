@@ -35,7 +35,6 @@ import android.widget.Button;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -70,12 +69,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
+@AndroidEntryPoint
 public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment implements View.OnClickListener,
-    RichDocumentsTemplateAdapter.ClickListener, Injectable {
+    RichDocumentsTemplateAdapter.ClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_TYPE = "TYPE";
@@ -264,7 +265,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                    Template template,
                                    String path,
                                    User user
-        ) {
+                                  ) {
             this.client = client;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;

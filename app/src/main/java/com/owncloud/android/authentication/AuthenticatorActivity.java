@@ -78,7 +78,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -137,6 +136,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.hilt.android.AndroidEntryPoint;
 import de.cotech.hw.fido.WebViewFidoBridge;
 import de.cotech.hw.fido.ui.FidoDialogOptions;
 import de.cotech.hw.fido2.WebViewWebauthnBridge;
@@ -146,9 +146,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * This Activity is used to add an ownCloud account to the App
  */
+@AndroidEntryPoint
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
     implements OnRemoteOperationListener, OnEditorActionListener, OnSslUntrustedCertListener,
-    AuthenticatorAsyncTask.OnAuthenticatorTaskListener, Injectable {
+    AuthenticatorAsyncTask.OnAuthenticatorTaskListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 

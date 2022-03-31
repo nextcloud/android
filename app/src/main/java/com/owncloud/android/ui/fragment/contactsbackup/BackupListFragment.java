@@ -37,7 +37,6 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.DownloadRequest;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.Transfer;
@@ -71,13 +70,15 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 import ezvcard.VCard;
 import kotlin.Unit;
 
 /**
  * This fragment shows all contacts or calendars from files and allows to import them.
  */
-public class BackupListFragment extends FileFragment implements Injectable {
+@AndroidEntryPoint
+public class BackupListFragment extends FileFragment {
     public static final String TAG = BackupListFragment.class.getSimpleName();
 
     public static final String FILE_NAMES = "FILE_NAMES";

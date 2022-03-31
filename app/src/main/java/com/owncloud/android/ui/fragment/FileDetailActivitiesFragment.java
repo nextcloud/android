@@ -35,7 +35,6 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
@@ -80,12 +79,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class FileDetailActivitiesFragment extends Fragment implements
     ActivityListInterface,
     DisplayUtils.AvatarGenerationListener,
-    VersionListInterface.View,
-    Injectable {
+    VersionListInterface.View {
 
     private static final String TAG = FileDetailActivitiesFragment.class.getSimpleName();
 
@@ -139,7 +139,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater,container,false);
+        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         setupView();

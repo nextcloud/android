@@ -93,7 +93,10 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import dagger.android.AndroidInjection;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
 import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
@@ -107,7 +110,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
 
-    @Inject
     UserAccountManager accountManager;
 
     @VisibleForTesting
@@ -116,6 +118,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface DocumentsProviderEntryPoint{
+        UserAccountManager getAccountManager();
+    }
 
     @Override
     public Cursor queryRoots(String[] projection) {
@@ -322,13 +330,17 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
-        AndroidInjection.inject(this);
-
+        inject();
         // initiate storage manager collection, because we need to serve document(tree)s
         // with persist permissions
         initiateStorageMap();
 
         return true;
+    }
+
+    private void inject() {
+        final DocumentsProviderEntryPoint entryPoint = EntryPoints.get(getContext(), DocumentsProviderEntryPoint.class);
+        accountManager = entryPoint.getAccountManager();
     }
 
     @Override

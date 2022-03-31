@@ -67,7 +67,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -135,13 +134,15 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
  */
+@AndroidEntryPoint
 public abstract class DrawerActivity extends ToolbarActivity
-    implements DisplayUtils.AvatarGenerationListener, Injectable {
+    implements DisplayUtils.AvatarGenerationListener {
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";

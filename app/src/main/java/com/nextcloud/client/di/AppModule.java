@@ -75,9 +75,12 @@ import javax.inject.Singleton;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
-@Module(includes = {ComponentsModule.class, VariantComponentsModule.class, BuildTypeComponentsModule.class})
-class AppModule {
+@InstallIn(SingletonComponent.class)
+@Module
+public class AppModule {
 
     @Provides
     AccountManager accountManager(Application application) {

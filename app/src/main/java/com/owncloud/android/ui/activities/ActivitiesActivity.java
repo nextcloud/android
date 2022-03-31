@@ -51,6 +51,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
@@ -58,6 +59,7 @@ import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 /**
  * This Activity presents activities feed.
  */
+@AndroidEntryPoint
 public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
 

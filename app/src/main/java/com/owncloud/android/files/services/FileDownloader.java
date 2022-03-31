@@ -81,9 +81,10 @@ import javax.inject.Inject;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@AndroidEntryPoint
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
@@ -140,7 +141,6 @@ public class FileDownloader extends Service
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidInjection.inject(this);
         Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileDownloaderThread", Process.THREAD_PRIORITY_BACKGROUND);

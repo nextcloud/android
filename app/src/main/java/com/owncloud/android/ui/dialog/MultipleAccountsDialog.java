@@ -36,7 +36,6 @@ import android.view.WindowManager;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.MultipleAccountsBinding;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
@@ -52,8 +51,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
+@AndroidEntryPoint
+public class MultipleAccountsDialog extends DialogFragment implements UserListAdapter.ClickListener {
 
     @Inject UserAccountManager accountManager;
 
@@ -96,8 +97,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
     }
 
     /**
-     * creates the account list items list including the add-account action in case
-     * multiaccount_support is enabled.
+     * creates the account list items list including the add-account action in case multiaccount_support is enabled.
      *
      * @return list of account list items
      */

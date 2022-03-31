@@ -35,7 +35,6 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
@@ -69,12 +68,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import third_parties.daveKoeller.AlphanumComparator;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
 
-public class BackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener, Injectable {
+@AndroidEntryPoint
+public class BackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = BackupFragment.class.getSimpleName();
     private static final String ARG_SHOW_SIDEBAR = "SHOW_SIDEBAR";
     private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
@@ -256,7 +257,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, storageManager, user, context);
+                                                                                  false, false, storageManager, user, context);
 
                     RemoteOperationResult result = operation.execute(user.toPlatformAccount(), context);
                     return result.isSuccess();
@@ -412,7 +413,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             backgroundJobManager.cancelPeriodicCalendarBackup(user);
         }
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), 
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
                                                     PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                                     String.valueOf(enabled));
     }
@@ -507,7 +508,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         if (backupFiles.size() > 0 && backupFiles.get(backupFiles.size() - 1) != null) {
             datePickerDialog = new DatePickerDialog(contactsPreferenceActivity, this, year, month, day);
             datePickerDialog.getDatePicker().setMaxDate(backupFiles.get(backupFiles.size() - 1)
-                    .getModificationTimestamp());
+                                                            .getModificationTimestamp());
             datePickerDialog.getDatePicker().setMinDate(backupFiles.get(0).getModificationTimestamp());
 
             datePickerDialog.setOnDismissListener(dialog -> selectedDate = null);
@@ -515,7 +516,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             datePickerDialog.setTitle("");
             datePickerDialog.show();
 
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(),true));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
             datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
 
             // set background to transparent
@@ -523,7 +524,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(0x00000000);
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
-                    R.string.contacts_preferences_something_strange_happened);
+                                          R.string.contacts_preferences_something_strange_happened);
         }
     }
 

@@ -40,7 +40,6 @@ import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
-import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogSetStatusBinding
@@ -59,7 +58,7 @@ import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.google.GoogleEmojiProvider
-import java.util.ArrayList
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import java.util.Locale
 import javax.inject.Inject
@@ -82,10 +81,10 @@ private const val LAST_HOUR_OF_DAY = 23
 private const val LAST_MINUTE_OF_HOUR = 59
 private const val LAST_SECOND_OF_MINUTE = 59
 
+@AndroidEntryPoint
 class SetStatusDialogFragment :
     DialogFragment(),
-    PredefinedStatusClickListener,
-    Injectable {
+    PredefinedStatusClickListener {
 
     private lateinit var binding: DialogSetStatusBinding
 

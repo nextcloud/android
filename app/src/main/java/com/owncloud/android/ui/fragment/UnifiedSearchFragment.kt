@@ -36,8 +36,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.core.AsyncRunner
-import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -56,20 +54,19 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener {
+@AndroidEntryPoint
+class UnifiedSearchFragment : Fragment(), UnifiedSearchListInterface, SearchView.OnQueryTextListener {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
     lateinit var vm: IUnifiedSearchViewModel
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
 
     @Inject
     lateinit var storageManager: FileDataStorageManager
@@ -85,7 +82,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(this, vmFactory).get(UnifiedSearchViewModel::class.java)
+        vm = ViewModelProvider(this).get(UnifiedSearchViewModel::class.java)
         setUpViewModel()
 
         val query = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)

@@ -25,7 +25,6 @@ package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,9 +36,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.databinding.PasscodelockBinding;
@@ -55,8 +52,10 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class PassCodeActivity extends AppCompatActivity implements Injectable {
+@AndroidEntryPoint
+public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
     private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
@@ -65,7 +64,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     public final static String ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT";
     public final static String ACTION_CHECK_WITH_RESULT = "ACTION_CHECK_WITH_RESULT";
     public final static String ACTION_CHECK = "ACTION_CHECK";
-    public final static String KEY_PASSCODE  = "KEY_PASSCODE";
+    public final static String KEY_PASSCODE = "KEY_PASSCODE";
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
     public final static String PREFERENCE_PASSCODE_D = "PrefPinCode";
@@ -78,17 +77,16 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     @Inject PassCodeManager passCodeManager;
     private PasscodelockBinding binding;
     private final EditText[] passCodeEditTexts = new EditText[4];
-    private String [] passCodeDigits = {"","","",""};
+    private String[] passCodeDigits = {"", "", "", ""};
     private boolean confirmingPassCode;
     private boolean changed = true; // to control that only one blocks jump
 
     /**
      * Initializes the activity.
+     * <p>
+     * An intent with a valid ACTION is expected; if none is found, an {@link IllegalArgumentException} will be thrown.
      *
-     * An intent with a valid ACTION is expected; if none is found, an
-     * {@link IllegalArgumentException} will be thrown.
-     *
-     * @param savedInstanceState    Previously saved state - irrelevant in this case
+     * @param savedInstanceState Previously saved state - irrelevant in this case
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,10 +132,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 confirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
                 passCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
             }
-            if(confirmingPassCode){
+            if (confirmingPassCode) {
                 // the app was in the passcodeconfirmation
                 requestPassCodeConfirmation();
-            }else{
+            } else {
                 // pass code preference has just been activated in SettingsActivity;
                 // will receive and confirm pass code value
                 binding.header.setText(R.string.pass_code_configure_your_pass_code);
@@ -161,13 +159,12 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     }
 
     /**
-     * Enables or disables the cancel button to allow the user interrupt the ACTION
-     * requested to the activity.
+     * Enables or disables the cancel button to allow the user interrupt the ACTION requested to the activity.
      *
-     * @param enabled       'True' makes the cancel button available, 'false' hides it.
+     * @param enabled 'True' makes the cancel button available, 'false' hides it.
      */
-    protected void setCancelButtonEnabled(boolean enabled){
-        if(enabled){
+    protected void setCancelButtonEnabled(boolean enabled) {
+        if (enabled) {
             binding.cancel.setVisibility(View.VISIBLE);
             binding.cancel.setOnClickListener(new OnClickListener() {
                 @Override
@@ -234,9 +231,9 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
     /**
      * Processes the pass code entered by the user just after the last digit was in.
-     *
-     * Takes into account the action requested to the activity, the currently saved pass code and
-     * the previously typed pass code, if any.
+     * <p>
+     * Takes into account the action requested to the activity, the currently saved pass code and the previously typed
+     * pass code, if any.
      */
     private void processFullPassCode() {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
@@ -248,7 +245,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 hideSoftKeyboard();
                 finish();
 
-            }  else {
+            } else {
                 preferences.increasePinWrongAttempts();
 
                 showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
@@ -277,8 +274,8 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
             } else {
                 showErrorAndRestart(
-                        R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE
-                );
+                    R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE
+                                   );
             }
         }
     }
@@ -291,7 +288,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             inputMethodManager.hideSoftInputFromWindow(
                 focusedView.getWindowToken(),
                 0
-            );
+                                                      );
         }
     }
 
@@ -308,10 +305,9 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
 
     /**
-     * Ask to the user for retyping the pass code just entered before saving it as the current pass
-     * code.
+     * Ask to the user for retyping the pass code just entered before saving it as the current pass code.
      */
-    protected void requestPassCodeConfirmation(){
+    protected void requestPassCodeConfirmation() {
         clearBoxes();
         binding.header.setText(R.string.pass_code_reenter_your_pass_code);
         binding.explanation.setVisibility(View.INVISIBLE);
@@ -321,7 +317,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     /**
      * Compares pass code entered by the user with the value currently saved in the app.
      *
-     * @return     'True' if entered pass code equals to the saved one.
+     * @return 'True' if entered pass code equals to the saved one.
      */
     protected boolean checkPassCode() {
 
@@ -336,12 +332,11 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     }
 
     /**
-     * Compares pass code retyped by the user in the input fields with the value entered just
-     * before.
+     * Compares pass code retyped by the user in the input fields with the value entered just before.
      *
-     * @return     'True' if retyped pass code equals to the entered before.
+     * @return 'True' if retyped pass code equals to the entered before.
      */
-    protected boolean confirmPassCode(){
+    protected boolean confirmPassCode() {
         confirmingPassCode = false;
 
         boolean result = true;
@@ -354,7 +349,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     /**
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
-    protected void clearBoxes(){
+    protected void clearBoxes() {
         for (EditText mPassCodeEditText : passCodeEditTexts) {
             mPassCodeEditText.setText("");
         }
@@ -362,12 +357,12 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     }
 
     /**
-     * Overrides click on the BACK arrow to correctly cancel ACTION_ENABLE or ACTION_DISABLE, while
-     * preventing than ACTION_CHECK may be worked around.
+     * Overrides click on the BACK arrow to correctly cancel ACTION_ENABLE or ACTION_DISABLE, while preventing than
+     * ACTION_CHECK may be worked around.
      *
-     * @param keyCode       Key code of the key that triggered the down event.
-     * @param event         Event triggered.
-     * @return              'True' when the key event was processed by this method.
+     * @param keyCode Key code of the key that triggered the down event.
+     * @param event   Event triggered.
+     * @return 'True' when the key event was processed by this method.
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -447,18 +442,16 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         /**
          * Constructor
          *
-         * @param index         Position in the pass code of the input field that will be bound to
-         *                      this watcher.
-         * @param lastOne       'True' means that watcher corresponds to the last position of the
-         *                      pass code.
+         * @param index   Position in the pass code of the input field that will be bound to this watcher.
+         * @param lastOne 'True' means that watcher corresponds to the last position of the pass code.
          */
         PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
-            mLastOne  = lastOne;
+            mLastOne = lastOne;
             if (mIndex < 0) {
                 throw new IllegalArgumentException(
-                        "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
-                                " constructor"
+                    "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
+                        " constructor"
                 );
             }
         }
@@ -468,13 +461,11 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
 
         /**
-         * Performs several actions when the user types a digit in an input field:
-         *  - saves the input digit to the state of the activity; this will allow retyping the
-         *    pass code to confirm it.
-         *  - moves the focus automatically to the next field
-         *  - for the last field, triggers the processing of the full pass code
+         * Performs several actions when the user types a digit in an input field: - saves the input digit to the state
+         * of the activity; this will allow retyping the pass code to confirm it. - moves the focus automatically to the
+         * next field - for the last field, triggers the processing of the full pass code
          *
-         * @param s     Changed text
+         * @param s Changed text
          */
         @Override
         public void afterTextChanged(Editable s) {

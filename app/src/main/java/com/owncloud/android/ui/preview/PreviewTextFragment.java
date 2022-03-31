@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -39,7 +38,6 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.TextFilePreviewBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -56,6 +54,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.MarkwonConfiguration;
@@ -78,7 +77,8 @@ import io.noties.prism4j.annotations.PrismBundle;
     },
     grammarLocatorClassName = ".MarkwonGrammarLocator"
 )
-public abstract class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
+@AndroidEntryPoint
+public abstract class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener {
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
 
     protected SearchView searchView;

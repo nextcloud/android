@@ -14,11 +14,12 @@ buildscript {
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:10.2.1"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
 
 apply plugin: 'com.android.application'
-
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
@@ -266,11 +267,8 @@ dependencies {
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
 
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
@@ -448,4 +446,8 @@ tasks.withType(SpotBugsTask){task ->
             destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
         }
     }
+}
+
+hilt {
+    enableAggregatingTask = true
 }

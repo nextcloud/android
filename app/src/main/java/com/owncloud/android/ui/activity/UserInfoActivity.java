@@ -45,7 +45,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
@@ -82,11 +81,13 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * This Activity presents the user information.
  */
-public class UserInfoActivity extends DrawerActivity implements Injectable {
+@AndroidEntryPoint
+public class UserInfoActivity extends DrawerActivity {
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
@@ -111,7 +112,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
 
         user = bundle.getParcelable(KEY_ACCOUNT);
-        if(user == null) {
+        if (user == null) {
             finish();
             return;
         }
@@ -233,12 +234,12 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     };
 
                     Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .crossFade()
-                            .into(target);
+                        .load(background)
+                        .centerCrop()
+                        .placeholder(R.drawable.background)
+                        .error(R.drawable.background)
+                        .crossFade()
+                        .into(target);
                 } else {
                     // plain color
                     backgroundImageView.setImageDrawable(new ColorDrawable(primaryColor));
@@ -292,9 +293,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
         addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
         addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebsite()),
-                    R.string.user_info_website);
+                          R.string.user_info_website);
         addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
-                    R.string.user_info_twitter);
+                          R.string.user_info_twitter);
 
         return result;
     }
@@ -310,7 +311,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
-
 
 
     private void fetchAndSetData() {

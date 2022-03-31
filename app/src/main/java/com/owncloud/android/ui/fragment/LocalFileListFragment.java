@@ -31,7 +31,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -49,6 +48,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
@@ -56,21 +56,27 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
  */
+@AndroidEntryPoint
 public class LocalFileListFragment extends ExtendedListFragment implements
-    LocalFileListFragmentInterface,
-    Injectable {
+    LocalFileListFragmentInterface {
 
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
 
     @Inject AppPreferences preferences;
 
-    /** Reference to the Activity which this fragment is attached to. For callbacks */
+    /**
+     * Reference to the Activity which this fragment is attached to. For callbacks
+     */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
 
-    /** Directory to show */
+    /**
+     * Directory to show
+     */
     private File mDirectory;
 
-    /** Adapter to connect the data from the directory with the View object */
+    /**
+     * Adapter to connect the data from the directory with the View object
+     */
     private LocalFileListAdapter mAdapter;
 
     @Override
@@ -108,10 +114,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         if (!mContainerActivity.isFolderPickerMode()) {
             setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         } else {
             setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+                                   R.drawable.ic_list_empty_folder, true);
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
@@ -172,8 +178,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Otherwise behaves like the checkbox was
-     * clicked.
-     * Notifies the container activity in any case.
+     * clicked. Notifies the container activity in any case.
      */
     @Override
     public void onItemClicked(File file) {
@@ -236,8 +241,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
 
     /**
-     * Use this to query the {@link File} object for the directory
-     * that is currently being displayed by this fragment
+     * Use this to query the {@link File} object for the directory that is currently being displayed by this fragment
      *
      * @return File     The currently displayed directory
      */
@@ -247,8 +251,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
 
     /**
-     * Calls {@link LocalFileListFragment#listDirectory(File)} with a null parameter
-     * to refresh the current directory.
+     * Calls {@link LocalFileListFragment#listDirectory(File)} with a null parameter to refresh the current directory.
      */
     public void listDirectory() {
         listDirectory(null);
@@ -256,11 +259,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
 
     /**
-     * Lists the given directory on the view. When the input parameter is null,
-     * it will either refresh the last known directory. list the root
-     * if there never was a directory.
+     * Lists the given directory on the view. When the input parameter is null, it will either refresh the last known
+     * directory. list the root if there never was a directory.
      *
-     * @param directory     Directory to be listed
+     * @param directory Directory to be listed
      */
     public void listDirectory(File directory) {
 
@@ -304,7 +306,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     public int getCheckedFilesCount() {
         return mAdapter.checkedFilesCount();
     }
-    
+
     public int getFilesCount() {
         return mAdapter.getFilesCount();
     }
@@ -404,24 +406,21 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         void onDirectoryClick(File directory);
 
         /**
-         * Callback method invoked when a file (non directory)
-         * is clicked by the user on the files list
+         * Callback method invoked when a file (non directory) is clicked by the user on the files list
          *
          * @param file
          */
         void onFileClick(File file);
 
         /**
-         * Callback method invoked when the parent activity
-         * is fully created to get the directory to list firstly.
+         * Callback method invoked when the parent activity is fully created to get the directory to list firstly.
          *
          * @return Directory to list firstly. Can be NULL.
          */
         File getInitialDirectory();
 
         /**
-         * config check if the list should behave in
-         * folder picker mode only displaying folders but no files.
+         * config check if the list should behave in folder picker mode only displaying folders but no files.
          *
          * @return true if folder picker mode, else false
          */

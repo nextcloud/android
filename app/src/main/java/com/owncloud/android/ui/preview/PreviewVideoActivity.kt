@@ -32,7 +32,6 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.media.ErrorFormat.toString
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
@@ -42,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.MimeTypeUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,13 +53,13 @@ import javax.inject.Inject
  * THIS CLASS NEEDS WORK; the old listeners (OnCompletion, OnPrepared; OnError) don't work with ExoPlayer
  */
 @Suppress("TooManyFunctions")
+@AndroidEntryPoint
 class PreviewVideoActivity :
     FileActivity(),
     OnCompletionListener,
     OnPreparedListener,
     MediaPlayer.OnErrorListener,
-    Player.Listener,
-    Injectable {
+    Player.Listener {
 
     @Inject
     lateinit var clientFactory: ClientFactory

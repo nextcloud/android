@@ -25,13 +25,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.ToolbarActivity
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class EtmActivity : ToolbarActivity(), Injectable {
+@AndroidEntryPoint
+class EtmActivity : ToolbarActivity() {
 
     companion object {
         @JvmStatic
@@ -41,8 +40,6 @@ class EtmActivity : ToolbarActivity(), Injectable {
         }
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     internal lateinit var vm: EtmViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +47,7 @@ class EtmActivity : ToolbarActivity(), Injectable {
         setContentView(R.layout.activity_etm)
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.etm_title))
-        vm = ViewModelProvider(this, viewModelFactory).get(EtmViewModel::class.java)
+        vm = ViewModelProvider(this).get(EtmViewModel::class.java)
         vm.currentPage.observe(
             this,
             Observer {

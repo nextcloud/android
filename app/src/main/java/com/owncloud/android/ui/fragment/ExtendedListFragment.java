@@ -41,7 +41,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -52,7 +51,6 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
@@ -91,13 +89,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class ExtendedListFragment extends Fragment implements
     OnItemClickListener,
     OnEnforceableRefreshListener,
     SearchView.OnQueryTextListener,
-    SearchView.OnCloseListener,
-    Injectable {
+    SearchView.OnCloseListener {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -541,7 +540,6 @@ public class ExtendedListFragment extends Fragment implements
     }
 
 
-
     /**
      * /** Set message for empty list view.
      */
@@ -585,7 +583,7 @@ public class ExtendedListFragment extends Fragment implements
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
                                 ThemeDrawableUtils.tintDrawable(icon,
-                                                                ThemeColorUtils.primaryColor(getContext(),true)));
+                                                                ThemeColorUtils.primaryColor(getContext(), true)));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

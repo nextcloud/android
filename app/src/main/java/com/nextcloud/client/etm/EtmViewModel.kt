@@ -43,10 +43,12 @@ import com.nextcloud.client.migrations.MigrationsDb
 import com.nextcloud.client.migrations.MigrationsManager
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.accounts.AccountUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @Suppress("LongParameterList") // Dependencies Injection
 @SuppressLint("StaticFieldLeak")
+@HiltViewModel
 class EtmViewModel @Inject constructor(
     private val context: Context,
     private val defaultPreferences: SharedPreferences,

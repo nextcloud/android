@@ -37,9 +37,11 @@ import com.owncloud.android.lib.common.SearchResult
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
+@HiltViewModel
 class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"

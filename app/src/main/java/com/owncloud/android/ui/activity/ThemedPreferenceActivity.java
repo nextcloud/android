@@ -21,14 +21,17 @@
 package com.owncloud.android.ui.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceActivity;
 
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 
-import javax.inject.Inject;
-
 import androidx.annotation.Nullable;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
 public class ThemedPreferenceActivity extends PreferenceActivity {
 
@@ -38,7 +41,13 @@ public class ThemedPreferenceActivity extends PreferenceActivity {
     private boolean themeChangePending;
     private boolean paused;
 
-    @Inject AppPreferences preferences;
+    AppPreferences preferences;
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface ThemedPreferenceEntrypoint {
+        AppPreferences getAppPreferences();
+    }
 
     private AppPreferences.Listener onThemeChangedListener = new AppPreferences.Listener() {
         @Override
@@ -56,7 +65,13 @@ public class ThemedPreferenceActivity extends PreferenceActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        inject();
         preferences.addListener(onThemeChangedListener);
+    }
+
+    private void inject() {
+        ThemedPreferenceEntrypoint entrypoint = EntryPoints.get(getApplicationContext(), ThemedPreferenceEntrypoint.class);
+        preferences = entrypoint.getAppPreferences();
     }
 
     @Override

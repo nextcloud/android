@@ -29,18 +29,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.utils.theme.ThemeBarUtils
 import com.owncloud.android.utils.theme.ThemeToolbarUtils
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LogsActivity : ToolbarActivity() {
 
-    @Inject
-    protected lateinit var viewModelFactory: ViewModelFactory
     private lateinit var vm: LogsViewModel
     private lateinit var binding: LogsActivityBinding
     private lateinit var logsAdapter: LogsAdapter
@@ -58,7 +56,7 @@ class LogsActivity : ToolbarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(this, viewModelFactory).get(LogsViewModel::class.java)
+        vm = ViewModelProvider(this).get(LogsViewModel::class.java)
         binding = DataBindingUtil.setContentView<LogsActivityBinding>(this, R.layout.logs_activity).apply {
             lifecycleOwner = this@LogsActivity
             vm = this@LogsActivity.vm

@@ -43,27 +43,38 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
-import dagger.android.AndroidInjection;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     public static final String TAG = DiskLruImageCacheFileProvider.class.getSimpleName();
 
-    @Inject
     protected UserAccountManager accountManager;
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface DiskLruImageCacheEntryPoint {
+        UserAccountManager getAccountManager();
+    }
 
     @Override
     public boolean onCreate() {
-        AndroidInjection.inject(this);
+        inject();
         return true;
+    }
+
+    private void inject() {
+        final DiskLruImageCacheEntryPoint diskLruImageCacheEntryPoint = EntryPoints.get(getContext(), DiskLruImageCacheEntryPoint.class);
+        accountManager = diskLruImageCacheEntryPoint.getAccountManager();
     }
 
     private OCFile getFile(Uri uri) {
         User user = accountManager.getUser();
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user,
-                MainApp.getAppContext().getContentResolver());
+                                                                                   MainApp.getAppContext().getContentResolver());
 
         return fileDataStorageManager.getFileByPath(uri.getPath());
     }
@@ -99,7 +110,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             byte[] bitmapData = bos.toByteArray();
 
             //write the bytes in file
-            try (FileOutputStream fos = new FileOutputStream(f)){
+            try (FileOutputStream fos = new FileOutputStream(f)) {
                 fos.write(bitmapData);
             } catch (FileNotFoundException e) {
                 Log_OC.e(TAG, "File not found: " + e.getMessage());
@@ -125,10 +136,10 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
         OCFile ocFile = getFile(uri);
         File file = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
         if (file.exists()) {
-            cursor = new MatrixCursor(new String[] {
-                    OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE });
-            cursor.addRow(new Object[] { uri.getLastPathSegment(),
-                    file.length() });
+            cursor = new MatrixCursor(new String[]{
+                OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE});
+            cursor.addRow(new Object[]{uri.getLastPathSegment(),
+                file.length()});
         }
 
         return cursor;

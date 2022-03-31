@@ -27,15 +27,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
-class ManageSpaceActivity : AppCompatActivity(), Injectable {
+@AndroidEntryPoint
+class ManageSpaceActivity : AppCompatActivity() {
 
     @Inject
     lateinit var preferences: AppPreferences
