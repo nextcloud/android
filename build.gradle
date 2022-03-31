@@ -210,15 +210,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 61200129
-                versionName "61200129"
+                versionCode 62200129
+                versionName "62200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 53
-                versionName "1.53"
+                versionCode 54
+                versionName "1.54"
             }
         }
 
