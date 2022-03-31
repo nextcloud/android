@@ -315,7 +315,9 @@
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
     <string name="file_management_permission">Engedély szükséges</string>
-    <string name="file_management_permission_optional">Tárhely jogosultságok</string>
+    <string name="file_management_permission_optional">Tárhely engedélyek</string>
+    <string name="file_management_permission_optional_text">A %1$s a tároló engedéllyel működik a legjobban. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>
+    <string name="file_management_permission_text">A %1$s számára fájlkezelési engedély szükséges a fájlok feltöltéséhez. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>
     <string name="file_migration_checking_destination">Cél ellenőrzése…</string>
     <string name="file_migration_cleaning">Tisztítás…</string>
     <string name="file_migration_dialog_title">Adattároló mappa frissítése</string>
@@ -699,6 +701,7 @@
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
     <string name="storage_permission_full_access">Teljes hozzáférés</string>
+    <string name="storage_permission_media_read_only">Írásvédett média</string>
     <string name="storage_pictures">Képek</string>
     <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
 
