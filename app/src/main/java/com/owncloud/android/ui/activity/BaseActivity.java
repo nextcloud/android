@@ -26,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint;
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
 @AndroidEntryPoint
-
 public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();

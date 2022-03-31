@@ -57,10 +57,12 @@ import javax.inject.Inject;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Activity displaying all server side stored notification items.
  */
+@AndroidEntryPoint
 public class NotificationsActivity extends DrawerActivity implements NotificationsContract.View {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();

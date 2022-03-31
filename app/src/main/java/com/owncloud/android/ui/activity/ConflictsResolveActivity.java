@@ -45,11 +45,13 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.hilt.android.AndroidEntryPoint;
 
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
+@AndroidEntryPoint
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
     /**
      * A nullable upload entry that must be removed when and if the conflict is resolved.

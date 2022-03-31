@@ -78,6 +78,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.owncloud.android.ui.activity.UserInfoActivity.KEY_USER_DATA;
 import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_DISPLAY_NAME;
@@ -86,6 +87,7 @@ import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_USER_INFO_REQU
 /**
  * An Activity that allows the user to manage accounts.
  */
+@AndroidEntryPoint
 public class ManageAccountsActivity extends FileActivity implements UserListAdapter.Listener,
     AccountManagerCallback<Boolean>,
     ComponentsGetter,

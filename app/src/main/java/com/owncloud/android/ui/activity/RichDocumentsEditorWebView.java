@@ -61,11 +61,13 @@ import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Opens document for editing via Richdocuments app in a web view
  */
+@AndroidEntryPoint
 public class RichDocumentsEditorWebView extends EditorWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
     private static final int REQUEST_REMOTE_FILE = 100;

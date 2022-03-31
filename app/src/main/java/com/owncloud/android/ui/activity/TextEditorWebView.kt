@@ -32,8 +32,10 @@ import com.owncloud.android.R
 import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.theme.ThemeUtils
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var appInfo: AppInfo

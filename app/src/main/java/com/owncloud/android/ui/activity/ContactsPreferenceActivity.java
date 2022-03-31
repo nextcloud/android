@@ -39,10 +39,12 @@ import javax.inject.Inject;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * This activity shows all settings for contact backup/restore
  */
+@AndroidEntryPoint
 public class ContactsPreferenceActivity extends FileActivity implements FileFragment.ContainerActivity {
     public static final String TAG = ContactsPreferenceActivity.class.getSimpleName();
     public static final String EXTRA_FILE = "FILE";
