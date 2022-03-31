@@ -1,0 +1,5 @@
+fastlane: Increase number of expected artifacts to 4
+ManageAccountsActivity: go back to AuthenticatorActivity after removing last account
+AccountRemovalWork: remove cached owncloudClient after removing account
+Update translations
+Update Nextcloud Android library
