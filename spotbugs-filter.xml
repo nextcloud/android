@@ -19,6 +19,7 @@
             <Class name="~.*\.Dagger.*" />
             <Class name="~com\.nextcloud\.client\.di\..*_.*" />
 			<Class name="~dagger\.android\..*" />
+            <Class name="~.*\.Hilt_.*" />
         </Or>
     </Match>
     <!-- Dagger generated code uses internal APIs -->
