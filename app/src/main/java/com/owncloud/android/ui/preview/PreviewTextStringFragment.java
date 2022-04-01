@@ -45,7 +45,9 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class PreviewTextStringFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
 

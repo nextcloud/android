@@ -60,7 +60,9 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_USER = "USER";
@@ -296,7 +298,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_sync_file),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite)
-        );
+                                    );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
