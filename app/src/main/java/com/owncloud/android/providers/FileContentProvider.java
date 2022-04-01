@@ -127,7 +127,7 @@ public class FileContentProvider extends ContentProvider {
     }
 
 
-    protected Clock clock;
+    Clock clock;
     private DataBaseHelper mDbHelper;
     private Context mContext;
     private UriMatcher mUriMatcher;
