@@ -260,6 +260,7 @@
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
+    <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
     <string name="etm_background_job_progress">Progresso</string>
@@ -489,6 +490,7 @@
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
+    <string name="pdf_zoom_tip">Toque em uma página para ampliar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
@@ -783,6 +785,7 @@
     <string name="upload_lock_failed">Falha ao bloquear pasta</string>
     <string name="upload_old_android">A criptografia só é possível com Android &gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
+    <string name="upload_scan_doc_upload">Digitalizar documento da câmera</string>
     <string name="upload_sync_conflict">Conflito na sincronização, resolva manualmente</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
