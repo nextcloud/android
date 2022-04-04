@@ -1068,7 +1068,7 @@ public class FileOperationsHelper {
             if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
                 activity.startActivityForResult(pictureIntent, requestCode);
             } else {
-                PermissionUtil.requestCameraPermission(activity);
+                PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_CAMERA);
             }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
@@ -1084,7 +1084,7 @@ public class FileOperationsHelper {
         if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
             activity.startActivityForResult(scanIntent, requestCode);
         } else {
-            PermissionUtil.requestCameraPermission(activity);
+            PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_SCAN_DOCUMENT);
         }
     }
 
