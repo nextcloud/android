@@ -394,6 +394,15 @@ public class FileDisplayActivity extends FileActivity
                     // toggle on is save since this is the only scenario this code gets accessed
                 }
                 break;
+            case PermissionUtil.PERMISSIONS_SCAN_DOCUMENT:
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    getFileOperationsHelper().scanFromCamera(
+                        this,
+                        FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
+                }
+                break;
             case PermissionUtil.PERMISSIONS_CAMERA:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

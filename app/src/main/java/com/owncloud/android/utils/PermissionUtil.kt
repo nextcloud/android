@@ -51,6 +51,7 @@ object PermissionUtil {
     const val PERMISSIONS_CAMERA = 5
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
+    const val PERMISSIONS_SCAN_DOCUMENT = 6
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
@@ -226,10 +227,10 @@ object PermissionUtil {
      * @param activity The target activity.
      */
     @JvmStatic
-    fun requestCameraPermission(activity: Activity) {
+    fun requestCameraPermission(activity: Activity, requestCode: Int) {
         ActivityCompat.requestPermissions(
             activity, arrayOf(Manifest.permission.CAMERA),
-            PERMISSIONS_CAMERA
+            requestCode
         )
     }
 }
