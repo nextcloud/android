@@ -101,6 +101,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -431,6 +432,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (itemId == R.id.nav_all_files) {
             if (this instanceof FileDisplayActivity &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
                 showFiles(false);
                 ((FileDisplayActivity) this).browseToRoot();
@@ -470,8 +472,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
-                               menuItem.getItemId());
+            startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
                                menuItem.getItemId());
@@ -519,6 +520,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    private void startSharedSearch(MenuItem menuItem) {
+        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
+        MainApp.showOnlyFilesOnDevice(false);
+
+        launchActivityForSearch(searchEvent, menuItem.getItemId());
+    }
+
     private void startPhotoSearch(MenuItem menuItem) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
@@ -528,7 +536,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) {
+            final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
+            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
                 launchActivityForSearch(searchEvent, menuItemId);
             } else {
                 EventBus.getDefault().post(searchEvent);

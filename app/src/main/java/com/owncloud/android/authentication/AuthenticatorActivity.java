@@ -143,6 +143,8 @@ import de.cotech.hw.fido2.WebViewWebauthnBridge;
 import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
+
 /**
  * This Activity is used to add an ownCloud account to the App
  */
@@ -1298,7 +1300,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (PermissionUtil.checkSelfPermission(this, Manifest.permission.CAMERA)) {
             startQRScanner();
         } else {
-            PermissionUtil.requestCameraPermission(this);
+            PermissionUtil.requestCameraPermission(this, PERMISSIONS_CAMERA);
         }
     }
 

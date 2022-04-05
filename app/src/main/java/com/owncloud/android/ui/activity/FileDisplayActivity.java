@@ -100,6 +100,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -394,6 +395,15 @@ public class FileDisplayActivity extends FileActivity
                     // toggle on is save since this is the only scenario this code gets accessed
                 }
                 break;
+            case PermissionUtil.PERMISSIONS_SCAN_DOCUMENT:
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    getFileOperationsHelper().scanFromCamera(
+                        this,
+                        FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
+                }
+                break;
             case PermissionUtil.PERMISSIONS_CAMERA:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -483,6 +493,13 @@ public class FileDisplayActivity extends FileActivity
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
                         photoFragment.setArguments(bundle);
                         setLeftFragment(photoFragment);
+                    } else if (searchEvent.getSearchType().equals(SearchRemoteOperation.SearchType.SHARED_FILTER)) {
+                        Log_OC.d(this, "Switch to shared fragment");
+                        SharedListFragment sharedListFragment = new SharedListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
+                        sharedListFragment.setArguments(bundle);
+                        setLeftFragment(sharedListFragment);
                     } else {
                         Log_OC.d(this, "Switch to oc file search fragment");
 
@@ -2278,8 +2295,10 @@ public class FileDisplayActivity extends FileActivity
     public void onMessageEvent(final SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
             Log_OC.d(this, "Switch to photo search fragment");
-
             setLeftFragment(new GalleryFragment());
+        } else if (event.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {
+            Log_OC.d(this, "Switch to Shared fragment");
+            setLeftFragment(new SharedListFragment());
         }
     }
 
