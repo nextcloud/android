@@ -1,0 +1,4 @@
+Optimize loading time for Shared view (#10015)
+- no camera permission (#10042)
+Update Nextcloud Android library
+Update 3rd-party dependencies
