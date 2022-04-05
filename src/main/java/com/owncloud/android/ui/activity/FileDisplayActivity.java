@@ -83,6 +83,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -545,7 +546,14 @@ public class FileDisplayActivity extends FileActivity
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
                         photoFragment.setArguments(bundle);
                         setLeftFragment(photoFragment);
-                    } else {
+                    } else if (searchEvent.getSearchType().equals(SearchRemoteOperation.SearchType.SHARED_FILTER)) {
+                        Log_OC.d(this, "Switch to shared fragment");
+                        SharedListFragment sharedListFragment = new SharedListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT,Parcels.wrap(searchEvent));
+                        sharedListFragment.setArguments(bundle);
+                        setLeftFragment(sharedListFragment);
+                    }else {
                         Log_OC.d(this, "Switch to oc file search fragment");
 
                         OCFileListFragment photoFragment = new OCFileListFragment();
@@ -2425,6 +2433,9 @@ public class FileDisplayActivity extends FileActivity
             Log_OC.d(this, "Switch to photo search fragment");
 
             setLeftFragment(new GalleryFragment());
+         } else if (event.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {
+            Log_OC.d(this, "Switch to Shared fragment");
+            setLeftFragment(new SharedListFragment());
         }
     }
 

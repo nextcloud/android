@@ -96,6 +96,7 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -223,4 +224,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
     @ContributesAndroidInjector abstract FileSyncService fileSyncService();
     @ContributesAndroidInjector abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
+    @ContributesAndroidInjector
+    abstract SharedListFragment sharedFragment();
 }

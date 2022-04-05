@@ -500,11 +500,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
 
                     itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
+                    itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
+                    itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
                 } else {
-                    itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                    final long fileLength = file.getFileLength();
+                    if (fileLength >= 0) {
+                        itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
+                        itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
+                        itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+                    } else {
+                        itemViewHolder.getFileSize().setVisibility(View.GONE);
+                        itemViewHolder.getFileSizeSeparator().setVisibility(View.GONE);
+                    }
                 }
-                itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                               file.getModificationTimestamp()));
+
+                final long modificationTimestamp = file.getModificationTimestamp();
+                if (modificationTimestamp > 0) {
+                    itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
+                                                                                                   modificationTimestamp));
+                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
+                } else if (file.getFirstShareTimestamp() > 0) {
+                    itemViewHolder.getLastModification().setText(
+                        DisplayUtils.getRelativeTimestamp(activity, file.getFirstShareTimestamp())
+                                                                );
+                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
+                } else {
+                    itemViewHolder.getLastModification().setVisibility(View.GONE);
+                }
+
 
                 if (multiSelect || gridView || hideItemOptions) {
                     itemViewHolder.getOverflowMenu().setVisibility(View.GONE);
@@ -546,15 +569,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
                     gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
                 }
+
+                gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
+            } else {
+                gridViewHolder.getLocalFileIndicator().setVisibility(View.GONE);
+                gridViewHolder.getFavorite().setVisibility(View.GONE);
             }
-
-
-            gridViewHolder.getFavorite().setVisibility(!isMediaGallery && file.isFavorite() ? View.VISIBLE : View.GONE);
 
             if (multiSelect) {
                 gridViewHolder.getCheckbox().setVisibility(View.VISIBLE);
             } else {
-                gridViewHolder.getCheckbox().setVisibility(gridView ? View.INVISIBLE : View.GONE);
+                gridViewHolder.getCheckbox().setVisibility(View.GONE);
             }
 
             if (holder instanceof ListGridItemViewHolder) {
@@ -562,21 +587,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 gridItemViewHolder.getFileName().setText(file.getDecryptedFileName());
 
-                //if (gridView && gridImage) {
+               // if (gridView && gridImage) {
                 if (isMediaGallery) {
                     gridItemViewHolder.getFileName().setVisibility(View.GONE);
                 } else {
-                   /* if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
+                    if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
                         gridItemViewHolder.getFileName().setVisibility(View.GONE);
-                    } else {*/
-                    gridItemViewHolder.getFileName().setVisibility(View.VISIBLE);
-                    // }
+                    } else {
+                        gridItemViewHolder.getFileName().setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
-            if (gridView || hideItemOptions //|| (file.isFolder() && !file.canReshare())
-            ) {
-                gridViewHolder.getShared().setVisibility(View.GONE);
+            if (gridView || hideItemOptions // || (file.isFolder() && !file.canReshare())) {
+            ){  gridViewHolder.getShared().setVisibility(View.GONE);
             } else {
                 showShareIcon(gridViewHolder, file);
             }
@@ -1077,12 +1101,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        if (searchType != ExtendedListFragment.SearchType.GALLERY_SEARCH &&
-            searchType != ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) {
+        if (searchType == ExtendedListFragment.SearchType.GALLERY_SEARCH ||
+            searchType == ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) {
+            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+        } else if (searchType != ExtendedListFragment.SearchType.SHARED_FILTER) {
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
-        } else {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         }
 
         mFilesAll.clear();
@@ -1100,39 +1124,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 OCShare ocShare = (OCShare) shareObject;
 
                 shares.add(ocShare);
-
-                // get ocFile from Server to have an up-to-date copy
-                RemoteOperationResult result = new ReadFileRemoteOperation(ocShare.getPath()).execute(user.toPlatformAccount(),
-                                                                                                      activity);
-
-                if (result.isSuccess()) {
-                    OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                    FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
-                    file = mStorageManager.saveFileWithParent(file, activity);
-
-                    ShareType newShareType = ocShare.getShareType();
-                    if (newShareType == ShareType.PUBLIC_LINK) {
-                        file.setSharedViaLink(true);
-                    } else if (newShareType == ShareType.USER ||
-                        newShareType == ShareType.GROUP ||
-                        newShareType == ShareType.EMAIL ||
-                        newShareType == ShareType.FEDERATED ||
-                        newShareType == ShareType.ROOM ||
-                        newShareType == ShareType.CIRCLE) {
-                        file.setSharedWithSharee(true);
-                    }
-
-                    mStorageManager.saveFile(file);
-
-                    if (!mFiles.contains(file)) {
-                        mFiles.add(file);
-                    }
-                } else {
-                    Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
-                }
             }
         }
 
+        List<OCFile> files = OCShareToOCFileConverter.buildOCFilesFromShares(shares);
+        mFiles.addAll(files);
         mStorageManager.saveShares(shares);
     }
 
@@ -1458,6 +1454,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
+        public View getFileSizeSeparator() {
+            return binding.fileSeparator;
+        }
+
+        @Override
         public TextView getLastModification() {
             return binding.lastMod;
         }
@@ -1701,6 +1702,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView getFileSize();
 
         TextView getLastModification();
+
+        View getFileSizeSeparator();
 
         ImageView getOverflowMenu();
 
