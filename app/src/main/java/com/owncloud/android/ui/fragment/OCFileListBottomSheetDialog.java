@@ -38,6 +38,7 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
@@ -183,10 +184,14 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             dismiss();
         });
 
-        binding.menuScanDocUpload.setOnClickListener(v -> {
-            actions.scanDocUpload();
-            dismiss();
-        });
+        if(AppScanActivity.getEnabled()) {
+            binding.menuScanDocUpload.setOnClickListener(v -> {
+                actions.scanDocUpload();
+                dismiss();
+            });
+        }else {
+            binding.menuScanDocUpload.setVisibility(View.GONE);
+        }
 
         binding.menuUploadFiles.setOnClickListener(v -> {
             actions.uploadFiles();
