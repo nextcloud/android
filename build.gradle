@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        jacoco_version = '0.8.7'
+        jacoco_version = '0.8.8'
         kotlin_version = '1.6.20'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.41"
