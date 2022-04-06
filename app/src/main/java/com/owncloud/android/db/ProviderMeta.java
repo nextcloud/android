@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 62;
+    public static final int DB_VERSION = 63;
 
     private ProviderMeta() {
         // No instance
@@ -210,6 +210,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_BIGFILECHUNKING = "files_bigfilechunking";
         public static final String CAPABILITIES_FILES_UNDELETE = "files_undelete";
         public static final String CAPABILITIES_FILES_VERSIONING = "files_versioning";
+        public static final String CAPABILITIES_FILES_LOCKING_VERSION = "files_locking_version";
         public static final String CAPABILITIES_EXTERNAL_LINKS = "external_links";
         public static final String CAPABILITIES_SERVER_NAME = "server_name";
         public static final String CAPABILITIES_SERVER_COLOR = "server_color";
