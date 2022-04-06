@@ -62,6 +62,8 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.ListItemLayout
     override val unreadComments: ImageView
         get() = binding.unreadComments
+    override val lockIndicator: View
+        get() = binding.lockIndicator
 
     init {
         binding.favoriteAction.drawable.mutate()

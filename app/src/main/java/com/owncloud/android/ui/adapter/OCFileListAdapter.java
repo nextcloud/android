@@ -466,6 +466,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setOnClickListener(view -> ocFileListFragmentInterface
                 .onOverflowIconClicked(file, view));
         }
+
+        if (file.isLocked()) {
+            holder.getLockIndicator().setVisibility(View.VISIBLE);
+        } else {
+            holder.getLockIndicator().setVisibility(View.GONE);
+        }
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {

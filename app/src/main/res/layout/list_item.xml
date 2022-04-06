@@ -18,6 +18,7 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
@@ -78,6 +79,21 @@
             app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintTop_toTopOf="@+id/thumbnail_layout" />
+
+        <ImageView
+            android:id="@+id/lock_indicator"
+            android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
+            android:layout_height="@dimen/list_item_local_file_indicator_layout_width"
+            android:contentDescription="@string/file_locked"
+            android:src="@drawable/ic_lock_white"
+            android:visibility="gone"
+            app:tint="@color/secondary_text_color"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
+            app:layout_constraintEnd_toStartOf="@+id/thumbnail_layout"
+            app:layout_constraintStart_toStartOf="@+id/thumbnail_layout"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

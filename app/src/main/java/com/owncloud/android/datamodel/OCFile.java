@@ -95,6 +95,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     String note;
     private List<ShareeUser> sharees;
     private String richWorkspace;
+    private boolean isLocked;
+    private String lockOwnerId;
+    private String lockOwnerDisplayName;
+    private long lockTimestamp;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
@@ -162,6 +166,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         richWorkspace = source.readString();
         previewAvailable = source.readInt() == 1;
         firstShareTimestamp = source.readLong();
+        isLocked =  source.readInt() == 1;
+        lockOwnerId = source.readString();
+        lockOwnerDisplayName = source.readString();
+        lockTimestamp = source.readLong();
     }
 
     @Override
@@ -196,6 +204,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(richWorkspace);
         dest.writeInt(previewAvailable ? 1 : 0);
         dest.writeLong(firstShareTimestamp);
+        dest.writeInt(isLocked ? 1:0);
+        dest.writeString(lockOwnerId);
+        dest.writeString(lockOwnerDisplayName);
+        dest.writeLong(lockTimestamp);
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -459,6 +471,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
         firstShareTimestamp = 0;
+        isLocked = false;
+        lockOwnerId = null;
+        lockOwnerDisplayName = null;
+        lockTimestamp = 0;
     }
 
     /**
@@ -830,5 +846,37 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setFirstShareTimestamp(long firstShareTimestamp) {
         this.firstShareTimestamp = firstShareTimestamp;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
+    public String getLockOwnerId() {
+        return lockOwnerId;
+    }
+
+    public void setLockOwnerId(String lockOwnerId) {
+        this.lockOwnerId = lockOwnerId;
+    }
+
+    public String getLockOwnerDisplayName() {
+        return lockOwnerDisplayName;
+    }
+
+    public void setLockOwnerDisplayName(String lockOwnerDisplayName) {
+        this.lockOwnerDisplayName = lockOwnerDisplayName;
+    }
+
+    public long getLockTimestamp() {
+        return lockTimestamp;
+    }
+
+    public void setLockTimestamp(long lockTimestamp) {
+        this.lockTimestamp = lockTimestamp;
     }
 }

@@ -753,7 +753,11 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + TEXT
                        + ProviderTableMeta.FILE_NOTE + TEXT
                        + ProviderTableMeta.FILE_SHAREES + TEXT
-                       + ProviderTableMeta.FILE_RICH_WORKSPACE + " TEXT);"
+                       + ProviderTableMeta.FILE_RICH_WORKSPACE + TEXT
+                       + ProviderTableMeta.FILE_LOCKED + INTEGER // boolean
+                       + ProviderTableMeta.FILE_LOCK_OWNER + TEXT
+                       + ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME + TEXT
+                       + ProviderTableMeta.FILE_LOCK_TIMESTAMP + " INTEGER );"
         );
     }
 
@@ -2456,12 +2460,24 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 63 && newVersion >= 63) {
-                Log_OC.i(SQL, "Adding file locking version to capability");
+                Log_OC.i(SQL, "Adding file locking columns");
                 db.beginTransaction();
                 try {
+                    // locking capabilities
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME + ADD_COLUMN + ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT ");
                     // force refresh
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+                    // locking properties
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCKED + " INTEGER "); // boolean
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_OWNER + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TIMESTAMP + " INTEGER ");
+                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME + " SET " + ProviderTableMeta.FILE_ETAG + " = '' WHERE 1=1");
+
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
