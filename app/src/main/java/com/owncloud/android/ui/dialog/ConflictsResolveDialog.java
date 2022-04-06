@@ -37,7 +37,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
@@ -194,17 +193,17 @@ public class ConflictsResolveDialog extends DialogFragment {
         // set info for existing file
         binding.existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
         binding.existingTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
-                                                                    existingFile.getModificationTimestamp()));
+                                                                            existingFile.getModificationTimestamp()));
 
         binding.existingThumbnail.setTag(existingFile.getFileId());
-        OCFileListAdapter.setThumbnail(existingFile,
-                                       binding.existingThumbnail,
-                                       user,
-                                       new FileDataStorageManager(user,
-                                                                  requireContext().getContentResolver()),
-                                       asyncTasks,
-                                       false,
-                                       getContext());
+        DisplayUtils.setThumbnail(existingFile,
+                                  binding.existingThumbnail,
+                                  user,
+                                  new FileDataStorageManager(user,
+                                                             requireContext().getContentResolver()),
+                                  asyncTasks,
+                                  false,
+                                  getContext());
 
         View.OnClickListener checkBoxClickListener = v -> {
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());

@@ -59,7 +59,7 @@ class SharedListFragment : OCFileListFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mAdapter.setShowMetadata(false)
+        adapter.setShowMetadata(false)
         currentSearchType = SearchType.SHARED_FILTER
         searchEvent = SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER)
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
