@@ -829,7 +829,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG + TEXT
                        + ProviderTableMeta.CAPABILITIES_USER_STATUS + INTEGER
                        + ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI + INTEGER
-                       + ProviderTableMeta.CAPABILITIES_ETAG + " TEXT );");
+                       + ProviderTableMeta.CAPABILITIES_ETAG + TEXT
+                       + ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -2448,6 +2449,19 @@ public class FileContentProvider extends ContentProvider {
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
 
                     upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (oldVersion < 63 && newVersion >= 63) {
+                Log_OC.i(SQL, "Adding file locking version to capability");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME + ADD_COLUMN + ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT ");
+                    // force refresh
+                    db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();

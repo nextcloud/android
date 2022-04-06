@@ -2075,6 +2075,8 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS, capability.getUserStatus().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI,
                           capability.getUserStatusSupportsEmoji().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION,
+                          capability.getFilesLockingVersion());
 
         return contentValues;
     }
@@ -2224,6 +2226,8 @@ public class FileDataStorageManager {
             capability.setUserStatus(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS));
             capability.setUserStatusSupportsEmoji(
                 getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI));
+            capability.setFilesLockingVersion(
+                getString(cursor, ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION));
         }
         return capability;
     }
