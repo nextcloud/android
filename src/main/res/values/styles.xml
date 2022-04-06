@@ -242,6 +242,7 @@
         <item name="android:windowFrame">@color/transparent</item>
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
