@@ -117,6 +117,10 @@ public class ProviderMeta {
         public static final String FILE_NOTE = "note";
         public static final String FILE_SHAREES = "sharees";
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
+        public static final String FILE_LOCKED = "locked";
+        public static final String FILE_LOCK_OWNER = "lock_owner";
+        public static final String FILE_LOCK_OWNER_DISPLAY_NAME = "lock_owner_display_name";
+        public static final String FILE_LOCK_TIMESTAMP = "lock_timestamp";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
             _ID,
@@ -153,8 +157,11 @@ public class ProviderMeta {
             FILE_OWNER_DISPLAY_NAME,
             FILE_NOTE,
             FILE_SHAREES,
-            FILE_RICH_WORKSPACE));
-
+            FILE_RICH_WORKSPACE,
+            FILE_LOCKED,
+            FILE_LOCK_OWNER,
+            FILE_LOCK_OWNER_DISPLAY_NAME,
+            FILE_LOCK_TIMESTAMP));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table

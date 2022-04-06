@@ -1008,4 +1008,5 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="file_locked">This file is locked</string>
 </resources>

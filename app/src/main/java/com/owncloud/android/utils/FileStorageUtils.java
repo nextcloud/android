@@ -233,6 +233,10 @@ public final class FileStorageUtils {
         file.setNote(remote.getNote());
         file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
         file.setRichWorkspace(remote.getRichWorkspace());
+        file.setLocked(remote.isLocked());
+        file.setLockOwnerId(remote.getLockOwner());
+        file.setLockOwnerDisplayName(remote.getLockOwnerDisplayName());
+        file.setLockTimestamp(remote.getLockTimestamp());
 
         return file;
     }
