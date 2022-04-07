@@ -1525,7 +1525,6 @@ public class FileDisplayActivity extends FileActivity
 
         resetScrolling();
 
-        setFile(file);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setLeftFragment(detailFragment);
 
