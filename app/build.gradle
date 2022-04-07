@@ -263,7 +263,7 @@ dependencies {
 
     implementation 'com.github.zynkware:Document-Scanning-Android-SDK:1.0.1'
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
     implementation "com.google.dagger:dagger:$daggerVersion"
