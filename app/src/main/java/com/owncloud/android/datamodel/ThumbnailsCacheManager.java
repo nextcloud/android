@@ -626,8 +626,15 @@ public final class ThumbnailsCacheManager {
                                 // thumbnail
                                 String uri;
                                 if (file instanceof OCFile) {
-                                    uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                    pxW = 400;
+                                    pxH = 200;
+
+                                    uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
+                                        + URLEncoder.encode(file.getRemotePath())
+                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
+
+//                                    uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+//                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                 } else {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
                                             file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
@@ -645,14 +652,15 @@ public final class ThumbnailsCacheManager {
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = getMethod.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                    thumbnail = bitmap;
+                                    //thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
                                 } else {
                                     mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
                                 }
 
                                 // Handle PNG
                                 if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                                    thumbnail = handlePNG(thumbnail, pxW, pxH);
+                                    // thumbnail = handlePNG(thumbnail, pxW, pxH);
                                 }
                             } catch (Exception e) {
                                 Log_OC.d(TAG, e.getMessage(), e);

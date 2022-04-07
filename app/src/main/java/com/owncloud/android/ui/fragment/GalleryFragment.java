@@ -76,7 +76,7 @@ public class GalleryFragment extends OCFileListFragment {
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                loadMoreWhenEndReached(recyclerView, dy);
+               // loadMoreWhenEndReached(recyclerView, dy);
             }
         });
 
@@ -143,13 +143,13 @@ public class GalleryFragment extends OCFileListFragment {
             startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
             endDate = System.currentTimeMillis() / 1000;
 
-            photoSearchTask = new GallerySearchTask(this,
-                                                    accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
-                                                    startDate,
-                                                    endDate,
-                                                    limit)
-                .execute();
+//            photoSearchTask = new GallerySearchTask(this,
+//                                                    accountManager.getUser(),
+//                                                    mContainerActivity.getStorageManager(),
+//                                                    startDate,
+//                                                    endDate,
+//                                                    limit)
+//                .execute();
         }
     }
 
