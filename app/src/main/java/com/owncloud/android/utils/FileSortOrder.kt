@@ -111,7 +111,7 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         return files
     }
 
-    open fun getType(): Enum<SortType> {
+    open fun getType(): SortType {
         return when (name) {
             sort_z_to_a_id,
             sort_a_to_z_id -> SortType.ALPHABET

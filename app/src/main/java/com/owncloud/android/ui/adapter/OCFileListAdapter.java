@@ -1223,7 +1223,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public String getSectionName(int position) {
         // sort
-        Enum<FileSortOrder.SortType> sortOrderType;
+        FileSortOrder.SortType sortOrderType;
         if (ocFileListFragmentInterface.isGalleryFragment()) {
             sortOrderType = FileSortOrder.SortType.DATE;
         } else {
@@ -1237,7 +1237,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (sortOrderType == FileSortOrder.SortType.ALPHABET) {
-            return String.valueOf(file.getFileName().charAt(0));
+            return String.valueOf(file.getFileName().charAt(0)).toUpperCase();
         } else if (sortOrderType == FileSortOrder.SortType.DATE) {
             long milliseconds = file.getModificationTimestamp();
             Date date = new Date(milliseconds);
