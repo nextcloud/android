@@ -72,6 +72,7 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -486,7 +487,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
 
         if (fileDisplayActivity != null) {
-            fileDisplayActivity.getFileOperationsHelper()
+            AppScanActivity
                 .scanFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
         } else {
             Toast.makeText(getContext(),
