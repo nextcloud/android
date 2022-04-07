@@ -232,7 +232,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         // let the platform deal with those
         final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
 
-        if (!isCrashReportingProcess) {
+        if (!isCrashReportingProcess && !appInfo.isDebugBuild()) {
             Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
             final ExceptionHandler crashReporter = new ExceptionHandler(this,
                                                                         defaultPlatformHandler);
