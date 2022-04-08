@@ -578,7 +578,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (gridView || hideItemOptions
                // || (file.isFolder() && !file.canReshare())
-                || searchType == ExtendedListFragment.SearchType.FAVORITE_SEARCH)
+                || searchType == ExtendedListFragment.SearchType.FAVORITE_SEARCH
+                || searchType == ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH)
             {
                 gridViewHolder.getShared().setVisibility(View.GONE);
             } else {
