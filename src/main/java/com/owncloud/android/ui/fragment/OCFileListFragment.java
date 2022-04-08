@@ -577,6 +577,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity.getFileOperationsHelper().sendShareFile(file);
         }
 
+        SendShareDialog.isPeopleShareClicked = true;
         //track event on click of Share button
         trackSharingClickEvent();
     }
