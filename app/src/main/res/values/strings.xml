@@ -1009,4 +1009,7 @@
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="file_locked">This file is locked</string>
+    <string name="lock_file">Lock</string>
+    <string name="unlock_file">Unlock</string>
+    <string name="error_file_lock">Error changing file lock status</string>
 </resources>

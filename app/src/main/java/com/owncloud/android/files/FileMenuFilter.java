@@ -201,6 +201,7 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide);
+        filterLock(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -252,9 +253,23 @@ public class FileMenuFilter {
         }
     }
 
+    private void filterLock(List<Integer> toShow, List<Integer> toHide) {
+        // TODO only allow locking files (not dirs), and only allow unlocking file if lock is owned by the user
+        if (files.isEmpty()) {
+            toHide.add(R.id.action_lock_file);
+            toHide.add(R.id.action_unlock_file);
+        } else if (allLocked()) {
+            toHide.add(R.id.action_lock_file);
+            toShow.add(R.id.action_unlock_file);
+        } else {
+            toHide.add(R.id.action_unlock_file);
+            toShow.add(R.id.action_lock_file);
+        }
+    }
+
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
-                || !endToEndEncryptionEnabled) {
+            || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_encrypted);
         } else {
             toShow.add(R.id.action_encrypted);
@@ -567,6 +582,15 @@ public class FileMenuFilter {
     private boolean allNotFavorites() {
         for (OCFile file : files) {
             if (file.isFavorite()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean allLocked() {
+        for (OCFile file : files) {
+            if (!file.isLocked()) {
                 return false;
             }
         }

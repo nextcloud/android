@@ -80,21 +80,6 @@
             app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
             app:layout_constraintTop_toTopOf="@+id/thumbnail_layout" />
 
-        <ImageView
-            android:id="@+id/lock_indicator"
-            android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
-            android:layout_height="@dimen/list_item_local_file_indicator_layout_width"
-            android:contentDescription="@string/file_locked"
-            android:src="@drawable/ic_lock_white"
-            android:visibility="gone"
-            app:tint="@color/secondary_text_color"
-            tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
-            app:layout_constraintEnd_toStartOf="@+id/thumbnail_layout"
-            app:layout_constraintStart_toStartOf="@+id/thumbnail_layout"
-            app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -153,10 +138,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/zero">
 
@@ -164,7 +150,6 @@
             android:id="@+id/unreadComments"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
             android:focusable="true"
@@ -177,8 +162,6 @@
             android:id="@+id/sharedIcon"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/unreadComments"
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"
@@ -189,19 +172,28 @@
         <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
             android:layout_width="100dp"
+            android:gravity="center_vertical"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_alignEnd="@id/sharedIcon"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/sharedIcon"
             android:contentDescription="@string/shared_avatar_desc"
             android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/lock_indicator"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/shared_icon_share"
+            android:background="?selectableItemBackgroundBorderless"
+            android:paddingStart="@dimen/list_item_share_right_margin"
+            android:paddingEnd="@dimen/list_item_share_right_margin"
+            android:src="@drawable/ic_lock_white"
+            android:visibility="gone"
+            app:tint="#666666"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/sharedAvatars"
             android:clickable="false"
             android:contentDescription="@string/checkbox"
             android:focusable="false"
@@ -213,8 +205,6 @@
             android:id="@+id/overflow_menu"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/custom_checkbox"
             android:clickable="true"
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
@@ -222,5 +212,5 @@
             android:paddingEnd="12dp"
             android:src="@drawable/ic_dots_vertical" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
