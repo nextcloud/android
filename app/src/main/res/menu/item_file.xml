@@ -41,6 +41,18 @@
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/action_lock_file"
+        android:title="@string/lock_file"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_unlock_file"
+        android:title="@string/unlock_file"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/action_see_details"
         android:title="@string/actionbar_see_details"
         app:showAsAction="never"
