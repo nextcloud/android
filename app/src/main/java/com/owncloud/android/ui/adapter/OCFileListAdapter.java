@@ -366,7 +366,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             gridViewHolder.getThumbnail().setTag(file.getFileId());
             setThumbnail(file,
-                         gridViewHolder.getThumbnail(),
+                         gridViewHolder,
                          user,
                          mStorageManager,
                          asyncTasks,
@@ -395,11 +395,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                     boolean gridView,
                                     Context context) {
-        setThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, null, null);
+        setThumbnail(file, null, user, storageManager, asyncTasks, gridView, context, null, null);
     }
 
     private static void setThumbnail(OCFile file,
-                                     DynamicHeightImageView thumbnailView,
+                                     ListGridImageViewHolder thumbnailView,
                                      User user,
                                      FileDataStorageManager storageManager,
                                      List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
@@ -415,11 +415,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                 );
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                    thumbnailView.getThumbnail().setHeightRatio((double) thumbnail.getHeight() / thumbnail.getWidth());
 
-
-                    thumbnailView.setHeightRatio((double) thumbnail.getHeight() / thumbnail.getWidth());
-
-                    thumbnailView.setImageBitmap(thumbnail);
+                    thumbnailView.getThumbnail().setImageBitmap(thumbnail);
 
 //                    ViewGroup.LayoutParams layoutParams = thumbnailView.getLayoutParams();
 //                    layoutParams.width = thumbnail.getWidth();
@@ -428,10 +426,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 } else {
                     // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView.getThumbnail())) {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView.getThumbnail(),
                                                                                    storageManager,
                                                                                    user,
                                                                                    asyncTasks,
@@ -460,7 +458,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //                                startShimmer(shimmerThumbnail, thumbnailView);
 //                            }
 
-                            thumbnailView.setImageDrawable(asyncDrawable);
+                            thumbnailView.getThumbnail().setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
                             task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                                   file.getRemoteId()));
@@ -471,10 +469,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             } else {
             // stopShimmer(shimmerThumbnail, thumbnailView);
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                            file.getFileName(),
-                                                                            user,
-                                                                            context));
+            thumbnailView.getThumbnail().setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                       file.getFileName(),
+                                                                                       user,
+                                                                                       context));
             }
     }
 
@@ -1032,6 +1030,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return binding.thumbnail;
         }
 
+        @Override
+        public View getView() {
+            return itemView;
+        }
+
 
     }
 
@@ -1054,6 +1057,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return binding.thumbnail;
         }
 
+        @Override
+        public View getView() {
+            return itemView;
+        }
+
 
     }
 
@@ -1069,6 +1077,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return binding.thumbnail;
         }
 
+        public View getView() {
+            return itemView;
+        }
     }
 
     static class OCFileListFooterViewHolder extends RecyclerView.ViewHolder {
@@ -1092,6 +1103,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     interface ListGridImageViewHolder {
         DynamicHeightImageView getThumbnail();
 
+        View getView();
 
     }
 

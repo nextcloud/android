@@ -19,14 +19,12 @@
     android:id="@+id/ListItemLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/hwSecurityRed"
     android:layout_margin="4dp">
 
     <com.owncloud.android.ui.adapter.DynamicHeightImageView
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:contentDescription="@null"
         android:src="@drawable/folder" />
 </RelativeLayout>

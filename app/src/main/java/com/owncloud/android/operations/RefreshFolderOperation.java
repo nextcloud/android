@@ -277,7 +277,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             // Update Capabilities for this account
-            updateCapabilities();
+            // updateCapabilities();
         }
     }
 

@@ -1133,7 +1133,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        if (false && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             Thread t = new Thread(() -> {
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
