@@ -1,0 +1,7 @@
+Do not use ExceptionHandler on debug builds
+Don't include document scanner in FDroid version
+AndroidManifest: set camera2 feature to not required
+Better approach for avoiding state loss in FileDetailFragment
+Use remoteId to properly fetch streaming video url
+Update Nextcloud Android library
+Update 3rd-party dependencies
