@@ -83,9 +83,9 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     public static final String NULL_STRING = "null";
 
-    private ContentResolver contentResolver;
-    private ContentProviderClient contentProviderClient;
-    private User user;
+    private final ContentResolver contentResolver;
+    private final ContentProviderClient contentProviderClient;
+    private final User user;
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -1389,86 +1389,6 @@ public class FileDataStorageManager {
         }
     }
 
-    public void updateSharedFiles(Collection<OCFile> sharedFiles) {
-        resetShareFlagsInAllFiles();
-
-        if (sharedFiles != null) {
-            ArrayList<ContentProviderOperation> operations = new ArrayList<>(sharedFiles.size());
-
-            // prepare operations to insert or update files to save in the given folder
-            for (OCFile file : sharedFiles) {
-                ContentValues cv = new ContentValues();
-                cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-                cv.put(
-                    ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                    file.getModificationTimestampAtLastSyncForData()
-                );
-                cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
-                cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-                cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimeType());
-                cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-                cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-                cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-                if (!file.isFolder()) {
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-                }
-                cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, user.getAccountName());
-                cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
-                cv.put(
-                    ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA,
-                    file.getLastSyncDateForData()
-                );
-                cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
-                cv.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, file.getEtagOnServer());
-                cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
-                cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-                cv.put(ProviderTableMeta.FILE_FAVORITE, file.isFavorite());
-                cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.isUpdateThumbnailNeeded() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading() ? 1 : 0);
-                cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
-
-                boolean existsByPath = fileExists(file.getRemotePath());
-                if (existsByPath || fileExists(file.getFileId())) {
-                    // updating an existing file
-                    operations.add(
-                        ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                            withValues(cv).
-                            withSelection(ProviderTableMeta._ID + "=?",
-                                          new String[]{String.valueOf(file.getFileId())})
-                            .build());
-
-                } else {
-                    // adding a new file
-                    operations.add(
-                        ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).
-                            withValues(cv).
-                            build()
-                    );
-                }
-            }
-
-            // apply operations in batch
-            if (operations.size() > 0) {
-                @SuppressWarnings("unused")
-                ContentProviderResult[] results = null;
-                Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-                try {
-                    if (getContentResolver() != null) {
-                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                    } else {
-                        results = getContentProviderClient().applyBatch(operations);
-                    }
-
-                } catch (OperationApplicationException | RemoteException e) {
-                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-                }
-            }
-        }
-
-    }
-
     public void removeShare(OCShare share) {
         Uri contentUriShare = ProviderTableMeta.CONTENT_URI_SHARE;
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
@@ -2223,22 +2143,6 @@ public class FileDataStorageManager {
                 getContentProviderClient().bulkInsert(contentUriVirtual, arrayValues);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "saveVirtuals" + e.getMessage(), e);
-            }
-        }
-    }
-
-    public void saveVirtual(VirtualFolderType type, OCFile file) {
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.VIRTUAL_TYPE, type.toString());
-        cv.put(ProviderTableMeta.VIRTUAL_OCFILE_ID, file.getFileId());
-
-        if (getContentResolver() != null) {
-            getContentResolver().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
-        } else {
-            try {
-                getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
             }
         }
     }

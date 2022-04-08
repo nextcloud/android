@@ -95,7 +95,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     String note;
     private List<ShareeUser> sharees;
     private String richWorkspace;
-    private boolean isLocked;
+    private boolean locked;
     private String lockOwnerId;
     private String lockOwnerDisplayName;
     private long lockTimestamp;
@@ -166,7 +166,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         richWorkspace = source.readString();
         previewAvailable = source.readInt() == 1;
         firstShareTimestamp = source.readLong();
-        isLocked =  source.readInt() == 1;
+        locked =  source.readInt() == 1;
         lockOwnerId = source.readString();
         lockOwnerDisplayName = source.readString();
         lockTimestamp = source.readLong();
@@ -204,7 +204,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(richWorkspace);
         dest.writeInt(previewAvailable ? 1 : 0);
         dest.writeLong(firstShareTimestamp);
-        dest.writeInt(isLocked ? 1:0);
+        dest.writeInt(locked ? 1:0);
         dest.writeString(lockOwnerId);
         dest.writeString(lockOwnerDisplayName);
         dest.writeLong(lockTimestamp);
@@ -471,7 +471,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
         firstShareTimestamp = 0;
-        isLocked = false;
+        locked = false;
         lockOwnerId = null;
         lockOwnerDisplayName = null;
         lockTimestamp = 0;
@@ -849,11 +849,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isLocked() {
-        return isLocked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-        isLocked = locked;
+        this.locked = locked;
     }
 
     public String getLockOwnerId() {
