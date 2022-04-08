@@ -72,6 +72,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.ShareSearchViewFocusEvent;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -501,7 +502,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 setButtonsForRemote();
             }
         }
-        replaceSharingFragment();
+        if(SendShareDialog.isPeopleShareClicked) {
+            replaceSharingFragment();
+        }
         getView().invalidate();
     }
 

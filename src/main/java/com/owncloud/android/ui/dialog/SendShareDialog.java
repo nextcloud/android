@@ -75,6 +75,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     private boolean sharingPublicPasswordEnforced;
     private boolean sharingPublicAskForPassword;
     private FileOperationsHelper fileOperationsHelper;
+    public static boolean isPeopleShareClicked;
 
     public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
 
@@ -180,6 +181,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void shareByLink() {
+        isPeopleShareClicked = false;
         if (file.isSharedViaLink()) {
             ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file);
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
@@ -268,6 +270,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
     }
 
     private void shareFile(OCFile file) {
+        isPeopleShareClicked = true;
         dismiss();
 
         if (getActivity() instanceof FileDisplayActivity) {
