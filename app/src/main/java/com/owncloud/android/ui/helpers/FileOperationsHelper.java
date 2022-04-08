@@ -37,7 +37,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -69,7 +68,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -86,7 +84,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
-import com.zynksoftware.documentscanner.ui.DocumentScanner;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -454,7 +451,7 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final User user = currentAccount.getUser();
         new Thread(() -> {
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getRemoteId());
             RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
 
             fileActivity.dismissLoadingDialog();
@@ -1072,19 +1069,6 @@ public class FileOperationsHelper {
             }
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
-        }
-    }
-
-    public void scanFromCamera(Activity activity, int requestCode) {
-        DocumentScanner.Configuration configuration = new DocumentScanner.Configuration();
-        configuration.setImageType(Bitmap.CompressFormat.PNG);
-        DocumentScanner.INSTANCE.init(activity, configuration);
-
-        Intent scanIntent = new Intent(activity, AppScanActivity.class);
-        if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-            activity.startActivityForResult(scanIntent, requestCode);
-        } else {
-            PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_SCAN_DOCUMENT);
         }
     }
 

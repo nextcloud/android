@@ -261,9 +261,13 @@ dependencies {
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
-    implementation 'com.github.zynkware:Document-Scanning-Android-SDK:1.0.1'
+    // document scanner not available on FDroid (generic) due to OpenCV binaries
+    gplayImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    huaweiImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    qaImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    versionDevImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
 
     implementation "com.google.dagger:dagger:$daggerVersion"

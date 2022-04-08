@@ -399,7 +399,7 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getFileOperationsHelper().scanFromCamera(
+                    AppScanActivity.scanFromCamera(
                         this,
                         FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
                 }
@@ -1533,7 +1533,6 @@ public class FileDisplayActivity extends FileActivity
 
         resetScrolling();
 
-        setFile(file);
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setLeftFragment(detailFragment);
 

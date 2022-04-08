@@ -26,6 +26,12 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+    <!-- Used for document scanning, but lib declares it as required, which it's not -->
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false"
+        tools:node="replace" />
+
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
     <uses-permission
