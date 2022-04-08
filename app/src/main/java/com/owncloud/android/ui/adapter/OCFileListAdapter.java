@@ -60,17 +60,12 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
-import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.SearchType;
@@ -83,11 +78,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -380,189 +372,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          asyncTasks,
                          gridView,
                          activity,
-                         gridViewHolder.getShimmerThumbnail(), preferences);
-
-            if (highlightedItem != null && file.getFileId() == highlightedItem.getFileId()) {
-                gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources()
-                                                                      .getColor(R.color.selected_item_background));
-            } else if (isCheckedFile(file)) {
-                gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources()
-                                                                      .getColor(R.color.selected_item_background));
-                gridViewHolder.getCheckbox().setImageDrawable(
-                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                    ThemeColorUtils.primaryColor(activity)));
-            } else {
-                gridViewHolder.getItemLayout().setBackgroundColor(activity.getResources().getColor(R.color.bg_default));
-                gridViewHolder.getCheckbox().setImageResource(R.drawable.ic_checkbox_blank_outline);
-            }
-
-            gridViewHolder.getItemLayout().setOnClickListener(v -> ocFileListFragmentInterface.onItemClicked(file));
-
-            if (!hideItemOptions) {
-                gridViewHolder.getItemLayout().setLongClickable(true);
-                gridViewHolder.getItemLayout().setOnLongClickListener(v ->
-                                                                          ocFileListFragmentInterface.onLongItemClicked(file));
-            }
-
-            // unread comments
-            if (file.getUnreadCommentsCount() > 0) {
-                gridViewHolder.getUnreadComments().setVisibility(View.VISIBLE);
-                gridViewHolder.getUnreadComments().setOnClickListener(view -> ocFileListFragmentInterface
-                    .showActivityDetailView(file));
-            } else {
-                gridViewHolder.getUnreadComments().setVisibility(View.GONE);
-            }
-
-            if (holder instanceof ListItemViewHolder) {
-                ListItemViewHolder itemViewHolder = (ListItemViewHolder) holder;
-
-                if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !multiSelect && !gridView &&
-                    !hideItemOptions) {
-                    itemViewHolder.getSharedAvatars().setVisibility(View.VISIBLE);
-                    itemViewHolder.getSharedAvatars().removeAllViews();
-
-                    String fileOwner = file.getOwnerId();
-                    List<ShareeUser> sharees = file.getSharees();
-
-                    // use fileOwner if not oneself, then add at first
-                    ShareeUser fileOwnerSharee = new ShareeUser(fileOwner, file.getOwnerDisplayName(), ShareType.USER);
-                    if (!TextUtils.isEmpty(fileOwner) &&
-                        !fileOwner.equals(userId) &&
-                        !sharees.contains(fileOwnerSharee)) {
-                        sharees.add(fileOwnerSharee);
-                    }
-
-                    Collections.reverse(sharees);
-
-                    Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
-
-                    itemViewHolder.getSharedAvatars().setAvatars(user, sharees);
-                    itemViewHolder.getSharedAvatars().setOnClickListener(
-                        view -> ocFileListFragmentInterface.onShareIconClick(file));
-                } else {
-                    itemViewHolder.getSharedAvatars().setVisibility(View.GONE);
-                    itemViewHolder.getSharedAvatars().removeAllViews();
-                }
-
-                // npe fix: looks like file without local storage path somehow get here
-                final String storagePath = file.getStoragePath();
-                if (onlyOnDevice && storagePath != null) {
-                    File localFile = new File(storagePath);
-                    long localSize;
-                    if (localFile.isDirectory()) {
-                        localSize = FileStorageUtils.getFolderSize(localFile);
-                    } else {
-                        localSize = localFile.length();
-                    }
-
-                    itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
-                    itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
-                    itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
-                } else {
-                    final long fileLength = file.getFileLength();
-                    if (fileLength >= 0) {
-                        itemViewHolder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
-                        itemViewHolder.getFileSize().setVisibility(View.VISIBLE);
-                        itemViewHolder.getFileSizeSeparator().setVisibility(View.VISIBLE);
-                    } else {
-                        itemViewHolder.getFileSize().setVisibility(View.GONE);
-                        itemViewHolder.getFileSizeSeparator().setVisibility(View.GONE);
-                    }
-                }
-
-                final long modificationTimestamp = file.getModificationTimestamp();
-                if (modificationTimestamp > 0) {
-                    itemViewHolder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                                   modificationTimestamp));
-                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
-                } else if (file.getFirstShareTimestamp() > 0) {
-                    itemViewHolder.getLastModification().setText(
-                        DisplayUtils.getRelativeTimestamp(activity, file.getFirstShareTimestamp())
-                                                                );
-                    itemViewHolder.getLastModification().setVisibility(View.VISIBLE);
-                } else {
-                    itemViewHolder.getLastModification().setVisibility(View.GONE);
-                }
+                         null, preferences);
 
 
-                if (multiSelect || gridView || hideItemOptions) {
-                    itemViewHolder.getOverflowMenu().setVisibility(View.GONE);
-                } else {
-                    itemViewHolder.getOverflowMenu().setVisibility(View.VISIBLE);
-                    itemViewHolder.getOverflowMenu().setOnClickListener(view -> ocFileListFragmentInterface
-                        .onOverflowIconClicked(file, view));
-                }
-            }
-
-            gridViewHolder.getLocalFileIndicator().setVisibility(View.INVISIBLE);   // default first
-
-            if (showMetadata) {
-                OperationsService.OperationsServiceBinder operationsServiceBinder = transferServiceGetter.getOperationsServiceBinder();
-                FileDownloader.FileDownloaderBinder fileDownloaderBinder = transferServiceGetter.getFileDownloaderBinder();
-                FileUploader.FileUploaderBinder fileUploaderBinder = transferServiceGetter.getFileUploaderBinder();
-                if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
-                    //synchronizing
-                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
-
-                } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
-                    // downloading
-                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
-
-                } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
-                    //uploading
-                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing);
-                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
-
-                } else if (file.getEtagInConflict() != null) {
-                    // conflict
-                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synchronizing_error);
-                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
-
-                } else if (file.isDown()) {
-                    gridViewHolder.getLocalFileIndicator().setImageResource(R.drawable.ic_synced);
-                    gridViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
-                }
-
-                gridViewHolder.getFavorite().setVisibility(file.isFavorite() ? View.VISIBLE : View.GONE);
-            } else {
-                gridViewHolder.getLocalFileIndicator().setVisibility(View.GONE);
-                gridViewHolder.getFavorite().setVisibility(View.GONE);
-            }
-
-            if (multiSelect) {
-                gridViewHolder.getCheckbox().setVisibility(View.VISIBLE);
-            } else {
-                gridViewHolder.getCheckbox().setVisibility(View.GONE);
-            }
-
-            if (holder instanceof ListGridItemViewHolder) {
-                ListGridItemViewHolder gridItemViewHolder = (ListGridItemViewHolder) holder;
-
-                gridItemViewHolder.getFileName().setText(file.getDecryptedFileName());
-
-                if (gridView && gridImage) {
-                    gridItemViewHolder.getFileName().setVisibility(View.GONE);
-                } else {
-                    if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
-                        gridItemViewHolder.getFileName().setVisibility(View.GONE);
-                    } else {
-                        gridItemViewHolder.getFileName().setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-
-            if (gridView || hideItemOptions || (file.isFolder() && !file.canReshare())) {
-                gridViewHolder.getShared().setVisibility(View.GONE);
-            } else {
-                showShareIcon(gridViewHolder, file);
-            }
+//            // Thumbnail in cache?
+//            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+//                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
+//                                                                            );
+//
+//
+//
+//            if (thumbnail != null) {
+//                gridViewHolder.getThumbnail().setImageBitmap(thumbnail);
+//            }
         }
     }
 
     public static void setThumbnail(OCFile file,
-                                    ImageView thumbnailView,
+                                    DynamicHeightImageView thumbnailView,
                                     User user,
                                     FileDataStorageManager storageManager,
                                     List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
@@ -572,7 +399,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private static void setThumbnail(OCFile file,
-                                     ImageView thumbnailView,
+                                     DynamicHeightImageView thumbnailView,
                                      User user,
                                      FileDataStorageManager storageManager,
                                      List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
@@ -580,32 +407,25 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                      Context context,
                                      LoaderImageView shimmerThumbnail,
                                      AppPreferences preferences) {
-        if (file.isFolder()) {
-            stopShimmer(shimmerThumbnail, thumbnailView);
-            thumbnailView.setImageDrawable(MimeTypeUtil
-                                               .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                                  file.isSharedViaLink(), file.isEncrypted(),
-                                                                  file.getMountType(), context));
-        } else {
-            if (file.getRemoteId() != null && file.isPreviewAvailable()) {
+
+        if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
                                                                                 );
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    stopShimmer(shimmerThumbnail, thumbnailView);
 
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        if (gridView) {
-                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
-                        } else {
-                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
-                        }
-                    }
+
+                    thumbnailView.setHeightRatio((double) thumbnail.getHeight() / thumbnail.getWidth());
+
+                    thumbnailView.setImageBitmap(thumbnail);
+
+//                    ViewGroup.LayoutParams layoutParams = thumbnailView.getLayoutParams();
+//                    layoutParams.width = thumbnail.getWidth();
+//                    layoutParams.height = thumbnail.getHeight();
+//                    thumbnailView.setLayoutParams(layoutParams);
+
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
@@ -633,24 +453,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                                   thumbnail, task);
 
-                            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
-                                if (gridView) {
-                                    configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
-                                }
-                                startShimmer(shimmerThumbnail, thumbnailView);
-                            }
-
-                            task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
-                                @Override
-                                public void onSuccess() {
-                                    stopShimmer(shimmerThumbnail, thumbnailView);
-                                }
-
-                                @Override
-                                public void onError() {
-                                    stopShimmer(shimmerThumbnail, thumbnailView);
-                                }
-                            });
+//                            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
+//                                if (gridView) {
+//                                    configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
+//                                }
+//                                startShimmer(shimmerThumbnail, thumbnailView);
+//                            }
 
                             thumbnailView.setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
@@ -661,29 +469,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         }
                     }
                 }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
-                }
             } else {
-                stopShimmer(shimmerThumbnail, thumbnailView);
+            // stopShimmer(shimmerThumbnail, thumbnailView);
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
                                                                             user,
                                                                             context));
             }
-        }
-    }
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-        if (holder instanceof ListGridImageViewHolder) {
-            LoaderImageView thumbnailShimmer = ((ListGridImageViewHolder) holder).getShimmerThumbnail();
-            if (thumbnailShimmer.getVisibility() == View.VISIBLE) {
-                thumbnailShimmer.setImageResource(R.drawable.background);
-                thumbnailShimmer.resetLoader();
-            }
-        }
     }
 
     private static Point getScreenSize(Context context) throws Exception {
@@ -820,30 +612,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void showShareIcon(ListGridImageViewHolder gridViewHolder, OCFile file) {
-        ImageView sharedIconView = gridViewHolder.getShared();
 
-        if (gridViewHolder instanceof OCFileListItemViewHolder || file.getUnreadCommentsCount() == 0) {
-            sharedIconView.setVisibility(View.VISIBLE);
-
-            if (file.isSharedWithSharee() || file.isSharedWithMe()) {
-                if (showShareAvatar) {
-                    sharedIconView.setVisibility(View.GONE);
-                } else {
-                    sharedIconView.setVisibility(View.VISIBLE);
-                    sharedIconView.setImageResource(R.drawable.shared_via_users);
-                    sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared));
-                }
-            } else if (file.isSharedViaLink()) {
-                sharedIconView.setImageResource(R.drawable.shared_via_link);
-                sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_shared_via_link));
-            } else {
-                sharedIconView.setImageResource(R.drawable.ic_unshared);
-                sharedIconView.setContentDescription(activity.getString(R.string.shared_icon_share));
-            }
-            sharedIconView.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
-        } else {
-            sharedIconView.setVisibility(View.GONE);
-        }
     }
 
     /**
@@ -1259,44 +1028,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
-        public ImageView getThumbnail() {
+        public DynamicHeightImageView getThumbnail() {
             return binding.thumbnail;
         }
 
-        @Override
-        public LoaderImageView getShimmerThumbnail() {
-            return binding.thumbnailShimmer;
-        }
 
-        @Override
-        public ImageView getFavorite() {
-            return binding.favoriteAction;
-        }
-
-        @Override
-        public ImageView getLocalFileIndicator() {
-            return binding.localFileIndicator;
-        }
-
-        @Override
-        public ImageView getShared() {
-            return binding.sharedIcon;
-        }
-
-        @Override
-        public ImageView getCheckbox() {
-            return binding.customCheckbox;
-        }
-
-        @Override
-        public View getItemLayout() {
-            return binding.ListItemLayout;
-        }
-
-        @Override
-        public ImageView getUnreadComments() {
-            return binding.unreadComments;
-        }
     }
 
     static class OCFileListGridItemViewHolder extends RecyclerView.ViewHolder implements ListGridItemViewHolder {
@@ -1314,44 +1050,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         @Override
-        public ImageView getThumbnail() {
+        public DynamicHeightImageView getThumbnail() {
             return binding.thumbnail;
         }
 
-        @Override
-        public LoaderImageView getShimmerThumbnail() {
-            return binding.thumbnailShimmer;
-        }
 
-        @Override
-        public ImageView getFavorite() {
-            return binding.favoriteAction;
-        }
-
-        @Override
-        public ImageView getLocalFileIndicator() {
-            return binding.localFileIndicator;
-        }
-
-        @Override
-        public ImageView getShared() {
-            return binding.sharedIcon;
-        }
-
-        @Override
-        public ImageView getCheckbox() {
-            return binding.customCheckbox;
-        }
-
-        @Override
-        public View getItemLayout() {
-            return binding.ListItemLayout;
-        }
-
-        @Override
-        public ImageView getUnreadComments() {
-            return binding.unreadComments;
-        }
     }
 
     static class OCFileListGridImageViewHolder extends RecyclerView.ViewHolder implements ListGridImageViewHolder {
@@ -1360,48 +1063,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private OCFileListGridImageViewHolder(GridImageBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            this.binding.favoriteAction.getDrawable().mutate();
         }
 
-        @Override
-        public ImageView getThumbnail() {
+        public DynamicHeightImageView getThumbnail() {
             return binding.thumbnail;
         }
 
-        @Override
-        public LoaderImageView getShimmerThumbnail() {
-            return binding.thumbnailShimmer;
-        }
-
-        @Override
-        public ImageView getFavorite() {
-            return binding.favoriteAction;
-        }
-
-        @Override
-        public ImageView getLocalFileIndicator() {
-            return binding.localFileIndicator;
-        }
-
-        @Override
-        public ImageView getShared() {
-            return binding.sharedIcon;
-        }
-
-        @Override
-        public ImageView getCheckbox() {
-            return binding.customCheckbox;
-        }
-
-        @Override
-        public View getItemLayout() {
-            return binding.ListItemLayout;
-        }
-
-        @Override
-        public ImageView getUnreadComments() {
-            return binding.unreadComments;
-        }
     }
 
     static class OCFileListFooterViewHolder extends RecyclerView.ViewHolder {
@@ -1423,21 +1090,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     interface ListGridImageViewHolder {
-        ImageView getThumbnail();
+        DynamicHeightImageView getThumbnail();
 
-        LoaderImageView getShimmerThumbnail();
 
-        ImageView getFavorite();
-
-        ImageView getLocalFileIndicator();
-
-        ImageView getShared();
-
-        ImageView getCheckbox();
-
-        View getItemLayout();
-
-        ImageView getUnreadComments();
     }
 
     interface ListGridItemViewHolder extends ListGridImageViewHolder {

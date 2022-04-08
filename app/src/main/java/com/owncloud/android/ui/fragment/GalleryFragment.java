@@ -143,13 +143,13 @@ public class GalleryFragment extends OCFileListFragment {
             startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
             endDate = System.currentTimeMillis() / 1000;
 
-//            photoSearchTask = new GallerySearchTask(this,
-//                                                    accountManager.getUser(),
-//                                                    mContainerActivity.getStorageManager(),
-//                                                    startDate,
-//                                                    endDate,
-//                                                    limit)
-//                .execute();
+            photoSearchTask = new GallerySearchTask(this,
+                                                    accountManager.getUser(),
+                                                    mContainerActivity.getStorageManager(),
+                                                    startDate,
+                                                    endDate,
+                                                    limit)
+                .execute();
         }
     }
 

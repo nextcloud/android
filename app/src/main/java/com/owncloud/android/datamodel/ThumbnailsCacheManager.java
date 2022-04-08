@@ -38,7 +38,6 @@ import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.View;
@@ -546,11 +545,7 @@ public final class ThumbnailsCacheManager {
                         tagId = String.valueOf(((TrashbinFile) mFile).getRemoteId());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        if (gridViewEnabled) {
-                            BitmapUtils.setRoundedBitmapForGridMode(bitmap, imageView);
-                        } else {
-                            BitmapUtils.setRoundedBitmap(bitmap, imageView);
-                        }
+                        imageView.setImageBitmap(bitmap);
                     }
                 }
 
@@ -586,39 +581,7 @@ public final class ThumbnailsCacheManager {
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
 
-                if (file instanceof OCFile) {
-                    OCFile ocFile = (OCFile) file;
-                    if (ocFile.isDown()) {
-                        Bitmap bitmap;
-                        if (MimeTypeUtil.isVideo(ocFile)) {
-                            bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
-                                    MediaStore.Images.Thumbnails.MINI_KIND);
-                        } else {
-                            bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
-                        }
-
-                        if (bitmap != null) {
-                            // Handle PNG
-                            if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
-                                bitmap = handlePNG(bitmap, pxW, pxH);
-                            }
-
-                            thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
-
-                            ocFile.setUpdateThumbnailNeeded(false);
-                            mStorageManager.saveFile(ocFile);
-                        }
-                    }
-                }
-
                 if (thumbnail == null) {
-                    // check if resized version is available
-                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
-                    Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
-
-                    if (resizedImage != null) {
-                        thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
-                    } else {
                         // Download thumbnail from server
                         if (mClient != null) {
                             getMethod = null;
@@ -626,12 +589,14 @@ public final class ThumbnailsCacheManager {
                                 // thumbnail
                                 String uri;
                                 if (file instanceof OCFile) {
-                                    pxW = 400;
-                                    pxH = 200;
-
+                                    Point p = getScreenDimension();
+//                                    pxW = p.x / 2;
+//                                    pxH = p.y / 5;
+                                    pxH = 600;
+                                    pxW = 600;
                                     uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
                                         + URLEncoder.encode(file.getRemotePath())
-                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
+                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=fill&forceIcon=0";
 
 //                                    uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
 //                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
@@ -670,7 +635,6 @@ public final class ThumbnailsCacheManager {
                                 }
                             }
                         }
-                    }
 
                     // Add thumbnail to cache
                     if (thumbnail != null) {

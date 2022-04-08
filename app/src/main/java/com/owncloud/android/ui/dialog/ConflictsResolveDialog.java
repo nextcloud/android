@@ -198,7 +198,7 @@ public class ConflictsResolveDialog extends DialogFragment {
 
         binding.existingThumbnail.setTag(existingFile.getFileId());
         OCFileListAdapter.setThumbnail(existingFile,
-                                       binding.existingThumbnail,
+                                       null,
                                        user,
                                        new FileDataStorageManager(user,
                                                                   requireContext().getContentResolver()),
