@@ -114,6 +114,8 @@ class PreviewVideoActivity :
         if (mSavedPlaybackPosition >= 0) {
             exoPlayer?.seekTo(mSavedPlaybackPosition)
         }
+
+        onIsPlayingChanged(exoPlayer!!.isPlaying)
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -200,7 +202,15 @@ class PreviewVideoActivity :
     private fun play(item: MediaItem) {
         exoPlayer?.addMediaItem(item)
         exoPlayer?.prepare()
-        exoPlayer?.play()
+        //exoPlayer?.seekTo(mSavedPlaybackPosition)
+
+        if (mAutoplay) {
+            exoPlayer?.play()
+        }
+
+        // if (!mAutoplay) {
+        //     exoPlayer?.pause()
+        // }
     }
 
     override fun onStart() {
@@ -220,6 +230,7 @@ class PreviewVideoActivity :
                     else -> MediaItem.fromUri(mStreamUri!!)
                 }
                 if (exoPlayer != null) {
+                    setupPlayerView()
                     play(mediaItem)
                 } else {
                     val context = this

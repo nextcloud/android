@@ -506,7 +506,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (savedPlaybackPosition >= 0) {
             exoPlayer.seekTo(savedPlaybackPosition);
         }
-        exoPlayer.play();
+
+        if (autoplay) {
+            exoPlayer.play();
+        }
     }
 
     @Override
@@ -575,7 +578,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onResume() {
         super.onResume();
-        autoplay = false;
         if(getActivity() instanceof FileDisplayActivity){
             ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
         }
