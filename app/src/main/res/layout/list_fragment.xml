@@ -37,7 +37,8 @@
             app:fastScrollPopupBgColor="@color/color_accent"
             app:fastScrollPopupTextColor="@color/login_text_color"
             app:fastScrollThumbColor="@color/color_accent"
-            app:fastScrollAutoHide="false" />
+            app:fastScrollAutoHide="true"
+            app:fastScrollAutoHideDelay="1500" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include

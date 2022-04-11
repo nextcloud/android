@@ -141,7 +141,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private OCFile highlightedItem;
     private boolean showMetadata = true;
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
 
     public OCFileListAdapter(
         Activity activity,
