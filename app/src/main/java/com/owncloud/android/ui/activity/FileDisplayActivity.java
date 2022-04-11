@@ -514,6 +514,7 @@ public class FileDisplayActivity extends FileActivity
                 Log_OC.d(this, "Switch to oc file fragment");
 
                 setLeftFragment(new OCFileListFragment());
+                browseToRoot();
             }
     }
 
@@ -1495,6 +1496,7 @@ public class FileDisplayActivity extends FileActivity
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
+            MainApp.showOnlyFilesOnDevice(false);
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
             setFile(listOfFiles.getCurrentFile());
