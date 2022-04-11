@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -140,6 +141,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean onlyOnDevice;
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
+    private ExtendedListFragment.SearchType searchType;
     private boolean showMetadata = true;
     private SyncedFolderProvider syncedFolderProvider;
 
@@ -574,8 +576,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
 
-            if (gridView || hideItemOptions //|| (file.isFolder() && !file.canReshare())
-            ) {
+            if (gridView || hideItemOptions
+               // || (file.isFolder() && !file.canReshare())
+                || searchType == ExtendedListFragment.SearchType.FAVORITE_SEARCH
+                || searchType == ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH)
+            {
                 gridViewHolder.getShared().setVisibility(View.GONE);
             } else {
                 showShareIcon(gridViewHolder, file);
@@ -979,6 +984,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles.clear();
             mFilesAll.clear();
         }
+        searchType = null;
 
         notifyDataSetChanged();
     }
@@ -1084,6 +1090,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         }
+
+        this.searchType = searchType;
 
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
