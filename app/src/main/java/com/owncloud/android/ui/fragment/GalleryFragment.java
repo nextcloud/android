@@ -213,6 +213,10 @@ public class GalleryFragment extends OCFileListFragment {
                     // Almost reached the end, continue to load new photos
                     OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
 
+                    if (lastFile == null) {
+                        return;
+                    }
+
                     daySpan = 30;
                     endDate = lastFile.getModificationTimestamp() / 1000;
                     startDate = endDate - (daySpan * 24 * 60 * 60);

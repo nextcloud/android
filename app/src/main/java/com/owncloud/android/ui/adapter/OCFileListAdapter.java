@@ -376,6 +376,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             OCFile file = getItem(position);
 
+            if (file == null) {
+                Log_OC.e(this, "Cannot bind on view holder on a null file");
+                return;
+            }
+
             boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
 
             gridViewHolder.getThumbnail().setTag(file.getFileId());
@@ -823,7 +828,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
+        OCFile item = getItem(position);
+        if (item == null) {
+            return VIEWTYPE_ITEM;
+        }
+
+        if (MimeTypeUtil.isImageOrVideo(item)) {
             return VIEWTYPE_IMAGE;
         } else {
             return VIEWTYPE_ITEM;
@@ -1225,14 +1235,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public String getSectionName(int position) {
-        // sort
-//        FileSortOrder.SortType sortOrderType;
-//        if (ocFileListFragmentInterface.isGalleryFragment()) {
-//            sortOrderType = FileSortOrder.SortType.DATE;
-//        } else {
-//            sortOrderType = preferences.getSortOrderByFolder(currentDirectory).getType();
-//        }
-
         OCFile file = getItem(position);
 
         if (file == null) {
