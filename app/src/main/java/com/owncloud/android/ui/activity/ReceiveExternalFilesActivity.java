@@ -1140,12 +1140,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                 && syncResult != null && !syncResult.isSuccess()) {
 
                             if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                    (syncResult.isException() && syncResult.getException()
-                                                instanceof AuthenticatorException)) {
+                                (syncResult.isException() && syncResult.getException()
+                                    instanceof AuthenticatorException)) {
 
                                 requestCredentialsUpdate(context);
 
-                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(syncResult.getCode())) {
+                            } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
 
                                 showUntrustedCertDialog(syncResult);
                             }

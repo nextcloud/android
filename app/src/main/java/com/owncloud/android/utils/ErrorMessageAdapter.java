@@ -264,7 +264,7 @@ public final class ErrorMessageAdapter {
         if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
             return res.getString(R.string.filename_forbidden_characters);
 
-        } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+        } else if (result.getCode() == ResultCode.FORBIDDEN) {
             return String.format(res.getString(R.string.forbidden_permissions),
                                  res.getString(R.string.forbidden_permissions_create));
 
@@ -277,15 +277,15 @@ public final class ErrorMessageAdapter {
 
     private static @Nullable
     String getMessageForRenameFileOperation(RemoteOperationResult result, Resources res) {
-        if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+        if (result.getCode() == ResultCode.INVALID_LOCAL_FILE_NAME) {
             return res.getString(R.string.rename_local_fail_msg);
 
-        } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+        } else if (result.getCode() == ResultCode.FORBIDDEN) {
             // Error --> No permissions
             return String.format(res.getString(R.string.forbidden_permissions),
                                  res.getString(R.string.forbidden_permissions_rename));
 
-        } else if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
+        } else if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
             return res.getString(R.string.filename_forbidden_characters);
 
         } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
@@ -302,7 +302,7 @@ public final class ErrorMessageAdapter {
             return res.getString(R.string.remove_success_msg);
 
         } else {
-            if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+            if (result.getCode() == ResultCode.FORBIDDEN) {
                 // Error --> No permissions
                 return String.format(res.getString(R.string.forbidden_permissions),
                                      res.getString(R.string.forbidden_permissions_delete));

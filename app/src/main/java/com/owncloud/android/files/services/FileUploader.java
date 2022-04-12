@@ -778,11 +778,11 @@ public class FileUploader extends Service
         // Only notify if the upload fails
         if (!uploadResult.isCancelled() &&
             !uploadResult.isSuccess() &&
-            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_IN_POWER_SAVE_MODE) &&
-            !uploadResult.getCode().equals(ResultCode.LOCK_FAILED)) {
+            ResultCode.LOCAL_FILE_NOT_FOUND != uploadResult.getCode() &&
+            uploadResult.getCode() != ResultCode.DELAYED_FOR_WIFI &&
+            uploadResult.getCode() != ResultCode.DELAYED_FOR_CHARGING &&
+            uploadResult.getCode() != ResultCode.DELAYED_IN_POWER_SAVE_MODE &&
+            uploadResult.getCode() != ResultCode.LOCK_FAILED) {
 
             int tickerId = R.string.uploader_upload_failed_ticker;
 
@@ -827,7 +827,7 @@ public class FileUploader extends Service
                 ));
             } else {
                 Intent intent;
-                if (uploadResult.getCode().equals(ResultCode.SYNC_CONFLICT)) {
+                if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     intent = ConflictsResolveActivity.createIntent(upload.getFile(),
                                                                    upload.getUser(),
                                                                    upload.getOCUploadId(),

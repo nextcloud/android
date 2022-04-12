@@ -520,11 +520,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                             /// TODO refactor and make common
                             syncResult != null && !syncResult.isSuccess()) {
 
-                            if (ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) || (syncResult.isException()
+                            if (ResultCode.UNAUTHORIZED == syncResult.getCode() || (syncResult.isException()
                                 && syncResult.getException() instanceof AuthenticatorException)) {
                                 requestCredentialsUpdate(context);
-                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED
-                                .equals(syncResult.getCode())) {
+                            } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
                                 showUntrustedCertDialog(syncResult);
                             }
 

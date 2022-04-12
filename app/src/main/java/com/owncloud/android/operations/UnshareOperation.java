@@ -68,10 +68,10 @@ public class UnshareOperation extends SyncOperation {
             if (result.isSuccess()) {
                 Log_OC.d(TAG, "Share id = " + share.getRemoteId() + " deleted");
 
-                if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
+                if (ShareType.PUBLIC_LINK == share.getShareType()) {
                     file.setSharedViaLink(false);
-                } else if (ShareType.USER.equals(share.getShareType()) || ShareType.GROUP.equals(share.getShareType())
-                    || ShareType.FEDERATED.equals(share.getShareType())) {
+                } else if (ShareType.USER == share.getShareType() || ShareType.GROUP == share.getShareType()
+                    || ShareType.FEDERATED == share.getShareType()) {
                     // Check if it is the last share
                     List<OCShare> sharesWith = getStorageManager().
                         getSharesWithForAFile(remotePath,

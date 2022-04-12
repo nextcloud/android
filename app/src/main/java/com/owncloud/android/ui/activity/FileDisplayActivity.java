@@ -1298,8 +1298,7 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
 
-                if (synchResult != null && synchResult.getCode().equals(
-                    RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
+                if (synchResult != null && synchResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
                     mLastSslUntrustedServerResult = synchResult;
                 }
             } catch (RuntimeException e) {
@@ -1317,7 +1316,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
-        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
+        return ResultCode.UNAUTHORIZED == syncResult.getCode() ||
             (syncResult.isException() && syncResult.getException()
                 instanceof AuthenticatorException);
     }

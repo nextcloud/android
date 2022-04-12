@@ -1192,12 +1192,12 @@ public class FileDataStorageManager {
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + AND
             + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
 
-        if (!ShareType.PUBLIC_LINK.equals(type)) {
+        if (ShareType.PUBLIC_LINK != type) {
             selection += " AND " + ProviderTableMeta.OCSHARES_SHARE_WITH + " = ?";
         }
 
         String[] selectionArgs;
-        if (ShareType.PUBLIC_LINK.equals(type)) {
+        if (ShareType.PUBLIC_LINK == type) {
             selectionArgs = new String[]{
                 path,
                 Integer.toString(type.getValue()),
