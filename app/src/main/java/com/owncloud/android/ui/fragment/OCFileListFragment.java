@@ -1638,7 +1638,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onRefresh() {
-        if (isSearchEventSet(searchEvent) && searchFragment) {
+        if (searchFragment && isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
 
             mRefreshListLayout.setRefreshing(false);

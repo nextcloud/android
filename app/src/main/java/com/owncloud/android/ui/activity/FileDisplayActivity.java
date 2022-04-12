@@ -485,7 +485,7 @@ public class FileDisplayActivity extends FileActivity
 
                 SearchEvent searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
                 if (searchEvent != null) {
-                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH.equals(searchEvent.getSearchType())) {
+                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == searchEvent.getSearchType()) {
                         Log_OC.d(this, "Switch to photo search fragment");
 
                         GalleryFragment photoFragment = new GalleryFragment();
@@ -493,7 +493,7 @@ public class FileDisplayActivity extends FileActivity
                         bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
                         photoFragment.setArguments(bundle);
                         setLeftFragment(photoFragment);
-                    } else if (searchEvent.getSearchType().equals(SearchRemoteOperation.SearchType.SHARED_FILTER)) {
+                    } else if (searchEvent.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {
                         Log_OC.d(this, "Switch to shared fragment");
                         SharedListFragment sharedListFragment = new SharedListFragment();
                         Bundle bundle = new Bundle();

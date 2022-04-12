@@ -1240,7 +1240,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (sortOrder.getType() == FileSortOrder.SortType.ALPHABET) {
-            return String.valueOf(file.getFileName().charAt(0)).toUpperCase();
+            return String.valueOf(file.getFileName().charAt(0)).toUpperCase(Locale.getDefault());
         } else if (sortOrder.getType() == FileSortOrder.SortType.DATE) {
             long milliseconds = file.getModificationTimestamp();
             Date date = new Date(milliseconds);
