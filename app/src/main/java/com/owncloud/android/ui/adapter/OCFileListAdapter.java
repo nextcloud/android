@@ -140,6 +140,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean showShareAvatar = false;
     private OCFile highlightedItem;
     private boolean showMetadata = true;
+    private FileSortOrder sortOrder;
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
 
@@ -885,7 +886,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!limitToMimeType.isEmpty()) {
                 mFiles = filterByMimeType(mFiles, limitToMimeType);
             }
-            FileSortOrder sortOrder = preferences.getSortOrderByFolder(directory);
+            sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
@@ -951,7 +952,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
             mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         } else if (searchType != SearchType.SHARED_FILTER) {
-            FileSortOrder sortOrder = preferences.getSortOrderByFolder(folder);
+            sortOrder = preferences.getSortOrderByFolder(folder);
             mFiles = sortOrder.sortCloudFiles(mFiles);
         }
 
@@ -1077,6 +1078,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
+
+        this.sortOrder = sortOrder;
     }
 
     public Set<OCFile> getCheckedItems() {
@@ -1159,7 +1162,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (!preferences.isShowHiddenFilesEnabled()) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
-                FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
+                sortOrder = preferences.getSortOrderByFolder(currentDirectory);
                 mFiles = sortOrder.sortCloudFiles(mFiles);
             }
 
@@ -1223,12 +1226,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public String getSectionName(int position) {
         // sort
-        FileSortOrder.SortType sortOrderType;
-        if (ocFileListFragmentInterface.isGalleryFragment()) {
-            sortOrderType = FileSortOrder.SortType.DATE;
-        } else {
-            sortOrderType = preferences.getSortOrderByFolder(currentDirectory).getType();
-        }
+//        FileSortOrder.SortType sortOrderType;
+//        if (ocFileListFragmentInterface.isGalleryFragment()) {
+//            sortOrderType = FileSortOrder.SortType.DATE;
+//        } else {
+//            sortOrderType = preferences.getSortOrderByFolder(currentDirectory).getType();
+//        }
 
         OCFile file = getItem(position);
 
@@ -1236,9 +1239,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return "";
         }
 
-        if (sortOrderType == FileSortOrder.SortType.ALPHABET) {
+        if (sortOrder.getType() == FileSortOrder.SortType.ALPHABET) {
             return String.valueOf(file.getFileName().charAt(0)).toUpperCase();
-        } else if (sortOrderType == FileSortOrder.SortType.DATE) {
+        } else if (sortOrder.getType() == FileSortOrder.SortType.DATE) {
             long milliseconds = file.getModificationTimestamp();
             Date date = new Date(milliseconds);
             return dateFormat.format(date);
