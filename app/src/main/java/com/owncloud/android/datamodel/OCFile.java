@@ -65,6 +65,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * in the last synchronization of THE CONTENTS of this file.
      */
     private long modificationTimestampAtLastSyncForData;
+    private long firstShareTimestamp; // UNIX timestamp of the first share time
     private String remotePath;
     private String decryptedRemotePath;
     private String localPath;
@@ -163,6 +164,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         mountType = (WebdavEntry.MountType) source.readSerializable();
         richWorkspace = source.readString();
         previewAvailable = source.readInt() == 1;
+        firstShareTimestamp = source.readLong();
     }
 
     @Override
@@ -196,6 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeSerializable(mountType);
         dest.writeString(richWorkspace);
         dest.writeInt(previewAvailable ? 1 : 0);
+        dest.writeLong(firstShareTimestamp);
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -458,6 +461,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         encrypted = false;
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
+        firstShareTimestamp = 0;
     }
 
     /**
@@ -812,5 +816,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setRichWorkspace(String richWorkspace) {
         this.richWorkspace = richWorkspace;
+    }
+
+    public long getFirstShareTimestamp() {
+        return firstShareTimestamp;
+    }
+
+    public void setFirstShareTimestamp(long firstShareTimestamp) {
+        this.firstShareTimestamp = firstShareTimestamp;
     }
 }

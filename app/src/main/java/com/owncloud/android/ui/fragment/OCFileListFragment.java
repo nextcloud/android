@@ -1676,7 +1676,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         handleSearchEvent(event);
     }
 
-    private void handleSearchEvent(SearchEvent event) {
+    protected void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
             return;
         }
@@ -1700,27 +1700,26 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final User currentUser = accountManager.getUser();
 
-        final RemoteOperation remoteOperation;
-        if (currentSearchType != SearchType.SHARED_FILTER) {
-            boolean searchOnlyFolders = false;
-            if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
-                searchOnlyFolders = true;
-            }
-
-            OCCapability ocCapability = mContainerActivity.getStorageManager()
-                .getCapability(currentUser.getAccountName());
-
-            remoteOperation = new SearchRemoteOperation(event.getSearchQuery(),
-                                                        event.getSearchType(),
-                                                        searchOnlyFolders,
-                                                        ocCapability);
-        } else {
-            remoteOperation = new GetSharesRemoteOperation();
-        }
+        final RemoteOperation remoteOperation = getSearchRemoteOperation(currentUser, event);
 
         remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
 
         remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
+        boolean searchOnlyFolders = false;
+        if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
+            searchOnlyFolders = true;
+        }
+
+        OCCapability ocCapability = mContainerActivity.getStorageManager()
+            .getCapability(currentUser.getAccountName());
+
+        return new SearchRemoteOperation(event.getSearchQuery(),
+                                         event.getSearchType(),
+                                         searchOnlyFolders,
+                                         ocCapability);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1771,12 +1770,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     protected void setTitle(@StringRes final int title) {
-        getActivity().runOnUiThread(() -> {
-            if (getActivity() != null && ((FileDisplayActivity) getActivity()).getSupportActionBar() != null) {
-                ThemeToolbarUtils.setColoredTitle(((FileDisplayActivity) getActivity()).getSupportActionBar(),
-                                                  title, getContext());
-            }
-        });
+        setTitle(getContext().getString(title));
     }
 
     protected void setTitle(final String title) {
@@ -1858,7 +1852,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return event != null &&
             event.getSearchType() != null &&
             (!TextUtils.isEmpty(event.getSearchQuery()) ||
-                event.searchType == SearchRemoteOperation.SearchType.SHARED_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
                 event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
                 event.searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);

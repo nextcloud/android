@@ -27,7 +27,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -75,10 +74,6 @@ public abstract class ToolbarActivity extends BaseActivity {
     private ImageView mToolbarBackIcon;
     private boolean isHomeSearchToolbarShow = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     /**
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want

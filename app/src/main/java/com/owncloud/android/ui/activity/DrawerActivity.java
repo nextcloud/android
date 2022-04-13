@@ -117,7 +117,7 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
 import com.owncloud.android.utils.StringUtils;
-
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -440,6 +440,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (itemId == R.id.nav_all_files) {
             if (this instanceof FileDisplayActivity &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
                 showFiles(false);
                 ((FileDisplayActivity) this).browseToRoot();
@@ -479,8 +480,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER),
-                               menuItem.getItemId());
+            startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
                                menuItem.getItemId());
@@ -496,6 +496,13 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+    }
+
+    private void startSharedSearch(MenuItem menuItem) {
+        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
+        MainApp.showOnlyFilesOnDevice(false);
+
+        launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
     private void startActivity(Class<? extends Activity> activity) {
@@ -540,7 +547,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
-            if (((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) {
+            final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
+            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
                 launchActivityForSearch(searchEvent, menuItemId);
             } else {
                 EventBus.getDefault().post(searchEvent);
