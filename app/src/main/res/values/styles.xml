@@ -128,7 +128,7 @@
         <item name="colorError">@color/primary</item>
     </style>
 
-    <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="FallbackDatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
         <item name="colorPrimary">@color/bg_default</item>
         <item name="colorAccent">@color/bg_fallback_highlight</item>
         <item name="android:textAllCaps">false</item>
