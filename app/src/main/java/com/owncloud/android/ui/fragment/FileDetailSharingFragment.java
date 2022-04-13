@@ -566,18 +566,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                                    "");
 
 
+        //don't uncomment the below code as this will show unnecessary UI
        /* if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
-            publicShares.add(new OCShare().setShareType(ShareType.NEW_PUBLIC_LINK));
-        } else {
-            adapter.removeNewPublicShare();
-        }*/
-        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
             final OCShare ocShare = new OCShare();
             ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
             publicShares.add(ocShare);
         } else {
             adapter.removeNewPublicShare();
-        }
+        } */
 
 
         adapter.addShares(publicShares);
