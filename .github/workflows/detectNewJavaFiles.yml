@@ -1,0 +1,15 @@
+name: "Detect new java files"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    detectNewJavaFiles:
+        runs-on: ubuntu-latest
+
+        steps:
+               - uses: trilom/file-changes-action@v1.2.3
+               - uses: actions/checkout@v2
+               - name: Detect new java files
+                 run: scripts/analysis/detectNewJavaFiles.sh
