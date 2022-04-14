@@ -1,0 +1,7 @@
+Replace equals with == on enums
+wip
+wip
+wip
+wip
+Fastscroll for all lists
+Update Nextcloud Android library
