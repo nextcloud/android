@@ -50,4 +50,6 @@ public interface OCFileListFragmentInterface {
     void onHeaderClicked();
 
     boolean isSearchFragment();
+
+    boolean isGalleryFragment();
 }

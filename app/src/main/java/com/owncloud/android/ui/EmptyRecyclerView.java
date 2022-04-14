@@ -25,14 +25,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Extends RecyclerView to show a custom view if no data is available
- * Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
+ * Extends RecyclerView to show a custom view if no data is available Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
  */
-public class EmptyRecyclerView extends RecyclerView {
+public class EmptyRecyclerView extends FastScrollRecyclerView {
     private View mEmptyView;
     private boolean hasFooter = false;
 
