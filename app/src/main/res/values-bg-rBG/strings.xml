@@ -148,7 +148,9 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Грешка при създаване на диалог за конфликт!</string>
     <string name="conflict_file_headline">Несъвместим файл %1$s</string>
+    <string name="conflict_local_file">Локален файл</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
+    <string name="conflict_server_file">Файл на сървъра</string>
     <string name="contactlist_item_icon">Потребителска икона за списъка с контакти</string>
     <string name="contactlist_no_permission">Няма предоставен достъп, нищо не е внесено.</string>
     <string name="contacts">Контакти</string>
@@ -253,10 +255,13 @@
     <string name="error_choosing_date">Грешка при избор на дата</string>
     <string name="error_comment_file">Грешка при коментиране на файл</string>
     <string name="error_crash_title">%1$s крах</string>
+    <string name="error_creating_file_from_template">Грешка при създаването на файл от шаблон</string>
     <string name="error_report_issue_action">Докладване за грешка</string>
+    <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
     <string name="error_retrieving_file">Грешка при извличане на файл</string>
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
+    <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
     <string name="etm_background_job_progress">Прогрес</string>
@@ -295,6 +300,7 @@
     <string name="file_list_empty">Качете файлове или синхронизирайте с устройства.</string>
     <string name="file_list_empty_favorite_headline">Няма любими все още</string>
     <string name="file_list_empty_favorites_filter_list">Файлове и папки, които маркирате като любими, ще се показват тук.</string>
+    <string name="file_list_empty_gallery">Не са намерени изображения или видеоклипове</string>
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="file_list_empty_headline_search">Няма намерени резултати в тази папла</string>
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
@@ -304,11 +310,15 @@
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared">Споделените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_shared_headline">Все още нищо не е споделено</string>
+    <string name="file_list_empty_unified_search_no_results">Няма намерени резултати за вашата заявка</string>
     <string name="file_list_folder">папка</string>
     <string name="file_list_loading">Зареждане…</string>
     <string name="file_list_no_app_for_file_type">Няма приложение, което да се справи с подобен тип файл.</string>
     <string name="file_list_seconds_ago">преди секунди</string>
     <string name="file_management_permission">Необходими са права</string>
+    <string name="file_management_permission_optional">Права за хранилище</string>
+    <string name="file_management_permission_optional_text">%1$s работи най-добре с права за достъп до хранилище. Можете да изберете пълен достъп до всички файлове или достъп само за четене на снимки и видеоклипове.</string>
+    <string name="file_management_permission_text">%1$s се нуждае от права за управление на файлове, за да качва файлове. Можете да изберете пълен достъп до всички файлове или достъп само за четене на снимки и видеоклипове.</string>
     <string name="file_migration_checking_destination">Проверка на дестинацията…</string>
     <string name="file_migration_cleaning">Почистване…</string>
     <string name="file_migration_dialog_title">Обновяване на папката за съхранение на данни</string>
@@ -447,6 +457,7 @@
     <string name="no_email_app_available">Няма налично приложение за обработка на имейл адрес</string>
     <string name="no_mutliple_accounts_allowed">Само един профил е позволен</string>
     <string name="no_pdf_app_available">Няма налично приложение за обработка на в PDF</string>
+    <string name="no_send_app">Няма налично приложение за изпращане на избраните файлове</string>
     <string name="no_share_permission_selected">Моля, изберете поне едно право за споделяне.</string>
     <string name="note_confirm">Изпрати</string>
     <string name="note_could_not_sent">Бележката не може да бъде изпратена</string>
@@ -482,6 +493,7 @@
     <string name="pass_code_removed">Кодът за достъп е изтрит</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
     <string name="pass_code_wrong">Грешен код</string>
+    <string name="pdf_zoom_tip">Докосване на страницата за увеличение на мащаба </string>
     <string name="permission_allow">Да</string>
     <string name="permission_deny">Не</string>
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
@@ -535,6 +547,7 @@
     <string name="prefs_lock_using_device_credentials">Удостоверяване от устройството</string>
     <string name="prefs_lock_using_passcode">Код за достъп</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
+    <string name="prefs_recommend">Препоръчайте на приятел</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_storage_path">Папка за съхранение на данни</string>
@@ -688,6 +701,8 @@
     <string name="storage_internal_storage">Вътрешна памет</string>
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
+    <string name="storage_permission_full_access">Пълен достъп</string>
+    <string name="storage_permission_media_read_only">Само за четене на медия</string>
     <string name="storage_pictures">Снимки</string>
     <string name="store_full_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ N \ nХарактеристики: \ n* Лесен, модерен интерфейс, подходящ за темата на вашия сървър \ n* Качвайте файлове на вашия Nextcloud сървър \ n* Споделяйте ги с други \ n * Дръжте любимите си файлове и папки синхронизирани \ n* Търсете във всички папки на вашия сървър \ n* Автоматично качвайте снимки и видеоклипове, направени от вашето устройство \ n* Бъдете в крак с известията \ n* Поддръжка за няколко профила \ n* Сигурен достъп до вашите данни с пръстов отпечатък или ПИН \ n* Интеграция с DAVx5 (преди известен като DAVdroid) за лесна настройка на календар&amp; Синхронизиране на контакти \ n \ nМоля, докладвайте за всички проблеми на https://github.com/nextcloud/android/issues и обсъждайте това приложение на https://help.nextcloud.com/c/clients/android\n\nНово сте в Nextcloud? Nextcloud е частен  сървър за синхронизация на файлове &amp; за споделяне и комуникация. Това е безплатен софтуер и можете да го хоствате сами или да платите на компания да го направи вместо вас. По този начин вие контролирате снимките си, календара и данните си за контакт, документите си и всичко останало. \ N \ nПроверете Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ NТова е официалната версия за разработка, включваща ежедневна извадка от всяка нова непроверена функционалност, която може да причини нестабилност и загуба на данни. Приложението е за потребители, които желаят да тестват и да докладват грешки, ако възникнат. Не го използвайте за вашата продуктивна работа! \ N \ nИ двете версии - официалната за разработчици и обикновената версия са налични на F-droid и могат да бъдат инсталирани едновременно.</string>
@@ -775,6 +790,7 @@
     <string name="upload_lock_failed">Неуспешно заключване на папката</string>
     <string name="upload_old_android">Шифроването е възможно само с > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
+    <string name="upload_scan_doc_upload">Сканиране на документ от камера</string>
     <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     <string name="upload_unknown_error">Неизвестна грешка</string>
     <string name="uploader_btn_alternative_text">Избиране</string>
