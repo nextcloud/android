@@ -1079,7 +1079,6 @@ public class FileUploader extends Service
         }
 
         final Connectivity connectivity = connectivityService.getConnectivity();
-        final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
         final boolean gotWifi = connectivity.isWifi();
         final BatteryStatus batteryStatus = powerManagementService.getBattery();
         final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
@@ -1098,9 +1097,11 @@ public class FileUploader extends Service
                     failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
                     uploadsStorageManager.updateUpload(failedUpload);
                 }
-            } else if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
-                // 2B. for existing local files, try restarting it if possible
-                retryUpload(context, uploadUser.get(), failedUpload);
+            } else if (!isPowerSaving && canUploadBeRetried(failedUpload, gotWifi, charging)) {
+                if (!connectivityService.isInternetWalled()) { // Put to a new line to make powersaving effective
+                    // 2B. for existing local files, try restarting it if possible
+                    retryUpload(context, uploadUser.get(), failedUpload);
+                }
             }
         }
     }

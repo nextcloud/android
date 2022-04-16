@@ -68,23 +68,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     public boolean isInternetWalled() {
         Connectivity c = getConnectivity();
         if (c.isConnected() && c.isWifi() && !c.isMetered()) {
-
-            Server server = accountManager.getUser().getServer();
-            String baseServerAddress = server.getUri().toString();
-            if (baseServerAddress.isEmpty()) {
-                return true;
-            }
-
-            GetMethod get = requestBuilder.invoke(baseServerAddress + "/index.php/204");
-            PlainClient client = clientFactory.createPlainClient();
-
-            int status = get.execute(client);
-
-            // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
-            boolean result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-            get.releaseConnection();
-
-            return result;
+            return false;
         } else {
             return !c.isConnected();
         }

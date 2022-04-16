@@ -57,17 +57,19 @@ class OfflineSyncWork constructor(
 
     override fun doWork(): Result {
         val wakeLock: WakeLock? = null
-        if (!powerManagementService.isPowerSavingEnabled && !connectivityService.isInternetWalled) {
-            val users = userAccountManager.allUsers
-            for (user in users) {
-                val storageManager = FileDataStorageManager(user, contentResolver)
-                val ocRoot = storageManager.getFileByPath(OCFile.ROOT_PATH)
-                if (ocRoot.storagePath == null) {
-                    break
+        if (!powerManagementService.isPowerSavingEnabled) {
+            if (!connectivityService.isInternetWalled) { // Put in a new CodeBlock to minimise impact while powersaving
+                val users = userAccountManager.allUsers
+                for (user in users) {
+                    val storageManager = FileDataStorageManager(user, contentResolver)
+                    val ocRoot = storageManager.getFileByPath(OCFile.ROOT_PATH)
+                    if (ocRoot.storagePath == null) {
+                        break
+                    }
+                    recursive(File(ocRoot.storagePath), storageManager, user)
                 }
-                recursive(File(ocRoot.storagePath), storageManager, user)
+                wakeLock?.release()
             }
-            wakeLock?.release()
         }
         return Result.success()
     }
