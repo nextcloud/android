@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.logger
 
+import android.system.ErrnoException
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -74,10 +75,17 @@ internal class FileLogHandler(private val logDir: File, private val logFilename:
 
     fun write(logEntry: String) {
         val rawLogEntry = logEntry.toByteArray(Charset.forName("UTF-8"))
-        writer?.write(rawLogEntry)
-        size += rawLogEntry.size
-        if (size > maxSize) {
-            rotateLogs()
+        try {
+            writer?.write(rawLogEntry)
+            size += rawLogEntry.size
+            if (size > maxSize) {
+                rotateLogs()
+            }
+        } catch (ex: IOException) {
+            val noSpaceLeft = ex.message?.contains("ENOSPC") ?: false
+            if (!noSpaceLeft) {
+                throw ex;
+            }
         }
     }
 
