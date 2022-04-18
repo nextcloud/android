@@ -462,7 +462,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private boolean isReshareForbidden(OCShare share) {
-        return ShareType.FEDERATED.equals(share.getShareType()) ||
+        return ShareType.FEDERATED == share.getShareType() ||
             capabilities != null && capabilities.getFilesSharingResharing().isFalse();
     }
 

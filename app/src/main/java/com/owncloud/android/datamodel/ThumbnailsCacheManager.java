@@ -814,7 +814,7 @@ public final class ThumbnailsCacheManager {
             // Not found in disk cache
             if (thumbnail == null) {
 
-                if (Type.IMAGE.equals(type)) {
+                if (Type.IMAGE == type) {
                     int px = getThumbnailDimension();
 
                     Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), px, px);
@@ -822,7 +822,7 @@ public final class ThumbnailsCacheManager {
                     if (bitmap != null) {
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
                     }
-                } else if (Type.VIDEO.equals(type)) {
+                } else if (Type.VIDEO == type) {
                     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
                     try {
                         retriever.setDataSource(file.getAbsolutePath());
