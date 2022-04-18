@@ -25,7 +25,6 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
@@ -48,9 +47,6 @@ class GalleryAdapterTest {
     lateinit var preferences: AppPreferences
 
     @Mock
-    lateinit var storageManager: FileDataStorageManager
-
-    @Mock
     lateinit var transferServiceGetter: ComponentsGetter
 
     @Test
@@ -60,7 +56,6 @@ class GalleryAdapterTest {
             user,
             ocFileListFragmentInterface,
             preferences,
-            storageManager,
             transferServiceGetter
         )
 
