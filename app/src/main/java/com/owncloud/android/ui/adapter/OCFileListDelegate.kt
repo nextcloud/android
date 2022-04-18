@@ -36,6 +36,7 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 
+@Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
     private val context: Context,
     private val ocFileListFragmentInterface: OCFileListFragmentInterface,
@@ -86,6 +87,7 @@ class OCFileListDelegate(
     }
 
     fun bindGridViewHolder(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
+        // thumbnail
         gridViewHolder.thumbnail.tag = file.fileId
         DisplayUtils.setThumbnail(
             file,
@@ -98,6 +100,47 @@ class OCFileListDelegate(
             gridViewHolder.shimmerThumbnail,
             preferences
         )
+        // item layout + click listeners
+        bindGridItemLayout(file, gridViewHolder)
+
+        // unread comments
+        bindUnreadComments(file, gridViewHolder)
+
+        // multiSelect (Checkbox)
+        if (isMultiSelect) {
+            gridViewHolder.checkbox.visibility = View.VISIBLE
+        } else {
+            gridViewHolder.checkbox.visibility = View.GONE
+        }
+
+        // download state
+        gridViewHolder.localFileIndicator.visibility = View.INVISIBLE // default first
+
+        // metadata (downloaded, favorite)
+        bindGridMetadataViews(file, gridViewHolder)
+
+        // shares
+        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare()
+        if (shouldHideShare) {
+            gridViewHolder.shared.visibility = View.GONE
+        } else {
+            showShareIcon(gridViewHolder, file)
+        }
+    }
+
+    private fun bindUnreadComments(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        if (file.unreadCommentsCount > 0) {
+            gridViewHolder.unreadComments.visibility = View.VISIBLE
+            gridViewHolder.unreadComments.setOnClickListener {
+                ocFileListFragmentInterface
+                    .showActivityDetailView(file)
+            }
+        } else {
+            gridViewHolder.unreadComments.visibility = View.GONE
+        }
+    }
+
+    private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         if (highlightedItem != null && file.fileId == highlightedItem!!.fileId) {
             gridViewHolder.itemLayout.setBackgroundColor(
                 context.resources
@@ -127,60 +170,40 @@ class OCFileListDelegate(
                 )
             }
         }
+    }
 
-        // unread comments
-        if (file.unreadCommentsCount > 0) {
-            gridViewHolder.unreadComments.visibility = View.VISIBLE
-            gridViewHolder.unreadComments.setOnClickListener {
-                ocFileListFragmentInterface
-                    .showActivityDetailView(file)
-            }
-        } else {
-            gridViewHolder.unreadComments.visibility = View.GONE
-        }
-
-        // multiSelect (Checkbox)
-        if (isMultiSelect) {
-            gridViewHolder.checkbox.visibility = View.VISIBLE
-        } else {
-            gridViewHolder.checkbox.visibility = View.GONE
-        }
-
-        // download state
-        gridViewHolder.localFileIndicator.visibility = View.INVISIBLE // default first
+    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         if (showMetadata) {
-            val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-            val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
-            val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
-            if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
-                // synchronizing
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
-            } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
-                // downloading
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
-            } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
-                // uploading
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
-            } else if (file.etagInConflict != null) {
-                // conflict
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing_error)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
-            } else if (file.isDown) {
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synced)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
-            }
+            showLocalFileIndicator(file, gridViewHolder)
             gridViewHolder.favorite.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
         } else {
             gridViewHolder.localFileIndicator.visibility = View.GONE
             gridViewHolder.favorite.visibility = View.GONE
         }
-        if (gridView || hideItemOptions || file.isFolder && !file.canReshare()) {
-            gridViewHolder.shared.visibility = View.GONE
-        } else {
-            showShareIcon(gridViewHolder, file)
+    }
+
+    private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
+        val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
+        val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
+        when {
+            operationsServiceBinder?.isSynchronizing(user, file) == true ||
+                fileDownloaderBinder?.isDownloading(user, file) == true ||
+                fileUploaderBinder?.isUploading(user, file) == true -> {
+                // synchronizing, downloading or uploading
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+            }
+            file.etagInConflict != null -> {
+                // conflict
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing_error)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+            }
+            file.isDown -> {
+                // downloaded
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synced)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+            }
         }
     }
 
