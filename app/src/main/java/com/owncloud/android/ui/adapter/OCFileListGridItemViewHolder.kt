@@ -28,9 +28,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridItemBinding
 
-internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) : RecyclerView.ViewHolder(
-    binding.root
-), ListGridItemViewHolder {
+internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
+    RecyclerView.ViewHolder(
+        binding.root
+    ),
+    ListGridItemViewHolder {
     override val fileName: TextView
         get() = binding.Filename
     override val thumbnail: ImageView

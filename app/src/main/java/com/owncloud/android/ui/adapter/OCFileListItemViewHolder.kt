@@ -29,9 +29,11 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
 
-internal class OCFileListItemViewHolder(private var binding: ListItemBinding) : RecyclerView.ViewHolder(
-    binding.root
-), ListItemViewHolder {
+internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
+    RecyclerView.ViewHolder(
+        binding.root
+    ),
+    ListItemViewHolder {
     override val fileSize: TextView
         get() = binding.fileSize
     override val fileSizeSeparator: View

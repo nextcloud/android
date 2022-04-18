@@ -153,7 +153,7 @@ class OCFileListDelegate(
             val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
             val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
             if (operationsServiceBinder != null && operationsServiceBinder.isSynchronizing(user, file)) {
-                //synchronizing
+                // synchronizing
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
                 gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             } else if (fileDownloaderBinder != null && fileDownloaderBinder.isDownloading(user, file)) {
@@ -161,7 +161,7 @@ class OCFileListDelegate(
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
                 gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             } else if (fileUploaderBinder != null && fileUploaderBinder.isUploading(user, file)) {
-                //uploading
+                // uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
                 gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             } else if (file.etagInConflict != null) {

@@ -35,8 +35,8 @@ internal class FilesFilter(private val ocFileListAdapter: OCFileListAdapter) : F
             for (file in ocFileListAdapter.allFiles) {
                 if (file.parentRemotePath == ocFileListAdapter.currentDirectory.remotePath &&
                     file.fileName.lowercase(Locale.getDefault()).contains(
-                        constraint.toString().lowercase(Locale.getDefault())
-                    ) &&
+                            constraint.toString().lowercase(Locale.getDefault())
+                        ) &&
                     !filteredFiles.contains(file)
                 ) {
                     filteredFiles.add(file)
