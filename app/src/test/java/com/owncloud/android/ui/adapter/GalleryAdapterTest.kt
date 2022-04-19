@@ -25,13 +25,19 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import junit.framework.Assert.assertEquals
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.whenever
 
 class GalleryAdapterTest {
     @Mock
@@ -49,8 +55,25 @@ class GalleryAdapterTest {
     @Mock
     lateinit var transferServiceGetter: ComponentsGetter
 
+    @Mock
+    lateinit var storageManager: FileDataStorageManager
+
+    private lateinit var mocks: AutoCloseable
+
+    @Before
+    fun setUp() {
+        mocks = MockitoAnnotations.openMocks(this)
+    }
+
+    @After
+    fun tearDown() {
+        mocks.close()
+    }
+
     @Test
     fun testItemCount() {
+        whenever(transferServiceGetter.storageManager) doReturn storageManager
+
         val sut = GalleryAdapter(
             context,
             user,

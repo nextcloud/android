@@ -59,7 +59,6 @@ class GalleryAdapter(
     private var storageManager: FileDataStorageManager
 
     init {
-        shouldShowFooters(false)
         storageManager = transferServiceGetter.storageManager
 
         ocFileListDelegate = OCFileListDelegate(
@@ -75,6 +74,8 @@ class GalleryAdapter(
             showShareAvatar = false
         )
     }
+
+    override fun showFooters(): Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
         return if (viewType == VIEW_TYPE_HEADER) {
