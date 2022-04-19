@@ -69,7 +69,7 @@ class OCFileListSearchAsyncTask(
             if (remoteOperationResult.resultData.isNullOrEmpty()) {
                 fragment.setEmptyView(event)
             } else {
-                fragment.mAdapter.setData(
+                fragment.adapter.setData(
                     remoteOperationResult.resultData,
                     fragment.currentSearchType,
                     fileDataStorageManager,
@@ -85,7 +85,7 @@ class OCFileListSearchAsyncTask(
         fragmentReference.get()?.let { fragment ->
             fragment.isLoading = false
             if (!isCancelled) {
-                fragment.mAdapter.notifyDataSetChanged()
+                fragment.adapter.notifyDataSetChanged()
             }
         }
     }
