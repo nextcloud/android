@@ -1,0 +1,6 @@
+Fix detekt.yml for new detekt version
+Replace equals with == on enums
+Fix trashbin navigation
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
