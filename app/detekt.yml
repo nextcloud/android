@@ -69,7 +69,8 @@ complexity:
     excludes: ['**/androidTest/**']
   LongParameterList:
     active: true
-    threshold: 6
+    functionThreshold: 6
+    constructorThreshold: 6
     ignoreDefaultParameters: false
   MethodOverloading:
     active: false
@@ -174,72 +175,6 @@ exceptions:
      - Throwable
      - RuntimeException
 
-formatting:
-  active: true
-  android: false
-  ChainWrapping:
-    active: true
-  CommentSpacing:
-    active: true
-  Filename:
-    active: true
-  FinalNewline:
-    active: true
-  ImportOrdering:
-    active: false
-  Indentation:
-    active: true
-    indentSize: 4
-    continuationIndentSize: 4
-  MaximumLineLength:
-    active: true
-    maxLineLength: 120
-  ModifierOrdering:
-    active: true
-  NoBlankLineBeforeRbrace:
-    active: true
-  NoConsecutiveBlankLines:
-    active: true
-  NoEmptyClassBody:
-    active: true
-  NoLineBreakAfterElse:
-    active: true
-  NoLineBreakBeforeAssignment:
-    active: true
-  NoMultipleSpaces:
-    active: true
-  NoSemicolons:
-    active: true
-  NoTrailingSpaces:
-    active: true
-  NoUnitReturn:
-    active: true
-  NoUnusedImports:
-    active: true
-  NoWildcardImports:
-    active: true
-  PackageName:
-    active: true
-  ParameterListWrapping:
-    active: true
-    indentSize: 4
-  SpacingAroundColon:
-    active: true
-  SpacingAroundComma:
-    active: true
-  SpacingAroundCurly:
-    active: true
-  SpacingAroundKeyword:
-    active: true
-  SpacingAroundOperators:
-    active: true
-  SpacingAroundParens:
-    active: true
-  SpacingAroundRangeOperator:
-    active: true
-  StringTemplate:
-    active: true
-
 naming:
   active: true
   ClassNaming:
@@ -333,7 +268,7 @@ potential-bugs:
     active: false
   LateinitUsage:
     active: false
-    excludeAnnotatedProperties: ""
+    ignoreAnnotated: []
     ignoreOnClassesPattern: ""
   UnconditionalJumpStatementInLoop:
     active: false
@@ -439,10 +374,11 @@ style:
     active: false
   UnderscoresInNumericLiterals:
     active: false
-    acceptableDecimalLength: 5
+    acceptableLength: 5
   UnnecessaryAbstractClass:
     active: false
-    excludeAnnotatedClasses: "dagger.Module"
+    ignoreAnnotated:
+      - "dagger.Module"
   UnnecessaryApply:
     active: false
   UnnecessaryInheritance:
@@ -462,7 +398,7 @@ style:
     allowedNames: "(_|ignored|expected|serialVersionUID)"
   UseDataClass:
     active: false
-    excludeAnnotatedClasses: ""
+    ignoreAnnotated: []
   UtilityClassWithPublicConstructor:
     active: false
   VarCouldBeVal:

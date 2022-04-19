@@ -292,7 +292,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
             // in failures, the statistics for the global result are updated
-            if (RemoteOperationResult.ResultCode.UNAUTHORIZED.equals(result.getCode())) {
+            if (ResultCode.UNAUTHORIZED == result.getCode()) {
                 mSyncResult.stats.numAuthExceptions++;
 
             } else if (result.getException() instanceof DavException) {
@@ -321,10 +321,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private boolean isFinisher(RemoteOperationResult failedResult) {
         if (failedResult != null) {
             RemoteOperationResult.ResultCode code = failedResult.getCode();
-            return code.equals(RemoteOperationResult.ResultCode.SSL_ERROR)
-                    || code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)
-                    || code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION)
-                    || code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
+            return code == ResultCode.SSL_ERROR
+                || code == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED
+                || code == ResultCode.BAD_OC_VERSION
+                || code == ResultCode.INSTANCE_NOT_CONFIGURED;
         }
         return false;
     }
@@ -391,7 +391,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
         boolean needsToUpdateCredentials = mLastFailedResult != null
-                && ResultCode.UNAUTHORIZED.equals(mLastFailedResult.getCode());
+            && ResultCode.UNAUTHORIZED == mLastFailedResult.getCode();
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
             Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);

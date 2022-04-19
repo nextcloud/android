@@ -699,7 +699,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             for (Object obj : result.getData()) {
                 share = (OCShare) obj;
 
-                if (!ShareType.NO_SHARED.equals(share.getShareType())) {
+                if (ShareType.NO_SHARED != share.getShareType()) {
                     shares.add(share);
                 }
             }

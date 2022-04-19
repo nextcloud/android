@@ -514,6 +514,7 @@ public class FileDisplayActivity extends FileActivity
                 Log_OC.d(this, "Switch to oc file fragment");
 
                 setLeftFragment(new OCFileListFragment());
+                browseToRoot();
             }
     }
 
@@ -1298,8 +1299,7 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
 
-                if (synchResult != null && synchResult.getCode().equals(
-                    RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
+                if (synchResult != null && synchResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
                     mLastSslUntrustedServerResult = synchResult;
                 }
             } catch (RuntimeException e) {
@@ -1317,7 +1317,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
-        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
+        return ResultCode.UNAUTHORIZED == syncResult.getCode() ||
             (syncResult.isException() && syncResult.getException()
                 instanceof AuthenticatorException);
     }
@@ -1495,6 +1495,7 @@ public class FileDisplayActivity extends FileActivity
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
+            MainApp.showOnlyFilesOnDevice(false);
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
             setFile(listOfFiles.getCurrentFile());

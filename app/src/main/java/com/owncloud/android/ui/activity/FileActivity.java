@@ -348,27 +348,27 @@ public abstract class FileActivity extends DrawerActivity
         if (!result.isSuccess() && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
-                )) {
+        )) {
 
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                                             );
             }
 
-        } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(result.getCode())) {
+        } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == result.getCode()) {
 
             showUntrustedCertDialog(result);
 
         } else if (operation == null ||
-                operation instanceof CreateShareWithShareeOperation ||
-                operation instanceof UnshareOperation ||
-                operation instanceof SynchronizeFolderOperation ||
-                operation instanceof UpdateShareViaLinkOperation ||
-                operation instanceof UpdateSharePermissionsOperation
-                ) {
+            operation instanceof CreateShareWithShareeOperation ||
+            operation instanceof UnshareOperation ||
+            operation instanceof SynchronizeFolderOperation ||
+            operation instanceof UpdateShareViaLinkOperation ||
+            operation instanceof UpdateSharePermissionsOperation
+        ) {
             if (result.isSuccess()) {
                 updateFileFromDB();
 
