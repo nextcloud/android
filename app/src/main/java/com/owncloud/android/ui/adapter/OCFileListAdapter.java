@@ -37,7 +37,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
@@ -83,7 +82,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -113,7 +111,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
 
-    private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
 
@@ -818,33 +815,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
-    public Filter getFilter() {
-        if (mFilesFilter == null) {
-            mFilesFilter = new FilesFilter(this);
-        }
-        return mFilesFilter;
-    }
-
     public void resetLastTimestamp() {
         lastTimestamp = -1;
     }
 
     public long getLastTimestamp() {
         return lastTimestamp;
-    }
-
-    public void updateFilteredResults(Vector<OCFile> results) {
-        mFiles.clear();
-        if (results != null && results.size() > 0) {
-            mFiles.addAll(results);
-            if (!preferences.isShowHiddenFilesEnabled()) {
-                mFiles = filterHiddenFiles(mFiles);
-            }
-            FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
-            mFiles = sortOrder.sortCloudFiles(mFiles);
-        }
-
-        notifyDataSetChanged();
     }
 
     @Override
