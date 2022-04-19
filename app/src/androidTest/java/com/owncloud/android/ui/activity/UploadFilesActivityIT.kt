@@ -70,6 +70,7 @@ class UploadFilesActivityIT : AbstractIT() {
         }
 
         waitForIdleSync()
+        shortSleep()
 
         screenshot(sut)
     }
