@@ -45,6 +45,7 @@ import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -495,9 +496,14 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.isPreviewAvailable() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_LOCKED, file.isLocked());
+        cv.put(ProviderTableMeta.FILE_LOCK_TYPE, file.getLockType() != null ? file.getLockType().getValue() : -1);
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER, file.getLockOwnerId());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME, file.getLockOwnerDisplayName());
+        cv.put(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR, file.getLockOwnerEditor());
         cv.put(ProviderTableMeta.FILE_LOCK_TIMESTAMP, file.getLockTimestamp());
+        cv.put(ProviderTableMeta.FILE_LOCK_TIMEOUT, file.getLockTimeout());
+        cv.put(ProviderTableMeta.FILE_LOCK_TOKEN, file.getLockToken());
+
         return cv;
     }
 
@@ -991,9 +997,14 @@ public class FileDataStorageManager {
             ocFile.setNote(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NOTE)));
             ocFile.setRichWorkspace(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_RICH_WORKSPACE)));
             ocFile.setLocked(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCKED)) == 1);
+            final int lockTypeInt = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TYPE));
+            ocFile.setLockType(lockTypeInt != -1 ? FileLockType.fromValue(lockTypeInt) : null);
             ocFile.setLockOwnerId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER)));
             ocFile.setLockOwnerDisplayName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME)));
+            ocFile.setLockOwnerEditor(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR)));
             ocFile.setLockTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TIMESTAMP)));
+            ocFile.setLockTimeout(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TIMEOUT)));
+            ocFile.setLockToken(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TOKEN)));
 
 
             String sharees = cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHAREES));
