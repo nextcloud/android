@@ -234,9 +234,13 @@ public final class FileStorageUtils {
         file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
         file.setRichWorkspace(remote.getRichWorkspace());
         file.setLocked(remote.isLocked());
+        file.setLockType(remote.getLockType());
         file.setLockOwnerId(remote.getLockOwner());
         file.setLockOwnerDisplayName(remote.getLockOwnerDisplayName());
+        file.setLockOwnerEditor(remote.getLockOwnerEditor());
         file.setLockTimestamp(remote.getLockTimestamp());
+        file.setLockTimeout(remote.getLockTimeout());
+        file.setLockToken(remote.getLockToken());
 
         return file;
     }
