@@ -86,6 +86,7 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.LockInfoDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
@@ -184,6 +185,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
     private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
+    private static final String DIALOG_LOCK_DETAILS = "DIALOG_LOCK_DETAILS";
 
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
@@ -606,7 +608,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void newPresentation() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
                                                               ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION)
-                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
@@ -617,9 +619,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
+    public void onLockIndicatorClicked(OCFile file) {
+        new LockInfoDialogFragment(accountManager.getUser(), file).show(requireActivity().getSupportFragmentManager(), DIALOG_LOCK_DETAILS);
+    }
+
+    @Override
     public void showTemplate(Creator creator, String headline) {
         ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
-                                                                      DIALOG_CREATE_DOCUMENT);
+                                                                                DIALOG_CREATE_DOCUMENT);
     }
 
     /**
