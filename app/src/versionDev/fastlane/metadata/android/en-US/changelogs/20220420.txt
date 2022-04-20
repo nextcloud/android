@@ -1,0 +1,7 @@
+Remove FilesFilter, as it is unused
+MainApp: remove unused variable
+Fix unit test for GalleryAdapter
+GalleryAdapterTest: fix wrong parameter list for GalleryAdapter constructor
+OCFileListDelegate: fix detekt
+Format with ktlint
+Group media by month
