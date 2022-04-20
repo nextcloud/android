@@ -31,6 +31,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
@@ -50,6 +52,7 @@ public class GalleryFragment extends OCFileListFragment {
     private long endDate;
     private long daySpan = 30;
     private int limit = 300;
+    private GalleryAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,11 +90,8 @@ public class GalleryFragment extends OCFileListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter.setShowMetadata(false);
 
         currentSearchType = SearchType.GALLERY_SEARCH;
-
-        switchToGridView();
 
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
@@ -100,10 +100,45 @@ public class GalleryFragment extends OCFileListFragment {
     }
 
     @Override
+    protected void setAdapter(Bundle args) {
+        mAdapter = new GalleryAdapter(requireContext(),
+                                      accountManager.getUser(),
+                                      this,
+                                      preferences,
+                                      mContainerActivity);
+
+//        val spacing = resources.getDimensionPixelSize(R.dimen.media_grid_spacing)
+//        binding.list.addItemDecoration(MediaGridItemDecoration(spacing))
+        setRecyclerViewAdapter(mAdapter);
+
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
+//        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                if (position == getAdapter().getItemCount() - 1 ||
+//                    position == 0 && getAdapter().shouldShowHeader()) {
+//                    return ((GridLayoutManager) layoutManager).getSpanCount();
+//                } else {
+//                    return 1;
+//                }
+//            }
+//        });
+
+        mAdapter.setLayoutManager(layoutManager);
+        getRecyclerView().setLayoutManager(layoutManager);
+    }
+
+    @Override
     public void onRefresh() {
         super.onRefresh();
 
         handleSearchEvent();
+    }
+
+    @Override
+    public CommonOCFileListAdapterInterface getCommonAdapter() {
+        return mAdapter;
     }
 
     @Override
@@ -161,7 +196,7 @@ public class GalleryFragment extends OCFileListFragment {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
 
-        if (emptySearch && getAdapter().getItemCount() > 0) {
+        if (emptySearch && mAdapter.getItemCount() > 0) {
             Log_OC.d(this, "End gallery search");
             return;
         }
@@ -234,8 +269,7 @@ public class GalleryFragment extends OCFileListFragment {
         }
     }
 
-    @Override
-    public boolean isGalleryFragment() {
-        return true;
+    public void showAllGalleryItems() {
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager());
     }
 }
