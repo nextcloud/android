@@ -454,10 +454,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (file.isLocked()) {
-            holder.getLockIndicator().setVisibility(View.VISIBLE);
-            holder.getLockIndicator().setOnClickListener(view -> ocFileListFragmentInterface.onLockIndicatorClicked(file));
+            holder.getOverflowMenu().setImageResource(R.drawable.ic_locked_dots_small);
         } else {
-            holder.getLockIndicator().setVisibility(View.GONE);
+            holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
     }
 
