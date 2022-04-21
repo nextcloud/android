@@ -132,11 +132,23 @@ public class FileMenuFilter {
             filter(toShow, toHide, inSingleFileFragment);
 
             for (int i : toShow) {
-                showMenuItem(menu.findItem(i));
+                final MenuItem item = menu.findItem(i);
+                if (item != null) {
+                    showMenuItem(item);
+                } else {
+                    // group
+                    menu.setGroupVisible(i, true);
+                }
             }
 
             for (int i : toHide) {
-                hideMenuItem(menu.findItem(i));
+                final MenuItem item = menu.findItem(i);
+                if (item != null) {
+                    hideMenuItem(item);
+                } else {
+                    // group
+                    menu.setGroupVisible(i, false);
+                }
             }
         }
     }
@@ -210,6 +222,7 @@ public class FileMenuFilter {
         filterStream(toShow, toHide);
         filterLock(toShow, toHide);
         filterUnlock(toShow, toHide);
+        filterLockInfo(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -283,6 +296,19 @@ public class FileMenuFilter {
                 toShow.add(R.id.action_unlock_file);
             } else {
                 toHide.add(R.id.action_unlock_file);
+            }
+        }
+    }
+
+    private void filterLockInfo(List<Integer> toShow, List<Integer> toHide) {
+        if (files.isEmpty() || !isSingleSelection()) {
+            toHide.add(R.id.menu_group_lock_info);
+        } else {
+            OCFile file = files.iterator().next();
+            if (file.isLocked()) {
+                toShow.add(R.id.menu_group_lock_info);
+            } else {
+                toHide.add(R.id.menu_group_lock_info);
             }
         }
     }

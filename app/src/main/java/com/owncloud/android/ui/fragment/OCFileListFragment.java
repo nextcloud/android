@@ -41,13 +41,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.files.FileActionsPopupMenu;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
@@ -86,7 +86,6 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.LockInfoDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
@@ -560,19 +559,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         throttler.run("overflowClick", () -> {
-            PopupMenu popup = new PopupMenu(getActivity(), view);
-            popup.inflate(R.menu.item_file);
             FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                    Collections.singleton(file),
                                                    mContainerActivity, getActivity(),
                                                    true,
                                                    accountManager.getUser());
-            mf.filter(popup.getMenu(), true);
+
+            final FileActionsPopupMenu popup = new FileActionsPopupMenu(requireContext(), view, file, mf);
+
             popup.setOnMenuItemClickListener(item -> {
                 Set<OCFile> checkedFiles = new HashSet<>();
                 checkedFiles.add(file);
                 return onFileActionChosen(item, checkedFiles);
             });
+
             popup.show();
         });
     }
@@ -581,7 +581,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void newDocument() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
                                                               ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT)
-                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
@@ -603,11 +603,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (!getAdapter().isMultiSelect() && mContainerActivity instanceof FileDisplayActivity) {
             ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
         }
-    }
-
-    @Override
-    public void onLockIndicatorClicked(OCFile file) {
-        new LockInfoDialogFragment(accountManager.getUser(), file).show(requireActivity().getSupportFragmentManager(), DIALOG_LOCK_DETAILS);
     }
 
     @Override

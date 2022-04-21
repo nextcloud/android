@@ -21,8 +21,6 @@
 
 package com.nextcloud.utils
 
-@Suppress("MagicNumber")
 object TimeConstants {
-    @JvmStatic
-    val MILLIS_PER_SECOND = 1000
+    const val MILLIS_PER_SECOND = 1000
 }
