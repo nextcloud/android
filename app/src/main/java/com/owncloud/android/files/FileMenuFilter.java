@@ -204,7 +204,8 @@ public class FileMenuFilter {
         filterEdit(toShow, toHide, capability);
         filterDownload(toShow, toHide, synchronizing);
         filterRename(toShow, toHide, synchronizing);
-        filterMoveCopy(toShow, toHide, synchronizing);
+        filterCopy(toShow, toHide, synchronizing);
+        filterMove(toShow, toHide, synchronizing);
         filterRemove(toShow, toHide, synchronizing);
         filterSelectAll(toShow, toHide, inSingleFileFragment);
         filterDeselectAll(toShow, toHide, inSingleFileFragment);
@@ -452,25 +453,32 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsEncryptedFolder()) {
+        if (files.isEmpty() || synchronizing || containsEncryptedFolder() || containsLockedFile()) {
             toHide.add(R.id.action_remove_file);
         } else {
             toShow.add(R.id.action_remove_file);
         }
     }
 
-    private void filterMoveCopy(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+    private void filterMove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder() || containsLockedFile()) {
             toHide.add(R.id.action_move);
-            toHide.add(R.id.action_copy);
         } else {
             toShow.add(R.id.action_move);
+        }
+    }
+
+    private void filterCopy(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
+        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+            toHide.add(R.id.action_copy);
+        } else {
             toShow.add(R.id.action_copy);
         }
     }
 
+
     private void filterRename(Collection<Integer> toShow, Collection<Integer> toHide, boolean synchronizing) {
-        if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
+        if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder() || containsLockedFile()) {
             toHide.add(R.id.action_rename_file);
         } else {
             toShow.add(R.id.action_rename_file);
@@ -583,6 +591,15 @@ public class FileMenuFilter {
     private boolean containsEncryptedFile() {
         for (OCFile file : files) {
             if (!file.isFolder() && file.isEncrypted()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsLockedFile() {
+        for (OCFile file : files) {
+            if (file.isLocked()) {
                 return true;
             }
         }
