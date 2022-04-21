@@ -18,9 +18,40 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:ignore="AppCompatResource">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
+
+    <group
+        android:id="@+id/menu_group_lock_info"
+        android:visible="false"
+        android:enabled="false"
+        tools:visible="true">
+
+        <item
+            android:id="@+id/action_locked_by"
+            android:showAsAction="never"
+            android:title="Locked by %1$s"
+            android:enabled="false"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText"
+            tools:title="Locked by Username With Surname at bla bla bla bla bla" />
+
+        <item
+            android:id="@+id/action_locked_until"
+            android:showAsAction="never"
+            android:enabled="false"
+            android:title="Lock expires: %1$s"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText"
+            tools:title="Lock expires: in 20 minutes" />
+    </group>
+
+    <item
+        android:id="@+id/action_unlock_file"
+        android:showAsAction="never"
+        android:title="@string/unlock_file"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_edit"
@@ -41,22 +72,16 @@
         android:showAsAction="never" />
 
     <item
-        android:id="@+id/action_lock_file"
-        android:title="@string/lock_file"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_unlock_file"
-        android:title="@string/unlock_file"
-        app:showAsAction="never"
-        android:showAsAction="never" />
-
-    <item
         android:id="@+id/action_see_details"
         android:title="@string/actionbar_see_details"
         app:showAsAction="never"
         android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_lock_file"
+        android:showAsAction="never"
+        android:title="@string/lock_file"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_rename_file"
