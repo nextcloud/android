@@ -177,19 +177,6 @@
             android:contentDescription="@string/shared_avatar_desc"
             android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/lock_indicator"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="@string/shared_icon_share"
-            android:background="?selectableItemBackgroundBorderless"
-            android:paddingStart="@dimen/list_item_share_right_margin"
-            android:paddingEnd="@dimen/list_item_share_right_margin"
-            android:src="@drawable/ic_lock_white"
-            android:visibility="gone"
-            app:tint="#666666"
-            tools:visibility="visible" />
-
         <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
