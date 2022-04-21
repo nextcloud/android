@@ -21,12 +21,14 @@
 
 package com.owncloud.android.files;
 
+import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
+import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -58,12 +60,13 @@ public class FileMenuFilter {
     private static final int SINGLE_SELECT_ITEMS = 1;
     public static final String SEND_OFF = "off";
 
-    private int numberOfAllFiles;
-    private Collection<OCFile> files;
-    private ComponentsGetter componentsGetter;
-    private Context context;
-    private boolean overflowMenu;
-    private User user;
+    private final int numberOfAllFiles;
+    private final Collection<OCFile> files;
+    private final ComponentsGetter componentsGetter;
+    private final Context context;
+    private final boolean overflowMenu;
+    private final User user;
+    private final String userId;
 
     /**
      * Constructor
@@ -88,6 +91,10 @@ public class FileMenuFilter {
         this.context = context;
         this.overflowMenu = overflowMenu;
         this.user = user;
+        userId = AccountManager
+            .get(context)
+            .getUserData(this.user.toPlatformAccount(),
+                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
     }
 
     /**
@@ -202,6 +209,7 @@ public class FileMenuFilter {
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide);
         filterLock(toShow, toHide);
+        filterUnlock(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -254,16 +262,28 @@ public class FileMenuFilter {
     }
 
     private void filterLock(List<Integer> toShow, List<Integer> toHide) {
-        // TODO only allow locking files (not dirs), and only allow unlocking file if lock is owned by the user
-        if (files.isEmpty()) {
+        if (files.isEmpty() || !isSingleSelection()) {
             toHide.add(R.id.action_lock_file);
-            toHide.add(R.id.action_unlock_file);
-        } else if (allLocked()) {
-            toHide.add(R.id.action_lock_file);
-            toShow.add(R.id.action_unlock_file);
         } else {
+            OCFile file = files.iterator().next();
+            if (file.isLocked() || file.isFolder()) {
+                toHide.add(R.id.action_lock_file);
+            } else {
+                toShow.add(R.id.action_lock_file);
+            }
+        }
+    }
+
+    private void filterUnlock(List<Integer> toShow, List<Integer> toHide) {
+        if (files.isEmpty() || !isSingleSelection()) {
             toHide.add(R.id.action_unlock_file);
-            toShow.add(R.id.action_lock_file);
+        } else {
+            OCFile file = files.iterator().next();
+            if (FileLockingHelper.canUserUnlockFile(userId, file)) {
+                toShow.add(R.id.action_unlock_file);
+            } else {
+                toHide.add(R.id.action_unlock_file);
+            }
         }
     }
 
@@ -582,15 +602,6 @@ public class FileMenuFilter {
     private boolean allNotFavorites() {
         for (OCFile file : files) {
             if (file.isFavorite()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean allLocked() {
-        for (OCFile file : files) {
-            if (!file.isLocked()) {
                 return false;
             }
         }
