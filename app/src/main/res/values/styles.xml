@@ -387,7 +387,11 @@
     </style>
 
     <style name="Nextcloud.Widget.PopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
-        <item name="android:textColor">@color/popup_item_text_color</item>
+        <item name="android:textColor">@color/menu_item_text_color</item>
+    </style>
+
+    <style name="Theme.ToolbarWithDisabled" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColor">@color/menu_item_text_color</item>
     </style>
 
     <style name="MaterialListItemSingleLine">
