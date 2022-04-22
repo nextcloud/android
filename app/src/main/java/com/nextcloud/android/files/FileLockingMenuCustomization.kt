@@ -25,51 +25,29 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import android.text.style.StyleSpan
-import android.view.ContextThemeWrapper
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.widget.PopupMenu
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.utils.DisplayUtils
 
 /**
- * Wrapper around PopupMenu with file locking info
+ * Customizes a Menu to show locking information
  */
-class FileActionsPopupMenu(
-    private val context: Context,
-    anchor: View,
-    private val file: OCFile,
-    fileMenuFilter: FileMenuFilter
-) : PopupMenu(wrapContext(context), anchor) {
-
-    init {
-        this.inflate(R.menu.item_file)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            menu.setGroupDividerEnabled(true)
-        }
-        fileMenuFilter.filter(menu, true)
-
+class FileLockingMenuCustomization(val context: Context) {
+    fun customizeMenu(menu: Menu, file: OCFile) {
         if (file.isLocked) {
-            menu.findItem(R.id.action_locked_by).title = getLockedByText()
-            showLockedUntil()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                menu.setGroupDividerEnabled(true)
+            }
+            menu.findItem(R.id.action_locked_by).title = getLockedByText(file)
+            showLockedUntil(menu, file)
         }
     }
 
-    private fun showLockedUntil() {
-        val lockedUntil: MenuItem = menu.findItem(R.id.action_locked_until)
-        if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
-            lockedUntil.isVisible = false
-        } else {
-            lockedUntil.title = context.getString(R.string.lock_expiration_info, getExpirationRelativeText())
-            lockedUntil.isVisible = true
-        }
-    }
-
-    private fun getLockedByText(): CharSequence {
+    private fun getLockedByText(file: OCFile): CharSequence {
         val username = file.lockOwnerDisplayName ?: file.lockOwnerId
         val resource = when (file.lockType) {
             FileLockType.COLLABORATIVE -> R.string.locked_by_app
@@ -82,13 +60,19 @@ class FileActionsPopupMenu(
         )
     }
 
-    private fun getExpirationRelativeText(): CharSequence? {
-        val expirationTimestamp = (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
-        return DisplayUtils.getRelativeTimestamp(context, expirationTimestamp, true)
+    private fun showLockedUntil(menu: Menu, file: OCFile) {
+        val lockedUntil: MenuItem = menu.findItem(R.id.action_locked_until)
+        if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
+            lockedUntil.isVisible = false
+        } else {
+            lockedUntil.title =
+                context.getString(R.string.lock_expiration_info, getExpirationRelativeText(file))
+            lockedUntil.isVisible = true
+        }
     }
 
-    companion object {
-        private fun wrapContext(context: Context): Context =
-            ContextThemeWrapper(context, R.style.Nextcloud_Widget_PopupMenu)
+    private fun getExpirationRelativeText(file: OCFile): CharSequence? {
+        val expirationTimestamp = (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
+        return DisplayUtils.getRelativeTimestamp(context, expirationTimestamp, true)
     }
 }

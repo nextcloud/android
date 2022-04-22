@@ -47,7 +47,8 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.android.files.FileActionsPopupMenu;
+import com.nextcloud.android.files.FileLockingMenuCustomization;
+import com.nextcloud.android.files.ThemedPopupMenu;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
@@ -572,14 +573,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         throttler.run("overflowClick", () -> {
+            final ThemedPopupMenu popup = new ThemedPopupMenu(requireContext(), view);
+            popup.inflate(R.menu.item_file);
             FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                    Collections.singleton(file),
                                                    mContainerActivity, getActivity(),
                                                    true,
                                                    accountManager.getUser());
-
-            final FileActionsPopupMenu popup = new FileActionsPopupMenu(requireContext(), view, file, mf);
-
+            mf.filter(popup.getMenu(), true);
+            new FileLockingMenuCustomization(requireContext()).customizeMenu(popup.getMenu(), file);
             popup.setOnMenuItemClickListener(item -> {
                 Set<OCFile> checkedFiles = new HashSet<>();
                 checkedFiles.add(file);
@@ -746,6 +748,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
+            } else if (checkedCount == 1) {
+                // customize for locking if file is locked
+                new FileLockingMenuCustomization(requireContext()).customizeMenu(menu, checkedFiles.iterator().next());
             }
 
             return true;
