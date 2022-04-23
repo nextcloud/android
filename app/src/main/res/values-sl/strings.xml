@@ -108,6 +108,7 @@
     <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_loading">Poteka nalaganje …</string>
+    <string name="common_next">Naprej </string>
     <string name="common_no">Ne</string>
     <string name="common_ok">V redu</string>
     <string name="common_pending">Na čakanju</string>
@@ -383,6 +384,7 @@
     <string name="link_share_allow_upload_and_editing">Dovoli pošiljanje in urejanje</string>
     <string name="link_share_editing">Urejanje</string>
     <string name="link_share_file_drop">Poteg datotek v okno (samo nalaganje)</string>
+    <string name="link_share_view_only">Le ogled</string>
     <string name="list_layout">Izpisana razporeditev</string>
     <string name="load_more_results">Naloži več rezultatov</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
