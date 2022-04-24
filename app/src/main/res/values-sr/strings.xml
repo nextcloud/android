@@ -31,6 +31,7 @@
     <string name="add_another_public_share_link">Додај још једну везу</string>
     <string name="add_new_public_share">Додај везу новог јавног дељења</string>
     <string name="add_to_cloud">Додај у %1$s</string>
+    <string name="advanced_settings">Напредне поставке</string>
     <string name="allow_resharing">Дозволи дељење даље</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
@@ -76,6 +77,7 @@
     <string name="battery_optimization_disable">Искључи</string>
     <string name="battery_optimization_message">Аутоматско отпремање ради само ако изузмете ову апликацију из оптимизације батерије.</string>
     <string name="battery_optimization_title">Оптимизација батерије</string>
+    <string name="calendar">Календар</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
     <string name="changelog_dev_version">Дневник измена развојне верзије</string>
     <string name="checkbox">Кућица</string>
@@ -90,11 +92,13 @@
     <string name="common_cancel">Откажи</string>
     <string name="common_cancel_sync">Откажи синхронизацију</string>
     <string name="common_choose_account">Изаберите налог</string>
+    <string name="common_confirm">Потврди</string>
     <string name="common_delete">Обриши</string>
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Нема довољно меморије</string>
     <string name="common_error_unknown">Непозната грешка</string>
     <string name="common_loading">Учитавам…</string>
+    <string name="common_next">Следећа</string>
     <string name="common_no">Не</string>
     <string name="common_ok">У реду</string>
     <string name="common_pending">На чекању</string>
@@ -103,6 +107,7 @@
     <string name="common_save">Сачувај</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
+    <string name="common_skip">Preskoči</string>
     <string name="common_switch_account">Пребаци налог</string>
     <string name="common_switch_to_account">Пребаци на налог</string>
     <string name="common_yes">Да</string>
@@ -134,6 +139,7 @@
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
     <string name="contactlist_no_permission">Није дата дозвола. Ништа није увезено.</string>
+    <string name="contacts">Контакти</string>
     <string name="contacts_backup_button">Направите резерву сада</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резерве је заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увоз је заказан и почеће ускоро</string>
@@ -150,6 +156,7 @@
     <string name="could_not_download_image">Не могу да преузмем целу слику</string>
     <string name="could_not_retrieve_shares">Не могу да дохватим дељења</string>
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
+    <string name="create">Направи</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
     <string name="create_new">Направи нови</string>
     <string name="create_new_document">Направи нови документ</string>
@@ -168,6 +175,7 @@
     <string name="dev_version_new_version_available">Доступна нова верзија</string>
     <string name="dev_version_no_information_available">Нема информација.</string>
     <string name="dev_version_no_new_version_available">Нема доступних нових верзија.</string>
+    <string name="dialog_close">Затвори</string>
     <string name="digest_algorithm_not_available">Дигест алгоритам није доступан на вашем уређају.</string>
     <string name="disable_new_media_folder_detection_notifications">Искључи</string>
     <string name="dismiss">Одбаци</string>
@@ -188,6 +196,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_favorites">Омиљено</string>
+    <string name="drawer_item_gallery">Мултимедија</string>
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
@@ -241,6 +250,11 @@
     <string name="etm_migrations">Пресељења (надоградња апликације)</string>
     <string name="etm_preferences">Поставке</string>
     <string name="etm_title">Инжењерски тест режим</string>
+    <string name="etm_transfer_enqueue_test_download">Стави тест преузимање у ред чекања</string>
+    <string name="etm_transfer_remote_path">Удаљена путања</string>
+    <string name="etm_transfer_type">Пренеси</string>
+    <string name="etm_transfer_type_download">Преузми</string>
+    <string name="etm_transfer_type_upload">Отпреми</string>
     <string name="fab_label">Додај или отпреми</string>
     <string name="failed_to_download">Неуспело прослеђивање фајла менаџеру преузимања</string>
     <string name="failed_to_print">Неуспело штампање фајла</string>
@@ -338,6 +352,7 @@
     <string name="link_share_allow_upload_and_editing">Дозволи отпремање и уређивање</string>
     <string name="link_share_file_drop">Превлачење фајлова (само за отпремање)</string>
     <string name="list_layout">Распоред као листа</string>
+    <string name="load_more_results">Учитај још резултата</string>
     <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
     <string name="local_file_not_found_message">Фајл није нађен у локалном фајл-систему</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -370,6 +385,7 @@
     <string name="menu_item_sort_by_name_z_a">по називу, обрнуто</string>
     <string name="menu_item_sort_by_size_biggest_first">прво највеће</string>
     <string name="menu_item_sort_by_size_smallest_first">прво најмање</string>
+    <string name="more">Још</string>
     <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
@@ -393,6 +409,7 @@
     <string name="note_icon_hint">Иконица белешке</string>
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
+    <string name="notification_channel_download_name_short">Преузимања</string>
     <string name="notification_channel_file_sync_description">Приказ напретка синхронизације фајла и резултата</string>
     <string name="notification_channel_file_sync_name">Синхронизација фајла</string>
     <string name="notification_channel_general_description">Прикажи обавештења о новим медијским фасциклама и слично</string>
@@ -402,6 +419,7 @@
     <string name="notification_channel_push_description">Приказуј обавештења која пошаље сервер: помињање у коментарима, пријем новог удаљеног дељења, објаве администратора итд.</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
+    <string name="notification_channel_upload_name_short">Отпремања</string>
     <string name="notification_icon">Иконица обавештења</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
@@ -525,6 +543,7 @@
     <string name="set_picture_as">Постави слику као</string>
     <string name="share">Подели</string>
     <string name="share_dialog_title">Дељење</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
     <string name="share_file">Подели %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
@@ -542,9 +561,11 @@
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_no_password_title">Постави лозинку</string>
     <string name="share_password_title">Заштићено лозинком</string>
+    <string name="share_permission_can_edit">Може да уређује</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_note">Напомена примаоцу</string>
+    <string name="share_settings">Поставке</string>
     <string name="share_via_link_hide_download">Сакриј преузимање</string>
     <string name="share_via_link_section_title">Веза дељења</string>
     <string name="share_via_link_send_link_label">Пошаљи везу</string>
@@ -736,6 +757,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Чекам на бежичну мрежу без ограничења протока</string>
     <string name="user_icon">Корисник </string>
     <string name="user_info_address">Адреса</string>
+    <string name="user_info_email">Е-пошта</string>
     <string name="user_info_phone">Број телефона</string>
     <string name="user_info_twitter">Твитер</string>
     <string name="user_info_website">Веб страна</string>
@@ -750,6 +772,7 @@
     <string name="what_s_new_image">Слика шта је ново</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>
+    <string name="write_email">Пошаљи е-пошту</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>
         <item quantity="few">Не могу да синхронизујем %1$d фајла (конфликата: %2$d)</item>

@@ -255,6 +255,10 @@
     <string name="etm_migrations">Migrasiýa (programmany täzelemek)</string>
     <string name="etm_preferences">Saýlamalar</string>
     <string name="etm_title">Inženerçilik synag tertibi</string>
+    <string name="etm_transfer_enqueue_test_download">Synagy göçürip al</string>
+    <string name="etm_transfer_remote_path">Uzak ýol</string>
+    <string name="etm_transfer_type_download">Göçürip almak</string>
+    <string name="etm_transfer_type_upload">Ýüklemek</string>
     <string name="fab_label">Goşmak ýa-da ýüklemek</string>
     <string name="failed_to_download">Dolandyryjyny göçürip almak üçin faýl geçirip bilmedi</string>
     <string name="failed_to_print">Faýl çap edilmedi</string>
@@ -389,6 +393,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A.</string>
     <string name="menu_item_sort_by_size_biggest_first">Ilki bilen iň ulusy</string>
     <string name="menu_item_sort_by_size_smallest_first">Ilki bilen iň kiçi</string>
+    <string name="more">Has köp</string>
     <string name="move_file_error">Bu faýly ýa-da bukjany göçürjek bolanyňyzda ýallňyşlyk ýüze çykdy</string>
     <string name="move_file_invalid_into_descendent">Bir bukjany öz esasy bukjalarynyň birine geçirmek mümkin däl</string>
     <string name="move_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
@@ -412,6 +417,7 @@
     <string name="note_icon_hint">Bellik nyşany</string>
     <string name="notification_action_failed">Hereket ýerine ýetirilmedi.</string>
     <string name="notification_channel_download_description">Göçürip almagyň gidişini görkezýär</string>
+    <string name="notification_channel_download_name_short">Ýüklemeler</string>
     <string name="notification_channel_file_sync_description">Faýl sinhronlamasynyň ösüşini we netijelerini görkezýär</string>
     <string name="notification_channel_file_sync_name">Faýl sinhronlamak</string>
     <string name="notification_channel_general_description">Täze media bukjalary we şuňa meňzeşler üçin bildirişleri görkeziň</string>
@@ -421,6 +427,7 @@
     <string name="notification_channel_push_description">Serwer tarapyndan iberilen itergi habarnamalaryny görkeziň: Teswirlerde bellikler, täze uzakdaky paýnamalary kabul etmek, administrator tarapyndan iberilen bildirişler we ş.m.</string>
     <string name="notification_channel_push_name">Duýduryşlary basyň</string>
     <string name="notification_channel_upload_description">Ýüklemegiň gidişini görkezýär</string>
+    <string name="notification_channel_upload_name_short">Ýüklenmeler</string>
     <string name="notification_icon">Duýduryş nyşany</string>
     <string name="notifications_no_results_headline">Duýduryş ýok</string>
     <string name="notifications_no_results_message">Soňrak barlap görüň.</string>
@@ -576,6 +583,7 @@
     <string name="share_room_clarification">(söhbetdeşlik)%1$s</string>
     <string name="share_search">Ady, Federatiw Bulut ID ýa-da e-poçta salgysy…</string>
     <string name="share_send_note">Alyja bellik</string>
+    <string name="share_settings">Sazlamalar</string>
     <string name="share_via_link_hide_download">Ýüklemegi gizle </string>
     <string name="share_via_link_section_title">Baglanyşyk paýlaş</string>
     <string name="share_via_link_send_link_label">Baglanyşyk iber</string>

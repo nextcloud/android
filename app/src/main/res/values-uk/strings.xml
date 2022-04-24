@@ -604,10 +604,12 @@
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_password_title">Захищено паролем</string>
+    <string name="share_permission_can_edit">Можна редагувати</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, Федеральний хмарний ідентифікатор або електронна адреса ...</string>
     <string name="share_send_note">Примітка для одержувача</string>
+    <string name="share_settings">Налаштування</string>
     <string name="share_via_link_hide_download">Сховати завантаження</string>
     <string name="share_via_link_section_title">Поділитись посиланням</string>
     <string name="share_via_link_send_link_label">Надіслати посилання</string>
@@ -817,6 +819,7 @@
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
+    <string name="write_email">Відправити лист</string>
     <string name="wrong_storage_path">Папка для зберігання даних не існує!</string>
     <string name="wrong_storage_path_desc">Можливо, це пов’язано з відновленням резервної копії на іншому пристрої. Повернення до стандартного. Будь ласка, перевірте налаштування, щоб налаштувати папку для зберігання даних.</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -401,6 +401,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">As motha an toiseach</string>
     <string name="menu_item_sort_by_size_smallest_first">As lugha an toiseach</string>
+    <string name="more">Barrachd</string>
     <string name="move_file_error">Thachair mearachd le gluasad an fhaidhle no pasgain seo</string>
     <string name="move_file_invalid_into_descendent">Cha ghabh pasgan gluasad am broinn fo-phasgan aige fhèin</string>
     <string name="move_file_invalid_overwrite">Tha am faidhle sa cheann-uidhe mu thràth</string>
@@ -424,6 +425,7 @@
     <string name="note_icon_hint">Ìomhaigheag nòta</string>
     <string name="notification_action_failed">Cha deach leis a’ ghnìomh.</string>
     <string name="notification_channel_download_description">Seallaidh seo adhartas an luchdaidh a-nuas</string>
+    <string name="notification_channel_download_name_short">Luchdaidhean a-nuas</string>
     <string name="notification_channel_file_sync_description">Seallaidh seo an t-adhartas ’s na toraidhean aig sioncronachadh nam faidhlichean</string>
     <string name="notification_channel_file_sync_name">Sioncronachadh fhaidhlichean</string>
     <string name="notification_channel_general_description">Seall brathan mu phasganan mheadhanan ùra ’s an leithid</string>
@@ -433,6 +435,7 @@
     <string name="notification_channel_push_description">Seall brathan putaidh a chuireas am frithealaiche: Iomraidhean ann am beachdan, faighinn co-roinnidhean cèine ùra, brathan air an cur le rianaire is msaa.</string>
     <string name="notification_channel_push_name">Brathan putaidh</string>
     <string name="notification_channel_upload_description">Seallaidh seo adhartas an luchdaidh suas</string>
+    <string name="notification_channel_upload_name_short">Na chaidh a luchdadh suas</string>
     <string name="notification_icon">Ìomhaigheag bratha</string>
     <string name="notifications_no_results_headline">Gun bhrath</string>
     <string name="notifications_no_results_message">Thoir sùil a-rithist an ceann greis.</string>
@@ -589,6 +592,7 @@
     <string name="share_room_clarification">%1$s (còmhradh)</string>
     <string name="share_search">Ainm, ID neòil cho-naisgte no seòladh puist-d…</string>
     <string name="share_send_note">Nòta dhan fhaightear</string>
+    <string name="share_settings">Roghainnean</string>
     <string name="share_via_link_hide_download">Falaich an luchdadh a-nuas</string>
     <string name="share_via_link_section_title">Ceangal co-roinnidh</string>
     <string name="share_via_link_send_link_label">Cuir an ceangal</string>

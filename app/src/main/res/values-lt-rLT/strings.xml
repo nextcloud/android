@@ -271,6 +271,7 @@
     <string name="etm_preferences">Nuostatos</string>
     <string name="etm_title">Inžinerinis bandymo režimas</string>
     <string name="etm_transfer">Failų persiuntimas</string>
+    <string name="etm_transfer_enqueue_test_download">Užbaikite bandomąjį atsisiuntimą</string>
     <string name="etm_transfer_remote_path">Nuotolinis kelias</string>
     <string name="etm_transfer_type">Persiųsti</string>
     <string name="etm_transfer_type_download">Atsisiųsti</string>
