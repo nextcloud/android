@@ -295,6 +295,7 @@
     <string name="file_list_empty">Lähetä sisältöä tai synkronisoi laitteidesi kanssa</string>
     <string name="file_list_empty_favorite_headline">Ei vielä suosikkeja</string>
     <string name="file_list_empty_favorites_filter_list">Suosikeiksi merkitsemäsi tiedostot ja kansiot näkyvät tässä.</string>
+    <string name="file_list_empty_gallery">Kuvia tai videoita ei löytynyt</string>
     <string name="file_list_empty_headline">Ei tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
@@ -304,6 +305,7 @@
     <string name="file_list_empty_search">Ehkä se on toisessa kansiossa?</string>
     <string name="file_list_empty_shared">Jakamasi tiedostot ja kansiot näkyvät tässä.</string>
     <string name="file_list_empty_shared_headline">Ei mitään jaettua</string>
+    <string name="file_list_empty_unified_search_no_results">Haulla ei löytynyt tuloksia</string>
     <string name="file_list_folder">kansio</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
@@ -367,6 +369,7 @@
     <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
     <string name="forward">Välitä</string>
     <string name="fourHours">4 tuntia</string>
+    <string name="hidden_file_name_warning">Nimi johtaa piilotettuun tiedostoon</string>
     <string name="hint_name">Nimi</string>
     <string name="hint_note">Huomio</string>
     <string name="hint_password">Salasana</string>
@@ -447,6 +450,7 @@
     <string name="no_email_app_available">Sähköpostiosoitteiden käsittelyyn ei ole saatavilla sovellusta</string>
     <string name="no_mutliple_accounts_allowed">Vain yksi tili on sallittu</string>
     <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
+    <string name="no_send_app">Valittujen tiedostojen lähettämiseen ei ole sovellusta</string>
     <string name="note_confirm">Lähetä</string>
     <string name="note_could_not_sent">Huomiota ei voitu lähettää</string>
     <string name="note_icon_hint">Note-kuvake</string>
@@ -481,6 +485,7 @@
     <string name="pass_code_removed">Suojakoodi poistettu</string>
     <string name="pass_code_stored">Suojakoodi tallennettu</string>
     <string name="pass_code_wrong">Virheellinen suojakoodi</string>
+    <string name="pdf_zoom_tip">Napauta sivua lähentääksesi</string>
     <string name="permission_allow">Salli</string>
     <string name="permission_deny">Kiellä</string>
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
