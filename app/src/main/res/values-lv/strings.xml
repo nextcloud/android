@@ -71,6 +71,7 @@
     <string name="battery_optimization_disable">Deaktivēt</string>
     <string name="battery_optimization_message">Jūsu ierīcē ir iespējota akumulatora optimizācija. Auto augšupielāde pareizi darbosies tikai tad, kad jūs lietotni izņemsiet no šīs opcijas.</string>
     <string name="battery_optimization_title">Akumulatora optimizācija</string>
+    <string name="calendar">Kalendārs</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
     <string name="choose_local_folder">Izvēlies lokālo mapi…</string>
     <string name="choose_remote_folder">Izvēlies attālināto mapi…</string>
@@ -83,11 +84,13 @@
     <string name="common_cancel">Atcelt</string>
     <string name="common_cancel_sync">Atsaukt sinhronizāciju</string>
     <string name="common_choose_account">Izvēlieties kontu</string>
+    <string name="common_confirm">Apstiprināt</string>
     <string name="common_delete">Dzēst</string>
     <string name="common_error">Kļūda</string>
     <string name="common_error_out_memory">Nepietiek atmiņas</string>
     <string name="common_error_unknown">Nezināma kļūda</string>
     <string name="common_loading">Ielādē …</string>
+    <string name="common_next">Nākamā</string>
     <string name="common_no">Nē</string>
     <string name="common_ok">Labi</string>
     <string name="common_pending">Gaida</string>
@@ -96,6 +99,7 @@
     <string name="common_save">Saglabāt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
+    <string name="common_skip">Izlaist</string>
     <string name="common_yes">Jā</string>
     <string name="community_beta_headline">Testēt dev versiju</string>
     <string name="community_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
@@ -119,6 +123,7 @@
     <string name="conflict_dialog_error">Kļūda veidojot konfliktu dialogu!</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
+    <string name="contacts">Kontakti</string>
     <string name="contacts_backup_button">Dublēt tagad</string>
     <string name="contacts_preferences_no_file_found">Datne nav atrasta</string>
     <string name="contacts_preferences_something_strange_happened">Nevarēja atrast pēdējo dublējumu!</string>
@@ -130,6 +135,7 @@
     <string name="copy_to">Kopēt uz…</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
+    <string name="create">Izveidot</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
     <string name="create_new">Izveidot jaunu</string>
     <string name="create_new_document">Izveidot jaunu dokumentu </string>
@@ -148,6 +154,7 @@
     <string name="dev_version_new_version_available">Pieejama jauna versija  </string>
     <string name="dev_version_no_information_available">Informācija nav pieejama.</string>
     <string name="dev_version_no_new_version_available">Jauna versija nav pieejama.</string>
+    <string name="dialog_close">Aizvērt</string>
     <string name="digest_algorithm_not_available">Šis algoritms nav pieejams jūsu tālrunī.</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktivēt</string>
     <string name="dismiss">Atmest</string>
@@ -188,6 +195,9 @@
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
     <string name="etm_accounts">Konti</string>
+    <string name="etm_background_job_user">Lietotājs</string>
+    <string name="etm_transfer_type_download">Lejupielādēt</string>
+    <string name="etm_transfer_type_upload">Augšupielādēt</string>
     <string name="favorite">Pievienot favorītiem</string>
     <string name="favorite_icon">Favorīts</string>
     <string name="file_delete">Dzēst</string>
@@ -252,6 +262,7 @@
     <string name="foreign_files_success">Visas datnes tika pārvietotas</string>
     <string name="forward">Turpināt</string>
     <string name="hint_name">Vārds</string>
+    <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
@@ -287,6 +298,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Lielākie pirms</string>
     <string name="menu_item_sort_by_size_smallest_first">Mazākie pirms</string>
+    <string name="more">Vairāk</string>
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
@@ -296,6 +308,8 @@
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
     <string name="note_confirm">Sūtīt</string>
+    <string name="notification_channel_download_name_short">Lejupielādes</string>
+    <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
     <string name="oneHour">1 stunda</string>
@@ -381,7 +395,10 @@
     <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
     <string name="share_no_password_title">Uzstādīt paroli</string>
     <string name="share_password_title">Aizsargāts ar paroli</string>
+    <string name="share_permission_can_edit">Var rediģēt</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
+    <string name="share_send_note">Piezīme saņēmējam</string>
+    <string name="share_settings">Iestatījumi</string>
     <string name="share_via_link_hide_download">Slēpt lejupielādi</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
     <string name="share_via_link_send_link_label">Sūtīt saiti</string>
@@ -509,6 +526,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
+    <string name="user_info_email">E-pasts</string>
     <string name="user_info_phone">Tālruņa numurs</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Mājaslapa</string>
@@ -521,4 +539,5 @@
     <string name="what_s_new_image">Kas jauns attēls</string>
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>
+    <string name="write_email">Sūtīt e-pastu</string>
     </resources>

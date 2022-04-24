@@ -32,6 +32,7 @@
     <string name="add_another_public_share_link">Agiunghe un\'àteru ligòngiu</string>
     <string name="add_new_public_share">Agiunghe ligòngiu de cumpartzidura pùblica nou</string>
     <string name="add_to_cloud">Agiunghe a %1$s</string>
+    <string name="advanced_settings">Impostatziones avantzadas</string>
     <string name="allow_resharing">Permite sa re-cumpartzidura</string>
     <string name="appbar_search_in">Chirca in %s</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
@@ -79,6 +80,8 @@
     <string name="battery_optimization_message">Forsis su dispositivu tuo tenet s\'otimizatzione de sa bateria ativada. S\'AutoCarrigamentu funtzionat isceti si nch\'escludes custa aplicatzione.</string>
     <string name="battery_optimization_title">Otimizatzione de bateria</string>
     <string name="brute_force_delay">Lassadu a coa pro tropu proas faddidas</string>
+    <string name="calendar">Calendàriu</string>
+    <string name="calendars">Calendàrios</string>
     <string name="certificate_load_problem">Problema in su carrigamentu de su tzertificadu.</string>
     <string name="changelog_dev_version">Registru de is modìficas de sa versione dispositivu</string>
     <string name="checkbox">Casella de ispunta</string>
@@ -97,11 +100,13 @@
     <string name="common_cancel">Annulla</string>
     <string name="common_cancel_sync">Annulla sincronizatzione</string>
     <string name="common_choose_account">Sèbera contu</string>
+    <string name="common_confirm">Cunfirma</string>
     <string name="common_delete">Cantzella</string>
     <string name="common_error">Errore</string>
     <string name="common_error_out_memory">Memòria non sufitziente</string>
     <string name="common_error_unknown">Errore non connotu</string>
     <string name="common_loading">Carrighende...</string>
+    <string name="common_next">Imbeniente</string>
     <string name="common_no">No</string>
     <string name="common_ok">AB</string>
     <string name="common_pending">In isetu</string>
@@ -143,6 +148,7 @@
     <string name="conflict_message_description">Si seletzionas ambas is versiones, s\'archìviu locale at a tènnere unu nùmeru in agiunta a su nùmene.</string>
     <string name="contactlist_item_icon">Icona utente pro lista de cuntatos</string>
     <string name="contactlist_no_permission">Perunu permissu, peruna importatzione.</string>
+    <string name="contacts">Cuntatos</string>
     <string name="contacts_backup_button">Còpia de seguresa immoe</string>
     <string name="contacts_preferences_backup_scheduled">Sa còpia de seguresa s\'est programmada e at a cumintzare intre pagu</string>
     <string name="contacts_preferences_import_scheduled">S\'importatzione s\'est programmada e at a cumintzare intre pagu</string>
@@ -362,8 +368,11 @@
     <string name="label_empty">S\'eticheta non podet èssere bòida</string>
     <string name="link">Ligòngiu</string>
     <string name="link_share_allow_upload_and_editing">Permite carrigamentu e modìficas</string>
+    <string name="link_share_editing">Modìfica</string>
     <string name="link_share_file_drop">Trìsina archìviu (isceti pro carrigare)</string>
+    <string name="link_share_view_only">Isceti in visualizatzione</string>
     <string name="list_layout">Istrutura in elencu</string>
+    <string name="load_more_results">Càrriga àteros resurtados</string>
     <string name="local_file_list_empty">Non ddoe at documentos in custa cartella.</string>
     <string name="local_file_not_found_message">Documentu no agatadu in su sistema de documentos locale</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -401,6 +410,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Prima su prus mannu</string>
     <string name="menu_item_sort_by_size_smallest_first">Prima su prus piticu</string>
+    <string name="more">Àteru</string>
     <string name="move_file_error">Ddoe at àpidu un\'errore in sa tràmuda de su documentu o de sa cartella</string>
     <string name="move_file_invalid_into_descendent">No est possìbile a tramudare una cartella a intro de una de is cartellas in suta</string>
     <string name="move_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
@@ -424,6 +434,7 @@
     <string name="note_icon_hint">Icona de is notas</string>
     <string name="notification_action_failed">No at fatu a esecutare s\'atzione.</string>
     <string name="notification_channel_download_description">Mustrat istadu de iscarrigamentu</string>
+    <string name="notification_channel_download_name_short">Iscarrigamentos</string>
     <string name="notification_channel_file_sync_description">Mustrat s\'istadu de sincronizatzione de is archìvios e is resurtados</string>
     <string name="notification_channel_file_sync_name">Sincronizadore de documentos</string>
     <string name="notification_channel_general_description">Mustra notìficas pro is cartellas de media noas e cosas sìmiles</string>
@@ -433,6 +444,7 @@
     <string name="notification_channel_push_description">Mustrat notìficas imbiadas dae su serbidore: mentovus in cummentos, rètzidas de cumpartziduras remotas noas, publicatziones de chie amministrat etc.</string>
     <string name="notification_channel_push_name">Notìficas de ispinta</string>
     <string name="notification_channel_upload_description">Mustrat istadu de carrigamentu</string>
+    <string name="notification_channel_upload_name_short">Carrigamentos</string>
     <string name="notification_icon">Icona de notìfica</string>
     <string name="notifications_no_results_headline">Peruna notìfica</string>
     <string name="notifications_no_results_message">Torra a controllare prus a tardu.</string>
@@ -585,10 +597,13 @@
     <string name="share_no_expiration_date_label">Imposta data de iscadèntzia</string>
     <string name="share_no_password_title">Imposta sa crae</string>
     <string name="share_password_title">Amparadu dae una crae</string>
+    <string name="share_permission_can_edit">Podet modificare</string>
+    <string name="share_permission_view_only">Isceti in visualizatzione</string>
     <string name="share_remote_clarification">%1$s (remotu)</string>
     <string name="share_room_clarification">%1$s (tzarrada)</string>
     <string name="share_search">Nùmene, ID de sa nue federada o indiritzu de posta ...</string>
     <string name="share_send_note">Notas pro sa persone destinatària</string>
+    <string name="share_settings">Impostatziones</string>
     <string name="share_via_link_hide_download">Cua iscarrigamentu</string>
     <string name="share_via_link_section_title">Cumpartzi ligòngiu</string>
     <string name="share_via_link_send_link_label">Imbia ligòngiu</string>
@@ -798,6 +813,8 @@
     <string name="what_s_new_image">Immàgine de ite ddoe est de nou</string>
     <string name="whats_new_skip">Brinca</string>
     <string name="whats_new_title">Prima borta in %1$s</string>
+    <string name="whats_your_status">Cale est s\'istadu tuo?</string>
+    <string name="write_email">Imbia messàgiu de posta eletrònica</string>
     <string name="wrong_storage_path">Sa cartella de archiviatzione de datos no esistit!</string>
     <string name="wrong_storage_path_desc">Custu podet èssere ca su recùperu de sa còpia de seguresa s\'est fatu in un\'àteru dispositivu. Torrende a is cunfiguratziones predefinidas. Controlla sa cunfiguratzione pro acontzare sa cartella de archiviatzione de is datos.</string>
     <plurals name="sync_fail_in_favourites_content">

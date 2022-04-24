@@ -98,6 +98,7 @@
     <string name="common_save">Sačuvaj</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Podeli</string>
+    <string name="common_skip">Preskoči</string>
     <string name="common_yes">Da</string>
     <string name="community_beta_headline">Testirajte razvojnu verziju</string>
     <string name="community_beta_text">Ovo uključuje sve funkcionalnosti koje tek dolaze i najnoviji i najsvežiji kôd. To znači i da mogu lako da se pojave greške. Ako ih uočite, molimo da ih prijavite.</string>
@@ -137,6 +138,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
     <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
+    <string name="create">Napravi</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new_document">Napravi novi dokument</string>
     <string name="create_new_folder">Napravi novu fasciklu</string>
@@ -152,6 +154,7 @@
     <string name="dev_version_new_version_available">Dostupna nova verzija</string>
     <string name="dev_version_no_information_available">Informacije nedostupne.</string>
     <string name="dev_version_no_new_version_available">Nema novih verzija dostupnih.</string>
+    <string name="dialog_close">Zatvori</string>
     <string name="digest_algorithm_not_available">Digest algoritam nije dostupan na vašem uređaju.</string>
     <string name="disable_new_media_folder_detection_notifications">Isključi</string>
     <string name="dismiss">Odbaci</string>
@@ -210,8 +213,11 @@
     <string name="error_retrieving_templates">Greška pri učitavanju šablona</string>
     <string name="error_starting_direct_camera_upload">Greška pri startovanju kamere</string>
     <string name="etm_accounts">Nalozi</string>
+    <string name="etm_background_job_user">Korisnik</string>
     <string name="etm_preferences">Postavke</string>
     <string name="etm_title">Inženjerski test režim</string>
+    <string name="etm_transfer_type_download">Preuzmi</string>
+    <string name="etm_transfer_type_upload">Otpremi</string>
     <string name="fab_label">Dodaj ili otpremi</string>
     <string name="failed_to_download">Greška pri davanju fajla menadžeru preuzimanja</string>
     <string name="failed_to_print">Neuspelo štampanje fajla</string>
@@ -329,6 +335,7 @@
     <string name="menu_item_sort_by_name_z_a">po nazivu, obrnuto</string>
     <string name="menu_item_sort_by_size_biggest_first">prvo najveće</string>
     <string name="menu_item_sort_by_size_smallest_first">prvo najmanje</string>
+    <string name="more">Još</string>
     <string name="move_file_error">Došlo je do greške pri premeštanju fajla ili fascikle</string>
     <string name="move_file_invalid_into_descendent">Ne može da se premesti fascikla u neku od svojih podfascikli</string>
     <string name="move_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
@@ -347,6 +354,7 @@
     <string name="note_could_not_sent">Ne mogu da pošaljem belešku</string>
     <string name="notification_action_failed">Greška prilikom izvršavanja akcije.</string>
     <string name="notification_channel_download_description">Prikaži napredak preuzimanja</string>
+    <string name="notification_channel_download_name_short">Preuzimanja</string>
     <string name="notification_channel_file_sync_description">Prikaži napredak sinhronizacije fajla i rezultate</string>
     <string name="notification_channel_file_sync_name">Sinhronizacija fajla</string>
     <string name="notification_channel_general_description">Prikaži obaveštenja o novim multimedijalnim fasciklama i slično</string>
@@ -356,6 +364,7 @@
     <string name="notification_channel_push_description">Prikazuj brza obaveštenja koja pošalje server: kada ste pomenuti u komentarima, kada dobijete novo udaljeno deljenje, kada administrator postavi neko obaveštenje itd.</string>
     <string name="notification_channel_push_name">Brza obaveštenja</string>
     <string name="notification_channel_upload_description">Prikaži napredak otpremanja</string>
+    <string name="notification_channel_upload_name_short">Otpremanja</string>
     <string name="notification_icon">Ikonica obaveštenja</string>
     <string name="notifications_no_results_headline">Nema obaveštenja</string>
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
@@ -484,9 +493,11 @@
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi lozinku</string>
     <string name="share_password_title">Zaštićeno lozinkom</string>
+    <string name="share_permission_can_edit">Can edit</string>
     <string name="share_remote_clarification">%1$s(udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_send_note">Beleška primaocu</string>
+    <string name="share_settings">Поставке</string>
     <string name="share_via_link_hide_download">Sakrij preuzimanje</string>
     <string name="share_via_link_section_title">Veza deljenja</string>
     <string name="share_via_link_send_link_label">Pošalji vezu</string>
@@ -659,6 +670,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Čekam punjenje</string>
     <string name="user_icon">Korisnik </string>
     <string name="user_info_address">Adresa</string>
+    <string name="user_info_email">email</string>
     <string name="user_info_phone">Broj telefona</string>
     <string name="user_info_twitter">Tviter</string>
     <string name="user_info_website">Sajt</string>

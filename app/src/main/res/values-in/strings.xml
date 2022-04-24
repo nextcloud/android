@@ -234,6 +234,9 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Pekerjaan latar belakang</string>
     <string name="etm_background_jobs_cancel_all">Batalkan semua pekerjaan</string>
+    <string name="etm_transfer_type">Transfer</string>
+    <string name="etm_transfer_type_download">Unduh</string>
+    <string name="etm_transfer_type_upload">Unggah</string>
     <string name="fab_label">Tambahkan atau unggah</string>
     <string name="favorite">Tambah ke favorit</string>
     <string name="favorite_icon">Favorit</string>
@@ -336,6 +339,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Paling besar pertama</string>
     <string name="menu_item_sort_by_size_smallest_first">Paling kecil pertama</string>
+    <string name="more">Lainnya</string>
     <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
@@ -347,7 +351,9 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="new_media_folder_videos">video</string>
     <string name="note_confirm">Kirim</string>
     <string name="note_could_not_sent">Tidak dapat mengirim catatan</string>
+    <string name="notification_channel_download_name_short">Unduhan</string>
     <string name="notification_channel_general_name">Notifikasi umum</string>
+    <string name="notification_channel_upload_name_short">Unggah</string>
     <string name="notification_icon">Ikon Notifikasi</string>
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
     <string name="notifications_no_results_message">Cek ulang nanti.</string>
@@ -436,8 +442,10 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_no_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_no_password_title">Atur kata sandi</string>
     <string name="share_password_title">Sandi dilindungi</string>
+    <string name="share_permission_can_edit">Can edit</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_send_note">Catatan untuk penerima</string>
+    <string name="share_settings">Setelan</string>
     <string name="share_via_link_hide_download">Sembunyikan unduhan</string>
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_send_link_label">Kirim taukan</string>
@@ -565,6 +573,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
+    <string name="user_info_email">Surel</string>
     <string name="user_info_phone">Nomor telepon</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situs web</string>
@@ -575,4 +584,5 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
+    <string name="write_email">Kirim surel</string>
     </resources>
