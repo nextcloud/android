@@ -200,6 +200,7 @@ public class FileMenuFilter {
         boolean synchronizing = anyFileSynchronizing();
         OCCapability capability = componentsGetter.getStorageManager().getCapability(user.getAccountName());
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
+        boolean fileLockingEnabled = capability.getFilesLockingVersion() != null;
 
         filterEdit(toShow, toHide, capability);
         filterDownload(toShow, toHide, synchronizing);
@@ -221,9 +222,9 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toShow, toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toShow, toHide);
         filterStream(toShow, toHide);
-        filterLock(toShow, toHide);
-        filterUnlock(toShow, toHide);
-        filterLockInfo(toShow, toHide);
+        filterLock(toShow, toHide, fileLockingEnabled);
+        filterUnlock(toShow, toHide, fileLockingEnabled);
+        filterLockInfo(toShow, toHide, fileLockingEnabled);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -275,8 +276,8 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterLock(List<Integer> toShow, List<Integer> toHide) {
-        if (files.isEmpty() || !isSingleSelection()) {
+    private void filterLock(List<Integer> toShow, List<Integer> toHide, boolean fileLockingEnabled) {
+        if (files.isEmpty() || !isSingleSelection() || !fileLockingEnabled) {
             toHide.add(R.id.action_lock_file);
         } else {
             OCFile file = files.iterator().next();
@@ -288,8 +289,8 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterUnlock(List<Integer> toShow, List<Integer> toHide) {
-        if (files.isEmpty() || !isSingleSelection()) {
+    private void filterUnlock(List<Integer> toShow, List<Integer> toHide, boolean fileLockingEnabled) {
+        if (files.isEmpty() || !isSingleSelection() || !fileLockingEnabled) {
             toHide.add(R.id.action_unlock_file);
         } else {
             OCFile file = files.iterator().next();
@@ -301,8 +302,8 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterLockInfo(List<Integer> toShow, List<Integer> toHide) {
-        if (files.isEmpty() || !isSingleSelection()) {
+    private void filterLockInfo(List<Integer> toShow, List<Integer> toHide, boolean fileLockingEnabled) {
+        if (files.isEmpty() || !isSingleSelection() || !fileLockingEnabled) {
             toHide.add(R.id.menu_group_lock_info);
         } else {
             OCFile file = files.iterator().next();
