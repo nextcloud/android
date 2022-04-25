@@ -49,6 +49,7 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.S
 import java.util.Calendar
 import java.util.Date
 
+@Suppress("LongParameterList")
 class GalleryAdapter(
     val context: Context,
     user: User,

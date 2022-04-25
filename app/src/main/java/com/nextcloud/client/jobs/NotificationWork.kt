@@ -70,6 +70,7 @@ import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 class NotificationWork constructor(
     private val context: Context,
     params: WorkerParameters,

@@ -46,6 +46,7 @@ import com.owncloud.android.utils.theme.ThemeDrawableUtils
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
  */
+@Suppress("LongParameterList")
 class UnifiedSearchListAdapter(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
