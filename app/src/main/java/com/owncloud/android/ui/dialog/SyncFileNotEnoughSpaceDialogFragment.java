@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
@@ -39,7 +40,7 @@ import androidx.appcompat.app.AlertDialog;
  * Dialog requiring confirmation when a file/folder is too "big" to be synchronized/downloaded on device.
  */
 public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFragment implements
-    ConfirmationDialogFragmentListener {
+    ConfirmationDialogFragmentListener, Injectable {
 
     private static final String ARG_PASSED_FILE = "fragment_parent_caller";
     private static final int REQUEST_CODE_STORAGE = 20;
