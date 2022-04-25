@@ -76,11 +76,9 @@ public final class MediaProvider {
                                                     int itemLimit,
                                                     @Nullable final AppCompatActivity activity,
                                                     boolean getWithoutActivity,
-                                                    ThemeColorUtils themeColorUtils,
-                                                    ThemeSnackbarUtils themeSnackbarUtils,
-                                                    ThemeButtonUtils themeButtonUtils) {
+                                                    ThemeSnackbarUtils themeSnackbarUtils) {
         // check permissions
-        checkPermissions(activity, themeColorUtils, themeSnackbarUtils, themeButtonUtils);
+        checkPermissions(activity, themeSnackbarUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;
@@ -178,9 +176,7 @@ public final class MediaProvider {
     }
 
     private static void checkPermissions(@Nullable AppCompatActivity activity,
-                                         ThemeColorUtils themeColorUtils,
-                                         ThemeSnackbarUtils themeSnackbarUtils,
-                                         ThemeButtonUtils themeButtonUtils) {
+                                         ThemeSnackbarUtils themeSnackbarUtils) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
             PermissionUtil.requestExternalStoragePermission(activity, themeSnackbarUtils, true);
@@ -191,11 +187,9 @@ public final class MediaProvider {
                                                     int itemLimit,
                                                     @Nullable final AppCompatActivity activity,
                                                     boolean getWithoutActivity,
-                                                    ThemeColorUtils themeColorUtils,
-                                                    ThemeSnackbarUtils themeSnackbarUtils,
-                                                    ThemeButtonUtils themeButtonUtils) {
+                                                    ThemeSnackbarUtils themeSnackbarUtils) {
         // check permissions
-        checkPermissions(activity, themeColorUtils, themeSnackbarUtils, themeButtonUtils);
+        checkPermissions(activity, themeSnackbarUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;

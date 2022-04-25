@@ -60,9 +60,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Inject PowerManagementService powerManagementService;
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject Clock clock;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeSnackbarUtils themeSnackbarUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
 
     /**
      * Receives broadcast intent reporting that the system was just boot up. *
@@ -82,9 +80,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        powerManagementService,
                                        backgroundJobManager,
                                        clock,
-                                       themeColorUtils,
-                                       themeSnackbarUtils,
-                                       themeButtonUtils);
+                                       themeSnackbarUtils);
             MainApp.initContactsBackup(accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());

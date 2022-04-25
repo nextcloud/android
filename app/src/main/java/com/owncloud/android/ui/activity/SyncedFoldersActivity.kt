@@ -290,9 +290,7 @@ class SyncedFoldersActivity :
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
                 false,
-                themeColorUtils,
-                themeSnackbarUtils,
-                themeButtonUtils
+                themeSnackbarUtils
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
@@ -300,9 +298,7 @@ class SyncedFoldersActivity :
                     perFolderMediaItemLimit,
                     this@SyncedFoldersActivity,
                     false,
-                    themeColorUtils,
-                    themeSnackbarUtils,
-                    themeButtonUtils
+                    themeSnackbarUtils
                 )
             )
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders

@@ -170,6 +170,7 @@ object PermissionUtil {
                 .setAction(R.string.common_ok) {
                     doRequest()
                 }
+                .also { themeSnackbarUtils.colorSnackbar(activity, it) }
                 .show()
         } else {
             // No explanation needed, request the permission.
