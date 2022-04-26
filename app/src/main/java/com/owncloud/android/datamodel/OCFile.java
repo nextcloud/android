@@ -180,7 +180,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockType = FileLockType.fromValue(source.readInt());
         lockOwnerId = source.readString();
         lockOwnerDisplayName = source.readString();
-        lockOwnerDisplayName = source.readString();
+        lockOwnerEditor = source.readString();
         lockTimestamp = source.readLong();
         lockTimeout = source.readLong();
         lockToken = source.readString();
