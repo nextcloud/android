@@ -71,6 +71,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 public class FileDataStorageManager {
@@ -486,6 +487,7 @@ public class FileDataStorageManager {
      * @see #createContentValuesForFolder(OCFile)
      * @see #createContentValuesBase(OCFile)
      */
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
     private ContentValues createContentValuesForFile(OCFile file) {
         final ContentValues cv = createContentValuesBase(file);
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
@@ -496,7 +498,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
         cv.put(ProviderTableMeta.FILE_HAS_PREVIEW, file.isPreviewAvailable() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_LOCKED, file.isLocked());
-        cv.put(ProviderTableMeta.FILE_LOCK_TYPE, file.getLockType() != null ? file.getLockType().getValue() : -1);
+        final FileLockType lockType = file.getLockType();
+        cv.put(ProviderTableMeta.FILE_LOCK_TYPE, lockType != null ? lockType.getValue() : -1);
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER, file.getLockOwnerId());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME, file.getLockOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR, file.getLockOwnerEditor());
