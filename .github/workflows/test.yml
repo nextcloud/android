@@ -1,0 +1,20 @@
+name: "Test"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+jobs:
+    test:
+        runs-on: macos-latest
+        steps:
+            -   name: Install Docker
+                run: |
+                    brew install hyperkit
+                    brew install minikube
+                    brew install docker
+                    brew install docker-compose
+                    minikube start
+                    eval $(minikube docker-env)
+                    echo "`minikube ip` docker.local" | sudo tee -a /etc/hosts > /dev/null
+                    docker run hello-world
