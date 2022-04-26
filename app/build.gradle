@@ -387,24 +387,6 @@ android.applicationVariants.all { variant ->
     }
 }
 
-tasks.register("combinedTestReport", JacocoReport) {
-
-    jacocoClasspath = configurations['jacocoAnt']
-
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-    }
-
-    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories.setFrom files(subprojects.sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
-        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
-    ])
-}
-
 task installGitHooks(type: Copy, group: "development") {
     description = "Install git hooks"
     from("${project.rootDir}/scripts/hooks") {
