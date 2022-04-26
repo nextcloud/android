@@ -8,9 +8,11 @@ jobs:
     test:
         runs-on: macos-latest
         steps:
-            -   name: Install Docker
+            -   name: Install podman
                 run: |
                     brew install podman
                     podman machine init
                     podman machine start
-                    podman run hello-world
+            -   name: Run Nextcloud server
+                run: |
+                    podman run -d -p 8080:80 ghcr.io/nextcloud/continuous-integration-shallow-server:latest
