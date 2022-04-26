@@ -267,7 +267,9 @@ naming:
     functionPattern: '^([a-z$][a-zA-Z$0-9]*)|(`.*`)$'
     excludeClassPattern: '$^'
     ignoreOverridden: true
-    excludes: "**/*Test.kt"
+    excludes:
+      - "**/*Test.kt"
+      - "**/*IT.kt"
   FunctionParameterNaming:
     active: true
     parameterPattern: '[a-z][A-Za-z0-9]*'
@@ -389,7 +391,9 @@ style:
     ignoreAnnotation: false
     ignoreNamedArgument: true
     ignoreEnums: false
-    excludes: "**/*Test.kt"
+    excludes:
+      - "**/*Test.kt"
+      - "**/*IT.kt"
   MandatoryBracesIfStatements:
     active: false
   MaxLineLength:
