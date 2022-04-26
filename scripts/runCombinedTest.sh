@@ -9,8 +9,7 @@ DRONE_BUILD_NUMBER=$6
 
 scripts/deleteOldComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
 
-./gradlew assembleGplay
-./gradlew assembleGplayDebug
+./gradlew assembleGplayDebugAndroidTest
 
 scripts/wait_for_emulator.sh
 
