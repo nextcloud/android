@@ -113,7 +113,7 @@ public class LoginIT extends AbstractIT {
 
         // click login
         onWebView()
-            .withElement(findElement(Locator.XPATH, "//input[@id='submit-form']"))
+            .withElement(findElement(Locator.XPATH, "//input[@type='submit']"))
             .perform(webClick());
 
         Thread.sleep(2000);
