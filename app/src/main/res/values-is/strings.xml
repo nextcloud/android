@@ -31,6 +31,7 @@
     <string name="add_another_public_share_link">Bæta við öðrum tengli</string>
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
+    <string name="advanced_settings">Ítarlegar stillingar</string>
     <string name="allow_resharing">Leyfa endurdeilingu</string>
     <string name="appbar_search_in">Leita í %s</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
@@ -72,16 +73,20 @@
     <string name="autoupload_disable_power_save_check">Gera orkusparnaðarprófun óvirka</string>
     <string name="autoupload_hide_folder">Fela möppu</string>
     <string name="avatar">Auðkennismynd</string>
+    <string name="away">Fjarverandi</string>
     <string name="battery_optimization_close">Loka</string>
     <string name="battery_optimization_disable">Gera óvirkt</string>
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
+    <string name="calendar">Dagatal</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="checkbox">Gátreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
+    <string name="clear_status_message">Hreinsa stöðuskilaboð</string>
+    <string name="clear_status_message_after">Hreinsa stöðuskilaboð eftir</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_text_copied">Tengill afritaður</string>
@@ -90,11 +95,13 @@
     <string name="common_cancel">Hætta við</string>
     <string name="common_cancel_sync">Hætta við samstillingu</string>
     <string name="common_choose_account">Veldu aðgang</string>
+    <string name="common_confirm">Staðfesta</string>
     <string name="common_delete">Eyða</string>
     <string name="common_error">Villa</string>
     <string name="common_error_out_memory">Ekki nægilegt minni</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_loading">Hleð inn…</string>
+    <string name="common_next">Næsta</string>
     <string name="common_no">Nei</string>
     <string name="common_ok">Í lagi</string>
     <string name="common_pending">Í bið</string>
@@ -103,6 +110,7 @@
     <string name="common_save">Vista</string>
     <string name="common_send">Senda</string>
     <string name="common_share">Deila</string>
+    <string name="common_skip">Sleppa</string>
     <string name="common_switch_account">Skipta um notandaaðgang</string>
     <string name="common_switch_to_account">Skipta í notandaaðgang</string>
     <string name="common_yes">Já</string>
@@ -134,6 +142,7 @@
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
     <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn.</string>
+    <string name="contacts">Tengiliðir</string>
     <string name="contacts_backup_button">Taka öryggisafrit núna</string>
     <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
     <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
@@ -149,6 +158,7 @@
     <string name="copy_to">Afrita í</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
+    <string name="create">Búa til</string>
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
     <string name="create_new">Búa til nýjan</string>
     <string name="create_new_document">Búa til nýtt skjal</string>
@@ -167,10 +177,12 @@
     <string name="dev_version_new_version_available">Ný útgáfa er tiltæk</string>
     <string name="dev_version_no_information_available">Engar upplýsingar tiltækar</string>
     <string name="dev_version_no_new_version_available">Engin ný útgáfa tiltæk.</string>
+    <string name="dialog_close">Loka</string>
     <string name="digest_algorithm_not_available">Þetta reiknirit fyrir gátsummur er ekki tiltækt á símanum þínum.</string>
     <string name="disable_new_media_folder_detection_notifications">Gera óvirkt</string>
     <string name="dismiss">Hafna</string>
     <string name="dismiss_notification_description">Afgreiða tilkynningu</string>
+    <string name="dnd">Ónáðið ekki</string>
     <string name="download_latest_dev_version">Sækja nýjustu þróunarútgáfuna</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, skráðu þig inn aftur</string>
@@ -187,6 +199,7 @@
     <string name="drawer_item_activities">Aðgerðir</string>
     <string name="drawer_item_all_files">Allar skrár</string>
     <string name="drawer_item_favorites">Eftirlæti</string>
+    <string name="drawer_item_gallery">Margmiðlunargögn</string>
     <string name="drawer_item_home">Heim</string>
     <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_item_on_device">Á tækinu</string>
@@ -240,6 +253,11 @@
     <string name="etm_migrations">Yfirfærslur (uppfærsla forrits)</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>
+    <string name="etm_transfer_enqueue_test_download">Setja niðurhalsprófun í biðröð</string>
+    <string name="etm_transfer_remote_path">Fjartengd slóð</string>
+    <string name="etm_transfer_type">Færa</string>
+    <string name="etm_transfer_type_download">Sækja</string>
+    <string name="etm_transfer_type_upload">Senda inn</string>
     <string name="fab_label">Bæta við eða senda inn</string>
     <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
     <string name="failed_to_print">Mistókst að prenta skrá</string>
@@ -321,6 +339,7 @@
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
     <string name="foreign_files_success">Allar skrár voru færðar</string>
     <string name="forward">Áfram</string>
+    <string name="fourHours">4 klukkustundir</string>
     <string name="hint_name">Heiti</string>
     <string name="hint_note">Minnispunktur</string>
     <string name="hint_password">Lykilorð</string>
@@ -336,6 +355,7 @@
     <string name="link_share_allow_upload_and_editing">Leyfa innsendingu og breytingar</string>
     <string name="link_share_file_drop">Slepping skráa (einungis innsending)</string>
     <string name="list_layout">Framsetning sem listi</string>
+    <string name="load_more_results">Hlaða inn fleiri niðurstöðum</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -368,6 +388,7 @@
     <string name="menu_item_sort_by_name_z_a">Ö-A</string>
     <string name="menu_item_sort_by_size_biggest_first">stærsta fyrst</string>
     <string name="menu_item_sort_by_size_smallest_first">minnsta fyrst</string>
+    <string name="more">Meira</string>
     <string name="move_file_error">Villa kom upp við að reyna að færa þessa skrá eða möppu</string>
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
@@ -391,6 +412,7 @@
     <string name="note_icon_hint">Táknmynd fyrir athugasemd</string>
     <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
+    <string name="notification_channel_download_name_short">Sótt gögn</string>
     <string name="notification_channel_file_sync_description">Sýnir framvindu og niðurstöður samstillingar skráa</string>
     <string name="notification_channel_file_sync_name">Skráasamstilling</string>
     <string name="notification_channel_general_description">Birta tilkynningar fyrir nýjar gagnamöppur og þvíumlíkt</string>
@@ -400,11 +422,14 @@
     <string name="notification_channel_push_description">Birta tilkynningar sem ýtt er út frá þjóninum: Ummæli (mentions) í athugasemdum, móttaka nýrra sameigna, tilkynningar sendar inn af stjórnendum, o.fl.</string>
     <string name="notification_channel_push_name">Ýti-tilkynningar</string>
     <string name="notification_channel_upload_description">Sýnir framvindu innsendingar</string>
+    <string name="notification_channel_upload_name_short">Innsendingar</string>
     <string name="notification_icon">Tilkynningatákn</string>
     <string name="notifications_no_results_headline">Engar tilkynningar</string>
     <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
     <string name="offline_mode">Engin internettenging</string>
     <string name="oneHour">1 klukkustund</string>
+    <string name="online">Á netinu</string>
+    <string name="online_status">Staða á netinu</string>
     <string name="outdated_server">Netþjónninn er kominn að endimörkum líftíma síns, endilega uppfærðu hann!</string>
     <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
@@ -520,6 +545,8 @@
     <string name="sendbutton_description">Táknmynd á sendihnappi</string>
     <string name="set_as">Setja sem</string>
     <string name="set_picture_as">Nota mynd sem</string>
+    <string name="set_status">Setja stöðu</string>
+    <string name="set_status_message">Setja stöðuskilaboð</string>
     <string name="share">Deila</string>
     <string name="share_dialog_title">Deiling</string>
     <string name="share_expiration_date_label">Rennur út %1$s</string>
@@ -538,9 +565,11 @@
     <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_no_password_title">Skrá lykilorð</string>
     <string name="share_password_title">Verja með lykilorði</string>
+    <string name="share_permission_can_edit">Getur breytt</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_send_note">Minnispunktur til viðtakanda</string>
+    <string name="share_settings">Stillingar</string>
     <string name="share_via_link_hide_download">Fela niðurhal</string>
     <string name="share_via_link_section_title">Deila tengli</string>
     <string name="share_via_link_send_link_label">Senda tengil...</string>
@@ -731,6 +760,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir hleðslu</string>
     <string name="user_icon">Notandi</string>
     <string name="user_info_address">Vistfang</string>
+    <string name="user_info_email">Tölvupóstur</string>
     <string name="user_info_phone">Símanúmer</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>
@@ -745,6 +775,8 @@
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">(Nýtt í %s)</string>
+    <string name="whats_your_status">Hver er staðan á þér?</string>
+    <string name="write_email">Senda tölvupóst</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ekki var hægt að samstilla %1$d skrá (árekstrar: %2$d)</item>
         <item quantity="other">Ekki var hægt að samstilla %1$d skrár (árekstrar: %2$d)</item>

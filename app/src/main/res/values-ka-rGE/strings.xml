@@ -56,6 +56,7 @@
     <string name="avatar">ავატარი</string>
     <string name="battery_optimization_close">დახურვა</string>
     <string name="battery_optimization_disable">გამორთვა</string>
+    <string name="calendar">კალენდარი</string>
     <string name="certificate_load_problem">სერტიპიკატის ჩატვირთვასთან პრობლემაა.</string>
     <string name="checkbox">ჩექბოქსი</string>
     <string name="clipboard_label">ტექსტი %1$s-იდან დაკოპირდა</string>
@@ -65,11 +66,13 @@
     <string name="common_cancel">გაუქმება</string>
     <string name="common_cancel_sync">სინქრონიზაციის შეჩერება</string>
     <string name="common_choose_account">აირჩიეთ ანგარიში</string>
+    <string name="common_confirm">დადასტურება</string>
     <string name="common_delete">გაუქმება</string>
     <string name="common_error">შეცდომა</string>
     <string name="common_error_out_memory">არასაკმარისი მეხსიერება</string>
     <string name="common_error_unknown">უცნობი შეცდომა</string>
     <string name="common_loading">იტვირთება…</string>
+    <string name="common_next">შემდეგი</string>
     <string name="common_no">არა</string>
     <string name="common_ok">კარგი</string>
     <string name="common_pending">მოლოდინშია</string>
@@ -78,6 +81,7 @@
     <string name="common_save">შენახვა</string>
     <string name="common_send">გაგზავნა</string>
     <string name="common_share">გაზიარება</string>
+    <string name="common_skip">გამოტოვება</string>
     <string name="common_yes">კი</string>
     <string name="community_beta_headline">დევ. ვერსიის შემოწმება</string>
     <string name="community_beta_text">იმყოფება სისხლდენის ზღვარზე და მოიცავს ყველა დამდეგ ფუნქციას. შეიძლება გამოჩნდეს შეცდომები, ასეთი შემთხვევისას გთხოვთ გვამცნობოთ რეპორტით.</string>
@@ -103,6 +107,7 @@
     <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
     <string name="contactlist_item_icon">მომხმარებლის პიქტოგრამა კონტაქტების სიისთვის</string>
     <string name="contactlist_no_permission">უფლებები არაა მოცემული, არაფერი არ იქნა იმპორტირებული.</string>
+    <string name="contacts">კონტაქტები</string>
     <string name="contacts_backup_button">ახალი ბექაფი</string>
     <string name="contacts_preferences_backup_scheduled">ბექაფი დაინიშნა და მალე დაიწყება</string>
     <string name="contacts_preferences_import_scheduled">იმპორტი დაინიშნა და მალე დაიწყება</string>
@@ -114,6 +119,7 @@
     <string name="copy_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
     <string name="copy_link">ბმულის კოპირება</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
+    <string name="create">შექმნა</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
     <string name="date_unknown">ამოუცნობი</string>
     <string name="delete_account">ანგარიშის გაუქმება</string>
@@ -121,6 +127,7 @@
     <string name="deselect_all">ყველას წაშლა</string>
     <string name="dev_version_new_version_available">ხელმისაწვდომია ახალი ვერსია</string>
     <string name="dev_version_no_new_version_available">ახალი ვერსია არაა ხელმისაწვდომი.</string>
+    <string name="dialog_close">დახურვა</string>
     <string name="digest_algorithm_not_available">თქვენს ტელეფონს ამ ალგორითმის დაიჯესტის მხარდაჭერა არ აქვს. </string>
     <string name="disable_new_media_folder_detection_notifications">გამორთვა</string>
     <string name="dismiss">დათხოვნა</string>
@@ -160,7 +167,10 @@
     <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
     <string name="etm_accounts">ანგარიშები</string>
+    <string name="etm_background_job_user">მომხმარებელი</string>
     <string name="etm_background_jobs">ფონური საქმეები</string>
+    <string name="etm_transfer_type_download">ჩამოტვირთვა</string>
+    <string name="etm_transfer_type_upload">ატვირთვა</string>
     <string name="favorite">რჩეულებში დამატება</string>
     <string name="favorite_icon">რჩეული</string>
     <string name="file_delete">წაშლა</string>
@@ -216,6 +226,7 @@
     <string name="foreign_files_remote_text">დისტანციური: %1$s</string>
     <string name="foreign_files_success">ყველა ფაილი გადატანილია</string>
     <string name="forward">წინ</string>
+    <string name="fourHours">4 საათი</string>
     <string name="hint_name">სახელი</string>
     <string name="hint_password">პაროლი</string>
     <string name="instant_upload_on_charging">ატვირთვა მხოლოდ დატენვისას</string>
@@ -252,6 +263,7 @@
     <string name="menu_item_sort_by_name_z_a">ჰ - ა</string>
     <string name="menu_item_sort_by_size_biggest_first">ჯერ დიდი</string>
     <string name="menu_item_sort_by_size_smallest_first">ჯერ პატარა</string>
+    <string name="more">მეტი</string>
     <string name="move_file_error">ამ ფაილისა თუ დირექტორიის გადატანისას წარმოიშვა შეცდომა</string>
     <string name="move_file_invalid_into_descendent">დირექტორიის გადატანა მასში არსებულ დირექტორიაში შეუძლებელია</string>
     <string name="move_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
@@ -259,11 +271,13 @@
     <string name="new_media_folder_photos">ფოტო</string>
     <string name="note_confirm">გაგზავნა</string>
     <string name="notification_channel_download_description">აჩვენებს გადმოწერის პროგრესს</string>
+    <string name="notification_channel_download_name_short">ჩამოტვირთვები</string>
     <string name="notification_channel_file_sync_description">აჩვენებს ფაილების სინქ. პროგრესს და შედეგებს</string>
     <string name="notification_channel_file_sync_name">ფაილების სინქ.</string>
     <string name="notification_channel_media_description">მუსიკის დამკვრელის პროგრესი</string>
     <string name="notification_channel_media_name">მედია დამკვრელი</string>
     <string name="notification_channel_upload_description">აჩვენებს ატვირთვის პროგრესს</string>
+    <string name="notification_channel_upload_name_short">ატვირთვები</string>
     <string name="notifications_no_results_headline">შეტყობინებები არაა</string>
     <string name="notifications_no_results_message">გთხოვთ დაბრუნდეთ მოგვინაებით.</string>
     <string name="oneHour">1 საათი</string>
@@ -344,7 +358,9 @@
     <string name="share_link_password_title">შეიყვანეთ პაროლი</string>
     <string name="share_no_expiration_date_label">მიუთითეთ ვადის გასვლის დრო</string>
     <string name="share_no_password_title">პაროლის დაყენება</string>
+    <string name="share_permission_can_edit">შეუძლია შეცვალოს</string>
     <string name="share_remote_clarification">%1$s (დისტანციური)</string>
+    <string name="share_settings">პარამეტრები</string>
     <string name="share_via_link_section_title">ბმულის გაზიარება</string>
     <string name="shared_icon_shared">გაზიარებული</string>
     <string name="sort_by">დაასორტირე</string>
@@ -471,6 +487,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">გადახდის მოლოდინშია</string>
     <string name="user_icon">მომხმარებელი</string>
     <string name="user_info_address">მისამართი</string>
+    <string name="user_info_email">ელ-ფოსტა</string>
     <string name="user_info_phone">ტელეფონის ნომერი</string>
     <string name="user_info_twitter">Twitter-ი</string>
     <string name="user_info_website">ვებ-საიტი</string>
@@ -484,4 +501,5 @@
     <string name="what_s_new_image">რა არის ახალი სურათი</string>
     <string name="whats_new_skip">გამოტოვება</string>
     <string name="whats_new_title">ახალი %1$s-ში</string>
+    <string name="write_email">ელ-წერილის გაგზავნა</string>
     </resources>

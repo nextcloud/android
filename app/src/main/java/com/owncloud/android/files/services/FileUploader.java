@@ -602,7 +602,7 @@ public class FileUploader extends Service
             if (!accountManager.exists(mCurrentUpload.getAccount())) {
                 Log_OC.w(TAG, "Account " + mCurrentUpload.getAccount().name +
                     " does not exist anymore -> cancelling all its uploads");
-                cancelUploadsForAccount(mCurrentUpload.getAccount());
+                cancelPendingUploads(mCurrentUpload.getUser().getAccountName());
                 return;
             }
 
@@ -917,15 +917,14 @@ public class FileUploader extends Service
     }
 
     /**
-     * Remove and 'forgets' pending uploads of an account.
+     * Remove and 'forgets' pending uploads of a user.
      *
-     * @param account Account which uploads will be cancelled
+     * @param accountName User which uploads will be cancelled
      */
-    private void cancelUploadsForAccount(Account account) {
-        mPendingUploads.remove(account.name);
-        mUploadsStorageManager.removeUploads(account.name);
+    private void cancelPendingUploads(String accountName) {
+        mPendingUploads.remove(accountName);
+        mUploadsStorageManager.removeUploads(accountName);
     }
-
 
     /**
      * Upload a new file
@@ -1187,22 +1186,21 @@ public class FileUploader extends Service
         }
 
         /**
-         * Cancels all the uploads for an account.
+         * Cancels all the uploads for a user, both running and pending.
          *
-         * @param account ownCloud account.
+         * @param user Nextcloud user
          */
-        public void cancel(Account account) {
-            Log_OC.d(TAG, "Account= " + account.name);
-
-            if (mCurrentUpload != null) {
-                Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
-                if (mCurrentUpload.getAccount().name.equals(account.name)) {
-                    mCurrentUpload.cancel(ResultCode.CANCELLED);
-                }
+        public void cancel(User user) {
+            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(user)) {
+                mCurrentUpload.cancel(ResultCode.CANCELLED);
             }
+            cancelPendingUploads(user.getAccountName());
+        }
 
-            // Cancel pending uploads
-            cancelUploadsForAccount(account);
+        public void cancel(String accountName) {
+            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(accountName)) {
+                mCurrentUpload.cancel(ResultCode.CANCELLED);
+            }
         }
 
         public void clearListeners() {

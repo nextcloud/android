@@ -1,7 +1,7 @@
 buildscript {
     ext {
         jacoco_version = '0.8.8'
-        kotlin_version = '1.6.20'
+        kotlin_version = '1.6.21'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.41"
         markwonVersion = "4.6.2"
@@ -11,7 +11,7 @@ buildscript {
         mockitoKotlinVersion = "4.0.0"
         mockkVersion = "1.12.3"
         powermockVersion = "2.0.9"
-        byteBuddyVersion = "1.12.8"
+        byteBuddyVersion = "1.12.9"
         espressoVersion = "3.4.0"
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0"

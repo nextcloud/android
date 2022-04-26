@@ -96,11 +96,13 @@
     <string name="common_cancel">ຍົກເລີກ</string>
     <string name="common_cancel_sync">ຍົກເລີກ</string>
     <string name="common_choose_account">ເລືອກບັນຊີ</string>
+    <string name="common_confirm">ຢືນຢັນ</string>
     <string name="common_delete">ລຶບ</string>
     <string name="common_error">ຜິດພາດ</string>
     <string name="common_error_out_memory">ຄວາມຈຳບໍ່ພໍ</string>
     <string name="common_error_unknown">ຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ</string>
     <string name="common_loading">ກຳລັງໂຫຼດ...</string>
+    <string name="common_next">ທັດໄປ</string>
     <string name="common_no">ບໍ່</string>
     <string name="common_ok">ຕົກລົງ</string>
     <string name="common_pending">ທີ່ກໍາລັງລໍຖ້າ</string>
@@ -142,6 +144,7 @@
     <string name="conflict_message_description">ຖ້າທ່ານເລືອກເອົາທັງສອງເວີຊັ້ນ, ບ່ອນເກັບຟາຍຈະມີຈໍານວນສະສົມ</string>
     <string name="contactlist_item_icon">ລາຍການໄອຄອນຜູ້ຕິດຕໍ່</string>
     <string name="contactlist_no_permission">ບໍ່ໄດ້ຮັບອະນຸຍາດ, ບໍ່ມີຫຍັງນໍາເຂົ້າ.</string>
+    <string name="contacts">ຕິດຕໍ່</string>
     <string name="contacts_backup_button">ສໍາຮອງຂໍ້ມຸນດຽວນີ້</string>
     <string name="contacts_preferences_backup_scheduled">ການສໍາຮອງທີ່ກໍານົດໄວ້ ແລະ ຈະເລີ່ມຕົ້ນໃນໄວໆນີ້</string>
     <string name="contacts_preferences_import_scheduled">ການນໍາເຂົ້າທີ່ໄດ້ກໍານົດໄວ້ ແລະ ຈະເລີ່ມໃນໄວໆນີ້</string>
@@ -255,6 +258,10 @@
     <string name="etm_migrations">ການໂອນຍ້າຍ (ການຍົກລະດັບເເອັບ)</string>
     <string name="etm_preferences">ການເລືອກ</string>
     <string name="etm_title">ການທົດສອບວິສະວະກໍາ</string>
+    <string name="etm_transfer_enqueue_test_download">ການທົດສອບດາວໂຫຼດ Enqueue</string>
+    <string name="etm_transfer_remote_path">ເສັ້ນທາງໄລຍະໄກ</string>
+    <string name="etm_transfer_type_download">ດາວໂຫລດ</string>
+    <string name="etm_transfer_type_upload">ອັບໂຫຼດ</string>
     <string name="fab_label">ເພີ່ມ ຫຼື ອັບໂຫຼດ</string>
     <string name="failed_to_download">ບໍ່ສາມາດຜ່ານຟາຍ ເພື່ອຈັດການດາວໂຫລດ</string>
     <string name="failed_to_print">ພິມຟາຍບໍ່ສຳເລັດ</string>
@@ -356,6 +363,7 @@
     <string name="link_share_allow_upload_and_editing">ອະນຸຍາດໃຫ້ ອັບ ໂຫຼດ ແລະ  ແກ້ ໄຂໄດ້</string>
     <string name="link_share_file_drop">ການຖິ້ືມຟາຍ (ອັງໂຫຼດຢ່າງດຽວ)</string>
     <string name="list_layout">ລາຍຊື່</string>
+    <string name="load_more_results">ຜົນLoad ເພີ່ມເຕີມ</string>
     <string name="local_file_list_empty">ບໍ່ມີຟາຍໃນໂຟນເດີນີ້.</string>
     <string name="local_file_not_found_message">ຟາຍບໍ່ພົບໃນລະບົບຊ່ອງເກັບຂໍ້ມຸນ</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -389,6 +397,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">ໃຫຍ່ທີ່ສຸດ</string>
     <string name="menu_item_sort_by_size_smallest_first">ນ້ອຍທີ່ສຸດ</string>
+    <string name="more">ເພີ່ມເຕີມ</string>
     <string name="move_file_error">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ພະຍາຍາມຍ້າຍຟາຍ ຫຼື ໂຟນເດີນີ້</string>
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>
@@ -412,6 +421,7 @@
     <string name="note_icon_hint">ໄອຄອນ</string>
     <string name="notification_action_failed">ບໍ່ສາມາດດໍາເນີນການໄດ້.</string>
     <string name="notification_channel_download_description">ສະແດງຄວາມຄືບຫນ້າຂອງດາວໂຫລດ</string>
+    <string name="notification_channel_download_name_short">ດາວໂຫລດ</string>
     <string name="notification_channel_file_sync_description">ສະແດງຄວາມຄືບໜ້າ ແລະ ຜົນຮັບຂອງການ sync ຟາຍ</string>
     <string name="notification_channel_file_sync_name">sync ຟາຍ</string>
     <string name="notification_channel_general_description">ສະແດງການແຈ້ງເຕືອນສໍາລັບໂຟນເດີສື່ມວນຊົນໃຫມ່ ແລະ ຄ້າຍຄືກັນ</string>
@@ -421,6 +431,7 @@
     <string name="notification_channel_push_description">ສະແດງການແຈ້ງເຕືອນໂດຍເຊີເວີ: ຄໍາເຫັນ, ການນແບ່ງປັນໄລຍະໄກສອກ, ການປະກາດໂດຍ admin ແລະ ອື່ນໆ.</string>
     <string name="notification_channel_push_name">ການແຈ້ງເຕືອນ</string>
     <string name="notification_channel_upload_description">ສະແດງຄວາມຄືບຫນ້າໃນການອັບໂຫຼດ</string>
+    <string name="notification_channel_upload_name_short">ອັບໂຫຼດ</string>
     <string name="notification_icon">icon ການແຈ້ງເຕືອນ</string>
     <string name="notifications_no_results_headline">ບໍ່ມີການແຈ້ງເຕືອນ</string>
     <string name="notifications_no_results_message">ກະລຸນາກວດກາຄືນໃນເວລາຕໍ່ມາ.</string>
@@ -572,10 +583,12 @@
     <string name="share_no_expiration_date_label">ກໍານົດວັນໝົດອາຍຸ</string>
     <string name="share_no_password_title">ກຳນົດລະຫັດຜ່ານ</string>
     <string name="share_password_title">ລະຫັດປ້ອງກັນ</string>
+    <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>
     <string name="share_room_clarification"> %1$s(ສົນທະນາ)</string>
     <string name="share_search">ຊື່, IDCloud  ຫຼື ທີ່ຢູ່ອີເມວ ...</string>
     <string name="share_send_note">ລະບຸຜູ້ຮັບ</string>
+    <string name="share_settings">ການຕັ້ງຄ່າ</string>
     <string name="share_via_link_hide_download">ເຊື່ອງການດາວໂຫຼດ</string>
     <string name="share_via_link_section_title">ແບ່ງປັນລິງ</string>
     <string name="share_via_link_send_link_label">ສົ່ງລິງ</string>
@@ -767,6 +780,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">ການລໍຖ້າ Wi-Fi ທີ່ບໍ່ມີ metered</string>
     <string name="user_icon">ຜູ້ໃຊ້</string>
     <string name="user_info_address">ທີ່ຢູ່</string>
+    <string name="user_info_email">ອິເມວ</string>
     <string name="user_info_phone">ເບີໂທລະສັບ</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ເວັບໄຊ</string>

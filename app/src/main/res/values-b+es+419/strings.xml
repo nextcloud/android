@@ -63,6 +63,7 @@
     <string name="avatar">Avatar</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Deshabilitar</string>
+    <string name="calendar">Calendario</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
@@ -72,11 +73,13 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_cancel_sync">Cancelar sincronización</string>
     <string name="common_choose_account">Selecciona una cuenta</string>
+    <string name="common_confirm">Confirmar</string>
     <string name="common_delete">Borrar</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memoria insuficiente</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_loading">Cargando...</string>
+    <string name="common_next">Siguiente</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Pendiente</string>
@@ -85,6 +88,7 @@
     <string name="common_save">Guardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
+    <string name="common_skip">Omitir</string>
     <string name="common_yes">Sí</string>
     <string name="community_beta_headline">Probar la versión de desarrollo</string>
     <string name="community_beta_text">Esto incluye todas las últimas funcionalidades y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, por favor repórtanoslo.</string>
@@ -109,6 +113,7 @@
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="contactlist_no_permission">No se han otorgado privilegios, nada fue importado.</string>
+    <string name="contacts">Contactos</string>
     <string name="contacts_backup_button">Respaldar ahora</string>
     <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
     <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
@@ -119,12 +124,14 @@
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
     <string name="copy_link">Copiar liga</string>
+    <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="date_unknown">Desconocido</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="deselect_all">Deseleccionar todo</string>
     <string name="dev_version_no_new_version_available">No hay una nueva versión disponible.</string>
+    <string name="dialog_close">Cerrar</string>
     <string name="digest_algorithm_not_available">Este algoritmo de verificación no está disponible en tu teléfono</string>
     <string name="disable_new_media_folder_detection_notifications">Deshabilitar</string>
     <string name="dismiss">Descartar</string>
@@ -153,7 +160,10 @@
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Error crítico: No se pueden realizar operaciones</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_job_user">Ususario</string>
     <string name="etm_background_jobs">Trabajos en segundo plano</string>
+    <string name="etm_transfer_type_download">Descargar</string>
+    <string name="etm_transfer_type_upload">Cargar</string>
     <string name="favorite">Agregar a tus favoritos</string>
     <string name="favorite_icon">Hacer favorito</string>
     <string name="file_delete">Borrar</string>
@@ -230,11 +240,14 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Más grande primero</string>
     <string name="menu_item_sort_by_size_smallest_first">Más pequeño primero</string>
+    <string name="more">Más</string>
     <string name="move_file_error">Se presentó un error al intentar mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No es posible mover una carpeta dentro de una de sus sub carpetas</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="note_confirm">Enviar</string>
+    <string name="notification_channel_download_name_short">Descargas</string>
+    <string name="notification_channel_upload_name_short">Cargas</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor verifica más tarde. </string>
     <string name="oneHour">1 hora</string>
@@ -311,7 +324,9 @@
     <string name="share_link_password_title">Ingresa una contraseña</string>
     <string name="share_no_expiration_date_label">Establecer fecha de expiración</string>
     <string name="share_no_password_title">Establecer contraseña</string>
+    <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
+    <string name="share_settings">Ajustes</string>
     <string name="share_via_link_section_title">Compartir liga</string>
     <string name="sort_by">Ordenar por</string>
     <string name="sort_by_modification_date_ascending">Más reciente primero</string>
@@ -430,6 +445,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
     <string name="user_icon">Ususario</string>
     <string name="user_info_address">Dirección</string>
+    <string name="user_info_email">Correo electrónico</string>
     <string name="user_info_phone">Número telefónico</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sitio web</string>
@@ -440,4 +456,5 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
     <string name="whats_new_skip">Saltar</string>
+    <string name="write_email">Enviar correo electrónico</string>
     </resources>

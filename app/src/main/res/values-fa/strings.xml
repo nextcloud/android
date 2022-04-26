@@ -79,6 +79,7 @@
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
     <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
+    <string name="calendar">تقویم</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
     <string name="changelog_dev_version">تغییرات نسخه در حال توسعه</string>
     <string name="checkbox">جعبه علامت</string>
@@ -97,11 +98,13 @@
     <string name="common_cancel">منصرف شدن</string>
     <string name="common_cancel_sync">لغو همگام سازی</string>
     <string name="common_choose_account">حساب کاربری را انتخاب کنید</string>
+    <string name="common_confirm">تائید</string>
     <string name="common_delete">حذف</string>
     <string name="common_error">خطا</string>
     <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>
     <string name="common_error_unknown">خطای نامشخص</string>
     <string name="common_loading">بار کردن…</string>
+    <string name="common_next">بعدی</string>
     <string name="common_no">نه</string>
     <string name="common_ok">تایید</string>
     <string name="common_pending">در انتظار</string>
@@ -143,6 +146,7 @@
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
     <string name="contactlist_no_permission">هیچ مجوزی داده نشده ، هیچ چیز وارد نشده است.</string>
+    <string name="contacts">مخاطبین</string>
     <string name="contacts_backup_button">همین حالا نسخه پشتیبان تهیه کن</string>
     <string name="contacts_preferences_backup_scheduled">تهیه نسخه پشتیبان زمان بندی شده و به زودی شروع می شود</string>
     <string name="contacts_preferences_import_scheduled">زمانبدی ها وارد شده و به زودی آغاز می شود</string>
@@ -425,6 +429,7 @@
     <string name="note_icon_hint">آیکون یادداشت</string>
     <string name="notification_action_failed">اقدام انجام نشد.</string>
     <string name="notification_channel_download_description">پیشرفت دانلود را نشان می دهد</string>
+    <string name="notification_channel_download_name_short">بارگیری ها</string>
     <string name="notification_channel_file_sync_description">پیشرفت و نتایج همگام‌سازی پرونده را نشان می دهد</string>
     <string name="notification_channel_file_sync_name">همگام‌سازی فایل</string>
     <string name="notification_channel_general_description">اعلان ها را برای پوشه های رسانه جدید و موارد مشابه نشان دهید</string>
@@ -434,6 +439,7 @@
     <string name="notification_channel_push_description">نمایش اعلانهای ارسال شده توسط سرور: موارد ذکر شده در نظرات ، دریافت اشتراک از راه دور ، اطلاعیه های ارسال شده توسط ادمین و غیره</string>
     <string name="notification_channel_push_name">ارسال اعلانات</string>
     <string name="notification_channel_upload_description">پیشرفت آپلود را نشان می دهد</string>
+    <string name="notification_channel_upload_name_short">آپلودها</string>
     <string name="notification_icon">نماد اعلان</string>
     <string name="notifications_no_results_headline">بدون اعلان</string>
     <string name="notifications_no_results_message">لطفا بعداً دوباره بررسی کنید</string>
@@ -586,10 +592,12 @@
     <string name="share_no_expiration_date_label">تنظیم تاریخ انقضا</string>
     <string name="share_no_password_title">تنظیم رمز عبور</string>
     <string name="share_password_title">رمز عبور  محافظت شده</string>
+    <string name="share_permission_can_edit">می‌تواند ویرایش کند</string>
     <string name="share_remote_clarification">%1$s (از راه دور)</string>
     <string name="share_room_clarification">%1$s (گفتگو)</string>
     <string name="share_search">نام، Federated cloud ID یا ایمیل</string>
     <string name="share_send_note">یادداشت به گیرنده</string>
+    <string name="share_settings">تنظیمات</string>
     <string name="share_via_link_hide_download">پنهان کردن دریافت</string>
     <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
     <string name="share_via_link_send_link_label">ارسال پیوند</string>
@@ -800,6 +808,7 @@
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>
     <string name="whats_your_status">وضعیت شما چیست؟</string>
+    <string name="write_email">ارسال ایمیل</string>
     <string name="wrong_storage_path">مسیر ذخیره سازی وجود ندارد!</string>
     <string name="wrong_storage_path_desc">این ممکن است به دلیل بازیابی نسخه پشتیبان در دستگاه دیگری باشد. بازگشتن به حالت پیش‌فرض. لطفا برای تنظیم مسیر ذخیره‌سازی تنظیمات را بررسی کنید.</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -330,23 +330,23 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
             // after remove account
-            Account account = new Account(accountName, MainApp.getAccountType(this));
-            if (!accountManager.exists(account)) {
+            Optional<User> user = accountManager.getUser(accountName);
+            if (!user.isPresent()) {
                 // Cancel transfers of the removed account
                 if (mUploaderBinder != null) {
-                    mUploaderBinder.cancel(account);
+                    mUploaderBinder.cancel(accountName);
                 }
                 if (mDownloaderBinder != null) {
-                    mDownloaderBinder.cancel(account);
+                    mDownloaderBinder.cancel(accountName);
                 }
             }
 
-            User user = getUserAccountManager().getUser();
-            if (user.isAnonymous()) {
+            User currentUser = getUserAccountManager().getUser();
+            if (currentUser.isAnonymous()) {
                 String accountName = "";
-                Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType(this));
-                if (accounts.length != 0) {
-                    accountName = accounts[0].name;
+                List<User> users = accountManager.getAllUsers();
+                if (users.size() > 0) {
+                    accountName = users.get(0).getAccountName();
                 }
                 accountManager.setCurrentOwnCloudAccount(accountName);
             }
@@ -426,10 +426,10 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         // Cancel transfers
         if (mUploaderBinder != null) {
-            mUploaderBinder.cancel(user.toPlatformAccount());
+            mUploaderBinder.cancel(user);
         }
         if (mDownloaderBinder != null) {
-            mDownloaderBinder.cancel(user.toPlatformAccount());
+            mDownloaderBinder.cancel(user.getAccountName());
         }
 
         backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
