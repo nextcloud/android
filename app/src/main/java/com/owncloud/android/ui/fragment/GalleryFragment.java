@@ -27,16 +27,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -46,7 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A Fragment that lists all files and folders in a given path
  */
-public class GalleryFragment extends OCFileListFragment {
+public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
@@ -56,10 +58,26 @@ public class GalleryFragment extends OCFileListFragment {
     private int limit = 300;
     private GalleryAdapter mAdapter;
 
+    private static final int SELECT_LOCATION_REQUEST_CODE = 212;
+    private OCFile remoteFilePath;
+    private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
+
+    @Inject AppPreferences appPreferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         searchFragment = true;
+
+        setHasOptionsMenu(true);
+
+        if (galleryFragmentBottomSheetDialog == null) {
+            FileActivity activity = (FileActivity) getActivity();
+
+            galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
+                                                                                    this,
+                                                                                    appPreferences);
+        }
     }
 
     @Override
@@ -159,7 +177,7 @@ public class GalleryFragment extends OCFileListFragment {
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems();
+        showAllGalleryItems();
 
         setFabVisible(false);
 
@@ -186,6 +204,7 @@ public class GalleryFragment extends OCFileListFragment {
 
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
+        mAdapter.notifyDataSetChanged();
 
         if (mAdapter.isEmpty()) {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -214,6 +233,76 @@ public class GalleryFragment extends OCFileListFragment {
 
         startDate = endDate - (daySpan * 24 * 60 * 60);
 
+        runGallerySearchTask();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        remotePath = setDefaultRemotePath();
+    }
+
+    private String setDefaultRemotePath() {
+        if (remoteFilePath == null) {
+            setRemoteFilePath(remotePath);
+        }
+        return remotePath;
+    }
+
+    private void setRemoteFilePath(String remotePath) {
+        remoteFilePath = new OCFile(remotePath);
+        remoteFilePath.setFolder();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
+
+        if (menuItem != null) {
+            ThemeMenuUtils.tintMenuIcon(requireContext(), menuItem,
+                                        ThemeColorUtils.appBarPrimaryFontColor(requireContext()));
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        if (item.getItemId() == R.id.action_three_dot_icon) {
+            if (!photoSearchQueryRunning) {
+                galleryFragmentBottomSheetDialog.show();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE) {
+            if (data != null) {
+                OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+                if (chosenFolder != null) {
+                    remoteFilePath = chosenFolder;
+                    searchAndDisplayAfterChangingFolder();
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void searchAndDisplayAfterChangingFolder() {
+        mAdapter.resetAdapter();
+        mediaObject.clear();
+        runGallerySearchTask();
+    }
+
+    private void runGallerySearchTask() {
         photoSearchTask = new GallerySearchTask(this,
                                                 accountManager.getUser(),
                                                 mContainerActivity.getStorageManager(),
@@ -252,19 +341,51 @@ public class GalleryFragment extends OCFileListFragment {
                     startDate = endDate - (daySpan * 24 * 60 * 60);
 
                     photoSearchQueryRunning = true;
-                    photoSearchTask = new GallerySearchTask(this,
-                                                            accountManager.getUser(),
-                                                            mContainerActivity.getStorageManager(),
-                                                            startDate,
-                                                            endDate,
-                                                            limit)
-                        .execute();
+                    runGallerySearchTask();
                 }
             }
         }
     }
 
+
+    //Actions implementation of Bottom Sheet Dialog
+    @Override
+    public void hideVideos(boolean isHideVideosClicked) {
+
+        if (!mediaObject.isEmpty()) {
+            mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                 preferences.getHideVideoClicked(),
+                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 this);
+
+        } else {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        }
+    }
+
+    @Override
+    public void hideImages(boolean isHideImagesClicked) {
+        if (!mediaObject.isEmpty()) {
+            mAdapter.setAdapterWithHideShowImage(mediaObject,
+                                                 preferences.getHideVideoClicked(),
+                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 this);
+
+        } else {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        }
+    }
+
+    @Override
+    public void selectMediaFolder() {
+        Intent action = new Intent(requireActivity(), FolderPickerActivity.class);
+        action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
+        startActivityForResult(action, SELECT_LOCATION_REQUEST_CODE);
+    }
+
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems();
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFilePath.getRemotePath(),
+                                     mediaObject, preferences.getHideVideoClicked(), preferences.getHideImageClicked(),
+                                     imageList, videoList, this);
     }
 }
