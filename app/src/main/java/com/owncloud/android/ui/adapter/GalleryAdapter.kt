@@ -3,10 +3,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
- * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -48,24 +46,19 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
 import java.util.Calendar
 import java.util.Date
 
-@Suppress("LongParameterList")
 class GalleryAdapter(
     val context: Context,
     user: User,
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
-    transferServiceGetter: ComponentsGetter,
-    themeColorUtils: ThemeColorUtils,
-    themeDrawableUtils: ThemeDrawableUtils
+    transferServiceGetter: ComponentsGetter
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, SectionedAdapter {
     private var files: List<GalleryItems> = mutableListOf()
-    private val ocFileListDelegate: OCFileListDelegate
+    private var ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
     init {
@@ -81,9 +74,7 @@ class GalleryAdapter(
             true,
             transferServiceGetter,
             showMetadata = false,
-            showShareAvatar = false,
-            themeColorUtils,
-            themeDrawableUtils
+            showShareAvatar = false
         )
     }
 
@@ -162,7 +153,7 @@ class GalleryAdapter(
         mediaObject: MutableList<OCFile>,
         isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
         imageList: MutableList<OCFile>, videoList: MutableList<OCFile>, photoFragment: GalleryFragment) {
-
+        
         val items = storageManager.allGalleryItems
         mediaObject.clear()
 
@@ -177,9 +168,9 @@ class GalleryAdapter(
         setAdapterWithHideShowImage(
             mediaObject, isVideoHideClicked, isImageHideClicked, imageList, videoList,
             photoFragment
-        )
-
-
+        )        
+        
+      
     }
 
     //Set Image/Video List According to Selection of Hide/Show Image/Video

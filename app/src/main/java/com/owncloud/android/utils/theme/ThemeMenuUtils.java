@@ -3,11 +3,9 @@
  *
  * @author Tobias Kaminsky
  * @author Andy Scherzinger
- * @author TSI-mc
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH
  * Copyright (C) 2018 Andy Scherzinger
- * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,6 +22,7 @@
  */
 package com.owncloud.android.utils.theme;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -43,7 +42,7 @@ public final class ThemeMenuUtils {
      * @param item  the menu item object
      * @param color the wanted color (as resource or color)
      */
-    public void tintMenuItemText(MenuItem item, int color) {
+    public static void tintMenuItemText(MenuItem item, int color) {
         SpannableString newItemTitle = new SpannableString(item.getTitle());
         newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
                              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -53,10 +52,11 @@ public final class ThemeMenuUtils {
     /**
      * tinting menu item color
      *
+     * @param context
      * @param item    the menu item object
      * @param color   the color wanted as a color resource
      */
-    public void tintMenuIcon(@NonNull MenuItem item, int color) {
+    public static void tintMenuIcon(@NonNull Context context, @NonNull MenuItem item, int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
         DrawableCompat.setTint(wrapDrawable, color);

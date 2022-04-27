@@ -1008,12 +1008,11 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
-    <string name="subtitle_photos_videos">Photos &amp; videos</string>
-    <string name="show_images">Show photos</string>
-    <string name="subtitle_photos_only">Photos only</string>
-    <string name="show_video">Show videos</string>
-    <string name="subtitle_videos_only">Videos only</string>
-    <string name="select_media_folder">Set media folder</string>
+    <string name="hide_images">Hide images</string>
+    <string name="show_images">Show images</string>
+    <string name="hide_video">Hide video</string>
+    <string name="show_video">Show video</string>
+    <string name="select_media_folder">Select the \"Media\" folder</string>
     <string name="choose_location">Choose location</string>
     <string name="common_select">Select</string>
 </resources>
