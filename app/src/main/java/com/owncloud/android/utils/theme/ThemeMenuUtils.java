@@ -3,9 +3,11 @@
  *
  * @author Tobias Kaminsky
  * @author Andy Scherzinger
+ * @author TSI-mc
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
