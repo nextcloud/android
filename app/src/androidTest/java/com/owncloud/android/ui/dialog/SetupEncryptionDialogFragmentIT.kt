@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import android.view.Window
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.client.TestActivity
@@ -29,7 +28,6 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
-import java.util.Objects
 
 class SetupEncryptionDialogFragmentIT : AbstractIT() {
     @get:Rule
@@ -69,7 +67,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
 
         waitForIdleSync()
 
-        screenshot(Objects.requireNonNull<Window>(sut.requireDialog().window).decorView)
+        screenshot(sut.requireDialog().window!!.decorView)
     }
 
     @Test
@@ -87,8 +85,9 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
             sut.errorSavingKeys()
         }
 
+        shortSleep()
         waitForIdleSync()
 
-        screenshot(Objects.requireNonNull<Window>(sut.requireDialog().window).decorView)
+        screenshot(sut.requireDialog().window!!.decorView)
     }
 }
