@@ -99,6 +99,9 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
 
+    private static final String PREF__IS_HIDE_IMAGE_CLICKED = "is_hideImage_clicked";
+    private static final String PREF__IS_HIDE_VIDEO_CLICKED = "is_hideVideo_clicked";
+
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
@@ -711,5 +714,25 @@ public final class AppPreferencesImpl implements AppPreferences {
     @VisibleForTesting
     public int computeBruteForceDelay(int count) {
         return (int) Math.min(count / 3d, 10);
+    }
+
+    @Override
+    public void setHideImageClicked(boolean isHideImageClicked) {
+        preferences.edit().putBoolean(PREF__IS_HIDE_IMAGE_CLICKED, isHideImageClicked).apply();
+    }
+
+    @Override
+    public boolean getHideImageClicked() {
+        return preferences.getBoolean(PREF__IS_HIDE_IMAGE_CLICKED,false);
+    }
+
+    @Override
+    public void setHideVideoClicked(boolean isHideVideoClicked) {
+        preferences.edit().putBoolean(PREF__IS_HIDE_VIDEO_CLICKED, isHideVideoClicked).apply();
+    }
+
+    @Override
+    public boolean getHideVideoClicked() {
+        return preferences.getBoolean(PREF__IS_HIDE_VIDEO_CLICKED,false);
     }
 }

@@ -3,10 +3,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
- * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -42,16 +40,15 @@ import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
-import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.MimeTypeUtil
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
 import java.util.Calendar
 import java.util.Date
 
@@ -64,8 +61,8 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     themeColorUtils: ThemeColorUtils,
     themeDrawableUtils: ThemeDrawableUtils
-) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
-    var files: List<GalleryItems> = mutableListOf()
+) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, SectionedAdapter {
+    private var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
@@ -116,11 +113,7 @@ class GalleryAdapter(
             val itemViewHolder = holder as GalleryItemViewHolder
             val ocFile = files[section].files[relativePosition]
 
-            ocFileListDelegate.bindGridViewHolder(
-                itemViewHolder,
-                ocFile,
-                SearchType.GALLERY_SEARCH
-            )
+            ocFileListDelegate.bindGridViewHolder(itemViewHolder, ocFile)
         }
     }
 
@@ -132,7 +125,7 @@ class GalleryAdapter(
         return files.size
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getSectionName(position: Int): String {
         return DisplayUtils.getDateByPattern(
             files[getRelativePosition(position).section()].date,
             context,
@@ -162,42 +155,66 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems(
+    fun showAllGalleryItems(storageManager: FileDataStorageManager,
         remotePath: String,
-        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
-        photoFragment: GalleryFragment
-    ) {
+        mediaObject: MutableList<OCFile>,
+        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
+        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>, photoFragment: GalleryFragment) {
 
         val items = storageManager.allGalleryItems
+        mediaObject.clear()
 
-       val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
+        for (c in items) {
+            if (c is OCFile) {
+                if (c.remotePath.contains(remotePath)) {
+                    mediaObject.add(c)
+                }
+            }
+        }
 
-        setMediaFilter(filteredList,
-            mediaState,
+        setAdapterWithHideShowImage(
+            mediaObject, isVideoHideClicked, isImageHideClicked, imageList, videoList,
             photoFragment
         )
+
+
     }
 
-    // Set Image/Video List According to Selection of Hide/Show Image/Video
+    //Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
-   private fun setMediaFilter(
-        items: List<OCFile>,
-        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
+    fun setAdapterWithHideShowImage(
+        mediaObject: List<OCFile>,
+        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
+        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>,
         photoFragment: GalleryFragment
     ) {
 
-        val finalSortedList: List<OCFile> = when (mediaState) {
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
-            }
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
-            }
-            else -> items
-        }
+        val finalSortedList: List<OCFile>
 
-        if (finalSortedList.isEmpty()) {
-            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+        if (isVideoHideClicked) {
+            imageList.clear()
+            for (ocFile in mediaObject) {
+                    if (MimeTypeUtil.isImage(ocFile.mimeType) && !imageList.contains(ocFile)) {
+                        imageList.add(ocFile)
+                    }
+            }
+            finalSortedList = imageList
+            if (imageList.isEmpty()) {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+            }
+        } else if (isImageHideClicked) {
+            videoList.clear()
+            for (ocFile in mediaObject) {
+                    if (MimeTypeUtil.isVideo(ocFile.mimeType) && !videoList.contains(ocFile)) {
+                        videoList.add(ocFile)
+                    }
+            }
+            finalSortedList = videoList
+            if (videoList.isEmpty()) {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+            }
+        } else {
+            finalSortedList = mediaObject
         }
 
         files = finalSortedList
@@ -209,7 +226,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun clear() {
+    fun resetAdapter(){
         files = emptyList()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
@@ -229,11 +246,10 @@ class GalleryAdapter(
         return files.isEmpty()
     }
 
-    fun getItem(position: Int): OCFile? {
+    fun getItem(position: Int): OCFile {
         val itemCoord = getRelativePosition(position)
-        return files
-            .getOrNull(itemCoord.section())?.files
-            ?.getOrNull(itemCoord.relativePos())
+
+        return files[itemCoord.section()].files[itemCoord.relativePos()]
     }
 
     override fun isMultiSelect(): Boolean {

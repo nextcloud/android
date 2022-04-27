@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
- Nextcloud Android client application
-
- @author TSI-mc
- Copyright (C) 2022 TSI-mc
- Copyright (C) 2022 Nextcloud GmbH
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program. If not, see <https://www.gnu.org/licenses/>.
- -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -54,16 +34,17 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginEnd="30dp"
-            android:layout_toEndOf="@id/hideImagesImageview"
-            android:text="@string/show_images"
+            android:layout_toRightOf="@id/hideImagesImageview"
+            android:text="@string/hide_images"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
         <ImageView
-            android:id="@+id/tickMarkShowImages"
+            android:id="@+id/tickMarkHideImages"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:contentDescription="@null"
             android:src="@drawable/ic_tick"
             android:visibility="gone"
@@ -98,16 +79,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/standard_margin"
-            android:layout_toEndOf="@id/hideVideoImageView"
-            android:text="@string/show_video"
+            android:layout_toRightOf="@id/hideVideoImageView"
+            android:text="@string/hide_video"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
         <ImageView
-            android:id="@+id/tickMarkShowVideo"
+            android:id="@+id/tickMarkHideVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:contentDescription="@null"
             android:src="@drawable/ic_tick"
             android:visibility="gone"
