@@ -1,7 +1,9 @@
 /*
  *   ownCloud Android client application
  *
+ *   @author TSI-mc
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2022 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
