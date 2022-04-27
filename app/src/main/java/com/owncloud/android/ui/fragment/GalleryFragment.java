@@ -125,6 +125,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if (mediaObject == null) {
+            mediaObject = new ArrayList<>();
+        } else {
+            mediaObject.clear();
+        }
+
         currentSearchType = SearchType.GALLERY_SEARCH;
 
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
@@ -163,6 +169,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onRefresh() {
         super.onRefresh();
 
+        mediaObject.clear();
         handleSearchEvent();
     }
 
