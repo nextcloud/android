@@ -31,7 +31,7 @@ jobs:
                 uses: codecov/codecov-action@v2
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
-                    flags: unittests
+                    flags: unit
                     fail_ci_if_error: true
             -   name: Upload jacoco artifacts
                 if: ${{ failure() }}
