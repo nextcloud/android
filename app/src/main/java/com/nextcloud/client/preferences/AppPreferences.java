@@ -377,4 +377,16 @@ public interface AppPreferences {
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);
+
+    /**
+     * Saves the show/hide Image State
+     */
+    void setHideImageClicked(boolean isHideImageClicked);
+    boolean getHideImageClicked();
+
+    /**
+     * Saves the show/hide Video State
+     */
+    void setHideVideoClicked(boolean isHideVideoClicked);
+    boolean getHideVideoClicked();
 }
