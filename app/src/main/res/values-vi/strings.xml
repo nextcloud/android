@@ -256,9 +256,11 @@
     <string name="error_crash_title">%1$s bị hỏng</string>
     <string name="error_creating_file_from_template">Lỗi khi tạo tệp từ mẫu</string>
     <string name="error_report_issue_action">Báo cáo</string>
+    <string name="error_report_issue_text">Báo cáo sự cố vào trình theo dõi? (yêu cầu tài khoản GitHub)</string>
     <string name="error_retrieving_file">Lỗi khi truy xuất tệp</string>
     <string name="error_retrieving_templates">Lỗi khi truy xuất mẫu</string>
     <string name="error_starting_direct_camera_upload">Lỗi khởi động máy ảnh</string>
+    <string name="error_starting_scan_doc">Lỗi khi sử dụng quét tài liệu</string>
     <string name="etm_accounts">Tài khoản</string>
     <string name="etm_background_job_name">Tên công việc</string>
     <string name="etm_background_job_progress">Tiến trình</string>
@@ -313,6 +315,9 @@
     <string name="file_list_no_app_for_file_type">Không có ứng dụng nào được thiết lập để xử lý loại tệp này.</string>
     <string name="file_list_seconds_ago">vài giây trước</string>
     <string name="file_management_permission">Cần quyền</string>
+    <string name="file_management_permission_optional">Quyền bộ nhớ</string>
+    <string name="file_management_permission_optional_text">%1$s hoạt động tốt nhất khi có quyền truy cập bộ nhớ. Bạn có thể chọn truy cập đầy đủ vào tất cả tệp, hoặc truy cập chỉ đọc vào ảnh và video.</string>
+    <string name="file_management_permission_text">%1$s cần quyền quản lý tệp để tải tệp lên. Bạn có thể chọn truy cập đầy đủ vào tất cả tệp, hoặc truy cập chỉ đọc vào ảnh và video.</string>
     <string name="file_migration_checking_destination">Đang kiểm tra diểm cuối</string>
     <string name="file_migration_cleaning">Đang xóa…</string>
     <string name="file_migration_dialog_title">Đang cập nhật thư mục lưu trữ dữ liệu</string>
@@ -451,6 +456,7 @@
     <string name="no_email_app_available">Không có ứng dụng để xử lý địa chỉ mail</string>
     <string name="no_mutliple_accounts_allowed">Chỉ một tài khoản được cho phép</string>
     <string name="no_pdf_app_available">Không có ứng dụng để xử lý PDF</string>
+    <string name="no_send_app">Không có ứng dụng nào để gửi các tệp đã chọn</string>
     <string name="no_share_permission_selected">Vui lòng chọn ít nhất một quyền để chia sẻ.</string>
     <string name="note_confirm">Gửi</string>
     <string name="note_could_not_sent">Không thể gửi ghi chú</string>
@@ -486,6 +492,7 @@
     <string name="pass_code_removed">Mã PIN đã được xóa</string>
     <string name="pass_code_stored">Mã PIN đã được lưu</string>
     <string name="pass_code_wrong">Sai mã PIN</string>
+    <string name="pdf_zoom_tip">Nhấn vào trang để phóng to</string>
     <string name="permission_allow">Cho phép</string>
     <string name="permission_deny">Từ chối</string>
     <string name="permission_storage_access">Các quyền bổ sung cần thiết để tải lên và tải xuống tệp.</string>
@@ -600,8 +607,10 @@
     <string name="select_template">Chon mẫu</string>
     <string name="send">Gửi</string>
     <string name="send_note">Gửi ghi chú cho người nhận</string>
+    <string name="send_share">Gửi kho</string>
     <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
+    <string name="set_note">Đặt ghi chú</string>
     <string name="set_picture_as">Dùng hình ảnh như</string>
     <string name="set_status">Đặt trạng thái</string>
     <string name="set_status_message">Đặt thông báo trạng thái</string>
@@ -629,6 +638,7 @@
     <string name="share_password_title">Mật khẩu được bảo vệ</string>
     <string name="share_permission_can_edit">Có thể chỉnh sửa</string>
     <string name="share_permission_view_only">Chỉ xem</string>
+    <string name="share_permissions">Quyền kho</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
     <string name="share_search">Tên, ID đám mây liên kết hoặc địa chỉ email…</string>
@@ -689,6 +699,8 @@
     <string name="storage_internal_storage">Bộ nhớ trong</string>
     <string name="storage_movies">Phim</string>
     <string name="storage_music">Nhạc</string>
+    <string name="storage_permission_full_access">Truy cập đầy đủ</string>
+    <string name="storage_permission_media_read_only">Chỉ đọc phương tiện</string>
     <string name="storage_pictures">Ảnh</string>
     <string name="store_short_desc">Nền tảng năng suất tự lưu trữ giúp bạn kiểm soát</string>
     <string name="store_short_dev_desc">Nền tảng năng suất tự lưu trữ giúp bạn kiểm soát (phiên bản xem trước của nhà phát triển)</string>
@@ -698,6 +710,7 @@
     <string name="strict_mode">Chế độ nghiêm ngặt: Kết nối HTTP không được cho phép!</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
+    <string name="suggest">Đề xuất</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
     <string name="sync_current_folder_was_removed">Thư mục %1$s không còn tồn tại nữa</string>
     <string name="sync_fail_content">Không thể đồng bộ %1$s</string>
@@ -773,6 +786,7 @@
     <string name="upload_lock_failed">Không khóa được thư mục</string>
     <string name="upload_old_android">Mã hóa chỉ khả dụng với &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Không đủ dung lượng ngăn việc sao chép các tệp đã chọn vào thư mục %1$s. Bạn có muốn chuyển chúng đến đó không?</string>
+    <string name="upload_scan_doc_upload">Quét tài liệu từ máy ảnh</string>
     <string name="upload_sync_conflict">Xung đột đồng bộ hóa, vui lòng giải quyết thủ công</string>
     <string name="upload_unknown_error">Lỗi chưa biết</string>
     <string name="uploader_btn_alternative_text">Chọn</string>
@@ -851,6 +865,12 @@
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="other">Lỗi khi sao chép %1$d tệp từ thư mục %2$svào</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="other">Đã viết %1$d sự kiện vào %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="other">Đã tạo %1$d UID mới</item>
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="other">Đã xử lý %d mục.</item>
