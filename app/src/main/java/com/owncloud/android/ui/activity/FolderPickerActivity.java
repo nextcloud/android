@@ -67,6 +67,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -84,6 +85,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         ".EXTRA_CURRENT_FOLDER";
     public static final String MOVE = "MOVE";
     public static final String COPY = "COPY";
+    public static final String CHOOSE_LOCATION = "CHOOSE_LOCATION";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -131,6 +133,14 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     caption = getResources().getText(R.string.copy_to).toString();
                     mSearchOnlyFolders = true;
                     mDoNotEnterEncryptedFolder = true;
+                    break;
+                case CHOOSE_LOCATION:
+                    caption = getResources().getText(R.string.choose_location).toString();
+                    mSearchOnlyFolders = true;
+                    mDoNotEnterEncryptedFolder = true;
+                    mChooseBtn.setText(getResources().getString(R.string.common_select));
+                    mChooseBtn.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_tick,
+                                                                   null));
                     break;
                 default:
                     caption = ThemeUtils.getDefaultDisplayNameForRootFolder(this);
