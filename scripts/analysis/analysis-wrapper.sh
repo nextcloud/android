@@ -15,7 +15,7 @@ ruby scripts/analysis/lint-up.rb $1 $2 $3
 lintValue=$?
 
 curl 2>/dev/null "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
-ruby scripts/analysis/spotbugs-up.rb $3
+ruby scripts/analysis/spotbugs-up.rb "$3"
 spotbugsValue=$?
 
 # exit codes:
@@ -28,7 +28,7 @@ echo "Branch: $3"
 if [ $3 = $stableBranch ]; then
     echo "New spotbugs result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html"
     curl -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.html --upload-file app/build/reports/spotbugs/spotbugs.html
-    curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.xml --upload-file app/build/reports/spotbugs/gplayDebug.xml
+    curl 2>/dev/null -u "$4:$5" -X PUT "https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.xml" --upload-file app/build/reports/spotbugs/gplayDebug.xml
 
     if [ $lintValue -ne 1 ]; then
         echo "New lint result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-lint/$stableBranch.html"
@@ -131,7 +131,7 @@ else
     fi
 
     payload="{ \"body\" : \"$codacyResult $lintResult $spotbugsResult $checkLibraryMessage $lintMessage $spotbugsMessage $gplayLimitation $notNull\" }"
-    curl -u $1:$2 -X POST https://api.github.com/repos/nextcloud/android/issues/$7/comments -d "$payload"
+    curl -u "$1:$2" -X POST "https://api.github.com/repos/nextcloud/android/issues/$7/comments" -d "$payload"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1

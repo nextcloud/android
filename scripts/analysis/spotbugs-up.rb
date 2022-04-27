@@ -9,16 +9,6 @@ puts "=================== starting Android Spotbugs Entropy Reducer ============
 # get args
 git_branch = ARGV[0]
 
-# ========================  SETUP ============================
-
-# File name and relative path of generated Spotbugs report. Must match build.gradle file:
-#   lintOptions {
-#       htmlOutput file("[FILE_NAME].html")
-#   }
-SPOTBUGS_REPORT_FILE = String.new("app/build/reports/spotbugs/spotbugs.html")
-
-# ================ SETUP DONE; DON'T TOUCH ANYTHING BELOW  ================
-
 require 'fileutils'
 require 'pathname'
 require 'open3'
@@ -26,14 +16,6 @@ require 'open3'
 # run Spotbugs
 puts "running Spotbugs..."
 system './gradlew spotbugsGplayDebug 1>/dev/null 2>&1'
-
-# find Spotbugs report file
-spotbugs_reports = Dir.glob(SPOTBUGS_REPORT_FILE)
-if spotbugs_reports.length == 0
-    puts "Spotbugs HTML report not found."
-    exit 1
-end
-spotbugs_report = String.new(spotbugs_reports[0])
 
 # find number of warnings
 current_warning_count = `./scripts/analysis/spotbugsSummary.py --total`.to_i
