@@ -904,4 +904,11 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <string name="hide_images">Bilder ausblenden</string>
+    <string name="show_images">Bilder anzeigen</string>
+    <string name="hide_video">Videos ausblenden</string>
+    <string name="show_video">Videos anzeigen</string>
+    <string name="select_media_folder">Den Ordner \"Medien\" auswählen</string>
+    <string name="choose_location">Speicherort wählen</string>
+    <string name="common_select">Auswählen</string>
 </resources>

@@ -39,10 +39,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
@@ -152,14 +155,79 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems(storageManager: FileDataStorageManager) {
-        val items = storageManager.allGalleryItems
+    fun showAllGalleryItems(storageManager: FileDataStorageManager,
+        remotePath: String,
+        mediaObject: MutableList<OCFile>,
+        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
+        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>, photoFragment: GalleryFragment) {
 
-        files = items
+        val items = storageManager.allGalleryItems
+        mediaObject.clear()
+
+        for (c in items) {
+            if (c is OCFile) {
+                if (c.remotePath.contains(remotePath)) {
+                    mediaObject.add(c)
+                }
+            }
+        }
+
+        setAdapterWithHideShowImage(
+            mediaObject, isVideoHideClicked, isImageHideClicked, imageList, videoList,
+            photoFragment
+        )
+
+
+    }
+
+    //Set Image/Video List According to Selection of Hide/Show Image/Video
+    @SuppressLint("NotifyDataSetChanged")
+    fun setAdapterWithHideShowImage(
+        mediaObject: List<OCFile>,
+        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
+        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>,
+        photoFragment: GalleryFragment
+    ) {
+
+        val finalSortedList: List<OCFile>
+
+        if (isVideoHideClicked) {
+            imageList.clear()
+            for (ocFile in mediaObject) {
+                    if (MimeTypeUtil.isImage(ocFile.mimeType) && !imageList.contains(ocFile)) {
+                        imageList.add(ocFile)
+                    }
+            }
+            finalSortedList = imageList
+            if (imageList.isEmpty()) {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+            }
+        } else if (isImageHideClicked) {
+            videoList.clear()
+            for (ocFile in mediaObject) {
+                    if (MimeTypeUtil.isVideo(ocFile.mimeType) && !videoList.contains(ocFile)) {
+                        videoList.add(ocFile)
+                    }
+            }
+            finalSortedList = videoList
+            if (videoList.isEmpty()) {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+            }
+        } else {
+            finalSortedList = mediaObject
+        }
+
+        files = finalSortedList
             .groupBy { firstOfMonth(it.modificationTimestamp) }
             .map { GalleryItems(it.key, FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(it.value)) }
             .sortedBy { it.date }.reversed()
 
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun resetAdapter(){
+        files = emptyList()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
