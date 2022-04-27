@@ -11,20 +11,20 @@ object ScanBotSdkUtils {
     private val TAG = ScanBotSdkUtils::class.java.simpleName
 
     //license key will be valid for application id: com.t_systems.android.webdav
-    private const val LICENSE_KEY = "eTa/V1k8ZE3z+yK0iA1KK1oQVwHgsy" +
-        "JtZ9eaJeNpaGjqvRY2+4IZq8uVY/wU" +
-        "xzHz4h64P9B5vPTQz9eERr2rWAQylq" +
-        "OkioHEGRZ9HsLW+NPnixQv88JOZ3fX" +
-        "UzP7rBuRLxkyy7RKuNo/FHwmV31zOf" +
-        "JjdP3faauKIcb5BgLY/SFJ/1MsotK2" +
-        "JiOIYw5/cj/FkLq37WkeJR+QkD17vJ" +
-        "GaOVZHv/HRS9xj2QUZXFzRcFp/c9yF" +
-        "FUAZrui1CeBBfHA9uyO0ke4hBzNb9M" +
-        "VpXSM/cNt654T06jOSiSkGjB52ejNN" +
-        "eF61DwKNKpVFXV27DUsqBsMaOEMSb2" +
-        "U5iqCEkwWTuQ==\nU2NhbmJvdFNESw" +
+    private const val LICENSE_KEY = "WVIp/YSuAP/KuuMkULIB9Yy8TmDJIl" +
+        "HqhEVjaE9RJJvn4ziiIZAcCWjBpaZw" +
+        "ApeTzmbG/IX51525WDrHEF3jYgIa0C" +
+        "3rba/kj2OyO9WjIZSF097wfAv8XE+7" +
+        "lJeN4f1++YxFcvtndgTyZQ+wKfr2Sg" +
+        "EZCpEQGemhZRZn3fydU9IO6TFlj4yJ" +
+        "j/C0ZutUZDlbZxk726IKi/zaXmpUFL" +
+        "Rk6p7hCiuHkj1cuATKVq5FFQSKddbk" +
+        "OM9Tf8uEfqZOBrxXj/7b7Mms1lDwbp" +
+        "HUrexC6BCs/ri17gP24sM8m7/7cKz8" +
+        "uNflgR/We181H5eoK+QfK5UA+dYIp9" +
+        "1NNb8i/oCj3g==\nU2NhbmJvdFNESw" +
         "pjb20udF9zeXN0ZW1zLmFuZHJvaWQu" +
-        "d2ViZGF2CjE2NTA5MzExOTkKMTE1NT" +
+        "d2ViZGF2CjE2ODI0NjcxOTkKMTE1NT" +
         "Y3OAoy\n"
 
     //beta license key will be valid for application id: com.t_systems.android.webdav.beta
