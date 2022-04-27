@@ -123,8 +123,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 "files",
                 "1",
                 "/text.txt",
-                null,
-                null
+                emptyList(),
+                RichElement()
             )
         )
 
