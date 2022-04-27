@@ -40,6 +40,9 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 11
+            -   name: Install dependencies
+                run: |
+                    python3 -m pip install defusedxml
             -   name: Run analysis wrapper
                 run: |
                     mkdir -p $HOME/.gradle
