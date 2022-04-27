@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
