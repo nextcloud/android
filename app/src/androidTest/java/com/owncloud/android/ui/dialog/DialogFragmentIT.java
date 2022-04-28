@@ -61,6 +61,7 @@ import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -390,6 +391,9 @@ public class DialogFragmentIT extends AbstractIT {
         capability.setRichDocuments(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
+        capability.setAccountName(user.getAccountName());
+
+        CapabilityUtils.updateCapability(capability);
 
         OCFileListBottomSheetDialogFragment sut = new OCFileListBottomSheetDialogFragment(fda,
                                                                                   action,
