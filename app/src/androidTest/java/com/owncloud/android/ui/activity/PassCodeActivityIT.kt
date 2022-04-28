@@ -42,6 +42,8 @@ class PassCodeActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
         Espresso.closeSoftKeyboard()
+        shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
@@ -55,6 +57,8 @@ class PassCodeActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
         Espresso.closeSoftKeyboard()
+        shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
@@ -68,6 +72,8 @@ class PassCodeActivityIT : AbstractIT() {
 
         sut.runOnUiThread { sut.binding.txt0.clearFocus() }
         Espresso.closeSoftKeyboard()
+        shortSleep()
+        waitForIdleSync()
 
         screenshot(sut)
     }
