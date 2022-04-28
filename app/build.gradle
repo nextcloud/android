@@ -358,7 +358,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.0.2"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.0.3"
 }
 
 configurations.all {
@@ -385,24 +385,6 @@ android.applicationVariants.all { variant ->
     variant.outputs.all { output ->
         outputFileName = "${output.baseName}-${variant.versionCode}.apk"
     }
-}
-
-tasks.register("combinedTestReport", JacocoReport) {
-
-    jacocoClasspath = configurations['jacocoAnt']
-
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-    }
-
-    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories.setFrom files(subprojects.sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
-        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
-    ])
 }
 
 task installGitHooks(type: Copy, group: "development") {
@@ -448,10 +430,13 @@ tasks.withType(SpotBugsTask){task ->
     excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
     classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
     reports {
-        xml.enabled = false
+        xml {
+            required = true
+        }
         html {
-            enabled = true
-            destination = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            required = true
+            outputLocation = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            stylesheet = 'fancy.xsl'
         }
     }
 }
