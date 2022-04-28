@@ -28,20 +28,20 @@ object ScanBotSdkUtils {
         "Y3OAoy\n"
 
     //beta license key will be valid for application id: com.t_systems.android.webdav.beta
-    private const val BETA_LICENSE_KEY = "jniyLJLmVDKsiftoxYhOOv64Y0SSFm" +
-        "JYfEzhNn49ALAfc5/rfNi2OrNEYSzi" +
-        "GIkGfdhPU8X/xlRr70rp1r59/hwp6o" +
-        "fwtvDEviaIDb+VstFfdgUoucVErpKM" +
-        "AttZeOqAiD7eFbmPtge7pR336CgPd3" +
-        "BvulxezG17I+95qmjwsZPmGxxRLDwE" +
-        "biBDwKXsWgSqaAOvg5BqtHK3tvmLwy" +
-        "vhvPEHysOIA8GrVbd2yYhfeOE/XBWv" +
-        "cKXvLtfBqKToEa/+3iSd6yS00nDnjK" +
-        "9c0pKUprP0ZD9klGY2xrFMKKkBX5pZ" +
-        "zzKrWU4ix18RtZheqyj3hn98uiH98l" +
-        "T69324NUnlLA==\nU2NhbmJvdFNESw" +
+    private const val BETA_LICENSE_KEY = "DV6ZbfLNxXPRHWjGHO6+nTCKwnc3aA" +
+        "gmW994IgzI18nMNbny7m7D0JheDH1q" +
+        "R+UYYTN3VpjuYbc+ZcZEn2kwZ6EFND" +
+        "BveVqfshiT75it1SNBZMEigqnatFtq" +
+        "K4cgPyJ13dsOifJiYYJkUMWioJJqPG" +
+        "MRpB1sg5YLQOMFx4zYumYfmOo6aTbz" +
+        "1meOE+DJib4bqWBImJr+oqGR+hsRaZ" +
+        "CY0tlbNVZeaOLMGA/g6Q4WsHBxiomH" +
+        "GZVlZKgLWA8GAOpYMwWbS6gP6hqEoi" +
+        "IX8loOwP2rX6SNNHQ4zApwNP0FUvZU" +
+        "Vfr58bTFVS2+knQ+S1aWziRD8tQ1Pe" +
+        "CUsKL6AOA8EA==\nU2NhbmJvdFNESw" +
         "pjb20udF9zeXN0ZW1zLmFuZHJvaWQu" +
-        "d2ViZGF2LmJldGEKMTY1MDkzMTE5OQ" +
+        "d2ViZGF2LmJldGEKMTY4MjQ2NzE5OQ" +
         "oxMTU1Njc4CjI=\n"
 
     /**
