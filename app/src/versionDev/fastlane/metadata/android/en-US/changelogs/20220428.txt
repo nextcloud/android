@@ -1,0 +1,5 @@
+Generate spotbugs summary from xml
+spotbugs: Use fancy stylesheet
+build: Remove combinedTestReport task
+Update Nextcloud Android library
+Update 3rd-party dependencies
