@@ -83,7 +83,7 @@ repositories {
 // semantic versioning for version code
 def versionMajor = 7
 def versionMinor = 19
-def versionPatch = 4
+def versionPatch = 5
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 
@@ -305,11 +305,13 @@ dependencies {
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
+    //Note: Below Document Scanning library is used for NextCloud and not required for MagentaCloud
+    // as we are using Scanbot.
     // document scanner not available on FDroid (generic) due to OpenCV binaries
-    gplayImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+   /* gplayImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
     huaweiImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
     qaImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
-    versionDevImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    versionDevImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"*/
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
