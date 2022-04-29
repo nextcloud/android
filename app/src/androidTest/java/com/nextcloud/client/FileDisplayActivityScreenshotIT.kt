@@ -66,8 +66,8 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         screenshot(sut)
     }
 
-    // @Test
-    // @ScreenshotTest
+    @Test
+    @ScreenshotTest
     fun showMediaThenAllFiles() {
         val fileDisplayActivity = activityRule.launchActivity(null)
         val sut = fileDisplayActivity.listOfFilesFragment
