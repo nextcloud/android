@@ -31,6 +31,7 @@ import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.media.MediaControlView;
+import com.owncloud.android.ui.ThemeableSwitchPreference;
 
 import javax.inject.Singleton;
 
@@ -57,6 +58,8 @@ public interface AppComponent {
     void inject(MainApp app);
 
     void inject(MediaControlView mediaControlView);
+
+    void inject(ThemeableSwitchPreference switchPreference);
 
     @Component.Builder
     interface Builder {
