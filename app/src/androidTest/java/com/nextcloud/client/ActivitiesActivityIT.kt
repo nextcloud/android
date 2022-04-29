@@ -185,12 +185,15 @@ class ActivitiesActivityIT : AbstractIT() {
     fun error() {
         val sut: ActivitiesActivity = activityRule.launchActivity(null)
 
+        shortSleep()
+
         sut.runOnUiThread {
             sut.showEmptyContent("Error", "Error! Please try again later!")
             sut.setProgressIndicatorState(false)
             sut.dismissSnackbar()
         }
 
+        shortSleep()
         shortSleep()
         waitForIdleSync()
 
