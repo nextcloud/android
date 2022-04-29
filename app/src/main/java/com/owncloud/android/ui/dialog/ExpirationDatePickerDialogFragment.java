@@ -138,6 +138,16 @@ public class ExpirationDatePickerDialogFragment
         return dialog;
     }
 
+    public long getCurrentSelectionMillis() {
+        final Dialog dialog = getDialog();
+        if (dialog != null) {
+            final DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
+            final DatePicker picker = datePickerDialog.getDatePicker();
+            return yearMonthDayToMillis(picker.getYear(), picker.getMonth(), picker.getDayOfMonth());
+        }
+        return 0;
+    }
+
     /**
      * Called when the user chooses an expiration date.
      *
@@ -149,15 +159,19 @@ public class ExpirationDatePickerDialogFragment
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-        Calendar chosenDate = Calendar.getInstance();
-        chosenDate.set(Calendar.YEAR, year);
-        chosenDate.set(Calendar.MONTH, monthOfYear);
-        chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        long chosenDateInMillis = chosenDate.getTimeInMillis();
+        long chosenDateInMillis = yearMonthDayToMillis(year, monthOfYear, dayOfMonth);
 
         if (onExpiryDateListener != null) {
             onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
         }
+    }
+
+    private long yearMonthDayToMillis(int year, int monthOfYear, int dayOfMonth) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, monthOfYear);
+        date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        return date.getTimeInMillis();
     }
 
     public interface OnExpiryDateListener {
