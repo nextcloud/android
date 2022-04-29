@@ -72,6 +72,19 @@ public class ExpirationDatePickerDialogFragment
         this.onExpiryDateListener = onExpiryDateListener;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final Dialog currentDialog = getDialog();
+        if (currentDialog != null) {
+            final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
+            dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        }
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -108,11 +121,6 @@ public class ExpirationDatePickerDialogFragment
                     }
                 });
         }
-
-        dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
 
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();
