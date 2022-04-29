@@ -90,6 +90,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 import javax.net.ssl.SSLContext;
@@ -130,6 +131,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     private static String storagePath;
 
     private static boolean mOnlyOnDevice;
+
+    private final static Object fixStoragePathLock = new Object();
+    private final static AtomicBoolean inFixStoragePath = new AtomicBoolean(false);
 
     @Inject
     protected AppPreferences preferences;
@@ -260,9 +264,18 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         new SecurityUtils();
         DisplayUtils.useCompatVectorIfNeeded();
 
-        fixStoragePath();
-
-        MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
+        // To fix potential ANR as getStoragePath() checks SD card.
+        inFixStoragePath.set(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (fixStoragePathLock) {
+                    fixStoragePath();
+                    MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
+                    inFixStoragePath.set(false);
+                }
+            }
+        }).start();
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
