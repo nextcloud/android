@@ -54,15 +54,6 @@ configurations.configureEach {
     }
 }
 
-repositories {
-    google()
-    maven { url "https://jitpack.io" }
-    mavenCentral()
-    maven {
-        url 'https://plugins.gradle.org/m2/'
-    }
-}
-
 // semantic versioning for version code
 def versionMajor = 3
 def versionMinor = 20
