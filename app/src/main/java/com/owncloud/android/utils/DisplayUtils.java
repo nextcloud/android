@@ -38,6 +38,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -896,13 +897,20 @@ public final class DisplayUtils {
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+                        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
+                            if (file.getRemoteId() != null && task.getImageKey() != null &&
+                                file.getRemoteId().equals(task.getImageKey())) {
+                                return;
+                            }
+                        }
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
                                                                                    storageManager,
                                                                                    user,
                                                                                    asyncTasks,
-                                                                                   gridView);
+                                                                                   gridView,
+                                                                                   file.getRemoteId());
                             if (thumbnail == null) {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
@@ -941,8 +949,9 @@ public final class DisplayUtils {
 
                             thumbnailView.setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                                  file.getRemoteId()));
+                            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                                   new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                                                                                            file.getRemoteId()));
                         } catch (IllegalArgumentException e) {
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                         }

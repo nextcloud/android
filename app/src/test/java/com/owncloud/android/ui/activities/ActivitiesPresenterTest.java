@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activities;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.activities.model.Activity;
+import com.owncloud.android.lib.resources.activities.model.RichElement;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activity.BaseActivity;
@@ -33,6 +34,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -75,7 +77,24 @@ public class ActivitiesPresenterTest {
         activitiesPresenter = new ActivitiesPresenter(activitiesRepository, filesRepository, view);
 
         activitiesList = new ArrayList<>();
-        activitiesList.add(new Activity());
+        activitiesList.add(new Activity(
+                               2,
+                               new Date(),
+                               new Date(),
+                               "comments",
+                               "comments",
+                               "user1",
+                               "user1",
+                               "admin commented",
+                               "test2",
+                               "icon",
+                               "link",
+                               "files",
+                               "1",
+                               "/text.txt",
+                               new ArrayList<>(),
+                               new RichElement())
+                          );
     }
 
     @Test
