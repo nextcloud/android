@@ -1,0 +1,2 @@
+Parallel thumbnail fetching
+ActivitiesPresenterTest: Activity no longer has empty constructor
