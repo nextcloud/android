@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.fragment
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -116,6 +117,8 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private var isReshareShown: Boolean = true // show or hide reshare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
 
+    private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
@@ -158,6 +161,19 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             showShareProcessSecond()
         }
         implementClickEvents()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // Force recreation of dialog fragment when screen rotates
+        // This is needed because the calendar layout should be different in portrait and landscape,
+        // but as FDA persists through config changes, the dialog is not recreated automatically
+        val datePicker = expirationDatePickerFragment
+        if (datePicker?.dialog?.isShowing == true) {
+            val currentSelectionMillis = datePicker.currentSelectionMillis
+            datePicker.dismiss()
+            showExpirationDateDialog(currentSelectionMillis)
+        }
     }
 
     private fun showShareProcessFirst() {
@@ -347,12 +363,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         }
     }
 
-    private fun showExpirationDateDialog() {
-        val dialog = ExpirationDatePickerDialogFragment.newInstance(chosenExpDateInMills)
+    private fun showExpirationDateDialog(chosenDateInMillis: Long = chosenExpDateInMills) {
+        val dialog = ExpirationDatePickerDialogFragment.newInstance(chosenDateInMillis)
         dialog.setOnExpiryDateListener(this)
-        fileActivity?.let { it1 ->
+        expirationDatePickerFragment = dialog
+        fileActivity?.let {
             dialog.show(
-                it1.supportFragmentManager,
+                it.supportFragmentManager,
                 ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
             )
         }
