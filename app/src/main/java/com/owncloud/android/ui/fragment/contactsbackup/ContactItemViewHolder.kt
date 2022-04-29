@@ -19,25 +19,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.fragment.contactsbackup
 
-package com.owncloud.android.ui.fragment.contactsbackup;
+import android.view.View
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.owncloud.android.databinding.ContactlistListItemBinding
 
-import android.view.View;
-
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
-import com.owncloud.android.databinding.ContactlistListItemBinding;
-
-public class ContactItemViewHolder extends SectionedViewHolder {
-    public ContactlistListItemBinding binding;
-
-    ContactItemViewHolder(ContactlistListItemBinding binding) {
-        super(binding.getRoot());
-
-        this.binding = binding;
-        binding.getRoot().setTag(this);
+class ContactItemViewHolder internal constructor(var binding: ContactlistListItemBinding) :
+    SectionedViewHolder(binding.root) {
+    init {
+        binding.root.tag = this
     }
 
-    public void setVCardListener(View.OnClickListener onClickListener) {
-        itemView.setOnClickListener(onClickListener);
+    fun setVCardListener(onClickListener: View.OnClickListener?) {
+        itemView.setOnClickListener(onClickListener)
     }
 }

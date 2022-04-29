@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -89,6 +88,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
 
     @Inject UserAccountManager accountManager;
     @Inject DeviceInfo deviceInfo;
+    @Inject ThemeColorUtils themeColorUtils;
 
     protected TextFilePreviewBinding binding;
 
@@ -174,21 +174,23 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                                                             resources.getColor(R.color.primary));
             binding.textPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
         } else {
-            setText(binding.textPreview, originalText, getFile(), activity);
+            setText(binding.textPreview, originalText, getFile(), activity, false, false, themeColorUtils);
         }
     }
 
-    protected static Spanned getRenderedMarkdownText(Activity activity, String markdown) {
+    protected static Spanned getRenderedMarkdownText(Activity activity,
+                                                     String markdown,
+                                                     ThemeColorUtils themeColorUtils) {
         Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
         Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
         TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
-        drawable.setColorFilter(ThemeColorUtils.primaryColor(activity, true), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(themeColorUtils.primaryColor(activity, true), PorterDuff.Mode.SRC_ATOP);
 
         final Markwon markwon = Markwon.builder(activity)
             .usePlugin(new AbstractMarkwonPlugin() {
                 @Override
                 public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
-                    builder.linkColor(ThemeColorUtils.primaryColor(activity, true));
+                    builder.linkColor(themeColorUtils.primaryColor(activity, true));
                     builder.headingBreakHeight(0);
                 }
 
@@ -217,16 +219,13 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
         requireActivity().runOnUiThread(() -> requireActivity().onBackPressed());
     }
 
-    public static void setText(TextView textView, String text, OCFile file, Activity activity) {
-        setText(textView, text, file, activity, false, false);
-    }
-
     public static void setText(TextView textView,
                                @Nullable String text,
                                @Nullable OCFile file,
                                Activity activity,
                                boolean ignoreMimetype,
-                               boolean preview) {
+                               boolean preview,
+                               ThemeColorUtils themeColorUtils) {
         if (text == null) {
             return;
         }
@@ -237,7 +236,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
                 // clickable links prevent to open full view of rich workspace
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
             }
-            textView.setText(getRenderedMarkdownText(activity, text));
+            textView.setText(getRenderedMarkdownText(activity, text, themeColorUtils));
         } else {
             textView.setText(text);
         }

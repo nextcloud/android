@@ -105,7 +105,9 @@ public class GalleryFragment extends OCFileListFragment {
                                       accountManager.getUser(),
                                       this,
                                       preferences,
-                                      mContainerActivity);
+                                      mContainerActivity,
+                                      themeColorUtils,
+                                      themeDrawableUtils);
 
 //        val spacing = resources.getDimensionPixelSize(R.dimen.media_grid_spacing)
 //        binding.list.addItemDecoration(MediaGridItemDecoration(spacing))

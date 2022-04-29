@@ -32,6 +32,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -43,15 +45,21 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
     private final String userId;
     private final WeakReference<FragmentActivity> activityWeakReference;
     private final ClientFactory clientFactory;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
 
     public RetrieveHoverCardAsyncTask(User user,
                                       String userId,
                                       FragmentActivity activity,
-                                      ClientFactory clientFactory) {
+                                      ClientFactory clientFactory,
+                                      ThemeColorUtils themeColorUtils,
+                                      ThemeDrawableUtils themeDrawableUtils) {
         this.user = user;
         this.userId = userId;
         this.activityWeakReference = new WeakReference<>(activity);
         this.clientFactory = clientFactory;
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     @Override
@@ -76,7 +84,7 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
 
         if (activity != null && activity.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
             if (hoverCard.getActions().size() > 0) {
-                new ProfileBottomSheetDialog(activity, user, hoverCard).show();
+                new ProfileBottomSheetDialog(activity, user, hoverCard, themeColorUtils, themeDrawableUtils).show();
             } else {
                 DisplayUtils.showSnackMessage(activity, R.string.no_actions);
             }

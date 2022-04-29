@@ -48,7 +48,9 @@ import com.owncloud.android.utils.theme.ThemeDrawableUtils
 class ProfileBottomSheetDialog(
     private val fileActivity: FragmentActivity,
     private val user: User,
-    private val hoverCard: HoverCard
+    private val hoverCard: HoverCard,
+    private val themeColorUtils: ThemeColorUtils,
+    private val themeDrawableUtils: ThemeDrawableUtils
 ) : BottomSheetDialog(fileActivity), DisplayUtils.AvatarGenerationListener {
     private var _binding: ProfileBottomSheetFragmentBinding? = null
 
@@ -62,7 +64,7 @@ class ProfileBottomSheetDialog(
         if (window != null) {
             window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-        val primaryColor = ThemeColorUtils.primaryColor(context, true)
+        val primaryColor = themeColorUtils.primaryColor(context, true)
 
         binding.icon.tag = hoverCard.userId
         DisplayUtils.setAvatar(
@@ -104,7 +106,7 @@ class ProfileBottomSheetDialog(
                     null
                 )
             )
-            ThemeDrawableUtils.tintDrawable(actionBinding.icon.drawable, primaryColor)
+            themeDrawableUtils.tintDrawable(actionBinding.icon.drawable, primaryColor)
 
             creatorView.setOnClickListener { v: View? ->
                 send(hoverCard.userId, action)

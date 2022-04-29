@@ -47,7 +47,9 @@ class OCFileListDelegate(
     private val gridView: Boolean,
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
-    private var showShareAvatar: Boolean
+    private var showShareAvatar: Boolean,
+    private var themeColorUtils: ThemeColorUtils,
+    private var themeDrawableUtils: ThemeDrawableUtils
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
@@ -98,7 +100,9 @@ class OCFileListDelegate(
             gridView,
             context,
             gridViewHolder.shimmerThumbnail,
-            preferences
+            preferences,
+            themeColorUtils,
+            themeDrawableUtils
         )
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
@@ -152,9 +156,9 @@ class OCFileListDelegate(
                     .getColor(R.color.selected_item_background)
             )
             gridViewHolder.checkbox.setImageDrawable(
-                ThemeDrawableUtils.tintDrawable(
+                themeDrawableUtils.tintDrawable(
                     R.drawable.ic_checkbox_marked,
-                    ThemeColorUtils.primaryColor(context)
+                    themeColorUtils.primaryColor(context)
                 )
             )
         } else {

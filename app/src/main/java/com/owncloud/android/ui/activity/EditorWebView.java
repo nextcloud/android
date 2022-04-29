@@ -43,7 +43,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     protected Snackbar loadingSnackbar;
@@ -79,7 +78,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_back, v -> closeView());
 
-                    ThemeSnackbarUtils.colorSnackbar(getApplicationContext(), snackbar);
+                    themeSnackbarUtils.colorSnackbar(getApplicationContext(), snackbar);
                     setLoadingSnackbar(snackbar);
                     snackbar.show();
                 }
@@ -158,7 +157,9 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                               file.isSharedViaLink(),
                                                                               file.isEncrypted(),
                                                                               file.getMountType(),
-                                                                              this));
+                                                                              this,
+                                                                              themeColorUtils,
+                                                                              themeDrawableUtils));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -181,7 +182,9 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
                                                              user,
-                                                             getApplicationContext());
+                                                             getApplicationContext(),
+                                                             themeColorUtils,
+                                                             themeDrawableUtils);
                 binding.thumbnail.setImageDrawable(icon);
             }
         }

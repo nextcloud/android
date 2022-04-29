@@ -58,24 +58,28 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = UserListAdapter.class.getSimpleName();
 
-    private float accountAvatarRadiusDimension;
+    private final float accountAvatarRadiusDimension;
     private final BaseActivity context;
     private List<UserListItem> values;
     private Listener accountListAdapterListener;
-    private UserAccountManager accountManager;
+    private final UserAccountManager accountManager;
 
     public static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
     public static final int KEY_USER_INFO_REQUEST_CODE = 13;
-    private ClickListener clickListener;
-    private boolean showAddAccount;
-    private boolean showDotsMenu;
+    private final ClickListener clickListener;
+    private final boolean showAddAccount;
+    private final boolean showDotsMenu;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
 
     public UserListAdapter(BaseActivity context,
                            UserAccountManager accountManager,
                            List<UserListItem> values,
                            ClickListener clickListener,
                            boolean showAddAccount,
-                           boolean showDotsMenu) {
+                           boolean showDotsMenu,
+                           ThemeColorUtils themeColorUtils,
+                           ThemeDrawableUtils themeDrawableUtils) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
@@ -86,6 +90,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.clickListener = clickListener;
         this.showAddAccount = showAddAccount;
         this.showDotsMenu = showDotsMenu;
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     @Override
@@ -100,7 +106,10 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public @NonNull
     RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (UserListItem.TYPE_ACCOUNT == viewType) {
-            return new AccountViewHolderItem(AccountItemBinding.inflate(LayoutInflater.from(context), parent, false));
+            return new AccountViewHolderItem(AccountItemBinding.inflate(LayoutInflater.from(context),
+                                                                        parent,
+                                                                        false),
+                                             themeDrawableUtils);
         } else {
             return new AddAccountViewHolderItem(
                 AccountActionBinding.inflate(LayoutInflater.from(context), parent, false));
@@ -186,14 +195,14 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     class AccountViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private AccountItemBinding binding;
+        private final AccountItemBinding binding;
         private User user;
 
-        AccountViewHolderItem(@NonNull AccountItemBinding binding) {
+        AccountViewHolderItem(@NonNull AccountItemBinding binding, ThemeDrawableUtils themeDrawableUtils) {
             super(binding.getRoot());
             this.binding = binding;
 
-            ThemeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), ThemeColorUtils.primaryColor(context, true));
+            themeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), themeColorUtils.primaryColor(context, true));
 
             binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {

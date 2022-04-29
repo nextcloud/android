@@ -50,7 +50,6 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import java.util.ArrayList
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
@@ -72,6 +71,12 @@ class ChooseAccountDialogFragment :
 
     @Inject
     lateinit var clientFactory: ClientFactory
+
+    @Inject
+    lateinit var themeColorUtils: ThemeColorUtils
+
+    @Inject
+    lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,9 +117,9 @@ class ChooseAccountDialogFragment :
             binding.currentAccount.account.text = user.accountName
 
             // Defining user right indicator
-            val icon = ThemeDrawableUtils.tintDrawable(
+            val icon = themeDrawableUtils.tintDrawable(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                ThemeColorUtils.primaryColor(requireContext(), true)
+                themeColorUtils.primaryColor(requireContext(), true)
             )
             binding.currentAccount.accountMenu.setImageDrawable(icon)
 
@@ -125,7 +130,9 @@ class ChooseAccountDialogFragment :
                 getAccountListItems(),
                 this,
                 false,
-                false
+                false,
+                themeColorUtils,
+                themeDrawableUtils
             )
 
             binding.accountsList.adapter = adapter

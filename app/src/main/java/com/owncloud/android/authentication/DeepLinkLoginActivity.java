@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
-public class DeepLinkLoginActivity extends AuthenticatorActivity {
+import javax.inject.Inject;
+
+public class DeepLinkLoginActivity extends AuthenticatorActivity implements Injectable {
+    @Inject
+    public ThemeColorUtils themeColorUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +35,7 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity {
                 LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
 
                 TextView loginText = findViewById(R.id.loginInfo);
-                loginText.setTextColor(ThemeColorUtils.fontColor(this));
+                loginText.setTextColor(themeColorUtils.fontColor(this));
                 loginText.setText(String.format("Login with %1$s to %2$s", loginUrlInfo.username,
                                                 loginUrlInfo.serverAddress));
             } catch (IllegalArgumentException e) {

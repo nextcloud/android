@@ -30,20 +30,23 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Calendar;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 /**
- *  Dialog requesting a date after today.
+ * Dialog requesting a date after today.
  */
 public class ExpirationDatePickerDialogFragment
-        extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+    extends DialogFragment
+    implements DatePickerDialog.OnDateSetListener, Injectable {
 
     /** Tag for FragmentsManager */
     public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
@@ -51,6 +54,7 @@ public class ExpirationDatePickerDialogFragment
     /** Parameter constant for date chosen initially */
     private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
+    @Inject ThemeColorUtils themeColorUtils;
     private OnExpiryDateListener onExpiryDateListener;
 
     /**
@@ -110,9 +114,9 @@ public class ExpirationDatePickerDialogFragment
         }
 
         dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
 
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();

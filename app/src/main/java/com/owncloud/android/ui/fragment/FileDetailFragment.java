@@ -112,6 +112,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject FileDataStorageManager storageManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeLayoutUtils themeLayoutUtils;
+    @Inject ThemeBarUtils themeBarUtils;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -223,7 +226,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
-            ThemeBarUtils.colorHorizontalProgressBar(binding.progressBar, ThemeColorUtils.primaryAccentColor(getContext()));
+            themeBarUtils.colorHorizontalProgressBar(binding.progressBar, themeColorUtils.primaryAccentColor(getContext()));
             progressListener = new ProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
             binding.favorite.setOnClickListener(this);
@@ -249,7 +252,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
 
-        ThemeLayoutUtils.colorTabLayout(getContext().getApplicationContext(), binding.tabLayout);
+        themeLayoutUtils.colorTabLayout(getContext().getApplicationContext(), binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);

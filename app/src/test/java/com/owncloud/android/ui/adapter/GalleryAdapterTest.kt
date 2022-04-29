@@ -30,6 +30,8 @@ import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -58,6 +60,12 @@ class GalleryAdapterTest {
     @Mock
     lateinit var storageManager: FileDataStorageManager
 
+    @Mock
+    lateinit var themeColorUtils: ThemeColorUtils
+
+    @Mock
+    lateinit var themeDrawableUtils: ThemeDrawableUtils
+
     private lateinit var mocks: AutoCloseable
 
     @Before
@@ -79,7 +87,9 @@ class GalleryAdapterTest {
             user,
             ocFileListFragmentInterface,
             preferences,
-            transferServiceGetter
+            transferServiceGetter,
+            themeColorUtils,
+            themeDrawableUtils
         )
 
         val list = listOf(

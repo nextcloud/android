@@ -29,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
@@ -45,28 +46,41 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
+import javax.inject.Inject;
+
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
  */
-public class OCFileListBottomSheetDialog extends BottomSheetDialog {
+public class OCFileListBottomSheetDialog extends BottomSheetDialog implements Injectable {
+
     private FileListActionsBottomSheetFragmentBinding binding;
     private final OCFileListBottomSheetActions actions;
     private final FileActivity fileActivity;
     private final DeviceInfo deviceInfo;
     private final User user;
     private final OCFile file;
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeUtils themeUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
+
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
                                        DeviceInfo deviceInfo,
                                        User user,
-                                       OCFile file) {
+                                       OCFile file,
+                                       ThemeColorUtils themeColorUtils,
+                                       ThemeUtils themeUtils,
+                                       ThemeDrawableUtils themeDrawableUtils) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
         this.user = user;
         this.file = file;
+        this.themeColorUtils = themeColorUtils;
+        this.themeUtils = themeUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     @Override
@@ -79,14 +93,14 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
-        int primaryColor = ThemeColorUtils.primaryColor(getContext(), true);
-        ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
-        ThemeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
-        ThemeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
-        ThemeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
+        int primaryColor = themeColorUtils.primaryColor(getContext(), true);
+        themeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
+        themeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
+        themeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
+        themeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
-                ThemeUtils.getDefaultDisplayNameForRootFolder(getContext())));
+                                                                         themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
@@ -118,10 +132,13 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
                                       fileActivity.getString(R.string.create_new),
                                       creator.getName()));
 
-                    creatorViewBinding.creatorThumbnail.setImageDrawable(MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
-                                                                            creator.getExtension(),
-                                                                            user,
-                                                                            getContext()));
+                    creatorViewBinding.creatorThumbnail.setImageDrawable(
+                        MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
+                                                     creator.getExtension(),
+                                                     user,
+                                                     getContext(),
+                                                     themeColorUtils,
+                                                     themeDrawableUtils));
 
                     creatorView.setOnClickListener(v -> {
                         actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());

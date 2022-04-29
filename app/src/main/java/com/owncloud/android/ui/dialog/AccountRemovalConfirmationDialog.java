@@ -30,6 +30,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,8 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     private static final String KEY_USER = "USER";
 
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
     private User user;
 
     public static AccountRemovalConfirmationDialog newInstance(User user) {
@@ -66,7 +69,8 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 

@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -38,6 +39,8 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.lang.ref.WeakReference;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -46,7 +49,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 /**
  * This Fragment is used to monitor the progress of a file downloading.
  */
-public class FileDownloadFragment extends FileFragment implements OnClickListener {
+public class FileDownloadFragment extends FileFragment implements OnClickListener, Injectable {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_USER = "USER";
@@ -54,11 +57,13 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
-    private static final String ARG_USER = "USER" ;
+    private static final String ARG_USER = "USER";
 
     private View mView;
     private User user;
 
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeBarUtils themeBarUtils;
     public ProgressListener mProgressListener;
     private boolean mListening;
 
@@ -140,7 +145,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
 
         ProgressBar progressBar = mView.findViewById(R.id.progressBar);
-        ThemeBarUtils.colorHorizontalProgressBar(progressBar, ThemeColorUtils.primaryAccentColor(getContext()));
+        themeBarUtils.colorHorizontalProgressBar(progressBar, themeColorUtils.primaryAccentColor(getContext()));
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);

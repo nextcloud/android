@@ -56,6 +56,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
     @Inject OnboardingService onboarding;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mPager.addOnPageChangeListener(this);
 
         mForwardFinishButton = findViewById(R.id.forward);
-        ThemeButtonUtils.colorImageButton(mForwardFinishButton, fontColor);
+        themeButtonUtils.colorImageButton(mForwardFinishButton, fontColor);
 
         mForwardFinishButton.setOnClickListener(view -> {
             if (mProgress.hasNextStep()) {

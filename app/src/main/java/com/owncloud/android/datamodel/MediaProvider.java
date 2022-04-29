@@ -29,6 +29,9 @@ import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,10 +72,13 @@ public final class MediaProvider {
      * @param itemLimit       the number of media items (usually images) to be returned per media folder.
      * @return list with media folders
      */
-    public static List<MediaFolder> getImageFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
+    public static List<MediaFolder> getImageFolders(ContentResolver contentResolver,
+                                                    int itemLimit,
+                                                    @Nullable final AppCompatActivity activity,
+                                                    boolean getWithoutActivity,
+                                                    ThemeSnackbarUtils themeSnackbarUtils) {
         // check permissions
-        checkPermissions(activity);
+        checkPermissions(activity, themeSnackbarUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;
@@ -169,17 +175,21 @@ public final class MediaProvider {
         return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
     }
 
-    private static void checkPermissions(@Nullable AppCompatActivity activity) {
+    private static void checkPermissions(@Nullable AppCompatActivity activity,
+                                         ThemeSnackbarUtils themeSnackbarUtils) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestExternalStoragePermission(activity, true);
+            PermissionUtil.requestExternalStoragePermission(activity, themeSnackbarUtils, true);
         }
     }
 
-    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver, int itemLimit,
-                                                    @Nullable final AppCompatActivity activity, boolean getWithoutActivity) {
+    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver,
+                                                    int itemLimit,
+                                                    @Nullable final AppCompatActivity activity,
+                                                    boolean getWithoutActivity,
+                                                    ThemeSnackbarUtils themeSnackbarUtils) {
         // check permissions
-        checkPermissions(activity);
+        checkPermissions(activity, themeSnackbarUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;

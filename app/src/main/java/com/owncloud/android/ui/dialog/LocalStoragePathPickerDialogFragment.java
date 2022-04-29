@@ -27,18 +27,22 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.StoragePathDialogBinding;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,11 +54,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
  * Picker dialog for choosing a (storage) path.
  */
 public class LocalStoragePathPickerDialogFragment extends DialogFragment
-    implements DialogInterface.OnClickListener, StoragePathAdapter.StoragePathAdapterListener {
+    implements DialogInterface.OnClickListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 
     public static final String LOCAL_STORAGE_PATH_PICKER_FRAGMENT = "LOCAL_STORAGE_PATH_PICKER_FRAGMENT";
 
     private static Set<String> internalStoragePaths = new HashSet<>();
+
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     static {
         internalStoragePaths.add("/storage/emulated/legacy");
@@ -75,7 +82,8 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+            themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
         }
     }
 

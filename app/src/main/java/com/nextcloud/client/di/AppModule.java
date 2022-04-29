@@ -64,6 +64,7 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -81,7 +82,7 @@ class AppModule {
 
     @Provides
     AccountManager accountManager(Application application) {
-        return (AccountManager)application.getSystemService(Context.ACCOUNT_SERVICE);
+        return (AccountManager) application.getSystemService(Context.ACCOUNT_SERVICE);
     }
 
     @Provides
@@ -108,7 +109,7 @@ class AppModule {
     UserAccountManager userAccountManager(
         Context context,
         AccountManager accountManager
-    ) {
+                                         ) {
         return new UserAccountManagerImpl(context, accountManager);
     }
 
@@ -165,7 +166,7 @@ class AppModule {
     @Singleton
     Logger logger(Context context, Clock clock) {
         File logDir = new File(context.getFilesDir(), "logs");
-        FileLogHandler handler = new FileLogHandler(logDir, "log.txt", 1024*1024);
+        FileLogHandler handler = new FileLogHandler(logDir, "log.txt", 1024 * 1024);
         LoggerImpl logger = new LoggerImpl(clock, handler, new Handler(), 1000);
         logger.start();
         return logger;
@@ -174,7 +175,7 @@ class AppModule {
     @Provides
     @Singleton
     LogsRepository logsRepository(Logger logger) {
-        return (LogsRepository)logger;
+        return (LogsRepository) logger;
     }
 
     @Provides
@@ -194,12 +195,12 @@ class AppModule {
 
     @Provides
     NotificationManager notificationManager(Context context) {
-        return (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Provides
     AudioManager audioManager(Context context) {
-        return (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        return (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }
 
     @Provides
@@ -226,8 +227,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    AppNotificationManager notificationsManager(Context context, NotificationManager platformNotificationsManager) {
-        return new AppNotificationManagerImpl(context, context.getResources(), platformNotificationsManager);
+    AppNotificationManager notificationsManager(Context context,
+                                                NotificationManager platformNotificationsManager,
+                                                ThemeColorUtils themeColorUtils) {
+        return new AppNotificationManagerImpl(context,
+                                              context.getResources(),
+                                              platformNotificationsManager,
+                                              themeColorUtils);
     }
 
     @Provides

@@ -57,10 +57,11 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -390,18 +391,17 @@ public class DialogFragmentIT extends AbstractIT {
         capability.setRichDocuments(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
+        capability.setAccountName(user.getAccountName());
 
-        OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
-                                                                          action,
-                                                                          info,
-                                                                          user,
-                                                                          ocFile);
+        CapabilityUtils.updateCapability(capability);
 
-        fda.runOnUiThread(sut::show);
+        OCFileListBottomSheetDialogFragment sut = new OCFileListBottomSheetDialogFragment(fda,
+                                                                                  action,
+                                                                                  info,
+                                                                                  user,
+                                                                                  ocFile);
 
-        waitForIdleSync();
-
-        screenshot(sut.getWindow().getDecorView());
+        showDialog(fda, sut);
     }
 
     @Test
@@ -436,7 +436,9 @@ public class DialogFragmentIT extends AbstractIT {
 
         ProfileBottomSheetDialog sut = new ProfileBottomSheetDialog(fda,
                                                                     user,
-                                                                    hoverCard);
+                                                                    hoverCard,
+                                                                    fda.themeColorUtils,
+                                                                    fda.themeDrawableUtils);
 
         fda.runOnUiThread(sut::show);
 

@@ -83,6 +83,12 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     @Inject
     lateinit var clientFactory: ClientFactory
 
+    @Inject
+    lateinit var themeColorUtils: ThemeColorUtils
+
+    @Inject
+    lateinit var themeDrawableUtils: ThemeDrawableUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory).get(UnifiedSearchViewModel::class.java)
@@ -121,9 +127,9 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                     binding.emptyList.emptyListViewText.text =
                         requireContext().getString(R.string.file_list_empty_unified_search_no_results)
                     binding.emptyList.emptyListIcon.setImageDrawable(
-                        ThemeDrawableUtils.tintDrawable(
+                        themeDrawableUtils.tintDrawable(
                             R.drawable.ic_search_grey,
-                            ThemeColorUtils.primaryColor(context, true)
+                            themeColorUtils.primaryColor(context, true)
                         )
                     )
                 }
@@ -179,7 +185,9 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             this,
             currentAccountProvider.user,
             clientFactory,
-            requireContext()
+            requireContext(),
+            themeColorUtils,
+            themeDrawableUtils
         )
         adapter.shouldShowFooters(true)
         adapter.setLayoutManager(gridLayoutManager)

@@ -22,9 +22,12 @@ package com.owncloud.android.ui.adapter;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -42,9 +45,15 @@ public class UserListAdapterTest {
     private UserListAdapter userListAdapter;
     private ManageAccountsActivity manageAccountsActivity;
 
+    @Mock
+    private ThemeColorUtils themeColorUtils;
+
+    @Mock
+    private ThemeDrawableUtils themeDrawableUtils;
+
     /**
-     * Setting up and mocking the manageAccountsActivity class, and then mocking the method calls in
-     * the construction of the object
+     * Setting up and mocking the manageAccountsActivity class, and then mocking the method calls in the construction of
+     * the object
      */
     @Before
     public void setup() {
@@ -63,7 +72,9 @@ public class UserListAdapterTest {
                                               new ArrayList<>(),
                                               null,
                                               true,
-                                              true);
+                                              true,
+                                              themeColorUtils,
+                                              themeDrawableUtils);
         assertEquals(0, userListAdapter.getItemCount());
     }
 
@@ -81,7 +92,9 @@ public class UserListAdapterTest {
                                               accounts,
                                               null,
                                               true,
-                                              true);
+                                              true,
+                                              themeColorUtils,
+                                              themeDrawableUtils);
 
         assertEquals(2, userListAdapter.getItemCount());
     }
@@ -101,7 +114,9 @@ public class UserListAdapterTest {
                                               accounts,
                                               null,
                                               true,
-                                              true);
+                                              true,
+                                              themeColorUtils,
+                                              themeDrawableUtils);
 
         UserListItem userListItem1 = new UserListItem();
         UserListItem userListItem2 = new UserListItem();

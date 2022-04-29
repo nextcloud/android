@@ -63,7 +63,8 @@ class BackupListAdapter(
     private val checkedVCards: HashSet<Int> = HashSet(),
     private val checkedCalendars: HashMap<String, Int> = HashMap(),
     val backupListFragment: BackupListFragment,
-    val context: Context
+    val context: Context,
+    private val themeColorUtils: ThemeColorUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     private val calendarFiles = arrayListOf<OCFile>()
     private val contacts = arrayListOf<VCard>()
@@ -153,7 +154,7 @@ class BackupListAdapter(
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as BackupListHeaderViewHolder
 
-        headerViewHolder.binding.name.setTextColor(ThemeColorUtils.primaryColor(context))
+        headerViewHolder.binding.name.setTextColor(themeColorUtils.primaryColor(context))
 
         if (section == SECTION_CALENDAR) {
             headerViewHolder.binding.name.text = context.resources.getString(R.string.calendars)
@@ -224,7 +225,7 @@ class BackupListAdapter(
         checkedTextView.isChecked = checked
         if (checked) {
             checkedTextView.checkMarkDrawable
-                .setColorFilter(ThemeColorUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP)
+                .setColorFilter(themeColorUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP)
         } else {
             checkedTextView.checkMarkDrawable.clearColorFilter()
         }
@@ -234,7 +235,7 @@ class BackupListAdapter(
         holder.binding.name.isChecked = !holder.binding.name.isChecked
         if (holder.binding.name.isChecked) {
             holder.binding.name.checkMarkDrawable.setColorFilter(
-                ThemeColorUtils.primaryColor(context),
+                themeColorUtils.primaryColor(context),
                 PorterDuff.Mode.SRC_ATOP
             )
             checkedVCards.add(position)
@@ -309,7 +310,7 @@ class BackupListAdapter(
         checkedTextView.isChecked = !checkedTextView.isChecked
         if (checkedTextView.isChecked) {
             checkedTextView.checkMarkDrawable.setColorFilter(
-                ThemeColorUtils.primaryColor(context),
+                themeColorUtils.primaryColor(context),
                 PorterDuff.Mode.SRC_ATOP
             )
             holder.showCalendars(true)

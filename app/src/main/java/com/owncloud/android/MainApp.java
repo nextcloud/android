@@ -77,6 +77,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import org.conscrypt.Conscrypt;
 import org.greenrobot.eventbus.EventBus;
@@ -171,6 +172,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     PassCodeManager passCodeManager;
+
+    @Inject ThemeSnackbarUtils themeSnackbarUtils;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -290,7 +293,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            connectivityService,
                            powerManagementService,
                            backgroundJobManager,
-                           clock);
+                           clock,
+                           themeSnackbarUtils);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -448,7 +452,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService,
         final BackgroundJobManager backgroundJobManager,
-        final Clock clock
+        final Clock clock,
+        final ThemeSnackbarUtils themeSnackbarUtils
                                          ) {
         updateToAutoUpload();
         cleanOldEntries(clock);
@@ -456,7 +461,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (getAppContext() != null) {
             if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
-                splitOutAutoUploadEntries(clock);
+                splitOutAutoUploadEntries(clock, themeSnackbarUtils);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
@@ -678,7 +683,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    private static void splitOutAutoUploadEntries(Clock clock) {
+    private static void splitOutAutoUploadEntries(Clock clock,
+                                                  ThemeSnackbarUtils themeSnackbarUtils) {
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadSplitEntriesEnabled()) {
@@ -689,8 +695,16 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
-            final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1, null, true);
-            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1, null, true);
+            final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver,
+                                                                                      1,
+                                                                                      null,
+                                                                                      true,
+                                                                                      themeSnackbarUtils);
+            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver,
+                                                                                      1,
+                                                                                      null,
+                                                                                      true,
+                                                                                      themeSnackbarUtils);
 
             ArrayList<Long> idsToDelete = new ArrayList<>();
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();

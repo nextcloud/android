@@ -194,6 +194,7 @@ public class FileUploader extends Service
     @Inject ConnectivityService connectivityService;
     @Inject PowerManagementService powerManagementService;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject ThemeColorUtils themeColorUtils;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
@@ -234,7 +235,7 @@ public class FileUploader extends Service
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(ThemeColorUtils.primaryColor(getApplicationContext(), true));
+            .setColor(themeColorUtils.primaryColor(getApplicationContext(), true));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -700,7 +701,7 @@ public class FileUploader extends Service
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this);
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, themeColorUtils);
         mNotificationBuilder
             .setOngoing(true)
             .setSmallIcon(R.drawable.notification_icon)
@@ -709,7 +710,7 @@ public class FileUploader extends Service
             .setProgress(100, 0, false)
             .setContentText(
                 String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-            );
+                           );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);

@@ -40,6 +40,8 @@ import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -58,9 +60,17 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         CurrentAccountProvider currentAccountProvider,
         ActivityListInterface activityListInterface,
         VersionListInterface.View versionListInterface,
-        ClientFactory clientFactory
-    ) {
-        super(context, currentAccountProvider, activityListInterface, clientFactory, true);
+        ClientFactory clientFactory,
+        ThemeColorUtils themeColorUtils,
+        ThemeDrawableUtils themeDrawableUtils
+                                        ) {
+        super(context,
+              currentAccountProvider,
+              activityListInterface,
+              clientFactory,
+              true,
+              themeColorUtils,
+              themeDrawableUtils);
 
         this.versionListInterface = versionListInterface;
     }

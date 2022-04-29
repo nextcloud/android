@@ -28,10 +28,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
 import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import javax.inject.Inject
 
 /**
  * Dialog that shows permission options in SDK >= 30
@@ -44,14 +47,20 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils
  */
 @RequiresApi(Build.VERSION_CODES.R)
 class StoragePermissionDialogFragment(val listener: Listener, val permissionRequired: Boolean = false) :
-    DialogFragment() {
+    DialogFragment(), Injectable {
     private lateinit var binding: StoragePermissionDialogBinding
+
+    @Inject
+    lateinit var themeButtonUtils: ThemeButtonUtils
+
+    @Inject
+    lateinit var themeColorUtils: ThemeColorUtils
 
     override fun onStart() {
         super.onStart()
         dialog?.let {
             val alertDialog = it as AlertDialog
-            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+            themeButtonUtils.themeBorderlessButton(themeColorUtils, alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
         }
     }
 
@@ -68,12 +77,12 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
         binding.storagePermissionExplanation.text = getString(explanationResource, getString(R.string.app_name))
 
         // Setup layout
-        ThemeButtonUtils.colorPrimaryButton(binding.btnFullAccess, context)
+        themeButtonUtils.colorPrimaryButton(binding.btnFullAccess, context, themeColorUtils)
         binding.btnFullAccess.setOnClickListener {
             listener.onClickFullAccess()
             dismiss()
         }
-        ThemeButtonUtils.themeBorderlessButton(binding.btnReadOnly)
+        themeButtonUtils.themeBorderlessButton(themeColorUtils, binding.btnReadOnly)
         binding.btnReadOnly.setOnClickListener {
             listener.onClickMediaReadOnly()
             dismiss()

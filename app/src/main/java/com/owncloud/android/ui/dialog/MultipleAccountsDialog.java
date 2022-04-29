@@ -42,6 +42,8 @@ import com.owncloud.android.databinding.MultipleAccountsBinding;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
 
     @Inject UserAccountManager accountManager;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeDrawableUtils themeDrawableUtils;
 
     @NonNull
     @Override
@@ -77,7 +81,9 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       getAccountListItems(),
                                                       this,
                                                       false,
-                                                      false);
+                                                      false,
+                                                      themeColorUtils,
+                                                      themeDrawableUtils);
 
         binding.list.setHasFixedSize(true);
         binding.list.setLayoutManager(new LinearLayoutManager(activity));
