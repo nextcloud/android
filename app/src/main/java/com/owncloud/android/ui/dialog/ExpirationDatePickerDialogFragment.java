@@ -72,6 +72,19 @@ public class ExpirationDatePickerDialogFragment
         this.onExpiryDateListener = onExpiryDateListener;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final Dialog currentDialog = getDialog();
+        if (currentDialog != null) {
+            final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
+            dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
+        }
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -109,11 +122,6 @@ public class ExpirationDatePickerDialogFragment
                 });
         }
 
-        dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();
         picker.setMinDate(tomorrowInMillis - 1000);
@@ -124,6 +132,16 @@ public class ExpirationDatePickerDialogFragment
         picker.setCalendarViewShown(false);
 
         return dialog;
+    }
+
+    public long getCurrentSelectionMillis() {
+        final Dialog dialog = getDialog();
+        if (dialog != null) {
+            final DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
+            final DatePicker picker = datePickerDialog.getDatePicker();
+            return yearMonthDayToMillis(picker.getYear(), picker.getMonth(), picker.getDayOfMonth());
+        }
+        return 0;
     }
 
     /**
@@ -137,15 +155,19 @@ public class ExpirationDatePickerDialogFragment
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-        Calendar chosenDate = Calendar.getInstance();
-        chosenDate.set(Calendar.YEAR, year);
-        chosenDate.set(Calendar.MONTH, monthOfYear);
-        chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        long chosenDateInMillis = chosenDate.getTimeInMillis();
+        long chosenDateInMillis = yearMonthDayToMillis(year, monthOfYear, dayOfMonth);
 
         if (onExpiryDateListener != null) {
             onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
         }
+    }
+
+    private long yearMonthDayToMillis(int year, int monthOfYear, int dayOfMonth) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, monthOfYear);
+        date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        return date.getTimeInMillis();
     }
 
     public interface OnExpiryDateListener {
