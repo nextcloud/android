@@ -1,0 +1,17 @@
+FileDetailsSharing: Preserve selected date when recreating expiration date dialog
+FileDetailsSharingProcess: force recreation of date picked on config changes
+ExpirationDatePickerDF: customize buttons on onStart instead of showing dialog on onCreate
+build: Disable LeakCanary unless manually activated with a property
+Fix and update testBottomSheet screenshot test
+SyncFileNotEnoughSpaceDialogFragment needs injector
+Fix GalleryAdapterTest
+Fix some spotbugs stuff
+Fix detekt
+ThemeModule: convert to Kotlin and fix copyright
+remove some spotbugs warnings
+Fix injection ofr RenameFileDialogFragment
+Put OCFileListBottomSheetDialog into a DialogFragment
+Fixes after rebase
+Remove SyncedFoldersActivity.java
+Move all Theme classes to DI
+Update translations
