@@ -37,7 +37,7 @@ public final class ThemeMenuUtils {
      * @param item  the menu item object
      * @param color the wanted color (as resource or color)
      */
-    public static void tintMenuItemText(MenuItem item, int color) {
+    public void tintMenuItemText(MenuItem item, int color) {
         SpannableString newItemTitle = new SpannableString(item.getTitle());
         newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
                              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -39,7 +39,6 @@ import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.io.InputStream;
 
@@ -203,7 +202,7 @@ public class ExternalSiteWebView extends FileActivity {
     private void setupActionBar(String title) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            ThemeToolbarUtils.setColoredTitle(actionBar, title, this);
+            themeToolbarUtils.setColoredTitle(actionBar, title, this);
 
             if (showSidebar) {
                 actionBar.setDisplayHomeAsUpEnabled(true);

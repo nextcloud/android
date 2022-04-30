@@ -91,11 +91,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -328,6 +325,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private Spinner mSpinner;
         @Inject AppPreferences preferences;
+        @Inject ThemeColorUtils themeColorUtils;
+        @Inject ThemeTextInputUtils themeTextInputUtils;
 
         public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
             DialogInputUploadFilename dialog = new DialogInputUploadFilename();
@@ -422,7 +421,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
             userInput.requestFocus();
-            ThemeTextInputUtils.colorTextInput(userInputContainer, userInput, ThemeColorUtils.primaryColor(getContext()));
+            themeTextInputUtils.colorTextInput(userInputContainer, userInput, themeColorUtils.primaryColor(getContext()));
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
@@ -706,7 +705,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         ActionBar actionBar = getSupportActionBar();
 
         if (isHaveMultipleAccount()) {
-            ThemeToolbarUtils.setColoredSubtitle(actionBar, getAccount().name, this);
+            themeToolbarUtils.setColoredSubtitle(actionBar, getAccount().name, this);
         } else if (actionBar != null) {
             actionBar.setSubtitle(null);
         }
@@ -729,9 +728,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (actionBar != null) {
             if (TextUtils.isEmpty(current_dir)) {
-                ThemeToolbarUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
+                themeToolbarUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
             } else {
-                ThemeToolbarUtils.setColoredTitle(actionBar, current_dir, this);
+                themeToolbarUtils.setColoredTitle(actionBar, current_dir, this);
             }
 
             actionBar.setDisplayHomeAsUpEnabled(notRoot);
@@ -767,28 +766,30 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          new String[]{"dirname"},
                                                          new int[]{R.id.filename},
                                                          getStorageManager(),
-                                                         getUser().get());
+                                                         getUser().get(),
+                                                         themeColorUtils,
+                                                         themeDrawableUtils);
 
                 mListView.setAdapter(sa);
             }
             MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
-            ThemeButtonUtils.colorPrimaryButton(btnChooseFolder, this);
+            themeButtonUtils.colorPrimaryButton(btnChooseFolder, this, themeColorUtils);
             btnChooseFolder.setOnClickListener(this);
 
             if (mFile.canWrite()) {
                 btnChooseFolder.setEnabled(true);
-                ThemeButtonUtils.colorPrimaryButton(btnChooseFolder, this);
+                themeButtonUtils.colorPrimaryButton(btnChooseFolder, this, themeColorUtils);
             } else {
                 btnChooseFolder.setEnabled(false);
                 btnChooseFolder.setBackgroundColor(Color.GRAY);
             }
 
-            ThemeToolbarUtils.colorStatusBar(this);
+            themeToolbarUtils.colorStatusBar(this);
 
-            ThemeToolbarUtils.tintBackButton(actionBar, this);
+            themeToolbarUtils.tintBackButton(actionBar, this);
 
             Button btnNewFolder = findViewById(R.id.uploader_cancel);
-            btnNewFolder.setTextColor(ThemeColorUtils.primaryColor(this, true));
+            btnNewFolder.setTextColor(themeColorUtils.primaryColor(this, true));
             btnNewFolder.setOnClickListener(this);
 
             mListView.setOnItemClickListener(this);
@@ -814,7 +815,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
                 mEmptyListIcon.setImageDrawable(
-                    ThemeDrawableUtils.tintDrawable(icon, ThemeColorUtils.primaryColor(this, true)));
+                    themeDrawableUtils.tintDrawable(icon, themeColorUtils.primaryColor(this, true)));
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListMessage.setVisibility(View.VISIBLE);
             }
@@ -1039,7 +1040,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         newFolderMenuItem.setEnabled(mFile.canWrite());
 
         // hacky as no default way is provided
-        ThemeToolbarUtils.themeSearchView(searchView, this);
+        themeToolbarUtils.themeSearchView(searchView, this);
 
         return true;
     }

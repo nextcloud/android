@@ -125,6 +125,7 @@ public class FileDownloader extends Service
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject ThemeColorUtils themeColorUtils;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -150,11 +151,11 @@ public class FileDownloader extends Service
         mBinder = new FileDownloaderBinder();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
-                getApplicationContext().getResources().getString(R.string.app_name))
-                .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-                .setColor(ThemeColorUtils.primaryColor(getApplicationContext(), true));
+            getApplicationContext().getResources().getString(R.string.app_name))
+            .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+            .setColor(themeColorUtils.primaryColor(getApplicationContext(), true));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
@@ -538,17 +539,17 @@ public class FileDownloader extends Service
     private void notifyDownloadStart(DownloadFileOperation download) {
         /// create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this);
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, themeColorUtils);
         mNotificationBuilder
-                .setSmallIcon(R.drawable.notification_icon)
-                .setTicker(getString(R.string.downloader_download_in_progress_ticker))
-                .setContentTitle(getString(R.string.downloader_download_in_progress_ticker))
-                .setOngoing(true)
-                .setProgress(100, 0, download.getSize() < 0)
-                .setContentText(
-                        String.format(getString(R.string.downloader_download_in_progress_content), 0,
-                                new File(download.getSavePath()).getName())
-                );
+            .setSmallIcon(R.drawable.notification_icon)
+            .setTicker(getString(R.string.downloader_download_in_progress_ticker))
+            .setContentTitle(getString(R.string.downloader_download_in_progress_ticker))
+            .setOngoing(true)
+            .setProgress(100, 0, download.getSize() < 0)
+            .setContentText(
+                String.format(getString(R.string.downloader_download_in_progress_content), 0,
+                              new File(download.getSavePath()).getName())
+                           );
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);

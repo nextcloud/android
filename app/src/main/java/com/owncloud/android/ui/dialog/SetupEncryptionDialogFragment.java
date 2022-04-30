@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -56,6 +57,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
@@ -70,7 +73,7 @@ import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 /*
  *  Dialog to setup encryption
  */
-public class SetupEncryptionDialogFragment extends DialogFragment {
+public class SetupEncryptionDialogFragment extends DialogFragment implements Injectable {
 
     public static final String SUCCESS = "SUCCESS";
     public static final int SETUP_ENCRYPTION_RESULT_CODE = 101;
@@ -85,6 +88,9 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     private static final String KEY_EXISTING_USED = "KEY_EXISTING_USED";
     private static final String KEY_FAILED = "KEY_FAILED";
     private static final String KEY_GENERATE = "KEY_GENERATE";
+
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     private User user;
     private TextView textView;
@@ -119,7 +125,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton,
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               positiveButton,
                                                neutralButton);
 
         task = new DownloadKeysAsyncTask();
@@ -129,7 +136,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int primaryColor = ThemeColorUtils.primaryColor(getContext());
+        int primaryColor = themeColorUtils.primaryColor(getContext());
         user = getArguments().getParcelable(ARG_USER);
 
         arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
@@ -437,7 +444,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         positiveButton.setVisibility(View.VISIBLE);
 
         neutralButton.setVisibility(View.VISIBLE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, neutralButton);
+        themeButtonUtils.themeBorderlessButton(themeColorUtils, positiveButton, neutralButton);
 
         keyResult = KEY_GENERATE;
     }
@@ -451,7 +458,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment {
         passphraseTextView.setVisibility(View.GONE);
         positiveButton.setText(R.string.end_to_end_encryption_dialog_close);
         positiveButton.setVisibility(View.VISIBLE);
-        positiveButton.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        positiveButton.setTextColor(themeColorUtils.primaryAccentColor(getContext()));
     }
 
     @VisibleForTesting

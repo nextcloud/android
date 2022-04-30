@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -38,6 +39,8 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -46,11 +49,13 @@ import androidx.fragment.app.DialogFragment;
 /**
  * Dialog to input a multiline note for a share
  */
-public class NoteDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class NoteDialogFragment extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_SHARE = "SHARE";
 
-    public static final String NOTE_FRAGMENT = "NOTE_FRAGMENT";
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ThemeTextInputUtils themeTextInputUtils;
 
     private OCShare share;
     private NoteDialogBinding binding;
@@ -81,14 +86,15 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int primaryColor = ThemeColorUtils.primaryColor(getContext());
+        int primaryColor = themeColorUtils.primaryColor(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -98,7 +104,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         // Setup layout
         binding.noteText.setText(share.getNote());
         binding.noteText.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
+        themeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

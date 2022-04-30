@@ -39,7 +39,7 @@ public final class ThemeSnackbarUtils {
      * @param context  the context relevant for setting the color according to the context's theme
      * @param snackbar the snackbar to be colored
      */
-    public static void colorSnackbar(Context context, Snackbar snackbar) {
+    public void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.fg_inverse));
     }

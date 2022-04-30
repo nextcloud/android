@@ -73,18 +73,27 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private boolean gridView = false;
     private LocalFileListFragmentInterface localFileListFragmentInterface;
     private Set<File> checkedFiles;
+    private ThemeColorUtils themeColorUtils;
+    private ThemeDrawableUtils themeDrawableUtils;
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
     private static final int VIEWTYPE_IMAGE = 2;
 
-    public LocalFileListAdapter(boolean localFolderPickerMode, File directory,
-                                LocalFileListFragmentInterface localFileListFragmentInterface, AppPreferences preferences, Context context) {
+    public LocalFileListAdapter(boolean localFolderPickerMode,
+                                File directory,
+                                LocalFileListFragmentInterface localFileListFragmentInterface,
+                                AppPreferences preferences,
+                                Context context,
+                                ThemeColorUtils themeColorUtils,
+                                ThemeDrawableUtils themeDrawableUtils) {
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
 
         swapDirectory(directory);
     }
@@ -173,8 +182,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                         gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
                                                                          .getColor(R.color.selected_item_background));
                         gridViewHolder.checkbox.setImageDrawable(
-                            ThemeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
-                                                            ThemeColorUtils.primaryColor(mContext)));
+                            themeDrawableUtils.tintDrawable(R.drawable.ic_checkbox_marked,
+                                                            themeColorUtils.primaryColor(mContext)));
                     } else {
                         gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                         gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -184,7 +193,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
 
                 gridViewHolder.thumbnail.setTag(file.hashCode());
-                setThumbnail(file, gridViewHolder.thumbnail, mContext);
+                setThumbnail(file, gridViewHolder.thumbnail, mContext, themeColorUtils, themeDrawableUtils);
 
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                     .onItemClicked(finalFile));
@@ -219,9 +228,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public static void setThumbnail(File file, ImageView thumbnailView, Context context) {
+    public static void setThumbnail(File file,
+                                    ImageView thumbnailView,
+                                    Context context,
+                                    ThemeColorUtils themeColorUtils,
+                                    ThemeDrawableUtils themeDrawableUtils) {
         if (file.isDirectory()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context));
+            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
+                                                                             themeColorUtils,
+                                                                             themeDrawableUtils));
         } else {
             thumbnailView.setImageResource(R.drawable.file);
 
@@ -264,7 +279,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     } // else, already being generated, don't restart it
                 }
             } else {
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, file.getName(), context));
+                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null,
+                                                                            file.getName(),
+                                                                            context,
+                                                                            themeColorUtils,
+                                                                            themeDrawableUtils));
             }
         }
     }

@@ -39,6 +39,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.util.List;
@@ -83,7 +84,11 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
         DrawableCompat.setTint(borderDrawable, ContextCompat.getColor(context, R.color.bg_default));
     }
 
-    public void setAvatars(@NonNull User user, @NonNull List<ShareeUser> sharees) {
+    public void setAvatars(@NonNull User user,
+                           @NonNull List<ShareeUser> sharees,
+                           ThemeColorUtils themeColorUtils,
+                           ThemeDrawableUtils themeDrawableUtils,
+                           ThemeAvatarUtils themeAvatarUtils) {
         @NonNull Context context = getContext();
         removeAllViews();
         RelativeLayout.LayoutParams avatarLayoutParams;
@@ -109,7 +114,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
 
             if (avatarCount == 0 && sharees.size() > MAX_AVATAR_COUNT) {
                 avatar.setImageResource(R.drawable.ic_people);
-                ThemeDrawableUtils.setIconColor(avatar.getDrawable());
+                themeDrawableUtils.setIconColor(avatar.getDrawable());
             } else {
                 sharee = sharees.get(avatarCount);
                 switch (sharee.getShareType()) {
@@ -117,10 +122,15 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                     case EMAIL:
                     case ROOM:
                     case CIRCLE:
-                        ThemeAvatarUtils.createAvatar(sharee.getShareType(), avatar, context);
+                        themeAvatarUtils.createAvatar(sharee.getShareType(), avatar, context, themeColorUtils);
                         break;
                     case FEDERATED:
-                        showFederatedShareAvatar(context, sharee.getUserId(), avatarRadius, resources, avatar);
+                        showFederatedShareAvatar(context,
+                                                 sharee.getUserId(),
+                                                 avatarRadius,
+                                                 resources,
+                                                 avatar,
+                                                 themeDrawableUtils);
                         break;
                     default:
                         avatar.setTag(sharee);
@@ -148,7 +158,8 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                                           String user,
                                           float avatarRadius,
                                           Resources resources,
-                                          ImageView avatar) {
+                                          ImageView avatar,
+                                          ThemeDrawableUtils themeDrawableUtils) {
         // maybe federated share
         String[] split = user.split("@");
         String userId = split[0];
@@ -162,7 +173,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
             placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = ThemeDrawableUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
+            placeholder = themeDrawableUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
                                                                                       R.drawable.account_circle_white,
                                                                                       null),
                                                           R.color.black);

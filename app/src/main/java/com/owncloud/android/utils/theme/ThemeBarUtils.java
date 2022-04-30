@@ -40,7 +40,7 @@ public final class ThemeBarUtils {
      * @param progressBar the progress bar to be colored
      * @param color       the color to be used
      */
-    public static void colorHorizontalProgressBar(ProgressBar progressBar, @ColorInt int color) {
+    public void colorHorizontalProgressBar(ProgressBar progressBar, @ColorInt int color) {
         if (progressBar != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
@@ -53,7 +53,7 @@ public final class ThemeBarUtils {
      * @param progressBar the progress bar to be colored
      * @param color       the color to be used
      */
-    public static void colorProgressBar(ProgressBar progressBar, @ColorInt int color) {
+    public void colorProgressBar(ProgressBar progressBar, @ColorInt int color) {
         if (progressBar != null) {
             progressBar.setProgressTintList(ColorStateList.valueOf(color));
         }
@@ -64,16 +64,16 @@ public final class ThemeBarUtils {
      *
      * @param seekBar the seek bar to be colored
      */
-    public static void colorHorizontalSeekBar(SeekBar seekBar, Context context) {
-        int color = ThemeColorUtils.primaryAccentColor(context);
+    public void colorHorizontalSeekBar(SeekBar seekBar, Context context, ThemeColorUtils themeColorUtils) {
+        int color = themeColorUtils.primaryAccentColor(context);
 
         colorHorizontalProgressBar(seekBar, color);
         seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
-    public static void themeProgressBar(Context context, ProgressBar progressBar) {
+    public void themeProgressBar(Context context, ProgressBar progressBar, ThemeColorUtils themeColorUtils) {
         // TODO harmonize methods
-        int color = ThemeColorUtils.primaryAccentColor(context);
+        int color = themeColorUtils.primaryAccentColor(context);
         progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 }

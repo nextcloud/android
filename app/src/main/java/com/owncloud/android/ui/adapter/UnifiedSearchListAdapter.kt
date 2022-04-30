@@ -24,33 +24,37 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
-import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
-import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
+import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
-import java.lang.IllegalArgumentException
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
  */
+@Suppress("LongParameterList")
 class UnifiedSearchListAdapter(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val user: User,
     private val clientFactory: ClientFactory,
-    private val context: Context
+    private val context: Context,
+    private val themeColorUtils: ThemeColorUtils,
+    private val themeDrawableUtils: ThemeDrawableUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -65,7 +69,7 @@ class UnifiedSearchListAdapter(
                 val binding = UnifiedSearchHeaderBinding.inflate(
                     layoutInflater, parent, false
                 )
-                UnifiedSearchHeaderViewHolder(binding, context)
+                UnifiedSearchHeaderViewHolder(binding, themeColorUtils, context)
             }
             VIEW_TYPE_FOOTER -> {
                 val binding = UnifiedSearchFooterBinding.inflate(
@@ -85,7 +89,9 @@ class UnifiedSearchListAdapter(
                     clientFactory,
                     storageManager,
                     listInterface,
-                    context
+                    context,
+                    themeColorUtils,
+                    themeDrawableUtils
                 )
             }
             VIEW_TYPE_EMPTY -> {

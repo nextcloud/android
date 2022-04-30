@@ -103,6 +103,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
@@ -179,6 +180,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
+    private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
 
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
@@ -187,6 +189,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject Throttler throttler;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeFabUtils themeFabUtils;
+    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ThemeUtils themeUtils;
+    @Inject ThemeAvatarUtils themeAvatarUtils;
+
     protected FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
@@ -306,7 +314,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -409,7 +417,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity,
             this,
             hideItemOptions,
-            isGridViewPreferred(mFile)
+            isGridViewPreferred(mFile),
+            themeColorUtils,
+            themeDrawableUtils,
+            themeAvatarUtils
         );
 
         setRecyclerViewAdapter(mAdapter);
@@ -451,13 +462,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileActivity activity = (FileActivity) getActivity();
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
-            mFabMain.setOnClickListener(v -> new OCFileListBottomSheetDialog(activity,
-                                                                             this,
-                                                                             deviceInfo,
-                                                                             accountManager.getUser(),
-                                                                             getCurrentFile())
-                .show());
+            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            mFabMain.setOnClickListener(v -> {
+                final OCFileListBottomSheetDialogFragment dialog =
+                    new OCFileListBottomSheetDialogFragment(activity,
+                                                            this,
+                                                            deviceInfo,
+                                                            accountManager.getUser(),
+                                                            getCurrentFile());
+                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_BOTTOM_SHEET);
+            });
         }
     }
 
@@ -695,7 +709,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mode.invalidate();
 
             //set actionMode color
-            ThemeToolbarUtils.colorStatusBar(getActivity(), ThemeColorUtils.actionModeColor(requireContext()));
+            themeToolbarUtils.colorStatusBar(getActivity(), themeColorUtils.actionModeColor(requireContext()));
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -1418,7 +1432,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
+                    setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()));
                     break;
             }
         }
@@ -1478,7 +1492,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
+            setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()));
         }
 
         getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
@@ -1638,7 +1652,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
 
                 if (actionBar != null) {
-                    ThemeToolbarUtils.setColoredTitle(actionBar, title, getContext());
+                    themeToolbarUtils.setColoredTitle(actionBar, title, getContext());
                 }
             }
         });
@@ -1789,7 +1803,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.hide();
                 }
@@ -1839,10 +1853,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.setEnabled(false);
-                    ThemeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
                 }
             });
         }

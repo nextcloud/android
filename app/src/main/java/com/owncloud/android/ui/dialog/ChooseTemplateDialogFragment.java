@@ -64,6 +64,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import java.lang.ref.WeakReference;
@@ -88,13 +89,17 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     private static final String DOT = ".";
     public static final int SINGLE_TEMPLATE = 1;
 
+    @Inject ClientFactory clientFactory;
+    @Inject CurrentAccountProvider currentAccount;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ThemeTextInputUtils themeTextInputUtils;
     private TemplateAdapter adapter;
     private OCFile parentFolder;
     private String title;
-    @Inject ClientFactory clientFactory;
-    private Creator creator;
-    @Inject CurrentAccountProvider currentAccount;
     private Button positiveButton;
+    private Creator creator;
 
     public enum Type {
         DOCUMENT,
@@ -121,7 +126,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        ThemeButtonUtils.themeBorderlessButton(positiveButton, alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               positiveButton,
+                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
@@ -157,9 +164,9 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.filenameContainer,
+        themeTextInputUtils.colorTextInput(binding.filenameContainer,
                                            binding.filename,
-                                           ThemeColorUtils.primaryColor(getContext()));
+                                           themeColorUtils.primaryColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();
@@ -192,7 +199,13 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
         binding.list.setHasFixedSize(true);
         binding.list.setLayoutManager(new GridLayoutManager(activity, 2));
-        adapter = new TemplateAdapter(creator.getMimetype(), this, getContext(), currentAccount, clientFactory);
+        adapter = new TemplateAdapter(creator.getMimetype(),
+                                      this,
+                                      getContext(),
+                                      currentAccount,
+                                      clientFactory,
+                                      themeColorUtils,
+                                      themeDrawableUtils);
         binding.list.setAdapter(adapter);
 
         // Build the dialog

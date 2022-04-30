@@ -46,7 +46,7 @@ public final class ThemeTextInputUtils {
      * @param textInputEditText the TextInputEditText child element
      * @param color             the color to be used for the hint text and box stroke
      */
-    public static void colorTextInput(TextInputLayout textInputLayout, TextInputEditText textInputEditText, int color) {
+    public void colorTextInput(TextInputLayout textInputLayout, TextInputEditText textInputEditText, int color) {
         textInputEditText.setHighlightColor(color);
         colorTextInputLayout(textInputLayout, color);
     }
@@ -57,7 +57,7 @@ public final class ThemeTextInputUtils {
      * @param textInputLayout the TextInputLayout instance
      * @param color           the color to be used for the hint text and box stroke
      */
-    private static void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+    private void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
         textInputLayout.setBoxStrokeColor(color);
         textInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{
@@ -71,7 +71,10 @@ public final class ThemeTextInputUtils {
         ));
     }
 
-    public static void themeEditText(Context context, EditText editText, boolean themedBackground) {
+    public void themeEditText(Context context,
+                              EditText editText,
+                              boolean themedBackground,
+                              ThemeColorUtils themeColorUtils) {
         if (editText == null) {
             return;
         }
@@ -79,7 +82,7 @@ public final class ThemeTextInputUtils {
         int color = ContextCompat.getColor(context, R.color.text_color);
 
         if (themedBackground) {
-            if (ThemeColorUtils.darkTheme(context)) {
+            if (themeColorUtils.darkTheme(context)) {
                 color = ContextCompat.getColor(context, R.color.themed_fg);
             } else {
                 color = ContextCompat.getColor(context, R.color.themed_fg_inverse);
@@ -89,12 +92,12 @@ public final class ThemeTextInputUtils {
         setEditTextColor(context, editText, color);
     }
 
-    public static void setEditTextColor(Context context, EditText editText, int color) {
+    public void setEditTextColor(Context context, EditText editText, int color) {
         editText.setTextColor(color);
         editText.setHighlightColor(context.getResources().getColor(R.color.fg_contrast));
     }
 
-    public static void colorEditText(EditText editText, int color) {
+    public void colorEditText(EditText editText, int color) {
         if (editText != null) {
             editText.setTextColor(color);
             editText.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);

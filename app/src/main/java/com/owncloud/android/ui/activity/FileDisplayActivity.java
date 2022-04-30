@@ -121,8 +121,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -305,7 +303,8 @@ public class FileDisplayActivity extends FileActivity
                     .create();
 
                 alertDialog.show();
-                ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -317,7 +316,7 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        PermissionUtil.requestExternalStoragePermission(this);
+        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
@@ -655,7 +654,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        ThemeToolbarUtils.themeSearchView(searchView, this);
+        themeToolbarUtils.themeSearchView(searchView, this);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);

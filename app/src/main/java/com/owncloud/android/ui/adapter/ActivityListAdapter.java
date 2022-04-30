@@ -72,6 +72,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgDecoder;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -98,13 +100,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ClientFactory clientFactory;
     protected List<Object> values;
     private boolean isDetailView;
+    private ThemeColorUtils themeColorUtils;
+    private ThemeDrawableUtils themeDrawableUtils;
 
     public ActivityListAdapter(
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ActivityListInterface activityListInterface,
         ClientFactory clientFactory,
-        boolean isDetailView) {
+        boolean isDetailView,
+        ThemeColorUtils themeColorUtils,
+        ThemeDrawableUtils themeDrawableUtils) {
         this.values = new ArrayList<>();
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
@@ -112,6 +118,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.clientFactory = clientFactory;
         px = getThumbnailDimension();
         this.isDetailView = isDetailView;
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
     }
 
     public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
@@ -278,9 +286,15 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
-                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context));
+                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
+                                                                             themeColorUtils,
+                                                                             themeDrawableUtils));
             } else {
-                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(previewObject.getMimeType(), "", context));
+                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(previewObject.getMimeType(),
+                                                                        "",
+                                                                        context,
+                                                                        themeColorUtils,
+                                                                        themeDrawableUtils));
             }
         }
 

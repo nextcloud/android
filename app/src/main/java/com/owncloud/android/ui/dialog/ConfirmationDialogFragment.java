@@ -20,15 +20,19 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 
-public class ConfirmationDialogFragment extends DialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment implements Injectable {
 
     final static String ARG_MESSAGE_RESOURCE_ID = "resource_id";
     final static String ARG_MESSAGE_ARGUMENTS = "string_array";
@@ -39,6 +43,9 @@ public class ConfirmationDialogFragment extends DialogFragment {
     final static String ARG_NEGATIVE_BTN_RES = "negative_btn_res";
 
     public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
+
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     private ConfirmationDialogFragmentListener mListener;
 
@@ -77,7 +84,8 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+        themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
                                                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }

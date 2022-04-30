@@ -32,26 +32,41 @@ import androidx.annotation.DrawableRes;
 /**
  * Utility class with methods for client side FAB theming.
  */
-public final class ThemeFabUtils {
-    public static void colorFloatingActionButton(FloatingActionButton button, @DrawableRes int drawable,
-                                                 Context context) {
-        int primaryColor = ThemeColorUtils.primaryColor(null, true, false, context);
+public class ThemeFabUtils {
+    private final ThemeColorUtils themeColorUtils;
+    private final ThemeDrawableUtils themeDrawableUtils;
+
+    public ThemeFabUtils(ThemeColorUtils themeColorUtils,
+                         ThemeDrawableUtils themeDrawableUtils) {
+        this.themeColorUtils = themeColorUtils;
+        this.themeDrawableUtils = themeDrawableUtils;
+    }
+
+    public void colorFloatingActionButton(FloatingActionButton button,
+                                          @DrawableRes int drawable,
+                                          Context context) {
+        int primaryColor = themeColorUtils.primaryColor(null, true, false, context);
 
         colorFloatingActionButton(button, context, primaryColor);
-        button.setImageDrawable(ThemeDrawableUtils.tintDrawable(drawable,
-                                                                ThemeColorUtils.getColorForPrimary(primaryColor,
+        button.setImageDrawable(themeDrawableUtils.tintDrawable(drawable,
+                                                                themeColorUtils.getColorForPrimary(primaryColor,
                                                                                                    context)));
     }
 
-    public static void colorFloatingActionButton(FloatingActionButton button, Context context) {
-        colorFloatingActionButton(button, context, ThemeColorUtils.primaryColor(null, true, false, context));
+    public void colorFloatingActionButton(FloatingActionButton button,
+                                          Context context) {
+        colorFloatingActionButton(button,
+                                  context,
+                                  themeColorUtils.primaryColor(null, true, false, context));
     }
 
-    public static void colorFloatingActionButton(FloatingActionButton button, Context context, int primaryColor) {
-        colorFloatingActionButton(button, primaryColor, ThemeColorUtils.calculateDarkColor(primaryColor, context));
+    public void colorFloatingActionButton(FloatingActionButton button,
+                                          Context context,
+                                          int primaryColor) {
+        colorFloatingActionButton(button, primaryColor, themeColorUtils.calculateDarkColor(primaryColor, context));
     }
 
-    public static void colorFloatingActionButton(FloatingActionButton button, int backgroundColor, int rippleColor) {
+    public void colorFloatingActionButton(FloatingActionButton button, int backgroundColor, int rippleColor) {
         button.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         button.setRippleColor(rippleColor);
     }

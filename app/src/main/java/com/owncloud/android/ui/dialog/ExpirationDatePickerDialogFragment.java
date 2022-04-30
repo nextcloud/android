@@ -30,20 +30,23 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Calendar;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 /**
- *  Dialog requesting a date after today.
+ * Dialog requesting a date after today.
  */
 public class ExpirationDatePickerDialogFragment
-        extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+    extends DialogFragment
+    implements DatePickerDialog.OnDateSetListener, Injectable {
 
     /** Tag for FragmentsManager */
     public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
@@ -51,6 +54,7 @@ public class ExpirationDatePickerDialogFragment
     /** Parameter constant for date chosen initially */
     private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
+    @Inject ThemeColorUtils themeColorUtils;
     private OnExpiryDateListener onExpiryDateListener;
 
     /**
@@ -70,6 +74,19 @@ public class ExpirationDatePickerDialogFragment
 
     public void setOnExpiryDateListener(OnExpiryDateListener onExpiryDateListener) {
         this.onExpiryDateListener = onExpiryDateListener;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final Dialog currentDialog = getDialog();
+        if (currentDialog != null) {
+            final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
+            dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+            dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+        }
     }
 
     /**
@@ -109,11 +126,6 @@ public class ExpirationDatePickerDialogFragment
                 });
         }
 
-        dialog.show();
-        dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(ThemeColorUtils.primaryColor(getContext(), true));
-
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();
         picker.setMinDate(tomorrowInMillis - 1000);
@@ -124,6 +136,16 @@ public class ExpirationDatePickerDialogFragment
         picker.setCalendarViewShown(false);
 
         return dialog;
+    }
+
+    public long getCurrentSelectionMillis() {
+        final Dialog dialog = getDialog();
+        if (dialog != null) {
+            final DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
+            final DatePicker picker = datePickerDialog.getDatePicker();
+            return yearMonthDayToMillis(picker.getYear(), picker.getMonth(), picker.getDayOfMonth());
+        }
+        return 0;
     }
 
     /**
@@ -137,15 +159,19 @@ public class ExpirationDatePickerDialogFragment
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-        Calendar chosenDate = Calendar.getInstance();
-        chosenDate.set(Calendar.YEAR, year);
-        chosenDate.set(Calendar.MONTH, monthOfYear);
-        chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        long chosenDateInMillis = chosenDate.getTimeInMillis();
+        long chosenDateInMillis = yearMonthDayToMillis(year, monthOfYear, dayOfMonth);
 
         if (onExpiryDateListener != null) {
             onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
         }
+    }
+
+    private long yearMonthDayToMillis(int year, int monthOfYear, int dayOfMonth) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, monthOfYear);
+        date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        return date.getTimeInMillis();
     }
 
     public interface OnExpiryDateListener {

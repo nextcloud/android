@@ -32,12 +32,15 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -47,11 +50,13 @@ import androidx.fragment.app.DialogFragment;
  * Dialog to rename a public share
  */
 public class RenamePublicShareDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_PUBLIC_SHARE = "PUBLIC_SHARE";
 
     public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
+
+    @Inject ThemeColorUtils themeColorUtils;
 
     private EditBoxDialogBinding binding;
     private OCShare publicShare;
@@ -69,7 +74,7 @@ public class RenamePublicShareDialogFragment
     public void onStart() {
         super.onStart();
 
-        int color = ThemeColorUtils.primaryAccentColor(getContext());
+        int color = themeColorUtils.primaryAccentColor(getContext());
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
@@ -82,7 +87,7 @@ public class RenamePublicShareDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = ThemeColorUtils.primaryAccentColor(getContext());
+        int accentColor = themeColorUtils.primaryAccentColor(getContext());
         publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
 
         // Inflate the layout for the dialog
@@ -95,7 +100,7 @@ public class RenamePublicShareDialogFragment
         inputText.setText(publicShare.getLabel());
         inputText.requestFocus();
         inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(ThemeColorUtils.primaryColor(getActivity()));
+        inputText.setHighlightColor(themeColorUtils.primaryColor(getActivity()));
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());

@@ -43,7 +43,6 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -78,12 +77,16 @@ public class ShareActivity extends FileActivity {
                                                                                   file.isSharedViaLink(),
                                                                                   file.isEncrypted(),
                                                                                   file.getMountType(),
-                                                                                  this));
+                                                                                  this,
+                                                                                  themeColorUtils,
+                                                                                  themeDrawableUtils));
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
                                                                                 optionalUser.get(),
-                                                                                this));
+                                                                                this,
+                                                                                themeColorUtils,
+                                                                                themeDrawableUtils));
             if (MimeTypeUtil.isImage(file)) {
                 String remoteId = String.valueOf(file.getRemoteId());
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
@@ -96,7 +99,7 @@ public class ShareActivity extends FileActivity {
         // Name
         binding.shareFileName.setText(getResources().getString(R.string.share_file, file.getFileName()));
 
-        binding.shareHeaderDivider.getBackground().setColorFilter(ThemeColorUtils.primaryAccentColor(this),
+        binding.shareHeaderDivider.getBackground().setColorFilter(themeColorUtils.primaryAccentColor(this),
                                                                   PorterDuff.Mode.SRC_ATOP);
 
         // Size

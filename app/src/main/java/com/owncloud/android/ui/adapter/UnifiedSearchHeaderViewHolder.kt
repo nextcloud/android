@@ -27,11 +27,15 @@ import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.theme.ThemeColorUtils
 
-class UnifiedSearchHeaderViewHolder(val binding: UnifiedSearchHeaderBinding, val context: Context) :
+class UnifiedSearchHeaderViewHolder(
+    val binding: UnifiedSearchHeaderBinding,
+    val themeColorUtils: ThemeColorUtils,
+    val context: Context
+) :
     SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
         binding.title.text = section.name
-        binding.title.setTextColor(ThemeColorUtils.primaryColor(context))
+        binding.title.setTextColor(themeColorUtils.primaryColor(context))
     }
 }

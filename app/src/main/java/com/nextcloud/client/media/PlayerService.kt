@@ -89,6 +89,9 @@ class PlayerService : Service() {
     @Inject
     protected lateinit var clientFactory: ClientFactory
 
+    @Inject
+    protected lateinit var themeColorUtils: ThemeColorUtils
+
     private lateinit var player: Player
     private lateinit var notificationBuilder: NotificationCompat.Builder
     private var isRunning = false
@@ -98,7 +101,7 @@ class PlayerService : Service() {
         AndroidInjection.inject(this)
         player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
-        notificationBuilder.color = ThemeColorUtils.primaryColor(this)
+        notificationBuilder.color = themeColorUtils.primaryColor(this)
 
         val stop = Intent(this, PlayerService::class.java)
         stop.action = ACTION_STOP

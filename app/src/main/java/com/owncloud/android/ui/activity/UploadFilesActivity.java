@@ -55,11 +55,7 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -102,6 +98,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private static final String WAIT_DIALOG_TAG = "WAIT";
 
     @Inject AppPreferences preferences;
+    @Inject ThemeSnackbarUtils themeSnackbarUtils;
     private Account mAccountOnCreation;
     private ArrayAdapter<String> mDirectories;
     private boolean mLocalFolderPickerMode;
@@ -188,11 +185,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         // Set input controllers
         MaterialButton cancelButton = findViewById(R.id.upload_files_btn_cancel);
-        cancelButton.setTextColor(ThemeColorUtils.primaryColor(this, true));
+        cancelButton.setTextColor(themeColorUtils.primaryColor(this, true));
         cancelButton.setOnClickListener(this);
 
         uploadButton = findViewById(R.id.upload_files_btn_upload);
-        ThemeButtonUtils.colorPrimaryButton(uploadButton, this);
+        themeButtonUtils.colorPrimaryButton(uploadButton, this, themeColorUtils);
         uploadButton.setOnClickListener(this);
         uploadButton.setEnabled(mLocalFolderPickerMode);
 
@@ -203,7 +200,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         List<String> behaviours = new ArrayList<>();
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,
-                                 ThemeUtils.getDefaultDisplayNameForRootFolder(this)));
+                                 themeUtils.getDefaultDisplayNameForRootFolder(this)));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload));
         behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source));
 
@@ -226,7 +223,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
             actionBar.setDisplayShowTitleEnabled(false);
 
-            ThemeToolbarUtils.tintBackButton(actionBar, this);
+            themeToolbarUtils.tintBackButton(actionBar, this);
         }
 
         showToolbarSpinner();
@@ -264,7 +261,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, true);
+        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils, true);
     }
 
     public void showToolbarSpinner() {
@@ -297,11 +294,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             setSelectAllMenuItem(selectAll, mSelectAll);
         }
 
-        int fontColor = ThemeColorUtils.appBarPrimaryFontColor(this);
+        int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        ThemeToolbarUtils.themeSearchView(mSearchView, this);
-        ThemeDrawableUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
+        themeToolbarUtils.themeSearchView(mSearchView, this);
+        themeDrawableUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
 
@@ -469,7 +466,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 selectAll.setIcon(R.drawable.ic_select_none);
             } else {
                 selectAll.setIcon(
-                    ThemeDrawableUtils.tintDrawable(R.drawable.ic_select_all, ThemeColorUtils.primaryColor(this)));
+                    themeDrawableUtils.tintDrawable(R.drawable.ic_select_all, themeColorUtils.primaryColor(this)));
             }
             updateUploadButtonActive();
         }

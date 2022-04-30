@@ -65,6 +65,8 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -251,14 +253,14 @@ public final class ThumbnailsCacheManager {
     }
 
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
-        private FileFragment fileFragment;
-        private FileDataStorageManager storageManager;
-        private User user;
-        private WeakReference<ImageView> imageViewReference;
-        private WeakReference<FrameLayout> frameLayoutReference;
+        private final FileFragment fileFragment;
+        private final FileDataStorageManager storageManager;
+        private final User user;
+        private final WeakReference<ImageView> imageViewReference;
+        private final WeakReference<FrameLayout> frameLayoutReference;
         private OCFile file;
-        private ConnectivityService connectivityService;
-        private int backgroundColor;
+        private final ConnectivityService connectivityService;
+        private final int backgroundColor;
 
 
         public ResizedImageGenerationTask(FileFragment fileFragment,
@@ -416,8 +418,8 @@ public final class ThumbnailsCacheManager {
     }
 
     public static class ThumbnailGenerationTaskObject {
-        private Object file;
-        private String imageKey;
+        private final Object file;
+        private final String imageKey;
 
         public ThumbnailGenerationTaskObject(Object file, String imageKey) {
             this.file = file;
@@ -738,15 +740,23 @@ public final class ThumbnailsCacheManager {
         private static final int IMAGE_KEY_PARAMS_LENGTH = 2;
 
         private enum Type {IMAGE, VIDEO}
+
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
-        private Context mContext;
+        private final Context mContext;
+        private final ThemeColorUtils themeColorUtils;
+        private final ThemeDrawableUtils themeDrawableUtils;
 
-        public MediaThumbnailGenerationTask(ImageView imageView, Context context) {
+        public MediaThumbnailGenerationTask(ImageView imageView,
+                                            Context context,
+                                            ThemeColorUtils themeColorUtils,
+                                            ThemeDrawableUtils themeDrawableUtils) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
             mContext = context;
+            this.themeColorUtils = themeColorUtils;
+            this.themeDrawableUtils = themeDrawableUtils;
         }
 
         @Override
@@ -793,13 +803,18 @@ public final class ThumbnailsCacheManager {
                 } else {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
-                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext));
+                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext,
+                                                                                         themeColorUtils,
+                                                                                         themeDrawableUtils));
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
                             } else {
-                                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, mFile.getName(),
-                                        mContext));
+                                imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null,
+                                                                                        mFile.getName(),
+                                                                                        mContext,
+                                                                                        themeColorUtils,
+                                                                                        themeDrawableUtils));
                             }
                         }
                     }
@@ -870,11 +885,11 @@ public final class ThumbnailsCacheManager {
         private final Object mCallContext;
         private final Resources mResources;
         private final float mAvatarRadius;
-        private User user;
-        private String mUserId;
-        private String displayName;
-        private String mServerName;
-        private Context mContext;
+        private final User user;
+        private final String mUserId;
+        private final String displayName;
+        private final String mServerName;
+        private final Context mContext;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,

@@ -31,11 +31,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -43,7 +46,7 @@ import androidx.fragment.app.DialogFragment;
 /**
  * Dialog to show and choose the sorting order for the file listing.
  */
-public class SortingOrderDialogFragment extends DialogFragment {
+public class SortingOrderDialogFragment extends DialogFragment implements Injectable {
 
     private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
 
@@ -54,6 +57,9 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private View[] mTaggedViews;
     private MaterialButton mCancel;
     private String mCurrentSortOrderName;
+
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeButtonUtils themeButtonUtils;
 
     public static SortingOrderDialogFragment newInstance(FileSortOrder sortOrder) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
@@ -96,7 +102,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         mCancel = view.findViewById(R.id.cancel);
-        mCancel.setTextColor(ThemeColorUtils.primaryAccentColor(getContext()));
+        mCancel.setTextColor(themeColorUtils.primaryAccentColor(getContext()));
 
         mTaggedViews = new View[12];
         mTaggedViews[0] = view.findViewById(R.id.sortByNameAscending);
@@ -131,13 +137,13 @@ public class SortingOrderDialogFragment extends DialogFragment {
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
     private void setupActiveOrderSelection() {
-        final int color = ThemeColorUtils.primaryColor(null, true, true, getContext());
+        final int color = themeColorUtils.primaryColor(null, true, true, getContext());
         for (View view: mTaggedViews) {
             if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;
             }
             if (view instanceof ImageButton) {
-                ThemeButtonUtils.colorImageButton((ImageButton)view, color);
+                themeButtonUtils.colorImageButton((ImageButton) view, color);
             }
             if (view instanceof TextView) {
                 ((TextView)view).setTextColor(color);

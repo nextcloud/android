@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -44,15 +45,22 @@ import androidx.recyclerview.widget.RecyclerView;
 class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
+    private ThemeColorUtils themeColorUtils;
+    private ThemeAvatarUtils themeAvatarUtils;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context) {
+    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding,
+                               Context context,
+                               ThemeColorUtils themeColorUtils,
+                               ThemeAvatarUtils themeAvatarUtils) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
+        this.themeColorUtils = themeColorUtils;
+        this.themeAvatarUtils = themeAvatarUtils;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -75,7 +83,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText(R.string.share_link);
             }
 
-            ThemeAvatarUtils.colorIconImageViewWithBackground(binding.icon, context);
+            themeAvatarUtils.colorIconImageViewWithBackground(binding.icon, context, themeColorUtils);
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);

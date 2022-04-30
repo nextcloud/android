@@ -13,17 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-public class FeatureFragment extends Fragment {
+public class FeatureFragment extends Fragment implements Injectable {
     private FeatureItem item;
+    @Inject ThemeDrawableUtils themeDrawableUtils;
 
     static public FeatureFragment newInstance(FeatureItem item) {
         FeatureFragment f = new FeatureFragment();
@@ -41,14 +45,15 @@ public class FeatureFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.whats_new_element, container, false);
         int fontColor = getResources().getColor(R.color.login_text_color);
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            whatsNewImage.setImageDrawable(ThemeDrawableUtils.tintDrawable(item.getImage(), fontColor));
+            whatsNewImage.setImageDrawable(themeDrawableUtils.tintDrawable(item.getImage(), fontColor));
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);

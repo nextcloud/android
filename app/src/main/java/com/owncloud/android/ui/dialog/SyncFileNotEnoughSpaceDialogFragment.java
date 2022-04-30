@@ -25,12 +25,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -40,7 +40,7 @@ import androidx.appcompat.app.AlertDialog;
  * Dialog requiring confirmation when a file/folder is too "big" to be synchronized/downloaded on device.
  */
 public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFragment implements
-    ConfirmationDialogFragmentListener {
+    ConfirmationDialogFragmentListener, Injectable {
 
     private static final String ARG_PASSED_FILE = "fragment_parent_caller";
     private static final int REQUEST_CODE_STORAGE = 20;
@@ -83,7 +83,8 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+            themeButtonUtils.themeBorderlessButton(themeColorUtils,
+                                                   alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                                                    alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL),
                                                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
         }

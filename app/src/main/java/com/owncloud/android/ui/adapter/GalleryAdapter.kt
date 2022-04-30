@@ -43,19 +43,24 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
 import java.util.Calendar
 import java.util.Date
 
+@Suppress("LongParameterList")
 class GalleryAdapter(
     val context: Context,
     user: User,
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
-    transferServiceGetter: ComponentsGetter
+    transferServiceGetter: ComponentsGetter,
+    themeColorUtils: ThemeColorUtils,
+    themeDrawableUtils: ThemeDrawableUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, SectionedAdapter {
     private var files: List<GalleryItems> = mutableListOf()
-    private var ocFileListDelegate: OCFileListDelegate
+    private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
     init {
@@ -71,7 +76,9 @@ class GalleryAdapter(
             true,
             transferServiceGetter,
             showMetadata = false,
-            showShareAvatar = false
+            showShareAvatar = false,
+            themeColorUtils,
+            themeDrawableUtils
         )
     }
 
