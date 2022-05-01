@@ -146,6 +146,7 @@
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
     <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
+    <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se escolher ambas as versões, o ficheiro local terá um número acrescentado ao nome.</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
     <string name="contactlist_no_permission">Sem permissão concedida, nada para importar.</string>
@@ -243,6 +244,7 @@
     <string name="enter_filename">Por favor, introduza um nome para o ficheiro</string>
     <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
     <string name="error_cant_bind_to_operations_service">Erro crítico: impossível concluir a operação</string>
+    <string name="error_choosing_date">Erro ao escolher a data</string>
     <string name="error_comment_file">Erro ao comentar ficheiro</string>
     <string name="error_crash_title">%1$s terminou em erro</string>
     <string name="error_report_issue_action">Relatório</string>
@@ -435,6 +437,7 @@
     <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Uma nova versão foi criada</string>
     <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
+    <string name="no_calendar_exists">Não existe calendário</string>
     <string name="no_mutliple_accounts_allowed">Apenas é permitida uma conta.</string>
     <string name="no_pdf_app_available">Nenhuma aplicação disponível para lidar com PDF</string>
     <string name="note_confirm">Enviar</string>
@@ -560,6 +563,7 @@
     <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
     <string name="restore">Restaurar ficheiro</string>
+    <string name="restore_backup">Restaurar cópia de segurança </string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
@@ -671,6 +675,7 @@
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
+    <string name="storage_permission_full_access">Acesso total </string>
     <string name="storage_pictures">Imagens</string>
     <string name="store_full_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\n\Características:\n* Interface simples e moderna, adequada ao tema do seu servidor\n* Envie ficheiros para o seu servidor Nextcloud\n* Partilhe-os com outros\n* Mantenha os seus ficheiros e pastas favoritos sincronizados\n* Pesquise em todas as pastas no seu servidor\n* Envie automaticamente fotografias e vídeos gravados pelo seu dispositivo\n* Mantenha-se informado/a com as notificações\n* Suporte para contas múltiplas\n* Proteja o acesso aos seus dados com impressão digital ou PIN\n* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &amp;contactos\n\nPor favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? Nextcloud é um servidor privado de sincronização, partilha e comunicação. É software livre e pode alojá-lo você mesmo/a ou pagar uma companhia para o fazer por si. Desta forma você controla as suas fotografias, os seus dados de calendários e contactos, os seus documentos e tudo o resto.\n\nConheça o Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\nEsta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!\n\nTanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.</string>
