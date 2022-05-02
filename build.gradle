@@ -26,17 +26,15 @@ buildscript {
 subprojects {
     buildscript {
         repositories {
+            gradlePluginPortal()
             google()
-            maven {
-                url 'https://plugins.gradle.org/m2/'
-            }
             mavenCentral()
         }
     }
     repositories {
         google()
-        maven { url "https://jitpack.io" }
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 
