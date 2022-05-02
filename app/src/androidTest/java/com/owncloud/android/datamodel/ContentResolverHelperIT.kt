@@ -36,7 +36,7 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 
 @RunWith(AndroidJUnit4::class)
-class ContentResolverHelperTest {
+class ContentResolverHelperIT {
 
     companion object {
         private val URI = Uri.parse("http://foo.bar")
