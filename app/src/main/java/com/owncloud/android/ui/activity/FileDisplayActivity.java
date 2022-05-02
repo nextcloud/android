@@ -513,6 +513,7 @@ public class FileDisplayActivity extends FileActivity
                 Log_OC.d(this, "Switch to oc file fragment");
 
                 setLeftFragment(new OCFileListFragment());
+                getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             }
     }
