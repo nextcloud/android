@@ -38,6 +38,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
@@ -45,6 +46,8 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.Formatter;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 
 /**
@@ -67,17 +70,18 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private ImageButton pauseButton;
     private ImageButton forwardButton;
     private ImageButton rewindButton;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeBarUtils themeBarUtils;
+
+    @Inject
+    ThemeColorUtils themeColorUtils;
+    @Inject
+    ThemeBarUtils themeBarUtils;
+
 
     public MediaControlView(Context context,
-                            AttributeSet attrs,
-                            ThemeColorUtils themeColorUtils,
-                            ThemeBarUtils themeBarUtils) {
+                            AttributeSet attrs) {
         super(context, attrs);
 
-        this.themeColorUtils = themeColorUtils;
-        this.themeBarUtils = themeBarUtils;
+        MainApp.getAppComponent().inject(this);
 
         FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,

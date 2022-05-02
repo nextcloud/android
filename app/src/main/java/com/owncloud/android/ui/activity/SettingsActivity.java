@@ -540,7 +540,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
                                                  boolean fShowMediaScanNotifications) {
         ThemeableSwitchPreference mShowMediaScanNotifications =
             (ThemeableSwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
-        mShowMediaScanNotifications.setThemeColorUtils(themeColorUtils);
 
         if (fShowMediaScanNotifications) {
             preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
@@ -550,7 +549,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
                                             boolean fShowHiddenFilesEnabled) {
         showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
-        showHiddenFiles.setThemeColorUtils(themeColorUtils);
         if (fShowHiddenFilesEnabled) {
             showHiddenFiles.setOnPreferenceClickListener(preference -> {
                 preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
@@ -616,10 +614,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
             (PreferenceCategory) findPreference("synced_folders_category");
         preferenceCategorySyncedFolders.setTitle(themeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
                                                                                 accentColor));
-
-        ThemeableSwitchPreference syncedFolderOnWifiSwitch =
-            (ThemeableSwitchPreference) findPreference("synced_folder_on_wifi");
-        syncedFolderOnWifiSwitch.setThemeColorUtils(themeColorUtils);
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);
