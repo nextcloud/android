@@ -30,39 +30,48 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.files.services.FileDownloader
+import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.services.OperationsService
 import com.owncloud.android.ui.activity.ComponentsGetter
-import org.junit.After
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.mockito.kotlin.any
-import org.mockito.kotlin.whenever
 
 @RunWith(AndroidJUnit4::class)
 class FileMenuFilterIT : AbstractIT() {
 
-    @Mock
-    private lateinit var componentsGetter: ComponentsGetter
+    @MockK
+    private lateinit var mockComponentsGetter: ComponentsGetter
 
-    @Mock
-    private lateinit var fileDataStorageManager: FileDataStorageManager
+    @MockK
+    private lateinit var mockStorageManager: FileDataStorageManager
 
-    private lateinit var mocks: AutoCloseable
+    @MockK
+    private lateinit var mockFileUploaderBinder: FileUploader.FileUploaderBinder
+
+    @MockK
+    private lateinit var mockFileDownloaderBinder: FileDownloader.FileDownloaderBinder
+
+    @MockK
+    private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
 
     @Before
     fun setup() {
-        mocks = MockitoAnnotations.openMocks(this)
-    }
-
-    @After
-    fun tearDown() {
-        mocks.close()
+        MockKAnnotations.init(this)
+        every { mockFileUploaderBinder.isUploading(any(), any()) } returns false
+        every { mockComponentsGetter.fileUploaderBinder } returns mockFileUploaderBinder
+        every { mockFileDownloaderBinder.isDownloading(any(), any()) } returns false
+        every { mockComponentsGetter.fileDownloaderBinder } returns mockFileDownloaderBinder
+        every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
+        every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
     }
 
     @Test
@@ -149,9 +158,9 @@ class FileMenuFilterIT : AbstractIT() {
     )
 
     private fun configureCapability(capability: OCCapability) {
-        whenever(fileDataStorageManager.getCapability(any<User>())).thenReturn(capability)
-        whenever(fileDataStorageManager.getCapability(any<String>())).thenReturn(capability)
-        whenever(componentsGetter.storageManager).thenReturn(fileDataStorageManager)
+        every { mockStorageManager.getCapability(any<User>()) } returns capability
+        every { mockStorageManager.getCapability(any<String>()) } returns capability
+        every { mockComponentsGetter.storageManager } returns mockStorageManager
     }
 
     private fun getMenu(activity: TestActivity): Menu {
@@ -172,7 +181,7 @@ class FileMenuFilterIT : AbstractIT() {
             it.onActivity { activity ->
                 val menu = getMenu(activity)
 
-                val sut = FileMenuFilter(file, componentsGetter, activity, true, user)
+                val sut = FileMenuFilter(file, mockComponentsGetter, activity, true, user)
 
                 sut.filter(menu, false)
 
