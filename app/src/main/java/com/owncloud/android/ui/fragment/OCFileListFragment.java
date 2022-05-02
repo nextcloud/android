@@ -41,13 +41,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.files.FileLockingMenuCustomization;
+import com.nextcloud.android.files.ThemedPopupMenu;
+import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -56,6 +58,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -92,6 +95,7 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -181,6 +185,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static final String DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT";
     private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
+    private static final String DIALOG_LOCK_DETAILS = "DIALOG_LOCK_DETAILS";
 
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
@@ -568,7 +573,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
         throttler.run("overflowClick", () -> {
-            PopupMenu popup = new PopupMenu(getActivity(), view);
+            final ThemedPopupMenu popup = new ThemedPopupMenu(requireContext(), view);
             popup.inflate(R.menu.item_file);
             FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
                                                    Collections.singleton(file),
@@ -576,11 +581,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                    true,
                                                    accountManager.getUser());
             mf.filter(popup.getMenu(), true);
+            new FileLockingMenuCustomization(requireContext()).customizeMenu(popup.getMenu(), file);
             popup.setOnMenuItemClickListener(item -> {
                 Set<OCFile> checkedFiles = new HashSet<>();
                 checkedFiles.add(file);
                 return onFileActionChosen(item, checkedFiles);
             });
+
             popup.show();
         });
     }
@@ -589,7 +596,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void newDocument() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
                                                               ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT)
-                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
@@ -603,7 +610,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void newPresentation() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
                                                               ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION)
-                .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
+            .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
@@ -616,7 +623,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void showTemplate(Creator creator, String headline) {
         ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
-                                                                      DIALOG_CREATE_DOCUMENT);
+                                                                                DIALOG_CREATE_DOCUMENT);
     }
 
     /**
@@ -741,6 +748,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
+            } else if (checkedCount == 1) {
+                // customize for locking if file is locked
+                new FileLockingMenuCustomization(requireContext()).customizeMenu(menu, checkedFiles.iterator().next());
             }
 
             return true;
@@ -1146,6 +1156,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_unset_encrypted) {
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
                 return true;
+            } else if (itemId == R.id.action_lock_file) {
+                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, true);
+            } else if (itemId == R.id.action_unlock_file) {
+                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             }
         }
 
@@ -1192,6 +1206,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (itemId == R.id.action_send_file) {
             mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
             return true;
+        } else if (itemId == R.id.action_lock_file) {
+            // TODO call lock API
         }
 
         return false;
@@ -1639,6 +1655,35 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Cannot create client", e);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FileLockEvent event) {
+        final User user = accountManager.getUser();
+
+        try {
+            new Handler(Looper.getMainLooper()).post(() -> setLoading(true));
+            NextcloudClient client = clientFactory.createNextcloudClient(user);
+            ToggleFileLockRemoteOperation operation = new ToggleFileLockRemoteOperation(event.getShouldLock(), event.getFilePath());
+            RemoteOperationResult<Void> result = operation.execute(client);
+
+            if (result.isSuccess()) {
+                // TODO only refresh the modified file?
+                new Handler(Looper.getMainLooper()).post(this::onRefresh);
+            } else {
+                Snackbar.make(getRecyclerView(),
+                              R.string.error_file_lock,
+                              Snackbar.LENGTH_LONG).show();
+            }
+
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Cannot create client", e);
+            Snackbar.make(getRecyclerView(),
+                          R.string.error_file_lock,
+                          Snackbar.LENGTH_LONG).show();
+        } finally {
+            new Handler(Looper.getMainLooper()).post(() -> setLoading(false));
         }
     }
 
