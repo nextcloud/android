@@ -386,6 +386,14 @@
         <item name="android:textColorPrimary">@color/text_color</item>
     </style>
 
+    <style name="Nextcloud.Widget.PopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/menu_item_text_color</item>
+    </style>
+
+    <style name="Theme.ToolbarWithDisabled" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColor">@color/menu_item_text_color</item>
+    </style>
+
     <style name="MaterialListItemSingleLine">
         <item name="android:clickable">true</item>
         <item name="android:background">?android:selectableItemBackground</item>
