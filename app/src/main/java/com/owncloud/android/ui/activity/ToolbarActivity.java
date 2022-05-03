@@ -27,6 +27,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
+import androidx.annotation.NonNull;
 import javax.inject.Inject;
 
 import androidx.annotation.StringRes;
@@ -284,5 +286,14 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public FrameLayout getPreviewImageContainer() {
         return mPreviewImageContainer;
+    }
+
+    public void updateToolbarSubtitle(@NonNull String subtitle) {
+        if (TextUtils.isEmpty(subtitle)) {
+            return;
+        }
+
+        ActionBar actionBar = getSupportActionBar();
+        ThemeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
     }
 }

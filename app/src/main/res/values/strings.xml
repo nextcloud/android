@@ -1008,6 +1008,12 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="subtitle_photos_videos">Photos &amp; videos</string>
+    <string name="show_images">Show photos</string>
+    <string name="subtitle_photos_only">Photos only</string>
+    <string name="show_video">Show videos</string>
+    <string name="subtitle_videos_only">Videos only</string>
+    <string name="select_media_folder">Set media folder</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>
     <string name="error_file_lock">Error changing file lock status</string>
