@@ -81,6 +81,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private List<OCFile> videoList;
 
     @Inject AppPreferences appPreferences;
+    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ThemeMenuUtils themeMenuUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -299,8 +301,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
 
         if (menuItem != null) {
-            ThemeMenuUtils.tintMenuIcon(requireContext(), menuItem,
-                                        ThemeColorUtils.appBarPrimaryFontColor(requireContext()));
+            themeMenuUtils.tintMenuIcon(menuItem,
+                                        themeColorUtils.appBarPrimaryFontColor(requireContext()));
         }
 
     }
