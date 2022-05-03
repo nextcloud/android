@@ -3,10 +3,8 @@
  *
  * @author David A. Velasco
  * @author Chris Narkiewicz Chris Narkiewicz
- * @author TSI-mc
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -714,5 +712,4 @@ public final class AppPreferencesImpl implements AppPreferences {
     public int computeBruteForceDelay(int count) {
         return (int) Math.min(count / 3d, 10);
     }
-
 }
