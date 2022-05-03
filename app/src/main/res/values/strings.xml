@@ -1008,4 +1008,10 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="lock_file">Lock file</string>
+    <string name="unlock_file">Unlock file</string>
+    <string name="error_file_lock">Error changing file lock status</string>
+    <string name="locked_by">Locked by %1$s</string>
+    <string name="locked_by_app">Locked by %1$s app</string>
+    <string name="lock_expiration_info">Expires: %1$s</string>
 </resources>

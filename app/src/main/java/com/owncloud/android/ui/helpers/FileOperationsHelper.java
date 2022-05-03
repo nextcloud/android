@@ -79,6 +79,7 @@ import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -914,6 +915,12 @@ public class FileOperationsHelper {
                                                            file.getRemoteId(),
                                                            file.getRemotePath(),
                                                            shouldBeEncrypted));
+        }
+    }
+
+    public void toggleFileLock(OCFile file, boolean shouldBeLocked) {
+        if (file.isLocked() != shouldBeLocked) {
+            EventBus.getDefault().post(new FileLockEvent(file.getRemotePath(), shouldBeLocked));
         }
     }
 

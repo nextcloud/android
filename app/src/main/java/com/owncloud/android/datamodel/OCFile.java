@@ -33,6 +33,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
@@ -95,10 +96,23 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     String note;
     private List<ShareeUser> sharees;
     private String richWorkspace;
+    private boolean locked;
+    @Nullable
+    private FileLockType lockType;
+    @Nullable
+    private String lockOwnerId;
+    @Nullable
+    private String lockOwnerDisplayName;
+    @Nullable
+    private String lockOwnerEditor;
+    private long lockTimestamp;
+    private long lockTimeout;
+    @Nullable
+    private String lockToken;
 
     /**
-     * URI to the local path of the file contents, if stored in the device; cached after first call
-     * to {@link #getStorageUri()}
+     * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
+     * #getStorageUri()}
      */
     private Uri localUri;
 
@@ -162,6 +176,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         richWorkspace = source.readString();
         previewAvailable = source.readInt() == 1;
         firstShareTimestamp = source.readLong();
+        locked = source.readInt() == 1;
+        lockType = FileLockType.fromValue(source.readInt());
+        lockOwnerId = source.readString();
+        lockOwnerDisplayName = source.readString();
+        lockOwnerEditor = source.readString();
+        lockTimestamp = source.readLong();
+        lockTimeout = source.readLong();
+        lockToken = source.readString();
     }
 
     @Override
@@ -196,6 +218,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(richWorkspace);
         dest.writeInt(previewAvailable ? 1 : 0);
         dest.writeLong(firstShareTimestamp);
+        dest.writeInt(locked ? 1 : 0);
+        dest.writeInt(lockType != null ? lockType.getValue() : -1);
+        dest.writeString(lockOwnerId);
+        dest.writeString(lockOwnerDisplayName);
+        dest.writeString(lockOwnerEditor);
+        dest.writeLong(lockTimestamp);
+        dest.writeLong(lockTimeout);
+        dest.writeString(lockToken);
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -459,6 +489,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
         firstShareTimestamp = 0;
+        locked = false;
+        lockType = null;
+        lockOwnerId = null;
+        lockOwnerDisplayName = null;
+        lockOwnerEditor = null;
+        lockTimestamp = 0;
+        lockTimeout = 0;
+        lockToken = null;
     }
 
     /**
@@ -830,5 +868,74 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setFirstShareTimestamp(long firstShareTimestamp) {
         this.firstShareTimestamp = firstShareTimestamp;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    @Nullable
+    public FileLockType getLockType() {
+        return lockType;
+    }
+
+    public void setLockType(@Nullable FileLockType lockType) {
+        this.lockType = lockType;
+    }
+
+    @Nullable
+    public String getLockOwnerId() {
+        return lockOwnerId;
+    }
+
+    public void setLockOwnerId(@Nullable String lockOwnerId) {
+        this.lockOwnerId = lockOwnerId;
+    }
+
+    @Nullable
+    public String getLockOwnerDisplayName() {
+        return lockOwnerDisplayName;
+    }
+
+    public void setLockOwnerDisplayName(@Nullable String lockOwnerDisplayName) {
+        this.lockOwnerDisplayName = lockOwnerDisplayName;
+    }
+
+    @Nullable
+    public String getLockOwnerEditor() {
+        return lockOwnerEditor;
+    }
+
+    public void setLockOwnerEditor(@Nullable String lockOwnerEditor) {
+        this.lockOwnerEditor = lockOwnerEditor;
+    }
+
+    public long getLockTimestamp() {
+        return lockTimestamp;
+    }
+
+    public void setLockTimestamp(long lockTimestamp) {
+        this.lockTimestamp = lockTimestamp;
+    }
+
+    public long getLockTimeout() {
+        return lockTimeout;
+    }
+
+    public void setLockTimeout(long lockTimeout) {
+        this.lockTimeout = lockTimeout;
+    }
+
+    @Nullable
+    public String getLockToken() {
+        return lockToken;
+    }
+
+    public void setLockToken(@Nullable String lockToken) {
+        this.lockToken = lockToken;
     }
 }

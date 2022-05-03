@@ -18,6 +18,7 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
@@ -137,10 +138,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/zero">
 
@@ -148,7 +150,6 @@
             android:id="@+id/unreadComments"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
             android:focusable="true"
@@ -161,8 +162,6 @@
             android:id="@+id/sharedIcon"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/unreadComments"
             android:clickable="true"
             android:contentDescription="@string/shared_icon_share"
             android:focusable="true"
@@ -173,10 +172,8 @@
         <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
             android:layout_width="100dp"
+            android:gravity="center_vertical"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_alignEnd="@id/sharedIcon"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/sharedIcon"
             android:contentDescription="@string/shared_avatar_desc"
             android:visibility="visible" />
 
@@ -184,8 +181,6 @@
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/sharedAvatars"
             android:clickable="false"
             android:contentDescription="@string/checkbox"
             android:focusable="false"
@@ -197,8 +192,6 @@
             android:id="@+id/overflow_menu"
             android:layout_width="48dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/custom_checkbox"
             android:clickable="true"
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
@@ -206,5 +199,5 @@
             android:paddingEnd="12dp"
             android:src="@drawable/ic_dots_vertical" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
