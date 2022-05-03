@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
@@ -92,8 +93,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             FileActivity activity = (FileActivity) getActivity();
 
             galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
-                                                                                    this,
-                                                                                    appPreferences);
+                                                                                    this);
         }
         imageList = new ArrayList<>();
         videoList = new ArrayList<>();
@@ -140,6 +140,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
+
+        updateSubtitle(galleryFragmentBottomSheetDialog.isHideVideos(), galleryFragmentBottomSheetDialog.isHideImages());
 
         handleSearchEvent();
     }
@@ -379,33 +381,20 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
     }
 
-
-    //Actions implementation of Bottom Sheet Dialog
     @Override
-    public void hideVideos(boolean isHideVideosClicked) {
-
+    public void updateMediaContent(boolean isHideVideos, boolean isHidePhotos) {
         if (!mediaObject.isEmpty()) {
             mAdapter.setAdapterWithHideShowImage(mediaObject,
-                                                 preferences.getHideVideoClicked(),
-                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 isHideVideos,
+                                                 isHidePhotos, imageList, videoList,
                                                  this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
-    }
 
-    @Override
-    public void hideImages(boolean isHideImagesClicked) {
-        if (!mediaObject.isEmpty()) {
-            mAdapter.setAdapterWithHideShowImage(mediaObject,
-                                                 preferences.getHideVideoClicked(),
-                                                 preferences.getHideImageClicked(), imageList, videoList,
-                                                 this);
+        updateSubtitle(isHideVideos, isHidePhotos);
 
-        } else {
-            setEmptyListMessage(SearchType.GALLERY_SEARCH);
-        }
     }
 
     @Override
@@ -417,7 +406,24 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     public void showAllGalleryItems() {
         mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFilePath.getRemotePath(),
-                                     mediaObject, preferences.getHideVideoClicked(), preferences.getHideImageClicked(),
+                                     mediaObject, galleryFragmentBottomSheetDialog.isHideVideos(),
+                                     galleryFragmentBottomSheetDialog.isHideImages(),
                                      imageList, videoList, this);
+
+        updateSubtitle(galleryFragmentBottomSheetDialog.isHideVideos(), galleryFragmentBottomSheetDialog.isHideImages());
+    }
+
+    private void updateSubtitle(boolean isHideVideos, boolean isHidePhotos) {
+        requireActivity().runOnUiThread(() -> {
+            String subTitle = requireContext().getResources().getString(R.string.subtitle_photos_videos);
+            if (isHideVideos) {
+                subTitle = requireContext().getResources().getString(R.string.subtitle_photos_only);
+            } else if (isHidePhotos) {
+                subTitle = requireContext().getResources().getString(R.string.subtitle_videos_only);
+            }
+            if (requireActivity() instanceof ToolbarActivity) {
+                ((ToolbarActivity) requireActivity()).updateToolbarSubtitle(subTitle);
+            }
+        });
     }
 }
