@@ -2,9 +2,11 @@
  *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
+ *   @author TSI-mc
  *   Copyright (C) 2016 Andy Scherzinger
  *   Copyright (C) 2016 Nextcloud
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2022 TSI-mc
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -294,6 +296,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         }
 
         ActionBar actionBar = getSupportActionBar();
-        ThemeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
+        themeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
     }
 }
