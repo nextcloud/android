@@ -1,0 +1,29 @@
+Restore library version, since library changes are merged
+Fix some licenses
+Fix spotbugs
+Remove unused resources
+Add test for FileMenuFilter that verifies file locking menu items
+Add unit tests for FileLockingHelper
+FileMenuFilter: don't show lock options if there's no locking capability
+Fix lock info in actionMode menu when selecting a single, locked, file
+FileMenuFilter: don't show move, remove or rename options when file is locked
+Show file lock info in actions menu instead of separate dialog
+Combine lock indicator with overflow icon
+FileMenuFilter: properly filter lock/unlock depending on lock status
+Show lock details when tapping on lock indicator
+Retrieve and persist more locking attributes from remote files
+Add ability to toggle file lock from file context menu
+FileDataStorageManager: small cleanup
+Show file locking status on list
+build.gradle: temporary library version
+Store file locking capability
+FileDisplayActivity: wait until OCFileListFragment is initialized to trigger browseToRoot()
+PreviewMediaFragment: Remove margin from top bar
+Fix contents cut off when scrolling is locked
+Inject ThemeColorUtils into ThemeableSwitchPreference too
+Fix ThemeUtils injection for MediaControlView
+build: Update last 2 libraries that used JCenter
+build: Clean up repository configuration
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
