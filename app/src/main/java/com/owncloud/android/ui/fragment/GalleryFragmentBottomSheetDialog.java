@@ -36,19 +36,20 @@ import androidx.core.content.ContextCompat;
 
 public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
+    //media view states
+    private static final int MEDIA_STATE_DEFAULT = 1; //when both photos and videos selected
+    private static final int MEDIA_STATE_PHOTOS_ONLY = 2;
+    private static final int MEDIA_STATE_VIDEOS_ONLY = 3;
+
     private FragmentGalleryBottomSheetBinding binding;
     private final GalleryFragmentBottomSheetActions actions;
-    private final AppPreferences preferences;
-    private boolean isHideImageClicked;
-    private boolean isHideVideoClicked;
     private BottomSheetBehavior mBottomBehavior;
+    private int currentMediaState = MEDIA_STATE_DEFAULT;
 
     public GalleryFragmentBottomSheetDialog(FileActivity fileActivity,
-                                            GalleryFragmentBottomSheetActions actions,
-                                            AppPreferences preferences) {
+                                            GalleryFragmentBottomSheetActions actions) {
         super(fileActivity);
         this.actions = actions;
-        this.preferences = preferences;
     }
 
 
@@ -73,24 +74,15 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
     }
 
     private void setupLayout() {
-
-        if (!preferences.getHideImageClicked()) {
-            binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_camera));
-            binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
-            binding.tickMarkHideImages.setVisibility(View.GONE);
-        } else if (preferences.getHideImageClicked()) {
-            binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_camera));
-            binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
-            binding.tickMarkHideImages.setVisibility(View.VISIBLE);
-        }
-        if (!preferences.getHideVideoClicked()) {
-            binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_video_camera));
-            binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
-            binding.tickMarkHideVideo.setVisibility(View.GONE);
-        } else if (preferences.getHideVideoClicked()) {
-            binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_video_camera));
-            binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
-            binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
+        if (currentMediaState == MEDIA_STATE_PHOTOS_ONLY) {
+            binding.tickMarkShowImages.setVisibility(View.VISIBLE);
+            binding.tickMarkShowVideo.setVisibility(View.GONE);
+        } else if (currentMediaState == MEDIA_STATE_VIDEOS_ONLY) {
+            binding.tickMarkShowImages.setVisibility(View.GONE);
+            binding.tickMarkShowVideo.setVisibility(View.VISIBLE);
+        } else {
+            binding.tickMarkShowImages.setVisibility(View.VISIBLE);
+            binding.tickMarkShowVideo.setVisibility(View.VISIBLE);
         }
     }
 
@@ -98,63 +90,23 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
         binding.hideImages.setOnClickListener(v -> {
 
-            if (!preferences.getHideImageClicked() && preferences.getHideVideoClicked()) {
-                isHideImageClicked = true;
-                isHideVideoClicked = false;
-                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_camera));
-                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
-                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_video_camera));
-                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
-                binding.tickMarkHideImages.setVisibility(View.VISIBLE);
-                binding.tickMarkHideVideo.setVisibility(View.GONE);
-
-            } else if (!preferences.getHideImageClicked() && !preferences.getHideVideoClicked()) {
-                isHideImageClicked = true;
-                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_camera));
-                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.show_images));
-                binding.tickMarkHideImages.setVisibility(View.VISIBLE);
-            } else if (preferences.getHideImageClicked() && !preferences.getHideVideoClicked()) {
-                isHideImageClicked = false;
-                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_camera));
-                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
-                binding.tickMarkHideImages.setVisibility(View.GONE);
-
+            if (currentMediaState == MEDIA_STATE_VIDEOS_ONLY) {
+                currentMediaState = MEDIA_STATE_DEFAULT;
+            } else {
+                currentMediaState = MEDIA_STATE_VIDEOS_ONLY;
             }
-
-            preferences.setHideImageClicked(isHideImageClicked);
-            preferences.setHideVideoClicked(isHideVideoClicked);
-            actions.hideImages(preferences.getHideImageClicked());
+            notifyStateChange();
             dismiss();
         });
 
         binding.hideVideo.setOnClickListener(v -> {
 
-            if (!preferences.getHideVideoClicked() && !preferences.getHideImageClicked()) {
-                isHideVideoClicked = true;
-                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_video_camera));
-                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
-                binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
-            } else if (!preferences.getHideVideoClicked() && preferences.getHideImageClicked()) {
-                isHideVideoClicked = true;
-                isHideImageClicked = false;
-
-                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_no_video_camera));
-                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.show_video));
-                binding.hideImagesImageview.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_camera));
-                binding.hideImagesTextview.setText(getContext().getResources().getString(R.string.hide_images));
-                binding.tickMarkHideImages.setVisibility(View.GONE);
-                binding.tickMarkHideVideo.setVisibility(View.VISIBLE);
-
-            } else if (preferences.getHideVideoClicked() && !preferences.getHideImageClicked()) {
-                isHideVideoClicked = false;
-                binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_video_camera));
-                binding.hideVideoTextview.setText(getContext().getResources().getString(R.string.hide_video));
-                binding.tickMarkHideVideo.setVisibility(View.GONE);
+            if (currentMediaState == MEDIA_STATE_PHOTOS_ONLY) {
+                currentMediaState = MEDIA_STATE_DEFAULT;
+            } else {
+                currentMediaState = MEDIA_STATE_PHOTOS_ONLY;
             }
-
-            preferences.setHideVideoClicked(isHideVideoClicked);
-            preferences.setHideImageClicked(isHideImageClicked);
-            actions.hideVideos(preferences.getHideVideoClicked());
+            notifyStateChange();
             dismiss();
         });
 
@@ -165,4 +117,18 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
         });
 
     }
+
+    private void notifyStateChange() {
+        setupLayout();
+        actions.updateMediaContent(isHideVideos(), isHideImages());
+    }
+
+    public boolean isHideImages() {
+        return currentMediaState == MEDIA_STATE_VIDEOS_ONLY;
+    }
+
+    public boolean isHideVideos() {
+        return currentMediaState == MEDIA_STATE_PHOTOS_ONLY;
+    }
+
 }
