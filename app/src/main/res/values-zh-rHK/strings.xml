@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">近端檔案系統中找不到檔案</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
+    <string name="lock_file">上鎖檔案</string>
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
     <string name="log_send_no_mail_app">找不到用於發送記錄的應用程式。請安裝電子郵件客戶端。</string>
     <string name="login">登入</string>
@@ -756,6 +757,7 @@
     <string name="trashbin_file_not_restored">檔案 %1$s 不能被還原！</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
     <string name="trashbin_not_emptied">無法永久刪除文件！</string>
+    <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="unset_favorite">從最愛中移除</string>

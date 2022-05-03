@@ -377,6 +377,7 @@
     <string name="local_file_not_found_message">Documentu no agatadu in su sistema de documentos locale</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ddoe sunt àteras cartellas.</string>
+    <string name="lock_file">Bloca su documentu</string>
     <string name="log_send_mail_subject">%1$s registros de s\'aplicatzione Android</string>
     <string name="log_send_no_mail_app">No est è istada agatada peruna aplicatzione pro imbiare is log. Installa unu cliente de posta eletrònica.</string>
     <string name="login">Intra</string>
@@ -711,6 +712,7 @@
     <string name="trashbin_file_not_restored">No at fatu a recuperare s\'archìviu %1$s!</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
+    <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>
     <string name="unset_favorite">Boga·nche·ddu dae is preferidos</string>

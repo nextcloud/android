@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">Datoteka nije pronađena u lokalnom datotečnom sustavu</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nema drugih mapa.</string>
+    <string name="lock_file">Zaključaj datoteku</string>
     <string name="log_send_mail_subject">Zapisnici aplikacija za Android %1$s</string>
     <string name="log_send_no_mail_app">Nije pronađena nijedna aplikacija za slanje zapisa. Instalirajte klijent e-pošte.</string>
     <string name="login">Prijava</string>
@@ -753,6 +754,7 @@
     <string name="trashbin_file_not_restored">Datoteku %1$s nije moguće vratiti!</string>
     <string name="trashbin_loading_failed">Učitavanje kante za smeće nije uspjelo!</string>
     <string name="trashbin_not_emptied">Datoteke nije moguće trajno izbrisati!</string>
+    <string name="unlock_file">Otključaj datoteku</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
     <string name="unset_favorite">Ukloni iz favorita</string>

@@ -396,6 +396,7 @@
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
+    <string name="lock_file">ファイルをロック</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
@@ -746,6 +747,7 @@
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントが存在します</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="unset_favorite">お気に入りから削除</string>
