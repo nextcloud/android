@@ -255,6 +255,7 @@
     <string name="error_comment_file">Errorea fitxategia iruzkintzean</string>
     <string name="error_crash_title">%1$s(e)k huts egin du</string>
     <string name="error_creating_file_from_template">Errorea fitxategia plantilatik sortzerakoan</string>
+    <string name="error_file_lock">Errorea fitxategiaren blokeo egoera aldatzean</string>
     <string name="error_report_issue_action">Jakinarazi</string>
     <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (GitHub kontu bat beharrezkoa da)</string>
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
@@ -401,7 +402,10 @@
     <string name="local_file_not_found_message">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
     <string name="local_folder_friendly_path">%2$s(e)tik %1$s</string>
     <string name="local_folder_list_empty">Ez dago karpeta gehiagorik.</string>
-    <string name="lock_file">Fitxategia blokeatu</string>
+    <string name="lock_expiration_info">Iraungitze data: %1$s</string>
+    <string name="lock_file">Blokeatu fitxategia</string>
+    <string name="locked_by">%1$s-(e)k blokeatuta</string>
+    <string name="locked_by_app">%1$s aplikazioak blokeatuta</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunkariak</string>
     <string name="log_send_no_mail_app">Ez da aurkitu egunkariak bidaltzeko aplikaziorik. Instalatu posta elektroniko bezero bat.</string>
     <string name="login">Hasi saioa</string>
