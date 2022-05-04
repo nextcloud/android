@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">A fájl nem található a helyi fájlrendszeren</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nincs több mappa.</string>
+    <string name="lock_file">Fájl zárolása</string>
     <string name="log_send_mail_subject">%1$s androidos alkalmazás naplói</string>
     <string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Telepítsen egy levelezőprogramot.</string>
     <string name="login">Bejelentkezés</string>
@@ -774,6 +775,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_file_not_restored">A(z) %1$s fájl nem állítható vissza!</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
+    <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
     <string name="unset_favorite">Eltávolítás a kedvencekből</string>

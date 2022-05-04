@@ -402,6 +402,7 @@
     <string name="local_file_not_found_message">Файлът не е намерен в локалната система за файлове</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
+    <string name="lock_file">Заключване на файл</string>
     <string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
     <string name="log_send_no_mail_app">Няма намерено приложение за изпращане на журнали. Моля, инсталирайте имейл клиент.</string>
     <string name="login">Вписване</string>
@@ -757,6 +758,7 @@
     <string name="trashbin_file_not_restored">Файлът %1$s не може да бъде възстановен!</string>
     <string name="trashbin_loading_failed">Зареждането на кошчето е неуспешно!</string>
     <string name="trashbin_not_emptied">Файловете не могат да бъдат окончателно изтрити!</string>
+    <string name="unlock_file">Отключване на файл</string>
     <string name="unread_comments">Съществуват непрочетени коментари</string>
     <string name="unset_encrypted">Изключи криптиране</string>
     <string name="unset_favorite">Премахни от любимите</string>

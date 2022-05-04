@@ -387,6 +387,7 @@
     <string name="local_file_not_found_message">Ficheiros não encontrados no sistema de ficheiros local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Não existem mais pastas.</string>
+    <string name="lock_file">Bloquear ficheiro </string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
     <string name="log_send_no_mail_app">Não encontro aplicação para o envio de logs. Por favor Instale um cliente de email.</string>
     <string name="login">Iniciar Sessão</string>
@@ -730,6 +731,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="trashbin_file_not_restored">Ficheiro %1$s não pôde ser restaurado!</string>
     <string name="trashbin_loading_failed">Impossível ler a pasta da reciclagem!</string>
     <string name="trashbin_not_emptied">Os ficheiros não puderam ser permanentemente apagados!</string>
+    <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>
     <string name="unset_favorite">Remover dos favoritos</string>

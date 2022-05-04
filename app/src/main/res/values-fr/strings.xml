@@ -400,6 +400,7 @@ Attention la suppression est irréversible.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
+    <string name="lock_file">Verrouiller le fichier</string>
     <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
     <string name="log_send_no_mail_app">Pas d\'app d\'envoie de logs trouvé. Installer un client e-mail.</string>
     <string name="login">Se connecter</string>
@@ -753,6 +754,7 @@ Attention la suppression est irréversible.</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="unset_favorite">Supprimer des favoris</string>

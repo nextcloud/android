@@ -1,3 +1,15 @@
+## 3.20.0 (May 3rd, 2022)
+
+- Built-in PDF viewer
+- Built-in document scanner
+- Better choices for storage permissions
+- File locking support
+- Better UI for media gallery
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/64
 ## 3.19.1 (March 10, 2022)
 
 - Minor fixes and improvements

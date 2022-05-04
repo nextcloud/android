@@ -394,6 +394,7 @@
     <string name="local_file_not_found_message">내부 파일 시스템에서 파일을 찾을 수 없음</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">더 이상의 폴더가 없습니다.</string>
+    <string name="lock_file">파일 잠금</string>
     <string name="log_send_mail_subject">%1$s Android 앱 로그</string>
     <string name="log_send_no_mail_app">로그 전송용 앱이 없습니다. 이메일 클라이언트를 설치하십시오.</string>
     <string name="login">로그인</string>
@@ -765,6 +766,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="trashbin_file_not_restored">%1$s 파일을 복구할 수 없습니다!</string>
     <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
+    <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
     <string name="unset_favorite">즐겨찾기에서 제거</string>
