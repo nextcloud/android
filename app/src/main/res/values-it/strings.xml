@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">File non trovato nel file system locale</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ci sono ulteriori cartelle.</string>
+    <string name="lock_file">Blocca file</string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
     <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
     <string name="login">Accedi</string>
@@ -756,6 +757,7 @@
     <string name="trashbin_file_not_restored">Il file %1$s non può essere ripristinato!</string>
     <string name="trashbin_loading_failed">Caricamento cestino non riuscito!</string>
     <string name="trashbin_not_emptied">I file non possono essere scaricati definitivamente!</string>
+    <string name="unlock_file">Sblocca file</string>
     <string name="unread_comments">Sono presenti commenti non letti</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>
     <string name="unset_favorite">Rimuovi dai preferiti</string>

@@ -54,15 +54,6 @@ configurations.configureEach {
     }
 }
 
-repositories {
-    google()
-    maven { url "https://jitpack.io" }
-    mavenCentral()
-    maven {
-        url 'https://plugins.gradle.org/m2/'
-    }
-}
-
 // semantic versioning for version code
 def versionMajor = 3
 def versionMinor = 20
@@ -250,7 +241,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.4' // 'com.github.blikoon:QRCodeScanner:0.1.2'
-    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
         exclude group: "com.android.support"
     }
@@ -284,7 +275,7 @@ dependencies {
     implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.1'
     
     // Shimmer animation
-    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+    implementation 'io.github.elye:loaderviewlibrary:3.0.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
@@ -327,6 +318,7 @@ dependencies {
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
     androidTestUtil "androidx.test:orchestrator:$androidxTestVersion"
+    androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

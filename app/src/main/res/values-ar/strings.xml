@@ -396,6 +396,7 @@
     <string name="local_file_not_found_message">ملف غير موجود في نظام الملفات المحلي</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">لا توجد مجلدات أخرى.</string>
+    <string name="lock_file">أقفل الملف</string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
     <string name="log_send_no_mail_app">لا يوجد تطبيق لارسال السجلات . الرجاء تثبيت عميل البريد الالكتروني.</string>
     <string name="login">تسجيل الدخول</string>
@@ -755,6 +756,7 @@
     <string name="trashbin_file_not_restored">الملف %1$s لا يمكن إسترجاعه!</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المحذوفات</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
+    <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
     <string name="unset_favorite">إزالتها مِن المفضلة</string>

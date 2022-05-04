@@ -397,6 +397,7 @@
     <string name="local_file_not_found_message">Fișierul nu a fost găsit în sistemul local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s </string>
     <string name="local_folder_list_empty">Nu există dosare.</string>
+    <string name="lock_file">Blochează fișierul</string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu există nici o aplicație pentru a trimite fisiere log. Vă rugăm instalați un client de email.</string>
     <string name="login">Autentificare</string>
@@ -749,6 +750,7 @@
     <string name="trashbin_file_not_restored">Fișierul %1$s nu a putut fi restaurat!</string>
     <string name="trashbin_loading_failed">Încărcarea coșului de gunoi a eșuat!</string>
     <string name="trashbin_not_emptied">Fișierele nu au putut fi șterse permanent!</string>
+    <string name="unlock_file">Deblochează fișierul</string>
     <string name="unread_comments">Există comentarii necitite</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
     <string name="unset_favorite">Ștergeți din favorite</string>

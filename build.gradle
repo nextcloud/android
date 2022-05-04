@@ -11,7 +11,7 @@ buildscript {
         mockitoKotlinVersion = "4.0.0"
         mockkVersion = "1.12.3"
         powermockVersion = "2.0.9"
-        byteBuddyVersion = "1.12.9"
+        byteBuddyVersion = "1.12.10"
         espressoVersion = "3.4.0"
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0"
@@ -26,17 +26,15 @@ buildscript {
 subprojects {
     buildscript {
         repositories {
+            gradlePluginPortal()
             google()
-            maven {
-                url 'https://plugins.gradle.org/m2/'
-            }
             mavenCentral()
         }
     }
     repositories {
         google()
-        maven { url "https://jitpack.io" }
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 

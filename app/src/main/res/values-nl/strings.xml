@@ -398,6 +398,7 @@
     <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
+    <string name="lock_file">Vergrendel bestand</string>
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
     <string name="login">Inloggen</string>
@@ -751,6 +752,7 @@
     <string name="trashbin_file_not_restored">Bestand %1$s kon niet worden hersteld!</string>
     <string name="trashbin_loading_failed">Laden prullenbak mislukt!</string>
     <string name="trashbin_not_emptied">Bestanden konden niet permanent worden verwijderd!</string>
+    <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
     <string name="unset_favorite">Verwijderen uit favorieten</string>

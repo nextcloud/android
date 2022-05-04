@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">Súbor nebolo možné nájsť na lokálnom úložisku</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
+    <string name="lock_file">Zamknúť súbor</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
     <string name="log_send_no_mail_app">Aplikácia na odoslanie logov nenájdená. Prosím nainštalujte emailovú aplikáciu.</string>
     <string name="login">Prihlásiť sa</string>
@@ -756,6 +757,7 @@
     <string name="trashbin_file_not_restored">Súbor %1$s sa nedá obnoviť!</string>
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
+    <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="unset_favorite">Odstrániť z obľúbených</string>

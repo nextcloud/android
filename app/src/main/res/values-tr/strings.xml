@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
+    <string name="lock_file">Dosyayı kilitle</string>
     <string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
     <string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
     <string name="login">Oturum aç</string>
@@ -756,6 +757,7 @@
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+    <string name="unlock_file">Dosya kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="unset_favorite">Sık kullanılanlardan kaldır</string>

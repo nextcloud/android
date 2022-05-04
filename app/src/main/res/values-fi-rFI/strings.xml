@@ -395,6 +395,7 @@
     <string name="local_file_not_found_message">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
+    <string name="lock_file">Lukitse tiedosto</string>
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Sovellusta ei löytynyt lokien lähettämistä varten. Asenna sähköpostisovellus.</string>
     <string name="login">Kirjaudu sisään</string>
@@ -745,6 +746,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="trashbin_file_not_restored">Tiedostoa %1$s ei voitu palauttaa!</string>
     <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
+    <string name="unlock_file">Vapauta tiedoston lukitus</string>
     <string name="unread_comments">Lukemattomia kommentteja on olemassa</string>
     <string name="unset_encrypted">Poista salaus</string>
     <string name="unset_favorite">Poista suosikeista</string>

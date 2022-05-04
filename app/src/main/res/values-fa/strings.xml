@@ -372,6 +372,7 @@
     <string name="local_file_not_found_message">فایل در فایل‌های سیستمی محلی یافت نشد</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">هیچ پوشه ای وجود ندارد</string>
+    <string name="lock_file">قفل کردن پرونده</string>
     <string name="log_send_mail_subject">%1$s لاگ‌های برنامه های اندروید</string>
     <string name="log_send_no_mail_app">برنامه‌ای برای فرستادن گزارش‌ها پیدا نشد. لطفا یک کارخواه رایانامه نصب کنید.</string>
     <string name="login">Log in</string>
@@ -705,6 +706,7 @@
     <string name="trashbin_file_not_restored">فایل %1$s نمی تواند بازیابی شود</string>
     <string name="trashbin_loading_failed">بار کردن سطل زباله شکست خورد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
+    <string name="unlock_file">باز کردن قفل پرونده</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>
     <string name="unset_favorite">حذف از موارد دلخواه</string>

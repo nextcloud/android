@@ -401,6 +401,7 @@
     <string name="local_file_not_found_message">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nie ma kolejnych katalogów.</string>
+    <string name="lock_file">Zablokuj plik</string>
     <string name="log_send_mail_subject">%1$s logi aplikacji Android</string>
     <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
     <string name="login">Zaloguj</string>
@@ -756,6 +757,7 @@
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
     <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
+    <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
     <string name="unset_favorite">Usuń z ulubionych</string>
