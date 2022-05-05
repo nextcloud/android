@@ -255,6 +255,7 @@
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
     <string name="error_creating_file_from_template">從模板創建檔案時出錯</string>
+    <string name="error_file_lock">更改檔案上鎖狀態時出錯</string>
     <string name="error_report_issue_action">舉報</string>
     <string name="error_report_issue_text">想舉報問題？（需要GitHub賬號）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
@@ -401,7 +402,10 @@
     <string name="local_file_not_found_message">近端檔案系統中找不到檔案</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
+    <string name="lock_expiration_info">過期：%1$s</string>
     <string name="lock_file">上鎖檔案</string>
+    <string name="locked_by">被 %1$s 鎖上</string>
+    <string name="locked_by_app">被 %1$s 應用程式鎖上</string>
     <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
     <string name="log_send_no_mail_app">找不到用於發送記錄的應用程式。請安裝電子郵件客戶端。</string>
     <string name="login">登入</string>
