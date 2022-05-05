@@ -67,7 +67,7 @@
     <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
-    <string name="auto_upload_on_wifi">Yalnız kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
+    <string name="auto_upload_on_wifi">Yalnızca kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
@@ -80,7 +80,7 @@
     <string name="backup_title">Kişileri ve takvimi yedekle</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Devre dışı bırak</string>
-    <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnız bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
+    <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnızca bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
     <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="calendar">Takvim</string>
@@ -145,7 +145,7 @@
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
-    <string name="confirmation_remove_local">Yalnız yerel</string>
+    <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_local_file">Yerel dosya</string>
@@ -238,7 +238,7 @@
     <string name="end_to_end_encryption_enter_password">Kişisel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor …</string>
-    <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnız sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
+    <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnızca sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
     <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakılmış.</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_password">Parola …</string>
@@ -255,6 +255,7 @@
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="error_crash_title">%1$s çöktü</string>
     <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
+    <string name="error_file_lock">Dosya kilidi durumu değiştirilirken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
     <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
@@ -383,7 +384,7 @@
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
     <string name="in_folder">%1$s klasöründe</string>
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
-    <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
+    <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="invalid_url">Adres geçersiz</string>
     <string name="invisible">Görünmez</string>
@@ -393,15 +394,18 @@
     <string name="link_name">Bağlantı adı</string>
     <string name="link_share_allow_upload_and_editing">Yüklenebilsin ve düzenlenebilsin</string>
     <string name="link_share_editing">Düzenleniyor</string>
-    <string name="link_share_file_drop">Dosya bırakma (yalnız yükleme)</string>
-    <string name="link_share_view_only">Yalnız görüntüleme</string>
+    <string name="link_share_file_drop">Dosya bırakma (yalnızca yükleme)</string>
+    <string name="link_share_view_only">Yalnızca görüntüleme</string>
     <string name="list_layout">Liste düzeni</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
+    <string name="lock_expiration_info">Sona erme: %1$s</string>
     <string name="lock_file">Dosyayı kilitle</string>
+    <string name="locked_by">%1$s tarafından kilitlenmiş</string>
+    <string name="locked_by_app">%1$s uygulaması tarafından kilitlenmiş</string>
     <string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
     <string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
     <string name="login">Oturum aç</string>
@@ -455,7 +459,7 @@
     <string name="no_browser_available">Bağlantıları işleyecek bir uygulama bulunamadı</string>
     <string name="no_calendar_exists">Herhangi bir takvim yok</string>
     <string name="no_email_app_available">E-posta adreslerini işleyecek bir uygulama bulunamadı</string>
-    <string name="no_mutliple_accounts_allowed">Yalnız bir hesap kullanılabilir</string>
+    <string name="no_mutliple_accounts_allowed">Yalnızca bir hesap kullanılabilir</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
     <string name="no_send_app">Seçilmiş dosyaların gönderilebileceği bir uygulama bulunamadı</string>
     <string name="no_share_permission_selected">Lütfen paylaşmak için en az bir izin seçin.</string>
@@ -623,8 +627,8 @@
     <string name="share_file">%1$s paylaş</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">İç bağlantıyı paylaş</string>
-    <string name="share_internal_link_to_file_text">İç bağlantı paylaşımı yalnız bu dosyaya erişebilen kullanıcılar için geçerlidir</string>
-    <string name="share_internal_link_to_folder_text">İç bağlantı paylaşımı yalnız bu klasöre erişebilen kullanıcılar için geçerlidir</string>
+    <string name="share_internal_link_to_file_text">İç bağlantı paylaşımı yalnızca bu dosyaya erişebilen kullanıcılar için geçerlidir</string>
+    <string name="share_internal_link_to_folder_text">İç bağlantı paylaşımı yalnızca bu klasöre erişebilen kullanıcılar için geçerlidir</string>
     <string name="share_known_remote_on_clarification">%1$s zamanında</string>
     <string name="share_link">Bağlantıyı paylaş</string>
     <string name="share_link_empty_password">Bir parola yazmalısınız</string>
@@ -639,7 +643,7 @@
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_drop">Dosya bırakma</string>
-    <string name="share_permission_view_only">Yalnız görüntüleme</string>
+    <string name="share_permission_view_only">Yalnızca görüntüleme</string>
     <string name="share_permissions">İzinleri paylaş</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
@@ -729,7 +733,7 @@
     <string name="sync_in_progress">Lütfen dosyanın en son sürümü alınırken bekleyin.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Eşitlenecek ögeleri seçin</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Yer aç</string>
-    <string name="sync_not_enough_space_dialog_placeholder">%1$s, %2$s, ancak aygıt üzerinde yalnız %3$s yer var.</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s, %2$s, ancak aygıt üzerinde yalnızca %3$s yer var.</string>
     <string name="sync_not_enough_space_dialog_title">Yeterli alan yok</string>
     <string name="sync_status_button">Eşitleme durumu düğmesi</string>
     <string name="sync_string_files">Dosyalar</string>
@@ -757,7 +761,7 @@
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
-    <string name="unlock_file">Dosya kilidini aç</string>
+    <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
     <string name="unset_favorite">Sık kullanılanlardan kaldır</string>
@@ -789,7 +793,7 @@
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
-    <string name="upload_old_android">Şifreleme yalnız &gt;=Android 5.0 üzerinde kullanılabilir </string>
+    <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözün</string>
@@ -811,7 +815,7 @@
     <string name="uploader_upload_failed_ticker">Yüklenemedi</string>
     <string name="uploader_upload_files_behaviour">Yükleme seçeneği:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Dosya %1$s klasörüne taşınsın</string>
-    <string name="uploader_upload_files_behaviour_not_writable">kaynak klasör salt okunur; dosya yalnız yüklenebilecek.</string>
+    <string name="uploader_upload_files_behaviour_not_writable">kaynak klasör salt okunur; dosya yalnızca yüklenebilecek.</string>
     <string name="uploader_upload_files_behaviour_only_upload">Kaynak klasördeki dosya tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="uploader_upload_forbidden_permissions">bu klasöre yükleyemezsiniz</string>
