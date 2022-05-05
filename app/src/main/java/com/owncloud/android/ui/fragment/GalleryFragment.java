@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -45,7 +44,6 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
 import java.util.ArrayList;
@@ -76,8 +74,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private OCFile remoteFilePath;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
-    @Inject AppPreferences appPreferences;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeMenuUtils themeMenuUtils;
 
     @Override
@@ -90,8 +86,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         if (galleryFragmentBottomSheetDialog == null) {
             FileActivity activity = (FileActivity) getActivity();
 
-            galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(activity,
-                                                                                    this);
+            galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
         }
     }
 
@@ -137,7 +132,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
 
-        updateSubtitle(galleryFragmentBottomSheetDialog.isHideVideos(), galleryFragmentBottomSheetDialog.isHideImages());
+        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
 
         handleSearchEvent();
     }
@@ -216,13 +211,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
             endDate = System.currentTimeMillis() / 1000;
 
-            photoSearchTask = new GallerySearchTask(this,
-                                                    accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
-                                                    startDate,
-                                                    endDate,
-                                                    limit)
-                .execute();
+            runGallerySearchTask();
         }
     }
 
@@ -261,24 +250,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        remotePath = setDefaultRemotePath();
-    }
-
-    private String setDefaultRemotePath() {
-        if (remoteFilePath == null) {
-            setRemoteFilePath(remotePath);
-        }
-        return remotePath;
-    }
-
-    private void setRemoteFilePath(String remotePath) {
-        remoteFilePath = new OCFile(remotePath);
-        remoteFilePath.setFolder();
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -297,31 +268,28 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Handle item selection
-        if (item.getItemId() == R.id.action_three_dot_icon) {
-            if (!photoSearchQueryRunning) {
-                galleryFragmentBottomSheetDialog.show();
-                return true;
-            }
+        if (item.getItemId() == R.id.action_three_dot_icon && !photoSearchQueryRunning
+            && galleryFragmentBottomSheetDialog != null) {
+            galleryFragmentBottomSheetDialog.show(getChildFragmentManager(),"data" );
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_LOCATION_REQUEST_CODE) {
-            if (data != null) {
-                OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-                if (chosenFolder != null) {
-                    remoteFilePath = chosenFolder;
-                    searchAndDisplayAfterChangingFolder();
-                }
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
+            OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+            if (chosenFolder != null) {
+                remoteFile = chosenFolder;
+                searchAndDisplayAfterChangingFolder();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void searchAndDisplayAfterChangingFolder() {
-        mAdapter.resetAdapter();
+        mAdapter.clear();
         mediaObject.clear();
         runGallerySearchTask();
     }
@@ -372,18 +340,17 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
-    public void updateMediaContent(boolean isHideVideos, boolean isHidePhotos) {
+    public void updateMediaContent(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
         if (!mediaObject.isEmpty()) {
-            mAdapter.setAdapterWithHideShowImage(mediaObject,
-                                                 isHideVideos,
-                                                 isHidePhotos, imageList, videoList,
-                                                 this);
+            mAdapter.setMediaFilter(mediaObject,
+                                    mediaState,
+                                    this);
 
         } else {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
 
-        updateSubtitle(isHideVideos, isHidePhotos);
+        updateSubtitle(mediaState);
 
     }
 
@@ -395,20 +362,19 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFilePath.getRemotePath(),
-                                     mediaObject, galleryFragmentBottomSheetDialog.isHideVideos(),
-                                     galleryFragmentBottomSheetDialog.isHideImages(),
-                                     imageList, videoList, this);
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFile.getRemotePath(),
+                                     mediaObject, galleryFragmentBottomSheetDialog.getCurrMediaState(),
+                                     this);
 
-        updateSubtitle(galleryFragmentBottomSheetDialog.isHideVideos(), galleryFragmentBottomSheetDialog.isHideImages());
+        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
     }
 
-    private void updateSubtitle(boolean isHideVideos, boolean isHidePhotos) {
+    private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
         requireActivity().runOnUiThread(() -> {
             String subTitle = requireContext().getResources().getString(R.string.subtitle_photos_videos);
-            if (isHideVideos) {
+            if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY) {
                 subTitle = requireContext().getResources().getString(R.string.subtitle_photos_only);
-            } else if (isHidePhotos) {
+            } else if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY) {
                 subTitle = requireContext().getResources().getString(R.string.subtitle_videos_only);
             }
             if (requireActivity() instanceof ToolbarActivity) {
