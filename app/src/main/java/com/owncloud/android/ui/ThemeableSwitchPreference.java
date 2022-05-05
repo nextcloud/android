@@ -29,8 +29,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+
+import javax.inject.Inject;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -40,22 +43,22 @@ import androidx.core.graphics.drawable.DrawableCompat;
  * Themeable switch preference TODO Migrate to androidx
  */
 public class ThemeableSwitchPreference extends SwitchPreference {
-    private ThemeColorUtils themeColorUtils;
+    @Inject
+    ThemeColorUtils themeColorUtils;
 
     public ThemeableSwitchPreference(Context context) {
         super(context);
+        MainApp.getAppComponent().inject(this);
     }
 
     public ThemeableSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        MainApp.getAppComponent().inject(this);
     }
 
     public ThemeableSwitchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public void setThemeColorUtils(ThemeColorUtils themeColorUtils) {
-        this.themeColorUtils = themeColorUtils;
+        MainApp.getAppComponent().inject(this);
     }
 
     @Override

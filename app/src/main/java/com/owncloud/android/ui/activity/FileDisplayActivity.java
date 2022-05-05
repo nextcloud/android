@@ -515,6 +515,7 @@ public class FileDisplayActivity extends FileActivity
                 Log_OC.d(this, "Switch to oc file fragment");
 
                 setLeftFragment(new OCFileListFragment());
+                getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             }
     }
@@ -1551,14 +1552,10 @@ public class FileDisplayActivity extends FileActivity
      */
     @VisibleForTesting
     public void lockScrolling() {
-        final CoordinatorLayout.LayoutParams coordinatorParams = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
-        coordinatorParams.setBehavior(null);
-        binding.rootLayout.setLayoutParams(coordinatorParams);
-        binding.rootLayout.setNestedScrollingEnabled(false);
+        binding.appbar.appbar.setExpanded(true, false);
         final AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
         appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL);
         binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
-        binding.appbar.appbar.setExpanded(true, false);
     }
 
     /**
@@ -1566,9 +1563,6 @@ public class FileDisplayActivity extends FileActivity
      */
     @VisibleForTesting
     public void resetScrolling() {
-        final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) binding.rootLayout.getLayoutParams();
-        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-        binding.rootLayout.setLayoutParams(params);
         AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
         appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         binding.appbar.toolbarFrame.setLayoutParams(appbarParams);

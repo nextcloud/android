@@ -372,6 +372,7 @@
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
+    <string name="lock_file">Bloquear ficheiro</string>
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="login">Acceder</string>
     <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
@@ -700,6 +701,7 @@
     <string name="trashbin_file_not_deleted">Non foi posíbel eliminar o ficheiro %1$s!</string>
     <string name="trashbin_file_not_restored">Non foi posíbel restaurar o ficheiro %1$s!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar de xeito permanente o ficheiro!</string>
+    <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>

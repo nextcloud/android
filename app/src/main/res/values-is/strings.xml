@@ -360,6 +360,7 @@
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
+    <string name="lock_file">Læsa skrá</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
     <string name="login">Skrá inn</string>
     <string name="logs_menu_delete">Eyða atvikaskrám</string>
@@ -675,6 +676,7 @@
     <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
     <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
     <string name="trashbin_not_emptied">Ekki tókst að eyða skránum endanlega!</string>
+    <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
     <string name="unset_favorite">Fjarlægja úr eftirlætislista</string>

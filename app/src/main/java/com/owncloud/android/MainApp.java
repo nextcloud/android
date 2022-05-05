@@ -45,6 +45,7 @@ import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
+import com.nextcloud.client.di.AppComponent;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.errorhandling.ExceptionHandler;
 import com.nextcloud.client.jobs.BackgroundJobManager;
@@ -178,6 +179,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressWarnings("unused")
     private boolean mBound;
 
+    private static AppComponent appComponent;
+
     /**
      * Temporary hack
      */
@@ -226,10 +229,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         super.attachBaseContext(base);
 
         initGlobalContext(this);
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this);
+        initDagger();
 
         // we don't want to handle crashes occurring inside crash reporter activity/process;
         // let the platform deal with those
@@ -241,6 +241,29 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                                         defaultPlatformHandler);
             Thread.setDefaultUncaughtExceptionHandler(crashReporter);
         }
+    }
+
+    private void initDagger() {
+        appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .build();
+
+        appComponent.inject(this);
+    }
+
+    /**
+     * <b>USE SPARINGLY!</b> This should only be used for injection of Theme classes in custom Views, and they need to
+     * be added as methods in the {@link AppComponent} itself.
+     * <p>
+     * Once we adopt Hilt this won't be necessary either, as View is a supported target in Hilt.
+     *
+     * @return the {@link AppComponent} for this app
+     */
+    public static AppComponent getAppComponent() {
+        if (appComponent == null) {
+            throw new IllegalStateException("Dagger not initialized!");
+        }
+        return appComponent;
     }
 
     @SuppressFBWarnings("ST")

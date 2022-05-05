@@ -391,6 +391,7 @@
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
+    <string name="lock_file">Zakleni datoteko</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
     <string name="login">Prijava</string>
@@ -737,6 +738,7 @@
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
+    <string name="unlock_file">Odkleni datoteko</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>
     <string name="unset_favorite">Odstrani iz priljubljenih</string>
