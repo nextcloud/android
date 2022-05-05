@@ -28,11 +28,17 @@
 package com.nextcloud.utils.view
 
 import androidx.recyclerview.widget.RecyclerView
+import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 object FastScroll {
     @JvmStatic
-    fun applyFastScroll(rv: RecyclerView) {
-        FastScrollerBuilder(rv).useMd2Style().build()
+    @JvmOverloads
+    fun applyFastScroll(recyclerView: RecyclerView, viewHelper: FastScroller.ViewHelper? = null) {
+        val builder = FastScrollerBuilder(recyclerView).useMd2Style()
+        if (viewHelper != null) {
+            builder.setViewHelper(viewHelper)
+        }
+        builder.build()
     }
 }

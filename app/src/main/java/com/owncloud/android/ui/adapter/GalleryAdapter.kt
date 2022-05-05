@@ -54,7 +54,7 @@ class GalleryAdapter(
     preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
-    private var files: List<GalleryItems> = mutableListOf()
+    var files: List<GalleryItems> = mutableListOf()
     private var ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
