@@ -27,7 +27,9 @@
 
 package com.nextcloud.utils.view
 
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
@@ -40,5 +42,20 @@ object FastScroll {
             builder.setViewHelper(viewHelper)
         }
         builder.build()
+    }
+
+    @JvmStatic
+    fun fixAppBarForFastScroll(appBarLayout: AppBarLayout, content: ViewGroup) {
+        val contentLayoutInitialPaddingBottom = content.paddingBottom
+        appBarLayout.addOnOffsetChangedListener(
+            AppBarLayout.OnOffsetChangedListener { _, offset ->
+                content.setPadding(
+                    content.paddingLeft,
+                    content.paddingTop,
+                    content.paddingRight,
+                    contentLayoutInitialPaddingBottom + appBarLayout.totalScrollRange + offset
+                )
+            }
+        )
     }
 }
