@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
@@ -157,66 +158,47 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems(storageManager: FileDataStorageManager,
+    fun showAllGalleryItems(
+        storageManager: FileDataStorageManager,
         remotePath: String,
         mediaObject: MutableList<OCFile>,
-        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
-        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>, photoFragment: GalleryFragment) {
+        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
+        photoFragment: GalleryFragment
+    ) {
 
         val items = storageManager.allGalleryItems
         mediaObject.clear()
 
-        for (c in items) {
-            if (c is OCFile) {
-                if (c.remotePath.contains(remotePath)) {
-                    mediaObject.add(c)
-                }
-            }
-        }
-
-        setAdapterWithHideShowImage(
-            mediaObject, isVideoHideClicked, isImageHideClicked, imageList, videoList,
-            photoFragment
+        mediaObject.addAll(
+            items.filter { it != null && it.remotePath.startsWith(remotePath) }
         )
 
-
+        setMediaFilter(
+            mediaObject, mediaState,
+            photoFragment
+        )
     }
 
     //Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
-    fun setAdapterWithHideShowImage(
+    fun setMediaFilter(
         mediaObject: List<OCFile>,
-        isVideoHideClicked: Boolean, isImageHideClicked: Boolean,
-        imageList: MutableList<OCFile>, videoList: MutableList<OCFile>,
+        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
 
-        val finalSortedList: List<OCFile>
+        val finalSortedList: List<OCFile> = when (mediaState) {
+            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                mediaObject.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+            }
+            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                mediaObject.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+            }
+            else -> mediaObject
+        }
 
-        if (isVideoHideClicked) {
-            imageList.clear()
-            for (ocFile in mediaObject) {
-                    if (MimeTypeUtil.isImage(ocFile.mimeType) && !imageList.contains(ocFile)) {
-                        imageList.add(ocFile)
-                    }
-            }
-            finalSortedList = imageList
-            if (imageList.isEmpty()) {
-                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
-            }
-        } else if (isImageHideClicked) {
-            videoList.clear()
-            for (ocFile in mediaObject) {
-                    if (MimeTypeUtil.isVideo(ocFile.mimeType) && !videoList.contains(ocFile)) {
-                        videoList.add(ocFile)
-                    }
-            }
-            finalSortedList = videoList
-            if (videoList.isEmpty()) {
-                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
-            }
-        } else {
-            finalSortedList = mediaObject
+        if (finalSortedList.isEmpty()) {
+            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
         files = finalSortedList
@@ -228,7 +210,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun resetAdapter(){
+    fun clear() {
         files = emptyList()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }

@@ -19,18 +19,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-public interface GalleryFragmentBottomSheetActions {
-
+interface GalleryFragmentBottomSheetActions {
     /**
      * show/hide all the images & videos in particular Folder.
      */
-    void updateMediaContent(boolean isHideVideos, boolean isHidePhotos);
+    fun updateMediaContent(mediaState: GalleryFragmentBottomSheetDialog.MediaState)
 
     /**
      * load all media of a particular folder.
      */
-    void selectMediaFolder();
-
+    fun selectMediaFolder()
 }

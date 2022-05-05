@@ -5,10 +5,12 @@
  * @author David A. Velasco
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -527,6 +529,10 @@ public class FileDisplayActivity extends FileActivity
             searchView.post(() -> searchView.setQuery(searchQuery, true));
         }
         setDrawerIndicatorEnabled(false);
+
+        //clear the subtitle while going from
+        updateToolbarSubtitle("");
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
