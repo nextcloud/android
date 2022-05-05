@@ -36,6 +36,7 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
+import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -117,7 +118,7 @@ public class GalleryFragment extends OCFileListFragment {
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
 
-        FastScroll.applyFastScroll(getRecyclerView());
+        FastScroll.applyFastScroll(getRecyclerView(), new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override

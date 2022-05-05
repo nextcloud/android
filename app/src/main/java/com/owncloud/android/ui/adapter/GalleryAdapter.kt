@@ -59,7 +59,7 @@ class GalleryAdapter(
     themeColorUtils: ThemeColorUtils,
     themeDrawableUtils: ThemeDrawableUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
-    private var files: List<GalleryItems> = mutableListOf()
+    var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
