@@ -202,15 +202,10 @@ class PreviewVideoActivity :
     private fun play(item: MediaItem) {
         exoPlayer?.addMediaItem(item)
         exoPlayer?.prepare()
-        //exoPlayer?.seekTo(mSavedPlaybackPosition)
 
         if (mAutoplay) {
             exoPlayer?.play()
         }
-
-        // if (!mAutoplay) {
-        //     exoPlayer?.pause()
-        // }
     }
 
     override fun onStart() {
