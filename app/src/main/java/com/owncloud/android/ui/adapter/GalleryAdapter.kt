@@ -152,7 +152,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems(storageManager: FileDataStorageManager) {
+    fun showAllGalleryItems() {
         val items = storageManager.allGalleryItems
 
         files = items
