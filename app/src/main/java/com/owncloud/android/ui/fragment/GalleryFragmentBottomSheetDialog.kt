@@ -33,10 +33,10 @@ class GalleryFragmentBottomSheetDialog(
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentGalleryBottomSheetBinding
     private lateinit var mBottomBehavior: BottomSheetBehavior<*>
-    private var currentMediaState : MediaState = MediaState.MEDIA_STATE_DEFAULT
+    private var currentMediaState: MediaState = MediaState.MEDIA_STATE_DEFAULT
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentGalleryBottomSheetBinding.inflate(layoutInflater,container, false)
+        binding = FragmentGalleryBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -102,7 +102,7 @@ class GalleryFragmentBottomSheetDialog(
     val currMediaState: MediaState
         get() = currentMediaState
 
-    enum class MediaState{
+    enum class MediaState {
         MEDIA_STATE_DEFAULT,
         MEDIA_STATE_PHOTOS_ONLY,
         MEDIA_STATE_VIDEOS_ONLY
