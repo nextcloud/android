@@ -24,7 +24,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import java.net.URI
-import java.util.Objects
 
 /**
  * This object provides all information necessary to interact
@@ -43,10 +42,6 @@ data class Server(val uri: URI, val version: OwnCloudVersion) : Parcelable {
         writeSerializable(uri)
         writeParcelable(version, 0)
     }
-    
-    override fun hashCode() = 
-        // a server is identified by its uri, the version is an attribute of this one server
-        Objects.hash(uri)
 
     companion object {
         @JvmField
