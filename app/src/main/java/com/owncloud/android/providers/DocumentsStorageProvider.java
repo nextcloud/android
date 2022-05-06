@@ -47,6 +47,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.utils.HashUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -80,8 +81,6 @@ import org.nextcloud.providers.cursors.RootCursor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -685,12 +684,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String rootIdForUser(User user) {
-        try {
-            return URLEncoder.encode(user.getAccountName(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // this is a theoretical exception as UTF-8 is a standard required encoding
-            throw new IllegalStateException("UTF-8 encoding unavailable in this environment", e);
-        }
+        return HashUtil.md5Hash(user.getAccountName());
     }
 
     private void initiateStorageMap() {
