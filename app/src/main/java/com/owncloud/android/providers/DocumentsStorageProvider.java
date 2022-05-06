@@ -116,7 +116,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
-    private final HashMap<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
+    private final Map<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
 
