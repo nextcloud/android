@@ -163,7 +163,7 @@ public class GalleryFragment extends OCFileListFragment {
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager());
+        mAdapter.showAllGalleryItems();
 
         setFabVisible(false);
 
@@ -270,6 +270,6 @@ public class GalleryFragment extends OCFileListFragment {
     }
 
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager());
+        mAdapter.showAllGalleryItems();
     }
 }
