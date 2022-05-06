@@ -183,7 +183,7 @@ class GalleryAdapter(
         )
     }
 
-    //Set Image/Video List According to Selection of Hide/Show Image/Video
+    // Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
     fun setMediaFilter(
         mediaObject: List<OCFile>,
