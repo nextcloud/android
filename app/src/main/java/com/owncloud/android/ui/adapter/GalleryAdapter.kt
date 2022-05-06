@@ -45,7 +45,7 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
+import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
 
@@ -58,8 +58,8 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     themeColorUtils: ThemeColorUtils,
     themeDrawableUtils: ThemeDrawableUtils
-) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, SectionedAdapter {
-    private var files: List<GalleryItems> = mutableListOf()
+) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
+    var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
@@ -122,7 +122,7 @@ class GalleryAdapter(
         return files.size
     }
 
-    override fun getSectionName(position: Int): String {
+    override fun getPopupText(position: Int): String {
         return DisplayUtils.getDateByPattern(
             files[getRelativePosition(position).section()].date,
             context,

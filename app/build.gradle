@@ -272,7 +272,7 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
-    implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.1'
+    implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
     
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
