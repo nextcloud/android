@@ -683,7 +683,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return rootIdToStorageManager.get(rootId);
     }
 
-    private String rootIdForUser(User user) {
+    @VisibleForTesting
+    public static String rootIdForUser(User user) {
         return HashUtil.md5Hash(user.getAccountName());
     }
 
