@@ -730,7 +730,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Invalid documentID " + documentId + "!");
         }
 
-        FileDataStorageManager storageManager = rootIdToStorageManager.get(Integer.parseInt(separated[0]));
+        FileDataStorageManager storageManager = rootIdToStorageManager.get(separated[0]);
         if (storageManager == null) {
             throw new FileNotFoundException("No storage manager associated for " + documentId + "!");
         }
