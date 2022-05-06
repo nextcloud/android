@@ -72,7 +72,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -88,14 +88,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
  */
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     implements DisplayUtils.AvatarGenerationListener,
-    CommonOCFileListAdapterInterface,
-    FastScrollRecyclerView.SectionedAdapter {
+    CommonOCFileListAdapterInterface, PopupTextProvider {
 
     private static final int showFilenameColumnThreshold = 4;
     private final String userId;
@@ -895,7 +895,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public String getSectionName(int position) {
+    public String getPopupText(int position) {
         OCFile file = getItem(position);
 
         if (file == null) {
