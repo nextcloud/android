@@ -81,7 +81,10 @@ import org.nextcloud.providers.cursors.RootCursor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
@@ -113,7 +116,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
-    private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
+    private final HashMap<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
 
@@ -132,8 +135,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         final RootCursor result = new RootCursor(projection);
-        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-            result.addRoot(new Document(rootIdToStorageManager.valueAt(i), ROOT_PATH), getContext());
+        for(FileDataStorageManager manager: rootIdToStorageManager.values()) {
+            result.addRoot(new Document(manager, ROOT_PATH), getContext());
         }
 
         return result;
@@ -678,14 +681,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private FileDataStorageManager getStorageManager(String rootId) {
-        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-            FileDataStorageManager storageManager = rootIdToStorageManager.valueAt(i);
-            if (storageManager.getUser().nameEquals(rootId)) {
-                return storageManager;
-            }
-        }
+        return rootIdToStorageManager.get(rootId);
+    }
 
-        return null;
+    private String rootIdForUser(User user) {
+        try {
+            return URLEncoder.encode(user.getAccountName(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // this is a theoretical exception as UTF-8 is a standard required encoding
+            throw new IllegalStateException("UTF-8 encoding unavailable in this environment", e);
+        }
     }
 
     private void initiateStorageMap() {
@@ -696,7 +701,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         for (User user : accountManager.getAllUsers()) {
             final FileDataStorageManager storageManager = new FileDataStorageManager(user, contentResolver);
-            rootIdToStorageManager.put(user.hashCode(), storageManager);
+            rootIdToStorageManager.put(rootIdForUser(user), storageManager);
         }
     }
 
@@ -803,9 +808,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         public String getDocumentId() {
-            for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-                if (Objects.equals(storageManager, rootIdToStorageManager.valueAt(i))) {
-                    return rootIdToStorageManager.keyAt(i) + DOCUMENTID_SEPARATOR + fileId;
+            for(String key: rootIdToStorageManager.keySet()) {
+                if (Objects.equals(storageManager, rootIdToStorageManager.get(key))) {
+                    return key + DOCUMENTID_SEPARATOR + fileId;
                 }
             }
             return null;
