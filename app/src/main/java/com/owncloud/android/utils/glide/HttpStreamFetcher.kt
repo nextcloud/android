@@ -54,14 +54,7 @@ class HttpStreamFetcher internal constructor(
                 get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE)
                 val status = client.executeMethod(get)
                 if (status == HttpStatus.SC_OK) {
-                    val byteOutputStream = ByteArrayOutputStream()
-                    get.responseBodyAsStream.use { input ->
-                        byteOutputStream.use { output ->
-                            input.copyTo(output)
-                        }
-                    }
-
-                    return ByteArrayInputStream(byteOutputStream.toByteArray())
+                    return getResponseAsInputStream(get)
                 } else {
                     client.exhaustResponse(get.responseBodyAsStream)
                 }
@@ -72,6 +65,17 @@ class HttpStreamFetcher internal constructor(
             }
         }
         return null
+    }
+
+    private fun getResponseAsInputStream(getMethod: GetMethod): ByteArrayInputStream {
+        val byteOutputStream = ByteArrayOutputStream()
+        getMethod.responseBodyAsStream.use { input ->
+            byteOutputStream.use { output ->
+                input.copyTo(output)
+            }
+        }
+
+        return ByteArrayInputStream(byteOutputStream.toByteArray())
     }
 
     override fun cleanup() {
