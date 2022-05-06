@@ -14,8 +14,8 @@ repository="android"
 ruby scripts/analysis/lint-up.rb $1 $2 $3
 lintValue=$?
 
-curl 2>/dev/null "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
-ruby scripts/analysis/spotbugs-up.rb "$3"
+curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
+ruby scripts/analysis/spotbugs-up.rb "$stableBranch"
 spotbugsValue=$?
 
 # exit codes:
