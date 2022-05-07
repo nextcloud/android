@@ -43,6 +43,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import androidx.lifecycle.Lifecycle;
+
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
     private final User user;
@@ -99,9 +101,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
                 boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                 long lastTimeStamp = findLastTimestamp(result.getData());
-
-                photoFragment.showAllGalleryItems();
-
                 return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {
                 return new Result(false, false, -1);
@@ -117,7 +116,9 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             photoFragment.setLoading(false);
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
 
-            if (!result.success) {
+            if (result.success && photoFragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                photoFragment.showAllGalleryItems();
+            } else {
                 photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
             }
         }
