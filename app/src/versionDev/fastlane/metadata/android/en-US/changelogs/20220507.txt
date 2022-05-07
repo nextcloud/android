@@ -1,0 +1,14 @@
+Merge pull request #10181 from nextcloud/videoFullscreenPause
+GallerySearchTask: remove leftover testing code
+Throttle click on share icon
+Fix #10176
+FileDisplayActivity: fix appbar for fast scroll
+Fix fast scroll in gallery
+Replace fastscroll library
+PreviewMediaFragment: prevent crash due to onStop called before exoplayer initialization
+Bump master to 3.21.0
+fastlane: huawei: Add delay before review
+Update fastlane and plugins
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
