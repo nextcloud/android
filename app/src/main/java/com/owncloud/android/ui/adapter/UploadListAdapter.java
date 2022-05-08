@@ -578,7 +578,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                    storageManager,
                                    user,
                                    context)
-            .execute(user.toPlatformAccount(), context, (caller, result) -> {
+            .execute(user, context, (caller, result) -> {
                 view.binding.uploadListItemLayout.setClickable(true);
                 listener.onRemoteOperationFinish(caller, result);
             }, parentActivity.getHandler());

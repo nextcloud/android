@@ -22,9 +22,9 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.content.Context;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -44,7 +44,7 @@ public class RemoveFileOperation extends SyncOperation {
 
     private final OCFile fileToRemove;
     private final boolean onlyLocalCopy;
-    private final Account account;
+    private final User user;
     private final boolean inBackground;
     private final Context context;
 
@@ -57,7 +57,7 @@ public class RemoveFileOperation extends SyncOperation {
      */
     public RemoveFileOperation(OCFile fileToRemove,
                                boolean onlyLocalCopy,
-                               Account account,
+                               User user,
                                boolean inBackground,
                                Context context,
                                FileDataStorageManager storageManager) {
@@ -65,7 +65,7 @@ public class RemoveFileOperation extends SyncOperation {
 
         this.fileToRemove = fileToRemove;
         this.onlyLocalCopy = onlyLocalCopy;
-        this.account = account;
+        this.user = user;
         this.inBackground = inBackground;
         this.context = context;
     }
@@ -105,7 +105,7 @@ public class RemoveFileOperation extends SyncOperation {
                 OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
                 operation = new RemoveRemoteEncryptedFileOperation(fileToRemove.getRemotePath(),
                                                                    parent.getLocalId(),
-                                                                   account,
+                                                                   user,
                                                                    context,
                                                                    fileToRemove.getEncryptedFileName());
             } else {

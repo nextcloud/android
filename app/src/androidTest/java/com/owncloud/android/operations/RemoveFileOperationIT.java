@@ -47,7 +47,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
 
         assertTrue(new RemoveFileOperation(folder,
                                            false,
-                                           account,
+                                           user,
                                            false,
                                            targetContext,
                                            getStorageManager())
@@ -59,7 +59,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
         assertNotNull(parentFolder);
         assertTrue(new RemoveFileOperation(parentFolder,
                                            false,
-                                           account,
+                                           user,
                                            false,
                                            targetContext,
                                            getStorageManager())
@@ -81,7 +81,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
 
         assertTrue(new RemoveFileOperation(file,
                                            false,
-                                           account,
+                                           user,
                                            false,
                                            targetContext,
                                            getStorageManager())
@@ -93,7 +93,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
         assertNotNull(parentFolder);
         assertTrue(new RemoveFileOperation(parentFolder,
                                            false,
-                                           account,
+                                           user,
                                            false,
                                            targetContext,
                                            getStorageManager())
