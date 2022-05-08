@@ -297,7 +297,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             }
 
             RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
-                new GetPrivateKeyOperation().execute(user.toPlatformAccount(), getContext());
+                new GetPrivateKeyOperation().execute(user, getContext());
 
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
@@ -356,7 +356,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                 String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
-                RemoteOperationResult result = operation.execute(user.toPlatformAccount(), getContext());
+                RemoteOperationResult result = operation.execute(user, getContext());
 
                 if (result.isSuccess()) {
                     Log_OC.d(TAG, "public key success");
@@ -374,8 +374,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(user.toPlatformAccount(),
-                                                                                               getContext());
+                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(user, getContext());
 
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");
@@ -390,7 +389,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                     return (String) storePrivateKeyResult.getData().get(0);
                 } else {
                     DeletePublicKeyOperation deletePublicKeyOperation = new DeletePublicKeyOperation();
-                    deletePublicKeyOperation.execute(user.toPlatformAccount(), getContext());
+                    deletePublicKeyOperation.execute(user, getContext());
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage());

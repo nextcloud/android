@@ -282,7 +282,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
         OCFile ocFile = document.getFile();
         RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
-            .execute(document.getUser().toPlatformAccount(), context);
+            .execute(document.getUser(), context);
         switch (result.getCode()) {
             case ETAG_CHANGED:
                 return true;

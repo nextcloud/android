@@ -60,8 +60,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
                                                                                 FILE_ID_SEARCH,
                                                                                 false,
                                                                                 fileDisplayActivity.getCapabilities());
-        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user.toPlatformAccount(),
-                                                                                    fileDisplayActivity);
+        RemoteOperationResult remoteOperationResult = searchRemoteOperation.execute(user, fileDisplayActivity);
 
         if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
             if (remoteOperationResult.getData().isEmpty()) {
@@ -70,7 +69,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
             String remotePath = ((RemoteFile) remoteOperationResult.getData().get(0)).getRemotePath();
 
             ReadFileRemoteOperation operation = new ReadFileRemoteOperation(remotePath);
-            RemoteOperationResult result = operation.execute(user.toPlatformAccount(), fileDisplayActivity);
+            RemoteOperationResult result = operation.execute(user, fileDisplayActivity);
 
             if (!result.isSuccess()) {
                 Exception exception = result.getException();
@@ -105,7 +104,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
                                                                                 storageManager,
                                                                                 user,
                                                                                 fileDisplayActivity);
-            refreshFolderOperation.execute(user.toPlatformAccount(), fileDisplayActivity);
+            refreshFolderOperation.execute(user, fileDisplayActivity);
 
             fileDisplayActivity.setFile(ocFile);
         } else {
