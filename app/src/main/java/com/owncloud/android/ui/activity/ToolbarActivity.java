@@ -293,4 +293,11 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         ActionBar actionBar = getSupportActionBar();
         themeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
     }
+
+    public void clearToolbarSubtitle() {
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setSubtitle(null);
+        }
+    }
 }
