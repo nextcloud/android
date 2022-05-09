@@ -531,8 +531,8 @@ public class FileDisplayActivity extends FileActivity
         }
         setDrawerIndicatorEnabled(false);
 
-        //clear the subtitle while going from
-        updateToolbarSubtitle("");
+        //clear the subtitle while navigating to any other screen from Media screen
+        clearToolbarSubtitle();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
