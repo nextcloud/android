@@ -50,41 +50,42 @@ object UriUtils {
         return displayName?.replace("/".toRegex(), "-")
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun getDisplayNameFromContentResolver(uri: Uri, context: Context): String? {
+        val mimeType = context.contentResolver.getType(uri) ?: return null
+        val displayNameColumn: String = getDisplayNameColumnForMimeType(mimeType)
         var displayName: String? = null
-        val mimeType = context.contentResolver.getType(uri)
-        if (mimeType != null) {
-            val displayNameColumn: String = when {
-                MimeTypeUtil.isImage(mimeType) -> {
-                    MediaStore.Images.ImageColumns.DISPLAY_NAME
-                }
-                MimeTypeUtil.isVideo(mimeType) -> {
-                    MediaStore.Video.VideoColumns.DISPLAY_NAME
-                }
-                MimeTypeUtil.isAudio(mimeType) -> {
-                    MediaStore.Audio.AudioColumns.DISPLAY_NAME
-                }
-                else -> {
-                    MediaStore.Files.FileColumns.DISPLAY_NAME
+        try {
+            context.contentResolver.query(
+                uri, arrayOf(displayNameColumn),
+                null,
+                null,
+                null
+            ).use { cursor ->
+                if (cursor != null) {
+                    cursor.moveToFirst()
+                    displayName = cursor.getString(cursor.getColumnIndexOrThrow(displayNameColumn))
                 }
             }
-            try {
-                context.contentResolver.query(
-                    uri, arrayOf(displayNameColumn),
-                    null,
-                    null,
-                    null
-                ).use { cursor ->
-                    if (cursor != null) {
-                        cursor.moveToFirst()
-                        displayName = cursor.getString(cursor.getColumnIndexOrThrow(displayNameColumn))
-                    }
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Could not retrieve display name for $uri")
-                // nothing else, displayName keeps null
-            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Could not retrieve display name for $uri")
+            // nothing else, displayName keeps null
         }
         return displayName
+    }
+
+    private fun getDisplayNameColumnForMimeType(mimeType: String?) = when {
+        MimeTypeUtil.isImage(mimeType) -> {
+            MediaStore.Images.ImageColumns.DISPLAY_NAME
+        }
+        MimeTypeUtil.isVideo(mimeType) -> {
+            MediaStore.Video.VideoColumns.DISPLAY_NAME
+        }
+        MimeTypeUtil.isAudio(mimeType) -> {
+            MediaStore.Audio.AudioColumns.DISPLAY_NAME
+        }
+        else -> {
+            MediaStore.Files.FileColumns.DISPLAY_NAME
+        }
     }
 }

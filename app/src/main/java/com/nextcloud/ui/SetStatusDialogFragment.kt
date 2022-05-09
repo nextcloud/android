@@ -81,6 +81,9 @@ private const val LAST_HOUR_OF_DAY = 23
 private const val LAST_MINUTE_OF_HOUR = 59
 private const val LAST_SECOND_OF_MINUTE = 59
 
+private const val CLEAR_AT_TYPE_PERIOD = "period"
+private const val CLEAR_AT_TYPE_END_OF = "end-of"
+
 class SetStatusDialogFragment :
     DialogFragment(),
     PredefinedStatusClickListener,
@@ -147,26 +150,7 @@ class SetStatusDialogFragment :
         accountManager = (activity as BaseActivity).userAccountManager
 
         currentStatus?.let {
-            binding.emoji.setText(it.icon)
-            binding.customStatusInput.text?.clear()
-            binding.customStatusInput.setText(it.message)
-            visualizeStatus(it.status)
-
-            if (it.clearAt > 0) {
-                binding.clearStatusAfterSpinner.visibility = View.GONE
-                binding.remainingClearTime.apply {
-                    binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message)
-                    visibility = View.VISIBLE
-                    text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
-                        .toString()
-                        .decapitalize(Locale.getDefault())
-                    setOnClickListener {
-                        visibility = View.GONE
-                        binding.clearStatusAfterSpinner.visibility = View.VISIBLE
-                        binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
-                    }
-                }
-            }
+            updateCurrentStatusViews(it)
         }
 
         adapter = PredefinedStatusListAdapter(this, requireContext())
@@ -183,7 +167,7 @@ class SetStatusDialogFragment :
 
         binding.clearStatus.setOnClickListener { clearStatus() }
         binding.setStatus.setOnClickListener { setStatusMessage() }
-        binding.emoji.setOnClickListener { openEmojiPopup() }
+        binding.emoji.setOnClickListener { popup.show() }
 
         popup = EmojiPopup.Builder
             .fromRootView(view)
@@ -229,82 +213,83 @@ class SetStatusDialogFragment :
         )
     }
 
-    @Suppress("ComplexMethod")
-    private fun setClearStatusAfterValue(item: Int) {
-        when (item) {
-            POS_DONT_CLEAR -> {
-                // don't clear
-                clearAt = null
-            }
+    private fun updateCurrentStatusViews(it: Status) {
+        binding.emoji.setText(it.icon)
+        binding.customStatusInput.text?.clear()
+        binding.customStatusInput.setText(it.message)
+        visualizeStatus(it.status)
 
+        if (it.clearAt > 0) {
+            binding.clearStatusAfterSpinner.visibility = View.GONE
+            binding.remainingClearTime.apply {
+                binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message)
+                visibility = View.VISIBLE
+                text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
+                    .toString()
+                    .replaceFirstChar { it.lowercase(Locale.getDefault()) }
+                setOnClickListener {
+                    visibility = View.GONE
+                    binding.clearStatusAfterSpinner.visibility = View.VISIBLE
+                    binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+                }
+            }
+        }
+    }
+
+    private fun setClearStatusAfterValue(item: Int) {
+        clearAt = when (item) {
+            POS_DONT_CLEAR -> null // don't clear
             POS_HALF_AN_HOUR -> {
                 // 30 minutes
-                clearAt = System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
             }
-
             POS_AN_HOUR -> {
                 // one hour
-                clearAt =
-                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
-
             POS_FOUR_HOURS -> {
                 // four hours
-                clearAt =
-                    System.currentTimeMillis() / ONE_SECOND_IN_MILLIS
-                +FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS +
+                    FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
-
             POS_TODAY -> {
                 // today
-                val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
-                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
-                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
-                }
-                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
+                val date = getLastSecondOfToday()
+                dateToSeconds(date)
             }
-
             POS_END_OF_WEEK -> {
                 // end of week
-                val date = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
-                    set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
-                    set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
-                }
-
+                val date = getLastSecondOfToday()
                 while (date.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
                     date.add(Calendar.DAY_OF_YEAR, 1)
                 }
-
-                clearAt = date.timeInMillis / ONE_SECOND_IN_MILLIS
+                dateToSeconds(date)
             }
+            else -> clearAt
         }
     }
 
-    @Suppress("ReturnCount")
-    private fun clearAtToUnixTime(clearAt: ClearAt?): Long {
-        if (clearAt != null) {
-            if (clearAt.type.equals("period")) {
-                return System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
-            } else if (clearAt.type.equals("end-of")) {
-                if (clearAt.time.equals("day")) {
-                    val date = Calendar.getInstance().apply {
-                        set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
-                        set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
-                        set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
-                    }
-                    return date.timeInMillis / ONE_SECOND_IN_MILLIS
-                }
-            }
+    private fun clearAtToUnixTime(clearAt: ClearAt?): Long = when {
+        clearAt?.type == CLEAR_AT_TYPE_PERIOD -> {
+            System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
         }
-
-        return -1
+        clearAt?.type == CLEAR_AT_TYPE_END_OF && clearAt.time == "day" -> {
+            val date = getLastSecondOfToday()
+            dateToSeconds(date)
+        }
+        else -> -1
     }
 
-    private fun openEmojiPopup() {
-        popup.show()
+    private fun getLastSecondOfToday(): Calendar {
+        val date = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, LAST_HOUR_OF_DAY)
+            set(Calendar.MINUTE, LAST_MINUTE_OF_HOUR)
+            set(Calendar.SECOND, LAST_SECOND_OF_MINUTE)
+        }
+        return date
     }
+
+    private fun dateToSeconds(date: Calendar) = date.timeInMillis / ONE_SECOND_IN_MILLIS
 
     private fun clearStatus() {
         asyncRunner.postQuickTask(
@@ -425,26 +410,33 @@ class SetStatusDialogFragment :
         binding.clearStatusAfterSpinner.visibility = View.VISIBLE
         binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
 
-        if (predefinedStatus.clearAt == null) {
+        val clearAt = predefinedStatus.clearAt
+        if (clearAt == null) {
             binding.clearStatusAfterSpinner.setSelection(0)
         } else {
-            val clearAt = predefinedStatus.clearAt!!
-            if (clearAt.type.equals("period")) {
-                when (clearAt.time) {
-                    "1800" -> binding.clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
-                    "3600" -> binding.clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
-                    "14400" -> binding.clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
-                    else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
-                }
-            } else if (clearAt.type.equals("end-of")) {
-                when (clearAt.time) {
-                    "day" -> binding.clearStatusAfterSpinner.setSelection(POS_TODAY)
-                    "week" -> binding.clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
-                    else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
-                }
+            when (clearAt.type) {
+                CLEAR_AT_TYPE_PERIOD -> updateClearAtViewsForPeriod(clearAt)
+                CLEAR_AT_TYPE_END_OF -> updateClearAtViewsForEndOf(clearAt)
             }
         }
         setClearStatusAfterValue(binding.clearStatusAfterSpinner.selectedItemPosition)
+    }
+
+    private fun updateClearAtViewsForPeriod(clearAt: ClearAt) {
+        when (clearAt.time) {
+            "1800" -> binding.clearStatusAfterSpinner.setSelection(POS_HALF_AN_HOUR)
+            "3600" -> binding.clearStatusAfterSpinner.setSelection(POS_AN_HOUR)
+            "14400" -> binding.clearStatusAfterSpinner.setSelection(POS_FOUR_HOURS)
+            else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
+        }
+    }
+
+    private fun updateClearAtViewsForEndOf(clearAt: ClearAt) {
+        when (clearAt.time) {
+            "day" -> binding.clearStatusAfterSpinner.setSelection(POS_TODAY)
+            "week" -> binding.clearStatusAfterSpinner.setSelection(POS_END_OF_WEEK)
+            else -> binding.clearStatusAfterSpinner.setSelection(POS_DONT_CLEAR)
+        }
     }
 
     @VisibleForTesting
