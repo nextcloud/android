@@ -801,10 +801,7 @@ public class FileOperationsHelper {
         OCCapability capability = fileActivity.getStorageManager().getCapability(fileActivity.getAccount().name);
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, capability);
         mSendShareDialog.setFileOperationsHelper(this);
-        if(fm.findFragmentByTag("TAG_SEND_SHARE_DIALOG") == null)
-        {
-            mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
-        }
+        mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
     public void sendFiles(Set<OCFile> files) {
