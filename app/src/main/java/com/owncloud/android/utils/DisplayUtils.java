@@ -39,6 +39,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -104,6 +106,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.annotation.NonNull;
@@ -512,47 +515,49 @@ public final class DisplayUtils {
         final String accountName = user.getAccountName();
         String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
 
-        // first show old one
-        AtomicReference<Bitmap> bitmap = new AtomicReference<>();
+        final Handler uiHandler = new Handler(Looper.getMainLooper());
 
-        new Thread(() -> {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            // first show old one
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
 
             String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
             String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
-            bitmap.set(ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
-        }).start();
+            final Bitmap bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey);
 
-        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap.get());
+            final Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap);
 
-        // if no one exists, show colored icon with initial char
-        if (avatar == null) {
-            try {
-                avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = ResourcesCompat.getDrawable(resources,
-                                                     R.drawable.account_circle_white,
-                                                     null);
+            // if no one exists, show colored icon with initial char
+            if (avatar == null) {
+                try {
+                    final Drawable textAvatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
+                    uiHandler.post(() -> listener.avatarGenerated(textAvatar, callContext));
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                    final Drawable defaultAvatar = ResourcesCompat.getDrawable(resources,
+                                                                               R.drawable.account_circle_white,
+                                                                               null);
+                    uiHandler.post(() -> listener.avatarGenerated(defaultAvatar, callContext));
+                }
+            } else {
+                uiHandler.post(() -> listener.avatarGenerated(avatar, callContext));
             }
-        }
 
-        listener.avatarGenerated(avatar, callContext);
 
-        // check for new avatar, eTag is compared, so only new one is downloaded
-        final ThumbnailsCacheManager.AvatarGenerationTask task =
-            new ThumbnailsCacheManager.AvatarGenerationTask(listener,
-                                                            callContext,
-                                                            user,
-                                                            resources,
-                                                            avatarRadius,
-                                                            userId,
-                                                            displayName,
-                                                            serverName,
-                                                            context);
+            final ThumbnailsCacheManager.AvatarGenerationTask task =
+                new ThumbnailsCacheManager.AvatarGenerationTask(listener,
+                                                                callContext,
+                                                                user,
+                                                                resources,
+                                                                avatarRadius,
+                                                                userId,
+                                                                displayName,
+                                                                serverName,
+                                                                context);
 
-        task.execute(userId);
+            task.execute(userId);
+        });
     }
 
     public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
