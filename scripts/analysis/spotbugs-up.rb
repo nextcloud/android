@@ -7,7 +7,7 @@ Encoding.default_internal = Encoding::UTF_8
 puts "=================== starting Android Spotbugs Entropy Reducer ===================="
 
 # get args
-git_branch = ARGV[0]
+base_branch = ARGV[0]
 
 require 'fileutils'
 require 'pathname'
@@ -22,7 +22,7 @@ current_warning_count = `./scripts/analysis/spotbugsSummary.py --total`.to_i
 puts "found warnings: " + current_warning_count.to_s
 
 # get warning counts from target branch
-previous_xml = "/tmp/#{git_branch}.xml"
+previous_xml = "/tmp/#{base_branch}.xml"
 previous_results = File.file?(previous_xml)
 
 if previous_results == true

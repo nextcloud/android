@@ -59,6 +59,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -429,6 +430,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         );
 
         setRecyclerViewAdapter(mAdapter);
+
+        FastScroll.applyFastScroll(getRecyclerView());
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
@@ -556,7 +559,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (file.isFolder()) {
             mContainerActivity.showDetails(file, 1);
         } else {
-            mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+            throttler.run("shareIconClick", () -> {
+                mContainerActivity.getFileOperationsHelper().sendShareFile(file);
+            });
         }
     }
 

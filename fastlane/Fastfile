@@ -143,6 +143,7 @@ private_lane :uploadToHuawei_Final do |options|
         app_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_APP_ID"],
         apk_path: "release/huawei-release-" + options["versionCode"] + ".apk",
         submit_for_review: true,
+        delay_before_submit_for_review: 30,
     )
 end
 

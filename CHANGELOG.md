@@ -1,3 +1,10 @@
+## 3.20.1 (May 6th, 2022)
+
+- Several minor bugfixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/67
 ## 3.20.0 (May 3rd, 2022)
 
 - Built-in PDF viewer

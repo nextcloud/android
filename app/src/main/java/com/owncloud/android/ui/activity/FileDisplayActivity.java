@@ -63,6 +63,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -139,7 +140,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -266,6 +266,9 @@ public class FileDisplayActivity extends FileActivity
         mMenuButton.setOnClickListener(v -> openDrawer());
 
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
+
+
+        FastScroll.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
 
 
         // Init Fragment without UI to retain AsyncTask across configuration changes

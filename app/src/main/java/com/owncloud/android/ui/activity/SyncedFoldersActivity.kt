@@ -344,6 +344,7 @@ class SyncedFoldersActivity :
      * @param mediaFolders  the media folders
      * @return the merged list of SyncedFolderItems
      */
+    @Suppress("NestedBlockDepth") // legacy code
     private fun mergeFolderData(
         syncedFolders: List<SyncedFolder>,
         mediaFolders: List<MediaFolder>

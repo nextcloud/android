@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -50,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -146,26 +148,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       themeColorUtils,
                                       themeDrawableUtils);
 
-//        val spacing = resources.getDimensionPixelSize(R.dimen.media_grid_spacing)
-//        binding.list.addItemDecoration(MediaGridItemDecoration(spacing))
         setRecyclerViewAdapter(mAdapter);
 
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-//        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                if (position == getAdapter().getItemCount() - 1 ||
-//                    position == 0 && getAdapter().shouldShowHeader()) {
-//                    return ((GridLayoutManager) layoutManager).getSpanCount();
-//                } else {
-//                    return 1;
-//                }
-//            }
-//        });
-
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
+
+        FastScroll.applyFastScroll(getRecyclerView(), new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override

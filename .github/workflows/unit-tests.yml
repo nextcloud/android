@@ -28,7 +28,7 @@ jobs:
                 run:
                     scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
             -   name: Upload coverage to codecov
-                uses: codecov/codecov-action@v2
+                uses: codecov/codecov-action@v3
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: unit
