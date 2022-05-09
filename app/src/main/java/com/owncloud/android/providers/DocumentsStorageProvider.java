@@ -40,7 +40,6 @@ import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import android.util.Log;
-import android.util.SparseArray;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
@@ -48,6 +47,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.utils.HashUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -82,7 +82,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -113,7 +115,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
-    private final SparseArray<FileDataStorageManager> rootIdToStorageManager = new SparseArray<>();
+    private final Map<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
 
@@ -132,8 +134,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         final RootCursor result = new RootCursor(projection);
-        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-            result.addRoot(new Document(rootIdToStorageManager.valueAt(i), ROOT_PATH), getContext());
+        for(FileDataStorageManager manager: rootIdToStorageManager.values()) {
+            result.addRoot(new Document(manager, ROOT_PATH), getContext());
         }
 
         return result;
@@ -678,14 +680,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private FileDataStorageManager getStorageManager(String rootId) {
-        for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-            FileDataStorageManager storageManager = rootIdToStorageManager.valueAt(i);
-            if (storageManager.getUser().nameEquals(rootId)) {
-                return storageManager;
-            }
-        }
+        return rootIdToStorageManager.get(rootId);
+    }
 
-        return null;
+    @VisibleForTesting
+    public static String rootIdForUser(User user) {
+        return HashUtil.md5Hash(user.getAccountName());
     }
 
     private void initiateStorageMap() {
@@ -696,7 +696,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         for (User user : accountManager.getAllUsers()) {
             final FileDataStorageManager storageManager = new FileDataStorageManager(user, contentResolver);
-            rootIdToStorageManager.put(user.hashCode(), storageManager);
+            rootIdToStorageManager.put(rootIdForUser(user), storageManager);
         }
     }
 
@@ -725,7 +725,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             throw new FileNotFoundException("Invalid documentID " + documentId + "!");
         }
 
-        FileDataStorageManager storageManager = rootIdToStorageManager.get(Integer.parseInt(separated[0]));
+        FileDataStorageManager storageManager = rootIdToStorageManager.get(separated[0]);
         if (storageManager == null) {
             throw new FileNotFoundException("No storage manager associated for " + documentId + "!");
         }
@@ -803,9 +803,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         public String getDocumentId() {
-            for(int i = 0; i < rootIdToStorageManager.size(); i++) {
-                if (Objects.equals(storageManager, rootIdToStorageManager.valueAt(i))) {
-                    return rootIdToStorageManager.keyAt(i) + DOCUMENTID_SEPARATOR + fileId;
+            for(String key: rootIdToStorageManager.keySet()) {
+                if (Objects.equals(storageManager, rootIdToStorageManager.get(key))) {
+                    return key + DOCUMENTID_SEPARATOR + fileId;
                 }
             }
             return null;
