@@ -84,8 +84,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         setHasOptionsMenu(true);
 
         if (galleryFragmentBottomSheetDialog == null) {
-            FileActivity activity = (FileActivity) getActivity();
-
             galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
         }
     }
