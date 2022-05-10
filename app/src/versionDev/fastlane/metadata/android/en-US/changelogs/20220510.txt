@@ -1,0 +1,20 @@
+Fix and enable FDAScreenshotIT.showMediaThenAllFiles
+Fix crash when navigating from Gallery to On device
+Play video in gallery
+Fix DocumentsStorageProviderIT for new root ID
+Lower detekt maxIssues to remaining 3
+UriUtils: refactor to keep detekt happy
+SyncedFoldersActivity: suppress detekt warning
+ShareeListAdapterTest: refactor to fix detekt issues
+SetStatusDialogFragment: some easy & safe cleanups
+HttpStreamFetcher: reduce nesting in loadData
+DocumentsStorageProvider: hash the accountName for rootId map
+DocumentsStorageProvider: fix build error due to missing import
+Update app/src/main/java/com/owncloud/android/providers/DocumentsStorageProvider.java
+DocumentsStorageProvider: key can't be parsed into Int, since it's String now
+Update DocumentsStorageProvider.java
+Revert "Make Server's hashCode stable vs. version changes"
+Make Server's hashCode stable vs. version changes
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
