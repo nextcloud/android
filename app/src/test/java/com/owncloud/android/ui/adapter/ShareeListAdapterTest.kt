@@ -48,54 +48,43 @@ class ShareeListAdapterTest {
     @Mock
     private lateinit var themeAvatarUtils: ThemeAvatarUtils
 
+    private val orderedShares = listOf(
+        OCShare("/1").apply {
+            shareType = ShareType.EMAIL
+            sharedDate = 1004
+        },
+        OCShare("/2").apply {
+            shareType = ShareType.PUBLIC_LINK
+            sharedDate = 1003
+        },
+        OCShare("/3").apply {
+            shareType = ShareType.PUBLIC_LINK
+            sharedDate = 1001
+        },
+        OCShare("/4").apply {
+            shareType = ShareType.EMAIL
+            sharedDate = 1000
+        },
+        OCShare("/5").apply {
+            shareType = ShareType.USER
+            sharedDate = 80
+        },
+        OCShare("/6").apply {
+            shareType = ShareType.CIRCLE
+            sharedDate = 20
+        }
+    )
+
     @Test
-    @Suppress("LongMethod")
     fun testSorting() {
         MockitoAnnotations.openMocks(this)
         val resources = Mockito.mock(Resources::class.java)
         Mockito.`when`(context!!.resources).thenReturn(resources)
         Mockito.`when`(fileActivity!!.resources).thenReturn(resources)
-        val expectedSortOrder: MutableList<OCShare?> = ArrayList()
-        expectedSortOrder.add(
-            OCShare("/1").apply {
-                shareType = ShareType.EMAIL
-                sharedDate = 1004
-            }
-        )
-        expectedSortOrder.add(
-            OCShare("/2").apply {
-                shareType = ShareType.PUBLIC_LINK
-                sharedDate = 1003
-            }
-        )
-        expectedSortOrder.add(
-            OCShare("/3").apply {
-                shareType = ShareType.PUBLIC_LINK
-                sharedDate = 1001
-            }
-        )
-        expectedSortOrder.add(
-            OCShare("/4").apply {
-                shareType = ShareType.EMAIL
-                sharedDate = 1000
-            }
-        )
-        expectedSortOrder.add(
-            OCShare("/5").apply {
-                shareType = ShareType.USER
-                sharedDate = 80
-            }
-        )
-        expectedSortOrder.add(
-            OCShare("/6").apply {
-                shareType = ShareType.CIRCLE
-                sharedDate = 20
-            }
-        )
 
-        val randomOrder: MutableList<OCShare?> = ArrayList(expectedSortOrder)
-        randomOrder.shuffle()
+        val randomOrder = orderedShares.shuffled()
         val user = AnonymousUser("nextcloud")
+
         val sut = ShareeListAdapter(
             fileActivity,
             randomOrder,
@@ -108,20 +97,24 @@ class ShareeListAdapterTest {
         sut.sortShares()
 
         // compare
+        assertSort(sut.shares)
+    }
+
+    private fun assertSort(shares: MutableList<OCShare>) {
         var compare = true
         var i = 0
-        while (i < expectedSortOrder.size && compare) {
-            compare = expectedSortOrder[i] === sut.shares[i]
+        while (i < orderedShares.size && compare) {
+            compare = orderedShares[i] === shares[i]
             i++
         }
         if (!compare) {
             println("Expected:")
-            for (item in expectedSortOrder) {
-                println(item!!.path + " " + item.shareType + " " + item.sharedDate)
+            for (item in orderedShares) {
+                println(item.path + " " + item.shareType + " " + item.sharedDate)
             }
             println()
             println("Actual:")
-            for (item in sut.shares) {
+            for (item in shares) {
                 println(item.path + " " + item.shareType + " " + item.sharedDate)
             }
         }
