@@ -911,19 +911,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public String getPopupText(int position) {
         OCFile file = getItem(position);
 
-        if (file == null) {
+        if (file == null || sortOrder == null) {
             return "";
         }
 
-        if (sortOrder.getType() == FileSortOrder.SortType.ALPHABET) {
-            return String.valueOf(file.getFileName().charAt(0)).toUpperCase(Locale.getDefault());
-        } else if (sortOrder.getType() == FileSortOrder.SortType.DATE) {
-            long milliseconds = file.getModificationTimestamp();
-            Date date = new Date(milliseconds);
-            return dateFormat.format(date);
-        } else {
-            // Size
-            return DisplayUtils.bytesToHumanReadable(file.getFileLength());
+        switch (sortOrder.getType()) {
+            case ALPHABET:
+                return String.valueOf(file.getFileName().charAt(0)).toUpperCase(Locale.getDefault());
+            case DATE:
+                long milliseconds = file.getModificationTimestamp();
+                Date date = new Date(milliseconds);
+                return dateFormat.format(date);
+            case SIZE:
+                return DisplayUtils.bytesToHumanReadable(file.getFileLength());
+            default:
+                Log_OC.d(TAG, "getPopupText: Unsupported sort order: " + sortOrder.getType());
+                return "";
         }
     }
 
