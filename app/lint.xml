@@ -35,6 +35,7 @@
 
     <issue id="UnusedResources">
         <ignore path="**/values-**/strings.xml" />
+        <ignore path="**/values/setup.xml" />
     </issue>
 
     <issue id="TypographyEllipsis">
