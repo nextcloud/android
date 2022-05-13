@@ -9,7 +9,7 @@ buildscript {
         androidLibraryVersion ="4c623e106118a431222d398a0470b8c979f32c37"
         mockitoVersion = "4.5.1"
         mockitoKotlinVersion = "4.0.0"
-        mockkVersion = "1.12.3"
+        mockkVersion = "1.12.4"
         powermockVersion = "2.0.9"
         byteBuddyVersion = "1.12.10"
         espressoVersion = "3.4.0"
