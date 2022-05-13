@@ -1,0 +1,4 @@
+SetStatusDialogFragment: fix EmojiPopup after API changes
+OCFileListAdapter: skip popup text generation if no sortOrder is present
+Moved repo for qrcodescanner
+Update 3rd-party dependencies
