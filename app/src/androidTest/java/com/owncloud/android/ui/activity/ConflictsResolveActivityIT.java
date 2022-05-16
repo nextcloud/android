@@ -69,7 +69,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         existingFile.setModificationTimestamp(1582019340);
 
         FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        storageManager.saveFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
@@ -167,7 +167,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        storageManager.saveFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
@@ -208,7 +208,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        storageManager.saveFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
@@ -254,7 +254,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        storageManager.saveFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
@@ -299,7 +299,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        storageManager.saveFile(existingFile);
 
         Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);

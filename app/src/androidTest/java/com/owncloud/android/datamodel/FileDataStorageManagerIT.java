@@ -346,7 +346,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         OCFile newFile = new OCFile("/1/1/1.txt");
         newFile.setRemoteId("123");
 
-        sut.saveNewFile(newFile);
+        sut.saveFile(newFile);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -355,7 +355,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         OCFile newFile = new OCFile("/1/1/1.txt");
 
-        sut.saveNewFile(newFile);
+        sut.saveFile(newFile);
     }
 
     @Test
