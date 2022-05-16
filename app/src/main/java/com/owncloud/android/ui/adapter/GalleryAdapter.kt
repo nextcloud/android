@@ -171,10 +171,13 @@ class GalleryAdapter(
         return files.isEmpty()
     }
 
-    fun getItem(position: Int): OCFile {
+    fun getItem(position: Int): OCFile? {
         val itemCoord = getRelativePosition(position)
-
-        return files[itemCoord.section()].files[itemCoord.relativePos()]
+        return try {
+            files[itemCoord.section()].files[itemCoord.relativePos()]
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            null
+        }
     }
 
     override fun isMultiSelect(): Boolean {
