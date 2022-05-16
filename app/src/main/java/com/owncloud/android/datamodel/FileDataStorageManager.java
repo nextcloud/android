@@ -317,50 +317,9 @@ public class FileDataStorageManager {
         return imageList;
     }
 
-    private ContentValues createContentValueForFile(OCFile ocFile) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_MODIFIED, ocFile.getModificationTimestamp());
-        contentValues.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                          ocFile.getModificationTimestampAtLastSyncForData());
-        contentValues.put(ProviderTableMeta.FILE_CREATION, ocFile.getCreationTimestamp());
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_LENGTH, ocFile.getFileLength());
-        contentValues.put(ProviderTableMeta.FILE_CONTENT_TYPE, ocFile.getMimeType());
-        contentValues.put(ProviderTableMeta.FILE_NAME, ocFile.getFileName());
-        contentValues.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, ocFile.getEncryptedFileName());
-        contentValues.put(ProviderTableMeta.FILE_PATH, ocFile.getRemotePath());
-        if (!ocFile.isFolder()) {
-            contentValues.put(ProviderTableMeta.FILE_IS_ENCRYPTED, ocFile.isEncrypted());
-            contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, ocFile.getStoragePath());
-        }
-        contentValues.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, ocFile.getLastSyncDateForProperties());
-        contentValues.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, ocFile.getLastSyncDateForData());
-        contentValues.put(ProviderTableMeta.FILE_ETAG, ocFile.getEtag());
-        contentValues.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, ocFile.getEtagOnServer());
-        contentValues.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, ocFile.getEtagInConflict());
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, ocFile.isSharedViaLink() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, ocFile.isSharedWithSharee() ? 1 : 0);
-        contentValues.put(ProviderTableMeta.FILE_PUBLIC_LINK, ocFile.getPublicLink());
-        contentValues.put(ProviderTableMeta.FILE_PERMISSIONS, ocFile.getPermissions());
-        contentValues.put(ProviderTableMeta.FILE_REMOTE_ID, ocFile.getRemoteId());
-        contentValues.put(ProviderTableMeta.FILE_FAVORITE, ocFile.isFavorite());
-        contentValues.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, ocFile.isUpdateThumbnailNeeded());
-        contentValues.put(ProviderTableMeta.FILE_IS_DOWNLOADING, ocFile.isDownloading());
-        contentValues.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, ocFile.getUnreadCommentsCount());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_ID, ocFile.getOwnerId());
-        contentValues.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, ocFile.getOwnerDisplayName());
-        contentValues.put(ProviderTableMeta.FILE_NOTE, ocFile.getNote());
-        contentValues.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(ocFile.getSharees()));
-        contentValues.put(ProviderTableMeta.FILE_RICH_WORKSPACE, ocFile.getRichWorkspace());
-
-        return contentValues;
-    }
-
     public boolean saveFile(OCFile ocFile) {
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
-        // TODO to check if thgis is in above function
-        contentValues.put(ProviderTableMeta.FILE_PARENT, ocFile.getParentId());
         if (ocFile.isFolder()) {
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
         }
@@ -378,9 +337,9 @@ public class FileDataStorageManager {
             String where = ProviderTableMeta._ID + " = ?";
             String[] selectionArgs = {String.valueOf(ocFile.getFileId())};
 
-            updateFiles(contentUri, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
+            updateFiles(contentUri, cv, where, selectionArgs, "Fail to update file to database");
         } else {
-            Uri resultUri = insertFile(ProviderTableMeta.CONTENT_URI_FILE, contentValues);
+            Uri resultUri = insertFile(ProviderTableMeta.CONTENT_URI_FILE, cv);
             if (resultUri != null) {
                 long newId = Long.parseLong(resultUri.getPathSegments().get(1));
                 ocFile.setFileId(newId);
@@ -452,7 +411,7 @@ public class FileDataStorageManager {
 
     /**
      * Inserts or updates the list of files contained in a given folder.
-     *
+     * <p>
      * CALLER IS RESPONSIBLE FOR GRANTING RIGHT UPDATE OF INFORMATION, NOT THIS METHOD. HERE ONLY DATA CONSISTENCY
      * SHOULD BE GRANTED
      *
@@ -460,7 +419,7 @@ public class FileDataStorageManager {
      * @param updatedFiles
      * @param filesToRemove
      */
-    public void saveFolder(OCFile folder, ArrayList<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
+    public void saveFolder(OCFile folder, List<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
             + " children and " + filesToRemove.size() + " files to remove");
 
@@ -472,9 +431,6 @@ public class FileDataStorageManager {
         for (OCFile ocFile : updatedFiles) {
             ContentValues contentValues = createContentValuesForFile(ocFile);
             contentValues.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
-            // TODO to check 
-            contentValues.put(ProviderTableMeta.FILE_MOUNT_TYPE, ocFile.getMountType().ordinal());
-            contentValues.put(ProviderTableMeta.FILE_HAS_PREVIEW, ocFile.isPreviewAvailable() ? 1 : 0);
 
             if (isFileExists(fileExistList, ocFile)) {
                 long fileId;
@@ -527,9 +483,6 @@ public class FileDataStorageManager {
 
         // update metadata of folder
         ContentValues contentValues = createContentValuesForFolder(folder);
-        // TODO TO check
-        contentValues.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
-
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
                            .withValues(contentValues)
                            .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(folder.getFileId())})
@@ -629,6 +582,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCK_TIMESTAMP, file.getLockTimestamp());
         cv.put(ProviderTableMeta.FILE_LOCK_TIMEOUT, file.getLockTimeout());
         cv.put(ProviderTableMeta.FILE_LOCK_TOKEN, file.getLockToken());
+        cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, file.getMountType().ordinal());
+        cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
 
         return cv;
     }
@@ -961,7 +916,7 @@ public class FileDataStorageManager {
         return isExists;
     }
 
-    private ArrayList<OCFile> getFilesExistsID(ArrayList<OCFile> updatedFiles) {
+    private ArrayList<OCFile> getFilesExistsID(List<OCFile> updatedFiles) {
 
         ArrayList<OCFile> existsFiles = new ArrayList<>();
         ArrayList<String> listIDString = new ArrayList<>();
@@ -995,7 +950,7 @@ public class FileDataStorageManager {
                 + " IN (" + inList + "))";
 
             ArrayList<String> selectionArgsList = new ArrayList<>();
-            selectionArgsList.add(account.name);
+            selectionArgsList.add(user.getAccountName());
             selectionArgsList.addAll(listIDString);
             selectionArgsList.addAll(listPathString);
             String[] selectionArgs = selectionArgsList.toArray(new String[0]);
@@ -1113,15 +1068,14 @@ public class FileDataStorageManager {
     }
 
     public void saveShare(OCShare share) {
-        boolean overridden = false;
-
+        Uri contentUriShare = ProviderTableMeta.CONTENT_URI_SHARE;
         ContentValues contentValues = createContentValueForShare(share);
 
         if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
             String where = ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " = ?";
             String[] selectionArgs = {String.valueOf(share.getRemoteId())};
 
-            updateFiles(contentUriShare, contentValues, where, selectionArgs, FAILED_TO_UPDATE_MSG);
+            updateFiles(contentUriShare, contentValues, where, selectionArgs, "Failed to update file");
         } else {
             Uri resultUri = insertFile(contentUriShare, contentValues);
             if (resultUri != null) {
@@ -1504,7 +1458,7 @@ public class FileDataStorageManager {
                     + " IN (" + inList + ")";
 
                 ArrayList<String> selectionArgsList = new ArrayList<>();
-                selectionArgsList.add(account.name);
+                selectionArgsList.add(user.getAccountName());
                 selectionArgsList.addAll(listPathString);
                 String[] selectionArgs = selectionArgsList.toArray(new String[0]);
 
@@ -1730,11 +1684,11 @@ public class FileDataStorageManager {
 
     public void saveCapabilities(OCCapability capability) {
         Uri contentUriCapabilities = ProviderTableMeta.CONTENT_URI_CAPABILITIES;
-        ContentValues contentValues = createContentValues(account.name, capability);
+        ContentValues contentValues = createContentValues(user.getAccountName(), capability);
 
-        if (capabilityExists(account.name)) {
+        if (capabilityExists(user.getAccountName())) {
             String where = ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + " = ?";
-            String[] selectionArgs = {account.name};
+            String[] selectionArgs = {user.getAccountName()};
             updateFiles(contentUriCapabilities, contentValues, where, selectionArgs, "Failed saveCapabilities update");
         } else {
             Uri resultUri = insertFile(contentUriCapabilities, contentValues);
@@ -1742,7 +1696,7 @@ public class FileDataStorageManager {
             if (resultUri != null) {
                 long newId = Long.parseLong(resultUri.getPathSegments().get(1));
                 capability.setId(newId);
-                capability.setAccountName(account.name);
+                capability.setAccountName(user.getAccountName());
             }
         }
     }
