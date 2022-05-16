@@ -258,6 +258,7 @@
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
+    <string name="error_starting_scan_doc">Virhe dokumentin skannauksessa</string>
     <string name="etm_accounts">Tilit</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>
@@ -312,6 +313,7 @@
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_management_permission">Käyttöoikeus tarvitaan</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
+    <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
     <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
