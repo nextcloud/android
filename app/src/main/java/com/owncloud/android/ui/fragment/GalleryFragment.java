@@ -216,7 +216,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
-        mAdapter.notifyDataSetChanged();
 
         if (mAdapter.isEmpty()) {
             setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
