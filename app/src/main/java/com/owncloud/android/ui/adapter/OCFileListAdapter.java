@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -671,13 +672,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+                        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
+                            if (file.getRemoteId() != null && task.getImageKey() != null &&
+                                file.getRemoteId().equals(task.getImageKey())) {
+                                return;
+                            }
+                        }
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
                                                                                    storageManager,
                                                                                    user,
                                                                                    asyncTasks,
-                                                                                   gridView);
+                                                                                   gridView,
+                                                                                   file.getRemoteId());
                             if (thumbnail == null) {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
@@ -720,8 +728,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                             thumbnailView.setImageDrawable(asyncDrawable);
                             asyncTasks.add(task);
-                            task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                                  file.getRemoteId()));
+                            task.executeOnExecutor(
+                                AsyncTask.THREAD_POOL_EXECUTOR,
+                                new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                                                                         file.getRemoteId())
+                                                  );
                         } catch (IllegalArgumentException e) {
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                         }
