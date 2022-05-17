@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/folder" />
+                android:src="@drawable/file_image" />
 
             <ImageView
                 android:id="@+id/sharedIcon"
