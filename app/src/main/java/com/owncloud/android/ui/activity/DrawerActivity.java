@@ -446,7 +446,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
-                MainApp.showOnlyFilesOnDevice(false);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(FileDisplayActivity.ALL_FILES);
@@ -483,7 +482,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
-            startRecentlyModifiedSearch(menuItem);
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
+                               menuItem.getItemId());
         } /*else if (itemId == R.id.nav_contacts){
             ContactsPreferenceActivity.startActivity(this);
         }*/
@@ -496,13 +496,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
-    }
-
-    private void startRecentlyModifiedSearch(MenuItem menuItem) {
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
     private void startSharedSearch(MenuItem menuItem) {
@@ -1102,7 +1095,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
         startActivity(fileDisplayActivity);
     }
 
