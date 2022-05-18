@@ -20,9 +20,11 @@
 
 package com.nextcloud.client.preferences;
 
+import com.nmc.android.app_review.AppReviewShownModel;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -413,5 +415,11 @@ public interface AppPreferences {
      */
     void setHideVideoClicked(boolean isHideVideoClicked);
     boolean getHideVideoClicked();
+
+
+    void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
+
+    @Nullable
+    AppReviewShownModel getInAppReviewData();
 
 }
