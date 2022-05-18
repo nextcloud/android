@@ -21,14 +21,10 @@ package com.nextcloud.client.media
 
 import android.media.AudioFocusRequest
 import android.media.AudioManager
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.argThat
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatcher
+import org.mockito.kotlin.*
 
 class AudioFocusManagerTest {
 

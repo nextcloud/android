@@ -24,8 +24,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import org.mockito.kotlin.whenever
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import org.junit.Before
 import org.junit.Ignore
@@ -33,6 +32,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.verify
 
 class ContentObserverWorkTest {
 

@@ -30,13 +30,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.apache.commons.httpclient.HttpStatus
 import org.junit.Assert.assertFalse
@@ -49,6 +42,7 @@ import org.junit.runners.Suite
 import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.*
 import java.net.URI
 
 @RunWith(Suite::class)
