@@ -64,7 +64,7 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
         request.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 // We can get the ReviewInfo object
-                val reviewInfo: ReviewInfo = task.result
+                val reviewInfo: ReviewInfo = task.result!!
                 launchAppReviewFlow(manager, activity, reviewInfo)
             } else {
                 // There was some problem, log or handle the error code.
