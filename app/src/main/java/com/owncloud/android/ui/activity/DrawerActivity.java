@@ -502,7 +502,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        
     }
 
     private void startSharedSearch(MenuItem menuItem) {
