@@ -21,7 +21,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -60,11 +59,10 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.app_review.InAppReviewHelper;
 import com.nmc.android.ui.SplashActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.ScanBotSdkUtils;
-import com.nmc.android.utils.ScanBotSdkUtils;
-import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -119,11 +117,7 @@ import dagger.android.HasAndroidInjector;
 import de.cotech.hw.SecurityKeyManager;
 import de.cotech.hw.SecurityKeyManagerConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.scanbot.sap.IScanbotSDKLicenseErrorHandler;
 import io.scanbot.sap.SdkFeature;
-import io.scanbot.sap.SdkLicenseInfo;
-import io.scanbot.sap.Status;
-import io.scanbot.sdk.ScanbotSDK;
 import io.scanbot.sdk.ScanbotSDKInitializer;
 import io.scanbot.sdk.core.contourdetector.ContourDetector;
 
@@ -186,6 +180,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     MigrationsManager migrationsManager;
+
+    @Inject
+    InAppReviewHelper inAppReviewHelper;
 
     private PassCodeManager passCodeManager;
 
@@ -274,6 +271,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initialiseAdjustSDK();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
+
+        //update the app restart count when app is launched by the user
+        inAppReviewHelper.resetAndIncrementAppRestartCounter();
 
         int startedMigrationsCount = migrationsManager.startMigration();
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));

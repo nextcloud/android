@@ -62,6 +62,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nmc.android.app_review.InAppReviewHelper;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.utils.KeyboardUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
@@ -244,6 +245,9 @@ public class FileDisplayActivity extends FileActivity
 
     @Inject
     ConnectivityService connectivityService;
+
+    @Inject
+    InAppReviewHelper inAppReviewHelper;
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -1275,6 +1279,9 @@ public class FileDisplayActivity extends FileActivity
         if (ocFileListFragment instanceof GalleryFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
+
+        //show in-app review dialog to user
+        inAppReviewHelper.showInAppReview(this);
 
         Log_OC.v(TAG, "onResume() end");
     }

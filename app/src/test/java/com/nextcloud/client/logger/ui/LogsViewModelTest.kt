@@ -27,9 +27,8 @@ import com.nextcloud.client.logger.Level
 import com.nextcloud.client.logger.LogEntry
 import com.nextcloud.client.logger.LogsRepository
 import com.nextcloud.client.logger.OnLogsLoaded
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -42,6 +41,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
 import java.util.Date
 
 @RunWith(Suite::class)

@@ -27,12 +27,6 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.anyOrNull
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -42,6 +36,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.*
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(

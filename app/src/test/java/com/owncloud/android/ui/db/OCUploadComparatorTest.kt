@@ -18,8 +18,6 @@
  */
 package com.owncloud.android.ui.db
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus.UPLOAD_FAILED
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
 import com.owncloud.android.db.OCUpload
@@ -31,6 +29,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Suite
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import org.mockito.MockitoAnnotations
 
 @RunWith(Suite::class)

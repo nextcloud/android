@@ -25,9 +25,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nmc.android.app_review.AppReviewShownModel;
 import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.nmc.android.ui.ScanActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -40,6 +42,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
@@ -105,6 +108,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__IS_HIDE_IMAGE_CLICKED = "is_hideImage_clicked";
     private static final String PREF__IS_HIDE_VIDEO_CLICKED = "is_hideVideo_clicked";
 
+    private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -759,5 +763,20 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean getHideVideoClicked() {
         return preferences.getBoolean(PREF__IS_HIDE_VIDEO_CLICKED,false);
+    }
+
+    @Override
+    public void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel) {
+        Gson gson = new Gson();
+        String json = gson.toJson(appReviewShownModel);
+        preferences.edit().putString(PREF__IN_APP_REVIEW_DATA, json).apply();
+    }
+
+    @Nullable
+    @Override
+    public AppReviewShownModel getInAppReviewData() {
+        Gson gson = new Gson();
+        String json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "");
+        return gson.fromJson(json, AppReviewShownModel.class);
     }
 }

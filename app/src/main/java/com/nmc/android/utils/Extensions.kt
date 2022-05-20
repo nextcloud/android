@@ -9,6 +9,8 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
     val spannableString = SpannableString(this.text)
@@ -39,4 +41,16 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
         LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
     this.setText(spannableString, TextView.BufferType.SPANNABLE)
 }
+
+fun Long.isCurrentYear(yearToCompare: String?): Boolean {
+    val simpleDateFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+    val currentYear = simpleDateFormat.format(Date(this))
+    return currentYear == yearToCompare
+}
+
+fun Long.getFormattedStringDate(format: String): String {
+    val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
+    return simpleDateFormat.format(Date(this))
+}
+
 

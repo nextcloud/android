@@ -29,6 +29,7 @@ import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
+import com.nmc.android.app_review.InAppReviewModule;
 import com.owncloud.android.MainApp;
 
 import javax.inject.Singleton;
@@ -47,7 +48,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
     OnboardingModule.class,
     ViewModelModule.class,
     JobsModule.class,
-    IntegrationsModule.class
+    IntegrationsModule.class,
+    InAppReviewModule.class
 })
 @Singleton
 public interface AppComponent {
