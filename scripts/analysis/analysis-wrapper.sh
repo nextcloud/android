@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-GIT_USERNAME=$1
-GITHUB_TOKEN=$2
-BRANCH=$3
-LOG_USERNAME=$4
-LOG_PASSWORD=$5
-BUILD_NUMBER=$6
-PR_NUMBER=$7
+GITHUB_TOKEN=$1
+BRANCH=$2
+LOG_USERNAME=$3
+LOG_PASSWORD=$4
+BUILD_NUMBER=$5
+PR_NUMBER=$6
 
 
 stableBranch="master"
@@ -56,7 +55,7 @@ else
     done
 
     # check library, only if base branch is master
-    baseBranch=$(scripts/analysis/getBranchBase.sh "${GIT_USERNAME}" "${GITHUB_TOKEN}" "${PR_NUMBER}" | tr -d "\"")
+    baseBranch=$(scripts/analysis/getBranchBase.sh "${GITHUB_TOKEN}" "${PR_NUMBER}" | tr -d "\"")
     if [ $baseBranch = "master" -a $(grep "androidLibraryVersion = \"master-SNAPSHOT\"" build.gradle -c) -ne 1 ]; then
         checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
         checkLibrary=1

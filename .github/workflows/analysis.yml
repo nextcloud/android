@@ -1,7 +1,5 @@
 name: "Analysis"
 
-# TODO: split this into push and pull_request workflows
-# Push doesn't have to deal with comments, and stuff like that. That will also remove the weird get-vars thing
 on:
     pull_request:
         branches: [ master, stable-* ]
@@ -19,12 +17,10 @@ jobs:
                         # push
                         echo "::set-output name=branch::$GITHUB_REF_NAME"
                         echo "::set-output name=pr::$GITHUB_RUN_ID"
-                        echo "::set-output name=repo::${{ github.repository }}"
                     else
                         # pull request
                         echo "::set-output name=branch::$GITHUB_HEAD_REF"
                         echo "::set-output name=pr::${{ github.event.pull_request.number }}"
-                        echo "::set-output name=repo::${{ github.event.pull_request.head.repo.full_name }}"
                     fi
             -   uses: actions/checkout@v3
                 with:
@@ -42,4 +38,4 @@ jobs:
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-                    scripts/analysis/analysis-wrapper.sh "foo" ${{ secrets.GITHUB_TOKEN }} $GITHUB_REF ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ steps.get-vars.outputs.pr }}
+                    scripts/analysis/analysis-wrapper.sh ${{ secrets.GITHUB_TOKEN }}  ${{ steps.get-vars.outputs.branch }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ steps.get-vars.outputs.pr }}
