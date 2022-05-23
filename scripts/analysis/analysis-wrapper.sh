@@ -12,7 +12,7 @@ PR_NUMBER=$7
 stableBranch="master"
 repository="android"
 
-ruby scripts/analysis/lint-up.rb "${GIT_USERNAME}" "${GITHUB_TOKEN}" "$BRANCH"
+ruby scripts/analysis/lint-up.rb
 lintValue=$?
 
 curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
