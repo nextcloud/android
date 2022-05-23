@@ -187,7 +187,7 @@ system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 system({"GIT_COMMITTER_NAME" => git_user, "GIT_COMMITTER_EMAIL" => "android@nextcloud.com", "GIT_AUTHOR_EMAIL" => "android@nextcloud.com"}, 'git commit -sm "Analysis: update lint results to reflect reduced error/warning count"')
 
 # push to origin
-system ('git push origin HEAD:' + git_branch)
+system ('git push')
 
 puts "SUCCESS: count was reduced"
 exit 0 # success
