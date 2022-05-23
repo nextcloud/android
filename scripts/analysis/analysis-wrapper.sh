@@ -48,10 +48,10 @@ else
     curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/${BUILD_NUMBER}.html" --upload-file app/build/reports/spotbugs/spotbugs.html
 
     # delete all old comments, starting with Codacy
-    oldComments=$(curl_gh -X GET "https://api.github.com/repos/nextcloud/android/issues/${PR_NUMBER}/comments" | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>Codacy.*"))) | .id')
+    oldComments=$(curl_gh -X GET "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>Codacy.*"))) | .id')
 
     echo "$oldComments" | while read -r comment ; do
-        curl_gh -X DELETE "https://api.github.com/repos/nextcloud/android/issues/comments/$comment"
+        curl_gh -X DELETE "https://api.github.com/repos/nextcloud/$repository/issues/comments/$comment"
     done
 
     # check library, only if base branch is master
@@ -90,7 +90,7 @@ else
         lintWarningNew=0
     fi
 
-    lintResultOld=$(curl 2>/dev/null https://raw.githubusercontent.com/nextcloud/android/$stableBranch/scripts/analysis/lint-results.txt)
+    lintResultOld=$(curl 2>/dev/null "https://raw.githubusercontent.com/nextcloud/$repository/$stableBranch/scripts/analysis/lint-results.txt")
     lintErrorOld=$(echo $lintResultOld | grep "[0-9]* error" -o | cut -f1 -d" ")
     if ( [ -z $lintErrorOld ] ); then
         lintErrorOld=0
@@ -133,7 +133,7 @@ else
     fi
 
     payload="{ \"body\" : \"$codacyResult $lintResult $spotbugsResult $checkLibraryMessage $lintMessage $spotbugsMessage $gplayLimitation $notNull\" }"
-    curl_gh -X POST "https://api.github.com/repos/nextcloud/android/issues/${PR_NUMBER}/comments" -d "$payload"
+    curl_gh -X POST "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" -d "$payload"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1
