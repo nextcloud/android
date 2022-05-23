@@ -639,6 +639,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_no_password_title">Aseta salasana</string>
     <string name="share_password_title">Salasanasuojattu</string>
     <string name="share_permission_can_edit">Voi muokata</string>
+    <string name="share_permission_file_drop">Tiedoston pudotus</string>
     <string name="share_permission_view_only">Vain katselu</string>
     <string name="share_permissions">Jaon oikeudet</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
@@ -872,6 +873,10 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Ei onnistuttu kopioimaan %1$d tiedostoa %2$s kansioon</item>
         <item quantity="other">Ei onnistuttu kopioimaan %1$d tiedostoja %2$s kansioon</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Löytyi %d kaksoiskappale.</item>
+        <item quantity="other">Löytyi %d kaksoiskappaletta.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kansio</item>
