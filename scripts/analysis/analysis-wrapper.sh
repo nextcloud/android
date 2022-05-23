@@ -23,6 +23,9 @@ spotbugsValue=$?
 # 1: count was increased
 # 2: count stayed the same
 
+GITHUB_TOKEN=$2
+source scripts/lib.sh
+
 echo "Branch: $3"
 
 if [ $3 = $stableBranch ]; then
@@ -46,10 +49,10 @@ else
     curl 2>/dev/null -u $4:$5 -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$6.html --upload-file app/build/reports/spotbugs/spotbugs.html
 
     # delete all old comments, starting with Codacy
-    oldComments=$(curl 2>/dev/null -u $1:$2 -X GET https://api.github.com/repos/nextcloud/android/issues/$7/comments | jq '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test("<h1>Codacy.*") | tostring)'  | grep "true|true" | tr -d "\"" | cut -f1 -d"|")
+    oldComments=$(curl_gh -X GET https://api.github.com/repos/nextcloud/android/issues/$7/comments | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>Codacy.*"))) | .id')
 
-    echo $oldComments | while read comment ; do
-        curl 2>/dev/null -u $1:$2 -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
+    echo "$oldComments" | while read -r comment ; do
+        curl_gh -X DELETE "https://api.github.com/repos/nextcloud/android/issues/comments/$comment"
     done
 
     # check library, only if base branch is master
@@ -131,7 +134,7 @@ else
     fi
 
     payload="{ \"body\" : \"$codacyResult $lintResult $spotbugsResult $checkLibraryMessage $lintMessage $spotbugsMessage $gplayLimitation $notNull\" }"
-    curl -u "$1:$2" -X POST "https://api.github.com/repos/nextcloud/android/issues/$7/comments" -d "$payload"
+    curl_gh -X POST "https://api.github.com/repos/nextcloud/android/issues/$7/comments" -d "$payload"
 
     if [ ! -z "$gplayLimitation" ]; then
         exit 1
