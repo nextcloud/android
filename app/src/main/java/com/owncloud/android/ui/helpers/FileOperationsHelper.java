@@ -55,7 +55,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -81,6 +80,7 @@ import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EditorUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
@@ -292,7 +292,7 @@ public class FileOperationsHelper {
             if (launchables.isEmpty()) {
                 Optional<User> optionalUser = fileActivity.getUser();
 
-                if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
+                if (optionalUser.isPresent() && EditorUtils.isEditorAvailable(fileActivity.getContentResolver(),
                                                                                  optionalUser.get(),
                                                                                  file.getMimeType())) {
                     openFileWithTextEditor(file, fileActivity);
