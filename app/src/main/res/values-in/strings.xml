@@ -359,6 +359,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="notifications_no_results_headline">Tidak ada notifikasi.</string>
     <string name="notifications_no_results_message">Cek ulang nanti.</string>
     <string name="offline_mode">Tidak ada koneksi ke internet</string>
+    <string name="oneHour">1 jam</string>
     <string name="outdated_server">Server telah mencapai batas hidupnya, tolong ditingkatkan!</string>
     <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
@@ -383,7 +384,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_add_account">Tambah akun</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Pemasangan kalender &amp; kontak</string>
-    <string name="prefs_category_about">Tentang.</string>
+    <string name="prefs_category_about">Tentang</string>
     <string name="prefs_category_details">Rincian</string>
     <string name="prefs_category_dev">Pengembang</string>
     <string name="prefs_category_general">Umum</string>
@@ -399,6 +400,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
+    <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
@@ -572,6 +574,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
     <string name="uploads_view_upload_status_virus_detected">Virus terdeteksi. Unggahan tidak bisa diselesaikan!</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Menunggu dicas.</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Menunggu Wi-Fi tidak terukur</string>
     <string name="user_icon">Pengguna</string>
     <string name="user_info_address">Alamat</string>
     <string name="user_info_email">Surel</string>

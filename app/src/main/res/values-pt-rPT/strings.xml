@@ -840,26 +840,32 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="wrong_storage_path_desc">Poderá estar relacionado com a reposição de uma cópia de segurança. Revertendo para a definição de base. Verifique as definições para ajustar a localização da pasta de armazenamento dos dados.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Não foi possível sincronizar o %1$d ficheiro (conflitos: %2$d)</item>
+        <item quantity="many">Não foi possível sincronizar %1$d ficheiros (conflitos: %2$d)</item>
         <item quantity="other">Não foi possível sincronizar %1$d ficheiros (conflitos: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Falha ao copiar %1$d ficheiro da pasta %2$s para </item>
+        <item quantity="many">Falha ao copiar %1$d ficheiros da pasta %2$s para</item>
         <item quantity="other">Falha ao copiar %1$d ficheiros da pasta %2$s para</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d pasta</item>
+        <item quantity="many">%1$d pastas</item>
         <item quantity="other">%1$d pastas</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d ficheiro</item>
+        <item quantity="many">%1$d ficheiros</item>
         <item quantity="other">%1$d ficheiros</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d pasta oculta</item>
+        <item quantity="many">Mostrar %1$d pastas ocultas</item>
         <item quantity="other">Mostrar %1$d pastas ocultas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
+        <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
 </resources>

@@ -873,42 +873,52 @@ Attention la suppression est irréversible.</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
+        <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
         <item quantity="other">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Impossible de copier %1$d fichier du dossier %2$s dans</item>
+        <item quantity="many">Impossible de copier %1$d fichiers du dossier %2$s dans</item>
         <item quantity="other">Impossible de copier %1$d fichiers du dossier %2$s dans</item>
     </plurals>
     <plurals name="wrote_n_events_to">
         <item quantity="one"> %1$d événement écrit à %2$s</item>
+        <item quantity="many">%1$d événements écrit à %2$s</item>
         <item quantity="other">%1$d événements écrit à %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
         <item quantity="one">%1$d nouveau UID créé</item>
+        <item quantity="many">%1$d nouveaux UID créés</item>
         <item quantity="other">%1$d nouveaux UID créés</item>
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="one">%d entrée traitée.</item>
+        <item quantity="many">%d entrées traitées.</item>
         <item quantity="other">%d entrées traitées.</item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">%d entrée en double trouvée.</item>
+        <item quantity="many">%d entrées en double trouvées.</item>
         <item quantity="other">%d entrées en double trouvées.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>
+        <item quantity="many">%1$d dossiers</item>
         <item quantity="other">%1$d dossiers</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fichier</item>
+        <item quantity="many">%1$d fichiers</item>
         <item quantity="other">%1$d fichiers</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">%1$d dossier masqué affiché</item>
+        <item quantity="many">%1$d dossiers masqués affichés</item>
         <item quantity="other">%1$d dossiers masqués affichés</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
+        <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
 </resources>

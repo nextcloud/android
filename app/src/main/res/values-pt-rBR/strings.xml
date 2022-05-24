@@ -871,42 +871,52 @@
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
+        <item quantity="many">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
         <item quantity="other">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Erro ao copiar %1$d arquivo da pasta %2$s</item>
+        <item quantity="many">Erro ao copiar %1$d arquivos da pasta %2$s</item>
         <item quantity="other">Erro ao copiar %1$d arquivos da pasta %2$s</item>
     </plurals>
     <plurals name="wrote_n_events_to">
         <item quantity="one">Escrito %1$d evento para %2$s</item>
+        <item quantity="many">Escrito %1$d eventos para %2$s</item>
         <item quantity="other">Escrito %1$d eventos para %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
         <item quantity="one">Criados %1$d novos UID</item>
+        <item quantity="many">Criado %1$d novo UIDs</item>
         <item quantity="other">Criado %1$d novo UIDs</item>
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="one">Entrada %d processada. </item>
+        <item quantity="many">Entradas %d processadas. </item>
         <item quantity="other">Entradas %d processadas. </item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Encontrou 1%d entrada duplicada.</item>
+        <item quantity="many">Encontrou %d entradas duplicadas.</item>
         <item quantity="other">Encontrou %d entradas duplicadas.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d pasta</item>
+        <item quantity="many">%1$d pastas</item>
         <item quantity="other">%1$d pastas</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d arquivo</item>
+        <item quantity="many">%1$d arquivos</item>
         <item quantity="other">%1$d arquivos</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d pasta oculta</item>
+        <item quantity="many">Mostrar %1$d pastas ocultas</item>
         <item quantity="other">Mostrar %1$d pastas ocultas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
+        <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
 </resources>
