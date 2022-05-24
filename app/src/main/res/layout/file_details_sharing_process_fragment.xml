@@ -238,7 +238,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/share_process_enter_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:autofillHints="password"
@@ -278,9 +278,10 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/share_process_select_exp_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
+            android:importantForAccessibility="no"
             android:gravity="center_vertical"
             android:padding="@dimen/standard_half_padding"
             android:textColor="@color/share_txt_color"
@@ -330,7 +331,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/share_process_change_name_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_marginLeft="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:hint="@string/hint_link_label"
