@@ -795,22 +795,27 @@
     <string name="wrong_storage_path_desc">Esto puede deberse a una restauración de copia de seguridad en otro dispositivo. Volviendo a los valores predeterminados. Compruebe la configuración para ajustar la carpeta de almacenamiento de datos.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se pudo sincronizar el archivo %1$d (conflictos: %2$d)</item>
+        <item quantity="two">No se pudieron sincronizar los archivos %1$d (conflictos: %2$d)</item>
         <item quantity="other">No se pudieron sincronizar los archivos %1$d (conflictos: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Error al copiar el archivo %1$d de la carpeta %2$s en</item>
+        <item quantity="two">Error al copiar %1$d archivos de la carpeta %2$s en</item>
         <item quantity="other">Error al copiar %1$d archivos de la carpeta %2$s en</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
+        <item quantity="two">%1$d carpetas</item>
         <item quantity="other">%1$d carpetas</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d archivo</item>
+        <item quantity="two">%1$d archivos</item>
         <item quantity="other">%1$d archivos</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
+        <item quantity="two">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
 </resources>

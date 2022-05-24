@@ -867,42 +867,52 @@
     <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Ripristino del valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione dei dati.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
+        <item quantity="many">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
         <item quantity="other">Impossibile sincronizzare %1$d file (conflitto con: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Copia di %1$d file fallita dalla cartella %2$s a</item>
+        <item quantity="many">Copia di %1$d file fallita dalla cartella %2$s a</item>
         <item quantity="other">Copia di %1$d file fallita dalla cartella %2$s a</item>
     </plurals>
     <plurals name="wrote_n_events_to">
         <item quantity="one">Scritto %1$d evento in %2$s</item>
+        <item quantity="many">Scritti %1$d eventi in %2$s</item>
         <item quantity="other">Scritti %1$d eventi in %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
         <item quantity="one">Creato %1$d UID nuovo</item>
+        <item quantity="many">Creati %1$d UID nuovi</item>
         <item quantity="other">Creati %1$d UID nuovi</item>
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="one">Processata %d voce</item>
+        <item quantity="many">Processate %d voci</item>
         <item quantity="other">Processate %d voci</item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Trovata %d voce duplicata</item>
+        <item quantity="many">Trovate %d voci duplicate</item>
         <item quantity="other">Trovate %d voci duplicate</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>
+        <item quantity="many">%1$d cartelle</item>
         <item quantity="other">%1$d cartelle</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d file</item>
+        <item quantity="many">%1$d file</item>
         <item quantity="other">%1$d file</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostra %1$d cartella nascosta</item>
+        <item quantity="many">Mostra %1$d cartelle nascoste</item>
         <item quantity="other">Mostra %1$d cartelle nascoste</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
+        <item quantity="many">%d selezionati</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
 </resources>
