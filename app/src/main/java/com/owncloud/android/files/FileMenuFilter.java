@@ -22,24 +22,20 @@
 package com.owncloud.android.files;
 
 import android.accounts.AccountManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.DirectEditing;
-import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.EditorUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.NextcloudServer;
 
@@ -48,8 +44,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import androidx.annotation.Nullable;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -352,42 +346,14 @@ public class FileMenuFilter {
 
         String mimeType = files.iterator().next().getMimeType();
 
-        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(context.getContentResolver(),
-                                                                                      user,
-                                                                                      mimeType)) {
+        if (isRichDocumentEditingSupported(capability, mimeType) ||
+            EditorUtils.isEditorAvailable(context.getContentResolver(),
+                                          user,
+                                          mimeType)) {
             toShow.add(R.id.action_edit);
         } else {
             toHide.add(R.id.action_edit);
         }
-    }
-
-    public static boolean isEditorAvailable(ContentResolver contentResolver, User user, String mimeType) {
-        return getEditor(contentResolver, user, mimeType) != null;
-    }
-
-    @Nullable
-    public static Editor getEditor(ContentResolver contentResolver, User user, String mimeType) {
-        String json = new ArbitraryDataProvider(contentResolver).getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
-
-        if (json.isEmpty()) {
-            return null;
-        }
-
-        DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
-
-        for (Editor editor : directEditing.getEditors().values()) {
-            if (editor.getMimetypes().contains(mimeType)) {
-                return editor;
-            }
-        }
-
-        for (Editor editor : directEditing.getEditors().values()) {
-            if (editor.getOptionalMimetypes().contains(mimeType)) {
-                return editor;
-            }
-        }
-
-        return null;
     }
 
     /**
