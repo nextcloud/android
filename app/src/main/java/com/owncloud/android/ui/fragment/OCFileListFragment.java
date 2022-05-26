@@ -104,6 +104,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EditorUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -1062,9 +1063,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             setFabVisible(false);
                             resetHeaderScrollingState();
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                                    accountManager.getUser(),
-                                                                    file.getMimeType()) &&
+                        } else if (EditorUtils.isEditorAvailable(requireContext().getContentResolver(),
+                                                                 accountManager.getUser(),
+                                                                 file.getMimeType()) &&
                             !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
@@ -1131,9 +1132,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                     accountManager.getUser(),
-                                                     singleFile.getMimeType())) {
+                if (EditorUtils.isEditorAvailable(requireContext().getContentResolver(),
+                                                  accountManager.getUser(),
+                                                  singleFile.getMimeType())) {
                     mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                 } else {
                     mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());

@@ -179,7 +179,7 @@ public class ExternalSiteWebView extends FileActivity {
         webSettings.setLoadWithOverviewMode(true);
 
         // user agent
-        webSettings.setUserAgentString(MainApp.getUserAgent());
+        setUserAgentString(webSettings);
 
         // no private data storing
         webSettings.setSavePassword(false);
@@ -197,6 +197,10 @@ public class ExternalSiteWebView extends FileActivity {
             webSettings.setAppCacheEnabled(true);
             webSettings.setAppCachePath(getCacheDir().getPath());
         }
+    }
+
+    protected void setUserAgentString(WebSettings webSettings) {
+        webSettings.setUserAgentString(MainApp.getUserAgent());
     }
 
     private void setupActionBar(String title) {

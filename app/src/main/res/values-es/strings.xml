@@ -255,6 +255,7 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueó</string>
     <string name="error_creating_file_from_template">Error al crear el archivo desde la plantilla</string>
+    <string name="error_file_lock">Error al cambiar el estado de bloqueo de archivo</string>
     <string name="error_report_issue_action">Informe</string>
     <string name="error_report_issue_text">¿Informar del problema al tracker? (requiere una cuenta de GitHub)</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
@@ -315,6 +316,9 @@
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_management_permission">Permisos necesarios</string>
+    <string name="file_management_permission_optional">Permisos de almacenamiento</string>
+    <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puedes escoger el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
+    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puedes escoger acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
@@ -398,7 +402,10 @@
     <string name="local_file_not_found_message">El archivo no se encuentra en el sistema de archivos local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hay mas carpetas</string>
+    <string name="lock_expiration_info">Expira: %1$s</string>
     <string name="lock_file">Bloquear archivo</string>
+    <string name="locked_by">Bloqueado por %1$s</string>
+    <string name="locked_by_app">Bloqueado por la aplicación %1$s</string>
     <string name="log_send_mail_subject">Se han encontrado %1$s aplicaciones de registros para Android</string>
     <string name="log_send_no_mail_app">No se ha encontrado una app para enviar los registros. Por favor, instale un cliente de correo electrónico.</string>
     <string name="login">Iniciar sesión</string>
@@ -698,6 +705,7 @@
     <string name="storage_internal_storage">Almacenamiento interno</string>
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
+    <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_pictures">Imágenes</string>
     <string name="store_full_desc">La plataforma autoalojada de productividad que te entrega el control.\n\nCaracterísticas:\n* Interfaz sencilla y modernal, adaptada al tema de tu servidor\n* Subida de archivos a tu servidor Nextcloud\n*Compártelos con otros\n*Mantén sincronizados tus archivos y carpetas favoritos\n*Búsqueda en todas las carpetas de tu servidor\n*Subida autoática para fotos y vídeos hechos con tu dispositivo\n*Manténte informado con notificaciones\n*Soporte de múltiples cuentas\n* Acceso seguro a tus datos con huella dactilar o PIN\n*Integración con DAVx5 (antes conocido como DAVdroid) para configurar fácilmente la sincronización de calendarios y contactos\n\nPor favor, informa de todos los problemas en https://github.com/nextcloud/android/issues y habla de esta app en https://help.nextcloud.com/c/clients/android\n\n¿Nuevo en Nextcloud? Nextcloud es un servidor privado de sincronización de archivos, para compartir y comunicarse. Es software libre y puedes alojarlo tú mismo o pagar a una compañía para que lo haga por ti. De esta forma, tú controlas tus fotos, tus datos de calendario y contactos, tus documentos y todo lo demás.\n\nDescubre Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
@@ -862,42 +870,52 @@
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
+        <item quantity="many">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
         <item quantity="other">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Fallo al copiar %1$d archivo de la carpeta %2$s a</item>
+        <item quantity="many">Fallo al copiar %1$d archivos de la carpeta %2$s a</item>
         <item quantity="other">Fallo al copiar %1$d archivos de la carpeta %2$s a</item>
     </plurals>
     <plurals name="wrote_n_events_to">
         <item quantity="one">Se ha escrito %1$d evento a %2$s</item>
+        <item quantity="many">Se han escrito %1$d eventos a %2$s</item>
         <item quantity="other">Se han escrito %1$d eventos a %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
         <item quantity="one">Se ha creado %1$d UID nuevo</item>
+        <item quantity="many">Se han creado %1$d UIDs nuevos</item>
         <item quantity="other">Se han creado %1$d UIDs nuevos</item>
     </plurals>
     <plurals name="processed_n_entries">
         <item quantity="one">Se ha procesado %d entrada.</item>
+        <item quantity="many">Se han procesado %d entradas.</item>
         <item quantity="other">Se han procesado %d entradas.</item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Se ha encontrado %d entrada duplicada.</item>
+        <item quantity="many">Se han encontrado %d entradas duplicadas.</item>
         <item quantity="other">Se han encontrado %d entradas duplicadas.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
+        <item quantity="many">%1$d carpetas</item>
         <item quantity="other">%1$d carpetas</item>
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d archivo</item>
+        <item quantity="many">%1$d archivos</item>
         <item quantity="other">%1$d archivos</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d carpeta oculta</item>
+        <item quantity="many">Mostrar %1$d carpetas ocultas</item>
         <item quantity="other">Mostrar %1$d carpetas ocultas</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
+        <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
 </resources>
