@@ -14,6 +14,7 @@
     <string name="action_send_share">ส่ง/แชร์</string>
     <string name="action_switch_grid_view">มุมมองแบบตาราง</string>
     <string name="action_switch_list_view">มุมมองแบบรายการ</string>
+    <string name="actionbar_calendar_contacts_restore">กู้คืนข้อมูลรายชื่อและปฏิทิน</string>
     <string name="actionbar_copy">คัดลอก</string>
     <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
     <string name="actionbar_move">ย้าย</string>
@@ -32,6 +33,7 @@
     <string name="add_another_public_share_link">เพิ่มลิงก์อื่น</string>
     <string name="add_new_public_share">เพื่มลิงก์การแชร์แบบสาธารณะ</string>
     <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
+    <string name="advanced_settings">การตั้งค่าขั้นสูง</string>
     <string name="allow_resharing">อนุญาตให้แชร์ซ้ำ</string>
     <string name="appbar_search_in">ค้นหาใน %s</string>
     <string name="associated_account_not_found">ไม่พบบัญชีที่เกี่ยวข้อง!</string>
@@ -289,6 +291,7 @@
     <string name="prefs_category_more">เพิ่มเติม</string>
     <string name="prefs_help">ช่วยเหลือ</string>
     <string name="prefs_imprint">ประทับ</string>
+    <string name="prefs_license">สัญญาอนุญาต</string>
     <string name="prefs_lock_none">ไม่มี</string>
     <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
     <string name="prefs_show_hidden_files">แสดงไฟล์ที่ซ่อนอยู่</string>
