@@ -44,7 +44,7 @@ do
         -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
         && scripts/deleteOldComments.sh "$1-$darkMode-$color" "Screenshot" "$4" \
         || resultCode=1 && scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$4" \
-        "$1-$darkMode-$color" "Screenshot" "$4" "$GITHUB_TOKEN"
+        "$1-$darkMode-$color" "Screenshot" "$4"
     fi
 done
 

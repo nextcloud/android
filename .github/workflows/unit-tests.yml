@@ -27,8 +27,10 @@ jobs:
                     arguments: jacocoTestGplayDebugUnitTest
             -   name: Upload failing results
                 if: ${{ failure() }}
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run:
-                    scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                    scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}}
             -   name: Upload coverage to codecov
                 uses: codecov/codecov-action@v3
                 with:
