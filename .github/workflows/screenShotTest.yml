@@ -59,8 +59,10 @@ jobs:
                 run: ./gradlew assembleGplayDebug
 
             -   name: Delete old comments
+                env:
+                    GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
                 if: ${{ always() }}
-                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
 
             -   name: Run screenshot tests
                 uses: reactivecircus/android-emulator-runner@v2

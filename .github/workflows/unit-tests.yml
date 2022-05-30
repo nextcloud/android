@@ -17,8 +17,10 @@ jobs:
                     distribution: "temurin"
                     java-version: 11
             -   name: Delete old comments
+                env:
+                    GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
                 if: ${{ always() }}
-                run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}}
             -   name: Run unit tests with coverage
                 uses: gradle/gradle-build-action@v2
                 with:

@@ -42,7 +42,7 @@ do
         -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
         -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \
-        && scripts/deleteOldComments.sh "$1-$darkMode-$color" "Screenshot" "$4" "$GITHUB_TOKEN" \
+        && scripts/deleteOldComments.sh "$1-$darkMode-$color" "Screenshot" "$4" \
         || resultCode=1 && scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$4" \
         "$1-$darkMode-$color" "Screenshot" "$4" "$GITHUB_TOKEN"
     fi
