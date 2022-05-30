@@ -1,7 +1,6 @@
 #!/bin/bash
 
-GITHUB_TOKEN=$1
-PR_NUMBER=$2
+PR_NUMBER=$1
 
 source scripts/lib.sh
 

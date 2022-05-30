@@ -17,7 +17,7 @@ steps:
       GIT_TOKEN:
         from_secret: GIT_TOKEN
     commands:
-      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - ./gradlew assembleGplayDebugAndroidTest
@@ -77,7 +77,7 @@ steps:
       GIT_TOKEN:
         from_secret: GIT_TOKEN
     commands:
-      - scripts/checkIfRunDrone.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST || exit 0
+      - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - scripts/runCombinedTest.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER

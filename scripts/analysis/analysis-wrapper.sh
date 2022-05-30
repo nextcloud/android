@@ -55,7 +55,7 @@ else
     done
 
     # check library, only if base branch is master
-    baseBranch=$(scripts/analysis/getBranchBase.sh "${GITHUB_TOKEN}" "${PR_NUMBER}" | tr -d "\"")
+    baseBranch=$(scripts/analysis/getBranchBase.sh "${PR_NUMBER}" | tr -d "\"")
     if [ $baseBranch = "master" -a $(grep "androidLibraryVersion = \"master-SNAPSHOT\"" build.gradle -c) -ne 1 ]; then
         checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
         checkLibrary=1
