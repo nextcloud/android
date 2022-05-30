@@ -1,13 +1,11 @@
 #!/bin/bash
 
-GIT_USERNAME=$1
-GIT_TOKEN=$2
-DRONE_PULL_REQUEST=$3
-LOG_USERNAME=$4
-LOG_PASSWORD=$5
-DRONE_BUILD_NUMBER=$6
+DRONE_PULL_REQUEST=$1
+LOG_USERNAME=$2
+LOG_PASSWORD=$3
+DRONE_BUILD_NUMBER=$3
 
-scripts/deleteOldComments.sh "master" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
+scripts/deleteOldComments.sh "master" "IT" $DRONE_PULL_REQUEST $GITHUB_TOKEN
 
 ./gradlew assembleGplayDebugAndroidTest
 
@@ -19,7 +17,7 @@ scripts/wait_for_server.sh "server"
 stat=$?
 
 if [ ! $stat -eq 0 ]; then
-    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
+    bash scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "master" "IT" $DRONE_PULL_REQUEST $GITHUB_TOKEN
 fi
 
 curl -Os https://uploader.codecov.io/latest/linux/codecov

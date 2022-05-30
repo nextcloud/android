@@ -14,7 +14,7 @@ steps:
         from_secret: LOG_PASSWORD
       GIT_USERNAME:
         from_secret: GIT_USERNAME
-      GIT_TOKEN:
+      GITHUB_TOKEN:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
@@ -24,8 +24,8 @@ steps:
       - scripts/wait_for_emulator.sh
       - ./gradlew installGplayDebugAndroidTest
       - scripts/wait_for_server.sh "server"
-      - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
-      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GIT_TOKEN
+      - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST $GITHUB_TOKEN
+      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST $GITHUB_TOKEN
 
 services:
   - name: server
@@ -74,13 +74,13 @@ steps:
         from_secret: LOG_PASSWORD
       GIT_USERNAME:
         from_secret: GIT_USERNAME
-      GIT_TOKEN:
+      GITHUB_TOKEN:
         from_secret: GIT_TOKEN
     commands:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-      - scripts/runCombinedTest.sh $GIT_USERNAME $GIT_TOKEN $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
+      - scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
 
 services:
   - name: server
@@ -125,7 +125,7 @@ steps:
     environment:
       GIT_USERNAME:
         from_secret: GIT_USERNAME
-      GIT_TOKEN:
+      GITHUB_TOKEN:
         from_secret: GIT_TOKEN
       LOG_USERNAME:
         from_secret: LOG_USERNAME
