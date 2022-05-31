@@ -1,26 +1,7 @@
 #!/usr/bin/env bash
 
-curl_gh() {
-  curl \
-    --header "authorization: Bearer $GITHUB_TOKEN" \
-    "$@"
-}
-
-deleteOldComments() {
-    # delete all old comments, matching this type
-    echo "Deleting old comments for $BRANCH_TYPE"
-    oldComments=$(curl_gh > /dev/null 2>&1  -X GET https://api.github.com/repos/nextcloud/android/issues/$PR/comments | jq --arg TYPE $BRANCH_TYPE '.[] | (.id |tostring) + "|" + (.user.login | test("nextcloud-android-bot") | tostring) + "|" + (.body | test([$TYPE]) | tostring)'| grep "true|true" | tr -d "\"" | cut -f1 -d"|")
-    count=$(echo $oldComments | grep true | wc -l)
-    echo "Found $count old comments"
-
-    echo $oldComments | while read comment ; do
-        echo "Deleting comment: $comment"
-        curl_gh > /dev/null 2>&1 -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
-    done
-}
-
 upload() {
-    deleteOldComments
+    scripts/deleteOldComments.sh "$BRANCH" "$TYPE" "$PR"
 
     cd $1
 
@@ -41,7 +22,6 @@ upload() {
 #4: BRANCH (stable or master)
 #5: TYPE (IT or Unit)
 #6: DRONE_PULL_REQUEST
-#7: GITHUB_TOKEN
 
 URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 ID=$3
@@ -50,7 +30,8 @@ PASS=$2
 BRANCH=$4
 TYPE=$5
 PR=$6
-GITHUB_TOKEN="$7"
+
+source scripts/lib.sh
 
 REMOTE_FOLDER=$ID-$TYPE-$BRANCH-$(date +%H-%M)
 BRANCH_TYPE=$BRANCH-$TYPE

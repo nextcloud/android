@@ -31,6 +31,7 @@ jobs:
                     KEY_PASS: ${{ secrets.KEY_PASS }}
                     LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
@@ -38,4 +39,4 @@ jobs:
                     sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" app/build.gradle
                     ./gradlew assembleQaDebug
                     $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:$KS_PASS --key-pass pass:$KEY_PASS --ks-key-alias key0 --ks scripts/QA_keystore.jks app/build/outputs/apk/qa/debug/qa-debug-*.apk
-                    sudo scripts/uploadArtifact.sh $LOG_USERNAME $LOG_PASSWORD ${{github.event.number}} ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                    sudo scripts/uploadArtifact.sh $LOG_USERNAME $LOG_PASSWORD ${{github.event.number}} ${{github.event.number}}

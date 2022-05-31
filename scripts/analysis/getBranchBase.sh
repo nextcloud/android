@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# $1: username, $2: password/token, $3: pull request number
+PR_NUMBER=$1
 
-if [ -z $3 ] ; then
+source scripts/lib.sh
+
+if [ -z "${PR_NUMBER}" ] ; then
     echo "master";
 else
-    curl 2>/dev/null -u $1:$2 https://api.github.com/repos/nextcloud/android/pulls/$3 | jq .base.ref
+    curl_gh "https://api.github.com/repos/nextcloud/android/pulls/${PR_NUMBER}" | jq .base.ref
 fi
