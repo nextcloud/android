@@ -302,9 +302,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "androidx.test:core:$androidxTestVersion"
-    testImplementation "org.powermock:powermock-core:$powermockVersion"
-    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
-    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
     testImplementation 'org.json:json:20220320'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
