@@ -255,11 +255,13 @@
     <string name="error_comment_file">Eroare la comentarea fișierului</string>
     <string name="error_crash_title">%1$s a căzut</string>
     <string name="error_creating_file_from_template">Eroare la crearea fișierului după model</string>
+    <string name="error_file_lock">Eroare la schimbarea stării de blocare a fișierelor</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="error_report_issue_text">Raportați problema ? (necesită un cont de GitHub)</string>
     <string name="error_retrieving_file">Eroare la obținerea fișierului</string>
     <string name="error_retrieving_templates">Eroare la obținerea șabloanelor</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
+    <string name="error_starting_scan_doc">Eroare la utilizarea scanării documentelor</string>
     <string name="etm_accounts">Conturi</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
@@ -314,6 +316,9 @@
     <string name="file_list_no_app_for_file_type">Nu este instalată nicio aplicație care să deschidă acest tip de fișiere.</string>
     <string name="file_list_seconds_ago">secunde în urmă</string>
     <string name="file_management_permission">Este necesară acordarea permisiunii</string>
+    <string name="file_management_permission_optional">Permisiuni de stocare</string>
+    <string name="file_management_permission_optional_text">%1$s funcționează cel mai bine cu permisiuni de acces la spațiul de stocare. Puteți alege accesul complet la toate fișierele sau accesul doar pentru citire la fotografii și videoclipuri.</string>
+    <string name="file_management_permission_text">%1$s are nevoie de permisiuni de gestionare a fișierelor pentru a încărca fișiere. Puteți alege accesul complet la toate fișierele sau accesul doar pentru citire la fotografii și videoclipuri.</string>
     <string name="file_migration_checking_destination">Se verifică destinația…</string>
     <string name="file_migration_cleaning">Curățare…</string>
     <string name="file_migration_dialog_title">Se actualizează dosarul de stocare a datelor</string>
@@ -397,7 +402,10 @@
     <string name="local_file_not_found_message">Fișierul nu a fost găsit în sistemul local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s </string>
     <string name="local_folder_list_empty">Nu există dosare.</string>
+    <string name="lock_expiration_info">Expiră: %1$s</string>
     <string name="lock_file">Blochează fișierul</string>
+    <string name="locked_by">Blocat de %1$s</string>
+    <string name="locked_by_app">Blocat de aplicația%1$s </string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu există nici o aplicație pentru a trimite fisiere log. Vă rugăm instalați un client de email.</string>
     <string name="login">Autentificare</string>
@@ -489,6 +497,7 @@
     <string name="pass_code_removed">Parolă ștearsă</string>
     <string name="pass_code_stored">Parolă stocată</string>
     <string name="pass_code_wrong">Parolă incorectă</string>
+    <string name="pdf_zoom_tip">Atingeți ușor o pagină pentru a mări imaginea</string>
     <string name="permission_allow">Permiteți</string>
     <string name="permission_deny">Refuzați</string>
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
@@ -696,6 +705,8 @@
     <string name="storage_internal_storage">Stocare internă</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Muzică</string>
+    <string name="storage_permission_full_access">Acces complet</string>
+    <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Poze</string>
     <string name="store_full_desc">Platforma de productivitate ce îți oferă ție ontrolul și poate fi găzduită de tine.\n\Caracteristici:\n* Interfață facilă, modernă, complet personalizată in aliniere cu tema serverului tău\n* Încarcă fișiere pe serverul tău Nextcloud\n* Partajează fișierele tale cu alții\n* Păstrează-ți fișierele și folderele preferate sincronizate\n* Căutare în toate folderele de pe serverul tău\n* Încărcare automată a fotografiilor și videoclipurilor făcute cu dispozitivul tău\n* Fii la curent cu toate notificările\n* Suport pentru conturi multiple\n* Acces securizat la datele tale prin amprentă sau PIN\n* Integrare cu DAVx5 (în trecut cunoscut ca DAVdroid) pentru configurarea ușoară a sincronizarii Calendarelor si Contactelor. \nTe rugăm să anunți orice fel de probleme la https://github.com/nextcloud/android/issues și să discuți despre această aplicație la https://help.nextcloud.com/c/clients/android\n\nEști nou la Nextcloud? Nextcloud este un server privat pentru comunicare, sincronizare &amp; și partajare de fișiere. Este în întregime open-source și îl poți găzdui tu, sau poți plăti o companie să facă asta pentru tine. În acest fel, ești pe deplin în control asupra fotografiilor tale, a calendarului și informațiilor de contact, a documentelor și a orice altceva.\n\nAflă mai multe despre Nextcloud la https://nextcloud.com</string>
     <string name="store_full_dev_desc">Poți găzdui propriile tale instrumente de productivitate, tu avînd controlul total.\nAceasta este versiunea oficială ce prezintă o mostră zilnică de funcționalități netestate, ce ar putea cauza instabilități șî pierdere de date. Aplicația este pentru utilizatori ce sunt dispuși să testeze și să raporteze eventualele erori sau probleme de funcționare. Nu folosiți această aplicație pentru muncă productivă!\n]nAmbele versiuni pentru dezvoltatori și versiunea normală sunt disponibile pe F-Droid, și pot fii instalate în același timp.</string>
@@ -784,6 +795,7 @@
     <string name="upload_lock_failed">Blocarea dosarului a eșuat</string>
     <string name="upload_old_android">Criptarea este posibilă numai cu > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>
+    <string name="upload_scan_doc_upload">Scanați documentul cu camera foto</string>
     <string name="upload_sync_conflict">Conflict de sincronizare, vă rugăm rezolvați  problema manual</string>
     <string name="upload_unknown_error">Eroare necunoscută</string>
     <string name="uploader_btn_alternative_text">Alege</string>
