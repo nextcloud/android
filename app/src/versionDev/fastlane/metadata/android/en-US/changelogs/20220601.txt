@@ -1,0 +1,3 @@
+Since newest Transifex update we have many translations with not needed translations, e.g. "many" in spanish. To not have lint warnings all the time, and as it does not harm Android, we can ignore it.
+Update translations
+Update 3rd-party dependencies
