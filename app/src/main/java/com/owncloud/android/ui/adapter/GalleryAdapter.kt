@@ -171,10 +171,11 @@ class GalleryAdapter(
         return files.isEmpty()
     }
 
-    fun getItem(position: Int): OCFile {
+    fun getItem(position: Int): OCFile? {
         val itemCoord = getRelativePosition(position)
-
-        return files[itemCoord.section()].files[itemCoord.relativePos()]
+        return files
+            .getOrNull(itemCoord.section())?.files
+            ?.getOrNull(itemCoord.relativePos())
     }
 
     override fun isMultiSelect(): Boolean {
