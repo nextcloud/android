@@ -17,16 +17,20 @@ jobs:
                     distribution: "temurin"
                     java-version: 11
             -   name: Delete old comments
+                env:
+                    GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
                 if: ${{ always() }}
-                run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}}
             -   name: Run unit tests with coverage
                 uses: gradle/gradle-build-action@v2
                 with:
                     arguments: jacocoTestGplayDebugUnitTest
             -   name: Upload failing results
                 if: ${{ failure() }}
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run:
-                    scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}} ${{ secrets.GITHUB_TOKEN }}
+                    scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}}
             -   name: Upload coverage to codecov
                 uses: codecov/codecov-action@v3
                 with:
@@ -35,7 +39,7 @@ jobs:
                     fail_ci_if_error: true
             -   name: Upload jacoco artifacts
                 if: ${{ failure() }}
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
                 with:
                     name: test-results
                     path: app/build/reports/tests/testGplayDebugUnitTest/
