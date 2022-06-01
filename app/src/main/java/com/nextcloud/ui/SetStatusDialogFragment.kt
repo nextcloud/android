@@ -59,8 +59,6 @@ import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.google.GoogleEmojiProvider
-import com.vanniktech.emoji.installDisableKeyboardInput
-import com.vanniktech.emoji.installForceSingleEmoji
 import java.util.Calendar
 import java.util.Locale
 import javax.inject.Inject
@@ -171,18 +169,18 @@ class SetStatusDialogFragment :
         binding.setStatus.setOnClickListener { setStatusMessage() }
         binding.emoji.setOnClickListener { popup.show() }
 
-        popup = EmojiPopup(
-            view, binding.emoji,
-            onEmojiClickListener = {
+        popup = EmojiPopup.Builder
+            .fromRootView(view)
+            .setOnEmojiClickListener { _, _ ->
                 popup.dismiss()
                 binding.emoji.clearFocus()
                 val imm: InputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as
                     InputMethodManager
                 imm.hideSoftInputFromWindow(binding.emoji.windowToken, 0)
             }
-        )
-        binding.emoji.installDisableKeyboardInput(popup)
-        binding.emoji.installForceSingleEmoji()
+            .build(binding.emoji)
+        binding.emoji.disableKeyboardInput(popup)
+        binding.emoji.forceSingleEmoji()
 
         val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
