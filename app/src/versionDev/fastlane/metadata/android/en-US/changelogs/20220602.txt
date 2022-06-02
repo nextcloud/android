@@ -1,0 +1,7 @@
+build: Remove powermock
+GalleryAdapter: cleanup index out of bounds
+Harden thumbnail generation
+Use our own version of sectioned-recyclerview
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
