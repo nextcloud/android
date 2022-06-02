@@ -225,6 +225,19 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         mBehaviourSpinner.setSelection(localBehaviour);
         mBehaviourSpinner.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_IN);
 
+        mBehaviourSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // store behaviour
+                preferences.setUploaderBehaviour(mBehaviourSpinner.getSelectedItemPosition());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         // setup the toolbar
         setupToolbar();
         findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
