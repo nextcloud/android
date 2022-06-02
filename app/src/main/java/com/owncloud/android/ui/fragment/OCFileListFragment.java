@@ -201,6 +201,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
     @Inject ThemeAvatarUtils themeAvatarUtils;
+    @Inject ArbitraryDataProvider arbitraryDataProvider;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -1093,6 +1094,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
             OCFile file = mAdapter.getItem(position);
 
+            if (file != null) {
+                encryptFolder(file.getLocalId(), file.getRemoteId(), file.getRemotePath(), true);
+            }
+
             // update state and view of this fragment
             searchFragment = false;
             listDirectory(file, MainApp.isOnlyOnDevice(), false);
@@ -1642,38 +1647,38 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onMessageEvent(EncryptionEvent event) {
         final User user = accountManager.getUser();
 
+        // check if keys are stored
+        String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+        String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+
+        if (publicKey.isEmpty() || privateKey.isEmpty()) {
+            Log_OC.d(TAG, "no public key for " + user.getAccountName());
+
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            OCFile file = storageManager.getFileByRemoteId(event.remoteId);
+            int position = -1;
+            if (file != null) {
+                position = mAdapter.getItemPosition(file);
+            }
+            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+            dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
+            dialog.show(getParentFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
+        } else {
+            encryptFolder(event.localId, event.remoteId, event.remotePath, event.shouldBeEncrypted);
+        }
+    }
+
+    private void encryptFolder(String localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
         try {
+            User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);
-            RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(event.localId,
-                                                                                              event.remotePath,
-                                                                                              event.shouldBeEncrypted)
+            RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
+                                                                                              remotePath,
+                                                                                              shouldBeEncrypted)
                 .execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                mAdapter.setEncryptionAttributeForItemID(event.remoteId, event.shouldBeEncrypted);
-
-                // check if keys are stored
-                ArbitraryDataProvider arbitraryDataProvider =
-                    new ArbitraryDataProvider(requireContext().getContentResolver());
-
-
-                String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-                String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
-
-                if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                    Log_OC.d(TAG, "no public key for " + user.getAccountName());
-
-
-                    FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-                    OCFile file = storageManager.getFileByRemoteId(event.remoteId);
-                    int position = -1;
-                    if (file != null) {
-                        position = mAdapter.getItemPosition(file);
-                    }
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-                    dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
-                    dialog.show(getParentFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
-                }
+                mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted);
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
                 Snackbar.make(getRecyclerView(),
                               R.string.end_to_end_encryption_folder_not_empty,
