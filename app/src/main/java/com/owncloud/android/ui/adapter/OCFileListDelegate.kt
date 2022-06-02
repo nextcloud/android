@@ -129,6 +129,7 @@ class OCFileListDelegate(
         bindGridMetadataViews(file, gridViewHolder)
 
         // shares
+        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare() || file.isEncrypted
         val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare() ||
             searchType == SearchType.FAVORITE_SEARCH
         if (shouldHideShare) {
