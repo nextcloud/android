@@ -70,6 +70,10 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        if (file.isEncrypted()) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 }
