@@ -107,17 +107,14 @@ public class ScanPagerFragment extends Fragment {
 
     private void setUpBitmap() {
         executorService.execute(() -> {
-            originalBitmap = onDocScanListener.getScannedDocs().get(index);
-            previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
+            if (index >= 0 && index < ScanActivity.filteredImages.size()) {
+                originalBitmap = onDocScanListener.getScannedDocs().get(index);
+                previewBitmap = ScanBotSdkUtils.resizeForPreview(originalBitmap);
+            }
             if (index >= 0 && index < ScanActivity.scannedImagesFilterIndex.size()) {
                 selectedFilter = ScanActivity.scannedImagesFilterIndex.get(index);
             }
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    loadImage();
-                }
-            });
+            handler.post(() -> loadImage());
         });
     }
 
@@ -125,7 +122,7 @@ public class ScanPagerFragment extends Fragment {
         if (binding != null) {
             if (previewBitmap != null) {
                 binding.editScannedImageView.setImageBitmap(previewBitmap);
-            } else {
+            } else if (originalBitmap != null) {
                 binding.editScannedImageView.setImageBitmap(originalBitmap);
             }
         }
