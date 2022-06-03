@@ -30,6 +30,7 @@ import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -57,6 +58,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.MediaFolder;
@@ -370,12 +372,33 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void initSecurityKeyManager() {
         SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
-        SecurityKeyManagerConfig config = new SecurityKeyManagerConfig.Builder()
-            .setEnableDebugLogging(BuildConfig.DEBUG)
-            .build();
-        securityKeyManager.init(this, config);
+        final SecurityKeyManagerConfig.Builder configBuilder = new SecurityKeyManagerConfig.Builder()
+            .setEnableDebugLogging(BuildConfig.DEBUG);
+
+        try {
+            // exclude all activities except AuthenticatorActivity
+            final PackageManager pm = this.getPackageManager();
+            final PackageInfo info = pm.getPackageInfo(this.getPackageName(), PackageManager.GET_ACTIVITIES);
+            final ActivityInfo[] activities = info.activities;
+            for (ActivityInfo activityInfo : activities) {
+                try {
+                    final Class<? extends Activity> aClass = (Class<? extends Activity>) Class.forName(activityInfo.name);
+                    if (aClass != AuthenticatorActivity.class) {
+                        configBuilder.addExcludedActivityClass(aClass);
+                    }
+                } catch (ClassNotFoundException | ClassCastException e) {
+                    Log_OC.e(TAG, "Couldn't disable activity for security key listener", e);
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log_OC.e(TAG, "Couldn't disable activities for security key listener", e);
+        }
+
+
+        securityKeyManager.init(this, configBuilder.build());
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
