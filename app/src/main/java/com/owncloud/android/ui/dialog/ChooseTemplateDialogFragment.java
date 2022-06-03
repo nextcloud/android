@@ -273,11 +273,13 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     }
 
     private void checkEnablingCreateButton() {
-        Template selectedTemplate = adapter.getSelectedTemplate();
-        String name = binding.filename.getText().toString();
+        if (positiveButton != null) {
+            Template selectedTemplate = adapter.getSelectedTemplate();
+            String name = binding.filename.getText().toString();
 
-        positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
-                                      !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
+            positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
+                                          !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
+        }
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
