@@ -1,0 +1,5 @@
+Exclude all activities except AuthenticatorActivity from security key listener (#10311)
+ChooseTemplateDialogFragment: convert to Kotlin
+Fix NPE in ChooseTemplateDialogFragment.checkEnablingCreateButton
+Update Nextcloud Android library
+Update 3rd-party dependencies
