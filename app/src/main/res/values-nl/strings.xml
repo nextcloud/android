@@ -255,6 +255,7 @@
     <string name="error_comment_file">Fout bij plaatsen commentaar</string>
     <string name="error_crash_title">%1$s gecrasht</string>
     <string name="error_creating_file_from_template">Fout bij creëren bestand vanaf sjabloon</string>
+    <string name="error_file_lock">Fout tijdens het bijwerken van de bestandsvergrendeling status</string>
     <string name="error_report_issue_action">Rapporteer</string>
     <string name="error_report_issue_text">Probleem melden? (vereist een GitHub account)</string>
     <string name="error_retrieving_file">Fout bij ophalen van bestand</string>
@@ -315,6 +316,9 @@
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission">Machtigingen nodig</string>
+    <string name="file_management_permission_optional">Opslagmachtigingen</string>
+    <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussel volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en videos.</string>
+    <string name="file_management_permission_text">%1$s heeft bestandsbeheer machtiging nodig om bestanden te uploaden. Je kan kiezen tussel volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en videos.</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
     <string name="file_migration_dialog_title">Bijwerken gegevensopslagmap</string>
@@ -398,7 +402,10 @@
     <string name="local_file_not_found_message">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Er zijn niet meer mappen.</string>
+    <string name="lock_expiration_info">Vervalt: %1$s</string>
     <string name="lock_file">Vergrendel bestand</string>
+    <string name="locked_by">Vergrendeld door %1$s</string>
+    <string name="locked_by_app">Vergrendeld door %1$s app</string>
     <string name="log_send_mail_subject">%1$s-Android-app-logs</string>
     <string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een email client.</string>
     <string name="login">Inloggen</string>
@@ -698,6 +705,8 @@
     <string name="storage_internal_storage">Interne opslag</string>
     <string name="storage_movies">Films</string>
     <string name="storage_music">Muziek</string>
+    <string name="storage_permission_full_access">Volledige toegang</string>
+    <string name="storage_permission_media_read_only">Media alleen lezen</string>
     <string name="storage_pictures">Afbeeldingen</string>
     <string name="store_full_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.\n\nFuncties:\n* Eenvoudige, moderne interface, passend bij het thema van jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel ze met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in alle mappen op je server\n* Auto Upload voor foto\'s en video\'s op je toestel\n* Blijf bij met meldingen\n* Multi-account ondersteuning\n* veilige toegang tot je gegevens door vingerafdruk of  PIN\n* Integratie met DAVx5 (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda&amp; Contactpersonensynchronisatie\n\nMeld alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is een persoonlijk bestandensync- &amp; -deel en communicatieserver. het is vrije software, die je zelf kunt draaien of bij een betaalde provider. Hierdoor ben je zelf in control van jouw foto\'s, jouw agenda en contactgegevens, jouw documenten en al het andere.\n\nBekijk Nextcloud op https://nextcloud.com</string>
     <string name="store_full_dev_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
