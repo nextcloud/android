@@ -542,7 +542,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void createRichWorkspace() {
         new Thread(() -> {
             RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
-                .execute(accountManager.getUser().toPlatformAccount(), requireContext());
+                .execute(accountManager.getUser(), requireContext());
 
             if (result.isSuccess()) {
                 String url = (String) result.getSingleData();

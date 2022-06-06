@@ -202,7 +202,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             if (encryptedRemotePath != null) {
                 RemoteOperationResult removeResult = new RemoveRemoteEncryptedFileOperation(encryptedRemotePath,
                                                                                             parent.getLocalId(),
-                                                                                            user.toPlatformAccount(),
+                                                                                            user,
                                                                                             context,
                                                                                             filename).execute(client);
 

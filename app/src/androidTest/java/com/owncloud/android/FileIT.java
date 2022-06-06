@@ -38,7 +38,7 @@ public class FileIT extends AbstractOnServerIT {
         assertTrue(file.isFolder());
 
         // cleanup
-        new RemoveFileOperation(file, false, account, false, targetContext, getStorageManager()).execute(client);
+        new RemoveFileOperation(file, false, user, false, targetContext, getStorageManager()).execute(client);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class FileIT extends AbstractOnServerIT {
         // cleanup
         new RemoveFileOperation(file,
                                 false,
-                                account,
+                                user,
                                 false,
                                 targetContext,
                                 getStorageManager())

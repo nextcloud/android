@@ -63,7 +63,7 @@ public class DownloadIT extends AbstractOnServerIT {
         if (result.isSuccess() && getStorageManager().getFileByDecryptedRemotePath(FOLDER) != null) {
             new RemoveFileOperation(getStorageManager().getFileByDecryptedRemotePath(FOLDER),
                                     false,
-                                    account,
+                                    user,
                                     false,
                                     targetContext,
                                     getStorageManager())

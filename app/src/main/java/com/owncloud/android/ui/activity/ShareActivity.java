@@ -108,7 +108,7 @@ public class ShareActivity extends FileActivity {
         Activity activity = this;
         new Thread(() -> {
             RemoteOperationResult result = new ReadFileRemoteOperation(getFile().getRemotePath())
-                .execute(optionalUser.get().toPlatformAccount(),
+                .execute(optionalUser.get(),
                          activity);
 
             if (result.isSuccess()) {
