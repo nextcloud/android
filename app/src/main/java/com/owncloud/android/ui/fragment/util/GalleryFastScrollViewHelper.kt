@@ -41,6 +41,7 @@ import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.fastscroll.Predicate
 import kotlin.math.ceil
+import kotlin.math.min
 
 /**
  * Custom ViewHelper to get fast scroll working on gallery, which has a gridview and variable height (due to headers)
@@ -138,7 +139,7 @@ class GalleryFastScrollViewHelper(
         val isHeader = itemCoord.relativePos() == -1
 
         val seenRowsInPreviousSections = adapter.files
-            .subList(0, itemCoord.section())
+            .subList(0, min(itemCoord.section(), adapter.files.size))
             .sumOf { itemCountToRowCount(it.files.size) }
         val seenRowsInThisSection = if (isHeader) 0 else itemCountToRowCount(itemCoord.relativePos())
         val totalSeenRows = seenRowsInPreviousSections + seenRowsInThisSection
