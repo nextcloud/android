@@ -157,7 +157,7 @@ public class UriUploader {
     private void requestUpload(String localPath, String remotePath) {
         FileUploader.uploadNewFile(
             mActivity,
-            user.toPlatformAccount(),
+            user,
             localPath,
             remotePath,
             mBehaviour,

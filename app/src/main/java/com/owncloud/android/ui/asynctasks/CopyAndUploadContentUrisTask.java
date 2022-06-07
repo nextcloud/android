@@ -191,7 +191,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 }
 
                 requestUpload(
-                    user.toPlatformAccount(),
+                    user,
                     fullTempPath,
                     currentRemotePath,
                     behaviour,
@@ -249,10 +249,10 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         return result;
     }
 
-    private void requestUpload(Account account, String localPath, String remotePath, int behaviour, String mimeType) {
+    private void requestUpload(User user, String localPath, String remotePath, int behaviour, String mimeType) {
         FileUploader.uploadNewFile(
                 mAppContext,
-                account,
+                user,
                 localPath,
                 remotePath,
                 behaviour,

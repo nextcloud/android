@@ -63,6 +63,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -898,7 +899,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void uploadFile(String tmpName, String filename) {
         FileUploader.uploadNewFile(
                 getBaseContext(),
-                getAccount(),
+                getUser().orElseThrow(RuntimeException::new),
                 tmpName,
                 mFile.getRemotePath() + filename,
                 FileUploader.LOCAL_BEHAVIOUR_COPY,

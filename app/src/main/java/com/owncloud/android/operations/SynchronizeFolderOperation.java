@@ -283,7 +283,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         DecryptedFolderMetadata metadata = RefreshFolderOperation.getDecryptedFolderMetadata(encryptedAncestor,
                                                                                              mLocalFolder,
                                                                                              getClient(),
-                                                                                             user.toPlatformAccount(),
+                                                                                             user,
                                                                                              mContext);
 
         // get current data about local contents of the folder to synchronize

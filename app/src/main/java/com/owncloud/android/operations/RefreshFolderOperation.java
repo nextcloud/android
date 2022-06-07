@@ -316,7 +316,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
-        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(user.toPlatformAccount(),
+        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(user,
                                                                                                        mContext);
 
         if (result.isSuccess()) {
@@ -474,7 +474,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
                                                                       mLocalFolder,
                                                                       getClient(),
-                                                                      user.toPlatformAccount(),
+                                                                      user,
                                                                       mContext);
 
         // get current data about local contents of the folder to synchronize
@@ -539,11 +539,11 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static DecryptedFolderMetadata getDecryptedFolderMetadata(boolean encryptedAncestor,
                                                                      OCFile localFolder,
                                                                      OwnCloudClient client,
-                                                                     Account account,
+                                                                     User user,
                                                                      Context context) {
         DecryptedFolderMetadata metadata;
         if (encryptedAncestor) {
-            metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, account);
+            metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, user);
         } else {
             metadata = null;
         }

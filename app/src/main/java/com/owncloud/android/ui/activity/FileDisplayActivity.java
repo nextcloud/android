@@ -907,7 +907,7 @@ public class FileDisplayActivity extends FileActivity
 
             FileUploader.uploadNewFile(
                 this,
-                getAccount(),
+                getUser().orElseThrow(RuntimeException::new),
                 filePaths,
                 remotePaths,
                 null,           // MIME type will be detected from file name
