@@ -176,7 +176,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         new Thread(() -> {
             User user = currentAccountProvider.getUser();
             RichDocumentsCreateAssetOperation operation = new RichDocumentsCreateAssetOperation(file.getRemotePath());
-            RemoteOperationResult result = operation.execute(user.toPlatformAccount(), this);
+            RemoteOperationResult result = operation.execute(user, this);
 
             if (result.isSuccess()) {
                 String asset = (String) result.getSingleData();

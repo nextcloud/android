@@ -235,7 +235,7 @@ public class FileOperationsHelper {
             // check for changed eTag
             CheckEtagRemoteOperation checkEtagOperation = new CheckEtagRemoteOperation(file.getRemotePath(),
                                                                                        file.getEtag());
-            RemoteOperationResult result = checkEtagOperation.execute(user.toPlatformAccount(), fileActivity);
+            RemoteOperationResult result = checkEtagOperation.execute(user, fileActivity);
 
             // eTag changed, sync file
             if (result.getCode() == RemoteOperationResult.ResultCode.ETAG_CHANGED) {
@@ -454,7 +454,7 @@ public class FileOperationsHelper {
         final User user = currentAccount.getUser();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getRemoteId());
-            RemoteOperationResult result = sfo.execute(user.toPlatformAccount(), fileActivity);
+            RemoteOperationResult result = sfo.execute(user, fileActivity);
 
             fileActivity.dismissLoadingDialog();
 

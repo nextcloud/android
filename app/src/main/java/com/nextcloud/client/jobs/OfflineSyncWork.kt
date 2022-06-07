@@ -88,7 +88,7 @@ class OfflineSyncWork constructor(
             ocFolder.remotePath,
             ocFolder.etagOnServer
         )
-        val result = checkEtagOperation.execute(user.toPlatformAccount(), context)
+        val result = checkEtagOperation.execute(user, context)
         when (result.code) {
             ResultCode.ETAG_UNCHANGED -> {
                 Log_OC.d(TAG, "$folderName: eTag unchanged")

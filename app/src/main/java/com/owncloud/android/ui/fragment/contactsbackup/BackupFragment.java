@@ -260,7 +260,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
                             false, false, storageManager, user, context);
 
-                    RemoteOperationResult result = operation.execute(user.toPlatformAccount(), context);
+                    RemoteOperationResult result = operation.execute(user, context);
                     return result.isSuccess();
                 } else {
                     return Boolean.FALSE;

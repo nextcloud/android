@@ -24,8 +24,8 @@ import android.accounts.Account
 import android.os.Parcelable
 import com.owncloud.android.lib.common.OwnCloudAccount
 
-interface User : Parcelable {
-    val accountName: String
+interface User : Parcelable, com.nextcloud.common.User {
+    override val accountName: String
     val server: Server
     val isAnonymous: Boolean
 
@@ -39,7 +39,7 @@ interface User : Parcelable {
      * @return Account instance that is associated with this User object.
      */
     @Deprecated("Temporary workaround")
-    fun toPlatformAccount(): Account
+    override fun toPlatformAccount(): Account
 
     /**
      * This is temporary helper method created to facilitate incremental refactoring.

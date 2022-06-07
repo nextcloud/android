@@ -58,7 +58,7 @@ public class ErrorMessageAdapterIT {
             new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
             new RemoveFileOperation(new OCFile(PATH_TO_DELETE),
                                     false,
-                                    user.toPlatformAccount(),
+                                    user,
                                     false,
                                     context,
                                     new FileDataStorageManager(user, context.getContentResolver())),

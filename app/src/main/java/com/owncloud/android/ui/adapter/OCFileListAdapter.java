@@ -770,7 +770,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                                             mStorageManager,
                                                                                             user,
                                                                                             activity);
-                        refreshFolderOperation.execute(user.toPlatformAccount(), activity);
+                        refreshFolderOperation.execute(user, activity);
                     }
                 }
 

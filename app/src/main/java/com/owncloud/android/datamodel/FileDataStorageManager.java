@@ -278,7 +278,7 @@ public class FileDataStorageManager {
                 // remote request
                 ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
                 // TODO Deprecated
-                RemoteOperationResult result = operation.execute(getUser().toPlatformAccount(), context);
+                RemoteOperationResult result = operation.execute(getUser(), context);
                 if (result.isSuccess()) {
                     OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 

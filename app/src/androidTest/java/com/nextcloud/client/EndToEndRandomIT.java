@@ -468,7 +468,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
         assertTrue(new RemoveFileOperation(fileToDelete,
                                            false,
-                                           account,
+                                           user,
                                            false,
                                            targetContext,
                                            getStorageManager())
@@ -621,7 +621,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                 Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath());
             }
 
-            assertTrue(new RemoveFileOperation(child, false, account, false, targetContext, getStorageManager())
+            assertTrue(new RemoveFileOperation(child, false, user, false, targetContext, getStorageManager())
                            .execute(client)
                            .isSuccess()
                       );

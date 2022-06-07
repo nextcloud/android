@@ -136,7 +136,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     private void edit() {
         new Thread(() -> {
             RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(getFile().getRemotePath())
-                .execute(accountManager.getUser().toPlatformAccount(), getContext());
+                .execute(accountManager.getUser(), getContext());
 
             if (result.isSuccess()) {
                 String url = (String) result.getSingleData();

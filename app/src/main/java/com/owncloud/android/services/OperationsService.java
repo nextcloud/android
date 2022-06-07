@@ -668,7 +668,7 @@ public class OperationsService extends Service {
                         boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
                         operation = new RemoveFileOperation(file,
                                                             onlyLocalCopy,
-                                                            account,
+                                                            user,
                                                             inBackground,
                                                             getApplicationContext(),
                                                             fileDataStorageManager);

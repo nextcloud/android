@@ -61,9 +61,7 @@ class OCFileListSearchAsyncTask(
         }
 
         fragment.setTitle()
-        val remoteOperationResult = remoteOperation.execute(
-            currentUser.toPlatformAccount(), fragment.context
-        )
+        val remoteOperationResult = remoteOperation.execute(currentUser, fragment.context)
         if (remoteOperationResult.hasSuccessfulResult() && !isCancelled && fragment.searchFragment) {
             fragment.searchEvent = event
             if (remoteOperationResult.resultData.isNullOrEmpty()) {

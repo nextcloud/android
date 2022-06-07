@@ -284,7 +284,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
         OCFile ocFile = document.getFile();
         RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
-            .execute(document.getUser().toPlatformAccount(), context);
+            .execute(document.getUser(), context);
         switch (result.getCode()) {
             case ETAG_CHANGED:
                 return true;
@@ -611,7 +611,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile file = document.getStorageManager().getFileByPath(document.getRemotePath());
         RemoteOperationResult result = new RemoveFileOperation(file,
                                                                false,
-                                                               document.getUser().toPlatformAccount(),
+                                                               document.getUser(),
                                                                true,
                                                                context,
                                                                document.getStorageManager())

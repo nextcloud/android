@@ -1165,7 +1165,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                         Log_OC.d("ExternalLinks", "update via api");
                         RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(user.toPlatformAccount(), this);
+                        RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
 
                         if (result.isSuccess() && result.getData() != null) {
                             externalLinksProvider.deleteAllExternalLinks();

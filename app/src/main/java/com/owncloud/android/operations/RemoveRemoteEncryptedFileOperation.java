@@ -21,10 +21,10 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
@@ -63,7 +63,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
     private String remotePath;
     private String parentId;
-    private Account account;
+    private User user;
 
     private ArbitraryDataProvider arbitraryDataProvider;
     private String fileName;
@@ -76,12 +76,12 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
      */
     RemoveRemoteEncryptedFileOperation(String remotePath,
                                        String parentId,
-                                       Account account,
+                                       User user,
                                        Context context,
                                        String fileName) {
         this.remotePath = remotePath;
         this.parentId = parentId;
-        this.account = account;
+        this.user = user;
         this.fileName = fileName;
 
         arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
@@ -97,7 +97,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         String token = null;
         DecryptedFolderMetadata metadata;
 
-        String privateKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
+        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
         try {
             // Lock folder
