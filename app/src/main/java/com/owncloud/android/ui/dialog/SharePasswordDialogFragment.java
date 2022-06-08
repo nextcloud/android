@@ -165,7 +165,8 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         binding.sharePassword.setText("");
         themeTextInputUtils.colorTextInput(binding.sharePasswordContainer,
                                            binding.sharePassword,
-                                           themeColorUtils.primaryColor(getActivity()));
+                                           themeColorUtils.primaryColor(getActivity()),
+                                           themeColorUtils.primaryAccentColor(getActivity()));
         binding.sharePassword.requestFocus();
 
         int negativeButtonCaption;

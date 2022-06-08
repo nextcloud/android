@@ -27,6 +27,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -88,6 +90,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeButtonUtils themeButtonUtils;
     @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject FileDataStorageManager fileDataStorageManager;
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
     private OwnCloudClient client;
@@ -147,6 +150,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         }
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
+        List<String> fileNames = new ArrayList<>();
+
+        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+            fileNames.add(file.getFileName());
+        }
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -156,7 +164,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         binding.filename.requestFocus();
         themeTextInputUtils.colorTextInput(binding.filenameContainer,
                                            binding.filename,
-                                           themeColorUtils.primaryColor(getContext()));
+                                           themeColorUtils.primaryColor(getContext()),
+                                           themeColorUtils.primaryAccentColor(getContext()));
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);
@@ -170,6 +179,40 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                                    clientFactory,
                                                    themeColorUtils);
         binding.list.setAdapter(adapter);
+
+        binding.filename.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            /**
+             * When user enters an already taken file name, a message is shown. Otherwise, the
+             * message is ensured to be hidden.
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newFileName = "";
+                if (binding.filename.getText() != null) {
+                    newFileName = binding.filename.getText().toString().trim();
+                }
+
+                if (fileNames.contains(newFileName)) {
+                    binding.filenameContainer.setError(getText(R.string.file_already_exists));
+                    positiveButton.setEnabled(false);
+                } else if (binding.filenameContainer.getError() != null) {
+                    binding.filenameContainer.setError(null);
+                    // Called to remove extra padding
+                    binding.filenameContainer.setErrorEnabled(false);
+                    positiveButton.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

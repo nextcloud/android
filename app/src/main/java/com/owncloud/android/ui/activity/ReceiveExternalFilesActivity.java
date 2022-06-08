@@ -412,7 +412,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mText.add(internetShortcutDesktopText(texts[2], texts[0]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
-                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+                adapter.add(String.format(str, DESKTOP_FILE_SUFFIX));
 
                 selectPos = preferences.getUploadMapFileExtensionUrlSelectedPos();
                 mFileCategory = CATEGORY_MAPS_URL;
@@ -422,7 +422,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
             userInput.requestFocus();
-            themeTextInputUtils.colorTextInput(userInputContainer, userInput, themeColorUtils.primaryColor(getContext()));
+            themeTextInputUtils.colorTextInput(userInputContainer,
+                                               userInput,
+                                               themeColorUtils.primaryColor(getContext()),
+                                               themeColorUtils.primaryAccentColor(getContext()));
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
@@ -432,7 +435,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             mSpinner = spinner;
 
-            Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
+            Dialog filenameDialog = createFilenameDialog(view, userInput, spinner);
             if (filenameDialog.getWindow() != null) {
                 filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             }

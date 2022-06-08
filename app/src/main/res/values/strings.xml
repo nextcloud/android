@@ -1030,6 +1030,7 @@
     <string name="locked_by">Locked by %1$s</string>
     <string name="locked_by_app">Locked by %1$s app</string>
     <string name="lock_expiration_info">Expires: %1$s</string>
+    <string name="file_already_exists">Filename already exists</string>
     <string name="filedetails_export">Export</string>
     <string name="locate_folder">Locate folder</string>
 </resources>
