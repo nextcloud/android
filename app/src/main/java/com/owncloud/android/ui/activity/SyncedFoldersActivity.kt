@@ -659,8 +659,7 @@ class SyncedFoldersActivity :
             )
             saveOrUpdateSyncedFolder(item)
 
-            // TODO test if notifyItemChanged is sufficient (should improve performance)
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemChanged(adapter.getSectionHeaderIndex(syncedFolder.section))
         }
         syncedFolderPreferencesDialogFragment = null
         if (syncedFolder.isEnabled) {
