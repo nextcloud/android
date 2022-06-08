@@ -185,7 +185,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent,
                                                                                           client,
                                                                                           context,
-                                                                                          user.toPlatformAccount());
+                                                                                          user);
 
                 if (metadata == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
@@ -237,11 +237,6 @@ public class DownloadFileOperation extends RemoteOperation {
         synchronized (dataTransferListeners) {
             dataTransferListeners.remove(listener);
         }
-    }
-
-    @Deprecated
-    public Account getAccount() {
-        return this.user.toPlatformAccount();
     }
 
     public User getUser() {

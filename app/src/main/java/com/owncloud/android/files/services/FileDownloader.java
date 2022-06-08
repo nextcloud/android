@@ -269,7 +269,7 @@ public class FileDownloader extends Service
     @Override
     public void onAccountsUpdated(Account[] accounts) {
          //review the current download and cancel it if its account doesn't exist
-        if (mCurrentDownload != null && !accountManager.exists(mCurrentDownload.getAccount())) {
+        if (mCurrentDownload != null && !accountManager.exists(mCurrentDownload.getUser().toPlatformAccount())) {
             mCurrentDownload.cancel();
         }
         // The rest of downloads are cancelled when they try to start
@@ -443,15 +443,12 @@ public class FileDownloader extends Service
 
         if (mCurrentDownload != null) {
             // Detect if the account exists
-            if (accountManager.exists(mCurrentDownload.getAccount())) {
-                Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().name + " exists");
-
+            if (accountManager.exists(mCurrentDownload.getUser().toPlatformAccount())) {
                 notifyDownloadStart(mCurrentDownload);
-
                 RemoteOperationResult downloadResult = null;
                 try {
                     /// prepare client object to send the request to the ownCloud server
-                    Account currentDownloadAccount = mCurrentDownload.getAccount();
+                    Account currentDownloadAccount = mCurrentDownload.getUser().toPlatformAccount();
                     Optional<User> currentDownloadUser = accountManager.getUser(currentDownloadAccount.name);
                     if (!currentUser.equals(currentDownloadUser)) {
                         currentUser = currentDownloadUser;
@@ -641,7 +638,7 @@ public class FileDownloader extends Service
                     .setProgress(0, 0, false);
 
             if (needsToUpdateCredentials) {
-                configureUpdateCredentialsNotification(download.getAccount());
+                configureUpdateCredentialsNotification(download.getUser());
 
             } else {
                 // TODO put something smart in showDetailsIntent
@@ -666,10 +663,10 @@ public class FileDownloader extends Service
         }
     }
 
-    private void configureUpdateCredentialsNotification(Account account) {
+    private void configureUpdateCredentialsNotification(User user) {
         // let the user update credentials with one click
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount());
         updateAccountCredentials.putExtra(
                 AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
@@ -701,7 +698,7 @@ public class FileDownloader extends Service
 
         Intent end = new Intent(getDownloadFinishMessage());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
-        end.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        end.putExtra(ACCOUNT_NAME, download.getUser().getAccountName());
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         end.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.getBehaviour());
         end.putExtra(SendShareDialog.ACTIVITY_NAME, download.getActivityName());
@@ -723,7 +720,7 @@ public class FileDownloader extends Service
     private void sendBroadcastNewDownload(DownloadFileOperation download,
                                           String linkedToRemotePath) {
         Intent added = new Intent(getDownloadAddedMessage());
-        added.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        added.putExtra(ACCOUNT_NAME, download.getUser().getAccountName());
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         added.setPackage(getPackageName());

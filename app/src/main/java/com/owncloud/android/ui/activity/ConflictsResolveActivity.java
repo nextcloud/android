@@ -113,7 +113,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         listener = decision -> {
             OCFile file = newFile; // local file got changed, so either upload it or replace it again by server
             // version
-
+            User user = getUser().orElseThrow(RuntimeException::new);
             switch (decision) {
                 case CANCEL:
                     // nothing to do
@@ -121,7 +121,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 case KEEP_LOCAL: // Upload
                     FileUploader.uploadUpdateFile(
                             getBaseContext(),
-                            getAccount(),
+                            user,
                             file,
                             localBehaviour,
                             NameCollisionPolicy.OVERWRITE
@@ -132,7 +132,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 case KEEP_BOTH: // Upload
                     FileUploader.uploadUpdateFile(
                             getBaseContext(),
-                            getAccount(),
+                            user,
                             file,
                             localBehaviour,
                             NameCollisionPolicy.RENAME

@@ -560,7 +560,7 @@ public class UploadsStorageManager extends Observable {
 
         if (uploadResult.isCancelled()) {
             removeUpload(
-                    upload.getAccount().name,
+                    upload.getUser().getAccountName(),
                     upload.getRemotePath()
             );
         } else {

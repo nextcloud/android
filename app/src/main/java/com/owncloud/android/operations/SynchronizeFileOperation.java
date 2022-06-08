@@ -300,7 +300,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private void requestForUpload(OCFile file) {
         FileUploader.uploadUpdateFile(
                 mContext,
-                mUser.toPlatformAccount(),
+                mUser,
                 file,
                 FileUploader.LOCAL_BEHAVIOUR_MOVE,
                 NameCollisionPolicy.OVERWRITE

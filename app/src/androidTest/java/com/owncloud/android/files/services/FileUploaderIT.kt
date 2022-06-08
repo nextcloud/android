@@ -136,7 +136,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadNewFile(
             targetContext,
-            account,
+            user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
@@ -160,7 +160,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadUpdateFile(
             targetContext,
-            account,
+            user,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.OVERWRITE
@@ -255,7 +255,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadNewFile(
             targetContext,
-            account,
+            user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
@@ -279,7 +279,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadUpdateFile(
             targetContext,
-            account,
+            user,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.RENAME
@@ -366,7 +366,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadNewFile(
             targetContext,
-            account,
+            user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
@@ -390,7 +390,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadUpdateFile(
             targetContext,
-            account,
+            user,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
@@ -473,7 +473,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadNewFile(
             targetContext,
-            account,
+            user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
@@ -497,7 +497,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         FileUploader.uploadUpdateFile(
             targetContext,
-            account,
+            user,
             ocFile2,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
