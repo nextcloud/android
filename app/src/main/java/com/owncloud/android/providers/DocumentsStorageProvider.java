@@ -263,7 +263,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                         // upload file with FileUploader service (off main thread)
                         FileUploader.uploadUpdateFile(
                             context,
-                            user.toPlatformAccount(),
+                            user,
                             ocFile,
                             LOCAL_BEHAVIOUR_DELETE,
                             NameCollisionPolicy.OVERWRITE,

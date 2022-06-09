@@ -264,10 +264,6 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean isIgnoringPowerSaveMode() { return mIgnoringPowerSaveMode; }
 
-    public Account getAccount() {
-        return user.toPlatformAccount();
-    }
-
     public User getUser() {
         return user;
     }
@@ -468,8 +464,8 @@ public class UploadFileOperation extends SyncOperation {
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        String privateKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PRIVATE_KEY);
-        String publicKey = arbitraryDataProvider.getValue(getAccount().name, EncryptionUtils.PUBLIC_KEY);
+        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         try {
             // check conditions

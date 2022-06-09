@@ -173,7 +173,7 @@ class FilesSyncWork(
             }
             FileUploader.uploadNewFile(
                 context,
-                user.toPlatformAccount(),
+                user,
                 file.absolutePath,
                 FileStorageUtils.getInstantUploadFilePath(
                     file,

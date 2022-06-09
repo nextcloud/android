@@ -29,6 +29,7 @@ import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
@@ -223,7 +224,7 @@ public final class EncryptionUtils {
      */
     public static @Nullable
     DecryptedFolderMetadata downloadFolderMetadata(OCFile folder, OwnCloudClient client,
-                                                   Context context, Account account) {
+                                                   Context context, User user) {
         RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
             .execute(client);
 
@@ -234,7 +235,7 @@ public final class EncryptionUtils {
         // decrypt metadata
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
         String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
-        String privateKey = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
+        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
         EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
                 serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
