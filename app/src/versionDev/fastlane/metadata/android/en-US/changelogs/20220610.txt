@@ -1,0 +1,4 @@
+SyncedFoldersActivity: don't refresh entire adapter when toggling a folder from dialog
+Use different link for automated bugreport and manual report
+Update translations
+Update Nextcloud Android library
