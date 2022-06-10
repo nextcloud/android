@@ -397,7 +397,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             OCFile file = getItem(position);
 
-            boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
+            if (file == null) {
+                Log_OC.e(this, "Cannot bind on view holder on a null file");
+                return;
+            }
+
+            //Note --> Not gettting used in our case
+            //boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
 
             gridViewHolder.getThumbnail().setTag(file.getFileId());
             setThumbnail(file,
@@ -885,11 +891,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return output;
     }
 
+    @Nullable
     public OCFile getItem(int position) {
         int newPosition = position;
 
         if (shouldShowHeader() && position > 0) {
             newPosition = position - 1;
+        }
+
+        if (newPosition >= mFiles.size()) {
+            return null;
         }
 
         return mFiles.get(newPosition);
@@ -926,8 +937,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return VIEWTYPE_FOOTER;
             }
         }
+        OCFile item = getItem(position);
+        if (item == null) {
+            return VIEWTYPE_ITEM;
+        }
 
-        if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
+        if (MimeTypeUtil.isImageOrVideo(item)) {
             return VIEWTYPE_IMAGE;
         } else {
             return VIEWTYPE_ITEM;
