@@ -1060,4 +1060,5 @@
     <string name="download_text">Downloads:\u0020</string>
     <string name="download_limit_zero">Der Wert für das Download sollte größer als 0 sein.</string>
     <string name="no_send_app">Keine App verfügbar um die ausgewählten Dateien zu senden.</string>
+    <string name="file_already_exists">Der Dateiname existiert bereits.</string>
 </resources>

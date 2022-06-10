@@ -1093,7 +1093,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
                             // automatic download, preview on finish
-                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file, mFile);
                         }
                     }
                 }
@@ -1165,7 +1165,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 return true;
             } else if (itemId == R.id.action_rename_file) {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile);
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             } else if (itemId == R.id.action_see_details) {

@@ -217,7 +217,8 @@ class SetStatusDialogFragment :
         ThemeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,
-            ThemeColorUtils.primaryColor(activity)
+            ThemeColorUtils.primaryColor(activity),
+            ThemeColorUtils.primaryAccentColor(activity)
         )
     }
 
