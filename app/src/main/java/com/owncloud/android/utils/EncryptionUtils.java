@@ -21,7 +21,6 @@
 
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -44,13 +43,11 @@ import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.operations.UploadException;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -660,35 +657,6 @@ public final class EncryptionUtils {
     /*
     Helper
      */
-
-    public static String getMD5Sum(File file) {
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            byte[] bytes = new byte[2048];
-            int readBytes;
-
-            while ((readBytes = fileInputStream.read(bytes)) != -1) {
-                md5.update(bytes, 0, readBytes);
-            }
-
-            return new String(Hex.encodeHex(md5.digest()));
-
-        } catch (Exception e) {
-            Log_OC.e(TAG, e.getMessage());
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error getting MD5 checksum for file", e);
-                }
-            }
-        }
-
-        return "";
-    }
 
     public static List<String> getRandomWords(int count, Context context) throws IOException {
         InputStream ins = context.getResources().openRawResource(context.getResources()
