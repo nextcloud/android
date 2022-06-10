@@ -29,6 +29,7 @@
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
+    <string name="advanced_settings">Cilësime të Avancuara</string>
     <string name="allow_resharing">Lejo rindarje</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
