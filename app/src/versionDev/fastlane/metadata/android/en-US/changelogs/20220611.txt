@@ -1,0 +1,3 @@
+When copy/move a file and creating a new folder we now go directly into this freshly created folder
+FileDataStorageManager: don't add files to media scan in android 11+
+GalleryFastScrollViewHelper: fix index out of bounds in getScrollOffset
