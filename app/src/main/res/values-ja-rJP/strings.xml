@@ -317,6 +317,8 @@
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_management_permission">必要な権限</string>
     <string name="file_management_permission_optional">ストレージの権限</string>
+    <string name="file_management_permission_optional_text">%1$sは、ストレージへのアクセスが許可されることでより良く動作します。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>
+    <string name="file_management_permission_text">%1$sは、ファイルをアップロードするためいファイル管理の権限を必要としています。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>
     <string name="file_migration_checking_destination">移動先の確認中…</string>
     <string name="file_migration_cleaning">クリーニング中…</string>
     <string name="file_migration_dialog_title">データ保存フォルダーを更新</string>
@@ -400,7 +402,10 @@
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
+    <string name="lock_expiration_info">有効期限: %1$s</string>
     <string name="lock_file">ファイルをロック</string>
+    <string name="locked_by">%1$sによりロック</string>
+    <string name="locked_by_app">%1$sアプリによりロック</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
     <string name="login">ログイン</string>
@@ -456,6 +461,7 @@
     <string name="no_email_app_available">メールアドレスの利用可能なアプリはありません</string>
     <string name="no_mutliple_accounts_allowed">利用できるアカウントは１つだけです</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
+    <string name="no_send_app">選択されたファイルの送信で利用可能なアプリがありません</string>
     <string name="no_share_permission_selected">共有する権限を1つ以上選択してください。</string>
     <string name="note_confirm">送信</string>
     <string name="note_could_not_sent">メモを送信できませんでした</string>
@@ -491,6 +497,7 @@
     <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
+    <string name="pdf_zoom_tip">ズームするにはページをタップ</string>
     <string name="permission_allow">許可</string>
     <string name="permission_deny">拒否</string>
     <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
@@ -544,6 +551,7 @@
     <string name="prefs_lock_using_device_credentials">デバイスの資格情報</string>
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
+    <string name="prefs_recommend">友達にすすめる</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">データ保存フォルダー</string>
@@ -697,6 +705,8 @@
     <string name="storage_internal_storage">内部ストレージ</string>
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
+    <string name="storage_permission_full_access">フルアクセス</string>
+    <string name="storage_permission_media_read_only">メディア読み取り専用</string>
     <string name="storage_pictures">写真</string>
     <string name="store_full_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム\n\n特徴：\n* あなたのサーバと同調した、分かりやすくモダンなインターフェース\n* あなたのNextcloudサーバーにファイルをアップロード\n* それらのファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまとめて検索\n* 撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分でホストをたてたり、そのための有償サービスを企業から受けることが出来ます。これにより、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\n詳細はNextcloud（https://nextcloud.com）まで。</string>
     <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
@@ -785,6 +795,7 @@
     <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
     <string name="upload_old_android">暗号化は、Android 5.0以降で使えます。</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
+    <string name="upload_scan_doc_upload">カメラから書類をスキャン</string>
     <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_unknown_error">不明なエラー</string>
     <string name="uploader_btn_alternative_text">選択</string>
