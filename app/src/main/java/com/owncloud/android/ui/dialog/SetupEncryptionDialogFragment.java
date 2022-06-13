@@ -283,7 +283,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             //  - decrypt private key, store unencrypted private key in database
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user.toPlatformAccount(), getContext());
+            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user, getContext());
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());

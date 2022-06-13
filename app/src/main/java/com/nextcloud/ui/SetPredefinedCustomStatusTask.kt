@@ -29,7 +29,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.SetPredefinedCustomStatusMessageRemoteOperation
 
-public class SetPredefinedCustomStatusTask(
+class SetPredefinedCustomStatusTask(
     val messageId: String,
     val clearAt: Long?,
     val account: Account?,

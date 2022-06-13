@@ -207,7 +207,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         // request to the OC server about users and groups matching userQuery
         GetShareesRemoteOperation searchRequest = new GetShareesRemoteOperation(userQuery, REQUESTED_PAGE,
                                                                                 RESULTS_PER_PAGE);
-        RemoteOperationResult result = searchRequest.execute(user.toPlatformAccount(), getContext());
+        RemoteOperationResult result = searchRequest.execute(user, getContext());
         List<JSONObject> names = new ArrayList<>();
 
         if (result.isSuccess()) {

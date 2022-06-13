@@ -121,7 +121,7 @@ public abstract class AbstractIT {
             user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
-            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(account, targetContext);
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {

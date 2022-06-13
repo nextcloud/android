@@ -23,7 +23,6 @@
 */
 package com.nextcloud.client.jobs
 
-import android.accounts.Account
 import android.content.Context
 import android.text.TextUtils
 import androidx.work.Worker
@@ -110,7 +109,7 @@ class AccountRemovalWork(
         arbitraryDataProvider.deleteKeyForAccount(user.accountName, ManageAccountsActivity.PENDING_FOR_REMOVAL)
 
         // remove synced folders set for account
-        removeSyncedFolders(context, user.toPlatformAccount(), clock)
+        removeSyncedFolders(context, user, clock)
 
         // delete all uploads for account
         uploadsStorageManager.removeUserUploads(user)
@@ -182,7 +181,7 @@ class AccountRemovalWork(
         }
     }
 
-    private fun removeSyncedFolders(context: Context, account: Account, clock: Clock) {
+    private fun removeSyncedFolders(context: Context, user: User, clock: Clock) {
         val syncedFolderProvider = SyncedFolderProvider(
             context.contentResolver,
             AppPreferencesImpl.fromContext(context),
@@ -191,11 +190,11 @@ class AccountRemovalWork(
         val syncedFolders = syncedFolderProvider.syncedFolders
         val syncedFolderIds: MutableList<Long> = ArrayList()
         for (syncedFolder in syncedFolders) {
-            if (syncedFolder.account == account.name) {
+            if (syncedFolder.account == user.accountName) {
                 syncedFolderIds.add(syncedFolder.id)
             }
         }
-        syncedFolderProvider.deleteSyncFoldersForAccount(account)
+        syncedFolderProvider.deleteSyncFoldersForAccount(user)
         val filesystemDataProvider = FilesystemDataProvider(context.contentResolver)
         for (syncedFolderId in syncedFolderIds) {
             filesystemDataProvider.deleteAllEntriesForSyncedFolder(syncedFolderId.toString())

@@ -1049,12 +1049,12 @@ public class FileOperationsHelper {
     /**
      * Starts a check of the currently stored credentials for the given account.
      *
-     * @param account OC account which credentials will be checked.
+     * @param user user which credentials will be checked.
      */
-    public void checkCurrentCredentials(Account account) {
+    public void checkCurrentCredentials(User user) {
         Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CHECK_CURRENT_CREDENTIALS);
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));

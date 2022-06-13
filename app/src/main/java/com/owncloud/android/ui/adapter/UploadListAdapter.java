@@ -367,9 +367,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    final Optional<User> user = accountManager.getUser(item.getAccountName());
-                    final Account account = user.orElseThrow(RuntimeException::new).toPlatformAccount();
-                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(account);
+                    final Optional<User> optUser = accountManager.getUser(item.getAccountName());
+                    final User user = optUser.orElseThrow(RuntimeException::new);
+                    parentActivity.getFileOperationsHelper().checkCurrentCredentials(user);
                     return;
                 } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
                     User user = optionalUser.get();

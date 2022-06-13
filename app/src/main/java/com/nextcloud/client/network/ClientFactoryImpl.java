@@ -59,7 +59,7 @@ class ClientFactoryImpl implements ClientFactory {
     @Override
     public NextcloudClient createNextcloudClient(User user) throws CreationException {
         try {
-            return OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), context);
+            return OwnCloudClientFactory.createNextcloudClient(user, context);
         } catch (AccountUtils.AccountNotFoundException e) {
             throw new CreationException(e);
         }

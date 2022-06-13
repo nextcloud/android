@@ -785,7 +785,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
                 davDroidLoginIntent.putExtra("davPath", DAV_PATH);
             }
-            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(user.toPlatformAccount()));
+            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(user));
 
             startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
