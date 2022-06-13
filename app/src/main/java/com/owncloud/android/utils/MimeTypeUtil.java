@@ -359,6 +359,14 @@ public final class MimeTypeUtil {
         return MimeType.DIRECTORY.equalsIgnoreCase(mimeType);
     }
 
+    public static boolean isPDF(String mimeType){
+        return "application/pdf".equalsIgnoreCase(mimeType);
+    }
+
+    public static boolean isPDF(OCFile file){
+        return isPDF(file.getMimeType()) || isPDF(getMimeTypeFromPath(file.getRemotePath()));
+    }
+
     /**
      * Extracts the mime type for the given file.
      *

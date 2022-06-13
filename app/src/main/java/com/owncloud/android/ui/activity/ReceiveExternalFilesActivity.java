@@ -426,7 +426,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
             userInput.requestFocus();
-            ThemeTextInputUtils.colorTextInput(userInputContainer, userInput, ThemeColorUtils.primaryColor(getContext()));
+            ThemeTextInputUtils.colorTextInput(userInputContainer, userInput, ThemeColorUtils.primaryColor(getContext()), ThemeColorUtils.primaryAccentColor(getContext()));
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
@@ -436,7 +436,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             mSpinner = spinner;
 
-            Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
+            Dialog filenameDialog = createFilenameDialog(view, userInput, spinner);
             if (filenameDialog.getWindow() != null) {
                 filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             }

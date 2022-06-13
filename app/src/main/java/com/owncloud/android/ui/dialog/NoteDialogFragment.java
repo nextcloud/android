@@ -90,7 +90,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         // Setup layout
         binding.noteText.setText(share.getNote());
         binding.noteText.requestFocus();
-        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor);
+        ThemeTextInputUtils.colorTextInput(binding.noteContainer, binding.noteText, primaryColor, ThemeColorUtils.primaryAccentColor(getContext()));
         binding.noteText.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
         binding.noteContainer.setDefaultHintTextColor(new ColorStateList(
             new int[][]{

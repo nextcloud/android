@@ -36,17 +36,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.TextView;
-import android.widget.EditText;
+import android.widget.Button;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -59,25 +63,40 @@ import androidx.fragment.app.DialogFragment;
  * Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
+    private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
+    @Inject FileDataStorageManager fileDataStorageManager;
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
-
+    private Button positiveButton;
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
      *
      * @param file File to rename.
      * @return Dialog ready to show.
      */
-    public static RenameFileDialogFragment newInstance(OCFile file) {
+    public static RenameFileDialogFragment newInstance(OCFile file, OCFile parentFolder) {
         RenameFileDialogFragment frag = new RenameFileDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_TARGET_FILE, file);
+        args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         frag.setArguments(args);
         return frag;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+
+        if (alertDialog != null) {
+            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        }
 
     }
 
@@ -100,6 +119,13 @@ public class RenameFileDialogFragment
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
         binding.userInput.requestFocus();
+
+        OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
+        List<String> fileNames = new ArrayList<>();
+
+        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+            fileNames.add(file.getFileName());
+        }
 
         // Add TextChangedListener to handle showing/hiding the input warning message
         binding.userInput.addTextChangedListener(new TextWatcher() {
@@ -124,11 +150,17 @@ public class RenameFileDialogFragment
 
                 if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
                     binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
-                }
-                else if(binding.userInputContainer.getError() != null) {
+                } else if (TextUtils.isEmpty(newFileName)) {
+                    binding.userInputContainer.setError(getString(R.string.filename_empty));
+                    positiveButton.setEnabled(false);
+                } else if (fileNames.contains(newFileName)) {
+                    binding.userInputContainer.setError(getText(R.string.file_already_exists));
+                    positiveButton.setEnabled(false);
+                } else if (binding.userInputContainer.getError() != null) {
                     binding.userInputContainer.setError(null);
                     // Called to remove extra padding
                     binding.userInputContainer.setErrorEnabled(false);
+                    positiveButton.setEnabled(true);
                 }
             }
         });

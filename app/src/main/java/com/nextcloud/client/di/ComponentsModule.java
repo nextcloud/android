@@ -77,7 +77,9 @@ import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -226,4 +228,9 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
     @ContributesAndroidInjector
     abstract SharedListFragment sharedFragment();
+    @ContributesAndroidInjector
+    abstract RenameFileDialogFragment renameFileDialogFragment();
+    @ContributesAndroidInjector
+    abstract CreateFolderDialogFragment createFolderDialogFragment();
+
 }

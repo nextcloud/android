@@ -1158,4 +1158,5 @@
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
+    <string name="file_already_exists">Filename already exists.</string>
 </resources>

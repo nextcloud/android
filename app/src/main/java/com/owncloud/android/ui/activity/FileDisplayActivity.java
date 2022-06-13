@@ -586,7 +586,7 @@ public class FileDisplayActivity extends FileActivity
             } else if (file.isDown() && PreviewTextFileFragment.canBePreviewed(file)) {
                 secondFragment = null;
             } else {
-                secondFragment = FileDetailFragment.newInstance(file, user);
+                secondFragment = FileDetailFragment.newInstance(file, file, user);
             }
         }
         return secondFragment;
@@ -2354,11 +2354,12 @@ public class FileDisplayActivity extends FileActivity
      * Requests the download of the received {@link OCFile} , updates the UI to monitor the download progress and
      * prepares the activity to preview or open the file when the download finishes.
      *
-     * @param file {@link OCFile} to download and preview.
+     * @param file         {@link OCFile} to download and preview.
+     * @param parentFolder {@link OCFile} containing above file
      */
-    public void startDownloadForPreview(OCFile file) {
+    public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
         setLeftFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
