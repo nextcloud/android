@@ -359,6 +359,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     && (totalItemCount - visibleItemCount) > 0 && lastVisibleItem > 0) {
                     // Almost reached the end, continue to load new photos
                     OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
+                    if (lastFile == null) {
+                        return;
+                    }
 
                     daySpan = 30;
                     endDate = lastFile.getModificationTimestamp() / 1000;
