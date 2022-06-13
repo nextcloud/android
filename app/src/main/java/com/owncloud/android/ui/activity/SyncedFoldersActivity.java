@@ -672,8 +672,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
 
             saveOrUpdateSyncedFolder(item);
 
-            // TODO test if notifyItemChanged is sufficient (should improve performance)
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemChanged(adapter.getSectionHeaderIndex(syncedFolder.getSection()));
         }
 
         syncedFolderPreferencesDialogFragment = null;
