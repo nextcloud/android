@@ -6,14 +6,12 @@ LOG_PASSWORD=$3
 DRONE_BUILD_NUMBER=$4
 
 function upload_logcat() {
-    set -x
     log_filename="${DRONE_PULL_REQUEST}_logcat.txt.gz"
     log_file="app/build/${log_filename}"
     upload_path="https://nextcloud.kaminsky.me/remote.php/webdav/android-logcat/$log_filename"
     adb logcat -d | gzip > "$log_file"
     curl -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "$upload_path" --upload-file "$log_file"
     echo >&2 "Uploaded logcat to https://kaminsky.me/nc-dev/android-logcat/$log_filename"
-    set +x
 }
 
 scripts/deleteOldComments.sh "master" "IT" "$DRONE_PULL_REQUEST"
