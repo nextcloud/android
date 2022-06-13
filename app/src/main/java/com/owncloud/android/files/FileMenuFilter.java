@@ -310,7 +310,7 @@ public class FileMenuFilter {
     }
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
-        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
+        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder() || isGroupFolder()
             || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_encrypted);
         } else {
@@ -544,6 +544,10 @@ public class FileMenuFilter {
         } else {
             return false;
         }
+    }
+
+    private boolean isGroupFolder() {
+        return files.iterator().next().isGroupFolder();
     }
 
     private boolean isSingleImage() {

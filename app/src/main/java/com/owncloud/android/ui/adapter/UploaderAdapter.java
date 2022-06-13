@@ -108,6 +108,7 @@ public class UploaderAdapter extends SimpleAdapter {
             final Drawable icon = MimeTypeUtil.getFolderTypeIcon(isShared,
                                                                  file.isSharedViaLink(),
                                                                  file.isEncrypted(),
+                                                                 file.isGroupFolder(),
                                                                  user,
                                                                  file.getMountType(),
                                                                  mContext,

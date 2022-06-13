@@ -52,6 +52,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
     private final static String PERMISSION_CAN_WRITE = "CK";
+    private final static String PERMISSION_GROUPFOLDER = "M";
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -616,6 +617,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean canWrite() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
+    }
+
+    public boolean isGroupFolder() {
+        String permissions = getPermissions();
+        return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
