@@ -89,7 +89,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onResume() {
         super.onResume();
-        mixinRegistry.onResume();
+        if (enableAccountHandling) {
+            mixinRegistry.onResume();
+        }
         paused = false;
 
         if (themeChangePending) {
