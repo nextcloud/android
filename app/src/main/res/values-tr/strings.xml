@@ -565,7 +565,7 @@
     <string name="preview_image_description">Görsel ön izleme</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
-    <string name="preview_sorry">Maalesef</string>
+    <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
     <string name="public_share_name">Yeni ad</string>
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
