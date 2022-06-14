@@ -1358,6 +1358,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    public void updateOCFile(OCFile file) {
+        mAdapter.getFiles().remove(file);
+        mAdapter.getFiles().add(file);
+        mAdapter.notifyItemChanged(file);
+    }
+
     private void updateLayout() {
         // decide grid vs list view
         if (isGridViewPreferred(mFile)) {

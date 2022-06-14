@@ -1744,4 +1744,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         AvatarGroupLayout getSharedAvatars();
     }
+
+    public void notifyItemChanged(@NonNull OCFile file) {
+        notifyItemChanged(getItemPosition(file));
+    }
 }
