@@ -231,6 +231,29 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     }
 
     @Test
+    public void deleteFolder() throws Exception {
+        init();
+
+        // create folder, go into it
+        OCFile createdFolder = createFolder(0);
+        assertNotNull(createdFolder);
+        currentFolder = createdFolder;
+
+        uploadFile(1);
+        goUp(1);
+
+        // delete folder
+        assertTrue(new RemoveFileOperation(createdFolder,
+                                           false,
+                                           user,
+                                           false,
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
+                       .isSuccess());
+    }
+
+    @Test
     public void downloadFile() throws Exception {
         init();
 
