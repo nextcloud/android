@@ -858,8 +858,13 @@ public final class DisplayUtils {
             stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                                  file.isSharedViaLink(), file.isEncrypted(),
-                                                                  file.getMountType(), context, themeColorUtils, themeDrawableUtils));
+                                                                  file.isSharedViaLink(),
+                                                                  file.isEncrypted(),
+                                                                  file.isGroupFolder(),
+                                                                  file.getMountType(),
+                                                                  context,
+                                                                  themeColorUtils,
+                                                                  themeDrawableUtils));
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
