@@ -1,0 +1,5 @@
+Lower detekt maxIssues to 0
+FileDetailsSharingProcessFragment: clean up last detekt issues
+move md5 function to tests, as md5 should never be used is production
+Update translations
+Update Nextcloud Android library
