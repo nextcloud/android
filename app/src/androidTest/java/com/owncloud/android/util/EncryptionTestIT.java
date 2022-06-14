@@ -35,17 +35,20 @@ import com.owncloud.android.utils.EncryptionUtils;
 
 import net.bytebuddy.utility.RandomString;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -72,7 +75,6 @@ import static com.owncloud.android.utils.EncryptionUtils.encryptFile;
 import static com.owncloud.android.utils.EncryptionUtils.encryptFolderMetadata;
 import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 import static com.owncloud.android.utils.EncryptionUtils.generateSHA512;
-import static com.owncloud.android.utils.EncryptionUtils.getMD5Sum;
 import static com.owncloud.android.utils.EncryptionUtils.ivDelimiter;
 import static com.owncloud.android.utils.EncryptionUtils.ivDelimiterOld;
 import static com.owncloud.android.utils.EncryptionUtils.ivLength;
@@ -565,5 +567,34 @@ public class EncryptionTestIT {
         FileUtils.copyInputStreamToFile(inputStream, temp);
 
         return temp;
+    }
+
+    private String getMD5Sum(File file) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = new byte[2048];
+            int readBytes;
+
+            while ((readBytes = fileInputStream.read(bytes)) != -1) {
+                md5.update(bytes, 0, readBytes);
+            }
+
+            return new String(Hex.encodeHex(md5.digest()));
+
+        } catch (Exception e) {
+            Log_OC.e(this, e.getMessage());
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    Log_OC.e(this, "Error getting MD5 checksum for file", e);
+                }
+            }
+        }
+
+        return "";
     }
 }
