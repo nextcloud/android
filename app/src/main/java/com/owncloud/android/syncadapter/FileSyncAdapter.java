@@ -249,7 +249,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * Updates the locally stored version value of the ownCloud server
      */
     private void updateOCVersion() {
-        UpdateOCVersionOperation update = new UpdateOCVersionOperation(getAccount(), getContext());
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(getUser(), getContext());
         RemoteOperationResult result = update.execute(getClient());
         if (!result.isSuccess()) {
             mLastFailedResult = result;

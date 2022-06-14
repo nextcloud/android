@@ -101,7 +101,7 @@ public class TextDrawable extends Drawable {
      */
     @NonNull
     public static TextDrawable createAvatar(User user, float radiusInDp) {
-        String username = UserAccountManager.getDisplayName(user.toPlatformAccount());
+        String username = UserAccountManager.getDisplayName(user);
         return createNamedAvatar(username, radiusInDp);
     }
 

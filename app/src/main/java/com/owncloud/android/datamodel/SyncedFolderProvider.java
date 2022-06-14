@@ -20,13 +20,13 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -187,14 +187,14 @@ public class SyncedFolderProvider extends Observable {
         return result;
     }
 
-    public SyncedFolder findByLocalPathAndAccount(String localPath, Account account) {
+    public SyncedFolder findByLocalPathAndAccount(String localPath, User user) {
         SyncedFolder result = null;
         Cursor cursor = mContentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
             null,
             ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " LIKE ? AND " +
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
-            new String[]{localPath + "%", account.name},
+            new String[]{localPath + "%", user.getAccountName()},
             null
         );
 
@@ -220,13 +220,13 @@ public class SyncedFolderProvider extends Observable {
     /**
      *  Delete all synced folders for an account
      *
-     *  @param account whose synced folders should be deleted
+     *  @param user whose synced folders should be deleted
      */
-    public int deleteSyncFoldersForAccount(Account account) {
+    public int deleteSyncFoldersForAccount(User user) {
         return mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " = ?",
-                new String[]{String.valueOf(account.name)}
+                new String[]{String.valueOf(user.getAccountName())}
         );
     }
 

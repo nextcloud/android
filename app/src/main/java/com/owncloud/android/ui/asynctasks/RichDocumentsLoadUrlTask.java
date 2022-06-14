@@ -34,12 +34,12 @@ import java.lang.ref.WeakReference;
 
 public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
 
-    private Account account;
+    private final User user;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
     private OCFile file;
 
     public RichDocumentsLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
-        this.account = user.toPlatformAccount();
+        this.user = user;
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
         this.file = file;
     }
@@ -52,7 +52,7 @@ public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result = new RichDocumentsUrlOperation(file.getLocalId()).execute(account, editorWebView);
+        RemoteOperationResult result = new RichDocumentsUrlOperation(file.getLocalId()).execute(user, editorWebView);
 
         if (!result.isSuccess()) {
             return "";

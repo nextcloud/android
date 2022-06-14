@@ -147,21 +147,17 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * <p>
      * Full account name is in form of "username@nextcloud.domain".
      *
-     * @param account Account instance
+     * @param user user instance
      * @return User name (without domain) or null, if name cannot be extracted.
      */
-    static @Nullable
-    String getUsername(Account account) {
-        if (account != null && account.name != null) {
-            return account.name.substring(0, account.name.lastIndexOf('@'));
-        } else {
-            return null;
-        }
+    static String getUsername(User user) {
+        final String name = user.getAccountName();
+        return name.substring(0, name.lastIndexOf('@'));
     }
 
-    static @Nullable
-    String getDisplayName(Account account) {
-        return AccountManager.get(MainApp.getAppContext()).getUserData(account,
+    @Nullable
+    static String getDisplayName(User user) {
+        return AccountManager.get(MainApp.getAppContext()).getUserData(user.toPlatformAccount(),
                                                                        AccountUtils.Constants.KEY_DISPLAY_NAME);
     }
 
