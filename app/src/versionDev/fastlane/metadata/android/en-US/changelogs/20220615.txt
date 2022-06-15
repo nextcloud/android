@@ -1,0 +1,6 @@
+Update share icon when sharing link directly
+Migrate Account to User in some APIs
+Groupfolders cannot be encrypted added test showing folder types
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
