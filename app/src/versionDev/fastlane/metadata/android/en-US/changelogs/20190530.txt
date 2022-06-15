@@ -1,0 +1,7 @@
+7a2ab86a8 Codacy (#4072)
+fa044f61a Migrate UserAccount helpers to UserAccountManager (#4043)
+f0dfc4200 Bump androidsvg from 1.3 to 1.4 (#4081)
+01c281c9c Bump mockito-core from 2.27.0 to 2.28.1 (#4080)
+11df6db4b Bump ktlint from 0.32.0 to 0.33.0 (#4079)
+55c8d5d01 [tx-robot] updated from transifex
+ba55545bd daily dev 20190529

@@ -1,0 +1,4 @@
+Savarankiška platforma.
+Tai yra oficiali vystoma versija, turinti neišbandytų funkcijų, kurios gali sukelti nestabilumą ar duomenų praradimą. Programa skirta naudotojams, norintiems išbandyti naujausią versiją ir pranešti apie aptiktas klaidas ar neatitiktis. Nenaudokite jo produktyviam darbui!
+
+ Tiek oficialią „dev“ versiją, tiek įprastinę versija „F-droid“ galima įdiegti tuo pačiu metu.

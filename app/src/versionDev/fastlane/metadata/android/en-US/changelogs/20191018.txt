@@ -1,0 +1,12 @@
+16cc46f4e Merge pull request #4687 from nextcloud/account-cleanup-upload-files-activity
+d9567a2bb Merge pull request #4686 from nextcloud/account-cleanup-image-video-preview
+2d9afe36c Merge pull request #4688 from nextcloud/account-cleanup-share-activity
+f4a27cc5d Merge pull request #4693 from nextcloud/account-cleanup-file-display-activity
+d237a834b Merge pull request #4699 from nextcloud/removeUploadPathActivity
+64c986eaf Merge pull request #4689 from nextcloud/account-cleanup-folder-picker-activity
+56d188086 Bump powermock-core from 2.0.2 to 2.0.4 (#4695)
+ca77c7a2d Bump powermock-api-mockito2 from 2.0.2 to 2.0.4 (#4696)
+baaf5d4f4 Bump powermock-module-junit4 from 2.0.2 to 2.0.4 (#4697)
+ab904e336 We do not use UploadPathActivity anymore(?)
+9773dc43c Merge pull request #4694 from nextcloud/account-cleanup-conflicts-resolve-activity
+ae6cfb34c daily dev 20191017

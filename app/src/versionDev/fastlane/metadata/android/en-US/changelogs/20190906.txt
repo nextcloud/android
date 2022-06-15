@@ -1,0 +1,4 @@
+67f6f7d0d Merge pull request #4461 from nextcloud/literal
+9d3e28d01 do not use literals in conditional statements
+d53c17c0f [tx-robot] updated from transifex
+e43fb87c3 daily dev 20190905

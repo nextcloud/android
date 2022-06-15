@@ -1,0 +1,4 @@
+b3269e696 Merge pull request #4242 from nextcloud/tintEdit
+a22a52ab8 new approach for tinted cursors
+813a448bc [tx-robot] updated from transifex
+181fb374e daily dev 20190717

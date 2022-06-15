@@ -1,0 +1,13 @@
+8751c85c2 Merge pull request #5120 from nextcloud/spinner
+9d2b80da1 spinner: if primary color is white, use grey
+de269b260 Merge pull request #5115 from nextcloud/311bump
+3baa9fe5d Merge pull request #5118 from nextcloud/fastlane
+ee6e7ce5b fix fastlane RC
+1343ba08e Merge pull request #5114 from nextcloud/richWorkspaceFixes
+1ec8b067f - fix not clickable rich workspace area - fix crash on first loading
+62aaed7f3 bump to 3.11 alpha
+9a47a4d30 Merge pull request #5107 from nextcloud/whiteHeader
+6cb0f1087 Merge pull request #4915 from nextcloud/createText
+3011097be [tx-robot] updated from transifex
+248fe1a44 daily dev 20200108
+library commit: 903d50f8b68fc1005f184259feb2add6c902acfe

@@ -66,9 +66,9 @@ for i in $(find ../../fastlane | grep png | grep Screenshots) ; do
             locale="-"$(echo $locale | cut -d"-" -f1)
     esac
 
-    if [ -e ../../src/main/res/values$locale/strings.xml ] ; then
-        heading=$(grep $textID"_heading" ../../src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
-        subline=$(grep $textID"_subline" ../../src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+    if [ -e ../../app/src/main/res/values$locale/strings.xml ] ; then
+        heading=$(grep $textID"_heading" ../../app/src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+        subline=$(grep $textID"_subline" ../../app/src/main/res/values$locale/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
     else
         heading=""
         subline=""
@@ -76,11 +76,11 @@ for i in $(find ../../fastlane | grep png | grep Screenshots) ; do
 
     # fallback to english if there is not translation
     if [ -z "$heading" ]; then
-        heading=$(grep $textID"_heading" ../../src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+        heading=$(grep $textID"_heading" ../../app/src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
     fi
 
     if [ -z "$subline" ]; then
-        subline=$(grep $textID"_subline" ../../src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
+        subline=$(grep $textID"_subline" ../../app/src/main/res/values/strings.xml | cut -d">" -f2 | cut -d"<" -f1 | sed s'#\&amp;#\\&#')
     fi
 
 

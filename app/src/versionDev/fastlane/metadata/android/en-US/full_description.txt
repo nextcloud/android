@@ -1,0 +1,4 @@
+The self-hosted productivity platform that keeps you in control.
+This is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!
+
+Both the official dev and regular version are available on F-droid, and can be installed at the same time.

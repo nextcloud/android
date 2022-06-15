@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:background="@color/appbar"
+        android:fitsSystemWindows="true"
+        android:theme="@style/NavigationView_ItemTextAppearance"
+        app:headerLayout="@layout/drawer_header"
+        app:itemTextColor="@color/drawer_text_color"
+        app:menu="@menu/partial_drawer_entries">
+
+        <LinearLayout
+            android:id="@+id/drawer_quota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/appbar"
+            android:clickable="false"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/drawer_quota_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/alternate_half_padding" />
+
+            <ProgressBar
+                android:id="@+id/drawer_quota_ProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:scaleY="1.4"
+                android:text="@string/drawer_quota" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/drawer_quota_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/drawer_quota"
+                android:textColor="@color/drawer_text_color" />
+
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+</merge>

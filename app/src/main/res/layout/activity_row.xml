@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/list_item"
+	android:layout_width="match_parent"
+	android:layout_height="@dimen/activity_row_layout_height"
+	android:background="?android:attr/activatedBackgroundIndicator"
+	android:minWidth="@dimen/activity_row_layout_min_width_independent"
+	android:orientation="horizontal"
+	android:paddingEnd="@dimen/standard_padding"
+	android:paddingLeft="@dimen/standard_padding"
+	android:paddingRight="@dimen/standard_padding"
+	android:paddingStart="@dimen/standard_padding">
+
+	<ImageView
+		android:id="@+id/icon"
+		android:layout_width="@dimen/user_icon_size_independent"
+		android:layout_height="@dimen/user_icon_size_independent"
+		android:layout_gravity="center_vertical"
+		android:layout_marginEnd="@dimen/standard_padding"
+        android:contentDescription="@string/activity_icon" />
+
+	<TextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:ellipsize="marquee"
+		android:singleLine="true"
+		android:textAppearance="?android:attr/textAppearanceLargePopupMenu" />
+
+    </LinearLayout>

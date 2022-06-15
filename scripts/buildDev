@@ -4,13 +4,24 @@ oldLibraryCommit=$(grep "androidLibraryVersion\ =" build.gradle)
 libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 
 # use current date for version code/name
-sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" build.gradle
-sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" build.gradle
+sed -i "/versionDev/,/\}/ s/versionCode .*/versionCode $date/" app/build.gradle
+sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" app/build.gradle
 
 # change library
 sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
 
 # build signed apk
+source ndk.env
+yes | sdkmanager --licenses
+
+if [ ! -e ~/android-sdk/ndk/${NDK_VERSION} ]; then
+    sdkmanager "ndk;${NDK_VERSION}"
+fi
+
+if [ ! -e ~/android-sdk/cmake/${CMAKE_VERSION} ]; then
+    sdkmanager "cmake;${CMAKE_VERSION}"
+fi
+
 ./gradlew assembleVersionDevRelease >> /tmp/dev.log 2>&1
 
 if [ $? != 0 ] ; then
@@ -26,7 +37,7 @@ apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
                --key-pass env:VERSION_DEV_KEY_PASSWORD \
                --ks $VERSION_DEV_STORE_FILE \
                --out ~/apks/nextcloud-dev-$date.apk \
-               ./build/outputs/apk/versionDev/release/versionDev-release-$date.apk
+               ./app/build/outputs/apk/versionDev/release/versionDev-release-$date.apk
 
 # use the current date
 echo $date > ~/apks/latest
@@ -44,7 +55,7 @@ lastBuildTag=$(git tag | grep dev | tail -n1)
 #  * Commits touching only non-user-facing stuff like tests
 #  * Version bump commits
 #  * Anything reachable from the previous dev edition tag
-changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!src/androidTest' ':!.*' ':!scripts/' ':!screenshots' ':!CHANGELOG.md' | grep -vE '^daily dev [[:digit:]]{8}$')
+changelog=$(git log --no-merges --invert-grep --author=dependabot --pretty='format:%s' HEAD "^$lastBuildTag" -- ':!app/src/androidTest' ':!.*' ':!scripts/' ':!screenshots' ':!CHANGELOG.md' | grep -vE '^daily dev [[:digit:]]{8}$')
 # Make Transifex updates have a nicer description
 if echo "$changelog" | grep -q 'tx-robot'; then
 	changelog=$(echo "$changelog" | grep -v 'tx-robot')
@@ -63,7 +74,7 @@ if git log --pretty='format:%an' HEAD "^$lastBuildTag" | grep -q dependabot; the
 fi
 
 # changelog
-echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+echo "$changelog" > app/src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
 
 git add .
 git commit -m "daily dev $date" -m "$changelog"

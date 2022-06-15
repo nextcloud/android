@@ -1,0 +1,10 @@
+b5458818c Merge pull request #4156 from nextcloud/ezaquarii/fix-crash-when-playing-video
+f49fcf0b4 Merge pull request #4164 from nextcloud/dependabot/gradle/kotlin_version-1.3.40
+71962028b Bump kotlin_version from 1.3.31 to 1.3.40
+abead1dfa Merge pull request #4166 from nextcloud/dependabot/gradle/com.google.dagger-dagger-2.23.2
+8169f3123 Bump dagger
+65d132110 Bump dagger from 2.23.1 to 2.23.2
+e28f4d4c2 Merge pull request #4158 from nextcloud/dependabot/gradle/com.mebigfatguy.fb-contrib-fb-contrib-7.4.6
+a4c4932b9 [tx-robot] updated from transifex
+34d0c952c [tx-robot] updated from transifex
+1f76a79d8 daily dev 20190619

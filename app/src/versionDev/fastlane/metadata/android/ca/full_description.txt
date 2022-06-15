@@ -1,0 +1,4 @@
+La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.
+Aquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris que estan disposats a provar i informar d'incidències. No feu servir aquesta versió de l'aplicació en el vostre entorn de feina!
+
+Ambdues versions, la de desenvolupament i la normal, són disponibles a F-droid, i poden ser instal·lades al mateix temps.

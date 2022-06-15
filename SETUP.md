@@ -89,20 +89,16 @@ The app is currently equipped to be built with three flavours:
 #### 1. Direct usage of library project
 
 This is handy if one wants to make changes both to files app and library:
-- in files app root: ln -s $pathToLibraryProject nextcloud-android-library
-- uncomment in build.gradle:  
-    - `//    implementation project('nextcloud-android-library')`
-- comment in build.gradle:
-   ``` 
-      implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
-        exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
+
+- Add the following to `settings.gradle`:
+  ```groovy
+  includeBuild('[path to library clone]') {
+    dependencySubstitution {
+      substitute module('com.github.nextcloud:android-library') using project(':library')
     }
-  ```   
-- comment in settings.gradle: 
-    - `include ':'`
-- add in settings.gradle: 
-    - `include 'nextcloud-android-library'`
-- sync project with gradle files
+  }
+  ```
+- Sync project with gradle files
 
 Now every change in library can be directly used in files app.
 

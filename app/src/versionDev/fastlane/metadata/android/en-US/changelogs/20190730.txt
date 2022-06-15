@@ -1,0 +1,7 @@
+129e9abcc Merge pull request #4276 from nextcloud/uploader
+bc0b9e78f Engineering Test Mode (#4133)
+a6371ee30 check status on transfer update
+0938d81c7 mHostUrlInput can be null if used with direct login (#4270)
+53a4844ab Merge pull request #4269 from nextcloud/daggerBump
+4632dc659 [tx-robot] updated from transifex
+2124364b4 daily dev 20190727

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/search_layout"
+              android:minWidth="@dimen/search_users_groups_layout_width"
+    android:layout_marginEnd="@dimen/standard_margin"
+              android:layout_marginBottom="@dimen/standard_half_margin">
+
+    <TextView
+        android:id="@+id/searchUserGroupsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_with_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:padding="@dimen/standard_padding"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView"
+        android:hint="@string/share_search"
+        style="@style/ownCloud.SearchView"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/searchUsersListView"
+        android:scrollbars="vertical"
+        android:layout_marginStart="@dimen/search_users_groups_layout_list_view_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"/>
+
+</LinearLayout>
