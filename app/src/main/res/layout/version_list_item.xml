@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Nextcloud Android client application
+
+  @author Tobias Kaminsky
+  Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Nextcloud GmbH.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingRight="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
+    android:paddingLeft="@dimen/standard_padding">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="@dimen/activity_icon_width"
+        android:layout_height="@dimen/activity_icon_height"
+        android:layout_marginEnd="@dimen/activity_icon_layout_right_end_margin"
+        android:alpha="0.5"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_activity"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/version_created"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@string/new_version_was_created"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            tools:text="256 KB"
+            android:textColor="?android:attr/textColorSecondary"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/restore"
+        android:layout_width="@dimen/restore_icon_width"
+        android:layout_height="@dimen/restore_icon_height"
+        android:layout_marginEnd="@dimen/restore_icon_layout_right_end_margin"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:contentDescription="@string/restore"
+        android:src="@drawable/ic_history"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:textAlignment="textEnd"
+        tools:text="13:24"
+        android:textColor="?android:attr/textColorSecondary"/>
+
+</LinearLayout>

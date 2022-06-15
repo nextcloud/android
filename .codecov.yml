@@ -1,0 +1,24 @@
+codecov:
+  branch: master
+  ci:
+    - drone.nextcloud.com
+
+coverage:
+  precision: 2
+  round: down
+  range: "70...100"
+  status:
+    project:
+      default:
+        threshold: 0.5
+
+comment:
+  layout: "header, diff, changes, uncovered, tree"
+  behavior: default
+
+github_checks:
+    annotations: false
+
+ignore:
+  - "app/src/main/res/values*/*"
+

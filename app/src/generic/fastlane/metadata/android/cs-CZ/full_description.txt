@@ -1,0 +1,20 @@
+U vás hostovaná platforma pro produktivitu, která ponechává kontrolu vám
+
+Funkce:
+* Snadno použitelné moderní rozhraní, s motivem vzhledu sladěným s tím nastaveným na serveru
+* Nahrávání souborů na vámi využívaný Nextcloud server
+* Jejich sdílení s ostatními
+* Udržování vašich oblíbených souborů a složek synchronizovaných
+* Vyhledávání napříč všemi složkami na vámi využívaném serveru
+* Automatické nahrávání fotek a videí pořízených vaším zařízením
+* Budete v obraze díky upozorněním
+* Podpora vícero účtů
+* Zabezpečení přístupu k vašim datům otiskem prstu nebo PIN kódem
+*  Propojení s aplikací DAVx5 (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů
+
+
+Veškeré problémy prosíme hlaste na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients/android
+
+Ještě Nextcloud neznáte? Je to server pro komunikaci, synchronizaci a sdílení vašich dat. Jedná se o svobodný software, který můžete provozovat sami, nebo si jako službu koupit u jiné společnosti. Díky tomu máte kontrolu nad svými fotkami, kalendářem, kontakty i dokumenty a vším ostatním.
+
+Další informace o Nextcloud naleznete na  https://nextcloud.com

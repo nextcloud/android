@@ -1,0 +1,9 @@
+5bcab439b Merge pull request #4538 from nextcloud/ezaquarii/fix-broken-account-registration
+8954aafb5 Merge pull request #4545 from nextcloud/ezaquarii/speculative-fix-for-npe-in-log-d
+f64485f27 Merge pull request #4539 from nextcloud/ezaquarii/fix-npe-crash-in-ocfilelistfragment
+b498e8eee [tx-robot] updated from transifex
+ed704c632 Fix for NPE caused by Log.d in ThumbnailsCacheManager
+551c4d3f1 Fix NPE crash in OCFileListFragment when action mode is destroyed
+953ee005e Fix registration of second account on first run
+6f8c91e44 Merge pull request #4532 from nextcloud/dependabot/gradle/com.github.bumptech.glide-glide-3.8.0
+357ee5e31 daily dev 20190926

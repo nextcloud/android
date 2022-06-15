@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+  Copyright (C) 2017 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_default"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_standard" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_drawer_header_height">
+
+        <ImageView
+            android:id="@+id/userinfo_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_nc18"
+            android:contentDescription="@string/drawer_header_background"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/userinfo_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_margin="@dimen/standard_margin"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/account_circle_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/userinfo_fullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:lines="1"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/two_line_primary_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userinfo_icon"
+            app:layout_constraintTop_toTopOf="@id/userinfo_icon"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/userinfo_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:lines="2"
+            android:shadowColor="@color/drawer_shadow"
+            android:shadowDx="0.5"
+            android:shadowDy="0"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/drawer_header_subtext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/userinfo_fullName"
+            app:layout_constraintTop_toBottomOf="@id/userinfo_fullName"
+            tools:text="john@nextcloud.com" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userinfo_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/user_info_details_table_item"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/emptyList"
+        layout="@layout/empty_list" />
+
+    <LinearLayout
+        android:id="@+id/loading_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iconized_single_line_item_layout_height"
+            android:orientation="horizontal">
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                app:corners="100" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/user_info_icon_horizontal_margin"
+                android:layout_marginEnd="@dimen/standard_margin" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

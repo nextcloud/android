@@ -1,0 +1,4 @@
+Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.
+Dit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!
+
+Zowel de ontwikkelversie als de reguliere versie zijn beschikbaar in F-Droid en ze kunnen naast elkaar gebruikt worden.

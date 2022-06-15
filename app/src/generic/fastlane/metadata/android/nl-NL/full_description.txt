@@ -1,0 +1,19 @@
+Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.
+
+Functies:
+* Eenvoudige, moderne interface, passend bij het thema van jouw server
+* Upload bestanden naar je Nextcloud server
+* Deel ze met anderen
+* Hou je favoriete bestanden en mappen gesynchroniseerd
+* Zoek in alle mappen op je server
+* Auto Upload voor foto's en video's op je toestel
+* Blijf bij met meldingen
+* Multi-account ondersteuning
+* veilige toegang tot je gegevens door vingerafdruk of  PIN
+* Integratie met DAVx5 (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda& Contactpersonensynchronisatie
+
+Meld alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android
+
+Nieuw bij Nextcloud? Nextcloud is een persoonlijk bestandensync- & -deel en communicatieserver. het is vrije software, die je zelf kunt draaien of bij een betaalde provider. Hierdoor ben je zelf in control van jouw foto's, jouw agenda en contactgegevens, jouw documenten en al het andere.
+
+Bekijk Nextcloud op https://nextcloud.com

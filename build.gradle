@@ -1,0 +1,43 @@
+buildscript {
+    ext {
+        jacoco_version = '0.8.7'
+        kotlin_version = '1.6.10'
+        androidxTestVersion = "1.4.0"
+        daggerVersion = "2.41"
+        markwonVersion = "4.6.2"
+        prismVersion = "2.0.0"
+        androidLibraryVersion = "2.10.1"
+        mockitoVersion = "4.4.0"
+        mockitoKotlinVersion = "4.0.0"
+        mockkVersion = "1.12.3"
+        powermockVersion = "2.0.9"
+        byteBuddyVersion = "1.12.8"
+        espressoVersion = "3.4.0"
+        workRuntime = "2.7.1"
+        fidoVersion = "4.1.0"
+        checkerVersion = "3.21.2"
+        exoplayerVersion = "2.17.1"
+        documentScannerVersion = "1.0.1"
+
+        ciBuild = System.getenv("CI") == "true"
+    }
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            gradlePluginPortal()
+            google()
+            mavenCentral()
+        }
+    }
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

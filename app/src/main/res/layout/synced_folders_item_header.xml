@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud.
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/header_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/alternate_half_padding"
+    android:paddingEnd="@dimen/zero"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingTop="@dimen/alternate_half_padding">
+
+    <LinearLayout
+        android:id="@+id/title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/buttonBar"
+        android:layout_toStartOf="@+id/buttonBar"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/type"
+            android:layout_width="@dimen/synced_folders_item_type_layout_width"
+            android:layout_height="@dimen/synced_folders_item_type_layout_height"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginEnd="@dimen/synced_folders_item_type_layout_right_end_margin"
+            android:contentDescription="@string/synced_folders_type"
+            android:src="@drawable/image_32dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:ellipsize="middle"
+            android:text="@string/placeholder_filename"
+            android:textColor="?android:textColorPrimary"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true">
+
+        <ImageButton
+            android:id="@+id/syncStatusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:contentDescription="@string/sync_status_button"
+            android:focusable="true"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_cloud_sync_off" />
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:contentDescription="@string/synced_folder_settings_button"
+            android:focusable="true"
+            android:paddingEnd="@dimen/synced_folder_padding_end"
+            android:paddingStart="@dimen/standard_half_padding"
+            android:src="@drawable/ic_dots_vertical"/>
+    </LinearLayout>
+</RelativeLayout>

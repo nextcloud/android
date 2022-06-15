@@ -1,0 +1,7 @@
+903b38c18 [tx-robot] updated from transifex
+7a29f488e Sharees will be in NC17 (#4284)
+39cb5d917 sharees will be in NC17 later initialization of storageManager add support for groups catch potential wrong saved sharee date
+66a889825 Connectivity check: no need to use owncloudClient (#4344)
+6473e7ed7 fix unit tests
+0d65c295f [tx-robot] updated from transifex
+9da4251ee daily dev 20190821

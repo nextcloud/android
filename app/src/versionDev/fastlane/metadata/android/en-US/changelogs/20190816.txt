@@ -1,0 +1,5 @@
+b719e98e7 Merge pull request #4325 from nextcloud/dependabot/gradle/com.github.cotechde.hwsecurity-hwsecurity-fido-2.4.6
+caba44f21 Bump hwsecurity-fido from 2.4.5 to 2.4.6
+247a6f80b Merge pull request #4321 from nextcloud/transifex
+a3cedcb94 [tx-robot] updated from transifex
+3b76d520e daily dev 20190815

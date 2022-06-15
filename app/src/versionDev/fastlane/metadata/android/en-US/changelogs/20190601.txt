@@ -1,0 +1,4 @@
+9418ab647 Merge pull request #4078 from nextcloud/ezaquarii/add-battery-status-to-power-manager-service
+b165abebf Merge pull request #4076 from nextcloud/chromebook
+2b36d693e [tx-robot] updated from transifex
+3e7efbe7c daily dev 20190531
