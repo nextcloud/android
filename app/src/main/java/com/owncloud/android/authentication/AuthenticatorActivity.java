@@ -657,7 +657,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(intent);
 
         // Passcode
-        passCodeManager.onActivityStarted(this);
+        passCodeManager.onActivityResumed(this);
 
         Uri data = intent.getData();
 
