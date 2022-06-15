@@ -273,7 +273,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateOCVersion(OwnCloudClient client) {
-        UpdateOCVersionOperation update = new UpdateOCVersionOperation(user.toPlatformAccount(), mContext);
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(user, mContext);
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             // Update Capabilities for this account
@@ -283,7 +283,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateUserProfile() {
         try {
-            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), mContext);
+            NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, mContext);
 
             RemoteOperationResult<UserInfo> result = new GetUserProfileOperation(mStorageManager).execute(nextcloudClient);
             if (!result.isSuccess()) {
@@ -336,7 +336,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         NextcloudClient client;
 
         try {
-            client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), mContext);
+            client = OwnCloudClientFactory.createNextcloudClient(user, mContext);
         } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
             Log_OC.e(this, "Update of predefined status not possible!");
             return;

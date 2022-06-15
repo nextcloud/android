@@ -157,6 +157,7 @@ public final class MimeTypeUtil {
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
+                                             boolean isGroupfolder,
                                              WebdavEntry.MountType mountType,
                                              Context context,
                                              ThemeColorUtils themeColorUtils,
@@ -164,6 +165,7 @@ public final class MimeTypeUtil {
         return getFolderTypeIcon(isSharedViaUsers,
                                  isSharedViaLink,
                                  isEncrypted,
+                                 isGroupfolder,
                                  null,
                                  mountType,
                                  context,
@@ -183,6 +185,7 @@ public final class MimeTypeUtil {
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
+                                             boolean isGroupFolder,
                                              @Nullable User user,
                                              WebdavEntry.MountType mountType,
                                              Context context,
@@ -198,7 +201,7 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder_encrypted;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
-        } else if (WebdavEntry.MountType.GROUP == mountType) {
+        } else if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
             drawableId = R.drawable.folder_group;
         } else {
             drawableId = R.drawable.folder;
@@ -214,6 +217,7 @@ public final class MimeTypeUtil {
                                                 ThemeColorUtils themeColorUtils,
                                                 ThemeDrawableUtils themeDrawableUtils) {
         return getFolderTypeIcon(false,
+                                 false,
                                  false,
                                  false,
                                  WebdavEntry.MountType.INTERNAL,

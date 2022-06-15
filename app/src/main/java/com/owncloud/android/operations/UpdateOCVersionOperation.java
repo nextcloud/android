@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -47,13 +48,12 @@ public class UpdateOCVersionOperation extends RemoteOperation {
 
     private static final String STATUS_PATH = "/status.php";
 
-    private Account mAccount;
+    private final User user;
     private Context mContext;
     private OwnCloudVersion mOwnCloudVersion;
-    
-    
-    public UpdateOCVersionOperation(Account account, Context context) {
-        mAccount = account;
+
+    public UpdateOCVersionOperation(User user, Context context) {
+        this.user = user;
         mContext = context;
         mOwnCloudVersion = null;
     }
@@ -62,7 +62,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         AccountManager accountMngr = AccountManager.get(mContext); 
-        String statUrl = accountMngr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
+        String statUrl = accountMngr.getUserData(user.toPlatformAccount(), Constants.KEY_OC_BASE_URL);
         statUrl += STATUS_PATH;
         RemoteOperationResult result = null;
         GetMethod getMethod = null;
@@ -85,7 +85,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                         String version = json.getString("version");
                         mOwnCloudVersion = new OwnCloudVersion(version);
                         if (mOwnCloudVersion.isVersionValid()) {
-                            accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION, mOwnCloudVersion.getVersion());
+                            accountMngr.setUserData(user.toPlatformAccount(), Constants.KEY_OC_VERSION, mOwnCloudVersion.getVersion());
                             Log_OC.d(TAG, "Got new OC version " + mOwnCloudVersion);
 
                             result = new RemoteOperationResult(ResultCode.OK);

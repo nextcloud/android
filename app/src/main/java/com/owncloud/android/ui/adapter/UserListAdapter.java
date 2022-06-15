@@ -303,7 +303,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 binding.userName.setText(oca.getDisplayName());
             } catch (Exception e) {
                 Log_OC.w(TAG, "Account not found right after being read; using account name instead");
-                binding.userName.setText(UserAccountManager.getUsername(user.toPlatformAccount()));
+                binding.userName.setText(UserAccountManager.getUsername(user));
             }
             binding.userName.setTag(user.getAccountName());
         }

@@ -35,14 +35,12 @@ import java.lang.ref.WeakReference;
 
 public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
 
-    private Account account;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
     private OCFile file;
     private User user;
 
     public TextEditorLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
         this.user = user;
-        this.account = user.toPlatformAccount();
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
         this.file = file;
     }
@@ -62,7 +60,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
         }
 
         RemoteOperationResult result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.getId())
-            .execute(account, editorWebViewWeakReference.get());
+            .execute(user, editorWebViewWeakReference.get());
 
 
         if (!result.isSuccess()) {

@@ -61,7 +61,7 @@ public abstract class SyncOperation extends RemoteOperation {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
                                                    "storage manager for an anonymous account");
         }
-        return super.execute(this.storageManager.getUser().toPlatformAccount(), context);
+        return super.execute(this.storageManager.getUser(), context);
     }
 
     public RemoteOperationResult execute(@NonNull NextcloudClient client) {

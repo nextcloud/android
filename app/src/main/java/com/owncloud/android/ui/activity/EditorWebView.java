@@ -156,6 +156,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                                   file.isSharedWithSharee(),
                                                                               file.isSharedViaLink(),
                                                                               file.isEncrypted(),
+                                                                              file.isGroupFolder(),
                                                                               file.getMountType(),
                                                                               this,
                                                                               themeColorUtils,

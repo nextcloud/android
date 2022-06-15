@@ -149,7 +149,7 @@ class MediaFoldersDetectionWork constructor(
                         for (imageMediaFolder in imageMediaFolderPaths) {
                             val folder = syncedFolderProvider.findByLocalPathAndAccount(
                                 imageMediaFolder,
-                                user.toPlatformAccount()
+                                user
                             )
                             if (folder == null &&
                                 SyncedFolderUtils.isQualifyingMediaFolder(imageMediaFolder, MediaFolderType.IMAGE)
@@ -170,7 +170,7 @@ class MediaFoldersDetectionWork constructor(
                         for (videoMediaFolder in videoMediaFolderPaths) {
                             val folder = syncedFolderProvider.findByLocalPathAndAccount(
                                 videoMediaFolder,
-                                user.toPlatformAccount()
+                                user
                             )
                             if (folder == null) {
                                 val contentTitle = String.format(

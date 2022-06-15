@@ -506,6 +506,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCK_TIMESTAMP, file.getLockTimestamp());
         cv.put(ProviderTableMeta.FILE_LOCK_TIMEOUT, file.getLockTimeout());
         cv.put(ProviderTableMeta.FILE_LOCK_TOKEN, file.getLockToken());
+        cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
 
         return cv;
     }

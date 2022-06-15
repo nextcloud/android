@@ -76,6 +76,7 @@ public class ShareActivity extends FileActivity {
                                                                                       file.isSharedWithSharee(),
                                                                                   file.isSharedViaLink(),
                                                                                   file.isEncrypted(),
+                                                                                  file.isGroupFolder(),
                                                                                   file.getMountType(),
                                                                                   this,
                                                                                   themeColorUtils,

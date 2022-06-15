@@ -61,6 +61,7 @@ done < <(adb devices | cut -f1)
 
 if [ "$emulatorIsRunning" == false ] ; then
     "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+    sleep 20
 fi
 
 if [ -e $5 ] ; then

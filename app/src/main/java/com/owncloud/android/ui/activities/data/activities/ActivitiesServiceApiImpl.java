@@ -28,6 +28,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
@@ -50,7 +51,7 @@ import java.util.List;
 public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     private static final String TAG = ActivitiesServiceApiImpl.class.getSimpleName();
-    private UserAccountManager accountManager;
+    private final UserAccountManager accountManager;
 
     public ActivitiesServiceApiImpl(UserAccountManager accountManager) {
         this.accountManager = accountManager;
@@ -58,7 +59,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
     @Override
     public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
-        GetActivityListTask getActivityListTask = new GetActivityListTask(accountManager.getUser().toPlatformAccount(),
+        GetActivityListTask getActivityListTask = new GetActivityListTask(accountManager.getUser(),
                                                                           lastGiven,
                                                                           callback);
         getActivityListTask.execute();
@@ -68,15 +69,15 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
 
         private final ActivitiesServiceCallback<List<Object>> callback;
         private List<Object> activities;
-        private Account account;
+        private final User user;
         private int lastGiven;
         private String errorMessage;
         private NextcloudClient client;
 
-        private GetActivityListTask(Account account,
+        private GetActivityListTask(User user,
                                     int lastGiven,
                                     ActivitiesServiceCallback<List<Object>> callback) {
-            this.account = account;
+            this.user = user;
             this.lastGiven = lastGiven;
             this.callback = callback;
             activities = new ArrayList<>();
@@ -86,9 +87,8 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         @Override
         protected Boolean doInBackground(Void... voids) {
             final Context context = MainApp.getAppContext();
-            OwnCloudAccount ocAccount;
             try {
-                ocAccount = new OwnCloudAccount(account, context);
+                final OwnCloudAccount ocAccount = user.toOwnCloudAccount();
                 client = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getNextcloudClientFor(ocAccount, MainApp.getAppContext());
 
@@ -117,9 +117,6 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     return Boolean.FALSE;
 
                 }
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                Log_OC.e(TAG, "Account not found", e);
-                errorMessage = "Account not found";
             } catch (IOException e) {
                 Log_OC.e(TAG, "IO error", e);
                 errorMessage = "IO error";
