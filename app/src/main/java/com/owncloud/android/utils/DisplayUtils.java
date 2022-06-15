@@ -104,6 +104,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.RejectedExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -941,12 +942,14 @@ public final class DisplayUtils {
                             });
 
                             thumbnailView.setImageDrawable(asyncDrawable);
-                            asyncTasks.add(task);
                             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                                             file.getRemoteId()));
+                            asyncTasks.add(task);
                         } catch (IllegalArgumentException e) {
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
+                        } catch (RejectedExecutionException e) {
+                            // Executor queue is full, ignore 
                         }
                     }
                 }
