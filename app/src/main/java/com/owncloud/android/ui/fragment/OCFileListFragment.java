@@ -432,7 +432,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         setRecyclerViewAdapter(mAdapter);
 
-        FastScroll.applyFastScroll(getRecyclerView());
+        FastScroll.applyFastScroll(requireContext(), themeColorUtils, themeDrawableUtils, getRecyclerView());
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
