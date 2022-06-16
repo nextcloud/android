@@ -48,11 +48,13 @@ class SessionMixinTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        session = spy(SessionMixin(
-            activity,
-            contentResolver,
-            userAccountManager
-        ))
+        session = spy(
+            SessionMixin(
+                activity,
+                contentResolver,
+                userAccountManager
+            )
+        )
     }
 
     @Test
