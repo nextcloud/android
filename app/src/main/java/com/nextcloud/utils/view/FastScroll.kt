@@ -27,21 +27,57 @@
 
 package com.nextcloud.utils.view
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import me.zhanghai.android.fastscroll.PopupStyles
 
 object FastScroll {
+
     @JvmStatic
     @JvmOverloads
-    fun applyFastScroll(recyclerView: RecyclerView, viewHelper: FastScroller.ViewHelper? = null) {
-        val builder = FastScrollerBuilder(recyclerView).useMd2Style()
+    fun applyFastScroll(
+        context: Context,
+        themeColorUtils: ThemeColorUtils,
+        themeDrawableUtils: ThemeDrawableUtils,
+        recyclerView: RecyclerView,
+        viewHelper: FastScroller.ViewHelper? = null
+    ) {
+        val primaryColor = themeColorUtils.primaryColor(context)
+        val builder = FastScrollerBuilder(recyclerView)
+            .useMd2Style()
+            .setThumbDrawable(getThumbDrawable(context, themeDrawableUtils, primaryColor))
+            .setPopupStyle {
+                PopupStyles.MD2.accept(it)
+                it.background = FastScrollPopupBackground(context, primaryColor)
+            }
         if (viewHelper != null) {
             builder.setViewHelper(viewHelper)
         }
         builder.build()
+    }
+
+    private fun getThumbDrawable(
+        context: Context,
+        themeDrawableUtils: ThemeDrawableUtils,
+        @ColorInt color: Int
+    ): Drawable {
+        val thumbDrawable =
+            ResourcesCompat.getDrawable(
+                context.resources,
+                me.zhanghai.android.fastscroll.R.drawable.afs_md2_thumb,
+                null
+            )
+        themeDrawableUtils.tintDrawable(thumbDrawable, color)
+        return thumbDrawable!!
     }
 
     @JvmStatic

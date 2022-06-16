@@ -118,7 +118,11 @@ public class GalleryFragment extends OCFileListFragment {
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
 
-        FastScroll.applyFastScroll(getRecyclerView(), new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
+        FastScroll.applyFastScroll(requireContext(),
+                                   themeColorUtils,
+                                   themeDrawableUtils,
+                                   getRecyclerView(),
+                                   new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override
