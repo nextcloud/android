@@ -19,25 +19,35 @@
  */
 package com.nextcloud.client.migrations
 
+import android.content.Context
 import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.work.WorkManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
+import com.owncloud.android.utils.PermissionUtil
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 import javax.inject.Inject
+import kotlin.streams.toList
 
 /**
  * This class collects all migration steps and provides API to supply those
  * steps to [MigrationsManager] for execution.
  */
+@Suppress("LongParameterList")
 class Migrations @Inject constructor(
     private val logger: Logger,
     private val userAccountManager: UserAccountManager,
     private val workManager: WorkManager,
     private val arbitraryDataProvider: ArbitraryDataProvider,
-    private val jobManager: BackgroundJobManager
+    private val jobManager: BackgroundJobManager,
+    private val context: Context,
 ) {
 
     companion object {
@@ -119,6 +129,49 @@ class Migrations @Inject constructor(
     }
 
     /**
+     * Delete `(invalid)` folder created by incorrect mediaScanner code in android >= 10 in versions 3.18 - 3.20.2
+     *
+     * This is an ugly hack and should be removed in the future when usage of version < 3.20.3 is low enough
+     */
+    private fun deleteInvalidFolderIfPossible(s: Step) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (PermissionUtil.checkExternalStoragePermission(context)) {
+                val externalRoot = Environment.getExternalStorageDirectory()
+                val mediaFolderPath = context.externalMediaDirs[0].path
+                deleteInvalidFolder(s, externalRoot, mediaFolderPath)
+            } else {
+                logger.i(TAG, "$s: No external storage permission")
+            }
+        } else {
+            logger.i(TAG, "$s: Android version not affected")
+        }
+    }
+
+    private fun deleteInvalidFolder(
+        s: Step,
+        externalRoot: File,
+        mediaFolderPath: String?
+    ): Boolean {
+        val invalidFolderPath = "${externalRoot.path}/(invalid)"
+        val expectedPath = "$invalidFolderPath$mediaFolderPath"
+        val folder = File(expectedPath)
+        return if (folder.exists()) {
+            folder.deleteRecursively()
+            logger.i(TAG, "$s: Removed (invalid) nextcloud subdir")
+            val otherChildren = Files.walk(Paths.get(invalidFolderPath)).filter(Files::isRegularFile).toList()
+            if (otherChildren.isEmpty()) {
+                val invalidFolder = File(invalidFolderPath)
+                invalidFolder.deleteRecursively()
+                logger.i(TAG, "$s: Removed entire (invalid) folder")
+            }
+            true
+        } else {
+            logger.i(TAG, "$s: (invalid) subfolder not present")
+            false
+        }
+    }
+
+    /**
      * List of migration steps. Those steps will be loaded and run by [MigrationsManager].
      *
      * If a migration should be run again (applicable to periodic job restarts), insert
@@ -130,7 +183,8 @@ class Migrations @Inject constructor(
         Step(0, "Migrate user id", false, this::migrateUserId),
         Step(1, "Migrate content observer job", false, this::migrateContentObserverJob),
         Step(2, "Restart contacts backup job", true, this::nop),
-        Step(3, "Restart contacts backup job", true, this::restartContactsBackupJobs)
+        Step(3, "Restart contacts backup job", true, this::restartContactsBackupJobs),
+        Step(4, "Delete (invalid) media folder", true, this::deleteInvalidFolderIfPossible)
     ).sortedBy { it.id }.apply {
         val uniqueIds = associateBy { it.id }.size
         if (uniqueIds != size) {
