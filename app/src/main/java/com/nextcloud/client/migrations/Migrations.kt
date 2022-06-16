@@ -22,7 +22,6 @@ package com.nextcloud.client.migrations
 import android.content.Context
 import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import androidx.work.WorkManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -30,11 +29,10 @@ import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.utils.PermissionUtil
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.filefilter.TrueFileFilter
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
 import javax.inject.Inject
-import kotlin.streams.toList
 
 /**
  * This class collects all migration steps and provides API to supply those
@@ -158,7 +156,9 @@ class Migrations @Inject constructor(
         return if (folder.exists()) {
             folder.deleteRecursively()
             logger.i(TAG, "$s: Removed (invalid) nextcloud subdir")
-            val otherChildren = Files.walk(Paths.get(invalidFolderPath)).filter(Files::isRegularFile).toList()
+            val otherChildren = FileUtils
+                .listFiles(File(invalidFolderPath), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE)
+                .filter { it.isFile }
             if (otherChildren.isEmpty()) {
                 val invalidFolder = File(invalidFolderPath)
                 invalidFolder.deleteRecursively()
