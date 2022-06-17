@@ -61,8 +61,8 @@ public final class FileUtil {
         }
     }
 
-    @Nullable
-    public static Long getCreationTimestamp(File file) {
+    public static @Nullable
+    Long getCreationTimestamp(File file) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return null;
         }

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 62;
+    public static final int DB_VERSION = 63;
 
     private ProviderMeta() {
         // No instance
@@ -117,6 +117,14 @@ public class ProviderMeta {
         public static final String FILE_NOTE = "note";
         public static final String FILE_SHAREES = "sharees";
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
+        public static final String FILE_LOCKED = "locked";
+        public static final String FILE_LOCK_TYPE = "lock_type";
+        public static final String FILE_LOCK_OWNER = "lock_owner";
+        public static final String FILE_LOCK_OWNER_DISPLAY_NAME = "lock_owner_display_name";
+        public static final String FILE_LOCK_OWNER_EDITOR = "lock_owner_editor";
+        public static final String FILE_LOCK_TIMESTAMP = "lock_timestamp";
+        public static final String FILE_LOCK_TIMEOUT = "lock_timeout";
+        public static final String FILE_LOCK_TOKEN = "lock_token";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
             _ID,
@@ -153,8 +161,15 @@ public class ProviderMeta {
             FILE_OWNER_DISPLAY_NAME,
             FILE_NOTE,
             FILE_SHAREES,
-            FILE_RICH_WORKSPACE));
-
+            FILE_RICH_WORKSPACE,
+            FILE_LOCKED,
+            FILE_LOCK_TYPE,
+            FILE_LOCK_OWNER,
+            FILE_LOCK_OWNER_DISPLAY_NAME,
+            FILE_LOCK_OWNER_EDITOR,
+            FILE_LOCK_TIMESTAMP,
+            FILE_LOCK_TIMEOUT,
+            FILE_LOCK_TOKEN));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
@@ -210,6 +225,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_BIGFILECHUNKING = "files_bigfilechunking";
         public static final String CAPABILITIES_FILES_UNDELETE = "files_undelete";
         public static final String CAPABILITIES_FILES_VERSIONING = "files_versioning";
+        public static final String CAPABILITIES_FILES_LOCKING_VERSION = "files_locking_version";
         public static final String CAPABILITIES_EXTERNAL_LINKS = "external_links";
         public static final String CAPABILITIES_SERVER_NAME = "server_name";
         public static final String CAPABILITIES_SERVER_COLOR = "server_color";

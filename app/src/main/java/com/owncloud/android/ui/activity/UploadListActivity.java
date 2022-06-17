@@ -63,7 +63,6 @@ import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;

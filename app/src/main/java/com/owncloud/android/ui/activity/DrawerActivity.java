@@ -102,6 +102,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -112,16 +113,15 @@ import com.owncloud.android.utils.svg.MenuSimpleTarget;
 import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
-import com.owncloud.android.utils.StringUtils;
-import com.owncloud.android.ui.fragment.SharedListFragment;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -378,7 +378,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
     }
-    
+
     /**
      * setup drawer header, basically the logo color
      */
@@ -408,9 +408,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-        FileDataStorageManager storageManager = new FileDataStorageManager(user,
-                                                                           getContentResolver());
-        OCCapability capability = storageManager.getCapability(user.getAccountName());
+        OCCapability capability = getCapabilities();
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
         //trashbin icon is depending on capability due to this it doesn't appear in some of the devices
@@ -483,7 +481,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
-            startRecentlyModifiedSearch(menuItem);
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH),
+                               menuItem.getItemId());
         } /*else if (itemId == R.id.nav_contacts){
             ContactsPreferenceActivity.startActivity(this);
         }*/
@@ -496,20 +495,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
-    }
-
-    private void startRecentlyModifiedSearch(MenuItem menuItem) {
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
-    }
-
-    private void startSharedSearch(MenuItem menuItem) {
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
     private void startActivity(Class<? extends Activity> activity) {
@@ -545,6 +530,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    private void startSharedSearch(MenuItem menuItem) {
+        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
+        MainApp.showOnlyFilesOnDevice(false);
+
+        launchActivityForSearch(searchEvent, menuItem.getItemId());
+    }
+
     private void startPhotoSearch(MenuItem menuItem) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
@@ -569,7 +561,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setAction(Intent.ACTION_SEARCH);
-        intent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
+        intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
         intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
         startActivity(intent);
     }
@@ -1102,7 +1094,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
         startActivity(fileDisplayActivity);
     }
 
@@ -1188,8 +1179,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 User user = accountManager.getUser();
-                String name = user.getAccountName();
-                if (getStorageManager() != null && getStorageManager().getCapability(name).getExternalLinks().isTrue()) {
+                if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
+                    .getExternalLinks().isTrue()) {
 
                     int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
                                                                       FileActivity.APP_OPENED_COUNT);

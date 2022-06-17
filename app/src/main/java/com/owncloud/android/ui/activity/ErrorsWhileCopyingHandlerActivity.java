@@ -68,9 +68,9 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
     public static final String EXTRA_USER =
         ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
     public static final String EXTRA_LOCAL_PATHS =
-        ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
+            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
     public static final String EXTRA_REMOTE_PATHS =
-        ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
+            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
 
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
 
@@ -108,7 +108,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         TextView textView = findViewById(R.id.message);
         String appName = getString(R.string.app_name);
         String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation),
-                                       appName, appName, appName, appName, user.getAccountName());
+                appName, appName, appName, appName, user.getAccountName());
         textView.setText(message);
         textView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -131,15 +131,15 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
         okBtn.setOnClickListener(this);
     }
 
-    /**
-     * Customized adapter, showing the local files as main text in two-lines list item and the
-     * remote files as the secondary text.
-     */
+        /**
+         * Customized adapter, showing the local files as main text in two-lines list item and the
+         * remote files as the secondary text.
+         */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
 
         ErrorsWhileCopyingListAdapter() {
             super(ErrorsWhileCopyingHandlerActivity.this, android.R.layout.two_line_list_item,
-                  android.R.id.text1, mLocalPaths);
+                    android.R.id.text1, mLocalPaths);
         }
 
         @Override
@@ -167,7 +167,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
                     }
                 }
                 if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 &&
-                    position < mRemotePaths.size()) {
+                        position < mRemotePaths.size()) {
                     TextView text2 = view.findViewById(android.R.id.text2);
                     String remotePath = mRemotePaths.get(position);
                     if (text2 != null && remotePath != null) {

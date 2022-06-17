@@ -73,6 +73,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private long endDate;
     private long daySpan = 30;
     private int limit = 300;
+    private GalleryAdapter mAdapter;
 
     private MediaGridItemDecoration mediaGridItemDecoration;
 
@@ -169,6 +170,24 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
+    protected void setAdapter(Bundle args) {
+        mAdapter = new GalleryAdapter(requireContext(),
+                                      accountManager.getUser(),
+                                      this,
+                                      preferences,
+                                      mContainerActivity);
+
+        setRecyclerViewAdapter(mAdapter);
+
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
+        mAdapter.setLayoutManager(layoutManager);
+        getRecyclerView().setLayoutManager(layoutManager);
+
+        FastScroll.applyFastScroll(getRecyclerView(), new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
+    }
+
+    @Override
     public void onRefresh() {
         super.onRefresh();
 
@@ -177,9 +196,20 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
+    public CommonOCFileListAdapterInterface getCommonAdapter() {
+        return mAdapter;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         setLoading(photoSearchQueryRunning);
+        final FragmentActivity activity = getActivity();
+        if (activity instanceof FileDisplayActivity) {
+            FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) activity);
+            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+            fileDisplayActivity.setMainFabVisible(false);
+        }
     }
 
     @Override
@@ -192,9 +222,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFilePath.getRemotePath(),
-                                     mediaObject, preferences.getHideVideoClicked(), preferences.getHideImageClicked(),
-                                     imageList, videoList, this);
+        mAdapter.showAllGalleryItems();
 
         setFabVisible(false);
 
@@ -218,10 +246,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         photoSearchQueryRunning = false;
 
         if (mAdapter.isEmpty()) {
-            setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
 
-        if (emptySearch && getAdapter().getItemCount() > 0) {
+        if (emptySearch && mAdapter.getItemCount() > 0) {
             Log_OC.d(this, "End gallery search");
             return;
         }
@@ -329,6 +357,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 mContainerActivity.getStorageManager(),
                                                 startDate,
                                                 endDate,
+                                                limit)
+            .execute();
+    }
                                                 limit, remoteFilePath.getRemotePath(), mediaObject,
                                                 appPreferences.getHideImageClicked(),
                                                 appPreferences.getHideVideoClicked()).execute();
@@ -343,7 +374,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             mFile,
             true);
         mAdapter.notifyDataSetChanged();
-    }
+
 
     private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
@@ -447,4 +478,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     }
 
+    public void showAllGalleryItems() {
+        mAdapter.showAllGalleryItems();
+    }
 }

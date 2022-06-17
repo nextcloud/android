@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -62,5 +63,18 @@ public class FileIT extends AbstractOnServerIT {
                                 targetContext,
                                 getStorageManager())
             .execute(client);
+    }
+
+    @Test
+    public void testRemoteIdNull() {
+        getStorageManager().deleteAllFiles();
+        assertEquals(0, getStorageManager().getAllFiles().size());
+
+        OCFile test = new OCFile("/123.txt");
+        getStorageManager().saveFile(test);
+        assertEquals(1, getStorageManager().getAllFiles().size());
+
+        getStorageManager().deleteAllFiles();
+        assertEquals(0, getStorageManager().getAllFiles().size());
     }
 }

@@ -72,7 +72,6 @@ import java.io.File;
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.ContextThemeWrapper;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -619,7 +618,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
 
             default:
-                status = "Uncontrolled status: " + upload.getUploadStatus().toString();
+                status = "Uncontrolled status: " + upload.getUploadStatus();
         }
         return status;
     }

@@ -26,6 +26,12 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+    <!-- Used for document scanning, but lib declares it as required, which it's not -->
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false"
+        tools:node="replace" />
+
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
     <uses-permission
@@ -35,6 +41,8 @@
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -116,6 +124,11 @@
                 android:resource="@xml/users_and_groups_searchable" />
         </activity>
         <activity
+            android:name=".ui.activity.AppScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.activity.ManageAccountsActivity"
             android:exported="false" />
         <activity
@@ -185,7 +198,8 @@
             android:theme="@style/Theme.ownCloud" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
             android:exported="false"
@@ -461,7 +475,7 @@
         <activity
             android:name=".ui.activity.FolderPickerActivity"
             android:exported="false"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".ui.activity.FilePickerActivity"
             android:exported="false"
@@ -484,6 +498,11 @@
                 android:resource="@xml/users_and_groups_searchable" />
         </activity>
 
+        <activity
+            android:name=".ui.activity.ManageSpaceActivity"
+            android:exported="false"
+            android:label="@string/manage_space_title"
+            android:theme="@style/Theme.ownCloud" />
 
         <service
             android:name=".services.AccountManagerService"
@@ -501,6 +520,11 @@
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Toolbar" />
 
+        <activity
+            android:name=".ui.preview.PreviewBitmapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.OverlayGrey" />
+
         <!-- Adjust SDK Declarations -->
         <receiver
             android:name="com.adjust.sdk.AdjustReferrerReceiver"
@@ -510,36 +534,6 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
-
-        <!--
-       This activity declaration is merged with the version from the library manifest.
-       It demonstrates how an https redirect can be captured, in addition to or instead of
-       a custom scheme.
-
-       Generally, this should be done in conjunction with an app link declaration for Android M
-       and above, for additional security and an improved user experience. See:
-
-       https://developer.android.com/training/app-links/index.html
-
-       The declaration from the library can be completely replaced by adding
-
-       tools:node="replace"
-
-       To the list of attributes on the activity element.
-       -->
-        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <!--<data android:scheme="https"
-                  android:host="appauth.demo-app.io"
-                  android:path="/oauth2redirect"/>-->
-                <data android:scheme="https"
-                    android:host="nextmagentacloudaos"
-                    android:path="/login"/>
-            </intent-filter>
-        </activity>
 
     </application>
 

@@ -68,7 +68,7 @@ internal class LoggerImpl(
     }
 
     override fun d(tag: String, message: String, t: Throwable) {
-        Log.d(tag, message)
+        Log.d(tag, message, t)
         enqueue(Level.DEBUG, tag, message)
     }
 
@@ -88,7 +88,7 @@ internal class LoggerImpl(
     }
 
     override fun e(tag: String, message: String, t: Throwable) {
-        Log.e(tag, message)
+        Log.e(tag, message, t)
         enqueue(Level.ERROR, tag, message)
     }
 

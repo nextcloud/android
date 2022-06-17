@@ -202,6 +202,7 @@ class PreviewVideoActivity :
     private fun play(item: MediaItem) {
         exoPlayer?.addMediaItem(item)
         exoPlayer?.prepare()
+
         if (mAutoplay) {
             exoPlayer?.play()
         }

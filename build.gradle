@@ -1,12 +1,12 @@
 buildscript {
     ext {
-        jacoco_version = '0.8.8'
-        kotlin_version = '1.6.20'
+        jacoco_version = '0.8.7'
+        kotlin_version = '1.6.10'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.41"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
-        androidLibraryVersion = "master-SNAPSHOT"
+        androidLibraryVersion = "2.10.1"
         mockitoVersion = "4.4.0"
         mockitoKotlinVersion = "4.0.0"
         mockkVersion = "1.12.3"
@@ -27,17 +27,15 @@ buildscript {
 subprojects {
     buildscript {
         repositories {
+            gradlePluginPortal()
             google()
-            maven {
-                url 'https://plugins.gradle.org/m2/'
-            }
             mavenCentral()
         }
     }
     repositories {
         google()
-        maven { url "https://jitpack.io" }
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 

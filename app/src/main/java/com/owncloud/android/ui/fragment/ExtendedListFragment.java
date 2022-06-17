@@ -25,7 +25,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -75,7 +74,6 @@ import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
@@ -144,18 +142,6 @@ public class ExtendedListFragment extends Fragment implements
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
     private ListFragmentBinding binding;
-
-    @Parcel
-    public enum SearchType {
-        NO_SEARCH,
-        REGULAR_FILTER,
-        FILE_SEARCH,
-        FAVORITE_SEARCH,
-        GALLERY_SEARCH,
-        RECENTLY_MODIFIED_SEARCH,
-        // not a real filter, but nevertheless
-        SHARED_FILTER
-    }
 
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -258,14 +244,7 @@ public class ExtendedListFragment extends Fragment implements
         if (query.isEmpty()) {
             closeButton.setVisibility(View.INVISIBLE);
         }
-
-        if (getFragmentManager() != null && getFragmentManager().
-            findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
-            performSearch(query, false);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override

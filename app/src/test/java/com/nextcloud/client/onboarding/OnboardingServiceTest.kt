@@ -27,8 +27,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.kotlin.whenever
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.whenever
 
 class OnboardingServiceTest {
 

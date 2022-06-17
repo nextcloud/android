@@ -38,6 +38,10 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         trashBinView, localFileListView
     }
 
+    enum class SortType {
+        SIZE, ALPHABET, DATE
+    }
+
     companion object {
         const val sort_a_to_z_id = "sort_a_to_z"
         const val sort_z_to_a_id = "sort_z_to_a"
@@ -105,5 +109,20 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
 
     open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
         return files
+    }
+
+    open fun getType(): SortType {
+        return when (name) {
+            sort_z_to_a_id,
+            sort_a_to_z_id -> SortType.ALPHABET
+
+            sort_small_to_big_id,
+            sort_big_to_small_id -> SortType.SIZE
+
+            sort_new_to_old_id,
+            sort_old_to_new_id -> SortType.DATE
+
+            else -> SortType.ALPHABET
+        }
     }
 }

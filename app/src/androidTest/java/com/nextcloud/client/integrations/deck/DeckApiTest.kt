@@ -25,12 +25,6 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.account.User
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.anyOrNull
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -41,6 +35,12 @@ import org.junit.runners.Parameterized
 import org.junit.runners.Suite
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(

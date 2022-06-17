@@ -206,9 +206,11 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
                         startDialog();
                     } else {
+                        Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.getHttpCode());
                         showErrorAndFinish();
                     }
                 } catch (Exception e) {
+                    Log_OC.e(TAG, "Error when trying to fetch remote file", e);
                     showErrorAndFinish();
                 }
 
@@ -223,6 +225,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         Optional<User> userOptional = getUser();
 
         if (!userOptional.isPresent()) {
+            Log_OC.e(TAG, "User not present");
             showErrorAndFinish();
         }
 
@@ -236,11 +239,12 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
         if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
             ConflictsResolveConsentDialog dialog = ConflictsResolveConsentDialog.newInstance(existingFile,
-                                                                                      newFile,
-                                                                                      userOptional.get());
+                                                                               newFile,
+                                                                               userOptional.get());
             dialog.show(fragmentTransaction, "conflictDialog");
         } else {
             // Account was changed to a different one - just finish
+            Log_OC.e(TAG, "Account was changed, finishing");
             showErrorAndFinish();
         }
     }

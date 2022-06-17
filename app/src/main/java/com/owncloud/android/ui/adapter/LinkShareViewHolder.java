@@ -26,6 +26,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.View;

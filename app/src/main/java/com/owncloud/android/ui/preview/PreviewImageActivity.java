@@ -283,17 +283,17 @@ public class PreviewImageActivity extends FileActivity implements
         public void onServiceConnected(ComponentName component, IBinder service) {
 
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                                                   FileDownloader.class))) {
+                    FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
-                        "of download binder");
+                            "of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
 
             } else if (component.equals(new ComponentName(PreviewImageActivity.this,
-                                                          FileUploader.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             }
@@ -303,11 +303,11 @@ public class PreviewImageActivity extends FileActivity implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                                                   FileDownloader.class))) {
+                    FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this,
-                                                          FileUploader.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
@@ -482,7 +482,7 @@ public class PreviewImageActivity extends FileActivity implements
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             if (getAccount().name.equals(accountName) &&
-                downloadedRemotePath != null) {
+                    downloadedRemotePath != null) {
 
                 OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);

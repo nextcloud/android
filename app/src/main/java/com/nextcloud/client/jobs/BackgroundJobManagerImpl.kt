@@ -35,6 +35,10 @@ import androidx.work.Operation
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.nextcloud.client.account.User
+import com.nextcloud.client.core.Clock
+import java.util.Date
+import java.util.UUID
 import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
@@ -105,7 +109,6 @@ internal class BackgroundJobManagerImpl(
                 "$TAG_PREFIX_NAME:$name ${user.accountName}"
             }
         }
-
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
         fun formatTimeTag(startTimestamp: Long): String = "$TAG_PREFIX_START_TIMESTAMP:$startTimestamp"
 

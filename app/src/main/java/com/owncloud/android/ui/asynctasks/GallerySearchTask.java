@@ -46,6 +46,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import androidx.lifecycle.Lifecycle;
+
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
     private final User user;
@@ -116,11 +118,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
                 boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                 long lastTimeStamp = findLastTimestamp(result.getData());
-
-                photoFragment.getAdapter().showAllGalleryItems(storageManager, remotePath,
-                                                               mediaObject, isVideoHideClicked, isImageHideClicked,
-                                                               imageList, videoList, photoFragment);
-
                 return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {
                 return new Result(false, false, -1);
@@ -136,12 +133,17 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             photoFragment.setLoading(false);
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
 
-            if (!result.success) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            if (result.success && photoFragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                photoFragment.getAdapter().showAllGalleryItems(storageManager, remotePath,
+                                                               mediaObject, isVideoHideClicked, isImageHideClicked,
+                                                               imageList, videoList, photoFragment);
+
+
+            } else {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
             }
         }
     }
-
 
     //Set Image/Video List According to Selection of Hide/Show Image/Video
     public static void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter,
@@ -249,7 +251,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         Log_OC.d(this, "Gallery search result:" +
             " new: " + filesToAdd.size() +
             " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.values().size());
+            " deleted: " + localFilesMap.size());
 
         return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
     }
@@ -259,7 +261,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                                          Collection<OCFile> filesToRemove) {
         return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
     }
-
 
     public static class Result {
         public boolean success;
@@ -272,5 +273,4 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             this.lastTimestamp = lastTimestamp;
         }
     }
-
 }

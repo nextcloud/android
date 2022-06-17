@@ -226,11 +226,15 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
     @ContributesAndroidInjector abstract FileSyncService fileSyncService();
     @ContributesAndroidInjector abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
-    @ContributesAndroidInjector
-    abstract SharedListFragment sharedFragment();
+
     @ContributesAndroidInjector
     abstract RenameFileDialogFragment renameFileDialogFragment();
     @ContributesAndroidInjector
     abstract CreateFolderDialogFragment createFolderDialogFragment();
 
+    @ContributesAndroidInjector
+    abstract PreviewPdfFragment previewPDFFragment();
+
+    @ContributesAndroidInjector
+    abstract SharedListFragment sharedFragment();
 }

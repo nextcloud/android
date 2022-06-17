@@ -66,7 +66,6 @@ import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcels;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -118,9 +117,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
-            userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
+            userInfo = savedInstanceState.getParcelable(KEY_USER_DATA);
         } else if (bundle.containsKey(KEY_ACCOUNT)) {
-            userInfo = Parcels.unwrap(bundle.getParcelable(KEY_USER_DATA));
+            userInfo = bundle.getParcelable(KEY_USER_DATA);
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);
@@ -352,7 +351,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (userInfo != null) {
-            outState.putParcelable(KEY_USER_DATA, Parcels.wrap(userInfo));
+            outState.putParcelable(KEY_USER_DATA, userInfo);
         }
     }
 

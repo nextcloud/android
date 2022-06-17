@@ -165,7 +165,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             } else {
                 if (file.isEncrypted()) {
                     fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
-                }else if (PreviewMediaFragment.canBePreviewed(file)) {
+                } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     fragment = PreviewMediaFragment.newInstance(file, user, 0, false);
                 }
                 else {

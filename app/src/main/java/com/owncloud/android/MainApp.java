@@ -184,7 +184,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     InAppReviewHelper inAppReviewHelper;
 
-    private PassCodeManager passCodeManager;
+    @Inject
+    PassCodeManager passCodeManager;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -197,23 +198,24 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     /**
-     * Temporary getter replacing Dagger DI TODO: remove when cleaning DI in NContentObserverJob
+     * Temporary getter replacing Dagger DI
+     * TODO: remove when cleaning DI in NContentObserverJob
      */
     public AppPreferences getPreferences() {
         return preferences;
     }
 
     /**
-     * Temporary getter replacing Dagger DI TODO: remove when cleaning DI in NContentObserverJob
+     * Temporary getter replacing Dagger DI
+     * TODO: remove when cleaning DI in NContentObserverJob
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
     }
 
-
     private String getAppProcessName() {
         String processName = "";
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
             final int ownPid = android.os.Process.myPid();
             final List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
@@ -244,9 +246,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         // we don't want to handle crashes occurring inside crash reporter activity/process;
         // let the platform deal with those
         final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
-        final boolean useExceptionHandler = !appInfo.isDebugBuild();
 
-        if (!isCrashReportingProcess && useExceptionHandler) {
+        if (!isCrashReportingProcess) {
             Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
             final ExceptionHandler crashReporter = new ExceptionHandler(this,
                                                                         defaultPlatformHandler);
@@ -282,7 +283,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         DisplayUtils.useCompatVectorIfNeeded();
 
         fixStoragePath();
-        passCodeManager = new PassCodeManager(preferences);
 
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 

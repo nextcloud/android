@@ -110,7 +110,7 @@ public class RenameFileOperation extends SyncOperation {
         } catch (IOException e) {
             Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath == null) ?
                 newName : newRemotePath) + ": " +
-                (result!= null ? result.getLogMessage() : ""), e);
+                    (result!= null ? result.getLogMessage() : ""), e);
         }
 
         return result;

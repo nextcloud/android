@@ -1,17 +1,21 @@
 /**
- * ownCloud Android client application
+ *   ownCloud Android client application
  *
- * @author David A. Velasco Copyright (C) 2015 ownCloud Inc.
- * <p>
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2, as published by the Free Software Foundation.
- * <p>
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
- * <p>
- * You should have received a copy of the GNU General Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package com.owncloud.android.ui.dialog;
@@ -42,6 +46,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -67,7 +74,7 @@ public class CreateFolderDialogFragment
      * Public factory method to create new CreateFolderDialogFragment instances.
      *
      * @param parentFolder            Folder to create
-     * @return Dialog ready to show.
+     * @return                        Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();

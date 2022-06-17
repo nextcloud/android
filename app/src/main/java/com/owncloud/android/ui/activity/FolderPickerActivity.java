@@ -57,6 +57,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -358,7 +359,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     public void refreshListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectoryFolder(false, fromSearch,mShowOnlyFolder);
+            fileListFragment.listDirectoryFolder(false, fromSearch, mShowOnlyFolder);
         }
     }
 
@@ -464,10 +465,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     ) {
 
         if (result.isSuccess()) {
-            OCFileListFragment fileListFragment = getListOfFilesFragment();
-            if (fileListFragment != null) {
-                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
-            }
+            refreshListOfFilesFragment(false);
         } else {
             try {
                 DisplayUtils.showSnackMessage(

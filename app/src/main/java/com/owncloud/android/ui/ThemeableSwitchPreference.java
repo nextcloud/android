@@ -38,7 +38,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 
 /**
- * Themeable switch preference TODO Migrate to androidx
+ * Themeable switch preference
+ * TODO Migrate to androidx
  */
 public class ThemeableSwitchPreference extends SwitchPreference {
 
@@ -63,10 +64,9 @@ public class ThemeableSwitchPreference extends SwitchPreference {
         }
     }
 
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void findSwitch(ViewGroup viewGroup) {
-        ColorStateList thumbColorStateList;
-        ColorStateList trackColorStateList;
+        ColorStateList thumbColorStateList = null;
+        ColorStateList trackColorStateList = null;
 
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);

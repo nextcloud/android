@@ -25,12 +25,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,9 +60,9 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-
+import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +71,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -121,6 +118,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private SearchView mSearchView;
     private Spinner mBehaviourSpinner;
     private MaterialButton uploadButton;
+
+
+    @VisibleForTesting
+    public LocalFileListFragment getFileListFragment() {
+        return mFileListFragment;
+    }
 
     /**
      * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
@@ -289,8 +292,18 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
+    private void requestPermissions() {
+        PermissionUtil.requestExternalStoragePermission(this, true);
+    }
+
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestPermissions();
     }
 
     private void fillDirectoryDropdown() {
@@ -354,25 +367,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private void checkLocalStoragePathPickerPermission() {
         if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            // Check if we should show an explanation
-            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
-                                                                    PermissionUtil.getExternalStoragePermission())) {
-                // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                                                  R.string.permission_storage_access,
-                                                  Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_ok, v -> PermissionUtil.requestExternalStoragePermission(this));
-                ThemeSnackbarUtils.colorSnackbar(this, snackbar);
-                snackbar.show();
-            } else {
-                // No explanation needed, request the permission.
-                PermissionUtil.requestExternalStoragePermission(this);
-            }
-
-            return;
+            requestPermissions();
+        } else {
+            showLocalStoragePathPickerDialog();
         }
-
-        showLocalStoragePathPickerDialog();
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -537,7 +535,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             // return the list of files (success)
             Intent data = new Intent();
 
-            if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+            if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA ||
+                requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA) {
                 data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
                 setResult(RESULT_OK_AND_DELETE, data);
 
@@ -674,20 +673,24 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (mCurrentDir != null) {
-                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
-            }
-            if (mLocalFolderPickerMode) {
-                Intent data = new Intent();
+            if (PermissionUtil.checkExternalStoragePermission(this)) {
                 if (mCurrentDir != null) {
-                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
                 }
-                setResult(RESULT_OK, data);
+                if (mLocalFolderPickerMode) {
+                    Intent data = new Intent();
+                    if (mCurrentDir != null) {
+                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                    }
+                    setResult(RESULT_OK, data);
 
-                finish();
+                    finish();
+                } else {
+                    new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
+                        .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                }
             } else {
-                new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
-                    .execute(mBehaviourSpinner.getSelectedItemPosition() == 0);
+                requestPermissions();
             }
         }
     }

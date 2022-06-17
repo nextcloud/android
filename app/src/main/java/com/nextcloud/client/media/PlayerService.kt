@@ -142,12 +142,8 @@ class PlayerService : Service() {
         val file: OCFile = intent.getParcelableExtra(EXTRA_FILE)!!
         val startPos = intent.getLongExtra(EXTRA_START_POSITION_MS, 0)
         val autoPlay = intent.getBooleanExtra(EXTRA_AUTO_PLAY, true)
-        user?.let {
-            file?.let { f ->
-                val item = PlaylistItem(file = f, startPositionMs = startPos, autoPlay = autoPlay, user = it)
-                player.play(item)
-            }
-        }
+        val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
+        player.play(item)
     }
 
     private fun onActionStop() {

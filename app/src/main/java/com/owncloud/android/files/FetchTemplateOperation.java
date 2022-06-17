@@ -81,8 +81,8 @@ public class FetchTemplateOperation extends RemoteOperation {
                     templateArray.add(new Template(templateObject.getInt("id"),
                                                    templateObject.getString("name"),
                                                    templateObject.optString("preview"),
-                                                   Template.parse(templateObject.getString("type")
-                                                                             .toUpperCase(Locale.ROOT)),
+                                                   Template.Type.parse(templateObject.getString("type")
+                                                                            .toUpperCase(Locale.ROOT)),
                                                    templateObject.getString("extension")));
                 }
 
