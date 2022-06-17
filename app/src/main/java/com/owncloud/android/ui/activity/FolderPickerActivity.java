@@ -45,11 +45,13 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DataHolderUtil;
@@ -457,11 +459,18 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             try {
                 DisplayUtils.showSnackMessage(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                                             );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
+        }
+    }
+
+    public void search(String query) {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        if (fileListFragment != null) {
+            fileListFragment.onMessageEvent(new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH));
         }
     }
 
