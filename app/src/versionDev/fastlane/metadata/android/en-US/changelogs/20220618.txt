@@ -1,0 +1,2 @@
+FolderPickerActivity: fix search when copying/moving files
+Update Nextcloud Android library
