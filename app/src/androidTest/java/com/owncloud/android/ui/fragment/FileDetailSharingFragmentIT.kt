@@ -835,8 +835,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @After
-    fun after() {
+    override fun after() {
         activity.storageManager.cleanShares()
         activity.finish()
+
+        super.after()
     }
 }
