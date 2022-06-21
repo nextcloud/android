@@ -346,7 +346,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                passCodeManager.onActivityStarted(activity);
+                passCodeManager.onActivityResumed(activity);
             }
 
             @Override

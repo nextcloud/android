@@ -133,4 +133,11 @@ class SessionMixin constructor(
         val account = accountManager.currentAccount
         setAccount(account)
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (currentAccount == null) {
+            swapToDefaultAccount()
+        }
+    }
 }

@@ -284,12 +284,12 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         outState.putParcelable(EXTRA_FILE, getFile());
         outState.putParcelable(EXTRA_USER, user);
 
-        if (MimeTypeUtil.isVideo(getFile())) {
+        if (MimeTypeUtil.isVideo(getFile()) && exoPlayer != null) {
             savedPlaybackPosition = exoPlayer.getCurrentPosition();
             autoplay = exoPlayer.isPlaying();
             outState.putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition);
             outState.putBoolean(EXTRA_PLAYING, autoplay);
-        } else if (mediaPlayerServiceConnection.isConnected()) {
+        } else if (mediaPlayerServiceConnection != null && mediaPlayerServiceConnection.isConnected()) {
             outState.putInt(EXTRA_PLAY_POSITION, mediaPlayerServiceConnection.getCurrentPosition());
             outState.putBoolean(EXTRA_PLAYING, mediaPlayerServiceConnection.isPlaying());
         }
