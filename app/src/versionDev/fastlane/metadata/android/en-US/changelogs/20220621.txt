@@ -1,0 +1,9 @@
+fix ktlint error
+UploadFilesActivity: fix upload not working when space is insufficient
+ChooseRichDocumentsTemplate: avoid IOOBE if there is no dot in field
+Lock: ensure underlying activity isn't shown while waiting for lock screen to render
+PreviewMediaFragment: prevent NPE on onSaveInstanceState
+test onResume account check in SessionMixin
+check for account in onResume mixin
+Update Nextcloud Android library
+Update 3rd-party dependencies
