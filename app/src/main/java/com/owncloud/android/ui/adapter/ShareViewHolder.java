@@ -26,19 +26,16 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;

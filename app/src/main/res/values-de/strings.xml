@@ -331,8 +331,9 @@
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission">Berechtigungen erforderlich</string>
-    <string name="file_management_permission_text">%s benötigt Berechtigungen für die Dateiverwaltung, um richtig zu
-        funktionieren. Um fortfahren zu können, aktivieren Sie diese bitte auf dem folgenden Bildschirm.</string>
+    <string name="file_management_permission_optional">Speicherberechtigungen</string>
+    <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
+    <string name="file_management_permission_text">%1$s benötigt Dateiverwaltungsberechtigungen, um Dateien hochzuladen. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen. </string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
@@ -426,10 +427,6 @@
     <string name="lock_file">Datei sperren</string>
     <string name="locked_by">Gesperrt von %1$s</string>
     <string name="locked_by_app">Gesperrt von der App %1$s</string>
-    <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
-    <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
-    <string name="login">Anmelden</string>
-    <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>

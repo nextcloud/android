@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,16 +35,22 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nmc.android.ui.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GridImageBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
@@ -55,11 +63,10 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
-    private var ocFileListDelegate: OCFileListDelegate
-    private var storageManager: FileDataStorageManager
+    private val ocFileListDelegate: OCFileListDelegate
+    private val storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
     init {
-        storageManager = transferServiceGetter.storageManager
 
         ocFileListDelegate = OCFileListDelegate(
             context,
@@ -71,7 +78,9 @@ class GalleryAdapter(
             true,
             transferServiceGetter,
             showMetadata = false,
-            showShareAvatar = false
+            showShareAvatar = false,
+            true,
+            null
         )
     }
 
@@ -144,15 +153,67 @@ class GalleryAdapter(
         TODO("Not yet implemented")
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems() {
-        val items = storageManager.allGalleryItems
 
-        files = items
+    @SuppressLint("NotifyDataSetChanged")
+    fun showAllGalleryItems(
+        storageManager: FileDataStorageManager,
+        remotePath: String,
+        mediaObject: MutableList<OCFile>,
+        isVideoHideClicked: Boolean,
+        isImageHideClicked: Boolean,
+        photoFragment: GalleryFragment
+    ) {
+        val items = storageManager.allGalleryItems
+        mediaObject.clear()
+
+        mediaObject.addAll(
+            items.filter { it != null && it.remotePath.startsWith(remotePath) }
+        )
+
+        setMediaFilter(
+            mediaObject,
+            isVideoHideClicked,
+            isImageHideClicked,
+            photoFragment
+        )
+    }
+
+    // Set Image/Video List According to Selection of Hide/Show Image/Video
+    @SuppressLint("NotifyDataSetChanged")
+    fun setMediaFilter(
+        mediaObject: List<OCFile>,
+        isVideoHideClicked: Boolean,
+        isImageHideClicked: Boolean,
+        photoFragment: GalleryFragment
+    ) {
+
+        val finalSortedList: List<OCFile> = when {
+            isVideoHideClicked -> {
+                mediaObject.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+            }
+            isImageHideClicked -> {
+                mediaObject.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+            }
+            else -> {
+                mediaObject
+            }
+        }
+
+        if (finalSortedList.isEmpty()) {
+            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+        }
+
+        files = finalSortedList
             .groupBy { firstOfMonth(it.modificationTimestamp) }
             .map { GalleryItems(it.key, FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(it.value)) }
             .sortedBy { it.date }.reversed()
 
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clear() {
+        files = emptyList()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
@@ -171,8 +232,13 @@ class GalleryAdapter(
         return files.isEmpty()
     }
 
-    fun getItem(position: Int): OCFile {
+    fun getItem(position: Int): OCFile? {
         val itemCoord = getRelativePosition(position)
+
+        if (itemCoord.section() < 0 || itemCoord.section() >= files.size
+            || itemCoord.relativePos() < 0 || itemCoord.relativePos() >= files[itemCoord.section()].files.size) {
+            return null
+        }
 
         return files[itemCoord.section()].files[itemCoord.relativePos()]
     }

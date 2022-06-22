@@ -101,7 +101,7 @@
                 android:paddingEnd="@dimen/standard_half_padding"
                 android:paddingBottom="@dimen/standard_eight_padding"
                 android:text="@string/login_url_helper_text"
-                android:textColor="@color/white_helper_text" />
+                android:textColor="@color/login_text_color" />
 
             <TextView
                 android:id="@+id/server_status_text"

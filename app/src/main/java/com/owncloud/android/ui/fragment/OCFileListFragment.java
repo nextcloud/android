@@ -43,12 +43,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
-import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.files.FileLockingMenuCustomization;
+import com.nextcloud.android.files.ThemedPopupMenu;
+import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -59,6 +62,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.view.FastScroll;
 import com.nmc.android.ui.ScanActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
@@ -79,14 +84,13 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
+import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.decoration.SimpleListItemDividerDecoration;
@@ -534,22 +538,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_CAMERA_UPLOAD, preferences);
         TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_CAMERA_UPLOAD, preferences);
     }
-
-    @Override
-    public void scanDocUpload() {
-        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-
-        if (fileDisplayActivity != null) {
-            AppScanActivity
-                .scanFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
-        } else {
-            Toast.makeText(getContext(),
-                           getString(R.string.error_starting_direct_camera_upload),
-                           Toast.LENGTH_SHORT)
-                .show();
-        }
-    }
-
 
     @Override
     public void uploadFiles() {
@@ -1404,9 +1392,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         //Notify the adapter only for Gallery
         //this will be used when user rotated the image and come back
         //so we have to update the thumbnail of the rotated image
-        //this method will also be called when uploading of the any file (rotated image) is finshed
-        if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.PHOTO_SEARCH && mAdapter != null){
-             mAdapter.notifyDataSetChanged();
+        //this method will also be called when uploading of the any file (rotated image) is finished
+        if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.PHOTO_SEARCH && getRecyclerView().getAdapter() != null){
+             getRecyclerView().getAdapter().notifyDataSetChanged();
         }
     }
 
@@ -1735,7 +1723,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     protected void handleSearchEvent(SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
             return;
         }
 
@@ -2101,7 +2089,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mAdapter.notifyDataSetChanged();
+        if (getAdapter() != null) {
+            getAdapter().notifyDataSetChanged();
+        }
         updateSpanCount(newConfig);
     }
 
@@ -2112,7 +2102,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     private void updateSpanCount(Configuration newConfig){
         //this should only run when current view is not media gallery
-        if (getAdapter() != null && !getAdapter().isMediaGallery()) {
+        if (getAdapter() != null) {
             int maxColumnSize = (int) AppPreferencesImpl.DEFAULT_GRID_COLUMN;
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 //add the divider item decorator when orientation is landscape and device is not tablet

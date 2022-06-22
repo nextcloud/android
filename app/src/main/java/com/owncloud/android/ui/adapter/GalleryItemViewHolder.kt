@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridImageBinding
@@ -44,6 +45,9 @@ class GalleryItemViewHolder(val binding: GridImageBinding) :
 
     override val shared: ImageView
         get() = binding.sharedIcon
+
+    override val sharedMessage: TextView
+        get() = binding.sharedMessage
 
     override val checkbox: ImageView
         get() = binding.customCheckbox

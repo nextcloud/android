@@ -1139,7 +1139,8 @@
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
     <string name="file_management_permission">Permissions needed</string>
-    <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
+    <string name="file_management_permission_optional">Storage permissions</string>
+    <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="prefs_category_account_info">Account Information</string>
     <string name="common_login">Login</string>

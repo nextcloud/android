@@ -30,6 +30,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.share_download_limit.DeleteShareDownloadLimitRemoteOperation;

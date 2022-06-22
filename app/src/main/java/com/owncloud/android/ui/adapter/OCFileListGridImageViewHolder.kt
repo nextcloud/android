@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridImageBinding
@@ -42,6 +43,8 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         get() = binding.localFileIndicator
     override val shared: ImageView
         get() = binding.sharedIcon
+    override val sharedMessage: TextView
+        get() = binding.sharedMessage
     override val checkbox: ImageView
         get() = binding.customCheckbox
     override val itemLayout: View

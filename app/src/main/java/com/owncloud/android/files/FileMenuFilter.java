@@ -173,7 +173,7 @@ public class FileMenuFilter {
         }
     }
 
-    private static void showMenuItem(MenuItem item) {
+    public static void showMenuItem(MenuItem item) {
         if (item != null) {
             item.setVisible(true);
             item.setEnabled(true);

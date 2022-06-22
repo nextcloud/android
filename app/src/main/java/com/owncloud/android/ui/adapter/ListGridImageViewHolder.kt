@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 
 interface ListGridImageViewHolder {
@@ -31,6 +32,7 @@ interface ListGridImageViewHolder {
     val favorite: ImageView
     val localFileIndicator: ImageView
     val shared: ImageView
+    val sharedMessage: TextView
     val checkbox: ImageView
     val itemLayout: View
     val unreadComments: ImageView

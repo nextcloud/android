@@ -25,6 +25,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -68,8 +69,6 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
@@ -145,6 +144,10 @@ public class ExtendedListFragment extends Fragment implements
 
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    protected void setRecyclerViewHasFooter(boolean hasFooter) {
+        mRecyclerView.setHasFooter(hasFooter);
     }
 
     protected RecyclerView getRecyclerView() {
@@ -317,7 +320,7 @@ public class ExtendedListFragment extends Fragment implements
         binding = ListFragmentBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        setupEmptyList(v);
+        setupEmptyList();
 
         mRecyclerView = binding.listRoot;
         mRecyclerView.setHasFooter(true);
@@ -392,7 +395,7 @@ public class ExtendedListFragment extends Fragment implements
         }
     }
 
-    protected void setupEmptyList(View view) {
+    protected void setupEmptyList() {
         mEmptyListContainer = binding.emptyList.emptyListView;
         mEmptyListMessage = binding.emptyList.emptyListViewText;
         mEmptyListHeadline = binding.emptyList.emptyListViewHeadline;

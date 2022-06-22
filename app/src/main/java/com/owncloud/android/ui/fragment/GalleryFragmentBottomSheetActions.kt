@@ -1,35 +1,33 @@
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-public interface GalleryFragmentBottomSheetActions {
-
+interface GalleryFragmentBottomSheetActions {
     /**
      * hide all the images in particular Folder.
      */
-    void hideImages(boolean isHideImagesClicked);
+    fun hideImages(isHideImagesClicked: Boolean)
 
     /**
      * hide all the videos in particular folder.
      */
-    void hideVideos(boolean isHideVideosClicked);
+    fun hideVideos(isHideVideosClicked: Boolean)
 
     /**
      * load all media of a particular folder.
      */
-    void selectMediaFolder();
+    fun selectMediaFolder()
 
     /**
      * sort by modified date
      */
-    void sortByModifiedDate();
+    fun sortByModifiedDate()
 
     /**
      * sort by Created Date
      */
-    void sortByCreatedDate();
+    fun sortByCreatedDate()
 
     /**
      * sort By Upload Date
      */
-    void sortByUploadDate();
-
+    fun sortByUploadDate()
 }

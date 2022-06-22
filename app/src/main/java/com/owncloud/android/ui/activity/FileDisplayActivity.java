@@ -62,6 +62,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.view.FastScroll;
 import com.nmc.android.app_review.InAppReviewHelper;
 import com.nmc.android.ui.SaveScannedDocumentFragment;
 import com.nmc.android.utils.KeyboardUtils;
@@ -84,6 +85,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.events.SyncEventFinished;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -98,10 +102,7 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
@@ -127,7 +128,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -414,15 +414,6 @@ public class FileDisplayActivity extends FileActivity
                     EventBus.getDefault().post(new TokenPushEvent());
                     syncAndUpdateFolder(true);
                     // toggle on is save since this is the only scenario this code gets accessed
-                }
-                break;
-            case PermissionUtil.PERMISSIONS_SCAN_DOCUMENT:
-                // If request is cancelled, result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    AppScanActivity.scanFromCamera(
-                        this,
-                        FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
                 }
                 break;
             case PermissionUtil.PERMISSIONS_CAMERA:
@@ -2334,7 +2325,7 @@ public class FileDisplayActivity extends FileActivity
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(final SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
+        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
             Log_OC.d(this, "Switch to photo search fragment");
             setLeftFragment(new GalleryFragment());
         } else if (event.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {

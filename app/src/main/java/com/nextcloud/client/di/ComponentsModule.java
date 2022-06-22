@@ -87,6 +87,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
@@ -97,8 +98,8 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
-import com.owncloud.android.ui.fragment.SharedListFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

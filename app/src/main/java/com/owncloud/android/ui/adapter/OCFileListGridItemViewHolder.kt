@@ -45,6 +45,8 @@ internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
         get() = binding.localFileIndicator
     override val shared: ImageView
         get() = binding.sharedIcon
+    override val sharedMessage: TextView
+        get() = binding.sharedMessage
     override val checkbox: ImageView
         get() = binding.customCheckbox
     override val itemLayout: View

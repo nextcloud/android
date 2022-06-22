@@ -23,14 +23,19 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.ExtendedListFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
@@ -44,15 +49,18 @@ class OCFileListDelegate(
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,
     private val preferences: AppPreferences,
-    private val gridView: Boolean,
+    private var gridView: Boolean,
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
-    private var showShareAvatar: Boolean
+    private var showShareAvatar: Boolean,
+    private val isMediaGallery: Boolean,
+    private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
+    private var searchType: SearchType? = null
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
     }
@@ -98,8 +106,16 @@ class OCFileListDelegate(
             gridView,
             context,
             gridViewHolder.shimmerThumbnail,
-            preferences
+            preferences,
+            syncFolderProvider,
+            isMediaGallery
         )
+
+        //remove padding if gallery media is there else enable padding
+        if (isMediaGallery) {
+            gridViewHolder.thumbnail.setPadding(0, 0, 0, 0)
+        }
+
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
 
@@ -120,7 +136,10 @@ class OCFileListDelegate(
         bindGridMetadataViews(file, gridViewHolder)
 
         // shares
-        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare()
+        val shouldHideShare = gridView || hideItemOptions
+            || searchType === SearchType.FAVORITE_SEARCH
+            || searchType === SearchType.RECENTLY_MODIFIED_SEARCH
+            //|| file.isFolder && !file.canReshare()
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {
@@ -151,12 +170,8 @@ class OCFileListDelegate(
                 context.resources
                     .getColor(R.color.selected_item_background)
             )
-            gridViewHolder.checkbox.setImageDrawable(
-                ThemeDrawableUtils.tintDrawable(
-                    R.drawable.ic_checkbox_marked,
-                    ThemeColorUtils.primaryColor(context)
-                )
-            )
+            gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked)
+
         } else {
             gridViewHolder.itemLayout.setBackgroundColor(context.resources.getColor(R.color.bg_default))
             gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline)
@@ -173,7 +188,7 @@ class OCFileListDelegate(
     }
 
     private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
-        if (showMetadata) {
+        if (!isMediaGallery && showMetadata) {
             showLocalFileIndicator(file, gridViewHolder)
             gridViewHolder.favorite.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
         } else {
@@ -209,22 +224,46 @@ class OCFileListDelegate(
 
     private fun showShareIcon(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
         val sharedIconView = gridViewHolder.shared
+        //Initialising Textview for Message and setting its visibility
+        val sharedMessageView: TextView = gridViewHolder.sharedMessage
+        sharedMessageView.visibility = if (DisplayUtils.isShowDividerForList()) View.VISIBLE else View.GONE
+
         if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
             sharedIconView.visibility = View.VISIBLE
-            if (file.isSharedWithSharee || file.isSharedWithMe) {
-                if (showShareAvatar) {
-                    sharedIconView.visibility = View.GONE
-                } else {
-                    sharedIconView.visibility = View.VISIBLE
-                    sharedIconView.setImageResource(R.drawable.shared_via_users)
+            when {
+                file.isSharedWithMe -> {
+                    val sharedWithMeColor = ResourcesCompat.getColor(context.resources,
+                        R.color.shared_with_me_color, null)
+                    sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared_with_me, sharedWithMeColor))
+                    //Added Code For Message Text
+                    sharedMessageView.text = context.resources.getString(R.string.placeholder_receivedMessage)
+                    sharedMessageView.setTextColor(sharedWithMeColor)
                     sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared)
                 }
-            } else if (file.isSharedViaLink) {
-                sharedIconView.setImageResource(R.drawable.shared_via_link)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared_via_link)
-            } else {
-                sharedIconView.setImageResource(R.drawable.ic_unshared)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_share)
+                file.isSharedWithSharee -> {
+                    val primaryColor = ThemeColorUtils.primaryColor(context, true)
+                    sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared, primaryColor))
+                    sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared)
+                    //Added Code For Message Text
+                    sharedMessageView.text = context.resources.getString(R.string.placeholder_sharedMessage)
+                    sharedMessageView.setTextColor(primaryColor)
+
+                }
+                file.isSharedViaLink -> {
+                    val primaryColor = ThemeColorUtils.primaryColor(context, true)
+                    sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_shared, primaryColor))
+                    sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared_via_link)
+                    //Added Code For Message Text
+                    sharedMessageView.text = context.resources.getString(R.string.placeholder_sharedMessage)
+                    sharedMessageView.setTextColor(primaryColor)
+                }
+                else -> {
+                    sharedIconView.setImageDrawable(ThemeDrawableUtils.tintDrawable(R.drawable.ic_unshared,
+                        ResourcesCompat.getColor(context.resources,
+                            R.color.list_icon_color, null)))
+                    sharedIconView.contentDescription = context.getString(R.string.shared_icon_share)
+                    sharedMessageView.visibility = View.GONE
+                }
             }
             sharedIconView.setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
         } else {
@@ -245,6 +284,14 @@ class OCFileListDelegate(
 
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
+    }
+
+    fun setGridView(bool: Boolean){
+        gridView = bool
+    }
+
+    fun setSearchType(searchType: SearchType?) {
+        this.searchType = searchType
     }
 
     companion object {
