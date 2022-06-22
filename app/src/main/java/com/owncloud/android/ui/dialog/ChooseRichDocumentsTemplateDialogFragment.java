@@ -278,7 +278,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private void prefillFilenameIfEmpty(Template template) {
         String name = binding.filename.getText().toString();
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-            binding.filename.setText(String.format("%s.%s", template.name, template.extension));
+            binding.filename.setText(String.format("%s.%s", template.getName(), template.getExtension()));
         }
         binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
     }

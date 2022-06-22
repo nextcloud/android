@@ -24,14 +24,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/alternate_half_padding"
-    android:paddingTop="@dimen/alternate_half_padding"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_half_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"

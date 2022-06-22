@@ -40,12 +40,4 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <style name="Theme.ownCloud.OverlayGrey" parent="Theme.ownCloud.OverlayBase">
-        <item name="android:navigationBarColor">@color/grey_400</item>
-        <item name="android:background">@color/grey_400</item>
-        <item name="android:windowBackground">@color/grey_400</item>
-        <item name="android:colorBackground">@color/grey_400</item>
-        <item name="android:windowLightNavigationBar">false</item>
-    </style>
-
 </resources>

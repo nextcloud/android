@@ -124,11 +124,6 @@
                 android:resource="@xml/users_and_groups_searchable" />
         </activity>
         <activity
-            android:name=".ui.activity.AppScanActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".ui.activity.ManageAccountsActivity"
             android:exported="false" />
         <activity
@@ -198,8 +193,7 @@
             android:theme="@style/Theme.ownCloud" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Overlay" />
+            android:exported="false" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
             android:exported="false"
@@ -475,7 +469,7 @@
         <activity
             android:name=".ui.activity.FolderPickerActivity"
             android:exported="false"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
         <activity
             android:name=".ui.activity.FilePickerActivity"
             android:exported="false"
@@ -522,8 +516,7 @@
 
         <activity
             android:name=".ui.preview.PreviewBitmapActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.OverlayGrey" />
+            android:exported="false" />
 
         <!-- Adjust SDK Declarations -->
         <receiver

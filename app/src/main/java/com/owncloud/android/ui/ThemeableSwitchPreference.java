@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.preference.SwitchPreference;
@@ -33,7 +32,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 

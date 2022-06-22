@@ -35,10 +35,16 @@ import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.R
+import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 
 object PermissionUtil {
     const val PERMISSIONS_EXTERNAL_STORAGE = 1

@@ -21,7 +21,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,21 +32,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.view.FastScroll;
 import com.nmc.android.ui.GalleryFragmentBottomSheetDialog;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
@@ -58,6 +56,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,17 +74,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private int limit = 300;
     private GalleryAdapter mAdapter;
 
-    private MediaGridItemDecoration mediaGridItemDecoration;
-
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
-    private boolean isPreviewShown = false;
-    private OCFile remoteFilePath;
-    private String remotePath = "/";
+    private OCFile remoteFile = new OCFile("/");//default root path
     private List<OCFile> mediaObject;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
-    private List<OCFile> imageList;
-    private List<OCFile> videoList;
-
 
     @Inject AppPreferences appPreferences;
 
@@ -104,8 +96,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                                                     this,
                                                                                     appPreferences);
         }
-        imageList = new ArrayList<>();
-        videoList = new ArrayList<>();
     }
 
     @Override
@@ -115,7 +105,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         if (photoSearchTask != null) {
             photoSearchTask.cancel(true);
         }
-        isPreviewShown = true;
     }
 
     /**
@@ -147,14 +136,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         } else {
             mediaObject.clear();
         }
-        mAdapter.setShowMetadata(false);
-        mAdapter.setMediaGallery(true);
+
         currentSearchType = SearchType.GALLERY_SEARCH;
 
         switchToMediaGridView();
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
             int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_item_rv_spacing);
-            mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
+            MediaGridItemDecoration mediaGridItemDecoration = new MediaGridItemDecoration(spacing);
             getRecyclerView().addItemDecoration(mediaGridItemDecoration);
             getRecyclerView().setPadding(spacing, spacing, spacing, spacing);
         }
@@ -164,7 +152,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         //updating the title if user comes back to this fragment from other fragments
         if (requireActivity() instanceof FileDisplayActivity) {
-            ((FileDisplayActivity)requireActivity()).updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+            ((FileDisplayActivity) requireActivity()).updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
         handleSearchEvent();
     }
@@ -178,7 +166,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       mContainerActivity);
 
         setRecyclerViewAdapter(mAdapter);
-
+        setRecyclerViewHasFooter(false);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
         mAdapter.setLayoutManager(layoutManager);
@@ -222,7 +210,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems();
+        showAllGalleryItems();
 
         setFabVisible(false);
 
@@ -237,13 +225,13 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
             endDate = System.currentTimeMillis() / 1000;
 
-
             runGallerySearchTask();
         }
     }
 
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
+        mAdapter.notifyDataSetChanged();
 
         if (mAdapter.isEmpty()) {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -276,32 +264,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
-    public boolean isLoading() {
-        return photoSearchQueryRunning;
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //  initViews();
-        remotePath = setDefaultRemotePath();
-    }
-
-    private String setDefaultRemotePath() {
-        if (remoteFilePath == null) {
-            setRemoteFilePath(remotePath);
-        }
-        return remotePath;
-    }
-
-    private void setRemoteFilePath(String remotePath) {
-        remoteFilePath = new OCFile(remotePath);
-        remoteFilePath.setFolder();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
@@ -319,36 +282,32 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Handle item selection
-        switch (item.getItemId()) {
-
-            case R.id.action_three_dot_icon:
-                if(!photoSearchQueryRunning) {
-                    galleryFragmentBottomSheetDialog.show();
-                    return true;
-                }
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_three_dot_icon && !photoSearchQueryRunning
+            && galleryFragmentBottomSheetDialog != null) {
+            galleryFragmentBottomSheetDialog.show();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_LOCATION_REQUEST_CODE) {
-            if (data != null) {
-                OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-                if (chosenFolder != null) {
-                    remoteFilePath = chosenFolder;
-                    searchAndDisplayAfterChangingFolder();
-                }
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
+            OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+            if (chosenFolder != null) {
+                remoteFile = chosenFolder;
+                searchAndDisplayAfterChangingFolder();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void searchAndDisplayAfterChangingFolder() {
-        setAdapterEmpty();
+        setEmptyListLoadingMessage();
+        mAdapter.clear();
         mediaObject.clear();
-        runGallerySearchTask();
+        searchAndDisplay();
+        setLoading(photoSearchQueryRunning);
     }
 
     private void runGallerySearchTask() {
@@ -360,21 +319,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                                 limit)
             .execute();
     }
-                                                limit, remoteFilePath.getRemotePath(), mediaObject,
-                                                appPreferences.getHideImageClicked(),
-                                                appPreferences.getHideVideoClicked()).execute();
+
+    @Override
+    public boolean isLoading() {
+        return photoSearchQueryRunning;
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void setAdapterEmpty() {
-        mAdapter.setData(
-            new ArrayList<>(),
-            SearchType.GALLERY_SEARCH,
-            mContainerActivity.getStorageManager(),
-            mFile,
-            true);
-        mAdapter.notifyDataSetChanged();
-
 
     private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
@@ -390,6 +339,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     && (totalItemCount - visibleItemCount) > 0 && lastVisibleItem > 0) {
                     // Almost reached the end, continue to load new photos
                     OCFile lastFile = mAdapter.getItem(lastVisibleItem - 1);
+
                     if (lastFile == null) {
                         return;
                     }
@@ -405,15 +355,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
     }
 
-
-    //Actions implementation of Bottom Sheet Dialog
     @Override
     public void hideVideos(boolean isHideVideosClicked) {
-
         if (!mediaObject.isEmpty()) {
-            mAdapter.setAdapterWithHideShowImage(mediaObject,
+            mAdapter.setMediaFilter(mediaObject,
                                                  preferences.getHideVideoClicked(),
-                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 preferences.getHideImageClicked(),
                                                  this);
 
         } else {
@@ -424,9 +371,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void hideImages(boolean isHideImagesClicked) {
         if (!mediaObject.isEmpty()) {
-            mAdapter.setAdapterWithHideShowImage(mediaObject,
+            mAdapter.setMediaFilter(mediaObject,
                                                  preferences.getHideVideoClicked(),
-                                                 preferences.getHideImageClicked(), imageList, videoList,
+                                                 preferences.getHideImageClicked(),
                                                  this);
 
         } else {
@@ -479,6 +426,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems();
+        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(),
+                                     remoteFile.getRemotePath(),
+                                     mediaObject,
+                                     preferences.getHideVideoClicked(),
+                                     preferences.getHideImageClicked(),
+                                     this);
+
     }
 }

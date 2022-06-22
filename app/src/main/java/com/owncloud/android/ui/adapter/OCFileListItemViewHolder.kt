@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
+import org.w3c.dom.Text
 
 internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
     RecyclerView.ViewHolder(
@@ -56,6 +57,8 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.localFileIndicator
     override val shared: ImageView
         get() = binding.sharedIcon
+    override val sharedMessage: TextView
+        get() = binding.sharedMessage
     override val checkbox: ImageView
         get() = binding.customCheckbox
     override val itemLayout: View

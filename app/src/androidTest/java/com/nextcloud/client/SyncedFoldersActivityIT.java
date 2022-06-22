@@ -28,7 +28,6 @@ import android.content.Intent;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 

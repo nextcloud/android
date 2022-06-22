@@ -623,9 +623,10 @@ public class FileOperationsHelper {
 
     private void queueShareIntent(Intent shareIntent) {
         // Unshare the file
-        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
-
-        fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+        if(fileActivity.getOperationsServiceBinder() != null) {
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(shareIntent);
+            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().getString(R.string.wait_a_moment));
+        }
     }
 
     /**
@@ -767,7 +768,7 @@ public class FileOperationsHelper {
      */
     public void updateShareInformation(OCShare share, int permissions,
                                        boolean hideFileDownload, String password, long expirationTimeInMillis,
-                                       String label) {
+                                       String label, String downloadLimit) {
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());

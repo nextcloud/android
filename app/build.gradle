@@ -153,15 +153,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 69200129
-                versionName "69200129"
+                versionCode 70200129
+                versionName "70200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 65
-                versionName "1.65"
+                versionCode 66
+                versionName "1.66"
             }
         }
 
@@ -175,8 +175,14 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
     packagingOptions {
         resources {
-            excludes += ['META-INF/LICENSE.txt', 'META-INF/LICENSE']
+            excludes += ['META-INF/LICENSE.txt', 'META-INF/LICENSE', 'META-INF/DEPENDENCIES']
         }
+
+        //required for multiple .so files due to OpenCV library added by NextCloud
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
     }
 
     tasks.register("checkstyle", Checkstyle) {

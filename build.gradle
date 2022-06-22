@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        jacoco_version = '0.8.7'
-        kotlin_version = '1.6.10'
+        jacoco_version = '0.8.8'
+        kotlin_version = '1.6.20'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.41"
         markwonVersion = "4.6.2"
@@ -36,6 +36,17 @@ subprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+
+        // Scanbot SDK maven repos:
+        maven {
+            url 'https://nexus.scanbot.io/nexus/content/repositories/releases/'
+        }
+        maven {
+            url 'https://nexus.scanbot.io/nexus/content/repositories/snapshots/'
+        }
     }
 }
 

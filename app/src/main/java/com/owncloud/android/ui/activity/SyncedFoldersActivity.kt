@@ -45,6 +45,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.preferences.AppPreferences
+import com.nmc.android.utils.AdjustSdkUtils
+import com.nmc.android.utils.TealiumSdkUtils
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -247,7 +249,7 @@ class SyncedFoldersActivity :
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         adapter = SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion)
         syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_synced_folders)
         ThemeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this)
         val lm = GridLayoutManager(this, gridWidth)
         adapter.setLayoutManager(lm)
@@ -559,6 +561,9 @@ class SyncedFoldersActivity :
             backgroundJobManager.startImmediateFilesSyncJob(skipCustomFolders = false, overridePowerSaving = false)
             showBatteryOptimizationInfo()
         }
+
+        //track event when user enable/disable auto upload on/off
+        trackAutoUploadEvent(syncedFolderDisplayItem.isEnabled)
     }
 
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem) {
@@ -666,6 +671,14 @@ class SyncedFoldersActivity :
         if (syncedFolder.isEnabled) {
             showBatteryOptimizationInfo()
         }
+
+        //track event when user enable/disable auto upload on/off
+        trackAutoUploadEvent(syncedFolder.isEnabled)
+    }
+
+    private fun trackAutoUploadEvent(enabled: Boolean) {
+        AdjustSdkUtils.trackEvent(if (enabled) AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_ON else AdjustSdkUtils.EVENT_TOKEN_SETTINGS_AUTO_UPLOAD_OFF, preferences)
+        TealiumSdkUtils.trackEvent(if (enabled) TealiumSdkUtils.EVENT_SETTINGS_AUTO_UPLOAD_ON else TealiumSdkUtils.EVENT_SETTINGS_AUTO_UPLOAD_OFF, preferences)
     }
 
     private fun saveOrUpdateSyncedFolder(item: SyncedFolderDisplayItem) {
