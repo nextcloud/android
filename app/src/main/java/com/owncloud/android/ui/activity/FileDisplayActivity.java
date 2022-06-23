@@ -5,10 +5,12 @@
  * @author David A. Velasco
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc@author TSI-mc
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -64,6 +66,7 @@ import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.app_review.InAppReviewHelper;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -224,6 +227,9 @@ public class FileDisplayActivity extends FileActivity
 
     @Inject
     ConnectivityService connectivityService;
+
+    @Inject
+    InAppReviewHelper inAppReviewHelper;
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -1148,6 +1154,9 @@ public class FileDisplayActivity extends FileActivity
         if (ocFileListFragment instanceof GalleryFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
+
+        //show in-app review dialog to user
+        inAppReviewHelper.showInAppReview(this);
 
         Log_OC.v(TAG, "onResume() end");
     }

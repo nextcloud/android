@@ -4,8 +4,10 @@
  * @author masensio
  * @author David A. Velasco
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -58,6 +60,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.owncloud.android.app_review.InAppReviewHelper;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -178,6 +181,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject ThemeSnackbarUtils themeSnackbarUtils;
 
+    @Inject
+    InAppReviewHelper inAppReviewHelper;
+
     @SuppressWarnings("unused")
     private boolean mBound;
 
@@ -281,6 +287,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initSecurityKeyManager();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
+
+        //update the app restart count when app is launched by the user
+        inAppReviewHelper.resetAndIncrementAppRestartCounter();
 
         int startedMigrationsCount = migrationsManager.startMigration();
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));

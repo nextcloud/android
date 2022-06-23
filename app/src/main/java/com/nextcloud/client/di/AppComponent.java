@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +32,7 @@ import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.app_review.InAppReviewModule;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 
@@ -50,7 +53,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ViewModelModule.class,
     JobsModule.class,
     IntegrationsModule.class,
-    ThemeModule.class
+    ThemeModule.class,
+    InAppReviewModule.class
 })
 @Singleton
 public interface AppComponent {

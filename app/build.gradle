@@ -348,6 +348,9 @@ dependencies {
 
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.5"
+
+    // Play In-App Review
+    implementation 'com.google.android.play:review-ktx:2.0.0'
 }
 
 configurations.all {
