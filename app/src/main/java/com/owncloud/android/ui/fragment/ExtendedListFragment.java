@@ -314,7 +314,7 @@ public class ExtendedListFragment extends Fragment implements
                 localFileListAdapter.filter(query);
                 ((UploadFilesActivity) activity).showToolbarSpinner();
             } else if (activity instanceof FolderPickerActivity) {
-                ((FolderPickerActivity) activity).refreshListOfFilesFragment(true);
+                ((FolderPickerActivity) activity).search(query);
             }
         }
     }
