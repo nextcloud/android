@@ -39,6 +39,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
@@ -110,7 +111,11 @@ class GalleryAdapter(
             val itemViewHolder = holder as GalleryItemViewHolder
             val ocFile = files[section].files[relativePosition]
 
-            ocFileListDelegate.bindGridViewHolder(itemViewHolder, ocFile)
+            ocFileListDelegate.bindGridViewHolder(
+                itemViewHolder,
+                ocFile,
+                SearchType.GALLERY_SEARCH
+            )
         }
     }
 
