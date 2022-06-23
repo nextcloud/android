@@ -10,7 +10,7 @@ buildscript {
         mockitoVersion = "4.6.1"
         mockitoKotlinVersion = "4.0.0"
         mockkVersion = "1.12.4"
-        byteBuddyVersion = "1.12.10"
+        byteBuddyVersion = "1.12.11"
         espressoVersion = "3.4.0"
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0"
