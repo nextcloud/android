@@ -718,7 +718,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                    PreviewImageActivity activity = (PreviewImageActivity) getActivity();
                                    if (activity != null) {
                                        activity.requestForDownload(getFile());
-                                   } else {
+                                   } else if (getContext() != null) {
                                        Snackbar.make(binding.emptyListView,
                                                      getResources().getString(R.string.could_not_download_image),
                                                      Snackbar.LENGTH_INDEFINITE).show();
