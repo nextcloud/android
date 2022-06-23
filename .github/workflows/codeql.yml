@@ -27,7 +27,7 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-    - name: Set up JDK 
+    - name: Set up JDK
       uses: actions/setup-java@v2
       with:
         distribution: "temurin"
