@@ -1,0 +1,4 @@
+Don't try to show share information in Favorites screen
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
