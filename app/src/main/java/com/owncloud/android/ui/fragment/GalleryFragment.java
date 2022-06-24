@@ -33,10 +33,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -44,10 +45,8 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
+import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -71,10 +70,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryAdapter mAdapter;
 
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
-    private OCFile remoteFilePath;
+    private OCFile remoteFile;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject ThemeMenuUtils themeMenuUtils;
+    @Inject FileDataStorageManager fileDataStorageManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
+        remoteFile = fileDataStorageManager.getDefaultRootPath();
+
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -118,12 +120,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (mediaObject == null) {
-            mediaObject = new ArrayList<>();
-        } else {
-            mediaObject.clear();
-        }
 
         currentSearchType = SearchType.GALLERY_SEARCH;
 
@@ -162,8 +158,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onRefresh() {
         super.onRefresh();
-
-        mediaObject.clear();
         handleSearchEvent();
     }
 
@@ -288,7 +282,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void searchAndDisplayAfterChangingFolder() {
         mAdapter.clear();
-        mediaObject.clear();
         runGallerySearchTask();
     }
 
@@ -339,17 +332,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void updateMediaContent(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
-        if (!mediaObject.isEmpty()) {
-            mAdapter.setMediaFilter(mediaObject,
-                                    mediaState,
-                                    this);
-
-        } else {
-            setEmptyListMessage(SearchType.GALLERY_SEARCH);
-        }
-
-        updateSubtitle(mediaState);
-
+            showAllGalleryItems();
     }
 
     @Override
@@ -360,8 +343,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems(mContainerActivity.getStorageManager(), remoteFile.getRemotePath(),
-                                     mediaObject, galleryFragmentBottomSheetDialog.getCurrMediaState(),
+        mAdapter.showAllGalleryItems(remoteFile.getRemotePath(),
+                                     galleryFragmentBottomSheetDialog.getCurrMediaState(),
                                      this);
 
         updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());

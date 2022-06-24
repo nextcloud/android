@@ -1016,23 +1016,10 @@
     <string name="select_media_folder">Set media folder</string>
     <string name="choose_location">Choose location</string>
     <string name="common_select">Select</string>
-    <string name="subtitle_photos_videos">Photos &amp; videos</string>
-    <string name="show_images">Show photos</string>
-    <string name="subtitle_photos_only">Photos only</string>
-    <string name="show_video">Show videos</string>
-    <string name="subtitle_videos_only">Videos only</string>
-    <string name="select_media_folder">Set media folder</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>
     <string name="error_file_lock">Error changing file lock status</string>
     <string name="locked_by">Locked by %1$s</string>
     <string name="locked_by_app">Locked by %1$s app</string>
     <string name="lock_expiration_info">Expires: %1$s</string>
-    <string name="hide_images">Hide images</string>
-    <string name="show_images">Show images</string>
-    <string name="hide_video">Hide video</string>
-    <string name="show_video">Show video</string>
-    <string name="select_media_folder">Select the \"Media\" folder</string>
-    <string name="choose_location">Choose location</string>
-    <string name="common_select">Select</string>
 </resources>

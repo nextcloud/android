@@ -51,7 +51,7 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
+import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
 
@@ -65,7 +65,7 @@ class GalleryAdapter(
     themeColorUtils: ThemeColorUtils,
     themeDrawableUtils: ThemeDrawableUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
-    private var files: List<GalleryItems> = mutableListOf()
+    var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
@@ -163,42 +163,37 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun showAllGalleryItems(
-        storageManager: FileDataStorageManager,
         remotePath: String,
-        mediaObject: MutableList<OCFile>,
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
 
         val items = storageManager.allGalleryItems
-        mediaObject.clear()
 
-        mediaObject.addAll(
-            items.filter { it != null && it.remotePath.startsWith(remotePath) }
-        )
+       val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
 
-        setMediaFilter(
-            mediaObject, mediaState,
+        setMediaFilter(filteredList,
+            mediaState,
             photoFragment
         )
     }
 
     // Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
-    fun setMediaFilter(
-        mediaObject: List<OCFile>,
+   private fun setMediaFilter(
+        items: List<OCFile>,
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
 
         val finalSortedList: List<OCFile> = when (mediaState) {
             GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                mediaObject.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+                items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
             }
             GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                mediaObject.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+                items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
             }
-            else -> mediaObject
+            else -> items
         }
 
         if (finalSortedList.isEmpty()) {
