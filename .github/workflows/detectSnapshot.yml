@@ -4,6 +4,9 @@ on:
     pull_request:
         branches: [ master, stable-* ]
 
+# Declare default permissions as read only.
+permissions: read-all
+
 jobs:
     detectSnapshot:
         runs-on: ubuntu-latest

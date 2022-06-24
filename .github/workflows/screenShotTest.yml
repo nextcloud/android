@@ -4,6 +4,10 @@ on:
     pull_request:
         branches: [ master, stable-* ]
 
+permissions:
+    contents: read
+    pull-requests: write
+
 jobs:
     screenshot:
         runs-on: macOS-latest

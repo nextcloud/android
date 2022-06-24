@@ -31,6 +31,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
@@ -88,7 +89,11 @@ class OCFileListDelegate(
         checkedFiles.clear()
     }
 
-    fun bindGridViewHolder(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
+    fun bindGridViewHolder(
+        gridViewHolder: ListGridImageViewHolder,
+        file: OCFile,
+        searchType: SearchType?
+    ) {
         // thumbnail
         gridViewHolder.thumbnail.tag = file.fileId
         DisplayUtils.setThumbnail(
@@ -124,7 +129,8 @@ class OCFileListDelegate(
         bindGridMetadataViews(file, gridViewHolder)
 
         // shares
-        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare()
+        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare() ||
+            searchType == SearchType.FAVORITE_SEARCH
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {

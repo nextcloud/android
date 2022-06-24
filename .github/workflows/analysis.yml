@@ -6,6 +6,10 @@ on:
     push:
         branches: [ master, stable-* ]
 
+permissions:
+    pull-requests: write
+    contents: write
+
 jobs:
     analysis:
         runs-on: ubuntu-latest
