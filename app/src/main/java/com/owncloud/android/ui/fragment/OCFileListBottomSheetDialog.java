@@ -141,7 +141,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         }
 
         // create rich workspace
-       /* if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+       /* if (EditorUtils.isEditorAvailable(getContext().getContentResolver(),
                                              user,
                                              MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null && !file.isEncrypted()) {
