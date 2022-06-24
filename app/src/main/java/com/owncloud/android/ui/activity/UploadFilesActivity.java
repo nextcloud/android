@@ -700,6 +700,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
             data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+            data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }
