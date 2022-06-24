@@ -465,7 +465,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     ) {
 
         if (result.isSuccess()) {
-            refreshListOfFilesFragment(false);
+            OCFileListFragment fileListFragment = getListOfFilesFragment();
+            if (fileListFragment != null) {
+                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
+            }
         } else {
             try {
                 DisplayUtils.showSnackMessage(

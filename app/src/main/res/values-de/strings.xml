@@ -519,6 +519,8 @@
     <string name="pass_code_stored">PIN gespeichert</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
     <string name="pdf_zoom_tip">Auf eine Seite klicken um hereinzuzoomen</string>
+    <string name="storage_permission_full_access">Vollständiger Zugriff</string>
+    <string name="storage_permission_media_read_only">Nur lesen von Mediendateien</string>
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
@@ -1064,7 +1066,7 @@
     <string name="download_limit_empty">Das Feld für das Download limit darf nicht leer sein.</string>
     <string name="hint_download_limit">Downlimit eingeben</string>
     <string name="download_text">Downloads:\u0020</string>
-    <string name="download_limit_zero">Der Wert für das Download sollte größer als 0 sein.</string>
+    <string name="download_limit_zero">Der Wert für das Download limit sollte größer als 0 sein.</string>
     <string name="no_send_app">Keine App verfügbar um die ausgewählten Dateien zu senden.</string>
     <string name="file_already_exists">Der Dateiname existiert bereits.</string>
 </resources>
