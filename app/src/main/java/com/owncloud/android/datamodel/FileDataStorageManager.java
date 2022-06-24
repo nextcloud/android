@@ -1,9 +1,11 @@
 /*
  * ownCloud Android client application
  *
+ * @author TSI-mc
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -2361,5 +2363,9 @@ public class FileDataStorageManager {
 
     public User getUser() {
         return user;
+    }
+
+    public OCFile getDefaultRootPath(){
+        return new OCFile(OCFile.ROOT_PATH);
     }
 }

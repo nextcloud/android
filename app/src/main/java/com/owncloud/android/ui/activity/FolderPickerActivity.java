@@ -137,8 +137,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                     mSearchOnlyFolders = true;
                     mDoNotEnterEncryptedFolder = true;
                     mChooseBtn.setText(getResources().getString(R.string.common_select));
-                    mChooseBtn.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_tick,
-                                                                   null));
                     break;
                 default:
                     caption = themeUtils.getDefaultDisplayNameForRootFolder(this);
