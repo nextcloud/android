@@ -1,0 +1,2 @@
+Reformat README with remark-lint to appease Codacy
+README: update logcat instructions with easier modern ADB commands
