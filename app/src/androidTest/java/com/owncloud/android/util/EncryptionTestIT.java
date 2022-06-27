@@ -27,13 +27,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.RetryTestRule;
+import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
-
-import net.bytebuddy.utility.RandomString;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
@@ -410,7 +409,7 @@ public class EncryptionTestIT {
         file.setMetadataKey(0);
         file.setAuthenticationTag(EncryptionUtils.encodeBytesToBase64String(authTag));
 
-        decryptedFolderMetadata.getFiles().put(RandomString.make(20), file);
+        decryptedFolderMetadata.getFiles().put(RandomStringGenerator.make(20), file);
     }
 
     /**

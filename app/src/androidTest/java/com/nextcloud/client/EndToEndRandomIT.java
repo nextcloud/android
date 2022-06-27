@@ -24,6 +24,7 @@ package com.nextcloud.client;
 
 import android.accounts.AccountManager;
 
+import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
@@ -47,8 +48,6 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import net.bytebuddy.utility.RandomString;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -242,7 +241,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     private void init() throws Exception {
         // create folder
         createFolder(rootEncFolder);
-        OCFile encFolder = createFolder(rootEncFolder + RandomString.make(5) + "/");
+        OCFile encFolder = createFolder(rootEncFolder + RandomStringGenerator.make(5) + "/");
 
         // encrypt it
         assertTrue(new ToggleEncryptionRemoteOperation(encFolder.getLocalId(),
@@ -259,7 +258,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     }
 
     private OCFile createFolder(int i) {
-        String path = currentFolder.getDecryptedRemotePath() + RandomString.make(5) + "/";
+        String path = currentFolder.getDecryptedRemotePath() + RandomStringGenerator.make(5) + "/";
         Log_OC.d(this, "[" + i + "/" + actionCount + "] " + "Create folder: " + path);
 
         return createFolder(path);
@@ -300,7 +299,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     }
 
     private void uploadFile(int i) throws IOException {
-        String fileName = RandomString.make(5) + ".txt";
+        String fileName = RandomStringGenerator.make(5) + ".txt";
 
         File file;
         if (new Random().nextBoolean()) {

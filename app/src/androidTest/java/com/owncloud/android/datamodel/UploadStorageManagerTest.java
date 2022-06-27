@@ -10,6 +10,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
@@ -17,8 +18,6 @@ import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.operations.UploadFileOperation;
-
-import net.bytebuddy.utility.RandomString;
 
 import org.junit.After;
 import org.junit.Before;
@@ -196,7 +195,7 @@ public class UploadStorageManagerTest extends AbstractIT {
         upload.setCreatedBy(UploadFileOperation.CREATED_BY_USER);
         upload.setUseWifiOnly(true);
         upload.setWhileChargingOnly(false);
-        upload.setFolderUnlockToken(RandomString.make(10));
+        upload.setFolderUnlockToken(RandomStringGenerator.make(10));
 
         return upload;
     }
