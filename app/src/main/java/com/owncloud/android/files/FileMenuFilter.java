@@ -249,7 +249,7 @@ public class FileMenuFilter {
     }
 
     private void filterDetails(Collection<Integer> toShow, Collection<Integer> toHide) {
-        if (isSingleSelection()) {
+        if (isSingleSelection() && !isEncryptedFolder()) {
             toShow.add(R.id.action_see_details);
         } else {
             toHide.add(R.id.action_see_details);
