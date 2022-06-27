@@ -3,6 +3,7 @@ package com.owncloud.android.providers
 import android.provider.DocumentsContract
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
+import com.nextcloud.test.RandomStringGenerator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
@@ -17,7 +18,6 @@ import com.owncloud.android.providers.DocumentsProviderUtils.getOCFile
 import com.owncloud.android.providers.DocumentsProviderUtils.listFilesBlocking
 import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.runBlocking
-import net.bytebuddy.utility.RandomString
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity
 import org.apache.jackrabbit.webdav.client.methods.PutMethod
@@ -71,7 +71,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertListFilesEquals(emptyList(), rootDir.listFilesBlocking(context))
 
         // create first file
-        val name1 = RandomString.make()
+        val name1 = RandomStringGenerator.make()
         val type1 = "text/html"
         val file1 = rootDir.createFile(type1, name1)!!
 
@@ -88,7 +88,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertExistsOnServer(client, ocFile1.remotePath, true)
 
         // create second long file with long file name
-        val name2 = RandomString.make(MAX_FILE_NAME_LENGTH)
+        val name2 = RandomStringGenerator.make(MAX_FILE_NAME_LENGTH)
         val type2 = "application/octet-stream"
         val file2 = rootDir.createFile(type2, name2)!!
 
@@ -123,7 +123,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     @Test
     fun testReadWriteFiles() {
         // create random file
-        val file1 = rootDir.createFile("application/octet-stream", RandomString.make())!!
+        val file1 = rootDir.createFile("application/octet-stream", RandomStringGenerator.make())!!
         file1.assertRegularFile(size = 0L)
 
         // write random bytes to file
@@ -144,7 +144,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     @Test
     fun testCreateDeleteFolders() = runBlocking {
         // create a new folder
-        val dirName1 = RandomString.make()
+        val dirName1 = RandomStringGenerator.make()
         val dir1 = rootDir.createDirectory(dirName1)!!
         dir1.assertRegularFolder(dirName1, rootDir)
         // FIXME about a minute gets lost somewhere after CFO sets the correct time
@@ -157,7 +157,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertExistsOnServer(client, ocDir1.remotePath, true)
 
         // create file in folder
-        val file1 = dir1.createFile("text/html", RandomString.make())!!
+        val file1 = dir1.createFile("text/html", RandomStringGenerator.make())!!
         file1.assertRegularFile(parent = dir1)
         val ocFile1 = file1.getOCFile(storageManager)!!
         assertExistsOnServer(client, ocFile1.remotePath, true)
@@ -180,7 +180,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     @Test(timeout = 5 * 60 * 1000)
     fun testServerChangedFileContent() {
         // create random file
-        val file1 = rootDir.createFile("text/plain", RandomString.make())!!
+        val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
         file1.assertRegularFile(size = 0L)
 
         val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
