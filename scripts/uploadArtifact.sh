@@ -26,7 +26,7 @@ echo $oldComments | while read comment ; do
     curl_gh -X DELETE https://api.github.com/repos/nextcloud/android/issues/comments/$comment
 done
 
-apt-get -y install qrencode
+sudo apt-get -y install qrencode
 
 qrencode -o $PR.png "$PUBLIC_URL/$BUILD.apk"
 
