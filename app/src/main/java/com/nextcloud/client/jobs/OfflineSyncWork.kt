@@ -57,7 +57,7 @@ class OfflineSyncWork constructor(
 
     override fun doWork(): Result {
         val wakeLock: WakeLock? = null
-        if (!powerManagementService.isPowerSavingEnabled && !connectivityService.isInternetWalled) {
+        if (!powerManagementService.isPowerSavingEnabled) {
             val users = userAccountManager.allUsers
             for (user in users) {
                 val storageManager = FileDataStorageManager(user, contentResolver)
@@ -102,7 +102,13 @@ class OfflineSyncWork constructor(
                 return
             }
             ResultCode.ETAG_CHANGED -> Log_OC.d(TAG, "$folderName: eTag changed")
-            else -> Log_OC.d(TAG, "$folderName: eTag changed")
+            else -> {
+                if (connectivityService.isInternetWalled) {
+                    Log_OC.d(TAG, "No connectivity, skipping sync")
+                    return
+                }
+                Log_OC.d(TAG, "$folderName: eTag changed")
+            }
         }
         // iterate over downloaded files
         val files = folder.listFiles { obj: File -> obj.isFile }
