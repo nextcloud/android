@@ -27,15 +27,15 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-    - name: Set up JDK
+    - name: Set up JDK 
       uses: actions/setup-java@v2
       with:
         distribution: "temurin"
         java-version: 11
     - name: Assemble
       run: |
-        mkdir -p $HOME/.gradle
-        echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+        mkdir -p "$HOME/.gradle"
+        echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
         ./gradlew assembleDebug
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
