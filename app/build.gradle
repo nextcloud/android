@@ -328,11 +328,7 @@ dependencies {
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
     androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
-    androidTestImplementation("org.mockito:mockito-android:$mockitoVersion") {
-        exclude group: "net.bytebuddy", module: "byte-buddy-android"
-    }
-    androidTestImplementation "net.bytebuddy:byte-buddy:$byteBuddyVersion"
-    androidTestImplementation "net.bytebuddy:byte-buddy-android:$byteBuddyVersion"
+    androidTestImplementation("org.mockito:mockito-android:$mockitoVersion")
     androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
     androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation "com.facebook.testing.screenshot:core:0.15.0"
@@ -347,7 +343,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.0.5"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.0.6"
 }
 
 configurations.all {
