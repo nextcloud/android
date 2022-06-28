@@ -249,7 +249,7 @@ public class FileMenuFilter {
     }
 
     private void filterDetails(Collection<Integer> toShow, Collection<Integer> toHide) {
-        if (isSingleSelection()) {
+        if (isSingleSelection() && !isEncryptedFolder()) {
             toShow.add(R.id.action_see_details);
         } else {
             toHide.add(R.id.action_see_details);
@@ -422,7 +422,7 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsEncryptedFolder() || containsLockedFile()) {
+        if (files.isEmpty() || synchronizing || containsLockedFile()) {
             toHide.add(R.id.action_remove_file);
         } else {
             toShow.add(R.id.action_remove_file);
