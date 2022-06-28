@@ -35,7 +35,7 @@ jobs:
                     KEY_PASS: ${{ secrets.KEY_PASS }}
                     LOG_USERNAME: ${{ secrets.LOG_USERNAME }}
                     LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
