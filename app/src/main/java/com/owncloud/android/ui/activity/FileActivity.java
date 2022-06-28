@@ -89,6 +89,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -779,6 +780,7 @@ public abstract class FileActivity extends DrawerActivity
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
+        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
 
         if (result.isSuccess()) {
             updateFileFromDB();
@@ -801,6 +803,11 @@ public abstract class FileActivity extends DrawerActivity
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result, file);
             }
+
+            if (fileListFragment != null && file != null) {
+                fileListFragment.updateOCFile(file);
+            }
+
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();

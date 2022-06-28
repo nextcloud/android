@@ -1010,4 +1010,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void notifyItemChanged(@NonNull OCFile file) {
         notifyItemChanged(getItemPosition(file));
     }
+
+    public void notifyItemChanged(@NonNull OCFile file) {
+        notifyItemChanged(getItemPosition(file));
+    }
 }
