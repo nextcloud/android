@@ -326,6 +326,13 @@ public abstract class AbstractIT {
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
     }
 
+    public void uploadFile(File file, String remotePath) {
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        uploadOCUpload(ocUpload);
+    }
+
+
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
