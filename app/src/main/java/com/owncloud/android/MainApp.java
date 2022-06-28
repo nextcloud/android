@@ -350,7 +350,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                 //we are checking activity is not splash activity because there is timer in splash which can bypass
                 //the passcode screen. So to avoid this we are doing this check.
                 if (!(activity instanceof SplashActivity)) {
-                    passCodeManager.onActivityStarted(activity);
+
+                    passCodeManager.onActivityResumed(activity);
+
                 }
             }
 

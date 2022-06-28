@@ -23,6 +23,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.PowerManager
+import android.view.View
 import android.view.WindowManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
@@ -55,18 +56,25 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         return exemptOfPasscodeActivities.contains(activity.javaClass)
     }
 
-    fun onActivityStarted(activity: Activity): Boolean {
+    fun onActivityResumed(activity: Activity): Boolean {
         var askedForPin = false
         val timestamp = preferences.lockTimestamp
         setSecureFlag(activity)
 
         if (!isExemptActivity(activity)) {
-            if (passCodeShouldBeRequested(timestamp)) {
+            val passcodeRequested = passCodeShouldBeRequested(timestamp)
+            val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
+            if (passcodeRequested || credentialsRequested) {
+                getActivityRootView(activity)?.visibility = View.GONE
+            } else {
+                getActivityRootView(activity)?.visibility = View.VISIBLE
+            }
+            if (passcodeRequested) {
                 askedForPin = true
                 preferences.lockTimestamp = 0
                 requestPasscode(activity)
             }
-            if (deviceCredentialsShouldBeRequested(timestamp, activity)) {
+            if (credentialsRequested) {
                 askedForPin = true
                 preferences.lockTimestamp = 0
                 requestCredentials(activity)
@@ -80,6 +88,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         if (!isExemptActivity(activity)) {
             visibleActivitiesCounter++ // keep it AFTER passCodeShouldBeRequested was checked
         }
+
         return askedForPin
     }
 
@@ -151,4 +160,9 @@ private fun deviceCredentialsAreEnabled(activity: Activity): Boolean {
 return SettingsActivity.LOCK_DEVICE_CREDENTIALS == preferences.lockPreference ||
 (preferences.isFingerprintUnlockEnabled && DeviceCredentialUtils.areCredentialsAvailable(activity))
 }
+
+    private fun getActivityRootView(activity: Activity): View? {
+        return activity.window.findViewById(android.R.id.content)
+            ?: activity.window.decorView.findViewById(android.R.id.content)
+    }
 }
