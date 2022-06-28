@@ -201,9 +201,16 @@
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <activity
-            android:name="com.nmc.android.ui.LauncherActivity"
+            android:name="com.nmc.android.ui.onboarding.OnBoardingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ownCloud.Launcher">
+            android:theme="@style/Theme.ownCloud.Splash" />
+
+        <activity
+            android:name="com.nmc.android.ui.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Launcher"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -212,22 +219,10 @@
         </activity>
 
         <activity
-            android:name="com.nmc.android.ui.onboarding.OnBoardingActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ownCloud.Splash"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
-
-        <activity
-            android:name="com.nmc.android.ui.SplashActivity"
-            android:label="@string/app_name"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Splash" />
-
-        <activity
             android:name="com.nmc.android.ui.ScanActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="com.nmc.android.ui.PrivacySettingsActivity"
@@ -338,10 +333,9 @@
         <provider
             android:name=".providers.DiskLruImageCacheFileProvider"
             android:authorities="@string/image_cache_provider_authority"
+            android:exported="true"
             android:grantUriPermissions="true"
-            android:permission="android.permission.MANAGE_DOCUMENTS"
-            android:exported="true">
-        </provider>
+            android:permission="android.permission.MANAGE_DOCUMENTS"></provider>
 
         <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
         <!-- to "best before" dates in his fridge. -->
@@ -356,7 +350,6 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
-
 
 
         <activity
@@ -534,7 +527,7 @@
         <package android:name="it.niedermann.nextcloud.deck" />
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
-        <package android:name="at.bitfire.davdroid"/>
+        <package android:name="at.bitfire.davdroid" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
