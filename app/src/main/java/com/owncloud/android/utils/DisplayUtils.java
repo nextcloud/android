@@ -983,8 +983,9 @@ public final class DisplayUtils {
                             asyncTasks.add(task);
                         } catch (IllegalArgumentException e) {
                             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-                        } catch (RejectedExecutionException e) {
+                        } catch (RejectedExecutionException | OutOfMemoryError e) {
                             // Executor queue is full, ignore
+                            // OutOfMemory, ignore
                         }
                     }
                 }
