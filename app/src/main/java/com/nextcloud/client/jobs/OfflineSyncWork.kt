@@ -23,7 +23,6 @@ package com.nextcloud.client.jobs
 
 import android.content.ContentResolver
 import android.content.Context
-import android.os.PowerManager.WakeLock
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -51,12 +50,9 @@ class OfflineSyncWork constructor(
 
     companion object {
         const val TAG = "OfflineSyncJob"
-        private const val WAKELOCK_TAG_SEPARATION = ":"
-        private const val WAKELOCK_ACQUISITION_TIMEOUT_MS = 10L * 60L * 1000L
     }
 
     override fun doWork(): Result {
-        val wakeLock: WakeLock? = null
         if (!powerManagementService.isPowerSavingEnabled) {
             val users = userAccountManager.allUsers
             for (user in users) {
@@ -67,7 +63,6 @@ class OfflineSyncWork constructor(
                 }
                 recursive(File(ocRoot.storagePath), storageManager, user)
             }
-            wakeLock?.release()
         }
         return Result.success()
     }
