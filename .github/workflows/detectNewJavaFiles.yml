@@ -12,7 +12,15 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: trilom/file-changes-action@v1.2.4
-            -   uses: actions/checkout@v2
+            -   id: file_changes
+                uses: trilom/file-changes-action@v1.2.4
+                with:
+                  output: ','
             -   name: Detect new java files
-                run: scripts/analysis/detectNewJavaFiles.sh
+                run: |
+                    new_java=$(echo '${{ steps.file_changes.outputs.files_added }}' | tr ',' '\n' | grep '\.java$')
+                    if [ -n "$new_java" ]; then
+                        printf 'New java files detected:\n```\n%s\n```\n' "$new_java" | tee "$GITHUB_STEP_SUMMARY"
+                        exit 1
+                    fi
+
