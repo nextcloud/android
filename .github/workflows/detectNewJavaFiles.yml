@@ -18,6 +18,10 @@ jobs:
                   output: ','
             -   name: Detect new java files
                 run: |
+                    if [ -z '${{ steps.file_changes.outputs.files_added }}']; then
+                        echo "No new files added"
+                        exit 0
+                    fi
                     new_java=$(echo '${{ steps.file_changes.outputs.files_added }}' | tr ',' '\n' | grep '\.java$')
                     if [ -n "$new_java" ]; then
                         printf 'New java files detected:\n```\n%s\n```\n' "$new_java" | tee "$GITHUB_STEP_SUMMARY"
