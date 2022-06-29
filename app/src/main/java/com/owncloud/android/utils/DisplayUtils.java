@@ -909,16 +909,16 @@ public final class DisplayUtils {
                     stopShimmer(shimmerThumbnail, thumbnailView);
 
                     if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        //set the corner for both video and image thumbnail
-                        if (gridView) {
-                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
-                        } else {
-                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
-                        }
+                        thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                     }
+
+                    //set the corner for both video and image thumbnail
+                    if (gridView) {
+                        BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                    } else {
+                        BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                    }
+
                 } else {
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
