@@ -257,7 +257,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
-    <string name="error_file_lock">Erreur lors de la modification de l\'état du verrouillage du fichier</string>
+    <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème au traqueur ? (nécessite un compte GitHub)</string>
     <string name="error_retrieving_file">Erreur de téléchargement</string>
@@ -318,9 +318,9 @@ Attention la suppression est irréversible.</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_management_permission">Autorisations requises</string>
-    <string name="file_management_permission_optional">Autorisations de stockage</string>
+    <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
-    <string name="file_management_permission_text">%1$s a besoin d\'autorisations de gestion de fichiers pour envoyer des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
+    <string name="file_management_permission_text">%1$s a besoin d\'autorisations concernant la gestion des fichiers afin d\'envoyer des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du répertoire de données</string>
