@@ -79,7 +79,7 @@ class ShowErrorActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_show_error, menu)
         return super.onCreateOptionsMenu(menu)
     }
