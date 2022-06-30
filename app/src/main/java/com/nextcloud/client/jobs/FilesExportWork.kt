@@ -22,18 +22,14 @@
 
 package com.nextcloud.client.jobs
 
-import android.app.Activity
 import android.app.DownloadManager
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -154,10 +150,10 @@ class FilesExportWork(
             .setContentText(message)
             .setAutoCancel(true)
 
-        val actionIntent = Intent(appContext, NotificationReceiver::class.java).apply {
-            putExtra(NUMERIC_NOTIFICATION_ID, notificationId)
+        val actionIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
         }
-        val actionPendingIntent = PendingIntent.getBroadcast(
+        val actionPendingIntent = PendingIntent.getActivity(
             appContext,
             notificationId,
             actionIntent,
@@ -173,31 +169,5 @@ class FilesExportWork(
 
         val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
-    }
-
-    class NotificationReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            // open file chooser
-            val openIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
-                flags = FLAG_ACTIVITY_NEW_TASK
-            }
-
-            // check if intent can be resolved
-            if (context.packageManager.queryIntentActivities(openIntent, PackageManager.GET_RESOLVED_FILTER)
-                    .isNotEmpty()
-            ) {
-                context.startActivity(openIntent)
-            } else {
-                Toast.makeText(context, R.string.open_download_folder, Toast.LENGTH_LONG).show()
-            }
-
-            // remove notification
-            val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)
-
-            if (numericNotificationId != 0) {
-                val notificationManager = context.getSystemService(Activity.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.cancel(numericNotificationId)
-            }
-        }
     }
 }

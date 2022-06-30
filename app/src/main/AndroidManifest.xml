@@ -156,9 +156,6 @@
         <receiver
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
             android:exported="false" />
-        <receiver
-            android:name="com.nextcloud.client.jobs.FilesExportWork$NotificationReceiver"
-            android:exported="false" />
 
         <activity
             android:name=".ui.activity.UploadFilesActivity"
