@@ -481,7 +481,7 @@
     <string name="notification_channel_upload_name_short">Yüklemeler</string>
     <string name="notification_icon">Bildirim simgesi</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
-    <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
+    <string name="notifications_no_results_message">Lütfen bir süre sonra yeniden bakın.</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrimiçi</string>
