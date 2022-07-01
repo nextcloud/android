@@ -1844,7 +1844,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                            ));
         }
 
-        backgroundJobManager.startImmediateFilesDownloadJob(files);
+        backgroundJobManager.startImmediateFilesExportJob(files);
     }
 
     private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {

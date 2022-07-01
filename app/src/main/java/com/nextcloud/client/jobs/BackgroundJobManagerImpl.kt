@@ -79,7 +79,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
-        const val JOB_IMMEDIATE_FILES_DOWNLOAD = "immediate_files_download"
+        const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
 
         const val JOB_TEST = "test_job"
 
@@ -300,18 +300,18 @@ internal class BackgroundJobManagerImpl(
         return workManager.getJobInfo(request.id)
     }
 
-    override fun startImmediateFilesDownloadJob(files: Collection<OCFile>): LiveData<JobInfo?> {
+    override fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?> {
         val ids = files.map { it.fileId }.toLongArray()
 
         val data = Data.Builder()
             .putLongArray(FilesExportWork.FILES_TO_DOWNLOAD, ids)
             .build()
 
-        val request = oneTimeRequestBuilder(FilesExportWork::class, JOB_IMMEDIATE_FILES_DOWNLOAD)
+        val request = oneTimeRequestBuilder(FilesExportWork::class, JOB_IMMEDIATE_FILES_EXPORT)
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_DOWNLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_EXPORT, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
 
         return workManager.getJobInfo(request.id)
     }

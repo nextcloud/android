@@ -38,6 +38,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileDownloader
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -55,11 +56,15 @@ class FilesExportWork(
 ) : Worker(appContext, params) {
     companion object {
         const val FILES_TO_DOWNLOAD = "files_to_download"
-        private const val NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID"
     }
 
     override fun doWork(): Result {
         val fileIDs = inputData.getLongArray(FILES_TO_DOWNLOAD) ?: LongArray(0)
+
+        if (fileIDs.isEmpty()) {
+            Log_OC.w(this, "File export was started without any file")
+            return Result.success()
+        }
 
         val storageManager = FileDataStorageManager(user, contentResolver)
 

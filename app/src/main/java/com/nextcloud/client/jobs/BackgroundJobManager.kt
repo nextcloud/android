@@ -127,7 +127,7 @@ interface BackgroundJobManager {
      */
     fun startImmediateCalendarImport(calendarPaths: Map<String, Int>): LiveData<JobInfo?>
 
-    fun startImmediateFilesDownloadJob(files: Collection<OCFile>): LiveData<JobInfo?>
+    fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
     fun schedulePeriodicFilesSyncJob()
     fun startImmediateFilesSyncJob(skipCustomFolders: Boolean = false, overridePowerSaving: Boolean = false)
