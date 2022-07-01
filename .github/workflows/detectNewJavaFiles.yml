@@ -1,18 +1,32 @@
 name: "Detect new java files"
 
 on:
-    pull_request:
-        branches: [ master, stable-* ]
+  pull_request:
+    branches: [ master, stable-* ]
 
-# Declare default permissions as read only.
 permissions: read-all
 
 jobs:
-    detectNewJavaFiles:
-        runs-on: ubuntu-latest
+  detectNewJavaFiles:
+    runs-on: ubuntu-latest
+    steps:
+      -   id: file_changes
+          uses: trilom/file-changes-action@v1.2.4
+          with:
+            output: ','
+      -   name: Detect new java files
+          run: |
+            if [ -z '${{ steps.file_changes.outputs.files_added }}' ]; then
+                echo "No new files added"
+                exit 0
+            fi
+            new_java=$(echo '${{ steps.file_changes.outputs.files_added }}' | tr ',' '\n' | grep '\.java$' | cat)
+            if [ -n "$new_java" ]; then
+                # shellcheck disable=SC2016
+                printf 'New java files detected:\n```\n%s\n```\n' "$new_java" | tee "$GITHUB_STEP_SUMMARY"
+                exit 1
+            else
+                echo "No new java files detected"
+                exit 0
+            fi
 
-        steps:
-            -   uses: trilom/file-changes-action@v1.2.4
-            -   uses: actions/checkout@v2
-            -   name: Detect new java files
-                run: scripts/analysis/detectNewJavaFiles.sh
