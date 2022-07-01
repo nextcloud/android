@@ -1237,6 +1237,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             syncAndCheckFiles(checkedFiles);
             exitSelectionMode();
             return true;
+        } else if (itemId == R.id.action_export_file) {
+            exportFiles(checkedFiles);
+            exitSelectionMode();
+            return true;
         } else if (itemId == R.id.action_cancel_sync) {
             ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
             return true;
@@ -1959,13 +1963,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Get the remaining space on device
             long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
 
-            // Determine if space is enough to download the file, -1 available space if there in error while computing
-            boolean isSpaceEnough = true;
-            if (availableSpaceOnDevice >= 0) {
-                isSpaceEnough = checkIfEnoughSpace(availableSpaceOnDevice, file);
-            }
-
-            if (isSpaceEnough) {
+            if (FileStorageUtils.checkIfEnoughSpace(file)) {
                 mContainerActivity.getFileOperationsHelper().syncFile(file);
             } else {
                 showSpaceErrorDialog(file, availableSpaceOnDevice);
@@ -1973,24 +1971,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    @VisibleForTesting
-    public boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
-        if (file.isFolder()) {
-            // on folders we assume that we only need difference
-            return availableSpaceOnDevice > (file.getFileLength() - localFolderSize(file));
-        } else {
-            // on files complete file must first be stored, then target gets overwritten
-            return availableSpaceOnDevice > file.getFileLength();
+    private void exportFiles(Collection<OCFile> files) {
+        Context context = getContext();
+        View view = getView();
+        if (context != null && view != null) {
+            DisplayUtils.showSnackMessage(view,
+                                          context.getString(
+                                              R.string.export_start,
+                                              context.getResources().getQuantityString(R.plurals.files,
+                                                                                       files.size(),
+                                                                                       files.size())
+                                                           ));
         }
-    }
 
-    private long localFolderSize(OCFile file) {
-        if (file.getStoragePath() == null) {
-            // not yet downloaded anything
-            return 0;
-        } else {
-            return FileStorageUtils.getFolderSize(new File(file.getStoragePath()));
-        }
+        backgroundJobManager.startImmediateFilesExportJob(files);
     }
 
     private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {

@@ -96,11 +96,24 @@ class BackgroundJobFactory @Inject constructor(
                 AccountRemovalWork::class -> createAccountRemovalWork(context, workerParameters)
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
+                FilesExportWork::class -> createFilesExportWork(context, workerParameters)
                 ScanDocUploadWorker::class -> createScanDocUploadWork(context, workerParameters)
                 UploadImagesWorker::class -> createUploadImagesWork(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
+    }
+
+    private fun createFilesExportWork(
+        context: Context,
+        params: WorkerParameters
+    ): ListenableWorker {
+        return FilesExportWork(
+            context,
+            accountManager.user,
+            contentResolver,
+            params
+        )
     }
 
     private fun createContentObserverJob(

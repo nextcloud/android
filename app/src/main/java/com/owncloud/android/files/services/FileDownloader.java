@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
+import com.owncloud.android.operations.DownloadType;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -96,6 +97,7 @@ public class FileDownloader extends Service
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+    public static final String DOWNLOAD_TYPE = "DOWNLOAD_TYPE";
 
     private static final int FOREGROUND_SERVICE_ID = 412;
 
@@ -206,6 +208,11 @@ public class FileDownloader extends Service
             final User user = intent.getParcelableExtra(EXTRA_USER);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
+
+            DownloadType downloadType = DownloadType.DOWNLOAD;
+            if (intent.hasExtra(DOWNLOAD_TYPE)) {
+                downloadType = (DownloadType) intent.getSerializableExtra(DOWNLOAD_TYPE);
+            }
             String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
             String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
             conflictUploadId = intent.getLongExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, -1);
@@ -216,7 +223,8 @@ public class FileDownloader extends Service
                                                                               behaviour,
                                                                               activityName,
                                                                               packageName,
-                                                                              getBaseContext());
+                                                                              getBaseContext(),
+                                                                              downloadType);
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(user.getAccountName(),
@@ -473,7 +481,7 @@ public class FileDownloader extends Service
 
                     /// perform the download
                     downloadResult = mCurrentDownload.execute(mDownloadClient);
-                    if (downloadResult.isSuccess()) {
+                    if (downloadResult.isSuccess() && mCurrentDownload.getDownloadType() == DownloadType.DOWNLOAD) {
                         saveDownloadedFile();
                     }
 

@@ -38,6 +38,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.DownloadFileRemoteOperation;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.FileExportUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -59,6 +60,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private String etag = "";
     private String activityName;
     private String packageName;
+    private DownloadType downloadType;
 
     private Context context;
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
@@ -67,8 +69,13 @@ public class DownloadFileOperation extends RemoteOperation {
 
     private final AtomicBoolean cancellationRequested = new AtomicBoolean(false);
 
-    public DownloadFileOperation(User user, OCFile file, String behaviour, String activityName,
-                                 String packageName, Context context) {
+    public DownloadFileOperation(User user,
+                                 OCFile file,
+                                 String behaviour,
+                                 String activityName,
+                                 String packageName,
+                                 Context context,
+                                 DownloadType downloadType) {
         if (user == null) {
             throw new IllegalArgumentException("Illegal null user in DownloadFileOperation " +
                     "creation");
@@ -84,10 +91,11 @@ public class DownloadFileOperation extends RemoteOperation {
         this.activityName = activityName;
         this.packageName = packageName;
         this.context = context;
+        this.downloadType = downloadType;
     }
 
     public DownloadFileOperation(User user, OCFile file, Context context) {
-        this(user, file, null, null, null, context);
+        this(user, file, null, null, null, context, DownloadType.DOWNLOAD);
     }
 
     public String getSavePath() {
@@ -153,27 +161,33 @@ public class DownloadFileOperation extends RemoteOperation {
         }
 
         RemoteOperationResult result;
-        File newFile;
+        File newFile = null;
         boolean moved;
 
         /// download will be performed to a temporal file, then moved to the final location
         File tmpFile = new File(getTmpPath());
 
-        String tmpFolder =  getTmpFolder();
+        String tmpFolder = getTmpFolder();
 
         downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder);
-        Iterator<OnDatatransferProgressListener> listener = dataTransferListeners.iterator();
-        while (listener.hasNext()) {
-            downloadOperation.addDatatransferProgressListener(listener.next());
+        if (downloadType == DownloadType.DOWNLOAD) {
+            Iterator<OnDatatransferProgressListener> listener = dataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                downloadOperation.addDatatransferProgressListener(listener.next());
+            }
         }
+
         result = downloadOperation.execute(client);
 
         if (result.isSuccess()) {
             modificationTimestamp = downloadOperation.getModificationTimestamp();
             etag = downloadOperation.getEtag();
-            newFile = new File(getSavePath());
-            if (!newFile.getParentFile().exists() && !newFile.getParentFile().mkdirs()) {
-                Log_OC.e(TAG, "Unable to create parent folder " + newFile.getParentFile().getAbsolutePath());
+            if (downloadType == DownloadType.DOWNLOAD) {
+                newFile = new File(getSavePath());
+
+                if (!newFile.getParentFile().exists() && !newFile.getParentFile().mkdirs()) {
+                    Log_OC.e(TAG, "Unable to create parent folder " + newFile.getParentFile().getAbsolutePath());
+                }
             }
 
             // decrypt file
@@ -207,10 +221,21 @@ public class DownloadFileOperation extends RemoteOperation {
                     return new RemoteOperationResult(e);
                 }
             }
-            moved = tmpFile.renameTo(newFile);
-            newFile.setLastModified(file.getModificationTimestamp());
-            if (!moved) {
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+            if (downloadType == DownloadType.DOWNLOAD) {
+                moved = tmpFile.renameTo(newFile);
+                newFile.setLastModified(file.getModificationTimestamp());
+                if (!moved) {
+                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                }
+            } else if (downloadType == DownloadType.EXPORT) {
+                new FileExportUtils().exportFile(file.getFileName(),
+                                                 file.getMimeType(),
+                                                 context.getContentResolver(),
+                                                 null,
+                                                 tmpFile);
+                if (!tmpFile.delete()) {
+                    Log_OC.e(TAG, "Deletion of " + tmpFile.getAbsolutePath() + " failed!");
+                }
             }
         }
         Log_OC.i(TAG, "Download of " + file.getRemotePath() + " to " + getSavePath() + ": " +
@@ -266,5 +291,9 @@ public class DownloadFileOperation extends RemoteOperation {
 
     public String getPackageName() {
         return this.packageName;
+    }
+
+    public DownloadType getDownloadType() {
+        return downloadType;
     }
 }

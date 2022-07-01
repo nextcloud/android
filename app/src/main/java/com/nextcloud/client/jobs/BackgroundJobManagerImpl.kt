@@ -30,6 +30,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nmc.android.jobs.ScanDocUploadWorker
 import com.nmc.android.jobs.UploadImagesWorker
+import com.owncloud.android.datamodel.OCFile
 import java.util.*
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
@@ -71,6 +72,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
+        const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
         const val JOB_IMMEDIATE_SCAN_DOC_UPLOAD = "immediate_scan_doc_upload"
         const val JOB_IMAGE_FILES_UPLOAD = "immediate_image_files_upload"
 
@@ -289,6 +291,22 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniqueWork(JOB_IMMEDIATE_CALENDAR_IMPORT, ExistingWorkPolicy.KEEP, request)
+
+        return workManager.getJobInfo(request.id)
+    }
+
+    override fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?> {
+        val ids = files.map { it.fileId }.toLongArray()
+
+        val data = Data.Builder()
+            .putLongArray(FilesExportWork.FILES_TO_DOWNLOAD, ids)
+            .build()
+
+        val request = oneTimeRequestBuilder(FilesExportWork::class, JOB_IMMEDIATE_FILES_EXPORT)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_EXPORT, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
 
         return workManager.getJobInfo(request.id)
     }
