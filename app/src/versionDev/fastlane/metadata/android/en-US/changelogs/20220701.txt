@@ -1,0 +1,4 @@
+Fix compilation error with new fragment ktx version
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
