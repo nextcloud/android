@@ -35,7 +35,6 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.nmc.android.ui.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GridImageBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -49,11 +48,8 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 class GalleryAdapter(
     val context: Context,
@@ -156,22 +152,17 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun showAllGalleryItems(
-        storageManager: FileDataStorageManager,
         remotePath: String,
-        mediaObject: MutableList<OCFile>,
         isVideoHideClicked: Boolean,
         isImageHideClicked: Boolean,
         photoFragment: GalleryFragment
     ) {
         val items = storageManager.allGalleryItems
-        mediaObject.clear()
 
-        mediaObject.addAll(
-            items.filter { it != null && it.remotePath.startsWith(remotePath) }
-        )
+        val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
 
         setMediaFilter(
-            mediaObject,
+            filteredList,
             isVideoHideClicked,
             isImageHideClicked,
             photoFragment
@@ -180,7 +171,7 @@ class GalleryAdapter(
 
     // Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
-    fun setMediaFilter(
+    private fun setMediaFilter(
         mediaObject: List<OCFile>,
         isVideoHideClicked: Boolean,
         isImageHideClicked: Boolean,

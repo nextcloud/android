@@ -1088,7 +1088,12 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    public static Bitmap addVideoOverlay(Bitmap thumbnail) {
+    /**
+     * @param thumbnail
+     * @return
+     * @throws OutOfMemoryError can be thrown from {@link BitmapUtils#drawableToBitmap(Drawable, int, int)}
+     */
+    public static Bitmap addVideoOverlay(Bitmap thumbnail) throws OutOfMemoryError{
         int playButtonWidth = (int) (thumbnail.getWidth() * 0.3);
         int playButtonHeight = (int) (thumbnail.getHeight() * 0.3);
 

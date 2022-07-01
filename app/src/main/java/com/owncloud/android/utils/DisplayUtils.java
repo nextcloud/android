@@ -898,108 +898,112 @@ public final class DisplayUtils {
         } else {
             updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_files_grid_item_size);
 
-            if (file.getRemoteId() != null && file.isPreviewAvailable()) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                                                                                );
+            try {
+                if (file.getRemoteId() != null && file.isPreviewAvailable()) {
+                    // Thumbnail in cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
+                                                                                    );
 
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.alternate_padding);
-                    stopShimmer(shimmerThumbnail, thumbnailView);
+                    if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                        setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.alternate_padding);
+                        stopShimmer(shimmerThumbnail, thumbnailView);
 
-                    if (MimeTypeUtil.isVideo(file)) {
-                        thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                    }
+                        if (MimeTypeUtil.isVideo(file)) {
+                            thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                        }
 
-                    //set the corner for both video and image thumbnail
-                    if (gridView) {
-                        BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                        //set the corner for both video and image thumbnail
+                        if (gridView) {
+                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                        } else {
+                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                        }
+
                     } else {
-                        BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                        // generate new thumbnail
+                        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+                            for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
+                                if (file.getRemoteId() != null && task.getImageKey() != null &&
+                                    file.getRemoteId().equals(task.getImageKey())) {
+                                    return;
+                                }
+                            }
+                            try {
+                                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                       storageManager,
+                                                                                       user,
+                                                                                       asyncTasks,
+                                                                                       gridView,
+                                                                                       file.getRemoteId());
+                                if (thumbnail == null) {
+                                    Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                     file.getFileName(),
+                                                                                     user,
+                                                                                     context);
+                                    if (drawable == null) {
+                                        drawable = ResourcesCompat.getDrawable(context.getResources(),
+                                                                               R.drawable.file_image,
+                                                                               null);
+                                    }
+                                    int px = ThumbnailsCacheManager.getThumbnailDimension();
+                                    thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
+                                    //set thumbnailView padding for no thumbnail
+                                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
+
+                                }
+                                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
+                                                                                      thumbnail, task);
+
+                                if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
+                                    //resize shimmer for gallery media
+                                    if (gridView && isMediaGallery) {
+                                        configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
+                                    }
+                                    startShimmer(shimmerThumbnail, thumbnailView);
+                                }
+
+                                task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        stopShimmer(shimmerThumbnail, thumbnailView);
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        stopShimmer(shimmerThumbnail, thumbnailView);
+                                    }
+                                });
+
+                                thumbnailView.setImageDrawable(asyncDrawable);
+                                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                                       new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                                                                                                file.getRemoteId()));
+                                asyncTasks.add(task);
+                            } catch (IllegalArgumentException e) {
+                                Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
+                            } catch (RejectedExecutionException | OutOfMemoryError e) {
+                                // Executor queue is full, ignore
+                                // OutOfMemory, ignore
+                            }
+                        }
                     }
 
+                    if ("image/png".equalsIgnoreCase(file.getMimeType())) {
+                        thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
+                    }
                 } else {
-                    // generate new thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-                        for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
-                            if (file.getRemoteId() != null && task.getImageKey() != null &&
-                                file.getRemoteId().equals(task.getImageKey())) {
-                                return;
-                            }
-                        }
-                        try {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                                                                   storageManager,
-                                                                                   user,
-                                                                                   asyncTasks,
-                                                                                   gridView,
-                                                                                   file.getRemoteId());
-                            if (thumbnail == null) {
-                                Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                                 file.getFileName(),
-                                                                                 user,
-                                                                                 context);
-                                if (drawable == null) {
-                                    drawable = ResourcesCompat.getDrawable(context.getResources(),
-                                                                           R.drawable.file_image,
-                                                                           null);
-                                }
-                                int px = ThumbnailsCacheManager.getThumbnailDimension();
-                                thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
-                                //set thumbnailView padding for no thumbnail
-                                setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
-
-                            }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
-                                                                                  thumbnail, task);
-
-                            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
-                                //resize shimmer for gallery media
-                                if (gridView && isMediaGallery) {
-                                    configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
-                                }
-                                startShimmer(shimmerThumbnail, thumbnailView);
-                            }
-
-                            task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
-                                @Override
-                                public void onSuccess() {
-                                    stopShimmer(shimmerThumbnail, thumbnailView);
-                                }
-
-                                @Override
-                                public void onError() {
-                                    stopShimmer(shimmerThumbnail, thumbnailView);
-                                }
-                            });
-
-                            thumbnailView.setImageDrawable(asyncDrawable);
-                            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                                   new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                                            file.getRemoteId()));
-                            asyncTasks.add(task);
-                        } catch (IllegalArgumentException e) {
-                            Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-                        } catch (RejectedExecutionException | OutOfMemoryError e) {
-                            // Executor queue is full, ignore
-                            // OutOfMemory, ignore
-                        }
-                    }
+                    stopShimmer(shimmerThumbnail, thumbnailView);
+                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
+                    thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                file.getFileName(),
+                                                                                user,
+                                                                                context));
                 }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
-                }
-            } else {
-                stopShimmer(shimmerThumbnail, thumbnailView);
-                setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
-                thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                            file.getFileName(),
-                                                                            user,
-                                                                            context));
+            } catch (OutOfMemoryError ignored) {
+                // OutOfMemory, ignore will be thrown from BitmapUtils.drawableToBitmap(Drawable, int, int)
             }
         }
     }

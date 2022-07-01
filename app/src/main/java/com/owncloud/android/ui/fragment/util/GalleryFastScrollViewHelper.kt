@@ -177,7 +177,7 @@ class GalleryFastScrollViewHelper(
         val previousSections = sectionStartOffsets.filter { it <= offset }
 
         val section = previousSections.size - 1
-        val sectionStartOffset = previousSections.last()
+        val sectionStartOffset = if(previousSections.isEmpty()) 0 else previousSections.last()
 
         // now calculate where to scroll within the section
         var remainingOffset = offset - sectionStartOffset

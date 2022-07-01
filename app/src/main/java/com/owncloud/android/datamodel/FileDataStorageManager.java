@@ -2371,4 +2371,8 @@ public class FileDataStorageManager {
     public User getUser() {
         return user;
     }
+
+    public OCFile getDefaultRootPath(){
+        return new OCFile(OCFile.ROOT_PATH);
+    }
 }

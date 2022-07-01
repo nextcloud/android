@@ -440,7 +440,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             } catch (FileNotFoundException e) {
                 Log_OC.e(TAG, "File not found: " + e.getMessage());
             }
-
+        } catch (OutOfMemoryError oome) {
+            Log_OC.e(TAG, "Out of memory");
         } catch (Exception e) {
             Log_OC.e(TAG, "Error opening file: " + e.getMessage());
         }
