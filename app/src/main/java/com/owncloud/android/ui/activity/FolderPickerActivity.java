@@ -76,7 +76,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     SortingOrderDialogFragment.OnSortingOrderListener {
 
     public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FOLDER";
+    /**
+     * @deprecated This leads to crashes when too many files are passed. Use {@link #EXTRA_FILE_PATHS} instead, or
+     * better yet, store the target files wherever you need to use them instead of passing them through this activity.
+     */
+    @Deprecated
     public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILES";
+    public static final String EXTRA_FILE_PATHS = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_FILE_PATHS";
     public static final String EXTRA_ACTION = FolderPickerActivity.class.getCanonicalName() + ".EXTRA_ACTION";
     public static final String EXTRA_CURRENT_FOLDER = FolderPickerActivity.class.getCanonicalName() +
         ".EXTRA_CURRENT_FOLDER";
@@ -416,13 +422,21 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         if (v.equals(mCancelBtn)) {
             finish();
         } else if (v.equals(mChooseBtn)) {
-            Intent i = getIntent();
-            ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+            final Intent i = getIntent();
+            final Intent resultData = new Intent();
 
-            Intent data = new Intent();
-            data.putExtra(EXTRA_FOLDER, getListOfFilesFragment().getCurrentFile());
-            data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
-            setResult(RESULT_OK, data);
+            resultData.putExtra(EXTRA_FOLDER, getListOfFilesFragment().getCurrentFile());
+
+            final ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+            if (targetFiles != null) {
+                resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
+            }
+            final ArrayList<String> targetFilePaths = i.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
+            if (targetFilePaths != null) {
+                resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, targetFilePaths);
+            }
+
+            setResult(RESULT_OK, resultData);
 
             finish();
         }

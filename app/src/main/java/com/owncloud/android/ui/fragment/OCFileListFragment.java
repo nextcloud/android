@@ -1191,14 +1191,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         } else if (itemId == R.id.action_move) {
             Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
+            final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
+            for (OCFile file : checkedFiles) {
+                paths.add(file.getRemotePath());
+            }
+            action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
             action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
             action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE);
             getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
             return true;
         } else if (itemId == R.id.action_copy) {
             Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
+            final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
+            for (OCFile file : checkedFiles) {
+                paths.add(file.getRemotePath());
+            }
+            action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
             action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
             action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.COPY);
             getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
