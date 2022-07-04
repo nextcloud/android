@@ -25,6 +25,7 @@ import com.nextcloud.client.core.ClockImpl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -249,23 +250,30 @@ class LoggerTest {
 
         // THEN
         //      overflow occurrence is logged
-        val posted = CountDownLatch(1)
         whenever(osHandler.post(any())).thenAnswer {
             (it.arguments[0] as Runnable).run()
-            posted.countDown()
             true
         }
 
-        val listener: OnLogsLoaded = mock()
-        logger.load(listener)
-        assertTrue("Logs not loaded", posted.await(1, TimeUnit.SECONDS))
-
-        verify(listener).invoke(
-            argThat {
-                "Logger queue overflow" in last().message
-            },
-            any()
-        )
+        // load continuously until we find expected log line or we give up
+        var lostMessageWarning: LogEntry? = null
+        for (i in 0..10) {
+            val loaded = CountDownLatch(1)
+            logger.load { entries, totalLogSize ->
+                lostMessageWarning = entries.find {
+                    it.message.contains("Logger queue overflow")
+                }
+                loaded.countDown()
+            }
+            val ok = loaded.await(1000, TimeUnit.MILLISECONDS)
+            assertTrue("load callback not invoked; did you enable handler mock?", ok)
+            if (lostMessageWarning != null) {
+                break
+            } else {
+                Thread.sleep(1000)
+            }
+        }
+        assertNotNull(lostMessageWarning)
     }
 
     @Test
