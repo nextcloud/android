@@ -1024,5 +1024,4 @@
     <string name="export_failed">Failed to export %1s</string>
     <string name="export_partially_failed">Exported %1s, skipped %2s due to error</string>
     <string name="export_start">%1s will be exported. See notification for details.</string>
-    <string name="open_download_folder">Cannot open folder. Please manually browse to Download folder</string>
 </resources>
