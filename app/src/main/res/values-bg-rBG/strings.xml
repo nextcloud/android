@@ -256,6 +256,7 @@
     <string name="error_comment_file">Грешка при коментиране на файл</string>
     <string name="error_crash_title">%1$s крах</string>
     <string name="error_creating_file_from_template">Грешка при създаването на файл от шаблон</string>
+    <string name="error_file_lock">Грешка при промяна на състоянието на заключване на файла</string>
     <string name="error_report_issue_action">Докладване за грешка</string>
     <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
     <string name="error_retrieving_file">Грешка при извличане на файл</string>
@@ -402,7 +403,10 @@
     <string name="local_file_not_found_message">Файлът не е намерен в локалната система за файлове</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
+    <string name="lock_expiration_info">Изтича: %1$s</string>
     <string name="lock_file">Заключване на файл</string>
+    <string name="locked_by">Заключено от%1$s</string>
+    <string name="locked_by_app">Заключено от приложението %1$s</string>
     <string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
     <string name="log_send_no_mail_app">Няма намерено приложение за изпращане на журнали. Моля, инсталирайте имейл клиент.</string>
     <string name="login">Вписване</string>
