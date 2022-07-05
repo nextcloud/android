@@ -23,7 +23,6 @@ package com.nextcloud.client.jobs
 
 import android.content.ContentResolver
 import android.content.Context
-import android.os.PowerManager.WakeLock
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -51,13 +50,10 @@ class OfflineSyncWork constructor(
 
     companion object {
         const val TAG = "OfflineSyncJob"
-        private const val WAKELOCK_TAG_SEPARATION = ":"
-        private const val WAKELOCK_ACQUISITION_TIMEOUT_MS = 10L * 60L * 1000L
     }
 
     override fun doWork(): Result {
-        val wakeLock: WakeLock? = null
-        if (!powerManagementService.isPowerSavingEnabled && !connectivityService.isInternetWalled) {
+        if (!powerManagementService.isPowerSavingEnabled) {
             val users = userAccountManager.allUsers
             for (user in users) {
                 val storageManager = FileDataStorageManager(user, contentResolver)
@@ -67,12 +63,10 @@ class OfflineSyncWork constructor(
                 }
                 recursive(File(ocRoot.storagePath), storageManager, user)
             }
-            wakeLock?.release()
         }
         return Result.success()
     }
 
-    @Suppress("ReturnCount", "ComplexMethod") // legacy code
     private fun recursive(folder: File, storageManager: FileDataStorageManager, user: User) {
         val downloadFolder = FileStorageUtils.getSavePath(user.accountName)
         val folderName = folder.absolutePath.replaceFirst(downloadFolder.toRegex(), "") + OCFile.PATH_SEPARATOR
@@ -81,29 +75,9 @@ class OfflineSyncWork constructor(
         if (folder.listFiles() == null) {
             return
         }
-        val ocFolder = storageManager.getFileByPath(folderName)
-        Log_OC.d(TAG, folderName + ": currentEtag: " + ocFolder.etag)
-        // check for etag change, if false, skip
-        val checkEtagOperation = CheckEtagRemoteOperation(
-            ocFolder.remotePath,
-            ocFolder.etagOnServer
-        )
-        val result = checkEtagOperation.execute(user, context)
-        when (result.code) {
-            ResultCode.ETAG_UNCHANGED -> {
-                Log_OC.d(TAG, "$folderName: eTag unchanged")
-                return
-            }
-            ResultCode.FILE_NOT_FOUND -> {
-                val removalResult = storageManager.removeFolder(ocFolder, true, true)
-                if (!removalResult) {
-                    Log_OC.e(TAG, "removal of " + ocFolder.storagePath + " failed: file not found")
-                }
-                return
-            }
-            ResultCode.ETAG_CHANGED -> Log_OC.d(TAG, "$folderName: eTag changed")
-            else -> Log_OC.d(TAG, "$folderName: eTag changed")
-        }
+
+        val updatedEtag = checkEtagChanged(folderName, storageManager, user) ?: return
+
         // iterate over downloaded files
         val files = folder.listFiles { obj: File -> obj.isFile }
         if (files != null) {
@@ -129,11 +103,49 @@ class OfflineSyncWork constructor(
         // update eTag
         @Suppress("TooGenericExceptionCaught") // legacy code
         try {
-            val updatedEtag = result.data[0] as String
+            val ocFolder = storageManager.getFileByPath(folderName)
             ocFolder.etagOnServer = updatedEtag
             storageManager.saveFile(ocFolder)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Failed to update etag on " + folder.absolutePath, e)
+        }
+    }
+
+    /**
+     * @return new etag if changed, `null` otherwise
+     */
+    private fun checkEtagChanged(folderName: String, storageManager: FileDataStorageManager, user: User): String? {
+        val ocFolder = storageManager.getFileByPath(folderName)
+        Log_OC.d(TAG, folderName + ": currentEtag: " + ocFolder.etag)
+        // check for etag change, if false, skip
+        val checkEtagOperation = CheckEtagRemoteOperation(
+            ocFolder.remotePath,
+            ocFolder.etagOnServer
+        )
+        val result = checkEtagOperation.execute(user, context)
+        return when (result.code) {
+            ResultCode.ETAG_UNCHANGED -> {
+                Log_OC.d(TAG, "$folderName: eTag unchanged")
+                null
+            }
+            ResultCode.FILE_NOT_FOUND -> {
+                val removalResult = storageManager.removeFolder(ocFolder, true, true)
+                if (!removalResult) {
+                    Log_OC.e(TAG, "removal of " + ocFolder.storagePath + " failed: file not found")
+                }
+                null
+            }
+            ResultCode.ETAG_CHANGED -> {
+                Log_OC.d(TAG, "$folderName: eTag changed")
+                result.data[0] as String
+            }
+            else -> if (connectivityService.isInternetWalled) {
+                Log_OC.d(TAG, "No connectivity, skipping sync")
+                null
+            } else {
+                Log_OC.d(TAG, "$folderName: eTag changed")
+                result.data[0] as String
+            }
         }
     }
 }

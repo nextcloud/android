@@ -236,7 +236,7 @@ public final class FilesSyncHelper {
         }
 
         new Thread(() -> {
-            if (connectivityService.getConnectivity().isConnected() && !connectivityService.isInternetWalled()) {
+            if (connectivityService.getConnectivity().isConnected()) {
                 FileUploader.retryFailedUploads(
                     context,
                     uploadsStorageManager,

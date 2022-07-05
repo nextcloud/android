@@ -675,7 +675,7 @@ public class FileUploader extends Service
     /**
      * Convert current account to user. This is a temporary workaround until
      * service is migrated to new user model.
-     * 
+     *
      * @return Optional {@link User}
      */
     private Optional<User> getCurrentUser() {
@@ -1075,7 +1075,7 @@ public class FileUploader extends Service
         }
 
         final Connectivity connectivity = connectivityService.getConnectivity();
-        final boolean gotNetwork = connectivity.isConnected() && !connectivityService.isInternetWalled();
+        final boolean gotNetwork = connectivity.isConnected();
         final boolean gotWifi = connectivity.isWifi();
         final BatteryStatus batteryStatus = powerManagementService.getBattery();
         final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
@@ -1094,7 +1094,8 @@ public class FileUploader extends Service
                     failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
                     uploadsStorageManager.updateUpload(failedUpload);
                 }
-            } else if (!isPowerSaving && gotNetwork && canUploadBeRetried(failedUpload, gotWifi, charging)) {
+            } else if (!isPowerSaving && gotNetwork &&
+                canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled()) {
                 // 2B. for existing local files, try restarting it if possible
                 retryUpload(context, uploadUser.get(), failedUpload);
             }
