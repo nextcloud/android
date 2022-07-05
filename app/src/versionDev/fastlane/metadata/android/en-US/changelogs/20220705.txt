@@ -1,0 +1,4 @@
+When thumbnail update enforced, do not use any cached version
+Fix flaky Logger overflow test
+Update translations
+Update Nextcloud Android library
