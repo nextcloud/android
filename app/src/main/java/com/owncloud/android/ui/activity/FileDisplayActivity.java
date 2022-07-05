@@ -2318,8 +2318,10 @@ public class FileDisplayActivity extends FileActivity
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
         }
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
+        if (ocFileListFragment != null && !(ocFileListFragment instanceof GalleryFragment) && !(ocFileListFragment instanceof SharedListFragment)) {
             ocFileListFragment.refreshDirectory();
+        } else {
+            setLeftFragment(new OCFileListFragment());
         }
     }
 
