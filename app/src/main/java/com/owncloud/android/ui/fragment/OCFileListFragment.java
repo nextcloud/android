@@ -387,6 +387,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
         prepareCurrentSearch(searchEvent);
+        setEmptyView(searchEvent);
 
         if (mSortButton != null) {
             mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
@@ -1516,7 +1517,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case RECENTLY_MODIFIED_SEARCH:
                     setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
                     break;
-                    
+
                 case SHARED_FILTER:
                     setEmptyListMessage(SearchType.SHARED_FILTER);
                     break;
@@ -1525,6 +1526,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setEmptyListMessage(SearchType.NO_SEARCH);
                     break;
             }
+        } else {
+            setEmptyListMessage(SearchType.NO_SEARCH);
         }
     }
 
