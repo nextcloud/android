@@ -779,6 +779,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         user,
                         activity);
 
+                    if (metadata == null) {
+                        throw new IllegalStateException("metadata is null!");
+                    }
+
                     // update ocFile
                     RefreshFolderOperation.updateFileNameForEncryptedFile(mStorageManager, metadata, ocFile);
                     ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
@@ -808,7 +812,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
 
                 contentValues.add(cv);
-            } catch (RemoteOperationFailedException | OperationCanceledException | AuthenticatorException | IOException | AccountUtils.AccountNotFoundException e) {
+            } catch (
+                RemoteOperationFailedException |
+                    OperationCanceledException |
+                    AuthenticatorException |
+                    IOException |
+                    AccountUtils.AccountNotFoundException |
+                    IllegalStateException e) {
                 Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
