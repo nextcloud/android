@@ -24,7 +24,6 @@
  */
 package com.owncloud.android.utils.theme;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -44,7 +43,7 @@ public final class ThemeMenuUtils {
      * @param item  the menu item object
      * @param color the wanted color (as resource or color)
      */
-    public static void tintMenuItemText(MenuItem item, int color) {
+    public void tintMenuItemText(MenuItem item, int color) {
         SpannableString newItemTitle = new SpannableString(item.getTitle());
         newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
                              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -54,11 +53,10 @@ public final class ThemeMenuUtils {
     /**
      * tinting menu item color
      *
-     * @param context
      * @param item    the menu item object
      * @param color   the color wanted as a color resource
      */
-    public static void tintMenuIcon(@NonNull Context context, @NonNull MenuItem item, int color) {
+    public void tintMenuIcon(@NonNull MenuItem item, int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
         DrawableCompat.setTint(wrapDrawable, color);

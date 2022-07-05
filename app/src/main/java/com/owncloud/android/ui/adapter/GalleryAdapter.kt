@@ -48,10 +48,10 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView.SectionedAdapter
+import com.owncloud.android.utils.MimeTypeUtil
+import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
 
@@ -64,8 +64,8 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     themeColorUtils: ThemeColorUtils,
     themeDrawableUtils: ThemeDrawableUtils
-) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, SectionedAdapter {
-    private var files: List<GalleryItems> = mutableListOf()
+) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
+    var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager
 
@@ -116,7 +116,11 @@ class GalleryAdapter(
             val itemViewHolder = holder as GalleryItemViewHolder
             val ocFile = files[section].files[relativePosition]
 
-            ocFileListDelegate.bindGridViewHolder(itemViewHolder, ocFile)
+            ocFileListDelegate.bindGridViewHolder(
+                itemViewHolder,
+                ocFile,
+                SearchType.GALLERY_SEARCH
+            )
         }
     }
 
@@ -128,7 +132,7 @@ class GalleryAdapter(
         return files.size
     }
 
-    override fun getSectionName(position: Int): String {
+    override fun getPopupText(position: Int): String {
         return DisplayUtils.getDateByPattern(
             files[getRelativePosition(position).section()].date,
             context,
@@ -159,7 +163,6 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun showAllGalleryItems(
-        storageManager: FileDataStorageManager,
         remotePath: String,
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
@@ -226,10 +229,11 @@ class GalleryAdapter(
         return files.isEmpty()
     }
 
-    fun getItem(position: Int): OCFile {
+    fun getItem(position: Int): OCFile? {
         val itemCoord = getRelativePosition(position)
-
-        return files[itemCoord.section()].files[itemCoord.relativePos()]
+        return files
+            .getOrNull(itemCoord.section())?.files
+            ?.getOrNull(itemCoord.relativePos())
     }
 
     override fun isMultiSelect(): Boolean {
