@@ -6,11 +6,11 @@
 name: Rebase command
 
 on:
-    issue_comment:
-        types: created
+  issue_comment:
+    types: created
 
-permissions:
-  contents: read
+permissions:	
+  contents: read	
 
 jobs:
   rebase:
@@ -18,11 +18,11 @@ jobs:
     permissions:
       contents: none
 
-        # On pull requests and if the comment starts with `/rebase`
-        if: github.event.issue.pull_request != '' && startsWith(github.event.comment.body, '/rebase')
+    # On pull requests and if the comment starts with `/rebase`
+    if: github.event.issue.pull_request != '' && startsWith(github.event.comment.body, '/rebase')
 
-        steps:
-            -   name: Add reaction on start
+    steps:
+      - name: Add reaction on start
         uses: peter-evans/create-or-update-comment@v2
         with:
           token: ${{ secrets.COMMAND_BOT_PAT }}
