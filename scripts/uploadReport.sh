@@ -54,7 +54,7 @@ fi
 if [ -e $FOLDER ]; then
     upload $FOLDER
 else
-    deleteOldComments
+    scripts/deleteOldComments.sh "$BRANCH" "$TYPE" "$PR"
     echo "$BRANCH_TYPE test failed, but no output was generated. Maybe a preliminary stage failed."
 
     curl_gh > /dev/null 2>&1  \
