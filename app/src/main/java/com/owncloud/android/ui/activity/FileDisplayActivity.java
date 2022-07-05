@@ -965,9 +965,9 @@ public class FileDisplayActivity extends FileActivity
      * @param data Intent received
      */
     private void requestMoveOperation(Intent data) {
-        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-        getFileOperationsHelper().moveFiles(files, folderToMoveAt);
+        final OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
+        getFileOperationsHelper().moveFiles(filePaths, folderToMoveAt);
     }
 
     /**
@@ -976,9 +976,9 @@ public class FileDisplayActivity extends FileActivity
      * @param data Intent received
      */
     private void requestCopyOperation(Intent data) {
-        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-        getFileOperationsHelper().copyFiles(files, folderToMoveAt);
+        final OCFile targetFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
+        getFileOperationsHelper().copyFiles(filePaths, targetFolder);
     }
 
     private boolean isSearchOpen() {

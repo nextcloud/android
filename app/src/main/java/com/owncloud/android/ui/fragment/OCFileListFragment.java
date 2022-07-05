@@ -1190,18 +1190,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             return true;
         } else if (itemId == R.id.action_move) {
-            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
-            action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
-            action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE);
-            getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
+            pickFolderForMoveOrCopy(FolderPickerActivity.MOVE, checkedFiles);
             return true;
         } else if (itemId == R.id.action_copy) {
-            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-            action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, new ArrayList<>(checkedFiles));
-            action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
-            action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.COPY);
-            getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
+            pickFolderForMoveOrCopy(FolderPickerActivity.COPY, checkedFiles);
             return true;
         } else if (itemId == R.id.action_select_all_action_menu) {
             selectAllFiles(true);
@@ -1219,9 +1211,33 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return false;
     }
 
+    private void pickFolderForMoveOrCopy(final String extraAction, final Set<OCFile> checkedFiles) {
+        int requestCode;
+        switch (extraAction) {
+            case FolderPickerActivity.MOVE:
+                requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_FILES;
+                break;
+            case FolderPickerActivity.COPY:
+                requestCode = FileDisplayActivity.REQUEST_CODE__COPY_FILES;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown extra action: " + extraAction);
+        }
+
+        final Intent action = new Intent(getActivity(), FolderPickerActivity.class);
+        final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
+        for (OCFile file : checkedFiles) {
+            paths.add(file.getRemotePath());
+        }
+        action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
+        action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
+        action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction);
+        getActivity().startActivityForResult(action, requestCode);
+    }
+
+
     /**
-     * Use this to query the {@link OCFile} that is currently
-     * being displayed by this fragment
+     * Use this to query the {@link OCFile} that is currently being displayed by this fragment
      *
      * @return The currently viewed OCFile
      */
