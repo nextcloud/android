@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -39,6 +41,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
@@ -46,6 +50,7 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
@@ -157,14 +162,55 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAllGalleryItems() {
+    fun showAllGalleryItems(
+        remotePath: String,
+        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
+        photoFragment: GalleryFragment
+    ) {
+
         val items = storageManager.allGalleryItems
 
-        files = items
+       val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
+
+        setMediaFilter(filteredList,
+            mediaState,
+            photoFragment
+        )
+    }
+
+    // Set Image/Video List According to Selection of Hide/Show Image/Video
+    @SuppressLint("NotifyDataSetChanged")
+   private fun setMediaFilter(
+        items: List<OCFile>,
+        mediaState: GalleryFragmentBottomSheetDialog.MediaState,
+        photoFragment: GalleryFragment
+    ) {
+
+        val finalSortedList: List<OCFile> = when (mediaState) {
+            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+            }
+            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+            }
+            else -> items
+        }
+
+        if (finalSortedList.isEmpty()) {
+            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+        }
+
+        files = finalSortedList
             .groupBy { firstOfMonth(it.modificationTimestamp) }
             .map { GalleryItems(it.key, FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(it.value)) }
             .sortedBy { it.date }.reversed()
 
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clear() {
+        files = emptyList()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
