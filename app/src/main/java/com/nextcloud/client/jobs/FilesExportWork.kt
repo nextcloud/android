@@ -74,7 +74,7 @@ class FilesExportWork(
 
             // check if storage is left
             if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
-                showErrorNotification(successfulExports, fileIDs.size)
+                showErrorNotification(successfulExports)
                 break
             }
 
@@ -82,7 +82,7 @@ class FilesExportWork(
                 try {
                     exportFile(ocFile)
                 } catch (e: java.lang.RuntimeException) {
-                    showErrorNotification(successfulExports, fileIDs.size)
+                    showErrorNotification(successfulExports)
                 }
             } else {
                 downloadFile(ocFile)
@@ -112,31 +112,28 @@ class FilesExportWork(
         appContext.startService(i)
     }
 
-    private fun showErrorNotification(successfulExports: Int, size: Int) {
+    private fun showErrorNotification(successfulExports: Int) {
         if (successfulExports == 0) {
             showNotification(
-                appContext.getString(
-                    R.string.export_failed,
-                    appContext.resources.getQuantityString(R.plurals.files, size)
-                )
+                appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
             )
         } else {
             showNotification(
-                appContext.getString(
-                    R.string.export_partially_failed,
-                    appContext.resources.getQuantityString(R.plurals.files, successfulExports),
-                    appContext.resources.getQuantityString(R.plurals.files, size)
+                appContext.resources.getQuantityString(
+                    R.plurals.export_partially_failed,
+                    successfulExports,
+                    successfulExports
                 )
             )
         }
     }
 
     private fun showSuccessNotification(successfulExports: Int) {
-        val files = appContext.resources.getQuantityString(R.plurals.files, successfulExports, successfulExports)
         showNotification(
-            appContext.getString(
-                R.string.export_successful,
-                files
+            appContext.resources.getQuantityString(
+                R.plurals.export_successful,
+                successfulExports,
+                successfulExports
             )
         )
     }
