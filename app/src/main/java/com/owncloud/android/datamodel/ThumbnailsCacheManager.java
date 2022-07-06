@@ -593,11 +593,18 @@ public final class ThumbnailsCacheManager {
             ServerFileInterface file = (ServerFileInterface) mFile;
             String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
 
-            // Check disk cache in background thread
-            thumbnail = getBitmapFromDiskCache(imageKey);
+            boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
+
+            if (updateEnforced) {
+                thumbnail = null;
+            } else {
+                // Check disk cache in background thread
+                thumbnail = getBitmapFromDiskCache(imageKey);
+            }
 
             // Not found in disk cache
-            if (thumbnail == null || (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded())) {
+            if (thumbnail == null)
+            {
                 int pxW;
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
@@ -630,8 +637,13 @@ public final class ThumbnailsCacheManager {
                 if (thumbnail == null) {
                     // check if resized version is available
                     String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
-                    Bitmap resizedImage = getBitmapFromDiskCache(resizedImageKey);
 
+                    Bitmap resizedImage;
+                    if (updateEnforced) {
+                        resizedImage = null;
+                    } else {
+                        resizedImage = getBitmapFromDiskCache(resizedImageKey);
+                    }
                     if (resizedImage != null) {
                         thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
                     } else {
