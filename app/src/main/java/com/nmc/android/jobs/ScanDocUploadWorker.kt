@@ -267,7 +267,8 @@ class ScanDocUploadWorker constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.RENAME
+            NameCollisionPolicy.RENAME,
+            false
         )
     }
 }

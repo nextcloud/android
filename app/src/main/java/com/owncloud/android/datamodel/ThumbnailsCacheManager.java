@@ -603,8 +603,7 @@ public final class ThumbnailsCacheManager {
             }
 
             // Not found in disk cache
-            if (thumbnail == null)
-            {
+            if (thumbnail == null) {
                 int pxW;
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
