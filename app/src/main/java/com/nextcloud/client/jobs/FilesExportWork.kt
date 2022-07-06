@@ -54,9 +54,8 @@ class FilesExportWork(
     private val themeColorUtils: ThemeColorUtils,
     params: WorkerParameters
 ) : Worker(appContext, params) {
-    companion object {
-        const val FILES_TO_DOWNLOAD = "files_to_download"
-    }
+
+    private lateinit var storageManager: FileDataStorageManager
 
     override fun doWork(): Result {
         val fileIDs = inputData.getLongArray(FILES_TO_DOWNLOAD) ?: LongArray(0)
@@ -66,35 +65,42 @@ class FilesExportWork(
             return Result.success()
         }
 
-        val storageManager = FileDataStorageManager(user, contentResolver)
+        storageManager = FileDataStorageManager(user, contentResolver)
 
-        var successfulExports = 0
-        for (fileID in fileIDs) {
-            val ocFile = storageManager.getFileById(fileID) ?: continue
-
-            // check if storage is left
-            if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
-                showErrorNotification(successfulExports)
-                break
-            }
-
-            if (ocFile.isDown) {
-                try {
-                    exportFile(ocFile)
-                } catch (e: java.lang.RuntimeException) {
-                    showErrorNotification(successfulExports)
-                }
-            } else {
-                downloadFile(ocFile)
-            }
-
-            successfulExports++
-        }
+        val successfulExports = exportFiles(fileIDs)
 
         // show notification
         showSuccessNotification(successfulExports)
 
         return Result.success()
+    }
+
+    private fun exportFiles(fileIDs: LongArray): Int {
+        var successfulExports = 0
+        for (fileID in fileIDs) {
+            val ocFile = storageManager.getFileById(fileID)
+            if (ocFile != null) {
+                // check if storage is left
+                if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
+                    showErrorNotification(successfulExports)
+                    break
+                }
+
+                if (ocFile.isDown) {
+                    try {
+                        exportFile(ocFile)
+                    } catch (e: RuntimeException) {
+                        Log_OC.e(TAG, "Error exporting file", e)
+                        showErrorNotification(successfulExports)
+                    }
+                } else {
+                    downloadFile(ocFile)
+                }
+
+                successfulExports++
+            }
+        }
+        return successfulExports
     }
 
     @Throws(IllegalStateException::class)
@@ -171,5 +177,10 @@ class FilesExportWork(
 
         val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
+    }
+
+    companion object {
+        const val FILES_TO_DOWNLOAD = "files_to_download"
+        private val TAG = FilesExportWork::class.simpleName
     }
 }
