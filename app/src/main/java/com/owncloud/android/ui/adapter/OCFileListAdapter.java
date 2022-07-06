@@ -28,31 +28,23 @@ import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Filter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.GridImageBinding;
 import com.owncloud.android.databinding.GridItemBinding;
 import com.owncloud.android.databinding.ListFooterBinding;
 import com.owncloud.android.databinding.ListHeaderBinding;
@@ -63,28 +55,18 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.AvatarGroupLayout;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
-import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -92,7 +74,6 @@ import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -109,7 +90,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
@@ -886,6 +866,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCFile> getFiles() {
         return mFiles;
+    }
+
+    /**
+     * update the OCFile if anything changes in the file
+     */
+    public void updateFiles(@NonNull OCFile file) {
+        int pos = getItemPosition(file);
+        mFiles.set(pos, file);
+        notifyItemChanged(pos);
     }
 
     public void resetLastTimestamp() {
