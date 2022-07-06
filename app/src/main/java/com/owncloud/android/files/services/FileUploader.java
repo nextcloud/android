@@ -186,6 +186,11 @@ public class FileUploader extends Service
      */
     public static final String KEY_DISABLE_RETRIES = "DISABLE_RETRIES";
 
+    /**
+     * Set to true if the image files are uploading after rotating them
+     */
+    public static final String KEY_ROTATED_IMAGE = "ROTATED_IMAGE";
+
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
@@ -431,6 +436,7 @@ public class FileUploader extends Service
         boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
         int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
         boolean disableRetries = intent.getBooleanExtra(KEY_DISABLE_RETRIES, true);
+        boolean isRotatedImages = intent.getBooleanExtra(KEY_ROTATED_IMAGE, false);
         try {
             for (OCFile file : files) {
                 startNewUpload(
@@ -443,7 +449,8 @@ public class FileUploader extends Service
                     isCreateRemoteFolder,
                     createdBy,
                     file,
-                    disableRetries
+                    disableRetries,
+                    isRotatedImages
                               );
             }
         } catch (IllegalArgumentException e) {
@@ -473,7 +480,8 @@ public class FileUploader extends Service
         boolean isCreateRemoteFolder,
         int createdBy,
         OCFile file,
-        boolean disableRetries
+        boolean disableRetries,
+        boolean isRotatedImages
                                ) {
         OCUpload ocUpload = new OCUpload(file, user);
         ocUpload.setFileSize(file.getFileLength());
@@ -484,6 +492,7 @@ public class FileUploader extends Service
         ocUpload.setUseWifiOnly(onWifiOnly);
         ocUpload.setWhileChargingOnly(whileChargingOnly);
         ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+        ocUpload.setRotatedImages(isRotatedImages);
 
         UploadFileOperation newUpload = new UploadFileOperation(
             mUploadsStorageManager,
@@ -498,6 +507,7 @@ public class FileUploader extends Service
             onWifiOnly,
             whileChargingOnly,
             disableRetries,
+            isRotatedImages,
             new FileDataStorageManager(user, getContentResolver())
         );
         newUpload.setCreatedBy(createdBy);
@@ -534,6 +544,7 @@ public class FileUploader extends Service
 
         onWifiOnly = upload.isUseWifiOnly();
         whileChargingOnly = upload.isWhileChargingOnly();
+        boolean isRotateImages = upload.isRotatedImages();
 
         UploadFileOperation newUpload = new UploadFileOperation(
             mUploadsStorageManager,
@@ -548,6 +559,7 @@ public class FileUploader extends Service
             onWifiOnly,
             whileChargingOnly,
             true,
+            isRotateImages,
             new FileDataStorageManager(user, getContentResolver())
         );
 
@@ -895,8 +907,9 @@ public class FileUploader extends Service
             createdBy,
             requiresWifi,
             requiresCharging,
-            nameCollisionPolicy
-                     );
+            nameCollisionPolicy,
+            false
+        );
     }
 
     /**
@@ -913,40 +926,28 @@ public class FileUploader extends Service
         int createdBy,
         boolean requiresWifi,
         boolean requiresCharging,
-        NameCollisionPolicy nameCollisionPolicy
+        NameCollisionPolicy nameCollisionPolicy,
+        boolean isRotatedImages
                                     ) {
+        Intent intent = new Intent(context, FileUploader.class);
 
+        intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FileUploader.KEY_USER, user);
+        intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+        intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+        intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+        intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+        intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+        intent.putExtra(FileUploader.KEY_ROTATED_IMAGE, isRotatedImages);
 
-        if (useFilesUploadWorker(context)) {
-            new FilesUploadHelper().uploadNewFiles(user,
-                                                   localPaths,
-                                                   remotePaths,
-                                                   createRemoteFolder,
-                                                   createdBy,
-                                                   requiresWifi,
-                                                   requiresCharging,
-                                                   nameCollisionPolicy,
-                                                   behaviour);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
         } else {
-            Intent intent = new Intent(context, FileUploader.class);
-
-            intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
-            intent.putExtra(FileUploader.KEY_USER, user);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
+            context.startService(intent);
         }
     }
 

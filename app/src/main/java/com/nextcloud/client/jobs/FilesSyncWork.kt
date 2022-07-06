@@ -180,7 +180,8 @@ class FilesSyncWork(
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
             needsWifi,
             needsCharging,
-            syncedFolder.nameCollisionPolicy
+            syncedFolder.nameCollisionPolicy,
+            false
         )
 
         for (path in paths) {
