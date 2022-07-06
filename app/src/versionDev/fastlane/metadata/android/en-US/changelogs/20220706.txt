@@ -1,0 +1,12 @@
+When retrying failing uploads, delay connectivity check until last possible moment
+OfflineSyncWork: minor refactor to make more readable
+OfflineSyncWork: remove unused wakelock
+OfflineSyncWork: do not proactively ping server for connectivity unless sync fails
+rebase
+explanation of tab count
+Do not show sharing option at all
+Do not show sharing tab when folder is encrypted
+Prevent crash when selecting too many files to copy or move (#10476)
+New screenshot for com.owncloud.android.ui.activity.FolderPickerActivityIT_open
+Shared -> OnDevice -> now correct message
+Fix Notification -> on device navigation path
