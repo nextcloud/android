@@ -70,6 +70,10 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        if (file.isEncrypted()) {
+            return 1; // sharing not allowed for encrypted files, thus only show first tab (activities)
+        } else {
+            return 2; // show activities and sharing tab
+        }
     }
 }
