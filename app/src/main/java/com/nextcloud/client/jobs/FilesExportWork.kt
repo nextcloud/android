@@ -77,19 +77,20 @@ class FilesExportWork(
 
     private fun exportFiles(fileIDs: LongArray): Int {
         var successfulExports = 0
-        for (fileID in fileIDs) {
-            val ocFile = storageManager.getFileById(fileID)
-            if (ocFile != null) {
-                // check if storage is left
+        fileIDs
+            .asSequence()
+            .map { storageManager.getFileById(it) }
+            .filterNotNull()
+            .forEach { ocFile ->
                 if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
                     showErrorNotification(successfulExports)
-                    break
+                    return@forEach
                 }
 
                 if (ocFile.isDown) {
                     try {
                         exportFile(ocFile)
-                    } catch (e: RuntimeException) {
+                    } catch (e: IllegalStateException) {
                         Log_OC.e(TAG, "Error exporting file", e)
                         showErrorNotification(successfulExports)
                     }
@@ -99,7 +100,6 @@ class FilesExportWork(
 
                 successfulExports++
             }
-        }
         return successfulExports
     }
 

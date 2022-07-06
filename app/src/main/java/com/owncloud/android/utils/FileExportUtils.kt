@@ -35,12 +35,9 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 
 class FileExportUtils {
-    companion object {
-        const val INITIAL_RENAME_COUNT = 2
-    }
-
     @Throws(IllegalStateException::class)
     fun exportFile(
         fileName: String,
@@ -148,20 +145,24 @@ class FileExportUtils {
             } else if (file != null) {
                 FileInputStream(file)
             } else {
-                throw IllegalStateException("ocFile and file both may not be null")
+                error("ocFile and file both may not be null")
             }
 
-            inputStream.use { fis ->
-                outputStream.use { os ->
-                    val buffer = ByteArray(1024)
-                    var len: Int
-                    while (fis!!.read(buffer).also { len = it } != -1) {
-                        os.write(buffer, 0, len)
-                    }
-                }
-            }
+            copyStream(inputStream!!, outputStream)
         } catch (e: IOException) {
             Log_OC.e(this, "Cannot write file", e)
+        }
+    }
+
+    private fun copyStream(inputStream: InputStream, outputStream: FileOutputStream) {
+        inputStream.use { input ->
+            outputStream.use { output ->
+                val buffer = ByteArray(COPY_BUFFER_SIZE)
+                var len: Int
+                while (input.read(buffer).also { len = it } != -1) {
+                    output.write(buffer, 0, len)
+                }
+            }
         }
     }
 
@@ -177,5 +178,10 @@ class FileExportUtils {
         } else {
             name + suffix
         }
+    }
+
+    companion object {
+        private const val INITIAL_RENAME_COUNT = 2
+        private const val COPY_BUFFER_SIZE = 1024
     }
 }
