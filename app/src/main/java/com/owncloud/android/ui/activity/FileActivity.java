@@ -782,7 +782,7 @@ public abstract class FileActivity extends DrawerActivity
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
-        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        final Fragment fileListFragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
 
         if (result.isSuccess()) {
             updateFileFromDB();
@@ -806,8 +806,8 @@ public abstract class FileActivity extends DrawerActivity
                 sharingFragment.onUpdateShareInformation(result, file);
             }
 
-            if (fileListFragment != null && file != null) {
-                fileListFragment.updateOCFile(file);
+            if (fileListFragment instanceof OCFileListFragment && file != null) {
+                ((OCFileListFragment) fileListFragment).updateOCFile(file);
             }
         } else {
             // Detect Failure (403) --> maybe needs password
