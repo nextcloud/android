@@ -38,6 +38,7 @@ import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
@@ -65,7 +66,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -217,7 +217,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     }
 
     private static Set<String> toAccountNames(Collection<User> users) {
-        Set<String> accountNames = new HashSet<>(users.size());
+        Set<String> accountNames = Sets.newHashSetWithExpectedSize(users.size());
         for (User user : users) {
             accountNames.add(user.getAccountName());
         }

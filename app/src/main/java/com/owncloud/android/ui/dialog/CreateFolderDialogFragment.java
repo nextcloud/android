@@ -33,6 +33,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
@@ -45,8 +46,8 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -123,9 +124,10 @@ public class CreateFolderDialogFragment
                                            themeColorUtils.primaryAccentColor(getActivity()));
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
-        List<String> fileNames = new ArrayList<>();
+        List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
+        Set<String> fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 
-        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+        for (OCFile file : folderContent) {
             fileNames.add(file.getFileName());
         }
 

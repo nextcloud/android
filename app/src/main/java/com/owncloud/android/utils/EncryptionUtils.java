@@ -26,6 +26,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Pair;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
@@ -674,7 +675,7 @@ public final class EncryptionUtils {
 
         SecureRandom random = new SecureRandom();
 
-        List<String> outputLines = new ArrayList<>();
+        List<String> outputLines = Lists.newArrayListWithCapacity(count);
         for (int i = 0; i < count; i++) {
             int randomLine = random.nextInt(lines.size());
             outputLines.add(lines.get(randomLine));
