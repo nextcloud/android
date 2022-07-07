@@ -113,10 +113,18 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:divider="@drawable/divider"
-        android:dividerHeight="1dp"
         android:id="@+id/sharesList"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider"
+        android:dividerHeight="1dp" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <include
+        android:id="@+id/pinHomeRow"
+        layout="@layout/file_details_share_pin_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

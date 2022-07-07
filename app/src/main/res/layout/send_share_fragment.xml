@@ -42,7 +42,7 @@
             android:padding="@dimen/send_share_fragment_layout_padding">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -73,7 +73,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -100,6 +100,33 @@
                 android:textColor="@color/text_color"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/pin_home_icon"
+                android:layout_width="@dimen/share_icon_size"
+                android:layout_height="@dimen/share_icon_size"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/pinHome"
+                android:src="@drawable/add_to_home_screen"
+                android:padding="12dp"
+                android:background="@drawable/round_bgnd"/>
+
+            <TextView
+                android:id="@+id/pin_home_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawable="@drawable/ic_home"
+                android:text="@string/pinHome"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:textColor="@color/text_color"/>
+        </LinearLayout>
     </LinearLayout>
 
     <View

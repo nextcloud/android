@@ -165,6 +165,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
+    public static final String OPEN_FILE = "NC_OPEN_FILE";
 
     private FilesBinding binding;
 
@@ -359,6 +360,11 @@ public class FileDisplayActivity extends FileActivity
 
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
+
+        if (OPEN_FILE.equals(getIntent().getAction())) {
+            getSupportFragmentManager().executePendingTransactions();
+            onOpenFileIntent(getIntent());
+        }
     }
 
     private Activity getActivity() {
@@ -502,6 +508,8 @@ public class FileDisplayActivity extends FileActivity
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
+        } else if (OPEN_FILE.equals(intent.getAction())) {
+            onOpenFileIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
@@ -544,6 +552,15 @@ public class FileDisplayActivity extends FileActivity
                 browseToRoot();
             }
     }
+
+    private void onOpenFileIntent(Intent intent) {
+        String extra = intent.getStringExtra(EXTRA_FILE);
+        OCFile file = getStorageManager().getFileByPath(extra);
+
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        fileListFragment.onItemClicked(file);
+    }
+
 
     /**
      * Replaces the first fragment managed by the activity with the received as a parameter.

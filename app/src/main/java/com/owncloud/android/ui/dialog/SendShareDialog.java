@@ -28,6 +28,7 @@ import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ShortcutUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
@@ -136,6 +137,13 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         themeShareButtonImage(shareLinkImageView);
         shareLinkImageView.setOnClickListener(v -> shareByLink(themeSnackbarUtils));
+
+
+        ImageView pinHomeImageView = view.findViewById(R.id.pin_home_icon);
+        themeShareButtonImage(pinHomeImageView);
+        pinHomeImageView.setOnClickListener(v -> {
+            ShortcutUtil.addShortcutToHomescreen(getContext(), file);
+        });
 
         if (hideNcSharingOptions) {
             sendShareButtons.setVisibility(View.GONE);
