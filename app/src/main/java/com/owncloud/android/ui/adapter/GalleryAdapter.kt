@@ -48,9 +48,9 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.MimeTypeUtil
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
@@ -170,9 +170,10 @@ class GalleryAdapter(
 
         val items = storageManager.allGalleryItems
 
-       val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
+        val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
 
-        setMediaFilter(filteredList,
+        setMediaFilter(
+            filteredList,
             mediaState,
             photoFragment
         )
@@ -180,7 +181,7 @@ class GalleryAdapter(
 
     // Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
-   private fun setMediaFilter(
+    private fun setMediaFilter(
         items: List<OCFile>,
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
