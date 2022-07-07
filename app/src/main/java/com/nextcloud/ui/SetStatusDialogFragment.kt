@@ -196,7 +196,7 @@ class SetStatusDialogFragment :
         binding.clearStatusAfterSpinner.apply {
             this.adapter = adapter
             onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     setClearStatusAfterValue(position)
                 }
 
