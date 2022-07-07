@@ -1014,4 +1014,7 @@
     <string name="locked_by">Locked by %1$s</string>
     <string name="locked_by_app">Locked by %1$s app</string>
     <string name="lock_expiration_info">Expires: %1$s</string>
+    <string name="share_pin_home">Pin Home</string>
+    <string name="share_pin_home_text">This will create a shortcut on your Homescreen</string>
+    <string name="pinHome">Pin to Home</string>
 </resources>

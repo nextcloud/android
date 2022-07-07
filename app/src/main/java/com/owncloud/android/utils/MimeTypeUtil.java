@@ -173,6 +173,27 @@ public final class MimeTypeUtil {
                                  themeDrawableUtils);
     }
 
+    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink,
+                                          boolean isEncrypted, WebdavEntry.MountType mountType) {
+        int drawableId;
+
+        if (isSharedViaLink) {
+            drawableId = R.drawable.folder_external;
+        } else if (isSharedViaUsers) {
+            drawableId = R.drawable.folder_shared_link;
+        } else if (isEncrypted) {
+            drawableId = R.drawable.folder_encrypted;
+        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
+            drawableId = R.drawable.folder_external;
+        } else if (WebdavEntry.MountType.GROUP == mountType) {
+            drawableId = R.drawable.folder_group;
+        } else {
+            drawableId = R.drawable.folder;
+        }
+
+        return drawableId;
+    }
+
     /**
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *

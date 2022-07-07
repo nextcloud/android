@@ -28,6 +28,7 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -61,6 +62,7 @@ import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ShortcutUtil;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
@@ -76,6 +78,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -174,6 +177,28 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             themeColorUtils,
                                                             themeAvatarUtils));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+
+
+        binding.pinHomeRow.pinHomeIcon.getBackground().setColorFilter(
+            ResourcesCompat.getColor(
+                fileActivity.getResources(),
+                R.color.nc_grey,
+                null),
+            PorterDuff.Mode.SRC_IN);
+
+        binding.pinHomeRow.pinHomeIcon.getDrawable().mutate().setColorFilter(
+            ResourcesCompat.getColor(
+                fileActivity.getResources(),
+                R.color.icon_on_nc_grey,
+                null),
+            PorterDuff.Mode.SRC_IN);
+
+        binding.pinHomeRow.pinhomeInternalContainer.setOnClickListener(l -> {
+            ShortcutUtil.addShortcutToHomescreen(fileActivity, file);
+        });
+
 
         setupView();
 
