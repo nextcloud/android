@@ -25,6 +25,8 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -49,11 +51,14 @@ import com.owncloud.android.databinding.GridItemBinding;
 import com.owncloud.android.databinding.ListFooterBinding;
 import com.owncloud.android.databinding.ListHeaderBinding;
 import com.owncloud.android.databinding.ListItemBinding;
+import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
@@ -76,6 +81,7 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -764,6 +770,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             try {
                 ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
 
+                OCFile parentFolder = mStorageManager.getFileById(ocFile.getParentId());
+                if (parentFolder != null && (ocFile.isEncrypted() || parentFolder.isEncrypted())) {
+                    DecryptedFolderMetadata metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
+                        true,
+                        parentFolder,
+                        OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), activity),
+                        user,
+                        activity);
+
+                    if (metadata == null) {
+                        throw new IllegalStateException("metadata is null!");
+                    }
+
+                    // update ocFile
+                    RefreshFolderOperation.updateFileNameForEncryptedFile(mStorageManager, metadata, ocFile);
+                    ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
+                }
+
                 if (SearchType.GALLERY_SEARCH != searchType) {
                     // also sync folder content
                     if (ocFile.isFolder()) {
@@ -788,7 +812,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
 
                 contentValues.add(cv);
-            } catch (RemoteOperationFailedException e) {
+            } catch (
+                RemoteOperationFailedException |
+                    OperationCanceledException |
+                    AuthenticatorException |
+                    IOException |
+                    AccountUtils.AccountNotFoundException |
+                    IllegalStateException e) {
                 Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
