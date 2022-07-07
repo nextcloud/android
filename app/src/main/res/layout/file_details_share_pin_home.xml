@@ -54,7 +54,7 @@
             android:id="@+id/sharePinHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/share_pin_home"
+            android:text="@string/pin_home"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size" />
 
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/two_line_primary_text_size"
-            tools:text="@string/share_pin_home_text" />
+            tools:text="@string/pin_home_text" />
     </LinearLayout>
 
 </LinearLayout>

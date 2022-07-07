@@ -112,7 +112,7 @@
                 android:layout_width="@dimen/share_icon_size"
                 android:layout_height="@dimen/share_icon_size"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/pinHome"
+                android:contentDescription="@string/pin_home"
                 android:src="@drawable/add_to_home_screen"
                 android:padding="12dp"
                 android:background="@drawable/round_bgnd"/>
@@ -123,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:drawable="@drawable/ic_home"
-                android:text="@string/pinHome"
+                android:text="@string/pin_home"
+                android:textAlignment="center"
                 android:paddingTop="@dimen/standard_half_padding"
                 android:textColor="@color/text_color"/>
         </LinearLayout>
@@ -138,10 +139,10 @@
         android:background="@color/background_color_inverse"/>
 
         <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/send_button_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        tools:listitem="@layout/send_button" />
+            android:id="@+id/send_button_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider"
+            tools:listitem="@layout/send_button" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
