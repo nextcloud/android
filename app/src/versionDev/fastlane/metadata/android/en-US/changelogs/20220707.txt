@@ -1,0 +1,6 @@
+recreate StoragePermissionDialogFragment when rotating
+only encrypt folder if key is setup
+fix potential NPE
+on favorite/recent search: update encrypted files
+Only allow folder to unset if not in e2e subtree
+Update Nextcloud Android library
