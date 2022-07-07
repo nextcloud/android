@@ -960,7 +960,8 @@ public class FileDisplayActivity extends FileActivity
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                NameCollisionPolicy.ASK_USER
+                NameCollisionPolicy.ASK_USER,
+                false
                                       );
 
         } else {
