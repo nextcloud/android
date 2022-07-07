@@ -1040,33 +1040,29 @@ public class FileOperationsHelper {
     /**
      * Start operations to move one or several files
      *
-     * @param files        Files to move
+     * @param filePaths    Remote paths of files to move
      * @param targetFolder Folder where the files while be moved into
      */
-    public void moveFiles(Collection<OCFile> files, OCFile targetFolder) {
-        for (OCFile file : files) {
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_MOVE_FILE);
-            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
-        }
-        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    public void moveFiles(final List<String> filePaths, final OCFile targetFolder) {
+        copyOrMoveFiles(OperationsService.ACTION_MOVE_FILE, filePaths, targetFolder);
     }
 
     /**
      * Start operations to copy one or several files
      *
-     * @param files        Files to copy
+     * @param filePaths    Remote paths of files to move
      * @param targetFolder Folder where the files while be copied into
      */
-    public void copyFiles(Collection<OCFile> files, OCFile targetFolder) {
-        for (OCFile file : files) {
+    public void copyFiles(final List<String> filePaths, final OCFile targetFolder) {
+        copyOrMoveFiles(OperationsService.ACTION_COPY_FILE, filePaths, targetFolder);
+    }
+
+    private void copyOrMoveFiles(final String action, final List<String> filePaths, final OCFile targetFolder) {
+        for (String path : filePaths) {
             Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_COPY_FILE);
+            service.setAction(action);
             service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
