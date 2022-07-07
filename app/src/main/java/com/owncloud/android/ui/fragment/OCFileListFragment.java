@@ -406,7 +406,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
         prepareCurrentSearch(searchEvent);
-
+        setEmptyView(searchEvent);
         if (mSortButton != null) {
             mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
                                                                                preferences.getSortOrderByFolder(mFile)));
@@ -430,7 +430,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
-        listDirectory(false, false);
+        listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
     protected void setAdapter(Bundle args) {
@@ -1684,6 +1684,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     setEmptyListMessage(SearchType.NO_SEARCH);
                     break;
             }
+        } else{
+            setEmptyListMessage(SearchType.NO_SEARCH);
         }
     }
 
