@@ -18,6 +18,7 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
@@ -46,7 +47,7 @@
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:contentDescription="@null"
-                android:src="@drawable/folder" />
+                tools:src="@drawable/folder" />
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/thumbnail_shimmer"
