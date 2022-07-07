@@ -108,6 +108,12 @@ open class FolderPickerActivity :
                     mSearchOnlyFolders = true
                     isDoNotEnterEncryptedFolder = true
                 }
+                CHOOSE_LOCATION -> {
+                    caption = resources.getText(R.string.choose_location).toString()
+                    mSearchOnlyFolders = true
+                    isDoNotEnterEncryptedFolder = true
+                    mChooseBtn!!.text = resources.getString(R.string.common_select)
+                }
                 else -> caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
             }
         } else {
@@ -550,6 +556,7 @@ open class FolderPickerActivity :
 
         const val MOVE = "MOVE"
         const val COPY = "COPY"
+        const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
         private val TAG = FolderPickerActivity::class.java.simpleName
         protected const val TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS"
     }

@@ -3,9 +3,11 @@
  *
  * @author Tobias Kaminsky
  * @author Andy Scherzinger
+ * @author TSI-mc
  * Copyright (C) 2017 Tobias Kaminsky
  * Copyright (C) 2017 Nextcloud GmbH
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,10 +24,14 @@
  */
 package com.owncloud.android.utils.theme;
 
+import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * Utility class with methods for client side checkable theming.
@@ -42,5 +48,18 @@ public final class ThemeMenuUtils {
         newItemTitle.setSpan(new ForegroundColorSpan(color), 0, newItemTitle.length(),
                              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         item.setTitle(newItemTitle);
+    }
+
+    /**
+     * tinting menu item color
+     *
+     * @param item    the menu item object
+     * @param color   the color wanted as a color resource
+     */
+    public void tintMenuIcon(@NonNull MenuItem item, int color) {
+        Drawable normalDrawable = item.getIcon();
+        Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
+        DrawableCompat.setTint(wrapDrawable, color);
+        item.setIcon(wrapDrawable);
     }
 }
