@@ -33,6 +33,11 @@
         app:showAsAction="never"
         android:showAsAction="never" />
     <item
+        android:id="@+id/action_export_file"
+        android:title="@string/filedetails_export"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+    <item
         android:id="@+id/action_send_file"
         android:title="@string/common_send"
         app:showAsAction="never"

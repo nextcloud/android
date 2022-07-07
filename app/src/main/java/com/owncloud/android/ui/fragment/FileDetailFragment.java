@@ -44,6 +44,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -80,6 +81,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -115,6 +117,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeLayoutUtils themeLayoutUtils;
     @Inject ThemeBarUtils themeBarUtils;
+    @Inject BackgroundJobManager backgroundJobManager;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -407,6 +410,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_export_file) {
+            ArrayList<OCFile> list = new ArrayList<>();
+            list.add(getFile());
+            containerActivity.getFileOperationsHelper().exportFiles(list,
+                                                                    getContext(),
+                                                                    getView(),
+                                                                    backgroundJobManager);
             return true;
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());

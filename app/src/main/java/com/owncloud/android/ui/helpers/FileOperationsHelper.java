@@ -49,6 +49,7 @@ import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -880,7 +881,7 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                                               getString(R.string.wait_a_moment));
 
         } else {
             Intent intent = new Intent(fileActivity, OperationsService.class);
@@ -1031,6 +1032,23 @@ public class FileOperationsHelper {
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+
+    public void exportFiles(Collection<OCFile> files,
+                            Context context,
+                            View view,
+                            BackgroundJobManager backgroundJobManager) {
+        if (context != null && view != null) {
+            DisplayUtils.showSnackMessage(view,
+                                          context.getResources().getQuantityString(
+                                              R.plurals.export_start,
+                                              files.size(),
+                                              files.size()
+                                                                                  ));
+        }
+
+        backgroundJobManager.startImmediateFilesExportJob(files);
     }
 
     public long getOpIdWaitingFor() {
