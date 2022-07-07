@@ -23,6 +23,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -207,6 +208,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
         mAdapter.notifyDataSetChanged();
