@@ -1697,6 +1697,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
+
+            if (getActivity() instanceof FileDisplayActivity) {
+                ((FileDisplayActivity) getActivity()).initSyncBroadcastReceiver();
+            }
+
             setTitle(ThemeUtils.getDefaultDisplayNameForRootFolder(getContext()));
         }
 

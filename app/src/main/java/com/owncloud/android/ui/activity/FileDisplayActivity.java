@@ -310,6 +310,8 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         checkStoragePath();
+
+        initSyncBroadcastReceiver();
     }
 
     private void checkStoragePath() {
@@ -1123,13 +1125,7 @@ public class FileDisplayActivity extends FileActivity
 
         // Listen for sync messages
         if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
-            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            initSyncBroadcastReceiver();
         }
 
 
@@ -1203,6 +1199,17 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() end");
     }
 
+    public void initSyncBroadcastReceiver() {
+        if (mSyncBroadcastReceiver == null) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        }
+    }
 
     @Override
     protected void onPause() {
