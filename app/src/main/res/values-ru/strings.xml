@@ -255,6 +255,7 @@
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
+    <string name="error_file_lock">Не удалось изменить состояние блокировки</string>
     <string name="error_report_issue_action">Сообщить</string>
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
@@ -402,7 +403,10 @@
     <string name="local_file_not_found_message">Файл не найден в локальной файловой системе</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
+    <string name="lock_expiration_info">Истекает: %1$s</string>
     <string name="lock_file">Заблокировать файл</string>
+    <string name="locked_by">Заблокировано: %1$s</string>
+    <string name="locked_by_app">Заблокировано приложением %1$s</string>
     <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
     <string name="log_send_no_mail_app">Приложение для отправки журналов не найдено. Пожалуйста, установите почтовый клиент.</string>
     <string name="login">Войти</string>

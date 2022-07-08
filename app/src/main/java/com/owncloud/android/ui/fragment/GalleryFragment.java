@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2019 Tobias Kaminsky
  * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,24 +23,36 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nextcloud.utils.view.FastScroll;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.FolderPickerActivity;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
+import com.owncloud.android.utils.theme.ThemeMenuUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +60,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A Fragment that lists all files and folders in a given path
  */
-public class GalleryFragment extends OCFileListFragment {
+public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
@@ -56,10 +70,23 @@ public class GalleryFragment extends OCFileListFragment {
     private int limit = 300;
     private GalleryAdapter mAdapter;
 
+    private static final int SELECT_LOCATION_REQUEST_CODE = 212;
+    private OCFile remoteFile;
+    private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
+
+    @Inject ThemeMenuUtils themeMenuUtils;
+    @Inject FileDataStorageManager fileDataStorageManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         searchFragment = true;
+
+        setHasOptionsMenu(true);
+
+        if (galleryFragmentBottomSheetDialog == null) {
+            galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
+        }
     }
 
     @Override
@@ -77,6 +104,8 @@ public class GalleryFragment extends OCFileListFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
+
+        remoteFile = fileDataStorageManager.getDefaultRootPath();
 
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -97,6 +126,8 @@ public class GalleryFragment extends OCFileListFragment {
 
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
         requireActivity().invalidateOptionsMenu();
+
+        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
 
         handleSearchEvent();
     }
@@ -128,7 +159,6 @@ public class GalleryFragment extends OCFileListFragment {
     @Override
     public void onRefresh() {
         super.onRefresh();
-
         handleSearchEvent();
     }
 
@@ -159,7 +189,7 @@ public class GalleryFragment extends OCFileListFragment {
         setEmptyListLoadingMessage();
 
         // always show first stored items
-        mAdapter.showAllGalleryItems();
+        showAllGalleryItems();
 
         setFabVisible(false);
 
@@ -174,18 +204,14 @@ public class GalleryFragment extends OCFileListFragment {
             startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
             endDate = System.currentTimeMillis() / 1000;
 
-            photoSearchTask = new GallerySearchTask(this,
-                                                    accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
-                                                    startDate,
-                                                    endDate,
-                                                    limit)
-                .execute();
+            runGallerySearchTask();
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
+        mAdapter.notifyDataSetChanged();
 
         if (mAdapter.isEmpty()) {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
@@ -214,6 +240,54 @@ public class GalleryFragment extends OCFileListFragment {
 
         startDate = endDate - (daySpan * 24 * 60 * 60);
 
+        runGallerySearchTask();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.fragment_gallery_three_dots, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
+
+        if (menuItem != null) {
+            themeMenuUtils.tintMenuIcon(menuItem,
+                                        themeColorUtils.appBarPrimaryFontColor(requireContext()));
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        if (item.getItemId() == R.id.action_three_dot_icon && !photoSearchQueryRunning
+            && galleryFragmentBottomSheetDialog != null) {
+            galleryFragmentBottomSheetDialog.show(getChildFragmentManager(),"data" );
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
+            OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+            if (chosenFolder != null) {
+                remoteFile = chosenFolder;
+                searchAndDisplayAfterChangingFolder();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void searchAndDisplayAfterChangingFolder() {
+        mAdapter.clear();
+        runGallerySearchTask();
+    }
+
+    private void runGallerySearchTask() {
         photoSearchTask = new GallerySearchTask(this,
                                                 accountManager.getUser(),
                                                 mContainerActivity.getStorageManager(),
@@ -252,19 +326,43 @@ public class GalleryFragment extends OCFileListFragment {
                     startDate = endDate - (daySpan * 24 * 60 * 60);
 
                     photoSearchQueryRunning = true;
-                    photoSearchTask = new GallerySearchTask(this,
-                                                            accountManager.getUser(),
-                                                            mContainerActivity.getStorageManager(),
-                                                            startDate,
-                                                            endDate,
-                                                            limit)
-                        .execute();
+                    runGallerySearchTask();
                 }
             }
         }
     }
 
+    @Override
+    public void updateMediaContent(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
+            showAllGalleryItems();
+    }
+
+    @Override
+    public void selectMediaFolder() {
+        Intent action = new Intent(requireActivity(), FolderPickerActivity.class);
+        action.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
+        startActivityForResult(action, SELECT_LOCATION_REQUEST_CODE);
+    }
+
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems();
+        mAdapter.showAllGalleryItems(remoteFile.getRemotePath(),
+                                     galleryFragmentBottomSheetDialog.getCurrMediaState(),
+                                     this);
+
+        updateSubtitle(galleryFragmentBottomSheetDialog.getCurrMediaState());
+    }
+
+    private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
+        requireActivity().runOnUiThread(() -> {
+            String subTitle = requireContext().getResources().getString(R.string.subtitle_photos_videos);
+            if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY) {
+                subTitle = requireContext().getResources().getString(R.string.subtitle_photos_only);
+            } else if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY) {
+                subTitle = requireContext().getResources().getString(R.string.subtitle_videos_only);
+            }
+            if (requireActivity() instanceof ToolbarActivity) {
+                ((ToolbarActivity) requireActivity()).updateToolbarSubtitle(subTitle);
+            }
+        });
     }
 }

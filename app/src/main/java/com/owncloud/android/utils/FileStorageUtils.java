@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,6 +57,7 @@ import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -637,6 +639,44 @@ public final class FileStorageUtils {
      */
     private static boolean canListFiles(File f) {
         return f.canRead() && f.isDirectory();
+    }
+
+    /**
+     * // Determine if space is enough to download the file
+     *
+     * @param file @link{OCFile}
+     * @return boolean: true if there is enough space left
+     * @throws RuntimeException
+     */
+    public static boolean checkIfEnoughSpace(OCFile file) {
+        // Get the remaining space on device
+        long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
+
+        if (availableSpaceOnDevice == -1) {
+            throw new RuntimeException("Error while computing available space");
+        }
+
+        return checkIfEnoughSpace(availableSpaceOnDevice, file);
+    }
+
+    @VisibleForTesting
+    public static boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
+        if (file.isFolder()) {
+            // on folders we assume that we only need difference
+            return availableSpaceOnDevice > (file.getFileLength() - localFolderSize(file));
+        } else {
+            // on files complete file must first be stored, then target gets overwritten
+            return availableSpaceOnDevice > file.getFileLength();
+        }
+    }
+
+    private static long localFolderSize(OCFile file) {
+        if (file.getStoragePath() == null) {
+            // not yet downloaded anything
+            return 0;
+        } else {
+            return FileStorageUtils.getFolderSize(new File(file.getStoragePath()));
+        }
     }
 
     /**

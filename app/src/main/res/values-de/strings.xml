@@ -910,4 +910,12 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <string name="subtitle_photos_videos">Fotos &amp; videos</string>
+    <string name="show_images">Bilder anzeigen</string>
+    <string name="subtitle_photos_only">Nur Fotos</string>
+    <string name="show_video">Videos anzeigen</string>
+    <string name="subtitle_videos_only">Nur Videos</string>
+    <string name="select_media_folder">Medienordner festlegen</string>
+    <string name="choose_location">Speicherort wählen</string>
+    <string name="common_select">Auswählen</string>
 </resources>
