@@ -1045,7 +1045,4 @@
     <string name="locate_folder">Locate folder</string>
     <string name="share_pin_home">Pin Home</string>
     <string name="share_pin_home_text">This will create a shortcut on your Homescreen</string>
-    <string name="pinHome">Pin to Home</string>
-    <string name="pin_home_text">This will create a shortcut on your Homescreen</string>
-    <string name="pin_home">Pin to Homescreen</string>
 </resources>
