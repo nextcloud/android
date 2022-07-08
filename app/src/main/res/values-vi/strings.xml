@@ -116,6 +116,7 @@
     <string name="common_remove">Xóa</string>
     <string name="common_rename">Sửa tên</string>
     <string name="common_save">Lưu</string>
+    <string name="common_select">Chọn</string>
     <string name="common_send">Gửi</string>
     <string name="common_share">Chia sẻ</string>
     <string name="common_skip">Bỏ qua</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Lỗi khi khôi phục phiên bản tệp!</string>
     <string name="file_version_restored_successfully">Khôi phục phiên bản tệp thành công.</string>
     <string name="filedetails_download">Tải về</string>
+    <string name="filedetails_export">Xuất ra</string>
     <string name="filedetails_renamed_in_upload_msg">Đã đổi tên tệp %1$s trong khi tải lên</string>
     <string name="filedetails_sync_file">Đồng bộ</string>
     <string name="filedisplay_no_file_selected">Không có tập tin nào được chọn</string>

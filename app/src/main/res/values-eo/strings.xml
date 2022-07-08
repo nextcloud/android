@@ -98,6 +98,7 @@
     <string name="common_remove">Forigi</string>
     <string name="common_rename">Alinomi</string>
     <string name="common_save">Konservi</string>
+    <string name="common_select">Elekti</string>
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
     <string name="common_skip">Preterpasi</string>
@@ -259,6 +260,7 @@
     <string name="file_version_restored_error">Eraro dum restaŭro de dosierversio!</string>
     <string name="file_version_restored_successfully">Sukcese restaŭriĝis dosierversio.</string>
     <string name="filedetails_download">Elŝuti</string>
+    <string name="filedetails_export">Eksporti</string>
     <string name="filedetails_renamed_in_upload_msg">Dosiero alinomita %1$s dum alŝuto</string>
     <string name="filedetails_sync_file">Sinkronigi</string>
     <string name="filedisplay_no_file_selected">Neniu dosiero elektita</string>

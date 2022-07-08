@@ -108,6 +108,7 @@
     <string name="common_remove">מחיקה</string>
     <string name="common_rename">שינוי שם</string>
     <string name="common_save">שמירה</string>
+    <string name="common_select">בחירה</string>
     <string name="common_send">שליחה</string>
     <string name="common_share">שיתוף</string>
     <string name="common_skip">דלג</string>
@@ -305,6 +306,7 @@
     <string name="file_version_restored_error">שחזור גרסת הקובץ נתקלה בשגיאה!</string>
     <string name="file_version_restored_successfully">גרסת הקובץ שוחזרה בהצלחה.</string>
     <string name="filedetails_download">הורדה</string>
+    <string name="filedetails_export">ייצוא</string>
     <string name="filedetails_renamed_in_upload_msg">שם הקובץ %1$s השתנה במהלך ההעלאה</string>
     <string name="filedetails_sync_file">סנכרון</string>
     <string name="filedisplay_no_file_selected">לא נבחר קובץ</string>

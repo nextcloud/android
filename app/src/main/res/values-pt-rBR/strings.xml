@@ -116,6 +116,7 @@
     <string name="common_remove">Excluir</string>
     <string name="common_rename">Renomear</string>
     <string name="common_save">Salvar</string>
+    <string name="common_select">Selecionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartilhar</string>
     <string name="common_skip">Ignorar</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="filedetails_download">Baixar</string>
+    <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">Arquivo %1$s renomeado durante o envio</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">Nenhum arquivo selecionado</string>

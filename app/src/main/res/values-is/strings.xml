@@ -108,6 +108,7 @@
     <string name="common_remove">Eyða</string>
     <string name="common_rename">Endurnefna</string>
     <string name="common_save">Vista</string>
+    <string name="common_select">Velja</string>
     <string name="common_send">Senda</string>
     <string name="common_share">Deila</string>
     <string name="common_skip">Sleppa</string>
@@ -310,6 +311,7 @@
     <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
     <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
     <string name="filedetails_download">Sækja</string>
+    <string name="filedetails_export">Flytja út</string>
     <string name="filedetails_renamed_in_upload_msg">Skrá endurnefnd sem %1$s við innsendingu</string>
     <string name="filedetails_sync_file">Samstilla</string>
     <string name="filedisplay_no_file_selected">Engin skrá valin</string>

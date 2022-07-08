@@ -116,6 +116,7 @@
     <string name="common_remove">Ištrinti</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_save">Įrašyti</string>
+    <string name="common_select">Pasirinkti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
     <string name="common_skip">Praleisti</string>
@@ -334,6 +335,7 @@
     <string name="file_version_restored_error">Klaida atkuriant failo versiją!</string>
     <string name="file_version_restored_successfully">Failo versija sėkmingai atkurta.</string>
     <string name="filedetails_download">Atsisiųsti</string>
+    <string name="filedetails_export">Eksportuoti</string>
     <string name="filedetails_renamed_in_upload_msg">Failas pervadintas kaip %1$s įkėlimo metu</string>
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>

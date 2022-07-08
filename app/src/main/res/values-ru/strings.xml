@@ -116,6 +116,7 @@
     <string name="common_remove">Удалить</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_save">Сохранить</string>
+    <string name="common_select">Выбрать</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
     <string name="common_skip">Пропустить</string>
@@ -347,6 +348,7 @@
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="filedetails_download">Скачать</string>
+    <string name="filedetails_export">Экспорт</string>
     <string name="filedetails_renamed_in_upload_msg">При передаче на сервер файл был переименован в «%1$s»</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>

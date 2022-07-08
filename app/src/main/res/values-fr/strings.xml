@@ -116,6 +116,7 @@
     <string name="common_remove">Supprimer</string>
     <string name="common_rename">Renommer</string>
     <string name="common_save">Enregistrer</string>
+    <string name="common_select">Sélectionner</string>
     <string name="common_send">Envoyer</string>
     <string name="common_share">Partager</string>
     <string name="common_skip">Passer</string>
@@ -348,6 +349,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="filedetails_download">Télécharger</string>
+    <string name="filedetails_export">Exporter</string>
     <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant l\'envoi</string>
     <string name="filedetails_sync_file">Synchroniser</string>
     <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>

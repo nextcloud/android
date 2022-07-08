@@ -116,6 +116,7 @@
     <string name="common_remove">刪除</string>
     <string name="common_rename">重新命名</string>
     <string name="common_save">儲存</string>
+    <string name="common_select">選擇</string>
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
     <string name="common_skip">略過</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">回復失敗！</string>
     <string name="file_version_restored_successfully">成功地回復檔案版本</string>
     <string name="filedetails_download">下載</string>
+    <string name="filedetails_export">導出</string>
     <string name="filedetails_renamed_in_upload_msg">檔案%1$s在上傳過程中被重新命名</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedisplay_no_file_selected">未選擇任何檔案</string>

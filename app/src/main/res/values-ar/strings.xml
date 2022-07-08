@@ -116,6 +116,7 @@
     <string name="common_remove">إزالة</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_save">حفظ</string>
+    <string name="common_select">تحديد</string>
     <string name="common_send">إرسال</string>
     <string name="common_share">مشاركة</string>
     <string name="common_skip">تخطي</string>
@@ -341,6 +342,7 @@
     <string name="file_version_restored_error">حدث خطأ في استيراد إصدار الملف!</string>
     <string name="file_version_restored_successfully">تم استيراد إصدار الملف بنجاح.</string>
     <string name="filedetails_download">تحميل</string>
+    <string name="filedetails_export">تصدير</string>
     <string name="filedetails_renamed_in_upload_msg">أعيدت تسمية الملف %1$s خلال الرفع</string>
     <string name="filedetails_sync_file">زامن</string>
     <string name="filedisplay_no_file_selected">لم تقم بتحديد أي ملف</string>

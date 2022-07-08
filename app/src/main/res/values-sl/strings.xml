@@ -115,6 +115,7 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Shrani</string>
+    <string name="common_select">Izbor</string>
     <string name="common_send">Pošlji</string>
     <string name="common_share">Souporaba</string>
     <string name="common_skip">Preskoči</string>
@@ -336,6 +337,7 @@
     <string name="file_version_restored_error">Prišlo je do napake med obnavljanjem različice datoteke!</string>
     <string name="file_version_restored_successfully">Različica datoteke je uspešno obnovljena.</string>
     <string name="filedetails_download">Prejmi</string>
+    <string name="filedetails_export">Izvozi</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s.</string>
     <string name="filedetails_sync_file">Uskladi</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>

@@ -116,6 +116,7 @@
     <string name="common_remove">Törlés</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_save">Mentés</string>
+    <string name="common_select">Kiválasztás</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
     <string name="common_skip">Kihagyás</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
     <string name="filedetails_download">Letöltés</string>
+    <string name="filedetails_export">Exportálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
     <string name="filedetails_sync_file">Szinkronizálás</string>
     <string name="filedisplay_no_file_selected">Nincs fájl kiválasztva</string>

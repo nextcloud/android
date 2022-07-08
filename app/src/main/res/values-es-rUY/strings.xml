@@ -101,6 +101,7 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
+    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -202,6 +203,7 @@
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_rename">Renombrar</string>
     <string name="filedetails_download">Descargar</string>
+    <string name="filedetails_export">Exportar</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>
     <string name="filename_forbidden_characters">Caracteres inválidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">Nombre del archivo</string>

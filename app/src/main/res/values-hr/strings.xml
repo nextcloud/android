@@ -116,6 +116,7 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Spremi</string>
+    <string name="common_select">Odaberi</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Dijeli</string>
     <string name="common_skip">Preskoči</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Pogreška pri vraćanju inačice datoteke!</string>
     <string name="file_version_restored_successfully">Inačica datoteke uspješno je vraćena.</string>
     <string name="filedetails_download">Preuzmi</string>
+    <string name="filedetails_export">Izvoz</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka preimenovana u %1$s tijekom otpreme</string>
     <string name="filedetails_sync_file">Sinkronizacija</string>
     <string name="filedisplay_no_file_selected">Nije odabrana nijedna datoteka</string>

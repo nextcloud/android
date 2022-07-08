@@ -116,6 +116,7 @@
     <string name="common_remove">Delete</string>
     <string name="common_rename">Rename</string>
     <string name="common_save">Save</string>
+    <string name="common_select">Select</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="filedetails_download">Download</string>
+    <string name="filedetails_export">Export</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedisplay_no_file_selected">No file selected</string>
