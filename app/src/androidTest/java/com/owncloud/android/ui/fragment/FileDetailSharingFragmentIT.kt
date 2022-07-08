@@ -348,7 +348,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     private fun setupSecondaryFragment() {
-        val secondary = FileDetailFragment.newInstance(file, user)
+        val parentFolder = OCFile("/")
+        val secondary = FileDetailFragment.newInstance(file, parentFolder, user)
         activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
         activity.addView(
             FloatingActionButton(activity).apply { // needed for some reason

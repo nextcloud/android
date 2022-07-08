@@ -185,7 +185,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         themeTextInputUtils.colorTextInput(binding.commentInputFieldContainer,
                                            binding.commentInputField,
-                                           themeColorUtils.primaryColor(getContext()));
+                                           themeColorUtils.primaryColor(getContext()),
+                                           themeColorUtils.primaryAccentColor(getContext()));
 
         DisplayUtils.setAvatar(user,
                                this,

@@ -104,7 +104,8 @@ public class DialogFragmentIT extends AbstractIT {
         if (Looper.myLooper() == null) {
             Looper.prepare();
         }
-        RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"));
+        RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"),
+                                                                               new OCFile("/"));
         showDialog(dialog);
     }
 

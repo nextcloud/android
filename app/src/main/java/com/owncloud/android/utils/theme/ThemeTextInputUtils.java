@@ -46,9 +46,12 @@ public final class ThemeTextInputUtils {
      * @param textInputEditText the TextInputEditText child element
      * @param color             the color to be used for the hint text and box stroke
      */
-    public void colorTextInput(TextInputLayout textInputLayout, TextInputEditText textInputEditText, int color) {
+    public void colorTextInput(TextInputLayout textInputLayout,
+                               TextInputEditText textInputEditText,
+                               int color,
+                               int errorColor) {
         textInputEditText.setHighlightColor(color);
-        colorTextInputLayout(textInputLayout, color);
+        colorTextInputLayout(textInputLayout, color, errorColor);
     }
 
     /**
@@ -57,8 +60,38 @@ public final class ThemeTextInputUtils {
      * @param textInputLayout the TextInputLayout instance
      * @param color           the color to be used for the hint text and box stroke
      */
-    private void colorTextInputLayout(TextInputLayout textInputLayout, int color) {
+    private void colorTextInputLayout(TextInputLayout textInputLayout, int color, int errorColor) {
         textInputLayout.setBoxStrokeColor(color);
+        textInputLayout.setErrorIconTintList(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                errorColor,
+                errorColor
+            }
+        ));
+        textInputLayout.setErrorTextColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                errorColor,
+                errorColor
+            }
+        ));
+        textInputLayout.setBoxStrokeErrorColor(new ColorStateList(
+            new int[][]{
+                new int[]{-android.R.attr.state_focused},
+                new int[]{android.R.attr.state_focused},
+            },
+            new int[]{
+                errorColor,
+                errorColor
+            }
+        ));
         textInputLayout.setDefaultHintTextColor(new ColorStateList(
             new int[][]{
                 new int[]{-android.R.attr.state_focused},
