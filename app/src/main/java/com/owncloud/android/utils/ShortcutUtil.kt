@@ -36,19 +36,20 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Icon
 import android.os.Build
+import kotlin.math.roundToInt
 
-object ShortcutUtil {
+class ShortcutUtil (val mContext: Context) {
 
     /**
      * Adds a pinned shortcut to the home screen that points to the passed file/folder.
      *
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
-    fun addShortcutToHomescreen(context: Context, file: OCFile) {
+    fun addShortcutToHomescreen(file: OCFile) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val shortcutManager = context.getSystemService(ShortcutManager::class.java)
+            val shortcutManager = mContext.getSystemService(ShortcutManager::class.java)
             if (shortcutManager.isRequestPinShortcutSupported) {
-                val intent = Intent(context, FileDisplayActivity::class.java)
+                val intent = Intent(mContext, FileDisplayActivity::class.java)
                 intent.action = FileDisplayActivity.OPEN_FILE
                 intent.putExtra(FileActivity.EXTRA_FILE, file.remotePath)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -58,11 +59,11 @@ object ShortcutUtil {
                     ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
                 )
                 if (thumbnail != null) {
-                    thumbnail = bitmapToAdaptiveBitmap(thumbnail, context)
+                    thumbnail = bitmapToAdaptiveBitmap(thumbnail)
                     icon = Icon.createWithAdaptiveBitmap(thumbnail)
                 } else if (file.isFolder) {
                     icon = Icon.createWithResource(
-                        context,
+                        mContext,
                         MimeTypeUtil.getFolderTypeIconId(
                             file.isSharedWithMe ||
                                 file.isSharedWithSharee, file.isSharedViaLink, file.isEncrypted, file.mountType
@@ -70,11 +71,11 @@ object ShortcutUtil {
                     )
                 } else {
                     icon = Icon.createWithResource(
-                        context,
+                        mContext,
                         MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
                     )
                 }
-                val pinShortcutInfo = ShortcutInfo.Builder(context, shortcutId)
+                val pinShortcutInfo = ShortcutInfo.Builder(mContext, shortcutId)
                     .setShortLabel(file.fileName)
                     .setLongLabel("Open " + file.fileName)
                     .setIcon(icon)
@@ -82,7 +83,7 @@ object ShortcutUtil {
                     .build()
                 val pinnedShortcutCallbackIntent = shortcutManager.createShortcutResultIntent(pinShortcutInfo)
                 val successCallback = PendingIntent.getBroadcast(
-                    context, 0,
+                    mContext, 0,
                     pinnedShortcutCallbackIntent, 0
                 )
                 shortcutManager.requestPinShortcut(
@@ -93,11 +94,11 @@ object ShortcutUtil {
         }
     }
 
-    private fun bitmapToAdaptiveBitmap(orig: Bitmap, context: Context): Bitmap {
-        val screenDensity = context.resources.displayMetrics.density
-        val adaptiveIconSize = Math.round(108 * screenDensity)
-        val adaptiveIconOuterSides = Math.round(18 * screenDensity)
-        val drawable: Drawable = BitmapDrawable(context.resources, orig)
+    private fun bitmapToAdaptiveBitmap(orig: Bitmap): Bitmap {
+        val screenDensity = mContext.resources.displayMetrics.density
+        val adaptiveIconSize = (108 * screenDensity).roundToInt()
+        val adaptiveIconOuterSides = (18 * screenDensity).roundToInt()
+        val drawable: Drawable = BitmapDrawable(mContext.resources, orig)
         val bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         drawable.setBounds(

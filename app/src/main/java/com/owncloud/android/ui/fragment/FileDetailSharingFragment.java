@@ -196,7 +196,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             PorterDuff.Mode.SRC_IN);
 
         binding.pinHomeRow.pinhomeInternalContainer.setOnClickListener(l -> {
-            ShortcutUtil.addShortcutToHomescreen(fileActivity, file);
+            new ShortcutUtil(fileActivity).addShortcutToHomescreen(file);
         });
 
 

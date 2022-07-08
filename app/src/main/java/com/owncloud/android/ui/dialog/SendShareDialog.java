@@ -142,7 +142,7 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
         ImageView pinHomeImageView = view.findViewById(R.id.pin_home_icon);
         themeShareButtonImage(pinHomeImageView);
         pinHomeImageView.setOnClickListener(v -> {
-            ShortcutUtil.addShortcutToHomescreen(getContext(), file);
+            new ShortcutUtil(getContext()).addShortcutToHomescreen(file);
         });
 
         if (hideNcSharingOptions) {
