@@ -119,7 +119,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Inject ClientFactory clientFactory;
     @Inject UserAccountManager accountManager;
     FragmentPreviewMediaBinding binding;
-    LinearLayout emptyListView;
+    private ViewGroup emptyListView;
     private ExoPlayer exoPlayer;
 
     /**
