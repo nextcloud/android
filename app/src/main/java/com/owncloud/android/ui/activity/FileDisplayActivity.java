@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
@@ -93,6 +94,7 @@ import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -128,6 +130,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -147,6 +150,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG_TAG;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -306,6 +310,8 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         checkStoragePath();
+
+        initSyncBroadcastReceiver();
     }
 
     private void checkStoragePath() {
@@ -332,6 +338,19 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        StoragePermissionDialogFragment fragment = (StoragePermissionDialogFragment) getSupportFragmentManager().findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG);
+        if (fragment != null && fragment.getDialog() != null && fragment.getDialog().isShowing()) {
+            fragment.getDialog().dismiss();
+            getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
+            PermissionUtil.requestExternalStoragePermission(this);
+        }
+    }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -943,7 +962,8 @@ public class FileDisplayActivity extends FileActivity
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                NameCollisionPolicy.ASK_USER
+                NameCollisionPolicy.ASK_USER,
+                false
                                       );
 
         } else {
@@ -992,9 +1012,9 @@ public class FileDisplayActivity extends FileActivity
      * @param data Intent received
      */
     private void requestMoveOperation(Intent data) {
-        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-        getFileOperationsHelper().moveFiles(files, folderToMoveAt);
+        final OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
+        getFileOperationsHelper().moveFiles(filePaths, folderToMoveAt);
     }
 
     /**
@@ -1003,9 +1023,9 @@ public class FileDisplayActivity extends FileActivity
      * @param data Intent received
      */
     private void requestCopyOperation(Intent data) {
-        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-        getFileOperationsHelper().copyFiles(files, folderToMoveAt);
+        final OCFile targetFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
+        getFileOperationsHelper().copyFiles(filePaths, targetFolder);
     }
 
     private boolean isSearchOpen() {
@@ -1105,13 +1125,7 @@ public class FileDisplayActivity extends FileActivity
 
         // Listen for sync messages
         if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
-            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            initSyncBroadcastReceiver();
         }
 
 
@@ -1185,6 +1199,17 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() end");
     }
 
+    public void initSyncBroadcastReceiver() {
+        if (mSyncBroadcastReceiver == null) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -2318,8 +2343,10 @@ public class FileDisplayActivity extends FileActivity
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
         }
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-        if (ocFileListFragment != null) {
+        if (ocFileListFragment != null && !(ocFileListFragment instanceof GalleryFragment) && !(ocFileListFragment instanceof SharedListFragment)) {
             ocFileListFragment.refreshDirectory();
+        } else {
+            setLeftFragment(new OCFileListFragment());
         }
     }
 

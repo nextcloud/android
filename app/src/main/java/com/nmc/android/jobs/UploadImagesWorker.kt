@@ -123,7 +123,8 @@ class UploadImagesWorker constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.OVERWRITE //overwrite the images
+            NameCollisionPolicy.OVERWRITE, //overwrite the images
+            true
         )
     }
 }

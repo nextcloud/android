@@ -426,7 +426,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
-                MainApp.showOnlyFilesOnDevice(false);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(FileDisplayActivity.ALL_FILES);
