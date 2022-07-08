@@ -112,6 +112,7 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
+    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Saltar</string>
@@ -314,6 +315,7 @@
     <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
     <string name="filedetails_download">Descargar</string>
+    <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">El archivo se renombró com %1$s durante la carga</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>

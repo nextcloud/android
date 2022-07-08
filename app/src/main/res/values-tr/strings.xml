@@ -116,6 +116,7 @@
     <string name="common_remove">Sil</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_save">Kaydet</string>
+    <string name="common_select">Seçin</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
     <string name="common_skip">Atla</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="filedetails_download">İndir</string>
+    <string name="filedetails_export">Dışa aktar</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmemiş</string>

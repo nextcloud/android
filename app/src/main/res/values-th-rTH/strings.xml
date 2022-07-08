@@ -114,6 +114,7 @@
     <string name="common_remove">ลบ</string>
     <string name="common_rename">เปลี่ยนชื่อ</string>
     <string name="common_save">บันทึก</string>
+    <string name="common_select">เลือก</string>
     <string name="common_send">ส่ง</string>
     <string name="common_share">แชร์</string>
     <string name="common_skip">ข้าม</string>
@@ -235,6 +236,7 @@
     <string name="file_not_found">ไม่พบไฟล์</string>
     <string name="file_rename">เปลี่ยนชื่อ</string>
     <string name="filedetails_download">ดาวน์โหลด</string>
+    <string name="filedetails_export">ส่งออก</string>
     <string name="filename_forbidden_characters">ห้ามใช้ตัวอักษรดังนี้: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_hint">ชื่อไฟล์</string>
     <string name="folder_confirm_create">สร้าง</string>

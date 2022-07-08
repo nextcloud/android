@@ -116,6 +116,7 @@
     <string name="common_remove">Suprimeix</string>
     <string name="common_rename">Canvia el nom</string>
     <string name="common_save">Desa</string>
+    <string name="common_select">Selecciona</string>
     <string name="common_send">Envia</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omet</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">S\'ha produït un error restaurant la versió del fitxer!</string>
     <string name="file_version_restored_successfully">Versió del fitxer restaurada amb èxit.</string>
     <string name="filedetails_download">Descarrega</string>
+    <string name="filedetails_export">Exporta</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$s durant la càrrega</string>
     <string name="filedetails_sync_file">Sincronitza</string>
     <string name="filedisplay_no_file_selected">No s\'ha seleccionat cap fitxer</string>

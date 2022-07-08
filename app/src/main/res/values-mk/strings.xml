@@ -111,6 +111,7 @@
     <string name="common_remove">Избриши</string>
     <string name="common_rename">Преименувај</string>
     <string name="common_save">Зачувај</string>
+    <string name="common_select">Select</string>
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Прескокни</string>
@@ -305,6 +306,7 @@
     <string name="file_version_restored_error">Грешка при враќање на верзија на датотека !</string>
     <string name="file_version_restored_successfully">Успешно вратена верзија на датотеката.</string>
     <string name="filedetails_download">Преземање</string>
+    <string name="filedetails_export">Извези</string>
     <string name="filedetails_renamed_in_upload_msg">Датотеката беше преименувана во %1$s за време на прикачувањето</string>
     <string name="filedetails_sync_file">Синхронизирај</string>
     <string name="filedisplay_no_file_selected">Нема избрано датотека</string>

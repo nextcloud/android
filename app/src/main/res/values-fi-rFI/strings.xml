@@ -116,6 +116,7 @@
     <string name="common_remove">Poista</string>
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_save">Tallenna</string>
+    <string name="common_select">Valitse</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
     <string name="common_skip">Ohita</string>
@@ -343,6 +344,7 @@
     <string name="file_version_restored_error">Virhe palauttaessa tiedostoversiota!</string>
     <string name="file_version_restored_successfully">Tiedostoversio palautettu onnistuneesti.</string>
     <string name="filedetails_download">Lataa</string>
+    <string name="filedetails_export">Vie</string>
     <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s lähetyksen aikana</string>
     <string name="filedetails_sync_file">Synkronoi</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei ole valittu</string>

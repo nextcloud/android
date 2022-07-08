@@ -116,6 +116,7 @@
     <string name="common_remove">삭제</string>
     <string name="common_rename">이름 바꾸기</string>
     <string name="common_save">저장</string>
+    <string name="common_select">선택</string>
     <string name="common_send">전송</string>
     <string name="common_share">공유</string>
     <string name="common_skip">건너뛰기</string>
@@ -339,6 +340,7 @@
     <string name="file_version_restored_error">파일 버전을 되돌리는데 오류가 발생했습니다.</string>
     <string name="file_version_restored_successfully">성공적으로 파일 버전을 되돌렸습니다.</string>
     <string name="filedetails_download">다운로드</string>
+    <string name="filedetails_export">내보내기</string>
     <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름이 %1$s(으)로 변경됨</string>
     <string name="filedetails_sync_file">동기화</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>

@@ -116,6 +116,7 @@
     <string name="common_remove">Изтриване</string>
     <string name="common_rename">Преименуване</string>
     <string name="common_save">Запазване</string>
+    <string name="common_select">Избери</string>
     <string name="common_send">Изпращане</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Пропусни</string>
@@ -347,6 +348,7 @@
     <string name="file_version_restored_error">Грешка при възстановяването!</string>
     <string name="file_version_restored_successfully">Възстанявяването завърши.</string>
     <string name="filedetails_download">Изтегляне</string>
+    <string name="filedetails_export">Експорт /изнасям/</string>
     <string name="filedetails_renamed_in_upload_msg">Файлът е преименуван на %1$s по време на качването</string>
     <string name="filedetails_sync_file">Синхронизиране</string>
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>

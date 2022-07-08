@@ -112,6 +112,7 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renomear</string>
     <string name="common_save">Gardar</string>
+    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -321,6 +322,7 @@
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
     <string name="file_version_restored_successfully">Versión do ficheiro restaurada satisfactoriamente.</string>
     <string name="filedetails_download">Descargar</string>
+    <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">Non seleccionou ningún ficheiro</string>

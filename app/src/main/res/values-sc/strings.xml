@@ -113,6 +113,7 @@
     <string name="common_remove">Cantzella</string>
     <string name="common_rename">Torra a numenare</string>
     <string name="common_save">Sarva</string>
+    <string name="common_select">Seletziona</string>
     <string name="common_send">Imbia</string>
     <string name="common_share">Cumpartzi</string>
     <string name="common_skip">Brinca</string>
@@ -324,6 +325,7 @@
     <string name="file_version_restored_error">Errore in su recùperu de sa versione documentu!</string>
     <string name="file_version_restored_successfully">Recùperu de sa versione documentu fatu.</string>
     <string name="filedetails_download">Iscàrriga</string>
+    <string name="filedetails_export">Esporta</string>
     <string name="filedetails_renamed_in_upload_msg">Documentu torradu a numenare %1$s durante su carrigamentu</string>
     <string name="filedetails_sync_file">Sincronizatzione</string>
     <string name="filedisplay_no_file_selected">Perunu documentu seletzionadu</string>

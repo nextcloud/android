@@ -116,6 +116,7 @@
     <string name="common_remove">削除</string>
     <string name="common_rename">名前を変更</string>
     <string name="common_save">保存</string>
+    <string name="common_select">選択</string>
     <string name="common_send">送信</string>
     <string name="common_share">共有</string>
     <string name="common_skip">スキップ</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
     <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
     <string name="filedetails_download">ダウンロード</string>
+    <string name="filedetails_export">エクスポート</string>
     <string name="filedetails_renamed_in_upload_msg">ファイルはアップロード処理で %1$s に変更されましした</string>
     <string name="filedetails_sync_file">同期</string>
     <string name="filedisplay_no_file_selected">ファイル未選択</string>
