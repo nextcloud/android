@@ -1,0 +1,15 @@
+SetStatusDialogFragment: fix nullability of itemSelected parameter
+correct formatting
+fix lint warnings
+FolderPickerActivity: call super.onCreateOptionsMenu inside overriding method
+Media view filter options
+FilesExport*: fix detekt issues
+FilesExportWork: extract method to reduce complexity of doWork
+better i18n handling
+Remove unused resource
+also allow export in FileDetailFragment
+rename last remaining FileDownload occurrences early exit in FilesExportWork.kt
+FilesExportWork: use getActivity for PendingIntent
+File export aka "download"
+FileActivity: fix crash when creating share link from FileDetailsFragment
+Update translations
