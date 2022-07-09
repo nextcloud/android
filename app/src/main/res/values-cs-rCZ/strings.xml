@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Seznam změn ve vývojářské verzi</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
+    <string name="choose_location">Zvolte umístění</string>
     <string name="choose_remote_folder">Zvolte federovanou složku…</string>
     <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
@@ -404,6 +405,7 @@
     <string name="local_file_not_found_message">Soubor nenalezen na souborovém systému</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nejsou zde žádné další složky.</string>
+    <string name="locate_folder">Najít složku</string>
     <string name="lock_expiration_info">Platnost skončí: %1$s</string>
     <string name="lock_file">Zamknout soubor</string>
     <string name="locked_by">Uzamkl(a) %1$s</string>
@@ -610,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
     <string name="search_error">Chyba při získávání výsledků hledání</string>
     <string name="select_all">Vybrat vše</string>
+    <string name="select_media_folder">Nastavit složku s médii</string>
     <string name="select_one_template">Vyberte jednu šablonu</string>
     <string name="select_template">Vybrat šablonu</string>
     <string name="send">Odeslat</string>
@@ -664,6 +667,8 @@
     <string name="shared_icon_shared_via_link">sdílet odkazem</string>
     <string name="shared_with_you_by">Sdílí s vámi %1$s</string>
     <string name="sharee_add_failed">Přidání sdílejícího se nezdařilo</string>
+    <string name="show_images">Zobrazit fotky</string>
+    <string name="show_video">Zobrazit videa</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Povolit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Řadit podle</string>
@@ -741,6 +746,9 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="strict_mode">Přísný režim: připojení přes HTTP není povoleno!</string>
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s s vámi sdílí „%2$s“</string>
+    <string name="subtitle_photos_only">Pouze fotky</string>
+    <string name="subtitle_photos_videos">Fotky a videa</string>
+    <string name="subtitle_videos_only">Pouze videa</string>
     <string name="suggest">Doporučit</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>
@@ -927,6 +935,30 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
         <item quantity="few">Nalezeny %d duplicitní položky.</item>
         <item quantity="many">Nalezeno %d duplicitních položek.</item>
         <item quantity="other">Nalezeny %d duplicitní položky.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Exportován %d soubor</item>
+        <item quantity="few">Exportovány %d soubory</item>
+        <item quantity="many">Exportováno %d souborů</item>
+        <item quantity="other">Exportovány %d soubory</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Nepodařilo se exportovat %d soubor</item>
+        <item quantity="few">Nepodařilo se exportovat %d soubory</item>
+        <item quantity="many">Nepodařilo se exportovat %d souborů</item>
+        <item quantity="other">Nepodařilo se exportovat %d soubory</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exportován %d soubor, zbytek přeskočen kvůli chybě</item>
+        <item quantity="few">Exportovány %d soubory, zbytek přeskočen kvůli chybě</item>
+        <item quantity="many">Exportováno %d souborů, zbytek přeskočen kvůli chybě</item>
+        <item quantity="other">Exportovány %d soubory, zbytek přeskočen kvůli chybě</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Bude exportován %d soubor. Podrobnosti viz upozornění.</item>
+        <item quantity="few">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
+        <item quantity="many">Bude exportováno %d souborů. Podrobnosti viz upozornění.</item>
+        <item quantity="other">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d složka</item>

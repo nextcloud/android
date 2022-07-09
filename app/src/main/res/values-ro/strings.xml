@@ -347,6 +347,7 @@
     <string name="file_version_restored_error">Eroare în restaurarea acestei versiuni a fisierului!</string>
     <string name="file_version_restored_successfully">S-a restaurat cu succes versiunea acestui fișier.</string>
     <string name="filedetails_download">Descarcă</string>
+    <string name="filedetails_export">Exportă</string>
     <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
     <string name="filedetails_sync_file">Sincronizare</string>
     <string name="filedisplay_no_file_selected">Niciun fișier selectat</string>

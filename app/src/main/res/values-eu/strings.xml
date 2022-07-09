@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Garapen bertsioaren aldaketa-egunkaria</string>
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
+    <string name="choose_location">Hautatu kokapena</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
@@ -404,6 +405,7 @@
     <string name="local_file_not_found_message">Ez da fitxategia topatu fitxategi-sistema lokalean</string>
     <string name="local_folder_friendly_path">%2$s(e)tik %1$s</string>
     <string name="local_folder_list_empty">Ez dago karpeta gehiagorik.</string>
+    <string name="locate_folder">Bilatu karpeta</string>
     <string name="lock_expiration_info">Iraungitze data: %1$s</string>
     <string name="lock_file">Blokeatu fitxategia</string>
     <string name="locked_by">%1$s-(e)k blokeatuta</string>
@@ -610,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="select_all">Hautatu dena</string>
+    <string name="select_media_folder">Ezarri multimedia karpeta</string>
     <string name="select_one_template">Hautatu txantiloi bat</string>
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
@@ -664,6 +667,8 @@
     <string name="shared_icon_shared_via_link">esteka bidez partekatua</string>
     <string name="shared_with_you_by"> %1$s-(e)k zurekin partekatua</string>
     <string name="sharee_add_failed">Hartzailea gehitzeak huts egin du</string>
+    <string name="show_images">Erakutsi argazkiak</string>
+    <string name="show_video">Erakutsi bideoak</string>
     <string name="signup_with_provider">Erregistratu hornitzaile batekin</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s zure %2$s Nextcloud kontuan sartzea baimendu nahi duzu?</string>
     <string name="sort_by">Ordenatu honen arabera</string>
@@ -720,6 +725,9 @@
     <string name="strict_mode">Modu zorrotza: ez da HTTP konexiorik onartzen!</string>
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
+    <string name="subtitle_photos_only">Argazkiak soilik</string>
+    <string name="subtitle_photos_videos">Argazkiak eta bideoak</string>
+    <string name="subtitle_videos_only">Bideoak soilik</string>
     <string name="suggest">Iradokitu</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da existitzen jadanik</string>
@@ -894,6 +902,22 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Sarera duplikatu %d aurkitu da.</item>
         <item quantity="other"> %d sarrera duplikatu aurkitu dira.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Fitxategi %d esportatu da</item>
+        <item quantity="other">%d fitxategi esportatu dira</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Ezin izan da fitxategi %d esportatu</item>
+        <item quantity="other">Ezin izan dira %d fitxategi esportatu</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Fitxategi %d esportatu da, besteak erroreengatik saltatu dira</item>
+        <item quantity="other">%d fitxategi esportatu dira, besteak erroreengatik saltatu dira</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one"> Fitxategi %d esportatuko da. Ikusi jakinarazpenak xehetasunetarako.</item>
+        <item quantity="other">%d fitxategi esportatuko dira. Ikusi jakinarazpenak xehetasunetarako.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">karpeta %1$d</item>

@@ -242,6 +242,7 @@
     <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
     <string name="filedetails_download">Descargar</string>
+    <string name="filedetails_export">Exportar</string>
     <string name="filedetails_renamed_in_upload_msg">El archivo se renombró com %1$s durante la carga</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">No se ha seleccionado algún archivo</string>

@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Changelog da versão dev</string>
     <string name="checkbox">Caixa de marcação</string>
     <string name="choose_local_folder">Escolher pasta local…</string>
+    <string name="choose_location">Escolha a localização</string>
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="choose_template_helper_text">Escolha um modelo e insira um nome de arquivo. </string>
     <string name="choose_which_file">Escolha qual arquivo manter!</string>
@@ -404,6 +405,7 @@
     <string name="local_file_not_found_message">Arquivo não encontrado no sistema de arquivos local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Não há outras pastas.</string>
+    <string name="locate_folder">Localizar pasta</string>
     <string name="lock_expiration_info">Expira: %1$s</string>
     <string name="lock_file">Travar arquivo</string>
     <string name="locked_by">Bloqueado por %1$s</string>
@@ -610,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
     <string name="select_all">Selecionar tudo</string>
+    <string name="select_media_folder">Definir pasta de mídia</string>
     <string name="select_one_template">Selecione um modelo</string>
     <string name="select_template">Selecionar modelo</string>
     <string name="send">Enviar</string>
@@ -664,6 +667,8 @@
     <string name="shared_icon_shared_via_link">compartilhado via link</string>
     <string name="shared_with_you_by">Compartilhado com você por %1$s</string>
     <string name="sharee_add_failed">Falha ao compartilhar</string>
+    <string name="show_images">Mostrar fotos</string>
+    <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
     <string name="sort_by">Ordenar por</string>
@@ -720,6 +725,9 @@
     <string name="strict_mode">Modo restrito: nenhuma conexão HTTP permitida! </string>
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>
+    <string name="subtitle_photos_only">Somente fotos</string>
+    <string name="subtitle_photos_videos">Fotos &amp; vídeos</string>
+    <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
@@ -900,6 +908,26 @@
         <item quantity="one">Encontrou 1%d entrada duplicada.</item>
         <item quantity="many">Encontrou %d entradas duplicadas.</item>
         <item quantity="other">Encontrou %d entradas duplicadas.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Exportar 1%d arquivos</item>
+        <item quantity="many">Exportar 1%d arquivos</item>
+        <item quantity="other">Exportar %d arquivos</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Falha ao exportar%d arquivo</item>
+        <item quantity="many">Falha ao exportar 1%d arquivos</item>
+        <item quantity="other">Falha ao exportar %d arquivo</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exportar %d arquivos, descanso ignorado devido a erro</item>
+        <item quantity="many">Exportar %d arquivos, descanso ignorado devido a erro</item>
+        <item quantity="other">Exportar %d arquivos, descanso ignorado devido a erro</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d arquivos serão exportados. Consulte a notificação para obter detalhes.</item>
+        <item quantity="many">%d arquivos serão exportados. Consulte a notificação para obter detalhes.</item>
+        <item quantity="other">%d arquivos serão exportados. Consulte a notificação para obter detalhes.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d pasta</item>
