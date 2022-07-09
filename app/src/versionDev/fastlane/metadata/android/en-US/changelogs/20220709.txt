@@ -1,0 +1,4 @@
+add broadcastReceiver when switching from media -> on device
+use sets instead of lists
+When during renaming the same name already exists in same folder: show an error, disable confirm button
+Update translations
