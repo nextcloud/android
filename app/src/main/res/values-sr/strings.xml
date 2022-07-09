@@ -105,6 +105,7 @@
     <string name="common_remove">Обриши</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_save">Сачувај</string>
+    <string name="common_select">Обележи</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
     <string name="common_skip">Preskoči</string>
@@ -308,6 +309,7 @@
     <string name="file_version_restored_error">Грешка при враћању верзије фајла!</string>
     <string name="file_version_restored_successfully">Успешно враћена верзија фајла.</string>
     <string name="filedetails_download">Преузми</string>
+    <string name="filedetails_export">Извези</string>
     <string name="filedetails_renamed_in_upload_msg">Фајл је преименован у %1$s током отпремања</string>
     <string name="filedetails_sync_file">Синхронизуј</string>
     <string name="filedisplay_no_file_selected">Нисте изабрали фајл</string>

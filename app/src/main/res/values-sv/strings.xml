@@ -116,6 +116,7 @@
     <string name="common_remove">Ta bort</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_save">Spara</string>
+    <string name="common_select">Välj</string>
     <string name="common_send">Skicka</string>
     <string name="common_share">Dela</string>
     <string name="common_skip">Hoppa över</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="filedetails_download">Hämta</string>
+    <string name="filedetails_export">Exportera</string>
     <string name="filedetails_renamed_in_upload_msg">Filen fick nytt namn %1$s under uppladdning</string>
     <string name="filedetails_sync_file">Synkronisera</string>
     <string name="filedisplay_no_file_selected">Ingen fil vald</string>

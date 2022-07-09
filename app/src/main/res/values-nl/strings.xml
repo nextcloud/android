@@ -116,6 +116,7 @@
     <string name="common_remove">Verwijderen</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_save">Bewaren</string>
+    <string name="common_select">Selecteer</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
     <string name="common_skip">Overslaan</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Fout bij herstellen bestandsversie!</string>
     <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
     <string name="filedetails_download">Downloaden</string>
+    <string name="filedetails_export">Exporteren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd %1$s tijdens upload</string>
     <string name="filedetails_sync_file">Synchroniseren</string>
     <string name="filedisplay_no_file_selected">Geen bestand geselecteerd</string>

@@ -116,6 +116,7 @@
     <string name="common_remove">Löschen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_save">Speichern</string>
+    <string name="common_select">Auswählen</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
     <string name="common_skip">Überspringen</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
     <string name="filedetails_download">Herunterladen</string>
+    <string name="filedetails_export">Exportieren</string>
     <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
     <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
@@ -910,12 +912,4 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-    <string name="subtitle_photos_videos">Fotos &amp; videos</string>
-    <string name="show_images">Bilder anzeigen</string>
-    <string name="subtitle_photos_only">Nur Fotos</string>
-    <string name="show_video">Videos anzeigen</string>
-    <string name="subtitle_videos_only">Nur Videos</string>
-    <string name="select_media_folder">Medienordner festlegen</string>
-    <string name="choose_location">Speicherort wählen</string>
-    <string name="common_select">Auswählen</string>
 </resources>

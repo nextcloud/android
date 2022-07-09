@@ -111,6 +111,7 @@
     <string name="common_remove">حذف</string>
     <string name="common_rename">تغییرنام</string>
     <string name="common_save">ذخیره</string>
+    <string name="common_select">انتخاب</string>
     <string name="common_send">ارسال</string>
     <string name="common_share">هم‌رسانی</string>
     <string name="common_skip">پرش</string>
@@ -322,6 +323,7 @@
     <string name="file_version_restored_error">خطا در بازیابی نسخه پرونده!</string>
     <string name="file_version_restored_successfully">نسخه پرونده با موفقیت بازیابی شد.</string>
     <string name="filedetails_download">دانلود</string>
+    <string name="filedetails_export">گرفتن خروجی</string>
     <string name="filedetails_renamed_in_upload_msg">فایل در هنگام آپلود تغییر نام داده شد %1$s</string>
     <string name="filedetails_sync_file">همگام‌سازی</string>
     <string name="filedisplay_no_file_selected">هیچ فایلی انتخاب نشده</string>

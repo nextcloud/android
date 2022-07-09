@@ -1075,7 +1075,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
                         } else {
                             // automatic download, preview on finish
-                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file, mFile);
                         }
                     }
                 }
@@ -1148,7 +1148,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 return true;
             } else if (itemId == R.id.action_rename_file) {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile);
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             } else if (itemId == R.id.action_see_details) {
@@ -1549,13 +1549,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
         searchEvent = null;
 
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
-        if (getActivity() != null) {
-            getActivity().invalidateOptionsMenu();
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.invalidateOptionsMenu();
+
+            if (activity instanceof FileDisplayActivity) {
+                ((FileDisplayActivity) activity).initSyncBroadcastReceiver();
+            }
+
             setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()));
+            activity.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
         }
 
-        getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
-        getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+        }
 
         setFabVisible(true);
     }

@@ -116,6 +116,7 @@
     <string name="common_remove">Ezabatu</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="common_save">Gorde</string>
+    <string name="common_select">Hautatu</string>
     <string name="common_send">Bidali</string>
     <string name="common_share">Partekatu</string>
     <string name="common_skip">Saltatu</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Errorea fitxategiaren bertsioa berreskuratzean!</string>
     <string name="file_version_restored_successfully">Fitxategiaren bertsioa ondo berreskuratu da.</string>
     <string name="filedetails_download">Deskargatu</string>
+    <string name="filedetails_export">Esportatu</string>
     <string name="filedetails_renamed_in_upload_msg">Fitxategia %1$s bezala berrizendatu da kargatzerakoan</string>
     <string name="filedetails_sync_file">Sinkronizatu</string>
     <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>

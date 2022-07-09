@@ -79,6 +79,7 @@
     <string name="common_remove">გაუქმება</string>
     <string name="common_rename">გადარქმევა</string>
     <string name="common_save">შენახვა</string>
+    <string name="common_select">არჩევა</string>
     <string name="common_send">გაგზავნა</string>
     <string name="common_share">გაზიარება</string>
     <string name="common_skip">გამოტოვება</string>
@@ -203,6 +204,7 @@
     <string name="file_not_synced">ფაილის სინქ ვერ მოხერხდა. ნაჩვენებია ბოლო ხელმისაწვდომი ვარიანტი.</string>
     <string name="file_rename">სახელის შეცვლა</string>
     <string name="filedetails_download">ჩამოტვირთვა</string>
+    <string name="filedetails_export">ექსპორტი</string>
     <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
     <string name="filedetails_sync_file">სინქ</string>
     <string name="filedisplay_no_file_selected">ფაილი არაა არჩეული</string>

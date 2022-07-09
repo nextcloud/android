@@ -88,6 +88,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     @Inject
     lateinit var themeTextInputUtils: ThemeTextInputUtils
 
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
+
     private var adapter: TemplateAdapter? = null
     private var parentFolder: OCFile? = null
     private var title: String? = null
@@ -130,6 +133,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             else -> savedInstanceState.getString(ARG_HEADLINE)
         }
 
+        val fileNames = fileDataStorageManager.getFolderContent(parentFolder, false).map { it.fileName }
+
         // Inflate the layout for the dialog
         val inflater = requireActivity().layoutInflater
         _binding = ChooseTemplateBinding.inflate(inflater, null, false)
@@ -139,7 +144,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         themeTextInputUtils.colorTextInput(
             binding.filenameContainer,
             binding.filename,
-            themeColorUtils.primaryColor(context)
+            themeColorUtils.primaryColor(context),
+            themeColorUtils.primaryAccentColor(context)
         )
         binding.filename.setOnKeyListener { _, _, _ ->
             checkEnablingCreateButton()
@@ -148,7 +154,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         binding.filename.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                checkExistingFilename(fileNames)
+            }
 
             override fun afterTextChanged(s: Editable) {
                 checkEnablingCreateButton()
@@ -254,6 +262,23 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             val name = binding.filename.text.toString()
             positiveButton!!.isEnabled = selectedTemplate != null && name.isNotEmpty() &&
                 !name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
+        }
+    }
+
+    private fun checkExistingFilename(fileNames: List<String>) {
+        var newFileName = ""
+        if (binding.filename.text != null) {
+            newFileName = binding.filename.text.toString().trim()
+        }
+
+        if (fileNames.contains(newFileName)) {
+            binding.filenameContainer.error = getText(R.string.file_already_exists)
+            positiveButton?.isEnabled = false
+        } else if (binding.filenameContainer.error != null) {
+            binding.filenameContainer.error = null
+            // Called to remove extra padding
+            binding.filenameContainer.isErrorEnabled = false
+            positiveButton?.isEnabled = true
         }
     }
 

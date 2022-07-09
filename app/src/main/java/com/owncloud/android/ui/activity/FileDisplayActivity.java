@@ -292,6 +292,8 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         checkStoragePath();
+
+        initSyncBroadcastReceiver();
     }
 
     private void checkStoragePath() {
@@ -1101,15 +1103,8 @@ public class FileDisplayActivity extends FileActivity
 
         // Listen for sync messages
         if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
-            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            initSyncBroadcastReceiver();
         }
-
 
         if (!(leftFragment instanceof OCFileListFragment)) {
             if (leftFragment instanceof FileFragment) {
@@ -1178,6 +1173,17 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onResume() end");
     }
 
+    public void initSyncBroadcastReceiver() {
+        if (mSyncBroadcastReceiver == null) {
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
+            syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+            syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -2234,11 +2240,12 @@ public class FileDisplayActivity extends FileActivity
      * Requests the download of the received {@link OCFile} , updates the UI to monitor the download progress and
      * prepares the activity to preview or open the file when the download finishes.
      *
-     * @param file {@link OCFile} to download and preview.
+     * @param file         {@link OCFile} to download and preview.
+     * @param parentFolder {@link OCFile} containing above file
      */
-    public void startDownloadForPreview(OCFile file) {
+    public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser);
+        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
         setLeftFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();

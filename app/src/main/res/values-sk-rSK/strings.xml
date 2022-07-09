@@ -116,6 +116,7 @@
     <string name="common_remove">Zmazať</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_save">Uložiť</string>
+    <string name="common_select">Vybrať</string>
     <string name="common_send">Odoslať</string>
     <string name="common_share">Zdieľať</string>
     <string name="common_skip">Preskočiť</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Chyba pri obnove verzie súboru!</string>
     <string name="file_version_restored_successfully">Verzia súboru úspešne obnovená.</string>
     <string name="filedetails_download">Stiahnuť</string>
+    <string name="filedetails_export">Export</string>
     <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>

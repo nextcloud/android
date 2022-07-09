@@ -116,6 +116,7 @@
     <string name="common_remove">Вилучити</string>
     <string name="common_rename">Перейменувати</string>
     <string name="common_save">Зберегти</string>
+    <string name="common_select">Вибрати</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Поділитися</string>
     <string name="common_skip">Пропустити</string>
@@ -337,6 +338,7 @@
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_download">Завантажити</string>
+    <string name="filedetails_export">Експорт</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
     <string name="filedetails_sync_file">Синхронізація</string>
     <string name="filedisplay_no_file_selected">Жодного файлу обрано</string>

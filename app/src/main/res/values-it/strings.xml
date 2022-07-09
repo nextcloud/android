@@ -116,6 +116,7 @@
     <string name="common_remove">Elimina</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_save">Salva</string>
+    <string name="common_select">Seleziona</string>
     <string name="common_send">Invia</string>
     <string name="common_share">Condividi</string>
     <string name="common_skip">Salta</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Errore durante il ripristino della versione del file!</string>
     <string name="file_version_restored_successfully">Versione del file ripristinata correttamente.</string>
     <string name="filedetails_download">Scarica</string>
+    <string name="filedetails_export">Esporta</string>
     <string name="filedetails_renamed_in_upload_msg">File rinominato %1$s durante il caricamento</string>
     <string name="filedetails_sync_file">Sincronizzazione</string>
     <string name="filedisplay_no_file_selected">Nessun file selezionato</string>

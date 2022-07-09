@@ -19,11 +19,11 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
@@ -631,7 +631,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     @NonNull
     public static Map<String, OCFile> prefillLocalFilesMap(DecryptedFolderMetadata metadata, List<OCFile> localFiles) {
-        Map<String, OCFile> localFilesMap = new HashMap<>(localFiles.size());
+        Map<String, OCFile> localFilesMap = Maps.newHashMapWithExpectedSize(localFiles.size());
 
         for (OCFile file : localFiles) {
             String remotePath = file.getRemotePath();

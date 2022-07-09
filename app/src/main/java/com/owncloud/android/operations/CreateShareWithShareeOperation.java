@@ -35,9 +35,9 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Creates a new private share for a given file.
@@ -54,12 +54,12 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private long expirationDateInMillis;
     private String label;
 
-    private static final List<ShareType> supportedShareTypes = new ArrayList<>(Arrays.asList(ShareType.USER,
-                                                                                             ShareType.GROUP,
-                                                                                             ShareType.FEDERATED,
-                                                                                             ShareType.EMAIL,
-                                                                                             ShareType.ROOM,
-                                                                                             ShareType.CIRCLE));
+    private static final Set<ShareType> supportedShareTypes = new HashSet<>(Arrays.asList(ShareType.USER,
+                                                                                          ShareType.GROUP,
+                                                                                          ShareType.FEDERATED,
+                                                                                          ShareType.EMAIL,
+                                                                                          ShareType.ROOM,
+                                                                                          ShareType.CIRCLE));
 
     /**
      * Constructor.

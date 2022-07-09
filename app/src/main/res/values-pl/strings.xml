@@ -116,6 +116,7 @@
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
+    <string name="common_select">Wybierz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
     <string name="common_skip">Pomiń</string>
@@ -346,6 +347,7 @@
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="filedetails_download">Pobierz</string>
+    <string name="filedetails_export">Eksportuj</string>
     <string name="filedetails_renamed_in_upload_msg">Zmieniono nazwę pliku %1$s podczas wysyłania</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>

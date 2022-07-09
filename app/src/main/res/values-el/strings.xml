@@ -116,6 +116,7 @@
     <string name="common_remove">Διαγραφή</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_save">Αποθήκευση</string>
+    <string name="common_select">Επιλογή</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
     <string name="common_skip">Παράλειψη</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
     <string name="filedetails_download">Λήψη</string>
+    <string name="filedetails_export">Εξαγωγή</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
     <string name="filedetails_sync_file">Συγχρονισμός</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκε αρχείο</string>

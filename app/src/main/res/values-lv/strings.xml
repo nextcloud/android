@@ -97,6 +97,7 @@
     <string name="common_remove">Dzēst</string>
     <string name="common_rename">Pārsaukt</string>
     <string name="common_save">Saglabāt</string>
+    <string name="common_select">Atzīmēt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
     <string name="common_skip">Izlaist</string>
@@ -237,6 +238,7 @@
     <string name="file_not_found">Datne nav atrasta</string>
     <string name="file_rename">Pārsaukt</string>
     <string name="filedetails_download">Lejupielādēt</string>
+    <string name="filedetails_export">Eksportēt</string>
     <string name="filedetails_renamed_in_upload_msg">Datne pārsaukta uz %1$s augšupielādes laikā</string>
     <string name="filedetails_sync_file">Sinhronizēt</string>
     <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>

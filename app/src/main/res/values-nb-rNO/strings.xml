@@ -116,6 +116,7 @@
     <string name="common_remove">Slett</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_save">Lagre</string>
+    <string name="common_select">Velg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Hopp over</string>
@@ -345,6 +346,7 @@
     <string name="file_version_restored_error">Feil ved gjennoppretting av fil versjon!</string>
     <string name="file_version_restored_successfully">Vellykket gjenoppretting av fil versjon.</string>
     <string name="filedetails_download">Last ned</string>
+    <string name="filedetails_export">Eksporter</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
     <string name="filedetails_sync_file">Synkroniser</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>

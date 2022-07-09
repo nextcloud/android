@@ -102,6 +102,7 @@
     <string name="common_remove">Hiqe</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_save">Ruaj</string>
+    <string name="common_select">Zgjidhni</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
     <string name="common_skip">Kalo</string>
@@ -293,6 +294,7 @@
     <string name="file_version_restored_error">Gabim në rikthimin e versionit të skedarit!</string>
     <string name="file_version_restored_successfully">Versioni i skedarit i rikthyer me sukses.</string>
     <string name="filedetails_download">Shkarkoje</string>
+    <string name="filedetails_export">Eksport</string>
     <string name="filedetails_renamed_in_upload_msg">Skedari u riemërtua %1$s gjatë ngarkimit</string>
     <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedisplay_no_file_selected">S’u përzgjodh skedar</string>
