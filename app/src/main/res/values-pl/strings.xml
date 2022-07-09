@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
+    <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
@@ -404,6 +405,7 @@
     <string name="local_file_not_found_message">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nie ma kolejnych katalogów.</string>
+    <string name="locate_folder">Znajdź katalog</string>
     <string name="lock_expiration_info">Wygasa: %1$s</string>
     <string name="lock_file">Zablokuj plik</string>
     <string name="locked_by">Zablokowany przez %1$s</string>
@@ -610,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
     <string name="select_all">Wybierz wszystko</string>
+    <string name="select_media_folder">Ustaw katalog multimediów</string>
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
@@ -664,6 +667,8 @@
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
     <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
+    <string name="show_images">Pokaż zdjęcia</string>
+    <string name="show_video">Pokaż filmy</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
@@ -720,6 +725,9 @@
     <string name="strict_mode">Tryb wymagający: połączenie HTTP nie jest dozwolone!</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
+    <string name="subtitle_photos_only">Tylko zdjęcia</string>
+    <string name="subtitle_photos_videos">Zdjęcia i filmy</string>
+    <string name="subtitle_videos_only">Tylko filmy</string>
     <string name="suggest">Propozycja</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
@@ -906,6 +914,30 @@
         <item quantity="few">Znaleziono %d zduplikowane wpisy.</item>
         <item quantity="many">Znaleziono %d zduplikowanych wpisów.</item>
         <item quantity="other">Znaleziono %d zduplikowanych wpisów.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Wyeksportowano %d plik</item>
+        <item quantity="few">Wyeksportowano %d pliki</item>
+        <item quantity="many">Wyeksportowano %d plików</item>
+        <item quantity="other">Wyeksportowano %d plików</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Nie udało się wyeksportować %d plik</item>
+        <item quantity="few">Nie udało się wyeksportować %d pliki</item>
+        <item quantity="many">Nie udało się wyeksportować %d plików</item>
+        <item quantity="other">Nie udało się wyeksportować %d plików</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Wyeksportowano %d plik, pominięto pozostałe z powodu błędu</item>
+        <item quantity="few">Wyeksportowano %d pliki, pominięto pozostałe z powodu błędu</item>
+        <item quantity="many">Wyeksportowano %d plików, pominięto pozostałe z powodu błędu</item>
+        <item quantity="other">Wyeksportowano %d plików, pominięto pozostałe z powodu błędu</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Zostanie wyeksportowany %d plik. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
+        <item quantity="few">Zostaną wyeksportowane %d pliki. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
+        <item quantity="many">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
+        <item quantity="other">Zostanie wyeksportowanych %d plików. Zobacz powiadomienie, aby uzyskać szczegółowe informacje.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d katalog</item>
