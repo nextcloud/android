@@ -294,6 +294,7 @@
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>
     <string name="favorite">Přidat do oblíbených</string>
     <string name="favorite_icon">Oblíbené</string>
+    <string name="file_already_exists">Takto nazvaný soubor už zde existuje</string>
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>

@@ -294,6 +294,7 @@
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
+    <string name="file_already_exists">Fitxategi-izena dagoeneko existitzen da.</string>
     <string name="file_delete">Ezabatu</string>
     <string name="file_detail_activity_error">Errorea fitxategiaren jarduerak berreskuratzean</string>
     <string name="file_details_no_content">Huts egin du xehetasunak kargatzean</string>

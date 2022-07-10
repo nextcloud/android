@@ -294,6 +294,7 @@
     <string name="failed_update_ui">更新 UI 失敗</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
+    <string name="file_already_exists">檔案名已存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
