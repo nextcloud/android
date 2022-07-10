@@ -294,6 +294,7 @@
     <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
+    <string name="file_already_exists">Dateiname bereits vorhanden</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>

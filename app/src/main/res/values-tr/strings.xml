@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Değişiklik günlüğü geliştirici sürümü</string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
+    <string name="choose_location">Konum seçin</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
@@ -293,6 +294,7 @@
     <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
     <string name="favorite">Sık kullanılanlara ekle</string>
     <string name="favorite_icon">Sık kullanılanlara ekle</string>
+    <string name="file_already_exists">Dosya adı zaten var</string>
     <string name="file_delete">Sil</string>
     <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
@@ -404,6 +406,7 @@
     <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
+    <string name="locate_folder">Klasörü seçin</string>
     <string name="lock_expiration_info">Sona erme: %1$s</string>
     <string name="lock_file">Dosyayı kilitle</string>
     <string name="locked_by">%1$s tarafından kilitlenmiş</string>
@@ -610,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
     <string name="select_all">Tümünü seç</string>
+    <string name="select_media_folder">Ortam klasörünü ayarla</string>
     <string name="select_one_template">Lütfen bir kalıp seçin</string>
     <string name="select_template">Kalıp seçin</string>
     <string name="send">Gönder</string>
@@ -664,6 +668,8 @@
     <string name="shared_icon_shared_via_link">bağlantı ile paylaşılmış</string>
     <string name="shared_with_you_by">Sizinle %1$s ile paylaşılmış</string>
     <string name="sharee_add_failed">Paylaşım eklenemedi</string>
+    <string name="show_images">Fotoğraflar görüntülensin</string>
+    <string name="show_video">Görüntüler görüntülensin</string>
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
@@ -720,6 +726,9 @@
     <string name="strict_mode">Kısıtlı kip: HTTP bağlantılarına izin verilmez!</string>
     <string name="subject_shared_with_you">\"%1$s\" ögesi sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
+    <string name="subtitle_photos_only">Yalnızca fotoğraflar</string>
+    <string name="subtitle_photos_videos">Fotoğraflar ve görüntüler</string>
+    <string name="subtitle_videos_only">Yalnızca görüntüler</string>
     <string name="suggest">Öner</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
@@ -894,6 +903,22 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">%d çift kayıt bulundu.</item>
         <item quantity="other">%d çift kayıt bulundu.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d dosya dışa aktarıldı</item>
+        <item quantity="other">%d dosya dışa aktarıldı</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">%d dosya dışa aktarılamadı</item>
+        <item quantity="other">%d dosya dışa aktarılamadı</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
+        <item quantity="other">%d dosya dışa aktarıldı, gerisi bir sorun nedeniyle atlandı</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d dosya dışa aktarılacak. Ayrıntılar için bildirime bakın.</item>
+        <item quantity="other">%d dosya dışa aktarılacak. Ayrıntılar için bildirime bakın.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d klasör</item>
