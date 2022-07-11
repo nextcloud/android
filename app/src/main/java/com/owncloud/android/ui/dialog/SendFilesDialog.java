@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,6 +119,7 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
         Drawable icon;
         SendButtonData sendButtonData;
         CharSequence label;
+
         List<SendButtonData> sendButtonDataList = new ArrayList<>(matches.size());
         for (ResolveInfo match : matches) {
             icon = match.loadIcon(requireActivity().getPackageManager());
@@ -130,5 +132,4 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
         }
         return sendButtonDataList;
     }
-
 }

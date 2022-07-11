@@ -56,6 +56,7 @@ class SendFilesDialogTest : AbstractIT() {
             }
         )
     }
+
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 

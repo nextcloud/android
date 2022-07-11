@@ -29,9 +29,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Suite
+import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.mockito.MockitoAnnotations
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(

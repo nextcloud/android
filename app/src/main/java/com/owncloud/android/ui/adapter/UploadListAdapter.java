@@ -619,7 +619,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
 
             default:
-                status = "Uncontrolled status: " + upload.getUploadStatus().toString();
+                status = "Uncontrolled status: " + upload.getUploadStatus();
         }
         return status;
     }

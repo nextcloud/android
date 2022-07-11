@@ -60,7 +60,6 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datastorage.DataStorageProvider;
@@ -87,7 +86,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
@@ -894,7 +892,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
-        }  else if (requestCode == ACTION_SHOW_MNEMONIC && resultCode == RESULT_OK) {
+        } else if (requestCode == ACTION_SHOW_MNEMONIC && resultCode == RESULT_OK) {
             handleMnemonicRequest(data);
         }
     }

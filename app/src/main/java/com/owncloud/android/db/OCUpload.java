@@ -129,6 +129,8 @@ public class OCUpload implements Parcelable {
     private long fixedUploadEndTimeStamp;
     private long fixedUploadId;
 
+    private boolean isRotatedImages;
+
     /**
      * Main constructor.
      *
@@ -180,6 +182,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = true;
         whileChargingOnly = false;
         folderUnlockToken = "";
+        isRotatedImages = false;
     }
 
     public void setDataFixed(FileUploader.FileUploaderBinder binder) {
@@ -238,7 +241,7 @@ public class OCUpload implements Parcelable {
             return localPath + " status:" + getUploadStatus() + " result:" +
                     (getLastResult() == null ? "null" : getLastResult().getValue());
         } catch (NullPointerException e) {
-            Log_OC.d(TAG, "Exception " + e.toString());
+            Log_OC.d(TAG, "Exception", e);
             return e.toString();
         }
     }
@@ -291,6 +294,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = source.readInt() == 1;
         whileChargingOnly = source.readInt() == 1;
         folderUnlockToken = source.readString();
+        isRotatedImages = source.readInt() == 1;
     }
 
     @Override
@@ -316,7 +320,8 @@ public class OCUpload implements Parcelable {
             createdBy == other.createdBy &&
             useWifiOnly == other.useWifiOnly &&
             whileChargingOnly == other.whileChargingOnly &&
-            folderUnlockToken.equals(other.folderUnlockToken);
+            folderUnlockToken.equals(other.folderUnlockToken) &&
+            isRotatedImages == other.isRotatedImages;
     }
 
     @Override
@@ -335,6 +340,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(useWifiOnly ? 1 : 0);
         dest.writeInt(whileChargingOnly ? 1 : 0);
         dest.writeString(folderUnlockToken);
+        dest.writeInt(isRotatedImages ? 1 : 0);
     }
 
     public long getUploadId() {
@@ -443,6 +449,14 @@ public class OCUpload implements Parcelable {
 
     public void setFolderUnlockToken(String folderUnlockToken) {
         this.folderUnlockToken = folderUnlockToken;
+    }
+
+    public boolean isRotatedImages() {
+        return isRotatedImages;
+    }
+
+    public void setRotatedImages(boolean rotatedImages) {
+        isRotatedImages = rotatedImages;
     }
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}

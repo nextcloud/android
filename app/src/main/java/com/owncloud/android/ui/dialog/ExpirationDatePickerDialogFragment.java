@@ -42,8 +42,8 @@ import androidx.fragment.app.DialogFragment;
  *  Dialog requesting a date after today.
  */
 public class ExpirationDatePickerDialogFragment
-    extends DialogFragment
-    implements DatePickerDialog.OnDateSetListener {
+        extends DialogFragment
+        implements DatePickerDialog.OnDateSetListener {
 
     /** Tag for FragmentsManager */
     public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
@@ -71,6 +71,7 @@ public class ExpirationDatePickerDialogFragment
     public void setOnExpiryDateListener(OnExpiryDateListener onExpiryDateListener) {
         this.onExpiryDateListener = onExpiryDateListener;
     }
+
 
     @Override
     public void onStart() {

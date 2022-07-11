@@ -41,6 +41,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 

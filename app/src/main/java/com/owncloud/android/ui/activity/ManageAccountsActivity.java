@@ -63,7 +63,6 @@ import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -170,7 +169,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (resultCode == KEY_DELETE_CODE && data != null) {
             Bundle bundle = data.getExtras();
             if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                final Account account = Parcels.unwrap(bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT));
+                final Account account = bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT);
                 if (account != null) {
                     User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
                     accountName = account.name;
@@ -187,6 +186,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
             setResult(RESULT_OK, resultIntent);
+
             super.onBackPressed();
         } else {
             final Intent intent = new Intent(this, AuthenticatorActivity.class);
@@ -485,7 +485,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         OwnCloudAccount oca = user.toOwnCloudAccount();
         intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
         intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        intent.putExtra(KEY_USER_DATA, Parcels.wrap(userInfo));
+        intent.putExtra(KEY_USER_DATA, userInfo);
         startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
     }
 

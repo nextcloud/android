@@ -29,8 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Extends RecyclerView to show a custom view if no data is available
- * Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
+ * Extends RecyclerView to show a custom view if no data is available Inspired by http://alexzh.com/tutorials/how-to-setemptyview-to-recyclerview
  */
 public class EmptyRecyclerView extends RecyclerView {
     private View mEmptyView;

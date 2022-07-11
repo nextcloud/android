@@ -18,7 +18,7 @@ TRAVIS_GIT_USERNAME = String.new("Drone CI server")
 #   lintOptions {
 #       htmlOutput file("[FILE_NAME].html")
 #   }
-LINT_REPORT_FILE = String.new("build/reports/lint/lint.html")
+LINT_REPORT_FILE = String.new("app/build/reports/lint/lint.html")
 
 # File name and relative path of previous results of this script.
 PREVIOUS_LINT_RESULTS_FILE=String.new("scripts/analysis/lint-results.txt")
@@ -56,12 +56,12 @@ end
 
 # run Lint
 puts "running Lint..."
-system './gradlew clean lint 1>/dev/null'
+system './gradlew clean lintGplayDebug 1>/dev/null'
 
 # confirm that Lint ran w/out error
 result = $?.to_i
 if result != 0
-    puts "FAIL: failed to run ./gradlew clean lint"
+    puts "FAIL: failed to run ./gradlew clean lintGplayDebug"
     exit 1
 end
 
@@ -183,11 +183,11 @@ system ("git config --local user.email 'android@nextcloud.com'")
 # add previous Lint result file to git
 system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 
-# commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
-system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update Lint results to reflect reduced error/warning count [skip ci]"')
+# commit changes
+system({"GIT_COMMITTER_NAME" => git_user, "GIT_COMMITTER_EMAIL" => "android@nextcloud.com", "GIT_AUTHOR_EMAIL" => "android@nextcloud.com"}, 'git commit -sm "Analysis: update lint results to reflect reduced error/warning count"')
 
 # push to origin
-system ('git push')
+system ('git push origin HEAD:' + git_branch)
 
 puts "SUCCESS: count was reduced"
 exit 0 # success

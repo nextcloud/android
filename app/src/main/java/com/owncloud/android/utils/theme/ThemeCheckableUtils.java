@@ -22,14 +22,11 @@
  */
 package com.owncloud.android.utils.theme;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.drawable.DrawableCompat;

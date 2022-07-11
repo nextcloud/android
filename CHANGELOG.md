@@ -1,4 +1,31 @@
-## 3.19.0 RC2 (January 27, 2022)
+## 3.20.0 RC2 (April 7, 2022)
+
+- Built-in PDF viewer
+- Built-in document scanner
+- Better choices for storage permissions
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/64
+## 3.20.0 RC1 (March 28, 2022)
+
+- Built-in PDF viewer
+- Built-in document scanner
+- Better choices for storage permissions
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/64
+## 3.19.1 (March 10, 2022)
+
+- Minor fixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/65
+## 3.19.0 (February 3, 2022)
 
 - Support external storage in Media page
 - Connection fallback to IPv4 when IPv6 fails
@@ -7,16 +34,6 @@
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
 For a full list, please see https://github.com/nextcloud/android/milestone/62
-## 3.19.0 RC1 (January 20, 2022)
-
-- Support external storage in Media page
-- Connection fallback to IPv4 when IPv6 fails
-- Many other fixes and improvements
-
-Minimum: NC 16 Server, Android 6.0 Marshmallow
-
-For a full list, please see https://github.com/nextcloud/android/milestone/62
-
 ## 3.18.1 (December 22, 2021)
 
 - Fix connection bug for usernames with spaces

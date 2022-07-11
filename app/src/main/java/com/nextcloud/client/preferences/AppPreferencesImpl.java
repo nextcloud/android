@@ -100,6 +100,10 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
     private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
+    private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
+
+    private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
+
     private static final String PREF__DATA_ANALYSIS = "data_analysis";
     private static final String PREF__PRIVACY_POLICY_ACTION = "privacy_policy_action";
     private static final String PREF__UPLOAD_SCANS_LAST_PATH = "upload_scans_last_path";
@@ -697,6 +701,26 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setCalendarLastBackup(long timestamp) {
         preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply();
+    }
+
+    @Override
+    public void setPdfZoomTipShownCount(int count) {
+        preferences.edit().putInt(PREF__PDF_ZOOM_TIP_SHOWN, count).apply();
+    }
+
+    @Override
+    public int getPdfZoomTipShownCount() {
+        return preferences.getInt(PREF__PDF_ZOOM_TIP_SHOWN, 0);
+    }
+
+    @Override
+    public boolean isStoragePermissionRequested() {
+        return preferences.getBoolean(PREF__STORAGE_PERMISSION_REQUESTED, false);
+    }
+
+    @Override
+    public void setStoragePermissionRequested(boolean value) {
+        preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply();
     }
 
     @VisibleForTesting

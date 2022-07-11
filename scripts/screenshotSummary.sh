@@ -20,9 +20,9 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 
-mkdir -p build/screenshotSummary/images
+mkdir -p app/build/screenshotSummary/images
 
-scripts/generateScreenshotOverview.sh > build/screenshotSummary/summary.html
+scripts/generateScreenshotOverview.sh > app/build/screenshotSummary/summary.html
 error=$?
 
 scripts/uploadScreenshotSummary.sh $LOG_USERNAME $LOG_PASSWORD

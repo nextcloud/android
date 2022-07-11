@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ Nextcloud Android client application
+  ~
+  ~ @author Tobias Kaminsky
+  ~ Copyright (C) 2022 Tobias Kaminsky
+  ~ Copyright (C) 2022 Nextcloud GmbH
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/alternate_half_padding"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_half_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        tools:text="July" />
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="2016" />
+</LinearLayout>

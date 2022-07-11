@@ -35,7 +35,7 @@
             android:id="@+id/userinfo_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_nc18"
+            android:background="@drawable/background"
             android:contentDescription="@string/drawer_header_background"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"

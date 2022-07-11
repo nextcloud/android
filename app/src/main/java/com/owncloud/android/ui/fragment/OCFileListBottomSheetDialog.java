@@ -37,6 +37,7 @@ import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -81,9 +82,6 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         if (getWindow() != null) {
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-
-        //binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud, ThemeUtils
-        // .getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
@@ -143,7 +141,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog {
         }
 
         // create rich workspace
-       /* if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+       /* if (EditorUtils.isEditorAvailable(getContext().getContentResolver(),
                                              user,
                                              MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null && !file.isEncrypted()) {

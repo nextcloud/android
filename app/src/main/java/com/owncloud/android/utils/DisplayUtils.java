@@ -39,6 +39,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -47,6 +48,9 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -57,14 +61,18 @@ import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
+import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -79,7 +87,6 @@ import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.parceler.Parcels;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -91,10 +98,14 @@ import java.math.BigDecimal;
 import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.RejectedExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -131,6 +142,10 @@ public final class DisplayUtils {
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
 
+    public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
+    public static final String MONTH_PATTERN = "MMMM";
+    public static final String YEAR_PATTERN = "yyyy";
+
     private static Map<String, String> mimeType2HumanReadable;
 
     static {
@@ -160,8 +175,8 @@ public final class DisplayUtils {
      * </ul>
      *
      * @param bytes Input file size
-     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative byte
-     * values
+     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
+     * byte values
      */
     public static String bytesToHumanReadable(long bytes) {
         if (bytes < 0) {
@@ -180,7 +195,8 @@ public final class DisplayUtils {
     }
 
     /**
-     * Converts MIME types like "image/jpg" to more end user friendly output like "JPG image".
+     * Converts MIME types like "image/jpg" to more end user friendly output
+     * like "JPG image".
      *
      * @param mimetype MIME type to convert
      * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
@@ -257,7 +273,7 @@ public final class DisplayUtils {
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      *
-     * @param url     the URL where the domain name should be converted
+     * @param url the URL where the domain name should be converted
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
      */
@@ -297,15 +313,15 @@ public final class DisplayUtils {
         final OwnCloudAccount ocs = user.toOwnCloudAccount();
         final String accountName = user.getAccountName();
         return ocs.getDisplayName()
-            + "@"
-            + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
+                + "@"
+                + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
     }
 
 
     /**
      * calculates the relative time string based on the given modification timestamp.
      *
-     * @param context               the app's context
+     * @param context the app's context
      * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
      * @return a relative time string
      */
@@ -443,17 +459,17 @@ public final class DisplayUtils {
     /**
      * fetches and sets the avatar of the given account in the passed callContext
      *
-     * @param user         the account to be used to connect to server
-     * @param avatarRadius the avatar radius
-     * @param resources    reference for density information
-     * @param callContext  which context is called to set the generated avatar
+     * @param user        the account to be used to connect to server
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull User user, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
 
         AccountManager accountManager = AccountManager.get(context);
         String userId = accountManager.getUserData(user.toPlatformAccount(),
-                                                   com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
         setAvatar(user, userId, listener, avatarRadius, resources, callContext, context);
     }
@@ -461,11 +477,11 @@ public final class DisplayUtils {
     /**
      * fetches and sets the avatar of the given account in the passed callContext
      *
-     * @param user         the account to be used to connect to server
-     * @param userId       the userId which avatar should be set
-     * @param avatarRadius the avatar radius
-     * @param resources    reference for density information
-     * @param callContext  which context is called to set the generated avatar
+     * @param user        the account to be used to connect to server
+     * @param userId         the userId which avatar should be set
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param callContext    which context is called to set the generated avatar
      */
     public static void setAvatar(@NonNull User user, @NonNull String userId, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
@@ -613,7 +629,7 @@ public final class DisplayUtils {
             EventBus.getDefault().post(event);
         } else {
             Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
-            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(event));
+            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, event);
             recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivity(recentlyAddedIntent);
         }
@@ -623,7 +639,7 @@ public final class DisplayUtils {
     /**
      * Get String data from a InputStream
      *
-     * @param inputStream The File InputStream
+     * @param inputStream        The File InputStream
      */
     public static String getData(InputStream inputStream) {
 
@@ -814,8 +830,7 @@ public final class DisplayUtils {
         SortingOrderDialogFragment.newInstance(sortOrder).show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
     }
 
-    public static @StringRes
-    int getSortOrderStringId(FileSortOrder sortOrder) {
+    public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
         switch (sortOrder.name) {
             case sort_z_to_a_id:
                 return R.string.menu_item_sort_by_name_z_a;
@@ -830,6 +845,248 @@ public final class DisplayUtils {
             case sort_a_to_z_id:
             default:
                 return R.string.menu_item_sort_by_name_a_z;
+        }
+    }
+
+    public static String getDateByPattern(long timestamp, Context context, String pattern) {
+        DateFormat df = new SimpleDateFormat(pattern, context.getResources().getConfiguration().locale);
+        df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+
+        return df.format(timestamp);
+    }
+
+    public static void setThumbnail(OCFile file,
+                                    ImageView thumbnailView,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                    boolean gridView,
+                                    Context context) {
+        setThumbnail(file,
+                     thumbnailView,
+                     user,
+                     storageManager,
+                     asyncTasks,
+                     gridView,
+                     context,
+                     null,
+                     null,
+                     null,
+                     false);
+    }
+
+    public static void setThumbnail(OCFile file,
+                                    ImageView thumbnailView,
+                                    User user,
+                                    FileDataStorageManager storageManager,
+                                    List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                    boolean gridView,
+                                    Context context,
+                                    LoaderImageView shimmerThumbnail,
+                                    AppPreferences preferences,
+                                    SyncedFolderProvider syncedFolderProvider,
+                                    boolean isMediaGallery) {
+        if (file.isFolder()) {
+            stopShimmer(shimmerThumbnail, thumbnailView);
+            updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_folders_grid_item_size);
+            //reset the padding as this will change for files and we don't this for folders
+            thumbnailView.setPadding(0, 0, 0, 0);
+            thumbnailView.setImageDrawable(MimeTypeUtil
+                                               .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
+                                                                  file.isSharedViaLink(), file.isEncrypted(), syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user.toPlatformAccount()),
+                                                                  file.getMountType(), context));
+        } else {
+            updateThumbnailViewSize(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_files_grid_item_size);
+
+            try {
+                if (file.getRemoteId() != null && file.isPreviewAvailable()) {
+                    // Thumbnail in cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
+                                                                                    );
+
+                    if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                        setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.alternate_padding);
+                        stopShimmer(shimmerThumbnail, thumbnailView);
+
+                        if (MimeTypeUtil.isVideo(file)) {
+                            thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                        }
+
+                        //set the corner for both video and image thumbnail
+                        if (gridView) {
+                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                        } else {
+                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                        }
+
+                    } else {
+                        // generate new thumbnail
+                        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+                            for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
+                                if (file.getRemoteId() != null && task.getImageKey() != null &&
+                                    file.getRemoteId().equals(task.getImageKey())) {
+                                    return;
+                                }
+                            }
+                            try {
+                                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                       storageManager,
+                                                                                       user,
+                                                                                       asyncTasks,
+                                                                                       gridView,
+                                                                                       file.getRemoteId());
+                                if (thumbnail == null) {
+                                    Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                     file.getFileName(),
+                                                                                     user,
+                                                                                     context);
+                                    if (drawable == null) {
+                                        drawable = ResourcesCompat.getDrawable(context.getResources(),
+                                                                               R.drawable.file_image,
+                                                                               null);
+                                    }
+                                    int px = ThumbnailsCacheManager.getThumbnailDimension();
+                                    thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
+                                    //set thumbnailView padding for no thumbnail
+                                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
+
+                                }
+                                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
+                                                                                      thumbnail, task);
+
+                                if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
+                                    //resize shimmer for gallery media
+                                    if (gridView && isMediaGallery) {
+                                        configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
+                                    }
+                                    startShimmer(shimmerThumbnail, thumbnailView);
+                                }
+
+                                task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        stopShimmer(shimmerThumbnail, thumbnailView);
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        stopShimmer(shimmerThumbnail, thumbnailView);
+                                    }
+                                });
+
+                                thumbnailView.setImageDrawable(asyncDrawable);
+                                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                                       new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
+                                                                                                                file.getRemoteId()));
+                                asyncTasks.add(task);
+                            } catch (IllegalArgumentException e) {
+                                Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
+                            } catch (RejectedExecutionException | OutOfMemoryError e) {
+                                // Executor queue is full, ignore
+                                // OutOfMemory, ignore
+                            }
+                        }
+                    }
+
+                    if ("image/png".equalsIgnoreCase(file.getMimeType())) {
+                        thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
+                    }
+                } else {
+                    stopShimmer(shimmerThumbnail, thumbnailView);
+                    setThumbnailViewPadding(thumbnailView, gridView, context, isMediaGallery, R.dimen.standard_quarter_padding);
+                    thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                file.getFileName(),
+                                                                                user,
+                                                                                context));
+                }
+            } catch (OutOfMemoryError ignored) {
+                // OutOfMemory, ignore will be thrown from BitmapUtils.drawableToBitmap(Drawable, int, int)
+            }
+        }
+    }
+
+    private static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        thumbnailShimmer.setImageResource(R.drawable.background);
+        thumbnailShimmer.resetLoader();
+        thumbnailView.setVisibility(View.GONE);
+        thumbnailShimmer.setVisibility(View.VISIBLE);
+    }
+
+    private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+        if (thumbnailShimmer != null) {
+            thumbnailShimmer.setVisibility(View.GONE);
+        }
+
+        thumbnailView.setVisibility(View.VISIBLE);
+    }
+
+    private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, float gridColumns) {
+        FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
+
+        try {
+            final Point screenSize = getScreenSize(thumbnailShimmer.getContext());
+            final int marginLeftAndRight = targetLayoutParams.leftMargin + targetLayoutParams.rightMargin;
+            final int size = Math.round(screenSize.x / gridColumns - marginLeftAndRight);
+
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size);
+            params.setMargins(targetLayoutParams.leftMargin,
+                              targetLayoutParams.topMargin,
+                              targetLayoutParams.rightMargin,
+                              targetLayoutParams.bottomMargin);
+            thumbnailShimmer.setLayoutParams(params);
+        } catch (Exception exception) {
+            Log_OC.e("ConfigShimmer", exception.getMessage());
+        }
+    }
+
+    private static Point getScreenSize(Context context) throws Exception {
+        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager != null) {
+            final Point displaySize = new Point();
+            windowManager.getDefaultDisplay().getSize(displaySize);
+            return displaySize;
+        } else {
+            throw new Exception("WindowManager not found");
+        }
+    }
+
+    /**
+     * method to set the padding to thumbnail view this is required for files so that there will be space between file
+     * and file name
+     *
+     * @param thumbnailView
+     * @param gridView
+     * @param context
+     * @param isMediaGallery
+     * @param dimensPadding
+     */
+    private static void setThumbnailViewPadding(ImageView thumbnailView, boolean gridView, Context context,
+                                                boolean isMediaGallery, int dimensPadding) {
+        if (gridView && !isMediaGallery) {
+            int padding = context.getResources().getDimensionPixelSize(dimensPadding);
+            thumbnailView.setPadding(0, 0, 0, padding);
+        }
+    }
+
+    /**
+     * method to set manual thumbnail view height and width for folders and files because we are using different size
+     * for both files and folders
+     *
+     * @param thumbnailView
+     * @param gridView
+     * @param context
+     * @param isMediaGallery
+     * @param size
+     */
+    private static void updateThumbnailViewSize(ImageView thumbnailView, boolean gridView, Context context,
+                                                boolean isMediaGallery, int size) {
+        if (gridView && !isMediaGallery) {
+            thumbnailView.getLayoutParams().width =
+                context.getResources().getDimensionPixelSize(size);
+            thumbnailView.getLayoutParams().height = context.getResources().getDimensionPixelSize(size);
         }
     }
 

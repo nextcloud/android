@@ -17,7 +17,7 @@ interface AppNotificationManager {
 
     /**
      * Builds notification to be set when downloader starts in foreground.
-     *1
+     *
      * @return foreground downloader service notification
      */
     fun buildDownloadServiceForegroundNotification(): Notification

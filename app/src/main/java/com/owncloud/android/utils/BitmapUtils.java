@@ -371,11 +371,19 @@ public final class BitmapUtils {
                                                                               radius));
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) throws OutOfMemoryError {
         return drawableToBitmap(drawable, -1, -1);
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable, int desiredWidth, int desiredHeight) {
+    /**
+     * @param drawable
+     * @param desiredWidth
+     * @param desiredHeight
+     * @return
+     * @throws OutOfMemoryError this method will throw the OOM error for low end devices so all the calling
+     *                          classes/methods should handle this exception
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable, int desiredWidth, int desiredHeight) throws OutOfMemoryError{
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             if (bitmapDrawable.getBitmap() != null) {

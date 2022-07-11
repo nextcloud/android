@@ -69,7 +69,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
 
         waitForIdleSync()
 
-        screenshot(Objects.requireNonNull<Window>(sut.requireDialog().window).decorView)
+        screenshot(sut.requireDialog().window!!.decorView)
     }
 
     @Test
@@ -87,8 +87,9 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
             sut.errorSavingKeys()
         }
 
+        shortSleep()
         waitForIdleSync()
 
-        screenshot(Objects.requireNonNull<Window>(sut.requireDialog().window).decorView)
+        screenshot(sut.requireDialog().window!!.decorView)
     }
 }

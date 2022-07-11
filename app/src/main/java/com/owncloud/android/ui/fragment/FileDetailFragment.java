@@ -42,6 +42,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -80,6 +81,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

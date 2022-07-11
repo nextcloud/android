@@ -35,7 +35,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 
 import org.greenrobot.eventbus.EventBus;

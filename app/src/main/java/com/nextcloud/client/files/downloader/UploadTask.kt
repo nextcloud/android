@@ -87,6 +87,7 @@ class UploadTask(
             upload.isUseWifiOnly,
             upload.isWhileChargingOnly,
             false,
+            false,
             fileDataStorageManager
         )
         val client = clientProvider()

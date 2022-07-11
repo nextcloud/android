@@ -43,7 +43,7 @@ public interface AppPreferences {
     interface Listener {
         default void onDarkThemeModeChanged(DarkMode mode) {
             /* default empty implementation */
-        }
+        };
     }
 
     /**
@@ -371,6 +371,14 @@ public interface AppPreferences {
     long getCalendarLastBackup();
 
     void setCalendarLastBackup(long timestamp);
+
+    void setPdfZoomTipShownCount(int count);
+
+    int getPdfZoomTipShownCount();
+
+    boolean isStoragePermissionRequested();
+
+    void setStoragePermissionRequested(boolean value);
 
     /**
      * Saves the data analysis from privacy settings

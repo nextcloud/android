@@ -127,11 +127,9 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * prepare the list of permissions needs to be displayed on recyclerview
-     *
      * @return
      */
     private List<QuickPermissionModel> getQuickPermissionList() {
-        List<QuickPermissionModel> quickPermissionModelList = new ArrayList<>();
 
         String[] permissionArray;
         if (ocShare.isFolder()) {
@@ -149,6 +147,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
         //get the checked item position
         int checkedItem = SharingMenuHelper.getPermissionCheckedItem(fileActivity, ocShare, permissionArray);
 
+        final List<QuickPermissionModel> quickPermissionModelList = new ArrayList<>(permissionArray.length);
         for (int i = 0; i < permissionArray.length; i++) {
             QuickPermissionModel quickPermissionModel = new QuickPermissionModel(permissionArray[i], checkedItem == i);
             quickPermissionModelList.add(quickPermissionModel);

@@ -27,6 +27,8 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Data holder utility to store & retrieve stuff
  */
@@ -39,6 +41,7 @@ public class DataHolderUtil {
     @SuppressLint("TrulyRandom")
     private SecureRandom random = new SecureRandom();
 
+    @SuppressFBWarnings("MS_EXPOSE_REP")
     public static synchronized DataHolderUtil getInstance() {
         if (instance == null) {
             instance = new DataHolderUtil();

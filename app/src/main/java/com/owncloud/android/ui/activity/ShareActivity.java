@@ -157,10 +157,9 @@ public class ShareActivity extends FileActivity {
             .commit();
     }
 
-
     /**
-     * Updates the view associated to the activity after the finish of some operation over files
-     * in the current account.
+     * Updates the view associated to the activity after the finish of some operation over files in the current
+     * account.
      *
      * @param operation Removal operation performed.
      * @param result    Result of the removal.

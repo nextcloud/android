@@ -62,8 +62,12 @@ import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.adapter.TemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.theme.ThemeButtonUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import java.lang.ref.WeakReference;
+
 import java.util.ArrayList;
 import java.util.List;
 

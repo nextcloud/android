@@ -10,9 +10,9 @@ import os
 import shutil
 from xml.etree import ElementTree
 
-XML_PATH = '../../src/main/res'
-METADATA_PATH = '../../src/generic/fastlane/metadata/android/'
-METADATA_DEV_PATH = '../../src/versionDev/fastlane/metadata/android/'
+XML_PATH = '../../app/src/main/res'
+METADATA_PATH = '../../app/src/generic/fastlane/metadata/android/'
+METADATA_DEV_PATH = '../../app/src/versionDev/fastlane/metadata/android/'
 DEFAULT_LANG = 'en-US'
 LANG_MAP = {
     'values': 'en-US',

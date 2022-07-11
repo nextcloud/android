@@ -193,17 +193,17 @@ public class ConflictsResolveDialog extends DialogFragment {
         // set info for existing file
         binding.existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
         binding.existingTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
-                                                                    existingFile.getModificationTimestamp()));
+                                                                            existingFile.getModificationTimestamp()));
 
         binding.existingThumbnail.setTag(existingFile.getFileId());
-        OCFileListAdapter.setThumbnail(existingFile,
-                                       binding.existingThumbnail,
-                                       user,
-                                       new FileDataStorageManager(user,
-                                                                  requireContext().getContentResolver()),
-                                       asyncTasks,
-                                       false,
-                                       getContext());
+        DisplayUtils.setThumbnail(existingFile,
+                                  binding.existingThumbnail,
+                                  user,
+                                  new FileDataStorageManager(user,
+                                                             requireContext().getContentResolver()),
+                                  asyncTasks,
+                                  false,
+                                  getContext());
 
         View.OnClickListener checkBoxClickListener = v -> {
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());

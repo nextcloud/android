@@ -59,7 +59,7 @@
                 android:layout_height="@dimen/standard_folders_grid_item_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/folder" />
+                tools:src="@drawable/folder" />
 
             <ImageView
                 android:id="@+id/sharedIcon"

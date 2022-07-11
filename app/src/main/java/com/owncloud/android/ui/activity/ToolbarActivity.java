@@ -52,6 +52,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.

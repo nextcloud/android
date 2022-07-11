@@ -110,7 +110,7 @@ public class RenameFileOperation extends SyncOperation {
         } catch (IOException e) {
             Log_OC.e(TAG, "Rename " + file.getRemotePath() + " to " + ((newRemotePath == null) ?
                 newName : newRemotePath) + ": " +
-                (result!= null ? result.getLogMessage() : ""), e);
+                    (result!= null ? result.getLogMessage() : ""), e);
         }
 
         return result;
@@ -175,9 +175,11 @@ public class RenameFileOperation extends SyncOperation {
         String tmpFolderName = FileStorageUtils.getTemporalPath("");
         File testFile = new File(tmpFolderName + newName);
         File tmpFolder = testFile.getParentFile();
-        if (! tmpFolder.mkdirs()) {
+
+            if (!tmpFolder.exists() && !tmpFolder.mkdirs()){
             Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
         }
+
         if (!tmpFolder.isDirectory()) {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }

@@ -51,6 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -58,9 +60,9 @@ import androidx.fragment.app.DialogFragment;
 
 
 /**
- * Dialog to input a new name for a file or folder to rename.
- * <p>
- * Triggers the rename operation when name is confirmed.
+ *  Dialog to input a new name for a file or folder to rename.
+ *
+ *  Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
     extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
