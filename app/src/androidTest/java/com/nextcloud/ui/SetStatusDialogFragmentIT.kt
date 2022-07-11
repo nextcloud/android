@@ -23,6 +23,7 @@
 package com.nextcloud.ui
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.users.ClearAt
 import com.owncloud.android.lib.resources.users.PredefinedStatus
@@ -31,7 +32,9 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class SetStatusDialogFragmentIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(FileDisplayActivity::class.java, true, false)

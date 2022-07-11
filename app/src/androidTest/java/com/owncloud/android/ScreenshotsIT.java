@@ -12,13 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.PreferenceMatchers;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
@@ -34,7 +34,7 @@ import static org.hamcrest.core.AnyOf.anyOf;
 import static org.junit.Assert.assertTrue;
 
 @LargeTest
-@RunWith(JUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class ScreenshotsIT extends AbstractOnServerIT {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();

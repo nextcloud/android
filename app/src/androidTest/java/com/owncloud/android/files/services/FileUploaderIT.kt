@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.files.services
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
@@ -41,7 +42,9 @@ import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class FileUploaderIT : AbstractOnServerIT() {
     var uploadsStorageManager: UploadsStorageManager? = null
 

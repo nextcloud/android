@@ -34,14 +34,16 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Objects;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-
+@RunWith(AndroidJUnit4.class)
 public class SyncedFoldersActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<SyncedFoldersActivity> activityRule = new IntentsTestRule<>(SyncedFoldersActivity.class,
                                                                                              true,

@@ -20,7 +20,6 @@
 
 package com.nextcloud.client;
 
-import android.Manifest;
 import android.widget.TextView;
 
 import com.owncloud.android.AbstractIT;
@@ -31,14 +30,12 @@ import com.owncloud.android.utils.ScreenshotTest;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
+import org.junit.runner.RunWith;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-
+@RunWith(AndroidJUnit4.class)
 public class AuthenticatorActivityIT extends AbstractIT {
     private static final String URL = "cloud.nextcloud.com";
     @Rule public IntentsTestRule<AuthenticatorActivity> activityRule = new IntentsTestRule<>(AuthenticatorActivity.class,

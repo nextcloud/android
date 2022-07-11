@@ -23,11 +23,14 @@ package com.owncloud.android.ui.preview
 
 import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class PreviewBitmapScreenshotIT : AbstractIT() {
 
     companion object {

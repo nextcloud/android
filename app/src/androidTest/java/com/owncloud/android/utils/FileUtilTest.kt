@@ -19,11 +19,14 @@
  */
 package com.owncloud.android.utils
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import org.junit.Assert
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 
+@RunWith(AndroidJUnit4::class)
 class FileUtilTest : AbstractIT() {
     @Test
     fun assertNullInput() {

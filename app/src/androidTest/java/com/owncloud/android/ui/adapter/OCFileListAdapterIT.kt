@@ -21,12 +21,15 @@
  */
 package com.owncloud.android.ui.adapter
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @Suppress("MagicNumber")
+@RunWith(AndroidJUnit4::class)
 class OCFileListAdapterIT : AbstractIT() {
     @Test
     fun testParseMedia() {

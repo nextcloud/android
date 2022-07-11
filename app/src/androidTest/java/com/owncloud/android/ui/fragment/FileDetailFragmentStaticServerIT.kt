@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -34,8 +35,10 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.util.GregorianCalendar
 
+@RunWith(AndroidJUnit4::class)
 class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)

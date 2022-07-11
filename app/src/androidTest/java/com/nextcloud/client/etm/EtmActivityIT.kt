@@ -24,13 +24,16 @@ package com.nextcloud.client.etm
 
 import android.app.Activity
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
-class EtmActivityTest : AbstractIT() {
+@RunWith(AndroidJUnit4::class)
+class EtmActivityIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
 

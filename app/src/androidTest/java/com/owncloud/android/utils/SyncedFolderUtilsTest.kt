@@ -20,6 +20,7 @@
 
 package com.owncloud.android.utils
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
@@ -29,9 +30,11 @@ import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.BeforeClass
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 import java.util.Arrays
 
+@RunWith(AndroidJUnit4::class)
 class SyncedFolderUtilsTest : AbstractIT() {
     @Test
     fun assertCoverFilenameUnqualified() {

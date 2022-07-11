@@ -25,13 +25,16 @@ import android.accounts.AccountManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.network.ConnectivityServiceImpl.GetRequestBuilder
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class ConnectivityServiceImplIT : AbstractOnServerIT() {
     @Test
     fun testInternetWalled() {

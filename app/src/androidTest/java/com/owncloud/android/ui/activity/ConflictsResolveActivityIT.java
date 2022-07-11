@@ -37,11 +37,13 @@ import com.owncloud.android.utils.ScreenshotTest;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Objects;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -51,6 +53,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+@RunWith(AndroidJUnit4.class)
 public class ConflictsResolveActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<ConflictsResolveActivity> activityRule =
         new IntentsTestRule<>(ConflictsResolveActivity.class, true, false);

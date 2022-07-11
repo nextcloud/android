@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.GrantStoragePermissionRule
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
@@ -35,7 +36,9 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class OCFileListFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)

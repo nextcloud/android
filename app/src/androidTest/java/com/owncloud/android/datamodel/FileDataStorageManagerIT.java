@@ -42,11 +42,14 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.GALLERY_SEARCH;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.PHOTO_SEARCH;
@@ -55,6 +58,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(AndroidJUnit4.class)
 abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
     protected FileDataStorageManager sut;

@@ -22,12 +22,15 @@
 
 package com.owncloud.android.datamodel
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class OCCapabilityIT : AbstractIT() {
     @Test
     fun saveCapability() {

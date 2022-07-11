@@ -23,6 +23,7 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.FileStorageUtils
@@ -31,8 +32,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 
+@RunWith(AndroidJUnit4::class)
 class UploadFilesActivityIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)

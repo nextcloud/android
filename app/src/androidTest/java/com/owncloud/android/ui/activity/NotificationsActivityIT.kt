@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.activity
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
@@ -29,8 +30,10 @@ import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.util.GregorianCalendar
 
+@RunWith(AndroidJUnit4::class)
 class NotificationsActivityIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(NotificationsActivity::class.java, true, false)

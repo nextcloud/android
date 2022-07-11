@@ -25,6 +25,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -37,8 +38,10 @@ import com.owncloud.android.ui.activities.ActivitiesActivity
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.util.GregorianCalendar
 
+@RunWith(AndroidJUnit4::class)
 class ActivitiesActivityIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(ActivitiesActivity::class.java, true, false)

@@ -19,14 +19,17 @@
  */
 package com.nextcloud.client.migrations
 
-import org.junit.Before
-import org.junit.Test
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
 
 @Suppress("MagicNumber")
+@RunWith(AndroidJUnit4::class)
 class MockSharedPreferencesTest {
 
     private lateinit var mock: MockSharedPreferences

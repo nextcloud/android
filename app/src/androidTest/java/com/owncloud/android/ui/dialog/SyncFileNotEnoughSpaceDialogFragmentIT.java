@@ -28,14 +28,17 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Objects;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
+@RunWith(AndroidJUnit4.class)
+public class SyncFileNotEnoughSpaceDialogFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);

@@ -33,8 +33,11 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -44,7 +47,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests related to file uploads
  */
-
+@RunWith(AndroidJUnit4.class)
 public class DownloadIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
 

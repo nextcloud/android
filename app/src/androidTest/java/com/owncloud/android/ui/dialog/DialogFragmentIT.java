@@ -66,6 +66,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -75,9 +76,11 @@ import java.util.Objects;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
+@RunWith(AndroidJUnit4.class)
 public class DialogFragmentIT extends AbstractIT {
 
     private final String SERVER_URL = "https://nextcloud.localhost";

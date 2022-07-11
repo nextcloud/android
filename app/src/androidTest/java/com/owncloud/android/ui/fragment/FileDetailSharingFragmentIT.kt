@@ -34,6 +34,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,8 +65,10 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @Suppress("TooManyFunctions")
+@RunWith(AndroidJUnit4::class)
 class FileDetailSharingFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)

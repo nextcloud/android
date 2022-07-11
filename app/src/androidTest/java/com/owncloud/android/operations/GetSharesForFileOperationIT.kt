@@ -21,6 +21,7 @@
  */
 package com.owncloud.android.operations
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation
@@ -30,8 +31,10 @@ import junit.framework.TestCase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @Suppress("MagicNumber")
+@RunWith(AndroidJUnit4::class)
 class GetSharesForFileOperationIT : AbstractOnServerIT() {
     @Test
     fun shares() {

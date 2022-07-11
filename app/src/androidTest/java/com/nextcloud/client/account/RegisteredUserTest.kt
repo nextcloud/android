@@ -23,6 +23,7 @@ package com.nextcloud.client.account
 import android.accounts.Account
 import android.net.Uri
 import android.os.Parcel
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudBasicCredentials
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
@@ -32,8 +33,10 @@ import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.net.URI
 
+@RunWith(AndroidJUnit4::class)
 class RegisteredUserTest {
 
     private companion object {

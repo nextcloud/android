@@ -31,10 +31,12 @@ import com.owncloud.android.utils.ScreenshotTest;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
+import org.junit.runner.RunWith;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-
+@RunWith(AndroidJUnit4.class)
 public class CommunityActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<CommunityActivity> activityRule = new IntentsTestRule<>(CommunityActivity.class,
                                                                                          true,

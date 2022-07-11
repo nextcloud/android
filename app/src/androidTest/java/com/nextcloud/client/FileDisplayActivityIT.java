@@ -41,11 +41,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -54,6 +56,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+@RunWith(AndroidJUnit4.class)
 public class FileDisplayActivityIT extends AbstractOnServerIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,

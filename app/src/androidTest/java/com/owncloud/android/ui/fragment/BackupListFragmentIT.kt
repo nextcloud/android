@@ -21,6 +21,7 @@ package com.owncloud.android.ui.fragment
 
 import android.Manifest
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -30,7 +31,9 @@ import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class BackupListFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(ContactsPreferenceActivity::class.java, true, false)

@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
@@ -30,8 +31,10 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 
+@RunWith(AndroidJUnit4::class)
 class UnifiedSearchFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)

@@ -21,17 +21,20 @@ package com.nextcloud.client.migrations
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
+@RunWith(AndroidJUnit4::class)
 class MigrationsDbTest {
 
     private lateinit var context: Context

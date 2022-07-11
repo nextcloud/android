@@ -24,6 +24,11 @@ package com.owncloud.android.datamodel;
 
 import com.owncloud.android.db.ProviderMeta;
 
+import org.junit.runner.RunWith;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+@RunWith(AndroidJUnit4.class)
 public class FileDataStorageManagerContentProviderClientIT extends FileDataStorageManagerIT {
 
     @Override

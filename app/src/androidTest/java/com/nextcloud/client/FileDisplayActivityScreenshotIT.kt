@@ -27,6 +27,7 @@ import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -35,7 +36,9 @@ import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class FileDisplayActivityScreenshotIT : AbstractIT() {
     @get:Rule
     val activityRule = IntentsTestRule(

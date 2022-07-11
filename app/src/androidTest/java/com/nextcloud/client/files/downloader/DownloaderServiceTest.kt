@@ -20,6 +20,7 @@
 package com.nextcloud.client.files.downloader
 
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ServiceTestRule
 import com.nextcloud.client.account.MockUser
 import io.mockk.MockKAnnotations
@@ -27,9 +28,11 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+@RunWith(AndroidJUnit4::class)
 class DownloaderServiceTest {
 
     @get:Rule

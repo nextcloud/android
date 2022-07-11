@@ -37,11 +37,13 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertNotNull;
@@ -52,6 +54,7 @@ import static org.junit.Assert.assertTrue;
  * Common base for all integration tests
  */
 
+@RunWith(AndroidJUnit4.class)
 public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
     public static void beforeAll() {

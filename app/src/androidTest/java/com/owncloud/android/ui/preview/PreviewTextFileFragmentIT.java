@@ -29,13 +29,16 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.IOException;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-public class PreviewTextFileFragmentTest extends AbstractIT {
+@RunWith(AndroidJUnit4.class)
+public class PreviewTextFileFragmentIT extends AbstractIT {
     @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
                                                                                            true,
                                                                                            false);

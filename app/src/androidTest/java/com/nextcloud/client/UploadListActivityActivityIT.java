@@ -28,10 +28,12 @@ import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-
+@RunWith(AndroidJUnit4.class)
 public class UploadListActivityActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<UploadListActivity> activityRule = new IntentsTestRule<>(UploadListActivity.class,
                                                                                           true,

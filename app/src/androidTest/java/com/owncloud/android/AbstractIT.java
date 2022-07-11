@@ -48,6 +48,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -60,6 +61,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
@@ -75,6 +77,7 @@ import static org.junit.Assert.assertTrue;
  * Common base for all integration tests
  */
 
+@RunWith(AndroidJUnit4.class)
 public abstract class AbstractIT {
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();

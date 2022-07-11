@@ -3,6 +3,7 @@ package com.owncloud.android.providers
 import android.provider.DocumentsContract
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.test.RandomStringGenerator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -27,10 +28,12 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import kotlin.random.Random
 
 private const val MAX_FILE_NAME_LENGTH = 225
 
+@RunWith(AndroidJUnit4::class)
 class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
     private val context = targetContext

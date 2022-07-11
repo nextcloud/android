@@ -23,6 +23,7 @@ package com.owncloud.android.ui.dialog
 
 import androidx.fragment.app.FragmentManager
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
@@ -31,7 +32,9 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class SendShareDialogTest : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)

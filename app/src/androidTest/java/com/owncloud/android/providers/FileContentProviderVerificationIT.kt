@@ -21,13 +21,15 @@
  */
 package com.owncloud.android.providers
 
-import java.lang.IllegalArgumentException
-import com.owncloud.android.db.ProviderMeta
 import android.content.ContentValues
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.utils.MimeTypeUtil
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @Suppress("FunctionNaming")
+@RunWith(AndroidJUnit4::class)
 class FileContentProviderVerificationIT {
 
     companion object {

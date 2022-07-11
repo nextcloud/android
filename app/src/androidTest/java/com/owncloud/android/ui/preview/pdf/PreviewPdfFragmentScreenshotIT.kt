@@ -23,13 +23,16 @@ package com.owncloud.android.ui.preview.pdf
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class PreviewPdfFragmentScreenshotIT : AbstractIT() {
 
     companion object {

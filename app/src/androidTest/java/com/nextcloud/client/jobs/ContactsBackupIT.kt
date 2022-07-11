@@ -22,6 +22,7 @@
 package com.nextcloud.client.jobs
 
 import android.Manifest
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.GrantPermissionRule
 import androidx.work.WorkManager
 import com.nextcloud.client.core.ClockImpl
@@ -36,8 +37,10 @@ import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 
+@RunWith(AndroidJUnit4::class)
 class ContactsBackupIT : AbstractOnServerIT() {
     val workmanager = WorkManager.getInstance(targetContext)
     private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl())

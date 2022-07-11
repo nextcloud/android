@@ -11,13 +11,17 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class UserAccountManagerImplTest extends AbstractOnServerIT {
+@RunWith(AndroidJUnit4.class)
+public class UserAccountManagerImplIT extends AbstractOnServerIT {
 
     private AccountManager accountManager;
 

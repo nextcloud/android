@@ -41,14 +41,17 @@ import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.IOException;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertEquals;
 
-public class OwnCloudClientManagerTest extends AbstractOnServerIT {
+@RunWith(AndroidJUnit4.class)
+public class OwnCloudClientManagerIT extends AbstractOnServerIT {
 
     /**
      * Like on files app we create & store an account in Android's account manager.
