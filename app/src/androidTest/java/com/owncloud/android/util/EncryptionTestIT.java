@@ -58,7 +58,7 @@ import java.util.Set;
 
 import javax.crypto.BadPaddingException;
 
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static com.owncloud.android.utils.EncryptionUtils.EncryptedFile;
