@@ -526,7 +526,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
         RemoteOperationResult publicKeyResult = publicKeyOperation.execute(account, targetContext);
 
-        assertTrue(publicKeyResult.isSuccess());
+        assertTrue("Result code:" + publicKeyResult.getHttpCode(), publicKeyResult.isSuccess());
 
         String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
         arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
