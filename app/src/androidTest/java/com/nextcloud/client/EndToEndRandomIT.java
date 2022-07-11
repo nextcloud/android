@@ -53,6 +53,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,6 +62,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static com.owncloud.android.lib.resources.status.OwnCloudVersion.nextcloud_19;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
@@ -68,6 +71,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+@RunWith(AndroidJUnit4.class)
 public class EndToEndRandomIT extends AbstractOnServerIT {
     public enum Action {
         CREATE_FOLDER,
@@ -88,8 +92,9 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     public RetryTestRule retryTestRule = new RetryTestRule();
 
     @BeforeClass
-    public static void initClass() {
+    public static void initClass() throws Exception {
         arbitraryDataProvider = new ArbitraryDataProvider(targetContext.getContentResolver());
+        createKeys();
     }
 
     @Before
@@ -511,7 +516,6 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         encFolder.setEncrypted(true);
         getStorageManager().saveFolder(encFolder, new ArrayList<>(), new ArrayList<>());
 
-        createKeys();
 
         // delete keys
         arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
@@ -553,7 +557,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     /*
     TODO do not c&p code
      */
-    private void createKeys() throws Exception {
+    private static void createKeys() throws Exception {
         String publicKey;
 
         // Create public/private key pair
@@ -594,7 +598,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         }
     }
 
-    private String generateMnemonicString() {
+    private static String generateMnemonicString() {
         return "1 2 3 4 5 6";
     }
 
