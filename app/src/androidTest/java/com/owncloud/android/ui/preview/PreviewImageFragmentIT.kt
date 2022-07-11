@@ -21,14 +21,20 @@
  */
 package com.owncloud.android.ui.preview
 
+import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.Ignore
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@Ignore("Failing when ran with the entire test suite. See comment in source.")
 class PreviewImageFragmentIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
@@ -39,39 +45,39 @@ class PreviewImageFragmentIT : AbstractIT() {
     // running it in whole test suite fails
     // manually tried to execute LoadBitmapTask, but this does not start "doInBackground", but only creates class
 
-    // @Test
-    // @ScreenshotTest
-    // fun corruptImage() {
-    //     val activity = testActivityRule.launchActivity(null)
-    //
-    //     val ocFile = OCFile("/test.png")
-    //     val sut = PreviewImageFragment.newInstance(ocFile, true, false)
-    //
-    //     activity.addFragment(sut)
-    //
-    //     while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-    //         shortSleep()
-    //     }
-    //
-    //     screenshot(activity)
-    // }
-    //
-    // @Test
-    // @ScreenshotTest
-    // fun validImage() {
-    //     val activity = testActivityRule.launchActivity(null)
-    //
-    //     val ocFile = OCFile("/test.png")
-    //     ocFile.storagePath = getFile("imageFile.png").absolutePath
-    //
-    //     val sut = PreviewImageFragment.newInstance(ocFile, true, false)
-    //
-    //     activity.addFragment(sut)
-    //
-    //     while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-    //         shortSleep()
-    //     }
-    //
-    //     screenshot(activity)
-    // }
+    @Test
+    @ScreenshotTest
+    fun corruptImage() {
+        val activity = testActivityRule.launchActivity(null)
+
+        val ocFile = OCFile("/test.png")
+        val sut = PreviewImageFragment.newInstance(ocFile, true, false)
+
+        activity.addFragment(sut)
+
+        while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            shortSleep()
+        }
+
+        screenshot(activity)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun validImage() {
+        val activity = testActivityRule.launchActivity(null)
+
+        val ocFile = OCFile("/test.png")
+        ocFile.storagePath = getFile("imageFile.png").absolutePath
+
+        val sut = PreviewImageFragment.newInstance(ocFile, true, false)
+
+        activity.addFragment(sut)
+
+        while (!sut.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            shortSleep()
+        }
+
+        screenshot(activity)
+    }
 }
