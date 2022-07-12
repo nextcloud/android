@@ -175,7 +175,7 @@ public class RenameFileOperation extends SyncOperation {
         String tmpFolderName = FileStorageUtils.getTemporalPath("");
         File testFile = new File(tmpFolderName + newName);
         File tmpFolder = testFile.getParentFile();
-        if (! tmpFolder.mkdirs()) {
+        if (!tmpFolder.exists() && !tmpFolder.mkdirs()) {
             Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
         }
         if (!tmpFolder.isDirectory()) {
