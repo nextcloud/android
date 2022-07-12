@@ -1341,6 +1341,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * server.
      */
     private void showServerStatus() {
+        if (accountSetupBinding == null) return;
+
         if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
             accountSetupBinding.serverStatusText.setVisibility(View.INVISIBLE);
         } else {
