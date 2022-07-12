@@ -294,6 +294,7 @@
     <string name="failed_update_ui">Nie udało się zaktualizować UI</string>
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
+    <string name="file_already_exists">Nazwa pliku już istnieje</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
