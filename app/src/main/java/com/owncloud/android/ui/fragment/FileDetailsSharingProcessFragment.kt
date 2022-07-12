@@ -133,10 +133,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         arguments?.let {
             file = it.getParcelable(ARG_OCFILE)
             shareeName = it.getString(ARG_SHAREE_NAME)
+            share = it.getParcelable(ARG_OCSHARE)
             if (it.containsKey(ARG_SHARE_TYPE)) {
                 shareType = it.getSerializable(ARG_SHARE_TYPE) as ShareType
+            } else if (share != null) {
+                shareType = share!!.shareType
             }
-            share = it.getParcelable(ARG_OCSHARE)
+
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
             isReshareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)

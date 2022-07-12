@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
+    <string name="choose_location">Choose location</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
@@ -293,6 +294,7 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favorites</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
     <string name="file_details_no_content">Failed to load details</string>
@@ -404,6 +406,7 @@
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">There are no further folders.</string>
+    <string name="locate_folder">Locate folder</string>
     <string name="lock_expiration_info">Expires: %1$s</string>
     <string name="lock_file">Lock file</string>
     <string name="locked_by">Locked by %1$s</string>
@@ -610,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="select_all">Select all</string>
+    <string name="select_media_folder">Set media folder</string>
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
@@ -664,6 +668,8 @@
     <string name="shared_icon_shared_via_link">shared via link</string>
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
+    <string name="show_images">Show photos</string>
+    <string name="show_video">Show videos</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
@@ -720,6 +726,9 @@
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
+    <string name="subtitle_photos_only">Photos only</string>
+    <string name="subtitle_photos_videos">Photos &amp; videos</string>
+    <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
@@ -894,6 +903,22 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Found %d duplicate entry.</item>
         <item quantity="other">Found %d duplicate entries.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Exported %d file</item>
+        <item quantity="other">Exported %d files</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Failed to export %d file</item>
+        <item quantity="other">Failed to export %d files</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exported %d file, skipped rest due to error</item>
+        <item quantity="other">Exported %d files, skipped rest due to error</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d file will be exported. See notification for details.</item>
+        <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>

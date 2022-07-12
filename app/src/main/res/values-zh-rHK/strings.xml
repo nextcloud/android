@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">開發版本更新紀錄</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇近端資料夾…</string>
+    <string name="choose_location">選擇位置</string>
     <string name="choose_remote_folder">選擇遠端資料夾…</string>
     <string name="choose_template_helper_text">請選擇一個模板，然後輸入檔案名。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
@@ -293,6 +294,7 @@
     <string name="failed_update_ui">更新 UI 失敗</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
+    <string name="file_already_exists">檔案名已存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
@@ -404,6 +406,7 @@
     <string name="local_file_not_found_message">近端檔案系統中找不到檔案</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">沒有其他資料夾了</string>
+    <string name="locate_folder">尋找文件夾</string>
     <string name="lock_expiration_info">過期：%1$s</string>
     <string name="lock_file">上鎖檔案</string>
     <string name="locked_by">被 %1$s 鎖上</string>
@@ -610,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
     <string name="search_error">獲取搜索結果時出錯</string>
     <string name="select_all">全選</string>
+    <string name="select_media_folder">設置媒體資料夾</string>
     <string name="select_one_template">請選擇一個模板</string>
     <string name="select_template">選擇範本</string>
     <string name="send">傳送</string>
@@ -664,6 +668,8 @@
     <string name="shared_icon_shared_via_link">透過連結分享</string>
     <string name="shared_with_you_by">%1$s 已與您分享</string>
     <string name="sharee_add_failed">分享失敗</string>
+    <string name="show_images">顯示照片</string>
+    <string name="show_video">顯示影片</string>
     <string name="signup_with_provider">使用第三方登入</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 賬號 %2$s？</string>
     <string name="sort_by">排序方式</string>
@@ -720,6 +726,9 @@
     <string name="strict_mode">嚴格模式：不允許 HTTP 連接！</string>
     <string name="subject_shared_with_you">已經與您分享了 \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
+    <string name="subtitle_photos_only">僅限照片</string>
+    <string name="subtitle_photos_videos">照片&amp;視像</string>
+    <string name="subtitle_videos_only">僅限視像</string>
     <string name="suggest">建議</string>
     <string name="sync_conflicts_in_favourites_ticker">出現抵觸</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
@@ -888,6 +897,18 @@
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="other">找到 %d 個重複項。</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="other">導出 %d 個檔案</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="other">導出 %d 個檔案失敗</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="other">導出%d 個檔案，由於錯誤而跳過了其餘部分</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="other">%d 個檔案將被導出。 詳情見通知。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d個資料夾</item>

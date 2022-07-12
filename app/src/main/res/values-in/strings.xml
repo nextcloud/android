@@ -279,6 +279,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="file_rename">Ubah nama</string>
     <string name="file_version_restored_error">Kesalahan terjadi saat memulihkan versi file!</string>
     <string name="filedetails_download">Unduh</string>
+    <string name="filedetails_export">Ekspor</string>
     <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>
     <string name="filedetails_sync_file">Sinkron</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang dipilih</string>
