@@ -1,0 +1,3 @@
+Allow to delete encrypted folders
+FileDetailsSharingProcessFragment: avoid crashing when modifying existing shares
+Update translations
