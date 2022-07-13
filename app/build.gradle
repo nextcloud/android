@@ -160,8 +160,8 @@ android {
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 68
-                versionName "1.68"
+                versionCode 69
+                versionName "1.69"
             }
         }
 
