@@ -52,6 +52,7 @@ import java.util.List;
 public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
+    private static final int EMPTY_FILE_LENGTH = 0;
     public static final String SEND_OFF = "off";
 
     private final int numberOfAllFiles;
@@ -312,7 +313,7 @@ public class FileMenuFilter {
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder() || isGroupFolder()
-            || !endToEndEncryptionEnabled) {
+            || !endToEndEncryptionEnabled || !isEmptyFolder()) {
             toHide.add(R.id.action_encrypted);
         } else {
             toShow.add(R.id.action_encrypted);
@@ -321,7 +322,7 @@ public class FileMenuFilter {
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder() || hasEncryptedParent()
-            || !endToEndEncryptionEnabled) {
+            || !endToEndEncryptionEnabled || !isEmptyFolder()) {
             toHide.add(R.id.action_unset_encrypted);
         } else {
             toShow.add(R.id.action_unset_encrypted);
@@ -550,6 +551,16 @@ public class FileMenuFilter {
             OCFile file = files.iterator().next();
 
             return file.isFolder() && file.isEncrypted();
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isEmptyFolder() {
+        if (isSingleSelection()) {
+            OCFile file = files.iterator().next();
+
+            return file.isFolder() && file.getFileLength() == EMPTY_FILE_LENGTH;
         } else {
             return false;
         }

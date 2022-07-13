@@ -37,13 +37,17 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.services.OperationsService
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.MimeType
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)
 class FileMenuFilterIT : AbstractIT() {
@@ -72,6 +76,7 @@ class FileMenuFilterIT : AbstractIT() {
         every { mockComponentsGetter.fileDownloaderBinder } returns mockFileDownloaderBinder
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
+        every { mockStorageManager.getFileById(any()) } returns OCFile("/")
     }
 
     @Test
@@ -150,6 +155,69 @@ class FileMenuFilterIT : AbstractIT() {
         )
     }
 
+    @Test
+    fun filter_unset_encryption() {
+        val capability = OCCapability().apply {
+            endToEndEncryption = CapabilityBooleanType.TRUE
+        }
+
+        val encryptedFolder = OCFile("/encryptedFolder/").apply {
+            isEncrypted = true
+            mimeType = MimeType.DIRECTORY
+            fileLength = SecureRandom().nextLong()
+        }
+
+        val encryptedEmptyFolder = OCFile("/encryptedFolder/").apply {
+            isEncrypted = true
+            mimeType = MimeType.DIRECTORY
+        }
+
+        val normalFolder = OCFile("/folder/").apply {
+            mimeType = MimeType.DIRECTORY
+            fileLength = SecureRandom().nextLong()
+        }
+
+        val normalEmptyFolder = OCFile("/folder/").apply {
+            mimeType = MimeType.DIRECTORY
+        }
+
+        configureCapability(capability)
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val menu = getMenu(activity)
+
+                var sut = FileMenuFilter(encryptedFolder, mockComponentsGetter, activity, true, user)
+                sut.filter(menu, false)
+
+                // encrypted folder, with content
+                assertFalse(menu.findItem(R.id.action_unset_encrypted).isVisible)
+                assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
+
+                // encrypted, but empty folder
+                sut = FileMenuFilter(encryptedEmptyFolder, mockComponentsGetter, activity, true, user)
+                sut.filter(menu, false)
+
+                assertTrue(menu.findItem(R.id.action_unset_encrypted).isVisible)
+                assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
+
+                // regular folder, with content
+                sut = FileMenuFilter(normalFolder, mockComponentsGetter, activity, true, user)
+                sut.filter(menu, false)
+
+                assertFalse(menu.findItem(R.id.action_unset_encrypted).isVisible)
+                assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
+
+                // regular folder, without content
+                sut = FileMenuFilter(normalEmptyFolder, mockComponentsGetter, activity, true, user)
+                sut.filter(menu, false)
+
+                assertFalse(menu.findItem(R.id.action_unset_encrypted).isVisible)
+                assertTrue(menu.findItem(R.id.action_encrypted).isVisible)
+            }
+        }
+    }
+
     private data class ExpectedLockVisibilities(
         val lockFile: Boolean,
         val unlockFile: Boolean,
@@ -185,26 +253,26 @@ class FileMenuFilterIT : AbstractIT() {
 
                 sut.filter(menu, false)
 
-                Assert.assertEquals(
+                assertEquals(
                     expectedLockVisibilities.lockFile,
                     menu.findItem(R.id.action_lock_file).isVisible
                 )
-                Assert.assertEquals(
+                assertEquals(
                     expectedLockVisibilities.unlockFile,
                     menu.findItem(R.id.action_unlock_file).isVisible
                 )
-                Assert.assertEquals(
+                assertEquals(
                     expectedLockVisibilities.lockedBy,
                     menu.findItem(R.id.action_locked_by).isVisible
                 )
-                Assert.assertEquals(
+                assertEquals(
                     expectedLockVisibilities.lockedUntil,
                     menu.findItem(R.id.action_locked_until).isVisible
                 )
 
                 // locked by and until should always be disabled, they're not real actions
-                Assert.assertFalse(menu.findItem(R.id.action_locked_by).isEnabled)
-                Assert.assertFalse(menu.findItem(R.id.action_locked_until).isEnabled)
+                assertFalse(menu.findItem(R.id.action_locked_by).isEnabled)
+                assertFalse(menu.findItem(R.id.action_locked_until).isEnabled)
             }
         }
     }
