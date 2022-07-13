@@ -294,6 +294,7 @@
     <string name="failed_update_ui">Falha ao atualizar a interface gráfica</string>
     <string name="favorite">Adicionar aos favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="file_already_exists">O nome do arquivo já existe</string>
     <string name="file_delete">Excluir</string>
     <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
