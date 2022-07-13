@@ -44,6 +44,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -199,6 +200,12 @@ public abstract class AbstractIT {
         androidx.test.espresso.accessibility.AccessibilityChecks.enable().setRunChecksFromRootView(true);
     }
 
+    @After
+    public void after() {
+        fileDataStorageManager.removeLocalFiles(user, fileDataStorageManager);
+        fileDataStorageManager.deleteAllFiles();
+    }
+
     protected FileDataStorageManager getStorageManager() {
         return fileDataStorageManager;
     }
@@ -324,6 +331,12 @@ public abstract class AbstractIT {
                                 .isSuccess());
 
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
+    }
+
+    public void uploadFile(File file, String remotePath) {
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        uploadOCUpload(ocUpload);
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {

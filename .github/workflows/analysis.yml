@@ -21,10 +21,12 @@ jobs:
                         # push
                         echo "::set-output name=branch::$GITHUB_REF_NAME"
                         echo "::set-output name=pr::$GITHUB_RUN_ID"
+                        echo "::set-output name=repo::${{ github.repository }}"
                     else
                         # pull request
                         echo "::set-output name=branch::$GITHUB_HEAD_REF"
                         echo "::set-output name=pr::${{ github.event.pull_request.number }}"
+                        echo "::set-output name=repo::${{ github.event.pull_request.head.repo.full_name }}"
                     fi
             -   uses: actions/checkout@v3
                 with:
