@@ -1,0 +1,6 @@
+Make empty list views scrollable
+Update fastlane plugins
+Update fastlane
+OCFileListFragment: remove all the "resetHeaderScrollngState" calls
+Update translations
+Update Nextcloud Android library
