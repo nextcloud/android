@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
+    <string name="choose_location">Elige una ubicación</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
@@ -293,6 +294,7 @@
     <string name="failed_update_ui">Fallo al actualizar la UI</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="file_already_exists">El nombre de fichero ya existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -404,6 +406,7 @@
     <string name="local_file_not_found_message">El archivo no se encuentra en el sistema de archivos local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hay mas carpetas</string>
+    <string name="locate_folder">Buscar carpeta</string>
     <string name="lock_expiration_info">Expira: %1$s</string>
     <string name="lock_file">Bloquear archivo</string>
     <string name="locked_by">Bloqueado por %1$s</string>
@@ -610,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="select_all">Seleccionar todo</string>
+    <string name="select_media_folder">Establece la carpeta multimedia</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
@@ -664,6 +668,8 @@
     <string name="shared_icon_shared_via_link">compartidos vía enlace</string>
     <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
+    <string name="show_images">Mostrar fotos</string>
+    <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registrarse con un proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
@@ -720,6 +726,9 @@
     <string name="strict_mode">Modo estricto: ¡ninguna conexión HTTP permitida!</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo.</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="subtitle_photos_only">Solo fotos</string>
+    <string name="subtitle_photos_videos">Fotos &amp; vídeos</string>
+    <string name="subtitle_videos_only">Solo vídeos</string>
     <string name="suggest">Sugerir</string>
     <string name="sync_conflicts_in_favourites_ticker">Se han encontrado conflictos</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
@@ -900,6 +909,26 @@
         <item quantity="one">Se ha encontrado %d entrada duplicada.</item>
         <item quantity="many">Se han encontrado %d entradas duplicadas.</item>
         <item quantity="other">Se han encontrado %d entradas duplicadas.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d archivo exportado</item>
+        <item quantity="many">%d archivos exportados</item>
+        <item quantity="other">%d archivos exportados</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Fallo al exportar %d archivo</item>
+        <item quantity="many">Fallo al exportar %d archivos</item>
+        <item quantity="other">Fallo al exportar %d archivos</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d archivo exportado, el resto han sido omitidos por un error</item>
+        <item quantity="many">%d archivos exportados, el resto han sido omitidos por un error</item>
+        <item quantity="other">%d archivos exportados, el resto han sido omitidos por un error</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Se va a exportar %d archivo. En la notificación puedes ver más detalles.</item>
+        <item quantity="many">Se van a exportar %d archivos. En la notificación puedes ver más detalles.</item>
+        <item quantity="other">Se van a exportar %d archivos. En la notificación puedes ver más detalles.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
