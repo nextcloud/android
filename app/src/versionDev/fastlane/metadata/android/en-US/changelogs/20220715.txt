@@ -1,0 +1,2 @@
+Don't allow focus on empty view and restore mis-updated screenshot
+Update translations
