@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">المتغيرات في تطبيق المطورين</string>
     <string name="checkbox">مربع تحقق</string>
     <string name="choose_local_folder">اختر المجلد المحلي…</string>
+    <string name="choose_location">اختر الموقع</string>
     <string name="choose_remote_folder">اختر مجلد عن بُعد…</string>
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
@@ -219,7 +220,7 @@
     <string name="drawer_item_activities">النشاطات</string>
     <string name="drawer_item_all_files">كل الملفات</string>
     <string name="drawer_item_favorites">المفضلة </string>
-    <string name="drawer_item_gallery">وسائط</string>
+    <string name="drawer_item_gallery">الوسائط</string>
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
@@ -256,10 +257,13 @@
     <string name="error_comment_file">خطأ في التعليق على الملف</string>
     <string name="error_crash_title">%1$s فشل</string>
     <string name="error_creating_file_from_template">خطأ عند محاولة إنشاء الملف مِن النموذج</string>
+    <string name="error_file_lock">خطأ في تغيير حالة قفل الملف</string>
     <string name="error_report_issue_action">أبلغ عنه</string>
+    <string name="error_report_issue_text">بلغ عن المشكلة؟ (تحتاج حساب على Github)</string>
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
+    <string name="error_starting_scan_doc">خطأ في استخدام المسح الضوئي للمستند</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
@@ -290,6 +294,7 @@
     <string name="failed_update_ui">فشل تحديث UI</string>
     <string name="favorite">إضافة إلى المفضلة</string>
     <string name="favorite_icon">المفضلة</string>
+    <string name="file_already_exists">اسم الملف موجود مسبقاً</string>
     <string name="file_delete">حذف </string>
     <string name="file_detail_activity_error">خطأ في استرداد النشاطات للملف</string>
     <string name="file_details_no_content">حدث خطأ في تحميل التفاصيل</string>
@@ -398,6 +403,7 @@
     <string name="local_file_not_found_message">ملف غير موجود في نظام الملفات المحلي</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">لا توجد مجلدات أخرى.</string>
+    <string name="locate_folder">حدد موقع المجلد</string>
     <string name="lock_file">أقفل الملف</string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
     <string name="log_send_no_mail_app">لا يوجد تطبيق لارسال السجلات . الرجاء تثبيت عميل البريد الالكتروني.</string>
@@ -458,6 +464,7 @@
     <string name="no_email_app_available">لا يوجد تطبيق لتعاملات البريد الالكتروني</string>
     <string name="no_mutliple_accounts_allowed">يسمح بحساب واحد فقط</string>
     <string name="no_pdf_app_available">لا يوجد تطبيق متاح للتعامل مع PDF</string>
+    <string name="no_send_app">لا يوجد تطبيق متاح لإرسال الملفات المحددة</string>
     <string name="no_share_permission_selected">الرجاء اختيار على الأقل صلاحية واحدة للمشاركة</string>
     <string name="note_confirm">أرسل</string>
     <string name="note_could_not_sent">لا يمكن إرسال الملاحظة</string>
@@ -507,8 +514,8 @@
     <string name="player_toggle">تبديل</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
-    <string name="pref_behaviour_entries_keep_file">ترك في مجلد الأصل</string>
-    <string name="pref_behaviour_entries_move">تم نقله إلى مجلد التطبيق</string>
+    <string name="pref_behaviour_entries_keep_file">الترك في مجلد الأصل</string>
+    <string name="pref_behaviour_entries_move">نقله إلى مجلد التطبيق</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">إسئلني كل مرة</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">إلغاء التحميل</string>
@@ -547,6 +554,7 @@
     <string name="prefs_lock_using_device_credentials">بيانات اعتماد الجهاز</string>
     <string name="prefs_lock_using_passcode">الرمز السري</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
+    <string name="prefs_recommend">أوصي به لصديق</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_storage_path">مجلد تخزين البيانات</string>
@@ -604,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="select_all">تحديد الكل</string>
+    <string name="select_media_folder">تعيين مجلد الوسائط</string>
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
     <string name="select_template">حدد قالب</string>
     <string name="send">إرسال</string>
@@ -658,6 +667,8 @@
     <string name="shared_icon_shared_via_link">مشارك عبر الرابط</string>
     <string name="shared_with_you_by">مشارك معك بواسطة %1$s</string>
     <string name="sharee_add_failed">فشلت إضافة المشارك</string>
+    <string name="show_images">اعرض الصور</string>
+    <string name="show_video">اعرض الفيديو</string>
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
@@ -702,6 +713,7 @@
     <string name="storage_movies">الأفلام</string>
     <string name="storage_music">الموسيقى</string>
     <string name="storage_permission_full_access">النفاذ الكامل</string>
+    <string name="storage_permission_media_read_only">الوسائط للقراءة فقط</string>
     <string name="storage_pictures">الصور</string>
     <string name="store_full_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\n\nالمميزات:\n* واجهة سهلة وحديثة ومناسبة لموضوع الخادم الخاص بك\n* رفع الملفات إلى خادم Nextcloud الخاص بك\n* شاركها مع الآخرين\n* حافظ على مزامنة ملفاتك ومجلداتك المفضلة\n* البحث في جميع المجلدات في خادمك\n* الرفع التلقائي للصور ومقاطع الفيديو التي يلتقطها جهازك\n* مواكبة مع الإشعارات\n* دعم لحسابات متعددة\n* وصول آمن إلى بياناتك باستخدام بصمة الإصبع أو رمز PIN\n* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لسهولة إعداد التقويم ومزامنة جهات الاتصال\n\nالرجاء الإبلاغ عن جميع المشاكل على https://github.com/nextcloud/android/issues وناقش هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nجديد في Nextcloud؟ Nextcloud هو خادم خاص لمزامنة الملفات ومشاركتها واتصالاتها. إنه برنامج حر ، ويمكنك استضافته بنفسك أو الدفع لشركة للقيام بذلك نيابة عنك. بهذه الطريقة ، يمكنك التحكم في صورك والتقويم وبيانات الاتصال والمستندات وكل شيء آخر.\n\nتحقق من Nextcloud في https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
@@ -713,6 +725,8 @@
     <string name="strict_mode">الوضع الآمن : اتصال HTTP  غير مسموح!</string>
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
+    <string name="subtitle_photos_only">الصور فقط</string>
+    <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_current_folder_was_removed">المجلد %1$s غير موجود بعد الآن</string>
