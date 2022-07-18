@@ -70,6 +70,8 @@ import javax.inject.Inject
  */
 class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, TemplateAdapter.ClickListener, Injectable {
 
+    private lateinit var fileNames: List<String>
+
     @Inject
     lateinit var clientFactory: ClientFactory
 
@@ -116,6 +118,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         )
         button.setOnClickListener(this)
         button.isEnabled = false
+        button.isClickable = false
 
         positiveButton = button
         checkEnablingCreateButton()
@@ -133,7 +136,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             else -> savedInstanceState.getString(ARG_HEADLINE)
         }
 
-        val fileNames = fileDataStorageManager.getFolderContent(parentFolder, false).map { it.fileName }
+        fileNames = fileDataStorageManager.getFolderContent(parentFolder, false).map { it.fileName }
 
         // Inflate the layout for the dialog
         val inflater = requireActivity().layoutInflater
@@ -147,15 +150,12 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             themeColorUtils.primaryColor(context),
             themeColorUtils.primaryAccentColor(context)
         )
-        binding.filename.setOnKeyListener { _, _, _ ->
-            checkEnablingCreateButton()
-            false
-        }
+
         binding.filename.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                checkExistingFilename(fileNames)
+                // not needed
             }
 
             override fun afterTextChanged(s: Editable) {
@@ -259,26 +259,21 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     private fun checkEnablingCreateButton() {
         if (positiveButton != null) {
             val selectedTemplate = adapter!!.selectedTemplate
-            val name = binding.filename.text.toString()
-            positiveButton!!.isEnabled = selectedTemplate != null && name.isNotEmpty() &&
-                !name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
-        }
-    }
+            val name = binding.filename.text.toString().trim()
+            val isNameEmpty = name.isEmpty() || name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
+            val state = selectedTemplate != null && !isNameEmpty && !fileNames.contains(name)
 
-    private fun checkExistingFilename(fileNames: List<String>) {
-        var newFileName = ""
-        if (binding.filename.text != null) {
-            newFileName = binding.filename.text.toString().trim()
-        }
+            positiveButton?.isEnabled = state
+            positiveButton?.isClickable = state
+            binding.filenameContainer.isErrorEnabled = !state
 
-        if (fileNames.contains(newFileName)) {
-            binding.filenameContainer.error = getText(R.string.file_already_exists)
-            positiveButton?.isEnabled = false
-        } else if (binding.filenameContainer.error != null) {
-            binding.filenameContainer.error = null
-            // Called to remove extra padding
-            binding.filenameContainer.isErrorEnabled = false
-            positiveButton?.isEnabled = true
+            if (!state) {
+                if (isNameEmpty) {
+                    binding.filenameContainer.error = getText(R.string.filename_empty)
+                } else {
+                    binding.filenameContainer.error = getText(R.string.file_already_exists)
+                }
+            }
         }
     }
 
