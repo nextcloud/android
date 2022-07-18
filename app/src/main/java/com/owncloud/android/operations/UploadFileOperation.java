@@ -468,14 +468,8 @@ public class UploadFileOperation extends SyncOperation {
             if (result != null) {
                 return result;
             }
-            /***** E2E *****/
 
-            token = EncryptionUtils.lockFolder(parentFile, client);
-            // immediately store it
-            mUpload.setFolderUnlockToken(token);
-            uploadsStorageManager.updateUpload(mUpload);
-
-            // Update metadata
+            // retrieve metadata
             Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parentFile,
                                                                                                    client,
                                                                                                    privateKey,
@@ -484,8 +478,6 @@ public class UploadFileOperation extends SyncOperation {
             metadataExists = metadataPair.first;
             DecryptedFolderMetadata metadata = metadataPair.second;
 
-            /**** E2E *****/
-
             // check name collision
             RemoteOperationResult collisionResult = checkNameCollision(client, metadata, parentFile.isEncrypted());
             if (collisionResult != null) {
@@ -493,6 +485,17 @@ public class UploadFileOperation extends SyncOperation {
                 return collisionResult;
             }
 
+            /***** E2E *****/
+            try {
+                token = EncryptionUtils.lockFolder(parentFile, client);
+            } catch (UploadException e) {
+                return new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            }
+            // immediately store it
+            mUpload.setFolderUnlockToken(token);
+            uploadsStorageManager.updateUpload(mUpload);
+
+            // Update metadata
             mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + originalFile.getName());
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             expectedFile = new File(expectedPath);

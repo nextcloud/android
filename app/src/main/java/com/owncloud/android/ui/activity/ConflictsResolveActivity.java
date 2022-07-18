@@ -81,6 +81,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             intent.setFlags(intent.getFlags() | flag);
         }
         intent.putExtra(EXTRA_FILE, file);
+        intent.putExtra(EXTRA_EXISTING_FILE, file);
         intent.putExtra(EXTRA_USER, user);
         intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
 
