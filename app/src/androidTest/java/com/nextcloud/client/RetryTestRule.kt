@@ -49,7 +49,7 @@ class RetryTestRule(val retryCount: Int = defaultRetryValue) : TestRule {
         return object : Statement() {
 
             override fun evaluate() {
-                Log.e(TAG, "Evaluating ${description.methodName}")
+                Log.d(TAG, "Evaluating ${description.methodName}")
 
                 var caughtThrowable: Throwable? = null
 
