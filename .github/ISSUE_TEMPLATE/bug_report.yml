@@ -100,8 +100,8 @@ body:
         id: reverse-proxy
         attributes:
             label: Using a reverse proxy?
-            description: If you are unsure choose "No"
             options:
+                - "I don't know"
                 - "Yes"
                 - "No"
         validations:
