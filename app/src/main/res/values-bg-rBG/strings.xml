@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Версия за разработка на журнал за промени</string>
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
+    <string name="choose_location">Избор на местоположение</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
@@ -294,6 +295,7 @@
     <string name="failed_update_ui">Неуспешно обновяване на UI /потребителски интерфейс/</string>
     <string name="favorite">Добави към любимите</string>
     <string name="favorite_icon">Любими</string>
+    <string name="file_already_exists">Името на файла вече съществува</string>
     <string name="file_delete">Изтрий</string>
     <string name="file_detail_activity_error">Грешка при извличането на активности за файл</string>
     <string name="file_details_no_content">Неуспешно зареждане на подробности</string>
@@ -405,6 +407,7 @@
     <string name="local_file_not_found_message">Файлът не е намерен в локалната система за файлове</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Няма повече папки.</string>
+    <string name="locate_folder">Откриване на папка</string>
     <string name="lock_expiration_info">Изтича: %1$s</string>
     <string name="lock_file">Заключване на файл</string>
     <string name="locked_by">Заключено от%1$s</string>
@@ -611,6 +614,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронизиране с DAVx5</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
     <string name="select_all">Избери всички</string>
+    <string name="select_media_folder">Задаване на медийна папка</string>
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
@@ -665,6 +669,8 @@
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
     <string name="shared_with_you_by">Споделено с Вас от %1$s</string>
     <string name="sharee_add_failed">Неуспешно добавяне на споделянето</string>
+    <string name="show_images">Показване на снимките</string>
+    <string name="show_video">Показване на видеата</string>
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
@@ -721,6 +727,9 @@
     <string name="strict_mode">Строг режим: не е разрешена HTTP връзка!</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
+    <string name="subtitle_photos_only">Само снимки</string>
+    <string name="subtitle_photos_videos">Снимки &amp; видеа</string>
+    <string name="subtitle_videos_only">Само видеа</string>
     <string name="suggest">Препоръчване</string>
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
     <string name="sync_current_folder_was_removed">Папката %1$s вече не съществува</string>
@@ -895,6 +904,22 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Намерени са %d дублиращи се записи.</item>
         <item quantity="other">Намерени са %d дублиращи се записи.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Експортирани са%d файла</item>
+        <item quantity="other">Експортирани са %d файла</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Неуспешно експортиране на %d файла</item>
+        <item quantity="other">Неуспешно експортиране /изнасяне/ на %d файла</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Експортирани са %d файла, пропусната е почивка поради грешка</item>
+        <item quantity="other">Експортирани са %d файла, пропусната почивка поради грешка</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
+        <item quantity="other">%dфайла ще бъдат експортирани. Вижте известието за подробности.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d папка</item>
