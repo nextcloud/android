@@ -49,8 +49,7 @@ import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 @Suppress(
     "Detekt.LongParameterList",
     "Detekt.SpreadOperator",
-    "Detekt.TooGenericExceptionCaught",
-    "Detekt.NestedBlockDepth"
+    "Detekt.TooGenericExceptionCaught"
 ) // legacy code
 class UriUploader(
     private val mActivity: FileActivity,
@@ -76,29 +75,23 @@ class UriUploader(
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                val contentUris: MutableList<Uri> = ArrayList()
-                val contentRemotePaths: MutableList<String> = ArrayList()
-                var schemeFileCounter = 0
-                for (sourceStream in mUrisToUpload) {
-                    val sourceUri = sourceStream as Uri?
-                    if (sourceUri != null) {
-                        val displayName = getDisplayNameForUri(sourceUri, mActivity)
-                        require(displayName != null) { "Display name cannot be null" }
-                        val remotePath = mUploadPath + displayName
-                        if (ContentResolver.SCHEME_CONTENT == sourceUri.scheme) {
-                            contentUris.add(sourceUri)
-                            contentRemotePaths.add(remotePath)
-                        } else if (ContentResolver.SCHEME_FILE == sourceUri.scheme) {
-                            // file: uris should point to a local file, should be safe let FileUploader handle them
-                            requestUpload(sourceUri.path, remotePath)
-                            schemeFileCounter++
-                        }
-                    }
+                val uris = mUrisToUpload.filterNotNull()
+                    .map { it as Uri }
+                    .map { Pair(it, getRemotePathForUri(it)) }
+
+                val fileUris = uris
+                    .filter { it.first.scheme == ContentResolver.SCHEME_FILE }
+                fileUris.forEach {
+                    requestUpload(it.first.path, it.second)
                 }
-                if (contentUris.isNotEmpty()) {
-                    // content: uris will be copied to temporary files before calling {@link FileUploader}
-                    copyThenUpload(contentUris.toTypedArray(), *contentRemotePaths.toTypedArray())
-                } else if (schemeFileCounter == 0) {
+
+                val contentUrisNew = uris
+                    .filter { it.first.scheme == ContentResolver.SCHEME_CONTENT }
+
+                if (contentUrisNew.isNotEmpty()) {
+                    val (contentUris, contentRemotePaths) = contentUrisNew.unzip()
+                    copyThenUpload(contentUris.toTypedArray(), contentRemotePaths.toTypedArray())
+                } else if (fileUris.isEmpty()) {
                     code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
                 }
             }
@@ -110,6 +103,12 @@ class UriUploader(
             Log_OC.e(TAG, "Unexpected error", e)
         }
         return code
+    }
+
+    private fun getRemotePathForUri(sourceUri: Uri): String {
+        val displayName = getDisplayNameForUri(sourceUri, mActivity)
+        require(displayName != null) { "Display name cannot be null" }
+        return mUploadPath + displayName
     }
 
     private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(mActivity.packageName)
@@ -146,7 +145,7 @@ class UriUploader(
      * @param sourceUris        Array of content:// URIs to the files to upload
      * @param remotePaths       Array of absolute paths to set to the uploaded files
      */
-    private fun copyThenUpload(sourceUris: Array<Uri>, vararg remotePaths: String) {
+    private fun copyThenUpload(sourceUris: Array<Uri>, remotePaths: Array<String>) {
         if (mShowWaitingDialog) {
             mActivity.showLoadingDialog(mActivity.resources.getString(R.string.wait_for_tmp_copy_from_private_storage))
         }
