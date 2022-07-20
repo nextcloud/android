@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2022 Nextcloud GmbH
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -16,135 +17,95 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.helpers;
+package com.owncloud.android.ui.helpers
 
-import android.content.ContentResolver;
-import android.net.Uri;
-import android.os.Parcelable;
-
-import com.nextcloud.client.account.User;
-import com.owncloud.android.R;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
-import com.owncloud.android.ui.fragment.TaskRetainerFragment;
-import com.owncloud.android.utils.UriUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.fragment.app.FragmentManager;
+import android.content.ContentResolver
+import android.net.Uri
+import android.os.Parcelable
+import com.nextcloud.client.account.User
+import com.owncloud.android.R
+import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
+import com.owncloud.android.ui.fragment.TaskRetainerFragment
+import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
- * This class examines URIs pointing to files to upload and then requests {@link FileUploader} to upload them.
- * <p>
- * URIs with scheme file:// do not require any previous processing, their path is sent to {@link FileUploader} to find
+ * This class examines URIs pointing to files to upload and then requests [FileUploader] to upload them.
+ *
+ *
+ * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploader] to find
  * the source file.
- * <p>
+ *
+ *
  * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app, and that
  * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
- * passed {@link FileUploader}.
+ * passed [FileUploader].
  */
-public class UriUploader {
+@Suppress(
+    "Detekt.LongParameterList",
+    "Detekt.SpreadOperator",
+    "Detekt.TooGenericExceptionCaught",
+    "Detekt.NestedBlockDepth"
+) // legacy code
+class UriUploader(
+    private val mActivity: FileActivity,
+    private val mUrisToUpload: List<Parcelable>,
+    private val mUploadPath: String,
+    private val user: User,
+    private val mBehaviour: Int,
+    private val mShowWaitingDialog: Boolean,
+    private val mCopyTmpTaskListener: OnCopyTmpFilesTaskListener
+) {
 
-    private final String TAG = UriUploader.class.getSimpleName();
-
-    private final FileActivity mActivity;
-    private final List<Parcelable> mUrisToUpload;
-    private final CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener mCopyTmpTaskListener;
-
-    private final int mBehaviour;
-
-    private final String mUploadPath;
-    private User user;
-    private final boolean mShowWaitingDialog;
-
-    private UriUploaderResultCode mCode = UriUploaderResultCode.OK;
-
-    public enum UriUploaderResultCode {
-        OK,
-        ERROR_UNKNOWN,
-        ERROR_NO_FILE_TO_UPLOAD,
-        ERROR_READ_PERMISSION_NOT_GRANTED
+    enum class UriUploaderResultCode {
+        OK, ERROR_UNKNOWN, ERROR_NO_FILE_TO_UPLOAD, ERROR_READ_PERMISSION_NOT_GRANTED
     }
 
-    public UriUploader(
-            FileActivity activity,
-            List<Parcelable> uris,
-            String uploadPath,
-            User user,
-            int behaviour,
-            boolean showWaitingDialog,
-            CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener copyTmpTaskListener
-    ) {
-        mActivity = activity;
-        mUrisToUpload = uris;
-        mUploadPath = uploadPath;
-        this.user = user;
-        mBehaviour = behaviour;
-        mShowWaitingDialog = showWaitingDialog;
-        mCopyTmpTaskListener = copyTmpTaskListener;
-    }
-
-    public UriUploaderResultCode uploadUris() {
-
+    fun uploadUris(): UriUploaderResultCode {
+        var code = UriUploaderResultCode.OK
         try {
-
-            List<Uri> contentUris = new ArrayList<>();
-            List<String> contentRemotePaths = new ArrayList<>();
-
-            int schemeFileCounter = 0;
-
-            for (Parcelable sourceStream : mUrisToUpload) {
-                Uri sourceUri = (Uri) sourceStream;
+            val contentUris: MutableList<Uri> = ArrayList()
+            val contentRemotePaths: MutableList<String> = ArrayList()
+            var schemeFileCounter = 0
+            for (sourceStream in mUrisToUpload) {
+                val sourceUri = sourceStream as Uri?
                 if (sourceUri != null) {
-                    String displayName = UriUtils.getDisplayNameForUri(sourceUri, mActivity);
-
-                    if (displayName == null) {
-                        throw new IllegalStateException("DisplayName may not be null!");
-                    }
-
-                    String remotePath = mUploadPath + displayName;
-
-                    if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
-                        contentUris.add(sourceUri);
-                        contentRemotePaths.add(remotePath);
-
-                    } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
-                        /// file: uris should point to a local file, should be safe let FileUploader handle them
-                        requestUpload(sourceUri.getPath(), remotePath);
-                        schemeFileCounter++;
+                    val displayName = getDisplayNameForUri(sourceUri, mActivity)
+                    require(displayName != null) { "Display name cannot be null" }
+                    val remotePath = mUploadPath + displayName
+                    if (ContentResolver.SCHEME_CONTENT == sourceUri.scheme) {
+                        contentUris.add(sourceUri)
+                        contentRemotePaths.add(remotePath)
+                    } else if (ContentResolver.SCHEME_FILE == sourceUri.scheme) {
+                        // file: uris should point to a local file, should be safe let FileUploader handle them
+                        requestUpload(sourceUri.path, remotePath)
+                        schemeFileCounter++
                     }
                 }
             }
-
-            if (!contentUris.isEmpty()) {
-                /// content: uris will be copied to temporary files before calling {@link FileUploader}
-                copyThenUpload(contentUris.toArray(new Uri[0]),
-                        contentRemotePaths.toArray(new String[0]));
-
+            if (contentUris.isNotEmpty()) {
+                // content: uris will be copied to temporary files before calling {@link FileUploader}
+                copyThenUpload(contentUris.toTypedArray(), *contentRemotePaths.toTypedArray())
             } else if (schemeFileCounter == 0) {
-                mCode = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD;
-
+                code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
             }
-
-        } catch (SecurityException e) {
-            mCode = UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED;
-            Log_OC.e(TAG, "Permissions fail", e);
-
-        } catch (Exception e) {
-            mCode = UriUploaderResultCode.ERROR_UNKNOWN;
-            Log_OC.e(TAG, "Unexpected error", e);
-
+        } catch (e: SecurityException) {
+            code = UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED
+            Log_OC.e(TAG, "Permissions fail", e)
+        } catch (e: Exception) {
+            code = UriUploaderResultCode.ERROR_UNKNOWN
+            Log_OC.e(TAG, "Unexpected error", e)
         }
-        return mCode;
+        return code
     }
 
     /**
-     * Requests the upload of a file in the local file system to {@link FileUploader} service.
+     * Requests the upload of a file in the local file system to [FileUploader] service.
      *
      * The original file will be left in its original location, and will not be duplicated.
      * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
@@ -154,20 +115,20 @@ public class UriUploader {
      * @param localPath     Absolute path in the local file system to the file to upload.
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
-    private void requestUpload(String localPath, String remotePath) {
+    private fun requestUpload(localPath: String?, remotePath: String) {
         FileUploader.uploadNewFile(
             mActivity,
             user,
             localPath,
             remotePath,
             mBehaviour,
-            null,       // MIME type will be detected from file name
-            false,      // do not create parent folder if not existent
+            null, // MIME type will be detected from file name
+            false, // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
             NameCollisionPolicy.ASK_USER
-        );
+        )
     }
 
     /**
@@ -175,33 +136,29 @@ public class UriUploader {
      * @param sourceUris        Array of content:// URIs to the files to upload
      * @param remotePaths       Array of absolute paths to set to the uploaded files
      */
-    private void copyThenUpload(Uri[] sourceUris, String... remotePaths) {
+    private fun copyThenUpload(sourceUris: Array<Uri>, vararg remotePaths: String) {
         if (mShowWaitingDialog) {
-            mActivity.showLoadingDialog(mActivity.getResources().
-                    getString(R.string.wait_for_tmp_copy_from_private_storage));
+            mActivity.showLoadingDialog(mActivity.resources.getString(R.string.wait_for_tmp_copy_from_private_storage))
         }
-
-        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask
-                (mCopyTmpTaskListener, mActivity);
-
-        FragmentManager fm = mActivity.getSupportFragmentManager();
+        val copyTask = CopyAndUploadContentUrisTask(mCopyTmpTaskListener, mActivity)
+        val fm = mActivity.supportFragmentManager
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
-        TaskRetainerFragment taskRetainerFragment =
-                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
-
-        if (taskRetainerFragment != null) {
-            taskRetainerFragment.setTask(copyTask);
-        }
-
+        val taskRetainerFragment =
+            fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as TaskRetainerFragment?
+        taskRetainerFragment?.setTask(copyTask)
         copyTask.execute(
-                CopyAndUploadContentUrisTask.makeParamsToExecute(
-                    user,
-                    sourceUris,
-                    remotePaths,
-                    mBehaviour,
-                    mActivity.getContentResolver()
-                )
-        );
+            *CopyAndUploadContentUrisTask.makeParamsToExecute(
+                user,
+                sourceUris,
+                remotePaths,
+                mBehaviour,
+                mActivity.contentResolver
+            )
+        )
+    }
+
+    companion object {
+        private val TAG = UriUploader::class.java.simpleName
     }
 }
