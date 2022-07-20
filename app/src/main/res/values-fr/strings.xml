@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Notes de version de la version de développement</string>
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
+    <string name="choose_location">Sélectionner la position</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
@@ -295,6 +296,7 @@ Attention la suppression est irréversible.</string>
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
+    <string name="file_already_exists">Le nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
@@ -612,6 +614,7 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
     <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
     <string name="select_all">Tout sélectionner</string>
+    <string name="select_media_folder">Paramétrer le dossier média</string>
     <string name="select_one_template">Veuillez sélectionner un modèle</string>
     <string name="select_template">Sélectionnez un modèle</string>
     <string name="send">Envoyer</string>
@@ -666,6 +669,8 @@ Attention la suppression est irréversible.</string>
     <string name="shared_icon_shared_via_link">partagé par lien</string>
     <string name="shared_with_you_by">Partagé avec vous par %1$s</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
+    <string name="show_images">Afficher les photos</string>
+    <string name="show_video">Afficher les vidéos</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="sort_by">Trier par</string>
@@ -722,6 +727,9 @@ Attention la suppression est irréversible.</string>
     <string name="strict_mode">Mode strict : aucune connexion HTTP n’est autorisée !</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
+    <string name="subtitle_photos_only">Photos uniquement</string>
+    <string name="subtitle_photos_videos">Photos &amp; vidéos</string>
+    <string name="subtitle_videos_only">Vidéos uniquement</string>
     <string name="suggest">Suggérer</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
@@ -902,6 +910,16 @@ Attention la suppression est irréversible.</string>
         <item quantity="one">%d entrée en double trouvée.</item>
         <item quantity="many">%d entrées en double trouvées.</item>
         <item quantity="other">%d entrées en double trouvées.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d fichier exporté</item>
+        <item quantity="many">%d fichier exporté</item>
+        <item quantity="other">%d fichiers exportés</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Impossible d\'exporter %d fichier</item>
+        <item quantity="many">Impossible d\'exporter %d fichier</item>
+        <item quantity="other">Impossible d\'exporter %d fichiers</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>

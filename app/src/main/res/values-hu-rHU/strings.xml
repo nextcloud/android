@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Változásnapló fejlesztői verziója</string>
     <string name="checkbox">Jelölőmező</string>
     <string name="choose_local_folder">Válasszon helyi mappát…</string>
+    <string name="choose_location">Válasszon helyet</string>
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
@@ -404,6 +405,7 @@
     <string name="local_file_not_found_message">A fájl nem található a helyi fájlrendszeren</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nincs több mappa.</string>
+    <string name="locate_folder">Mappa megkeresése</string>
     <string name="lock_expiration_info">Lejárat: %1$s</string>
     <string name="lock_file">Fájl zárolása</string>
     <string name="locked_by">Zárolta: %1$s</string>
@@ -610,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx5-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
     <string name="select_all">Összes kiválasztása</string>
+    <string name="select_media_folder">Médiamappa beállítása</string>
     <string name="select_one_template">Válasszon egy sablont</string>
     <string name="select_template">Válasszon sablont</string>
     <string name="send">Küldés</string>
@@ -664,6 +667,8 @@
     <string name="shared_icon_shared_via_link">hivatkozással megosztva</string>
     <string name="shared_with_you_by">%1$s megosztotta Önnel</string>
     <string name="sharee_add_failed">A megosztás hozzáadása sikertelen</string>
+    <string name="show_images">Fényképek megjelenítése</string>
+    <string name="show_video">Videók megjelenítése</string>
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
     <string name="sort_by">Rendezés elve</string>
@@ -738,6 +743,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
+    <string name="subtitle_photos_only">Csak fényképek</string>
+    <string name="subtitle_photos_videos">Fényképek és videók</string>
+    <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
@@ -912,6 +920,22 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="found_n_duplicates">
         <item quantity="one">%d ismételt bejegyzés található.</item>
         <item quantity="other">%d ismételt bejegyzés található.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d fájl exportálva</item>
+        <item quantity="other">%d fájl exportálva</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">%d fájl exportálása sikertelen</item>
+        <item quantity="other">%d fájl exportálása sikertelen</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d fájl exportálva, a többi hiba miatt kihagyva</item>
+        <item quantity="other">%d fájl exportálva, a többi hiba miatt kihagyva</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fájl lesz exportálva. A részletekért lásd az értesítést.</item>
+        <item quantity="other">%d fájl lesz exportálva. A részletekért lásd az értesítést.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>
