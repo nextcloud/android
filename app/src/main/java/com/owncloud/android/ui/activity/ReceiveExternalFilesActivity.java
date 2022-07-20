@@ -47,6 +47,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -164,7 +165,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private final static Charset FILENAME_ENCODING = Charset.forName("UTF-8");
 
-    private NestedScrollView mEmptyListContainer;
+    private ViewGroup mEmptyListContainer;
     private TextView mEmptyListMessage;
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
