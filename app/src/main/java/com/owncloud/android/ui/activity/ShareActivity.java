@@ -149,7 +149,7 @@ public class ShareActivity extends FileActivity {
 
     @Override
     protected void doShareWith(String shareeName, ShareType shareType) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
+        getSupportFragmentManager().beginTransaction().add(R.id.share_fragment_container,
                                                                FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                              shareeName,
                                                                                                              shareType,true),
