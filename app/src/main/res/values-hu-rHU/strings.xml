@@ -294,6 +294,7 @@
     <string name="failed_update_ui">A felhasználói felület frissítése sikertelen</string>
     <string name="favorite">Hozzáadás a kedvencekhez </string>
     <string name="favorite_icon">Kedvenc</string>
+    <string name="file_already_exists">A fájlnév már létezik</string>
     <string name="file_delete">Törlés</string>
     <string name="file_detail_activity_error">Hiba a fájl tevékenységeinek lekérésekor</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
