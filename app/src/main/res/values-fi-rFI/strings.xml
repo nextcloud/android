@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Muutosloki kehitysversiolle</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
+    <string name="choose_location">Valitse sijainti</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
@@ -258,6 +259,7 @@
     <string name="error_creating_file_from_template">Virhe tiedostoa mallipohjasta luodessa</string>
     <string name="error_file_lock">Virhe tiedoston lukituksen muutoksessa</string>
     <string name="error_report_issue_action">Raportti</string>
+    <string name="error_report_issue_text">Haluatko ilmoittaa ongelmasta? (tarvitset GitHub-tilin)</string>
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
@@ -291,6 +293,7 @@
     <string name="failed_update_ui">Käyttöliittymän päivitys epäonnistui</string>
     <string name="favorite">Lisää suosikkeihin</string>
     <string name="favorite_icon">Suosikki</string>
+    <string name="file_already_exists">Tämän niminen tiedosto on jo olemassa</string>
     <string name="file_delete">Poista</string>
     <string name="file_detail_activity_error">Toimintojen palauttaminen tiedostolle epäonnistui</string>
     <string name="file_details_no_content">Lisätietoja ei voitu lataa.</string>
@@ -608,6 +611,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
     <string name="select_all">Valitse kaikki</string>
+    <string name="select_media_folder">Aseta kansio medialle</string>
     <string name="select_one_template">Valitse yksi mallipohja</string>
     <string name="select_template">Valitse mallipohja</string>
     <string name="send">Lähetä</string>
@@ -661,6 +665,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="shared_icon_shared_via_link">jaettu linkin kautta</string>
     <string name="shared_with_you_by">Jaettu sinulle käyttäjältä %1$s</string>
     <string name="sharee_add_failed">Jaon lisääminen epäonnistui</string>
+    <string name="show_images">Näytä kuvat</string>
+    <string name="show_video">Näytä videot</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="sort_by">Lajittelujärjestys</string>
@@ -717,6 +723,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+    <string name="subtitle_photos_only">Vain kuvat</string>
+    <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
