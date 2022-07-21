@@ -2,7 +2,7 @@ name: "Detect new java files"
 
 on:
   pull_request:
-    branches: [ master, stable-* ]
+    branches: [ master, main, stable-* ]
 
 permissions: read-all
 
