@@ -30,7 +30,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
@@ -442,11 +441,11 @@ public final class PushUtils {
                 }
             }
         } catch (NoSuchAlgorithmException e) {
-            Log.d(TAG, "No such algorithm");
+            Log_OC.d(TAG, "No such algorithm");
         } catch (InvalidKeyException e) {
-            Log.d(TAG, "Invalid key while trying to verify");
+            Log_OC.d(TAG, "Invalid key while trying to verify");
         } catch (SignatureException e) {
-            Log.d(TAG, "Signature exception while trying to verify");
+            Log_OC.d(TAG, "Signature exception while trying to verify");
         }
 
         return new SignatureVerification(false, null);
@@ -473,9 +472,9 @@ public final class PushUtils {
                 return keyFactory.generatePrivate(keySpec);
             }
         } catch (NoSuchAlgorithmException e) {
-            Log.d("TAG", "No such algorithm while reading key from string");
+            Log_OC.d("TAG", "No such algorithm while reading key from string");
         } catch (InvalidKeySpecException e) {
-            Log.d("TAG", "Invalid key spec while reading key from string");
+            Log_OC.d("TAG", "Invalid key spec while reading key from string");
         }
 
         return null;

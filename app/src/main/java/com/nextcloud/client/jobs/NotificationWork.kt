@@ -33,7 +33,6 @@ import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -127,10 +126,10 @@ class NotificationWork constructor(
                         }
                     }
                 } catch (e1: GeneralSecurityException) {
-                    Log.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
+                    Log_OC.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
                 }
             } catch (exception: Exception) {
-                Log.d(TAG, "Something went very wrong" + exception.localizedMessage)
+                Log_OC.d(TAG, "Something went very wrong" + exception.localizedMessage)
             }
         }
         return Result.success()

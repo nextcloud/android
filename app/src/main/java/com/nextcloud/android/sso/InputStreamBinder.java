@@ -31,7 +31,6 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.nextcloud.android.sso.aidl.IInputStreamService;
 import com.nextcloud.android.sso.aidl.NextcloudRequest;
@@ -137,7 +136,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, response.getBody());
 
             return ParcelFileDescriptorUtil.pipeFrom(resultStream,
-                                                     thread -> Log.d(TAG, "Done sending result"),
+                                                     thread -> Log_OC.d(TAG, "Done sending result"),
                                                      response.getMethod());
         } catch (IOException e) {
             Log_OC.e(TAG, "Error while sending response back to client app", e);
@@ -186,7 +185,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
                 resultStream = exceptionStream;
             }
             return ParcelFileDescriptorUtil.pipeFrom(resultStream,
-                                                     thread -> Log.d(TAG, "Done sending result"),
+                                                     thread -> Log_OC.d(TAG, "Done sending result"),
                                                      httpMethod);
         } catch (IOException e) {
             Log_OC.e(TAG, "Error while sending response back to client app", e);

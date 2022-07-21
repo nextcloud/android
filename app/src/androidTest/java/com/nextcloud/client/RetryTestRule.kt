@@ -22,8 +22,8 @@
 
 package com.nextcloud.client
 
-import android.util.Log
 import com.owncloud.android.BuildConfig
+import com.owncloud.android.lib.common.utils.Log_OC
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -49,7 +49,7 @@ class RetryTestRule(val retryCount: Int = defaultRetryValue) : TestRule {
         return object : Statement() {
 
             override fun evaluate() {
-                Log.d(TAG, "Evaluating ${description.methodName}")
+                Log_OC.d(TAG, "Evaluating ${description.methodName}")
 
                 var caughtThrowable: Throwable? = null
 
@@ -59,11 +59,11 @@ class RetryTestRule(val retryCount: Int = defaultRetryValue) : TestRule {
                         return
                     } catch (t: Throwable) {
                         caughtThrowable = t
-                        Log.e(TAG, description.methodName + ": run " + (i + 1) + " failed")
+                        Log_OC.e(TAG, description.methodName + ": run " + (i + 1) + " failed")
                     }
                 }
 
-                Log.e(TAG, description.methodName + ": giving up after " + retryCount + " failures")
+                Log_OC.e(TAG, description.methodName + ": giving up after " + retryCount + " failures")
                 if (caughtThrowable != null)
                     throw caughtThrowable
             }

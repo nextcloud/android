@@ -25,12 +25,10 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
@@ -123,7 +121,7 @@ public final class MediaProvider {
                                                                    MediaStore.Images.Media.DATE_TAKEN,
                                                                    ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                                                                    itemLimit);
-                Log.d(TAG, "Reading images for " + mediaFolder.folderName);
+                Log_OC.d(TAG, "Reading images for " + mediaFolder.folderName);
 
                 if (cursorImages != null) {
                     String filePath;
@@ -233,7 +231,7 @@ public final class MediaProvider {
                                                                    ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                                                                    itemLimit);
 
-                Log.d(TAG, "Reading videos for " + mediaFolder.folderName);
+                Log_OC.d(TAG, "Reading videos for " + mediaFolder.folderName);
 
                 if (cursorVideos != null) {
                     String filePath;

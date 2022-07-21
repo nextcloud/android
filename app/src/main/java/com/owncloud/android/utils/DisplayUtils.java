@@ -45,7 +45,6 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -765,7 +764,7 @@ public final class DisplayUtils {
             addDelegate.setAccessible(true);
             addDelegate.invoke(drawableManager, "vector", vdcInflateDelegate);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to use reflection to enable proper vector scaling");
+            Log_OC.e(TAG, "Failed to use reflection to enable proper vector scaling");
         }
     }
 

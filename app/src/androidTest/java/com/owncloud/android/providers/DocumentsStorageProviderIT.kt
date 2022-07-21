@@ -1,12 +1,12 @@
 package com.owncloud.android.providers
 
 import android.provider.DocumentsContract
-import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.nextcloud.test.RandomStringGenerator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
 import com.owncloud.android.providers.DocumentsProviderUtils.assertReadEquals
@@ -60,7 +60,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     @After
     override fun after() = runBlocking {
         rootDir.listFilesBlocking(context).forEach {
-            Log.e("TEST", "Deleting ${it.name}...")
+            Log_OC.e("TEST", "Deleting ${it.name}...")
             it.delete()
         }
     }

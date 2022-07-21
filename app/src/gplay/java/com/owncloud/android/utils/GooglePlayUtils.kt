@@ -20,9 +20,9 @@
 package com.owncloud.android.utils
 
 import android.app.Activity
-import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.owncloud.android.lib.common.utils.Log_OC
 
 object GooglePlayUtils {
     private const val PLAY_SERVICES_RESOLUTION_REQUEST = 9000
@@ -36,7 +36,7 @@ object GooglePlayUtils {
             if (apiAvailability.isUserResolvableError(resultCode)) {
                 apiAvailability.getErrorDialog(activity, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)?.show()
             } else {
-                Log.i(TAG, "This device is not supported.")
+                Log_OC.i(TAG, "This device is not supported.")
                 activity.finish()
             }
             return false
