@@ -1,3 +1,0 @@
-
-Update translations
-Update Nextcloud Android library
