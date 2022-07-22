@@ -12,12 +12,12 @@ import android.provider.DocumentsContract.buildChildDocumentsUriUsingTree
 import android.provider.DocumentsContract.buildDocumentUriUsingTree
 import android.provider.DocumentsContract.buildTreeDocumentUri
 import android.provider.DocumentsContract.getDocumentId
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.documentfile.provider.DocumentFile
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.Dispatchers
@@ -93,7 +93,7 @@ object DocumentsProviderUtils {
         assertTrue(actualSet.containsAll(expectedSet))
         actualSet.removeAll(expectedSet)
         actualSet.forEach {
-            Log.e("TEST", "Error: Found unexpected file: $it")
+            Log_OC.e("TEST", "Error: Found unexpected file: $it")
         }
     }
 
@@ -178,7 +178,7 @@ object DocumentsProviderUtils {
                 cont.invokeOnCancellation { cursor.close() }
                 val loading = cursor.extras.getBoolean(EXTRA_LOADING, false)
                 if (loading) {
-                    Log.e("TEST", "Cursor was loading, wait for update...")
+                    Log_OC.e("TEST", "Cursor was loading, wait for update...")
                     cursor.registerContentObserver(
                         object : ContentObserver(null) {
                             override fun onChange(selfChange: Boolean, uri: Uri?) {

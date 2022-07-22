@@ -26,7 +26,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
@@ -448,7 +447,7 @@ public final class FileStorageUtils {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    Log.d(TAG, "Failed to sleep for a bit");
+                    Log_OC.d(TAG, "Failed to sleep for a bit");
                 }
             }
         }

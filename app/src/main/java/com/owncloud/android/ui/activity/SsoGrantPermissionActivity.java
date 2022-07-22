@@ -37,7 +37,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
@@ -86,11 +85,11 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 getString(R.string.single_sign_on_request_token, appName, account.name),
                 appName,
                 account.name));
-            Log.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
-            Log.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
+            Log_OC.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
+            Log_OC.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
         } else {
             // Activity was not started using startActivityForResult!
-            Log.e(TAG, "Calling Package is null");
+            Log_OC.e(TAG, "Calling Package is null");
             setResultAndExit("Request was not executed properly. Use startActivityForResult()");
         }
 
@@ -100,7 +99,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 binding.appIcon.setImageDrawable(appIcon);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Error retrieving app icon", e);
+            Log_OC.e(TAG, "Error retrieving app icon", e);
         }
 
         binding.btnDecline.setOnClickListener(v -> exitFailed());
@@ -133,7 +132,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         try {
             ai = pm.getApplicationInfo(pkg, 0);
         } catch (final PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Error fetching app name for package", e);
+            Log_OC.e(TAG, "Error fetching app name for package", e);
         }
         return (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");
     }

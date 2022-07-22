@@ -30,7 +30,6 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -59,6 +58,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
@@ -526,7 +526,7 @@ class SyncedFoldersActivity :
         when (item.itemId) {
             android.R.id.home -> finish()
             R.id.action_create_custom_folder -> {
-                Log.d(TAG, "Show custom folder dialog")
+                Log_OC.d(TAG, "Show custom folder dialog")
                 if (PermissionUtil.checkExternalStoragePermission(this)) {
                     val emptyCustomFolder = SyncedFolderDisplayItem(
                         SyncedFolder.UNPERSISTED_ID,

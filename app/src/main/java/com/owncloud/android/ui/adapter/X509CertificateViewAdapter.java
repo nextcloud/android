@@ -20,11 +20,11 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
 import java.security.MessageDigest;
@@ -93,7 +93,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
                 binding.valueSignatureAlgorithm.setText(mCertificate.getSigAlgName());
             }
         } catch (CertificateEncodingException e) {
-            Log.e(TAG, "Problem while trying to decode the certificate.");
+            Log_OC.e(TAG, "Problem while trying to decode the certificate.");
         }
     }
 
