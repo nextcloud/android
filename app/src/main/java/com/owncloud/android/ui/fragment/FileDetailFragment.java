@@ -42,6 +42,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -80,6 +81,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -104,10 +106,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private static final String FTAG_SHARING = "SHARING_DETAILS_FRAGMENT";
 
     private static final String ARG_FILE = "FILE";
+    private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     private static final String ARG_USER = "USER";
     private static final String ARG_ACTIVE_TAB = "TAB";
     private View view;
     private User user;
+    private OCFile parentFolder;
     private boolean previewLoaded;
     /**
      * variable to check if custom back icon on toolbar has to be shown
@@ -138,10 +142,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @param user         Currently active user
      * @return New fragment with arguments set
      */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, User user) {
+    public static FileDetailFragment newInstance(OCFile fileToDetail, OCFile parentFile, User user) {
         FileDetailFragment frag = new FileDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToDetail);
+        args.putParcelable(ARG_PARENT_FOLDER, parentFile);
         args.putParcelable(ARG_USER, user);
         frag.setArguments(args);
         return frag;
@@ -219,6 +224,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         syncedFolderProvider =new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
 
         setFile(arguments.getParcelable(ARG_FILE));
+        parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
         user = arguments.getParcelable(ARG_USER);
         activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
 
@@ -388,7 +394,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
             return true;
         } else if (itemId == R.id.action_rename_file) {
-            RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
+            RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile(), parentFolder);
             dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
             return true;
         } else if (itemId == R.id.action_cancel_sync) {

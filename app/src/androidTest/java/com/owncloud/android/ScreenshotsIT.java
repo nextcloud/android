@@ -5,7 +5,6 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

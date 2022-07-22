@@ -245,6 +245,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         onView(withId(R.id.existing_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
 
         onView(withText("OK")).perform(click());
@@ -299,6 +300,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         onView(withId(R.id.new_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
 
         onView(withText("OK")).perform(click());
@@ -353,6 +355,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         onView(withId(R.id.existing_checkbox)).perform(click());
         onView(withId(R.id.new_checkbox)).perform(click());
 
+        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
 
         onView(withText("OK")).perform(click());

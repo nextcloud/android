@@ -24,24 +24,13 @@ import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.ExistingWorkPolicy
-import androidx.work.ListenableWorker
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
-import androidx.work.Operation
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
+import androidx.work.*
 import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nmc.android.jobs.ScanDocUploadWorker
 import com.nmc.android.jobs.UploadImagesWorker
-import java.util.Date
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
@@ -105,7 +94,6 @@ internal class BackgroundJobManagerImpl(
                 "$TAG_PREFIX_NAME:$name ${user.accountName}"
             }
         }
-
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
         fun formatTimeTag(startTimestamp: Long): String = "$TAG_PREFIX_START_TIMESTAMP:$startTimestamp"
 

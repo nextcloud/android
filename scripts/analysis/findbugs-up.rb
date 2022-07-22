@@ -18,7 +18,7 @@ TRAVIS_GIT_USERNAME = String.new("Drone CI server")
 #   lintOptions {
 #       htmlOutput file("[FILE_NAME].html")
 #   }
-FINDBUGS_REPORT_FILE = String.new("build/reports/spotbugs/spotbugs.html")
+FINDBUGS_REPORT_FILE = String.new("app/build/reports/spotbugs/spotbugs.html")
 
 # File name and relative path of previous results of this script.
 PREVIOUS_FINDBUGS_RESULTS_FILE=String.new("scripts/analysis/findbugs-results.txt")
@@ -58,7 +58,7 @@ end
 findbugs_report = String.new(findbugs_reports[0])
 
 # find number of warnings
-current_warning_count = `grep -A 3 "<b>Total</b>" build/reports/spotbugs/spotbugs.html | tail -n1 | cut -f2 -d">" | cut -f1 -d"<"`.to_i
+current_warning_count = `grep -A 3 "<b>Total</b>" app/build/reports/spotbugs/spotbugs.html | tail -n1 | cut -f2 -d">" | cut -f1 -d"<"`.to_i
 puts "found warnings: " + current_warning_count.to_s
 
 # get warning counts from last successful build
@@ -114,11 +114,11 @@ system ("git config --local user.email 'android@nextcloud.com'")
 # add previous FindBugs result file to git
 system ('git add ' + PREVIOUS_FINDBUGS_RESULTS_FILE)
 
-# commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
-system({"GIT_COMMITTER_EMAIL" => "drone@nextcloud.com", "GIT_AUTHOR_EMAIL" => "drone@nextcloud.com"}, 'git commit -sm "Drone: update FindBugs results to reflect reduced error/warning count [skip ci]"')
+# commit changes
+system({"GIT_COMMITTER_NAME" => git_user, "GIT_COMMITTER_EMAIL" => "android@nextcloud.com", "GIT_AUTHOR_EMAIL" => "android@nextcloud.com"}, 'git commit -sm "Analysis: update Spotbugs results to reflect reduced error/warning count"')
 
 # push to origin
-system ('git push')
+system ('git push origin HEAD:' + git_branch)
 
 # restore previous git user name and email
 system("git config --local user.name '#{previous_git_username}'")

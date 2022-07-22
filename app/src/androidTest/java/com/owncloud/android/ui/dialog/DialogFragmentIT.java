@@ -38,6 +38,8 @@ import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
@@ -103,7 +105,8 @@ public class DialogFragmentIT extends AbstractIT {
         if (Looper.myLooper() == null) {
             Looper.prepare();
         }
-        RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"));
+        RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"),
+                                                                               new OCFile("/"));
         showDialog(dialog);
     }
 
@@ -391,12 +394,14 @@ public class DialogFragmentIT extends AbstractIT {
         capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
         capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
 
+        AppPreferences appPreferences = AppPreferencesImpl.fromContext(targetContext);
+
         OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
                                                                           action,
                                                                           info,
                                                                           user,
                                                                           ocFile,
-                                                                          preferences);
+                                                                          appPreferences);
 
         fda.runOnUiThread(sut::show);
 

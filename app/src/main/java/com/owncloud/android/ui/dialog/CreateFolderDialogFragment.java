@@ -23,19 +23,29 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
@@ -50,13 +60,15 @@ import androidx.fragment.app.DialogFragment;
  *  Triggers the folder creation when name is confirmed.
  */
 public class CreateFolderDialogFragment
-        extends DialogFragment implements DialogInterface.OnClickListener {
+    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
+    @Inject FileDataStorageManager fileDataStorageManager;
     private OCFile mParentFolder;
+    private Button positiveButton;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
@@ -70,6 +82,18 @@ public class CreateFolderDialogFragment
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         frag.setArguments(args);
         return frag;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+
+        if (alertDialog != null) {
+            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        }
 
     }
 
@@ -87,12 +111,60 @@ public class CreateFolderDialogFragment
         binding.userInput.setText("");
         binding.userInput.requestFocus();
 
+        OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
+        List<String> fileNames = new ArrayList<>();
+
+        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+            fileNames.add(file.getFileName());
+        }
+
+        // Add TextChangedListener to handle showing/hiding the input warning message
+        binding.userInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            /**
+             * When user enters a hidden file name, the 'hidden file' message is shown. Otherwise,
+             * the message is ensured to be hidden.
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newFileName = "";
+                if (binding.userInput.getText() != null) {
+                    newFileName = binding.userInput.getText().toString().trim();
+                }
+
+                if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
+                    binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
+                } else if (TextUtils.isEmpty(newFileName)) {
+                    binding.userInputContainer.setError(getString(R.string.filename_empty));
+                    positiveButton.setEnabled(false);
+                } else if (!FileUtils.isValidName(newFileName)) {
+                    binding.userInputContainer.setError(getString(R.string.filename_forbidden_charaters_from_server));
+                    positiveButton.setEnabled(false);
+                } else if (fileNames.contains(newFileName)) {
+                    binding.userInputContainer.setError(getText(R.string.file_already_exists));
+                    positiveButton.setEnabled(false);
+                } else if (binding.userInputContainer.getError() != null) {
+                    binding.userInputContainer.setError(null);
+                    // Called to remove extra padding
+                    binding.userInputContainer.setErrorEnabled(false);
+                    positiveButton.setEnabled(true);
+                }
+            }
+        });
+
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(view)
-                .setPositiveButton(R.string.folder_confirm_create, this)
-                .setNeutralButton(R.string.common_cancel, this)
-                .setTitle(R.string.uploader_info_dirname);
+            .setPositiveButton(R.string.folder_confirm_create, this)
+            .setNeutralButton(R.string.common_cancel, this)
+            .setTitle(R.string.uploader_info_dirname);
         AlertDialog d = builder.create();
 
         Window window = d.getWindow();
@@ -107,8 +179,8 @@ public class CreateFolderDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String newFolderName =
-                    ((TextView)(getDialog().findViewById(R.id.user_input)))
-                        .getText().toString().trim();
+                ((TextView) (getDialog().findViewById(R.id.user_input)))
+                    .getText().toString().trim();
 
             if (TextUtils.isEmpty(newFolderName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);

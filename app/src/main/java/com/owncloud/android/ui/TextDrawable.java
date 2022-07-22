@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui;
 
-import android.accounts.Account;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;

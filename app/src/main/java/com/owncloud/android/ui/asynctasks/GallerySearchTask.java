@@ -21,7 +21,6 @@
 
 package com.owncloud.android.ui.asynctasks;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
@@ -33,11 +32,9 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -45,6 +42,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import androidx.lifecycle.Lifecycle;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -55,32 +54,18 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final long startDate;
     private final long endDate;
 
-    private final String remotePath;
-    private final List<OCFile> mediaObject;
-    private final boolean isImageHideClicked;
-    private final boolean isVideoHideClicked;
-    private final List<OCFile> imageList;
-    private final List<OCFile> videoList;
-
     public GallerySearchTask(GalleryFragment photoFragment,
                              User user,
                              FileDataStorageManager storageManager,
                              long startDate,
                              long endDate,
-                             int limit, String remotePath, List<OCFile> mediaObject,
-                             boolean isImageHideClicked, boolean isVideoHideClicked) {
+                             int limit) {
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.storageManager = storageManager;
         this.startDate = startDate;
         this.endDate = endDate;
         this.limit = limit;
-        this.remotePath = remotePath;
-        this.mediaObject = mediaObject;
-        this.isImageHideClicked = isImageHideClicked;
-        this.isVideoHideClicked = isVideoHideClicked;
-        this.videoList = new ArrayList<>();
-        this.imageList = new ArrayList<>();
     }
 
     @Override
@@ -116,11 +101,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
                 boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                 long lastTimeStamp = findLastTimestamp(result.getData());
-
-                photoFragment.getAdapter().showAllGalleryItems(storageManager, remotePath,
-                                                               mediaObject, isVideoHideClicked, isImageHideClicked,
-                                                               imageList, videoList, photoFragment);
-
                 return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
             } else {
                 return new Result(false, false, -1);
@@ -136,64 +116,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             photoFragment.setLoading(false);
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
 
-            if (!result.success) {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
+            if (result.success && photoFragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                photoFragment.showAllGalleryItems();
+            } else {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
             }
         }
-    }
-
-
-    //Set Image/Video List According to Selection of Hide/Show Image/Video
-    public static void setAdapterWithHideShowImage(List<Object> mediaObject, OCFileListAdapter adapter,
-                                                   boolean isVideoHideClicked, boolean isImageHideClicked,
-                                                   List<Object> imageList, List<Object> videoList,
-                                                   FileDataStorageManager storageManager,
-                                                   GalleryFragment photoFragment) {
-
-        if (isVideoHideClicked) {
-            imageList.clear();
-            for (Object s : mediaObject) {
-                if (s instanceof RemoteFile) {
-
-                    if (MimeTypeUtil.isImage(((RemoteFile) s).getMimeType()) && !imageList.contains(s)) {
-                        imageList.add(s);
-                    }
-                }
-            }
-            if (!imageList.isEmpty()) {
-                updateAndNotifyAdapter(imageList, adapter, storageManager);
-            } else {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-            }
-
-        } else if (isImageHideClicked) {
-            videoList.clear();
-            for (Object s : mediaObject) {
-                if (s instanceof RemoteFile) {
-                    if (MimeTypeUtil.isVideo(((RemoteFile) s).getMimeType()) && !videoList.contains(s)) {
-                        videoList.add(s);
-                    }
-                }
-            }
-            if (!videoList.isEmpty()) {
-                updateAndNotifyAdapter(videoList, adapter, storageManager);
-            } else {
-                photoFragment.setEmptyListMessage(ExtendedListFragment.SearchType.GALLERY_SEARCH);
-            }
-        } else {
-            updateAndNotifyAdapter(mediaObject, adapter, storageManager);
-        }
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private static void updateAndNotifyAdapter(List<Object> mediaObject, OCFileListAdapter adapter, FileDataStorageManager storageManager) {
-        adapter.setData(mediaObject,
-                        ExtendedListFragment.SearchType.GALLERY_SEARCH,
-                        storageManager,
-                        null,
-                        true);
-        adapter.notifyDataSetChanged();
     }
 
     private long findLastTimestamp(ArrayList<RemoteFile> remoteFiles) {
@@ -249,7 +177,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         Log_OC.d(this, "Gallery search result:" +
             " new: " + filesToAdd.size() +
             " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.values().size());
+            " deleted: " + localFilesMap.size());
 
         return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
     }
@@ -259,7 +187,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                                          Collection<OCFile> filesToRemove) {
         return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
     }
-
 
     public static class Result {
         public boolean success;
@@ -272,5 +199,4 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             this.lastTimestamp = lastTimestamp;
         }
     }
-
 }

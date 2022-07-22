@@ -69,13 +69,10 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
@@ -145,20 +142,12 @@ public class ExtendedListFragment extends Fragment implements
 
     private ListFragmentBinding binding;
 
-    @Parcel
-    public enum SearchType {
-        NO_SEARCH,
-        REGULAR_FILTER,
-        FILE_SEARCH,
-        FAVORITE_SEARCH,
-        GALLERY_SEARCH,
-        RECENTLY_MODIFIED_SEARCH,
-        // not a real filter, but nevertheless
-        SHARED_FILTER
-    }
-
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    protected void setRecyclerViewHasFooter(boolean hasFooter) {
+        mRecyclerView.setHasFooter(hasFooter);
     }
 
     protected RecyclerView getRecyclerView() {
@@ -258,14 +247,7 @@ public class ExtendedListFragment extends Fragment implements
         if (query.isEmpty()) {
             closeButton.setVisibility(View.INVISIBLE);
         }
-
-        if (getFragmentManager() != null && getFragmentManager().
-            findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT) instanceof ExtendedListFragment) {
-            performSearch(query, false);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -338,7 +320,7 @@ public class ExtendedListFragment extends Fragment implements
         binding = ListFragmentBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        setupEmptyList(v);
+        setupEmptyList();
 
         mRecyclerView = binding.listRoot;
         mRecyclerView.setHasFooter(true);
@@ -413,7 +395,7 @@ public class ExtendedListFragment extends Fragment implements
         }
     }
 
-    protected void setupEmptyList(View view) {
+    protected void setupEmptyList() {
         mEmptyListContainer = binding.emptyList.emptyListView;
         mEmptyListMessage = binding.emptyList.emptyListViewText;
         mEmptyListHeadline = binding.emptyList.emptyListViewHeadline;

@@ -186,7 +186,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         emptyListView = binding.emptyView.emptyListView;
 
-
         setLoadingView();
         return view;
     }
@@ -306,7 +305,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
 
-
             if (MimeTypeUtil.isAudio(file)) {
                 binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection);
                 binding.mediaController.setVisibility(View.VISIBLE);
@@ -318,7 +316,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     // always stop player
                     stopAudio();
                 }
-
                 if (exoPlayer != null) {
                     playVideo();
                 } else {
@@ -326,7 +323,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
                             final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
-                            handler.post(() -> {
+                            handler.post(() ->{
                                 exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
                                 playVideo();
                             });
@@ -524,6 +521,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (savedPlaybackPosition >= 0) {
             exoPlayer.seekTo(savedPlaybackPosition);
         }
+
         if (autoplay) {
             exoPlayer.play();
         }
@@ -595,7 +593,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onResume() {
         super.onResume();
-
         if(getActivity() instanceof FileDisplayActivity){
             ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
         }
@@ -631,7 +628,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         final OCFile file = getFile();
         if (MimeTypeUtil.isAudio(file) && !mediaPlayerServiceConnection.isPlaying()) {
             stopAudio();
-        } else if (MimeTypeUtil.isVideo(file) && exoPlayer.isPlaying()) {
+        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer.isPlaying()) {
             savedPlaybackPosition = exoPlayer.getCurrentPosition();
             exoPlayer.pause();
         }

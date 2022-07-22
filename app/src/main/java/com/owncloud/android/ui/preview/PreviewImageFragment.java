@@ -672,7 +672,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                         try {
                             bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                                                                   minHeight);
+                                    minHeight);
 
                             if (isCancelled()) {
                                 return new LoadImage(bitmapResult, null, ocFile);
@@ -710,7 +710,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Error from access to non-existing field despite protection; file "
-                    + storagePath, e);
+                        + storagePath, e);
 
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
@@ -750,7 +750,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                        bitmap.getHeight());
+                            bitmap.getHeight());
 
                     if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
                         MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -867,7 +867,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                      Snackbar.LENGTH_INDEFINITE).show();
                                    }
                                }
-                              ).show();
+                    ).show();
             }
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());

@@ -232,7 +232,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
-            count += deleteWithuri(db, uri, where, whereArgs);
+            count += deleteWithUri(db, uri, where, whereArgs);
         }
 
         return count;
@@ -241,31 +241,21 @@ public class FileContentProvider extends ContentProvider {
     private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
-        Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null);
-        String remoteId = "";
-        try {
-            if (c != null && c.moveToFirst()) {
-                remoteId = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID));
+        try (Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null)) {
+            if (c.moveToFirst()) {
+                String id = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta._ID));
+                Log_OC.d(TAG, "Removing FILE " + id);
             }
-            Log_OC.d(TAG, "Removing FILE " + remoteId);
 
-            if (remoteId == null) {
-                return 0;
-            } else {
-                count = deleteWithuri(db, uri, where, whereArgs);
-            }
+            count = deleteWithUri(db, uri, where, whereArgs);
         } catch (Exception e) {
             Log_OC.d(TAG, "DB-Error removing file!", e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
 
         return count;
     }
 
-    private int deleteWithuri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int deleteWithUri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
         final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
         return db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                          ProviderTableMeta._ID + "=?"
@@ -722,7 +712,7 @@ public class FileContentProvider extends ContentProvider {
 
     private boolean checkIfColumnExists(SQLiteDatabase database, String table, String column) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + table + " LIMIT 0", null);
-        boolean exists = cursor.getColumnIndexOrThrow(column) != -1;
+        boolean exists = cursor.getColumnIndex(column) != -1;
         cursor.close();
 
         return exists;
@@ -763,7 +753,15 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_OWNER_DISPLAY_NAME + TEXT
                        + ProviderTableMeta.FILE_NOTE + TEXT
                        + ProviderTableMeta.FILE_SHAREES + TEXT
-                       + ProviderTableMeta.FILE_RICH_WORKSPACE + " TEXT);"
+                       + ProviderTableMeta.FILE_RICH_WORKSPACE + TEXT
+                       + ProviderTableMeta.FILE_LOCKED + INTEGER // boolean
+                       + ProviderTableMeta.FILE_LOCK_TYPE + INTEGER
+                       + ProviderTableMeta.FILE_LOCK_OWNER + TEXT
+                       + ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME + TEXT
+                       + ProviderTableMeta.FILE_LOCK_OWNER_EDITOR + TEXT
+                       + ProviderTableMeta.FILE_LOCK_TIMESTAMP + INTEGER
+                       + ProviderTableMeta.FILE_LOCK_TIMEOUT + INTEGER
+                       + ProviderTableMeta.FILE_LOCK_TOKEN + " TEXT );"
         );
     }
 
@@ -839,7 +837,8 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG + TEXT
                        + ProviderTableMeta.CAPABILITIES_USER_STATUS + INTEGER
                        + ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI + INTEGER
-                       + ProviderTableMeta.CAPABILITIES_ETAG + " TEXT );");
+                       + ProviderTableMeta.CAPABILITIES_ETAG + TEXT
+                       + ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT );");
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -916,7 +915,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
                        + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
                        + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
-           );
+                  );
     }
 
     private void createFileSystemTable(SQLiteDatabase db) {
@@ -2458,6 +2457,39 @@ public class FileContentProvider extends ContentProvider {
                     db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
 
                     upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (oldVersion < 63 && newVersion >= 63) {
+                Log_OC.i(SQL, "Adding file locking columns");
+                db.beginTransaction();
+                try {
+                    // locking capabilities
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME + ADD_COLUMN + ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT ");
+                    // force refresh
+                    db.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1");
+                    // locking properties
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCKED + " INTEGER "); // boolean
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TYPE + " INTEGER ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_OWNER + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_OWNER_EDITOR + " TEXT ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TIMESTAMP + " INTEGER ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TIMEOUT + " INTEGER ");
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TOKEN + " TEXT ");
+                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME + " SET " + ProviderTableMeta.FILE_ETAG + " = '' WHERE 1=1");
+
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();

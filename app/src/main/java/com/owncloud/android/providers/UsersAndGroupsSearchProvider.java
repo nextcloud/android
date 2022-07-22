@@ -166,11 +166,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * returns sharee from server
-     * <p>
+     *
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formatted as "content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/"
-     *                      + {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" + 'userQuery'
+     *                      + {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" +
+     *                      'userQuery'
      * @param projection    Expected to be NULL.
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
@@ -439,7 +440,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             } catch (FileNotFoundException e) {
                 Log_OC.e(TAG, "File not found: " + e.getMessage());
             }
-
+        } catch (OutOfMemoryError oome) {
+            Log_OC.e(TAG, "Out of memory");
         } catch (Exception e) {
             Log_OC.e(TAG, "Error opening file: " + e.getMessage());
         }

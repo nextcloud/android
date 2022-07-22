@@ -25,5 +25,6 @@ import java.util.TimeZone
 interface Clock {
     val currentTime: Long
     val currentDate: Date
+    val millisSinceBoot: Long
     val tz: TimeZone
 }

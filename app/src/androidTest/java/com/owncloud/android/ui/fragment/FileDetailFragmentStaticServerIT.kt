@@ -22,12 +22,7 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.view.View
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -39,14 +34,13 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.GregorianCalendar
 
 class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
-    val file = OCFile("/", "00000001")
+    val file = OCFile("/")
 
     @Test
     @ScreenshotTest

@@ -68,6 +68,9 @@ import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import java.lang.ref.WeakReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -88,6 +91,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
     private static final String DOT = ".";
     public static final int SINGLE_TEMPLATE = 1;
 
+    @Inject FileDataStorageManager fileDataStorageManager;
     private TemplateAdapter adapter;
     private OCFile parentFolder;
     private String title;
@@ -151,13 +155,19 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
             title = savedInstanceState.getString(ARG_HEADLINE);
         }
 
+        List<String> fileNames = new ArrayList<>();
+
+        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+            fileNames.add(file.getFileName());
+        }
+
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         binding = ChooseTemplateBinding.inflate(inflater, null, false);
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()));
+        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()), ThemeColorUtils.primaryAccentColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();
@@ -172,7 +182,7 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // generated method stub
+                checkExistingFilename(fileNames);
             }
 
             @Override
@@ -208,6 +218,23 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements View
         }
 
         return dialog;
+    }
+
+    private void checkExistingFilename(List<String> fileNames) {
+        String newFileName = "";
+        if (binding.filename.getText() != null) {
+            newFileName = binding.filename.getText().toString().trim();
+        }
+
+        if (fileNames.contains(newFileName)) {
+            binding.filenameContainer.setError(getText(R.string.file_already_exists));
+            positiveButton.setEnabled(false);
+        } else if (binding.filenameContainer.getError() != null) {
+            binding.filenameContainer.setError(null);
+            // Called to remove extra padding
+            binding.filenameContainer.setErrorEnabled(false);
+            positiveButton.setEnabled(true);
+        }
     }
 
     @Override

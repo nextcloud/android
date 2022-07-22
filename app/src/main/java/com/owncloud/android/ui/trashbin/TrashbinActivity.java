@@ -128,6 +128,7 @@ public class TrashbinActivity extends DrawerActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
         setDrawerMenuItemChecked(R.id.nav_trashbin);
     }
 

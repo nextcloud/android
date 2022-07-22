@@ -71,11 +71,11 @@ public class DownloadFileOperation extends RemoteOperation {
                                  String packageName, Context context) {
         if (user == null) {
             throw new IllegalArgumentException("Illegal null user in DownloadFileOperation " +
-                                                   "creation");
+                    "creation");
         }
         if (file == null) {
             throw new IllegalArgumentException("Illegal null file in DownloadFileOperation " +
-                                                   "creation");
+                    "creation");
         }
 
         this.user = user;
@@ -191,11 +191,11 @@ public class DownloadFileOperation extends RemoteOperation {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
                 byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                           .get(file.getEncryptedFileName()).getEncrypted().getKey());
+                        .get(file.getEncryptedFileName()).getEncrypted().getKey());
                 byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                          .get(file.getEncryptedFileName()).getInitializationVector());
+                        .get(file.getEncryptedFileName()).getInitializationVector());
                 byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                                         .get(file.getEncryptedFileName()).getAuthenticationTag());
+                        .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
@@ -214,7 +214,7 @@ public class DownloadFileOperation extends RemoteOperation {
             }
         }
         Log_OC.i(TAG, "Download of " + file.getRemotePath() + " to " + getSavePath() + ": " +
-            result.getLogMessage());
+                result.getLogMessage());
 
         return result;
     }

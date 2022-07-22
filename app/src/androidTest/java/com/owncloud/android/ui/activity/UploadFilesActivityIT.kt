@@ -21,19 +21,83 @@
  */
 package com.owncloud.android.ui.activity
 
+import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.nextcloud.client.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.io.File
 
 class UploadFilesActivityIT : AbstractIT() {
     @get:Rule
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
+    @get:Rule
+    var permissionRule = GrantStoragePermissionRule.grant()
+
+    private val directories = listOf("A", "B", "C", "D")
+        .map { File("${FileStorageUtils.getTemporalPath(account.name)}${File.separator}$it") }
+
+    @Before
+    fun setUp() {
+        directories.forEach { it.mkdirs() }
+    }
+
+    @After
+    fun tearDown() {
+        directories.forEach { it.deleteRecursively() }
+    }
+
     @Test
-    // @ScreenshotTest // TODO re-enable and make sure that folder content on emulator is the same on all devices
+    @ScreenshotTest
     fun noneSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
+
+        sut.runOnUiThread {
+            sut.fileListFragment.setFiles(
+                directories +
+                    listOf(
+                        File("1.txt"),
+                        File("2.pdf"),
+                        File("3.mp3")
+                    )
+            )
+        }
+
+        waitForIdleSync()
+        shortSleep()
+
+        screenshot(sut)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun localFolderPickerMode() {
+        val sut: UploadFilesActivity = activityRule.launchActivity(
+            Intent().apply {
+                putExtra(
+                    UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE,
+                    true
+                )
+                putExtra(
+                    UploadFilesActivity.REQUEST_CODE_KEY,
+                    FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+                )
+            }
+        )
+
+        sut.runOnUiThread {
+            sut.fileListFragment.setFiles(
+                directories
+            )
+        }
+
+        waitForIdleSync()
 
         screenshot(sut)
     }

@@ -1,6 +1,5 @@
 package com.owncloud.android;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -8,12 +7,14 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.facebook.testing.screenshot.internal.TestNameDetector;
+import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -21,7 +22,6 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
@@ -47,7 +47,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.mockito.Mock;
+import org.junit.rules.TestRule;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -61,7 +61,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -78,15 +77,12 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractIT {
     @Rule
-    public final GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
     protected static Account account;
     protected static User user;
-    @Mock
-    protected static AppPreferences preferences;
     protected static Context targetContext;
     protected static String DARK_MODE = "";
     protected static String COLOR = "";
@@ -225,7 +221,7 @@ public abstract class AbstractIT {
     }
 
     protected static File getDummyFile(String name) throws IOException {
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
+        File file = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.separator + name);
 
         if (file.exists()) {
             return file;
@@ -330,6 +326,13 @@ public abstract class AbstractIT {
         return getStorageManager().getFileByDecryptedRemotePath(remotePath);
     }
 
+    public void uploadFile(File file, String remotePath) {
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        uploadOCUpload(ocUpload);
+    }
+
+
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
@@ -394,11 +397,15 @@ public abstract class AbstractIT {
     }
 
     protected void screenshot(View view, String prefix) {
-        Screenshot.snap(view).setName(createName(prefix)).record();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snap(view).setName(createName(prefix)).record();
+        }
     }
 
     protected void screenshot(Activity sut) {
-        Screenshot.snapActivity(sut).setName(createName()).record();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snapActivity(sut).setName(createName()).record();
+        }
     }
 
     protected void screenshot(DialogFragment dialogFragment, String prefix) {

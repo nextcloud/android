@@ -106,63 +106,42 @@ public class DiskLruImageCache {
 
     public Bitmap getScaledBitmap(String key, int width, int height) {
         Bitmap bitmap = null;
-        DiskLruCache.Snapshot snapshot = null;
-        InputStream inputStream = null;
-        BufferedInputStream buffIn = null;
         String validKey = convertToValidKey(key);
 
-        try {
-            snapshot = mDiskCache.get(validKey);
+        try (DiskLruCache.Snapshot snapshot = mDiskCache.get(validKey)) {
             if (snapshot == null) {
                 return null;
             }
-            inputStream = snapshot.getInputStream(0);
-            if (inputStream != null) {
-                buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE);
 
+            InputStream inputStream = snapshot.getInputStream(0);
+            if (inputStream != null) {
                 // First decode with inJustDecodeBounds=true to check dimensions
                 final BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inScaled = true;
-                options.inPurgeable = true;
-                options.inPreferQualityOverSpeed = false;
-                options.inMutable = false;
-                options.inJustDecodeBounds = true;
+                try (BufferedInputStream buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE)) {
+                    options.inScaled = true;
+                    options.inPurgeable = true;
+                    options.inPreferQualityOverSpeed = false;
+                    options.inMutable = false;
+                    options.inJustDecodeBounds = true;
 
-                BitmapFactory.decodeStream(buffIn, null, options);
+                    BitmapFactory.decodeStream(buffIn, null, options);
+                }
 
-                snapshot = mDiskCache.get(validKey);
-                inputStream = snapshot.getInputStream(0);
-                buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE);
+                try (DiskLruCache.Snapshot snapshot2 = mDiskCache.get(validKey)) {
+                    inputStream = snapshot2.getInputStream(0);
 
-                // Calculate inSampleSize
-                options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height);
+                    try (BufferedInputStream buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE)) {
+                        // Calculate inSampleSize
+                        options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height);
 
-                // Decode bitmap with inSampleSize set
-                options.inJustDecodeBounds = false;
-                bitmap = BitmapFactory.decodeStream(buffIn, null, options);
+                        // Decode bitmap with inSampleSize set
+                        options.inJustDecodeBounds = false;
+                        bitmap = BitmapFactory.decodeStream(buffIn, null, options);
+                    }
+                }
             }
         } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage(), e);
-        } finally {
-            if (snapshot != null) {
-                snapshot.close();
-            }
-
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    // nothing to do
-                }
-            }
-
-            if (buffIn != null) {
-                try {
-                    buffIn.close();
-                } catch (IOException e) {
-                    // nothing to do
-                }
-            }
         }
 
         if (BuildConfig.DEBUG) {

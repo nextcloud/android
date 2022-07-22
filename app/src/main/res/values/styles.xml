@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -478,6 +479,14 @@
         <item name="android:colorBackground">@color/popup_menu_bg</item>
         <!-- popup menu item text color -->
         <item name="android:textColorPrimary">@color/popup_menu_txt_color</item>
+    </style>
+
+    <style name="Nextcloud.Widget.PopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/menu_item_text_color</item>
+    </style>
+
+    <style name="Theme.ToolbarWithDisabled" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColor">@color/menu_item_text_color</item>
     </style>
 
     <style name="MaterialListItemSingleLine">

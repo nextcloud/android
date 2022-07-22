@@ -28,6 +28,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
+import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
 import javax.inject.Inject;
@@ -148,7 +149,8 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
         binding.scanSaveWithTxtRecognitionPdfCheckbox.setChecked(true);
         ThemeTextInputUtils.colorTextInputLayout(binding.scanSavePdfPasswordTextInput,
-                                                 getResources().getColor(R.color.secondary_text_color));
+                                                 getResources().getColor(R.color.secondary_text_color),
+                                                 ThemeColorUtils.primaryAccentColor(requireContext()));
         binding.scanSavePdfPasswordEt.setHighlightColor(getResources().getColor(R.color.et_highlight_color));
         binding.scanSavePdfPasswordTextInput.setDefaultHintTextColor(new ColorStateList(
             new int[][]{

@@ -741,6 +741,7 @@
     <string name="allow_editing">Allow editing</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
+    <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_scan_document">Scan Document</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
@@ -822,6 +823,7 @@
     <string name="battery_optimization_close">Close</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
+    <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="uploader_upload_files_behaviour_not_writable">source folder is read-only; file will only be uploaded</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="scanQR_description">Login via QR code</string>
@@ -1137,7 +1139,9 @@
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
     <string name="file_management_permission">Permissions needed</string>
-    <string name="file_management_permission_text">%1$s needs file management permissions to work properly. Please enable it in the following screen to continue.</string>
+    <string name="file_management_permission_optional">Storage permissions</string>
+    <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
+    <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="prefs_category_account_info">Account Information</string>
     <string name="common_login">Login</string>
     <string name="hide_images">Hide images</string>
@@ -1158,4 +1162,14 @@
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
+    <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
+    <string name="storage_permission_full_access">Full access</string>
+    <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="lock_file">Lock file</string>
+    <string name="unlock_file">Unlock file</string>
+    <string name="error_file_lock">Error changing file lock status</string>
+    <string name="locked_by">Locked by %1$s</string>
+    <string name="locked_by_app">Locked by %1$s app</string>
+    <string name="lock_expiration_info">Expires: %1$s</string>
+    <string name="file_already_exists">Filename already exists.</string>
 </resources>

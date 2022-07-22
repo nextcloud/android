@@ -43,18 +43,6 @@ The third party software included and used by this project is:
    The library is included in the Nextcloud client APK.
    See http://jackrabbit.apache.org/
  
- * TouchImageView, 1.2.0. commit 6dbeac4f11936185ba374c73144ac431c23c9aab
-   Copyright (c) 2014 Michael Ortiz
-   Licensed under MIT License
-   This library is in the source code.
-   See https://github.com/MikeOrtiz/TouchImageView
- 
- * floatingactionbutton 1.10.21.
-   Copyright (c) 2014 Jerzy Chalupski
-   Licensed under Apache License, Version 2.0.
-   The library is included in the Nextcloud client APK.
-   See https://github.com/futuresimple/android-floating-action-button 
- 
  * AndroidSVG 1.2.1.
    Copyright (c) 2014 Paul LeBeau
    Licensed under Apache License, Version 2.0.

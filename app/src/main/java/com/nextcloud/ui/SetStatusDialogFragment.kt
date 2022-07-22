@@ -126,7 +126,7 @@ class SetStatusDialogFragment :
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogSetStatusBinding.inflate(LayoutInflater.from(context))
+        binding = DialogSetStatusBinding.inflate(layoutInflater)
 
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
@@ -217,7 +217,8 @@ class SetStatusDialogFragment :
         ThemeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,
-            ThemeColorUtils.primaryColor(activity)
+            ThemeColorUtils.primaryColor(activity),
+            ThemeColorUtils.primaryAccentColor(activity)
         )
     }
 

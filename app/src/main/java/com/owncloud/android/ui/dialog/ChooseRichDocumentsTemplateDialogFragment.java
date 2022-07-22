@@ -62,8 +62,6 @@ import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 
-import org.parceler.Parcels;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +85,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private static final String DOT = ".";
     public static final int SINGLE_TEMPLATE = 1;
 
+    @Inject FileDataStorageManager fileDataStorageManager;
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
     private OwnCloudClient client;
@@ -146,6 +145,11 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         }
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
+        List<String> fileNames = new ArrayList<>();
+
+        for (OCFile file : fileDataStorageManager.getFolderContent(parentFolder, false)) {
+            fileNames.add(file.getFileName());
+        }
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -153,7 +157,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()));
+        //ThemeTextInputUtils.colorTextInput(binding.filenameContainer,binding.filename,ThemeColorUtils.primaryColor(getContext()), ThemeColorUtils.primaryAccentColor(getContext()));
 
         binding.filename.setOnKeyListener((v, keyCode, event) -> {
             checkEnablingCreateButton();
@@ -168,7 +172,20 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // generated method stub
+                String newFileName = "";
+                if (binding.filename.getText() != null) {
+                    newFileName = binding.filename.getText().toString().trim();
+                }
+
+                if (fileNames.contains(newFileName)) {
+                    binding.filenameContainer.setError(getText(R.string.file_already_exists));
+                    positiveButton.setEnabled(false);
+                } else if (binding.filenameContainer.getError() != null) {
+                    binding.filenameContainer.setError(null);
+                    // Called to remove extra padding
+                    binding.filenameContainer.setErrorEnabled(false);
+                    positiveButton.setEnabled(true);
+                }
             }
 
             @Override
@@ -261,7 +278,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private void prefillFilenameIfEmpty(Template template) {
         String name = binding.filename.getText().toString();
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-            binding.filename.setText(String.format("%s.%s", template.name, template.extension));
+            binding.filename.setText(String.format("%s.%s", template.getName(), template.getExtension()));
         }
         binding.filename.setSelection(binding.filename.getText().toString().lastIndexOf('.'));
     }
@@ -338,7 +355,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, Parcels.wrap(template));
+                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template);
                     fragment.startActivity(collaboraWebViewIntent);
 
                     fragment.dismiss();

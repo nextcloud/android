@@ -77,7 +77,9 @@ import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -85,6 +87,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
@@ -95,8 +98,8 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
-import com.owncloud.android.ui.fragment.SharedListFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -224,6 +227,15 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector abstract FileTransferService fileDownloaderService();
     @ContributesAndroidInjector abstract FileSyncService fileSyncService();
     @ContributesAndroidInjector abstract SaveScannedDocumentFragment saveScannedDocumentFragment();
+
+    @ContributesAndroidInjector
+    abstract RenameFileDialogFragment renameFileDialogFragment();
+    @ContributesAndroidInjector
+    abstract CreateFolderDialogFragment createFolderDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract PreviewPdfFragment previewPDFFragment();
+
     @ContributesAndroidInjector
     abstract SharedListFragment sharedFragment();
 }

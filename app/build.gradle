@@ -63,27 +63,10 @@ configurations.configureEach {
     }
 }
 
-repositories {
-    google()
-    maven { url "https://jitpack.io" }
-    mavenCentral()
-    maven {
-        url 'https://plugins.gradle.org/m2/'
-    }
-
-    // Scanbot SDK maven repos:
-    maven {
-        url 'https://nexus.scanbot.io/nexus/content/repositories/releases/'
-    }
-    maven {
-        url 'https://nexus.scanbot.io/nexus/content/repositories/snapshots/'
-    }
-}
-
 // semantic versioning for version code
 def versionMajor = 7
-def versionMinor = 19
-def versionPatch = 7
+def versionMinor = 20
+def versionPatch = 1
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 
@@ -170,15 +153,15 @@ android {
             versionDev {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 68200129
-                versionName "68200129"
+                versionCode 71200129
+                versionName "71200129"
             }
 
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 64
-                versionName "1.64"
+                versionCode 69
+                versionName "1.69"
             }
         }
 
@@ -292,9 +275,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
     implementation 'com.github.tobiaskaminsky:qrcodescanner:0.1.2.4' // 'com.github.blikoon:QRCodeScanner:0.1.2'
-    implementation 'com.google.android:flexbox:2.0.1'
-    implementation 'org.parceler:parceler-api:1.1.13'
-    kapt 'org.parceler:parceler:1.1.13'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
         exclude group: "com.android.support"
     }
@@ -327,8 +308,10 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
+    implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
+
     // Shimmer animation
-    implementation 'com.elyeproj.libraries:loaderviewlibrary:2.0.0'
+    implementation 'io.github.elye:loaderviewlibrary:3.0.0'
 
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
@@ -341,13 +324,13 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
-    implementation('org.mnode.ical4j:ical4j:1.0.8') {
-        ['org.apache.commons', 'commons-logging'].each {
+    implementation ('org.mnode.ical4j:ical4j:1.0.8') {
+        ['org.apache.commons','commons-logging'].each {
             exclude group: "$it"
         }
     }
 
-    if (!ciBuild) {
+    if (project.hasProperty("leakCanary")) {
         debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
     }
 
@@ -371,6 +354,7 @@ dependencies {
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
     androidTestUtil "androidx.test:orchestrator:$androidxTestVersion"
+    androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
@@ -432,7 +416,7 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy {
+    resolutionStrategy{
         cacheChangingModulesFor 0, 'seconds'
         force 'org.objenesis:objenesis:2.6'
         eachDependency { details ->
@@ -457,24 +441,6 @@ android.applicationVariants.all { variant ->
     }
 }
 
-tasks.register("combinedTestReport", JacocoReport) {
-
-    jacocoClasspath = configurations['jacocoAnt']
-
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-    }
-
-    additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories.setFrom files(subprojects.sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: project.buildDir, includes: [
-        'jacoco/testGplayDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/GPLAY/*coverage.ec'
-    ])
-}
-
 task installGitHooks(type: Copy, group: "development") {
     description = "Install git hooks"
     from("${project.rootDir}/scripts/hooks") {
@@ -496,7 +462,7 @@ shot {
     showOnlyFailingTestsInReports = ciBuild
     // CI environment renders some shadows slightly different from local VMs
     // Add a 0.5% tolerance to account for that
-    tolerance = ciBuild ? 0.5 : 0
+    tolerance = ciBuild ? 0.5: 0
 }
 
 jacoco {
@@ -509,7 +475,7 @@ spotbugs {
     reportLevel = "medium"
 }
 
-tasks.withType(SpotBugsTask) { task ->
+tasks.withType(SpotBugsTask){task ->
     String variantNameCap = task.name.replace("spotbugs", "")
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
 

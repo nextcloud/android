@@ -76,19 +76,6 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         return frag;
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        if (alertDialog != null) {
-            ThemeButtonUtils.themeBorderlessButton(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL),
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
-        }
-    }*/
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

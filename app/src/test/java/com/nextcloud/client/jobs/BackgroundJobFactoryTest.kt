@@ -33,7 +33,6 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import org.mockito.kotlin.whenever
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import org.greenrobot.eventbus.EventBus
@@ -43,6 +42,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.whenever
 import javax.inject.Provider
 
 class BackgroundJobFactoryTest {
