@@ -754,6 +754,7 @@ public class FileContentProvider extends ContentProvider {
                        + ProviderTableMeta.FILE_NOTE + TEXT
                        + ProviderTableMeta.FILE_SHAREES + TEXT
                        + ProviderTableMeta.FILE_RICH_WORKSPACE + TEXT
+                       + ProviderTableMeta.FILE_METADATA_SIZE + TEXT
                        + ProviderTableMeta.FILE_LOCKED + INTEGER // boolean
                        + ProviderTableMeta.FILE_LOCK_TYPE + INTEGER
                        + ProviderTableMeta.FILE_LOCK_OWNER + TEXT
@@ -2490,6 +2491,24 @@ public class FileContentProvider extends ContentProvider {
                                    ADD_COLUMN + ProviderTableMeta.FILE_LOCK_TOKEN + " TEXT ");
                     db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME + " SET " + ProviderTableMeta.FILE_ETAG + " = '' WHERE 1=1");
 
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 64 && newVersion >= 64) {
+                Log_OC.i(SQL, "Entering in the #64 add metadata size to files");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
+                                   ADD_COLUMN + ProviderTableMeta.FILE_METADATA_SIZE + " TEXT ");
+
+                    upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();

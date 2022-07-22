@@ -1041,6 +1041,7 @@
     <string name="file_already_exists">Filename already exists</string>
     <string name="filedetails_export">Export</string>
     <string name="locate_folder">Locate folder</string>
+    <string name="video_overlay_icon">video overlay icon</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="icon_of_dashboard_widget">Icon of dashboard widget</string>
     <string name="refresh_content">Refresh content</string>

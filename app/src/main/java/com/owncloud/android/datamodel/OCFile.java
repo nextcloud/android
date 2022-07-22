@@ -110,6 +110,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lockTimeout;
     @Nullable
     private String lockToken;
+    @Nullable
+    private ImageDimension imageDimension;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
@@ -502,6 +504,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimestamp = 0;
         lockTimeout = 0;
         lockToken = null;
+
+        imageDimension = null;
     }
 
     /**
@@ -947,5 +951,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setLockToken(@Nullable String lockToken) {
         this.lockToken = lockToken;
+    }
+
+    public void setImageDimension(@Nullable ImageDimension imageDimension) {
+        this.imageDimension = imageDimension;
+    }
+
+    @Nullable
+    public ImageDimension getImageDimension() {
+        return imageDimension;
     }
 }
