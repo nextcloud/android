@@ -84,7 +84,7 @@ android {
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
 
@@ -160,8 +160,8 @@ android {
             qa {
                 applicationId "com.t_systems.android.webdav.beta"
                 dimension "default"
-                versionCode 69
-                versionName "1.69"
+                versionCode 70
+                versionName "1.70"
             }
         }
 
