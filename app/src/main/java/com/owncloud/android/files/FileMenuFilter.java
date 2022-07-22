@@ -313,6 +313,11 @@ public class FileMenuFilter {
     }
 
     private void filterEncrypt(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
+        if (!context.getResources().getBoolean(R.bool.e2e_enabled)) {
+            toHide.add(R.id.action_encrypted);
+            return;
+        }
+
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
             || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_encrypted);
@@ -322,6 +327,11 @@ public class FileMenuFilter {
     }
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
+        if (!context.getResources().getBoolean(R.bool.e2e_enabled)) {
+            toHide.add(R.id.action_unset_encrypted);
+            return;
+        }
+
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
                 || !endToEndEncryptionEnabled) {
             toHide.add(R.id.action_unset_encrypted);
