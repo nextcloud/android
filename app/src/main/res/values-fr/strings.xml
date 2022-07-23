@@ -67,7 +67,7 @@
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
-    <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
+    <string name="auto_upload_on_wifi">Envoyer par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/EnvoiAuto</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
@@ -80,7 +80,7 @@
     <string name="backup_title">Sauvegarder les contacts &amp; l\'agenda</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
-    <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil.  Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
+    <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. L\'envoi automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
     <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="calendar">Agenda</string>
@@ -284,7 +284,7 @@ Attention la suppression est irréversible.</string>
     <string name="etm_title">Mode test</string>
     <string name="etm_transfer">Transfert de fichiers</string>
     <string name="etm_transfer_enqueue_test_download">Vérification de la liste de téléchargement</string>
-    <string name="etm_transfer_enqueue_test_upload">Verification de la liste de téléversement</string>
+    <string name="etm_transfer_enqueue_test_upload">Vérification de la liste d\'envoi</string>
     <string name="etm_transfer_remote_path">Chemin distant</string>
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
@@ -389,7 +389,7 @@ Attention la suppression est irréversible.</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
     <string name="in_folder">dans le dossier %1$s</string>
-    <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
+    <string name="instant_upload_existing">Envoyer aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL invalide</string>
@@ -506,7 +506,7 @@ Attention la suppression est irréversible.</string>
     <string name="pdf_zoom_tip">Appuyez sur une page pour zoomer</string>
     <string name="permission_allow">Accepter</string>
     <string name="permission_deny">Refuser</string>
-    <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
+    <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour envoyer et télécharger des fichiers.</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="placeholder_fileSize">389 Ko</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -608,7 +608,7 @@ Attention la suppression est irréversible.</string>
     <string name="screenshot_03_drawer_subline">tout accessible rapidement</string>
     <string name="screenshot_04_accounts_heading">Tous vos comptes</string>
     <string name="screenshot_04_accounts_subline">en un seul endroit</string>
-    <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
+    <string name="screenshot_05_autoUpload_heading">Envoi automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos &amp; vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda &amp; Contacts</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
@@ -788,15 +788,15 @@ Attention la suppression est irréversible.</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Envoyer depuis…</string>
-    <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
-    <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
+    <string name="upload_content_from_other_apps">Envoyer du contenu à partir d\'autres applications</string>
+    <string name="upload_direct_camera_upload">Envoyer depuis l\'appareil photo</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Raccourci(%s) Internet</string>
     <string name="upload_file_dialog_filetype_snippet_text">Extrait du fichier texte (.txt)</string>
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier à envoyer</string>
-    <string name="upload_files">Téléverser des fichiers</string>
+    <string name="upload_files">Envoyer des fichiers</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun envoi effectué</string>
@@ -815,9 +815,9 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
-    <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
+    <string name="uploader_error_message_source_file_not_found">Le fichier à envoyer n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">le fichier ne peut être téléchargé </string>
-    <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
+    <string name="uploader_error_title_no_file_to_upload">Aucun fichier à envoyer</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
     <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
@@ -827,10 +827,10 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
     <string name="uploader_upload_files_behaviour">Option d\'envoi :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
-    <string name="uploader_upload_files_behaviour_not_writable">Le dossier source est en lecture seule: le fichier sera uniquement téléversé</string>
+    <string name="uploader_upload_files_behaviour_not_writable">Le dossier source est en lecture seule : le fichier sera uniquement envoyé</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
-    <string name="uploader_upload_forbidden_permissions">de téléverser dans ce dossier</string>
+    <string name="uploader_upload_forbidden_permissions">d\'envoyer dans ce dossier</string>
     <string name="uploader_upload_in_progress_content">Envoi de %2$s : %1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Envoi en cours…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
