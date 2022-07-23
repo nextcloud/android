@@ -25,7 +25,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
@@ -1020,7 +1019,7 @@ public class UploadFileOperation extends SyncOperation {
                 try {
                     move(originalFile, newFile);
                 } catch (IOException e) {
-                    Log.e(TAG, "Error moving file", e);
+                    Log_OC.e(TAG, "Error moving file", e);
                 }
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 mFile.setStoragePath(newFile.getAbsolutePath());

@@ -21,7 +21,6 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
@@ -615,7 +614,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                     remoteFile.getModificationTimestamp() !=
                             localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);
-                Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
+                Log_OC.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
 
             updatedFile.setSharedViaLink(localFile.isSharedViaLink());

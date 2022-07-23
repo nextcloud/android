@@ -39,7 +39,6 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
@@ -149,7 +148,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public Cursor queryDocument(String documentId, String[] projection) throws FileNotFoundException {
-        Log.d(TAG, "queryDocument(), id=" + documentId);
+        Log_OC.d(TAG, "queryDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
 
@@ -163,7 +162,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder)
         throws FileNotFoundException {
-        Log.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
+        Log_OC.d(TAG, "queryChildDocuments(), id=" + parentDocumentId);
 
         Context context = getNonNullContext();
         Document parentFolder = toDocument(parentDocumentId);
@@ -194,7 +193,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
         throws FileNotFoundException {
-        Log.d(TAG, "openDocument(), id=" + documentId);
+        Log_OC.d(TAG, "openDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
         Context context = getNonNullContext();
@@ -338,7 +337,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                      Point sizeHint,
                                                      CancellationSignal signal)
             throws FileNotFoundException {
-        Log.d(TAG, "openDocumentThumbnail(), id=" + documentId);
+        Log_OC.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
         Document document = toDocument(documentId);
         OCFile file = document.getFile();
@@ -356,7 +355,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
-        Log.d(TAG, "renameDocument(), id=" + documentId);
+        Log_OC.d(TAG, "renameDocument(), id=" + documentId);
 
         Document document = toDocument(documentId);
 
@@ -379,7 +378,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
-        Log.d(TAG, "copyDocument(), id=" + sourceDocumentId);
+        Log_OC.d(TAG, "copyDocument(), id=" + sourceDocumentId);
 
         Document document = toDocument(sourceDocumentId);
 
@@ -431,7 +430,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
         throws FileNotFoundException {
-        Log.d(TAG, "moveDocument(), id=" + sourceDocumentId);
+        Log_OC.d(TAG, "moveDocument(), id=" + sourceDocumentId);
 
         Document document = toDocument(sourceDocumentId);
         Document targetFolder = toDocument(targetParentDocumentId);
@@ -458,7 +457,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public Cursor querySearchDocuments(String rootId, String query, String[] projection) {
-        Log.d(TAG, "querySearchDocuments(), rootId=" + rootId);
+        Log_OC.d(TAG, "querySearchDocuments(), rootId=" + rootId);
 
         FileCursor result = new FileCursor(projection);
 
@@ -476,7 +475,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public String createDocument(String documentId, String mimeType, String displayName) throws FileNotFoundException {
-        Log.d(TAG, "createDocument(), id=" + documentId);
+        Log_OC.d(TAG, "createDocument(), id=" + documentId);
 
         Document folderDocument = toDocument(documentId);
 
@@ -598,7 +597,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public void deleteDocument(String documentId) throws FileNotFoundException {
-        Log.d(TAG, "deleteDocument(), id=" + documentId);
+        Log_OC.d(TAG, "deleteDocument(), id=" + documentId);
 
         Context context = getNonNullContext();
 
@@ -637,7 +636,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public boolean isChildDocument(String parentDocumentId, String documentId) {
-        Log.d(TAG, "isChildDocument(), parent=" + parentDocumentId + ", id=" + documentId);
+        Log_OC.d(TAG, "isChildDocument(), parent=" + parentDocumentId + ", id=" + documentId);
 
         try {
             // get file for parent document
@@ -667,7 +666,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return parentDocumentOwner.nameEquals(currentDocumentOwner) && childPath.startsWith(parentPath);
 
         } catch (FileNotFoundException e) {
-            Log.e(TAG, "failed to check for child document", e);
+            Log_OC.e(TAG, "failed to check for child document", e);
         }
 
         return false;
@@ -763,7 +762,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         @Override
         public final RemoteOperationResult doInBackground(Void... params) {
-            Log.d(TAG, "run ReloadFolderDocumentTask(), id=" + folder.getDocumentId());
+            Log_OC.d(TAG, "run ReloadFolderDocumentTask(), id=" + folder.getDocumentId());
             return new RefreshFolderOperation(folder.getFile(),
                                               System.currentTimeMillis(),
                                               false,

@@ -43,7 +43,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
@@ -277,7 +276,7 @@ public class FileOperationsHelper {
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
-                        Log.e(TAG, "Failed to sleep for a bit");
+                        Log_OC.e(TAG, "Failed to sleep for a bit");
                     }
                 }
             }
@@ -356,7 +355,7 @@ public class FileOperationsHelper {
                                     try {
                                         Thread.sleep(3000);
                                     } catch (InterruptedException e) {
-                                        Log.e(TAG, "Failed to sleep");
+                                        Log_OC.e(TAG, "Failed to sleep");
                                     }
                                 }
 

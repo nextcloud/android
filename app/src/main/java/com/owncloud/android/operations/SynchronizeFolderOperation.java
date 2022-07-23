@@ -23,7 +23,6 @@ package com.owncloud.android.operations;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -364,7 +363,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     remoteFile.getModificationTimestamp() !=
                             localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);
-                Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
+                Log_OC.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
             updatedFile.setSharedViaLink(localFile.isSharedViaLink());
             updatedFile.setSharedWithSharee(localFile.isSharedWithSharee());
