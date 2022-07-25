@@ -1069,4 +1069,11 @@
     <string name="download_limit_zero">Der Wert für das Download limit sollte größer als 0 sein.</string>
     <string name="no_send_app">Keine App verfügbar um die ausgewählten Dateien zu senden.</string>
     <string name="file_already_exists">Der Dateiname existiert bereits.</string>
+    <string name="filedetails_export">Exportieren</string>
+    <string name="locate_folder">Ordner lokalisieren</string>
+    <string name="export_successful">%1s exportiert</string>
+    <string name="export_failed">Exportieren fehlgeschlagen bei %1s</string>
+    <string name="export_partially_failed">%1s exportiert, %2s wegen eines Fehlers übersprungen</string>
+    <string name="export_start">%1s wird exportiert. Für Details bitte in die Benachrichtigung schauen.</string>
+    <string name="open_download_folder">Ordner kann nicht geöffnet werden. Bitte navigieren Sie manuell zum Download Ordner</string>
 </resources>
