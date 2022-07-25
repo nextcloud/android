@@ -24,7 +24,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_standard" />
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_standard" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/list_fragment_layout"
@@ -42,7 +44,9 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:ignore="UnusedAttribute" />
 
-        <include layout="@layout/empty_list" />
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/empty_list" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
