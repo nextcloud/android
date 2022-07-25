@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Журнал изменений версии для разработчиков</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
+    <string name="choose_location">Выбрать местоположение</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
@@ -293,6 +294,7 @@
     <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>
     <string name="favorite">Добавить в избранное</string>
     <string name="favorite_icon">Избранное</string>
+    <string name="file_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
@@ -405,6 +407,7 @@
     <string name="local_file_not_found_message">Файл не найден в локальной файловой системе</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Нет других каталогов.</string>
+    <string name="locate_folder">Найти папку</string>
     <string name="lock_expiration_info">Истекает: %1$s</string>
     <string name="lock_file">Заблокировать файл</string>
     <string name="locked_by">Заблокировано: %1$s</string>
@@ -611,6 +614,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
     <string name="select_all">Выбрать все</string>
+    <string name="select_media_folder">Назначить папку с медиа</string>
     <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
     <string name="select_template">Выбрать шаблон</string>
     <string name="send">Отправить</string>
@@ -665,6 +669,8 @@
     <string name="shared_icon_shared_via_link">поступ по ссылке</string>
     <string name="shared_with_you_by">С вами поделился %1$s</string>
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
+    <string name="show_images">Показать фотографии</string>
+    <string name="show_video">Показать видео</string>
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s получить доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="sort_by">Порядок сортировки</string>
@@ -721,6 +727,9 @@
     <string name="strict_mode">Строгий режим: HTTP-соединение запрещено!</string>
     <string name="subject_shared_with_you">Вам предоставлен доступ к «%1$s»</string>
     <string name="subject_user_shared_with_you">%1$s предоставил(а) вам доступ к «%2$s»</string>
+    <string name="subtitle_photos_only">Только фото</string>
+    <string name="subtitle_photos_videos">Фото &amp; видео</string>
+    <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
