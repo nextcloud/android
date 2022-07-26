@@ -54,8 +54,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,11 +61,11 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.ReceiveExternalFilesBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -121,6 +119,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -165,11 +164,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private final static Charset FILENAME_ENCODING = Charset.forName("UTF-8");
 
-    private LinearLayout mEmptyListContainer;
+    private NestedScrollView mEmptyListContainer;
     private TextView mEmptyListMessage;
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
     private MaterialButton sortButton;
+    private ReceiveExternalFilesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,10 +187,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
         super.onCreate(savedInstanceState);
+        binding = ReceiveExternalFilesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
-                EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+                                                             EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
@@ -716,16 +718,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void populateDirectoryList() {
-        setContentView(R.layout.receive_external_files);
         setupEmptyList();
         setupToolbar();
         ActionBar actionBar = getSupportActionBar();
         setupActionBarSubtitle();
 
-        ListView mListView = findViewById(android.R.id.list);
-
-        findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
-        findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
+        binding.toolbarLayout.sortListButtonGroup.setVisibility(View.VISIBLE);
+        binding.toolbarLayout.switchGridViewButton.setVisibility(View.GONE);
 
         String current_dir = mParents.peek();
         boolean notRoot = mParents.size() > 1;
@@ -774,9 +773,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          themeColorUtils,
                                                          themeDrawableUtils);
 
-                mListView.setAdapter(sa);
+                binding.list.setAdapter(sa);
             }
-            MaterialButton btnChooseFolder = findViewById(R.id.uploader_choose_folder);
+            MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
             themeButtonUtils.colorPrimaryButton(btnChooseFolder, this, themeColorUtils);
             btnChooseFolder.setOnClickListener(this);
 
@@ -792,13 +791,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             themeToolbarUtils.tintBackButton(actionBar, this);
 
-            Button btnNewFolder = findViewById(R.id.uploader_cancel);
+            Button btnNewFolder = binding.uploaderCancel;
             btnNewFolder.setTextColor(themeColorUtils.primaryColor(this, true));
             btnNewFolder.setOnClickListener(this);
 
-            mListView.setOnItemClickListener(this);
+            binding.list.setOnItemClickListener(this);
 
-            sortButton = findViewById(R.id.sort_button);
+            sortButton = binding.toolbarLayout.sortButton;
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
             sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
             sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
@@ -806,10 +805,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     protected void setupEmptyList() {
-        mEmptyListContainer = findViewById(R.id.empty_list_view);
-        mEmptyListMessage = findViewById(R.id.empty_list_view_text);
-        mEmptyListHeadline = findViewById(R.id.empty_list_view_headline);
-        mEmptyListIcon = findViewById(R.id.empty_list_icon);
+        mEmptyListContainer = binding.emptyView.emptyListView;
+        mEmptyListMessage = binding.emptyView.emptyListViewText;
+        mEmptyListHeadline = binding.emptyView.emptyListViewHeadline;
+        mEmptyListIcon = binding.emptyView.emptyListIcon;
     }
 
     public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
