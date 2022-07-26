@@ -320,6 +320,8 @@
     <string name="file_list_seconds_ago">منذ ثواني</string>
     <string name="file_management_permission">التصريح مطلوب</string>
     <string name="file_management_permission_optional">تصريحات التخزين</string>
+    <string name="file_management_permission_optional_text">%1$s يعمل بشكل أفضل مع أذونات الوصول إلى التخزين. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
+    <string name="file_management_permission_text">%1$s يحتاج إلى أذونات إدارة الملفات لرفع الملفات. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
     <string name="file_migration_checking_destination">جار التحقق من الوجهة…</string>
     <string name="file_migration_cleaning">تنظيف…</string>
     <string name="file_migration_dialog_title">يجري تحديث ملفات مجلد التخزين</string>
