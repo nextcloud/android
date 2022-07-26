@@ -90,6 +90,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     public static final int RESULT_OK_AND_DO_NOTHING = 2;
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
     public static final String REQUEST_CODE_KEY = "requestCode";
+    private static final String ENCRYPTED_FOLDER_KEY = "encrypted_folder";
 
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     private static final String TAG = "UploadFilesActivity";
@@ -108,6 +109,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private Menu mOptionsMenu;
     private SearchView mSearchView;
     private UploadFilesLayoutBinding binding;
+    private boolean isWithinEncryptedFolder = false;
 
 
     @VisibleForTesting
@@ -123,10 +125,14 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      * @param user        the user for which the upload activity is called
      * @param requestCode If >= 0, this code will be returned in onActivityResult()
      */
-    public static void startUploadActivityForResult(Activity activity, User user, int requestCode) {
+    public static void startUploadActivityForResult(Activity activity,
+                                                    User user,
+                                                    int requestCode,
+                                                    boolean isWithinEncryptedFolder) {
         Intent action = new Intent(activity, UploadFilesActivity.class);
         action.putExtra(EXTRA_USER, user);
         action.putExtra(REQUEST_CODE_KEY, requestCode);
+        action.putExtra(ENCRYPTED_FOLDER_KEY, isWithinEncryptedFolder);
         activity.startActivityForResult(action, requestCode);
     }
 
@@ -140,12 +146,14 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         if (extras != null) {
             mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
             requestCode = (int) extras.get(REQUEST_CODE_KEY);
+            isWithinEncryptedFolder = extras.getBoolean(ENCRYPTED_FOLDER_KEY, false);
         }
 
         if (savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH,
+            mCurrentDir = new File(savedInstanceState.getString(KEY_DIRECTORY_PATH,
                                                                 Environment.getExternalStorageDirectory().getAbsolutePath()));
-            mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
+            mSelectAll = savedInstanceState.getBoolean(KEY_ALL_SELECTED, false);
+            isWithinEncryptedFolder = savedInstanceState.getBoolean(ENCRYPTED_FOLDER_KEY, false);
         } else {
             String lastUploadFrom = preferences.getUploadFromLocalLastPath();
 
@@ -603,6 +611,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public boolean isFolderPickerMode() {
         return mLocalFolderPickerMode;
+    }
+
+    @Override
+    public boolean isWithinEncryptedFolder() {
+        return isWithinEncryptedFolder;
     }
 
     /**
