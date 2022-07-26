@@ -73,6 +73,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private LocalFileListFragmentInterface localFileListFragmentInterface;
     private Set<File> checkedFiles;
     private ViewThemeUtils viewThemeUtils;
+    private boolean isWithinEncryptedFolder;
 
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
@@ -83,13 +84,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
                                 Context context,
-                                final ViewThemeUtils viewThemeUtils) {
+                                final ViewThemeUtils viewThemeUtils,
+                                boolean isWithinEncryptedFolder) {
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;
         this.localFileListFragmentInterface = localFileListFragmentInterface;
         checkedFiles = new HashSet<>();
         this.viewThemeUtils = viewThemeUtils;
+        this.isWithinEncryptedFolder = isWithinEncryptedFolder;
 
         swapDirectory(directory);
     }
@@ -116,7 +119,15 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void addAllFilesToCheckedFiles() {
-        checkedFiles.addAll(mFiles);
+        if (isWithinEncryptedFolder) {
+            for (File file : mFilesAll) {
+                if (file.isFile()) {
+                    checkedFiles.add(file);
+                }
+            }
+        } else {
+            checkedFiles.addAll(mFiles);
+        }
     }
 
     public void removeAllFilesFromCheckedFiles() {
@@ -200,6 +211,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     if (file.isDirectory()) {
                         itemViewHolder.fileSize.setVisibility(View.GONE);
                         itemViewHolder.fileSeparator.setVisibility(View.GONE);
+                        if (isWithinEncryptedFolder) {
+                            itemViewHolder.checkbox.setVisibility(View.GONE);
+                        }
                     } else {
                         itemViewHolder.fileSize.setVisibility(View.VISIBLE);
                         itemViewHolder.fileSeparator.setVisibility(View.VISIBLE);
