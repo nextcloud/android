@@ -530,10 +530,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void uploadFiles() {
         UploadFilesActivity.startUploadActivityForResult(
-                getActivity(),
-                ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
-                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
-        );
+            getActivity(),
+            ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
+            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
+            getCurrentFile().isEncrypted()
+                                                        );
     }
 
     @Override
