@@ -131,7 +131,9 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                                            mContainerActivity.getInitialDirectory(), this, preferences, getActivity());
+                                            mContainerActivity.getInitialDirectory(),
+                                            this, preferences, getActivity(),
+                                            mContainerActivity.isWithinEncryptedFolder());
         setRecyclerViewAdapter(mAdapter);
 
         listDirectory(mContainerActivity.getInitialDirectory());
@@ -420,12 +422,13 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         File getInitialDirectory();
 
         /**
-         * config check if the list should behave in
-         * folder picker mode only displaying folders but no files.
+         * config check if the list should behave in folder picker mode only displaying folders but no files.
          *
          * @return true if folder picker mode, else false
          */
         boolean isFolderPickerMode();
+
+        boolean isWithinEncryptedFolder();
     }
 
 
