@@ -1063,7 +1063,7 @@
     <string name="sort_by_upload_date">Nach Hochladedatum sortieren</string>
     <string name="gallery_list_empty">Noch keine hochgeladene Fotos oder Videos vorhanden</string>
     <string name="link_download_limit">Download Limit</string>
-    <string name="download_limit_empty">Das Feld für das Download limit darf nicht leer sein.</string>
+    <string name="download_limit_empty">Das Feld für das Download-Limit darf nicht leer sein.</string>
     <string name="hint_download_limit">Downlimit eingeben</string>
     <string name="download_text">Downloads:\u0020</string>
     <string name="download_limit_zero">Der Wert für das Download limit sollte größer als 0 sein.</string>
