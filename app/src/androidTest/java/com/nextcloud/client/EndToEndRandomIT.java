@@ -522,6 +522,24 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         useExistingKeys();
     }
 
+    @Test
+    public void lockUnlock() throws Exception {
+        after();
+
+        init();
+
+        currentFolder = createFolder(0);
+
+        // lock folder
+        String token = EncryptionUtils.lockFolder(currentFolder, client);
+        assertNotNull(token);
+
+        // unlock folder
+        RemoteOperationResult unlockResult = EncryptionUtils.unlockFolder(currentFolder, client, token);
+        assertTrue(unlockResult.isSuccess());
+    }
+
+
     private void useExistingKeys() throws Exception {
         // download them from server
         GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();

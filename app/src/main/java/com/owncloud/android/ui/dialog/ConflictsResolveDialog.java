@@ -175,7 +175,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
             })
-            .setTitle(String.format(getString(R.string.conflict_file_headline), existingFile.getFileName()));
+            .setTitle(String.format(getString(R.string.conflict_file_headline), existingFile.getDecryptedFileName()));
 
         File parentFile = new File(existingFile.getRemotePath()).getParentFile();
         if (parentFile != null) {
