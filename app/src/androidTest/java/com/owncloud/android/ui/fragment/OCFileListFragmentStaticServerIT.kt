@@ -63,6 +63,15 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
         sut.storageManager.saveFile(imageFile)
 
+        OCFile("/video.mp4").apply {
+            mimeType = "video/mp4"
+            isPreviewAvailable = false
+            fileLength = 12092000
+            modificationTimestamp = 746143952000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
         sut.addFragment(OCFileListFragment())
 
         val fragment = (sut.fragment as OCFileListFragment)
