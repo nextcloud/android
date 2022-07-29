@@ -33,7 +33,7 @@ Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduc
 
 Please review the [guidelines for contributing](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) to this repository.
 
-More information how to contribute: <https://nextcloud.com/contribute/>
+More information on how to contribute: <https://nextcloud.com/contribute/>
 
 ## Start contributing :hammer\_and\_wrench:
 
