@@ -406,7 +406,7 @@
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
-    <string name="last_backup">Letzte Sicherung:%1$s</string>
+    <string name="last_backup">Letzte Sicherung: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link-Name</string>
     <string name="link_share_allow_upload_and_editing">Hochladen &amp; Bearbeiten</string>
