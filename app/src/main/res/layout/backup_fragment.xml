@@ -112,12 +112,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/standard_margin"
+            android:weightSum="2"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/backup_now"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_marginEnd="@dimen/standard_half_margin"
                 android:layout_weight="1"
@@ -128,10 +129,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_datepicker"
                 style="@style/OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginEnd="@dimen/alternate_half_margin"
                 android:layout_weight="1"
                 android:text="@string/restore_backup"
                 android:visibility="gone"
