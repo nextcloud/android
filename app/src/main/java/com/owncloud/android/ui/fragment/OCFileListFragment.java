@@ -1238,7 +1238,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_export_file) {
-            exportFiles(checkedFiles);
+            mContainerActivity.getFileOperationsHelper().exportFiles(checkedFiles,
+                                                                     getContext(),
+                                                                     getView(),
+                                                                     backgroundJobManager);
             exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_cancel_sync) {
@@ -1992,21 +1995,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void exportFiles(Collection<OCFile> files) {
-        Context context = getContext();
-        View view = getView();
-        if (context != null && view != null) {
-            DisplayUtils.showSnackMessage(view,
-                                          context.getString(
-                                              R.string.export_start,
-                                              context.getResources().getQuantityString(R.plurals.files,
-                                                                                       files.size(),
-                                                                                       files.size())
-                                                           ));
-        }
 
-        backgroundJobManager.startImmediateFilesExportJob(files);
-    }
 
     private void showSpaceErrorDialog(OCFile file, long availableSpaceOnDevice) {
         SyncFileNotEnoughSpaceDialogFragment dialog =

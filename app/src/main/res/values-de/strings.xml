@@ -934,6 +934,24 @@
         <item quantity="one">%d doppelter Eintrag gefunden.</item>
         <item quantity="other">%d doppelte Einträge gefunden.</item>
     </plurals>
+
+    <plurals name="export_successful">
+        <item quantity="one">%d Datei exportiert</item>
+        <item quantity="other">%d Dateien exportiert</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">%d Datei konnte nicht exportiert werden</item>
+        <item quantity="other">%d Dateien konnten nicht exportiert werden</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d Datei exportiert, der Rest wurde aufgrund von Fehlern übersprungen</item>
+        <item quantity="other">%d Dateien exportiert, der Rest wurde aufgrund von Fehlern übersprungen</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d Datei wird exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
+        <item quantity="other">%d Dateien werden exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
+    </plurals>
+
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d Ordner</item>
         <item quantity="other">%1$d Ordner</item>
@@ -1071,9 +1089,5 @@
     <string name="file_already_exists">Der Dateiname existiert bereits.</string>
     <string name="filedetails_export">Exportieren</string>
     <string name="locate_folder">Ordner lokalisieren</string>
-    <string name="export_successful">%1s exportiert</string>
-    <string name="export_failed">Exportieren fehlgeschlagen bei %1s</string>
-    <string name="export_partially_failed">%1s exportiert, %2s wegen eines Fehlers übersprungen</string>
-    <string name="export_start">%1s wird exportiert. Für Details bitte in die Benachrichtigung schauen.</string>
     <string name="open_download_folder">Ordner kann nicht geöffnet werden. Bitte navigieren Sie manuell zum Download Ordner</string>
 </resources>

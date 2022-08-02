@@ -115,14 +115,14 @@ class FilesExportWork(
         if (successfulExports == 0) {
             showNotification(
                 appContext.getString(
-                    R.string.export_failed,
+                    R.plurals.export_failed,
                     appContext.resources.getQuantityString(R.plurals.files, size)
                 )
             )
         } else {
             showNotification(
                 appContext.getString(
-                    R.string.export_partially_failed,
+                    R.plurals.export_partially_failed,
                     appContext.resources.getQuantityString(R.plurals.files, successfulExports),
                     appContext.resources.getQuantityString(R.plurals.files, size)
                 )
@@ -134,7 +134,7 @@ class FilesExportWork(
         val files = appContext.resources.getQuantityString(R.plurals.files, successfulExports, successfulExports)
         showNotification(
             appContext.getString(
-                R.string.export_successful,
+                R.plurals.export_successful,
                 files
             )
         )
