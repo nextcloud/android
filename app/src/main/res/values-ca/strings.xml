@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
+    <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
@@ -256,6 +257,7 @@
     <string name="error_comment_file">S\'ha produït un error comentant un fitxer</string>
     <string name="error_crash_title">S\'ha interromput %1$s</string>
     <string name="error_creating_file_from_template">S\'ha produït un error en crear el fitxer des de la plantilla</string>
+    <string name="error_file_lock">Error canviant l\'estat de blocatge del fitxer</string>
     <string name="error_report_issue_action">Informar</string>
     <string name="error_report_issue_text">Informa d\'un problema al seguidor? (requereix un compte de GitHub)</string>
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
@@ -292,6 +294,7 @@
     <string name="failed_update_ui">No s\'ha pogut actualitzar la IU</string>
     <string name="favorite">Afegix a preferits</string>
     <string name="favorite_icon">Preferits</string>
+    <string name="file_already_exists">El nom del fitxer ja existeix</string>
     <string name="file_delete">Suprimeix</string>
     <string name="file_detail_activity_error">Hi ha hagut un error mentre es recuperaven les activitats per al fitxer</string>
     <string name="file_details_no_content">No s\'han pogut carregar els detalls</string>
@@ -403,7 +406,11 @@
     <string name="local_file_not_found_message">No s\'ha trobat el fitxer al sistema de fitxers local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">No hi ha més carpetes.</string>
+    <string name="locate_folder">Localitza la carpeta</string>
+    <string name="lock_expiration_info">Caduca: %1$s</string>
     <string name="lock_file">Bloca el fitxer</string>
+    <string name="locked_by">Blocat per %1$s</string>
+    <string name="locked_by_app">Blocat per l\'aplicació %1$s</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació per enviar els registres. Instal·leu un client de correu electrònic.</string>
     <string name="login">Inicia la sessió</string>
@@ -606,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="search_error">S\'ha produït un error en obtenir els resultats de la cerca</string>
     <string name="select_all">Selecciona-ho tot</string>
+    <string name="select_media_folder">Configura la carpeta multimèdia</string>
     <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
@@ -660,6 +668,8 @@
     <string name="shared_icon_shared_via_link">Compartit a través d\'un enllaç</string>
     <string name="shared_with_you_by">Compartit per %1$s</string>
     <string name="sharee_add_failed">Ha fallat l\'afegit de compartició</string>
+    <string name="show_images">Mostrar fotografies </string>
+    <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registreu-vos amb el proveïdor</string>
     <string name="single_sign_on_request_token" formatted="true">Voleu permetre que %1$s accedeixi al vostre compte de Nextcloud %2$s?</string>
     <string name="sort_by">Ordena per</string>
@@ -716,6 +726,9 @@
     <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
+    <string name="subtitle_photos_only">Només fotografies</string>
+    <string name="subtitle_photos_videos">Fotografies &amp; vídeos</string>
+    <string name="subtitle_videos_only">Només vídeos</string>
     <string name="suggest">Suggereix</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ja no existeix</string>
@@ -888,8 +901,24 @@
         <item quantity="other">%dentrades processades.</item>
     </plurals>
     <plurals name="found_n_duplicates">
-        <item quantity="one">S\'ha trobat%dentrada duplicada,</item>
-        <item quantity="other">S\'ha  trobat %d entrada duplicada</item>
+        <item quantity="one">Trobada%dentrada duplicada,</item>
+        <item quantity="other">Trobades %d entrades duplicades</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d fitxer exportat</item>
+        <item quantity="other">%d fitxers exportats</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Fallada en exportar %d fitxer</item>
+        <item quantity="other">Fallada en exportar %d fitxers</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exportat %d fitxer, ignorats la resta per errors</item>
+        <item quantity="other">Exportats %d fitxers, ignorats la resta per errors</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fitxer serà exportat. Consulta la notificació per més detalls.</item>
+        <item quantity="other">%d fitxers seran exportats. Consulta la notificació per més detalls.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
