@@ -1916,7 +1916,7 @@ public class FileDisplayActivity extends FileActivity
         if (result.isSuccess()) {
             OCFileListFragment fileListFragment = getListOfFilesFragment();
             if (fileListFragment != null) {
-                fileListFragment.onItemClicked(getStorageManager().getFileByPath(operation.getRemotePath()));
+                fileListFragment.onItemClicked(getStorageManager().getFileByDecryptedRemotePath(operation.getRemotePath()));
             }
         } else {
             try {
