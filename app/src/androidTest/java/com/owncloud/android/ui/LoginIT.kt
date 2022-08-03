@@ -58,7 +58,7 @@ class LoginIT : AbstractIT() {
 
     @Test
     @Throws(InterruptedException::class)
-    @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "SwallowedException")
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
         val baseUrl = arguments.getString("TEST_SERVER_URL")!!
@@ -71,9 +71,17 @@ class LoginIT : AbstractIT() {
         Web.onWebView().forceJavascriptEnabled()
 
         // click on login
-        Web.onWebView()
-            .withElement(DriverAtoms.findElement(Locator.XPATH, "//p[@id='redirect-link']/a"))
-            .perform(DriverAtoms.webClick())
+        try {
+            // NC 25+
+            Web.onWebView()
+                .withElement(DriverAtoms.findElement(Locator.XPATH, "//form[@id='login-form']/input[@type='submit']"))
+                .perform(DriverAtoms.webClick())
+        } catch (e: RuntimeException) {
+            // NC < 25
+            Web.onWebView()
+                .withElement(DriverAtoms.findElement(Locator.XPATH, "//p[@id='redirect-link']/a"))
+                .perform(DriverAtoms.webClick())
+        }
 
         // username
         Web.onWebView()
@@ -86,9 +94,18 @@ class LoginIT : AbstractIT() {
             .perform(DriverAtoms.webKeys(password))
 
         // click login
-        Web.onWebView()
-            .withElement(DriverAtoms.findElement(Locator.XPATH, "//input[@type='submit']"))
-            .perform(DriverAtoms.webClick())
+        try {
+            // NC 25+
+            Web.onWebView()
+                .withElement(DriverAtoms.findElement(Locator.XPATH, "//button[@type='submit']"))
+                .perform(DriverAtoms.webClick())
+        } catch (e: RuntimeException) {
+            // NC < 25
+            Web.onWebView()
+                .withElement(DriverAtoms.findElement(Locator.XPATH, "//input[@type='submit']"))
+                .perform(DriverAtoms.webClick())
+        }
+
         Thread.sleep(2000)
 
         // grant access
