@@ -3,6 +3,7 @@
  *
  * @author Andy Scherzinger
  * Copyright (C) 2020 Andy Scherzinger
+ * Copyright (C) 2022 Álvaro Brey
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +24,6 @@ import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import java.io.File
-import java.util.Arrays
 
 /**
  * Utility class with methods for processing synced folders.
@@ -145,12 +145,10 @@ object SyncedFolderUtils {
      * @return sorted list of folder of given folder
      */
     fun getFileList(localFolder: File): List<File> {
-        var files = localFolder.listFiles { pathname: File -> !pathname.isDirectory }
-        if (files != null) {
-            Arrays.sort(files) { f1: File, f2: File -> f1.lastModified().compareTo(f2.lastModified()) }
-        } else {
-            files = arrayOf()
-        }
-        return files.toList()
+        val files: Array<File> = localFolder.listFiles { pathname: File -> !pathname.isDirectory } ?: return emptyList()
+        return files
+            .map { Pair(it, it.lastModified()) }
+            .sortedBy { it.second }
+            .map { it.first }
     }
 }
