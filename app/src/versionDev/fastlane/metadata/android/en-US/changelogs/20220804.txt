@@ -1,0 +1,4 @@
+Fix #10405 Show only error snackbar if context is available Signed-off-by: Tiam Abderezai <tiam.abderezai@gmail.com>
+Update README.md
+Fix not entering folder upon creation
+Update 3rd-party dependencies
