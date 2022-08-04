@@ -598,6 +598,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         finish();
     }
 
+    public void setImageBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
         private static final int PARAMS_LENGTH = 1;
 
@@ -759,7 +763,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
-
                     PreviewImageFragment.this.bitmap = bitmap;  // needs to be kept for recycling when not useful
                 } else {
                     if (drawable != null

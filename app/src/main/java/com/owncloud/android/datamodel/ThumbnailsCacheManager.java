@@ -399,7 +399,9 @@ public final class ThumbnailsCacheManager {
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageBitmap(bitmap);
                             imageView.setBackgroundColor(backgroundColor);
-
+                            if (fileFragment instanceof PreviewImageFragment) {
+                                ((PreviewImageFragment) fileFragment).setImageBitmap(bitmap);
+                            }
                             if (frameLayout != null) {
                                 frameLayout.setVisibility(View.GONE);
                             }
