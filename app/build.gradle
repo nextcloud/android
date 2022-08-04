@@ -3,7 +3,7 @@ import org.gradle.internal.jvm.Jvm
 
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.3'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath 'com.hiya:jacoco-android:0.2'
         classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
