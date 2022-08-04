@@ -14,7 +14,7 @@ buildscript {
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0"
         checkerVersion = "3.21.2"
-        exoplayerVersion = "2.18.0"
+        exoplayerVersion = "2.18.1"
         documentScannerVersion = "1.0.1"
 
         ciBuild = System.getenv("CI") == "true"
