@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_edit">Breyta</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
+    <string name="action_empty_trashbin">Tæma ruslið</string>
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
@@ -79,11 +80,14 @@
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
     <string name="calendar">Dagatal</string>
+    <string name="calendars">Dagatöl</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="checkbox">Gátreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
+    <string name="choose_location">Veldu staðsetningu</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
+    <string name="choose_which_file">Veldu hvaða skrá á að halda!</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
     <string name="clear_status_message">Hreinsa stöðuskilaboð</string>
     <string name="clear_status_message_after">Hreinsa stöðuskilaboð eftir</string>
@@ -140,7 +144,9 @@
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
     <string name="conflict_dialog_error">Villa við að búa til árekstraglugga!</string>
+    <string name="conflict_local_file">Skrá á tölvunni</string>
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
+    <string name="conflict_server_file">Skrá á netþjóni</string>
     <string name="contactlist_item_icon">Táknmynd notanda fyrir tengiliðalista</string>
     <string name="contactlist_no_permission">Engin heimild gefin, ekkert flutt inn.</string>
     <string name="contacts">Tengiliðir</string>
@@ -158,6 +164,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
     <string name="copy_to">Afrita í</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
+    <string name="could_not_retrieve_shares">Tókst ekki að ná í sameignir</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create">Búa til</string>
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
@@ -184,6 +191,7 @@
     <string name="dismiss">Hafna</string>
     <string name="dismiss_notification_description">Afgreiða tilkynningu</string>
     <string name="dnd">Ónáðið ekki</string>
+    <string name="dontClear">Ekki hreinsa</string>
     <string name="download_latest_dev_version">Sækja nýjustu þróunarútgáfuna</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, skráðu þig inn aftur</string>
@@ -254,6 +262,7 @@
     <string name="etm_migrations">Yfirfærslur (uppfærsla forrits)</string>
     <string name="etm_preferences">Kjörstillingar</string>
     <string name="etm_title">Verkfræðilegur prófunarhamur</string>
+    <string name="etm_transfer">Skráaflutningur</string>
     <string name="etm_transfer_enqueue_test_download">Setja niðurhalsprófun í biðröð</string>
     <string name="etm_transfer_remote_path">Fjartengd slóð</string>
     <string name="etm_transfer_type">Færa</string>
@@ -265,6 +274,7 @@
     <string name="failed_to_start_editor">Mistókst að ræsa ritil</string>
     <string name="favorite">Bæta í Eftirlæti</string>
     <string name="favorite_icon">Eftirlæti</string>
+    <string name="file_already_exists">Skráarheitið er þegar til staðar</string>
     <string name="file_delete">Eyða</string>
     <string name="file_detail_activity_error">Villa við að ná í virkni fyrir skrá</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
@@ -286,6 +296,7 @@
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
     <string name="file_list_seconds_ago">sekúndum síðan</string>
+    <string name="file_management_permission">Heimilda er krafist</string>
     <string name="file_migration_checking_destination">Athuga áfangastað…</string>
     <string name="file_migration_cleaning">Hreinsun</string>
     <string name="file_migration_directory_already_exists">Gagnamappa er þegar til. Veldu eitt af eftirfarandi:</string>
@@ -347,12 +358,14 @@
     <string name="hint_password">Lykilorð</string>
     <string name="host_not_available">Þjónn er ekki tiltækur</string>
     <string name="host_your_own_server">Hýstu þinn eigin þjón</string>
+    <string name="in_folder">í möppunni %1$s</string>
     <string name="instant_upload_existing">Senda líka inn fyrirliggjandi skrár</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
     <string name="invalid_url">Ógild slóð</string>
     <string name="invisible">Ósýnilegt</string>
     <string name="label_empty">Merki má ekki vera tómt</string>
+    <string name="last_backup">Síðasta öryggisafrit: %1$s</string>
     <string name="link">Tengill</string>
     <string name="link_share_allow_upload_and_editing">Leyfa innsendingu og breytingar</string>
     <string name="link_share_file_drop">Slepping skráa (einungis innsending)</string>
@@ -362,6 +375,7 @@
     <string name="local_file_not_found_message">Skrá fannst ekki á staðværu skráakerfi</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Það eru engar fleiri möppur.</string>
+    <string name="locate_folder">Staðsetja möppu</string>
     <string name="lock_file">Læsa skrá</string>
     <string name="log_send_mail_subject">%1$s atvikaskrár Android-forrita</string>
     <string name="login">Skrá inn</string>
