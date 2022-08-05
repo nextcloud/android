@@ -52,6 +52,9 @@ import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+
+import com.nextcloud.client.jobs.BackgroundJobManager;
+
 import com.nextcloud.client.media.NextcloudExoPlayer;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
@@ -75,6 +78,9 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
+
+import java.util.ArrayList;
+
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
@@ -119,6 +125,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private Uri videoUri;
     @Inject ClientFactory clientFactory;
     @Inject UserAccountManager accountManager;
+
+    @Inject BackgroundJobManager backgroundJobManager;
+
     FragmentPreviewMediaBinding binding;
     private ViewGroup emptyListView;
     private ExoPlayer exoPlayer;
@@ -471,6 +480,14 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             return true;
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+            return true;
+        } else if (itemId == R.id.action_export_file) {
+            ArrayList<OCFile> list = new ArrayList<>();
+            list.add(getFile());
+            containerActivity.getFileOperationsHelper().exportFiles(list,
+                                                                    getContext(),
+                                                                    getView(),
+                                                                    backgroundJobManager);
             return true;
         } else if (itemId == R.id.action_stream_media) {
             containerActivity.getFileOperationsHelper().streamMediaFile(getFile());

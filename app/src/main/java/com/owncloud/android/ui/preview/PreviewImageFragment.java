@@ -58,6 +58,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+
+import com.nextcloud.client.jobs.BackgroundJobManager;
+
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -80,6 +83,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+
+import java.util.ArrayList;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -131,6 +137,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
+
+    @Inject BackgroundJobManager backgroundJobManager;
+
     private PreviewImageFragmentBinding binding;
 
     private OnImageLoadListener onImageLoadListener;
@@ -506,6 +515,16 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
             return true;
+
+        } else if (itemId == R.id.action_export_file) {
+            ArrayList<OCFile> list = new ArrayList<>();
+            list.add(getFile());
+            containerActivity.getFileOperationsHelper().exportFiles(list,
+                                                                    getContext(),
+                                                                    getView(),
+                                                                    backgroundJobManager);
+            return true;
+
         } else if (itemId == R.id.action_rotate_image) {
             rotate();
             return true;
