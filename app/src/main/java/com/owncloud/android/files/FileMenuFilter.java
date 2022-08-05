@@ -235,7 +235,7 @@ public class FileMenuFilter {
 
     private void filterSendFiles(List<Integer> toShow, List<Integer> toHide, boolean inSingleFileFragment) {
         boolean show = true;
-        if (containsEncryptedFile() || overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps))) {
+        if (overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) {
             show = false;
         }
         if (!inSingleFileFragment && (isSingleSelection() || !anyFileDown())) {
@@ -321,8 +321,8 @@ public class FileMenuFilter {
     }
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
-        if (files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder() || hasEncryptedParent()
-            || !endToEndEncryptionEnabled || !isEmptyFolder()) {
+        if (!endToEndEncryptionEnabled || files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder() || hasEncryptedParent()
+            || !isEmptyFolder()) {
             toHide.add(R.id.action_unset_encrypted);
         } else {
             toShow.add(R.id.action_unset_encrypted);
