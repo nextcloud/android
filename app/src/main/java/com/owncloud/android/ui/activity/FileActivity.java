@@ -89,6 +89,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -949,9 +950,9 @@ public abstract class FileActivity extends DrawerActivity
 
     @Override
     public void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount) {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment != null) {
-            ((FileDetailFragment) fragment).onLinkShareDownloadLimitFetched(downloadLimit,downloadCount);
+        Fragment fileDetailsSharingProcessFragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+        if (fileDetailsSharingProcessFragment != null) {
+            ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onLinkShareDownloadLimitFetched(downloadLimit, downloadCount);
         }
     }
 

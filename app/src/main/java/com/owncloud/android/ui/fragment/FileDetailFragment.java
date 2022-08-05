@@ -780,19 +780,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             .commit();
     }
 
-    /**
-     * will be called when download limit is fetched from remote
-     * send the data to FileDetailsSharingProcessFragment to update the view
-     * @param downloadLimit download limit for the share
-     */
-    public void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount) {
-        Fragment fragment =
-            requireActivity().getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
-        if (fragment!=null){
-            ((FileDetailsSharingProcessFragment)fragment).onLinkShareDownloadLimitFetched(downloadLimit,downloadCount);
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(FavoriteEvent event) {
         try {
