@@ -545,8 +545,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         UploadFilesActivity.startUploadActivityForResult(
             getActivity(),
             ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
-            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
+            getCurrentFile().isEncrypted()
                                                         );
+
         //track event for uploading files button click
         AdjustSdkUtils.trackEvent(AdjustSdkUtils.EVENT_TOKEN_FAB_BOTTOM_FILE_UPLOAD, preferences);
         TealiumSdkUtils.trackEvent(TealiumSdkUtils.EVENT_FAB_BOTTOM_FILE_UPLOAD, preferences);
