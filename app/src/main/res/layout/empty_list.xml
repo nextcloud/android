@@ -17,17 +17,24 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_list_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/empty_list_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_margin="@dimen/standard_margin"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/standard_double_margin">
+    android:layout_height="match_parent">
+
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="@dimen/standard_margin"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/standard_double_margin">
+
+
 
     <ImageView
         android:id="@+id/empty_list_icon"
@@ -74,3 +81,6 @@
         app:cornerRadius="@dimen/button_corner_radius"
         tools:visibility="visible" />
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+
+

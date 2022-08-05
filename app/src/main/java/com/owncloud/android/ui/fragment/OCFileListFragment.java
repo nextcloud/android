@@ -999,7 +999,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 int position = getCommonAdapter().getItemPosition(file);
 
                 if (file.isFolder()) {
-                    resetHeaderScrollingState();
+
 
                     if (file.isEncrypted()) {
                         User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
@@ -1090,13 +1090,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         ((FileDisplayActivity) mContainerActivity).startPdfPreview(file);
                     } else if (PreviewTextFileFragment.canBePreviewed(file)) {
                         setFabVisible(false);
-                        resetHeaderScrollingState();
+
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
                         if (PreviewMediaFragment.canBePreviewed(file)) {
                             // media preview
                             setFabVisible(false);
-                            resetHeaderScrollingState();
+
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
                         } else {
                             mContainerActivity.getFileOperationsHelper().openFile(file);
@@ -1110,7 +1110,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
-                            resetHeaderScrollingState();
+
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
                         } else if (EditorUtils.isEditorAvailable(requireContext().getContentResolver(),
                                                                     accountManager.getUser(),
@@ -2099,15 +2099,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void resetHeaderScrollingState() {
-        if (requireActivity() instanceof FileDisplayActivity) {
-            AppBarLayout appBarLayout = ((FileDisplayActivity) requireActivity()).findViewById(R.id.appbar);
 
-            if (appBarLayout != null) {
-                appBarLayout.setExpanded(true);
-            }
-        }
-    }
+
 
     public boolean isEmpty(){
         return  mAdapter == null || mAdapter.isEmpty();
