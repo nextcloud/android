@@ -143,10 +143,10 @@
     <string name="community_testing_report_text">GitHub üzerinden sorun bildirin</string>
     <string name="community_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
-    <string name="confirmation_remove_file_alert">%1$s dosyasını gerçekten silmek istiyor musunuz?</string>
-    <string name="confirmation_remove_files_alert">Seçilmiş ögeleri gerçekten silmek istiyor musunuz?</string>
-    <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri gerçekten silmek istiyor musunuz?</string>
-    <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_file_alert">%1$s dosyasını silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_files_alert">Seçilmiş ögeleri silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma penceresi oluşturulurken sorun çıktı!</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
