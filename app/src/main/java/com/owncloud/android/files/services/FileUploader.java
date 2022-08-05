@@ -467,11 +467,6 @@ public class FileUploader extends Service
         OCFile file,
         boolean disableRetries
                                ) {
-        if (file.getStoragePath().startsWith("/data/data/")) {
-            Log_OC.d(TAG, "Upload from sensitive path is not allowed");
-            return;
-        }
-
         OCUpload ocUpload = new OCUpload(file, user);
         ocUpload.setFileSize(file.getFileLength());
         ocUpload.setNameCollisionPolicy(nameCollisionPolicy);
