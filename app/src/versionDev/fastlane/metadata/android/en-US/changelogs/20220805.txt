@@ -1,0 +1,3 @@
+Also handle export from video/image correctly
+Update translations
+Update 3rd-party dependencies
