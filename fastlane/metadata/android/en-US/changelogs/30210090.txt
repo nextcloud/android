@@ -1,4 +1,4 @@
-## 3.21.0 (August 5, 2022)
+## 3.21.0 (August 8, 2022)
 
 - Fast scroll for all lists
 - Media view
