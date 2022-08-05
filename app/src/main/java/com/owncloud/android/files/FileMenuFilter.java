@@ -54,6 +54,7 @@ import java.util.List;
 public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
+    private static final int EMPTY_FILE_LENGTH = 0;
     public static final String SEND_OFF = "off";
 
     private final int numberOfAllFiles;
@@ -67,12 +68,12 @@ public class FileMenuFilter {
     /**
      * Constructor
      *
-     * @param numberOfAllFiles  Number of all displayed files
-     * @param files             Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
-     * @param componentsGetter  Accessor to app components, needed to access synchronization services
-     * @param context           Android {@link Context}, needed to access build setup resources.
-     * @param overflowMenu      true if the overflow menu items are being filtered
-     * @param user              currently active user
+     * @param numberOfAllFiles Number of all displayed files
+     * @param files            Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
+     * @param componentsGetter Accessor to app components, needed to access synchronization services
+     * @param context          Android {@link Context}, needed to access build setup resources.
+     * @param overflowMenu     true if the overflow menu items are being filtered
+     * @param user             currently active user
      */
     public FileMenuFilter(int numberOfAllFiles,
                           Collection<OCFile> files,
@@ -80,7 +81,7 @@ public class FileMenuFilter {
                           Context context,
                           boolean overflowMenu,
                           User user
-    ) {
+                         ) {
         this.numberOfAllFiles = numberOfAllFiles;
         this.files = files;
         this.componentsGetter = componentsGetter;
@@ -96,18 +97,18 @@ public class FileMenuFilter {
     /**
      * Constructor
      *
-     * @param file              {@link OCFile} target of the action to filter in the {@link Menu}.
-     * @param componentsGetter  Accessor to app components, needed to access synchronization services
-     * @param context           Android {@link Context}, needed to access build setup resources.
-     * @param overflowMenu      true if the overflow menu items are being filtered
-     * @param user              currently active user
+     * @param file             {@link OCFile} target of the action to filter in the {@link Menu}.
+     * @param componentsGetter Accessor to app components, needed to access synchronization services
+     * @param context          Android {@link Context}, needed to access build setup resources.
+     * @param overflowMenu     true if the overflow menu items are being filtered
+     * @param user             currently active user
      */
     public FileMenuFilter(OCFile file,
                           ComponentsGetter componentsGetter,
                           Context context,
                           boolean overflowMenu,
                           User user
-    ) {
+                         ) {
         this(1, Collections.singletonList(file), componentsGetter, context, overflowMenu, user);
     }
 
@@ -186,9 +187,10 @@ public class FileMenuFilter {
 
     /**
      * Decides what actions must be shown and hidden implementing the different rule sets.
-     *  @param toShow                List to save the options that must be shown in the menu.
-     * @param toHide                List to save the options that must be shown in the menu.
-     * @param inSingleFileFragment  True if this is not listing, but single file fragment, like preview or details.
+     *
+     * @param toShow               List to save the options that must be shown in the menu.
+     * @param toHide               List to save the options that must be shown in the menu.
+     * @param inSingleFileFragment True if this is not listing, but single file fragment, like preview or details.
      */
     private void filter(List<Integer> toShow,
                         List<Integer> toHide,
@@ -319,12 +321,14 @@ public class FileMenuFilter {
         }
 
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder()
-            || !endToEndEncryptionEnabled) {
+
+            || !endToEndEncryptionEnabled || !isEmptyFolder()) {
             toHide.add(R.id.action_encrypted);
         } else {
             toShow.add(R.id.action_encrypted);
         }
     }
+
 
     private void filterUnsetEncrypted(List<Integer> toShow, List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (!context.getResources().getBoolean(R.bool.e2e_enabled)) {
@@ -333,7 +337,8 @@ public class FileMenuFilter {
         }
 
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || !isEncryptedFolder()
-                || !endToEndEncryptionEnabled) {
+
+            || !endToEndEncryptionEnabled || !isEmptyFolder()){
             toHide.add(R.id.action_unset_encrypted);
         } else {
             toShow.add(R.id.action_unset_encrypted);
@@ -566,6 +571,16 @@ public class FileMenuFilter {
             return false;
         }
     }
+    private boolean isEmptyFolder() {
+        if (isSingleSelection()) {
+            OCFile file = files.iterator().next();
+
+            return file.isFolder() && file.getFileLength() == EMPTY_FILE_LENGTH;
+        } else {
+            return false;
+        }
+    }
+
 
     private boolean isSingleImage() {
         return isSingleSelection() && MimeTypeUtil.isImage(files.iterator().next());
