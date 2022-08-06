@@ -1,0 +1,9 @@
+i18n: Spelling unification
+also check if folder
+ReceiveExternalFilesActivity: fix type of empty list container
+Cleanup UriUploader a bit, and add tests for private paths
+Don't accept uris to upload from external apps if they contain this app's package name
+UriUploader: convert to Kotlin step 2
+UriUploader: convert to Kotlin step 1
+Update translations
+Update 3rd-party dependencies
