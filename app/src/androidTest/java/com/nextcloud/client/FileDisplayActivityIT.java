@@ -116,7 +116,12 @@ public class FileDisplayActivityIT extends AbstractOnServerIT {
 
         getInstrumentation().waitForIdleSync();
 
-        EventBus.getDefault().post(new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER));
+        // open drawer
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // click "shared"
+        onView(withId(R.id.nav_view))
+            .perform(NavigationViewActions.navigateTo(R.id.nav_shared));
 
         shortSleep();
         shortSleep();
