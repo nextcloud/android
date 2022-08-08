@@ -2,8 +2,8 @@
 
 - Fast scroll for all lists
 - Media view
- - Group photos as timeline by month
- - Filter options
+   - Group photos as timeline by month
+   - Filter options
 - File locking
 - File export to sdcard
 - Many bugfixes and improvements
