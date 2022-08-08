@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Karpeta hau ez dago hutsik.</string>
     <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen…</string>
     <string name="end_to_end_encryption_keywords_description">12 hitzek batera pasahitz oso gogorra osatzen dute, zure enkriptatutako fitxategiak zuk bakarrik ikusi eta erabil ditzazun. Idatzi eta gorde itzazu leku seguru batean.</string>
-    <string name="end_to_end_encryption_not_enabled">Muturretik muturrerako enkriptatzea zerbitzarian desgaituta dago.</string>
     <string name="end_to_end_encryption_passphrase_title">Gogoratu zure 12 hitzeko enkriptatze-pasahitza</string>
     <string name="end_to_end_encryption_password">Pasahitza…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gakoak eskuratzen…</string>

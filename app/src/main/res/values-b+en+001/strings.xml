@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
     <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
-    <string name="end_to_end_encryption_not_enabled">End-to-end encryption disabled on server.</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_retrieving_keys">Retrieving keys…</string>

@@ -192,7 +192,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiéndote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">La encripción de punta-a-punta está dehabilitada en el servidor. </string>
     <string name="end_to_end_encryption_passphrase_title">Anota tu contraseña de encripción de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando llaves…</string>

@@ -226,7 +226,6 @@
     <string name="end_to_end_encryption_folder_not_empty">ໂຟນເດີນີ້ເຕັມ.</string>
     <string name="end_to_end_encryption_generating_keys">ກຳລັງສ້າງກະແຈໃໝ່</string>
     <string name="end_to_end_encryption_keywords_description">ທັງຫມົດ 12 ຄໍາສັບຮ່ວມກັນເຮັດໃຫ້ລະຫັດຜ່ານມີຄວາມປອດໄພ, ພຽງແຕ່ທ່ານນໍາໃຊ້ຟາຍທີ່ເຂົ້າລະຫັດຂອງທ່ານ. ກະລຸນາຂຽນລົງ ແລະ ຮັກສາໄວ້ບ່ອນໃດບ່ອນຫນຶ່ງໃຫ້ປອດໄພ.</string>
-    <string name="end_to_end_encryption_not_enabled">ການເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງຖືກປິດຢູ່ເຊີເວີ</string>
     <string name="end_to_end_encryption_passphrase_title">ບັນທຶກການເຂົ້າລະຫັດ 12 ຕົວຂອງທ່ານ</string>
     <string name="end_to_end_encryption_password">ລະຫັດຜ່ານ</string>
     <string name="end_to_end_encryption_retrieving_keys">ການເອີ້ນກະເເຈມາໃຊ້</string>

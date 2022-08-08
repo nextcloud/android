@@ -238,7 +238,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Тека не є порожньою</string>
     <string name="end_to_end_encryption_generating_keys">Створення нових ключів...</string>
     <string name="end_to_end_encryption_keywords_description">Усі 12 слів утворюють разом дуже сильний пароль, який дозволить лише вам переглядати та використовувати зашифровані файли. Будь ласка, занотуйте його та збережіть у безпечному місці.</string>
-    <string name="end_to_end_encryption_not_enabled">Наскрізне шифрування вимкнено на сервері.</string>
     <string name="end_to_end_encryption_passphrase_title">Занотуйте вашу парольну фразу з 12 слів</string>
     <string name="end_to_end_encryption_password">Пароль...</string>
     <string name="end_to_end_encryption_retrieving_keys">Отримання ключів...</string>

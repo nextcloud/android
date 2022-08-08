@@ -229,7 +229,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Þessi mappa er ekki tóm.</string>
     <string name="end_to_end_encryption_generating_keys">Útbý nýja dulritunarlykla…</string>
     <string name="end_to_end_encryption_keywords_description">Öll 12 orðin saman gera mjög sterkt lykilorð, þannig að einungis þú getur skoðað og notað dulrituðu skrárnar þínar. Endilega skrifaðu þau niður og geymdu á öruggum stað.</string>
-    <string name="end_to_end_encryption_not_enabled">Enda-í-enda dulritun óvirk á þjóni.</string>
     <string name="end_to_end_encryption_passphrase_title">Skrifaðu niður 12 orða dulritunarlykilorðið þitt</string>
     <string name="end_to_end_encryption_password">Lykilorð</string>
     <string name="end_to_end_encryption_retrieving_keys">Sæki dulritunarlykla…</string>

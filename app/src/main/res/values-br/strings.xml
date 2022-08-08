@@ -218,7 +218,6 @@
     <string name="end_to_end_encryption_folder_not_empty">N\'eo ket goullo an teuliad.</string>
     <string name="end_to_end_encryption_generating_keys">O krouiñ un alc\'hwez nevez...</string>
     <string name="end_to_end_encryption_keywords_description">Assamblez e vez krouet ur ger-tremen krev gant an 12 ger, aotrea ac\'hanoc\'h nemet ken da gwelet ha implij ar rouadennoù ha restroù sifret. Mar-plij, skrivit ha gouarnit anezha en ul lec\'h sur.</string>
-    <string name="end_to_end_encryption_not_enabled">Ar sifradur penn-kil-ha-troad disaotret war ar servijour.</string>
     <string name="end_to_end_encryption_passphrase_title">Notennit ho frazenn-guzh sifrañ a 12 ger</string>
     <string name="end_to_end_encryption_password">Ger-tremen</string>
     <string name="end_to_end_encryption_retrieving_keys">O adtapout an alc\'hwaz...</string>

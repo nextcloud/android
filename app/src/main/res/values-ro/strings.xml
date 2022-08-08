@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
     <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
     <string name="end_to_end_encryption_keywords_description">Împreună, cele 12 cuvinte sunt o parolă foarte puternică, ceea ce face ca numai tu să vezi și să utilizezi documentele tale criptate. Te rog scrie-o și păstreaz-o undeva în siguranță.</string>
-    <string name="end_to_end_encryption_not_enabled">Criptarea end-to-end este dezactivată pe server.</string>
     <string name="end_to_end_encryption_passphrase_title">Te rog salvează parola de criptare formată din cele 12 cuvinte</string>
     <string name="end_to_end_encryption_password">Parolă…</string>
     <string name="end_to_end_encryption_retrieving_keys">Obținere chei...</string>

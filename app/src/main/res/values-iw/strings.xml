@@ -220,7 +220,6 @@
     <string name="end_to_end_encryption_folder_not_empty">התיקייה הזאת אינה ריקה</string>
     <string name="end_to_end_encryption_generating_keys">נוצרים מפתחות חדשים…</string>
     <string name="end_to_end_encryption_keywords_description">כל 12 המילים יחד מתגבשות לכדי ססמה חזקה מאוד, שמאפשרת לך לצפות ולהשתמש בקבצים המוצפנים שלך. נא לכתוב אותה ולשמור במקום בטוח.</string>
-    <string name="end_to_end_encryption_not_enabled">הצפנה מקצה לקצה מושבתת בשרת.</string>
     <string name="end_to_end_encryption_passphrase_title">נא להכין עותק של ססמת ההצפנה שלך המורכבת מ־12 מילים</string>
     <string name="end_to_end_encryption_password">ססמה…</string>
     <string name="end_to_end_encryption_retrieving_keys">המפתחות מתקבלים…</string>

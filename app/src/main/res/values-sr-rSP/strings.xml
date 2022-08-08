@@ -196,7 +196,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Fascikla nije prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Generišem nove ključeve…</string>
     <string name="end_to_end_encryption_keywords_description">Ovih 12 reči čini veoma jaku lozinku koja omogućava da samo Vi imate pun pristup gledanju i korišćenju šifrovanih fajlova. Zapišite je i držite je negde na sigurnom.</string>
-    <string name="end_to_end_encryption_not_enabled">Šifrovanje s kraja na kraj je isključeno na serveru.</string>
     <string name="end_to_end_encryption_passphrase_title">Zapišite Vašu 12-odelnu lozinku</string>
     <string name="end_to_end_encryption_password">Lozinka…</string>
     <string name="end_to_end_encryption_retrieving_keys">Dohvatam ključeve…</string>

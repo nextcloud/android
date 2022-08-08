@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">このフォルダは空ではありません。</string>
     <string name="end_to_end_encryption_generating_keys">新しいキーを生成中…</string>
     <string name="end_to_end_encryption_keywords_description">すべての12単語が非常に強力なパスワードを作成し、暗号化されたファイルを表示して使用するだけです。 それを書き留めて、安全な場所に保管してください。</string>
-    <string name="end_to_end_encryption_not_enabled">サーバー上でエンドツーエンドの暗号化が無効になっています。</string>
     <string name="end_to_end_encryption_passphrase_title">あなたの12単語の暗証番号を書き留めてください</string>
     <string name="end_to_end_encryption_password">パスワード…</string>
     <string name="end_to_end_encryption_retrieving_keys">キーを取得中…</string>

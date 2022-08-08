@@ -216,7 +216,6 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="end_to_end_encryption_enter_password">Silahkan masukkan password untuk mendekripsi kunci pribadi</string>
     <string name="end_to_end_encryption_folder_not_empty">Folder ini tidak kosong.</string>
     <string name="end_to_end_encryption_generating_keys">Membuat kunci baru...</string>
-    <string name="end_to_end_encryption_not_enabled">Enkripsi end-to-end dinonaktifkan di server</string>
     <string name="end_to_end_encryption_password">Kata Sandi…</string>
     <string name="end_to_end_encryption_retrieving_keys">Menerima kunci...</string>
     <string name="end_to_end_encryption_storing_keys">Menyimpan kunci</string>

@@ -196,7 +196,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Tiu dosierujo ne malplenas.</string>
     <string name="end_to_end_encryption_generating_keys">Genero de novaj ŝlosiloj...</string>
     <string name="end_to_end_encryption_keywords_description">Tiu 12-vorta frazo estas tre fortika pasvorto, kiu permesas nur al vi vidi kaj uzi viajn ĉifritajn dosierojn. Bonvolu noti tiun frazon kaj konservi ĝin en fidinda loko.</string>
-    <string name="end_to_end_encryption_not_enabled">Tutvoja ĉifrado malebligita en la servilo.</string>
     <string name="end_to_end_encryption_passphrase_title">Notu vian 12-vortan ĉifran pasfrazon</string>
     <string name="end_to_end_encryption_password">Pasvorto...</string>
     <string name="end_to_end_encryption_retrieving_keys">Ricevo de ŝlosiloj...</string>

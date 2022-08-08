@@ -242,7 +242,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генериране на нови ключове...</string>
     <string name="end_to_end_encryption_keywords_description">Всички 12 думи заедно правят много силна парола, позволявайки само Вие да преглеждате и използвате вашите криптирани файлове. Моля запишете я и я пазете на сигурно място.</string>
-    <string name="end_to_end_encryption_not_enabled">Криптиране End-to-end е забранено на сървъра.</string>
     <string name="end_to_end_encryption_passphrase_title">Запишете паролата си за криптиране от 12 думи</string>
     <string name="end_to_end_encryption_password">Парола…</string>
     <string name="end_to_end_encryption_retrieving_keys">Извличане на ключове...</string>

@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler...</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen et meget stærkt kodeord, så kun du kan læse og bruge dine krypterede filer. Venligst skriv det ned og gem det et sikkert sted.</string>
-    <string name="end_to_end_encryption_not_enabled">Ende til ende kryptering slået fra på server.</string>
     <string name="end_to_end_encryption_passphrase_title">Noter dit 12 ords krypterings kodeord</string>
     <string name="end_to_end_encryption_password">Adgangskode...</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøgler...</string>

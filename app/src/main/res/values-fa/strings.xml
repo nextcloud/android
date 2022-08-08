@@ -228,7 +228,6 @@
     <string name="end_to_end_encryption_folder_not_empty">این پوشه خالی نیست.</string>
     <string name="end_to_end_encryption_generating_keys">ایجاد کلیدهای جدید...</string>
     <string name="end_to_end_encryption_keywords_description">همه 12 کلمه در کنار هم یک رمزعبور بسیار قوی ایجاد می کنند و به شما امکان می‌دهد پرونده های رمزگذاری شده خود را مشاهده کرده و از آنها استفاده کنید. لطفاً آن را بنویسید و در جایی امن نگه دارید.</string>
-    <string name="end_to_end_encryption_not_enabled">رمز نگاری سرتاسری در سرور غیرفعال شده</string>
     <string name="end_to_end_encryption_passphrase_title">رمز ۱۲ کلمه‌ای خود را یادداشت کنید</string>
     <string name="end_to_end_encryption_password">کلمه عبور…</string>
     <string name="end_to_end_encryption_retrieving_keys">بازیابی کلیدها...</string>

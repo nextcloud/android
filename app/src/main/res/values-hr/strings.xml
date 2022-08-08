@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Ova mapa nije prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Generiranje novih ključeva...</string>
     <string name="end_to_end_encryption_keywords_description">Svih 12 riječi zajedno čine vrlo složenu zaporku koja samo vama omogućuje da pregledavate i koristite se šifriranim datotekama. Zapišite je i čuvajte na sigurnom mjestu.</string>
-    <string name="end_to_end_encryption_not_enabled">Na poslužitelju je onemogućeno cjelovito šifriranje.</string>
     <string name="end_to_end_encryption_passphrase_title">Zabilježite zaporku za šifriranje od 12 riječi</string>
     <string name="end_to_end_encryption_password">Zaporka…</string>
     <string name="end_to_end_encryption_retrieving_keys">Dohvaćanje ključeva...</string>

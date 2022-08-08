@@ -238,7 +238,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Šis aplankas nėra tuščias.</string>
     <string name="end_to_end_encryption_generating_keys">Generuojami nauji raktai…</string>
     <string name="end_to_end_encryption_keywords_description"> Visi 12 žodžių sudaro saugų slaptažodį, leidžiantį tik jums peržiūrėti ir naudoti užšifruotus failus. Prašau jį užsirašyti ir saugoti.</string>
-    <string name="end_to_end_encryption_not_enabled">Ištisinis šifravimas yra išjungtas serveryje.</string>
     <string name="end_to_end_encryption_passphrase_title">Pasižymėkite savo 12 žodžių šifravimo slaptažodį</string>
     <string name="end_to_end_encryption_password">Slaptažodis…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gaunami raktai…</string>
