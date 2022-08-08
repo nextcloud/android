@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado en el servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>

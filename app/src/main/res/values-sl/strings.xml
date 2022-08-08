@@ -239,7 +239,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Mapa ni prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Poteka ustvarjanje novih ključev…</string>
     <string name="end_to_end_encryption_keywords_description">Vseh 12 besed skupaj predstavlja izredno močno geslo, s katerim imate le vi možnost ogleda in uporabe šifriranih datotek. Geslo si zapišite in shranite nekje na varnem.</string>
-    <string name="end_to_end_encryption_not_enabled">Na strežniku je celovito šifriranje »end-to-end« onemogočeno.</string>
     <string name="end_to_end_encryption_passphrase_title">Zabeležite si vaših 12 besed gesla za šifriranje</string>
     <string name="end_to_end_encryption_password">Geslo …</string>
     <string name="end_to_end_encryption_retrieving_keys">Poteka pridobivanje ključev…</string>

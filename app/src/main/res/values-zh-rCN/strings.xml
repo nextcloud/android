@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
     <string name="end_to_end_encryption_generating_keys">正在生成密钥…</string>
     <string name="end_to_end_encryption_keywords_description">这12个单词共同构成了一个非常安全的密码，使得只有您能够查看以及使用您的加密文件。请把它记下并保存到某个安全的地方。</string>
-    <string name="end_to_end_encryption_not_enabled">端对端加密被服务器禁用。</string>
     <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_password">密码…</string>
     <string name="end_to_end_encryption_retrieving_keys">正在检索密钥…</string>

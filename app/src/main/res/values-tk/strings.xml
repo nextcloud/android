@@ -222,7 +222,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Bu bukja boş däl</string>
     <string name="end_to_end_encryption_generating_keys">Täze düwmeler döretmek ...</string>
     <string name="end_to_end_encryption_keywords_description">12 sözüň hemmesi bilelikde şifrlenen faýllaryňyzy diňe size görmäge we ulanmaga mümkinçilik berýän gaty güýçli parol ýasaýar. Muny ýazyp alyň we howpsuz ýerde saklaň.</string>
-    <string name="end_to_end_encryption_not_enabled">Serwerde açyk şifrlemek öçürildi.</string>
     <string name="end_to_end_encryption_passphrase_title">Şifrlemek parolyňyzy 12 söz bilen belläň</string>
     <string name="end_to_end_encryption_password">Parol we açar söz</string>
     <string name="end_to_end_encryption_retrieving_keys">Açarlary almak…</string>

@@ -229,7 +229,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
     <string name="end_to_end_encryption_generating_keys">Xerando claves novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>

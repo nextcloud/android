@@ -230,7 +230,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Custa cartella no est bòida.</string>
     <string name="end_to_end_encryption_generating_keys">Generende craes noas…</string>
     <string name="end_to_end_encryption_keywords_description">Totu is 12 faeddos faghent una crae forte, chi permitit a te isceti de visualizare e impreare is documentos critografados. Iscrie·ti·dda e regolle·dda in unu logu seguru.</string>
-    <string name="end_to_end_encryption_not_enabled">Critografia a nodu terminale disativada in su serbidore.</string>
     <string name="end_to_end_encryption_passphrase_title">Piga apuntos de sa crae tua de critografia de 12 faeddos</string>
     <string name="end_to_end_encryption_password">Crae…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recùperu de is craes...</string>

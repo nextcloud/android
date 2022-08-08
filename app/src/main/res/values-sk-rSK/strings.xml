@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_generating_keys">Vytvárajú sa nové kľúče…</string>
     <string name="end_to_end_encryption_keywords_description">Táto 12-slovná fráza je veľmi silné heslo, ktoré poskytuje úplný prístup k prezeraniu a používaniu šifrovaných súborov. Napíšte si ju a uschovajte niekde v bezpečí.</string>
-    <string name="end_to_end_encryption_not_enabled">Šifrovanie je zakázané na servri.</string>
     <string name="end_to_end_encryption_passphrase_title">Poznačte si Vaše 12 slovné šifrovacie heslo</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_retrieving_keys">Získavam kľúče…</string>

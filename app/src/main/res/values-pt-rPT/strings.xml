@@ -234,7 +234,6 @@
     <string name="end_to_end_encryption_folder_not_empty">A pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">A gerar novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palavras juntas formam uma palavra-passe muito forte, permitindo que apenas você veja e utilize os seus ficheiros encriptados. Por favor, aponte-as e mantenha-as num lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Encriptação ponto-a-ponto desativada no servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota da sua palavra-passe de encriptação de 12 palavras</string>
     <string name="end_to_end_encryption_password">Palavra-passe…</string>
     <string name="end_to_end_encryption_retrieving_keys">A extrair chaves…</string>

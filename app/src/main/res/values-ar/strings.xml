@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">هذا المجلد غير فارغ.</string>
     <string name="end_to_end_encryption_generating_keys">جار توليد مفاتيح جديدة…</string>
     <string name="end_to_end_encryption_keywords_description">12 كلمة سويةً تكون رقم سري قوّي جداً، تجعلك أنت فقط ترى وتستخدم ملفاتك المشفرة. أرجو كتابتها والإحتفاظ بها في مكانٍّ آمن.</string>
-    <string name="end_to_end_encryption_not_enabled">التشفير من طرف إلى طرف آخر معطل من الخادم.</string>
     <string name="end_to_end_encryption_passphrase_title">إحفظ الـ12 كلمة السرية للتشفير</string>
     <string name="end_to_end_encryption_password">كلمة السر…</string>
     <string name="end_to_end_encryption_retrieving_keys">جارٍ جلب المفاتيح…</string>

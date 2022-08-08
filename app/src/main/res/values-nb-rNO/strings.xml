@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Endringslogg utviklingsversjon</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
+    <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
@@ -240,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
-    <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på serveren.</string>
     <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
@@ -292,6 +292,7 @@
     <string name="failed_update_ui">Kunne ikke oppdatere brukergrensesnittet</string>
     <string name="favorite">Legg til i favoritter</string>
     <string name="favorite_icon">Favoritt</string>
+    <string name="file_already_exists">Filnavnet finnes allerede</string>
     <string name="file_delete">Slett</string>
     <string name="file_detail_activity_error">Henting av aktiviteter for fil feilet</string>
     <string name="file_details_no_content">Klarte ikke å laste inn detaljer</string>
@@ -403,6 +404,11 @@
     <string name="local_file_not_found_message">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det er ingen flere mapper.</string>
+    <string name="locate_folder">Velg mappe</string>
+    <string name="lock_expiration_info">Utløper: %1$s</string>
+    <string name="lock_file">Lås fil</string>
+    <string name="locked_by">Låst av %1$s</string>
+    <string name="locked_by_app">Låst av %1$s app</string>
     <string name="log_send_mail_subject">%1$s Android-app-logger</string>
     <string name="log_send_no_mail_app">Fant ingen app til å sende logger med. Vennligst installer en e-post-klient.</string>
     <string name="login">Logg inn</string>
@@ -605,6 +611,7 @@
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
     <string name="select_all">Velg alle</string>
+    <string name="select_media_folder">Velg mediamappe</string>
     <string name="select_one_template">Velg en mal</string>
     <string name="select_template">Velg mal</string>
     <string name="send">Send</string>
@@ -659,6 +666,8 @@
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
+    <string name="show_images">Vis bilder</string>
+    <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter etter</string>
@@ -715,6 +724,9 @@
     <string name="strict_mode">Streng modus: ingen HTTP-tilkobling tillatt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
+    <string name="subtitle_photos_only">Bare bilder</string>
+    <string name="subtitle_photos_videos">Bilder &amp; videoer</string>
+    <string name="subtitle_videos_only">Bare videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
@@ -758,6 +770,7 @@
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="unlock_file">Lås opp fil</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
@@ -888,6 +901,10 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Fant %dduplikat oppføring.</item>
         <item quantity="other">Fant %d duplikate oppføringer.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Eksporterte %d fil</item>
+        <item quantity="other">Eksporterte %d filer</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$dmappe</item>

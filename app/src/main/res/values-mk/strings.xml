@@ -224,7 +224,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генерирање на нови клучеви…</string>
     <string name="end_to_end_encryption_keywords_description">Сите 12 зборови заедно прават многу јака лозинка, дозволувајќи ви да ги гледате и да ги користите вашите криптирани датотеки. Ве молиме, запишете го и чувајте го некаде безбедно.</string>
-    <string name="end_to_end_encryption_not_enabled">Енкрипцијата од крај-до-крај е оневозможена на серверот.</string>
     <string name="end_to_end_encryption_passphrase_title">Забележете ја вашата лозинка за ентриптирање составена од 12 зборови</string>
     <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_retrieving_keys">Превземање на клучеви…</string>

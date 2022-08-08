@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Thư mục này rỗng</string>
     <string name="end_to_end_encryption_generating_keys">Đang tạo các mã khóa mới...</string>
     <string name="end_to_end_encryption_keywords_description">Tất cả 12 từ này tạo nên một mật khẩu rất manh, để đảm bảo rằng chỉ mình bạn xem và sử dụng những tệp đã mã hóa. Vui lòng ghi xuống và giữ thông tin này ở nơi nào an toàn.</string>
-    <string name="end_to_end_encryption_not_enabled">Mã hóa đầu-cuối đã tắt trên máy chủ.</string>
     <string name="end_to_end_encryption_passphrase_title">Hãy lưu lại mật khẩu gồm 12 từ mã hóa của bạn</string>
     <string name="end_to_end_encryption_password">Mật khẩu…</string>
     <string name="end_to_end_encryption_retrieving_keys">Đang lấy mã khóa...</string>

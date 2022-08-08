@@ -224,7 +224,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando nuevas claves…</string>
     <string name="end_to_end_encryption_keywords_description">Los 12 dígitos juntos forman una contraseña muy segura, que solo le permite ver y hacer uso de sus archivos cifrados. Por favor escríbelo y guárdalo en un lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Codificación de extremo a extremo deshabilitada en el servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota de su contraseña de cifrado de 12 dígitos</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>

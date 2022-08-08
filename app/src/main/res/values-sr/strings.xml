@@ -218,7 +218,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Фасцикла није празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генеришем нове кључеве…</string>
     <string name="end_to_end_encryption_keywords_description">Ових 12 речи чини веома јаку лозинку, чиме сте обезбедили да само ви видите и користите своје шифроване фајлове. Запишите је и држите је негде на сигурном.</string>
-    <string name="end_to_end_encryption_not_enabled">Шифровање с краја на крај је искључено на серверу.</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите своју лозинку за шифровање од 12 речи</string>
     <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_retrieving_keys">Добављам кључеве…</string>
