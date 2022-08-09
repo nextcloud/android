@@ -1,0 +1,3 @@
+FileMenuFilter: reorder conditionals for performance (Spotbugs)
+Only allow "unset encryption" when folder is empty
+Update translations
