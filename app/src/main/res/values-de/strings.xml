@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Dieser Ordner ist nicht leer.</string>
     <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren…</string>
     <string name="end_to_end_encryption_keywords_description">Diese 12 Wörter-Phrase ist wie ein sehr starkes Passwort: Sie bietet vollen Zugriff um Ihre verschlüsselten Dateien anzusehen und zu verwenden. Bitte schreiben Sie sie auf und verwahren sie an einem sicheren Ort.</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-zu-Ende Verschlüsselung ist auf diesem Server deaktiviert.</string>
     <string name="end_to_end_encryption_passphrase_title">Notieren Sie Ihre Verschlüsselungs-Passphrase</string>
     <string name="end_to_end_encryption_password">Passwort…</string>
     <string name="end_to_end_encryption_retrieving_keys">Schlüssel abrufen…</string>

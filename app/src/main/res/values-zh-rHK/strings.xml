@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">資料夾不為空</string>
     <string name="end_to_end_encryption_generating_keys">正在產生密鑰…</string>
     <string name="end_to_end_encryption_keywords_description">透過組合12個字來產生安全的密碼，使你可以安全的瀏覽與加密檔案。請確保這組密碼只有你知道，並寫記在紙上妥善保管。</string>
+    <string name="end_to_end_encryption_not_enabled">伺服器上的端對端加密被停用</string>
     <string name="end_to_end_encryption_passphrase_title">為您12個字的加密密碼加上註解</string>
     <string name="end_to_end_encryption_password">密碼…</string>
     <string name="end_to_end_encryption_retrieving_keys">取得密鑰…</string>

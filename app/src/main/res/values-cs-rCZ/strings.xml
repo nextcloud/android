@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>
     <string name="end_to_end_encryption_keywords_description">Všech 12 slov dohromady tvoří velmi silné heslo, které pouze vám umožní prohlížet a používat vaše zašifrované soubory. Poznamenejte si ho a někam bezpečně uložte.</string>
+    <string name="end_to_end_encryption_not_enabled">Šifrování mezi koncovými body je vypnuto na serveru.</string>
     <string name="end_to_end_encryption_passphrase_title">Poznamenejte si někam své 12 slovné šifrovací heslo</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_retrieving_keys">Získávání klíčů…</string>
