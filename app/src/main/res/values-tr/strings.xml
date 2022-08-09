@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor …</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnızca sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
+    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakılmış.</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_password">Parola …</string>
     <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor …</string>
