@@ -26,6 +26,8 @@
         android:contentDescription="@string/actionbar_search"
         android:icon="@drawable/ic_search"
         android:title="@string/actionbar_search"
+        android:enabled="false"
+        android:visible="false"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
     <item
