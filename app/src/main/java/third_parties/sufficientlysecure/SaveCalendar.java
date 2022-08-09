@@ -101,7 +101,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @SuppressLint("NewApi")
-public class SaveCalendar implements Injectable {
+public class SaveCalendar {
     private static final String TAG = "ICS_SaveCalendar";
 
     private final PropertyFactoryImpl mPropertyFactory = PropertyFactoryImpl.getInstance();
