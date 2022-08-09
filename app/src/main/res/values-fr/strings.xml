@@ -243,7 +243,6 @@ Attention la suppression est irréversible.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ce dossier n\'est pas vide.</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés…</string>
     <string name="end_to_end_encryption_keywords_description">Cette phrase de 12 mots est un mot de passe très fort permettant un accès à la lecture et à l\'utilisation de vos fichiers chiffrés. Veuillez l\'écrire et gardez la quelque-part en sécurité.</string>
-    <string name="end_to_end_encryption_not_enabled">Chiffrement de bout en bout désactivé sur le serveur.</string>
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_password">Mot de passe…</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés…</string>

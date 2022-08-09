@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Aquesta carpeta no és buida.</string>
     <string name="end_to_end_encryption_generating_keys">S\'estan generant claus noves…</string>
     <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i deseu-la en un lloc segur.</string>
-    <string name="end_to_end_encryption_not_enabled">El xifrat de punta a punta està desactivat al servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Anoteu la vostra contrasenya de 12 paraules</string>
     <string name="end_to_end_encryption_password">Contrasenya…</string>
     <string name="end_to_end_encryption_retrieving_keys">S\'estan recuperant les claus…</string>

@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Den här mappen är inte tom.</string>
     <string name="end_to_end_encryption_generating_keys">Generera nya nycklar…</string>
     <string name="end_to_end_encryption_keywords_description">Alla 12 ord tillsammans utgör ett mycket starkt lösenord, så att bara du kan visa och använda dina krypterade filer. Vänligen spara det och förvara det på ett säkert sätt. </string>
-    <string name="end_to_end_encryption_not_enabled">End-to-end-kryptering är inte aktiverat på servern.</string>
     <string name="end_to_end_encryption_passphrase_title">Notera ditt 12 ord långa krypteringslösenord</string>
     <string name="end_to_end_encryption_password">Lösenord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Hämta nycklar…</string>

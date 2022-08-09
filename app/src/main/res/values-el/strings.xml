@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
     <string name="end_to_end_encryption_keywords_description">Οι 12 λέξεις μαζί φτιάχνουν έναν πολύ ισχυρό κωδικό πρόσβασης, επιτρέποντας μόνο σε εσάς την προβολή και τη χρήση των κρυπτογραφημένων αρχείων σας. Παρακαλούμε γράψτε το κάπου και κρατήστε το σε ασφαλές μεέρος.</string>
-    <string name="end_to_end_encryption_not_enabled">Η κρυπτογράφηση από άκρο σε άκρο είναι απενεργοποιημένη στον διακομιστή.</string>
     <string name="end_to_end_encryption_passphrase_title">Σημειώστε το συνθηματικό κρυπτογράφησης 12 λέξεων</string>
     <string name="end_to_end_encryption_password">Συνθηματικό…</string>
     <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>

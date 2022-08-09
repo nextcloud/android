@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
     <string name="end_to_end_encryption_generating_keys">새 키 생성 중…</string>
     <string name="end_to_end_encryption_keywords_description">이 12단어 암구호는 암호화된 파일을 보고 사용하는 매우 강력한 암호입니다. 안전한 곳에 적어서 보관해 두십시오.</string>
-    <string name="end_to_end_encryption_not_enabled">종단간 암호화가 서버단에서 사용 해제 되어 있습니다.</string>
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
     <string name="end_to_end_encryption_password">암호…</string>
     <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중…</string>

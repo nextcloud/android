@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Kansio ei ole tyhjä.</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia avaimia…</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
-    <string name="end_to_end_encryption_not_enabled">Päästä päähän -salaus poistettu käytöstä palvelimella.</string>
     <string name="end_to_end_encryption_passphrase_title">Laita muistiin sinun 12 symboolinen salauksen avain</string>
     <string name="end_to_end_encryption_password">Salasana…</string>
     <string name="end_to_end_encryption_retrieving_keys">Noudetaan avaimia…</string>
@@ -404,6 +403,7 @@
     <string name="local_file_not_found_message">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Kansioita ei ole enempää.</string>
+    <string name="locate_folder">Paikanna kansio</string>
     <string name="lock_expiration_info">Vanhenee: %1$s</string>
     <string name="lock_file">Lukitse tiedosto</string>
     <string name="locked_by">Lukinnut %1$s</string>
@@ -884,9 +884,21 @@ GNU yleinen lisenssi, versio 2</string>
         <item quantity="one">Ei onnistuttu kopioimaan %1$d tiedostoa %2$s kansioon</item>
         <item quantity="other">Ei onnistuttu kopioimaan %1$d tiedostoja %2$s kansioon</item>
     </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Käsiteltiin %d kohde</item>
+        <item quantity="other">Käsiteltiin %d kohdetta</item>
+    </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Löytyi %d kaksoiskappale.</item>
         <item quantity="other">Löytyi %d kaksoiskappaletta.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Vietiin %d tiedosto </item>
+        <item quantity="other">Vietiin %d tiedostoa</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">%d tiedoston vienti epäonnistui</item>
+        <item quantity="other">%d tiedoston vienti epäonnistui</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kansio</item>

@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Эта папка не пуста.</string>
     <string name="end_to_end_encryption_generating_keys">Создание новых ключей…</string>
     <string name="end_to_end_encryption_keywords_description">Все двенадцать слов подряд — очень надёжный пароль, который требуется для доступа для просмотра и использования зашифрованных файлов. Запишите его и сохраните в надёжном месте.</string>
-    <string name="end_to_end_encryption_not_enabled">Конечное шифрование отключено на сервере.</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите свою парольную фразу из двенадцати слов</string>
     <string name="end_to_end_encryption_password">Пароль…</string>
     <string name="end_to_end_encryption_retrieving_keys">Получение ключей…</string>

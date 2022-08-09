@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Questa cartella non è vuota.</string>
     <string name="end_to_end_encryption_generating_keys">Generazione nuove chiavi in corso…</string>
     <string name="end_to_end_encryption_keywords_description">Le 12 parole insieme compongono una password molto robusta, consentendo solo a te di visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifratura end-to-end disabilitata sul server.</string>
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recupero delle chiavi in corso…</string>

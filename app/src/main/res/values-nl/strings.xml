@@ -240,7 +240,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels…</string>
     <string name="end_to_end_encryption_keywords_description">Deze zin van 12 woorden is als een heel sterk wachtwoord: het verleent volledige toegang tot je versleutelde bestanden. Schrijf het alsjeblieft op en bewaar het op een veilige plek.</string>
-    <string name="end_to_end_encryption_not_enabled">Begin-tot-eind versleuteling uitgeschakeld op de server.</string>
     <string name="end_to_end_encryption_passphrase_title">Schrijf je encryptie wachtwoord van 12 woorden op</string>
     <string name="end_to_end_encryption_password">Wachtwoord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Ophalen sleutels…</string>

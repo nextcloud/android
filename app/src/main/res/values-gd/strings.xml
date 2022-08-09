@@ -223,7 +223,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Chan eil am pasgan seo falamh.</string>
     <string name="end_to_end_encryption_generating_keys">A’ gintinn nan iuchraichean ùra…</string>
     <string name="end_to_end_encryption_keywords_description">Nì an 12 fhacal còmhla facal-faire glè làidir gus nach seall ’s nach cleachd ach thu fhèin na faidhlichean crioptaichte agad. Sgrìobh sìos e is cùm am badeigin sàbhailte e.</string>
-    <string name="end_to_end_encryption_not_enabled">Tha crioptachadh ceann gu ceann à comas air an fhrithealaiche.</string>
     <string name="end_to_end_encryption_passphrase_title">Gabh nòta dhen 12 fhacal a tha ’na fhacal-faire crioptachaidh agad</string>
     <string name="end_to_end_encryption_password">Facal-faire…</string>
     <string name="end_to_end_encryption_retrieving_keys">A’ faighinn nan iuchraichean…</string>

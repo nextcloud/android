@@ -241,7 +241,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12 słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
-    <string name="end_to_end_encryption_not_enabled">Szyfrowanie end-to-end wyłączone po stronie serwera.</string>
     <string name="end_to_end_encryption_passphrase_title">Zapisz swoje 12-sto znakowe hasło szyfrujące</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>

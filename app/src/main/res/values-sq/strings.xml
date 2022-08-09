@@ -211,7 +211,6 @@
     <string name="end_to_end_encryption_folder_not_empty">Ky skedar nuk është bosh.</string>
     <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj…</string>
     <string name="end_to_end_encryption_keywords_description">Të gjitha 12 fjalët së bashku bëjnë një fjalëkalim shumë të fortë, duke lënë vetëm ju të shikoni dhe të përdorni skedarët tuaj të koduar. Ju lutemi shkruani dhe mbajeni diku të sigurt.</string>
-    <string name="end_to_end_encryption_not_enabled">Enkriptimi end-to-end është i pavendosur në server.</string>
     <string name="end_to_end_encryption_passphrase_title">Mbaj shënim për fjalëkalimin tuaj të enkriptimit me 12 fjalë</string>
     <string name="end_to_end_encryption_password">Fjalëkalimi…</string>
     <string name="end_to_end_encryption_retrieving_keys">Rikthimi i çelsave…</string>
