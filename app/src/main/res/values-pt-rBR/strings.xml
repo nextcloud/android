@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Esta pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">Gerando novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">Todas as 12 palavras juntas fazem uma senha muito forte, permitindo que você use seus arquivos criptografados. Por favor escreva e mantenha-as em um lugar seguro.</string>
+    <string name="end_to_end_encryption_not_enabled">Criptografia de ponta a ponta desabilitada no servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Anote sua senha de criptografia de 12 palavras</string>
     <string name="end_to_end_encryption_password">Senha…</string>
     <string name="end_to_end_encryption_retrieving_keys">Retornando chaves…</string>
