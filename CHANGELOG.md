@@ -1,3 +1,17 @@
+## 3.21.0 (August 8, 2022)
+
+- Fast scroll for all lists
+- Media view
+   - Group photos as timeline by month
+   - Filter options
+- File locking
+- File export to sdcard
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/66
+
 ## 3.20.3 (June 13th, 2022)
 
 - Minor bug fixes
