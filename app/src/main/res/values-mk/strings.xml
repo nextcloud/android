@@ -85,6 +85,7 @@
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Поле за избирање</string>
     <string name="choose_local_folder">Избери локална папка…</string>
+    <string name="choose_location">Избери локација</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
@@ -143,7 +144,9 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
     <string name="conflict_file_headline">Датотеки со конфликт %1$s</string>
+    <string name="conflict_local_file">Локална датотека</string>
     <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>
+    <string name="conflict_server_file">Серверска датотека</string>
     <string name="contactlist_item_icon">Корисничка икона за листа со контакти</string>
     <string name="contactlist_no_permission">Не е дадена дозвола, ништо не е увезено.</string>
     <string name="contacts">Контакти</string>
@@ -172,6 +175,7 @@
     <string name="create_new_spreadsheet">Креирајте нова табела</string>
     <string name="create_rich_workspace">Додади информации за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
+    <string name="daily_backup">Дневена резервна копија</string>
     <string name="date_unknown">Непознат</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
     <string name="delete_account">Отстрани сметка</string>
@@ -204,6 +208,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_all_files">Сите датотеки</string>
     <string name="drawer_item_favorites">Омилени</string>
+    <string name="drawer_item_gallery">Медија</string>
     <string name="drawer_item_home">Дома</string>
     <string name="drawer_item_notifications">Известувања</string>
     <string name="drawer_item_on_device">На уредот</string>
@@ -250,6 +255,8 @@
     <string name="etm_background_jobs_cancel_all">Откажи ги сите активности</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
+    <string name="etm_transfer">Пренос на датотека</string>
+    <string name="etm_transfer_remote_path">Далечинска патека</string>
     <string name="etm_transfer_type">Трансфер</string>
     <string name="etm_transfer_type_download">Преземи</string>
     <string name="etm_transfer_type_upload">Прикачи</string>
@@ -279,6 +286,8 @@
     <string name="file_list_loading">Се вчитува…</string>
     <string name="file_list_no_app_for_file_type">Нема апликација за прикажување на овој вид на датотека.</string>
     <string name="file_list_seconds_ago">пред секунди</string>
+    <string name="file_management_permission">Потребни се дозволи</string>
+    <string name="file_management_permission_optional">Дозвола за складирање</string>
     <string name="file_migration_checking_destination">Проверка на дестинацијата…</string>
     <string name="file_migration_cleaning">Чистење…</string>
     <string name="file_migration_dialog_title">Ажурирање на папка за складиште на податоци</string>
@@ -356,16 +365,21 @@
     <string name="local_file_not_found_message">Датотеката не е пронајдена во локалното складиште</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">.Нема повеќе папки</string>
+    <string name="lock_expiration_info">Истекува на: %1$s</string>
     <string name="lock_file">Заклучи датотека</string>
+    <string name="locked_by">Заклучено од %1$s</string>
+    <string name="locked_by_app">Заклучено од апликацијата %1$s</string>
     <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
     <string name="login">Најава</string>
     <string name="logs_menu_delete">Избриши записи</string>
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Пребарувај записи</string>
+    <string name="logs_menu_send">Испрати записи преку е-пошта</string>
     <string name="logs_status_filtered">Записи: %1$d kB, совпаднати барања %2$d / %3$d во %4$d ms</string>
     <string name="logs_status_loading">Се вчитува…</string>
     <string name="logs_status_not_filtered">Записи: %1$d kB, без филтер</string>
     <string name="logs_title">Записи</string>
+    <string name="maintenance_mode">Серверот е во мод за одржување</string>
     <string name="manage_space_clear_data">Исчисти податоци</string>
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>
@@ -548,6 +562,7 @@
     <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_dialog_title">Споделување</string>
+    <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекува на %1$s</string>
     <string name="share_file">Сподели %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
