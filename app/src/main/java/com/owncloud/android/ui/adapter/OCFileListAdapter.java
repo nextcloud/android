@@ -993,4 +993,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void notifyItemChanged(@NonNull OCFile file) {
         notifyItemChanged(getItemPosition(file));
     }
+
+    public void replaceFileByRemotePath(@NonNull OCFile newFile, boolean notify) {
+        final String remotePath = newFile.getRemotePath();
+        for (OCFile file : mFiles) {
+            if (file.getRemotePath().equals(remotePath)) {
+                final int index = mFiles.indexOf(file);
+                mFiles.set(index, newFile);
+                break;
+            }
+        }
+
+        for (OCFile file : mFilesAll) {
+            if (file.getRemotePath().equals(remotePath)) {
+                final int index = mFilesAll.indexOf(file);
+                mFilesAll.set(index, newFile);
+                break;
+            }
+        }
+
+        if (notify) {
+            notifyItemChanged(getItemPosition(newFile));
+        }
+    }
 }
