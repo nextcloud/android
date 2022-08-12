@@ -88,6 +88,7 @@
     <string name="changelog_dev_version">Registo de alterações desta versão</string>
     <string name="checkbox">Caixa de selecção</string>
     <string name="choose_local_folder">Escolher pasta local…</string>
+    <string name="choose_location">Escolha a localização</string>
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="choose_template_helper_text">Escolher um modelo e inserir um nome para o ficheiro.</string>
     <string name="choose_which_file">Escolher qual o ficheiro a manter!</string>
@@ -146,6 +147,7 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
+    <string name="conflict_dialog_error">Erro ao criar diálogo de conflito!</string>
     <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se escolher ambas as versões, o ficheiro local terá um número acrescentado ao nome.</string>
