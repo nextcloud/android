@@ -36,9 +36,9 @@
     <string name="advanced_settings">Geavanceerde instellingen</string>
     <string name="allow_resharing">Opnieuw delen toestaan</string>
     <string name="appbar_search_in">Zoeken in %s</string>
-    <string name="associated_account_not_found">Geassocieerd account niet gevonden!</string>
+    <string name="associated_account_not_found">Bijbehorend account niet gevonden!</string>
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
-    <string name="auth_account_does_not_exist">Account bestaat nog niet op dit apparaat</string>
+    <string name="auth_account_does_not_exist">Dit account is nog niet toegevoegd op dit apparaat</string>
     <string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat</string>
     <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
     <string name="auth_bad_oc_version_title">Niet-herkende serverversie</string>
@@ -797,7 +797,7 @@
     <string name="upload_old_android">Encryptie kan alleen met &gt; >= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
     <string name="upload_scan_doc_upload">Scan een ducument van je camera</string>
-    <string name="upload_sync_conflict">Sync-konflikt, los het a.u.b. manueel op</string>
+    <string name="upload_sync_conflict">Synchronisatieconflict, los het a.u.b. handmatig op</string>
     <string name="upload_unknown_error">Onbekende fout</string>
     <string name="uploader_btn_alternative_text">Kies</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
