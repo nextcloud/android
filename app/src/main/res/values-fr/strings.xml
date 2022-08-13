@@ -408,6 +408,7 @@ Attention la suppression est irréversible.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
+    <string name="locate_folder">Localiser le dossier</string>
     <string name="lock_expiration_info">Expire : %1$s</string>
     <string name="lock_file">Verrouiller le fichier</string>
     <string name="locked_by">Verrouillé par %1$s</string>
@@ -920,6 +921,16 @@ Attention la suppression est irréversible.</string>
         <item quantity="one">Impossible d\'exporter %d fichier</item>
         <item quantity="many">Impossible d\'exporter %d fichier</item>
         <item quantity="other">Impossible d\'exporter %d fichiers</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d fichier exporté, le reste a été ignoré en raison d\'une erreur</item>
+        <item quantity="many">%d fichiers exportés, le reste a été ignoré en raison d\'une erreur</item>
+        <item quantity="other">%d fichiers exportés, le reste a été ignoré en raison d\'une erreur</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fichier va être exporté. Voir la notification pour plus de détails.</item>
+        <item quantity="many">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
+        <item quantity="other">%d fichiers vont être exportés. Voir la notification pour plus de détails.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d dossier</item>
