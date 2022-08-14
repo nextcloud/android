@@ -407,7 +407,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
     <string name="locate_folder">Klasörü seçin</string>
-    <string name="lock_expiration_info">Sona erme: %1$s</string>
+    <string name="lock_expiration_info">Geçerlilik süresi sonu: %1$s</string>
     <string name="lock_file">Dosyayı kilitle</string>
     <string name="locked_by">%1$s tarafından kilitlenmiş</string>
     <string name="locked_by_app">%1$s uygulaması tarafından kilitlenmiş</string>
@@ -629,7 +629,7 @@
     <string name="share_copy_link">Bağlantıyı paylaş ve kopyala</string>
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">%1$s zamanında sona erecek</string>
+    <string name="share_expiration_date_label">Geçerlilik süresi %1$s zamanında dolacak</string>
     <string name="share_file">%1$s paylaş</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">İç bağlantıyı paylaş</string>
@@ -700,7 +700,7 @@
     <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
     <string name="ssl_validator_null_cert">Sertifika görüntülenemedi.</string>
     <string name="ssl_validator_question">Yine de bu sertifikaya güvenmek istiyor musunuz?</string>
-    <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi dolmuş</string>
+    <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının geçerlilik süresi dolmuş</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi gelecekte</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Adres, sertifikadaki sunucu adı ile eşleşmiyor</string>
