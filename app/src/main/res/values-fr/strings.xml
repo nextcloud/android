@@ -408,7 +408,7 @@ Attention la suppression est irréversible.</string>
     <string name="local_file_not_found_message">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Il n\'y a pas d\'autres dossiers.</string>
-    <string name="locate_folder">Localiser le dossier</string>
+    <string name="locate_folder">Ouvrir le dossier</string>
     <string name="lock_expiration_info">Expire : %1$s</string>
     <string name="lock_file">Verrouiller le fichier</string>
     <string name="locked_by">Verrouillé par %1$s</string>
