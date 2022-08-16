@@ -26,7 +26,7 @@
     <string name="actionbar_sort">Сортировка</string>
     <string name="active_user">Активный пользователь</string>
     <string name="activities_no_results_headline">Событий ещё нет</string>
-    <string name="activities_no_results_message">Отсутствуют события добавления, изменения и предоставления общего доступа.</string>
+    <string name="activities_no_results_message">Пока никаких событий, таких как добавления, изменения и акции, нет</string>
     <string name="activity_chooser_send_file_title">Отправить</string>
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>
@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Эта папка не пуста.</string>
     <string name="end_to_end_encryption_generating_keys">Создание новых ключей…</string>
     <string name="end_to_end_encryption_keywords_description">Все двенадцать слов подряд — очень надёжный пароль, который требуется для доступа для просмотра и использования зашифрованных файлов. Запишите его и сохраните в надёжном месте.</string>
+    <string name="end_to_end_encryption_not_enabled">Сквозное шифрование отключено на сервере.</string>
     <string name="end_to_end_encryption_passphrase_title">Запишите свою парольную фразу из двенадцати слов</string>
     <string name="end_to_end_encryption_password">Пароль…</string>
     <string name="end_to_end_encryption_retrieving_keys">Получение ключей…</string>
