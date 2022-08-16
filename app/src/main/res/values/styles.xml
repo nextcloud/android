@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -101,8 +100,7 @@
         <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
     </style>
 
-    <style name="FallbackTheming.Dialog.ButtonStyle"
-        parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+    <style name="FallbackTheming.Dialog.ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/text_color</item>
     </style>
 
@@ -283,8 +281,7 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
-    <style name="Theme.ownCloud.Widget.ActionBar"
-        parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+    <style name="Theme.ownCloud.Widget.ActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <item name="android:background">@color/primary</item>
         <item name="background">@color/primary</item>
         <item name="android:textColor">@color/text_color</item>
@@ -339,8 +336,8 @@
         <item name="android:textSize">26sp</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
-    <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium">
-    </style>
+
+    <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
 
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
@@ -447,4 +444,8 @@
         <item name="android:background">@drawable/ripple</item>
     </style>
 
+    <style name="Widget.Nextcloud.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
 </resources>

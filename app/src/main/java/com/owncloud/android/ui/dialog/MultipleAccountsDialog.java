@@ -28,6 +28,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,6 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.MultipleAccountsBinding;
-import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
@@ -60,6 +60,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
     @Inject UserAccountManager accountManager;
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
+    public boolean highlightCurrentlyActiveAccount = true;
 
     @NonNull
     @Override
@@ -73,7 +74,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         LayoutInflater inflater = activity.getLayoutInflater();
         MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
-        final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
+        final Context parent = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(parent);
 
         UserListAdapter adapter = new UserListAdapter(parent,
@@ -81,6 +82,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       getAccountListItems(),
                                                       this,
                                                       false,
+                                                      highlightCurrentlyActiveAccount,
                                                       false,
                                                       themeColorUtils,
                                                       themeDrawableUtils);
@@ -125,9 +127,9 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
     @Override
     public void onAccountClicked(User user) {
-        final ReceiveExternalFilesActivity parentActivity = (ReceiveExternalFilesActivity) getActivity();
+        final AccountChooserInterface parentActivity = (AccountChooserInterface) getActivity();
         if (parentActivity != null) {
-            parentActivity.changeAccount(user.toPlatformAccount());
+            parentActivity.onAccountChosen(user);
         }
         dismiss();
     }

@@ -131,6 +131,7 @@ class ChooseAccountDialogFragment :
                 this,
                 false,
                 false,
+                true,
                 themeColorUtils,
                 themeDrawableUtils
             )

@@ -62,6 +62,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -80,6 +81,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
+import com.owncloud.android.ui.dialog.AccountChooserInterface;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
@@ -120,7 +122,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -131,8 +132,8 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  * This can be used to upload things to an ownCloud instance.
  */
 public class ReceiveExternalFilesActivity extends FileActivity
-        implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
-        SortingOrderDialogFragment.OnSortingOrderListener, Injectable {
+    implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
+    SortingOrderDialogFragment.OnSortingOrderListener, Injectable, AccountChooserInterface {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
@@ -237,8 +238,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
         return this;
     }
 
-    public void changeAccount(Account account) {
-        setAccount(account, false);
+    @Override
+    public void onAccountChosen(@NonNull User user) {
+        setAccount(user.toPlatformAccount(), false);
         initTargetFolder();
         populateDirectoryList();
     }
