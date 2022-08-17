@@ -132,7 +132,7 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
-     * Updates title bar and home buttons (state and icon).
+     * Updates title bar and h``ome buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         String title;
