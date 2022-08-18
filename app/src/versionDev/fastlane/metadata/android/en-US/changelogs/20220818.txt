@@ -1,0 +1,4 @@
+Moved libraries from nextcloud to nextcloud-deps As links still work, this is not really needed, but still good to point to new location. Thus no backport is needed.
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
