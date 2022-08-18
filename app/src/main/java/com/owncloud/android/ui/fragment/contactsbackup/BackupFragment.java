@@ -149,7 +149,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
                                                                              PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         binding.contacts.setChecked(checkContactBackupPermission());
-        binding.calendar.setChecked(checkCalendarBackupPermission());
+        binding.calendar.setChecked(checkCalendarBackupPermission(getContext()));
 
         dailyBackupCheckedChangeListener = (buttonView, isChecked) -> {
             if (checkAndAskForContactsReadPermission()) {
@@ -341,14 +341,16 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         }
 
         if (requestCode == PermissionUtil.PERMISSIONS_READ_CALENDAR_AUTOMATIC) {
+            boolean readGranted = false;
+            boolean writeGranted = false;
             for (int index = 0; index < permissions.length; index++) {
-                if (Manifest.permission.READ_CALENDAR.equalsIgnoreCase(permissions[index])) {
-                    if (grantResults[index] >= 0) {
-                        // if approved, exit for loop
-                        break;
-                    }
+                if (Manifest.permission.WRITE_CALENDAR.equalsIgnoreCase(permissions[index]) && grantResults[index] >= 0) {
+                    writeGranted = true;
+                } else if (Manifest.permission.READ_CALENDAR.equalsIgnoreCase(permissions[index]) && grantResults[index] >= 0) {
+                    readGranted = true;
                 }
-
+            }
+            if (!readGranted || !writeGranted) {
                 // if not accepted, disable again
                 binding.calendar.setOnCheckedChangeListener(null);
                 binding.calendar.setChecked(false);
@@ -437,23 +439,23 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         // check permissions
-        if (PermissionUtil.checkSelfPermission(contactsPreferenceActivity, Manifest.permission.READ_CALENDAR)) {
+        if (checkCalendarBackupPermission(contactsPreferenceActivity)) {
             return true;
         } else {
             // No explanation needed, request the permission.
-            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR},
+            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
                                PermissionUtil.PERMISSIONS_READ_CALENDAR_AUTOMATIC);
             return false;
         }
     }
 
     private boolean checkBackupNowPermission() {
-        return (checkCalendarBackupPermission() && binding.calendar.isChecked()) ||
+        return (checkCalendarBackupPermission(getContext()) && binding.calendar.isChecked()) ||
             (checkContactBackupPermission() && binding.contacts.isChecked());
     }
 
-    private boolean checkCalendarBackupPermission() {
-        return PermissionUtil.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR);
+    private boolean checkCalendarBackupPermission(final Context context) {
+        return PermissionUtil.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) && PermissionUtil.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR);
     }
 
     private boolean checkContactBackupPermission() {
