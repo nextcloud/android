@@ -185,7 +185,6 @@
         android:background="@color/bg_default"
         app:tabGravity="center"
         app:tabMode="fixed"
-        app:tabTextAppearance="@style/AppTabTextAppearance"
         app:tabTextColor="@color/text_color"
         app:tabInlineLabel="true" />
 
