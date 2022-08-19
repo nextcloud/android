@@ -20,7 +20,6 @@
 
 package com.nextcloud.client.preferences;
 
-import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -378,10 +377,4 @@ public interface AppPreferences {
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);
-
-    boolean isContactsBackupEnabled(final User user);
-    void setContactsBackupEnabled(final User user, final boolean value);
-
-    boolean isCalendarBackupEnabled(final User user);
-    void setCalendarBackupEnabled(final User user, final boolean value);
 }

@@ -84,6 +84,10 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
 
+    public static final String PREFERENCE_CONTACTS_BACKUP_ENABLED = "PREFERENCE_CONTACTS_BACKUP_ENABLED";
+    public static final String PREFERENCE_CALENDAR_BACKUP_ENABLED = "PREFERENCE_CALENDAR_BACKUP_ENABLED";
+
+
     private BackupFragmentBinding binding;
 
     @Inject BackgroundJobManager backgroundJobManager;
@@ -93,7 +97,6 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     @Inject ThemeCheckableUtils themeCheckableUtils;
     @Inject ThemeButtonUtils themeButtonUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
-    @Inject AppPreferences appPreferences;
 
     private Date selectedDate;
     private boolean calendarPickerOpen;
@@ -115,19 +118,19 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     }
 
     private boolean isCalendarBackupEnabled() {
-        return appPreferences.isCalendarBackupEnabled(user);
+        return arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CALENDAR_BACKUP_ENABLED);
     }
 
     private void setCalendarBackupEnabled(final boolean enabled) {
-        appPreferences.setCalendarBackupEnabled(user, enabled);
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREFERENCE_CALENDAR_BACKUP_ENABLED, enabled);
     }
 
     private boolean isContactsBackupEnabled() {
-        return appPreferences.isContactsBackupEnabled(user);
+        return arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_BACKUP_ENABLED);
     }
 
     private void setContactsBackupEnabled(final boolean enabled) {
-        appPreferences.setContactsBackupEnabled(user, enabled);
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREFERENCE_CONTACTS_BACKUP_ENABLED, enabled);
     }
 
     @Override

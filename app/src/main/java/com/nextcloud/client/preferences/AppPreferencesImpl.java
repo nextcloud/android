@@ -24,7 +24,6 @@ package com.nextcloud.client.preferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -100,9 +99,6 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
 
-    private static final String PREF__CALENDAR_BACKUP_ENABLED = "calendar_backup_enabled";
-    private static final String PREF__CONTACTS_BACKUP_ENABLED = "contacts_backup_enabled";
-
     private final Context context;
     private final SharedPreferences preferences;
     private final CurrentAccountProvider currentAccountProvider;
@@ -166,10 +162,6 @@ public final class AppPreferencesImpl implements AppPreferences {
         this.currentAccountProvider = currentAccountProvider;
         this.listeners = new ListenerRegistry(this);
         this.preferences.registerOnSharedPreferenceChangeListener(listeners);
-    }
-
-    private String getUserScopedKey(final User user, final String originalKey) {
-        return Uri.encode(user.getAccountName()) + "__" + originalKey;
     }
 
     @Override
@@ -714,30 +706,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setStoragePermissionRequested(boolean value) {
         preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply();
-    }
-
-    @Override
-    public boolean isContactsBackupEnabled(final User user) {
-        final String key = getUserScopedKey(user, PREF__CONTACTS_BACKUP_ENABLED);
-        return preferences.getBoolean(key, false);
-    }
-
-    @Override
-    public void setContactsBackupEnabled(final User user, boolean value) {
-        final String key = getUserScopedKey(user, PREF__CONTACTS_BACKUP_ENABLED);
-        preferences.edit().putBoolean(key, value).apply();
-    }
-
-    @Override
-    public boolean isCalendarBackupEnabled(final User user) {
-        final String key = getUserScopedKey(user, PREF__CALENDAR_BACKUP_ENABLED);
-        return preferences.getBoolean(key, false);
-    }
-
-    @Override
-    public void setCalendarBackupEnabled(final User user, boolean value) {
-        final String key = getUserScopedKey(user, PREF__CALENDAR_BACKUP_ENABLED);
-        preferences.edit().putBoolean(key, value).apply();
     }
 
     @VisibleForTesting
