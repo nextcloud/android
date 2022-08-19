@@ -60,6 +60,7 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Period;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyFactoryImpl;
 import net.fortuna.ical4j.model.PropertyFactoryRegistry;
 import net.fortuna.ical4j.model.PropertyList;
 import net.fortuna.ical4j.model.TimeZone;
@@ -103,7 +104,7 @@ import java.util.UUID;
 public class SaveCalendar {
     private static final String TAG = "ICS_SaveCalendar";
 
-    //private final PropertyFactoryImpl mPropertyFactory = new PropertyFactoryRegistry()
+    private final PropertyFactoryImpl mPropertyFactory = new PropertyFactoryRegistry();
     private TimeZoneRegistry mTzRegistry;
     private final Set<TimeZone> mInsertedTimeZones = new HashSet<>();
     private final Set<String> mFailedOrganisers = new HashSet<>();
@@ -553,7 +554,7 @@ public class SaveCalendar {
         try {
             String value = getString(cur, dbName);
             if (value != null) {
-                Property p = new PropertyFactoryRegistry().createProperty(evName);
+                Property p = mPropertyFactory.createProperty(evName);
                 p.setValue(value);
                 l.add(p);
                 return value;
@@ -571,7 +572,7 @@ public class SaveCalendar {
             if (i != -1 && !cur.isNull(i)) {
                 int value = (int) cur.getLong(i);
                 if (value >= 0 && value < vals.size() && vals.get(value) != null) {
-                    Property p = new PropertyFactoryRegistry().createProperty(evName);
+                    Property p = mPropertyFactory.createProperty(evName);
                     p.setValue(vals.get(value));
                     l.add(p);
                 }
