@@ -1,0 +1,3 @@
+SingleLine attribute removed Signed-off-by: dhruv <dhruvpatidar35@gmail.com>
+BackupFragment: request write_calendar permission for backup
+Update Nextcloud Android library
