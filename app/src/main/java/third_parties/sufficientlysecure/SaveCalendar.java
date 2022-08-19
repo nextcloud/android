@@ -42,7 +42,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.PostUploadAction;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.TransferManagerConnection;
@@ -61,7 +60,7 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Period;
 import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.PropertyFactoryImpl;
+import net.fortuna.ical4j.model.PropertyFactoryRegistry;
 import net.fortuna.ical4j.model.PropertyList;
 import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
@@ -104,7 +103,7 @@ import java.util.UUID;
 public class SaveCalendar {
     private static final String TAG = "ICS_SaveCalendar";
 
-    private final PropertyFactoryImpl mPropertyFactory = PropertyFactoryImpl.getInstance();
+    //private final PropertyFactoryImpl mPropertyFactory = new PropertyFactoryRegistry()
     private TimeZoneRegistry mTzRegistry;
     private final Set<TimeZone> mInsertedTimeZones = new HashSet<>();
     private final Set<String> mFailedOrganisers = new HashSet<>();
@@ -554,7 +553,7 @@ public class SaveCalendar {
         try {
             String value = getString(cur, dbName);
             if (value != null) {
-                Property p = mPropertyFactory.createProperty(evName);
+                Property p = new PropertyFactoryRegistry().createProperty(evName);
                 p.setValue(value);
                 l.add(p);
                 return value;
@@ -572,7 +571,7 @@ public class SaveCalendar {
             if (i != -1 && !cur.isNull(i)) {
                 int value = (int) cur.getLong(i);
                 if (value >= 0 && value < vals.size() && vals.get(value) != null) {
-                    Property p = mPropertyFactory.createProperty(evName);
+                    Property p = new PropertyFactoryRegistry().createProperty(evName);
                     p.setValue(vals.get(value));
                     l.add(p);
                 }
