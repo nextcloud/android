@@ -1,0 +1,7 @@
+SaveCalendar: reuse property factory
+Setup ical4j caching class
+Use 3.0.0
+Use ArbitraryDataProvider to store backup preferences
+Actually persist backup preferences
+Update Nextcloud Android library
+Update 3rd-party dependencies
