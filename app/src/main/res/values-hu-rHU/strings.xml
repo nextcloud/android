@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Ez a mappa nem üres.</string>
     <string name="end_to_end_encryption_generating_keys">Új kulcsok előállítása…</string>
     <string name="end_to_end_encryption_keywords_description">A 12 szó együtt nagyon erős jelszót alkot, amivel megtekintheti és használhatja a titkosított fájljait. Kérjük írja le, és őrizze biztonságos helyen.</string>
+    <string name="end_to_end_encryption_not_enabled">A végpontok közötti titkosítás ki van kapcsolva a kiszolgálón.</string>
     <string name="end_to_end_encryption_passphrase_title">Jegyezze fel a 12 szavas titkosítási kulcsát</string>
     <string name="end_to_end_encryption_password">Jelszó…</string>
     <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése…</string>
