@@ -50,6 +50,9 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         false
     )
 
+    @get:Rule
+    val retryRule = RetryTestRule() // showShares is flaky
+
     // @ScreenshotTest // todo run without real server
     @Test
     fun showShares() {
