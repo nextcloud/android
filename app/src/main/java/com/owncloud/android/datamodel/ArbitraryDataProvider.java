@@ -65,6 +65,11 @@ public class ArbitraryDataProvider {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
+    public void storeOrUpdateKeyValue(final String accountName, final String key, final boolean newValue) {
+        storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
+    }
+
+
     public void storeOrUpdateKeyValue(@NonNull String accountName,
                                       @NonNull String key,
                                       @Nullable String newValue) {
