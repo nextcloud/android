@@ -7,7 +7,7 @@
     <string name="account_creation_failed">Ошибка создания учетной записи</string>
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
-    <string name="action_clear_failed_uploads">Убрать неудавшиеся</string>
+    <string name="action_clear_failed_uploads">Убрать неудавшиеся загрузки</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
