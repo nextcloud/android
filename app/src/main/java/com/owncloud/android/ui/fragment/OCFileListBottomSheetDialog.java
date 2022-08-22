@@ -35,16 +35,18 @@ import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.EditorUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+
+import javax.inject.Inject;
 
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
@@ -153,9 +155,9 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         }
 
         // create rich workspace
-        if (EditorUtils.isEditorAvailable(getContext().getContentResolver(),
-                                          user,
-                                          MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
+        if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
+                                             user,
+                                             MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null && !file.isEncrypted()) {
             // richWorkspace
             // == "": no info set -> show button
