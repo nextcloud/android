@@ -48,9 +48,20 @@ object SyncedFolderUtils {
      * @return `true` if it qualifies as a media folder else `false`
      */
     fun isQualifyingMediaFolder(mediaFolder: MediaFolder?): Boolean {
-        return when (mediaFolder) {
-            null -> false
-            else -> isQualifyingMediaFolder(mediaFolder.absolutePath, mediaFolder.type)
+        return when {
+            mediaFolder == null -> false
+            AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(mediaFolder.type) -> true
+            !isQualifiedFolder(mediaFolder.absolutePath) -> false
+            else -> {
+                when {
+                    mediaFolder.numberOfFiles < SINGLE_FILE -> false
+                    // music album (just one cover-art image)
+                    mediaFolder.type == MediaFolderType.IMAGE -> containsQualifiedImages(
+                        mediaFolder.filePaths.map { File(it) }
+                    )
+                    else -> true
+                }
+            }
         }
     }
 
@@ -61,10 +72,11 @@ object SyncedFolderUtils {
      * @return `true` if it qualifies as a media folder else `false`
      */
     fun isQualifyingMediaFolder(syncedFolder: SyncedFolder?): Boolean {
-        return when (syncedFolder) {
-            null -> false
-            else -> isQualifyingMediaFolder(syncedFolder.localPath, syncedFolder.type)
+        if (syncedFolder == null) {
+            return false
         }
+
+        return isQualifyingMediaFolder(syncedFolder.localPath, syncedFolder.type)
     }
 
     /**
@@ -75,20 +87,18 @@ object SyncedFolderUtils {
      * @param folderType type of the folder
      * @return `true` if it qualifies as a media folder else `false`
      */
-    fun isQualifyingMediaFolder(folderPath: String, folderType: MediaFolderType): Boolean {
+    fun isQualifyingMediaFolder(folderPath: String?, folderType: MediaFolderType): Boolean {
         return when {
-            // custom folders are always fine
             AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(folderType) -> true
-            // thumbnail folder
             !isQualifiedFolder(folderPath) -> false
+            folderPath == null -> false
             else -> {
-                // filter media folders
-                val files = getFileList(File(folderPath))
+                val files: List<File> = getFileList(File(folderPath))
                 when {
                     // no files
                     files.size < SINGLE_FILE -> false
                     // music album (just one cover-art image)
-                    MediaFolderType.IMAGE == folderType -> containsQualifiedImages(files)
+                    folderType == MediaFolderType.IMAGE -> containsQualifiedImages(files)
                     else -> true
                 }
             }
