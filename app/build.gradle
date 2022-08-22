@@ -288,7 +288,7 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
-    implementation ('org.mnode.ical4j:ical4j:3.0.0') {
+    implementation ('org.mnode.ical4j:ical4j:3.2.5') {
         ['org.apache.commons','commons-logging'].each {
             exclude group: "$it"
         }
