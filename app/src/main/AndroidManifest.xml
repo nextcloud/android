@@ -76,6 +76,7 @@
     <application
         android:name=".MainApp"
         android:fullBackupContent="@xml/backup_config"
+        android:dataExtractionRules="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:installLocation="internalOnly"
         android:label="@string/app_name"
