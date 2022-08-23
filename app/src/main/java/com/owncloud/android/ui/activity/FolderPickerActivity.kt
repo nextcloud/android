@@ -32,6 +32,9 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.button.MaterialButton
@@ -274,6 +277,19 @@ open class FolderPickerActivity :
         inflater.inflate(R.menu.activity_folder_picker, menu)
         return true
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val item = menu.findItem(R.id.action_search)
+        val searchView = MenuItemCompat.getActionView(item) as SearchView
+        val closeButton = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        closeButton.setOnClickListener {
+            searchView.setQuery("", true)
+            searchView.isIconified = true
+            searchView.clearFocus()
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var retval = true
