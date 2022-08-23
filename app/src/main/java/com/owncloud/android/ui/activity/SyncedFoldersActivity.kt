@@ -377,7 +377,7 @@ class SyncedFoldersActivity :
     private fun createSyncedFolderWithoutMediaFolder(syncedFolder: SyncedFolder): SyncedFolderDisplayItem {
         val localFolder = File(syncedFolder.localPath)
         val files = SyncedFolderUtils.getFileList(localFolder)
-        val filePaths = getDisplayFilePathList(files.toList())
+        val filePaths = getDisplayFilePathList(files)
         return SyncedFolderDisplayItem(
             syncedFolder.id,
             syncedFolder.localPath,
