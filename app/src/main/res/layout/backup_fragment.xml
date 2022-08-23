@@ -111,16 +111,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/standard_margin"
-            android:weightSum="2"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/alternate_half_margin"
+            android:layout_marginRight="@dimen/alternate_half_margin"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/backup_now"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_marginEnd="@dimen/standard_half_margin"
+                android:layout_marginStart="@dimen/alternate_half_margin"
+                android:layout_marginEnd="@dimen/alternate_half_margin"
                 android:layout_weight="1"
                 android:text="@string/contacts_backup_button"
                 android:theme="@style/Button.Primary"
@@ -131,12 +133,12 @@
                 style="@style/OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_marginEnd="@dimen/alternate_half_margin"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/restore_backup"
                 android:visibility="gone"
                 app:cornerRadius="@dimen/button_corner_radius"
+                android:layout_marginStart="@dimen/alternate_half_margin"
+                android:layout_marginEnd="@dimen/alternate_half_margin"
                 tools:visibility="visible" />
         </LinearLayout>
 
