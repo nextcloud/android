@@ -53,9 +53,8 @@ class FilesExportWork(
     private val contentResolver: ContentResolver,
     params: WorkerParameters
 ) : Worker(appContext, params) {
-    companion object {
-        const val FILES_TO_DOWNLOAD = "files_to_download"
-    }
+
+    private lateinit var storageManager: FileDataStorageManager
 
     override fun doWork(): Result {
         val fileIDs = inputData.getLongArray(FILES_TO_DOWNLOAD) ?: LongArray(0)
@@ -65,35 +64,42 @@ class FilesExportWork(
             return Result.success()
         }
 
-        val storageManager = FileDataStorageManager(user, contentResolver)
+        storageManager = FileDataStorageManager(user, contentResolver)
 
-        var successfulExports = 0
-        for (fileID in fileIDs) {
-            val ocFile = storageManager.getFileById(fileID) ?: continue
-
-            // check if storage is left
-            if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
-                showErrorNotification(successfulExports, fileIDs.size)
-                break
-            }
-
-            if (ocFile.isDown) {
-                try {
-                    exportFile(ocFile)
-                } catch (e: java.lang.RuntimeException) {
-                    showErrorNotification(successfulExports, fileIDs.size)
-                }
-            } else {
-                downloadFile(ocFile)
-            }
-
-            successfulExports++
-        }
+        val successfulExports = exportFiles(fileIDs)
 
         // show notification
         showSuccessNotification(successfulExports)
 
         return Result.success()
+    }
+
+    private fun exportFiles(fileIDs: LongArray): Int {
+        var successfulExports = 0
+        fileIDs
+            .asSequence()
+            .map { storageManager.getFileById(it) }
+            .filterNotNull()
+            .forEach { ocFile ->
+                if (!FileStorageUtils.checkIfEnoughSpace(ocFile)) {
+                    showErrorNotification(successfulExports)
+                    return@forEach
+                }
+
+                if (ocFile.isDown) {
+                    try {
+                        exportFile(ocFile)
+                    } catch (e: IllegalStateException) {
+                        Log_OC.e(TAG, "Error exporting file", e)
+                        showErrorNotification(successfulExports)
+                    }
+                } else {
+                    downloadFile(ocFile)
+                }
+
+                successfulExports++
+            }
+        return successfulExports
     }
 
     @Throws(IllegalStateException::class)
@@ -111,31 +117,28 @@ class FilesExportWork(
         appContext.startService(i)
     }
 
-    private fun showErrorNotification(successfulExports: Int, size: Int) {
+    private fun showErrorNotification(successfulExports: Int) {
         if (successfulExports == 0) {
             showNotification(
-                appContext.getString(
-                    R.plurals.export_failed,
-                    appContext.resources.getQuantityString(R.plurals.files, size)
-                )
+                appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
             )
         } else {
             showNotification(
-                appContext.getString(
+                appContext.resources.getQuantityString(
                     R.plurals.export_partially_failed,
-                    appContext.resources.getQuantityString(R.plurals.files, successfulExports),
-                    appContext.resources.getQuantityString(R.plurals.files, size)
+                    successfulExports,
+                    successfulExports
                 )
             )
         }
     }
 
     private fun showSuccessNotification(successfulExports: Int) {
-        val files = appContext.resources.getQuantityString(R.plurals.files, successfulExports, successfulExports)
         showNotification(
-            appContext.getString(
+            appContext.resources.getQuantityString(
                 R.plurals.export_successful,
-                files
+                successfulExports,
+                successfulExports
             )
         )
     }
@@ -173,5 +176,10 @@ class FilesExportWork(
 
         val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
+    }
+
+    companion object {
+        const val FILES_TO_DOWNLOAD = "files_to_download"
+        private val TAG = FilesExportWork::class.simpleName
     }
 }
