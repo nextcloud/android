@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
+    <string name="choose_location">Odaberi lokaciju</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
     <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
@@ -240,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Ova mapa nije prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Generiranje novih ključeva...</string>
     <string name="end_to_end_encryption_keywords_description">Svih 12 riječi zajedno čine vrlo složenu zaporku koja samo vama omogućuje da pregledavate i koristite se šifriranim datotekama. Zapišite je i čuvajte na sigurnom mjestu.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-end enkripcija je onemogućena na poslužitelju</string>
     <string name="end_to_end_encryption_passphrase_title">Zabilježite zaporku za šifriranje od 12 riječi</string>
     <string name="end_to_end_encryption_password">Zaporka…</string>
     <string name="end_to_end_encryption_retrieving_keys">Dohvaćanje ključeva...</string>
@@ -255,6 +257,7 @@
     <string name="error_comment_file">Pogreška pri komentiranju datoteke</string>
     <string name="error_crash_title">Ispad %1$s</string>
     <string name="error_creating_file_from_template">Pogreška kod stvaranja datoteke iz predloška</string>
+    <string name="error_file_lock">Greška kod promjene statusa zaključavanja datoteke</string>
     <string name="error_report_issue_action">Prijavi</string>
     <string name="error_report_issue_text">Prijaviti grešku razvojnom timu? (potreban GitHub korisnički račun)</string>
     <string name="error_retrieving_file">Pogreška pri dohvaćanju datoteke</string>
@@ -291,6 +294,7 @@
     <string name="failed_update_ui">Ažuriranje korisničkog sučelja nije uspjelo</string>
     <string name="favorite">Dodaj u favorite</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="file_already_exists">Datoteka tog naziva već postoji</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Pogreška pri dohvaćanju aktivnosti za datoteku</string>
     <string name="file_details_no_content">Učitavanje pojedinosti nije uspjelo</string>
@@ -402,7 +406,11 @@
     <string name="local_file_not_found_message">Datoteka nije pronađena u lokalnom datotečnom sustavu</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nema drugih mapa.</string>
+    <string name="locate_folder">Lociraj mapu</string>
+    <string name="lock_expiration_info">Ističe: %1$s</string>
     <string name="lock_file">Zaključaj datoteku</string>
+    <string name="locked_by">Zaključano od strane %1$s</string>
+    <string name="locked_by_app">Zaključano od strane aplikacije %1$s</string>
     <string name="log_send_mail_subject">Zapisnici aplikacija za Android %1$s</string>
     <string name="log_send_no_mail_app">Nije pronađena nijedna aplikacija za slanje zapisa. Instalirajte klijent e-pošte.</string>
     <string name="login">Prijava</string>
@@ -548,6 +556,7 @@
     <string name="prefs_lock_using_device_credentials">Vjerodajnice uređaja</string>
     <string name="prefs_lock_using_passcode">Zaporka</string>
     <string name="prefs_manage_accounts">Upravljaj računima</string>
+    <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
     <string name="prefs_storage_path">Mapa za pohranu podataka</string>
@@ -604,6 +613,7 @@
     <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="search_error">Pogreška pri dohvaćanju rezultata pretraživanja</string>
     <string name="select_all">Odaberi sve</string>
+    <string name="select_media_folder">Podesi mapu za medijske datoteke</string>
     <string name="select_one_template">Odaberite jedan predložak</string>
     <string name="select_template">Odaberi predložak</string>
     <string name="send">Pošalji</string>
@@ -658,6 +668,8 @@
     <string name="shared_icon_shared_via_link">dijeljeno putem poveznice</string>
     <string name="shared_with_you_by">S vama podijelio %1$s</string>
     <string name="sharee_add_failed">Dodavanje osobe za dijeljenje nije uspjelo</string>
+    <string name="show_images">Prikaži fotografije</string>
+    <string name="show_video">Prikaži video</string>
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>
     <string name="sort_by">Razvrstaj prema</string>
@@ -701,6 +713,8 @@
     <string name="storage_internal_storage">Unutarnja pohrana</string>
     <string name="storage_movies">Filmovi</string>
     <string name="storage_music">Glazba</string>
+    <string name="storage_permission_full_access">Puni pristup</string>
+    <string name="storage_permission_media_read_only">Medijske datoteke samo za čitanje</string>
     <string name="storage_pictures">Slike</string>
     <string name="store_full_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\n\nZnačajke:\n* Jednostavno, moderno sučelje, prilagođeno dizajnu vašeg poslužitelja\n* Otpremite datoteke na Nextcloudov poslužitelj\n* Dijelite datoteke s drugima\n* Sinkronizirajte omiljene datoteke i mape\n* Pretražujte sve mape na poslužitelju\n* Automatski prijenos fotografija i videozapisa snimljenih vašim uređajem\n* Primanje najnovijih informacija putem trenutnih obavijesti\n* Podrška za više računa\n* Siguran pristup datotekama putem otiska prsta ili šifre\n* Integracija s aplikacijom DAVx5 (ranije poznatom kao DAVdroid) omogućuje jednostavnu izradu kalendara i sinkronizaciju kontakata\n\nBilo kakve probleme prijavite na https://github.com/nextcloud/android/issues i raspravljajte o aplikaciji na https://help.nextcloud.com/c/clients/android\n\nNovi ste korisnik Nextclouda? Nextcloud je privatni poslužitelj za sinkronizaciju i dijeljenje te komunikaciju. Radi se o besplatnom softveru i možete ga samostalno posluživati ili možete platiti tvrtki da to učini za vas. Na taj način sami upravljate svojim fotografijama, kalendarom i kontaktnim podacima, dokumentima i svim ostalim.\n\nViše informacija o Nextcloudu možete pronaći na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\nTo je službena razvojna inačica koja se isporučuje s dnevnim uzorkom svake nove neispitane funkcionalnosti, što može uzrokovati nestabilnost i gubitak podataka. Aplikacija je namijenjena korisnicima koji žele testirati i prijaviti pogreške, ako se iste pojave. Nemojte je upotrebljavati za važne radne zadatke!\n\nSlužbena razvojna i uobičajena inačica dostupne su putem F-droida i mogu biti istovremeno instalirane.</string>
@@ -712,6 +726,9 @@
     <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
     <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
+    <string name="subtitle_photos_only">Samo fotografije</string>
+    <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
+    <string name="subtitle_videos_only">Samo video materijali</string>
     <string name="suggest">Predloži</string>
     <string name="sync_conflicts_in_favourites_ticker">Postoje nepodudaranja</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s više ne postoji</string>
@@ -789,6 +806,7 @@
     <string name="upload_lock_failed">Zaključavanje mape nije uspjelo</string>
     <string name="upload_old_android">Šifriranje je moguće samo na inačici &gt;= Androida 5.0</string>
     <string name="upload_query_move_foreign_files">Nedostatak prostora sprječava kopiranje odabranih datoteka u mapu %1$s. Želite li ih premjestiti tamo?</string>
+    <string name="upload_scan_doc_upload">Skeniraj dokument pomoću kamere</string>
     <string name="upload_sync_conflict">Nepodudaranje tijekom sinkronizacije, ručno otklonite poteškoću</string>
     <string name="upload_unknown_error">Nepoznata pogreška</string>
     <string name="uploader_btn_alternative_text">Odaberite</string>
@@ -891,6 +909,26 @@
         <item quantity="one">Pronađen %d dupli unos.</item>
         <item quantity="few">Pronađena %d dupla unosa.</item>
         <item quantity="other">Pronađeno %d duplih unosa.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Izvezena %d datoteka</item>
+        <item quantity="few">Izvezeno %d datoteke</item>
+        <item quantity="other">Izvezeno %d datoteka</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Nije uspio izvoz %d datoteke</item>
+        <item quantity="few">Nije uspio izvoz %d datoteke</item>
+        <item quantity="other">Nije uspio izvoz %d datoteka</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Broj izvezenih datoteka: %d. Ostale su preskočene zbog greške</item>
+        <item quantity="few">Broj izvezenih datoteka: %d. Ostale su preskočene zbog greške</item>
+        <item quantity="other">Broj izvezenih datoteka: %d. Ostale su preskočene zbog greške</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Broj datoteka za export: %d. Za detalje pogledajte obavijesti.</item>
+        <item quantity="few">Broj datoteka za export: %d. Za detalje pogledajte obavijesti.</item>
+        <item quantity="other">Broj datoteka za export: %d. Za detalje pogledajte obavijesti.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">Mapa %1$d</item>
