@@ -125,7 +125,7 @@
     <string name="scan_save_file_type_png" translatable="false">PNG</string>
     <string name="scan_save_file_type_pdf_ocr" translatable="false">PDF (OCR)</string>
 
-    <bool name="e2e_enabled">true</bool>
+    <bool name="e2e_enabled">false</bool>
 </resources>
 
 
