@@ -241,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Kansio ei ole tyhjä.</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia avaimia…</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>
+    <string name="end_to_end_encryption_not_enabled">Päästä päähän -salaus poistettu käytöstä palvelimella.</string>
     <string name="end_to_end_encryption_passphrase_title">Laita muistiin sinun 12 symboolinen salauksen avain</string>
     <string name="end_to_end_encryption_password">Salasana…</string>
     <string name="end_to_end_encryption_retrieving_keys">Noudetaan avaimia…</string>
@@ -281,6 +282,7 @@
     <string name="etm_title">Kehittäjän testitila</string>
     <string name="etm_transfer">Tiedoston siirto</string>
     <string name="etm_transfer_enqueue_test_download">Jonota testilataus</string>
+    <string name="etm_transfer_enqueue_test_upload">Jonota testilähetys</string>
     <string name="etm_transfer_remote_path">Etäpolku</string>
     <string name="etm_transfer_type">Siirrä</string>
     <string name="etm_transfer_type_download">Lataa</string>
@@ -319,6 +321,7 @@
     <string name="file_management_permission">Käyttöoikeus tarvitaan</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>
+    <string name="file_management_permission_text">%1$s tarvitsee käyttöoikeuden tallennustilan käyttöön tiedostojen lähettämiseksi. Voit myöntää täydet oikeudet kaikkiin tiedostoihin tai vain luku -oikeudet kuviin ja videoihin.</string>
     <string name="file_migration_checking_destination">Tarkistetaan kohdetta…</string>
     <string name="file_migration_cleaning">Siivotaan…</string>
     <string name="file_migration_dialog_title">Päivitetään tietojen tallennuspolkua</string>
@@ -724,6 +727,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="subtitle_photos_only">Vain kuvat</string>
+    <string name="subtitle_photos_videos">Kuvat ja videot</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
