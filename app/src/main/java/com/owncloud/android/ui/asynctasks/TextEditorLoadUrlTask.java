@@ -26,10 +26,10 @@ import android.os.AsyncTask;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.EditorWebView;
-import com.owncloud.android.utils.EditorUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -53,7 +53,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        Editor editor = EditorUtils.getEditor(editorWebView.getContentResolver(), user, file.getMimeType());
+        Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), user, file.getMimeType());
 
         if (editor == null) {
             return "";
