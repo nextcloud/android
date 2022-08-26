@@ -1,0 +1,12 @@
+SyncedFolderUtils: fix logic when numberOfFiles != actual file number
+SyncedFolderUtils: solve inconsistent comparator
+SyncedFolderUtils: convert to kotlin step 2 and deduplicate
+SyncedFolderUtils: convert to Kotlin step 1
+Bump OUTDATED_SERVER_VERSION to Nextcloud 22
+add data-extraction-rules
+Bump targetSdkVersion to 31
+Revert "Test proseMirror with custom user agent"
+Disable search on folder picker activity
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
