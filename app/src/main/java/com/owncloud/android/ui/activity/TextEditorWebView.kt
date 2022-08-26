@@ -23,15 +23,14 @@ package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.webkit.WebSettings
 import android.widget.Toast
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
+import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
-import com.owncloud.android.utils.EditorUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import javax.inject.Inject
 
@@ -54,31 +53,27 @@ class TextEditorWebView : EditorWebView() {
             finish()
         }
 
-        webView.addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
+        val editor = FileMenuFilter.getEditor(contentResolver, user.get(), file.mimeType)
+
+        if (editor != null && editor.id == "onlyoffice") {
+            getWebView().settings.userAgentString = generateOnlyOfficeUserAgent()
+        }
+
+        getWebView().addJavascriptInterface(MobileInterface(), "DirectEditingMobileInterface")
 
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
             WebSettingsCompat.setForceDarkStrategy(
-                webView.settings,
+                getWebView().settings,
                 WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
             )
         }
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && themeUtils.isDarkModeActive(this)) {
-            WebSettingsCompat.setForceDark(webView.settings, WebSettingsCompat.FORCE_DARK_ON)
+            WebSettingsCompat.setForceDark(getWebView().settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 
-        webView.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
+        getWebView().setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
         loadUrl(intent.getStringExtra(ExternalSiteWebView.EXTRA_URL))
-    }
-
-    override fun setUserAgentString(webSettings: WebSettings?) {
-        val editor = EditorUtils.getEditor(contentResolver, user.get(), file.mimeType)
-
-        if (editor != null && editor.id == ONLYOFFICE) {
-            webView.settings.userAgentString = generateOnlyOfficeUserAgent()
-        }
-
-        // For Text/prosemirror we keep default user agent to not mess around with their special treatments
     }
 
     override fun loadUrl(url: String?) {
@@ -91,9 +86,5 @@ class TextEditorWebView : EditorWebView() {
         val userAgent = applicationContext.resources.getString(R.string.only_office_user_agent)
 
         return String.format(userAgent, deviceInfo.androidVersion, appInfo.getAppVersion(this))
-    }
-
-    companion object {
-        const val ONLYOFFICE = "onlyoffice"
     }
 }
