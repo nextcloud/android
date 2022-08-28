@@ -474,6 +474,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_send_link_label">Kirim taukan</string>
     <string name="share_with_title">Bagikan dengan…</string>
+    <string name="shared_icon_share">bagikan</string>
     <string name="shared_icon_shared">dibagikan</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
