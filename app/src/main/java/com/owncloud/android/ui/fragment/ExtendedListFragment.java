@@ -666,7 +666,11 @@ public class ExtendedListFragment extends Fragment implements
     @Override
     public void onRefresh(boolean ignoreETag) {
         if (mOnRefreshListener != null) {
-            mOnRefreshListener.onRefresh();
+            if (mOnRefreshListener instanceof FileDisplayActivity) {
+                ((FileDisplayActivity) mOnRefreshListener).onRefresh(ignoreETag);
+            } else {
+                mOnRefreshListener.onRefresh();
+            }
         }
     }
 
