@@ -665,6 +665,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="shared_icon_shared_via_link">Delt via link</string>
     <string name="shared_with_you_by">Delt med dig af %1$s</string>
     <string name="sharee_add_failed">Tilføj deler fejlet</string>
+    <string name="show_images">Vis fotos</string>
+    <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud account %2$s?</string>
     <string name="sort_by">Sortér efter</string>
@@ -721,6 +723,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
+    <string name="subtitle_photos_videos">Fotos &amp;videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
