@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
     <string name="about_android">יישום אנדרואיד %1$s</string>
-    <string name="about_title">על אודות</string>
+    <string name="about_title">אודות</string>
     <string name="about_version">גרסה %1$s</string>
     <string name="about_version_with_build">גרסה %1$s, מספר בנייה %2$s</string>
     <string name="account_creation_failed">יצירת החשבון נכשלה</string>
