@@ -653,7 +653,7 @@
     <string name="share_permissions">Partekatu baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
-    <string name="share_search">Izena, federatutako lainoaren IDa edo helbide elektronikoa...</string>
+    <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>
     <string name="share_send_new_email">Bidali posta-mezu berria</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_settings">Ezarpenak</string>
