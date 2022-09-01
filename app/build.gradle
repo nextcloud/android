@@ -75,7 +75,7 @@ android {
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 30
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
 
