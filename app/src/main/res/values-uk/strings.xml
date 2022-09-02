@@ -390,6 +390,7 @@
     <string name="link_share_editing">Редагування</string>
     <string name="link_share_file_drop">Сховище (тільки завантажування)</string>
     <string name="list_layout">Шаблон списку</string>
+    <string name="load_more_results">Завантажити більше результатів</string>
     <string name="local_file_list_empty">В цій теці немає файлів.</string>
     <string name="local_file_not_found_message">Файл не знайдено у локальній файловій системі</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -534,6 +535,7 @@
     <string name="prefs_lock_using_device_credentials">Облікові дані пристрою</string>
     <string name="prefs_lock_using_passcode">Код доступу</string>
     <string name="prefs_manage_accounts">Управління обліковими записами</string>
+    <string name="prefs_recommend">Рекомендую другу</string>
     <string name="prefs_show_hidden_files">Відобразити сховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
     <string name="prefs_storage_path">Папка для зберігання даних</string>
