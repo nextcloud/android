@@ -78,6 +78,7 @@
     <string name="avatar">Світлина</string>
     <string name="away">Піти</string>
     <string name="backup_settings">Налаштування резервного збереження</string>
+    <string name="backup_title">Резервне копіювання календаря контактів &amp;</string>
     <string name="battery_optimization_close">Закрити</string>
     <string name="battery_optimization_disable">Вимкнути</string>
     <string name="battery_optimization_message">Можливо, що на вашому пристрої увімкнено оптимізацію живлення від батареї. Автоматичне завантаження буде правильно працювати лише, якщо ви виключите цей застосунок зі списку оптимізації.</string>
@@ -89,6 +90,7 @@
     <string name="changelog_dev_version">Версія для розробника зі списку змін</string>
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть локальну теку...</string>
+    <string name="choose_location">Виберіть місце розташування</string>
     <string name="choose_remote_folder">Виберіть віддалену теку...</string>
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберігати!</string>
@@ -151,6 +153,7 @@
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_local_file">Локальний файл</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
+    <string name="conflict_server_file">Файл сервера</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
@@ -194,6 +197,7 @@
     <string name="dev_version_no_information_available">Відсутня інформація</string>
     <string name="dev_version_no_new_version_available">Відсутня нова версія</string>
     <string name="dialog_close">закрити</string>
+    <string name="did_not_check_for_dupes">На наявність дублікатів не перевіряв.</string>
     <string name="digest_algorithm_not_available">Цей цифровий алгоритм недоступний на вашому телефоні.</string>
     <string name="direct_login_failed">Відмова входу за прямим посиланням!</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
@@ -238,6 +242,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Тека не є порожньою</string>
     <string name="end_to_end_encryption_generating_keys">Створення нових ключів...</string>
     <string name="end_to_end_encryption_keywords_description">Усі 12 слів утворюють разом дуже сильний пароль, який дозволить лише вам переглядати та використовувати зашифровані файли. Будь ласка, занотуйте його та збережіть у безпечному місці.</string>
+    <string name="end_to_end_encryption_not_enabled">Наскрізне шифрування вимкнено на сервері.</string>
     <string name="end_to_end_encryption_passphrase_title">Занотуйте вашу парольну фразу з 12 слів</string>
     <string name="end_to_end_encryption_password">Пароль...</string>
     <string name="end_to_end_encryption_retrieving_keys">Отримання ключів...</string>
@@ -673,6 +678,7 @@
     <string name="storage_internal_storage">Внутрішнє сховище</string>
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>
+    <string name="storage_permission_full_access">Повний доступ</string>
     <string name="storage_pictures">Зображення</string>
     <string name="store_full_desc">Самостійна платформа продуктивності, яка тримає вас під контролем. \n\nОсобливості: \n* Простий, сучасний інтерфейс, що відповідає темі вашого сервера\n* Завантажте файли на сервер Nextcloud\n* Поділіться ними з іншими\n* Синхронізуйте свої улюблені файли та папки\n* Шукайте по всіх папках на вашому сервері\n * Автозавантажуйте фотографії та відео, зроблені вашим пристроєм\n* Будьте в курсі сповіщень\n* Підтримка кількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитка пальця або PIN-коду\n* Інтеграція з DAVx5 (раніше відомий як DAVdroid) для зручного налаштування синхронізації календаря та контактів&amp; \n\nПрохання повідомляти про всі проблеми на https://github.com/nextcloud/android/issues та обговорити цю програму на https://help.nextcloud.com/c/clients/android\n\nНовий у Nextcloud? Nextcloud - це приватний сервер для синхронізації &amp;та спільного використання файлів та зв\'язку. Це безкоштовне програмне забезпечення, і ви можете розмістити його самостійно або заплатити компанії, яка зробить це за вас. Таким чином, ви контролюєте свої фотографії, календар і контактні дані, документи та все інше.\n\nПеревірте Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостійна платформа продуктивності, яка тримає вас під контролем.\nЦе офіційна версія для розробки, що містить щоденний зразок будь-якої нової неперевіреної функціональності, яка може спричинити нестабільність та втрату даних. Додаток призначений для користувачів, які бажають протестувати, і повідомляти про помилки у разі їх виникнення. Не використовуйте його для своєї продуктивної роботи!\n\ nОфіційна розробка та звичайна версія доступні на F-droid і можуть бути встановлені одночасно.</string>

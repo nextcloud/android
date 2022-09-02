@@ -1,3 +1,9 @@
+## 3.21.2 (September 1, 2022)
+
+- Bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
 ## 3.21.1 (August 26, 2022)
 
 - Bug fixes
