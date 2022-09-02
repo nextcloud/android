@@ -27,6 +27,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -35,6 +36,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -400,12 +402,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public void startAccountCreation(final Activity activity) {
-        accountManager.addAccount(getAccountType(),
-                                  null,
-                                  null,
-                                  null,
-                                  activity,
-                                  null,
-                                  null);
+        Intent intent = new Intent(context, AuthenticatorActivity.class);
+
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }
