@@ -37,7 +37,6 @@ import android.widget.Toast;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackupFragmentBinding;
@@ -122,6 +121,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     }
 
     private void setCalendarBackupEnabled(final boolean enabled) {
+        Log_OC.d(TAG, "setCalendarBackupEnabled() called with: enabled = [" + enabled + "]");
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREFERENCE_CALENDAR_BACKUP_ENABLED, enabled);
     }
 
@@ -130,6 +130,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     }
 
     private void setContactsBackupEnabled(final boolean enabled) {
+        Log_OC.d(TAG, "setContactsBackupEnabled() called with: enabled = [" + enabled + "]");
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREFERENCE_CONTACTS_BACKUP_ENABLED, enabled);
     }
 
@@ -168,6 +169,9 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         themeCheckableUtils.tintSwitch(binding.dailyBackup, themeColorUtils);
         binding.dailyBackup.setChecked(arbitraryDataProvider.getBooleanValue(user,
                                                                              PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
+
+        Log_OC.d(TAG, "onCreateView(): isContactsBackupEnabled() = " + isContactsBackupEnabled() + ", isCalendarBackupEnabled() = " + isCalendarBackupEnabled());
+        Log_OC.d(TAG, "onCreateView(): checkContactBackupPermission() = " + checkContactBackupPermission() + ", checkCalendarBackupPermission() = " + checkCalendarBackupPermission(getContext()));
 
         binding.contacts.setChecked(isContactsBackupEnabled() && checkContactBackupPermission());
         binding.calendar.setChecked(isCalendarBackupEnabled() && checkCalendarBackupPermission(getContext()));
