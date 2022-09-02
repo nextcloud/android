@@ -1,0 +1,2 @@
+Revert "Bump targetSdkVersion to 31"
+Update translations
