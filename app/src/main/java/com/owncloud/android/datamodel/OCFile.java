@@ -379,11 +379,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             localPath = storage_path.replaceAll("//", "/");
 
-
             if (isFolder() && !localPath.endsWith("/")) {
                 localPath = localPath + "/";
             }
-
         }
         localUri = null;
         exposedFileUri = null;

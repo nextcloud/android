@@ -99,7 +99,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
             waitForServer(client, baseUrl);
 
-            deleteAllFiles(); // makes sure that no file/folder is in root
+            deleteAllFilesOnServer(); // makes sure that no file/folder is in root
 
         } catch (OperationCanceledException e) {
             e.printStackTrace();
@@ -114,10 +114,12 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
     @After
     public void after() {
-        deleteAllFiles();
+        deleteAllFilesOnServer();
+
+        super.after();
     }
 
-    public static void deleteAllFiles() {
+    public static void deleteAllFilesOnServer() {
         RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
 

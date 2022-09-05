@@ -2425,6 +2425,13 @@ public class FileDataStorageManager {
         }
     }
 
+    public void removeLocalFiles(User user, FileDataStorageManager storageManager) {
+        File tempDir = new File(FileStorageUtils.getTemporalPath(user.getAccountName()));
+        File saveDir = new File(FileStorageUtils.getSavePath(user.getAccountName()));
+        FileStorageUtils.deleteRecursively(tempDir, storageManager);
+        FileStorageUtils.deleteRecursively(saveDir, storageManager);
+    }
+
     public List<OCFile> getAllFiles() {
         String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER + "= ? ";
         String[] selectionArgs = new String[]{user.getAccountName()};
