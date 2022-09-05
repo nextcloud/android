@@ -603,7 +603,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     }
 
     private fun hideKeyboard() {
-        KeyboardUtils.hideKeyboardFrom(requireContext(), binding.root)
+        if (this::binding.isInitialized) {
+            KeyboardUtils.hideKeyboardFrom(requireContext(), binding.root)
+        }
     }
 
     /**
