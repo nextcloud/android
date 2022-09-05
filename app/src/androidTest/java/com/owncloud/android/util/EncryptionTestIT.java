@@ -36,6 +36,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
+import org.conscrypt.OpenSSLRSAPublicKey;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,11 +46,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
+import java.security.interfaces.RSAPrivateCrtKey;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -176,6 +179,18 @@ public class EncryptionTestIT {
 
         String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, keyPair1.getPublic());
         decryptStringAsymmetric(encryptedString, keyPair2.getPrivate());
+    }
+
+    @Test
+    public void testModulus() throws Exception {
+        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+        OpenSSLRSAPublicKey publicKey = (OpenSSLRSAPublicKey) keyPair.getPublic();
+        RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
+
+        BigInteger modulusPublic = publicKey.getModulus();
+        BigInteger modulusPrivate = privateKey.getModulus();
+
+        assertEquals(modulusPrivate, modulusPublic);
     }
 
     @Test
