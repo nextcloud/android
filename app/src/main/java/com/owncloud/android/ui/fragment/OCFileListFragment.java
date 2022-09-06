@@ -111,9 +111,9 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeFabUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -196,12 +196,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ClientFactory clientFactory;
     @Inject Throttler throttler;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeFabUtils themeFabUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
     @Inject ThemeAvatarUtils themeAvatarUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -321,7 +321,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            viewThemeUtils.material.themeFAB(mFabMain);
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -472,7 +472,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileActivity activity = (FileActivity) getActivity();
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
                 final OCFileListBottomSheetDialogFragment dialog =
                     new OCFileListBottomSheetDialogFragment(activity,
@@ -1871,7 +1871,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.hide();
                 }
@@ -1921,10 +1921,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.setEnabled(false);
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 }
             });
         }
