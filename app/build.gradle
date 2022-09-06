@@ -4,6 +4,8 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
+        // TODO rollback, needs to be same version as common for local build
+        //classpath 'com.android.tools.build:gradle:7.2.2'
         classpath 'com.hiya:jacoco-android:0.2'
         classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.11'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -349,6 +351,9 @@ dependencies {
 
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.7"
+
+    // TODO change back to tag before merging
+    implementation 'com.github.nextcloud.android-common:ui:feature/more-theming-files-SNAPSHOT'
 }
 
 configurations.all {
