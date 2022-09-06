@@ -1,0 +1,5 @@
+Restart account creation with AuthenticatorActivity, which helps to add account in restricted profiles, e.g. MDM or Samsung second users
+Avoid full folder refresh during onBrowseUp
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
