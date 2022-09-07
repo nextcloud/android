@@ -39,7 +39,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
@@ -75,7 +74,6 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
-    @Inject ThemeCheckableUtils themeCheckableUtils;
 
     private static final String KEY_NEW_FILE = "file";
     private static final String KEY_EXISTING_FILE = "ocfile";
@@ -160,9 +158,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
 
-        themeCheckableUtils.tintCheckbox(themeColorUtils.primaryColor(getContext()),
-                                         binding.newCheckbox,
-                                         binding.existingCheckbox);
+        viewThemeUtils.platform.themeCheckbox(binding.newCheckbox);
+        viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox);
 
         // Build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
