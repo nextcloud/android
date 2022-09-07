@@ -100,8 +100,8 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
 
-        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
-        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingEmpty);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
 
         // setup drawer
         setupDrawer(R.id.nav_notifications);

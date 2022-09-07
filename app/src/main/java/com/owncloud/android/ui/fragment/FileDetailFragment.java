@@ -73,7 +73,6 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -117,7 +116,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject ClientFactory clientFactory;
     @Inject FileDataStorageManager storageManager;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeLayoutUtils themeLayoutUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
 
@@ -257,7 +255,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.removeAllTabs();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
-        themeLayoutUtils.colorTabLayout(getContext().getApplicationContext(), binding.tabLayout);
+        viewThemeUtils.material.themeTabLayoutOnSurface(binding.tabLayout);
 
         if (!getFile().isEncrypted()) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));

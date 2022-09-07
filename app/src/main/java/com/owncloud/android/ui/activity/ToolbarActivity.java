@@ -44,10 +44,8 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -81,7 +79,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private boolean isHomeSearchToolbarShow = false;
 
     @Inject public ThemeColorUtils themeColorUtils;
-    @Inject public ThemeLayoutUtils themeLayoutUtils;
     @Inject public ThemeToolbarUtils themeToolbarUtils;
     @Inject public ThemeUtils themeUtils;
     @Inject public ThemeDrawableUtils themeDrawableUtils;

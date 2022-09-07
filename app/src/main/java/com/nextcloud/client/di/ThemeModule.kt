@@ -26,8 +26,6 @@ import com.owncloud.android.utils.theme.ThemeAvatarUtils
 import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.theme.ThemeFabUtils
-import com.owncloud.android.utils.theme.ThemeLayoutUtils
 import com.owncloud.android.utils.theme.ThemeMenuUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 import com.owncloud.android.utils.theme.ThemeTextInputUtils
@@ -53,18 +51,6 @@ internal abstract class ThemeModule {
         @Singleton
         fun themeColorUtils(): ThemeColorUtils {
             return ThemeColorUtils()
-        }
-
-        @Provides
-        @Singleton
-        fun themeFabUtils(themeColorUtils: ThemeColorUtils?, themeDrawableUtils: ThemeDrawableUtils?): ThemeFabUtils {
-            return ThemeFabUtils(themeColorUtils, themeDrawableUtils)
-        }
-
-        @Provides
-        @Singleton
-        fun themeLayoutUtils(themeColorUtils: ThemeColorUtils?): ThemeLayoutUtils {
-            return ThemeLayoutUtils(themeColorUtils)
         }
 
         @Provides
