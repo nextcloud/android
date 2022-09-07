@@ -52,7 +52,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -93,7 +92,6 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
-    @Inject ThemeCheckableUtils themeCheckableUtils;
 
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject ViewThemeUtils viewThemeUtils;
@@ -163,9 +161,9 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         }
 
 
-        themeCheckableUtils.tintSwitch(binding.contacts, themeColorUtils);
-        themeCheckableUtils.tintSwitch(binding.calendar, themeColorUtils);
-        themeCheckableUtils.tintSwitch(binding.dailyBackup, themeColorUtils);
+        viewThemeUtils.androidx.colorSwitchCompat(binding.contacts);
+        viewThemeUtils.androidx.colorSwitchCompat(binding.calendar);
+        viewThemeUtils.androidx.colorSwitchCompat(binding.dailyBackup);
         binding.dailyBackup.setChecked(arbitraryDataProvider.getBooleanValue(user,
                                                                              PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
