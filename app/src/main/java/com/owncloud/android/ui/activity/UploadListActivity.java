@@ -56,6 +56,7 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -98,6 +99,9 @@ public class UploadListActivity extends FileActivity {
 
     @Inject
     LocalBroadcastManager localBroadcastManager;
+
+    @Inject
+    ViewThemeUtils viewThemeUtils;
 
     private UploadListLayoutBinding binding;
 
@@ -157,7 +161,7 @@ public class UploadListActivity extends FileActivity {
                                                   clock,
                                                   themeColorUtils,
                                                   themeDrawableUtils,
-                                                  themeBarUtils);
+                                                  viewThemeUtils);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
         uploadListAdapter.setLayoutManager(lm);

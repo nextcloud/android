@@ -40,6 +40,7 @@ import static com.owncloud.android.utils.theme.CapabilityUtils.getCapability;
 /**
  * Utility class with methods for theming related.
  */
+@Deprecated
 public class ThemeColorUtils {
 
     private static final int INDEX_LUMINATION = 2;

@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.adapter;
 
-import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -65,9 +64,9 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -92,7 +91,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private boolean showUser;
     private ThemeColorUtils themeColorUtils;
     private ThemeDrawableUtils themeDrawableUtils;
-    private ThemeBarUtils themeBarUtils;
+    private final  ViewThemeUtils viewThemeUtils;
 
     @Override
     public int getSectionCount() {
@@ -174,7 +173,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final Clock clock,
                              final ThemeColorUtils themeColorUtils,
                              final ThemeDrawableUtils themeDrawableUtils,
-                             final ThemeBarUtils themeBarUtils) {
+                             final ViewThemeUtils viewThemeUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
@@ -185,7 +184,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.clock = clock;
         this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
-        this.themeBarUtils = themeBarUtils;
+        this.viewThemeUtils = viewThemeUtils;
 
         uploadGroups = new UploadGroup[3];
 
@@ -280,8 +279,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                themeBarUtils.colorHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar,
-                                                         themeColorUtils.primaryAccentColor(parentActivity));
+                viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar);
                 itemViewHolder.binding.uploadProgressBar.setProgress(0);
                 itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
 
