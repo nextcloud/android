@@ -26,6 +26,7 @@ import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.client.account.User
 import com.owncloud.android.lib.resources.status.OCCapability
 
+// TODO schema for non-logged-in user? login and what's new screens
 interface MaterialSchemesProvider {
     fun getMaterialSchemesForUser(user: User): MaterialSchemes
     fun getMaterialSchemesForCapability(capability: OCCapability): MaterialSchemes

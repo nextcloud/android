@@ -22,8 +22,8 @@ import android.os.Bundle;
 
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -45,7 +45,8 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
     public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     private ConfirmationDialogFragmentListener mListener;
 
@@ -84,10 +85,9 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {

@@ -47,9 +47,9 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 
@@ -82,8 +82,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private final static float alphaDisabled = 0.7f;
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
     @Inject ThemeCheckableUtils themeCheckableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     protected View mView;
     private CharSequence[] mUploadBehaviorItemStrings;
     private CharSequence[] mNameCollisionPolicyItemStrings;
@@ -176,7 +177,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
             // switch text to create headline
             ((TextView) view.findViewById(R.id.synced_folders_settings_title))
-                    .setText(R.string.autoupload_create_new_custom_folder);
+                .setText(R.string.autoupload_create_new_custom_folder);
 
             // disable save button
             view.findViewById(R.id.save).setEnabled(false);
@@ -200,7 +201,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadExistingCheckbox = view.findViewById(R.id.setting_instant_upload_existing_checkbox);
 
         mUploadUseSubfoldersCheckbox = view.findViewById(
-                R.id.setting_instant_upload_path_use_subfolders_checkbox);
+            R.id.setting_instant_upload_path_use_subfolders_checkbox);
 
         themeCheckableUtils.tintCheckbox(accentColor,
                                          mUploadOnWifiCheckbox,
@@ -215,19 +216,19 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mCancel = view.findViewById(R.id.cancel);
         mSave = view.findViewById(R.id.save);
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils, mCancel, mSave);
+        viewThemeUtils.platform.colorTextButtons(mCancel, mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());
 
         if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
             mLocalFolderPath.setText(
-                    DisplayUtils.createTextWithSpan(
-                            String.format(
-                                    getString(R.string.synced_folders_preferences_folder_path),
-                                    mSyncedFolder.getLocalPath()),
-                            mSyncedFolder.getFolderName(),
-                            new StyleSpan(Typeface.BOLD)));
+                DisplayUtils.createTextWithSpan(
+                    String.format(
+                        getString(R.string.synced_folders_preferences_folder_path),
+                        mSyncedFolder.getLocalPath()),
+                    mSyncedFolder.getFolderName(),
+                    new StyleSpan(Typeface.BOLD)));
             mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(
                 mSyncedFolder.getLocalPath(),
                 getActivity(),
@@ -268,9 +269,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     /**
-     * set (new) remote path on activity result of the folder picker activity. The result gets originally propagated
-     * to the underlying activity since the picker is an activity and the result can't get passed to the dialog
-     * fragment directly.
+     * set (new) remote path on activity result of the folder picker activity. The result gets originally propagated to
+     * the underlying activity since the picker is an activity and the result can't get passed to the dialog fragment
+     * directly.
      *
      * @param path the remote path to be set
      */
@@ -281,9 +282,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     /**
-     * set (new) local path on activity result of the folder picker activity. The result gets originally propagated
-     * to the underlying activity since the picker is an activity and the result can't get passed to the dialog
-     * fragment directly.
+     * set (new) local path on activity result of the folder picker activity. The result gets originally propagated to
+     * the underlying activity since the picker is an activity and the result can't get passed to the dialog fragment
+     * directly.
      *
      * @param path the local path to be set
      */
@@ -291,12 +292,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mSyncedFolder.setLocalPath(path);
         mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(path, getActivity(), getResources()));
         mLocalFolderPath.setText(
-                DisplayUtils.createTextWithSpan(
-                        String.format(
-                                getString(R.string.synced_folders_preferences_folder_path),
-                                mSyncedFolder.getLocalPath()),
-                        new File(mSyncedFolder.getLocalPath()).getName(),
-                        new StyleSpan(Typeface.BOLD)));
+            DisplayUtils.createTextWithSpan(
+                String.format(
+                    getString(R.string.synced_folders_preferences_folder_path),
+                    mSyncedFolder.getLocalPath()),
+                new File(mSyncedFolder.getLocalPath()).getName(),
+                new StyleSpan(Typeface.BOLD)));
         checkAndUpdateSaveButtonState();
     }
 
@@ -406,22 +407,22 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             });
 
         view.findViewById(R.id.setting_instant_upload_existing_container).setOnClickListener(
-              new OnClickListener() {
-                  @Override
-                  public void onClick(View v) {
-                      mSyncedFolder.setExisting(!mSyncedFolder.isExisting());
-                      mUploadExistingCheckbox.toggle();
-                  }
-              });
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSyncedFolder.setExisting(!mSyncedFolder.isExisting());
+                    mUploadExistingCheckbox.toggle();
+                }
+            });
 
         view.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
-                        mUploadUseSubfoldersCheckbox.toggle();
-                    }
-                });
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
+                    mUploadUseSubfoldersCheckbox.toggle();
+                }
+            });
 
         view.findViewById(R.id.remote_folder_container).setOnClickListener(v -> {
             Intent action = new Intent(getActivity(), FolderPickerActivity.class);
@@ -443,12 +444,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         });
 
         view.findViewById(R.id.setting_instant_behaviour_container).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showBehaviourDialog();
-                    }
-                });
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showBehaviourDialog();
+                }
+            });
 
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setOnClickListener(
             new OnClickListener() {
@@ -462,26 +463,26 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private void showBehaviourDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
-                .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
-                        mSyncedFolder.getUploadActionInteger(),
-                        new
-                                DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mSyncedFolder.setUploadAction(
-                                                getResources().getTextArray(
-                                                        R.array.pref_behaviour_entryValues)[which].toString());
-                                        mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
-                                                .this.mUploadBehaviorItemStrings[which]);
-                                        behaviourDialogShown = false;
-                                        dialog.dismiss();
-                                    }
-                                })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        behaviourDialogShown = false;
-                    }
-                });
+            .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
+                                  mSyncedFolder.getUploadActionInteger(),
+                                  new
+                                      DialogInterface.OnClickListener() {
+                                          public void onClick(DialogInterface dialog, int which) {
+                                              mSyncedFolder.setUploadAction(
+                                                  getResources().getTextArray(
+                                                      R.array.pref_behaviour_entryValues)[which].toString());
+                                              mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
+                                                                                 .this.mUploadBehaviorItemStrings[which]);
+                                              behaviourDialogShown = false;
+                                              dialog.dismiss();
+                                          }
+                                      })
+            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    behaviourDialogShown = false;
+                }
+            });
         behaviourDialogShown = true;
         behaviourDialog = builder.create();
         behaviourDialog.show();
@@ -534,14 +535,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         behaviourDialogShown = savedInstanceState != null &&
-                savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false);
+            savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false);
         nameCollisionPolicyDialogShown = savedInstanceState != null &&
             savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false);
 
         if (behaviourDialogShown) {
             showBehaviourDialog();
         }
-        if (nameCollisionPolicyDialogShown){
+        if (nameCollisionPolicyDialogShown) {
             showNameCollisionPolicyDialog();
         }
 
@@ -594,6 +595,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
     /**
      * Get index for name collision selection dialog.
+     *
      * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
      */
     static private Integer getSelectionIndexForNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {

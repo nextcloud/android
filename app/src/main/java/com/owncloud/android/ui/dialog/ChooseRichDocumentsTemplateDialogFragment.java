@@ -59,9 +59,9 @@ import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     @Inject CurrentAccountProvider currentAccount;
     @Inject ClientFactory clientFactory;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     private RichDocumentsTemplateAdapter adapter;
@@ -123,9 +123,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               positiveButton,
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
@@ -323,7 +322,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                    Template template,
                                    String path,
                                    User user
-        ) {
+                                  ) {
             this.client = client;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;

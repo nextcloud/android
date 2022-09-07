@@ -66,8 +66,8 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSy
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -159,7 +159,7 @@ class SyncedFoldersActivity :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
-    lateinit var themeButtonUtils: ThemeButtonUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var themeSnackBarUtils: ThemeSnackbarUtils
@@ -243,7 +243,7 @@ class SyncedFoldersActivity :
             .setTitle(R.string.autoupload_disable_power_save_check)
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show()
-        themeButtonUtils.themeBorderlessButton(themeColorUtils, alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
+        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
     }
 
     /**
@@ -255,7 +255,7 @@ class SyncedFoldersActivity :
         adapter = SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion, themeColorUtils, themeDrawableUtils)
         syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
-        themeButtonUtils.colorPrimaryButton(binding.emptyList.emptyListViewAction, this, themeColorUtils)
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
         val lm = GridLayoutManager(this, gridWidth)
         adapter.setLayoutManager(lm)
         val spacing = resources.getDimensionPixelSize(R.dimen.media_grid_spacing)
@@ -802,8 +802,7 @@ class SyncedFoldersActivity :
                 .setIcon(R.drawable.ic_battery_alert)
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                 val alertDialog = alertDialogBuilder.show()
-                themeButtonUtils.themeBorderlessButton(
-                    themeColorUtils,
+                viewThemeUtils.platform.colorTextButtons(
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
                 )

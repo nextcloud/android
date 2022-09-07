@@ -114,7 +114,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled (project.hasProperty('coverage'))
+                testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
 
@@ -220,11 +220,12 @@ dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project('nextcloud-android-library')
-    implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
+    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
 
-    compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2' // remove after entire switch to lib v2
+    compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.5' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -283,7 +284,7 @@ dependencies {
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
-    
+
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
 
@@ -298,8 +299,8 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
-    implementation ('org.mnode.ical4j:ical4j:3.0.0') {
-        ['org.apache.commons','commons-logging'].each {
+    implementation('org.mnode.ical4j:ical4j:3.0.0') {
+        ['org.apache.commons', 'commons-logging'].each {
             exclude group: "$it"
         }
     }
@@ -356,11 +357,11 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.7"
 
     // TODO change back to tag before merging
-    implementation 'com.github.nextcloud.android-common:ui:9bad101de67c312731b7f170b23a4e4cf81633a6'
+    implementation 'com.github.nextcloud.android-common:ui:2fa8334415c4289228e650d6a70cb1c70746c28e'
 }
 
 configurations.all {
-    resolutionStrategy{
+    resolutionStrategy {
         cacheChangingModulesFor 0, 'seconds'
         force 'org.objenesis:objenesis:2.6'
         eachDependency { details ->
@@ -405,7 +406,7 @@ shot {
     showOnlyFailingTestsInReports = ciBuild
     // CI environment renders some shadows slightly different from local VMs
     // Add a 0.5% tolerance to account for that
-    tolerance = ciBuild ? 0.5: 0
+    tolerance = ciBuild ? 0.5 : 0
 }
 
 jacoco {
@@ -418,7 +419,7 @@ spotbugs {
     reportLevel = "medium"
 }
 
-tasks.withType(SpotBugsTask){task ->
+tasks.withType(SpotBugsTask) { task ->
     String variantNameCap = task.name.replace("spotbugs", "")
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
 

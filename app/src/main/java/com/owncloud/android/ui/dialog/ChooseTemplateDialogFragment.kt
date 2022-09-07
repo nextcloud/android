@@ -58,10 +58,10 @@ import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeTextInputUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -85,13 +85,13 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     @Inject
-    lateinit var themeButtonUtils: ThemeButtonUtils
-
-    @Inject
     lateinit var themeTextInputUtils: ThemeTextInputUtils
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private var adapter: TemplateAdapter? = null
     private var parentFolder: OCFile? = null
@@ -111,8 +111,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val alertDialog = dialog as AlertDialog
         val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-        themeButtonUtils.themeBorderlessButton(
-            themeColorUtils,
+        viewThemeUtils.platform.colorTextButtons(
             button,
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
         )

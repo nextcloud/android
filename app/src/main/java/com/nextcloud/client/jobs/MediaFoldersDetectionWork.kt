@@ -55,7 +55,6 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOV
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 import java.util.Random
@@ -70,8 +69,7 @@ class MediaFoldersDetectionWork constructor(
     private val preferences: AppPreferences,
     private val clock: Clock,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeSnackbarUtils: ThemeSnackbarUtils,
-    private val themeButtonUtils: ThemeButtonUtils
+    private val themeSnackbarUtils: ThemeSnackbarUtils
 ) : Worker(context, params) {
 
     companion object {
