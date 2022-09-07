@@ -35,9 +35,9 @@ import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -54,7 +54,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     private static final String ARG_SHARE = "SHARE";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject ThemeTextInputUtils themeTextInputUtils;
 
     private OCShare share;
@@ -86,9 +86,8 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull

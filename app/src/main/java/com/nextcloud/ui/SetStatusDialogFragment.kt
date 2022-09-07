@@ -53,9 +53,9 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeTextInputUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.google.GoogleEmojiProvider
@@ -113,10 +113,10 @@ class SetStatusDialogFragment :
     lateinit var themeColorUtils: ThemeColorUtils
 
     @Inject
-    lateinit var themeButtonUtils: ThemeButtonUtils
+    lateinit var themeTextInputUtils: ThemeTextInputUtils
 
     @Inject
-    lateinit var themeTextInputUtils: ThemeTextInputUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -205,7 +205,7 @@ class SetStatusDialogFragment :
         }
 
         binding.clearStatus.setTextColor(themeColorUtils.primaryColor(context, true))
-        themeButtonUtils.colorPrimaryButton(binding.setStatus, context, themeColorUtils)
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.setStatus)
         themeTextInputUtils.colorTextInput(
             binding.customStatusInputContainer,
             binding.customStatusInput,

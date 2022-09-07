@@ -37,7 +37,6 @@ import android.widget.Toast;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackupFragmentBinding;
@@ -53,11 +52,11 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,8 +94,9 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
     @Inject ThemeCheckableUtils themeCheckableUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+
     @Inject ArbitraryDataProvider arbitraryDataProvider;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private Date selectedDate;
     private boolean calendarPickerOpen;
@@ -202,8 +202,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             calendarPickerOpen = true;
         }
 
-        themeButtonUtils.colorPrimaryButton(binding.backupNow, getContext(), themeColorUtils);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils, binding.contactsDatepicker);
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.backupNow);
+        viewThemeUtils.platform.colorTextButtons(binding.contactsDatepicker);
 
         int primaryAccentColor = themeColorUtils.primaryAccentColor(getContext());
         binding.dataToBackUpTitle.setTextColor(primaryAccentColor);
@@ -292,7 +292,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
 
                 if (folder != null) {
                     RefreshFolderOperation operation = new RefreshFolderOperation(folder, System.currentTimeMillis(),
-                            false, false, storageManager, user, context);
+                                                                                  false, false, storageManager, user, context);
 
                     RemoteOperationResult result = operation.execute(user, context);
                     return result.isSuccess();
@@ -464,7 +464,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             backgroundJobManager.cancelPeriodicCalendarBackup(user);
         }
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), 
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
                                                     PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                                     String.valueOf(enabled));
     }
@@ -570,7 +570,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(0x00000000);
         } else {
             DisplayUtils.showSnackMessage(getView().findViewById(R.id.contacts_linear_layout),
-                    R.string.contacts_preferences_something_strange_happened);
+                                          R.string.contacts_preferences_something_strange_happened);
         }
     }
 

@@ -39,10 +39,10 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeCheckableUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     private Button positiveButton;
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject ThemeCheckableUtils themeCheckableUtils;
 
     private static final String KEY_NEW_FILE = "file";
@@ -123,9 +123,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         }
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               positiveButton,
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setEnabled(false);
     }
 

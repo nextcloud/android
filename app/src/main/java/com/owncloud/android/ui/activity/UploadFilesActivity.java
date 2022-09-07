@@ -189,7 +189,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         cancelButton.setOnClickListener(this);
 
         uploadButton = findViewById(R.id.upload_files_btn_upload);
-        themeButtonUtils.colorPrimaryButton(uploadButton, this, themeColorUtils);
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(uploadButton);
         uploadButton.setOnClickListener(this);
         uploadButton.setEnabled(mLocalFolderPickerMode);
 

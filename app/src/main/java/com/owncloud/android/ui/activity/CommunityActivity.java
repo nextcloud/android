@@ -86,7 +86,7 @@ public class CommunityActivity extends DrawerActivity {
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = binding.communityTestingReport;
-        themeButtonUtils.colorPrimaryButton(reportButton, this, themeColorUtils);
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(reportButton);
         reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_empty_link));
 
         binding.communityBetaFdroid.setOnClickListener(

@@ -40,7 +40,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 import org.greenrobot.eventbus.EventBus
@@ -68,8 +67,7 @@ class BackgroundJobFactory @Inject constructor(
     private val eventBus: EventBus,
     private val deckApi: DeckApi,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeSnackbarUtils: ThemeSnackbarUtils,
-    private val themeButtonUtils: ThemeButtonUtils
+    private val themeSnackbarUtils: ThemeSnackbarUtils
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -213,8 +211,7 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             clock,
             themeColorUtils,
-            themeSnackbarUtils,
-            themeButtonUtils
+            themeSnackbarUtils
         )
     }
 

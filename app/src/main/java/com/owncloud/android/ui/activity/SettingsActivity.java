@@ -75,11 +75,11 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * An Activity that allows the user to change the application's settings.
- *
+ * <p>
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class SettingsActivity extends ThemedPreferenceActivity
@@ -104,7 +104,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    public static final String PREFERENCE_LOCK= "lock";
+    public static final String PREFERENCE_LOCK = "lock";
 
     public static final String LOCK_NONE = "none";
     public static final String LOCK_PASSCODE = "passcode";
@@ -144,7 +144,8 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
     @Inject ThemeTextUtils themeTextUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -288,7 +289,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                    getResources().getString(R.string.privacy));
+                                            getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
                             intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
@@ -386,7 +387,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
 
-
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
         Preference pRecommend = findPreference("recommend");
@@ -402,11 +402,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
                     String downloadUrlFDroid = getString(R.string.fdroid_link);
                     String downloadUrls = String.format(getString(R.string.recommend_urls),
-                            downloadUrlGooglePlayStore, downloadUrlFDroid);
+                                                        downloadUrlGooglePlayStore, downloadUrlFDroid);
 
                     String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
                     String recommendText = String.format(getString(R.string.recommend_text),
-                            appName, downloadUrls);
+                                                         appName, downloadUrls);
 
                     intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                     intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -501,9 +501,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
                         DisplayUtils.showSnackMessage(
-                                activity,
-                                R.string.prefs_calendar_contacts_address_resolve_error
-                        );
+                            activity,
+                            R.string.prefs_calendar_contacts_address_resolve_error
+                                                     );
                     }
                     return true;
                 });
@@ -653,7 +653,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)){
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
@@ -798,7 +798,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
+                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
@@ -819,7 +819,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -834,7 +833,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
                 SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
@@ -887,8 +886,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     .create();
 
                 alertDialog.show();
-                themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             }
         }
     }

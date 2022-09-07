@@ -32,8 +32,8 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
-import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
 /**
@@ -51,16 +51,16 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
     private lateinit var binding: StoragePermissionDialogBinding
 
     @Inject
-    lateinit var themeButtonUtils: ThemeButtonUtils
+    lateinit var themeColorUtils: ThemeColorUtils
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onStart() {
         super.onStart()
         dialog?.let {
             val alertDialog = it as AlertDialog
-            themeButtonUtils.themeBorderlessButton(themeColorUtils, alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
         }
     }
 
@@ -77,12 +77,12 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
         binding.storagePermissionExplanation.text = getString(explanationResource, getString(R.string.app_name))
 
         // Setup layout
-        themeButtonUtils.colorPrimaryButton(binding.btnFullAccess, context, themeColorUtils)
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.btnFullAccess)
         binding.btnFullAccess.setOnClickListener {
             listener.onClickFullAccess()
             dismiss()
         }
-        themeButtonUtils.themeBorderlessButton(themeColorUtils, binding.btnReadOnly)
+        viewThemeUtils.platform.colorTextButtons(binding.btnReadOnly)
         binding.btnReadOnly.setOnClickListener {
             listener.onClickMediaReadOnly()
             dismiss()

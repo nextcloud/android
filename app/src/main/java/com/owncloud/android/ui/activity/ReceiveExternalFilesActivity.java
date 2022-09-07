@@ -202,11 +202,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
         TaskRetainerFragment taskRetainerFragment =
-                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
+            (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
         if (taskRetainerFragment == null) {
             taskRetainerFragment = new TaskRetainerFragment();
             fm.beginTransaction()
-                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
+                .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
     }
 
@@ -221,9 +221,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (!somethingToUpload()) {
             showErrorDialog(
-                    R.string.uploader_error_message_no_file_to_upload,
-                    R.string.uploader_error_title_no_file_to_upload
-            );
+                R.string.uploader_error_message_no_file_to_upload,
+                R.string.uploader_error_title_no_file_to_upload
+                           );
         }
 
         super.setAccount(account, savedAccount);
@@ -297,7 +297,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text),
-                    getString(R.string.app_name)));
+                                             getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, (dialog, which) -> {
                 // using string value since in API7 this
@@ -310,7 +310,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
             });
             builder.setNeutralButton(R.string.uploader_wrn_no_account_quit_btn_text,
-                                 (dialog, which) -> getActivity().finish());
+                                     (dialog, which) -> getActivity().finish());
             return builder.create();
         }
     }
@@ -370,7 +370,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             ArrayAdapter<String> adapter
-                    = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
+                = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             int selectPos = 0;
@@ -387,17 +387,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mText.add(internetShortcutUrlText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add(String.format(str,URL_FILE_SUFFIX));
+                adapter.add(String.format(str, URL_FILE_SUFFIX));
 
                 mText.add(internetShortcutWeblocText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+                adapter.add(String.format(str, WEBLOC_FILE_SUFFIX));
 
                 mText.add(internetShortcutDesktopText(extraText, filename));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
-                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+                adapter.add(String.format(str, DESKTOP_FILE_SUFFIX));
 
                 selectPos = preferences.getUploadUrlFileExtensionUrlSelectedPos();
                 mFileCategory = CATEGORY_URL;
@@ -407,12 +407,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add(String.format(str,URL_FILE_SUFFIX));
+                adapter.add(String.format(str, URL_FILE_SUFFIX));
 
                 mText.add(internetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+                adapter.add(String.format(str, WEBLOC_FILE_SUFFIX));
 
                 mText.add(internetShortcutDesktopText(texts[2], texts[0]));
                 mFilenameBase.add(texts[0]);
@@ -525,8 +525,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         }
 
-        private void setFilename(EditText inputText, int selectPos)
-        {
+        private void setFilename(EditText inputText, int selectPos) {
             String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
             inputText.setText(filename);
             int selectionStart = 0;
@@ -534,8 +533,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             int selectionEnd = extensionStart >= 0 ? extensionStart : filename.length();
             if (selectionEnd >= 0) {
                 inputText.setSelection(
-                        Math.min(selectionStart, selectionEnd),
-                        Math.max(selectionStart, selectionEnd));
+                    Math.min(selectionStart, selectionEnd),
+                    Math.max(selectionStart, selectionEnd));
             }
         }
 
@@ -579,18 +578,18 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private String internetShortcutUrlText(String url) {
             return "[InternetShortcut]\r\n" +
-                    "URL=" + url + "\r\n";
+                "URL=" + url + "\r\n";
         }
 
         private String internetShortcutWeblocText(String url) {
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
-                    "<plist version=\"1.0\">\n" +
-                    "<dict>\n" +
-                    "<key>URL</key>\n" +
-                    "<string>" + url + "</string>\n" +
-                    "</dict>\n" +
-                    "</plist>\n";
+                "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
+                "<plist version=\"1.0\">\n" +
+                "<dict>\n" +
+                "<key>URL</key>\n" +
+                "<string>" + url + "</string>\n" +
+                "</dict>\n" +
+                "</plist>\n";
         }
 
         private String internetShortcutDesktopText(String url, String filename) {
@@ -654,7 +653,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        if (files.get(position).isFolder()){
+        if (files.get(position).isFolder()) {
             OCFile folderToEnter = files.get(position);
             startSyncFolderOperation(folderToEnter);
             mParents.push(folderToEnter.getFileName());
@@ -753,7 +752,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
-                        R.drawable.uploads);
+                                       R.drawable.uploads);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
 
@@ -779,12 +778,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 binding.list.setAdapter(sa);
             }
             MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
-            themeButtonUtils.colorPrimaryButton(btnChooseFolder, this, themeColorUtils);
+            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
             btnChooseFolder.setOnClickListener(this);
 
             if (mFile.canWrite()) {
                 btnChooseFolder.setEnabled(true);
-                themeButtonUtils.colorPrimaryButton(btnChooseFolder, this, themeColorUtils);
+                viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
             } else {
                 btnChooseFolder.setEnabled(false);
                 btnChooseFolder.setBackgroundColor(Color.GRAY);
@@ -840,13 +839,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         // perform folder synchronization
         RemoteOperation syncFolderOp = new RefreshFolderOperation(folder,
-                                                                        currentSyncTime,
-                                                                        false,
-                                                                        false,
-                                                                        getStorageManager(),
-                                                                        getUser().orElseThrow(RuntimeException::new),
-                                                                        getApplicationContext()
-                                                                      );
+                                                                  currentSyncTime,
+                                                                  false,
+                                                                  false,
+                                                                  getStorageManager(),
+                                                                  getUser().orElseThrow(RuntimeException::new),
+                                                                  getApplicationContext()
+        );
         syncFolderOp.execute(getAccount(), this, null, null);
     }
 
@@ -898,23 +897,23 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
-                mUploadFromTmpFile);
+            mUploadFromTmpFile);
     }
 
     public void uploadFile(String tmpName, String filename) {
         FileUploader.uploadNewFile(
-                getBaseContext(),
-                getUser().orElseThrow(RuntimeException::new),
-                tmpName,
-                mFile.getRemotePath() + filename,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
-                null,
-                true,
-                UploadFileOperation.CREATED_BY_USER,
-                false,
-                false,
-                NameCollisionPolicy.ASK_USER
-        );
+            getBaseContext(),
+            getUser().orElseThrow(RuntimeException::new),
+            tmpName,
+            mFile.getRemotePath() + filename,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            NameCollisionPolicy.ASK_USER
+                                  );
         finish();
     }
 
@@ -952,9 +951,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
 
             showErrorDialog(
-                    messageResId,
-                    messageResTitle
-            );
+                messageResId,
+                messageResTitle
+                           );
         }
     }
 
@@ -970,8 +969,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     /**
-     * Updates the view associated to the activity after the finish of an operation
-     * trying create a new folder
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
      *
      * @param operation Creation operation performed.
      * @param result    Result of the creation.
@@ -986,8 +984,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         } else {
             try {
                 DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                                             );
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
@@ -1072,7 +1070,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         return retval;
     }
 
-    private OCFile getCurrentFolder(){
+    private OCFile getCurrentFolder() {
         OCFile file = mFile;
         if (file != null) {
             if (file.isFolder()) {
@@ -1103,9 +1101,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
                 String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult syncResult = (RemoteOperationResult)
-                        DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+                    DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
-                        && getStorageManager() != null;
+                    && getStorageManager() != null;
 
                 if (sameAccount) {
 
@@ -1121,10 +1119,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         if (currentDir == null) {
                             // current folder was removed from the server
                             DisplayUtils.showSnackMessage(
-                                    getActivity(),
-                                    R.string.sync_current_folder_was_removed,
-                                    getCurrentFolder().getFileName()
-                            );
+                                getActivity(),
+                                R.string.sync_current_folder_was_removed,
+                                getCurrentFolder().getFileName()
+                                                         );
                             browseToRoot();
 
                         } else {
@@ -1140,11 +1138,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         }
 
                         mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
+                            !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event)
-                                /// TODO refactor and make common
-                                && syncResult != null && !syncResult.isSuccess()) {
+                            /// TODO refactor and make common
+                            && syncResult != null && !syncResult.isSuccess()) {
 
                             if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
                                 (syncResult.isException() && syncResult.getException()
@@ -1181,9 +1179,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
     /**
      * Show an error dialog, forcing the user to click a single button to exit the activity
      *
-     * @param messageResId      Resource id of the message to show in the dialog.
-     * @param messageResTitle   Resource id of the title to show in the dialog. 0 to show default alert message.
-     *                          -1 to show no title.
+     * @param messageResId    Resource id of the message to show in the dialog.
+     * @param messageResTitle Resource id of the title to show in the dialog. 0 to show default alert message. -1 to
+     *                        show no title.
      */
     private void showErrorDialog(int messageResId, int messageResTitle) {
 
@@ -1194,7 +1192,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             R.string.common_back,
             -1,
             -1
-        );
+                                                                                       );
         errorDialog.setCancelable(false);
         errorDialog.setOnConfirmationListener(
             new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
@@ -1213,7 +1211,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     // not used at the moment
                 }
             }
-        );
+                                             );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
     }
 }

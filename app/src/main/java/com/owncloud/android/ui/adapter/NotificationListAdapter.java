@@ -60,8 +60,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -84,17 +84,17 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private final OwnCloudClient client;
     private final NotificationsActivity notificationsActivity;
     private final ThemeColorUtils themeColorUtils;
-    private final ThemeButtonUtils themeButtonUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public NotificationListAdapter(OwnCloudClient client,
                                    NotificationsActivity notificationsActivity,
                                    ThemeColorUtils themeColorUtils,
-                                   ThemeButtonUtils themeButtonUtils) {
+                                   ViewThemeUtils viewThemeUtils) {
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
         this.themeColorUtils = themeColorUtils;
-        this.themeButtonUtils = themeButtonUtils;
+        this.viewThemeUtils = viewThemeUtils;
         foregroundColorSpanBlack = new ForegroundColorSpan(
             notificationsActivity.getResources().getColor(R.color.text_color));
     }
@@ -153,7 +153,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         int nightModeFlag =
             notificationsActivity.getResources().getConfiguration().uiMode
-            & Configuration.UI_MODE_NIGHT_MASK;
+                & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
             holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         } else {
@@ -184,11 +184,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                          );
 
         int primaryColor = themeColorUtils.primaryColor(notificationsActivity);
-        
+
         List<Action> overflowActions = new ArrayList<>();
-        
+
         if (notification.getActions().size() > 2) {
-            for (Action action: notification.getActions()) {
+            for (Action action : notification.getActions()) {
                 if (action.primary) {
                     button = new MaterialButton(notificationsActivity);
                     button.setAllCaps(false);
@@ -216,13 +216,13 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                         }
                     });
 
-                    themeButtonUtils.colorPrimaryButton(button, notificationsActivity, themeColorUtils);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                     holder.binding.buttons.addView(button);
                 } else {
                     overflowActions.add(action);
                 }
             }
-            
+
             // further actions
             button = new MaterialButton(notificationsActivity);
             button.setBackgroundColor(resources.getColor(R.color.grey_200));
@@ -256,11 +256,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                                                               notificationsActivity)
                                 .execute(action);
                         }
-                        
+
                         return true;
                     });
                 }
-                
+
                 popup.show();
             });
 
@@ -270,7 +270,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button = new MaterialButton(notificationsActivity);
 
                 if (action.primary) {
-                    themeButtonUtils.colorPrimaryButton(button, notificationsActivity, themeColorUtils);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
                     button.setBackgroundColor(resources.getColor(R.color.grey_200));
                     button.setTextColor(primaryColor);
@@ -305,11 +305,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
     }
-    
+
     private void handleItemClick() {
-        
+
     }
-    
+
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
         String text = notification.getSubjectRich();

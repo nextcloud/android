@@ -314,8 +314,7 @@ public class FileDisplayActivity extends FileActivity
                     .create();
 
                 alertDialog.show();
-                themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }

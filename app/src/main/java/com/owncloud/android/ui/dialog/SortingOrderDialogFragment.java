@@ -35,8 +35,8 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -59,7 +59,8 @@ public class SortingOrderDialogFragment extends DialogFragment implements Inject
     private String mCurrentSortOrderName;
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static SortingOrderDialogFragment newInstance(FileSortOrder sortOrder) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
@@ -138,16 +139,16 @@ public class SortingOrderDialogFragment extends DialogFragment implements Inject
      */
     private void setupActiveOrderSelection() {
         final int color = themeColorUtils.primaryColor(null, true, true, getContext());
-        for (View view: mTaggedViews) {
+        for (View view : mTaggedViews) {
             if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
                 continue;
             }
             if (view instanceof ImageButton) {
-                themeButtonUtils.colorImageButton((ImageButton) view, color);
+                viewThemeUtils.platform.themeImageButton((ImageButton) view);
             }
             if (view instanceof TextView) {
-                ((TextView)view).setTextColor(color);
-                ((TextView)view).setTypeface(Typeface.DEFAULT_BOLD);
+                ((TextView) view).setTextColor(color);
+                ((TextView) view).setTypeface(Typeface.DEFAULT_BOLD);
             }
         }
     }
@@ -185,7 +186,7 @@ public class SortingOrderDialogFragment extends DialogFragment implements Inject
         public void onClick(View v) {
             dismissAllowingStateLoss();
             ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity())
-                    .onSortingOrderChosen((FileSortOrder) v.getTag());
+                .onSortingOrderChosen((FileSortOrder) v.getTag());
         }
     }
 

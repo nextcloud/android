@@ -47,8 +47,8 @@ import com.owncloud.android.lib.resources.users.SendCSROperation;
 import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
 import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.IOException;
 import java.security.KeyPair;
@@ -90,7 +90,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     private static final String KEY_GENERATE = "KEY_GENERATE";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private User user;
     private TextView textView;
@@ -125,9 +125,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               positiveButton,
-                                               neutralButton);
+        viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                 neutralButton);
 
         task = new DownloadKeysAsyncTask();
         task.execute();
@@ -162,8 +161,8 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     private Dialog createDialog(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
-                .setNeutralButton(R.string.common_cancel, null)
-                .setTitle(R.string.end_to_end_encryption_title);
+            .setNeutralButton(R.string.common_cancel, null)
+            .setTitle(R.string.end_to_end_encryption_title);
 
         Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
@@ -188,7 +187,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                                 intentCreated.putExtra(SUCCESS, true);
                                 intentCreated.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
                                 getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                        SETUP_ENCRYPTION_RESULT_CODE, intentCreated);
+                                                                     SETUP_ENCRYPTION_RESULT_CODE, intentCreated);
                                 break;
 
                             case KEY_EXISTING_USED:
@@ -370,7 +369,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                 String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
                 String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
                 String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString,
-                        generateMnemonicString(false));
+                                                                               generateMnemonicString(false));
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
@@ -380,10 +379,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                     Log_OC.d(TAG, "private key success");
 
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY,
-                            privateKeyString);
+                                                                privateKeyString);
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY, publicKey);
                     arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC,
-                            generateMnemonicString(true));
+                                                                generateMnemonicString(true));
 
                     keyResult = KEY_CREATED;
                     return (String) storePrivateKeyResult.getData().get(0);
@@ -443,7 +442,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         positiveButton.setVisibility(View.VISIBLE);
 
         neutralButton.setVisibility(View.VISIBLE);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils, positiveButton, neutralButton);
+        viewThemeUtils.platform.colorTextButtons(positiveButton, neutralButton);
 
         keyResult = KEY_GENERATE;
     }
