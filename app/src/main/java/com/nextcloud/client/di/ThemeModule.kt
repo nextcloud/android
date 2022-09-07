@@ -23,7 +23,6 @@ package com.nextcloud.client.di
 import android.content.Context
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.owncloud.android.utils.theme.ThemeAvatarUtils
-import com.owncloud.android.utils.theme.ThemeBarUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
 import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
@@ -113,12 +112,6 @@ internal abstract class ThemeModule {
         @Singleton
         fun themeButtonUtils(): ThemeButtonUtils {
             return ThemeButtonUtils()
-        }
-
-        @Provides
-        @Singleton
-        fun themeBarUtils(): ThemeBarUtils {
-            return ThemeBarUtils()
         }
 
         @Provides

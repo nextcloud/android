@@ -145,6 +145,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     @Nullable
     public Account getCurrentAccount() {
+        Log_OC.d(TAG, "getCurrentAccount"); // TODO debug only, remove
         Account[] ocAccounts = getAccounts();
         Account defaultAccount = null;
 

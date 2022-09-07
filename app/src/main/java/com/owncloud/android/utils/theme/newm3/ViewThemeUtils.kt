@@ -21,6 +21,7 @@
 
 package com.owncloud.android.utils.theme.newm3
 
+import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
@@ -32,12 +33,17 @@ import javax.inject.Inject
 @Suppress("TooManyFunctions")
 class ViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
+    colorUtil: ColorUtil
+) : ViewThemeUtilsBase(schemes) {
     @JvmField
-    val platform: AndroidViewThemeUtils,
+    val platform = AndroidViewThemeUtils(schemes, colorUtil)
+
     @JvmField
-    val material: MaterialViewThemeUtils,
+    val material = MaterialViewThemeUtils(schemes, colorUtil)
+
     @JvmField
-    val androidx: AndroidXViewThemeUtils,
+    val androidx = AndroidXViewThemeUtils(schemes)
+
     @JvmField
-    val dialog: DialogViewThemeUtils
-) : ViewThemeUtilsBase(schemes)
+    val dialog = DialogViewThemeUtils(schemes)
+}

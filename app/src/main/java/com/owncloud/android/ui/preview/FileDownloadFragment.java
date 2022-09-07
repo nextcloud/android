@@ -34,8 +34,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -63,7 +63,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private User user;
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeBarUtils themeBarUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     public ProgressListener mProgressListener;
     private boolean mListening;
 
@@ -145,7 +145,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
 
         ProgressBar progressBar = mView.findViewById(R.id.progressBar);
-        themeBarUtils.colorHorizontalProgressBar(progressBar, themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.platform.themeHorizontalProgressBar(progressBar);
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);

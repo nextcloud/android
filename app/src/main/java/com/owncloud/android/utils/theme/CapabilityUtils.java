@@ -34,9 +34,6 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Utility class with methods for client side button theming.
- */
 public final class CapabilityUtils {
     private static final Map<String, OCCapability> cachedCapabilities = new HashMap<>();
 
