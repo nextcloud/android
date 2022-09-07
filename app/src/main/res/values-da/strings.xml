@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Changelog udviklingsversion</string>
     <string name="checkbox">Afkrydsningsfeldt</string>
     <string name="choose_local_folder">Vælg lokal mappe...</string>
+    <string name="choose_location">Vælg placering</string>
     <string name="choose_remote_folder">Vælg ekstern mappe...</string>
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
@@ -240,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler...</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen et meget stærkt kodeord, så kun du kan læse og bruge dine krypterede filer. Venligst skriv det ned og gem det et sikkert sted.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-End-kryptering deaktiveret på serveren.</string>
     <string name="end_to_end_encryption_passphrase_title">Noter dit 12 ords krypterings kodeord</string>
     <string name="end_to_end_encryption_password">Adgangskode...</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøgler...</string>
@@ -292,6 +294,7 @@
     <string name="failed_update_ui">Formåede ikke at opdatere UI</string>
     <string name="favorite">Tilføj til favoritter</string>
     <string name="favorite_icon">Favorit</string>
+    <string name="file_already_exists">Filnavn findes allerede</string>
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
@@ -403,6 +406,7 @@
     <string name="local_file_not_found_message">Fil ikke fundet i lokalt filsystem</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Der er ikke flere mapper.</string>
+    <string name="locate_folder">Find mappe</string>
     <string name="lock_expiration_info">Udløber: %1$s</string>
     <string name="lock_file">Lås filen</string>
     <string name="locked_by">Låst af %1$s</string>
@@ -611,6 +615,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
     <string name="select_all">Vælg alle</string>
+    <string name="select_media_folder">Indstil mediemappe</string>
     <string name="select_one_template">Vælg venligst en skabelon</string>
     <string name="select_template">Vælg model</string>
     <string name="send">Send</string>
@@ -723,7 +728,9 @@ Enheds legitimationsoplysninger er sat op
     <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
+    <string name="subtitle_photos_only">Kun billeder</string>
     <string name="subtitle_photos_videos">Fotos &amp;videoer</string>
+    <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
