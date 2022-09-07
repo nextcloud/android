@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -47,8 +46,6 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -81,8 +78,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private final static float alphaEnabled = 1.0f;
     private final static float alphaDisabled = 0.7f;
 
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeCheckableUtils themeCheckableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     protected View mView;
@@ -161,8 +156,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      * @param view the parent view
      */
     private void setupDialogElements(View view) {
-        int accentColor = themeColorUtils.primaryAccentColor(getContext());
-
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
             view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
@@ -187,7 +180,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         // find/saves UI elements
         mEnabledSwitch = view.findViewById(R.id.sync_enabled);
-        themeCheckableUtils.tintSwitch(mEnabledSwitch, themeColorUtils);
+        viewThemeUtils.androidx.colorSwitchCompat(mEnabledSwitch);
 
         mLocalFolderPath = view.findViewById(R.id.synced_folders_settings_local_folder_path);
 
@@ -203,11 +196,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadUseSubfoldersCheckbox = view.findViewById(
             R.id.setting_instant_upload_path_use_subfolders_checkbox);
 
-        themeCheckableUtils.tintCheckbox(accentColor,
-                                         mUploadOnWifiCheckbox,
-                                         mUploadOnChargingCheckbox,
-                                         mUploadExistingCheckbox,
-                                         mUploadUseSubfoldersCheckbox);
+        viewThemeUtils.platform.themeCheckbox(mUploadOnWifiCheckbox,
+                                              mUploadOnChargingCheckbox,
+                                              mUploadExistingCheckbox,
+                                              mUploadUseSubfoldersCheckbox);
 
         mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
 
@@ -361,19 +353,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setEnabled(enable);
         view.findViewById(R.id.setting_instant_name_collision_policy_container).setAlpha(alpha);
 
-        if (enable) {
-            themeCheckableUtils.tintCheckbox(themeColorUtils.primaryAccentColor(getContext()),
-                                             mUploadOnWifiCheckbox,
-                                             mUploadOnChargingCheckbox,
-                                             mUploadExistingCheckbox,
-                                             mUploadUseSubfoldersCheckbox);
-        } else {
-            themeCheckableUtils.tintCheckbox(Color.GRAY,
-                                             mUploadOnWifiCheckbox,
-                                             mUploadOnChargingCheckbox,
-                                             mUploadExistingCheckbox,
-                                             mUploadUseSubfoldersCheckbox);
-        }
+        mUploadOnWifiCheckbox.setEnabled(enable);
+        mUploadOnChargingCheckbox.setEnabled(enable);
+        mUploadExistingCheckbox.setEnabled(enable);
+        mUploadUseSubfoldersCheckbox.setEnabled(enable);
 
         checkWritableFolder();
     }
