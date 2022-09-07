@@ -1,0 +1,1 @@
+PreviewImageFragment: prevent crash when redrawing menu after file deletion
