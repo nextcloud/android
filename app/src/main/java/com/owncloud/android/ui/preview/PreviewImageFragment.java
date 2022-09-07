@@ -367,18 +367,21 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         if (containerActivity.getStorageManager() != null && getFile() != null) {
             // Update the file
-            setFile(containerActivity.getStorageManager().getFileById(getFile().getFileId()));
+            final OCFile updatedFile = containerActivity.getStorageManager().getFileById(getFile().getFileId());
+            setFile(updatedFile);
 
-            User currentUser = accountManager.getUser();
-            FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                containerActivity,
-                getActivity(),
-                false,
-                currentUser
-            );
+            if (getFile() != null) {
+                User currentUser = accountManager.getUser();
+                FileMenuFilter mf = new FileMenuFilter(
+                    getFile(),
+                    containerActivity,
+                    getActivity(),
+                    false,
+                    currentUser
+                );
 
-            mf.filter(menu, true);
+                mf.filter(menu, true);
+            }
         }
 
         // additional restriction for this fragment
@@ -394,7 +397,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 menu.findItem(R.id.action_unset_favorite)
         );
 
-        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
