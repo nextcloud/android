@@ -70,8 +70,8 @@ import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -117,9 +117,10 @@ public class ExtendedListFragment extends Fragment implements
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeLayoutUtils themeLayoutUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
@@ -347,7 +348,7 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = binding.swipeContainingList;
-        themeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);

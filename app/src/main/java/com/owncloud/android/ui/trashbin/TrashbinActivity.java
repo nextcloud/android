@@ -49,6 +49,7 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class TrashbinActivity extends DrawerActivity implements
     @Inject AppPreferences preferences;
     @Inject CurrentAccountProvider accountProvider;
     @Inject ClientFactory clientFactory;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private TrashbinListAdapter trashbinListAdapter;
 
     @VisibleForTesting
@@ -149,7 +152,7 @@ public class TrashbinActivity extends DrawerActivity implements
         recyclerView.setHasFooter(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
         binding.swipeContainingList.setOnRefreshListener(this::loadFolder);
 
         findViewById(R.id.sort_button).setOnClickListener(l ->

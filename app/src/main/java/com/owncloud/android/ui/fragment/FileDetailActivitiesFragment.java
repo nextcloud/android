@@ -61,9 +61,9 @@ import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -115,10 +115,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Inject ClientFactory clientFactory;
     @Inject ContentResolver contentResolver;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeLayoutUtils themeLayoutUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
@@ -151,8 +151,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         setupView();
 
-        themeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingEmpty);
-        themeLayoutUtils.colorSwipeRefreshLayout(getContext(), binding.swipeContainingList);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
         fetchAndSetData(-1);
 
