@@ -85,7 +85,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         // use account from intent (opened via android notification can have a different account than current one)
         if (getIntent() != null && getIntent().getExtras() != null) {
             String accountName = getIntent().getExtras().getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT);
-            if(accountName != null && optionalUser.isPresent()) {
+            if (accountName != null && optionalUser.isPresent()) {
                 User user = optionalUser.get();
                 if (user.getAccountName().equalsIgnoreCase(accountName)) {
                     accountManager.setCurrentOwnCloudAccount(accountName);
@@ -109,8 +109,8 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         if (!optionalUser.isPresent()) {
             // show error
             runOnUiThread(() -> setEmptyContent(
-                getString(R.string.notifications_no_results_headline),
-                getString(R.string.account_not_found))
+                              getString(R.string.notifications_no_results_headline),
+                              getString(R.string.account_not_found))
                          );
             return;
         }
@@ -149,7 +149,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
                 final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
                 final String accountName = optionalUser.isPresent() ? optionalUser.get().getAccountName() : "";
                 final boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(accountName,
-                                                                     UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);
+                                                                                   UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);
 
                 if (usesOldLogin) {
                     snackbar = Snackbar.make(binding.emptyList.emptyListView,
@@ -258,7 +258,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
     private void initializeAdapter() {
         initializeClient();
         if (adapter == null) {
-            adapter = new NotificationListAdapter(client, this, themeColorUtils, themeButtonUtils);
+            adapter = new NotificationListAdapter(client, this, themeColorUtils, viewThemeUtils);
             binding.list.setAdapter(adapter);
         }
     }

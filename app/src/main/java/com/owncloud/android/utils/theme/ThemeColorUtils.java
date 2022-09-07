@@ -39,6 +39,8 @@ import static com.owncloud.android.utils.theme.CapabilityUtils.getCapability;
 
 /**
  * Utility class with methods for theming related.
+ *
+ * @deprecated use material 3 Schemes and utilities from common lib instead
  */
 @Deprecated
 public class ThemeColorUtils {

@@ -354,12 +354,12 @@ open class FolderPickerActivity :
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel)
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose)
         if (mChooseBtn != null) {
-            themeButtonUtils.colorPrimaryButton(mChooseBtn, this, themeColorUtils)
+            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mChooseBtn!!)
             mChooseBtn!!.setOnClickListener(this)
         }
         if (mCancelBtn != null) {
             if (this is FilePickerActivity) {
-                themeButtonUtils.colorPrimaryButton(mCancelBtn, this, themeColorUtils)
+                viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCancelBtn!!)
             } else {
                 mCancelBtn!!.setTextColor(themeColorUtils.primaryColor(this, true))
             }
@@ -410,7 +410,8 @@ open class FolderPickerActivity :
         } else {
             try {
                 DisplayUtils.showSnackMessage(
-                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
+                    this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
                 )
             } catch (e: Resources.NotFoundException) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e)

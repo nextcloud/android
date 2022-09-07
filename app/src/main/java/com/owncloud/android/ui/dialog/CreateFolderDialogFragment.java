@@ -42,9 +42,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -68,9 +68,10 @@ public class CreateFolderDialogFragment
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
     @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     private OCFile mParentFolder;
     private Button positiveButton;
@@ -99,9 +100,8 @@ public class CreateFolderDialogFragment
         if (alertDialog != null) {
             positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-            themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                   positiveButton,
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
     }
 
@@ -192,8 +192,8 @@ public class CreateFolderDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String newFolderName =
-                    ((TextView)(getDialog().findViewById(R.id.user_input)))
-                        .getText().toString().trim();
+                ((TextView) (getDialog().findViewById(R.id.user_input)))
+                    .getText().toString().trim();
 
             if (TextUtils.isEmpty(newFolderName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);

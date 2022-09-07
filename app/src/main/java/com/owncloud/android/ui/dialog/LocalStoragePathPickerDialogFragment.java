@@ -33,8 +33,8 @@ import com.owncloud.android.databinding.StoragePathDialogBinding;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     private static Set<String> internalStoragePaths = new HashSet<>();
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     static {
         internalStoragePaths.add("/storage/emulated/legacy");
@@ -82,8 +82,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
         }
     }
 
@@ -97,7 +96,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (!(getActivity() instanceof StoragePathAdapter.StoragePathAdapterListener)) {
             throw new IllegalArgumentException("Calling activity must implement " +
-                "StoragePathAdapter.StoragePathAdapterListener");
+                                                   "StoragePathAdapter.StoragePathAdapterListener");
         }
 
         // Inflate the layout for the dialog
@@ -137,7 +136,7 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
         for (FileStorageUtils.StandardDirectory standardDirectory : FileStorageUtils.StandardDirectory.getStandardDirectories()) {
             addIfExists(storagePathItems, standardDirectory.getIcon(), getString(standardDirectory.getDisplayName()),
-                Environment.getExternalStoragePublicDirectory(standardDirectory.getName()).getAbsolutePath());
+                        Environment.getExternalStoragePublicDirectory(standardDirectory.getName()).getAbsolutePath());
         }
 
         String sdCard = getString(R.string.storage_internal_storage);
