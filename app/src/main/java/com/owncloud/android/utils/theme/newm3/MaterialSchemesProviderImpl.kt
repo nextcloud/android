@@ -31,8 +31,8 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
-// TODO think about assisted inject to pass user instead of fetching it from userAccountManager, thus making it more efficient
-// or cache the user, IDK
+// TODO think about assisted inject to pass user instead of fetching it from userAccountManager,
+//  thus making it more efficient, or cache the user, IDK
 internal class MaterialSchemesProviderImpl @Inject constructor(
     private val context: Context,
     private val userAccountManager: UserAccountManager,
