@@ -113,8 +113,8 @@ import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeMenuUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -214,7 +214,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     ThemeMenuUtils themeMenuUtils;
 
     @Inject
-    ThemeBarUtils themeBarUtils;
+    ViewThemeUtils viewThemeUtils;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
@@ -300,7 +300,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        themeBarUtils.colorProgressBar(mQuotaProgressBar, themeColorUtils.primaryColor(this));
+        viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar);
     }
 
     public void updateHeader() {
@@ -702,9 +702,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         mQuotaProgressBar.setProgress(relative);
 
-        themeBarUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this,
-                                                                                            relative,
-                                                                                            themeColorUtils));
+        final int color = DisplayUtils.getRelativeInfoColor(this,
+                                                                        relative,
+                                                                        themeColorUtils);
+        viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar, color);
 
         updateQuotaLink();
         showQuota(true);

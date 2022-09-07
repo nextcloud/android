@@ -33,15 +33,17 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.utils.theme.ThemeBarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
 class LogsActivity : ToolbarActivity() {
 
     @Inject
     protected lateinit var viewModelFactory: ViewModelFactory
+
     @Inject
-    protected lateinit var themeBarUtils: ThemeBarUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     private lateinit var vm: LogsViewModel
     private lateinit var binding: LogsActivityBinding
     private lateinit var logsAdapter: LogsAdapter
@@ -66,7 +68,7 @@ class LogsActivity : ToolbarActivity() {
         }
 
         findViewById<ProgressBar>(R.id.logs_loading_progress).apply {
-            themeBarUtils.themeProgressBar(context, this, themeColorUtils)
+            viewThemeUtils.platform.themeHorizontalProgressBar(this)
         }
 
         logsAdapter = LogsAdapter(this)
