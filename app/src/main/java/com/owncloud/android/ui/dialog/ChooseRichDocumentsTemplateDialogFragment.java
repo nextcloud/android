@@ -60,7 +60,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
@@ -91,7 +90,6 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     @Inject ClientFactory clientFactory;
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
@@ -164,10 +162,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        themeTextInputUtils.colorTextInput(binding.filenameContainer,
-                                           binding.filename,
-                                           themeColorUtils.primaryColor(getContext()),
-                                           themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer);
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);

@@ -48,7 +48,7 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -72,7 +72,7 @@ public class RenameFileDialogFragment
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
 
     private EditBoxDialogBinding binding;
@@ -123,10 +123,7 @@ public class RenameFileDialogFragment
         // Setup layout
         String currentName = mTargetFile.getFileName();
         binding.userInput.setText(currentName);
-        themeTextInputUtils.colorTextInput(binding.userInputContainer,
-                                           binding.userInput,
-                                           themeColorUtils.primaryColor(getActivity()),
-                                           themeColorUtils.primaryAccentColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
