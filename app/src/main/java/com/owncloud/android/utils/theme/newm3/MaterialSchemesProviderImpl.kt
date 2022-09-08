@@ -23,9 +23,13 @@
 package com.owncloud.android.utils.theme.newm3
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
+import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.logger.Logger
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.theme.CapabilityUtils
 import java.util.concurrent.ConcurrentHashMap
@@ -34,6 +38,7 @@ import javax.inject.Inject
 // TODO think about assisted inject to pass user instead of fetching it from userAccountManager,
 //  thus making it more efficient, or cache the user, IDK
 internal class MaterialSchemesProviderImpl @Inject constructor(
+    private val logger: Logger,
     private val context: Context,
     private val userAccountManager: UserAccountManager,
     private val themeFactory: ServerThemeImpl.Factory
@@ -58,6 +63,21 @@ internal class MaterialSchemesProviderImpl @Inject constructor(
     }
 
     override fun getMaterialSchemesForCurrentUser(): MaterialSchemes {
-        return getMaterialSchemesForUser(userAccountManager.user)
+        return when (val user = userAccountManager.user) {
+            is AnonymousUser -> {
+                logger.d(TAG, "User is anonymous, using default schemes")
+                getDefaultMaterialSchemes()
+            }
+            else -> getMaterialSchemesForUser(user)
+        }
+    }
+
+    override fun getDefaultMaterialSchemes(): MaterialSchemes {
+        val primaryColor = ContextCompat.getColor(context, R.color.primary)
+        return MaterialSchemes.fromColor(primaryColor)
+    }
+
+    companion object {
+        private val TAG = MaterialSchemesProviderImpl::class.java.simpleName
     }
 }
