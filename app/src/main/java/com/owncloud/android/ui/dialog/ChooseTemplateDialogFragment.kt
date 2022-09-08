@@ -60,7 +60,6 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -83,9 +82,6 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
     @Inject
     lateinit var themeDrawableUtils: ThemeDrawableUtils
-
-    @Inject
-    lateinit var themeTextInputUtils: ThemeTextInputUtils
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
@@ -143,11 +139,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val view: View = binding.root
 
         binding.filename.requestFocus()
-        themeTextInputUtils.colorTextInput(
-            binding.filenameContainer,
-            binding.filename,
-            themeColorUtils.primaryColor(context),
-            themeColorUtils.primaryAccentColor(context)
+        viewThemeUtils.material.colorTextInputLayout(
+            binding.filenameContainer
         )
 
         binding.filename.addTextChangedListener(object : TextWatcher {

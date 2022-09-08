@@ -43,7 +43,6 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
@@ -68,7 +67,6 @@ public class CreateFolderDialogFragment
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     @Inject ViewThemeUtils viewThemeUtils;
 
@@ -118,10 +116,7 @@ public class CreateFolderDialogFragment
         // Setup layout
         binding.userInput.setText("");
         binding.userInput.requestFocus();
-        themeTextInputUtils.colorTextInput(binding.userInputContainer,
-                                           binding.userInput,
-                                           themeColorUtils.primaryColor(getActivity()),
-                                           themeColorUtils.primaryAccentColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);

@@ -27,12 +27,12 @@ import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeMenuUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
-import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.owncloud.android.utils.theme.ThemeTextUtils
 import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.newm3.MaterialSchemesProvider
 import com.owncloud.android.utils.theme.newm3.MaterialSchemesProviderImpl
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -57,9 +57,9 @@ internal abstract class ThemeModule {
         fun themeToolbarUtils(
             themeColorUtils: ThemeColorUtils?,
             themeDrawableUtils: ThemeDrawableUtils?,
-            themeTextInputUtils: ThemeTextInputUtils?
+            viewThemeUtils: ViewThemeUtils
         ): ThemeToolbarUtils {
-            return ThemeToolbarUtils(themeColorUtils, themeDrawableUtils, themeTextInputUtils)
+            return ThemeToolbarUtils(themeColorUtils, themeDrawableUtils, viewThemeUtils)
         }
 
         @Provides
@@ -90,12 +90,6 @@ internal abstract class ThemeModule {
         @Singleton
         fun themeTextUtils(): ThemeTextUtils {
             return ThemeTextUtils()
-        }
-
-        @Provides
-        @Singleton
-        fun themeTextInputUtils(): ThemeTextInputUtils {
-            return ThemeTextInputUtils()
         }
 
         @Provides
