@@ -349,8 +349,8 @@
     </style>
 
     <style name="ThemeOverlay.App.Login.TextInputLayout" parent="">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
         <item name="colorError">@color/hwSecurityRed</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
         <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
