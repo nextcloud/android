@@ -37,7 +37,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -61,7 +60,6 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
     @Inject ThemeColorUtils themeColorUtils;
 
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     private PasswordDialogBinding binding;
@@ -162,10 +160,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         // Setup layout
         binding.sharePassword.setText("");
-        themeTextInputUtils.colorTextInput(binding.sharePasswordContainer,
-                                           binding.sharePassword,
-                                           themeColorUtils.primaryColor(getActivity()),
-                                           themeColorUtils.primaryAccentColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.sharePasswordContainer);
         binding.sharePassword.requestFocus();
 
         int negativeButtonCaption;

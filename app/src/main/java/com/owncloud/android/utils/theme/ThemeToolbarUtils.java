@@ -34,6 +34,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -47,14 +48,14 @@ import androidx.core.content.res.ResourcesCompat;
 public class ThemeToolbarUtils {
     private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
-    private final ThemeTextInputUtils themeTextInputUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public ThemeToolbarUtils(ThemeColorUtils themeColorUtils,
                              ThemeDrawableUtils themeDrawableUtils,
-                             ThemeTextInputUtils themeTextInputUtils) {
+                             ViewThemeUtils viewThemeUtils) {
         this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
-        this.themeTextInputUtils = themeTextInputUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     /**
@@ -125,7 +126,7 @@ public class ThemeToolbarUtils {
         int fontColor = themeColorUtils.appBarPrimaryFontColor(context);
         SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
         editText.setTextSize(16);
-        themeTextInputUtils.setEditTextColor(context, editText, fontColor);
+        viewThemeUtils.platform.colorEditText(editText);
         editText.setHintTextColor(themeColorUtils.appBarSecondaryFontColor(context));
 
         ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);

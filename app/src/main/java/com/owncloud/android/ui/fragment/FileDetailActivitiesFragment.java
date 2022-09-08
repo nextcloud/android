@@ -61,7 +61,6 @@ import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -117,7 +116,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
@@ -183,10 +181,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         binding.submitComment.setOnClickListener(v -> submitComment());
 
-        themeTextInputUtils.colorTextInput(binding.commentInputFieldContainer,
-                                           binding.commentInputField,
-                                           themeColorUtils.primaryColor(getContext()),
-                                           themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorTextInputLayout(binding.commentInputFieldContainer);
 
         DisplayUtils.setAvatar(user,
                                this,

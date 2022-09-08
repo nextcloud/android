@@ -94,7 +94,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -332,7 +332,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         private Spinner mSpinner;
         @Inject AppPreferences preferences;
         @Inject ThemeColorUtils themeColorUtils;
-        @Inject ThemeTextInputUtils themeTextInputUtils;
+        @Inject ViewThemeUtils viewThemeUtils;
 
         public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
             DialogInputUploadFilename dialog = new DialogInputUploadFilename();
@@ -427,10 +427,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
             setFilename(userInput, selectPos);
             userInput.requestFocus();
-            themeTextInputUtils.colorTextInput(userInputContainer,
-                                               userInput,
-                                               themeColorUtils.primaryColor(getContext()),
-                                               themeColorUtils.primaryAccentColor(getContext()));
+            viewThemeUtils.material.colorTextInputLayout(userInputContainer);
 
             final Spinner spinner = view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
