@@ -81,6 +81,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -502,7 +503,7 @@ public final class ThumbnailsCacheManager {
         private final Object file;
         private final String imageKey;
 
-        public ThumbnailGenerationTaskObject(Object file, String imageKey) {
+        public ThumbnailGenerationTaskObject(Object file, @Nullable String imageKey) {
             this.file = file;
             this.imageKey = imageKey;
         }

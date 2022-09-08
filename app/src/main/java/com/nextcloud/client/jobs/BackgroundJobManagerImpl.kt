@@ -78,6 +78,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
+        const val JOB_FILES_UPLOAD = "files_upload"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
 
@@ -444,6 +445,20 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueue(request)
+    }
+
+    override fun startFilesUploadJob(user: User) {
+        val request = oneTimeRequestBuilder(FilesUploadWorker::class, JOB_FILES_UPLOAD, user)
+            .build()
+
+        workManager.enqueue(request)
+    }
+
+    override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
+        val workInfo = workManager.getWorkInfosByTagLiveData(formatNameTag(JOB_FILES_UPLOAD, user))
+        return Transformations.map(workInfo) {
+            it.map { fromWorkInfo(it) ?: JobInfo() }
+        }
     }
 
     override fun scheduleTestJob() {

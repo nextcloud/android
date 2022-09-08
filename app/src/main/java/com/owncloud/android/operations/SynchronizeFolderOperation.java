@@ -85,14 +85,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Counter of failed operations in synchronization of kept-in-sync files */
     private int mFailsInFileSyncsFound;
 
-    /** 'True' means that the remote folder changed and should be fetched */
+    /**
+     * 'True' means that the remote folder changed and should be fetched
+     */
     private boolean mRemoteFolderChanged;
 
     private List<OCFile> mFilesForDirectDownload;
-        // to avoid extra PROPFINDs when there was no change in the folder
+    // to avoid extra PROPFINDs when there was no change in the folder
 
     private List<SyncOperation> mFilesToSyncContents;
-        // this will be used for every file when 'folder synchronization' replaces 'folder download'
+    // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
     private final AtomicBoolean mCancellationRequested;
 

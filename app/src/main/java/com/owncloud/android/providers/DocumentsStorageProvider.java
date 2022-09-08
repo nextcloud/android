@@ -108,8 +108,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private static final long CACHE_EXPIRATION = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
 
-    @Inject
-    UserAccountManager accountManager;
+    @Inject UserAccountManager accountManager;
 
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
