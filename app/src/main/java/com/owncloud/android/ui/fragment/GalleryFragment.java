@@ -47,7 +47,6 @@ import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
-import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
 import javax.inject.Inject;
 
@@ -74,7 +73,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private OCFile remoteFile;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
-    @Inject ThemeMenuUtils themeMenuUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
 
     @Override
@@ -252,8 +250,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
 
         if (menuItem != null) {
-            themeMenuUtils.tintMenuIcon(menuItem,
-                                        themeColorUtils.appBarPrimaryFontColor(requireContext()));
+            viewThemeUtils.platform.colorMenuItemText(requireContext(), menuItem);
         }
 
     }

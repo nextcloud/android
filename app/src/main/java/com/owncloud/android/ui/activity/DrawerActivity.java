@@ -113,7 +113,6 @@ import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeMenuUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -209,9 +208,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
-
-    @Inject
-    ThemeMenuUtils themeMenuUtils;
 
     @Inject
     ViewThemeUtils viewThemeUtils;
@@ -792,8 +788,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
             mCheckedMenuItem = menuItemId;
             MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
-            int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = themeColorUtils.primaryColor(null, true, true, this);
 
             currentItem.setChecked(true);
 
@@ -802,11 +796,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
                     if (menuItem == currentItem) {
-                        themeDrawableUtils.tintDrawable(currentItem.getIcon(), activeColor);
-                        themeMenuUtils.tintMenuItemText(currentItem, activeColor);
+                        viewThemeUtils.platform.colorMenuItemIconActive(this, menuItem);
+                        viewThemeUtils.platform.colorMenuItemTextActive(this, menuItem);
                     } else {
-                        themeDrawableUtils.tintDrawable(menuItem.getIcon(), drawerColor);
-                        themeMenuUtils.tintMenuItemText(menuItem, drawerColor);
+                        viewThemeUtils.platform.colorToolbarMenuIcon(this, menuItem);
+                        viewThemeUtils.platform.colorMenuItemText(this, menuItem);
                     }
                 }
             }
