@@ -203,11 +203,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     if (file.isDirectory()) {
                         itemViewHolder.fileSize.setVisibility(View.GONE);
                         itemViewHolder.fileSeparator.setVisibility(View.GONE);
-                    }
-                    if (isWithinEncryptedFolder) {
-                        itemViewHolder.checkbox.setVisibility(View.GONE);
-                    }
-                    else {
+                        if (isWithinEncryptedFolder) {
+                            itemViewHolder.checkbox.setVisibility(View.GONE);
+                        }
+                    } else {
                         itemViewHolder.fileSize.setVisibility(View.VISIBLE);
                         itemViewHolder.fileSeparator.setVisibility(View.VISIBLE);
                         itemViewHolder.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.length()));
