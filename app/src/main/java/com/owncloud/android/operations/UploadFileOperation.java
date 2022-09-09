@@ -502,7 +502,7 @@ public class UploadFileOperation extends SyncOperation {
 
             result = copyFile(originalFile, expectedPath);
             if (!result.isSuccess()) {
-                return result;
+                return returnGracefully(temporalFile, token, parentFile, client, result);
             }
 
             // Get the last modification date of the file from the file system
@@ -680,6 +680,20 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
+        return returnGracefully(temporalFile, token, parentFile, client, result);
+    }
+
+    private RemoteOperationResult returnGracefully(
+        File temporalFile,
+        String token,
+        OCFile parentFile,
+        OwnCloudClient client,
+        RemoteOperationResult result) {
+        // delete temporal file
+        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
+            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
+        }
+
         // unlock must be done always
         if (token != null) {
             RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
@@ -690,12 +704,6 @@ public class UploadFileOperation extends SyncOperation {
                 return unlockFolderResult;
             }
         }
-
-        // delete temporal file
-        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
-            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
-        }
-
         return result;
     }
 

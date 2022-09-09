@@ -232,7 +232,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             fragmentTransaction.remove(prev);
         }
 
-        if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
+        // TODO renaming does not work?
+        // TODO check all three conflict options
+        if (existingFile != null && getStorageManager().getFileByDecryptedRemotePath(newFile.getRemotePath()) != null) {
             ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
                                                                                newFile,
                                                                                userOptional.get());
