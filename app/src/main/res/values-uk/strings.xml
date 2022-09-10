@@ -321,6 +321,8 @@
     <string name="file_list_seconds_ago">секунди тому</string>
     <string name="file_management_permission">Потрібні дозволи</string>
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
+    <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
+    <string name="file_management_permission_text">%1$s для завантаження файлів потрібні дозволи на керування файлами. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
     <string name="file_migration_checking_destination">Перевірка місця призначення...</string>
     <string name="file_migration_cleaning">Очищення...</string>
     <string name="file_migration_dialog_title">Оновлення папки для зберігання даних</string>
@@ -466,6 +468,7 @@
     <string name="no_mutliple_accounts_allowed">Дозволено лише один обліковий запис</string>
     <string name="no_pdf_app_available">Відсутні застосунки для відкриття PDF-файлів</string>
     <string name="no_send_app">Відсутній застосунок для надсилання виділених файлів</string>
+    <string name="no_share_permission_selected">Виберіть принаймні один дозвіл для спільного використання.</string>
     <string name="note_confirm">Надіслати</string>
     <string name="note_could_not_sent">Неможливо надіслати нотатку</string>
     <string name="note_icon_hint">Піктограма нотатки</string>
@@ -624,6 +627,7 @@
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Встановити повідомлення про стан</string>
     <string name="share">Поділитися</string>
+    <string name="share_copy_link">Поділитися &amp; Копіювати посилання</string>
     <string name="share_dialog_title">Спільний доступ</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Дійсне до %1$s</string>
@@ -645,6 +649,7 @@
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_password_title">Захищено паролем</string>
     <string name="share_permission_can_edit">Можна редагувати</string>
+    <string name="share_permission_file_drop">Відкинути файл</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Поділитися дозволами</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
@@ -887,6 +892,24 @@
         <item quantity="few">Не вдалося скопіювати %1$d файлів з теки %2$s до</item>
         <item quantity="many">Не вдалося скопіювати %1$d файлів з теки %2$s до</item>
         <item quantity="other">Не вдалося скопіювати %1$d файлів з теки %2$s до</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Написав %1$d подію %2$s</item>
+        <item quantity="few">Написав %1$d події до %2$s</item>
+        <item quantity="many">Написав %1$d події до %2$s</item>
+        <item quantity="other">Написав %1$d події до %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Створено %1$d нові UID</item>
+        <item quantity="few">Створено %1$d нові UID</item>
+        <item quantity="many">Створено %1$d нові UID</item>
+        <item quantity="other">Створено %1$d нові UID</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Опрацьований %d запис.</item>
+        <item quantity="few">Опрацьовані %d записи.</item>
+        <item quantity="many">Опрацьовані %d записи.</item>
+        <item quantity="other">Опрацьовані %d записи.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d тека</item>
