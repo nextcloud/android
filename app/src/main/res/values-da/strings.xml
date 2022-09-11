@@ -498,7 +498,7 @@
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
     <string name="pass_code_mismatch">Passcode\'erne er ikke ens</string>
     <string name="pass_code_reenter_your_pass_code">Indtast venligst dit kodeord igen</string>
-    <string name="pass_code_remove_your_pass_code">Slet din passcode</string>
+    <string name="pass_code_remove_your_pass_code">Slet din adgangskode</string>
     <string name="pass_code_removed">Passcode slettet</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
     <string name="pass_code_wrong">Ukorrekt passcode</string>
