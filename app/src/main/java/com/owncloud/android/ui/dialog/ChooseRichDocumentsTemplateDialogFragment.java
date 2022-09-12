@@ -35,6 +35,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -212,11 +213,14 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         });
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
             .setTitle(getTitle(type));
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

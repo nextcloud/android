@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
@@ -85,9 +86,11 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        if(alertDialog != null) {
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        }
     }
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
@@ -120,7 +123,7 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
             messageArguments = new String[]{};
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
             .setIcon(R.drawable.ic_warning)
             .setIconAttribute(android.R.attr.alertDialogIcon)
             .setMessage(String.format(getString(messageId), messageArguments));
@@ -155,6 +158,9 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
                 dialog.dismiss();
             });
         }
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
+
         return builder.create();
     }
 
