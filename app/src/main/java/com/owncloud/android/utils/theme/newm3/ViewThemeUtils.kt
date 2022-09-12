@@ -30,7 +30,9 @@ import com.nextcloud.android.common.ui.theme.utils.DialogViewThemeUtils
 import com.nextcloud.android.common.ui.theme.utils.MaterialViewThemeUtils
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
+/**
+ * Child fields intentionally constructed instead of injected in order to reuse schemes for performance
+ */
 class ViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
     colorUtil: ColorUtil
@@ -46,4 +48,7 @@ class ViewThemeUtils @Inject constructor(
 
     @JvmField
     val dialog = DialogViewThemeUtils(schemes)
+
+    @JvmField
+    val files = FilesSpecificViewThemeUtils(schemes)
 }
