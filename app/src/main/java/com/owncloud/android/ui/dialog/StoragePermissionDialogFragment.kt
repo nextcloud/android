@@ -93,16 +93,18 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
             permissionRequired -> R.string.file_management_permission
             else -> R.string.file_management_permission_optional
         }
-        val dialog = MaterialAlertDialogBuilder(requireActivity(), R.style.Theme_ownCloud_Dialog)
+
+        val builder = MaterialAlertDialogBuilder(binding.btnReadOnly.context)
             .setTitle(titleResource)
             .setView(view)
             .setNegativeButton(R.string.common_cancel) { _, _ ->
                 listener.onCancel()
                 dismiss()
             }
-            .create()
 
-        return dialog
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.btnReadOnly.context, builder)
+
+        return builder.create()
     }
 
     interface Listener {
