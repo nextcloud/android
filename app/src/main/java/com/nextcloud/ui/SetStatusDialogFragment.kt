@@ -24,6 +24,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +32,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.VisibleForTesting
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
@@ -135,9 +139,11 @@ class SetStatusDialogFragment :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogSetStatusBinding.inflate(layoutInflater)
 
-        return AlertDialog.Builder(requireContext())
-            .setView(binding.root)
-            .create()
+        val builder = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.statusView.context, builder)
+
+        return builder.create()
     }
 
     @SuppressLint("DefaultLocale")
@@ -200,9 +206,11 @@ class SetStatusDialogFragment :
             }
         }
 
-        binding.clearStatus.setTextColor(themeColorUtils.primaryColor(context, true))
+        viewThemeUtils.material.colorMaterialButtonText(binding.clearStatus)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.setStatus)
         viewThemeUtils.material.colorTextInputLayout(binding.customStatusInputContainer)
+
+        viewThemeUtils.platform.themeDialog(binding.root)
     }
 
     private fun updateCurrentStatusViews(it: Status) {
@@ -309,34 +317,38 @@ class SetStatusDialogFragment :
     }
 
     private fun visualizeStatus(statusType: StatusType) {
-        when (statusType) {
-            StatusType.ONLINE -> {
-                clearTopStatus()
-                binding.onlineStatus.setBackgroundColor(themeColorUtils.primaryColor(context))
+        clearTopStatus()
+        val views: Triple<MaterialCardView, TextView, ImageView> = when (statusType) {
+            StatusType.ONLINE -> Triple(binding.onlineStatus, binding.onlineHeadline, binding.onlineIcon)
+            StatusType.AWAY -> Triple(binding.awayStatus, binding.awayHeadline, binding.awayIcon)
+            StatusType.DND -> Triple(binding.dndStatus, binding.dndHeadline, binding.dndIcon)
+            StatusType.INVISIBLE -> Triple(binding.invisibleStatus, binding.invisibleHeadline, binding.invisibleIcon)
+            else -> {
+                Log.d(TAG, "unknown status")
+                return
             }
-            StatusType.AWAY -> {
-                clearTopStatus()
-                binding.awayStatus.setBackgroundColor(themeColorUtils.primaryColor(context))
-            }
-            StatusType.DND -> {
-                clearTopStatus()
-                binding.dndStatus.setBackgroundColor(themeColorUtils.primaryColor(context))
-            }
-            StatusType.INVISIBLE -> {
-                clearTopStatus()
-                binding.invisibleStatus.setBackgroundColor(themeColorUtils.primaryColor(context))
-            }
-            else -> clearTopStatus()
         }
+        viewThemeUtils.material.colorCardViewBackground(views.first)
+        viewThemeUtils.platform.colorPrimaryTextViewElement(views.second)
     }
 
     private fun clearTopStatus() {
         context?.let {
             val grey = it.resources.getColor(R.color.grey_200)
-            binding.onlineStatus.setBackgroundColor(grey)
-            binding.awayStatus.setBackgroundColor(grey)
-            binding.dndStatus.setBackgroundColor(grey)
-            binding.invisibleStatus.setBackgroundColor(grey)
+            binding.onlineStatus.setCardBackgroundColor(grey)
+            binding.awayStatus.setCardBackgroundColor(grey)
+            binding.dndStatus.setCardBackgroundColor(grey)
+            binding.invisibleStatus.setCardBackgroundColor(grey)
+
+            binding.onlineHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
+            binding.awayHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
+            binding.dndHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
+            binding.invisibleHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
+
+            binding.onlineIcon.imageTintList = null
+            binding.awayIcon.imageTintList = null
+            binding.dndIcon.imageTintList = null
+            binding.invisibleIcon.imageTintList = null
         }
     }
 
@@ -375,6 +387,8 @@ class SetStatusDialogFragment :
      * Fragment creator
      */
     companion object {
+        private val TAG = SetStatusDialogFragment::class.simpleName
+
         @JvmStatic
         fun newInstance(user: User, status: Status?): SetStatusDialogFragment {
             val args = Bundle()
@@ -382,7 +396,6 @@ class SetStatusDialogFragment :
             args.putParcelable(ARG_CURRENT_STATUS_PARAM, status)
             val dialogFragment = SetStatusDialogFragment()
             dialogFragment.arguments = args
-            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
             return dialogFragment
         }
     }
