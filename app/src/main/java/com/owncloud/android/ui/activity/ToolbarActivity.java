@@ -59,6 +59,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -90,8 +91,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * to use the toolbar.
      */
     private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
-        int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
-
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         themeToolbarUtils.colorStatusBar(this);
@@ -118,13 +117,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
-        if (mToolbar.getOverflowIcon() != null) {
-            themeDrawableUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
-        }
-
-        if (mToolbar.getNavigationIcon() != null) {
-            themeDrawableUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
-        }
+        viewThemeUtils.material.themeToolbar(mToolbar);
     }
 
     public void setupToolbar() {
@@ -169,6 +162,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
+        viewThemeUtils.material.themeToolbar(mToolbar);
         if (isShow) {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_off));
@@ -178,7 +172,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             viewThemeUtils.material.themeSearchBarText(mSearchText);
             themeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
-            viewThemeUtils.material.themeToolbar(mToolbar);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
@@ -199,10 +192,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        themeToolbarUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {
+            actionBar.setTitle(titleToSet);
             actionBar.setDisplayShowTitleEnabled(true);
         }
     }
