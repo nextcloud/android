@@ -164,19 +164,19 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private void showHomeSearchToolbar(boolean isShow) {
         viewThemeUtils.material.themeToolbar(mToolbar);
         if (isShow) {
+            viewThemeUtils.platform.resetStatusBar(this);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
             viewThemeUtils.material.themeCardView(mHomeSearchToolbar);
             viewThemeUtils.material.themeSearchBarText(mSearchText);
-            themeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
+            viewThemeUtils.platform.themeStatusBar(this, mDefaultToolbar);
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
-            themeToolbarUtils.colorStatusBar(this);
         }
     }
 
@@ -208,6 +208,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
      */
     public boolean isRoot(OCFile file) {
+
         return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
     }
 
