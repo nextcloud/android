@@ -26,7 +26,6 @@ import com.owncloud.android.utils.theme.ThemeAvatarUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
-import com.owncloud.android.utils.theme.ThemeTextUtils
 import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.newm3.MaterialSchemesProvider
@@ -77,12 +76,6 @@ internal abstract class ThemeModule {
         @Singleton
         fun themeSnackbarUtils(): ThemeSnackbarUtils {
             return ThemeSnackbarUtils()
-        }
-
-        @Provides
-        @Singleton
-        fun themeTextUtils(): ThemeTextUtils {
-            return ThemeTextUtils()
         }
 
         @Provides
