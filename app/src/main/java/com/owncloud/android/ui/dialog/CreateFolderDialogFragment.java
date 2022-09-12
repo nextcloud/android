@@ -33,6 +33,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -168,11 +169,14 @@ public class CreateFolderDialogFragment
         });
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.folder_confirm_create, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.uploader_info_dirname);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
+
         AlertDialog d = builder.create();
 
         Window window = d.getWindow();
@@ -202,6 +206,7 @@ public class CreateFolderDialogFragment
             }
 
             String path = mParentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+
             ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path);
         }
     }
