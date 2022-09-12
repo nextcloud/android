@@ -50,6 +50,7 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
@@ -73,6 +74,9 @@ class ChooseAccountDialogFragment :
     lateinit var clientFactory: ClientFactory
 
     @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
     lateinit var themeColorUtils: ThemeColorUtils
 
     @Inject
@@ -90,9 +94,12 @@ class ChooseAccountDialogFragment :
         _binding = DialogChooseAccountBinding.inflate(layoutInflater)
         dialogView = binding.root
 
-        return MaterialAlertDialogBuilder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
-            .create()
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.statusView.context, builder)
+
+        return builder.create()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
