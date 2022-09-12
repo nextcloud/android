@@ -35,6 +35,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation
 import com.nextcloud.client.account.CurrentAccountProvider
@@ -171,11 +172,14 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         binding.list.adapter = adapter
 
         // Build the dialog
-        val builder = AlertDialog.Builder(activity)
+        val builder = MaterialAlertDialogBuilder(activity)
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
             .setTitle(title)
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.list.context, builder)
+
         val dialog: Dialog = builder.create()
         val window = dialog.window
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
