@@ -91,6 +91,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -755,12 +756,17 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            themeToolbarUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
             themeToolbarUtils.colorStatusBar(this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(themeColorUtils.primaryAppbarColor(this)));
-
             actionBar.setDisplayHomeAsUpEnabled(true);
-            themeToolbarUtils.tintBackButton(actionBar, this);
+            actionBar.setDisplayShowTitleEnabled(true);
+            if (this.getResources() != null) {
+                viewThemeUtils.material.themeActionBar(this,
+                                                       actionBar,
+                                                       getString(R.string.actionbar_settings),
+                                                       ResourcesCompat.getDrawable(this.getResources(),
+                                                                                   R.drawable.ic_arrow_back,
+                                                                                   null));
+            }
         }
     }
 
