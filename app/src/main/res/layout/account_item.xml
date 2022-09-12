@@ -27,7 +27,8 @@
     android:layout_margin="@dimen/standard_quarter_margin"
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/transparent"
-    app:cardElevation="0dp">
+    app:cardElevation="0dp"
+    app:strokeWidth="@dimen/zero">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -180,9 +180,10 @@ public class RenameFileDialogFragment
             .setPositiveButton(R.string.file_rename, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
-        Dialog d = builder.create();
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
+
+        Dialog d = builder.create();
 
         Window window = d.getWindow();
         if (window != null) {
