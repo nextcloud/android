@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PasswordDialogBinding;
@@ -174,13 +175,16 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         }
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
 
         builder.setView(view)
             .setPositiveButton(R.string.common_ok, null)
             .setNegativeButton(negativeButtonCaption, this)
             .setNeutralButton(R.string.common_delete, this)
             .setTitle(title);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(view.getContext(), builder);
+
         Dialog d = builder.create();
 
         Window window = d.getWindow();

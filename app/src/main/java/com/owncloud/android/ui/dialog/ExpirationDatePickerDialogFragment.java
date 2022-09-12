@@ -33,12 +33,14 @@ import android.widget.DatePicker;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 /**
@@ -55,6 +57,7 @@ public class ExpirationDatePickerDialogFragment
     private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
     @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     private OnExpiryDateListener onExpiryDateListener;
 
     /**
@@ -83,9 +86,10 @@ public class ExpirationDatePickerDialogFragment
         final Dialog currentDialog = getDialog();
         if (currentDialog != null) {
             final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
-            dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL).setTextColor(themeColorUtils.primaryColor(getContext(), true));
-            dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
-            dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+
+            viewThemeUtils.platform.colorTextButtons(dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL),
+                                                     dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE),
+                                                     dialog.getButton(DatePickerDialog.BUTTON_POSITIVE));
         }
     }
 

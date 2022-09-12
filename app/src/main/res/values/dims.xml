@@ -141,5 +141,6 @@
     <dimen name="dialog_elevation">24dp</dimen>
     <dimen name="default_login_width">400dp</dimen>
     <dimen name="dialogBorderRadius">24dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
 
 </resources>
