@@ -297,7 +297,6 @@
     <style name="Theme.ownCloud.Dialog" parent="@style/Theme.Material3.DayNight.Dialog.Alert">
         <item name="windowNoTitle">false</item>
         <item name="colorAccent">@color/color_accent</item>
-        <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>

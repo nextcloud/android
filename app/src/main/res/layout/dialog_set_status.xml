@@ -62,7 +62,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/button_corner_radius">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -129,7 +130,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/button_corner_radius">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -205,7 +207,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/button_corner_radius">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -256,11 +259,11 @@
                 android:layout_height="@dimen/online_status_item_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_half_margin"
-
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/button_corner_radius">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
