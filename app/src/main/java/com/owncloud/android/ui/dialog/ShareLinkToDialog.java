@@ -36,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -125,7 +126,7 @@ public class ShareLinkToDialog  extends DialogFragment {
             titleId = R.string.activity_chooser_title;
         }
 
-        return new AlertDialog.Builder(getActivity())
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity())
                     .setTitle(titleId)
                     .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                         @Override
@@ -141,8 +142,8 @@ public class ShareLinkToDialog  extends DialogFragment {
                             // Send the file
                             getActivity().startActivity(mIntent);
                         }
-        })
-        .create();
+        });
+        return builder.create();
     }
 
     class ActivityAdapter extends ArrayAdapter<ResolveInfo> {

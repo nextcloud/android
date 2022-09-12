@@ -33,6 +33,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -159,10 +160,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
     @NonNull
     private Dialog createDialog(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(v.getContext());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
             .setNeutralButton(R.string.common_cancel, null)
             .setTitle(R.string.end_to_end_encryption_title);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(v.getContext(), builder);
 
         Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);

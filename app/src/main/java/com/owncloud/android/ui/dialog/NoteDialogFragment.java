@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NoteDialogBinding;
@@ -102,11 +103,14 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         viewThemeUtils.material.colorTextInputLayout(binding.noteContainer);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.noteContainer.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.note_confirm, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.send_note);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.noteContainer.getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

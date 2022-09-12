@@ -32,6 +32,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
@@ -39,6 +40,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -57,6 +59,7 @@ public class RenamePublicShareDialogFragment
     public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
 
     @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private EditBoxDialogBinding binding;
     private OCShare publicShare;
@@ -67,20 +70,17 @@ public class RenamePublicShareDialogFragment
         args.putParcelable(ARG_PUBLIC_SHARE, share);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        int color = themeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
     }
 
@@ -103,11 +103,14 @@ public class RenamePublicShareDialogFragment
         inputText.setHighlightColor(themeColorUtils.primaryColor(getActivity()));
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.public_share_name);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
