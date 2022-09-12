@@ -74,7 +74,7 @@ public class FilesystemDataProvider {
         );
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, int maxUploadAmount) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
@@ -105,6 +105,14 @@ public class FilesystemDataProvider {
                         } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
                             Log_OC.d(TAG, "Ignoring file for upload (unqualified file): " + value);
                         } else {
+                            // This puts a limit to the amount of paths that can be uploaded
+                            // at the same time. In case the content resolver returns thousands
+                            // of files, this ensures that they are not all added to the
+                            // upload queue at the same time, but in batches of at most
+                            // maxUploadAmount in size.
+                            if (localPathsToUpload.size() >= maxUploadAmount) {
+                              break;
+                            }
                             localPathsToUpload.add(value);
                         }
                     }
