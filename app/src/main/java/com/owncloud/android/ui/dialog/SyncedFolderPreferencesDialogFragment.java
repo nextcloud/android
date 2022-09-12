@@ -35,8 +35,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.SortingOrderFragmentBinding;
+import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -80,7 +83,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
     @Inject ViewThemeUtils viewThemeUtils;
 
-    protected View mView;
     private CharSequence[] mUploadBehaviorItemStrings;
     private CharSequence[] mNameCollisionPolicyItemStrings;
     private SwitchCompat mEnabledSwitch;
@@ -100,6 +102,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private boolean behaviourDialogShown;
     private boolean nameCollisionPolicyDialogShown;
     private AlertDialog behaviourDialog;
+    private SyncedFoldersSettingsLayoutBinding binding;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         if (syncedFolder == null) {
@@ -131,82 +134,68 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         // keep the state of the fragment on configuration changes
         setRetainInstance(true);
 
-        mView = null;
+        binding = null;
 
         mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);
         mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
         mNameCollisionPolicyItemStrings = getResources().getTextArray(R.array.pref_name_collision_policy_entries);
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
-
-        mView = inflater.inflate(R.layout.synced_folders_settings_layout, container, false);
-
-        setupDialogElements(mView);
-        setupListeners(mView);
-
-        return mView;
-    }
-
     /**
      * find all relevant UI elements and set their values.
      *
-     * @param view the parent view
+     * @param binding the parent binding
      */
-    private void setupDialogElements(View view) {
+    private void setupDialogElements(SyncedFoldersSettingsLayoutBinding binding) {
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
-            view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
-            view.findViewById(R.id.delete).setVisibility(View.GONE);
+            binding.localFolderContainer.setVisibility(View.GONE);
+            binding.delete.setVisibility(View.GONE);
         } else if (mSyncedFolder.getId() <= UNPERSISTED_ID) {
             // Hide delete/enabled for unpersisted custom folders
-            view.findViewById(R.id.delete).setVisibility(View.GONE);
-            view.findViewById(R.id.sync_enabled).setVisibility(View.GONE);
+            binding.delete.setVisibility(View.GONE);
+            binding.syncEnabled.setVisibility(View.GONE);
 
             // auto set custom folder to enabled
             mSyncedFolder.setEnabled(true);
 
             // switch text to create headline
-            ((TextView) view.findViewById(R.id.synced_folders_settings_title))
-                .setText(R.string.autoupload_create_new_custom_folder);
+            binding.syncedFoldersSettingsTitle.setText(R.string.autoupload_create_new_custom_folder);
 
             // disable save button
-            view.findViewById(R.id.save).setEnabled(false);
+            binding.save.setEnabled(false);
         } else {
-            view.findViewById(R.id.local_folder_container).setVisibility(View.GONE);
+            binding.localFolderContainer.setVisibility(View.GONE);
         }
 
         // find/saves UI elements
-        mEnabledSwitch = view.findViewById(R.id.sync_enabled);
+        mEnabledSwitch = binding.syncEnabled;
         viewThemeUtils.androidx.colorSwitchCompat(mEnabledSwitch);
 
-        mLocalFolderPath = view.findViewById(R.id.synced_folders_settings_local_folder_path);
+        mLocalFolderPath = binding.syncedFoldersSettingsLocalFolderPath;
 
-        mLocalFolderSummary = view.findViewById(R.id.local_folder_summary);
-        mRemoteFolderSummary = view.findViewById(R.id.remote_folder_summary);
+        mLocalFolderSummary = binding.localFolderSummary;
+        mRemoteFolderSummary = binding.remoteFolderSummary;
 
-        mUploadOnWifiCheckbox = view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        mUploadOnWifiCheckbox = binding.settingInstantUploadOnWifiCheckbox;
 
-        mUploadOnChargingCheckbox = view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        mUploadOnChargingCheckbox = binding.settingInstantUploadOnChargingCheckbox;
 
-        mUploadExistingCheckbox = view.findViewById(R.id.setting_instant_upload_existing_checkbox);
+        mUploadExistingCheckbox = binding.settingInstantUploadExistingCheckbox;
 
-        mUploadUseSubfoldersCheckbox = view.findViewById(
-            R.id.setting_instant_upload_path_use_subfolders_checkbox);
+        mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
 
         viewThemeUtils.platform.themeCheckbox(mUploadOnWifiCheckbox,
                                               mUploadOnChargingCheckbox,
                                               mUploadExistingCheckbox,
                                               mUploadUseSubfoldersCheckbox);
 
-        mUploadBehaviorSummary = view.findViewById(R.id.setting_instant_behaviour_summary);
+        mUploadBehaviorSummary = binding.settingInstantBehaviourSummary;
 
-        mNameCollisionPolicySummary = view.findViewById(R.id.setting_instant_name_collision_policy_summary);
+        mNameCollisionPolicySummary = binding.settingInstantNameCollisionPolicySummary;
 
-        mCancel = view.findViewById(R.id.cancel);
-        mSave = view.findViewById(R.id.save);
+        mCancel = binding.cancel;
+        mSave = binding.save;
 
         viewThemeUtils.platform.colorTextButtons(mCancel, mSave);
 
@@ -257,7 +246,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mSyncedFolder.setEnabled(enabled);
         mEnabledSwitch.setChecked(enabled);
 
-        setupViews(mView, enabled);
+        setupViews(binding, enabled);
     }
 
     /**
@@ -295,9 +284,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
     private void checkAndUpdateSaveButtonState() {
         if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
-            mView.findViewById(R.id.save).setEnabled(true);
+            binding.save.setEnabled(true);
         } else {
-            mView.findViewById(R.id.save).setEnabled(false);
+            binding.save.setEnabled(false);
         }
 
         checkWritableFolder();
@@ -305,18 +294,18 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
     private void checkWritableFolder() {
         if (!mSyncedFolder.isEnabled()) {
-            mView.findViewById(R.id.setting_instant_behaviour_container).setEnabled(false);
-            mView.findViewById(R.id.setting_instant_behaviour_container).setAlpha(alphaDisabled);
+            binding.settingInstantBehaviourContainer.setEnabled(false);
+            binding.settingInstantBehaviourContainer.setAlpha(alphaDisabled);
             return;
         }
 
         if (mSyncedFolder.getLocalPath() != null && new File(mSyncedFolder.getLocalPath()).canWrite()) {
-            mView.findViewById(R.id.setting_instant_behaviour_container).setEnabled(true);
-            mView.findViewById(R.id.setting_instant_behaviour_container).setAlpha(alphaEnabled);
+            binding.settingInstantBehaviourContainer.setEnabled(true);
+            binding.settingInstantBehaviourContainer.setAlpha(alphaEnabled);
             mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
         } else {
-            mView.findViewById(R.id.setting_instant_behaviour_container).setEnabled(false);
-            mView.findViewById(R.id.setting_instant_behaviour_container).setAlpha(alphaDisabled);
+            binding.settingInstantBehaviourContainer.setEnabled(false);
+            binding.settingInstantBehaviourContainer.setAlpha(alphaDisabled);
 
             mSyncedFolder.setUploadAction(
                 getResources().getTextArray(R.array.pref_behaviour_entryValues)[0].toString());
@@ -325,33 +314,33 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         }
     }
 
-    private void setupViews(View view, boolean enable) {
+    private void setupViews(SyncedFoldersSettingsLayoutBinding binding, boolean enable) {
         float alpha;
         if (enable) {
             alpha = alphaEnabled;
         } else {
             alpha = alphaDisabled;
         }
-        view.findViewById(R.id.setting_instant_upload_on_wifi_container).setEnabled(enable);
-        view.findViewById(R.id.setting_instant_upload_on_wifi_container).setAlpha(alpha);
+        binding.settingInstantUploadOnWifiContainer.setEnabled(enable);
+        binding.settingInstantUploadOnWifiContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.setting_instant_upload_on_charging_container).setEnabled(enable);
-        view.findViewById(R.id.setting_instant_upload_on_charging_container).setAlpha(alpha);
+        binding.settingInstantUploadOnChargingContainer.setEnabled(enable);
+        binding.settingInstantUploadOnChargingContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.setting_instant_upload_existing_container).setEnabled(enable);
-        view.findViewById(R.id.setting_instant_upload_existing_container).setAlpha(alpha);
+        binding.settingInstantUploadExistingContainer.setEnabled(enable);
+        binding.settingInstantUploadExistingContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setEnabled(enable);
-        view.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setAlpha(alpha);
+        binding.settingInstantUploadPathUseSubfoldersContainer.setEnabled(enable);
+        binding.settingInstantUploadPathUseSubfoldersContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.remote_folder_container).setEnabled(enable);
-        view.findViewById(R.id.remote_folder_container).setAlpha(alpha);
+        binding.remoteFolderContainer.setEnabled(enable);
+        binding.remoteFolderContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.local_folder_container).setEnabled(enable);
-        view.findViewById(R.id.local_folder_container).setAlpha(alpha);
+        binding.localFolderContainer.setEnabled(enable);
+        binding.localFolderContainer.setAlpha(alpha);
 
-        view.findViewById(R.id.setting_instant_name_collision_policy_container).setEnabled(enable);
-        view.findViewById(R.id.setting_instant_name_collision_policy_container).setAlpha(alpha);
+        binding.settingInstantNameCollisionPolicyContainer.setEnabled(enable);
+        binding.settingInstantNameCollisionPolicyContainer.setAlpha(alpha);
 
         mUploadOnWifiCheckbox.setEnabled(enable);
         mUploadOnChargingCheckbox.setEnabled(enable);
@@ -364,14 +353,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     /**
      * setup all listeners.
      *
-     * @param view the parent view
+     * @param binding the parent binding
      */
-    private void setupListeners(View view) {
+    private void setupListeners(SyncedFoldersSettingsLayoutBinding binding) {
         mSave.setOnClickListener(new OnSyncedFolderSaveClickListener());
         mCancel.setOnClickListener(new OnSyncedFolderCancelClickListener());
-        view.findViewById(R.id.delete).setOnClickListener(new OnSyncedFolderDeleteClickListener());
+        binding.delete.setOnClickListener(new OnSyncedFolderDeleteClickListener());
 
-        view.findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(
+        binding.settingInstantUploadOnWifiContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -380,7 +369,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
 
-        view.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(
+        binding.settingInstantUploadOnChargingContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -389,7 +378,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
 
-        view.findViewById(R.id.setting_instant_upload_existing_container).setOnClickListener(
+        binding.settingInstantUploadExistingContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -398,7 +387,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
 
-        view.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setOnClickListener(
+        binding.settingInstantUploadPathUseSubfoldersContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -407,26 +396,26 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
 
-        view.findViewById(R.id.remote_folder_container).setOnClickListener(v -> {
+        binding.remoteFolderContainer.setOnClickListener(v -> {
             Intent action = new Intent(getActivity(), FolderPickerActivity.class);
             getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
         });
 
-        view.findViewById(R.id.local_folder_container).setOnClickListener(v -> {
+        binding.localFolderContainer.setOnClickListener(v -> {
             Intent action = new Intent(getActivity(), UploadFilesActivity.class);
             action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
             action.putExtra(REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER);
             getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
         });
 
-        view.findViewById(R.id.sync_enabled).setOnClickListener(new OnClickListener() {
+        binding.syncEnabled.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setEnabled(!mSyncedFolder.isEnabled());
             }
         });
 
-        view.findViewById(R.id.setting_instant_behaviour_container).setOnClickListener(
+        binding.settingInstantBehaviourContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -434,7 +423,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
 
-        view.findViewById(R.id.setting_instant_name_collision_policy_container).setOnClickListener(
+        binding.settingInstantNameCollisionPolicyContainer.setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -444,7 +433,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void showBehaviourDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
             .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                                   mSyncedFolder.getUploadActionInteger(),
@@ -467,12 +456,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 }
             });
         behaviourDialogShown = true;
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getActivity(), builder);
+
         behaviourDialog = builder.create();
         behaviourDialog.show();
     }
 
     private void showNameCollisionPolicyDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
 
         builder.setTitle(R.string.pref_instant_name_collision_policy_dialogTitle)
             .setSingleChoiceItems(getResources().getTextArray(R.array.pref_name_collision_policy_entries),
@@ -481,6 +473,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             .setOnCancelListener(dialog -> nameCollisionPolicyDialogShown = false);
 
         nameCollisionPolicyDialogShown = true;
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getActivity(), builder);
+
         behaviourDialog = builder.create();
         behaviourDialog.show();
     }
@@ -488,9 +483,19 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(null);
-        return dialog;
+        Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
+
+        binding = SyncedFoldersSettingsLayoutBinding.inflate(requireActivity().getLayoutInflater(), null, false);
+
+        setupDialogElements(binding);
+        setupListeners(binding);
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
+        builder.setView(binding.getRoot());
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+
+        return builder.create();
     }
 
     @Override
