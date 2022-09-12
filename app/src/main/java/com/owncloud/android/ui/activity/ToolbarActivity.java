@@ -37,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
@@ -48,6 +49,7 @@ import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -56,7 +58,6 @@ import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -69,7 +70,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
-    private Toolbar mToolbar;
+    private MaterialToolbar mToolbar;
     private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
@@ -82,6 +83,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     @Inject public ThemeToolbarUtils themeToolbarUtils;
     @Inject public ThemeUtils themeUtils;
     @Inject public ThemeDrawableUtils themeDrawableUtils;
+    @Inject public ViewThemeUtils viewThemeUtils;
 
     /**
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
@@ -172,8 +174,11 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
+            viewThemeUtils.material.themeCardView(mHomeSearchToolbar);
+            viewThemeUtils.material.themeSearchBarText(mSearchText);
             themeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
         } else {
+            viewThemeUtils.material.themeToolbar(mToolbar);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             mDefaultToolbar.setVisibility(View.VISIBLE);
@@ -204,6 +209,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     /**
      * checks if the given file is the root folder.
+     *
      *
      * @param file file to be checked if it is the root folder
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
