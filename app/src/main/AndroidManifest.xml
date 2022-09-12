@@ -199,7 +199,7 @@
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:exported="false"
-            android:theme="@style/Theme.ownCloud" />
+            android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
             android:exported="false"
