@@ -44,12 +44,6 @@
         app:layout_constraintTop_toBottomOf="@id/current_account"
         tools:visibility="visible">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
-            android:background="@color/list_divider_background" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/set_status"
             style="@style/Nextcloud.Material.TextButton"
