@@ -171,6 +171,20 @@ class ChooseAccountDialogFragment :
 
             RetrieveStatusAsyncTask(user, this, clientFactory).execute()
         }
+
+        themeViews()
+    }
+
+    private fun themeViews() {
+        viewThemeUtils.platform.themeDialogDivider(binding.separatorLine)
+        viewThemeUtils.platform.themeDialog(binding.root)
+
+        viewThemeUtils.material.colorMaterialTextButton(binding.setStatus)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.setStatus)
+        viewThemeUtils.material.colorMaterialTextButton(binding.addAccount)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.addAccount)
+        viewThemeUtils.material.colorMaterialTextButton(binding.manageAccounts)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.manageAccounts)
     }
 
     private fun getAccountListItems(): List<UserListItem> {
