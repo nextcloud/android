@@ -38,9 +38,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
 
@@ -86,9 +85,8 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
 
     public void setAvatars(@NonNull User user,
                            @NonNull List<ShareeUser> sharees,
-                           ThemeColorUtils themeColorUtils,
                            ThemeDrawableUtils themeDrawableUtils,
-                           ThemeAvatarUtils themeAvatarUtils) {
+                           final ViewThemeUtils viewThemeUtils) {
         @NonNull Context context = getContext();
         removeAllViews();
         RelativeLayout.LayoutParams avatarLayoutParams;
@@ -122,7 +120,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                     case EMAIL:
                     case ROOM:
                     case CIRCLE:
-                        themeAvatarUtils.createAvatar(sharee.getShareType(), avatar, context, themeColorUtils);
+                        viewThemeUtils.files.createAvatar(sharee.getShareType(), avatar, context);
                         break;
                     case FEDERATED:
                         showFederatedShareAvatar(context,
