@@ -133,13 +133,13 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onStart() {
         super.onStart();
 
-        int color = themeColorUtils.primaryAccentColor(getActivity());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+        if (alertDialog != null) {
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        }
     }
 
     @NonNull
