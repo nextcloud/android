@@ -24,7 +24,6 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
