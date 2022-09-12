@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -162,7 +163,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
         builder.setView(binding.getRoot())
             .setPositiveButton(R.string.common_ok, (dialog, which) -> {
                 if (listener != null) {
@@ -233,6 +234,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
             binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked());
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
         });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.existingFileContainer.getContext(), builder);
 
         return builder.create();
     }
