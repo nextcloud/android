@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -44,6 +45,7 @@ import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
     @Inject UserAccountManager accountManager;
     @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
 
     @NonNull
@@ -74,7 +77,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
         final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
 
         UserListAdapter adapter = new UserListAdapter(parent,
                                                       accountManager,
@@ -90,6 +93,9 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         binding.list.setAdapter(adapter);
 
         builder.setView(binding.getRoot()).setTitle(R.string.common_choose_account);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

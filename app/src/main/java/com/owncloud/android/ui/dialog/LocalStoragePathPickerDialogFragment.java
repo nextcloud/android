@@ -27,6 +27,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.StoragePathDialogBinding;
@@ -110,10 +111,12 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
         binding.storagePathRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
         builder.setView(view)
             .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.storage_choose_location);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
 
         return builder.create();
     }

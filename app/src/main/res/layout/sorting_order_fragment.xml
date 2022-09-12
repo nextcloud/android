@@ -24,6 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="300dp"
+    android:padding="@dimen/dialog_padding"
     android:orientation="vertical">
 
     <TextView
@@ -31,8 +32,8 @@
         style="@style/Base.DialogWindowTitle.AppCompat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        android:text="@string/sort_by"/>
+        android:text="@string/sort_by"
+        android:paddingBottom="@dimen/standard_padding"/>
 
     <ScrollView
         android:id="@+id/scrollableSortings"
@@ -53,13 +54,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
-                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/sort_by_name_ascending"
                     android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
                     android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_alphabetical_asc"
-                    android:contentDescription="@string/sort_by_name_ascending"/>
+                    android:paddingEnd="@dimen/standard_half_padding"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:src="@drawable/ic_alphabetical_asc" />
 
                 <TextView
                     android:id="@+id/sortByNameAZText"
@@ -88,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
+                    android:background="@color/transparent"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_half_padding"
@@ -124,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
+                    android:background="@color/transparent"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_half_padding"
@@ -159,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
+                    android:background="@color/transparent"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_half_padding"
@@ -196,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
+                    android:background="@color/transparent"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_half_padding"
@@ -231,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/bg_default"
+                    android:background="@color/transparent"
                     android:paddingBottom="@dimen/standard_half_padding"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_half_padding"
@@ -264,6 +265,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_padding"
         android:gravity="end">
 
         <com.google.android.material.button.MaterialButton
