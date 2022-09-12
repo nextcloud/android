@@ -784,24 +784,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
+            viewThemeUtils.platform.colorNavigationView(mNavigationView);
             mCheckedMenuItem = menuItemId;
-            MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
-
-            currentItem.setChecked(true);
-
-            // For each menu item, change the color of the selected item, and of the other items
-            for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
-                MenuItem menuItem = mNavigationView.getMenu().getItem(i);
-                if (menuItem.getIcon() != null) {
-                    if (menuItem == currentItem) {
-                        viewThemeUtils.platform.colorMenuItemIconActive(this, menuItem);
-                        viewThemeUtils.platform.colorMenuItemTextActive(this, menuItem);
-                    } else {
-                        viewThemeUtils.platform.colorToolbarMenuIcon(this, menuItem);
-                        viewThemeUtils.platform.colorMenuItemText(this, menuItem);
-                    }
-                }
-            }
+            mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
