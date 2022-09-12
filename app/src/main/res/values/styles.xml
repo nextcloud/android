@@ -443,4 +443,11 @@
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>
     </style>
+
+    <style name="PreferenceTheme" parent="FallbackThemingTheme">
+        <item name="android:colorBackground">@color/bg_default</item>
+    </style>
+
+
+
 </resources>
