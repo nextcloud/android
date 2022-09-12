@@ -442,4 +442,10 @@
         <item name="android:background">@drawable/ripple</item>
     </style>
 
+    <style name="PreferenceTheme" parent="FallbackThemingTheme">
+        <item name="android:colorBackground">@color/bg_default</item>
+    </style>
+
+
+
 </resources>
