@@ -76,9 +76,9 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,7 +133,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
-    private final ThemeAvatarUtils themeAvatarUtils;
+    private final ViewThemeUtils viewThemeUtils;
     private SearchType searchType;
 
     public OCFileListAdapter(
@@ -146,8 +146,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean gridView,
         ThemeColorUtils themeColorUtils,
         ThemeDrawableUtils themeDrawableUtils,
-        ThemeAvatarUtils themeAvatarUtils
-                            ) {
+        final ViewThemeUtils viewThemeUtils) {
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -167,7 +166,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
-        this.themeAvatarUtils = themeAvatarUtils;
+        this.viewThemeUtils = viewThemeUtils;
 
         ocFileListDelegate = new OCFileListDelegate(activity,
                                                     ocFileListFragmentInterface,
@@ -416,7 +415,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
 
-            holder.getSharedAvatars().setAvatars(user, sharees,themeColorUtils, themeDrawableUtils, themeAvatarUtils);
+            holder.getSharedAvatars().setAvatars(user, sharees, themeDrawableUtils, viewThemeUtils);
             holder.getSharedAvatars().setOnClickListener(
                 view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {

@@ -27,7 +27,6 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,7 +42,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -109,7 +107,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -198,7 +195,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
-    @Inject ThemeAvatarUtils themeAvatarUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ViewThemeUtils viewThemeUtils;
@@ -428,7 +424,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             isGridViewPreferred(mFile),
             themeColorUtils,
             themeDrawableUtils,
-            themeAvatarUtils
+            viewThemeUtils
         );
 
         setRecyclerViewAdapter(mAdapter);
