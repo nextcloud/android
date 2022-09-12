@@ -142,6 +142,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                     uploadsStorageManager.removeUpload(upload);
                     break;
                 case KEEP_SERVER: // Download
+                    if (newFile.isEncrypted()) {
+                        return;
+                    }
                     if (!shouldDeleteLocal()) {
                         // Overwrite local file
                         Intent intent = new Intent(getBaseContext(), FileDownloader.class);
