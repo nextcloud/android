@@ -40,6 +40,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,8 +52,7 @@ public class UploaderAdapter extends SimpleAdapter {
     private final User user;
     private final FileDataStorageManager mStorageManager;
     private final LayoutInflater inflater;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public UploaderAdapter(Context context,
                            List<? extends Map<String, ?>> data,
@@ -61,15 +61,13 @@ public class UploaderAdapter extends SimpleAdapter {
                            int[] to,
                            FileDataStorageManager storageManager,
                            User user,
-                           ThemeColorUtils themeColorUtils,
-                           ThemeDrawableUtils themeDrawableUtils) {
+                           ViewThemeUtils viewThemeUtils) {
         super(context, data, resource, from, to);
         this.user = user;
         mStorageManager = storageManager;
         mContext = context;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -112,8 +110,7 @@ public class UploaderAdapter extends SimpleAdapter {
                                                                  user,
                                                                  file.getMountType(),
                                                                  mContext,
-                                                                 themeColorUtils,
-                                                                 themeDrawableUtils);
+                                                                 viewThemeUtils);
             fileIcon.setImageDrawable(icon);
         } else {
             // get Thumbnail if file is image
@@ -150,8 +147,7 @@ public class UploaderAdapter extends SimpleAdapter {
                                                                    file.getFileName(),
                                                                    user,
                                                                    mContext,
-                                                                   themeColorUtils,
-                                                                   themeDrawableUtils);
+                                                                   viewThemeUtils);
                 fileIcon.setImageDrawable(icon);
             }
         }

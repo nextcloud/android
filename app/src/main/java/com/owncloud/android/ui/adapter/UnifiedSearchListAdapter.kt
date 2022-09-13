@@ -42,6 +42,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
@@ -54,7 +55,7 @@ class UnifiedSearchListAdapter(
     private val clientFactory: ClientFactory,
     private val context: Context,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeDrawableUtils: ThemeDrawableUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -91,7 +92,7 @@ class UnifiedSearchListAdapter(
                     listInterface,
                     context,
                     themeColorUtils,
-                    themeDrawableUtils
+                    viewThemeUtils
                 )
             }
             VIEW_TYPE_EMPTY -> {

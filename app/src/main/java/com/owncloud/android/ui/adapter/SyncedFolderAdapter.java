@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private boolean hideItems;
     private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
     private final Executor thumbnailThreadPool;
 
     public SyncedFolderAdapter(Context context,
@@ -80,7 +82,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                                ClickListener listener,
                                boolean light,
                                ThemeColorUtils themeColorUtils,
-                               ThemeDrawableUtils themeDrawableUtils) {
+                               ThemeDrawableUtils themeDrawableUtils,
+                               ViewThemeUtils viewThemeUtils) {
         this.context = context;
         this.clock = clock;
         this.gridWidth = gridWidth;
@@ -92,6 +95,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         this.hideItems = true;
         this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
         this.thumbnailThreadPool = Executors.newCachedThreadPool();
 
         shouldShowHeadersForEmptySections(true);
@@ -348,8 +352,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.binding.thumbnail,
                                                                         context,
-                                                                        themeColorUtils,
-                                                                        themeDrawableUtils);
+                                                                        viewThemeUtils);
 
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(

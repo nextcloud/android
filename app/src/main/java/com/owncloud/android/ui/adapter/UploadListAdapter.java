@@ -493,8 +493,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                    fileName,
                                                                    user,
                                                                    parentActivity,
-                                                                   themeColorUtils,
-                                                                   themeDrawableUtils);
+                                                                   viewThemeUtils);
                 itemViewHolder.binding.thumbnail.setImageDrawable(icon);
             }
         }

@@ -240,8 +240,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                                                     this,
                                                     this,
                                                     clientFactory,
-                                                    themeColorUtils,
-                                                    themeDrawableUtils
+                                                    viewThemeUtils
         );
         binding.list.setAdapter(adapter);
 

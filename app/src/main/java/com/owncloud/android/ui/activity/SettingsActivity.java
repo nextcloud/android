@@ -760,7 +760,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             if (this.getResources() != null) {
-                viewThemeUtils.material.themeActionBar(this,
+                viewThemeUtils.androidx.themeActionBar(this,
                                                        actionBar,
                                                        getString(R.string.actionbar_settings),
                                                        ResourcesCompat.getDrawable(this.getResources(),

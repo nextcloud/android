@@ -252,7 +252,16 @@ class SyncedFoldersActivity :
     private fun setupContent() {
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        adapter = SyncedFolderAdapter(this, clock, gridWidth, this, lightVersion, themeColorUtils, themeDrawableUtils)
+        adapter = SyncedFolderAdapter(
+            this,
+            clock,
+            gridWidth,
+            this,
+            lightVersion,
+            themeColorUtils,
+            themeDrawableUtils,
+            viewThemeUtils
+        )
         syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
