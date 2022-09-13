@@ -28,8 +28,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -95,9 +94,8 @@ public final class MimeTypeUtil {
     public static Drawable getFileTypeIcon(String mimetype,
                                            String filename,
                                            Context context,
-                                           ThemeColorUtils themeColorUtils,
-                                           ThemeDrawableUtils themeDrawableUtils) {
-        return getFileTypeIcon(mimetype, filename, null, context, themeColorUtils, themeDrawableUtils);
+                                           ViewThemeUtils viewThemeUtils) {
+        return getFileTypeIcon(mimetype, filename, null, context, viewThemeUtils);
     }
 
     /**
@@ -113,14 +111,13 @@ public final class MimeTypeUtil {
                                            String filename,
                                            @Nullable User user,
                                            Context context,
-                                           ThemeColorUtils themeColorUtils,
-                                           ThemeDrawableUtils themeDrawableUtils) {
+                                           ViewThemeUtils viewThemeUtils) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                themeDrawableUtils.tintDrawable(icon, themeColorUtils.primaryColor(user, true, context));
+                viewThemeUtils.platform.tintPrimaryDrawable(context, icon);
             }
 
             return icon;
@@ -160,8 +157,7 @@ public final class MimeTypeUtil {
                                              boolean isGroupfolder,
                                              WebdavEntry.MountType mountType,
                                              Context context,
-                                             ThemeColorUtils themeColorUtils,
-                                             ThemeDrawableUtils themeDrawableUtils) {
+                                             ViewThemeUtils viewThemeUtils) {
         return getFolderTypeIcon(isSharedViaUsers,
                                  isSharedViaLink,
                                  isEncrypted,
@@ -169,8 +165,7 @@ public final class MimeTypeUtil {
                                  null,
                                  mountType,
                                  context,
-                                 themeColorUtils,
-                                 themeDrawableUtils);
+                                 viewThemeUtils);
     }
 
     /**
@@ -189,8 +184,7 @@ public final class MimeTypeUtil {
                                              @Nullable User user,
                                              WebdavEntry.MountType mountType,
                                              Context context,
-                                             ThemeColorUtils themeColorUtils,
-                                             ThemeDrawableUtils themeDrawableUtils) {
+                                             ViewThemeUtils viewThemeUtils) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -207,25 +201,21 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        int color = themeColorUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
-                                                 true,
-                                                 context);
-        return themeDrawableUtils.tintDrawable(drawableId, color);
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        viewThemeUtils.platform.tintPrimaryDrawable(context, drawable);
+        return drawable;
     }
 
     public static Drawable getDefaultFolderIcon(Context context,
-                                                ThemeColorUtils themeColorUtils,
-                                                ThemeDrawableUtils themeDrawableUtils) {
+                                                ViewThemeUtils viewThemeUtils) {
         return getFolderTypeIcon(false,
                                  false,
                                  false,
                                  false,
                                  WebdavEntry.MountType.INTERNAL,
                                  context,
-                                 themeColorUtils,
-                                 themeDrawableUtils);
+                                 viewThemeUtils);
     }
-
 
     /**
      * Returns a single MIME type of all the possible, by inspection of the file extension, and taking

@@ -42,8 +42,7 @@ import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +69,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final FileDataStorageManager storageManager;
     private final AppPreferences preferences;
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public TrashbinListAdapter(
         TrashbinActivityInterface trashbinActivityInterface,
@@ -79,8 +77,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         AppPreferences preferences,
         Context context,
         User user,
-        ThemeColorUtils themeColorUtils,
-        ThemeDrawableUtils themeDrawableUtils
+        ViewThemeUtils viewThemeUtils
                               ) {
         this.files = new ArrayList<>();
         this.trashbinActivityInterface = trashbinActivityInterface;
@@ -88,8 +85,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.storageManager = storageManager;
         this.preferences = preferences;
         this.context = context;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     public void setTrashbinFiles(List<Object> trashbinFiles, boolean clear) {
@@ -226,8 +222,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void setThumbnail(TrashbinFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             themeColorUtils,
-                                                                             themeDrawableUtils));
+                                                                             viewThemeUtils));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -273,8 +268,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                                                             file.getFileName(),
                                                                             user,
                                                                             context,
-                                                                            themeColorUtils,
-                                                                            themeDrawableUtils));
+                                                                            viewThemeUtils));
             }
         }
     }

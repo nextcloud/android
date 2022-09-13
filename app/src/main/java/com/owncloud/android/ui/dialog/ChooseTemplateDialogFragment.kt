@@ -167,7 +167,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             currentAccount,
             clientFactory,
             themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         binding.list.adapter = adapter
 

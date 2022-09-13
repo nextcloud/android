@@ -36,6 +36,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -50,7 +51,8 @@ class OCFileListDelegate(
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
     private var themeColorUtils: ThemeColorUtils,
-    private var themeDrawableUtils: ThemeDrawableUtils
+    private var themeDrawableUtils: ThemeDrawableUtils,
+    private var viewThemeUtils: ViewThemeUtils
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
@@ -106,8 +108,7 @@ class OCFileListDelegate(
             context,
             gridViewHolder.shimmerThumbnail,
             preferences,
-            themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)

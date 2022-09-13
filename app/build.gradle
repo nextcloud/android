@@ -356,7 +356,7 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.7"
 
     // TODO change back to tag before merging
-    implementation 'com.github.nextcloud.android-common:ui:b2103712a1'
+    implementation 'com.github.nextcloud.android-common:ui:2c8987f0f2'
 }
 
 configurations.all {

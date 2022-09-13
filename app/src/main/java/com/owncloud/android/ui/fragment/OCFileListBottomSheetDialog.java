@@ -45,6 +45,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -62,6 +63,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final ThemeColorUtils themeColorUtils;
     private final ThemeUtils themeUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
@@ -71,7 +73,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                        OCFile file,
                                        ThemeColorUtils themeColorUtils,
                                        ThemeUtils themeUtils,
-                                       ThemeDrawableUtils themeDrawableUtils) {
+                                       ThemeDrawableUtils themeDrawableUtils,
+                                       ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
@@ -81,6 +84,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         this.themeColorUtils = themeColorUtils;
         this.themeUtils = themeUtils;
         this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -93,11 +97,14 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
-        int primaryColor = themeColorUtils.primaryColor(getContext(), true);
-        themeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
+        viewThemeUtils.platform.themeDialog(binding.getRoot());
+
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFiles);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFromApp);
+        viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload);
+        viewThemeUtils.platform.colorImageView(binding.menuIconScanDocUpload);
+        viewThemeUtils.platform.colorImageView(binding.menuIconMkdir);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAddFolderInfo);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
                                                                          themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
@@ -136,9 +143,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                         MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
                                                      creator.getExtension(),
                                                      user,
-                                                     getContext(),
-                                                     themeColorUtils,
-                                                     themeDrawableUtils));
+                                                     creatorViewBinding.creatorThumbnail.getContext(),
+                                                     viewThemeUtils));
 
                     creatorView.setOnClickListener(v -> {
                         actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());

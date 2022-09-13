@@ -56,6 +56,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
 /**
@@ -85,6 +86,9 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     @Inject
     lateinit var themeColorUtils: ThemeColorUtils
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var themeDrawableUtils: ThemeDrawableUtils
@@ -187,7 +191,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             clientFactory,
             requireContext(),
             themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         adapter.shouldShowFooters(true)
         adapter.setLayoutManager(gridLayoutManager)

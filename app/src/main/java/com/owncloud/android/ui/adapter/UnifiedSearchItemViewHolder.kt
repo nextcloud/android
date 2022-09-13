@@ -44,6 +44,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
@@ -54,7 +55,7 @@ class UnifiedSearchItemViewHolder(
     private val listInterface: UnifiedSearchListInterface,
     val context: Context,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeDrawableUtils: ThemeDrawableUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) :
     SectionedViewHolder(binding.root) {
 
@@ -101,7 +102,7 @@ class UnifiedSearchItemViewHolder(
                 startsWith("icon-deck") ->
                     ResourcesCompat.getDrawable(context.resources, R.drawable.ic_deck, null)
                 else ->
-                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, themeColorUtils, themeDrawableUtils)
+                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
             }
         }
         val color = themeColorUtils.primaryColor(context)

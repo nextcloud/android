@@ -198,8 +198,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         LocalFileListAdapter.setThumbnail(newFile,
                                           binding.newThumbnail,
                                           getContext(),
-                                          themeColorUtils,
-                                          themeDrawableUtils);
+                                          viewThemeUtils);
 
         // set info for existing file
         binding.existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
@@ -217,8 +216,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
                                   getContext(),
                                   null,
                                   null,
-                                  themeColorUtils,
-                                  themeDrawableUtils);
+                                  viewThemeUtils);
 
         View.OnClickListener checkBoxClickListener = v ->
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
