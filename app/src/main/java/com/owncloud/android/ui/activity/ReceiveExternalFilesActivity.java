@@ -785,7 +785,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 btnChooseFolder.setBackgroundColor(Color.GRAY);
             }
 
-            themeToolbarUtils.colorStatusBar(this);
+            viewThemeUtils.platform.themeStatusBar(this);
 
             themeToolbarUtils.tintBackButton(actionBar, this);
 
