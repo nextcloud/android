@@ -85,8 +85,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
                                 Context context,
-                                ThemeColorUtils themeColorUtils,
-                                ThemeDrawableUtils themeDrawableUtils) {
+                                final ViewThemeUtils viewThemeUtils) {
         this.preferences = preferences;
         mContext = context;
         mLocalFolderPicker = localFolderPickerMode;

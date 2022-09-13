@@ -135,8 +135,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                                             this,
                                             preferences,
                                             getActivity(),
-                                            themeColorUtils,
-                                            themeDrawableUtils);
+                                            viewThemeUtils);
         setRecyclerViewAdapter(mAdapter);
 
         listDirectory(mContainerActivity.getInitialDirectory());
