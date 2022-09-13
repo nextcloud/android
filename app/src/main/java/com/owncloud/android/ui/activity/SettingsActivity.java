@@ -756,7 +756,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            themeToolbarUtils.colorStatusBar(this);
+            viewThemeUtils.platform.themeStatusBar(this);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             if (this.getResources() != null) {

@@ -93,7 +93,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        themeToolbarUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
@@ -118,6 +117,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
         viewThemeUtils.material.themeToolbar(mToolbar);
+        viewThemeUtils.platform.themeStatusBar(this);
     }
 
     public void setupToolbar() {
@@ -174,7 +174,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
-            viewThemeUtils.platform.themeStatusBar(this, mDefaultToolbar);
+            viewThemeUtils.platform.themeStatusBar(this);
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
         }
