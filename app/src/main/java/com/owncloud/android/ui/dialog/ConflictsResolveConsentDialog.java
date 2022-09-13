@@ -164,7 +164,7 @@ public class ConflictsResolveConsentDialog extends DialogFragment {
         // Build the dialog
         // TODO: 26-05-2021 Handle multiple dialog message
         String dialogMessage = String.format(getString(R.string.conflict_dialog_message),
-                                             existingFile.getFileName());
+                                             existingFile.getDecryptedFileName());
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setView(binding.getRoot())
             // TODO: 26-05-2021 handle multiple dialog title
